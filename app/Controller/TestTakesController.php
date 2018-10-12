@@ -1890,6 +1890,12 @@ class TestTakesController extends AppController
 					$auth
 				);
 
+				if(Configure::read('RTTI.debug')) {
+                    $this->log("RTTI request was: " . $client->request, 'debug');
+                    $this->log("RTTI response was: " . $client->response, 'debug');
+                    $this->log("RTTI error was: " . $client->getError(), 'debug');
+                }
+
 
 $this->log(htmlspecialchars($client->request, ENT_QUOTES), 'error');
 	$this->log($result, 'error');
