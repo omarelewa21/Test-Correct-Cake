@@ -1,0 +1,31 @@
+.dropblock {
+    position:       fixed;
+    width:          330px;
+    padding:        15px;
+    background:     #197cb4;
+    display:        none;
+    color:          white;
+    box-shadow:     0px 10px 20px rgba(0, 0, 0, 0.2);
+    z-index:        1000;
+}
+
+.dropblock table {
+    width:          100%;
+}
+
+.dropblock table th {
+    font-weight:     normal;
+    width:          150px;
+}
+
+.dropblock table td, .dropblock table th {
+    height:         35px;
+}
+
+.dropblock input[type=text] {
+    width:          187px;
+}
+
+.dropblock select {
+    width:          197px;
+}

@@ -1,0 +1,20 @@
+#btnHandIn {
+    float:  right;
+    width:  85px;
+    padding: 16px 15px 13px 15px;
+    text-align: center;
+}
+
+.drawingPad,
+.notePad {
+    display: none;
+    position: absolute;
+    width:     1000px;
+    height:    540px;
+    left:       50%;
+    top:        50%;
+    margin-left: -500px;
+    margin-top: -270px;
+    z-index: 1100;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
+}

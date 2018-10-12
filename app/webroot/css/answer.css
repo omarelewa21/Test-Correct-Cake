@@ -1,0 +1,17 @@
+#attachmentFrame {
+    position:   fixed;
+    top:        0px;
+    left:       0px;
+    z-index:    11500;
+    width:      100%;
+    height:     100%;
+    display:    none;
+}
+
+#btnAttachmentFrame {
+    position: fixed;
+    right:  10px;
+    top:10px;
+    z-index: 11600;
+    display: none;
+}

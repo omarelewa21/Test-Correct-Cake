@@ -1,0 +1,59 @@
+<?
+$answers = $rating['answer']['json'];
+$answers = json_decode($answers, true);
+
+$options = [];
+
+foreach($answers as $id => $answer) {
+    $options[] = $answer;
+}
+?>
+
+<table class="table" id="tableMultiChoiceOptions">
+    <thead>
+    <tr>
+        <th width="30"></th>
+        <th width="40">&nbsp;</th>
+        <th width="40">St. 1</th>
+        <th width="40">St. 2</th>
+        <th>Reden</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td><span class="fa fa-<?=$options[0] == 1 ? 'check-' : ''?>square-o"></span></td>
+        <td>A</td>
+        <td>J</td>
+        <td>J</td>
+        <td>Juiste reden</td>
+    </tr>
+    <tr>
+        <td><span class="fa fa-<?=$options[1] == 1 ? 'check-' : ''?>square-o"></span></td>
+        <td>B</td>
+        <td>J</td>
+        <td>J</td>
+        <td>Onjuiste reden</td>
+    </tr>
+    <tr>
+        <td><span class="fa fa-<?=$options[2] == 1 ? 'check-' : ''?>square-o"></span></td>
+        <td>C</td>
+        <td>J</td>
+        <td>O</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><span class="fa fa-<?=$options[3] == 1 ? 'check-' : ''?>square-o"></span></td>
+        <td>D</td>
+        <td>O</td>
+        <td>J</td>
+        <td>-</td>
+    </tr>
+    <tr>
+        <td><span class="fa fa-<?=$options[4] == 1 ? 'check-' : ''?>square-o"></span></td>
+        <td>E</td>
+        <td>O</td>
+        <td>O</td>
+        <td>-</td>
+    </tr>
+    </tbody>
+</table>

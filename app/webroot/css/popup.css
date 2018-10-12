@@ -1,0 +1,27 @@
+.popup {
+    position:       fixed;
+    background:     white;
+    box-shadow:     0px 10px 25px rgba(0, 0, 0, 0.2);
+    top:            50%;
+    left:           50%;
+    border-radius:  3px;
+    display:        none;
+}
+
+.popup .popup-head {
+    text-align:     center;
+    font-size:      20px;
+    padding:        12px 0px 10px 0px;
+    border-bottom:  1px solid #eeeeee;
+}
+
+.popup .popup-content {
+    padding:        25px;
+    overflow:       auto;
+}
+
+
+.popup .popup-footer {
+    height:         45px;
+    border-top:  1px solid #eeeeee;
+}

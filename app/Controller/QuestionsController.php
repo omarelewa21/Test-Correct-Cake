@@ -1,0 +1,1176 @@
+<?php
+
+App::uses('AppController', 'Controller');
+App::uses('QuestionsService', 'Lib/Services');
+App::uses('TestsService', 'Lib/Services');
+App::uses('AnswersService', 'Lib/Services');
+App::uses('SchoolLocationsService', 'Lib/Services');
+App::uses('File', 'Utility');
+
+class QuestionsController extends AppController {
+
+    public function beforeFilter()
+    {
+        $this->QuestionsService = new QuestionsService();
+        $this->TestsService = new TestsService();
+        $this->AnswersService = new AnswersService();
+        $this->SchoolLocationsService = new SchoolLocationsService();
+
+        parent::beforeFilter();
+    }
+
+    public function index() {
+        $education_level_years = [
+            0 => 'Alle',
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $subjects = $this->TestsService->getSubjects(true);
+
+        $education_levels = [0 => 'Alle'] + $education_levels;
+        $subjects = [0 => 'Alle'] + $subjects;
+
+        $filterTypes = [
+            '' => 'Alle',
+            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
+            'MultipleChoiceQuestion.ARQ' => 'ARQ',
+            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
+            'OpenQuestion.Short' => 'Korte open vraag',
+            'OpenQuestion.Medium' => 'Lange open vraag',
+            'OpenQuestion.Long' => 'Wiskunde vraag',
+            'CompletionQuestion.multi' => 'Selectie',
+            'CompletionQuestion' => 'Gatentekst',
+            'RankingQuestion' => 'Rangschik',
+            'MatchingQuestion.Matching' => 'Combineer',
+            'MatchingQuestion.' => 'Rubriceer',
+            'DrawingQuestion' => 'Teken',
+            'GroupQuestion' => 'Groepvraag'
+        ];
+
+        $this->set('education_levels', $education_levels);
+        $this->set('education_level_years', $education_level_years);
+        $this->set('subjects', $subjects);
+        $this->Set('filterTypes', $filterTypes);
+    }
+
+    public function preview_single($question_id) {
+
+        $question = $this->QuestionsService->getSingleQuestion($question_id);
+
+        $question['question'] = $question;
+        $question['discuss'] = 0;
+        $question['maintain_position'] = 0;
+
+        $tagsArray = [];
+
+        foreach($question['question']['tags'] as $tag) {
+            $tagsArray[$tag['name']] = $tag['name'];
+        }
+
+        $question['question']['tags'] = $tagsArray;
+
+        switch ($question['question']['type']) {
+
+            case 'DrawingQuestion' :
+                $this->Session->write('drawing_data', $question['question']['answer']);
+                $view = 'edit_drawing';
+                break;
+
+            case 'OpenQuestion' :
+                $view = 'edit_open';
+                break;
+
+            case 'CompletionQuestion' :
+                $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+                if($question['question']['subtype'] == 'multi') {
+                    $view = 'edit_multi_completion';
+                }else{
+                    $view = 'edit_completion';
+                }
+                break;
+
+            case 'MultipleChoiceQuestion' :
+                if($question['question']['subtype'] == 'TrueFalse') {
+                    $view = 'edit_true_false';
+                }elseif($question['question']['subtype'] == 'ARQ') {
+                    $view = 'edit_arq';
+                }else{
+                    $view = 'edit_multiple_choice';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'edit_ranking';
+                break;
+
+            case 'MatchingQuestion' :
+                if($question['question']['subtype'] == 'Classify') {
+                    $view = 'edit_classify';
+                }else{
+                    $view = 'edit_matching';
+                }
+                break;
+
+            case 'GroupQuestion' :
+                $view = 'no_preview_group_question';
+                break;
+        }
+
+        $test = $this->Session->read('active_test');
+        $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+        $selectedAttainments = [];
+
+        foreach($question['question']['attainments'] as $attainment) {
+            $selectedAttainments[] = $attainment['id'];
+        }
+
+        $this->set('selectedAttainments', $selectedAttainments);
+        $this->set('question', $question);
+        $this->set('owner', 'test');
+        $this->set('owner_id', 0);
+
+        $this->set('editable', false);
+        $this->Session->write('attachments_editable', false);
+
+        $this->render($view, 'ajax');
+    }
+
+    public function preview_single_load($question_id, $group_id = null, $hideExtra = false) {
+        $this->autoRender = false;
+        $question = $this->QuestionsService->getSingleQuestion($question_id);
+
+        if(isset($group_id) && !empty($group_id)) {
+            $group = $this->QuestionsService->getSingleQuestion($group_id);
+            $question['attachments'] = $group['attachments'];
+            $question['question'] = $group['question'] . '<br /><br />' . $question['question'];
+        }
+
+        switch($question['type']) {
+            case 'OpenQuestion':
+                $view = 'preview_open';
+                break;
+
+            case 'CompletionQuestion':
+                if($question['subtype'] == 'completion') {
+                    $view = 'preview_completion';
+                }else{
+                    $view = 'preview_multi_completion';
+                }
+                break;
+
+            case 'MatchingQuestion':
+                $view = 'preview_matching';
+                break;
+
+            case 'MultipleChoiceQuestion':
+                if($question['subtype'] == 'ARQ') {
+                    $view = 'preview_arq';
+                } else {
+                    $view = 'preview_multiple_choice';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'preview_ranking';
+                break;
+
+            case 'DrawingQuestion':
+                $view = 'preview_drawing';
+                break;
+
+            default:
+                echo $question['type'];
+                break;
+        }
+
+        $this->set('test_id', null);
+        $this->set('question', $question);
+        $this->set('hideExtra', $hideExtra);
+        $this->render($view, 'ajax');
+
+    }
+
+    public function preview_answer_load($id) {
+        $time = microtime(true);
+        $question = $this->QuestionsService->getSingleQuestion($id);
+
+        switch($question['type']) {
+            case 'OpenQuestion':
+                $view = 'preview_open_answer';
+                break;
+
+            case 'CompletionQuestion':
+                if($question['subtype'] == 'completion') {
+                    $view = 'preview_completion_answer';
+                }else{
+                    $view = 'preview_multi_completion_answer';
+                }
+                break;
+
+            case 'MatchingQuestion':
+                $view = 'preview_matching_answer';
+                break;
+
+            case 'MultipleChoiceQuestion':
+                if($question['subtype'] == 'ARQ') {
+                    $view = 'preview_arq_answer';
+                }else{
+                    $view = 'preview_multiple_choice_answer';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'preview_ranking_answer';
+                break;
+
+            case 'DrawingQuestion':
+                $view = 'preview_drawing_answer';
+                break;
+
+            default:
+                echo $question['type'];
+                break;
+        }
+
+        $this->set('test_id', null);
+        $this->set('question', $question);
+
+        $this->render($view, 'ajax');
+    }
+
+
+    public function preview($test_id, $question_index) {
+        $this->autoRender = false;
+        $questions = $this->Session->read('preview.questions.'.$test_id);
+
+        $oriquestion = $questions[$question_index];
+
+
+        $question = $this->AnswersService->getParticipantQuestion($oriquestion['question']['id']);
+
+        $question['attachments'] = $oriquestion['question']['attachments'];
+        $question['question'] = $oriquestion['question']['question'];
+
+
+        switch($question['type']) {
+            case 'OpenQuestion':
+                $view = 'preview_open';
+                break;
+
+            case 'CompletionQuestion':
+                if($question['subtype'] == 'completion') {
+                    $view = 'preview_completion';
+                }else{
+                    $view = 'preview_multi_completion';
+                }
+                break;
+
+            case 'MatchingQuestion':
+                $view = 'preview_matching';
+                break;
+
+            case 'MultipleChoiceQuestion':
+
+                if($question['subtype'] == 'MultipleChoice' || $question['subtype'] == 'MultiChoice') {
+                    $view = 'preview_multiple_choice';
+                }elseif($question['subtype'] == 'TrueFalse') {
+                    $view = 'preview_multiple_choice';
+                }else{
+                    $view = 'preview_arq';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'preview_ranking';
+                break;
+
+            case 'DrawingQuestion':
+                $view = 'preview_drawing';
+                break;
+
+            default:
+                echo $question['type'];
+                break;
+        }
+
+        if($question_index < (count($questions) - 1)) {
+            $this->set('next_question', ($question_index + 1));
+        }
+
+        $this->set('test_id', $test_id);
+        $this->set('question', $question);
+        $this->set('hideExtra', false);
+        $this->render($view, 'ajax');
+    }
+
+    public function add_custom($owner, $owner_id) {
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+    }
+
+    public function add_open_selection($owner, $owner_id) {
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+    }
+
+    public function move_to_group($test_id = null, $question_id = null) {
+
+        if($this->request->is('post')) {
+            $this->autoRender = false;
+            $group_id = $this->request->data['group_id'];
+            $test_id = $this->Session->read('test_id');
+            $question_id = $this->Session->read('question_id');
+
+            $this->QuestionsService->moveToGroup($question_id, $group_id);
+
+        }else {
+
+            $this->Session->write('question_id', $question_id);
+            $this->Session->write('test_id', $test_id);
+
+            $groups = $this->QuestionsService->getGroups($test_id);
+
+            $this->set('groups', $groups);
+        }
+    }
+
+    public function add_group($test_id) {
+
+        if($this->request->is('post')) {
+            $group = $this->request->data['QuestionGroup'];
+
+            $result = $this->QuestionsService->addGroup($test_id, $group);
+
+            $this->formResponse(
+                !empty($result),
+                $result
+            );
+        }
+
+        $test = $this->Session->read('active_test');
+        $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+        $this->set('test_id', $test_id);
+    }
+
+    public function edit_group($test_id, $group_id) {
+
+        if($this->request->is('post') || $this->request->is('put')) {
+            $group = $this->request->data['QuestionGroup'];
+
+            $result = $this->QuestionsService->updateGroup($test_id, $group_id,  $group);
+
+            $this->formResponse(
+                !empty($result),
+                $result
+            );
+        }
+
+        $group = $this->QuestionsService->getQuestion('test', $test_id, $group_id);
+        $group['QuestionGroup'] = $group['question'];
+
+        $test = $this->Session->read('active_test');
+        $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+        $selectedAttainments = [];
+
+        foreach($group['QuestionGroup']['attainments'] as $attainment) {
+            $selectedAttainments[] = $attainment['id'];
+        }
+
+        $this->set('selectedAttainments', $selectedAttainments);
+        $this->request->data = $group;
+        $this->set('test_id', $test_id);
+    }
+
+    public function editPost()
+    {
+        return $this->edit(
+            $this->request['data'][0],
+            $this->request['data'][1],
+            $this->request['data'][2],
+            $this->request['data'][3],
+            true
+        );
+    }
+
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false) 
+    {
+
+        $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+        if($this->request->is('post') || $internal == true ) {
+
+            $question = $this->request->data['Question'];
+            if($question == null && $internal == true) {
+                $question = $oldQuestion['question'];
+            }
+
+            $test = $this->TestsService->getTest($owner_id);
+
+            if($test['is_open_source_content'] == 1) {
+                $question['add_to_database'] = 1;
+                $question['is_open_source_content'] = 1;
+            }else{
+                $question['is_open_source_content'] = 0;
+            }
+
+            if(!empty($question['sub_attainments'])) {
+                $question['attainments'] = [
+                    $question['attainments'], $question['sub_attainments']
+                ];
+            }
+
+            $check = $this->Question->check($type, $question, $this->Session->read());
+
+            if($check['status'] == true) {
+                $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
+
+                if($type == 'TrueFalseQuestion') {
+                    $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
+                }
+
+                if($type == 'CompletionQuestion') {
+                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
+                }
+
+                if($type == 'MultipleChoiceQuestion') {
+                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                }
+
+                if($type == 'ARQQuestion') {
+                    $this->QuestionsService->addARQAnswers($result, $question, $owner);
+                }
+
+                if($type == 'RankingQuestion') {
+                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
+                }
+
+                if($type == 'ClassifyQuestion') {
+                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+                }
+                if($type == 'DrawingQuestion') {
+                    $this->Session->delete('drawing_grid');
+                    $this->Session->delete('drawing_data');
+                    $this->Session->delete('drawing_background');
+                }
+
+                if($type == 'MatchingQuestion') {
+                    if($oldQuestion['question']['subtype'] == 'Classify') {
+                        $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+                    }else{
+                        $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
+                    }
+                }
+
+                if($internal === false) {
+                    $this->formResponse(true);die;    
+                }
+            }else{
+                $this->formResponse(false, $check['errors']);
+            }
+        }else {
+
+            $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+            $tagsArray = [];
+
+            foreach($question['question']['tags'] as $tag) {
+                $tagsArray[$tag['name']] = $tag['name'];
+            }
+
+            $question['question']['tags'] = $tagsArray;
+
+            switch ($question['question']['type']) {
+
+                case 'DrawingQuestion' :
+                    $this->Session->write('drawing_data', $question['question']['answer']);
+                    $view = 'edit_drawing';
+                    break;
+
+                case 'OpenQuestion' :
+                    $view = 'edit_open';
+                    break;
+
+                case 'CompletionQuestion' :
+                    $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+                    if($question['question']['subtype'] == 'multi') {
+                        $view = 'edit_multi_completion';
+                    }else{
+                        $view = 'edit_completion';
+                    }
+                    break;
+
+                case 'MultipleChoiceQuestion' :
+                    if($question['question']['subtype'] == 'TrueFalse') {
+                        $view = 'edit_true_false';
+                    }elseif($question['question']['subtype'] == 'ARQ') {
+                        $view = 'edit_arq';
+                    }else{
+                        $view = 'edit_multiple_choice';
+                    }
+                    break;
+
+                case 'RankingQuestion':
+                    $view = 'edit_ranking';
+                    break;
+
+                case 'MatchingQuestion' :
+                    if($question['question']['subtype'] == 'Classify') {
+                        $view = 'edit_classify';
+                    }else{
+                        $view = 'edit_matching';
+                    }
+                    break;
+            }
+
+            $test = $this->Session->read('active_test');
+            $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+            $selectedAttainments = [];
+
+            foreach($question['question']['attainments'] as $attainment) {
+                $selectedAttainments[] = $attainment['id'];
+            }
+
+            $this->set('selectedAttainments', $selectedAttainments);
+            $this->set('question', $question);
+            $this->set('owner', $owner);
+            $this->set('owner_id', $owner_id);
+            $this->set('editable', true);
+            $this->Session->write('attachments_editable', true);
+
+            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+            $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+
+            $this->render($view, 'ajax');
+        }
+    }
+
+    public function add_multi_completion_item() {
+
+    }
+
+    public function add_completion_item() {
+
+    }
+
+    public function add_existing($owner, $owner_id) {
+        $this->Session->write('addExisting', [
+            'owner' => $owner,
+            'owner_id' => $owner_id
+        ]);
+
+        $education_level_years = [
+            0 => 'Alle',
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $subjects = $this->TestsService->getSubjects(true);
+
+        $education_levels = [0 => 'Alle'] + $education_levels;
+        $subjects = [0 => 'Alle'] + $subjects;
+
+        $filterTypes = [
+            '' => 'Alle',
+            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
+            'MultipleChoiceQuestion.ARQ' => 'ARQ',
+            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
+            'OpenQuestion.Short' => 'Korte open vraag',
+            'OpenQuestion.Medium' => 'Lange open vraag',
+            'OpenQuestion.Long' => 'Wiskunde vraag',
+            'CompletionQuestion.multi' => 'Selectie',
+            'CompletionQuestion.completion' => 'Gatentekst',
+            'RankingQuestion' => 'Rangschik',
+            'MatchingQuestion.Matching' => 'Combineer',
+            'MatchingQuestion.Classify' => 'Rubriceer',
+            'DrawingQuestion' => 'Teken',
+            'GroupQuestion' => 'Groepvraag'
+        ];
+
+        $test = $this->Session->read('active_test');
+
+
+        $this->set('subject_id', $test['subject']['id']);
+        $this->set('year_id', $test['education_level_year']);
+        $this->set('education_level_id', $test['education_level_id']);
+
+        $this->set('education_levels', $education_levels);
+        $this->set('education_level_years', $education_level_years);
+        $this->set('subjects', $subjects);
+        $this->set('filterTypes', $filterTypes);
+    }
+
+    public function add_existing_question($question_id) {
+        $this->autoRender = false;
+
+        $data = $this->Session->read('addExisting');
+
+        $this->QuestionsService->duplicate($data['owner'], $data['owner_id'], $question_id);
+    }
+
+
+    public function add_existing_question_group($group_id) {
+        $this->autoRender = false;
+
+        $data = $this->Session->read('addExisting');
+
+        $this->QuestionsService->duplicateGroup('test', $data['owner_id'], $group_id);
+    }
+
+    public function add_existing_question_list() {
+
+        $params = $this->request->data;
+        $filters = array();
+        parse_str($params['filters'], $filters);
+
+        $filters = $filters['data']['Question'];
+
+        unset($params['filters']);
+
+        $params['filter'] = [];
+
+        if(!empty($filters['subject'])) {
+            $params['filter']['subject_id'] = $filters['subject'];
+        }
+
+        if(!empty($filters['education_levels'])) {
+            $params['filter']['education_level_id'] = $filters['education_levels'];
+        }
+
+        if(!empty($filters['education_level_years'])) {
+            $params['filter']['education_level_year'] = $filters['education_level_years'];
+        }
+
+        if(!empty($filters['id'])) {
+            $params['filter']['id'] = $filters['id'];
+        }
+
+
+        if(!empty($filters['search'])) {
+            $params['filter']['search'] = $filters['search'];
+        }
+
+        if(!empty($filters['is_open_source_content'])){
+          $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        }
+
+        if(!empty($filters['type'])) {
+
+            $typeFilter = explode('.', $filters['type']);
+
+            $params['filter']['type'] = $typeFilter[0];
+
+            if(isset($typeFilter[1])) {
+                $params['filter']['subtype'] = $typeFilter[1];
+            }
+        }
+
+        $questions = $this->QuestionsService->getAllQuestions($params);
+        $education_levels = $this->TestsService->getEducationLevels();
+        $this->set('education_levels', $education_levels);
+        $this->set('questions', $questions['data']);
+    }
+
+    public function add_existing_test_list() {
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $periods = $this->TestsService->getPeriods();
+        $subjects = $this->TestsService->getSubjects();
+        $kinds = $this->TestsService->getKinds();
+        $data = $this->Session->read('addExisting');
+
+        $this->set('education_levels', $education_levels);
+        $this->set('kinds', $kinds);
+        $this->set('periods', $periods);
+        $this->set('subjects', $subjects);
+
+        $tests = $this->TestsService->getTests($this->request->data);
+        $this->set('test_id', $data['owner_id']);
+        $this->set('tests', $tests['data']);
+    }
+
+    public function public_info() {
+
+    }
+
+    public function drawing_background_add() {
+        $this->autoRender = false;
+        $file = new File($this->request->data['Question']['background']['tmp_name']);
+        $tmpFile = TMP . time();
+        $file->copy($tmpFile);
+        $this->Session->write('drawing_background', $tmpFile);
+    }
+
+    public function add($owner, $owner_id, $type) {
+
+        if($this->request->is('post')) {
+
+            $question = $this->request->data['Question'];
+
+            if($owner == 'test') {
+                $test = $this->TestsService->getTest($owner_id);
+            }else{
+                $test = $this->QuestionsService->getTest($this->Session->read('active_test')['id']);
+            }
+
+            if($test['is_open_source_content'] == 1) {
+                $question['add_to_database'] = 1;
+                $question['is_open_source_content'] = 1;
+            }else{
+                $question['is_open_source_content'] = 0;
+                $question['add_to_database'] = 0;
+            }
+
+            if(!empty($question['sub_attainments'])) {
+                $question['attainments'] = [
+                    $question['attainments'], $question['sub_attainments']
+                ];
+            }
+
+            $check = $this->Question->check($type, $question, $this->Session->read());
+
+            if($check['status'] == true) {
+                $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
+
+                if($type == 'TrueFalseQuestion') {
+                    $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
+                }
+
+                if($type == 'CompletionQuestion' || $type == 'MultiCompletionQuestion') {
+                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
+                }
+
+                if($type == 'MultiChoiceQuestion') {
+                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                }
+
+                if($type == 'ARQQuestion') {
+                    $this->QuestionsService->addARQAnswers($result, $question, $owner);
+                }
+
+                if($type == 'RankingQuestion') {
+                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
+                }
+
+                if($type == 'MatchingQuestion') {
+                    $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
+                }
+
+                if($type == 'ClassifyQuestion') {
+                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+                }
+
+
+                if($type == 'DrawingQuestion') {
+                    $this->QuestionsService->uploadBackground($result, $question, $owner, $this->Session->read());
+                    $this->Session->delete('drawing_data');
+                    $this->Session->delete('drawing_grid');
+                    $this->Session->delete('drawing_background');
+                }
+
+                if($owner == 'test') {
+                    $attachments = $this->Session->read('attachments');
+                    $this->QuestionsService->addAttachments('question', $result['id'], $attachments);
+                    $this->Session->write('attachments', []);
+                }
+
+                $this->formResponse(true);
+            }else{
+                $this->formResponse(false, $check['errors']);
+            }
+        } else {
+
+            $this->set('owner', $owner);
+            $this->set('owner_id', $owner_id);
+
+            $test = $this->Session->read('active_test');
+            $this->Session->write('attachments_editable', true);
+            $this->set('editable', true);
+            $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+            $this->set('selectedAttainments', []);
+
+            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+            $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+
+            switch ($type) {
+                case 'OpenQuestion' :
+                    $this->render('add_open', 'ajax');
+                    break;
+
+                case 'CompletionQuestion' :
+                    $this->render('add_completion', 'ajax');
+                    break;
+
+                case 'TrueFalseQuestion' :
+                    $this->render('add_true_false', 'ajax');
+                    break;
+
+                case 'MultipleChoiceQuestion' :
+                    $this->render('add_multiple_choice', 'ajax');
+                    break;
+
+                case 'ARQQuestion' :
+                    $this->render('add_arq_question', 'ajax');
+                    break;
+
+                case 'RankingQuestion' :
+                    $this->render('add_ranking', 'ajax');
+                    break;
+
+                case 'MatchingQuestion' :
+                    $this->render('add_matching', 'ajax');
+                    break;
+                case 'ClassifyQuestion' :
+                    $this->render('add_classify', 'ajax');
+                    break;
+
+                case 'MultiCompletionQuestion' :
+                    $this->render('add_multi_completion', 'ajax');
+                    break;
+
+                case 'DrawingQuestion' :
+
+                    $this->Session->delete('drawing_data');
+                    $this->Session->delete('drawing_background');
+
+                    $this->render('add_drawing', 'ajax');
+                    break;
+            }
+        }
+    }
+
+    public function save_drawing() {
+        $this->autoRender = false;
+        $data = $this->request->data['drawing'];
+
+        if($this->Session->write('drawing_data', $data)) {
+            echo 1;
+        }else{
+            echo 0;
+        }
+    }
+
+    public function add_drawing_answer() {
+        if($this->Session->check('drawing_data')) {
+            $this->set('drawing_data', $this->Session->read('drawing_data'));
+        }
+    }
+
+    public function add_drawing_grid($grid) {
+        $this->autoRender = false;
+        $this->Session->write('drawing_grid', $grid);
+    }
+
+    public function add_drawing_answer_canvas() {
+        $this->render('add_drawing_answer_canvas', 'ajax');
+    }
+
+    public function delete($owner, $owner_id, $question_id) {
+        $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
+        $this->formResponse(!empty($result));
+    }
+
+    public function delete_group($test_id, $group_id) {
+        $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
+        $this->formResponse(!empty($result));
+    }
+
+    public function attachments($type, $owner = null, $owner_id = null, $id = null) {
+        if($type == 'add') {
+            if (!$this->Session->check('attachments')) {
+                $this->Session->write('attachments', []);
+                $attachments = [];
+            } else {
+                $attachments = $this->Session->read('attachments');
+            }
+        }elseif($type == 'edit') {
+            $question = $this->QuestionsService->getQuestion('test', null, $id);
+
+            $attachments = $question['question']['attachments'];
+        }
+
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+        $this->set('id', $id);
+        $this->set('type', $type);
+        $this->set('editable', $this->Session->read('attachments_editable'));
+        $this->set('attachments', $attachments);
+    }
+
+    public function attachments_sound($type, $owner = null, $owner_id = null, $id = null) {
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+        $this->set('id', $id);
+        $this->set('type', $type);
+    }
+
+    public function attachments_video($type, $owner = null, $owner_id = null, $id = null) {
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+        $this->set('id', $id);
+        $this->set('type', $type);
+    }
+
+    public function remove_add_attachment($id) {
+        $this->autoRender = false;
+        $attachments = $this->Session->read('attachments');
+        unset($attachments[$id]);
+        $this->Session->write('attachments', $attachments);
+    }
+
+    public function remove_edit_attachment($owner, $owner_id, $id) {
+        $this->autoRender = false;
+        $this->QuestionsService->removeAttachment($owner, $owner_id, $id);
+    }
+
+    public function load() {
+
+        $params = $this->request->data;
+
+        $filters = array();
+        parse_str($params['filters'], $filters);
+        $filters = $filters['data']['Question'];
+
+        unset($params['filters']);
+
+        $params['filter'] = [];
+
+        if(!empty($filters['education_levels'])) {
+            $params['filter']['education_level_id'] = $filters['education_levels'];
+        }
+
+        if(!empty($filters['education_level_years'])) {
+            $params['filter']['education_level_year'] = $filters['education_level_years'];
+        }
+
+        if(!empty($filters['subject'])) {
+            $params['filter']['subject_id'] = $filters['subject'];
+        }
+
+        if(!empty($filters['search'])) {
+            $params['filter']['search'] = $filters['search'];
+        }
+
+        if(!empty($filters['id'])) {
+            $params['filter']['id'] = $filters['id'];
+        }
+
+        if(!empty($filters['type'])) {
+
+            $typeFilter = explode('.', $filters['type']);
+
+            $params['filter']['type'] = $typeFilter[0];
+
+            if(isset($typeFilter[1])) {
+                $params['filter']['subtype'] = $typeFilter[1];
+            }
+        }
+
+        if(!empty($filters['is_open_source_content'])) {
+          $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        }
+
+        $questions = $this->QuestionsService->getAllQuestions($params);
+
+        // die(var_dump($questions));
+        $this->set('questions', $questions['data']);
+    }
+
+
+
+    public function upload_attachment($type, $owner = null, $owner_id = null, $id = null) {
+        $this->autoRender = false;
+        $data = $this->request->data;
+
+
+        if(isset($this->request->data['Question']['file2']['name']) && !empty($this->request->data['Question']['file2']['name'])) {
+            $this->request->data['Question']['file'] = $this->request->data['Question']['file2'];
+        }
+
+        if(empty($this->request->data['Question']['file']['name'])) {
+            echo '<script>window.parent.Attachments.uploadError("no_file");window.parent.Loading.hide();</script>';
+            die;
+        }
+
+        $extension = substr($this->request->data['Question']['file']['name'], -3);
+
+        if(!in_array($extension, ['jpg', 'peg', 'png', 'mp3', 'pdf'])) {
+            echo '<script>window.parent.Attachments.uploadError("file_type");window.parent.Loading.hide();</script>';
+            die;
+        }
+
+        if(isset($this->request->data['Question']['file']['name']) && !empty($this->request->data['Question']['file']['name'])) {
+            $file = new File($this->request->data['Question']['file']['tmp_name']);
+            $tmpFile = TMP . time();
+            $file->copy($tmpFile);
+
+            if(!empty($errors)) {
+                echo '<script>window.parent.Attachments.uploadError("'.$errors.'");window.parent.Loading.hide();</script>';
+                die;
+            }
+
+            $settings = [];
+
+            if(isset($data['Question']['pausable'])) {
+                $settings['pausable'] = $data['Question']['pausable'];
+            }
+
+            if(isset($data['Question']['play_once'])) {
+                $settings['play_once'] = $data['Question']['play_once'];
+            }
+
+            if(isset($data['Question']['timeout'])) {
+                $settings['timeout'] = $data['Question']['timeout'];
+            }
+
+            if($type == 'add') {
+                if (!$this->Session->check('attachments')) {
+                    $this->Session->write('attachments', []);
+                    $attachments = [];
+                } else {
+                    $attachments = $this->Session->read('attachments');
+                }
+
+                array_push($attachments, [
+                    'type' => 'file',
+                    'file' => $this->request->data['Question']['file'],
+                    'path' => $tmpFile,
+                    'settings' => $settings
+                ]);
+
+                $this->Session->write('attachments', $attachments);
+
+                if($extension == 'mp3') {
+                    echo '<script>window.parent.Popup.closeLast();</script>';
+                }
+                echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
+            }else{
+
+                $attachments = [];
+
+                array_push($attachments, [
+                    'type' => 'file',
+                    'file' => $this->request->data['Question']['file'],
+                    'path' => $tmpFile,
+                    'settings' => $settings
+                ]);
+
+                $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+                if($extension == 'mp3') {
+                    echo '<script>window.parent.Popup.closeLast();</script>';
+                }
+                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", ' . $owner_id.', '.$id.'); window.parent.Loading.hide();</script>';
+            }
+        }
+    }
+
+    public function add_video_attachment() {
+        $this->autoRender = false;
+        if (!$this->Session->check('attachments')) {
+            $this->Session->write('attachments', []);
+            $attachments = [];
+        } else {
+            $attachments = $this->Session->read('attachments');
+        }
+
+        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'vimeo')) {
+            echo 0;
+        }else {
+
+            array_push($attachments, [
+                'type' => 'video',
+                'url' => $this->request->data['url']
+            ]);
+
+            $this->Session->write('attachments', $attachments);
+
+            echo 1;
+        }
+    }
+
+    public function add_edit_video_attachment($owner, $owner_id, $id) {
+        $this->autoRender = false;
+        $attachments = [];
+
+        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'vimeo')) {
+            echo 0;
+        }else {
+
+            array_push($attachments, [
+                'type' => 'video',
+                'url' => $this->request->data['url']
+            ]);
+
+            $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+
+            echo 1;
+        }
+    }
+
+    public function tags() {
+        $this->autoRender = false;
+        $query = $_GET['q'];
+
+        $results = ['items' => []];
+        $tags = $this->QuestionsService->getTags($query);
+
+         $i =1;
+        foreach($tags as $tag) {
+            $results['items'][] = [
+                'id' => $tag,
+                'text' => $tag
+            ];
+            $i++;
+        }
+
+        echo  json_encode($results);
+
+    }
+
+    public function update_index($type, $question_id, $test_id, $index) {
+        $this->autoRender = false;
+        $this->QuestionsService->setIndex($question_id, $test_id, $index);
+    }
+
+    public function update_group_question_index($question_id, $group_id, $index) {
+        $this->autoRender = false;
+        $this->QuestionsService->setGroupQuestionIndex($question_id, $group_id, $index);
+    }
+
+    public function view_group($test_id, $group_id) {
+        $group = $this->QuestionsService->getQuestion('test', '', $group_id);
+
+        $questions = $group['question']['group_question_questions'];
+
+        usort($questions, function($a, $b) {
+            $a = $a['order'];
+            $b = $b['order'];
+            if ($a == $b) {
+                return 0;
+            }
+            return ($a < $b) ? -1 : 1;
+        });
+
+        $this->set('questions', $questions);
+        $this->set('group', $group);
+        $this->set('group_id', $group_id);
+        $this->set('test_id', $test_id);
+        $this->Session->write('attachments_editable', true);
+    }
+}

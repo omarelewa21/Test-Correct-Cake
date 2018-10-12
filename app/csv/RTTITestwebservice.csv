@@ -1,0 +1,11 @@
+Schoolnaam;Brincode;Locatiecode;Studierichting;lesJaarlaag;Schooljaar;leeStamNummer;leeAchternaam;leeTussenvoegsels;leeVoornaam;lesNaam;vakNaam;docStamNummer;docAchternaam;docTussenvoegsels;docVoornaam;IsMentor
+DEMO school;99ZZ;00;HAVO;5;2018;11111;Laat;de;Anton;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11112;Kras;;Pieter;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11113;Laar;van;Liesbeth;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11114;Mahud;;Ahmed;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11115;Hoogland;;Martijn;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11116;Visser;;Bart;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11117;Reinders;;Caroline;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11118;Zenden;;Michelle;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11119;Janssen;;Bas;HAVO5;Ak;12345;Ridder;de;Leo;0
+DEMO school;99ZZ;00;HAVO;5;2018;11120;Poel;van der;Marjolein;HAVO5;Ak;12345;Ridder;de;Leo;0

@@ -1,0 +1,74 @@
+.btn.highlight {
+    background:         #689236;
+    color:              white;
+}
+
+.btn.highlight:hover,
+.btn.highlight.active{
+    background:         #76b827;
+    color:              white;
+}
+
+.btn {
+    padding:            10px 15px 7px 15px;
+    text-decoration:    none;
+    display:            block;
+    transition:         background-color 200ms linear;
+}
+
+.btn.inline-block {
+    display:            inline-block;
+}
+
+.btn.small {
+    padding:            7px 12px 5px 12px;
+    font-size:          13px;
+}
+
+.btn.white {
+    background:         white;
+    color:              #191a17;
+}
+
+.btn.grey {
+    background:         #eeeeee;
+    color:              #191a17;
+}
+
+.btn.grey:hover,
+.btn.grey.active{
+    background:         #cccccc;
+    color:              black;
+}
+
+.btn.red {
+    background:         darkred;
+    color:              white;
+}
+
+.btn.blue{
+    background:         #1585c5;
+    color:              white;
+}
+.btn.blue:hover,
+.btn.blue:active{
+    background:         #1d93d6;
+}
+
+/* TABS */
+.tabs {
+    background:         #eeeeee;
+    margin-bottom:      20px;
+}
+
+.tabs a {
+    float:              left;
+}
+
+.page {
+    display:            none;
+}
+
+.page.active {
+    display:            block !important;
+}
