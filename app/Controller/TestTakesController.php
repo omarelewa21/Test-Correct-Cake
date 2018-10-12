@@ -1865,17 +1865,13 @@ class TestTakesController extends AppController
 		if(empty($errors)) {
 			try {
 				$auth['aut:autorisatie'] = array(
-					//'autorisatiesleutel' => 'Pk77881FG-HJ99777737=',
-					'autorisatiesleutel' => 'JSUEJSKWUAMODJAIPLQWX',
-					// 'klantcode' => '89TY55661==866FFFG',
-					'klantcode' => 'testcorrect',
-					'klantnaam' => 'UitgeverX'
+					'autorisatiesleutel' => Configure::read('RTTI.autorisatiesleutel'),
+					'klantcode' => Configure::read('RTTI.klantcode'),
+					'klantnaam' => Configure::read('RTTI.klantnaam')
 				);
 
 				$client = new nusoap_client(
-					'https://www.rttionline.nl/RTTIToetsService.Test/RTTIToetsService.svc?wsdl',
-				 //'https://www.rttionline.nl/RTTIToetsService/RTTIToetsService.svc?wsdl',
-					// 'http://37.230.102.9:8080/RTTIToetsService.svc?wsdl',
+                    Configure::read('RTTI.wsdl_url'),
 					true
 				);
 				$client->soap_defencoding = 'UTF-8';
@@ -1894,8 +1890,8 @@ class TestTakesController extends AppController
 					$auth
 				);
 
-$this->log(htmlspecialchars($client->request, ENT_QUOTES), 'error');
 
+$this->log(htmlspecialchars($client->request, ENT_QUOTES), 'error');
 	$this->log($result, 'error');
    // Check for errors
    $err = $client->getError();

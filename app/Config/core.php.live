@@ -216,7 +216,8 @@
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'php'
+		'defaults' => 'php',
+		'cookieTimeout' => 0
 	));
 
 /**
@@ -389,3 +390,16 @@ Cache::config('_cake_model_', array(
  * This will store the T Comm Core it's connected to
  */
 Configure::write('core_url', 'http://tc-live.webbix.nl');
+
+/**
+* MarkO: Kan dit niet beter ergens anders?
+*/
+Configure::write(
+    'RTTI',
+    array(
+        'wsdl_url' => 'https://rttiservices.nl:444/RTTIToetsService.svc?wsdl',
+        'autorisatiesleutel' => 'JSUEJSKWUAMODJAIPLQWX',
+        'klantcode' => 'testcorrect',
+        'klantnaam' => 'UitgeverX'
+    )
+);
