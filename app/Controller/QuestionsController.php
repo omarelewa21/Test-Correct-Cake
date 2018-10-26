@@ -733,7 +733,6 @@ class QuestionsController extends AppController {
                 $question['is_open_source_content'] = 1;
             }else{
                 $question['is_open_source_content'] = 0;
-                $question['add_to_database'] = 0;
             }
 
             if(!empty($question['sub_attainments'])) {
