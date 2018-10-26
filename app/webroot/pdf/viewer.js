@@ -940,9 +940,9 @@ var _view_history = __webpack_require__(28);
 var DEFAULT_SCALE_DELTA = 1.1;
 var DISABLE_AUTO_FETCH_LOADING_BAR_TIMEOUT = 5000;
 function configure(PDFJS) {
-  PDFJS.imageResourcesPath = './images/';
-  PDFJS.workerSrc = '../build/pdf.worker.js';
-  PDFJS.cMapUrl = '../web/cmaps/';
+  PDFJS.imageResourcesPath = '/pdf/images/';
+  PDFJS.workerSrc = '/pdf/pdf.worker.js';
+  PDFJS.cMapUrl = '/pdf/cmaps/';
   PDFJS.cMapPacked = true;
 }
 var DefaultExternalServices = {
