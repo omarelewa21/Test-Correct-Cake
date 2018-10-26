@@ -39,7 +39,7 @@ foreach($files as $file)
 	$filename = $hash . '-' .  $file['name'];
 	move_uploaded_file($file['tmp_name'],$upload_dir.$filename);
 
-	$filesrc = $_SERVER['HTTP_REFERER'].DS.'custom'.DS.'imageload.php?filename='.urlencode($filename);
+	$filesrc = $_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.urlencode($filename);
 	$return = array('url' => $filesrc,'uploaded'=>1);
 
 	// $return = array('url' => $imgSrc.$hash.'_'.$file['name']);
