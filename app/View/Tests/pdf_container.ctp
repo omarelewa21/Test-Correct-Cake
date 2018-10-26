@@ -34,9 +34,9 @@ See https://github.com/adobe-type-tools/cmap-resources
     <!-- MarkO: I took the original DEFAULT_URL out of the viewer.js file and added it here so we can overwrite it with our own -->
     <script type="text/javascript">
         if('<?=$attachment_id?>' != '') {
-            var DEFAULT_URL =  = '/tests/pdf_attachmentpdf/<?=$test_id?>/<?=$attachment_id?>';
+            var DEFAULT_URL = '/tests/pdf_attachmentpdf/<?=$test_id?>/<?=$attachment_id?>';
         } else {
-            var DEFAULT_URL =  = '/tests/pdf/<?=$test_id?>';
+            var DEFAULT_URL = '/tests/pdf/<?=$test_id?>';
         }
     </script>
     <script src="/pdf/viewer.js"></script>
