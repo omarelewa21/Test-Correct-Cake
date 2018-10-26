@@ -27,21 +27,15 @@ See https://github.com/adobe-type-tools/cmap-resources
     <meta name="google" content="notranslate">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>PDF.js viewer</title>
-
-
     <link rel="stylesheet" href="/pdf/viewer.css">
-
-
-<!-- This snippet is used in production (included from viewer.html) -->
-<link rel="resource" type="application/l10n" href="/pdf/locale/locale.properties">
-<script src="/pdf/pdf.js"></script>
-<script>
-
-var DEFAULT_URL = '/answers/attachment_pdf/<?=$attachment_id?>'
-</script>
-
+    <!-- This snippet is used in production (included from viewer.html) -->
+    <link rel="resource" type="application/l10n" href="/pdf/locale/locale.properties">
+    <script src="/pdf/pdf.js"></script>
+    <script>
+    <!-- MarkO: I took the original DEFAULT_URL out of the viewer.js file and added it here so we can overwrite it with our own -->
+        var DEFAULT_URL = '/answers/attachment_pdf/<?=$attachment_id?>'
+    </script>
     <script src="/pdf/viewer.js"></script>
-
   </head>
 
   <body tabindex="1" class="loadingInProgress">
