@@ -35,7 +35,10 @@ See https://github.com/adobe-type-tools/cmap-resources
 <!-- This snippet is used in production (included from viewer.html) -->
 <link rel="resource" type="application/l10n" href="/pdf/locale/locale.properties">
 <script src="/pdf/pdf.js"></script>
+<script>
 
+var DEFAULT_URL = '/answers/attachment_pdf/<?=$attachment_id?>'
+</script>
 
     <script src="/pdf/viewer.js"></script>
 
@@ -353,9 +356,6 @@ See https://github.com/adobe-type-tools/cmap-resources
 
     </div> <!-- outerContainer -->
     <div id="printContainer"></div>
-    <script type="text/javascript">
-        PDFViewerApplication.open('/answers/attachment_pdf/<?=$attachment_id?>');
-    </script>
   </body>
 </html>
 
