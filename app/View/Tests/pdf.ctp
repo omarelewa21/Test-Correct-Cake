@@ -46,7 +46,7 @@ foreach($questions as $question) {
 
         ?>
 
-        <?php if($question['type'] === 'DrawingQuestion' || $question['grid'] > 0): ?>
+        <?php if($question['type'] === 'DrawingQuestion' || (isset($question['grid']) && $question['grid'] > 0)): ?>
             <div style="page-break-after: always;"></div>
         <?php endif; ?>
 
