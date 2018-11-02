@@ -180,6 +180,7 @@ class AnswersController extends AppController
         $this->set('attachment', $attachmentInfo);
         $this->set('attachment_id', $attachment_id);
 
+
         $this->Session->write('attachment_id', $attachment_id);
 
         $extension = substr($attachmentInfo['title'], -3);
@@ -190,7 +191,11 @@ class AnswersController extends AppController
             }elseif(in_array($extension, ['mp3'])) {
                 $this->render('attachment_audio', 'ajax');
             }elseif(in_array($extension, ['pdf'])) {
-                $this->render('attachment_pdf', 'ajax');
+                ## TODO: Dit pad vervangen door een net pad
+                $this->set("attachment_url", "/answers/attachment_pdf/" . $attachment_id);
+                $this->set("is_question_pdf", true);
+
+                $this->render('/Pdf/pdf_container', 'ajax');
             }else{
                 die('Iets ging er mis ' . $extension);
             }

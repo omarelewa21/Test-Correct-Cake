@@ -405,7 +405,7 @@ class TestsController extends AppController {
     public function pdf_container($test_id, $attachment_id = null) {
         $this->set('test_id', $test_id);
         $this->set('attachment_id',$attachment_id);
-        $this->render('pdf_container', 'ajax');
+        $this->render('/Pdf/pdf_container', 'ajax');
     }
 
     public function pdf($test_id, $attachment_id = null) {
@@ -518,9 +518,6 @@ class TestsController extends AppController {
     }
 
     public function load_att_pdf($test_id, $attachment_id) {
-        $test = $this->request->data['Test'];
-        // $this->autoRender = false;
-
         $test = $this->TestsService->getTest($test_id);
 
         $questions = $this->TestsService->getQuestions($test_id);

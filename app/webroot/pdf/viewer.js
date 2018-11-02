@@ -983,7 +983,7 @@ var PDFViewerApplication = {
   pdfDocumentProperties: null,
   pdfLinkService: null,
   pdfHistory: null,
-  pdfSidebar: null,
+  pdfSidebar: false,
   pdfOutlineViewer: null,
   pdfAttachmentViewer: null,
   pdfCursorTools: null,
@@ -992,7 +992,7 @@ var PDFViewerApplication = {
   overlayManager: null,
   preferences: null,
   toolbar: null,
-  secondaryToolbar: null,
+  secondaryToolbar: false,
   eventBus: null,
   l10n: null,
   isInitialViewSet: false,
@@ -1000,9 +1000,9 @@ var PDFViewerApplication = {
   viewerPrefs: {
     sidebarViewOnLoad: _pdf_sidebar.SidebarView.NONE,
     pdfBugEnabled: false,
-    showPreviousViewOnLoad: true,
+    showPreviousViewOnLoad: false,
     defaultZoomValue: '',
-    disablePageMode: false,
+    disablePageMode: true, // Marko: Maatwerk om sidebar weg te halen. Default "false"
     disablePageLabels: false,
     renderer: 'canvas',
     enhanceTextSelection: false,
@@ -1928,6 +1928,7 @@ function loadAndEnablePDFBug(enabledTabs) {
     (document.getElementsByTagName('head')[0] || document.body).appendChild(script);
   });
 }
+
 function webViewerInitialized() {
   var appConfig = PDFViewerApplication.appConfig;
   var file = void 0;
@@ -2038,12 +2039,15 @@ function webViewerInitialized() {
 var webViewerOpenFileViaURL = void 0;
 {
   webViewerOpenFileViaURL = function webViewerOpenFileViaURL(file) {
+
     if (file && file.lastIndexOf('file:', 0) === 0) {
       PDFViewerApplication.setTitleUsingUrl(file);
       var xhr = new XMLHttpRequest();
+
       xhr.onload = function () {
         PDFViewerApplication.open(new Uint8Array(xhr.response));
       };
+
       try {
         xhr.open('GET', file);
         xhr.responseType = 'arraybuffer';
@@ -3580,6 +3584,7 @@ var pdfjsWebApp = void 0;
 {
   __webpack_require__(34);
 }
+
 function getViewerConfiguration() {
   return {
     appContainer: document.body,
@@ -9216,7 +9221,7 @@ function getDefaultPreferences() {
       "renderer": "canvas",
       "renderInteractiveForms": false,
       "enablePrintAutoRotate": false,
-      "disablePageMode": false,
+      "disablePageMode": true,  // Marko: Maatwerk om sidebar weg te halen. Default "false"
       "disablePageLabels": false
     });
   }

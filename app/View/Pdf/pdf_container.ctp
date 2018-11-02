@@ -31,16 +31,28 @@ See https://github.com/adobe-type-tools/cmap-resources
     <!-- This snippet is used in production (included from viewer.html) -->
     <link rel="resource" type="application/l10n" href="/pdf/locale/locale.properties">
     <script src="/pdf/pdf.js"></script>
-    <script>
+      <script>
     <!-- MarkO: I took the original DEFAULT_URL out of the viewer.js file and added it here so we can overwrite it with our own -->
-        var DEFAULT_URL = '/test_takes/answers_pdf/<?=$take_id?>';
-    </script>
+      <?
+        if(isset($attachment_url)) {
+            print("var DEFAULT_URL = '" . $attachment_url . "';");
+        } else {
+            print("var DEFAULT_URL = '';");
+        }
+
+      if(isset($is_question_pdf)) {
+          print("var studentButtons = true;");
+      } else {
+          print("var studentButtons = false;");
+      }
+      ?>
+      </script>
+    <script src="/pdf/tcViewer.js"></script>
     <script src="/pdf/viewer.js"></script>
   </head>
 
   <body tabindex="1" class="loadingInProgress">
     <div id="outerContainer">
-
       <div id="sidebarContainer">
         <div id="toolbarSidebar">
           <div class="splitToolbarButton toggled">

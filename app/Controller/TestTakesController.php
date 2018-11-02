@@ -1580,7 +1580,9 @@ class TestTakesController extends AppController
 
 	public function rates_pdf_container($take_id) {
 		$this->set('take_id', $take_id);
-		$this->render('rates_pdf_container', 'ajax');
+        $this->set("attachment_url", "/test_takes/rates_pdf/" . $take_id);
+        $this->set("is_question_pdf", true);
+        $this->render('rates_pdf_container', 'ajax');
 	}
 
 	public function rates_pdf($take_id) {
@@ -1610,7 +1612,9 @@ class TestTakesController extends AppController
 
 	public function answers_pdf_container($take_id) {
 		$this->set('take_id', $take_id);
-		$this->render('answers_pdf_container', 'ajax');
+        $this->set("attachment_url", "/test_takes/answers_pdf/" . $take_id);
+        $this->set("is_question_pdf", true);
+        $this->render('/Pdf/pdf_container', 'ajax');
 	}
 
 	public function answers_pdf($take_id) {
@@ -1859,7 +1863,7 @@ class TestTakesController extends AppController
 			$params['toetsen']['toets']['toetsonderdelen'] = $toArray;
 
 		} catch (\Exception $e) {
-			$errors[] = $e->message;
+			$errors[] = $e->getMessage();
 		}
 
 		if(empty($errors)) {
