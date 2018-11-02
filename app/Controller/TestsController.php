@@ -410,7 +410,6 @@ class TestsController extends AppController {
 
     public function pdf($test_id, $attachment_id = null) {
         $debug = '';
-        $test = $this->request->data['Test'];
         $this->autoRender = false;
 
         $test = $this->TestsService->getTest($test_id);
