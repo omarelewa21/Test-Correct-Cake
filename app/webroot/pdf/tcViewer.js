@@ -7,7 +7,6 @@ function hideGenericOptions() {
     document.getElementById("viewBookmark").setAttribute("hidden", true);
     document.getElementById("viewAttachments").setAttribute("hidden", true);
     document.getElementById("sidebarToggle").setAttribute("hidden", true);
-    document.getElementById("toolbarViewerRight").setAttribute("hidden", true);
     document.getElementById("sidebarContainer").setAttribute("hidden", true);
 
 }
