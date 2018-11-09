@@ -47,7 +47,7 @@ See https://github.com/adobe-type-tools/cmap-resources
       }
       ?>
       </script>
-    <script src="/pdf/tcViewer.js?20181109"></script>
+    <script src="/pdf/tcViewer.js?20181110"></script>
     <script src="/pdf/viewer.js?20181109"></script>
   </head>
 
