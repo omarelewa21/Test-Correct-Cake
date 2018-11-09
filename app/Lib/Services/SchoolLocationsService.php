@@ -9,7 +9,7 @@ App::uses('BaseService', 'Lib/Services');
  */
 class SchoolLocationsService extends BaseService
 {
-    public function getSchoolLocations($params)
+    public function getSchoolLocations($params = array())
     {
         $response = $this->Connector->getRequest('/school_location', $params);
         if ($response === false) {
