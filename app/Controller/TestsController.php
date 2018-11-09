@@ -87,7 +87,7 @@ class TestsController extends AppController {
                 ['controller' => 'Questions','action' => 'editPost'], 
                 [
                     // 'pass' => [ $owner, $owner_id, $question['question']['type'], $question['id']],
-                    'data' => [ $owner, $owner_id, $question['question']['type'], $question['id']]
+                    'data' => [ $owner, $owner_id, $question['question']['type'], $question['id'], false, true]
                 ]
             );
         }

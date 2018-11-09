@@ -105,6 +105,7 @@ class AppController extends Controller {
         $this->Auth->allow('get_header_session');
     }
 
+    //todo: Deze methode echo'd in de response, dat verpest aanroepende methodes die zelf nog schrijven in de response
     public function formResponse($status, $data = array()) {
         $this->autoRender = false;
          echo json_encode([

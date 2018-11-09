@@ -401,9 +401,8 @@ class QuestionsController extends AppController {
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $internal = false) 
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false,$hideresponse = false)
     {
-
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
 
         if($this->request->is('post') || $internal == true ) {
@@ -473,7 +472,7 @@ class QuestionsController extends AppController {
                 if($internal === false) {
                     $this->formResponse(true);die;    
                 }
-            }else{
+            }else if(!$hideresponse) {
                 $this->formResponse(false, $check['errors']);
             }
         }else {
