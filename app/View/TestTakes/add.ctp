@@ -70,7 +70,7 @@
             </td>
         </tr>
 
-        <?php if($locations[$i]['is_rtti_school_location'] == '1'): ?>
+        <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
                 <th>Is RTTI</th>
                 <td>
