@@ -941,7 +941,7 @@ var DEFAULT_SCALE_DELTA = 1.1;
 var DISABLE_AUTO_FETCH_LOADING_BAR_TIMEOUT = 5000;
 function configure(PDFJS) {
   PDFJS.imageResourcesPath = '/pdf/images/';
-  PDFJS.workerSrc = '/pdf/pdf.worker.js';
+  PDFJS.workerSrc = '/pdf/pdf.worker.js?20181109';
   PDFJS.cMapUrl = '/pdf/cmaps/';
   PDFJS.cMapPacked = true;
 }
