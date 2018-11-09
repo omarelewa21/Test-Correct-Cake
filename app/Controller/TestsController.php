@@ -131,7 +131,8 @@ class TestsController extends AppController {
             $test = $this->request->data['Test'];
             $questions = $this->TestsService->getQuestions($test_id);
 
-            $this->setQuestionsOpenSource($questions, $test_id);
+            // todo: Deze methode liep door elkaar qua test_id en owner_id, dit was heel raar. Moeten we uitzoeken
+            //$this->setQuestionsOpenSource($questions, $test_id);
 
             $result = $this->TestsService->edit($test_id, $test);
 
