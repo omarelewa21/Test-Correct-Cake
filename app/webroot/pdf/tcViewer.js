@@ -8,11 +8,10 @@ function hideGenericOptions() {
     document.getElementById("viewAttachments").setAttribute("hidden", true);
     document.getElementById("sidebarToggle").setAttribute("hidden", true);
     document.getElementById("sidebarContainer").setAttribute("hidden", true);
-
 }
 
 function hideStudentOptions() {
-    hideGenericOptions()
+    hideGenericOptions();
     document.getElementById("print").setAttribute("hidden", true);
 }
 
