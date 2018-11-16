@@ -3,12 +3,6 @@
 </div>
 
 <div class="popup-content">
-   <!-- MarkO (07-09-2018): melding weggehaald op verzoek van Alex
-<p>
-        Op dit moment zij we bezig met onderhoud. Het kan zijn dat bepaalde functionaliteiten tijdelijk niet volledig werken. Het onderhoud zal vrijdag 24 augustus afgerond worden. Excuses voor eventueel ongemak.
-    </p>-->
-<p><audio controls><source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">Your browser does not support the audio element.</audio></p>
-
     <?= $this->Form->create('User') ?>
     <table width="100%" class="table table-striped form">
         <tr>
