@@ -19,14 +19,14 @@
 <span id="audioSupportText">Een ogenblik geduld..</span>
 <br />
 <br />
-<a href="#" role="button" id="audioBtn" class="btn disabled mt5 mr5" aria-disabled="true">Laden..</a>
+<a href="#" role="button" id="audioBtn" class="btn disabled mt5 mr5">Laden..</a>
 <script type="text/javascript">
     function screenText(pauseable, playonce, playedonce, timesout, canPlay) {
         var text = "Geluidsfragment";
         if(playedonce) {
             text = "Dit geluidsfragment was éénmalig afspeelbaar en is al beluisterd.";
         } else if(!canPlay) {
-            text = "Dit apparaat ondersteund geen geluidsfragmenten.";
+            text = "Dit apparaat ondersteunt geen geluidsfragmenten.";
         } else {
             if(!pauseable) {
                 if(playonce) {
@@ -46,7 +46,7 @@
         audioSupportText.innerText = text
     }
 
-    function playButtonText(text, disable = false) {
+    function playButtonText(text, disable) {
         var playButton = $("#audioBtn");
         playButton.text(text);
         if(disable) {
@@ -62,20 +62,23 @@
     $settings = json_decode($attachment['json'], true);
     ?>
 
-    let pauseable = <?= ($settings['pausable'] == '1') ? "true" : "false"  ?>;
-    let playonce = <?= ($settings['play_once'] == '1') ? "true" : "false"  ?>;
-    let cookieName = 'attachment<?=$attachment_id?>';
-    let playedonce = Cookies.get(cookieName);
-    let timesout = <?= isset($settings['timeout']) && !empty($settings['timeout']) && $settings['timeout'] > 0 ? $settings['timeout'] : "false" ?>;
+    var pauseable = <?= ($settings['pausable'] == '1') ? "true" : "false"  ?>;
+    var playonce = <?= ($settings['play_once'] == '1') ? "true" : "false"  ?>;
+    var cookieName = 'attachment<?=$attachment_id?>';
+    var playedonce = Cookies.get(cookieName);
+    var timesout = <?= isset($settings['timeout']) && !empty($settings['timeout']) && $settings['timeout'] > 0 ? $settings['timeout'] : "false" ?>;
     // Testen of deze browser uberhaupt wel audio kan afspelen
     a = document.createElement('audio');
-    let canPlay = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
-    let audio = new Audio('/answers/download_attachment/<?=$attachment_id?>');
-    let playable = canPlay && !playedonce;
+    var  canPlay = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+    if(!canPlay) {
+        playButtonText("",true);
+    }
+    var  playable = canPlay && !playedonce;
 
     $( document ).ready(function() {
         screenText(pauseable, playonce, playedonce, timesout, canPlay);
         if(playable) {
+            var  audio = new Audio('/answers/download_attachment/<?=$attachment_id?>');
             audio.onended = function() {
                 if(!playonce) {
                     playButtonText("Afspelen");
@@ -84,7 +87,7 @@
                     playButtonText("Afgespeeld", true);
                     Cookies.set(cookieName, '1');
                 }
-            }
+            };
 
             playButtonText("Afspelen");
             $('#audioBtn').click(function() {
