@@ -27,7 +27,7 @@
     ?>
     <?=$question['question']?><br /><br />
     <center>
-        <a href="#" class="btn highlight large inline-block" onclick="alert('In een toets-voorbeeld kunt u geen antwoord tekenen.');">
+        <a href="#" class="btn highlight large inline-block" onclick="false">
             <span class="fa fa-edit"></span>
             Antwoord tekenen
         </a>

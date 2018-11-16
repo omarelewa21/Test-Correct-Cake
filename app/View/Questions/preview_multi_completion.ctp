@@ -43,7 +43,7 @@
     }
 
     foreach($tags as $tag_id => $answers) {
-        $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => $answers]), $question_text);
+        $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]), $question_text);
     }
 
     echo $question_text;
