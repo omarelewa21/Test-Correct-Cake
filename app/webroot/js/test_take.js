@@ -661,7 +661,7 @@ function onchange (evt) {
       document.body.className = this[hidden] ? "hidden" : "visible";
     }
 
-    if(this[hidden] && typeof Core !== 'undefined'){
+    if(this[hidden] && typeof Core !== "undefined"){
         Core.lostFocus();
     }
 }
