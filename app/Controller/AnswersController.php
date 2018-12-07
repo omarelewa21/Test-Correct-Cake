@@ -5,6 +5,7 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('TestTakesService', 'Lib/Services');
+App::uses('AttachmentSound', 'Model');
 App::uses('File', 'Utility');
 
 class AnswersController extends AppController
@@ -12,6 +13,7 @@ class AnswersController extends AppController
 
     public function beforeFilter()
     {
+        $this->Auth->allow("download_attachment_sound");
         $this->QuestionsService = new QuestionsService();
         $this->TestsService = new TestsService();
         $this->TestTakesService = new TestTakesService();
@@ -188,7 +190,14 @@ class AnswersController extends AppController
         if($attachmentInfo['type'] == 'file') {
             if(in_array($extension, ['jpg', 'png', 'peg'])) {
                 $this->render('attachment_image', 'ajax');
-            }elseif(in_array($extension, ['mp3'])) {
+            }elseif(AttachmentSound::testIfIsSound($attachmentInfo)) {
+                // Precache sound for IOS browsers
+                $sound = new AttachmentSound($attachment_id, $attachmentInfo['file_name'], $attachmentInfo["file_mime_type"]);
+                if(!$sound->isCached()) {
+                    $sound->cacheSound($this->AnswersService->getAttachmentContent($attachment_id));
+                }
+                $this->set('file_name',$attachmentInfo['file_name']);
+                $this->set('soundtype', $sound->getSoundType());
                 $this->render('attachment_audio', 'ajax');
             }elseif(in_array($extension, ['pdf'])) {
                 ## TODO: Dit pad vervangen door een net pad

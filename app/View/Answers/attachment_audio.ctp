@@ -1,13 +1,13 @@
 <html>
 <head>
-<style>
-    body {
-        background: white;
-        margin: 0px;
-        font-size: 20px;
-        text-align: center;
-    }
-</style>
+    <style>
+        body {
+            background: white;
+            margin: 0px;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
     <link href="/css/default.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -78,7 +78,9 @@
     $( document ).ready(function() {
         screenText(pauseable, playonce, playedonce, timesout, canPlay);
         if(playable) {
-            var  audio = new Audio('/answers/download_attachment/<?=$attachment_id?>');
+            var audio = new Audio('/answers/download_attachment_sound/<?=$attachment_id?>/<?=$file_name?>/<?=$soundtype?>');
+            audio.load()
+            audio.crossOrigin = "use-credentials";
             audio.onended = function() {
                 if(!playonce) {
                     playButtonText("Afspelen");
