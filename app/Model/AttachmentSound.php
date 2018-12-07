@@ -3,8 +3,6 @@ App::uses('AppModel', 'Model');
 
 class AttachmentSound extends AppModel
 {
-    const MimeMap = ["audio/mpeg"=>"mp3", "audio/ogg"=>"ogg"];
-
     function __construct($id, $file_name, $mimetype)
     {
         $this->attachment_id = $id;
@@ -14,11 +12,16 @@ class AttachmentSound extends AppModel
 
     // We gooien een URL over de muur, daarin kan ik geen audio/... meegeven zonder escape gedoe
     function getSoundType() {
-        return AttachmentSound::MimeMap[$this->mimetype];
+        return AttachmentSound::getMimeMap()[$this->mimetype];
+    }
+
+    // Bah. PHP 7 staat deze wel toe als class var
+    public static function getMimeMap() {
+        return ["audio/mpeg"=>"mp3", "audio/ogg"=>"ogg"];
     }
 
     public static function getMimeFromSoundType($soundtype) {
-        return array_search($soundtype,AttachmentSound::MimeMap);
+        return array_search($soundtype,AttachmentSound::getMimeMap());
     }
 
     public function cacheSound($attachmentContent)
@@ -45,7 +48,7 @@ class AttachmentSound extends AppModel
 
     public static function testIfIsSound($attachmentInfo)
     {
-        return in_array($attachmentInfo["file_mime_type"], array_keys(AttachmentSound::MimeMap) );
+        return in_array($attachmentInfo["file_mime_type"], array_keys(AttachmentSound::getMimeMap()) );
     }
 
     public function getTemporaryFileName()

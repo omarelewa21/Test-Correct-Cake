@@ -221,8 +221,6 @@ class AnswersController extends AppController
         $attachment_id = empty($attachment_id) ? $this->Session->read('attachment_id') : $attachment_id;
 
         $this->autoRender = false;
-
-        $attachmentInfo = $this->AnswersService->getAttachmentInfo($attachment_id);
         $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
         $this->response->type('application/pdf');
         $this->response->body($attachmentContent);
@@ -311,6 +309,22 @@ class AnswersController extends AppController
 
         $this->response->type($attachmentInfo['file_mime_type']);
         $this->response->body($attachmentContent);
+    }
+
+    // Er is een verdraaid lastig probleem met audio files , HTML5 en IOS. Als die namelijk
+    // partial content opvraagt gebeurt dat zonder sessie cookie, en dus mogen ze er niet langs
+    // van cake.
+    // De oplossing nu is om tijdelijk opgevraagde MP3s als open file in een tmp file te zetten
+    public function download_attachment_sound($attachment_id, $filename, $type) {
+        $sound = new AttachmentSound($attachment_id, $filename, AttachmentSound::getMimeFromSoundType($type));
+        $this->autoRender = false;
+        try {
+            $this->response->type($sound->mimetype);
+            $this->response->body($sound->getCachedSound());
+        } catch( Exception $e) {
+            $this->log("Niet ingelogde gebruiker probeert niet bestaand geluidsfragment te openen als " . $sound->getTemporaryFileName());
+            throw new ForbiddenException();
+        }
     }
 
     private function _getVideoCode($subject) {
