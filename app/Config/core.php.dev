@@ -388,7 +388,7 @@ Cache::config('_cake_model_', array(
 /**
  * This will store the T Comm Core it's connected to
  */
-Configure::write('core_url', '127.0.0.1');
+Configure::write('core_url', 'http://127.0.0.1');
 
 /**
 * MarkO: Kan dit niet beter ergens anders?
@@ -403,8 +403,3 @@ Configure::write(
         'debug' => false
     )
 );
-
-/**
-* MarkO: Tijdelijk opslag voor sound bites en het "unauthed partial response op IOS" probleem
-*/
-Configure::write('sound_storage', TMP . 'soundstore' . DS);

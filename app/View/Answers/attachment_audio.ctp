@@ -69,45 +69,56 @@
     var timesout = <?= isset($settings['timeout']) && !empty($settings['timeout']) && $settings['timeout'] > 0 ? $settings['timeout'] : "false" ?>;
     // Testen of deze browser uberhaupt wel audio kan afspelen
     a = document.createElement('audio');
-    var  canPlay = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
+    var canPlay = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
     if(!canPlay) {
         playButtonText("",true);
     }
-    var  playable = canPlay && !playedonce;
+    var playable = canPlay && !playedonce;
+
+    function readyPlayer(soundbit) {
+        var audio = new Audio('data:audio/mpeg;base64,' + soundbit);
+        audio.load()
+        audio.crossOrigin = "use-credentials";
+        audio.onended = function() {
+            if(!playonce) {
+                playButtonText("Afspelen");
+            } else {
+                playable = false;
+                playButtonText("Afgespeeld", true);
+                Cookies.set(cookieName, '1');
+            }
+        };
+
+        playButtonText("Afspelen");
+
+        $('#audioBtn').click(function() {
+            if(playable) {
+                if (audio.paused) {
+                    audio.play();
+                    if (pauseable) {
+                        playButtonText("Speelt af.. (pauzeer)");
+                    } else {
+                        playButtonText("Speelt af.. (niet pauzeerbaar)", true);
+                    }
+                    // Indien aan het afspelen en pauzeerbaar
+                } else if (pauseable) {
+                    audio.pause();
+                    playButtonText("Afspelen");
+                }
+            }
+        })
+
+    }
 
     $( document ).ready(function() {
         screenText(pauseable, playonce, playedonce, timesout, canPlay);
         if(playable) {
-            var audio = new Audio('/answers/download_attachment_sound/<?=$attachment_id?>/<?=$file_name?>/<?=$soundtype?>');
-            audio.load()
-            audio.crossOrigin = "use-credentials";
-            audio.onended = function() {
-                if(!playonce) {
-                    playButtonText("Afspelen");
-                } else {
-                    playable = false;
-                    playButtonText("Afgespeeld", true);
-                    Cookies.set(cookieName, '1');
-                }
-            };
-
-            playButtonText("Afspelen");
-            $('#audioBtn').click(function() {
-                if(playable) {
-                    if (audio.paused) {
-                        audio.play();
-                        if (pauseable) {
-                            playButtonText("Speelt af.. (pauzeer)");
-                        } else {
-                            playButtonText("Speelt af.. (niet pauzeerbaar)", true);
-                        }
-                        // Indien aan het afspelen en pauzeerbaar
-                    } else if (pauseable) {
-                        audio.pause();
-                        playButtonText("Afspelen");
-                    }
-                }
-            })
+            $.get( "/answers/download_attachment_sound/<?=$attachment_id?>", function( data ) {
+                readyPlayer(data);
+            }).fail(function() {
+                audioSupportText = document.getElementById("audioSupportText");
+                audioSupportText.innerText = "Er is een fout opgetreden bij het laden van dit geluidsfragment.";
+            });
         } else if(playedonce) {
             playButtonText("Afgespeeld", true);
         }

@@ -5,7 +5,6 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('TestTakesService', 'Lib/Services');
-App::uses('AttachmentSound', 'Model');
 App::uses('File', 'Utility');
 
 class AnswersController extends AppController
@@ -13,7 +12,6 @@ class AnswersController extends AppController
 
     public function beforeFilter()
     {
-        $this->Auth->allow("download_attachment_sound");
         $this->QuestionsService = new QuestionsService();
         $this->TestsService = new TestsService();
         $this->TestTakesService = new TestTakesService();
@@ -190,14 +188,7 @@ class AnswersController extends AppController
         if($attachmentInfo['type'] == 'file') {
             if(in_array($extension, ['jpg', 'png', 'peg'])) {
                 $this->render('attachment_image', 'ajax');
-            }elseif(AttachmentSound::testIfIsSound($attachmentInfo)) {
-                // Precache sound for IOS browsers
-                $sound = new AttachmentSound($attachment_id, $attachmentInfo['file_name'], $attachmentInfo["file_mime_type"]);
-                if(!$sound->isCached()) {
-                    $sound->cacheSound($this->AnswersService->getAttachmentContent($attachment_id));
-                }
-                $this->set('file_name',$attachmentInfo['file_name']);
-                $this->set('soundtype', $sound->getSoundType());
+            }elseif($attachmentInfo["file_mime_type"] == 'audio/mpeg') {
                 $this->render('attachment_audio', 'ajax');
             }elseif(in_array($extension, ['pdf'])) {
                 ## TODO: Dit pad vervangen door een net pad
@@ -210,7 +201,6 @@ class AnswersController extends AppController
             }
         }elseif($attachmentInfo['type'] == 'video') {
             $link = $this->_getVideoCode($attachmentInfo['link']);
-
             $this->set('video_src', $link);
             $this->render('attachment_video', 'ajax');
         }
@@ -297,16 +287,9 @@ class AnswersController extends AppController
     }
 
     public function download_attachment($attachment_id) {
-
         $this->autoRender = false;
-
         $attachmentInfo = $this->AnswersService->getAttachmentInfo($attachment_id);
         $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
-
-        //file_put_contents(WWW_ROOT.'/mp3/' . time() . '.mp3', $attachmentContent);
-
-        //header('location: /mp3/' . time() . '.mp3');
-
         $this->response->type($attachmentInfo['file_mime_type']);
         $this->response->body($attachmentContent);
     }
@@ -314,17 +297,13 @@ class AnswersController extends AppController
     // Er is een verdraaid lastig probleem met audio files , HTML5 en IOS. Als die namelijk
     // partial content opvraagt gebeurt dat zonder sessie cookie, en dus mogen ze er niet langs
     // van cake.
-    // De oplossing nu is om tijdelijk opgevraagde MP3s als open file in een tmp file te zetten
-    public function download_attachment_sound($attachment_id, $filename, $type) {
-        $sound = new AttachmentSound($attachment_id, $filename, AttachmentSound::getMimeFromSoundType($type));
+    // De oplossing nu is om een base64 string te sturen als text en deze als "data uri" op
+    // de pagina te zetten en af te spelen.
+    public function download_attachment_sound($attachment_id) {
+        $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
         $this->autoRender = false;
-        try {
-            $this->response->type($sound->mimetype);
-            $this->response->body($sound->getCachedSound());
-        } catch( Exception $e) {
-            $this->log("Niet ingelogde gebruiker probeert niet bestaand geluidsfragment te openen als " . $sound->getTemporaryFileName());
-            throw new ForbiddenException();
-        }
+        $this->response->type("text/plain");
+        $this->response->body( base64_encode ($attachmentContent));
     }
 
     private function _getVideoCode($subject) {
