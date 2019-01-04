@@ -38,8 +38,34 @@ if(isset($attachmentArray)){
 ?>
 
 <script type="text/javascript">
+    // MarkO: Chrome wil geen grote PDFs als dara uri. Met deze hack zet ik die eerst om naar een blob
+    // https://stackoverflow.com/questions/16245767/creating-a-blob-from-a-base64-string-in-javascript
+    var BASE64_MARKER = ';base64,';
 
-    $(".show_pdf_attachments").on("click",function(){
+    function handleBase64PDF(iframeId, filename, dataURI) {
+        var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+        var base64 = dataURI.substring(base64Index);
+        var raw = window.atob(base64);
+        var rawLength = raw.length;
+        var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+        for(i = 0; i < rawLength; i++) {
+            array[i] = raw.charCodeAt(i);
+        }
+        blob = new Blob([array], {type : 'application/pdf'});
+
+        // IE heeft geen iframe / BLOB of Base64 support.
+        isIE11 = !!(window.navigator && window.navigator.msSaveOrOpenBlob);
+        if(isIE11) {
+            window.navigator.msSaveOrOpenBlob(blob, filename);
+            Popup.closeLast();
+        } else {
+            blobUrl = URL.createObjectURL(blob);
+            document.getElementById(iframeId).setAttribute("src",blobUrl);
+        }
+    }
+
+$(".show_pdf_attachments").on("click",function(){
 
         var checked = false;
         var checkedValues = [];
