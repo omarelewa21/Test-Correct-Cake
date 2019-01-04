@@ -78,7 +78,8 @@
     function readyPlayer(soundbit) {
         var audio = new Audio('data:audio/mpeg;base64,' + soundbit);
         audio.load()
-        audio.crossOrigin = "use-credentials";
+        // MarkO: Moet anonymous omdat anders de oude Chromium in de app faalt met een CORS melding. Op een data URI.
+        audio.crossOrigin = 'Anonymous'
         audio.onended = function() {
             if(!playonce) {
                 playButtonText("Afspelen");
