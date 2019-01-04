@@ -389,7 +389,7 @@ Cache::config('_cake_model_', array(
 /**
  * This will store the T Comm Core it's connected to
  */
-Configure::write('core_url', 'http://tc-live.webbix.nl');
+Configure::write('core_url', 'http://127.0.0.1:81');
 
 /**
 * MarkO: Kan dit niet beter ergens anders?

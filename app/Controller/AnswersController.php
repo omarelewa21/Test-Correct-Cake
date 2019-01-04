@@ -188,7 +188,7 @@ class AnswersController extends AppController
         if($attachmentInfo['type'] == 'file') {
             if(in_array($extension, ['jpg', 'png', 'peg'])) {
                 $this->render('attachment_image', 'ajax');
-            }elseif(in_array($extension, ['mp3'])) {
+            }elseif($attachmentInfo["file_mime_type"] == 'audio/mpeg') {
                 $this->render('attachment_audio', 'ajax');
             }elseif(in_array($extension, ['pdf'])) {
                 ## TODO: Dit pad vervangen door een net pad
@@ -201,7 +201,6 @@ class AnswersController extends AppController
             }
         }elseif($attachmentInfo['type'] == 'video') {
             $link = $this->_getVideoCode($attachmentInfo['link']);
-
             $this->set('video_src', $link);
             $this->render('attachment_video', 'ajax');
         }
@@ -212,8 +211,6 @@ class AnswersController extends AppController
         $attachment_id = empty($attachment_id) ? $this->Session->read('attachment_id') : $attachment_id;
 
         $this->autoRender = false;
-
-        $attachmentInfo = $this->AnswersService->getAttachmentInfo($attachment_id);
         $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
         $this->response->type('application/pdf');
         $this->response->body($attachmentContent);
@@ -290,18 +287,23 @@ class AnswersController extends AppController
     }
 
     public function download_attachment($attachment_id) {
-
         $this->autoRender = false;
-
         $attachmentInfo = $this->AnswersService->getAttachmentInfo($attachment_id);
         $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
-
-        //file_put_contents(WWW_ROOT.'/mp3/' . time() . '.mp3', $attachmentContent);
-
-        //header('location: /mp3/' . time() . '.mp3');
-
         $this->response->type($attachmentInfo['file_mime_type']);
         $this->response->body($attachmentContent);
+    }
+
+    // Er is een verdraaid lastig probleem met audio files , HTML5 en IOS. Als die namelijk
+    // partial content opvraagt gebeurt dat zonder sessie cookie, en dus mogen ze er niet langs
+    // van cake.
+    // De oplossing nu is om een base64 string te sturen als text en deze als "data uri" op
+    // de pagina te zetten en af te spelen.
+    public function download_attachment_sound($attachment_id) {
+        $attachmentContent = $this->AnswersService->getAttachmentContent($attachment_id);
+        $this->autoRender = false;
+        $this->response->type("text/plain");
+        $this->response->body( base64_encode ($attachmentContent));
     }
 
     private function _getVideoCode($subject) {
