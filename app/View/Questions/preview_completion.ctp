@@ -36,12 +36,12 @@
 
     $question_text = $question['question'];
 
-    $searchPattern = "/\[([0-9]+)\]/i";
+    $searchPattern = "/\[(.*?)\]/i";
     $replacementFunction = function($matches) use ($question){
         $tag_id = $matches[1]-1; // minus 1 because the completion_question_ansers list is 0 based
-        if(isset($question['completion_question_answers'][$tag_id])){
+//        if(isset($question['completion_question_answers'][$tag_id])){
             return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']);
-        }
+//        }
     };
 
     $question_text = preg_replace_callback($searchPattern,$replacementFunction,$question_text);

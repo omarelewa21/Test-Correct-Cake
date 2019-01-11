@@ -375,9 +375,9 @@ class Question extends AppModel
         }
 
         if($type == 'CompletionQuestion') {
-            if(!strstr($question['question'], '[') && !strstr($question['question'], ']')) {
-                $errors[] = "U dient minimaal &eacute;&eacute;n woord tussen vierkante haakjes te plaatsen.";
-            }
+//            if(!strstr($question['question'], '[') && !strstr($question['question'], ']')) {
+//                $errors[] = "U dient minimaal &eacute;&eacute;n woord tussen vierkante haakjes te plaatsen.";
+//            }
         }
 
         if($type == 'MultiCompletionQuestion') {

@@ -19,6 +19,11 @@ class QuestionsController extends AppController {
         parent::beforeFilter();
     }
 
+    protected function hasBackendValidation($questionType){
+        $questionTypesWithBackendValidation = ['completionquestion','multicompletionquestion','completionautovalidatequestion'];
+        return (bool) (in_array(strtolower($questionType),$questionTypesWithBackendValidation));
+    }
+
     public function index() {
         $education_level_years = [
             0 => 'Alle',
@@ -745,13 +750,22 @@ class QuestionsController extends AppController {
             if($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
 
+                if($this->hasBackendValidation($type) && !$result){
+
+                    $this->formResponse(false, $this->QuestionsService->getErrors());
+                    return false;
+                }
+
                 if($type == 'TrueFalseQuestion') {
                     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
                 }
 
-                if($type == 'CompletionQuestion' || $type == 'MultiCompletionQuestion') {
-                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
-                }
+                /**
+                 * 20190110 switched off as we decided to save the data in one call with add question
+                 */
+//                if($type == 'CompletionQuestion' || $type == 'MultiCompletionQuestion') {
+//                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
+//                }
 
                 if($type == 'MultiChoiceQuestion') {
                     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
