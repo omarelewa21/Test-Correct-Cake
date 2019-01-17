@@ -16,29 +16,13 @@
 
     $question_text = $question['question'];
 
-    $count = (object)['nr' => 0];
-    $question_text = preg_replace_callback(
-        '/\[(.*?)\]/i',
-        function ($matches) use ($count) {
-            $count->nr++;
-            return '[' . $count->nr . ']';
-        },
-        $question_text
-    );
-
     $searchPattern = "/\[([0-9]+)\]/i";
     $replacementFunction = function($matches) use ($question, $answerJson){
-        $tag_id = $matches[1]-1; // minus 1 because the completion_question_ansers list is 0 based
+        $tag_id = $matches[1]; // the completion_question_answers list is 0 based
 //        if(isset($question['completion_question_answers'][$tag_id])){
+            $value = '';
             if(isset($answerJson[$tag_id])) {
                 $value = $answerJson[$tag_id];
-
-            if(empty($value)) {
-                }else{
-                    $label = $answerJson[$tag_id];
-                }
-            }else{
-                $value = '';
             }
             return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'value' => $value, 'spellcheck' => 'false', 'onchange' => 'Answer.answerChanged = true;', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']);
 //        }

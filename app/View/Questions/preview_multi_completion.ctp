@@ -38,20 +38,21 @@
 
     $tags = [];
 
+//    foreach($question['completion_question_answers'] as $tag) {
+//        $tags[$tag['tag']] = $tag['answer'];
+//    }
+
     $count = (object)['nr' => 0];
     $question_text = preg_replace_callback(
-        '/\[(.*?)\]/i',
+        '/\[([0-9])\]/i',
         function ($matches) use ($count) {
-            $count->nr++;
-            $tag_id = $count->nr;
+            $tag_id = $matches[1];
             return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]);
         },
         $question_text
     );
 
-//    foreach($question['completion_question_answers'] as $tag) {
-//        $tags[$tag['tag']][] = $tag['answer'];
-//    }
+
 
 //    foreach($tags as $tag_id => $answers) {
 //        $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]), $question_text);

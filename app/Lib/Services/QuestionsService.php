@@ -320,6 +320,7 @@ class QuestionsService extends BaseService {
 
         if($response === false){
             $error = $this->Connector->getLastResponse();
+
             if($this->isValidJson($error)){
                 $err = json_decode($error);
                 foreach($err as $k => $e){
@@ -1339,9 +1340,17 @@ class QuestionsService extends BaseService {
             $tags[$tag['tag']][] = $tag['answer'];
         }
 
-        foreach($tags as $tag => $answers) {
-            $question['question'] = str_replace('['.$tag.']', '['.implode('|', $answers).']', $question['question']);
-        }
+        $searchPattern = '/\[([0-9]+)\]/i';
+        $replacementFunction = function($matches) use ($question, $tags){
+            $tag_id = $matches[1]; // the completion_question_answers list is 1 based
+            if(isset($tags[$tag_id])){
+                return sprintf('[%s]',implode('|',$tags[$tag_id]));
+            }
+        };
+        $question['question'] = preg_replace_callback($searchPattern,$replacementFunction,$question['question']);
+//        foreach($tags as $tag => $answers) {
+//            $question['question'] = str_replace('['.$tag.']', '['.implode('|', $answers).']', $question['question']);
+//        }
 
         return $question;
     }

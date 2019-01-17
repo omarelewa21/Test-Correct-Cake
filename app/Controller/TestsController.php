@@ -231,6 +231,8 @@ class TestsController extends AppController {
 
         foreach ($questions as $question) {
 
+            $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+
             if ($question['question']['type'] == 'CompletionQuestion') {
                 $question['question']['question'] = strip_tags($question['question']['question']);
             }

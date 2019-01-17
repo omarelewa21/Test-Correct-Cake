@@ -7,12 +7,20 @@
 
     $question_text = $question['question'];
 
+    $tags = [];
+
+    foreach($question['completion_question_answers'] as $tag) {
+        if($tag['correct'] == 1) {
+            $tags[$tag['tag']] = $tag['answer'];
+        }
+    }
+
     $question_text = preg_replace_callback(
-        '/\[(.*?)\]/i',
-        function ($matches) use ($count) {
-            $count->nr++;
-            $answers = explode("|",$matches[1]);
-            return '<span style="color:green;">'.$answers[0] .'</span>';
+        '/\[([0-9]+)\]/i',
+        function ($matches) use ($tags) {
+            if(isset($tags[$matches[1]])){
+                return '<span style="color:green;">'.$tags[$matches[1]] .'</span>';
+            }
         },
         $question_text
     );

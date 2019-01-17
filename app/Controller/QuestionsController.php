@@ -437,13 +437,19 @@ class QuestionsController extends AppController {
             if($check['status'] == true) {
                 $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
 
+                if($this->hasBackendValidation($type) && !$result){
+
+                    $this->formResponse(false, $this->QuestionsService->getErrors());
+                    return false;
+                }
+
                 if($type == 'TrueFalseQuestion') {
                     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
                 }
 
-                if($type == 'CompletionQuestion') {
-                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
-                }
+//                if($type == 'CompletionQuestion') {
+//                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
+//                }
 
                 if($type == 'MultipleChoiceQuestion') {
                     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
