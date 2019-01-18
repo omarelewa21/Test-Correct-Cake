@@ -18,7 +18,7 @@
 
     $searchPattern = "/\[([0-9]+)\]/i";
     $replacementFunction = function($matches) use ($question, $answerJson){
-        $tag_id = $matches[1]; // the completion_question_answers list is 0 based
+        $tag_id = $matches[1]-1; // the completion_question_answers list is 1 based but the inputs need to be 0 based
 //        if(isset($question['completion_question_answers'][$tag_id])){
             $value = '';
             if(isset($answerJson[$tag_id])) {

@@ -42,11 +42,25 @@ foreach($participants as $participant) {
                     echo $answerJson['value'];
                 }
 
+/*
                 if($question['type'] == 'CompletionQuestion') {
 
                     $fullAnswer = $question['question'];
                     foreach($answerJson as $index => $value) {
                         $fullAnswer = str_replace('[' . ($index + 1) . ']', '<strong>'.$value . '</strong>', $fullAnswer);
+                    }
+
+                    echo $fullAnswer;
+                }
+*/
+                if($question['type'] == 'CompletionQuestion') {
+                    $fullAnswer = $question['question'];
+                    foreach($answerJson as $index => $value) {
+                        $tag_id = $index;
+                        if($question['subtype'] == 'completion'){
+                            $tag_id += 1;
+                        }
+                        $fullAnswer = str_replace('[' . ($tag_id) . ']', '<strong>'.$value . '</strong>', $fullAnswer);
                     }
 
                     echo $fullAnswer;

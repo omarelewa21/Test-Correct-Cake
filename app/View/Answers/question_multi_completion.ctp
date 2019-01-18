@@ -62,7 +62,7 @@
         }
 
         $answers = $random;
-var_dump($answers);exit;
+
         if(isset($answerJson[$tag_id])) {
             $value = $answerJson[$tag_id];
         }else{
