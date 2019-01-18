@@ -435,6 +435,7 @@ class QuestionsController extends AppController {
             $check = $this->Question->check($type, $question, $this->Session->read());
 
             if($check['status'] == true) {
+
                 $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
 
                 if($this->hasBackendValidation($type) && !$result){

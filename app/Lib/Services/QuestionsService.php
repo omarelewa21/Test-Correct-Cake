@@ -911,11 +911,13 @@ class QuestionsService extends BaseService {
         $oriQuestion = $question;
 
         $params = [];
+        $hasBackendValidation = false;
 
         switch($type) {
             case "CompletionQuestion":
-                $processed = $this->encodeCompletionTags($question['question']);
-                $question['question'] = $processed['question'];
+//                $processed = $this->encodeCompletionTags($question['question']);
+//                $question['question'] = $processed['question'];
+                $hasBackendValidation = true;
                 break;
 
             case "ARQQuestion":
@@ -985,7 +987,26 @@ class QuestionsService extends BaseService {
                 }
 
                 if($response === false){
-                    return $this->Connector->getLastResponse();
+                    $error = $this->Connector->getLastResponse();
+
+                    if($this->isValidJson($error)){
+                        $err = json_decode($error);
+                        foreach($err as $k => $e){
+                            if(is_array($e)){
+                                foreach($e as $a){
+                                    $this->addError($a);
+                                }
+                            }
+                            else{
+                                $this->addError($e);
+                            }
+                        }
+                    }
+
+                    if($hasBackendValidation){
+                        return false;
+                    }
+                    return $error;
                 }
 
                 return $response;
@@ -1009,8 +1030,6 @@ class QuestionsService extends BaseService {
             $question['rtti'] = $oriQuestion['rtti'];
         }
 
-
-
         if($owner == 'test') {
             $response = $this->Connector->putRequest($testUrl , $params, $question);
         }
@@ -1024,6 +1043,32 @@ class QuestionsService extends BaseService {
         }
 
         // die(json_encode($response));
+
+        if($response === false){
+            $error = $this->Connector->getLastResponse();
+
+            if($this->isValidJson($error)){
+                $err = json_decode($error);
+                foreach($err as $k => $e){
+                    if(is_array($e)){
+                        foreach($e as $a){
+                            $this->addError($a);
+                        }
+                    }
+                    else{
+                        $this->addError($e);
+                    }
+                }
+            }
+            else{
+                $this->addError($error);
+            }
+
+            if($hasBackendValidation){
+                return false;
+            }
+            return $error;
+        }
 
         return $response;
     }
