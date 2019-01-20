@@ -320,7 +320,6 @@ class QuestionsService extends BaseService {
 
         if($response === false){
             $error = $this->Connector->getLastResponse();
-
             if($this->isValidJson($error)){
                 $err = json_decode($error);
                 foreach($err as $k => $e){
@@ -333,6 +332,9 @@ class QuestionsService extends BaseService {
                         $this->addError($e);
                     }
                 }
+            }
+            else{
+                $this->addError($response);
             }
 
             if($hasBackendValidation){
@@ -1038,9 +1040,9 @@ class QuestionsService extends BaseService {
             $response = $this->Connector->putRequest($groupUrl, $params, $question);
         }
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
-        }
+//        if($response === false){
+//            return $this->Connector->getLastResponse();
+//        }
 
         // die(json_encode($response));
 
