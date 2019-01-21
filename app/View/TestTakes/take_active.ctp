@@ -55,3 +55,12 @@
     Answer.takeId = <?=$take_id?>;
     
 </script>
+<?
+ if($this->Session->read('Auth.User.time_dispensation') == 1){
+?>
+<script type="text/javascript" src="https://static.browsealoud.nl/js/ba.js"></script>
+<a href="javascript:function __ba(){document.getElementsByTagName('BODY')[0].appendChild(document.createElement('script')).src='https://babm.texthelp.com/Bookmarklet.ashx?l=nl';} __ba();" data-bapdf="118" class="btn highlight" style="display:inline"><i class="fa fa-volume-up"></i> Lees voor</a>
+<script type="text/javascript" src="https://static.browsealoud.nl/js/ba.cookie.js"></script>
+<?
+  }
+?>
