@@ -25,6 +25,13 @@
     <div class="question green" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/<?=$take_id?>');">
         <span class="fa fa-list"></span>
     </div>
+    <?
+     if($this->Session->read('Auth.User.time_dispensation') == 1){
+    ?>
+    <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;" onclick="document.getElementsByTagName('BODY')[0].appendChild(document.createElement('script')).src='https://babm.texthelp.com/Bookmarklet.ashx?l=nl';"><i class="fa fa-volume-up"></i> Lees voor</div>
+    <?
+      }
+    ?>
     <br clear="all" />
 </div>
 
@@ -55,12 +62,4 @@
     Answer.takeId = <?=$take_id?>;
     
 </script>
-<?
- if($this->Session->read('Auth.User.time_dispensation') == 1){
-?>
-<script type="text/javascript" src="https://static.browsealoud.nl/js/ba.js"></script>
-<a href="javascript:function __ba(){document.getElementsByTagName('BODY')[0].appendChild(document.createElement('script')).src='https://babm.texthelp.com/Bookmarklet.ashx?l=nl';} __ba();" data-bapdf="118" class="btn highlight" style="display:inline"><i class="fa fa-volume-up"></i> Lees voor</a>
-<script type="text/javascript" src="https://static.browsealoud.nl/js/ba.cookie.js"></script>
-<?
-  }
-?>
+
