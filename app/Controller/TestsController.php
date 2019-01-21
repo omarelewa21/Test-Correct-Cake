@@ -528,7 +528,6 @@ class TestsController extends AppController {
         $attachmentMatch = array();
 
         foreach ($questions as $question) {
-
             foreach($question['question']['attachments'] as $attachment) {
                     if($attachment['id'] == $attachment_id) {
                         $attachmentMatch = $attachment;
@@ -542,6 +541,7 @@ class TestsController extends AppController {
 
         // $view = new View($this, false);
         $this->set('base64',$attachmentMatch['data']);
+        $this->set('filename', $attachment['title']);
         $this->render('pdfatt', 'ajax');
         // Generate PDF
         // $html = $view->render('pdfatt', 'pdf');
