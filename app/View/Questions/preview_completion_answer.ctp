@@ -15,7 +15,7 @@
         '/\[([0-9]+)\]/i',
         function ($matches) use ($tags) {
             if(isset($tags[$matches[1]])){
-                return '<span style="color:green;">'.$tags[matches[1]] . '</span>';
+                return '<span style="color:green;">'.$tags[$matches[1]] . '</span>';
             }
         },
         $question_text
