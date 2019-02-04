@@ -44,7 +44,7 @@
 
     $count = (object)['nr' => 0];
     $question_text = preg_replace_callback(
-        '/\[([0-9])\]/i',
+        '/\[([0-9]+)\]/i',
         function ($matches) use ($count) {
             $tag_id = $matches[1];
             return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]);
