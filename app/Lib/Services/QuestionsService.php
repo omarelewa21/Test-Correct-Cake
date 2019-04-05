@@ -9,6 +9,8 @@ App::uses('BaseService', 'Lib/Services');
  */
 class QuestionsService extends BaseService {
 
+    protected $error = false;
+
     public function getTests($params)
     {
         $response = $this->Connector->getRequest('/test', $params);
@@ -246,6 +248,8 @@ class QuestionsService extends BaseService {
         $question['maintain_position'] = isset($question['maintain_position']) ? $question['maintain_position'] : 0;
         $oriQuestion = $question;
 
+        $hasBackendValidation = false;
+
         switch($type) {
             case "OpenQuestion":
                 $question = $this->_fillNewOpenQuestion($question);
@@ -256,6 +260,7 @@ class QuestionsService extends BaseService {
                 break;
 
             case "CompletionQuestion":
+                $hasBackendValidation = true;
                 $question = $this->_fillNewCompletionQuestion($question, 'completion');
                 break;
 
@@ -314,7 +319,28 @@ class QuestionsService extends BaseService {
         // die(var_dump($this->Connector));
 
         if($response === false){
-            return $this->Connector->getLastResponse();
+            $error = $this->Connector->getLastResponse();
+            if($this->isValidJson($error)){
+                $err = json_decode($error);
+                foreach($err as $k => $e){
+                    if(is_array($e)){
+                        foreach($e as $a){
+                            $this->addError($a);
+                        }
+                    }
+                    else{
+                        $this->addError($e);
+                    }
+                }
+            }
+            else{
+                $this->addError($response);
+            }
+
+            if($hasBackendValidation){
+                return false;
+            }
+            return $error;
         }
 
         return $response;
@@ -887,11 +913,13 @@ class QuestionsService extends BaseService {
         $oriQuestion = $question;
 
         $params = [];
+        $hasBackendValidation = false;
 
         switch($type) {
             case "CompletionQuestion":
-                $processed = $this->encodeCompletionTags($question['question']);
-                $question['question'] = $processed['question'];
+//                $processed = $this->encodeCompletionTags($question['question']);
+//                $question['question'] = $processed['question'];
+                $hasBackendValidation = true;
                 break;
 
             case "ARQQuestion":
@@ -961,7 +989,26 @@ class QuestionsService extends BaseService {
                 }
 
                 if($response === false){
-                    return $this->Connector->getLastResponse();
+                    $error = $this->Connector->getLastResponse();
+
+                    if($this->isValidJson($error)){
+                        $err = json_decode($error);
+                        foreach($err as $k => $e){
+                            if(is_array($e)){
+                                foreach($e as $a){
+                                    $this->addError($a);
+                                }
+                            }
+                            else{
+                                $this->addError($e);
+                            }
+                        }
+                    }
+
+                    if($hasBackendValidation){
+                        return false;
+                    }
+                    return $error;
                 }
 
                 return $response;
@@ -985,8 +1032,6 @@ class QuestionsService extends BaseService {
             $question['rtti'] = $oriQuestion['rtti'];
         }
 
-
-
         if($owner == 'test') {
             $response = $this->Connector->putRequest($testUrl , $params, $question);
         }
@@ -995,17 +1040,43 @@ class QuestionsService extends BaseService {
             $response = $this->Connector->putRequest($groupUrl, $params, $question);
         }
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
-        }
+//        if($response === false){
+//            return $this->Connector->getLastResponse();
+//        }
 
         // die(json_encode($response));
+
+        if($response === false){
+            $error = $this->Connector->getLastResponse();
+
+            if($this->isValidJson($error)){
+                $err = json_decode($error);
+                foreach($err as $k => $e){
+                    if(is_array($e)){
+                        foreach($e as $a){
+                            $this->addError($a);
+                        }
+                    }
+                    else{
+                        $this->addError($e);
+                    }
+                }
+            }
+            else{
+                $this->addError($error);
+            }
+
+            if($hasBackendValidation){
+                return false;
+            }
+            return $error;
+        }
 
         return $response;
     }
 
     public function setIndex($question_id, $test_id, $index) {
-        $response = $this->Connector->putRequest('/test_question/' . $question_id, [], ['order' => $index]);
+        $response = $this->Connector->putRequest('/test_question/' . $question_id.'/reorder', [], ['order' => $index]);
 
         if($response === false){
             return $this->Connector->getLastResponse();
@@ -1075,7 +1146,7 @@ class QuestionsService extends BaseService {
     }
 
     public function setGroupQuestionIndex($question_id, $group_id, $index) {
-        $response = $this->Connector->putRequest('/group_question_question/' . $group_id. '/' . $question_id, [], ['order' => $index]);
+        $response = $this->Connector->putRequest('/group_question_question/' . $group_id. '/' . $question_id.'/reorder', [], ['order' => $index]);
 
         if($response === false) {
             return $this->Connector->getLastResponse();
@@ -1147,16 +1218,38 @@ class QuestionsService extends BaseService {
         ];
     }
 
+    /**
+     * 20190110 not like this anymore as we will parse and transform the data in the backend
+     */
+//    private function _fillNewCompletionQuestion($question, $subtype = 'completion') {
+//
+//        $processed = $this->encodeCompletionTags($question['question']);
+//
+//        return [
+//            'question' => $processed['question'],
+//            'type' => 'CompletionQuestion',
+//            'score' => $question['score'],
+//            'order' => 0,
+//            'answers' => $processed['answers'],
+//            'maintain_position' => $question['maintain_position'],
+//            'subtype' => $subtype,
+//            'discuss' => $question['discuss'],
+//            'decimal_score' => $question['decimal_score'],
+//            'add_to_database' => $question['add_to_database'],
+//            'attainments' => $question['attainments'],
+//            'note_type' => $question['note_type'],
+//            'is_open_source_content' => $question['is_open_source_content']
+//        ];
+//    }
+
     private function _fillNewCompletionQuestion($question, $subtype = 'completion') {
 
-        $processed = $this->encodeCompletionTags($question['question']);
-
         return [
-            'question' => $processed['question'],
+            'question' => $question['question'],
             'type' => 'CompletionQuestion',
             'score' => $question['score'],
             'order' => 0,
-            'answers' => $processed['answers'],
+//            'answers' => $processed['answers'],
             'maintain_position' => $question['maintain_position'],
             'subtype' => $subtype,
             'discuss' => $question['discuss'],
@@ -1294,14 +1387,27 @@ class QuestionsService extends BaseService {
             $tags[$tag['tag']][] = $tag['answer'];
         }
 
-        foreach($tags as $tag => $answers) {
-            $question['question'] = str_replace('['.$tag.']', '['.implode('|', $answers).']', $question['question']);
-        }
+        $searchPattern = '/\[([0-9]+)\]/i';
+        $replacementFunction = function($matches) use ($question, $tags){
+            $tag_id = $matches[1]; // the completion_question_answers list is 1 based
+            if(isset($tags[$tag_id])){
+                return sprintf('[%s]',implode('|',$tags[$tag_id]));
+            }
+        };
+        $question['question'] = preg_replace_callback($searchPattern,$replacementFunction,$question['question']);
+//        foreach($tags as $tag => $answers) {
+//            $question['question'] = str_replace('['.$tag.']', '['.implode('|', $answers).']', $question['question']);
+//        }
 
         return $question;
     }
 
     public function encodeCompletionTags($question) {
+        /**
+         * 20190110 we don't do this anymore as we transform the question within the backend
+         */
+        return $question;
+
         $parts = explode('[', $question);
 
         $question = "";

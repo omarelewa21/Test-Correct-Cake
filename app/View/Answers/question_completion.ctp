@@ -16,6 +16,21 @@
 
     $question_text = $question['question'];
 
+    $searchPattern = "/\[([0-9]+)\]/i";
+    $replacementFunction = function($matches) use ($question, $answerJson){
+        $tag_id = $matches[1]-1; // the completion_question_answers list is 1 based but the inputs need to be 0 based
+//        if(isset($question['completion_question_answers'][$tag_id])){
+            $value = '';
+            if(isset($answerJson[$tag_id])) {
+                $value = $answerJson[$tag_id];
+            }
+            return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'value' => $value, 'spellcheck' => 'false', 'onchange' => 'Answer.answerChanged = true;', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']);
+//        }
+    };
+
+    $question_text = preg_replace_callback($searchPattern,$replacementFunction,$question_text);
+
+/*
     foreach($question['completion_question_answers'] as $tag_id => $tag) {
 
         if(isset($answerJson[$tag_id])) {
@@ -31,7 +46,7 @@
 
         $question_text = str_replace('['.$tag['tag'].']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'value' => $value, 'spellcheck' => 'false', 'onchange' => 'Answer.answerChanged = true;', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']), $question_text);
     }
-
+*/
     echo $question_text;
     ?>
 </div>

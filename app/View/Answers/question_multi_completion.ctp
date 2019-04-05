@@ -18,21 +18,38 @@
 
     $tags = [];
 
+
     foreach($question['completion_question_answers'] as $tag_id => $tag) {
-
         $tags[$tag['tag']][$tag['answer']] = $tag['answer'];
-
-        if(isset($answerJson[$tag_id])) {
-            $value = $answerJson[$tag_id];
-
-            if(!empty($value)) {
-                $label = $answerJson[$tag_id];
-            }
-        }else{
-            $value = '';
-        }
     }
 
+    $question_text = preg_replace_callback(
+        '/\[([0-9]+)\]/i',
+        function ($matches) use ($tags, $answerJson) {
+            $tag_id = $matches[1];
+            if(isset($answerJson[$tag_id])) {
+                $value = $answerJson[$tag_id];
+            }else{
+                $value = 0;
+            }
+            $answers = $tags[$matches[1]];
+            $keys = array_keys($answers);
+            shuffle($keys);
+            $random = array(
+                0 => 'Selecteer'
+            );
+            foreach ($keys as $key) {
+                $random[$key] = $answers[$key];
+            }
+
+            $answers = $random;
+
+            return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'class' => 'multi_selection_answer', 'onchange' => 'Answer.answerChanged = true', 'value' => $value, 'options' => $answers, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:150px']);
+        },
+        $question_text
+    );
+
+/*
     foreach($tags as $tag_id => $answers) {
 
         $keys = array_keys($answers);
@@ -54,6 +71,7 @@
 
         $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'class' => 'multi_selection_answer', 'onchange' => 'Answer.answerChanged = true', 'value' => $value, 'options' => $answers, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:150px']), $question_text);
     }
+*/
 
 
     echo $question_text;

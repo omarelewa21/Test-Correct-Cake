@@ -35,10 +35,26 @@
     }
 
     $question_text = $question['question'];
+/*
+    $tags = [];
 
-    foreach($question['completion_question_answers'] as $tag_id => $tag) {
-        $question_text = str_replace('['.$tag['tag'].']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']), $question_text);
+    foreach($question['completion_question_answers'] as $tag) {
+        $tags[$tag['tag']] = $tag['answer'];
     }
+*/
+    $searchPattern = '/\[([0-9]+)\]/i';
+    $replacementFunction = function($matches){
+        $input_id = $matches[1]-1; // we need a input list which are 0 based
+//        if(isset($tags[$tag_id])){
+            return $this->Form->input('Answer.'.$input_id ,['id' => 'answer_' . $input_id, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']);
+//        }
+    };
+
+    $question_text = preg_replace_callback($searchPattern,$replacementFunction,$question_text);
+
+//    foreach($question['completion_question_answers'] as $tag_id => $tag) {
+//      $question_text = str_replace('['.$tag['tag'].']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']), $question_text);
+//  }
 
     echo $question_text;
     ?>

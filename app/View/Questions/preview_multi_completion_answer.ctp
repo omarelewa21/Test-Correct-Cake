@@ -15,9 +15,27 @@
         }
     }
 
-    foreach($tags as $tag_id => $answer) {
-        $question_text = str_replace('['.$tag_id.']', '<span style="color:green;">'.$answer.'</span>', $question_text);
-    }
+    $question_text = preg_replace_callback(
+        '/\[([0-9]+)\]/i',
+        function ($matches) use ($tags) {
+            if(isset($tags[$matches[1]])){
+                return '<span style="color:green;">'.$tags[$matches[1]] .'</span>';
+            }
+        },
+        $question_text
+    );
+
+//    $tags = [];
+
+//    foreach($question['completion_question_answers'] as $tag) {
+//        if($tag['correct'] == 1) {
+//            $tags[$tag['tag']] = $tag['answer'];
+//        }
+//    }
+
+//    foreach($tags as $tag_id => $answer) {
+//        $question_text = str_replace('['.$tag_id.']', '<span style="color:green;">'.$answer.'</span>', $question_text);
+//    }
 
     echo $question_text;
     ?>
