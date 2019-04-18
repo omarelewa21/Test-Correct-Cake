@@ -179,6 +179,15 @@ class UsersController extends AppController {
 
     public function profile_picture($user_id) {
         $this->autoRender = false;
+
+        // if in local test mode, don't do a user call, but just show the default icon
+        if(substr(Router::fullBaseUrl(),-5) === '.test'){
+            $result = file_get_contents(APP . WEBROOT_DIR.'/img/ico/user.png');
+            $this->response->type('image/png');
+            $this->response->body($result);
+            return $this->response;
+        }
+
         $user = $this->UsersService->getUser($user_id);
 
         if(empty($user['profile_image_size'])) {

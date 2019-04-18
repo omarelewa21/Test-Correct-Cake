@@ -65,6 +65,7 @@
                 <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> Heeft tijdsdispensatie
             </td>
         </tr>
+        <?php echo $this->element('text2speech'); ?>
         <tr>
             <th width="130">
                 E-mailadres
@@ -120,6 +121,7 @@
 </div>
 
 <script type="text/javascript">
+
     $('#UserAddForm').formify(
         {
             confirm : $('#btnAddUser'),

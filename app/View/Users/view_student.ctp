@@ -36,6 +36,11 @@
                 </td>
                 <th width="10%">Tijd dispensatie</th>
                 <td width="23%"><?=$user['time_dispensation'] == 0 ? 'Nee' : 'Ja'?></td>
+                <th width="10%">Voorlees functionaliteit</th>
+                <td width="23%">
+                    <?=$user['has_text2speech'] == 0 ? 'Nee' : 'Is toegekend'?>
+                    <?= ($user['has_text2speech'] && !$user['active_text2speech']) ? '<br />maar is (tijdelijk) gedeactiveerd' : ''?>
+                </td>
                 <th width="10%">Klassen</th>
                 <td width="23%">
                     <?
