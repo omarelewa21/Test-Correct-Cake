@@ -65,7 +65,7 @@
             </tr>
             <tr>
                 <th>Scholengemeenschap</th>
-                <td colspan="3">
+                <td>
                     <?
                     if(isset($school_location['school']) && !empty($school_location['school']['name'])) {
                         echo $school_location['school']['name'];
@@ -76,6 +76,8 @@
                     }
                     ?>
                 </td>
+                <th>Voorlees licenties</th>
+                <td><span title="Totaal aantal text2speech licenties voor deze locatie"><?=$school_location['count_text2speech']?></span></td>
             </tr>
             <tr>
                 <th>Brin code</th>
