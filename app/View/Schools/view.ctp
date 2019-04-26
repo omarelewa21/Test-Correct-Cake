@@ -78,6 +78,8 @@
             <tr>
                 <th>Brin code</th>
                 <td><?=$school['external_main_code'];?></td>
+                <th>Voorlees licenties</th>
+                <td><?=$school['count_text2speech']?></td>
             </tr>
 
         </table>
