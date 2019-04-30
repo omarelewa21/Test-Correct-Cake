@@ -304,16 +304,22 @@ class TestsController extends AppController {
 
         $attachmentCount = 0;
         $attchmentArray = array();
+        $referenceList = [];
 
         for ($i = 0; $i < count($questionsArray); $i++) {
             if ($questionsArray[$i]['attachments'] != '') {
                 for ($a = 0; $a < count($questionsArray[$i]['attachments']); $a++) {
                     if ($questionsArray[$i]['attachments'][$a]['type'] == 'file' && strpos($questionsArray[$i]['attachments'][$a]['title'],'.pdf' ) ) {
-                        $attachmentCount++;
-                        $attchmentArray[$i][$a]['attachments']['title'] = $questionsArray[$i]['attachments'][$a]['title'];
-                        $attchmentArray[$i][$a]['attachments']['id'] = $questionsArray[$i]['attachments'][$a]['id'];
-                        $attchmentArray[$i][$a]['attachments']['filename'] = $questionsArray[$i]['attachments'][$a]['file_name'];
-                        //$questionsArray[$i]['attachments'][$a]['data'] = "data:" . $questionsArray[$i]['attachments'][$a]['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($questionsArray[$i]['attachments'][$a]['id']));
+                        // only show a file once in the list, based on title
+                        if(!in_array($questionsArray[$i]['attachments'][$a]['title'], $referenceList)) {
+                            $attachmentCount++;
+                            $attchmentArray[$i][$a]['attachments']['title'] = $questionsArray[$i]['attachments'][$a]['title'];
+                            $attchmentArray[$i][$a]['attachments']['id'] = $questionsArray[$i]['attachments'][$a]['id'];
+                            $attchmentArray[$i][$a]['attachments']['filename'] = $questionsArray[$i]['attachments'][$a]['file_name'];
+                            //$questionsArray[$i]['attachments'][$a]['data'] = "data:" . $questionsArray[$i]['attachments'][$a]['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($questionsArray[$i]['attachments'][$a]['id']));
+
+                            $referenceList[] = $questionsArray[$i]['attachments'][$a]['title'];
+                        }
                     }
                 }
             }
@@ -531,10 +537,11 @@ class TestsController extends AppController {
             foreach($question['question']['attachments'] as $attachment) {
                     if($attachment['id'] == $attachment_id) {
                         $attachmentMatch = $attachment;
-                    if ($attachment['type'] == 'file') {
-                        $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($attachment['id']));
+                        if ($attachment['type'] == 'file') {
+                            $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($attachment['id']));
+                            break 2;
+                        }
                     }
-                }
             }
         }
 
