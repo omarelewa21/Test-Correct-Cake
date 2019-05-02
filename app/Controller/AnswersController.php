@@ -312,7 +312,7 @@ class AnswersController extends AppController
 
         preg_match($youtubeRegex, $subject, $matches);
         if(!empty($matches['video_id'])){
-            return 'https://www.youtube.com/embed/'. $matches['video_id'];
+            return sprintf('https://www.youtube.com/embed/%s?rel=0',$matches['video_id']);
         }
 
         preg_match($vimeoRegex, $subject, $matches);
