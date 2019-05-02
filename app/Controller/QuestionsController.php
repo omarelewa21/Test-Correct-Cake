@@ -1108,7 +1108,7 @@ class QuestionsController extends AppController {
             $attachments = $this->Session->read('attachments');
         }
 
-        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'vimeo')) {
+        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'youtu.be') && !strstr($this->request->data['url'], 'vimeo')) {
             echo 0;
         }else {
 
@@ -1127,7 +1127,7 @@ class QuestionsController extends AppController {
         $this->autoRender = false;
         $attachments = [];
 
-        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'vimeo')) {
+        if(!strstr($this->request->data['url'], 'youtube')  && !strstr($this->request->data['url'], 'youtu.be')  && !strstr($this->request->data['url'], 'vimeo')) {
             echo 0;
         }else {
 
