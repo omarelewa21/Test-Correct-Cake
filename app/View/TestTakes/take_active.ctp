@@ -26,7 +26,6 @@
         <span class="fa fa-list"></span>
     </div>
     <?
-    var_dump($this->Session->read('Auth.User'));
      if($this->Session->read('Auth.User.active_text2speech') == 1){
     ?>
     <style>
