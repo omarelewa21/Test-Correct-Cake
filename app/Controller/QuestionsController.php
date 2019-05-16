@@ -20,7 +20,7 @@ class QuestionsController extends AppController {
     }
 
     protected function hasBackendValidation($questionType){
-        $questionTypesWithBackendValidation = ['completionquestion','multicompletionquestion','completionautovalidatequestion'];
+        $questionTypesWithBackendValidation = ['matchingquestion','completionquestion','multicompletionquestion','completionautovalidatequestion'];
         return (bool) (in_array(strtolower($questionType),$questionTypesWithBackendValidation));
     }
 
@@ -473,13 +473,13 @@ class QuestionsController extends AppController {
                     $this->Session->delete('drawing_background');
                 }
 
-                if($type == 'MatchingQuestion') {
-                    if($oldQuestion['question']['subtype'] == 'Classify') {
-                        $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
-                    }else{
-                        $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
-                    }
-                }
+//                if($type == 'MatchingQuestion') {
+//                    if($oldQuestion['question']['subtype'] == 'Classify') {
+//                        $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+//                    }else{
+//                        $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
+//                    }
+//                }
 
                 if($internal === false) {
                     $this->formResponse(true);die;    
@@ -786,9 +786,12 @@ class QuestionsController extends AppController {
                     $this->QuestionsService->addRankingAnswers($result, $question, $owner);
                 }
 
-                if($type == 'MatchingQuestion') {
-                    $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
-                }
+                /**
+                 * 20190514 switched off as we decided to save the data in one call with add question
+                 **/
+//                if($type == 'MatchingQuestion') {
+//                    $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
+//                }
 
                 if($type == 'ClassifyQuestion') {
                     $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
