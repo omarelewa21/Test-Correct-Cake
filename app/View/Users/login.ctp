@@ -1,5 +1,5 @@
 <div class="popup-head">
-    Inloggen op Test-Correct
+    Inloggen op Test-Correct*
 </div>
 
 <div class="popup-content">
