@@ -318,10 +318,10 @@
                 <i class="fa fa-clock-o mr5"></i> Bestaande vraag toevoegen
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/test/<?=$test_id?>', 800); return false;">
-                <i class="fa fa-check mr5"></i> Nieuwe vraag toevoegen
+                <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_group/<?=$test_id?>', 600); return false;">
-                <i class="fa fa-check mr5"></i> Nieuwe vraag-groep
+                <i class="fa fa-plus mr5"></i> Nieuwe vraag-groep
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;">
                 <i class="fa fa-check mr5"></i> Bestaande vraag toevoegen

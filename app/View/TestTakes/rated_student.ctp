@@ -10,7 +10,7 @@
                 <th width="50">Vragen</th>
                 <th width="200">Docent</th>
                 <th width="120">Vak</th>
-                <th width="80">Status</th>
+                <th width="80">Afname</th>
                 <th width="80">Type</th>
                 <th width="60">Weging</th>
                 <th width="100">Cijfer</th>

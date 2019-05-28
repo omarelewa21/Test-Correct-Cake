@@ -10,7 +10,7 @@
     </a>
     <a href="#" class="btn white" onclick="Popup.load('/tests/add', 1000);">
         <span class="fa fa-plus mr5"></span>
-        Nieuwe toets
+        Toets construeren
     </a>
 
     <div class="dropblock" for="filters">

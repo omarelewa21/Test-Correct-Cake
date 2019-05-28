@@ -1,7 +1,7 @@
-<h1>Afgenomen toetsen</h1>
+<h1>Te bespreken toetsen</h1>
 
 <div class="block autoheight">
-    <div class="block-head">Afgenomen toetsen</div>
+    <div class="block-head">Te bespreken toetsen</div>
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
             <thead>

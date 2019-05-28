@@ -582,7 +582,7 @@ class UsersController extends AppController {
             }
 
             if($role['name'] == 'Student') {
-                $menus['tests'] = "Toetsen";
+                $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyse";
                 $menus['messages'] = "Berichten";
             }

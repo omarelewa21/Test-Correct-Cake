@@ -84,8 +84,13 @@ class TestTakesController extends AppController
 
 		$inviligators = $this->TestsService->getInvigilators();
 		$newInviligators = [];
+        $defaultLoggedInUserId = false;
+        $authUserId = AuthComponent::user('id');
 
-		foreach($inviligators as $inviligator) {
+        foreach($inviligators as $inviligator) {
+            if($authUserId == $inviligator['id']){
+                $defaultLoggedInUserId = $inviligator['id'];
+            }
 			$newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
 		}
 
@@ -100,6 +105,7 @@ class TestTakesController extends AppController
 		$this->set('participants', $participants);
 		$this->set('periods', $periods);
 		$this->set('inviligators', $newInviligators);
+		$this->set('defaultInviligator',$defaultLoggedInUserId);
 	}
 
 	public function add($test_id = '') {

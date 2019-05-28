@@ -11,7 +11,7 @@ foreach($test_takes as $test_take) {
         </td>
         <td><?=$test_take['test']['subject']['name']?></td>
         <td>
-            <?=$test_take['test_take_status']['name']?>
+            <?=date('d-m-Y', strtotime($test_take['time_start']))?>
         </td>
         <td>
             <?
