@@ -22,7 +22,7 @@
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
-                    Op plek binnen toets vastpinnen
+                    Deze vraaggroep vastzetten
                 </td>
             </tr>
             <tr>
@@ -54,6 +54,8 @@
 <script type="text/javascript">
 
     $('#QuestionGroupAttainments').select2();
+
+    $('#QuestionGroupText').ckeditor({});
 
     $('#QuestionGroupAddGroupForm').formify(
         {

@@ -1,8 +1,7 @@
 <?
 foreach($tiles as $id => $data) {
     ?>
-    <div class="tile" id="<?=$id?>" menu="<?=$data['menu']?>" path="<?=$data['path']?>">
-        <img src="/img/header/tile-<?=$data['icon']?>.png" /> <br />
+    <div class="tile tile-<?=$data['icon']?>" id="<?=$id?>" menu="<?=$data['menu']?>" path="<?=$data['path']?>">
         <?=$data['title']?>
     </div>
 <?

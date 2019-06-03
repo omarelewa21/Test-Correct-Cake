@@ -113,42 +113,105 @@
     box-shadow:     0px 2px 10px rgba(0, 0, 0, 0.4);
 }
 
-#tiles .tile {
-    float:          left;
-    width:          160px;
-    text-align:     center;
-    margin-right:   10px;
-    font-size:      16px;
-    display:        none;
-    padding:        15px 0px 10px 0px;
+.tile {
+    width: 200px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    margin-right:15px;
+    margin-bottom:10px;
+    margin-top: 5px;
+    float: left;
+    padding: 10px 15px 7px 15px;
 }
 
-#tiles .tile img {
+.tile::before {
+    float: left;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    content: "";
+    display:block;
+    width: 25px;
+    height: 25px;
+    background-size: cover;
+}
+.tile.tile-messages::before{
+    background-image: url('/img/header/tile-messages.png');
+}
+.tile.tile-analyse-leerlingen::before{
+    background-image: url('/img/header/tile-analyse-leerlingen.png');
+}
+.tile.tile-analyse-leraar::before {
+    background-image: url('/img/header/tile-analyse-leraar.png');
+}
+.tile.tile-analyse-klassen::before{
+    background-image: url('/img/header/tile-analyse-klassen.png');
+}
+.tile.tile-analyse-leerling::before{
+    background-image: url('/img/header/tile-analyse-leerling.png');
+}
+.tile.tile-becijferd::before{
+    background-image: url('/img/header/tile-becijferd.png');
+}
+.tile.tile-inzien::before{
+     background-image: url('/img/header/tile-inzien.png');
+ }
+.tile.tile-bespreken::before{
+    background-image: url('/img/header/tile-bespreken.png');
+}
+.tile.tile-gepland::before{
+    background-image: url('/img/header/tile-gepland.png');
+}
+.tile.tile-nakijken::before{
+    background-image: url('/img/header/tile-nakijken.png');
+}
+.tile.tile-afgenomen::before{
+    background-image: url('/img/header/tile-afgenomen.png');
+}
+.tile.tile-surveilleren::before{
+    background-image: url('/img/header/tile-surveilleren.png');
+}
+.tile.tile-questionlist::before{
+    background-image: url('/img/header/tile-questionlist.png');
+}
+.tile.tile-testlist::before{
+    background-image: url('/img/header/tile-testlist.png');
+}
+.tile.plus::before {
+    font-family: "FontAwesome";
+    content: "\f067";
+    float:left;
+}
+
+
+.tile img {
     margin-bottom:  10px;
     margin-left:    5px;
 }
 
-#tiles.blue .tile {
+.blue .tile,
+.blue .defaultMenuButton{
     background:     #197cb4;
     color:          #cfedf6;
 }
 
-#tiles.green .tile {
+.green .tile {
     background:     #689236;
     color:          white;
 }
 
-#tiles .tile span {
+.tile span {
     font-size:      26px;
     margin-bottom:  14px;
 }
 
-#tiles.blue .tile:hover, #tiles.blue .tile.active {
+.blue .tile:hover, .blue .tile.active {
     cursor:         pointer;
     background:     #1d93d6;
 }
 
-#tiles.green .tile:hover, #tiles.green .tile.active {
+.green .tile:hover, .green .tile.active {
     cursor:         pointer;
     background:     #689236;
 }
