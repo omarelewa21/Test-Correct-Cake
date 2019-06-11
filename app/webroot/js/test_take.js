@@ -96,7 +96,7 @@ var TestTake = {
                     }
                 }
             );
-        }, 5000);
+        }, 10000);
     },
 
     delete : function(take_id) {
