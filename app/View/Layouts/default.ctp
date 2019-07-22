@@ -71,7 +71,7 @@
 				<div id="user"></div>
 				<div id="user_menu">
 					<a href="#" onclick="User.logout();" id="btnLogout" class="btn white">Uitloggen</a>
-					<a href="#" onclick="User.resetPassword();" class="btn white mt5">Wachtwoord wijzigen</a>
+					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
 					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white" style="display: none;">Inleveren</a>
 				</div>
 
