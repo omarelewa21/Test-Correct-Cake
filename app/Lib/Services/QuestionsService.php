@@ -7,80 +7,87 @@ App::uses('BaseService', 'Lib/Services');
  *
  *
  */
-class QuestionsService extends BaseService {
+class QuestionsService extends BaseService
+{
 
     protected $error = false;
 
     public function getTests($params)
     {
         $response = $this->Connector->getRequest('/test', $params);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getTest($test_id) {
+    public function getTest($test_id)
+    {
         $response = $this->Connector->getRequest('/test/' . $test_id, []);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function deleteQuestion($owner, $owner_id, $question_id) {
+    public function deleteQuestion($owner, $owner_id, $question_id)
+    {
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $response = $this->Connector->deleteRequest('/test_question/' . $question_id, []);
         }
 
-        if($owner == 'group') {
+        if ($owner == 'group') {
             $response = $this->Connector->deleteRequest('/group_question_question/' . $owner_id . '/' . $question_id, []);
         }
 
 
         echo $this->Connector->getLastResponse();
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function deleteGroup($test_id, $group_id) {
+    public function deleteGroup($test_id, $group_id)
+    {
         $response = $this->Connector->deleteRequest('/test/' . $test_id . '/question_group/' . $group_id, []);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function removeAttachment($owner, $owner_id, $id) {
+    public function removeAttachment($owner, $owner_id, $id)
+    {
 
         $response = $this->Connector->deleteRequest('/test_question/' . $owner_id . '/attachment/' . $id, []);
 
     }
 
-    public function getAttachment($attachment){
+    public function getAttachment($attachment)
+    {
         $response = $this->Connector->getRequest('/test_question/' . $question_id, []);
     }
 
-    public function addAttachments($owner, $owner_id, $attachments) {
+    public function addAttachments($owner, $owner_id, $attachments)
+    {
 
-        foreach($attachments as $attachment) {
-            if($attachment['type'] == 'file') {
+        foreach ($attachments as $attachment) {
+            if ($attachment['type'] == 'file') {
                 $data = [
-                    'type' => 'file',
-                    'title' => $attachment['file']['name'],
+                    'type'       => 'file',
+                    'title'      => $attachment['file']['name'],
                     'attachment' => new CURLFile($attachment['path']),
-                    'json' => isset($attachment['settings']) ? json_encode($attachment['settings']) : '[]'
+                    'json'       => isset($attachment['settings']) ? json_encode($attachment['settings']) : '[]'
                 ];
 
                 $response = $this->Connector->postRequestFile('/test_question/' . $owner_id . '/attachment', [], $data);
-            }elseif($attachment['type'] == 'video') {
+            } elseif ($attachment['type'] == 'video') {
                 $data = [
                     'type' => 'video',
                     'link' => $attachment['url']
@@ -91,7 +98,8 @@ class QuestionsService extends BaseService {
         }
     }
 
-    public function duplicate($owner, $owner_id, $question_id) {
+    public function duplicate($owner, $owner_id, $question_id)
+    {
 
         $data['test_id'] = $owner_id;
         $data['order'] = 0;
@@ -100,7 +108,7 @@ class QuestionsService extends BaseService {
         $data['question_id'] = $question_id;
 
         $response = $this->Connector->postRequest('/test_question', [], $data);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
@@ -108,88 +116,94 @@ class QuestionsService extends BaseService {
     }
 
 
-    public function getQuestion($owner, $owner_id, $question_id) {
+    public function getQuestion($owner, $owner_id, $question_id)
+    {
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $response = $this->Connector->getRequest('/test_question/' . $question_id, []);
-        }else{
-            $response = $this->Connector->getRequest('/group_question_question/' . $owner_id  . '/' . $question_id, []);
+        } else {
+            $response = $this->Connector->getRequest('/group_question_question/' . $owner_id . '/' . $question_id, []);
         }
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getSingleQuestion($question_id) {
+    public function getSingleQuestion($question_id)
+    {
 
         $response = $this->Connector->getRequest('/question/' . $question_id, []);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getQuestions($test_id) {
+    public function getQuestions($test_id)
+    {
         $response = $this->Connector->getRequest('/test/' . $test_id . '/question', []);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getAllQuestions($params) {
+    public function getAllQuestions($params)
+    {
 
         $params['order'] = ['id' => 'desc'];
 
         $response = $this->Connector->getRequest('/question', $params);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function updateGroup($test_id, $group_id, $data) {
+    public function updateGroup($test_id, $group_id, $data)
+    {
 
         $response = $this->Connector->putRequest('/test_question/' . $group_id, [], $data);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getAttainments($education_level_id, $subject_id) {
+    public function getAttainments($education_level_id, $subject_id)
+    {
 
         $params = [
-            'mode' => 'all',
+            'mode'   => 'all',
             'filter' => [
                 'education_level_id' => $education_level_id,
-                'subject_id' => $subject_id,
-                'status' => 'ACTIVE'
+                'subject_id'         => $subject_id,
+                'status'             => 'ACTIVE'
             ]
         ];
 
         $response = $this->Connector->getRequest('/attainment', $params);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         $results = [];
 
-        foreach($response as $item) {
-            if(empty($item['attainment_id'])) {
+        foreach ($response as $item) {
+            if (empty($item['attainment_id'])) {
                 $results[$item['id']] = [
-                    'title' => "[" . $item['code'] . "] " . $item['description'],
+                    'title'       => "[" . $item['code'] . "] " . $item['description'],
                     'attainments' => [
                         '' => 'Geen subdomein'
                     ]
@@ -197,8 +211,8 @@ class QuestionsService extends BaseService {
             }
         }
 
-        foreach($response as $item) {
-            if(!empty($item['attainment_id'])) {
+        foreach ($response as $item) {
+            if (!empty($item['attainment_id'])) {
                 $results[$item['attainment_id']]['attainments'][$item['id']] = "[" . $item['code'] . $item['subcode'] . "] " . $item['description'];
             }
         }
@@ -206,42 +220,45 @@ class QuestionsService extends BaseService {
         return $results;
     }
 
-    public function addGroup($test_id, $group) {
+    public function addGroup($test_id, $group)
+    {
 
         $group = $this->_fillNewQuestionGroup($group);
 
         $group['test_id'] = $test_id;
         $group['type'] = 'GroupQuestion';
 
-        if(empty($group['attainments'])) {
+        if (empty($group['attainments'])) {
             $group['attainments'] = [];
         }
 
         $response = $this->Connector->postRequest('/test_question', [], $group);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getTags($query) {
+    public function getTags($query)
+    {
         $response = $this->Connector->getRequest('/tag', [
             'filter' => [
-                'complete_name' =>  $query
+                'complete_name' => $query
             ],
-            'mode' => 'list'
+            'mode'   => 'list'
         ]);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function addQuestion($owner, $owner_id, $type, $question, $session = null) {
+    public function addQuestion($owner, $owner_id, $type, $question, $session = null)
+    {
 
         $owner = $owner == 'group' ? 'question_group' : 'test';
 
@@ -250,7 +267,7 @@ class QuestionsService extends BaseService {
 
         $hasBackendValidation = false;
 
-        switch($type) {
+        switch ($type) {
             case "OpenQuestion":
                 $question = $this->_fillNewOpenQuestion($question);
                 break;
@@ -293,51 +310,50 @@ class QuestionsService extends BaseService {
                 break;
         }
 
-        if(empty($question['attainments'])) {
+        if (empty($question['attainments'])) {
             $question['attainments'] = [];
         }
 
-        if(empty($oriQuestion['tags'])) {
+        if (empty($oriQuestion['tags'])) {
             $question['tags'] = [];
-        }else{
+        } else {
             $question['tags'] = $oriQuestion['tags'];
         }
 
-        if(empty($oriQuestion['rtti'])) {
+        // added or operator for rtti equaling string null because apparently the frontend return string 'null' an not an empty value;
+        if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
             $question['rtti'] = null;
-        }else{
+        } else {
             $question['rtti'] = $oriQuestion['rtti'];
         }
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question['test_id'] = $owner_id;
             $response = $this->Connector->postRequest('/test_question', [], $question);
-        }else{
+        } else {
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id, [], $question);
         }
 
         // die(var_dump($this->Connector));
 
-        if($response === false){
+        if ($response === false) {
             $error = $this->Connector->getLastResponse();
-            if($this->isValidJson($error)){
+            if ($this->isValidJson($error)) {
                 $err = json_decode($error);
-                foreach($err as $k => $e){
-                    if(is_array($e)){
-                        foreach($e as $a){
+                foreach ($err as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $a) {
                             $this->addError($a);
                         }
-                    }
-                    else{
+                    } else {
                         $this->addError($e);
                     }
                 }
-            }
-            else{
+            } else {
                 $this->addError($response);
             }
 
-            if($hasBackendValidation){
+            if ($hasBackendValidation) {
                 return false;
             }
             return $error;
@@ -346,34 +362,35 @@ class QuestionsService extends BaseService {
         return $response;
     }
 
-    public function addTrueFalseAnswers($result, $question, $owner) {
+    public function addTrueFalseAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkTrueFalseAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkTrueFalseAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkTrueFalseAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $answerTrue = [
             'answer' => 'Juist',
-            'score' => $question['anwser'] == 1 ? $question['score'] : 0,
-            'order' => 0
+            'score'  => $question['anwser'] == 1 ? $question['score'] : 0,
+            'order'  => 0
         ];
 
         $answerFalse = [
             'answer' => 'Onjuist',
-            'score' => $question['anwser'] == 0 ? $question['score'] : 0,
-            'order' => 0
+            'score'  => $question['anwser'] == 0 ? $question['score'] : 0,
+            'order'  => 0
         ];
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/multiple_choice_question_answer', []);
@@ -382,106 +399,110 @@ class QuestionsService extends BaseService {
         $this->Connector->postRequest($path . $question_id . '/multiple_choice_question_answer', [], $answerFalse);
     }
 
-    private function checkTrueFalseAnswersChanged($owner, $owner_id, $question_id, $question) {
+    private function checkTrueFalseAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
 
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
         $currentAnswers = $currentAnswers['question']['multiple_choice_question_answers'];
 
-        if(count($currentAnswers) == 0) {
+        if (count($currentAnswers) == 0) {
             return true;
         }
 
         $currentAnswerResult = '';
 
-        foreach($currentAnswers as $currentAnswer) {
-            if($currentAnswer['score'] > 0) {
+        foreach ($currentAnswers as $currentAnswer) {
+            if ($currentAnswer['score'] > 0) {
                 $currentAnswerResult = $currentAnswer['answer'];
             }
         }
-        if($question['anwser'] == 1 && $currentAnswerResult == 'Onjuist') {
+        if ($question['anwser'] == 1 && $currentAnswerResult == 'Onjuist') {
             return true;
         }
 
-        if($question['anwser'] == 0 && $currentAnswerResult == 'Juist') {
+        if ($question['anwser'] == 0 && $currentAnswerResult == 'Juist') {
             return true;
         }
 
         return false;
-}
+    }
 
-    public function addMultiChoiceAnswers($result, $question, $owner) {
+    public function addMultiChoiceAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkMultiChoiceAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkMultiChoiceAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkMultiChoiceAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/multiple_choice_question_answer', []);
 
-        if($owner != 'test') {
+        if ($owner != 'test') {
             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         }
 
-        foreach($question['answers'] as $answer) {
-            if($answer['answer'] != '') {
+        foreach ($question['answers'] as $answer) {
+            if ($answer['answer'] != '') {
 
                 $response = $this->Connector->postRequest($path . $question_id . '/multiple_choice_question_answer', [], $answer);
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
             }
         }
     }
 
-    public function addARQAnswers($result, $question, $owner) {
+    public function addARQAnswers($result, $question, $owner)
+    {
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkARQAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkARQAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkARQAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/multiple_choice_question_answer', []);
 
-        if($owner != 'test') {
+        if ($owner != 'test') {
             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         }
 
         $i = 1;
-        foreach($question['answers'] as $answer) {
+        foreach ($question['answers'] as $answer) {
 
             $answer['order'] = $i;
             $i++;
 
             $response = $this->Connector->postRequest($path . $question_id . '/multiple_choice_question_answer', [], $answer);
 
-            if($owner != 'test') {
+            if ($owner != 'test') {
                 $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
             }
         }
     }
 
-    public function checkMultiChoiceAnswersChanged($owner, $owner_id, $question_id, $question) {
+    public function checkMultiChoiceAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
 
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
         $currentAnswers = $currentAnswers['question']['multiple_choice_question_answers'];
@@ -490,11 +511,11 @@ class QuestionsService extends BaseService {
         $answerCount = 0;
 
         $i = 0;
-        foreach($question['answers'] as $answer) {
+        foreach ($question['answers'] as $answer) {
             if ($answer['answer'] != '') {
                 $answerCount++;
 
-                if(isset($currentAnswers[$i]['score'])) {
+                if (isset($currentAnswers[$i]['score'])) {
                     if ($currentAnswers[$i]['answer'] != $answer['answer']) {
                         $changed = true;
                     }
@@ -502,7 +523,7 @@ class QuestionsService extends BaseService {
                     if ($currentAnswers[$i]['score'] != $answer['score']) {
                         $changed = true;
                     }
-                }else{
+                } else {
                     $changed = true;
                 }
             }
@@ -510,14 +531,15 @@ class QuestionsService extends BaseService {
             $i++;
         }
 
-        if($answerCount != count($currentAnswers)) {
+        if ($answerCount != count($currentAnswers)) {
             $changed = true;
         }
 
         return $changed;
     }
 
-    public function checkARQAnswersChanged($owner, $owner_id, $question_id, $question) {
+    public function checkARQAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
 
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
         $currentAnswers = $currentAnswers['question']['multiple_choice_question_answers'];
@@ -525,13 +547,13 @@ class QuestionsService extends BaseService {
         $changed = false;
         $answerCount = 0;
 
-        if(!isset($currentAnswers['answers']) || count($currentAnswers['answers']) == 0) {
+        if (!isset($currentAnswers['answers']) || count($currentAnswers['answers']) == 0) {
             return true;
         }
 
         $i = 0;
-        foreach($question['answers'] as $answer) {
-            if(isset($currentAnswers[$i]['score'])) {
+        foreach ($question['answers'] as $answer) {
+            if (isset($currentAnswers[$i]['score'])) {
                 if ($currentAnswers[$i]['score'] != $answer['score']) {
                     $changed = true;
                 }
@@ -540,109 +562,112 @@ class QuestionsService extends BaseService {
             $i++;
         }
 
-        if($answerCount != count($currentAnswers)) {
+        if ($answerCount != count($currentAnswers)) {
             $changed = true;
         }
 
         return $changed;
     }
 
-    public function addRankingAnswers($result, $question, $owner) {
+    public function addRankingAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkRankingAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkRankingAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkRankingAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/ranking_question_answer', []);
 
-        if($owner != 'test') {
+        if ($owner != 'test') {
             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         }
 
-        for($i = 0; $i < 10; $i++) {
-            if($question['answers'][$i]['answer'] != '') {
+        for ($i = 0; $i < 10; $i++) {
+            if ($question['answers'][$i]['answer'] != '') {
 
                 $data = $question['answers'][$i];
                 $data['correct_order'] = $data['order'];
 
                 $response = $this->Connector->postRequest($path . $question_id . '/ranking_question_answer', [], $data);
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
             }
         }
     }
 
-    private function checkRankingAnswersChanged($owner, $owner_id, $question_id, $question) {
+    private function checkRankingAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
         $currentAnswers = $currentAnswers['question']['ranking_question_answers'];
 
 
         $count = 0;
-        foreach($question['answers'] as $answer) {
-            if($answer['answer'] != '') {
+        foreach ($question['answers'] as $answer) {
+            if ($answer['answer'] != '') {
 
-                if(isset($currentAnswers[$count]['answer']) && $answer['answer'] != $currentAnswers[$count]['answer']) {
+                if (isset($currentAnswers[$count]['answer']) && $answer['answer'] != $currentAnswers[$count]['answer']) {
                     return true;
                 }
 
-                $count ++;
+                $count++;
             }
         }
 
-        if($count != count($currentAnswers)) {
+        if ($count != count($currentAnswers)) {
             return true;
         }
 
         return false;
     }
 
-    public function addMatchingAnswers($result, $question, $owner) {
+    public function addMatchingAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkMatchingAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkMatchingAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkMatchingAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         // $response = $this->Connector->deleteRequest($path . $question_id . '/matching_question_answer', []);
 
         // if($owner != 'test') {
-            // $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
+        // $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         // }
 
-        foreach($question['answers'] as $answer) {
-            if($answer['left'] != '') {
+        foreach ($question['answers'] as $answer) {
+            if ($answer['left'] != '') {
                 $left['order'] = $answer['order'];
                 $left['answer'] = $answer['left'];
                 $left['type'] = 'left';
 
                 $response = $this->Connector->postRequest($path . $question_id . '/matching_question_answer', [], $left);
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
 
@@ -653,18 +678,19 @@ class QuestionsService extends BaseService {
 
                 $response = $this->Connector->postRequest($path . $question_id . '/matching_question_answer', [], $right);
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
             }
         }
     }
 
-    public function checkMatchingAnswersChanged($owner, $owner_id, $question_id, $question) {
+    public function checkMatchingAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
         $currentAnswers = $currentAnswers['question']['matching_question_answers'];
 
-        if(empty($currentAnswers)) {
+        if (empty($currentAnswers)) {
             return true;
         }
 
@@ -673,29 +699,29 @@ class QuestionsService extends BaseService {
 
         $currentAnswersArray = [];
 
-        foreach($currentAnswers as $answer) {
-            if($answer['type'] == 'LEFT') {
+        foreach ($currentAnswers as $answer) {
+            if ($answer['type'] == 'LEFT') {
                 $left = $answer['answer'];
-            }else{
+            } else {
                 $currentAnswersArray[] = [
-                    'left' => $left,
+                    'left'  => $left,
                     'right' => $answer['answer']
                 ];
             }
         }
 
         $count = 0;
-        foreach($question['answers'] as $newAnswer) {
+        foreach ($question['answers'] as $newAnswer) {
 
-            if($newAnswer['left'] != '') {
+            if ($newAnswer['left'] != '') {
 
                 $found = false;
 
-                if($currentAnswersArray[$count]['left'] == $newAnswer['left'] && $currentAnswersArray[$count]['right'] == $newAnswer['right']) {
+                if ($currentAnswersArray[$count]['left'] == $newAnswer['left'] && $currentAnswersArray[$count]['right'] == $newAnswer['right']) {
                     $found = true;
                 }
 
-                if(!$found) {
+                if (!$found) {
                     return true;
                 }
 
@@ -704,7 +730,7 @@ class QuestionsService extends BaseService {
             }
         }
 
-        if($count != count($currentAnswersArray)) {
+        if ($count != count($currentAnswersArray)) {
             return true;
         }
 
@@ -712,32 +738,33 @@ class QuestionsService extends BaseService {
         return false;
     }
 
-    public function addClassifyAnswers($result, $question, $owner) {
+    public function addClassifyAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkClassifyAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkClassifyAnswersChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkClassifyAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/matching_question_answer', []);
 
-        if($owner != 'test') {
+        if ($owner != 'test') {
             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         }
 
-        for($i = 0; $i < 10; $i++) {
-            if($question['answers'][$i]['left'] != '') {
+        for ($i = 0; $i < 10; $i++) {
+            if ($question['answers'][$i]['left'] != '') {
                 $left['order'] = $question['answers'][$i]['order'];
                 $left['answer'] = $question['answers'][$i]['left'];
                 $left['type'] = 'left';
@@ -745,22 +772,22 @@ class QuestionsService extends BaseService {
                 $response = $this->Connector->postRequest($path . $question_id . '/matching_question_answer', [], $left);
                 $correct_id = $response['id'];
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
 
                 $rights = $question['answers'][$i]['right'];
                 $rights = explode("\r\n", $rights);
 
-                foreach($rights as $right) {
-                    if($right != '') {
+                foreach ($rights as $right) {
+                    if ($right != '') {
                         $item['order'] = $question['answers'][$i]['order'];
                         $item['answer'] = $right;
                         $item['type'] = 'right';
                         $item['correct_answer_id'] = $correct_id;
                         $response = $this->Connector->postRequest($path . $question_id . '/matching_question_answer', [], $item);
 
-                        if($owner != 'test') {
+                        if ($owner != 'test') {
                             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                         }
                     }
@@ -769,10 +796,11 @@ class QuestionsService extends BaseService {
         }
     }
 
-    private function checkClassifyAnswersChanged($owner, $owner_id, $question_id, $question) {
+    private function checkClassifyAnswersChanged($owner, $owner_id, $question_id, $question)
+    {
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
 
-        if(!isset($currentAnswers['question']['matching_question_answers'])) {
+        if (!isset($currentAnswers['question']['matching_question_answers'])) {
             return true;
         }
 
@@ -782,89 +810,90 @@ class QuestionsService extends BaseService {
 
         $currentAnswersArray = [];
 
-        foreach($currentAnswers as $answer) {
-            if($answer['type'] == 'LEFT') {
+        foreach ($currentAnswers as $answer) {
+            if ($answer['type'] == 'LEFT') {
                 $left = $answer['answer'];
-            }else{
+            } else {
                 $currentAnswersArray[] = [
-                    'left' => $left,
+                    'left'  => $left,
                     'right' => $answer['answer']
                 ];
             }
         }
 
         $count = 0;
-        foreach($question['answers'] as $newAnswer) {
-            if($newAnswer['left'] != '') {
+        foreach ($question['answers'] as $newAnswer) {
+            if ($newAnswer['left'] != '') {
 
-                $count ++;
+                $count++;
                 $count += count(explode("\r\n", $newAnswer['right']));
 
                 $found = false;
 
-                foreach($currentAnswersArray as $currentAnswersItem) {
-                    if($currentAnswersItem['left'] == $newAnswer['left'] && strstr($newAnswer['right'], $currentAnswersItem['right'])) {
+                foreach ($currentAnswersArray as $currentAnswersItem) {
+                    if ($currentAnswersItem['left'] == $newAnswer['left'] && strstr($newAnswer['right'], $currentAnswersItem['right'])) {
                         $found = true;
                     }
                 }
 
-                if(!$found) {
+                if (!$found) {
                     return true;
                 }
 
             }
         }
 
-        if($count != count($currentAnswers)) {
+        if ($count != count($currentAnswers)) {
             return true;
         }
 
         return false;
     }
 
-    public function addCompletionQuestionAnswers($result, $question, $owner) {
+    public function addCompletionQuestionAnswers($result, $question, $owner)
+    {
 
         $question_id = $result['id'];
 
-        if($owner == 'test') {
+        if ($owner == 'test') {
             $question_id = $result['id'];
             $changed = $this->checkCompletionQuestionChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'].'.'.$result['id']; // ID voor wegschrijven vraag
-            $changed = $this->checkCompletionQuestionChanged('group',  $result['group_question_question_path'], $result['id'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkCompletionQuestionChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
 
-        if(!$changed) {
+        if (!$changed) {
             return;
         }
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/completion_question_answer', []);
 
-        if($owner != 'test') {
+        if ($owner != 'test') {
             $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
         }
 
         $answers = $this->encodeCompletionTags($question['question'])['answers'];
 
 
-        foreach($answers as $tag => $answer) {
+        foreach ($answers as $tag => $answer) {
 
             $answerItems = explode('|', $answer);
 
 
             $correct = 1;
-            foreach($answerItems as $answerItem) {
+            foreach ($answerItems as $answerItem) {
 
                 $response = $this->Connector->postRequest($path . $question_id . '/completion_question_answer', [], [
-                    'tag' => $tag,
-                    'answer' => $answerItem,
+                    'tag'     => $tag,
+                    'answer'  => $answerItem,
                     'correct' => $correct
                 ]);
 
-                if($owner != 'test') {
+                if ($owner != 'test') {
                     $question_id = $response['group_question_question_path']; // ID voor wegschrijven vraag
                 }
 
@@ -874,10 +903,11 @@ class QuestionsService extends BaseService {
 
     }
 
-    public function checkCompletionQuestionChanged($owner, $owner_id, $question_id, $question) {
+    public function checkCompletionQuestionChanged($owner, $owner_id, $question_id, $question)
+    {
         $currentAnswers = $this->getQuestion($owner, $owner_id, $question_id);
 
-        if(!isset($currentAnswers['question']['completion_question_answers'])) {
+        if (!isset($currentAnswers['question']['completion_question_answers'])) {
             return true;
         }
 
@@ -889,7 +919,7 @@ class QuestionsService extends BaseService {
         $answerCount = 0;
 
         $i = 0;
-        foreach($answers as $answer) {
+        foreach ($answers as $answer) {
             $answerCount++;
 
             if (!isset($currentAnswers[$i]['answer']) || $currentAnswers[$i]['answer'] != $answer) {
@@ -898,14 +928,15 @@ class QuestionsService extends BaseService {
             $i++;
         }
 
-        if($answerCount != count($currentAnswers)) {
+        if ($answerCount != count($currentAnswers)) {
             $changed = true;
         }
 
         return $changed;
     }
 
-    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null) {
+    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null)
+    {
 
         $testUrl = '/test_question/' . $question_id;
         $groupUrl = '/group_question_question/' . $owner_id . '/' . $question_id;
@@ -915,7 +946,7 @@ class QuestionsService extends BaseService {
         $params = [];
         $hasBackendValidation = false;
 
-        switch($type) {
+        switch ($type) {
             case "CompletionQuestion":
 //                $processed = $this->encodeCompletionTags($question['question']);
 //                $question['question'] = $processed['question'];
@@ -925,24 +956,24 @@ class QuestionsService extends BaseService {
             case "ARQQuestion":
                 $question['score'] = 0;
 
-                for($i = 0; $i < 5; $i++) {
-                    if($question['answers'][$i]['score'] != '' && $question['answers'][$i]['score'] > $question['score']) {
+                for ($i = 0; $i < 5; $i++) {
+                    if ($question['answers'][$i]['score'] != '' && $question['answers'][$i]['score'] > $question['score']) {
                         $question['score'] = $question['answers'][$i]['score'];
                     }
                 }
-            break;
+                break;
 
             case "MultipleChoiceQuestion":
 
                 $question['score'] = 0;
                 $question['selectable_answers'] = 0;
 
-                for($i = 0; $i < 10; $i++) {
-                    if(!empty($question['answers'][$i]['score'])) {
+                for ($i = 0; $i < 10; $i++) {
+                    if (!empty($question['answers'][$i]['score'])) {
                         $question['score'] += $question['answers'][$i]['score'];
                     }
 
-                    if($question['answers'][$i]['score'] != '' && $question['answers'][$i]['score'] > 0) {
+                    if ($question['answers'][$i]['score'] != '' && $question['answers'][$i]['score'] > 0) {
                         $question['selectable_answers']++;
                     }
                 }
@@ -953,59 +984,58 @@ class QuestionsService extends BaseService {
 
                 $attachment = null;
 
-                if(isset($session['drawing_background'])) {
+                if (isset($session['drawing_background'])) {
                     $attachment = new CURLFile($session['drawing_background']);
                 }
 
-                if(isset($session['drawing_grid'])) {
-                    $question['grid']  = $session['drawing_grid'];
+                if (isset($session['drawing_grid'])) {
+                    $question['grid'] = $session['drawing_grid'];
                 }
 
-                if(empty($question['attainments'])) {
+                if (empty($question['attainments'])) {
                     $question['attainments'] = [];
                 }
 
-                if(empty($oriQuestion['tags'])) {
+                if (empty($oriQuestion['tags'])) {
                     $question['tags'] = [];
-                }else{
+                } else {
                     $question['tags'] = $oriQuestion['tags'];
                 }
 
-                if(empty($oriQuestion['rtti'])) {
+                if (empty($oriQuestion['rtti'])) {
                     $question['rtti'] = null;
-                }else{
+                } else {
                     $question['rtti'] = $oriQuestion['rtti'];
                 }
 
                 $question['answer'] = $session['drawing_data'];
                 $question['bg'] = $attachment;
 
-                if($owner == 'test') {
-                    $response = $this->Connector->putRequestFile($testUrl , $params, $question);
+                if ($owner == 'test') {
+                    $response = $this->Connector->putRequestFile($testUrl, $params, $question);
                 }
 
-                if($owner == 'group') {
+                if ($owner == 'group') {
                     $response = $this->Connector->putRequestFile($groupUrl, $params, $question);
                 }
 
-                if($response === false){
+                if ($response === false) {
                     $error = $this->Connector->getLastResponse();
 
-                    if($this->isValidJson($error)){
+                    if ($this->isValidJson($error)) {
                         $err = json_decode($error);
-                        foreach($err as $k => $e){
-                            if(is_array($e)){
-                                foreach($e as $a){
+                        foreach ($err as $k => $e) {
+                            if (is_array($e)) {
+                                foreach ($e as $a) {
                                     $this->addError($a);
                                 }
-                            }
-                            else{
+                            } else {
                                 $this->addError($e);
                             }
                         }
                     }
 
-                    if($hasBackendValidation){
+                    if ($hasBackendValidation) {
                         return false;
                     }
                     return $error;
@@ -1016,27 +1046,27 @@ class QuestionsService extends BaseService {
                 break;
         }
 
-        if(empty($question['attainments'])) {
+        if (empty($question['attainments'])) {
             $question['attainments'] = [];
         }
 
-        if(empty($oriQuestion['tags'])) {
+        if (empty($oriQuestion['tags'])) {
             $question['tags'] = [];
-        }else{
+        } else {
             $question['tags'] = $oriQuestion['tags'];
         }
 
-        if(empty($oriQuestion['rtti'])) {
+        if (empty($oriQuestion['rtti'])) {
             $question['rtti'] = null;
-        }else{
+        } else {
             $question['rtti'] = $oriQuestion['rtti'];
         }
 
-        if($owner == 'test') {
-            $response = $this->Connector->putRequest($testUrl , $params, $question);
+        if ($owner == 'test') {
+            $response = $this->Connector->putRequest($testUrl, $params, $question);
         }
 
-        if($owner == 'group') {
+        if ($owner == 'group') {
             $response = $this->Connector->putRequest($groupUrl, $params, $question);
         }
 
@@ -1046,27 +1076,25 @@ class QuestionsService extends BaseService {
 
         // die(json_encode($response));
 
-        if($response === false){
+        if ($response === false) {
             $error = $this->Connector->getLastResponse();
 
-            if($this->isValidJson($error)){
+            if ($this->isValidJson($error)) {
                 $err = json_decode($error);
-                foreach($err as $k => $e){
-                    if(is_array($e)){
-                        foreach($e as $a){
+                foreach ($err as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $a) {
                             $this->addError($a);
                         }
-                    }
-                    else{
+                    } else {
                         $this->addError($e);
                     }
                 }
-            }
-            else{
+            } else {
                 $this->addError($error);
             }
 
-            if($hasBackendValidation){
+            if ($hasBackendValidation) {
                 return false;
             }
             return $error;
@@ -1075,65 +1103,71 @@ class QuestionsService extends BaseService {
         return $response;
     }
 
-    public function setIndex($question_id, $test_id, $index) {
-        $response = $this->Connector->putRequest('/test_question/' . $question_id.'/reorder', [], ['order' => $index]);
+    public function setIndex($question_id, $test_id, $index)
+    {
+        $response = $this->Connector->putRequest('/test_question/' . $question_id . '/reorder', [], ['order' => $index]);
 
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function setGroupIndex($group_id, $test_id, $index) {
+    public function setGroupIndex($group_id, $test_id, $index)
+    {
         $response = $this->Connector->putRequest('/test/' . $test_id . '/question_group/' . $group_id, [], ['order' => $index]);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getGroup($test_id, $group_id) {
-        $response = $this->Connector->getRequest('/test/'.$test_id.'/question_group/'.$group_id, []);
-        if($response === false){
+    public function getGroup($test_id, $group_id)
+    {
+        $response = $this->Connector->getRequest('/test/' . $test_id . '/question_group/' . $group_id, []);
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getGroups($test_id) {
+    public function getGroups($test_id)
+    {
 
         $params['mode'] = 'list';
 
-        $response = $this->Connector->getRequest('/test/'.$test_id.'/question_group', $params);
-        if($response === false){
+        $response = $this->Connector->getRequest('/test/' . $test_id . '/question_group', $params);
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function moveToGroup($question_id, $group_id) {
-        $response = $this->Connector->putRequest('/question_group/' . $group_id. '/question/' . $question_id, [], ['order' => 0]);
-        if($response === false) {
+    public function moveToGroup($question_id, $group_id)
+    {
+        $response = $this->Connector->putRequest('/question_group/' . $group_id . '/question/' . $question_id, [], ['order' => 0]);
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function getGroupQuestions($test_id, $group_id) {
+    public function getGroupQuestions($test_id, $group_id)
+    {
 
-        $response = $this->Connector->getRequest('/test/'.$test_id.'/question_group/'.$group_id, []);
+        $response = $this->Connector->getRequest('/test/' . $test_id . '/question_group/' . $group_id, []);
 
         debug($response);
-        if($response === false){
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
-        usort($response['questions'], function($a, $b) {
+        usort($response['questions'], function ($a, $b) {
             $a = $a['order'];
             $b = $b['order'];
             if ($a == $b) {
@@ -1145,75 +1179,79 @@ class QuestionsService extends BaseService {
         return $response['questions'];
     }
 
-    public function setGroupQuestionIndex($question_id, $group_id, $index) {
-        $response = $this->Connector->putRequest('/group_question_question/' . $group_id. '/' . $question_id.'/reorder', [], ['order' => $index]);
+    public function setGroupQuestionIndex($question_id, $group_id, $index)
+    {
+        $response = $this->Connector->putRequest('/group_question_question/' . $group_id . '/' . $question_id . '/reorder', [], ['order' => $index]);
 
-        if($response === false) {
+        if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
     }
 
-    public function uploadBackground($result, $question, $owner, $session) {
+    public function uploadBackground($result, $question, $owner, $session)
+    {
 
 
-        if(isset($session['drawing_background'])) {
+        if (isset($session['drawing_background'])) {
             $data['bg'] = new CURLFile($session['drawing_background']);
 
-            if($owner == 'test') {
+            if ($owner == 'test') {
                 $response = $this->Connector->putRequestFile('/test_question/' . $result['id'], [], $data);
-            }else{
-                $question_id = $result['group_question_question_path'].'/'.$result['id'];
+            } else {
+                $question_id = $result['group_question_question_path'] . '/' . $result['id'];
                 $response = $this->Connector->putRequestFile('/group_question_question/' . $question_id, [], $data);
             }
 
-            if($response === false){
+            if ($response === false) {
                 return $this->Connector->getLastResponse();
             }
         }
     }
 
-    private function _fillNewOpenQuestion($question) {
+    private function _fillNewOpenQuestion($question)
+    {
 
         return [
-            'question' => $question['question'],
-            'answer' => $question['answer'],
-            'type' => 'OpenQuestion',
-            'score' => $question['score'],
-            'order' => 0,
-            'subtype' => $question['subtype'],
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'question'               => $question['question'],
+            'answer'                 => $question['answer'],
+            'type'                   => 'OpenQuestion',
+            'score'                  => $question['score'],
+            'order'                  => 0,
+            'subtype'                => $question['subtype'],
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    private function _fillNewDrawingQuestion($question, $session) {
+    private function _fillNewDrawingQuestion($question, $session)
+    {
 
         $grid = 0;
 
-        if(isset($session['drawing_grid'])) {
+        if (isset($session['drawing_grid'])) {
             $grid = $session['drawing_grid'];
         }
 
         return [
-            'question' => $question['question'],
-            'answer' => $session['drawing_data'],
-            'type' => 'DrawingQuestion',
-            'score' => $question['score'],
-            'order' => 0,
-            'grid' => $grid,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'question'               => $question['question'],
+            'answer'                 => $session['drawing_data'],
+            'type'                   => 'DrawingQuestion',
+            'score'                  => $question['score'],
+            'order'                  => 0,
+            'grid'                   => $grid,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1242,50 +1280,53 @@ class QuestionsService extends BaseService {
 //        ];
 //    }
 
-    private function _fillNewCompletionQuestion($question, $subtype = 'completion') {
+    private function _fillNewCompletionQuestion($question, $subtype = 'completion')
+    {
 
         return [
-            'question' => $question['question'],
-            'type' => 'CompletionQuestion',
-            'score' => $question['score'],
-            'order' => 0,
+            'question'               => $question['question'],
+            'type'                   => 'CompletionQuestion',
+            'score'                  => $question['score'],
+            'order'                  => 0,
 //            'answers' => $processed['answers'],
-            'maintain_position' => $question['maintain_position'],
-            'subtype' => $subtype,
-            'discuss' => $question['discuss'],
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'maintain_position'      => $question['maintain_position'],
+            'subtype'                => $subtype,
+            'discuss'                => $question['discuss'],
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    private function _fillNewQuestionGroup($group) {
+    private function _fillNewQuestionGroup($group)
+    {
         return [
-            'name' => $group['name'],
-            'question' => $group['text'],
-            'order' => 0,
-            'shuffle' => $group['shuffle'],
+            'name'              => $group['name'],
+            'question'          => $group['text'],
+            'order'             => 0,
+            'shuffle'           => $group['shuffle'],
             'maintain_position' => $group['maintain_position'],
-            'discuss' => 0,
-            'add_to_database' => $group['add_to_database'],
+            'discuss'           => 0,
+            'add_to_database'   => $group['add_to_database'],
         ];
     }
 
-    private function _fillNewTrueFalseQuestion($question) {
+    private function _fillNewTrueFalseQuestion($question)
+    {
         return [
-            'question' => $question['question'],
-            'type' => 'MultipleChoiceQuestion',
-            'order' => 0,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'score' => $question['score'],
-            'subtype' => 'TrueFalse',
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'question'               => $question['question'],
+            'type'                   => 'MultipleChoiceQuestion',
+            'order'                  => 0,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'score'                  => $question['score'],
+            'subtype'                => 'TrueFalse',
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1297,7 +1338,7 @@ class QuestionsService extends BaseService {
         $selectable_answers = 0;
 
         for ($i = 0; $i < 10; $i++) {
-            if(isset($question['answers'][$i])) {
+            if (isset($question['answers'][$i])) {
                 if (!empty($question['answers'][$i]['score'])) {
                     $score += $question['answers'][$i]['score'];
                 }
@@ -1313,88 +1354,92 @@ class QuestionsService extends BaseService {
         }
 
         return [
-            'question' => $question['question'],
-            'type' => 'MultipleChoiceQuestion',
-            'order' => 0,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'score' => $score,
-            'subtype' => $subtype,
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'selectable_answers' => $selectable_answers,
-            'note_type' => $question['note_type'],
+            'question'               => $question['question'],
+            'type'                   => 'MultipleChoiceQuestion',
+            'order'                  => 0,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'score'                  => $score,
+            'subtype'                => $subtype,
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'selectable_answers'     => $selectable_answers,
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    private function _fillNewRankingQuestion($question) {
+    private function _fillNewRankingQuestion($question)
+    {
         return [
-            'type' => 'RankingQuestion',
-            'score' => $question['score'],
-            'question' => $question['question'],
-            'order' => 0,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'type'                   => 'RankingQuestion',
+            'score'                  => $question['score'],
+            'question'               => $question['question'],
+            'order'                  => 0,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    public function _fillNewMatchingQuestion($question) {
+    public function _fillNewMatchingQuestion($question)
+    {
         return [
-            'type' => 'MatchingQuestion',
-            'score' => $question['score'],
-            'question' => $question['question'],
-            'order' => 0,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'subtype' => 'Matching',
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'type'                   => 'MatchingQuestion',
+            'score'                  => $question['score'],
+            'question'               => $question['question'],
+            'order'                  => 0,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'subtype'                => 'Matching',
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    public function _fillNewClassifyQuestion($question) {
+    public function _fillNewClassifyQuestion($question)
+    {
         return [
-            'type' => 'MatchingQuestion',
-            'score' => $question['score'],
-            'question' => $question['question'],
-            'order' => 0,
-            'maintain_position' => $question['maintain_position'],
-            'discuss' => $question['discuss'],
-            'subtype' => 'Classify',
-            'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
-            'attainments' => $question['attainments'],
-            'note_type' => $question['note_type'],
+            'type'                   => 'MatchingQuestion',
+            'score'                  => $question['score'],
+            'question'               => $question['question'],
+            'order'                  => 0,
+            'maintain_position'      => $question['maintain_position'],
+            'discuss'                => $question['discuss'],
+            'subtype'                => 'Classify',
+            'decimal_score'          => $question['decimal_score'],
+            'add_to_database'        => $question['add_to_database'],
+            'attainments'            => $question['attainments'],
+            'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
 
-    public function decodeCompletionTags($question) {
+    public function decodeCompletionTags($question)
+    {
 
         $tags = [];
 
-        foreach($question['completion_question_answers'] as $tag) {
+        foreach ($question['completion_question_answers'] as $tag) {
             $tags[$tag['tag']][] = $tag['answer'];
         }
 
         $searchPattern = '/\[([0-9]+)\]/i';
-        $replacementFunction = function($matches) use ($question, $tags){
+        $replacementFunction = function ($matches) use ($question, $tags) {
             $tag_id = $matches[1]; // the completion_question_answers list is 1 based
-            if(isset($tags[$tag_id])){
-                return sprintf('[%s]',implode('|',$tags[$tag_id]));
+            if (isset($tags[$tag_id])) {
+                return sprintf('[%s]', implode('|', $tags[$tag_id]));
             }
         };
-        $question['question'] = preg_replace_callback($searchPattern,$replacementFunction,$question['question']);
+        $question['question'] = preg_replace_callback($searchPattern, $replacementFunction, $question['question']);
 //        foreach($tags as $tag => $answers) {
 //            $question['question'] = str_replace('['.$tag.']', '['.implode('|', $answers).']', $question['question']);
 //        }
@@ -1402,7 +1447,8 @@ class QuestionsService extends BaseService {
         return $question;
     }
 
-    public function encodeCompletionTags($question) {
+    public function encodeCompletionTags($question)
+    {
         /**
          * 20190110 we don't do this anymore as we transform the question within the backend
          */
@@ -1414,24 +1460,24 @@ class QuestionsService extends BaseService {
         $answers = [];
         $index = 1;
 
-        foreach($parts as $part) {
-            if(strstr($part, ']')) {
+        foreach ($parts as $part) {
+            if (strstr($part, ']')) {
                 $part = explode(']', $part);
 
                 $answers[$index] = $part[0];
-                $question .= "[".$index."]";
+                $question .= "[" . $index . "]";
                 $question .= $part[1];
 
                 $index++;
 
-            }else{
+            } else {
                 $question .= $part;
             }
         }
 
         return [
             'question' => $question,
-            'answers' => $answers
+            'answers'  => $answers
         ];
     }
 }
