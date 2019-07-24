@@ -1761,14 +1761,23 @@ class TestTakesController extends AppController
 
 			$yearinfo = $this->SchoolYearsService->getSchoolYear($testTakeInfo['school_classes']['school_year_id'])["data"][0];
 
-			$nextYear = (int)$yearinfo['year']+1;
-			$year = (string) $yearinfo['year'] . '-' . (string) $nextYear;
-
-			$debug = $yearinfo;
-
-			$year = "2018-2019";	
-			$this->log("MARKO: Verwijder deze hack!".$year, 'error');
-
+			if(substr_count($yearinfo,'-') > 0){
+			    $year = $yearinfo;
+            }
+            else{
+                $baseYear = (int) $yearinfo['year'];
+                if($baseYear < 1995){
+                    $baseYear = date("Y");
+                }
+                $nextYear = (int) $baseYear+1;
+                $year = sprintf('%d-%d',$baseYear,$nextYear);
+            }
+//
+//			$debug = $yearinfo;
+//
+//
+//			$year = "2018-2019";
+//			$this->log("MARKO: Verwijder deze hack!".$year, 'error');
 
 			$date = new DateTime('now');
 
