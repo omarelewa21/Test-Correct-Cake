@@ -454,6 +454,7 @@ class QuestionsController extends AppController {
 
                 if($type == 'MultipleChoiceQuestion') {
                     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+
                 }
 
                 if($type == 'ARQQuestion') {
@@ -756,7 +757,6 @@ class QuestionsController extends AppController {
 
             if($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
-
                 if($this->hasBackendValidation($type) && !$result){
 
                     $this->formResponse(false, $this->QuestionsService->getErrors());

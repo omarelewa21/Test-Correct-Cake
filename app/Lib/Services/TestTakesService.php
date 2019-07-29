@@ -343,7 +343,8 @@ class TestTakesService extends BaseService {
             $data['answer_id'] = $answer_id;
         }
 
-        $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_participant/' . $participant_id . '/heartbeat', $data, []);
+        $path = '/test_take/' . $take_id . '/test_participant/' . $participant_id . '/heartbeat';
+        $response = $this->Connector->postRequest($path, $data, []);
 
         if($response === false){
             return $this->Connector->getLastResponse();
