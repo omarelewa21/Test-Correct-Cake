@@ -73,6 +73,7 @@ $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
 if (!defined('CAKE_CORE_INCLUDE_PATH') && file_exists($vendorPath . DS . $dispatcher)) {
 	define('CAKE_CORE_INCLUDE_PATH', $vendorPath);
 }
+
 /**
  * Editing below this line should NOT be necessary.
  * Change at your own risk.
@@ -92,6 +93,7 @@ if (php_sapi_name() === 'cli-server') {
 	}
 	$_SERVER['PHP_SELF'] = '/' . basename(__FILE__);
 }
+
 if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	if (function_exists('ini_set')) {
 		ini_set('include_path', ROOT . DS . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
@@ -105,6 +107,9 @@ if (!defined('CAKE_CORE_INCLUDE_PATH')) {
 	}
 }
 
+App::uses('SobitLogger','Lib');
+$logger = SobitLogger::getInstance()->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+
 if (!empty($failed)) {
 	trigger_error("CakePHP core could not be found. Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php. It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
 }
@@ -112,7 +117,10 @@ if (!empty($failed)) {
 App::uses('Dispatcher', 'Routing');
 
 $Dispatcher = new Dispatcher();
+
 $Dispatcher->dispatch(
 	new CakeRequest(),
 	new CakeResponse()
 );
+
+$logger->endMain();

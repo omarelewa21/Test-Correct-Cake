@@ -119,6 +119,49 @@ class AnswersController extends AppController
         }
     }
 
+    public function save2019($time) {
+
+        $this->autoRender = false;
+
+        $answer_id = $this->Session->read('answer_id');
+        $question_id = $this->Session->read('question_id');
+        $participant_id = $this->Session->read('participant_id');
+        $take_id = $this->Session->read('take_id');
+
+        $data = $this->request->data;
+
+        $question = $this->AnswersService->getParticipantQuestion($question_id);
+        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+
+        // $filecontent = $this->Session->read('drawing_data')[$question_id]['drawing'];
+        // $base = explode(',',$filecontent)[1];
+        // $imagecontent = base64_decode($base);
+        // $PATH = realpath($_SERVER['DOCUMENT_ROOT']).'/app/tmp/drawing/test.png';
+        // $res = file_put_contents($PATH, $imagecontent);
+        //
+        // echo (json_encode(
+        //   $PATH
+        // ));
+        // exit();
+
+        $this->AnswersService->saveAnswer($participant_id, $answer_id, $question, $data, $time, $_SESSION);
+
+        $take_question_index = $this->Session->read('take_question_index');
+
+        if(isset($questions[$take_question_index + 1])) {
+            echo json_encode([
+                'status' => 'next',
+                'take_id' => $take_id,
+                'question_id' => ($take_question_index + 1)
+            ]);
+        }else{
+            echo json_encode([
+                'status' => 'done'
+            ]);
+        }
+    }
+
+
     public function save($time) {
 
         $this->autoRender = false;

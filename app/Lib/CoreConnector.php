@@ -216,6 +216,10 @@ class CoreConnector {
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
         curl_close($handle);
 
+
+        App::uses('SobitLogger','Lib');
+        SobitLogger::getInstance()->endSub();
+
         if($this->getLastCode() == 440 || ($this->getLastCode() == 500 && $response == 'Session expired.')) {
             die('logout');
         }
@@ -234,6 +238,9 @@ class CoreConnector {
 
     private function _getHandle($url, $method)
     {
+        App::uses('SobitLogger','Lib');
+        SobitLogger::getInstance()->startSub($url, $method);
+
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
