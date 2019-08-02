@@ -847,8 +847,8 @@ class TestTakesController extends AppController
 				$view = 'take_planned';
 				break;
 			case 3:
-				$participants = $this->TestTakesService->getParticipants($take_id);
-				$test_take = $this->TestTakesService->getTestTake($take_id);
+//				$participants = $this->TestTakesService->getParticipants($take_id);
+//				$test_take = $this->TestTakesService->getTestTake($take_id);
 
 				if($clean && $participant_status == 3)
 				{

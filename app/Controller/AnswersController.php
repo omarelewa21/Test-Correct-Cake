@@ -20,8 +20,101 @@ class AnswersController extends AppController
         parent::beforeFilter();
     }
 
+    public function question2019($question_id)
+    {
+        $participant_id = $this->Session->read('participant_id');
+
+        $question = $this->AnswersService->getParticipantQuestion($question_id);
+        $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id);
+
+        $this->Session->write('answer_id', $answer['id']);
+        $this->Session->write('question_id', $question_id);
+        /**
+         * @2019
+         */
+        $this->Session->write('question',serialize($question));
+
+        if(empty($answer['json'])) {
+            $answerJson = null;
+        }else{
+            $answerJson = json_decode($answer['json'], true);
+        }
+
+        $timeout = null;
+
+        foreach($question['attachments'] as $attachment) {
+            if(isset($attachment['json'])) {
+                $settings = json_decode($attachment['json'], true);
+                if(isset($settings['timeout']) && !empty($settings['timeout'])) {
+                    $timeout = $settings['timeout'];
+                }
+            }
+        }
+        if(!empty($timeout) && $answer['time'] > 0) {
+            die('Het is niet meer mogelijk deze vraag te beantwoorden');
+        }
+
+
+        switch($question['type']) {
+            case 'OpenQuestion':
+                $view = 'question_open';
+                break;
+
+            case 'CompletionQuestion':
+                if($question['subtype'] == 'completion') {
+                    $view = 'question_completion';
+                }else{
+                    $view = 'question_multi_completion';
+                }
+                break;
+
+            case 'MatchingQuestion':
+                $view = 'question_matching';
+                break;
+
+            case 'MultipleChoiceQuestion':
+                if($question['subtype'] == 'multi' || $question['subtype'] == 'MultipleChoice' ||  $question['subtype'] == 'MultiChoice' || $question['subtype'] == 'TrueFalse') {
+                    $view = 'question_multiple_choice';
+                }else{
+                    $view = 'question_arq';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'question_ranking';
+                break;
+
+            case 'DrawingQuestion':
+                $view = 'question_drawing';
+                break;
+
+            default:
+                echo $question['id'];
+                break;
+        }
+
+
+        if(isset($answer['answer_parent_questions'][0]['group_question']['attachments'])) {
+            $question['attachments'] = $answer['answer_parent_questions'][0]['group_question']['attachments'];
+        }
+
+        if(isset($answer['answer_parent_questions'][0]['group_question']['question'])) {
+            $question['question'] = "<p>" . $answer['answer_parent_questions'][0]['group_question']['question'] . "</p>" . $question['question'];
+        }
+
+        $this->set('has_next_question', $this->Session->read('has_next_question'));
+        $this->set('answer', $answer);
+        $this->set('answerJson', $answerJson);
+        $this->set('question', $question);
+
+        $this->render($view, 'ajax');
+    }
+
     public function question($question_id)
     {
+        $this->question2019($question_id);
+        return;
+
         $participant_id = $this->Session->read('participant_id');
 
         $question = $this->AnswersService->getParticipantQuestion($question_id);
@@ -130,39 +223,46 @@ class AnswersController extends AppController
 
         $data = $this->request->data;
 
-        $question = $this->AnswersService->getParticipantQuestion($question_id);
-        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
 
-        // $filecontent = $this->Session->read('drawing_data')[$question_id]['drawing'];
-        // $base = explode(',',$filecontent)[1];
-        // $imagecontent = base64_decode($base);
-        // $PATH = realpath($_SERVER['DOCUMENT_ROOT']).'/app/tmp/drawing/test.png';
-        // $res = file_put_contents($PATH, $imagecontent);
-        //
-        // echo (json_encode(
-        //   $PATH
-        // ));
-        // exit();
+        $question = $this->Session->read('question');
+        $needsQuestionFromRemote = true;
+        if($question && strlen($question) > 3){
+            $question = unserialize($question);
+            if($question['id'] == $question_id){
+                $needsQuestionFromRemote = false;
+            }
+        }
 
-        $this->AnswersService->saveAnswer($participant_id, $answer_id, $question, $data, $time, $_SESSION);
+        if($needsQuestionFromRemote) {
+            $question = $this->AnswersService->getParticipantQuestion($question_id);
+        }
+//        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
 
         $take_question_index = $this->Session->read('take_question_index');
 
-        if(isset($questions[$take_question_index + 1])) {
-            echo json_encode([
-                'status' => 'next',
-                'take_id' => $take_id,
-                'question_id' => ($take_question_index + 1)
-            ]);
-        }else{
-            echo json_encode([
-                'status' => 'done'
-            ]);
+        $response = $this->AnswersService->saveAnswer2019($participant_id, $answer_id, $question, $data, $time, $_SESSION, $take_question_index, $take_id);
+
+        if($response && is_array($response) && isset($response['success']) && $response['success'] == true){
+            echo json_encode($response);
+        }else {
+            $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+            if (isset($questions[$take_question_index + 1])) {
+                echo json_encode([
+                    'status' => 'next',
+                    'take_id' => $take_id,
+                    'question_id' => ($take_question_index + 1)
+                ]);
+            } else {
+                echo json_encode([
+                    'status' => 'done'
+                ]);
+            }
         }
     }
 
 
     public function save($time) {
+        return $this->save2019($time);
 
         $this->autoRender = false;
 
