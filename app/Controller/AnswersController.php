@@ -24,11 +24,17 @@ class AnswersController extends AppController
     {
         $participant_id = $this->Session->read('participant_id');
 
-        $question = $this->AnswersService->getParticipantQuestion($question_id);
-        $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id);
+//        $question = $this->AnswersService->getParticipantQuestion($question_id);
+//        $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id);
+
+        $response = $this->AnswersService->getParticipantQuestionAndAnswer($question_id, $participant_id);
+
+        $question = $response['question'];
+        $answer = $response['answer'];
 
         $this->Session->write('answer_id', $answer['id']);
         $this->Session->write('question_id', $question_id);
+
         /**
          * @2019
          */
@@ -242,6 +248,12 @@ class AnswersController extends AppController
 
         $response = $this->AnswersService->saveAnswer2019($participant_id, $answer_id, $question, $data, $time, $_SESSION, $take_question_index, $take_id);
 
+        if(!$response){
+            // should return the latest error, but isn't handled in the browser
+            echo json_encode([
+                'status' => 'done'
+            ]);
+        }
         if($response && is_array($response) && isset($response['success']) && $response['success'] == true){
             echo json_encode($response);
         }else {

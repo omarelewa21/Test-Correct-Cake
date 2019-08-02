@@ -8,6 +8,28 @@ App::uses('BaseService', 'Lib/Services');
  *
  */
 class AnswersService extends BaseService {
+
+    public function getParticipantQuestionAndAnswer($question_id, $participant_id)
+    {
+        $params['filter'] = ['question_id' => $question_id];
+        $params['mode'] = 'all';
+        $params['with'] = ['question'];
+
+        $response = $this->Connector->getRequest(
+            sprintf(
+                '/test_participant/%d/question_and_answer2019/%d',
+                $participant_id,
+                $question_id
+            ),
+            $params);
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+        else return $response;
+    }
+
     public function getParticipantQuestion($question_id) {
         $response = $this->Connector->getRequest('/question/' . $question_id, []);
 
@@ -132,7 +154,8 @@ class AnswersService extends BaseService {
         $response = $this->Connector->putRequest('/test_participant/' . $participant_id . '/answer2019/' . $answer_id, [], $data);
 
         if($response === false){
-            return $this->Connector->getLastResponse();
+            $this->addError($this->Connector->getLastResponse());
+            return false;
         } else {
             return $response;
         }
