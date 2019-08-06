@@ -832,7 +832,98 @@ class TestTakesController extends AppController
 		$this->TestTakesService->setRating($rating_id, $this->request->data['rating']);
 	}
 
+    public function take2019($take_id, $question_index = null, $clean = false) {
+
+	    $questions = false;
+
+        $participant_id = $this->Session->read('participant_id');
+        $takeId = $this->Session->read('take_id');
+
+        if($participant_id && $takeId == $take_id){
+            $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+            if ($response) {
+                $questions = $response['answers'];
+                $take = $response['take'];
+                $participant_status = $response['participant_test_take_status_id'];
+            }
+        }
+        else {
+            $take = $this->TestTakesService->getTestTake($take_id);
+            $participant_id = $take['test_participant']['id'];
+            $this->Session->write('participant_id',$participant_id);
+            $participant_status = $take['test_participant']['test_take_status_id'];
+        }
+
+        $this->Session->write('take_id', $take_id);
+        $this->Session->write('participant_id', $participant_id);
+
+        switch($participant_status) {
+            case 1:
+            case 2:
+                $view = 'take_planned';
+                break;
+            case 3:
+//				$participants = $this->TestTakesService->getParticipants($take_id);
+//				$test_take = $this->TestTakesService->getTestTake($take_id);
+
+                if ($clean && $participant_status == 3) {
+                    $this->check_for_login();
+                }
+
+                if (!$this->Session->check('take_question_index')) {
+                    $take_question_index = 0;
+                    $this->Session->write('take_question_index', 0);
+                } else {
+                    $take_question_index = $this->Session->read('take_question_index');
+                }
+
+                if ($question_index != null) {
+                    $take_question_index = $question_index;
+                    $this->Session->write('take_question_index', $question_index);
+                }
+
+                if(!$questions){
+                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+                }
+
+                $this->set('questions', $questions);
+                $this->set('take_question_index', $take_question_index);
+                $this->set('take_id', $take_id);
+
+                if(isset($questions[$take_question_index]['question_id'])) {
+                    $this->set('active_question', $questions[$take_question_index]['question_id']);
+                }else{
+                    $this->set('active_question', $questions[0]['question_id']);
+                }
+
+                $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
+
+                $view = 'take_active';
+                break;
+
+            case 4:
+            case 5:
+            case 6:
+                $this->Session->delete('drawing_pad');
+                $this->Session->delete('drawing_data');
+                $this->Session->delete('take_question_index');
+                $this->Session->delete('active_question');
+                $this->Session->delete('participant_id');
+                $this->Session->delete('take_id');
+
+                $view = 'take_taken';
+                break;
+        }
+
+        $this->set('take', $take);
+        $this->set('take_id', $take_id);
+
+        $this->render($view, 'ajax');
+    }
+
 	public function take($take_id, $question_index = null, $clean = false) {
+	    return $this->take2019($take_id, $question_index, $clean);
+
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
 
@@ -902,7 +993,43 @@ class TestTakesController extends AppController
 		$this->render($view, 'ajax');
 	}
 
+    public function take_answer_overview2019($take_id) {
+        $this->Session->write('take_id', $take_id);
+
+        $dataFound = false;
+        $participant_id = $this->Session->read('participant_id');
+        if($participant_id) {
+            $response = $this->TestTakesService->getParticipantStatusAndQuestionsForProgressList2019($participant_id);
+            if($response){
+                $questions = $response['answers'];
+                $participant_status = $response['participant_test_take_status_id'];
+                $dataFound = true;
+            }
+        }
+        if(!$dataFound) {
+
+            $take = $this->TestTakesService->getTestTake($take_id);
+
+            $participant_id = $take['test_participant']['id'];
+
+            $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+
+            $participant_status = $take['test_participant']['test_take_status_id'];
+        }
+
+        if(in_array($participant_status, [4, 5, 6])) {
+            $this->render('take_taken', 'ajax');
+        }
+
+        $this->set('participant_id', $participant_id);
+        $this->set('questions', $questions);
+        $this->set('take_id', $take_id);
+        $this->render('take_answer_overview');
+    }
+
 	public function take_answer_overview($take_id) {
+        return $this->take_answer_overview2019($take_id);
+
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
 
@@ -1933,6 +2060,7 @@ $this->log(htmlspecialchars($client->request, ENT_QUOTES), 'error');
 		}
 
 		$this->set('errors',$errors);
+		$debug = false;// was not set, so therefor always false, now explicitly set @Sobit 2019
 		$this->set('debug',$debug);
 
 		$this->formResponse(

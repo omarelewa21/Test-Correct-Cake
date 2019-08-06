@@ -124,6 +124,6 @@ class SobitLogger
                 $url
             );
         }
-        file_put_contents($this->file, $line, FILE_APPEND | LOCK_EX);
+        file_put_contents($this->file, $line, FILE_APPEND);
     }
 }
