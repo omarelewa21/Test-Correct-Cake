@@ -123,4 +123,4 @@ $Dispatcher->dispatch(
 	new CakeResponse()
 );
 
-$logger->endMain();
+//$logger->endMain();
