@@ -60,6 +60,19 @@ class AnswersService extends BaseService {
         return isset($response[0]) ? $response[0] : false;
     }
 
+    public function getParticipantQuestionAnswers2019($participant_id) {
+        $params['mode'] = 'all';
+
+        $response = $this->Connector->getRequest('/test_participant/' . $participant_id . '/answer2019', $params);
+
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getParticipantQuestionAnswers($participant_id) {
         $params['mode'] = 'all';
 

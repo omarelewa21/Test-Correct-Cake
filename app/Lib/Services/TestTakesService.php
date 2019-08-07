@@ -280,6 +280,41 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    /**
+     * WITH test take
+     * @param $participant_id
+     * @param $take_id
+     * @return bool|mixed
+     */
+    public function getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id){
+        $response = $this->Connector->getRequest('/test_participant/' . $participant_id . '/'.$take_id.'/answers_status_and_test_take2019', []);
+
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
+    /**
+     * WITHOUT test take
+     * @param $participant_id
+     * @return bool|mixed
+     */
+    public function getParticipantStatusAndQuestionsForProgressList2019($participant_id){
+        $response = $this->Connector->getRequest('/test_participant/' . $participant_id . '/answers_and_status2019', []);
+
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
     public function getParticipantQuestions($participant_id) {
 
         $data['mode'] = 'all';
