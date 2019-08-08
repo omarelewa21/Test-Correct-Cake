@@ -1,20 +1,20 @@
 <? if(count($question['attachments']) > 0 && !$hideExtra) { ?>
-<div style="width:250px; padding:20px; background: #294409; margin-left: 30px; float: right;">
-    <div style="color: white; text-align: center; font-size: 22px; margin-bottom: 10px;">
-        Bronnen
-    </div>
-    <?
+    <div style="width:250px; padding:20px; background: #294409; margin-left: 30px; float: right;">
+        <div style="color: white; text-align: center; font-size: 22px; margin-bottom: 10px;">
+            Bronnen
+        </div>
+        <?
         $i = 0;
         foreach($question['attachments'] as $attachemnt) {
             $i++;
             ?>
-    <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachemnt['id']?>);">
-        Bijlage #<?=$i?>
-    </a>
-    <?
+            <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachemnt['id']?>);">
+                Bijlage #<?=$i?>
+            </a>
+        <?
         }
         ?>
-</div>
+    </div>
 <? } ?>
 
 <h1>ARQ</h1>
@@ -28,7 +28,7 @@
     <?=$question['question']?><br />
 
     <? if($question['subtype'] != 'TrueFalse') { ?>
-    <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
+        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
     <? } ?>
 
     <table class="table" id="tableMultiChoiceOptions">
@@ -45,12 +45,12 @@
         <tr>
             <td>
                 <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][0]['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-
-                'label' => false,
-                'class' => 'multiple_choice_option'
+                    'value' => 1,
+                    'div' => false,
+                    'type' => 'checkbox',
+                    
+                    'label' => false,
+                    'class' => 'multiple_choice_option'
                 ]);?>
             </td>
             <td>A</td>
@@ -61,12 +61,12 @@
         <tr>
             <td>
                 <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][1]['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-
-                'label' => false,
-                'class' => 'multiple_choice_option'
+                    'value' => 1,
+                    'div' => false,
+                    'type' => 'checkbox',
+                    
+                    'label' => false,
+                    'class' => 'multiple_choice_option'
                 ]);?>
             </td>
             <td>B</td>
@@ -77,12 +77,12 @@
         <tr>
             <td>
                 <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][2]['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-
-                'label' => false,
-                'class' => 'multiple_choice_option'
+                    'value' => 1,
+                    'div' => false,
+                    'type' => 'checkbox',
+                    
+                    'label' => false,
+                    'class' => 'multiple_choice_option'
                 ]);?>
             </td>
             <td>C</td>
@@ -93,12 +93,12 @@
         <tr>
             <td>
                 <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][3]['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-
-                'label' => false,
-                'class' => 'multiple_choice_option'
+                    'value' => 1,
+                    'div' => false,
+                    'type' => 'checkbox',
+                    
+                    'label' => false,
+                    'class' => 'multiple_choice_option'
                 ]);?>
             </td>
             <td>D</td>
@@ -109,12 +109,12 @@
         <tr>
             <td>
                 <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][4]['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-
-                'label' => false,
-                'class' => 'multiple_choice_option'
+                    'value' => 1,
+                    'div' => false,
+                    'type' => 'checkbox',
+                    
+                    'label' => false,
+                    'class' => 'multiple_choice_option'
                 ]);?>
             </td>
             <td>E</td>
@@ -127,20 +127,20 @@
 </div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>
-<script type="text/javascript">
-    $('input[type=checkbox]').click(function() {
-        $('input[type=checkbox]').prop('checked' , false);
-        $(this).prop('checked' , true);
-    });
-</script>
+    <script type="text/javascript">
+        $('input[type=checkbox]').click(function() {
+            $('input[type=checkbox]').prop('checked' , false);
+            $(this).prop('checked' , true);
+        });
+    </script>
 <? } ?>
 
 <? if(isset($next_question)) { ?>
-<br />
-<center>
-    <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
-        <span class="fa fa-check"></span>
-        Volgende vraag
-    </a>
-</center>
+    <br />
+    <center>
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+            <span class="fa fa-check"></span>
+            Volgende vraag
+        </a>
+    </center>
 <? } ?>

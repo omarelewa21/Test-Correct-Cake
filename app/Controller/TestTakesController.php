@@ -993,38 +993,131 @@ class TestTakesController extends AppController
 		$this->render($view, 'ajax');
 	}
 
+	protected function getAnswerViewForTakeAnswerOverview2019($answer){
+        switch($answer['question']['type']) {
+            case "OpenQuestion":
+                $view = 'rate_open2019';
+                break;
+
+            case "CompletionQuestion":
+                if($answer['question']['subtype'] == 'completion') {
+                    $view = 'rate_completion2019';
+                }elseif($answer['question']['subtype'] == 'multi') {
+                    $view = 'rate_multi_completion2019';
+                }
+                break;
+
+            case "MatchingQuestion":
+                if($answer['question']['subtype'] == 'Matching') {
+                    $view = 'rate_matching2019';
+                }elseif($answer['question']['subtype'] == 'Classify') {
+                    $view = 'rate_classify2019';
+                }
+                break;
+
+            case "MultipleChoiceQuestion":
+                if($answer['question']['subtype'] == 'MultiChoice' || $answer['question']['subtype'] == 'MultipleChoice') {
+                    $view = 'rate_multiple_choice2019';
+                }elseif($answer['question']['subtype'] == 'TrueFalse') {
+                    $view = 'rate_true_false2019';
+                }elseif($answer['question']['subtype'] == 'ARQ') {
+                    $view = 'rate_arq2019';
+                }
+                break;
+
+            case "RankingQuestion":
+                $view = 'rate_ranking2019';
+                break;
+
+            case "DrawingQuestion":
+                $view = 'rate_drawing2019';
+                break;
+
+            default:
+                die;
+                break;
+        }
+
+        if(empty($answer['json'])) {
+            $view = 'rate_empty2019';
+        }
+
+        return $view;
+    }
+
+	protected function getQuestionViewForTakeAnswerOverview2019($question){
+        $view = '';
+	    switch($question['type']) {
+            case 'OpenQuestion':
+                $view = 'preview_open2019';
+                break;
+
+            case 'CompletionQuestion':
+                if($question['subtype'] == 'completion') {
+                    $view = 'preview_completion2019';
+                }else{
+                    $view = 'preview_multi_completion2019';
+                }
+                break;
+
+            case 'MatchingQuestion':
+                $view = 'preview_matching2019';
+                break;
+
+            case 'MultipleChoiceQuestion':
+                if($question['subtype'] == 'ARQ') {
+                    $view = 'preview_arq2019';
+                } else {
+                    $view = 'preview_multiple_choice2019';
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'preview_ranking2019';
+                break;
+
+            case 'DrawingQuestion':
+                $view = 'preview_drawing2019';
+                break;
+        }
+        return $view;
+    }
+
+    protected function getAnswerForQuestion($answers,$questionId){
+
+        foreach($answers as $answer){
+            if($answer['question_id'] == $questionId){
+                return $answer;
+            }
+        }
+        return false;
+    }
+
     public function take_answer_overview2019($take_id) {
         $this->Session->write('take_id', $take_id);
 
-        $dataFound = false;
         $participant_id = $this->Session->read('participant_id');
-        if($participant_id) {
-            $response = $this->TestTakesService->getParticipantStatusAndQuestionsForProgressList2019($participant_id);
-            if($response){
-                $questions = $response['answers'];
-                $participant_status = $response['participant_test_take_status_id'];
-                $dataFound = true;
+        $response = $this->TestTakesService->getParticipantStatusQuestionsAndAnswersForOverview2019($participant_id);
+        if($response){
+            $participant_status = $response['participant_test_take_status_id'];
+            if(in_array($participant_status, [4, 5, 6])) {
+                $this->render('take_taken', 'ajax');
             }
-        }
-        if(!$dataFound) {
 
-            $take = $this->TestTakesService->getTestTake($take_id);
-
-            $participant_id = $take['test_participant']['id'];
-
-            $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
-
-            $participant_status = $take['test_participant']['test_take_status_id'];
-        }
-
-        if(in_array($participant_status, [4, 5, 6])) {
-            $this->render('take_taken', 'ajax');
+            $answers = $response['answers'];
+            $questions = [];
+            foreach($response['questions'] as $question){
+                $question['view'] = $this->getQuestionViewForTakeAnswerOverview2019($question);
+                $answer = $this->getAnswerForQuestion($answers,$question['id']);
+                $questions[] = ['question' => $question,'answer' => $answer, 'answerView' => $this->getAnswerViewForTakeAnswerOverview2019($answer)];
+            }
         }
 
         $this->set('participant_id', $participant_id);
         $this->set('questions', $questions);
+        $this->set('answers', $answers);
         $this->set('take_id', $take_id);
-        $this->render('take_answer_overview');
+        $this->render('take_answer_overview2019');
     }
 
 	public function take_answer_overview($take_id) {

@@ -280,6 +280,18 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+
+    public function getParticipantStatusQuestionsAndAnswersForOverview2019($participant_id){
+        $response = $this->Connector->getRequest('/test_participant/' . $participant_id . '/answers_status_and_questions2019', []);
+
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
     /**
      * WITH test take
      * @param $participant_id
