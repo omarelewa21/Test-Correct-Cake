@@ -53,7 +53,7 @@ var Core = {
 				if(Core.header.indexOf('secure app') > 0) {
 					Core.inApp = true;
 					if(Core.appType !== 'ipad'){
-						Core.appType = 'mac';	
+						Core.appType = 'mac';
 					}
 				}
 			}
@@ -112,7 +112,8 @@ var Core = {
 			Core.checkUnreadMessages();
 		}, 60000);
 
-		Navigation.load('/users/welcome');
+		// I think this runs in isolation on login. afterlogin already included an extra call;
+		 //   Navigation.load('/users/welcome');
 
 		User.checkLogin();
 	},
@@ -133,13 +134,16 @@ var Core = {
 
 	checkUnreadMessages : function() {
 		$('#messages .counter').hide();
-		$.get('/messages/unread',
-			function(unread) {
-				if(unread > 0) {
-					$('#messages .counter').show().html(unread);
-				}
-			}
-		);
+		// only ask for unread if not on login page.
+		if(Utils.notOnLoginScreen()) {
+            $.get('/messages/unread',
+                function (unread) {
+                    if (unread > 0) {
+                        $('#messages .counter').show().html(unread);
+                    }
+                }
+            );
+        }
 	},
 
 	setDimensions : function() {
@@ -255,6 +259,16 @@ var Loading = {
 	hide : function() {
 		$('#loading').fadeOut();
 	}
+};
+
+var Utils = {
+	onLoginScreen: function() {
+		return ($('#UserLoginForm').length === 1);
+	},
+
+    notOnLoginScreen: function() {
+        return ! this.onLoginScreen();
+    },
 };
 
 var Dropdowns = {
