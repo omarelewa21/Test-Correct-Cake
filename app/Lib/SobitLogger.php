@@ -21,23 +21,27 @@ class SobitLogger
     protected $subs = [];
     protected $file;
 
+    protected $isLogging = false;
+
     // Hold the class instance.
     private static $instance = null;
 
     // The constructor is private
     // to prevent initiation with outer code.
-    private function __construct()
+    private function __construct($host = false)
     {
         $this->file = sprintf('../sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
+
+        $this->isLogging = !!(substr_count('testportal.test-correct.test',$host) > 0);
     }
 
     // The object is created from within the class itself
     // only if the class has no instance.
-    public static function getInstance()
+    public static function getInstance($host = false)
     {
         if (self::$instance == null)
         {
-            self::$instance = new SobitLogger();
+            self::$instance = new SobitLogger($host);
         }
 
         return self::$instance;
@@ -101,6 +105,9 @@ class SobitLogger
     }
 
     protected function log($type, $dateTime = false, $url = '', $method = '', $duration = 0, $cakeTime = 0){
+        if (! $this->isLogging) {
+            return true;
+        }
         if($type === 'mainEnd'){
             $line = sprintf("\n");
         }
