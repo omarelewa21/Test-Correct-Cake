@@ -45,15 +45,19 @@
 </div>
 
 <div class="popup-footer">
+    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
+            <i class="fa fa-check mr5"></i> Test login
+        </a>
 
-    <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="" style="display:none;">
-        <i class="fa fa-check mr5"></i> Test login
-    </a>
-
-    <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
-        <i class="fa fa-check mr5"></i> Inloggen
-    </a>
-
+        <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="" style="display:none;">
+            <i class="fa fa-check mr5"></i> Inloggen
+        </a>
+    <? } else { ?>
+        <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
+            <i class="fa fa-check mr5"></i> Inloggen
+        </a>
+    <? }?>
     <a href="#" class="btn mt5 mr5 grey pull-right" onclick="User.forgotPassword();">
         Wachtwoord vergeten
     </a>
@@ -71,15 +75,22 @@
     $(document).ready(function(){
         url = document.URL;
 
-        if(url.indexOf('local') > 0 || url.indexOf('testportal') > 0){
-            $(".btnLoginTest").fadeIn();
+        if(url.indexOf('local') > 0 || url.endsWith('/test') > 0){
+            $(".btnLogin").fadeIn();
         }
 
         $(".appType").val(Core.appType);
 
+    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        $('#UserPassword, #UserEmail').on('keydown',function(e){
+            if(e.keyCode == 13){
+                $('.btnLoginTest').trigger('click');
+            }
+        });
         $(".btnLoginTest").on('click',function(){
             Core.inApp = true;
         });
+    <? } ?>
     });
 
     var messageHandler = function(event) {

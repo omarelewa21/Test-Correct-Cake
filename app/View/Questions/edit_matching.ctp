@@ -12,7 +12,7 @@
                 </td>
                 <td>
                     <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['discuss'] == 1 ? 'checked' : ''))?> Bespreken in de klas<br />
-                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> Deze vraag vast zetten <br /><? }?>
+                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> Deze vraag vastzetten <br /><? }?>
                     <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> Halve punten mogelijk<br />
                     <?php if(!$is_open_source_content_creator): ?>
                         <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
@@ -77,30 +77,39 @@
                 </thead>
                 <tbody>
                     <?
-                    for($i = 0; $i < 50; $i++) {
-
-                        if(isset($question['question']['matching_question_answers'][$i]['answer']) && $question['question']['matching_question_answers'][$i]['type'] == 'LEFT') {
-                            $display = true;
-                            $left = $question['question']['matching_question_answers'][$i];
-                            $right = "";
-                            for($a = 0; $a < 10; $a++) {
-                                if (isset($question['question']['matching_question_answers'][$a]['answer']) &&
-                                    $question['question']['matching_question_answers'][$a]['type'] == 'RIGHT' &&
-                                    $question['question']['matching_question_answers'][$a]['correct_answer_id'] == $left['id'])
-                                {
-                                    $right = $question['question']['matching_question_answers'][$a];
-                                }
+                    function findRightAnswer($ar, $id){
+                        $rightAnswer = false;
+                        foreach($ar as $answer){
+                            if($answer['correct_answer_id'] == $id){
+                                $rightAnswer = $answer;
+                                break;
                             }
-                        }else{
-                            $display = false;
-                            $left = "";
-                            $right = "";
                         }
+                        return $rightAnswer;
+                    }
+                    $counter = 0;
+                    $answers = $question['question']['matching_question_answers'];
+                    $leftAr = $rightAr = [];
+                    foreach($answers as $answer){
+                        if($answer['type'] == 'LEFT' && $answer['answer']){
+                            $leftAr[] = $answer;
+                        }
+                        elseif($answer['type'] == 'RIGHT' && $answer['answer']){
+                            $rightAr[] = $answer;
+                        }
+                        else{
+                            // should not happen
+                        }
+                    }
 
+                    foreach($leftAr as $i => $answer){
+                        $left = $answer;
+                        $right = findRightAnswer($rightAr,$answer['id']);
+                        $display = true;
                         ?>
                         <tr style="<?=$display ? '' : 'display:none;' ?>">
                             <td>
-                                <span class="fa fa-arrows"></span>
+                                <span class="fa fa-arrows" style="cursor:move"></span>
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
@@ -119,6 +128,34 @@
                         </tr>
                         <?
                     }
+                    $i++;
+                    for($i;$i<50;$i++){
+                        $display = false;
+                        $left = [];
+                        $right = [];
+                        ?>
+                        <tr style="<?=$display ? '' : 'display:none;' ?>">
+                            <td>
+                                <span class="fa fa-arrows"></span>
+                            </td>
+                            <td>
+                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
+                            </td>
+                            <td>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
+                            </td>
+                            <td>
+                                <? if($editable) { ?>
+                                <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
+                                    <span class="fa fa-remove"></span>
+                                </a>
+                                <? } ?>
+                            </td>
+                        </tr>
+                        <?
+                    }
+
                     ?>
                 </tbody>
             </table>
@@ -138,10 +175,7 @@
         </div>
 
 
-        <div page="rtti" class="page" tabs="edit_question">
-            Selecteer tot welke categorie deze vraag hoort binnen de RTTI-methode<br />
-            <?=$this->Form->input('rtti', array('label' => false, 'type' => 'select', 'value' => $question['question']['rtti'],  'options' => ['null' => 'Geen', 'R' => 'R', 'T1' => 'T1', 'T2' => 'T2', 'I' => 'I'], 'style' => 'width:750px;'))?>
-        </div>
+    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
         <div page="tags" class="page" tabs="edit_question">
 

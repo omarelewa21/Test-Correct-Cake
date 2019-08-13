@@ -27,15 +27,20 @@
 
 <?
 if(!$isStudent) {
-    if ($student['time_dispensation'] == 0) {
+    if ($student['has_text2speech']) {
         ?>
-        <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze leerling
-            heeft geen recht op tijdsdispensatie.
+        <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student mag tekst naar spraak omzetten.
+            <?php if(!$student['active_text2speech']) {
+            ?>
+            <div><b>Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student</b></div>
+            <?php
+            }
+            ?>
         </div>
         <?
     } else {
         ?>
-        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student heeft recht op tijdsdispensatie.</div>
+        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student mag tekst <b>niet</b> naar spraak omzetten.</div>
         <?
     }
 }

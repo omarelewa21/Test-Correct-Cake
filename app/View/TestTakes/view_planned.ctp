@@ -74,7 +74,7 @@
 
 <? if(!empty($take['invigilator_note'])) { ?>
     <div class="block">
-        <div class="block-head">Instructies</div>
+        <div class="block-head">Notities voor surveillant</div>
         <div class="block-content">
             <?=nl2br($take['invigilator_note'])?>
         </div>

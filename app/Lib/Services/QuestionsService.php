@@ -80,10 +80,10 @@ class QuestionsService extends BaseService
         foreach ($attachments as $attachment) {
             if ($attachment['type'] == 'file') {
                 $data = [
-                    'type'       => 'file',
-                    'title'      => $attachment['file']['name'],
+                    'type' => 'file',
+                    'title' => $attachment['file']['name'],
                     'attachment' => new CURLFile($attachment['path']),
-                    'json'       => isset($attachment['settings']) ? json_encode($attachment['settings']) : '[]'
+                    'json' => isset($attachment['settings']) ? json_encode($attachment['settings']) : '[]'
                 ];
 
                 $response = $this->Connector->postRequestFile('/test_question/' . $owner_id . '/attachment', [], $data);
@@ -184,11 +184,11 @@ class QuestionsService extends BaseService
     {
 
         $params = [
-            'mode'   => 'all',
+            'mode' => 'all',
             'filter' => [
                 'education_level_id' => $education_level_id,
-                'subject_id'         => $subject_id,
-                'status'             => 'ACTIVE'
+                'subject_id' => $subject_id,
+                'status' => 'ACTIVE'
             ]
         ];
 
@@ -203,7 +203,7 @@ class QuestionsService extends BaseService
         foreach ($response as $item) {
             if (empty($item['attainment_id'])) {
                 $results[$item['id']] = [
-                    'title'       => "[" . $item['code'] . "] " . $item['description'],
+                    'title' => "[" . $item['code'] . "] " . $item['description'],
                     'attainments' => [
                         '' => 'Geen subdomein'
                     ]
@@ -247,7 +247,7 @@ class QuestionsService extends BaseService
             'filter' => [
                 'complete_name' => $query
             ],
-            'mode'   => 'list'
+            'mode' => 'list'
         ]);
 
         if ($response === false) {
@@ -383,14 +383,14 @@ class QuestionsService extends BaseService
 
         $answerTrue = [
             'answer' => 'Juist',
-            'score'  => $question['anwser'] == 1 ? $question['score'] : 0,
-            'order'  => 0
+            'score' => $question['anwser'] == 1 ? $question['score'] : 0,
+            'order' => 0
         ];
 
         $answerFalse = [
             'answer' => 'Onjuist',
-            'score'  => $question['anwser'] == 0 ? $question['score'] : 0,
-            'order'  => 0
+            'score' => $question['anwser'] == 0 ? $question['score'] : 0,
+            'order' => 0
         ];
 
         $response = $this->Connector->deleteRequest($path . $question_id . '/multiple_choice_question_answer', []);
@@ -704,7 +704,7 @@ class QuestionsService extends BaseService
                 $left = $answer['answer'];
             } else {
                 $currentAnswersArray[] = [
-                    'left'  => $left,
+                    'left' => $left,
                     'right' => $answer['answer']
                 ];
             }
@@ -815,7 +815,7 @@ class QuestionsService extends BaseService
                 $left = $answer['answer'];
             } else {
                 $currentAnswersArray[] = [
-                    'left'  => $left,
+                    'left' => $left,
                     'right' => $answer['answer']
                 ];
             }
@@ -888,8 +888,8 @@ class QuestionsService extends BaseService
             foreach ($answerItems as $answerItem) {
 
                 $response = $this->Connector->postRequest($path . $question_id . '/completion_question_answer', [], [
-                    'tag'     => $tag,
-                    'answer'  => $answerItem,
+                    'tag' => $tag,
+                    'answer' => $answerItem,
                     'correct' => $correct
                 ]);
 
@@ -1214,18 +1214,18 @@ class QuestionsService extends BaseService
     {
 
         return [
-            'question'               => $question['question'],
-            'answer'                 => $question['answer'],
-            'type'                   => 'OpenQuestion',
-            'score'                  => $question['score'],
-            'order'                  => 0,
-            'subtype'                => $question['subtype'],
-            'maintain_position'      => $question['maintain_position'],
-            'discuss'                => $question['discuss'],
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'note_type'              => $question['note_type'],
+            'question' => $question['question'],
+            'answer' => $question['answer'],
+            'type' => 'OpenQuestion',
+            'score' => $question['score'],
+            'order' => 0,
+            'subtype' => $question['subtype'],
+            'maintain_position' => $question['maintain_position'],
+            'discuss' => $question['discuss'],
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1240,18 +1240,18 @@ class QuestionsService extends BaseService
         }
 
         return [
-            'question'               => $question['question'],
-            'answer'                 => $session['drawing_data'],
-            'type'                   => 'DrawingQuestion',
-            'score'                  => $question['score'],
-            'order'                  => 0,
-            'grid'                   => $grid,
-            'maintain_position'      => $question['maintain_position'],
-            'discuss'                => $question['discuss'],
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'note_type'              => $question['note_type'],
+            'question' => $question['question'],
+            'answer' => $session['drawing_data'],
+            'type' => 'DrawingQuestion',
+            'score' => $question['score'],
+            'order' => 0,
+            'grid' => $grid,
+            'maintain_position' => $question['maintain_position'],
+            'discuss' => $question['discuss'],
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1284,18 +1284,18 @@ class QuestionsService extends BaseService
     {
 
         return [
-            'question'               => $question['question'],
-            'type'                   => 'CompletionQuestion',
-            'score'                  => $question['score'],
-            'order'                  => 0,
+            'question' => $question['question'],
+            'type' => 'CompletionQuestion',
+            'score' => $question['score'],
+            'order' => 0,
 //            'answers' => $processed['answers'],
-            'maintain_position'      => $question['maintain_position'],
-            'subtype'                => $subtype,
-            'discuss'                => $question['discuss'],
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'note_type'              => $question['note_type'],
+            'maintain_position' => $question['maintain_position'],
+            'subtype' => $subtype,
+            'discuss' => $question['discuss'],
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1303,30 +1303,30 @@ class QuestionsService extends BaseService
     private function _fillNewQuestionGroup($group)
     {
         return [
-            'name'              => $group['name'],
-            'question'          => $group['text'],
-            'order'             => 0,
-            'shuffle'           => $group['shuffle'],
+            'name' => $group['name'],
+            'question' => $group['text'],
+            'order' => 0,
+            'shuffle' => $group['shuffle'],
             'maintain_position' => $group['maintain_position'],
-            'discuss'           => 0,
-            'add_to_database'   => $group['add_to_database'],
+            'discuss' => 0,
+            'add_to_database' => $group['add_to_database'],
         ];
     }
 
     private function _fillNewTrueFalseQuestion($question)
     {
         return [
-            'question'               => $question['question'],
-            'type'                   => 'MultipleChoiceQuestion',
-            'order'                  => 0,
-            'maintain_position'      => $question['maintain_position'],
-            'discuss'                => $question['discuss'],
-            'score'                  => $question['score'],
-            'subtype'                => 'TrueFalse',
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'note_type'              => $question['note_type'],
+            'question' => $question['question'],
+            'type' => 'MultipleChoiceQuestion',
+            'order' => 0,
+            'maintain_position' => $question['maintain_position'],
+            'discuss' => $question['discuss'],
+            'score' => $question['score'],
+            'subtype' => 'TrueFalse',
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1354,18 +1354,18 @@ class QuestionsService extends BaseService
         }
 
         return [
-            'question'               => $question['question'],
-            'type'                   => 'MultipleChoiceQuestion',
-            'order'                  => 0,
-            'maintain_position'      => $question['maintain_position'],
-            'discuss'                => $question['discuss'],
-            'score'                  => $score,
-            'subtype'                => $subtype,
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'selectable_answers'     => $selectable_answers,
-            'note_type'              => $question['note_type'],
+            'question' => $question['question'],
+            'type' => 'MultipleChoiceQuestion',
+            'order' => 0,
+            'maintain_position' => $question['maintain_position'],
+            'discuss' => $question['discuss'],
+            'score' => $score,
+            'subtype' => $subtype,
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'selectable_answers' => $selectable_answers,
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1373,16 +1373,16 @@ class QuestionsService extends BaseService
     private function _fillNewRankingQuestion($question)
     {
         return [
-            'type'                   => 'RankingQuestion',
-            'score'                  => $question['score'],
-            'question'               => $question['question'],
-            'order'                  => 0,
-            'maintain_position'      => $question['maintain_position'],
-            'discuss'                => $question['discuss'],
-            'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
-            'attainments'            => $question['attainments'],
-            'note_type'              => $question['note_type'],
+            'type' => 'RankingQuestion',
+            'score' => $question['score'],
+            'question' => $question['question'],
+            'order' => 0,
+            'maintain_position' => $question['maintain_position'],
+            'discuss' => $question['discuss'],
+            'decimal_score' => $question['decimal_score'],
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
         ];
     }
@@ -1390,6 +1390,7 @@ class QuestionsService extends BaseService
     public function _fillNewMatchingQuestion($question)
     {
         return [
+
             'type'                   => 'MatchingQuestion',
             'score'                  => $question['score'],
             'question'               => $question['question'],
@@ -1401,7 +1402,8 @@ class QuestionsService extends BaseService
             'add_to_database'        => $question['add_to_database'],
             'attainments'            => $question['attainments'],
             'note_type'              => $question['note_type'],
-            'is_open_source_content' => $question['is_open_source_content']
+            'is_open_source_content' => $question['is_open_source_content'],
+            'answers'                => $question['answers'],
         ];
     }
 

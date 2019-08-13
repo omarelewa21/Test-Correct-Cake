@@ -216,7 +216,7 @@ if(count($takes) == 0) {
     clearTimeout(window.surveillanceTimeout);
     window.surveillanceTimeout = setInterval(function() {
         loadData();
-    }, 5000);
+    }, 10000);
 
     window.onbeforeunload = confirmExit;
     function confirmExit() {

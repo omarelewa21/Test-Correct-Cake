@@ -72,3 +72,24 @@
 .page.active {
     display:            block !important;
 }
+
+.defaultMenuButton::before {
+    font-family: "FontAwesome";
+    font-weight: 900;
+    content: "\f00c";
+    float: left;
+}
+.defaultMenuButton.noIcon::before{
+    content: "";
+}
+
+.defaultMenuButton {
+    width: 200px;
+    height: 25px;
+    line-height: 25px;
+    text-align: center;
+    cursor: pointer;
+    margin-right:15px;
+    margin-bottom:10px;
+    margin-top: 5px;
+}

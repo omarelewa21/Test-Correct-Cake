@@ -182,6 +182,7 @@ class UsersController extends AppController {
 
         // if in local test mode, don't do a user call, but just show the default icon
         if(substr(Router::fullBaseUrl(),-5) === '.test' || substr(Router::fullBaseUrl(),-7) === '.test/#'){
+
             $result = file_get_contents(APP . WEBROOT_DIR.'/img/ico/user.png');
             $this->response->type('image/png');
             $this->response->body($result);
@@ -582,7 +583,7 @@ class UsersController extends AppController {
             }
 
             if($role['name'] == 'Student') {
-                $menus['tests'] = "Toetsen";
+                $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyse";
                 $menus['messages'] = "Berichten";
             }

@@ -36,7 +36,7 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                         Surveillanten
                     </th>
                     <td>
-                        <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'multiple' => true, 'class' => 'takers_select', 'verify' => 'notempty')) ?>
+                        <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'value' => $defaultInviligator, 'multiple' => true, 'class' => 'takers_select', 'verify' => 'notempty')) ?>
                     </td>
                 </tr>
                 <tr>
