@@ -30,7 +30,7 @@ class SobitLogger
     // to prevent initiation with outer code.
     private function __construct($host = false)
     {
-        $this->file = sprintf('../sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
+        $this->file = sprintf('../tmp/sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
 
         $this->isLogging = !!(substr_count('testportal.test-correct.test',$host) > 0);
     }
