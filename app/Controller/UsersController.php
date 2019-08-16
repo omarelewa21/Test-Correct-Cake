@@ -76,6 +76,7 @@ class UsersController extends AppController {
     {
         $this->autoRender = false;
         $this->Auth->logout();
+        $this->Session->destroy();
     }
 
     public function forgot_password() {
