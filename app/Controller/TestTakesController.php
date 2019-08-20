@@ -1162,7 +1162,8 @@ class TestTakesController extends AppController
 
 		$response = $this->TestTakesService->heartBeat($take_id, $participant_id, $answer_id);
 
-		if(in_array($response['test_take_status']['id'], [4, 6]) && $response['test_take']['test_take_status_id'] == 7) {
+//		if(in_array($response['test_take_status']['id'], [4, 6]) && $response['test_take']['test_take_status_id'] == 7) {
+		if(in_array($response['test_take_status_id'], [4, 6]) && $response['test_take']['test_take_status_id'] == 7) {
 			$this->TestTakesService->startParticpantDiscussing($take_id, $participant_id);
 		}
 
