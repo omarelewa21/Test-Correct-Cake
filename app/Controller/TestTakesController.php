@@ -1169,7 +1169,7 @@ class TestTakesController extends AppController
 
 		echo json_encode([
 			'take_status' => $response['test_take']['test_take_status_id'],
-			'participant_status' => $response['test_take_status']['id'],
+			'participant_status' => $response['test_take_status_id'],
 			'discussing_question_id' => $response['test_take']['discussing_question_id'],
 			'alert' => $response['alert'] ? 1 : 0
 

@@ -16,6 +16,15 @@ var TestTake = {
             TestTake.atTestStart();
         }
 
+        var intervalInSeconds = 15;
+        if(callback == 'rating'
+            || callback == 'discussing'
+            || callback == 'planned'
+            || callback == 'waiting_next'
+            ) {
+            intervalInSeconds = 5;
+        }
+
         TestTake.heartBeatCallback = callback;
         clearInterval(TestTake.heartBeatInterval);
         TestTake.heartBeatInterval = setInterval(function() {
@@ -96,7 +105,7 @@ var TestTake = {
                     }
                 }
             );
-        }, 15000);
+        }, intervalInSeconds*1000);
     },
 
     delete : function(take_id) {
