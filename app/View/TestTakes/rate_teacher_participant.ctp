@@ -75,7 +75,7 @@
                     </div>
                 </div>
 
-                <div class="block" style="width:calc(100% - 300px); margin-bottom: 100px; border-left: 3px solid #689236">
+                <div class="block" style="width:calc(100% - 300px); margin-bottom: 100px; border-left: 3px solid #3D9D36">
                     <div class="block-head">Vraag #<?=$i?> antwoord</div>
                     <div class="block-content" id="question_answer_<?=$question['question']['id']?>">
                         Laden..

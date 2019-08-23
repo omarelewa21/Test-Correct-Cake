@@ -30,7 +30,7 @@ foreach($answers as $answer) {
         </div>
     </div>
 
-    <div class="block" style="float:right; width: 230px; border-left: 3px solid #689236">
+    <div class="block" style="float:right; width: 230px; border-left: 3px solid #3D9D36">
         <div class="block-head">Score</div>
         <div class="block-content" id="score_<?=$answer['answer']['test_participant_id']?><?=$answer['answer']['question_id']?>">
             --

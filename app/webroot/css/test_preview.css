@@ -64,7 +64,7 @@ body {
 }
 
 #test_progress .question.green {
-    background: #689236;
+    background: #3D9D36;
 }
 
 #test_progress .question.grey {
@@ -218,7 +218,7 @@ body {
 }
 
 .participant.active {
-    background:     #689236;
+    background:     #3D9D36;
     color:          white;
 }
 

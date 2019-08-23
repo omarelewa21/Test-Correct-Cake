@@ -365,8 +365,8 @@ var TestTake = {
 
     loadParticipantAnswerPreview : function(take_id, user_id) {
         $('#questionAnswer').load('/test_takes/rate/' + take_id + '/' + user_id).parent().css({
-            'border-left' : '20px solid #689236',
-        }).find('.block-head').css({'background-color':'#689236'}).children('strong').html('Antwoord leerling');
+            'border-left' : '20px solid #3D9D36',
+        }).find('.block-head').css({'background-color':'#3D9D36'}).children('strong').html('Antwoord leerling');
 
         $('#btnResetAnswerPreview').slideDown();
         clearInterval(window.participantsTimeout);

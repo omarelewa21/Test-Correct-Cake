@@ -55,7 +55,7 @@ foreach($participants as $participant) {
 
         ?>
         <div id="questionblock_<?=$participant['id']?><?=$question_id?>" style="display: none;" class="questionblock">
-            <div class="block" style="float:left; width:calc(100% - 250px); border-left: 3px solid #689236">
+            <div class="block" style="float:left; width:calc(100% - 250px); border-left: 3px solid #3D9D36">
                 <div class="block-head">
                     <span id="name_student_<?=$participant['id']?>">
                         Student antwoord
