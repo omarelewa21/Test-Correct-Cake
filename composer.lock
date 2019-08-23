@@ -180,8 +180,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.2.8",
-        "ext-mcrypt": "*"
+        "php": ">=5.2.8"
     },
     "platform-dev": []
 }

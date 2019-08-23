@@ -7,6 +7,7 @@ var Menu = {
     initialise : function() {
 
         $('#menu').load('/users/menu', function() {
+            $('#tiles').hide();
             $('#header #menu .item').mouseover(function() {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -20,6 +21,7 @@ var Menu = {
 
                 clearTimeout(window.menuTimer);
 
+                $('#tiles').show();
                 $('#tiles').stop().animate({
                     'top' : '93px'
                 });
@@ -57,7 +59,10 @@ var Menu = {
     hideTiles : function() {
         $('#tiles').stop().animate({
             'top': '-20px'
+        },function(){
+            $('#tiles').hide();
         });
+
         Menu.setHighlights();
     },
 
