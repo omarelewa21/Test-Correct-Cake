@@ -68,5 +68,9 @@ var Navigation = {
                 $('#container').html(html);
             }
         );
+    },
+
+    home : function(){
+        User.welcome();
     }
 };

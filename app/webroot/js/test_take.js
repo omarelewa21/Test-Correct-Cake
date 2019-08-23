@@ -161,7 +161,8 @@ var TestTake = {
         $.get('/test_takes/hand_in',
             function() {
                 clearTimeout(TestTake.heartBeatInterval);
-                Navigation.refresh();
+                // Navigation.refresh();
+                Navigation.load('/test_takes/taken_student');
                 TestTake.atTestStop();
                 Notify.notify('De toets is gestopt', 'info');
                 TestTake.active = false;
