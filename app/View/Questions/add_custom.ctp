@@ -29,7 +29,7 @@
         ARQ
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', <?=$owner_id?>);">
+    <div style="display:none" class="btn highlight pull-left defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', <?=$owner_id?>);">
         Gesloten gatentekst
     </div>
 
