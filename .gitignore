@@ -12,6 +12,7 @@
 /tags
 *.mo
 /app/sobitLogs/*
+/app/tmp
 
 ## Cron.php moet verplaatst worden naar het backend. Bevat harde database paden en wachtwoorden
 /app/webroot/cron.php
@@ -32,3 +33,4 @@ ehthumbs.db
 Thumbs.db
 .editorconfig
 /app/sobitLogs
+
