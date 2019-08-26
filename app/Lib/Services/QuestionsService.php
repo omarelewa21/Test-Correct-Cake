@@ -1421,7 +1421,8 @@ class QuestionsService extends BaseService
             'add_to_database'        => $question['add_to_database'],
             'attainments'            => $question['attainments'],
             'note_type'              => $question['note_type'],
-            'is_open_source_content' => $question['is_open_source_content']
+            'is_open_source_content' => $question['is_open_source_content'],
+            'answers'                => $question['answers'],
         ];
     }
 

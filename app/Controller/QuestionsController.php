@@ -793,9 +793,9 @@ class QuestionsController extends AppController {
 //                    $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
 //                }
 
-                if($type == 'ClassifyQuestion') {
-                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
-                }
+//                if($type == 'ClassifyQuestion') {
+//                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+//                }
 
 
                 if($type == 'DrawingQuestion') {
