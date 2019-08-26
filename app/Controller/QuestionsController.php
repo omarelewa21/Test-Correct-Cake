@@ -465,9 +465,9 @@ class QuestionsController extends AppController {
                     $this->QuestionsService->addRankingAnswers($result, $question, $owner);
                 }
 
-                if($type == 'ClassifyQuestion') {
-                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
-                }
+//                if($type == 'ClassifyQuestion') {
+//                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+//                }
                 if($type == 'DrawingQuestion') {
                     $this->Session->delete('drawing_grid');
                     $this->Session->delete('drawing_data');

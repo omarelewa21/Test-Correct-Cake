@@ -302,6 +302,7 @@ class QuestionsService extends BaseService
                 break;
 
             case "ClassifyQuestion":
+                $hasBackendValidation = true;
                 $question = $this->_fillNewClassifyQuestion($question);
                 break;
 
@@ -948,6 +949,8 @@ class QuestionsService extends BaseService
 
         switch ($type) {
             case "CompletionQuestion":
+            case "MatchingQuestion":
+            case "ClassifyQuestion":
 //                $processed = $this->encodeCompletionTags($question['question']);
 //                $question['question'] = $processed['question'];
                 $hasBackendValidation = true;
