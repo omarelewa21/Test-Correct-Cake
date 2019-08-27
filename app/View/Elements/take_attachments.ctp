@@ -44,7 +44,3 @@
         </div>
     <? } ?>
 </div>
-
-<script src="" type="text/javascript">
-    // $(".btn-attachment").on();
-</script>
