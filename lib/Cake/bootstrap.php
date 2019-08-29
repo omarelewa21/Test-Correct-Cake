@@ -107,6 +107,8 @@ if (!defined('LOGS')) {
 	define('LOGS', TMP . 'logs' . DS);
 }
 
+define('CACHE',APP . DS .'__cache' . DS);
+
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
  */
