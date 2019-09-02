@@ -14,6 +14,7 @@ class AnswersService extends BaseService {
         $params['filter'] = ['question_id' => $question_id];
         $params['mode'] = 'all';
         $params['with'] = ['question'];
+        $params['ip_address'] = $_SERVER['REMOTE_ADDR'];
 
         $response = $this->Connector->getRequest(
             sprintf(
