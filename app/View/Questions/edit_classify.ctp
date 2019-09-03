@@ -52,7 +52,7 @@
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-                RTTI
+                Taxonomie
             </a>
 
 

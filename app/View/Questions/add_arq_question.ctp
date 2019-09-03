@@ -48,7 +48,7 @@
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="add_question">
-                RTTI
+                Taxonomie
             </a>
             <br clear="all" />
         </div>

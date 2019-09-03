@@ -16,7 +16,7 @@ var TestTake = {
             TestTake.atTestStart();
         }
 
-        var intervalInSeconds = 15;
+        var intervalInSeconds = 3*60;
         if(callback == 'rating'
             || callback == 'discussing'
             || callback == 'planned'
@@ -530,8 +530,8 @@ var TestTake = {
                 date : date
             },
             function(response) {
-                console.log(response);
-                console.log(i);
+                // console.log(response);
+                // console.log(i);
                 if(response != "") {
                     $('#TestTakePeriodId_' + i).val(response);
                 }
