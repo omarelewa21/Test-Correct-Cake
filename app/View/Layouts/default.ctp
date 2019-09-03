@@ -47,7 +47,7 @@
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/formify.js"></script>
 		<script type="text/javascript" src="/js/notifications.js"></script>
-		<script type="text/javascript" src="/js/user.js"></script>
+		<script type="text/javascript" src="/js/user.js?20190903115900"></script>
 		<script type="text/javascript" src="/js/subscript.js"></script>
 		<script type="text/javascript" src="/js/limiter.js"></script>
 		<script type="text/javascript" src="/js/counter.js"></script>
