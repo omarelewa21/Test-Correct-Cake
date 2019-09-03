@@ -65,7 +65,9 @@ class UsersController extends AppController {
             }
 
           if ($this->Auth->login()) {
-              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
+//              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
+              // no need to expose user info
+              $this->formResponse(true, array('message' => $message));
           } else {
               $this->formResponse(false);
           }
@@ -926,10 +928,14 @@ class UsersController extends AppController {
         $info = AuthComponent::user();
 
         $student = false;
+        $teacher = false;
 
         foreach($info['roles'] as $role) {
             if($role['name'] == 'Student') {
                 $student = true;
+            }
+            else if($role['name'] == 'Teacher'){
+                $teacher = true;
             }
         }
 
@@ -941,6 +947,15 @@ class UsersController extends AppController {
             $info['name_first'] = substr($info['name_first'], 0, 1) . '.';
         }
 
-        echo json_encode($info);
+        $info['isStudent'] = $student;
+        $info['isTeacher'] = $teacher;
+
+        $return = [];
+        $allowed = ['name_first','name_suffix','name','abbriviation','isTeacher','isStudent'];
+        foreach($allowed as $key){
+            $return[$key] = array_key_exists($key,$info) ? $info[$key] : '';
+        }
+
+        echo json_encode($return);
     }
 }

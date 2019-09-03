@@ -9,15 +9,7 @@ var User = {
             function(info) {
                 User.info = info;
 
-                var student = false;
-
-                $.each(info.roles, function() {
-                    if(this.id == 3) {
-                        student = true;
-                    }
-                });
-
-                if(student) {
+                if(User.info.isStudent) {
                     $("<link/>", {
                         rel: "stylesheet",
                         type: "text/css",
@@ -38,6 +30,16 @@ var User = {
                     User.info.name_suffix + ' ' +
                     User.info.name
                 );
+
+                if(User.info.isTeacher){
+                    $("#supportpage_link, #upload_test_link").remove();
+                    $('#header #user_menu')
+                        .append(
+                            '<a id="supportpage_link" class="btn white mt5" href="https://www.test-correct.nl/support/" target="_blank">supportpagina</a>'
+                        ).append(
+                            '<a id="upload_test_link" class="btn white mt5" href="https://www.test-correct.nl/toets-uploaden/" target="_blank">uploaden toets</a>'
+                        );
+                }
             }
         );
 
@@ -63,22 +65,25 @@ var User = {
         setInterval(function() {
             User.inactive++;
 
-            $.each(User.info.roles, function() {
 
-                // Student
-                if (this.id == 3 && User.inactive == 900 && !User.surpressInactive) {
-                    TestTake.lostFocus();
-                    setTimeout(function() {
-                        User.logout();
-                    }, 2000);
-                }
-
-                // Teacher
-                if (this.id == 1 && User.inactive == 300 && !User.surpressInactive) {
+            // Student
+            if (User.info.isStudent && User.inactive == 900 && !User.surpressInactive) {
+                TestTake.lostFocus();
+                setTimeout(function() {
                     User.logout();
-                }
-            });
+                }, 2000);
+            }
+
+            // Teacher
+            if (User.info.isTeacher && User.inactive == 300 && !User.surpressInactive) {
+                User.logout();
+            }
+
         }, 1000);
+    },
+
+    actOnLogout : function(){
+        $("#supportpage_link, #upload_test_link").remove();
     },
 
     welcome : function() {
@@ -105,6 +110,7 @@ var User = {
         }else {
             $.get('/users/logout',
                 function () {
+                    User.actOnLogout();
                     window.location.reload();
                 }
             );
