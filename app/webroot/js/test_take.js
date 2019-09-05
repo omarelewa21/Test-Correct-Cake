@@ -10,10 +10,16 @@ var TestTake = {
     studentsPresent : false,
     isVisible : true,
     checkIframe : false,
+    alert: false,
 
     startHeartBeat : function(callback) {
-        if(callback == 'active' && TestTake.active == false) {
-            TestTake.atTestStart();
+        if(callback == 'active'){
+            if(TestTake.active == false) {
+                TestTake.atTestStart();
+            }
+            else{
+                this.markBackground();
+            }
         }
 
         var intervalInSeconds = 3*60;
@@ -30,34 +36,34 @@ var TestTake = {
         TestTake.heartBeatInterval = setInterval(function() {
             $.getJSON('/test_takes/heart_beat',
                 function(response) {
-                    if(TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
+                    if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                         $('#btnStartTest').slideDown();
                         $('#waiting').slideUp();
                         clearInterval(TestTake.heartBeatInterval);
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'taken' &&
                         response.participant_status == 3
                     ) {
                         Navigation.refresh();
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'taken' &&
                         response.participant_status == 7
                     ) {
                         Navigation.load('/test_takes/taken_student');
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'discussing' &&
                         response.participant_status == 7
                     ) {
                         Navigation.refresh();
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'active' &&
                         response.participant_status == 5
                     ) {
@@ -66,7 +72,7 @@ var TestTake = {
                         Notify.notify('Toets gedwongen ingeleverd', 'error');
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'active' &&
                         response.participant_status == 6
                     ) {
@@ -75,7 +81,7 @@ var TestTake = {
                         Notify.notify('Toets gedwongen ingeleverd', 'error');
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'rating' &&
                         response.participant_status == 7 &&
                         response.discussing_question_id != TestTake.discussingQuestionId
@@ -83,7 +89,7 @@ var TestTake = {
                         Navigation.refresh();
                     }
 
-                    if(
+                    if (
                         TestTake.heartBeatCallback == 'rating' &&
                         response.participant_status == 8
                     ) {
@@ -93,19 +99,25 @@ var TestTake = {
                     // for (var i in response) {
                     //     console.log(response[i]);
                     // };
-
-                    if(response.alert == 1) {
-                        $('#test_progress').css({
-                            'background' : 'red'
-                        });
-                    }else{
-                        $('#test_progress').css({
-                            'background' : '#294409'
-                        });
+                    if (response.alert == 1){
+                        this.alert = true;
+                        this.markBackground();
                     }
                 }
             );
         }, intervalInSeconds*1000);
+    },
+
+    markBackground : function(){
+        if(!this.alert) {
+            $('#test_progress').css({
+                'background' : '#294409'
+            });
+        }else{
+            $('#test_progress').css({
+                'background' : 'red'
+            });
+        }
     },
 
     delete : function(take_id) {
@@ -202,11 +214,14 @@ var TestTake = {
                     e.preventDefault();
                     return false;
                 });
+
+                alert = false;
             }
         });
     },
 
     atTestStop : function() {
+        this.alert = false;
         $('#header #menu').fadeIn();
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
@@ -672,6 +687,7 @@ function onchange (evt) {
     }
 
     if(this[hidden] && typeof Core !== "undefined"){
+console.log('lostfocus');
         Core.lostFocus();
     }
 }

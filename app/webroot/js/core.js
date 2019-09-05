@@ -200,11 +200,15 @@ var Core = {
 	lostFocus : function() {
 		if(TestTake.active) {
 			$.get('/test_takes/lost_focus');
+			TestTake.alert = true;
+            TestTake.markBackground();
 		}
 	},
 
 	screenshotDetected : function() {
 		$.get('/test_takes/screenshot_detected');
+		TestTake.alert = true;
+        TestTake.markBackground();
 	},
 
 	isIpad : function() {

@@ -36,18 +36,18 @@
 		<script type="text/javascript" src="/js/popup.js"></script>
 		<script type="text/javascript" src="/js/definitions.js"></script>
 		<script type="text/javascript" src="/js/navigation.js"></script>
-		<script type="text/javascript" src="/js/core.js"></script>
+		<script type="text/javascript" src="/js/core.js?20190905110500"></script>
 		<script type="text/javascript" src="/js/answer.js"></script>
 		<script type="text/javascript" src="/js/menu.js"></script>
 		<script type="text/javascript" src="/js/table.js"></script>
 		<script type="text/javascript" src="/js/questions.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
 		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js"></script>
+		<script type="text/javascript" src="/js/test_take.js?20190905111700"></script>
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/formify.js"></script>
 		<script type="text/javascript" src="/js/notifications.js"></script>
-		<script type="text/javascript" src="/js/user.js?20190903115900"></script>
+		<script type="text/javascript" src="/js/user.js?20190905110500"></script>
 		<script type="text/javascript" src="/js/subscript.js"></script>
 		<script type="text/javascript" src="/js/limiter.js"></script>
 		<script type="text/javascript" src="/js/counter.js"></script>
