@@ -100,8 +100,8 @@ var TestTake = {
                     //     console.log(response[i]);
                     // };
                     if (response.alert == 1){
-                        this.alert = true;
-                        this.markBackground();
+                        TestTake.alert = true;
+                        TestTake.markBackground();
                     }
                 }
             );

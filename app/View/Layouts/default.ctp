@@ -43,7 +43,7 @@
 		<script type="text/javascript" src="/js/questions.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
 		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js?20190905111700"></script>
+		<script type="text/javascript" src="/js/test_take.js?20190905112400"></script>
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/formify.js"></script>
 		<script type="text/javascript" src="/js/notifications.js"></script>
