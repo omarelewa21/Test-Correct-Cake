@@ -1,31 +1,4 @@
-<? if(count($question['attachments']) > 0 && !$hideExtra) { ?>
-    <div style="width:250px; padding:20px; background: #294409; margin-left: 30px; float: right;">
-        <div style="color: white; text-align: center; font-size: 22px; margin-bottom: 10px;">
-            Bronnen
-        </div>
-        <?
-        $v = 0;
-        $i = 0;
-        foreach($question['attachments'] as $attachemnt) {
-            if($attachemnt['type'] == 'file') {
-                $i++;
-                ?>
-                <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachemnt['id']?>);">
-                    Bijlage #<?=$i?>
-                </a>
-            <?
-            }elseif($attachemnt['type'] == 'video') {
-                $v++;
-                ?>
-                <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachemnt['id']?>);">
-                    Bekijk video <?=$v?>
-                </a>
-            <?
-            }
-        }
-        ?>
-    </div>
-<? } ?>
+<?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
 <h1>Selectievraag</h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">

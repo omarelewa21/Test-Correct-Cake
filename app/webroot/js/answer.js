@@ -22,11 +22,18 @@ var Answer = {
         );
     },
 
-    loadAttachment : function(attachment_id, timeout) {
-        $('#attachmentFrame').show().attr({'src' : '/answers/attachment/' + attachment_id});
-        $('#btnAttachmentFrame').show().unbind().click(function() {
+    loadAttachment : function(attachment_id, timeout,draggable) {
+        $("#attachmentContainer").attr("style","");
+        $('#attachmentContainer').removeClass('draggable').show().resizable();
+        if(draggable == 1){
+            $("#attachmentContainer").addClass('draggable').draggable();
+        }
 
-            if(timeout != undefined && timeout > 0) {
+
+        $('#attachmentFrame').attr({'src' : '/answers/attachment/' + attachment_id});
+        $('#btnAttachmentFrame').unbind().click(function() {
+
+            if(timeout != undefined && timeout != '' && timeout > 0) {
                 Answer.timeoutStart = Answer.count;
                 Answer.timeoutDeadline = (parseInt(Answer.count) + parseInt(timeout));
 
@@ -35,9 +42,9 @@ var Answer = {
             }
 
             $('#attachmentFrame').attr({'src' : '/answers/clear'});
-            $('#attachmentFrame').hide();
+            $('#attachmentContainer').hide();
             $('#question_load').show();
-            $(this).hide();
+            // $(this).hide();
         });
 
         return false;

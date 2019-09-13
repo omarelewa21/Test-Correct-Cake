@@ -23,11 +23,14 @@
             <?
             $i = 0;
             foreach($question['attachments'] as $attachment) {
-
+                $draggable = false;
                 $timeout = "";
 
                 if(isset($attachment['json'])) {
                     $settings = json_decode($attachment['json'], true);
+                    if(is_array($settings) && count($settings) > 0){
+                        $draggable = true;
+                    }
                     if(isset($settings['timeout']) && !empty($settings['timeout'])) {
                         $timeout = $settings['timeout'];
                     }
@@ -35,7 +38,7 @@
 
                 $i++;
                 ?>
-                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachment['id']?><?=!empty($timeout) ? ', ' . $timeout : ''?>);">
+                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachment['id']?>,<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
                     Bijlage #<?=$i?>
                 </a>
                 <?

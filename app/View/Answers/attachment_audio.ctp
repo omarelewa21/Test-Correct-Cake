@@ -19,7 +19,7 @@
 <span id="audioSupportText">Een ogenblik geduld..</span>
 <br />
 <br />
-<a href="#" role="button" id="audioBtn" class="btn disabled mt5 mr5">Laden..</a>
+<a href="#" role="button" id="audioBtn" class="btn disabled mt5">Laden..</a>
 <script type="text/javascript">
     function screenText(pauseable, playonce, playedonce, timesout, canPlay) {
         var text = "Geluidsfragment";
