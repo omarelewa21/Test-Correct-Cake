@@ -55,7 +55,7 @@
 
     function saveRating(){
         if(!rated){
-            alert('Je dient eerst een beoordeling te geven');
+            Notify.notify('Je dient eerst een beoordeling te geven','error');
         }else{
             TestTake.saveRating();
         }
