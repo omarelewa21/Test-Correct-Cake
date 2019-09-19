@@ -134,10 +134,10 @@ if(!empty($group['question']['question'])) {
     </div>
     <div class="block-footer">
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>', 800); return false;">
-            <i class="fa fa-check mr5"></i> Nieuwe vraag toevoegen
+            <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
         </a>
         <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;;">
-            <i class="fa fa-check mr5"></i> Bestaande vraag toevoegen
+            <i class="fa fa-plus mr5"></i> Bestaande vraag toevoegen
         </a>
     </div>
 </div>
