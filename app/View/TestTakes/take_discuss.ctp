@@ -86,6 +86,7 @@
         $( "#slider" ).slider( "value", (<?=$rating['answer']['question']['score']?> / $('.toggleOption').length) * ok );
         $( "#divScore" ).html( $( "#slider" ).slider( "value" ) + ' pt' );
         $('#answerRating').val($( "#slider" ).slider( "value" ));
+        rated = true;
     }
 </script>
 
