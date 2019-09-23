@@ -42,6 +42,9 @@
                 $('#answerRating').val( ui.value );
             }
         });
+        jQuery("#slider").on('slidestart',function(event,ui){
+            rated = true;
+        });
 
         // $( "#divScore" ).html( $( "#slider" ).slider( "value" ) + ' pt' );
         $('#answerRating').val( $( "#slider" ).slider( "value" ) );
@@ -49,6 +52,7 @@
         Loading.discard = true;
         $('#div_answer').load('/test_takes/rate/<?=$take_id?>');
     });
+
 
     TestTake.discussingQuestionId = <?=$rating['answer']['question_id']?>;
     TestTake.startHeartBeat('rating');
