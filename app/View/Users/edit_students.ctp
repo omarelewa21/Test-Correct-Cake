@@ -69,7 +69,7 @@
                 Tijd dispensatie
             </th>
             <td>
-                <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> Heeft tijdsdispensatie
+                <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> Audio-ondersteuning (txt2speech)
             </td>
         </tr>
 
