@@ -478,7 +478,7 @@ class AnswersController extends AppController
                     $t = $query['start'];
                     break;
             }
-            return sprintf('https://www.youtube.com/embed/%s?rel=0&t=%d',$matches['video_id'],$t);
+            return sprintf('https://www.youtube.com/embed/%s?rel=0&start=%d',$matches['video_id'],$t);
         }
 
         preg_match($vimeoRegex, $subject, $matches);
