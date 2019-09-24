@@ -14,7 +14,10 @@ var TestTake = {
 
     startHeartBeat : function(callback) {
         if(callback == 'active'){
-            if(TestTake.active == false) {
+            console.log('startheartbeat');
+            console.log(TestTake.active);
+            checkFocus();
+            if(!TestTake.active) {
                 TestTake.atTestStart();
             }
             else{
@@ -101,15 +104,19 @@ var TestTake = {
                     // };
                     if (response.alert == 1){
                         TestTake.alert = true;
-                        TestTake.markBackground();
                     }
+                    else{
+                        TestTake.alert = false;
+                    }
+                    TestTake.markBackground();
                 }
             );
         }, intervalInSeconds*1000);
     },
 
     markBackground : function(){
-        if(!this.alert) {
+        console.log('mark background');
+        if(!TestTake.alert) {
             $('#test_progress').css({
                 'background' : '#294409'
             });
@@ -202,6 +209,7 @@ var TestTake = {
                     'height' : '30px'
                 });
                 TestTake.active = true;
+                checkFocus();
 
                 $('#header #logo_2').animate({
                     'margin-left' : '50px'
@@ -215,13 +223,13 @@ var TestTake = {
                     return false;
                 });
 
-                alert = false;
+                TestTake.alert = false;
             }
         });
     },
 
     atTestStop : function() {
-        this.alert = false;
+        TestTake.alert = false;
         $('#header #menu').fadeIn();
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
@@ -685,12 +693,17 @@ function onchange (evt) {
     } else{
       document.body.className = this[hidden] ? "hidden" : "visible";
     }
+    checkFocus();
+}
 
+
+function checkFocus(){
     if(this[hidden] && typeof Core !== "undefined"){
-console.log('lostfocus');
+        console.log('lostfocus');
         Core.lostFocus();
     }
 }
+
 
 // set the initial state (but only if browser supports the Page Visibility API)
 $(document).ready(function(){
