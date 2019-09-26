@@ -693,6 +693,11 @@ function onchange (evt) {
     } else{
       document.body.className = this[hidden] ? "hidden" : "visible";
     }
+    checkFocus();
+}
+
+
+function checkFocus(){
     if(this[hidden] && typeof Core !== "undefined"){
         console.log('lostfocus');
         Core.lostFocus();
@@ -702,7 +707,7 @@ function onchange (evt) {
 if(window.location.host == 'testportal.test-correct.nl'){
     window.onblur = function(){
         console.log('lost foucus from blur');
-        onchange();
+        onchange({type: document[hidden] ? "blur" : "focus"});
     }
 }
 
