@@ -680,13 +680,6 @@ else{
     window.onpageshow = window.onpagehide = window.onfocus = window.onblur = onchange;
 }
 
-if(window.location.host == 'testportal.test-correct.nl'){
-    window.onblur = function(){
-        console.log('lost foucus from blur');
-        Core.lostFocus();
-    }
-}
-
 function onchange (evt) {
     var v = "visible", h = "hidden",
         evtMap = {
@@ -700,17 +693,18 @@ function onchange (evt) {
     } else{
       document.body.className = this[hidden] ? "hidden" : "visible";
     }
-    checkFocus();
-}
-
-
-function checkFocus(){
     if(this[hidden] && typeof Core !== "undefined"){
         console.log('lostfocus');
         Core.lostFocus();
     }
 }
 
+if(window.location.host == 'testportal.test-correct.nl'){
+    window.onblur = function(){
+        console.log('lost foucus from blur');
+        onchange();
+    }
+}
 
 // set the initial state (but only if browser supports the Page Visibility API)
 $(document).ready(function(){
