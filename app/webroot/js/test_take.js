@@ -178,6 +178,7 @@ var TestTake = {
         $.get('/test_takes/hand_in',
             function() {
                 clearTimeout(TestTake.heartBeatInterval);
+                stopCheckFocus();
                 // Navigation.refresh();
                 Navigation.load('/test_takes/taken_student');
                 TestTake.atTestStop();
@@ -201,6 +202,7 @@ var TestTake = {
             if(response == 'error') {
                 alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
             }else{
+                runCheckFocus();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#header #logo_1').animate({
@@ -227,6 +229,7 @@ var TestTake = {
 
     atTestStop : function() {
         TestTake.alert = false;
+        stopCheckFocus();
         $('#header #menu').fadeIn();
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
@@ -696,13 +699,28 @@ function onchange (evt) {
     }
 }
 
-
-if(window.location.host == 'testportal.test-correct.nl'){
-    window.onfocus = function(){
-        console.log('regained foucus from blur');
-        onchange({type: document[hidden] ? "blur" : "focus"});
+var checkFocusTimer = false;
+function runCheckFocus(){
+    if(window.location.host == 'testportal.test-correct.nl' || window.location.host == 'testportal.test-correct.test'){
+        if(!checkFocusTimer) {
+            checkFocusTimer = setInterval(checkPageFocus, 300);
+        }
     }
 }
+
+function stopCheckFocus(){
+    if(checkFocusTimer){
+        clearInterval(checkFocusTimer);
+    }
+}
+
+function checkPageFocus(){
+        if(!document.hasFocus()){
+            console.log('lost focus from checkPageFocus');
+            Core.lostFocus();
+        }
+}
+
 
 // set the initial state (but only if browser supports the Page Visibility API)
 $(document).ready(function(){
