@@ -15,8 +15,6 @@ var TestTake = {
     startHeartBeat : function(callback) {
         if(callback == 'active'){
             console.log('startheartbeat');
-            console.log(TestTake.active);
-            checkFocus();
             if(!TestTake.active) {
                 TestTake.atTestStart();
             }
@@ -209,7 +207,6 @@ var TestTake = {
                     'height' : '30px'
                 });
                 TestTake.active = true;
-                checkFocus();
 
                 $('#header #logo_2').animate({
                     'margin-left' : '50px'
@@ -693,20 +690,16 @@ function onchange (evt) {
     } else{
       document.body.className = this[hidden] ? "hidden" : "visible";
     }
-    checkFocus();
-}
-
-
-function checkFocus(){
     if(this[hidden] && typeof Core !== "undefined"){
         console.log('lostfocus');
         Core.lostFocus();
     }
 }
 
+
 if(window.location.host == 'testportal.test-correct.nl'){
-    window.onblur = function(){
-        console.log('lost foucus from blur');
+    window.onfocus = function(){
+        console.log('regained foucus from blur');
         onchange({type: document[hidden] ? "blur" : "focus"});
     }
 }
