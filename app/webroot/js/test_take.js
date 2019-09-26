@@ -680,6 +680,13 @@ else{
     window.onpageshow = window.onpagehide = window.onfocus = window.onblur = onchange;
 }
 
+if(window.location.host == 'testportal.test-correct.nl'){
+    window.onblur = function(){
+        console.log('lost foucus from blur');
+        Core.lostFocus();
+    }
+}
+
 function onchange (evt) {
     var v = "visible", h = "hidden",
         evtMap = {
