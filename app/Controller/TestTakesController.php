@@ -137,18 +137,19 @@ class TestTakesController extends AppController
 						die;
 					}
 
-					if(
-						$test['education_level_year'] != $class['education_level_year'] ||
-						$test['period']['school_year_id'] != $class['school_year_id']
-					) {
-						$this->formResponse(false, [
-							'errors' => [
-								'Leerjaren van klassen en toetsen komen niet overeen.'
-							]
-						]);
-
-						die;
-					}
+					// 20190930 uitgezet op verzoek van Alex omdat het verder geen doel dient.
+//					if(
+//						$test['education_level_year'] != $class['education_level_year'] ||
+//						$test['period']['school_year_id'] != $class['school_year_id']
+//					) {
+//						$this->formResponse(false, [
+//							'errors' => [
+//								'Leerjaren van klassen en toetsen komen niet overeen.'
+//							]
+//						]);
+//
+//						die;
+//					}
 
 					$check = $this->TestTake->check($test_take, $test);
 					if(!$check['status']) {

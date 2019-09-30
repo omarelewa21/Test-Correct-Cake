@@ -202,6 +202,7 @@ var TestTake = {
             if(response == 'error') {
                 alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
             }else{
+                Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
@@ -230,6 +231,7 @@ var TestTake = {
     atTestStop : function() {
         TestTake.alert = false;
         stopCheckFocus();
+        Core.startCheckUnreadMessagesListener();
         $('#header #menu').fadeIn();
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
@@ -711,6 +713,7 @@ function runCheckFocus(){
 function stopCheckFocus(){
     if(checkFocusTimer){
         clearInterval(checkFocusTimer);
+        checkFocusTimer = false;
     }
 }
 

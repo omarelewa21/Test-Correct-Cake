@@ -11,6 +11,9 @@ var Core = {
 	appType : '',
 	cache : [],
 	surpressLoading : false,
+    lastLostFocusNotification : false,
+    lastLostFocusNotificationDelay : 3 * 60, // 3 minutes
+	unreadMessagesTimer : false,
 
 	initialise : function() {
 
@@ -108,14 +111,25 @@ var Core = {
 			Popup.calcPosition();
 		}, 5000);
 
-		setInterval(function() {
-			Core.checkUnreadMessages();
-		}, 60000);
+		Core.startCheckUnreadMessagesListener();
 
 		// I think this runs in isolation on login. afterlogin already included an extra call;
 		 //   Navigation.load('/users/welcome');
 
 		User.checkLogin();
+	},
+
+	startCheckUnreadMessagesListener : function(){
+        Core.unreadMessagesTimer = setInterval(function() {
+            Core.checkUnreadMessages();
+        }, 60000);
+	},
+
+	stopCheckUnreadMessagesListener : function(){
+		if(Core.unreadMessagesTimer != false) {
+            clearInterval(Core.unreadMessagesTimer);
+            Core.unreadMessagesTimer = false;
+        }
 	},
 
 	afterLogin : function() {
@@ -199,8 +213,19 @@ var Core = {
 
 	lostFocus : function() {
 		if(TestTake.active) {
-			$.get('/test_takes/lost_focus');
-			TestTake.alert = true;
+		    if(TestTake.alert == false) {
+                $.get('/test_takes/lost_focus');
+                Core.lastLostFocusNotification = (new Date()).getTime()/1000;
+            } else {
+		        var ref = (new Date()).getTime()/1000;
+		        console.log('ref '+ref);
+		        console.log('last '+Core.lastLostFocusNotification);
+                if(Core.lastLostFocusNotification == false || Core.lastLostFocusNotification <= (ref - Core.lastLostFocusNotificationDelay)){
+                    $.get('/test_takes/lost_focus');
+                    Core.lastLostFocusNotification = (new Date()).getTime()/1000;
+                }
+            }
+            TestTake.alert = true;
             TestTake.markBackground();
 		}
 	},
