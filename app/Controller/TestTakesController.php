@@ -845,6 +845,7 @@ class TestTakesController extends AppController
 
         $participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
+        $participant_status = false;
 
         if($participant_id && $takeId == $take_id){
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
@@ -854,7 +855,7 @@ class TestTakesController extends AppController
                 $participant_status = $response['participant_test_take_status_id'];
             }
         }
-        else {
+        if(!$participant_status) {
             $take = $this->TestTakesService->getTestTake($take_id);
             $participant_id = $take['test_participant']['id'];
             $this->Session->write('participant_id',$participant_id);
