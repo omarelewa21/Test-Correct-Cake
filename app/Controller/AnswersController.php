@@ -262,11 +262,13 @@ class AnswersController extends AppController
                 echo json_encode([
                     'status' => 'next',
                     'take_id' => $take_id,
-                    'question_id' => ($take_question_index + 1)
+                    'question_id' => ($take_question_index + 1),
+                    'alert' => (isset($response['alert'])) ? $response['alert'] : false
                 ]);
             } else {
                 echo json_encode([
-                    'status' => 'done'
+                    'status' => 'done',
+                    'alert' => (isset($response['alert'])) ? $response['alert'] : false
                 ]);
             }
         }

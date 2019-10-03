@@ -90,6 +90,11 @@ var Answer = {
 
                     console.log(data);
 
+                    if(data.alert != undefined){
+                        TestTake.alert = data.alert;
+                        TestTake.markBackground();
+                    }
+
                     Answer.questionSaved = true;
 
                     if(url != undefined) {
