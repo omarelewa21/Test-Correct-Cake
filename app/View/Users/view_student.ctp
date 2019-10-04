@@ -34,7 +34,7 @@
                     <?=$user['name_suffix']?>
                     <?=$user['name']?>
                 </td>
-                <th width="10%">Tijd dispensatie</th>
+                <th width="10%">Dyslexie</th>
                 <td width="23%"><?=$user['time_dispensation'] == 0 ? 'Nee' : 'Ja'?></td>
                 <th width="10%">Voorlees functionaliteit</th>
                 <td width="23%">

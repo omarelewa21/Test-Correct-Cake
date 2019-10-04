@@ -2,7 +2,7 @@
     <a href="#" class="btn highlight mr2" onclick="TestTake.toggleParticipantProgress();" id="btnSmartBoard"></a>
 </div>
 
-<h1>Surveillance</h1>
+<h1 id="surveillanceTitle">Surveillance</h1>
 
 <?
 
@@ -213,12 +213,75 @@ if(count($takes) == 0) {
 ?>
 
 <script type="text/javascript">
-    clearTimeout(window.surveillanceTimeout);
-    window.surveillanceTimeout = setInterval(function() {
-        loadData();
-    }, 10000);
 
+    startPolling(10000);
     window.onbeforeunload = confirmExit;
+
+    if(typeof(Pusher) == 'undefined'){
+        console.log('adding pusher');
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '//js.pusher.com/5.0/pusher.min.js';
+
+        document.getElementsByTagName('head')[0].appendChild(script);
+
+        setTimeout(function(){
+            var pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
+                cluster: 'eu',
+                forceTLS: false,
+            });
+
+            var channel = pusher.subscribe('my-channel');
+            channel.bind('stop-polling', function (data) {
+                console.dir(data);
+                stopPolling(data.message, data.title);
+            });
+            channel.bind('start-polling', function (data) {
+                console.dir(data);
+                if (!data.pollingInterval) {
+                    data.pollingInterval = 10000;
+                }
+                startPolling(data.pollingInterval);
+            });
+        },
+        10000)
+    }
+
+
+
+
+    function stopPolling(message, title) {
+        if (title === undefined) {
+            title = '<span class="label-danger" style="display:block">Hoge server belasting</span>';
+        }
+
+        if (message === undefined) {
+            message = 'Door de hoge serverbelasting wordt het surveillance scherm tijdelijk niet geupdate.'
+        }
+
+        Popup.message({
+            title: title,
+            message: message
+        });
+        $('#page_title').html('Surveillance (inactief)');
+
+        clearTimeout(window.surveillanceTimeout);
+    }
+
+    function startPolling(interval) {
+        clearTimeout(window.surveillanceTimeout);
+        window.surveillanceTimeout = setInterval(function () {
+            if(document.getElementById('surveillanceTitle')){
+                loadData();
+            }
+            else{
+                clearTimeout(window.surveillanceTimeout);
+            }
+        }, interval);
+        $('#page_title').html('Surveillance');
+
+    }
+
     function confirmExit() {
         return "U bent aan het surveilleren, weet u het zeker?";
     }
