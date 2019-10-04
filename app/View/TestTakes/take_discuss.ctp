@@ -40,7 +40,12 @@
                 rated = true;
                 $( "#divScore" ).html( ui.value + ' pt' );
                 $('#answerRating').val( ui.value );
-            }
+            },
+            stop: function(event,ui){
+                if($("#divScore span").html() == '?'){
+                    $("#divScore span").html(ui.value);
+                }
+            },
         });
         jQuery("#slider").on('slidestart',function(event,ui){
             rated = true;
