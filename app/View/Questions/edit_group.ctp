@@ -56,7 +56,7 @@
 
     $('#QuestionGroupAttainments').select2();
 
-    $('#QuestionGroupText').ckeditor({});
+    $('#QuestionGroupQuestion').ckeditor({});
 
     $('#QuestionGroupEditGroupForm').formify(
         {
