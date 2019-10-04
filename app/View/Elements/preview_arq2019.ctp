@@ -31,7 +31,7 @@
                     'value' => 1,
                     'div' => false,
                     'type' => 'checkbox',
-                    
+
                     'label' => false,
                     'class' => 'multiple_choice_option'
                 ]);?>
@@ -47,7 +47,7 @@
                     'value' => 1,
                     'div' => false,
                     'type' => 'checkbox',
-                    
+
                     'label' => false,
                     'class' => 'multiple_choice_option'
                 ]);?>
@@ -63,7 +63,7 @@
                     'value' => 1,
                     'div' => false,
                     'type' => 'checkbox',
-                    
+
                     'label' => false,
                     'class' => 'multiple_choice_option'
                 ]);?>
@@ -79,7 +79,7 @@
                     'value' => 1,
                     'div' => false,
                     'type' => 'checkbox',
-                    
+
                     'label' => false,
                     'class' => 'multiple_choice_option'
                 ]);?>
@@ -95,7 +95,7 @@
                     'value' => 1,
                     'div' => false,
                     'type' => 'checkbox',
-                    
+
                     'label' => false,
                     'class' => 'multiple_choice_option'
                 ]);?>

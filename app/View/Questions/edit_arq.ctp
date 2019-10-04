@@ -134,9 +134,9 @@
 
         <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
-        <div page="tags" class="page" tabs="edit_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-        </div>
+    <div page="tags" class="page" tabs="edit_question">
+        <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
+    </div>
 
 
     <div page="owners" class="page" tabs="edit_question">

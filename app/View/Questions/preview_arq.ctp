@@ -1,4 +1,4 @@
-<?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);
+<?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
 <h1>ARQ</h1>
 
