@@ -3,12 +3,42 @@
 ini_set('display_errors',1);
 error_reporting(-1);
 
+/**
+ * Use the DS to separate the directories in other defines
+ */
+if (!defined('DS')) {
+    define('DS', DIRECTORY_SEPARATOR);
+}
+
+/**
+ * These defines should only be edited if you have CakePHP installed in
+ * a directory layout other than the way it is distributed.
+ * When using custom settings be sure to use the DS and do not add a trailing DS.
+ */
+
+/**
+ * The full path to the directory which holds "app", WITHOUT a trailing DS.
+ *
+ */
+if (!defined('ROOT')) {
+    define('ROOT', dirname(dirname(dirname(__FILE__))));
+}
+
+/**
+ * The actual directory name for the "app".
+ *
+ */
+if (!defined('APP_DIR')) {
+    define('APP_DIR', basename(dirname(dirname(__FILE__))));
+}
+
 // Predefine global variables
 $csv 		= array();
 $errors 	= array();
 $email 		= 'support@test-correct.nl';
 $log 		= array('[' . date('m/d/Y h:i:s a', time()) . ']');
-$dir   		= __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'csv'.DIRECTORY_SEPARATOR;
+$dir        = ROOT . DS . APP_DIR . DS . 'tmp' . DS .'csv-uploads' . DS;
+//$dir   		= __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'csv'.DIRECTORY_SEPARATOR;
 // $dir 	= __DIR__.DIRECTORY_SEPARATOR . 'csv' . DIRECTORY_SEPARATOR; // only for local testing....
 $scandir 	= array_values(array_diff(scandir($dir),array('..','.')));
 
@@ -18,6 +48,10 @@ $teachersPerClass = array();
 $allClasses = array();
 $classesToIgnore = array();
 
+if(!$scandir || !is_array($scandir) || count($scandir) < 1 || pathinfo($scandir[0], PATHINFO_EXTENSION) != 'csv'){
+    echo "no valid file found to import";exit;
+}
+
 // READ THE CSV AND PUT INTO READABLE ARRAY FOR USAGE;
 if (($handle = fopen($dir . $scandir[0], "r")) !== FALSE) {
     while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
@@ -26,8 +60,16 @@ if (($handle = fopen($dir . $scandir[0], "r")) !== FALSE) {
     fclose($handle);
 }
 
+if(count($csv) < 1){
+    echo "no valid data found to import";exit;
+}
+
 // SET UP A CONNECTION TO THE MYSQL SERVER BECAUSE WE DO A LOT OF QUERIES;
-$mysql = new MySQLi('10.233.189.155','tccore_live_user','PjA9tdotAfDumA2h','tccore_live');
+if($_SERVER['HTTP_HOST'] == 'testportal.test-correct.test'){
+    $mysql = new MySQLi('localhost', 'homestead', 'secret', 'tccore_test');
+}else {
+    $mysql = new MySQLi('10.233.253.123', 'tccore_live_user', 'PjA9tdotAfDumA2h', 'tccore_live');
+}
 // $mysql = new MySQLi('localhost','root','','tccore_dev');
 
 foreach($csv as $rowNr => $recordInCsv) {
@@ -59,7 +101,7 @@ foreach($csv as $rowNr => $recordInCsv) {
 		$teacher_name_last 		= $recordInCsv[array_search('docAchternaam', $mapping)];
 		$teacher_is_mentor 		= $recordInCsv[array_search('IsMentor', $mapping)];
 	} catch (Exception $e) {
-		die(var_dump($e->message));
+		die(var_dump($e->getMessage()));
 	}
 
 	// Get all General IDS we need for matching, and updating/inserting specific users/classes into the database;
