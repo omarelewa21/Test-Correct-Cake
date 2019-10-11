@@ -48,19 +48,21 @@ $teachersPerClass = array();
 $allClasses = array();
 $classesToIgnore = array();
 
-if(!$scandir || !is_array($scandir) || count($scandir) < 1 || pathinfo($scandir[0], PATHINFO_EXTENSION) != 'csv'){
-    echo "no valid file found to import";exit;
+if(!$scandir || !is_array($scandir) || count($scandir) != 2 || pathinfo($scandir[0], PATHINFO_EXTENSION) != 'csv' || pathinfo($scandir[1], PATHINFO_EXTENSION) != 'csv'){
+    echo "no valid files found to import";exit;
 }
 
-// READ THE CSV AND PUT INTO READABLE ARRAY FOR USAGE;
-if (($handle = fopen($dir . $scandir[0], "r")) !== FALSE) {
-    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
-        $csv[] = $data;
-    }
-    fclose($handle);
-}
+$data = getDataFromFiles($scandir, $dir);
 
-if(count($csv) < 1){
+//// READ THE CSV AND PUT INTO READABLE ARRAY FOR USAGE;
+//if (($handle = fopen($dir . $scandir[0], "r")) !== FALSE) {
+//    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
+//        $csv[] = $data;
+//    }
+//    fclose($handle);
+//}
+
+if(count($data->people) < 1 || count($data->emails) < 1 ){// emails is one less as it contains no header row
     echo "no valid data found to import";exit;
 }
 
@@ -72,7 +74,7 @@ if($_SERVER['HTTP_HOST'] == 'testportal.test-correct.test'){
 }
 // $mysql = new MySQLi('localhost','root','','tccore_dev');
 
-foreach($csv as $rowNr => $recordInCsv) {
+foreach($data->people as $rowNr => $recordInCsv) {
 	if($rowNr === 0) { // We are currently in the header row;
 		$mapping = $recordInCsv; // store current row in seperate variable before working;
 		continue; // Skip current itteration because we don't need to do anything with header row;
@@ -100,6 +102,15 @@ foreach($csv as $rowNr => $recordInCsv) {
 		$teacher_name_suffix 	= $recordInCsv[array_search('docTussenvoegsels', $mapping)];
 		$teacher_name_last 		= $recordInCsv[array_search('docAchternaam', $mapping)];
 		$teacher_is_mentor 		= $recordInCsv[array_search('IsMentor', $mapping)];
+
+		if(!array_key_exists($student_external_code, $data->emails)){
+		    throw new Exception(sprintf('email address not found for user %s %s %s with stamnummer %s', $student_name_first, $student_name_suffix, $student_name_last, $student_external_code));
+        }
+        if(!array_key_exists($teacher_external_code, $data->emails)){
+            throw new Exception(sprintf('email address not found for teacher %s %s %s with stamnummer %s', $teacher_name_first, $teacher_name_suffix, $teacher_name_last, $teacher_external_code));
+        }
+		$student_email          = $data->emails[$student_external_code];
+		$teacher_email          = $data->emails[$teacher_external_code];
 	} catch (Exception $e) {
 		die(var_dump($e->getMessage()));
 	}
@@ -129,7 +140,7 @@ foreach($csv as $rowNr => $recordInCsv) {
 	if($school_year_id < 1) 
 		$errors[] = " [FATAL] Cannot find school year id : please fix;";
 	if($subject_id < 1) 
-		$errors[] = " [FATAL] Cannot find subject : please fix;";
+		$errors[] = " [FATAL] Cannot find subject : please fix; ".$subject_abbreviation;
 
 	foreach($errors as $error) checkLogForFatal($error, $email);
 
@@ -168,14 +179,15 @@ foreach($csv as $rowNr => $recordInCsv) {
 			$stmt->execute();
 			$stmt->close();
 			$log[] = "[INFO] Updated student information with external id: " . $student_external_code;
+            $log[] = "[INFO] Student username: " . $student_email;
 		}
 
 	} else {
 		// Student does not exists, let's create it;
 		$api_key = substr( hash('ripemd320', uniqid().time('now')), rand(0,38), 41);
-		$username = str_replace(' ','',strtolower($student_name_first[0].'.'.$student_name_last.'@'.$school_location_id.'.com'));
+//		$username = str_replace(' ','',strtolower($student_name_first[0].'.'.$student_name_last.'@'.$school_location_id.'.com'));
 		$stmt = $mysql->prepare("INSERT INTO `users` (`external_id`,`name_first`,`name_suffix`,`name`,`username`,`school_location_id`,`api_key`, `created_at`,`updated_at`) VALUES (?,?,?,?,?,?,?, NOW(), NOW());");
-		$stmt->bind_param('issssis',$student_external_code, $student_name_first, $student_name_suffix, $student_name_last, $username, $school_location_id,$api_key);
+		$stmt->bind_param('issssis',$student_external_code, $student_name_first, $student_name_suffix, $student_name_last, $student_email, $school_location_id,$api_key);
 
 		$stmt->execute();
 		$student_id = $stmt->insert_id;
@@ -204,6 +216,7 @@ foreach($csv as $rowNr => $recordInCsv) {
 
 		$log[] = "[INFO] Added student in student table with id: " . $student_id;
 		$log[] = "[INFO] Student external id: " . $student_external_code;
+        $log[] = "[INFO] Student username: " . $student_email;
 	}
 
 	// Add all students to general array
@@ -234,9 +247,13 @@ foreach($csv as $rowNr => $recordInCsv) {
 	}else {
 		// teacher does not exists, let's create it;
 		$api_key = substr( hash('ripemd320', uniqid().time('now')), rand(0,38), 41);
-		$username = str_replace(' ', '',strtolower($teacher_name_first[0].'.'.$teacher_name_last.'@'.$school_location_id.'.com'));
+//		if(isset($data->emails[$teacher_external_code])){
+//		    $username = $data->emails[$teacher_external_code];
+//        }else {
+//            $username = str_replace(' ', '', strtolower($teacher_name_first[0] . '.' . $teacher_name_last . '@' . $school_location_id . '.com'));
+//        }
 		$stmt = $mysql->prepare("INSERT INTO `users` (`external_id`,`name_first`,`name_suffix`,`name`,`username`,`school_location_id`,`api_key`, `created_at`,`updated_at`) VALUES (?,?,?,?,?,?,?, NOW(), NOW());");
-		$stmt->bind_param('issssis',$teacher_external_code, $teacher_name_first, $teacher_name_suffix, $teacher_name_last, $username, $school_location_id, $api_key);
+		$stmt->bind_param('issssis',$teacher_external_code, $teacher_name_first, $teacher_name_suffix, $teacher_name_last, $teacher_email, $school_location_id, $api_key);
 
 		$stmt->execute();
 		$teacher_id = $stmt->insert_id;
@@ -369,13 +386,12 @@ dd($log);
 function checkLogForFatal($log, $email)
 {
 	if(strpos($log, 'FATAL')) {
-		$log .= '------------------------------------------------------------------------------------';
-		$log .= 'Aborted import with fatal errors, please fix errors and retry';
+	    $log .= PHP_EOL;
+		$log .= '------------------------------------------------------------------------------------'.PHP_EOL;
+		$log .= 'Aborted import with fatal errors, please fix errors and retry'.PHP_EOL;
 
 		// sendLog($log, $email);
-
-		print_r($log);
-
+        dd($log);
 		exit(1);
 	}
 }
@@ -480,7 +496,10 @@ function checkForSubjectId($abbreviation,$school_location_id, $mysql)
  */
 function checkForStudyDirectionId($name, $mysql)
 {
-	
+
+    $name = translateStudyDirectionName($name);
+
+
 	$stmt = $mysql->prepare("SELECT `id` FROM `education_levels` WHERE `name` = ?");
 	
 	$stmt->bind_param('s',$name);
@@ -490,6 +509,18 @@ function checkForStudyDirectionId($name, $mysql)
 	$stmt->close();
 
 	return $id;
+}
+
+function translateStudyDirectionName($name){
+    $ar = [
+        'b' => 'Vmbo bb',
+        'b/k' => 'Vmbo kb',
+        'k' => 'Vmbo kb',
+        'k/t' => 'Mavo / Vmbo tl',
+        't' => 'Mavo / Vmbo tl',
+        'm/h' => 'Havo',
+    ];
+    return array_key_exists($name,$ar) ? $ar[$name] : $name;
 }
 
 /**
@@ -601,6 +632,42 @@ function checkUserHasBeenUpdated($external_id,  $school_location_id, $name_first
 	$stmt->close();
 
 	return $id_through_data === $id_through_external;
+}
+
+function getDataFromFiles($files, $dir){
+    $data = (object) [
+        'emails' => [],
+        'people' => [],
+    ];
+    foreach($files as $file){
+        if($file == 'Testcorrect.csv'){
+            // email list found
+            // READ THE CSV AND PUT INTO READABLE ARRAY FOR USAGE;
+            if (($handle = fopen($dir . $file, "r")) !== FALSE) {
+                $headerDone = false;
+                while (($row = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    if(!$headerDone){
+                        $headerDone = true;
+                        continue;
+                    }
+                    if($row[0] === NULL) break; // Empty rows in CSV
+                    $data->emails[$row[0]] = $row[1];
+                }
+                fclose($handle);
+            }
+        }
+        else{
+            // people list
+            // READ THE CSV AND PUT INTO READABLE ARRAY FOR USAGE;
+            if (($handle = fopen($dir . $file, "r")) !== FALSE) {
+                while (($row = fgetcsv($handle, 1000, ";")) !== FALSE) {
+                    $data->people[] = $row;
+                }
+                fclose($handle);
+            }
+        }
+    }
+    return $data;
 }
 
 // TEST FUNCTION TO DUMP DATA IN HTML PRE FORMAT FOR EASY DEBUGGING.
