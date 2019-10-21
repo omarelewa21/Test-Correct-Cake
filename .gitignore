@@ -14,6 +14,7 @@
 /app/sobitLogs/*
 /app/tmp
 /app/__cache
+info.php
 
 ## Cron.php moet verplaatst worden naar het backend. Bevat harde database paden en wachtwoorden
 /app/webroot/cron.php
