@@ -703,10 +703,8 @@ function onchange (evt) {
 
 var checkFocusTimer = false;
 function runCheckFocus(){
-    if(window.location.host == 'testportal.test-correct.nl' || window.location.host == 'testportal.test-correct.test'){
-        if(!checkFocusTimer) {
-            checkFocusTimer = setInterval(checkPageFocus, 300);
-        }
+    if(!checkFocusTimer) {
+        checkFocusTimer = setInterval(checkPageFocus, 300);
     }
 }
 
@@ -717,12 +715,32 @@ function stopCheckFocus(){
     }
 }
 
-function checkPageFocus(){
-        if(!document.hasFocus()){
-            console.log('lost focus from checkPageFocus');
-            Core.lostFocus();
-        }
+parent.skip = false;
+var notifsent= false;
+
+function closebtu(){
+    //we call this func. from drawing_answer_canvas.ctp when someone press close button
+    parent.skip = true;
+    window.parent.Popup.closeLast();
 }
+
+function checkPageFocus(){
+    if(!parent.skip){
+        if (!document.hasFocus()) {
+            if(!notifsent){  // checks for the notifcation if it is already sent to the teacher
+                console.log('lost focus from checkPageFocus');
+                Core.lostFocus();
+                notifsent= true;
+            }
+        } else {
+            notifsent= false;  //mark it as not sent, to active it again
+        }
+    } else {
+        window.focus();   //we need to set focus back to the window before changing skip value
+        parent.skip = false;
+    }
+}
+
 
 
 // set the initial state (but only if browser supports the Page Visibility API)

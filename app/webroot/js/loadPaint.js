@@ -394,7 +394,8 @@ var App = function() {
 	
 	document.getElementById('btn-export').onclick = 
 	document.getElementById('btn-export').ontouchdown = function() {
-		var element = canvas.getCanvas();
+        parent.skip = true;
+        var element = canvas.getCanvas();
 
 		window.parent.Loading.show();
 
@@ -413,6 +414,7 @@ var App = function() {
 			}
 		);
 	};
+
 
 	canvas.on('mousedown touchstart', function(e) {
 		var func = tool + 'Start';

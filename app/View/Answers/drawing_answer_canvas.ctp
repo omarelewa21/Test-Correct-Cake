@@ -30,7 +30,7 @@
         <a id="btn-tool-shape-circle" title="Cirkel" class="btn highlight small mr2 pull-left"><span class="fa fa-circle-thin"></span></a>
         <a id="btn-tool-shape-rectangle" title="Vierkant" class="btn highlight small mr2 pull-left"><span class="fa fa-square-o"></span></a>
         <a id="btn-export" class="btn highlight small ml5 pull-right" style="cursor: pointer;"><span class="fa fa-check"></span> Opslaan</a>
-        <a class="btn grey small ml5 pull-right" style="cursor:pointer;" onclick="window.parent.Popup.closeLast();"><span class="fa fa-remove"></span> Sluiten</a>
+        <a class="btn grey small ml5 pull-right" style="cursor:pointer;" onclick="closebtu();" ><span class="fa fa-remove"></span> Sluiten</a>
 
         <a id="btn-color-blue" class="btn small mr2 pull-right colorBtn" style="background: blue; width:7px; height:16px; opacity: .3;"></a>
         <a id="btn-color-red" class="btn small mr2 pull-right colorBtn" style="background: red; width:7px; height:16px; opacity: .3;"></a>
@@ -70,6 +70,7 @@
 
 <script src="/js/paint.js"></script>
 <script src="/js/loadPaint.js"></script>
+<script src="/js/test_take.js"></script>
 
 </body>
 </html>
