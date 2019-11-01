@@ -446,6 +446,9 @@ var TestTake = {
                         $(".nextDiscussionQuestion").removeAttr('disabled');
                     }
                 );
+            },
+            function() {
+                 $(".nextDiscussionQuestion").removeAttr('disabled');
             });
         }
     },

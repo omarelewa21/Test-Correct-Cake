@@ -3,6 +3,7 @@ var Popup = {
     index : 0,
     callback : null,
     timeout : null,
+    cancelCallback : null,
 
 
     load : function(url, width) {
@@ -70,6 +71,15 @@ var Popup = {
         }
     },
 
+    messageCancel: function(){
+        if(Popup.cancelCallback != null) {
+            Popup.cancelCallback();
+            Popup.cancelCallback = null;
+        }
+
+        Popup.closeLast();
+    },
+
     messageOk : function() {
 
         if(Popup.callback != null) {
@@ -80,9 +90,16 @@ var Popup = {
         Popup.closeLast();
     },
 
-    message : function(settings, callback) {
+    message : function(settings, callback, cancelCallback) {
         if(settings.btnOk == undefined) {
             settings.btnOk = 'Oke';
+        }
+
+        if(cancelCallback != undefined){
+            Popup.cancelCallback = cancelCallback;
+        }
+        else{
+            Popup.cancelCallback = null;
         }
 
         if(callback != undefined) {
@@ -94,7 +111,7 @@ var Popup = {
         var btnBlock = "<a href='#' onclick='Popup.messageOk();' class='btn highlight mt5 mr5 pull-right'>" + settings.btnOk + "</a>";
 
         if(settings.btnCancel != undefined) {
-            btnBlock += "<a href='#' onclick='Popup.closeLast();' class='btn grey mt5 mr5 pull-right'>" + settings.btnCancel + "</a>";
+            btnBlock += "<a href='#' onclick='Popup.messageCancel();' class='btn grey mt5 mr5 pull-right'>" + settings.btnCancel + "</a>";
         }
 
         var htmlBlock = "<div class='popup-head'>" + settings.title + "</div>";
