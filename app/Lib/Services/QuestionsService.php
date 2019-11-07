@@ -98,6 +98,12 @@ class QuestionsService extends BaseService
         }
     }
 
+    public function getInlineImageContent($image) {
+
+        $response = $this->Connector->getDownloadRequest('/question/inlineimage/' . $image, []);
+        return $response;
+    }
+
     public function duplicate($owner, $owner_id, $question_id)
     {
 

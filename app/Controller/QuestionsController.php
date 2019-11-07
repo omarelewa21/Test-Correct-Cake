@@ -1014,7 +1014,62 @@ class QuestionsController extends AppController {
         $this->set('questions', $questions['data']);
     }
 
+    public function inlineimage($image){
 
+        if(substr_count($image,'..') > 0) {
+            exit;
+        }
+
+        set_time_limit(0);
+
+        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . 'inlineimages' . DS);
+
+        if(!is_dir($path)){
+            mkdir($path,0777);
+        }
+
+        $file = $path.$image;
+
+        if(!file_exists($file)){
+            $content = ($this->QuestionsService->getInlineImageContent($image));
+            if(strlen($content) > 15){
+                file_put_contents($file,base64_decode($content));
+            }
+            else{
+                exit;
+            }
+        }
+
+        $mime = mime_content_type($file);
+
+        switch($mime) {
+            case 'image/jpg':
+            case 'image/jpeg':
+            case 'image/JPG':
+            case 'image/JPEG':
+
+                $img = imagecreatefromstring(file_get_contents($file));
+
+                header('Content-type: '.$mime);
+                imagejpeg($img);
+                break;
+            case 'image/png':
+            case 'image/PNG':
+
+                $img = imagecreatefrompng($file);
+
+                imagealphablending( $img, false );
+                imagesavealpha( $img, true );
+                imagecolorallocatealpha($img, 0,0,0,127);
+
+                header('Content-type: '.$mime);
+                imagepng($img);
+                break;
+        }
+
+        imagedestroy($img);
+        exit();
+    }
 
     public function upload_attachment($type, $owner = null, $owner_id = null, $id = null) {
         $this->autoRender = false;
