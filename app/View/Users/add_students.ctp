@@ -62,7 +62,7 @@
                 Dyslexie
             </th>
             <td>
-                <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> Audio-ondersteuning (txt2speech)
+                <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> heeft recht op tijdsdispensatie
             </td>
         </tr>
         <?php echo $this->element('text2speech'); ?>
