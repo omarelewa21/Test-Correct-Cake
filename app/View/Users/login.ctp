@@ -1,5 +1,9 @@
 <div class="popup-head">
     Inloggen op Test-Correct
+    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <span style="float:right;width:auto;padding-right:7px;padding-left:7px;" onclick="document.getElementsByTagName('BODY')[0].appendChild(document.createElement('script')).src='https://babm.texthelp.com/Bookmarklet.ashx?l=nl';"><i class="fa fa-volume-up"></i> Lees voor
+        </span>
+    <? } ?>
 </div>
 
 <div class="popup-content">
