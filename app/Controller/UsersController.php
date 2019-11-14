@@ -641,6 +641,13 @@ class UsersController extends AppController {
                     'title' => 'Studenten',
                     'path' => '/users/index/students'
                 );
+
+                $tiles['teacherstats'] = array(
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
+                    'title' => 'Docent statistieken',
+                    'path' => '/admin/teacher_stats'
+                );
             }
 
             if($role['name'] == 'Account manager') {

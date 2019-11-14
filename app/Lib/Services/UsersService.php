@@ -8,6 +8,19 @@ App::uses('BaseService', 'Lib/Services');
  *
  */
 class UsersService extends BaseService {
+
+    public function getAdminTeacherStats(){
+        $params = [];
+        $response = $this->Connector->getRequest('/admin/teacher_stats', $params);
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
    public function getUsers($params) {
 
         $response = $this->Connector->getRequest('/user', $params);
