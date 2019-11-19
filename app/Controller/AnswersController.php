@@ -62,6 +62,10 @@ class AnswersController extends AppController
 
 
         switch($question['type']) {
+            case 'InfoscreenQuestion':
+                $view = 'question_infoscreen';
+                break;
+
             case 'OpenQuestion':
                 $view = 'question_open';
                 break;

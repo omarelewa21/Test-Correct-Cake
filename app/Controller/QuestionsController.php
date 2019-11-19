@@ -87,6 +87,10 @@ class QuestionsController extends AppController {
                 $view = 'edit_drawing';
                 break;
 
+            case 'InfoscreenQuestion' :
+                $view = 'edit_infoscreen';
+                break;
+                
             case 'OpenQuestion' :
                 $view = 'edit_open';
                 break;
@@ -158,6 +162,10 @@ class QuestionsController extends AppController {
         }
 
         switch($question['type']) {
+            case 'InfoscreenQuestion':
+                $view = 'preview_infoscreen';
+                break;
+                
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -207,6 +215,10 @@ class QuestionsController extends AppController {
         $question = $this->QuestionsService->getSingleQuestion($id);
 
         switch($question['type']) {
+            case 'InfoscreenQuestion':
+                    $view = 'preview_infoscreen_answer';
+                    break;
+                    
             case 'OpenQuestion':
                 $view = 'preview_open_answer';
                 break;
@@ -265,6 +277,10 @@ class QuestionsController extends AppController {
 
 
         switch($question['type']) {
+            case 'InfoscreenQuestion':
+                $view = 'preview_infoscreen';
+                break;
+                
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -507,6 +523,10 @@ class QuestionsController extends AppController {
                     $view = 'edit_drawing';
                     break;
 
+                case 'InfoscreenQuestion' :
+                    $view = 'edit_infoscreen';
+                    break;
+                    
                 case 'OpenQuestion' :
                     $view = 'edit_open';
                     break;
@@ -831,6 +851,10 @@ class QuestionsController extends AppController {
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
             switch ($type) {
+                case 'InfoscreenQuestion':
+                    $this->render('add_infoscreen','ajax');
+                    break;
+                    
                 case 'OpenQuestion' :
                     $this->render('add_open', 'ajax');
                     break;

@@ -146,6 +146,9 @@
                             if($question['question']['type'] == 'GroupQuestion') {
                                 foreach($subquestions as $subquestion) {
                                     switch($subquestion['question']['type']) {
+                                        case 'InfoscreenQuestion':
+                                            echo 'Infoscherm';
+                                            break;
                                         case 'MultipleChoiceQuestion':
                                             if($subquestion['question']['subtype'] == 'TrueFalse') {
                                                 echo 'Juist / Onjuist<br />';
@@ -191,6 +194,9 @@
                                 }
                             }else{
                                 switch($question['question']['type']) {
+                                    case 'InfoscreenQuestion':
+                                        echo 'Infoscherm';
+                                        break;
                                     case 'MultipleChoiceQuestion':
                                         if($question['question']['subtype'] == 'TrueFalse') {
                                             echo 'Juist / Onjuist';

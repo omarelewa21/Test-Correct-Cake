@@ -29,16 +29,22 @@
         </table>
 
         <?
+        function isJuist($answer){
+            return strtolower($answer['answer']) == 'juist' || strtolower(strip_tags($answer['answer'])) == 'waar';
+        }
+
+        function isOnjuist($answer){
+            return strtolower($answer['answer']) == 'onjuist' || strtolower(strip_tags($answer['answer'])) == 'niet waar';
+        }
 
         $value = 0;
-
         foreach($question['question']['multiple_choice_question_answers'] as $answer) {
 
-            if($answer['answer'] == 'Juist' && $answer['score'] > 0) {
+            if(isJuist($answer) && $answer['score'] > 0) {
                 $value = 1;
             }
 
-            if($answer['answer'] == 'Onjuist' && $answer['score'] > 0) {
+            if(isOnjuist($answer) && $answer['score'] > 0) {
                 $value = 0;
             }
         }

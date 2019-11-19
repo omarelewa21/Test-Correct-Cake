@@ -17,6 +17,7 @@ class Question extends AppModel
         if($question['type'] != 'GroupQuestion') {
             switch ($question['type']) {
                 case 'OpenQuestion' :
+                case 'InfoscreenQuestion':
                     $html = $question['question'];
                     break;
 

@@ -53,6 +53,11 @@
     <div style="display:none;| class="btn highlight pull-left mb20 defaultMenuButton" onclick="Questions.addOpenPopup('long', '<?=$owner?>', <?=$owner_id?>);">
         Wiskunde vraag
     </div>
+
+    <div class="pt15" style="clear:both">Overig</div>
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('InfoscreenQuestion', '<?=$owner?>', <?=$owner_id?>);">
+        Infoscherm
+    </div>
     <Br clear="all" />
 </div>
 

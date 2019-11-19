@@ -274,6 +274,10 @@ class QuestionsService extends BaseService
         $hasBackendValidation = false;
 
         switch ($type) {
+            case "InfoscreenQuestion":
+                $question = $this->_fillNewInfoscreenQuestion($question);
+                break;
+
             case "OpenQuestion":
                 $question = $this->_fillNewOpenQuestion($question);
                 break;
@@ -1219,6 +1223,26 @@ class QuestionsService extends BaseService
         }
     }
 
+    private function _fillNewInfoscreenQuestion($question)
+    {
+
+        return [
+            'question' => $question['question'],
+            'answer' => 'niet van toepassing',
+            'type' => 'InfoscreenQuestion',
+            'score' => 0,
+            'order' => 0,
+            'subtype' => 'nvt',
+            'maintain_position' => 1,
+            'discuss' => 0,
+            'decimal_score' => 0,
+            'add_to_database' => $question['add_to_database'],
+            'attainments' => $question['attainments'],
+            'note_type' => 'NONE',
+            'is_open_source_content' => 0
+        ];
+    }
+    
     private function _fillNewOpenQuestion($question)
     {
 

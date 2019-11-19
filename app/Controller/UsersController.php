@@ -648,6 +648,13 @@ class UsersController extends AppController {
                     'title' => 'Docent statistieken',
                     'path' => '/admin/teacher_stats'
                 );
+
+                $tiles['qtiimport'] = array(
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
+                    'title' => 'Qti Import',
+                    'path' => '/qtiimport/index'
+                );
             }
 
             if($role['name'] == 'Account manager') {

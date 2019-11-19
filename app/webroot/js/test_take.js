@@ -202,6 +202,52 @@ var TestTake = {
             if(response == 'error') {
                 alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
             }else{
+                $('#tiles').hide();
+                $('#header #menu').fadeOut();
+                $('#header #logo_1').animate({
+                    'height' : '30px'
+                });
+                TestTake.active = true;
+                startfullscreentimer();
+                $('#header #logo_2').animate({
+                    'margin-left' : '50px'
+                });
+                $('#btnLogout').hide();
+                $('#btnMenuHandIn').show();
+                $('#container').animate({'margin-top' : '30px'});
+
+                $('body').on('contextmenu',function(e){
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+    },
+
+    atTestStop : function() {
+        $('#header #menu').fadeIn();
+        $('#btnLogout').show();
+        $('#btnMenuHandIn').hide();
+        TestTake.active = false;
+        stopfullscreentimer();
+        $('#header #logo_1').animate({
+            'height' : '70px'
+        });
+        $('#header #logo_2').animate({
+            'margin-left' : '90px'
+        });
+        $('#container').animate({'margin-top' : '92px'},
+            function() {
+                $('#tiles').show();
+            }
+        );
+    },
+
+    atTestStart : function() {
+        $.get('/test_takes/start_take_participant', function(response) {
+            if(response == 'error') {
+                alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
+            }else{
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
                 $('#tiles').hide();
@@ -716,6 +762,23 @@ function stopCheckFocus(){
         clearInterval(checkFocusTimer);
         checkFocusTimer = false;
     }
+}
+
+var fullscreentimer;
+function checkfullscreen(){
+    if(window.innerWidth !== screen.width || window.innerHeight !== screen.height) {
+        console.log('hand in from checkfullscreen');
+        Core.lostFocus();
+    }
+}
+function startfullscreentimer(){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        fullscreentimer = setInterval(checkfullscreen, 300);
+    }
+}
+
+function stopfullscreentimer(){
+    clearInterval(fullscreentimer);
 }
 
 parent.skip = false;
