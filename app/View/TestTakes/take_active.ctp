@@ -29,7 +29,7 @@
     <?
      if($this->Session->read('Auth.User.has_text2speech') == 1){
         ?>
-        <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;" onclick="document.getElementsByTagName('BODY')[0].appendChild(document.createElement('script')).src='https://babm.texthelp.com/Bookmarklet.ashx?l=nl';"><i class="fa fa-volume-up"></i> Lees voor</div>
+        <div id="__ba_launchpad"><div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"><i class="fa fa-volume-up"></i> Lees voor</div></div>
         <?
       }
     ?>
@@ -124,4 +124,12 @@
     Answer.takeId = <?=$take_id?>;
     
 </script>
+<?php
+if($this->Session->read('Auth.User.has_text2speech') == 1){
+?>
+<script type="text/javascript" src="https://www.browsealoud.com/plus/scripts/2.6.0/ba.js" crossorigin="anonymous" integrity="sha256-fmrh3+LxhFr7DoDksKC0j8vUwhWdxRkMn8KFlFCQdRM= sha384-z00WvjaU37iu++7Lpo/4M4S7R56TUvMzVpc17SIQsiZepsABY8IFOPCvJVCe2tqN sha512-9ToHuVTbdiA7nUgUD0s8er8Aul62PXPwR1zenCOwIDaVN1eaJhieH1+yk5wTAi9r7ZIr+e/B7xehNqnweTg5aQ=="></script>
+<?php
+}
+?>
+
 
