@@ -15,7 +15,7 @@
                     <label>School</label>
                 </td>
                 <td>
-                    <?=$this->Form->input('school_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $schoolList))?>
+                    <?=$this->Form->input('school_location_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $schoolList))?>
                 </td>
             </tr>
             <tr>
@@ -28,7 +28,7 @@
             <tr>
                 <td><label>Vakgebied</label></td>
                 <td>
-                    <?=$this->Form->input('subject_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $subjectList))?>
+                    <?=$this->Form->input('subject_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                 </td>
             </tr>
             <tr>
@@ -37,12 +37,14 @@
                     <?=$this->Form->input('education_level_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $educationLevelList))?>
                 </td>
             </tr>
+
             <tr>
-                <td><label>Periode</label></td>
+                <td><label>Jaar</label></td>
                 <td>
-                    <?=$this->Form->input('period_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $periodList))?>
+                    <?=$this->Form->input('education_level_year', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                 </td>
             </tr>
+
             <tr>
                 <td><label>Type toetsen</label></td>
                 <td>
@@ -117,23 +119,50 @@
     }
 
     var qtiImportSetupRun = false;
-    let teachers = JSON.parse('<?php echo json_encode($teachers)?>');
+    let teachers = JSON.parse('<?php echo json_encode($teacherList)?>');
+    let teachers1 = JSON.parse('<?php echo json_encode($teachers)?>');
+    let subjects = JSON.parse('<?php echo json_encode($subjectList)?>');
+    let educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
+
     function qtiImportSetup() {
         $(document).ready(function () {
             let teacherSelect = jQuery('#QtiAuthorId');
-            let schoolLocationSelect = jQuery('#QtiSchoolId');
+            let subjectSelect = jQuery('#QtiSubjectId');
+            let schoolLocationSelect = jQuery('#QtiSchoolLocationId');
+            let educationLevelSelect = jQuery('#QtiEducationLevelId');
+            let educationLevelYearSelect = jQuery('#QtiEducationLevelYear');
             jQuery('body')
-                .on('change', '#QtiSchoolId', function () {
+                .on('change', '#QtiSchoolLocationId', function () {
                     var schoolLocationId = $(this).val();
 
                     teacherSelect.find('option').remove();
-                    jQuery.each(teachers, function (key, t) {
+                    jQuery.each(teachers1, function (key, t) {
                         if(t.school_location_id == schoolLocationId){
                             teacherSelect.append('<option value="'+t.id+'">'+t.name+'</option>');
                         }
                     });
+                })
+                .on('change', '#QtiAuthorId', function () {
+                    var authorId = $(this).val();
+                    var teacherSubjects = teachers[authorId]['subject_ids'];
+                    subjectSelect.find('option').remove();
+                    jQuery.each(subjects, function (key, s) {
+                        if(teacherSubjects.includes(s.id)){
+                            subjectSelect.append('<option value="'+s.id+'">'+s.name+'</option>');
+                        }
+                    });
+                })
+                .on('change', '#QtiEducationLevelId', function () {
+                    var elId = $(this).val();
+                    var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
+                    educationLevelYearSelect.find('option').remove();
+                    for(i=1;i<=maxYears;i++){
+                        educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
+                    };
                 });
             schoolLocationSelect.trigger('change');
+            teacherSelect.trigger('change');
+            educationLevelSelect.trigger('change');
         });
         qtiImportSetupRun = true;
     }

@@ -25,7 +25,7 @@ class QtiimportController extends AppController
 
         $subjectList = [];
         foreach($data['subjects'] as $subject){
-            $subjectList[$subject['id']] = sprintf('%s (%s)',$subject['name'],$subject['abbreviation']);
+            $subjectList[] = (object) ['id' => $subject['id'],'name' => sprintf('%s (%s)',$subject['name'],$subject['abbreviation'])];
         }
         $this->set('subjectList',$subjectList);
 
@@ -34,6 +34,7 @@ class QtiimportController extends AppController
             $educationLevelList[$e['id']] = $e['name'];
         }
         $this->set('educationLevelList',$educationLevelList);
+        $this->set('educationLevels',$data['educationLevels']);
 
         $testKindList = [];
         foreach($data['testKinds'] as $e){
@@ -47,7 +48,12 @@ class QtiimportController extends AppController
         }
         $this->set('periodList',$periodList);
 
+        $teacherList = [];
+        foreach($data['teachers'] as $t){
+            $teacherList[$t['id']] = $t;
+        }
         $this->set('teachers',$data['teachers']);
+        $this->set('teacherList',$teacherList);
 
     }
 
