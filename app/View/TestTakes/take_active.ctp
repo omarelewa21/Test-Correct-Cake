@@ -29,7 +29,7 @@
     <?
      if($this->Session->read('Auth.User.has_text2speech') == 1){
         ?>
-        <div id="__ba_launchpad"><div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"><i class="fa fa-volume-up"></i> Lees voor</div></div>
+        <div id="__ba_launchpad"><div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;" onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor</div></div>
         <?
       }
     ?>
@@ -106,6 +106,9 @@
         width: 500px;
         height:350px;
     }
+    button#browsealoud-button--launchpad {
+        display:none !important;
+    }
 </style>
 <script>
 
@@ -122,14 +125,44 @@
     Answer.loadQuestionAnswer(<?=$active_question?>);
 
     Answer.takeId = <?=$take_id?>;
-    
+
+    <?php
+    if($this->Session->read('Auth.User.has_text2speech') == 1){
+        ?>
+        function toggleBrowseAloud(){
+            if(typeof BrowseAloud == 'undefined'){
+                var s = document.createElement('script');
+                s.crossorigin='anonymous';
+                s.src='https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
+                document.getElementsByTagName('BODY')[0].appendChild(s);
+                waitForBrowseAloudAndThenRun();
+            }
+            else {
+                _toggleBA();
+            }
+        }
+        var _baTimer;
+        function waitForBrowseAloudAndThenRun(){
+            if(typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined'){
+                _baTimer = setTimeout(function(){
+                    waitForBrowseAloudAndThenRun();
+                },
+                150);
+            }else{
+                clearTimeout(_baTimer);
+                _toggleBA();
+            }
+        }
+
+        function _toggleBA(){
+            BrowseAloud.panel.toggleBar(!0);
+        }
+
+    <?php
+    }
+    ?>
+
 </script>
-<?php
-if($this->Session->read('Auth.User.has_text2speech') == 1){
-?>
-<script type="text/javascript" src="https://www.browsealoud.com/plus/scripts/2.6.0/ba.js" crossorigin="anonymous" integrity="sha256-fmrh3+LxhFr7DoDksKC0j8vUwhWdxRkMn8KFlFCQdRM= sha384-z00WvjaU37iu++7Lpo/4M4S7R56TUvMzVpc17SIQsiZepsABY8IFOPCvJVCe2tqN sha512-9ToHuVTbdiA7nUgUD0s8er8Aul62PXPwR1zenCOwIDaVN1eaJhieH1+yk5wTAi9r7ZIr+e/B7xehNqnweTg5aQ=="></script>
-<?php
-}
-?>
+
 
 
