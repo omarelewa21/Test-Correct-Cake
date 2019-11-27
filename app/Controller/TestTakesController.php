@@ -1810,7 +1810,7 @@ class TestTakesController extends AppController
 	public function rates_pdf_container($take_id) {
 		$this->set('take_id', $take_id);
         $this->set("attachment_url", "/test_takes/rates_pdf/" . $take_id);
-        $this->set("is_question_pdf", true);
+        $this->set("is_question_pdf", false);
         $this->render('/Pdf/pdf_container', 'ajax');
 	}
 

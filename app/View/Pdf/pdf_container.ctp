@@ -40,7 +40,7 @@ See https://github.com/adobe-type-tools/cmap-resources
             print("var DEFAULT_URL = '';");
         }
 
-      if(isset($is_question_pdf)) {
+      if(isset($is_question_pdf) && $is_question_pdf) {
           print("var studentButtons = true;");
       } else {
           print("var studentButtons = false;");
@@ -194,7 +194,7 @@ See https://github.com/adobe-type-tools/cmap-resources
                   <span data-l10n-id="open_file_label">Open</span>
                 </button>
 
-                <button id="print" class="toolbarButton print hiddenMediumView" title="Print" tabindex="33" data-l10n-id="print">
+                <button id="print" class="toolbarButton print hiddenMediumView" martin="OK" title="Print" tabindex="33" data-l10n-id="print">
                   <span data-l10n-id="print_label">Print</span>
                 </button>
 
