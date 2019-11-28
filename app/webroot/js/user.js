@@ -93,7 +93,7 @@ var User = {
     },
 
     checkLogin : function() {
-        if(!Utils.notOnLoginScreen()) {
+        if(Utils.notOnLoginScreen()) {
             $.get('/users/status',
                 function (status) {
                     if (status == 1) {
