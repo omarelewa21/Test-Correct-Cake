@@ -4,14 +4,17 @@
 
 <h1>Vraag beoordelen</h1>
 
-<div class="block">
+<div class="block" style="float:left;width:calc(100% - 280px)">
     <div class="block-head">Antwoord</div>
     <div class="block-content" id="div_answer">
 
     </div>
+    <div class="mt10 mb10" style="margin-left:auto;margin-right:auto;width:250px;text-align:center">
+        <a href="#" class="btn highlight" onclick="saveRating()">Beoordeling opslaan</a>
+    </div>
 </div>
 
-<div class="block" style="width:250px; margin: 0px auto;" id="divRate">
+<div class="block" style="width:250px;float:right" id="divRate">
     <div class="block-head">Beoordeling</div>
     <div class="block-content" id="div_rating">
 
@@ -23,9 +26,7 @@
         <input type="hidden" id="answerRating" value="0" />
     </div>
 </div>
-<div class="mt10 mb10" style="margin-left:auto;margin-right:auto;width:250px;text-align:center">
-    <a href="#" class="btn highlight" onclick="saveRating()">Beoordeling opslaan</a>
-</div>
+
 
 <script>
     var rated = false;
