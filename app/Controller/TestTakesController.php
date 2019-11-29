@@ -1769,11 +1769,11 @@ class TestTakesController extends AppController
 		$this->autoRender = false;
 		$response = $this->TestTakesService->startDiscussion($take_id, $type);
 
-//		if($response['discussing_question_id'] == null) {
+		if($response['discussing_question_id'] == null) {
 			$response = $this->TestTakesService->nextDiscussionQuestion($take_id);
-			$this->Session->write('has_next_question', $response['has_next_question']);
-//		}
-	}
+        }
+        $this->Session->write('has_next_question', $response['has_next_question']);
+    }
 
 	public function update_show_results($take_id) {
 
