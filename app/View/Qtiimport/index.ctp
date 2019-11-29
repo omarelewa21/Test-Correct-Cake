@@ -144,13 +144,15 @@
                 })
                 .on('change', '#QtiAuthorId', function () {
                     var authorId = $(this).val();
-                    var teacherSubjects = teachers[authorId]['subject_ids'];
-                    subjectSelect.find('option').remove();
-                    jQuery.each(subjects, function (key, s) {
-                        if(teacherSubjects.includes(s.id)){
-                            subjectSelect.append('<option value="'+s.id+'">'+s.name+'</option>');
-                        }
-                    });
+                    if(authorId && teachers[authorId]) {
+                        var teacherSubjects = teachers[authorId]['subject_ids'];
+                        subjectSelect.find('option').remove();
+                        jQuery.each(subjects, function (key, s) {
+                            if (teacherSubjects.includes(s.id)) {
+                                subjectSelect.append('<option value="' + s.id + '">' + s.name + '</option>');
+                            }
+                        });
+                    }
                 })
                 .on('change', '#QtiEducationLevelId', function () {
                     var elId = $(this).val();
