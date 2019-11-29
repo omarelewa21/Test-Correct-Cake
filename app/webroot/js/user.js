@@ -93,15 +93,17 @@ var User = {
     },
 
     checkLogin : function() {
-        $.get('/users/status',
-            function(status) {
-                if(status == 1) {
-                    Core.afterLogin();
-                }else{
-                    Popup.load('/users/login', 500);
+        if(!Utils.notOnLoginScreen()) {
+            $.get('/users/status',
+                function (status) {
+                    if (status == 1) {
+                        Core.afterLogin();
+                    } else {
+                        Popup.load('/users/login', 500);
+                    }
                 }
-            }
-        );
+            );
+        }
     },
 
     logout : function() {
