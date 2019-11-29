@@ -56,12 +56,13 @@
             <tr>
                 <th>Toets</th>
                 <th>Klas</th>
-                <th>Surveillanten</th>
+
                 <th width="50">Vragen</th>
-                <th width="200">Ingepland door</th>
+                <th width="150">Ingepland door</th>
                 <th width="120">Vak</th>
                 <th width="90">Afname</th>
                 <th width="80">Type</th>
+                <th>Status</th>
                 <th width="60">Weging</th>
                 <th width="80">&nbsp;</th>
             </tr>

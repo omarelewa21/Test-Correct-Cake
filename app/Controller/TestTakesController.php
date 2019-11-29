@@ -1405,7 +1405,7 @@ class TestTakesController extends AppController
 		$filters = $filters['data']['TestTake'];
 
 		$params['filter'] = [
-			'test_take_status_id' => 6,
+			'test_take_status_id' => [6,7],
 			'user_id' => AuthComponent::user('id')
 		];
 
@@ -1715,24 +1715,26 @@ class TestTakesController extends AppController
 	}
 
 
-	public function discussion() {
-		$user_id = AuthComponent::user()['id'];
+	public function discussion($take_id = null) {
+        $getTakeId = $take_id;
 
-		$params['filter']['user_id'] = $user_id;
-		$params['filter']['test_take_status_id'] = 7;
-		$params['mode'] = 'list';
+	    if ($take_id == null) {
+            $params['filter']['user_id'] = AuthComponent::user()['id'];
+            $params['filter']['test_take_status_id'] = 7;
+            $params['mode'] = 'list';
+            $takes = $this->TestTakesService->getTestTakes($params);
+            if (count($takes) > 0) {
+                $getTakeId = key($takes);
+            }
+        }
 
-		$takes = $this->TestTakesService->getTestTakes($params);
-
-		if(count($takes) > 0) {
-
-			$take = $this->TestTakesService->getTestTake(key($takes));
+		if($getTakeId) {
+			$take = $this->TestTakesService->getTestTake($getTakeId);
 			if(!empty($take['discussing_parent_questions'])) {
 				//$group = $this->QuestionsService->getSingleQuestion();
 				$group = $take['discussing_parent_questions'][0]['group_question_id'];
 				$this->set('group', $group);
 			}
-
 
 			$this->set('has_next_question', $this->Session->read('has_next_question'));
 			$this->set('take', $take);
@@ -1767,10 +1769,10 @@ class TestTakesController extends AppController
 		$this->autoRender = false;
 		$response = $this->TestTakesService->startDiscussion($take_id, $type);
 
-		if($response['discussing_question_id'] == null) {
+//		if($response['discussing_question_id'] == null) {
 			$response = $this->TestTakesService->nextDiscussionQuestion($take_id);
 			$this->Session->write('has_next_question', $response['has_next_question']);
-		}
+//		}
 	}
 
 	public function update_show_results($take_id) {

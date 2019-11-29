@@ -10,13 +10,13 @@ foreach($test_takes as $test_take) {
             }
             ?>
         </td>
-        <td>
-            <?
-            foreach($test_take['invigilator_users'] as $user) {
-                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
-            }
-            ?>
-        </td>
+<!--        <td>-->
+<!--            --><?//
+//            foreach($test_take['invigilator_users'] as $user) {
+//                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
+//            }
+//            ?>
+<!--        </td>-->
         <td>
             <?=$test_take['test']['question_count']?>
         </td>
@@ -39,6 +39,24 @@ foreach($test_takes as $test_take) {
             <?
             }
             ?>
+        </td>
+        <td>
+            <?
+            switch ($test_take['test_take_status_id']) {
+                case 6:
+                    $statusText = 'Afgenomen';
+                    break;
+                case 7:
+                    $statusText = 'CO-Learning gestart';
+                    break;
+                default:
+                    $statusText = 'Onbekend';
+                    break;
+            }
+            echo $statusText;
+
+
+             ?>
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">

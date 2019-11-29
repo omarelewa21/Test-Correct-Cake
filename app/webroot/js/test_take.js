@@ -460,7 +460,7 @@ var TestTake = {
         $.get('/test_takes/start_discussion/' + take_id + '/' + type,
             function(response) {
                 Notify.notify('Toetsbespreking gestart', 'info');
-                Navigation.load('/test_takes/discussion');
+                Navigation.load('/test_takes/discussion/'+take_id);
                 Popup.closeLast();
             }
         );
