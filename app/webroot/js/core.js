@@ -14,6 +14,7 @@ var Core = {
     lastLostFocusNotification : false,
     lastLostFocusNotificationDelay : 3 * 60, // 3 minutes
 	unreadMessagesTimer : false,
+    cheatIntervalInSeconds : 5,
 
 	initialise : function() {
 
@@ -216,6 +217,7 @@ var Core = {
 		    if(TestTake.alert == false) {
                 $.get('/test_takes/lost_focus');
                 Core.lastLostFocusNotification = (new Date()).getTime()/1000;
+                TestTake.startHeartBeat(TestTake.heartBeatCallback,Core.cheatIntervalInSeconds);
             } else {
 		        var ref = (new Date()).getTime()/1000;
 		        console.log('ref '+ref);
@@ -234,6 +236,7 @@ var Core = {
 		$.get('/test_takes/screenshot_detected');
 		TestTake.alert = true;
         TestTake.markBackground();
+        TestTake.startHeartBeat(TestTake.heartBeatCallback,Core.cheatIntervalInSeconds);
 	},
 
 	isIpad : function() {

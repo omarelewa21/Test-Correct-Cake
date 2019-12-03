@@ -12,7 +12,7 @@ var TestTake = {
     checkIframe : false,
     alert: false,
 
-    startHeartBeat : function(callback) {
+    startHeartBeat : function(callback, interval) {
         if(callback == 'active'){
             console.log('startheartbeat');
             if(!TestTake.active) {
@@ -31,12 +31,26 @@ var TestTake = {
             ) {
             intervalInSeconds = 5;
         }
+        if(Number.isInteger(interval)){
+            intervalInSeconds = interval;
+        }
 
         TestTake.heartBeatCallback = callback;
         clearInterval(TestTake.heartBeatInterval);
         TestTake.heartBeatInterval = setInterval(function() {
             $.getJSON('/test_takes/heart_beat',
                 function(response) {
+                    if (response.alert == 1){
+                        TestTake.alert = true;
+                    }
+                    else{
+                        if(TestTake.alert == true) {
+                            TestTake.alert = false;
+                            TestTake.startHeartBeat(callback);
+                        }
+                    }
+                    TestTake.markBackground();
+
                     if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                         $('#btnStartTest').slideDown();
                         $('#waiting').slideUp();
@@ -96,17 +110,6 @@ var TestTake = {
                     ) {
                         Navigation.refresh();
                     }
-
-                    // for (var i in response) {
-                    //     console.log(response[i]);
-                    // };
-                    if (response.alert == 1){
-                        TestTake.alert = true;
-                    }
-                    else{
-                        TestTake.alert = false;
-                    }
-                    TestTake.markBackground();
                 }
             );
         }, intervalInSeconds*1000);
