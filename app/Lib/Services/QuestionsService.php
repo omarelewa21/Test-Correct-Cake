@@ -1236,7 +1236,7 @@ class QuestionsService extends BaseService
             'maintain_position' => 1,
             'discuss' => 0,
             'decimal_score' => 0,
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => 'NONE',
             'is_open_source_content' => 0
@@ -1256,7 +1256,7 @@ class QuestionsService extends BaseService
             'maintain_position' => $question['maintain_position'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
@@ -1282,7 +1282,7 @@ class QuestionsService extends BaseService
             'maintain_position' => $question['maintain_position'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
@@ -1326,7 +1326,7 @@ class QuestionsService extends BaseService
             'subtype' => $subtype,
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
@@ -1342,7 +1342,7 @@ class QuestionsService extends BaseService
             'shuffle' => $group['shuffle'],
             'maintain_position' => $group['maintain_position'],
             'discuss' => 0,
-            'add_to_database' => $group['add_to_database'],
+            'add_to_database' => (int) $group['add_to_database'],
         ];
     }
 
@@ -1357,7 +1357,7 @@ class QuestionsService extends BaseService
             'score' => $question['score'],
             'subtype' => 'TrueFalse',
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
@@ -1395,7 +1395,7 @@ class QuestionsService extends BaseService
             'score' => $score,
             'subtype' => $subtype,
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'selectable_answers' => $selectable_answers,
             'note_type' => $question['note_type'],
@@ -1413,7 +1413,7 @@ class QuestionsService extends BaseService
             'maintain_position' => $question['maintain_position'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
-            'add_to_database' => $question['add_to_database'],
+            'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content']
@@ -1432,7 +1432,7 @@ class QuestionsService extends BaseService
             'discuss'                => $question['discuss'],
             'subtype'                => 'Matching',
             'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
+            'add_to_database'        => (int) $question['add_to_database'],
             'attainments'            => $question['attainments'],
             'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content'],
@@ -1451,7 +1451,7 @@ class QuestionsService extends BaseService
             'discuss'                => $question['discuss'],
             'subtype'                => 'Classify',
             'decimal_score'          => $question['decimal_score'],
-            'add_to_database'        => $question['add_to_database'],
+            'add_to_database'        => (int) $question['add_to_database'],
             'attainments'            => $question['attainments'],
             'note_type'              => $question['note_type'],
             'is_open_source_content' => $question['is_open_source_content'],
