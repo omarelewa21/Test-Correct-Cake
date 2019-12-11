@@ -42,7 +42,7 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Navigation.refresh();
+                Navigation.load('/test_takes/taken_teacher');
             },
             onfailure : function(result) {
 

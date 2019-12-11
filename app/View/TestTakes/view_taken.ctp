@@ -10,7 +10,7 @@
             Toets bespreken
         </a>
 
-        <? if($take['test_take_status_id'] == 6) { ?>
+        <? if($take['test_take_status_id'] >= 6) { ?>
             <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
                 <span class="fa fa-refresh mr5"></span>
                 Inhaal-toets plannen
