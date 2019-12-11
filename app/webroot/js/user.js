@@ -88,7 +88,7 @@ var User = {
 
     welcome : function() {
         if(!TestTake.active) {
-            Navigation.load('users/welcome');
+            Navigation.load('/users/welcome');
         }
     },
 
