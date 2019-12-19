@@ -5,6 +5,14 @@ ini_set('display_errors',1);
 error_reporting(-1);
 
 /**
+ * IMPORTANT
+ * use cron.php?use_stamnr_for_student_email=true&use_teacher_email_as_base=true
+ * to build the student email adresses based on the teacher email adress and the stamnr
+ * if not, you need to have an extra csv file with stamnr,emailaddress
+ */
+
+
+/**
  * Use the DS to separate the directories in other defines
  */
 if (!defined('DS')) {
