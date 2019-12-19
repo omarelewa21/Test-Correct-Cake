@@ -49,7 +49,7 @@ $teachersPerClass = array();
 $allClasses = array();
 $classesToIgnore = array();
 
-if(!$scandir || !is_array($scandir) || count($scandir) != 2 || pathinfo($scandir[0], PATHINFO_EXTENSION) != 'csv' || pathinfo($scandir[1], PATHINFO_EXTENSION) != 'csv'){
+if(!$scandir || !is_array($scandir) || count($scandir) > 2 || pathinfo($scandir[0], PATHINFO_EXTENSION) != 'csv' || (count($scandir) == 2 && pathinfo($scandir[1], PATHINFO_EXTENSION) != 'csv')){
     echo "no valid files found to import";exit;
 }
 
@@ -63,7 +63,7 @@ $data = getDataFromFiles($scandir, $dir);
 //    fclose($handle);
 //}
 
-if(count($data->people) < 1 || count($data->emails) < 1 ){// emails is one less as it contains no header row
+if(count($data->people) < 1 || (count($scandir) == 2 && count($data->emails) < 1 )){// emails is one less as it contains no header row
     echo "no valid data found to import";exit;
 }
 
@@ -80,6 +80,7 @@ foreach($data->people as $rowNr => $recordInCsv) {
 		$mapping = $recordInCsv; // store current row in seperate variable before working;
 		continue; // Skip current itteration because we don't need to do anything with header row;
 	}
+
 
 	if($recordInCsv[0] === NULL) break; // Empty rows in CSV
 
@@ -103,15 +104,31 @@ foreach($data->people as $rowNr => $recordInCsv) {
 		$teacher_name_suffix 	= $recordInCsv[array_search('docTussenvoegsels', $mapping)];
 		$teacher_name_last 		= $recordInCsv[array_search('docAchternaam', $mapping)];
 		$teacher_is_mentor 		= $recordInCsv[array_search('IsMentor', $mapping)];
+        $teacher_email	        = $recordInCsv[array_search('gbrEmailAdres', $mapping)];
 
-		if(!array_key_exists($student_external_code, $data->emails)){
+        $student_email = '';
+
+        // To use this
+        if($_GET['use_stamnr_for_student_email'] && $_GET['use_teacher_email_as_base']){
+            if(substr_count($teacher_email,'@') > 0) {
+                $domain = explode('@', $teacher_email)[1];
+                $student_email = sprintf('%s@%s',$student_external_code,$domain);
+            }
+            else{
+                throw new Exception(sprintf('email address could not be build for student %s %s %s with stamnummer %s', $student_name_first, $student_name_suffix, $student_name_last, $student_external_code));
+            }
+
+        }
+		else if(!isset($data->emails) || !array_key_exists($student_external_code, $data->emails)){
 		    throw new Exception(sprintf('email address not found for user %s %s %s with stamnummer %s', $student_name_first, $student_name_suffix, $student_name_last, $student_external_code));
         }
-        if(!array_key_exists($teacher_external_code, $data->emails)){
-            throw new Exception(sprintf('email address not found for teacher %s %s %s with stamnummer %s', $teacher_name_first, $teacher_name_suffix, $teacher_name_last, $teacher_external_code));
+//        if(!array_key_exists($teacher_external_code, $data->emails)){
+//            throw new Exception(sprintf('email address not found for teacher %s %s %s with stamnummer %s', $teacher_name_first, $teacher_name_suffix, $teacher_name_last, $teacher_external_code));
+//        }
+        if($student_email == '') {
+            $student_email = $data->emails[$student_external_code];
         }
-		$student_email          = $data->emails[$student_external_code];
-		$teacher_email          = $data->emails[$teacher_external_code];
+//		$teacher_email          = $data->emails[$teacher_external_code];
 	} catch (Exception $e) {
 		die(var_dump($e->getMessage()));
 	}
