@@ -344,12 +344,12 @@ class AnswersController extends AppController
 
         $this->Session->write('attachment_id', $attachment_id);
 
-        $extension = substr($attachmentInfo['title'], -3);
+        $extension = strtolower(substr($attachmentInfo['title'], -3));
 
         if($attachmentInfo['type'] == 'file') {
             if(in_array($extension, ['jpg', 'png', 'peg'])) {
                 $this->render('attachment_image', 'ajax');
-            }elseif($attachmentInfo["file_mime_type"] == 'audio/mpeg') {
+            }elseif(strtolower($attachmentInfo["file_mime_type"]) == 'audio/mpeg') {
                 $this->render('attachment_audio', 'ajax');
             }elseif(in_array($extension, ['pdf'])) {
                 ## TODO: Dit pad vervangen door een net pad
