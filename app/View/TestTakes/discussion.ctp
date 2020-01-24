@@ -13,9 +13,7 @@ if(!isset($take)) {
         <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion(<?=$take['id']?>);">Bespreking be&euml;indigen</a>
         <? if($has_next_question) { ?>
             <a href="#" onclick="TestTake.nextDiscussionQuestion(<?=$take['id']?>);" class="btn highlight mr2 nextDiscussionQuestion">Volgende vraag</a>
-        <? } else { ?>
-            <a href="#" onclick="Notify.notify('Er zijn geen vragen meer', 'error');" class="btn white mr2">Volgende vraag</a>
-        <? } ?>
+        <? }  ?>
     </div>
 
     <h1>Bespreken <?=$take['test']['name']?></h1>

@@ -1041,8 +1041,12 @@ class TestTakesController extends AppController
                 $view = 'rate_drawing2019';
                 break;
 
+            case "InfoscreenQuestion":
+                $view = 'rate_info_screen2019';
+                break;
+
             default:
-                die;
+                die(__FILE__ . __FUNCTION__ . ' Search For ##$$ABC');
                 break;
         }
 
@@ -1087,6 +1091,9 @@ class TestTakesController extends AppController
             case 'DrawingQuestion':
                 $view = 'preview_drawing2019';
                 break;
+            case 'InfoscreenQuestion':
+                $view = 'preview_infoscreen2019';
+                break;
         }
         return $view;
     }
@@ -1114,12 +1121,14 @@ class TestTakesController extends AppController
 
             $answers = $response['answers'];
             $questions = [];
+
             foreach($response['questions'] as $question){
                 $question['view'] = $this->getQuestionViewForTakeAnswerOverview2019($question);
                 $answer = $this->getAnswerForQuestion($answers,$question['id']);
                 $questions[] = ['question' => $question,'answer' => $answer, 'answerView' => $this->getAnswerViewForTakeAnswerOverview2019($answer)];
             }
         }
+
 
         $this->set('participant_id', $participant_id);
         $this->set('questions', $questions);

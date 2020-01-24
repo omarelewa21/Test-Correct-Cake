@@ -23,7 +23,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Type</th>
+                    <th>Type </th>
                     <td>
                         <?=$this->Form->input('type', array('options' => $filterTypes, 'label' => false)) ?>
                     </td>

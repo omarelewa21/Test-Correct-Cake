@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast(); Navigation.load('/test_takes/taken_teacher');">
         Niet laten inzien
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
