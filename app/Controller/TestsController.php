@@ -100,7 +100,7 @@ class TestsController extends AppController {
             $test   = $this->request->data['Test'];
             $result = $this->TestsService->add($test);            
 
-            if ($result == 'unqique_name') {
+            if ($result == 'unique_name') {
                 $this->formResponse(  false, 'unique_name' );
             } else {
                 $this->formResponse( !empty($result), $result );
@@ -136,7 +136,11 @@ class TestsController extends AppController {
 
             $result = $this->TestsService->edit($test_id, $test);
 
-            $this->formResponse( !empty($result), $result );
+            if ($result == 'unique_name') {
+                $this->formResponse(  false, 'unique_name');
+            } else {
+                $this->formResponse( !empty($result), $result );
+            }
         }
 
         $school_location_id = $this->Session->read('Auth.User.school_location_id');

@@ -33,7 +33,7 @@ class TestsService extends BaseService {
         $response = $this->Connector->postRequest('/test', [], $test);
 
         if($this->Connector->getLastCode() == 422) {
-            return 'unqique_name';
+            return 'unique_name';
         }
 
         if($response === false){
@@ -46,6 +46,10 @@ class TestsService extends BaseService {
     public function edit($test_id, $test) {
 
         $response = $this->Connector->putRequest('/test/' . $test_id, [], $test);
+
+        if($this->Connector->getLastCode() == 422) {
+            return 'unique_name';
+        }
 
         if($response === false){
             return $this->Connector->getLastResponse();
