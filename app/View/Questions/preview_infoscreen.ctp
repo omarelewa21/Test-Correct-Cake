@@ -11,6 +11,7 @@
 </div>
 
 <br clear="all" />
+<i>Dit is een informatiescherm, een antwoord is niet nodig.</i>
 
 <? if(isset($next_question)) { ?>
     <br />

@@ -76,6 +76,10 @@ foreach($test_takes as $test_take) {
                     <span class="fa fa-file mr5"></span>
                     Antwoorden PDF
                 </a>
+                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=$test_take['id']?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white">
+                    <span class="fa fa-forward mr5"></span>
+                   Meteen naar nakijken
+                </a>
             </div>
         </td>
     </tr>

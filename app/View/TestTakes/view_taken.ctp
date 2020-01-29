@@ -9,7 +9,10 @@
             <span class="fa fa-users mr5"></span>
             Toets bespreken
         </a>
-
+        <a href="#" class="btn white mr2" onclick="$.get('/test_takes/skip_discussion/<?=$test_take['id']?>',[], function(){ Navigation.load('/test_takes/to_rate');})">
+            <span class="fa fa-forward mr5"></span>
+            Meteen naar nakijken
+        </a>
         <? if($take['test_take_status_id'] >= 6) { ?>
             <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
                 <span class="fa fa-refresh mr5"></span>

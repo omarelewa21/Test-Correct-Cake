@@ -1809,6 +1809,13 @@ class TestTakesController extends AppController
 		$response = $this->TestTakesService->finishDiscussion($take_id);
 	}
 
+	public function skip_discussion($take_id) {
+	    $this->start_discussion($take_id, 'OPEN_ONLY');
+	    $this->discussion($take_id);
+	    $this->finish_discussion($take_id);
+	    $this->update_show_results($take_id);
+    }
+
 	public function delete($take_id) {
 		$this->autoRender = false;
 		$this->TestTakesService->deleteTestTake($take_id);
