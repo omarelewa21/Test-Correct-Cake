@@ -575,11 +575,24 @@ var TestTake = {
     },
 
     loadTake : function(take_id, makebutton) {
-        if(Core.inApp) {
-            if(makebutton === true) {check = '/null/true'; } else  { check = '';}
-            Navigation.load('/test_takes/take/' + take_id + check);
+        if(window.navigator.userAgent.indexOf('Mac') > 0) {
+            if(!parent.screenrecording){
+                if(Core.inApp) {
+                    if(makebutton === true) {check = '/null/true'; } else  { check = '';}
+                    Navigation.load('/test_takes/take/' + take_id + check);
+                }else{
+                    Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+                }
+            } else{
+                Notify.notify("Please Press CMD + Ctrl + Esc buttons at the same time then try again", "error");
+            }
         }else{
-            Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+            if(Core.inApp) {
+                if(makebutton === true) {check = '/null/true'; } else  { check = '';}
+                Navigation.load('/test_takes/take/' + take_id + check);
+            }else{
+                Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+            }
         }
     },
 
@@ -818,3 +831,13 @@ $(document).ready(function(){
         onchange({type: document[hidden] ? "blur" : "focus"});
     }
 });
+
+var screenrecording= true;
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.key === 'Escape' && evt.metaKey && evt.ctrlKey ) {
+        screenrecording= false;
+    } else if (evt.metaKey && evt.shiftKey ){
+        User.logout();
+    }
+};
