@@ -1,6 +1,6 @@
 <h2 style="text-align:center;margin-top:100px;">
     Belangrijke wijziging 7 februari 2020<Br />
-    Toets nakijken? Bekijk dan eerst onderstaande instructie.
+    Toets bespreken? Bekijk dan eerst onderstaande instructie.
 </h2>
 <div style="text-align:center">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/uvn_ozT4C18?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
