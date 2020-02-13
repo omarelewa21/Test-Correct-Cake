@@ -1,5 +1,5 @@
 <h2 style="text-align:center;margin-top:100px;">
-    Belangrijke wijziging 7 februari 2020<Br />
+    Belangrijke wijziging 14 februari 2020<Br />
     Toets bespreken? Bekijk dan eerst onderstaande instructie.
 </h2>
 <div style="text-align:center">
