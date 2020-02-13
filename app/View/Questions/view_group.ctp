@@ -70,11 +70,7 @@ if(!empty($group['question']['question'])) {
                                     break;
 
                                 case 'OpenQuestion':
-                                    if($question['question']['subtype'] == 'long') {
-                                        echo 'Wiskunde vraag';
-                                    }else {
-                                        echo 'Open vraag';
-                                    }
+                                    echo 'Open vraag';
                                     break;
 
                                 case 'CompletionQuestion':

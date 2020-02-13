@@ -123,9 +123,5 @@
 
     $('#QuestionQuestion, #QuestionAnswer').ckeditor({});
 
-    if(Questions.openType == 'long') {
-        $('.popup-head').html('Wiskunde vraag');
-    }else {
-        $('.popup-head').html('Open vraag');
-    }
+    $('.popup-head').html('Open vraag');
 </script>

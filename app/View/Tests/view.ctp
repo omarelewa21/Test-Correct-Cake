@@ -158,11 +158,7 @@
                                             break;
 
                                         case 'OpenQuestion':
-                                            if($subquestion['question']['subtype'] == 'long') {
-                                                echo 'Wiskunde vraag<br />';
-                                            }else{
-                                                echo 'Open vraag<br />';
-                                            }
+                                            echo 'Open vraag<br />';
                                             break;
 
                                         case 'CompletionQuestion':
@@ -208,11 +204,7 @@
                                         break;
 
                                     case 'OpenQuestion':
-                                        if($question['question']['subtype'] == 'long') {
-                                            echo 'Wiskunde vraag<br />';
-                                        }else{
-                                            echo 'Open vraag<br />';
-                                        }
+                                        echo 'Open vraag<br />';
                                         break;
 
                                     case 'CompletionQuestion':

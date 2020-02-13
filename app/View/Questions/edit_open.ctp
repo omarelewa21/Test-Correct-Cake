@@ -1,4 +1,4 @@
-<div class="popup-head"><?= $question['question']['subtype'] == 'long' ? 'Wiskunde vraag' : 'Open vraag' ?></div>
+<div class="popup-head">Open vraag</div>
 <div class="popup-content">
 
     <?=$this->Form->create('Question')?>

@@ -1,6 +1,6 @@
 <?= $this->element('take_attachments', ['question' => $question]); ?>
 
-<h1><?= $question['subtype'] == 'long' ? 'Wiskunde vraag' : 'Open vraag' ?> [<?= $question['score'] ?>pt]</h1>
+<h1>Open vraag [<?= $question['score'] ?>pt]</h1>
 <?= $this->element('take_question', ['question' => $question]) ?>
 
 <?

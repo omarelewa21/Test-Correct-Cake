@@ -51,7 +51,7 @@
         Tekenen
     </div>
     <div style="display:none;| class="btn highlight pull-left mb20 defaultMenuButton" onclick="Questions.addOpenPopup('long', '<?=$owner?>', <?=$owner_id?>);">
-        Wiskunde vraag
+        Open vraag
     </div>
 
     <div class="pt15" style="clear:both">Overig</div>

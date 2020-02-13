@@ -30,11 +30,7 @@
             break;
 
         case 'OpenQuestion':
-            if($question['subtype'] == 'long') {
-                echo 'Wiskunde vraag';
-            }else {
-                echo 'Open vraag';
-            }
+            echo 'Open vraag';
             break;
 
         case 'CompletionQuestion':
