@@ -71,6 +71,12 @@
 		<div id="header" class="highlight">
 			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />
 			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />
+			<? if($this->Session->check('TLCVersion') && strlen($this->Session->read('TLCVersion')) > 2){
+				$version = explode('|',$this->Session->read('TLCVersion'))[1];
+				$extraClass = (version_compare($version,'2.1','<') ? 'label-danger' : '');
+			?>
+				<span class="versionBadge <?= $extraClass ?>"><?= $version ?></span>
+			<? } ?>
 			<div id="top">
 				<div id="user"></div>
 				<div id="user_menu">
