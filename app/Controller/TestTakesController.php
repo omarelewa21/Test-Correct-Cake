@@ -338,7 +338,15 @@ class TestTakesController extends AppController
 
 	public function view($take_id) {
 		$take = $this->TestTakesService->getTestTake($take_id);
+        if(!$take){
+            echo "<script>
+            Navigation.back();
+            Notify.notify('Je hebt helaas geen toegang tot deze toets','error');
+</script>";
+            exit;
 
+
+        }
 
 		$this->set('take', $take);
 		$this->set('take_id', $take_id);

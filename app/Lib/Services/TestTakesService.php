@@ -446,6 +446,10 @@ class TestTakesService extends BaseService {
 
         $response = $this->Connector->getRequest('/test_take/' . $take_id, $params);
 
+        if($this->Connector->getLastCode() == 403) {
+            return false;
+        }
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
