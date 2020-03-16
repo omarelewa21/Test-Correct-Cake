@@ -1,10 +1,33 @@
-<h2 style="text-align:center;margin-top:100px;">
-    Belangrijke wijziging 14 februari 2020<Br />
-    Toets bespreken? Bekijk dan eerst onderstaande instructie.
-</h2>
-<div style="text-align:center">
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/uvn_ozT4C18?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div>
+    <div style="margin:auto;margin-top:100px;width:65%;text-align:left;">
+        <h2 style="text-align:center;">
+            i.v.m. de huidige ontwikkelingen rondom het coronavirus stellen wij ons platform kosteloos ter
+            beschikking voor alle docenten en alle lesgroepen binnen uw school tot het einde van dit schooljaar
+        </h2>
+        <div>
+            <p>
+                Update 17 maart:<br />
+                Test-Correct is geschikt om studenten thuis een toets te laten maken. Met de smart surveillance ziet u
+                waar de student zich in de toets bevindt. Het advies is om geen summatieve toetsing te doen, tenzij
+                iemand in de nabijheid van de student kan toezien met wie u goede afspraken heeft gemaakt
+                (bijvoorbeeld de ouders).
+            </p>
+            <p>
+                <strong>
+                    Wij maken Test-Correct kosteloos beschikbaar voor al uw overige lesgroepen tot het einde van dit
+                    schooljaar. Ook kunt u kosteloos gebruik maken van onze dienst om toetsmateriaal in uw itembank
+                    klaar te zetten, mits u van plan was deze op papier af te nemen.
+                </strong>
+            </p>
+            <p>
+                Extra lesgroepen kunt u <a href="mailto:support@test-correct.nl">HIER</a> per e-mail naar ons toezenden.<br/>
+                Toetsmateriaal kunt u <a href="https://www.test-correct.nl/toets-uploaden/" target="_blank">HIER</a> uploaden.<br />
+                Het openstellen van ons platform geldt voor alle docenten binnen uw organisatie.
+                </p>
+        </div>
+    </div>
 </div>
+
 <h1 style="text-align:center; margin-top: 50px;">Meteen naar:</h1>
 <div style="text-align:center;">
     <div style="display:inline-block;">

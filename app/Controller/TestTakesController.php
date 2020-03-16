@@ -1423,7 +1423,7 @@ class TestTakesController extends AppController
 
 		$params['filter'] = [
 			'test_take_status_id' => [6,7],
-			'user_id' => AuthComponent::user('id')
+//			'user_id' => AuthComponent::user('id')
 		];
 
 		if($filters['retake'] != -1) {
@@ -1549,7 +1549,7 @@ class TestTakesController extends AppController
 
 		$params['filter'] = [
 			'test_take_status_id' => 8,
-			'user_id' => AuthComponent::user('id')
+//			'user_id' => AuthComponent::user('id')
 		];
 
 		if($filters['retake'] != -1) {
@@ -1600,7 +1600,7 @@ class TestTakesController extends AppController
 		}
 
 		$params['filter']['test_take_status_id'] = 9;
-		$params['filter']['user_id'] = AuthComponent::user('id');
+//		$params['filter']['user_id'] = AuthComponent::user('id');
 
 		$params['order']['time_start'] = 'desc';
 		$params['with'] = ['participantStatus'];
