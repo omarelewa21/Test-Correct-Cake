@@ -70,7 +70,7 @@
 
 <script src="/js/paint.js"></script>
 <script src="/js/loadPaint.js"></script>
-<script src="/js/test_take.js"></script>
+<script src="/js/test_take.js?20200324151301"></script>
 
 </body>
 </html>

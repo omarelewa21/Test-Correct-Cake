@@ -43,11 +43,11 @@
 		<script type="text/javascript" src="/js/questions.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
 		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js?20191203112400"></script>
+		<script type="text/javascript" src="/js/test_take.js?20200324151301"></script>
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/formify.js"></script>
 		<script type="text/javascript" src="/js/notifications.js"></script>
-		<script type="text/javascript" src="/js/user.js?20191129110500"></script>
+		<script type="text/javascript" src="/js/user.js??20200324131501"></script>
 		<script type="text/javascript" src="/js/subscript.js"></script>
 		<script type="text/javascript" src="/js/limiter.js"></script>
 		<script type="text/javascript" src="/js/counter.js"></script>

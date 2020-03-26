@@ -584,11 +584,12 @@ var TestTake = {
     },
 
     loadDiscussion : function(take_id) {
-        if(Core.inApp) {
+        // @@ OFFLINE ivm Corona
+        // if(Core.inApp) {
             Navigation.load('/test_takes/discuss/' + take_id);
-        }else{
-            Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
-        }
+        // }else{
+        //     Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+        // }
     },
 
     ipAlert : function() {

@@ -23,7 +23,7 @@
 		<script type="text/javascript" src="/js/table.js"></script>
 		<script type="text/javascript" src="/js/test_preview.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
-		<script type="text/javascript" src="/js/test_take.js"></script>
+		<script type="text/javascript" src="/js/test_take.js?20200324131501"></script>
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/limiter.js"></script>
 	</head>
