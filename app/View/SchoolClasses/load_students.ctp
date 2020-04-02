@@ -32,6 +32,9 @@ foreach($students as $student) {
 
 <br />
 <center>
+    <a href="#" class="btn highlight inline-block" onclick="Navigation.load('/school_classes/import/<?=$location_id?>/<?=$class_id?>', 400);">
+        Studenten importeren
+    </a>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/students/<?=$class_id?>', 400);">
         Student toevoegen
     </a>

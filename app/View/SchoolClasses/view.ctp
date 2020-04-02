@@ -1,4 +1,8 @@
 <div id="buttons">
+    <a href="#" class="btn white" onclick="Navigation.load('/school_classes/import/<?=$class['school_location_id']?>/<?=$class['id']?>');">
+        <span class="fa fa-cloud-upload mr5"></span>
+        Studenten importeren
+    </a>
     <a href="#" class="btn white" onclick="Navigation.load('/analyses/school_class/<?=$class['id']?>');">
         <span class="fa fa-bar-chart mr5"></span>
         Analyse
@@ -80,7 +84,7 @@
 
 <script type="text/javascript">
     $(function() {
-        $('.page[page="students"]').load('/school_classes/load_students/<?=$class['id']?>?' + new Date().getTime());
+        $('.page[page="students"]').load('/school_classes/load_students/<?=$class['id']?>/<?=$class["school_location"]["id"]?>?' + new Date().getTime());
         $('.page[page="mentors"]').load('/school_classes/load_mentors/<?=$class['id']?>?' + new Date().getTime());
         $('.page[page="managers"]').load('/school_classes/load_managers/<?=$class['id']?>?' + new Date().getTime());
         $('.page[page="teachers"]').load('/school_classes/load_teachers/<?=$class['id']?>?' + new Date().getTime());

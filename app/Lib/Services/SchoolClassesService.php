@@ -22,6 +22,32 @@ class SchoolClassesService extends BaseService {
         }
     }
 
+    public function doImportStudents($location_id,$class_id,$data){
+        $response = $this->Connector->postRequest('/school_class/importStudents/'.$location_id.'/'.$class_id, [], $data);
+
+        if ($response === false) {
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+                foreach ($err as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $a) {
+                            $this->addError($a);
+                        }
+                    } else {
+                        $this->addError($e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
+
+            return false;
+        }
+
+        return $response;
+    }
+
     public function addClass($data) {
         $response = $this->Connector->postRequest('/school_class', [], $data);
 

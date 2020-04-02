@@ -52,11 +52,12 @@ class SchoolClassesController extends AppController
         $this->Session->write('class_id', $class_id);
     }
 
-    public function load_students($class_id) {
+    public function load_students($class_id, $location_id) {
         $params['filter'] = ['student_school_class_id' => $class_id];
         $students = $this->UsersService->getUserList($params);
         $this->set('students', $students);
         $this->set('class_id', $class_id);
+        $this->set('location_id',$location_id);
     }
 
     public function load_managers($class_id) {
@@ -71,6 +72,25 @@ class SchoolClassesController extends AppController
         $mentors = $this->UsersService->getUserList($params);
         $this->set('mentors', $mentors);
         $this->set('class_id', $class_id);
+    }
+
+    public function doImport($location_id,$class_id){
+        $data['data'] = $this->request->data;
+
+        $result = $this->SchoolClassesService->doImportStudents($location_id,$class_id,$data);
+        if(!$result){
+            $this->formResponse(false, $this->SchoolClassesService->getErrors());
+            return false;
+        }
+        $this->formResponse(true,[]);
+    }
+
+    public function import($location_id, $class_id){
+        $classes = $this->SchoolClassesService->getForLocationId($location_id);
+        $this->set('classes',$classes);
+        $this->set('class_id',$class_id);
+        $this->set('location_id',$location_id);
+        $this->set('school_location',$this->SchoolLocationsService->getSchoolLocation($location_id));
     }
 
     public function add() {
