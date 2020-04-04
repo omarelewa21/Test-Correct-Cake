@@ -8,6 +8,19 @@ App::uses('BaseService', 'Lib/Services');
  *
  */
 class SchoolClassesService extends BaseService {
+
+    /**
+     *
+     * get the classes for the loggedin teacher
+     */
+    public function getMyClasses()
+    {
+        return $this->getClasses([
+            'current_school_year' => true,
+            'mode' => 'all'
+        ]);
+    }
+
     public function getClasses($params) {
         $response = $this->Connector->getRequest('/school_class', $params);
         if ($response === false) {

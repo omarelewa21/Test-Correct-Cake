@@ -187,6 +187,17 @@ class UsersService extends BaseService {
         return $response;
     }
 
+    public function updatePasswordForUser($user_id, $data) {
+
+        $response = $this->Connector->putRequest('/user/update_password_for_user/' . $user_id, [], $data);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function updateUser($user_id, $data) {
 
         if(empty($data['password'])) {

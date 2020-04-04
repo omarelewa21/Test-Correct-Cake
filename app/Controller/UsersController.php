@@ -207,6 +207,52 @@ class UsersController extends AppController {
         return $this->response;
     }
 
+    public function change_password_for_user($user_id,$class_id)
+    {
+
+        if($this->request->is('post') || $this->request->is('put')) {
+
+            $roles = AuthComponent::user('roles');
+            $isTeacher = false;
+            foreach($roles as $role){
+                if($role['id'] == 1) $isTeacher = true;
+            }
+
+            if(!$isTeacher){
+                $this->formResponse(
+                    false,
+                    ['error' => 'Je hebt niet de juiste rechten om deze aanpassing te kunnen doorvoeren.']
+                ); // illigally here, not allowed;
+                die();
+            }
+
+
+            $data = $this->request->data['User'];
+            $data['class_id'] = $class_id;
+
+            if(strlen(trim($data['password'])) < 1){
+                $this->formResponse(false,['error' => 'Er dient een wachtwoord opgegven te worden']);
+            }
+            else if($data['password'] !== $data['password_confirmation']){
+                $this->formResponse(false,['error' => 'De wachtwoorden komen niet overeen']);
+            }
+            else {
+                $result = $this->UsersService->updatePasswordForUser($user_id, $data);
+
+                $this->formResponse(
+                    $result ? true : false,
+                    []
+                );
+            }
+
+            die;
+        }
+
+        $user = $this->UsersService->getUser($user_id);
+        $this->set('user',$user);
+        $this->set('class_id',$class_id);
+    }
+
     public function edit($user_id) {
 
         if($this->request->is('post') || $this->request->is('put')) {
@@ -583,7 +629,7 @@ class UsersController extends AppController {
                 $menus['library'] = "Itembank";
                 $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyses";
-                $menus['messages'] = "Berichten";
+                $menus['other'] = "Overig";
             }
 
             if($role['name'] == 'Student') {
@@ -825,11 +871,18 @@ class UsersController extends AppController {
                 );
 
                 $tiles['messages'] = array(
-                    'menu' => 'messages',
+                    'menu' => 'other',
                     'icon' => 'messages',
                     'title' => 'Berichten',
                     'path' => '/messages'
                 );
+
+                $tiles['teacher_classes'] = [
+                    'menu' => 'other',
+                    'icon' => 'testlist',
+                    'title' => 'Mijn klassen',
+                    'path' => '/teacher_classes'
+                ];
             }
 
             if($role['name'] == 'Student') {
