@@ -31,7 +31,7 @@
 
     foreach($question['multiple_choice_question_answers'] as $answer) {
 
-        echo $this->Form->input('Answer.'.$answer['id'], [
+        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
             'value' => 1,
             'div' => false,
             'type' => 'checkbox',
@@ -39,7 +39,7 @@
             'label' => false,
             'class' => 'multiple_choice_option'
         ]);
-        echo '&nbsp;'.$answer['answer'].'<br /><br />';
+        echo '&nbsp;'.$answer['answer'].'</div><br />';
         $first = false;
     }
     ?>

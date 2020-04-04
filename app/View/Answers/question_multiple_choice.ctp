@@ -5,7 +5,7 @@
         <?
         if($question['subtype'] == 'TrueFalse') {
             ?>Juist / Onjuist<?
-        }elseif($question['subtype'] == 'TrueFalse') {
+        }elseif($question['subtype'] == 'ARQ') {
             ?>ARQ<?
         }else{
             ?>Meerkeuze<?
@@ -34,7 +34,7 @@
             $checked = $answerJson[$answer['id']] == 1 ? true : false;
         }
 
-        echo $this->Form->input('Answer.'.$answer['id'], [
+        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
             'value' => 1,
             'div' => false,
             'type' => 'checkbox',
@@ -44,7 +44,7 @@
             'onchange' => 'checkMaxSelections(this)'
         ]);
 
-        echo '&nbsp;'.$answer['answer'].'<br /><br />';
+        echo '&nbsp;'.$answer['answer'].'</div><br />';
 
         $first = false;
     }
