@@ -257,8 +257,8 @@ class AnswersController extends AppController
             echo json_encode([
                 'status' => 'done'
             ]);
-        }
-        if($response && is_array($response) && isset($response['success']) && $response['success'] == true){
+
+        } elseif($response && is_array($response) && isset($response['success']) && $response['success'] == true){
             echo json_encode($response);
         }else {
             $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
