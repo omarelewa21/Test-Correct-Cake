@@ -46,3 +46,11 @@
     </div>
 
 </div>
+
+<script>
+    HelpHero.identify("<?=AuthComponent::user('id')?>", {
+        name: "<?=AuthComponent::user('name')?>",
+        name_first: "<?=AuthComponent::user('name_first')?>",
+        name_suffic: "<?=AuthComponent::user('name_suffix')?>"
+    });
+</script>
