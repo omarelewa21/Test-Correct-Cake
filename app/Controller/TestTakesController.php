@@ -108,36 +108,54 @@ class TestTakesController extends AppController
 		$this->set('defaultInviligator',$defaultLoggedInUserId);
 	}
 
-	public function add($test_id = '') {
 
-		if($this->request->is('post')) {
+    public function add($test_id = '') {
 
-			$this->autoRender = false;
+        if($this->request->is('post')) {
 
-			$data = $this->request->data;
-			$test_takes = $data['TestTake'];
+            $this->autoRender = false;
 
-			$checkAll = true;
+            $data = $this->request->data;
+            $test_takes = $data['TestTake'];
 
-			foreach($test_takes as $test_take) {
+            $checkAll = true;
 
-				if(!empty($test_take['test_id'])) {
+            if(!is_array($test_takes) || count($test_takes) < 1){
+                $this->formResponse(false, [
+                    'errors' => [
+                        'Er dient tenminste één toets gekozen te worden'
+                    ]
+                ]);
 
+                die;
+            }
 
-					$class = $this->SchoolClassesService->getClass($test_take['class_id']);
-					$test = $this->TestsService->getTest($test_take['test_id']);
+            foreach($test_takes as $test_take) {
 
-					if(strtotime($test_take['date']) == 0) {
-						$this->formResponse(false, [
-							'errors' => [
-								'Datum is incorrect'
-							]
-						]);
+                if(!empty($test_take['visible'])) {
+                    if($test_take['test_id'] == '' || empty($test_take['test_id'])){
+                        $this->formResponse(false, [
+                            'errors' => [
+                                'Er dient een toets gekozen te worden.'
+                            ]
+                        ]);
+                        exit;
+                    }
 
-						die;
-					}
+                    $class = $this->SchoolClassesService->getClass($test_take['class_id']);
+                    $test = $this->TestsService->getTest($test_take['test_id']);
 
-					// 20190930 uitgezet op verzoek van Alex omdat het verder geen doel dient.
+                    if(strtotime($test_take['date']) == 0) {
+                        $this->formResponse(false, [
+                            'errors' => [
+                                'Datum is incorrect'
+                            ]
+                        ]);
+
+                        die;
+                    }
+
+                    // 20190930 uitgezet op verzoek van Alex omdat het verder geen doel dient.
 //					if(
 //						$test['education_level_year'] != $class['education_level_year'] ||
 //						$test['period']['school_year_id'] != $class['school_year_id']
@@ -151,84 +169,83 @@ class TestTakesController extends AppController
 //						die;
 //					}
 
-					$check = $this->TestTake->check($test_take, $test);
-					if(!$check['status']) {
-						$this->formResponse(
-							false,
-							[
-								'errors' => $check['errors']
-							]
-						);
+                    $check = $this->TestTake->check($test_take, $test);
+                    if(!$check['status']) {
+                        $this->formResponse(
+                            false,
+                            [
+                                'errors' => $check['errors']
+                            ]
+                        );
 
-						die;
-					}
-				}
-			}
+                        die;
+                    }
+                }
+            }
 
-			if($checkAll == false) {
-				$this->formResponse(false, []);
-				die;
-			}
+            if($checkAll == false) {
+                $this->formResponse(false, []);
+                die;
+            }
 
-			$result = "";
+            $result = "";
 
-			foreach($test_takes as $test_take) {
-				if (!empty($test_take['test_id'])) {
-					$test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date']));
-					$test_take['retake'] = 0;
-					$test_take['test_take_status_id'] = 1;
+            foreach($test_takes as $test_take) {
+                if (!empty($test_take['test_id'])) {
+                    $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date']));
+                    $test_take['retake'] = 0;
+                    $test_take['test_take_status_id'] = 1;
 
-					if(!isset($test_take['weight'])) 
-						$test_take['weight'] = 0;
+                    if(!isset($test_take['weight'])) $test_take['weight'] = 0;
 
-					$result = $this->TestTakesService->add($test_take);
-				}
-			}
+                    $result = $this->TestTakesService->add($test_take);
+                }
+            }
 
-			$this->formResponse(
-				!empty($result),
-				$result
-			);
-			die;
+            $this->formResponse(
+                !empty($result),
+                $result
+            );
+            die;
 
-		}else {
+        }else {
 
-			$params['filter'] = ['current_school_year' => 1];
+            $params['filter'] = ['current_school_year' => 1];
 
-			$education_levels = $this->TestsService->getEducationLevels();
-			$periods = $this->TestsService->getPeriods(false, $params);
-			$subjects = $this->TestsService->getSubjects();
-			$kinds = $this->TestsService->getKinds();
-			$classes = $this->TestsService->getClasses($params);
-			$locations = $this->SchoolLocationsService->getSchoolLocations();
+            $education_levels = $this->TestsService->getEducationLevels();
+            $periods = $this->TestsService->getPeriods(false, $params);
+            $subjects = $this->TestsService->getSubjects();
+            $kinds = $this->TestsService->getKinds();
+            $classes = $this->TestsService->getClasses($params);
+            $locations = $this->SchoolLocationsService->getSchoolLocations();
 
-			$inviligators = $this->TestsService->getInvigilators();
+            $inviligators = $this->TestsService->getInvigilators();
 
-			$newInviligators = [];
+            $newInviligators = [];
 
-			foreach($inviligators as $inviligator) {
-				$newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
-			}
+            foreach($inviligators as $inviligator) {
+                $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+            }
 
-			if (!empty($test_id)) {
-				$test = $this->TestsService->getTest($test_id);
-				$test_name = $test['name'];
-				$this->set('test', $test);
-			} else {
-				$test_name = 'Selecteer';
-			}
+            if (!empty($test_id)) {
+                $test = $this->TestsService->getTest($test_id);
+                $test_name = $test['name'];
+                $this->set('test', $test);
+            } else {
+                $test_name = 'Selecteer';
+            }
 
-			$this->set('classes', $classes);
-			$this->set('inviligators', $newInviligators);
-			$this->set('test_name', $test_name);
-			$this->set('education_levels', $education_levels);
-			$this->set('kinds', $kinds);
-			$this->set('periods', $periods);
-			$this->set('subjects', $subjects);
-			$this->set('test_id', $test_id);
-			$this->set('locations', $locations);
-		}
-	}
+            $this->set('classes', $classes);
+            $this->set('inviligators', $newInviligators);
+            $this->set('test_name', $test_name);
+            $this->set('education_levels', $education_levels);
+            $this->set('kinds', $kinds);
+            $this->set('periods', $periods);
+            $this->set('subjects', $subjects);
+            $this->set('test_id', $test_id);
+            $this->set('locations', $locations);
+        }
+    }
 
 	public function edit($take_id) {
 

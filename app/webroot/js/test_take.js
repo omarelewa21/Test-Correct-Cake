@@ -358,6 +358,7 @@ var TestTake = {
     },
 
     addTestRow : function() {
+        $('.testTakeRow:hidden').first().find('.testIsVisible:first').val(1);
         $('.testTakeRow:hidden').first().fadeIn();
         $('.testTakeRowNotes:hidden').first().fadeIn();
     },

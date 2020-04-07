@@ -24,6 +24,7 @@
         ?>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRow">
             <td>
+                <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][visible]', 'id' => 'TestTakeVisible' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $i == 0 ? 1 : '' )) ?>
                 <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date]', 'id' => 'TestTakeDate' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
             </td>
             <td>
@@ -50,17 +51,17 @@
                     }
                 ?>
                 <?= 
-                    $this->Form->input('weight', 
-                        array(
-                            'name' => 'data[TestTake][' . $i . '][weight]',
-                            'id' => 'TestTakeWeight_' . $i, 'style' => 'width:50px',
-                            'label' => false, 
-                            'disabled' => isset($test) && $test['test_kind_id'] == 1 ? true : false,
-                            // 'value' => isset($test) && $test['test_kind_id'] == 1 ? 0 : $test['test_kind_id'] == 2 ? 0 : 5, 
-                            'value' => $value,
-                            'verify' => 'notempty'
-                        )
-                    )
+                    $this->Form->input('weight',
+                array(
+                'name' => 'data[TestTake][' . $i . '][weight]',
+                'id' => 'TestTakeWeight_' . $i, 'style' => 'width:50px',
+                'label' => false,
+                'disabled' => isset($test) && $test['test_kind_id'] == 1 ? true : false,
+                // 'value' => isset($test) && $test['test_kind_id'] == 1 ? 0 : $test['test_kind_id'] == 2 ? 0 : 5,
+                'value' => $value,
+                'verify' => 'notempty'
+                )
+                )
                 ?>
             </td>
             <td>
@@ -71,12 +72,12 @@
         </tr>
 
         <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
-            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
-                <th>Is RTTI</th>
-                <td>
-                    <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'name' => 'data[TestTake][' . $i . '][is_rtti_test_take]', 'value' => '1', 'checked' => true)) ?>
-                </td>
-            </tr>
+        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
+            <th>Is RTTI</th>
+            <td>
+                <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'name' => 'data[TestTake][' . $i . '][is_rtti_test_take]', 'value' => '1', 'checked' => true)) ?>
+            </td>
+        </tr>
         <?php endif; ?>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="notes_<?= $i ?>" class="testTakeRowNotes">
             <td colspan="7">
@@ -111,7 +112,7 @@
     var confirmPopup = false;
 
     <?php if($locations[0]['is_rtti_school_location'] == '1'): ?>
-        confirmPopup = true;
+    confirmPopup = true;
     <?php endif;?>
 
     $('#TestTakeAddForm').formify({
