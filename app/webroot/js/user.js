@@ -154,13 +154,13 @@ var User = {
         var email = $('#UserEmail').val();
 
         if(email == "") {
-            alert('Voer eerst uw emailadres in.');
+            Notify.notify('Voer eerst uw emailadres in.', 'error');
         }else{
             $.post('/users/forgot_password', {
                 'email' : email
             },
             function(response) {
-                alert('Er is een email naar je toegestuurd met instructies.');
+                Notify.notify('Er is een email naar je toegestuurd met instructies.', 'info');
             });
         }
     }
