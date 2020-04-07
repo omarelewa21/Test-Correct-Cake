@@ -16,7 +16,8 @@
                 'Lost focus' => 'App verlaten',
                 'Screenshot' => 'Screenshot gemaakt',
                 'Started late' => 'Laat gestart',
-                'Application closed' => 'Opnieuw gestart met toets'
+                'Application closed' => 'Opnieuw gestart met toets',
+                'Lost focus alt tab' => 'Via alt+tab naar ander venster',
             ];
 
             foreach($events as $event) {

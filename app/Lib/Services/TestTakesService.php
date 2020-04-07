@@ -341,10 +341,14 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function lostFocus($take_id, $participany_id) {
+    public function lostFocus($take_id, $participany_id, $reason='') {
 
         $data['test_participant_id'] = $participany_id;
         $data['test_take_event_type_id'] = 3;
+
+        if ($reason !== '') {
+            $data['test_take_event_type_id'] = 10; // for now only if alt+ tab
+        }
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
 

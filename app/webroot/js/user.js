@@ -107,16 +107,13 @@ var User = {
     },
 
     logout : function() {
-        if(window.isInApp) {
-            window.closeApplication();
-        }else {
             $.get('/users/logout',
                 function () {
                     User.actOnLogout();
-                    window.location.reload();
+                    window.location.href = '/';
                 }
             );
-        }
+
     },
 
     resetPassword : function() {

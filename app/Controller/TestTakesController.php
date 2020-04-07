@@ -17,7 +17,7 @@ class TestTakesController extends AppController
 
 	public function beforeFilter()
 	{
-		// $this->TestsService = new TestsService(); 
+		// $this->TestsService = new TestsService();
 		$this->QuestionsService = new QuestionsService();
 		$this->TestTakesService = new TestTakesService();
 		$this->AnswersService = new AnswersService();
@@ -196,7 +196,8 @@ class TestTakesController extends AppController
                     $test_take['retake'] = 0;
                     $test_take['test_take_status_id'] = 1;
 
-                    if(!isset($test_take['weight'])) $test_take['weight'] = 0;
+					if(!isset($test_take['weight']))
+						$test_take['weight'] = 0;
 
                     $result = $this->TestTakesService->add($test_take);
                 }
@@ -880,7 +881,7 @@ class TestTakesController extends AppController
                 $participant_status = $response['participant_test_take_status_id'];
             }
         }
-        if(!$participant_status) {
+        if(!$participant_status || !$take) {
             $take = $this->TestTakesService->getTestTake($take_id);
             $participant_id = $take['test_participant']['id'];
             $this->Session->write('participant_id',$participant_id);
@@ -1022,7 +1023,7 @@ class TestTakesController extends AppController
 
 		$this->set('take', $take);
 		$this->set('take_id', $take_id);
-		
+
 		$this->render($view, 'ajax');
 	}
 
@@ -1502,12 +1503,16 @@ class TestTakesController extends AppController
 	}
 
 	public function lost_focus() {
+	    $reason = '';
+	    if (array_key_exists('reason', $this->request->data)) {
+	        $reason = $this->request->data['reason'];
+        }
 
 		$this->autoRender = false;
 		$take_id = $this->Session->read('take_id');
 		$participant_id = $this->Session->read('participant_id');
 
-		$this->TestTakesService->lostFocus($take_id, $participant_id);
+		$this->TestTakesService->lostFocus($take_id, $participant_id, $reason);
 	}
 
 	public function screenshot_detected() {
@@ -1678,7 +1683,7 @@ class TestTakesController extends AppController
 
 				$response['takes']['progress_' . $take['info']['id'] . '_' . $class['id']] = $percentage;
 			}
-			
+
 			foreach($take['info']['test_participants'] as $participant) {
 
 				if ($participant['alert'] == true) {
@@ -1721,7 +1726,7 @@ class TestTakesController extends AppController
 				}
 
 				$percentage = round((100 / $participant['max_score']) * $participant['made_score']);
-				
+
 				$response['participants'][$participant['id']] = [
 					'percentage' => $percentage,
 					'label' => $label,
@@ -1992,7 +1997,7 @@ class TestTakesController extends AppController
 		$errors 	  = array();
 		$toetsAfnames = array();
 		$params 	  = array();
-		
+
 		// This is the WSDL we are going to send a request to.
 		// https://www.rttionline.nl/RTTIToetsService.Test/RTTIToetsService.svc?WSDL
 
@@ -2061,7 +2066,7 @@ class TestTakesController extends AppController
 			);
 			$params['toetsafnames'] = array();
 			foreach($participants as $participant) {
-				
+
 				$resultaten = array();
 				$resArray = array();
 

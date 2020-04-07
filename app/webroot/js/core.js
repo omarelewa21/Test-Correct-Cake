@@ -212,18 +212,17 @@ var Core = {
 		}
 	},
 
-	lostFocus : function() {
+	lostFocus : function(reason) {
 		if(TestTake.active) {
-		    if(TestTake.alert == false) {
-                $.get('/test_takes/lost_focus');
+			Notify.notify('Het is niet toegestaan om uit de app te gaan', 'error');
+			if(TestTake.alert == false) {
+                $.post('/test_takes/lost_focus', {reason: reason});
                 Core.lastLostFocusNotification = (new Date()).getTime()/1000;
                 TestTake.startHeartBeat(TestTake.heartBeatCallback,Core.cheatIntervalInSeconds);
             } else {
 		        var ref = (new Date()).getTime()/1000;
-		        console.log('ref '+ref);
-		        console.log('last '+Core.lastLostFocusNotification);
                 if(Core.lastLostFocusNotification == false || Core.lastLostFocusNotification <= (ref - Core.lastLostFocusNotificationDelay)){
-                    $.get('/test_takes/lost_focus');
+                    $.post('/test_takes/lost_focus', {reason: reason});
                     Core.lastLostFocusNotification = (new Date()).getTime()/1000;
                 }
             }
@@ -232,8 +231,17 @@ var Core = {
 		}
 	},
 
+	screenshotnotify : false,
+
 	screenshotDetected : function() {
-		$.get('/test_takes/screenshot_detected');
+		if(!Core.screenshotnotify) {
+			Notify.notify('Het is niet toegestaan om een screenshot te maken,  we hebben je docent hierover geïnformeerd', 'info');
+			$.get('/test_takes/screenshot_detected');
+		}
+		Core.screenshotnotify = true;
+		setTimeout(function(){
+			Core.screenshotnotify = false;
+		}, 1000);
 		TestTake.alert = true;
         TestTake.markBackground();
         TestTake.startHeartBeat(TestTake.heartBeatCallback,Core.cheatIntervalInSeconds);

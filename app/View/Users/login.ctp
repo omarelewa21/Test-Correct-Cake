@@ -62,7 +62,7 @@
         Wachtwoord vergeten
     </a>
 
-    <a href="#" onclick="window.closeApplication();" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
+    <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
         Sluiten
     </a>
     <a href="/logout" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
@@ -98,6 +98,15 @@
     };
 
     window.addEventListener('message', messageHandler);
+
+    function closeApplication(cmd)
+    {
+        if (cmd=='quit')
+        {
+            open(location, '_self').close();
+        }
+        return false;
+    }
 
     setInterval(function() {
         if(window.isInApp) {
