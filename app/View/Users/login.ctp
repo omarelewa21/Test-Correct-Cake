@@ -103,7 +103,7 @@
     {
         if (cmd=='quit')
         {
-            open(location, '_self').close();
+            open('/', '_self').close();
         }
         return false;
     }
