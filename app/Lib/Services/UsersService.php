@@ -9,6 +9,25 @@ App::uses('BaseService', 'Lib/Services');
  */
 class UsersService extends BaseService {
 
+    public function getRoles(){
+        return AuthComponent::user('roles');
+    }
+
+    public function hasRole($rolesToCheck){
+        if(is_string($rolesToCheck)) $rolesToCheck = [$rolesToCheck];
+
+        $roleExists = false;
+        foreach($this->getRoles() as $role){
+            foreach($rolesToCheck as $roleToCheck){
+                if(strtolower($roleToCheck) == strtolower($role['name'])){
+                    $roleExists = true;
+                    break 2;
+                }
+            }
+        }
+        return $roleExists;
+    }
+
     public function getAdminTeacherStats(){
         $params = [];
         $response = $this->Connector->getRequest('/admin/teacher_stats', $params);
@@ -31,7 +50,7 @@ class UsersService extends BaseService {
        if(isset($response['data']) && !empty($response['data'])) {
            return $response['data'];
        }else{
-           return [];
+           return $response;
        }
     }
 

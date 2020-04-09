@@ -1,7 +1,11 @@
 <div id="buttons">
-    <a href="#" class="btn white" onclick="Popup.load('/school_classes/add', 400);">
+    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 600);">
         <span class="fa fa-plus mr5"></span>
         Nieuwe Klas
+    </a>
+    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/classuploads');">
+        <span class="fa fa-list-ul mr5"></span>
+        Aangeboden bestanden
     </a>
 </div>
 

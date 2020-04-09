@@ -165,4 +165,19 @@ class SchoolLocationsService extends BaseService
 
         return $response;
     }
+
+    public function getSchoolLocationEducationLevels($school_location_id){
+
+        $params = [
+            'mode' => 'all'
+        ];
+        $response = $this->Connector->getRequest('/school_location_education_level/' . $school_location_id, $params);
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
 }

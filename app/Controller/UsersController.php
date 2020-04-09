@@ -617,6 +617,7 @@ class UsersController extends AppController {
 
             if($role['name'] == 'Account manager') {
                 $menus['lists'] = "Database";
+                $menus['files'] = "Bestanden";
             }
 
             if($role['name'] == 'School manager') {
@@ -731,6 +732,13 @@ class UsersController extends AppController {
                     'icon' => 'testlist',
                     'title' => 'Schoollocaties',
                     'path' => '/school_locations'
+                );
+
+                $tiles['class_uploads'] = array(
+                    'menu' => 'files',
+                    'icon' => 'testlist',
+                    'title' => 'Klassen files',
+                    'path' => '/file_management/classuploads'
                 );
             }
 

@@ -119,18 +119,20 @@
     }
 
     var qtiImportSetupRun = false;
-    let teachers = JSON.parse('<?php echo json_encode($teacherList)?>');
-    let teachers1 = JSON.parse('<?php echo json_encode($teachers)?>');
-    let subjects = JSON.parse('<?php echo json_encode($subjectList)?>');
-    let educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
+    var teachers = JSON.parse('<?php echo json_encode($teacherList)?>');
+    var teachers1 = JSON.parse('<?php echo json_encode($teachers)?>');
+    var subjects = JSON.parse('<?php echo json_encode($subjectList)?>');
+    var educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
+
+    var teacherSelect = jQuery('#QtiAuthorId');
+    var subjectSelect = jQuery('#QtiSubjectId');
+    var schoolLocationSelect = jQuery('#QtiSchoolLocationId');
+    var educationLevelSelect = jQuery('#QtiEducationLevelId');
+    var educationLevelYearSelect = jQuery('#QtiEducationLevelYear');
 
     function qtiImportSetup() {
         $(document).ready(function () {
-            let teacherSelect = jQuery('#QtiAuthorId');
-            let subjectSelect = jQuery('#QtiSubjectId');
-            let schoolLocationSelect = jQuery('#QtiSchoolLocationId');
-            let educationLevelSelect = jQuery('#QtiEducationLevelId');
-            let educationLevelYearSelect = jQuery('#QtiEducationLevelYear');
+
             jQuery('body')
                 .on('change', '#QtiSchoolLocationId', function () {
                     var schoolLocationId = $(this).val();
@@ -162,15 +164,14 @@
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
                     };
                 });
-            schoolLocationSelect.trigger('change');
-            teacherSelect.trigger('change');
-            educationLevelSelect.trigger('change');
         });
         qtiImportSetupRun = true;
     }
     if(!qtiImportSetupRun){
         qtiImportSetup();
     }
-
+    schoolLocationSelect.trigger('change');
+    teacherSelect.trigger('change');
+    educationLevelSelect.trigger('change');
 
 </script>
