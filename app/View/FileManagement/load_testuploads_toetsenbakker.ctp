@@ -9,12 +9,19 @@ foreach($files as $file){
             <?= sprintf('%s %s %s',$file['user']['name_first'], $file['user']['name_suffix'],$file['user']['name']) ?>
         </td>
         <td>
-            <?= $file['typedetails']['class'] ?>
+            <?= $file['typedetails']['subject'] ?>
+        </td>
+        <td>
+            <?= $file['typedetails']['name'] ?>
         </td>
         <td>
             <?=$file['status']['name']?>
         </td>
-
+        <td>
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/file_management/view_testupload/<?=$file['id']?>');">
+                <span class="fa fa-folder-open-o"></span>
+            </a>
+        </td>
     </tr>
     <?
 }

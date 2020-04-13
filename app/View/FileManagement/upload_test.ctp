@@ -1,55 +1,25 @@
 
-<div class="popup-head">Klas uploaden</div>
+<div class="popup-head">Toets uploaden</div>
 <div class="popup-content">
 
-    <div class=" " id="FileClassBlock">
-        <div id="FileClassContainer" style="display:none;overflow:scroll;padding: 8px;">
+    <div class=" " id="FileTestBlock">
+        <div id="FileTestContainer" style="display:none;overflow:scroll;padding: 8px;">
             Een moment dit kan even duren...
             <h4 style="color:green;" id="wistjedatjes"></h4>
         </div>
-        <?=$this->Form->create('FileClass', array('id' => 'FileClassForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment'))?>
-        <div class="block-content" id="testsContainter">
-            Hier kunt u de klassen in een Excel-format uploaden (of een ander spreadsheet format).<br />
-            <b>Let op</b>: het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: (de gegevens ieder in een eigen kolom).
-            <ul>
-                <li>Voornaam</li>
-                <li>Tussenvoegsel</li>
-                <li>Achternaam</li>
-                <li>Stamnummer</li>
-                <li>E-mailadres</li>
-            </ul>
-            Optioneel maar niet verplicht:
-            <ul>
-                <li>Recht op tijdsdispensatie ja of nee</li>
-                <li>Tekst2speech-functie aan of uit (er zijn hier additionele kosten aan verbonden)</li>
-            </ul>
+        <?=$this->Form->create('FileTest', array('id' => 'FileTestForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment'))?>
+        <div class="block-content" id="testsContainer">
             <table class='table'>
-                <tr>
-                    <td>
-                        <label>Klas</label>
-                    </td>
-                    <td>
-                        <?=$this->Form->input('class', array('value' => '', 'label' => false, 'verify' => 'notempty'))?>
-                    </td>
-                </tr>
                 <tr>
                     <td><label>Niveau</label></td>
                     <td>
                         <?=$this->Form->input('education_level_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $educationLevelOptions))?>
                     </td>
                 </tr>
-
                 <tr>
                     <td><label>Jaar</label></td>
                     <td>
                         <?=$this->Form->input('education_level_year', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td><label>Stamklas</label></td>
-                    <td>
-                        <?=$this->Form->input('is_main_school_class', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [0 => 'Nee', 1 => 'Ja']))?>
                     </td>
                 </tr>
                 <tr>
@@ -60,11 +30,24 @@
                         <?=$this->Form->input('subject', array('value' => '', 'label' => false, 'verify' => 'notempty'))?>
                     </td>
                 </tr>
-
                 <tr>
-                    <td></td>
+                    <td><label>Type toets</label></td>
                     <td>
-                        <?=$this->Form->input('file', array('type' => 'file',  'label' => false, 'div' => false, 'onchange' => '')) ?>
+                        <?=$this->Form->input('test_kind_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $testKindOptions))?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>Toets naam</label>
+                    </td>
+                    <td>
+                        <?=$this->Form->input('name', array('value' => '', 'label' => false, 'verify' => 'notempty'))?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kies 1 of meerdere bestanden</td>
+                    <td>
+                        <?=$this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => '')) ?>
                     </td>
                 </tr>
             </table>
@@ -75,7 +58,7 @@
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
                 Klas uploaden
             </a>
-            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();Navigation.refresh();">
                 Annuleer
             </a>
         </div>
@@ -83,13 +66,19 @@
     </div>
 </div>
 
+<style>
+    .text-danger {
+        color : #d9534f;
+    }
+</style>
+
 <script>
 
     function handleUploadError(error){
         clearTimeout(wistjedatjeTimer);
         Notify.notify(error,'error');
-        $('#FileClassContainer').hide();
-        $('#FileClassForm').show();
+        $('#FileTestContainer').hide();
+        $('#FileTestForm').show();
     }
 
     function handleUploadResponse(data){
@@ -103,10 +92,10 @@
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
     let wistjedatjes = [
-        'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-        'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-        'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-        'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+      'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
+      'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
+      'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
+      'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
     ];
     let wistjedatjesEl = jQuery('#wistjedatjes');
 
@@ -114,9 +103,9 @@
 
 
     function handleSubmit(){
-        $('#FileClassBlock').height($('#FileClassBlock').height()).css('overflow','scroll').css('padding','8px');
-        $('#FileClassContainer').show();
-        $('#FileClassForm').hide().submit();
+        $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow','scroll').css('padding','8px');
+        $('#FileTestContainer').show();
+        $('#FileTestForm').hide().submit();
         showWistJeDatJe();
     }
 
@@ -136,13 +125,13 @@
             wistjedatjeTime);
     }
 
-    var educationLevelSelect = jQuery('#FileClassEducationLevelId');
-    var educationLevelYearSelect = jQuery('#FileClassEducationLevelYear');
+    var educationLevelSelect = jQuery('#FileTestEducationLevelId');
+    var educationLevelYearSelect = jQuery('#FileTestEducationLevelYear');
 
-    function fileClassSetup() {
+    function FileTestSetup() {
         $(document).ready(function () {
             jQuery('body')
-                .on('change', '#FileClassEducationLevelId', function () {
+                .on('change', '#FileTestEducationLevelId', function () {
                     var elId = $(this).val();
                     var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
                     educationLevelYearSelect.find('option').remove();
@@ -152,11 +141,11 @@
                     console.log('changed');
                 });
         });
-        fileClassSetupRun = true;
+        FileTestSetupRun = true;
     }
 
-    if(typeof fileClassSetupRun == 'undefined' || !fileClassSetupRun){
-        fileClassSetup();
+    if(typeof FileTestSetupRun == 'undefined' || !FileTestSetupRun){
+        FileTestSetup();
     }
 
     educationLevelSelect.trigger('change');

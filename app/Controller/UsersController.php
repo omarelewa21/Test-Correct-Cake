@@ -737,8 +737,15 @@ class UsersController extends AppController {
                 $tiles['class_uploads'] = array(
                     'menu' => 'files',
                     'icon' => 'testlist',
-                    'title' => 'Klassen files',
+                    'title' => 'Klassen bestanden',
                     'path' => '/file_management/classuploads'
+                );
+
+                $tiles['test_uploads'] = array(
+                    'menu' => 'files',
+                    'icon' => 'testlist',
+                    'title' => 'Toetsbestanden',
+                    'path' => '/file_management/testuploads'
                 );
             }
 
@@ -890,6 +897,12 @@ class UsersController extends AppController {
                     'icon' => 'testlist',
                     'title' => 'Mijn klassen',
                     'path' => '/teacher_classes'
+                ];
+                $tiles['teacher_test_uploads'] = [
+                    'menu' => 'other',
+                    'icon' => 'testlist',
+                    'title' => 'Aangeboden toetsen',
+                    'path' => '/file_management/testuploads'
                 ];
             }
 

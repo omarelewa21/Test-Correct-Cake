@@ -196,3 +196,58 @@ div.block-content img {
 }
 
 #ba-mp3 { display:none !important;}
+
+.color-indicator {
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border:1px solid #333333;
+}
+
+.colorcode-1 {color:#dddddd;background-color:#dddddd;}
+.colorcode-2 {color:#555555;background-color:#555555;}
+.colorcode-3 {color:#83DC92;background-color:#83DC92;}
+.colorcode-4 {color:#248A35;background-color:#248A35;}
+.colorcode-5 {color:#BD7878;background-color:#BD7878;}
+.colorcode-6 {color:#A92D2D;background-color:#A92D2D;}
+.colorcode-7 {color:#BDA178;background-color:#BDA178;}
+.colorcode-8 {color:#BD893D;background-color:#BD893D;}
+.colorcode-9 {color:#78BDA1;background-color:#78BDA1;}
+.colorcode-10 {color:#3CBD89;background-color:#3CBD89;}
+.colorcode-11 {color:#78ABBD;background-color:#78ABBD;}
+.colorcode-12 {color:#3D9BBC;background-color:#3D9BBC;}
+.colorcode-13 {color:#788BBD;background-color:#788BBD;}
+.colorcode-14 {color:#3D60BC;background-color:#3D60BC;}
+.colorcode-15 {color:#8778BD;background-color:#8778BD;}
+.colorcode-16 {color:#5538BC;background-color:#5538BC;}
+.colorcode-17 {color:#B478BD;background-color:#B478BD;}
+.colorcode-18 {color:#AD39BF;background-color:#AD39BF;}
+.colorcode-19 {color:#BD789F;background-color:#BD789F;}
+.colorcode-20 {color:#BE2E7F;background-color:#BE2E7F;}
+.colorcode-21 {color:#932362;background-color:#932362;}
+.colorcode-22 {color:#932336;background-color:#932336;}
+.colorcode-23 {color:#936323;background-color:#936323;}
+.colorcode-24 {color:#7A9323;background-color:#7A9323;}
+.colorcode-25 {color:#269323;background-color:#269323;}
+.colorcode-26 {color:#238B93;background-color:#238B93;}
+.colorcode-27 {color:#234F93;background-color:#234F93;}
+.colorcode-28 {color:#262393;background-color:#262393;}
+.colorcode-29 {color:#5E2393;background-color:#5E2393;}
+.colorcode-30 {color:#7D2393;background-color:#7D2393;}
+.colorcode-31 {color:#932384;background-color:#932384;}
+.colorcode-32 {color:#932369;background-color:#932369;}
+.colorcode-33 {color:#EC3377;background-color:#EC3377;}
+.colorcode-34 {color:#EC8133;background-color:#EC8133;}
+.colorcode-35 {color:#ECE633;background-color:#ECE633;}
+.colorcode-36 {color:#A3EC33;background-color:#A3EC33;}
+.colorcode-37 {color:#33EC47;background-color:#33EC47;}
+.colorcode-38 {color:#33ECA0;background-color:#33ECA0;}
+.colorcode-39 {color:#33E9EC;background-color:#33E9EC;}
+.colorcode-40 {color:#3395EC;background-color:#3395EC;}
+.colorcode-41 {color:#0386FA;background-color:#0386FA;}
+.colorcode-42 {color:#F6FA03;background-color:#F6FA03;}
+.colorcode-43 {color:#E003FA;background-color:#E003FA;}
+.colorcode-44 {color:#FA7303;background-color:#FA7303;}
+.colorcode-45 {color:#FA0303;background-color:#FA0303;}
+.colorcode-46 {color:#03FA25;background-color:#03FA25;}
+.colorcode-47 {color:#E2E3E2;background-color:#E2E3E2;}

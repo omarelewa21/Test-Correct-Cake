@@ -33,12 +33,6 @@ var User = {
 
                 if(User.info.isTeacher){
                     $("#supportpage_link, #upload_test_link").remove();
-                    $('#header #user_menu')
-                        .append(
-                            '<a id="supportpage_link" class="btn white mt5" href="https://support.test-correct.nl" target="_blank">supportpagina</a>'
-                        ).append(
-                            '<a id="upload_test_link" class="btn white mt5" href="https://www.test-correct.nl/toets-uploaden/" target="_blank">uploaden toets</a>'
-                        );
                 }
             }
         );

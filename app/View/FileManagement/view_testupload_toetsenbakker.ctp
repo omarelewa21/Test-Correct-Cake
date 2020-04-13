@@ -8,36 +8,13 @@
     }
 </style>
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/classuploads');">
+    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/testuploads');">
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
-    <?php
-        $options = [];
-        switch($file['file_management_status_id']){
-            case 1:
-                $options[] = ['action' => 'claim', 'text' => 'In beheer nemen','class' => 'highlight'];
-            break;
-            case 2:
-                $options[] = ['action' => 'claim', 'text' => 'Overnemen', 'class' => 'fa-heart-o'];
-                $options[] = ['action' => 'close', 'text' => 'Sluiten', 'class' => 'fa-sign-out'];
-            break;
-            default: // 'closed' or 'declined'
-                $options[] = ['action' => 'claim', 'text' => 'Heropenen', 'class' => 'fa-heart-o'];
-            break;
-        }
-        foreach($options as $option){
-            ?>
-            <a href="#" class="btn white mr2" onclick="handleFileStatusChange('<?=$file['id']?>','<?=$option['action']?>');">
-                <span class="fa <?=$option['class']?> mr5"></span>
-                <?=$option['text']?>
-            </a>
-            <?php
-        }
-        ?>
 </div>
 
-<h1>Bestand</h1>
+<h1>Toetsbestand</h1>
 
 <div class="block">
     <div class="block-head">informatie</div>
@@ -50,7 +27,7 @@
                         <?=$file['status']['name']?>
                     </div>
                     <div class="editable_elements">
-                        <select name="file_management_status_id" class="editable_input">
+                        <select name="file_management_status_id" class="editable_input" style="width:100%">
                             <? foreach($file['statuses'] as $status){
                                 $selected = "";
                                 if($status['id'] == $file['status']['id']){
@@ -68,27 +45,8 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%">Behandelaar</th>
-                <td width="38%">
-                    <?php
-                    if(isset($file['handler']) && $file['handler']){
-                        echo sprintf('%s %s %s',$file['handler']['name_first'], $file['handler']['name_suffix'],$file['handler']['name']);
-                    }
-                    else {
-                        ?>
-                    -
-                    <?php
-                    }
-                    ?>
-                </td>
-                <th width="12%">Code</th>
-                <td width="38%">
-                    <?= $file['school_location']['customer_code']?>
-                </td>
-            </tr>
-            <tr>
-                <th width="12%" rowspan="2" valign="top">Notitie</th>
-                <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
+                <th width="12%" rowspan="5" valign="top">Notitie</th>
+                <td width="38%" rowspan="5" valign="top" id='notes' class="editable" onClick="makeEditable();">
                     <div id="notes_div" class='editable_view' title="Klik om te wijzigen" style="max-height:60px;overflow:scroll"><?
                         echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : 'Klik om een notitie toe te toevoegen';
                     ?></div>
@@ -111,51 +69,45 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%"></th>
+                <th width="12%">Niveau</th>
                 <td width="38%">
-
-                </td>
-                <th width="12%">Klas</th>
-                <td width="38%">
-                    <?=$file['typedetails']['class'] ?> (<?=$educationLevel?> <?=$file['typedetails']['education_level_year']?>)
+                    <?=$educationLevel?> <?=$file['typedetails']['education_level_year']?>
                 </td>
             </tr>
             <tr>
                 <th>
-                   File
+                    Type
                 </th>
-                <td>
-                    <a href="file_management/download/<?=$file['id']?>" target="_blank"><?=$file['name']?> (<?=$file['origname']?>)</a>
-                </td>
+                <td><?= $testKind?></td>
+            </tr>
+            <tr>
                 <th>
-                    Stamklas
+                    Naam
                 </th>
-                <td><?= $file['typedetails']['is_main_school_class'] ? 'Ja' : 'Nee' ?></td>
+                <td><?= $file['typedetails']['name']?></td>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Schoolbeheerders</div>
+    <div class="block-head">Bestanden</div>
     <div class="block-content">
 
 
         <table class="table table-stiped">
             <tr>
-                <th>Voornaam</th>
-                <th>Tussenv.</th>
-                <th>Achternaam</th>
-                <th>E-mailadres</th>
+                <th>Bestand</th>
+                <th>Originele naam</th>
             </tr>
             <?
-            foreach($schoolbeheerders as $manager) {
+            foreach($file['children'] as $child) {
                 ?>
             <tr>
-                <td><?=$manager['name_first']?></td>
-                <td><?=$manager['name_suffix']?></td>
-                <td><?=$manager['name']?></td>
-                <td><?=$manager['username']?></td>
+                <td>
+                    <a href="file_management/download/<?=$child['id']?>/testupload" target="_blank"><?=$child['name']?></a>
+                </td>
+                <td><?=$child['origname']?></td>
             </tr>
             <?
             }
@@ -192,7 +144,7 @@
         jQuery(".editable_input:input").each(function(e){
             data[$(this).attr('name')] = $(this).val();
         });
-        var jqxhr = $.post('/file_management/update/<?= $file['id']?>/classupload',
+        var jqxhr = $.post('/file_management/update/<?= $file['id']?>/testupload',
                 data,
                 function(response) {
                     Loading.hide();
@@ -205,5 +157,5 @@
                     Notify.notify('Er is iets fout gegaan bij het aanpassen van de gegevens', 'error');
                 });
             }
-
+    $('select').select2();
 </script>

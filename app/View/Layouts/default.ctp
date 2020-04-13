@@ -7,7 +7,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=1280, user-scalable = no">
 
-		<link href="/css/default.css?v=20200220-172700" rel="stylesheet" type="text/css" />
+		<link href="/css/default.css?v=20200412-172700" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"> -->
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
@@ -83,18 +83,8 @@
 					<a href="#" onclick="User.logout();" id="btnLogout" class="btn white">Uitloggen</a>
 
 					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
-					<? if(in_array($role, ['Teacher'])) {
-     			    ?>
-						<a href="https://www.test-correct.nl/support" target="_blank" class="btn white" >
-							Supportpagina
-						</a>
-						<a href="https://www.test-correct.nl/toets-uploaden" target="_blank" class="btn white" >
-							Uploaden toets
-						</a>
-					<?
-    				}
-    				?>
-					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white" style="display: none;">Inleveren</a>
+
+					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
 				</div>
 
 			</div>

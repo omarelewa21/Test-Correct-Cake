@@ -53,4 +53,19 @@
         name_first: "<?=AuthComponent::user('name_first')?>",
         name_suffic: "<?=AuthComponent::user('name_suffix')?>"
     });
+
+    if(jQuery("#supportLinkUserMenu").length != 1){
+        jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" > Supportpagina</a>');
+    <?
+        if(AuthComponent::user('isToetsenbakker') == true){
+        ?>
+            jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" > Te verwerken toetsen</a>');
+        <?php
+        }else {
+                ?>
+            jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >Uploaden toets</a>');
+        <?php
+        }
+    ?>
+    };
 </script>
