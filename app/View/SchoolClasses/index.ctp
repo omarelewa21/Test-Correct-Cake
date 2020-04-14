@@ -3,6 +3,28 @@
         <span class="fa fa-plus mr5"></span>
         Nieuwe Klas
     </a>
+
+    <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters">
+        <span class="fa fa-filter mr5"></span>
+        Filteren
+    </a>
+
+    <div class="dropblock" for="filters">
+        <?= $this->Form->create('SchoolClass') ?>
+        <table id="testsFilter" class="mb5">
+            <tr>
+                <th>Naam</th>
+                <td>
+                    <?= $this->Form->input('name', array('label' => false)) ?>
+                </td>
+            </tr>
+        </table>
+        <?= $this->Form->end(); ?>
+        <a href="#" class="btn btn-close white small pull-right">Sluiten</a>
+        <a href="#" class="btn btn-reset white small pull-right mr5">Reset</a>
+        <br clear="all" />
+    </div>
+
 </div>
 
 
@@ -23,9 +45,9 @@
 
         <script type="text/javascript">
             $('#classesTable').tablefy({
-                'source' : '/school_classes/load',
-                'filters' : null,
-                'container' : $('#classesContainer')
+                'source': '/school_classes/load',
+                'filters': $('#SchoolClassIndexForm'),
+                'container': $('#classesContainer')
             });
         </script>
     </div>

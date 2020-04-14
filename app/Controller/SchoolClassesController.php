@@ -33,9 +33,21 @@ class SchoolClassesController extends AppController
 
         $params = $this->request->data;
 
+        $filters = array();
+        parse_str($params['filters'], $filters);
+
+        $filters = $filters['data']['SchoolClass'];
+
+        unset($params['filters']);
+        $params['filter'] = [];
+
         $params['filter'] = ['current_school_year' => 1];
+        if(!empty($filters['name'])) {
+            $params['filter']['name'] = $filters['name'];
+        }
 
         $classes  = $this->SchoolClassesService->getClasses($params);
+
 
         $this->set('classes', $classes);
     }
