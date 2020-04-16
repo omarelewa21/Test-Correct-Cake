@@ -224,10 +224,19 @@ class FileManagementController extends AppController
                 $response = "het is niet duidelijk om wat de naam van de toets is";
                 $error = true;
             }
-            else if(!isset($data['file']) || count($data['file']) < 1){
+            else if(!isset($data['file']) || count($data['file']) < 1) {
                 $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
                 $error = true;
-            }else{
+            }
+            else if (!isset($data['correctiemodel']) || $data['correctiemodel'] != 1){
+                    $response = "Er dient een correctiemodel mee gestuurd te worden";
+                    $error = true;
+            }
+            else if (!isset($data['multiple']) || $data['multiple'] != 0){
+                $response = "Er kan maximaal 1 toets per keer geupload worden";
+                $error = true;
+            }
+            else {
                 foreach($data['file'] as $file){
                     if(!isset($file['tmp_name']) || !$file['tmp_name']){
                         $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';

@@ -39,9 +39,9 @@
                         </select>
                     </div>
                 </td>
-                <th width="12%">School locatie</th>
+                <th width="12%">Klantcode</th>
                 <td width="38%">
-                    <?= $file['school_location']['name']?>
+                    <?= $file['school_location']['customer_code']?>
                 </td>
             </tr>
             <tr>

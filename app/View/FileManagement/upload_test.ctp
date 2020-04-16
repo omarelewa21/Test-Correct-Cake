@@ -50,6 +50,18 @@
                         <?=$this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => '')) ?>
                     </td>
                 </tr>
+                <tr>
+                    <td><label>Correctiemodel toegevoegd?</label></td>
+                    <td>
+                        <?=$this->Form->input('correctiemodel', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij']))?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Een enkele of meerdere toetsen?</label></td>
+                    <td>
+                        <?=$this->Form->input('multiple', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen']))?>
+                    </td>
+                </tr>
             </table>
 
             <iframe id="frameUploadAttachment" name="frameUploadAttachment" width="0" height="0" frameborder="0" style="position: absolute"></iframe>
