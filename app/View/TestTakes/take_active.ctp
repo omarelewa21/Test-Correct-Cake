@@ -126,6 +126,12 @@
 
     Answer.takeId = <?=$take_id?>;
 
+    jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
+        console.log('mousentered');
+        jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
+    });
+
+
     <?php
     if($this->Session->read('Auth.User.has_text2speech') == 1){
         ?>
