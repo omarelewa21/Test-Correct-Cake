@@ -139,7 +139,7 @@
                 <th width="12%" rowspan="2" valign="top">Uitnodiging</th>
                 <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
                     <div id="notes_div" class='editable_view' title="Klik om uit te nodigen" style="max-height:60px;overflow:scroll"><?
-                        echo (isset($file['typedetails']['invite']) && strlen($file['typedetails']['invite']) > 0) ? $file['typedetails']['invite'].'<br /> uitgenodigd op '.$this->Time->format($file['typedetails']['invited_at'],'%e %b \'%y om %H:%M', true, 'Europe/Amsterdam') : 'Klik om uit te nodigen';
+                        echo (isset($file['typedetails']['invite']) && strlen($file['typedetails']['invite']) > 0) ? $file['typedetails']['invite'].'<br /> uitgenodigd op '.$this->Time->format($file['typedetails']['invited_at']['date'],'%e %b \'%y om %H:%M', true, 'Europe/Amsterdam') : 'Klik om uit te nodigen';
                         ?></div>
                     <div id="notes_edit" class='editable_elements'>
                         <input type="text" name="invite" class='editable_input' value="<?=isset($file['typedetails']['invite']) ? $file['typedetails']['invite'] : ''?>">
