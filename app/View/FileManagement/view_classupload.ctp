@@ -196,7 +196,7 @@
                 data,
                 function(response) {
                     Loading.hide();
-                    Notify.notify('De gegevens zin aangepast', 'success');
+                    Notify.notify('De gegevens zijn aangepast', 'success');
                     Navigation.refresh();
                 }
             )

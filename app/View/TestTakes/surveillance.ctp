@@ -100,7 +100,10 @@ if(count($takes) == 0) {
                 $participants = [];
 
                 foreach ($takes as $take) {
-                    $participants = array_merge($participants, $take['info']['test_participants']);
+                    if(is_array($take['info']['test_participants'])){
+                        $participants = array_merge($participants, $take['info']['test_participants']);
+                    }
+
                 }
 
                 $half = floor(count($participants) / 2);
