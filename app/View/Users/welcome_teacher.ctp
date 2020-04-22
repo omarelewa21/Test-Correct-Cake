@@ -15,7 +15,7 @@
                     <td style="text-align:center;width:33%">
                         <iframe width="220" height="177" src="https://www.youtube.com/embed/YIHZUMHSQeo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                         <Br />
-                        Wactwoord van student aanpassen
+                        Wachtwoord van student aanpassen
                     </td>
                     <td style="text-align:center;width:33%">
                         <iframe width="220" height="177" src="https://www.youtube.com/embed/-AQyzBffjKs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
