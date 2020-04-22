@@ -5,25 +5,39 @@
             beschikking voor alle docenten en alle lesgroepen binnen uw school tot het einde van dit schooljaar
         </h2>
         <div>
-            <p>
-                Update 17 maart:<br />
-                Test-Correct is geschikt om studenten thuis een toets te laten maken. Met de smart surveillance ziet u
-                waar de student zich in de toets bevindt. Het advies is om geen summatieve toetsing te doen, tenzij
-                iemand in de nabijheid van de student kan toezien met wie u goede afspraken heeft gemaakt
-                (bijvoorbeeld de ouders).
-            </p>
+            <table>
+                <tr>
+                    <td style="text-align:center;width:33%">
+                        <iframe width="220" height="177" src="https://www.youtube.com/embed/Y_yi0H4vGlA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <Br />
+                        Klassen toevoegen
+                    </td>
+                    <td style="text-align:center;width:33%">
+                        <iframe width="220" height="177" src="https://www.youtube.com/embed/YIHZUMHSQeo" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <Br />
+                        Wactwoord van student aanpassen
+                    </td>
+                    <td style="text-align:center;width:33%">
+                        <iframe width="220" height="177" src="https://www.youtube.com/embed/-AQyzBffjKs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <Br />
+                        Toets uploaden
+                    </td>
+                </tr>
+            </table>
             <p>
                 <strong>
-                    Wij maken Test-Correct kosteloos beschikbaar voor al uw overige lesgroepen tot het einde van dit
-                    schooljaar. Ook kunt u kosteloos gebruik maken van onze dienst om toetsmateriaal in uw itembank
-                    klaar te zetten, mits u van plan was deze op papier af te nemen.
+                    Let op: tot 15 mei kunt u gratis al uw toetsen in word/pdf bij ons aanleveren. Deze zetten wij kosteloos voor u klaar in uw itembank.<sup>*</sup>
                 </strong>
             </p>
             <p>
-                Extra lesgroepen kunt u <a href="mailto:support@test-correct.nl">HIER</a> per e-mail naar ons toezenden.<br/>
-                Toetsmateriaal kunt u <a href="https://www.test-correct.nl/toets-uploaden/" target="_blank">HIER</a> uploaden.<br />
                 Het openstellen van ons platform geldt voor alle docenten binnen uw organisatie.
-                </p>
+            </p>
+            <p>
+                <small>
+                    <sup>*</sup>
+                    Vanaf 15 mei is het aanleveren van uw toetsen in word/pdf een betaalde dienst. *: verwerking van aangeleverde toetsen gebeurt op first come first serve basis. Wij van Test-Correct spannen ons in om de beste service te verlenen. Wij behouden te allen tijde het recht de verwerking van toetsen die worden aangeleverd te weigeren.
+                </small>
+            </p>
         </div>
     </div>
 </div>
