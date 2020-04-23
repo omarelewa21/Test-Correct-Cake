@@ -32,7 +32,7 @@ foreach($organisations as $organisation) {
                     </a>
                     <a href="#" class="btn highlight white" onclick="Organisation.delete(<?=$organisation['id']?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Delete
+                        Verwijderen
                     </a>
                 </div>
             <? endif; ?>

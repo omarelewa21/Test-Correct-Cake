@@ -18,7 +18,7 @@ foreach($classes as $class) {
                 </a>
                 <a href="#" class="btn highlight white" onclick="SchoolClass.delete(<?=$class['id']?>, 0);">
                     <span class="fa fa-remove mr5"></span>
-                    Delete
+                    Verwijderen
                 </a>
             </div>
         </td>

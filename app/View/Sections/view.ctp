@@ -3,9 +3,9 @@
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="Organisation.delete(<?=$section['id']?>);">
+    <a href="#" class="btn white" onclick="Section.delete(<?=$section['id']?>, true);">
         <span class="fa fa-remove mr5"></span>
-        Delete
+        Verwijderen
     </a>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
@@ -44,7 +44,7 @@
                                 </a>
                                 <a href="#" class="btn highlight white" onclick="Subject.delete(<?=$subject['id']?>);">
                                     <span class="fa fa-remove mr5"></span>
-                                    Delete
+                                    Verwijderen
                                 </a>
                             </div>
                         </td>

@@ -25,7 +25,7 @@ foreach($sections as $section) {
                 </a>
                 <a href="#" class="btn highlight white" onclick="Section.delete(<?=$section['id']?>);">
                     <span class="fa fa-remove mr5"></span>
-                    Delete
+                    Verwijderen
                 </a>
             </div>
         </td>

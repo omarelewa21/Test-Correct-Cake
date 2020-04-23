@@ -46,7 +46,7 @@ foreach($users as $user) {
                     </a>
                     <a href="#" class="btn highlight white" onclick="User.delete(<?=$user['id']?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Delete
+                        Verwijderen
                     </a>
                 <? }else { ?>
                     <a href="#" class="btn highlight white" onclick="Popup.load('/users/move/<?=$user['id']?>', 400);">

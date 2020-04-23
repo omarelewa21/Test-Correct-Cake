@@ -13,7 +13,7 @@
     </a>
     <a href="#" class="btn white" onclick="SchoolClass.delete(<?=$class['id']?>, 1);">
         <span class="fa fa-remove mr5"></span>
-        Delete
+        Verwijderen
     </a>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>

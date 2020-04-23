@@ -6,7 +6,7 @@
         </a>
         <a href="#" class="btn white" onclick="Organisation.delete(<?=$organisation['id']?>);">
             <span class="fa fa-remove mr5"></span>
-            Delete
+            Verwijderen
         </a>
     <? endif; ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">

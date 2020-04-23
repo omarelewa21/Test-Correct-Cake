@@ -3,9 +3,9 @@
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="Organisation.delete(<?=$school_year['id']?>);">
+    <a href="#" class="btn white" onclick="SchoolYear.delete(<?=$school_year['id']?>, true);">
         <span class="fa fa-remove mr5"></span>
-        Delete
+        Verwijderen
     </a>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
@@ -46,7 +46,7 @@
                                 </a>
                                 <a href="#" class="btn highlight white" onclick="Period.delete(<?=$period['id']?>);">
                                     <span class="fa fa-remove mr5"></span>
-                                    Delete
+                                    Verwijderen
                                 </a>
                             </div>
                         </td>

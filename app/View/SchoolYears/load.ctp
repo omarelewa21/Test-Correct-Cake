@@ -25,7 +25,7 @@ foreach($school_years as $school_year) {
                 </a>
                 <a href="#" class="btn highlight white" onclick="SchoolYear.delete(<?=$school_year['id']?>);">
                     <span class="fa fa-remove mr5"></span>
-                    Delete
+                    Verwijderen
                 </a>
             </div>
         </td>

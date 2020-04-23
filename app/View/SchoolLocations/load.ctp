@@ -41,7 +41,7 @@ foreach($school_locations as $school_location) {
                     </a>
                     <a href="#" class="btn highlight white" onclick="SchoolLocation.delete(<?=$school_location['id']?>, 0);">
                         <span class="fa fa-remove mr5"></span>
-                        Delete
+                        Verwijderen
                     </a>
                 </div>
             <? endif;?>

@@ -422,7 +422,7 @@ var School = {
 };
 
 var SchoolYear = {
-	delete : function(id) {
+	delete : function(id, view) {
 		Popup.message({
 			btnOk: 'Ja',
 			btnCancel: 'Annuleer',
@@ -432,7 +432,12 @@ var SchoolYear = {
 			$.get('/school_years/delete/' + id,
 				function() {
 					Notify.notify('Schooljaar verwijderd', 'info');
-					Navigation.refresh();
+					if (view) {
+						Navigation.load('/school_years');
+					} else {
+						Navigation.refresh();
+					}
+					
 				}
 			);
 		});
@@ -576,7 +581,7 @@ var SchoolClass = {
 };
 
 var Section = {
-	delete : function(id) {
+	delete : function(id, view) {
 
 		Popup.message({
 			btnOk: 'Ja',
@@ -587,7 +592,12 @@ var Section = {
 			$.get('/sections/delete/' + id,
 				function() {
 					Notify.notify('Sectie verwijderd', 'info');
-					Navigation.refresh();
+					if (view) {
+						Navigation.load('/sections')
+					} else {
+						Navigation.refresh();
+					}
+
 				}
 			);
 		});
