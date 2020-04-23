@@ -26,7 +26,7 @@ if(isset($result)) {
     }else{
         ?>
         <div class="alert">
-            Je wachtwoord kon niet worden gereset
+            Je wachtwoord kon niet worden gereset. Zorg ervoor dat het wachtwoord minimaal 6 karakters bevat.
         </div>
         <?
     }

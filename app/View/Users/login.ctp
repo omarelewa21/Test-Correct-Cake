@@ -22,7 +22,7 @@
             </td>
         </tr>
         <tr>
-            <th>Password</th>
+            <th>Wachtwoord</th>
             <td>
                 <?php
                 echo $this->Form->input(
