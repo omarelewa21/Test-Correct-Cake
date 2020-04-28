@@ -26,10 +26,11 @@ class SchoolClassesController extends AppController
 
     public function index()
     {
-
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
     }
 
     public function load() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $params = $this->request->data;
 
@@ -53,18 +54,24 @@ class SchoolClassesController extends AppController
     }
 
     public function load_teachers($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $class = $this->SchoolClassesService->getClass($class_id);
 
         $this->set('class', $class);
     }
 
     public function view($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $class = $this->SchoolClassesService->getClass($class_id);
         $this->set('class', $class);
         $this->Session->write('class_id', $class_id);
     }
 
     public function load_students($class_id, $location_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params['filter'] = ['student_school_class_id' => $class_id];
         $students = $this->UsersService->getUserList($params);
         $this->set('students', $students);
@@ -73,6 +80,8 @@ class SchoolClassesController extends AppController
     }
 
     public function load_managers($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params['filter'] = ['manager_school_class_id' => $class_id];
         $managers = $this->UsersService->getUserList($params);
         $this->set('managers', $managers);
@@ -80,6 +89,8 @@ class SchoolClassesController extends AppController
     }
 
     public function load_mentors($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params['filter'] = ['mentor_school_class_id' => $class_id];
         $mentors = $this->UsersService->getUserList($params);
         $this->set('mentors', $mentors);
@@ -87,6 +98,8 @@ class SchoolClassesController extends AppController
     }
 
     public function doImport($location_id,$class_id){
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $data['data'] = $this->request->data;
 
         $result = $this->SchoolClassesService->doImportStudents($location_id,$class_id,$data);
@@ -98,6 +111,8 @@ class SchoolClassesController extends AppController
     }
 
     public function import($location_id, $class_id){
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $classes = $this->SchoolClassesService->getForLocationId($location_id);
         $this->set('classes',$classes);
         $this->set('class_id',$class_id);
@@ -106,6 +121,7 @@ class SchoolClassesController extends AppController
     }
 
     public function add() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -140,6 +156,8 @@ class SchoolClassesController extends AppController
     }
 
     public function get_for_location($location_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $classes = $this->SchoolClassesService->getForLocationId($location_id);
 
@@ -147,6 +165,7 @@ class SchoolClassesController extends AppController
     }
 
     public function edit($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -172,6 +191,7 @@ class SchoolClassesController extends AppController
     }
 
     public function add_teacher($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -192,6 +212,7 @@ class SchoolClassesController extends AppController
     }
 
     public function add_management($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -210,6 +231,7 @@ class SchoolClassesController extends AppController
     }
 
     public function add_student($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -228,6 +250,7 @@ class SchoolClassesController extends AppController
     }
 
     public function add_mentor($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -246,6 +269,8 @@ class SchoolClassesController extends AppController
     }
 
     public function remove_mentor($class_id, $user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->removeFromClass($user_id, [
             'delete_mentor_school_class' => $class_id
@@ -258,6 +283,8 @@ class SchoolClassesController extends AppController
     }
 
     public function remove_manager($class_id, $user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->removeFromClass($user_id, [
             'delete_manager_school_class' => $class_id
@@ -270,6 +297,8 @@ class SchoolClassesController extends AppController
     }
 
     public function remove_teacher($teacher_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->removeTeacher($teacher_id);
 
@@ -280,6 +309,8 @@ class SchoolClassesController extends AppController
     }
 
     public function remove_student($class_id, $user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->removeFromClass($user_id, [
             'delete_student_school_class' => $class_id
@@ -292,16 +323,21 @@ class SchoolClassesController extends AppController
     }
 
     public function delete($class_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->deleteClass($class_id);
     }
 
     public function delete_teacher($teacher_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
         $this->SchoolClassesService->deleteTeacher($teacher_id);
     }
 
     public function edit_student($user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 

@@ -24,6 +24,8 @@ class TestsController extends AppController {
     public function test() {}
 
     public function index() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $education_level_years = [
             0 => 'Alle',
             1 => 1,
@@ -52,11 +54,15 @@ class TestsController extends AppController {
     }
 
     public function delete($test_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
         $result = $this->TestsService->deleteTest($test_id);
         $this->formResponse(!empty($result));
     }
 
     public function duplicate($test_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
         $response = $this->TestsService->duplicate($test_id);
 
         $this->formResponse(
@@ -66,6 +72,8 @@ class TestsController extends AppController {
 
     public function setQuestionsOpenSource($questions, $owner_id, $owner = 'test' )
     {
+        $this->isAuthorizedAs(["Teacher"]);
+
         foreach($questions as $question) {
             // In case the type of questions is a group question we want to only apply this logic
             // To questions that are shown in the test, and not questions that are not physical questions.
@@ -96,6 +104,8 @@ class TestsController extends AppController {
     }
 
     public function add() {
+        $this->isAuthorizedAs(["Teacher"]);
+
         if ($this->request->is('post')) {
             $test   = $this->request->data['Test'];
             $result = $this->TestsService->add($test);            
@@ -126,6 +136,8 @@ class TestsController extends AppController {
     }
 
     public function edit($test_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
         if ($this->request->is('post') || $this->request->is('put')) {
 
             $test = $this->request->data['Test'];
@@ -161,6 +173,8 @@ class TestsController extends AppController {
     }
 
     public function load() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $education_levels = $this->TestsService->getEducationLevels(true, false);
 
         $periods = $this->TestsService->getPeriods();
@@ -224,6 +238,8 @@ class TestsController extends AppController {
     }
 
     public function view($test_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        
         $test = $this->TestsService->getTest($test_id);
 
         $this->Session->write('active_test', $test);
@@ -274,6 +290,8 @@ class TestsController extends AppController {
      * Show Regular PDF with attachments.
      */
     public function pdf_preview($test_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->set('test_id', $test_id);
         $this->render('pdf_preview', 'ajax');
     }
@@ -283,6 +301,8 @@ class TestsController extends AppController {
      * an overview of all different attachment for seperate download functionality.
      */
     public function pdf_showPDFAttachment($test_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->set('test_id', $test_id);
         $questions = $this->TestsService->getQuestions($test_id);
         $questionsArray = [];
@@ -416,12 +436,16 @@ class TestsController extends AppController {
     }
 
     public function pdf_container($test_id, $attachment_id = null) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->set('test_id', $test_id);
         $this->set('attachment_id',$attachment_id);
         $this->render('/Pdf/pdf_container', 'ajax');
     }
 
     public function pdf($test_id, $attachment_id = null) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        
         $debug = '';
         $this->autoRender = false;
 
@@ -571,6 +595,8 @@ class TestsController extends AppController {
     }
 
     public function preview($test_id, $question_index = 0) {
+        $this->isAuthorizedAs(["Teacher"]);
+        
         $allQuestions = $this->TestsService->getQuestions($test_id);
 
         $questions = [];

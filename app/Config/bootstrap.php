@@ -109,6 +109,11 @@ CakeLog::config('debug', array(
 ));
 CakeLog::config('error', array(
 	'engine' => 'File',
-	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+	'types' => array('warning', 'error', 'critical', 'emergency'),
 	'file' => 'error',
+));
+CakeLog::config('alert', array(
+	'engine' => 'File',
+	'types' => array('alert'),
+	'file' => 'alert',
 ));

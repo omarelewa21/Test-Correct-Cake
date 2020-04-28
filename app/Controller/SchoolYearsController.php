@@ -19,10 +19,11 @@ class SchoolYearsController extends AppController
 
 
     public function index() {
-
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
     }
 
     public function view($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $this->Session->write('year_id', $id);
 
@@ -31,6 +32,8 @@ class SchoolYearsController extends AppController
     }
 
     public function load() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params = $this->request->data;
         $sections = $this->SchoolYearsService->getSchoolYears($params);
 
@@ -38,6 +41,7 @@ class SchoolYearsController extends AppController
     }
 
     public function edit($section_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -62,6 +66,8 @@ class SchoolYearsController extends AppController
     }
 
     public function delete($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->SchoolYearsService->deleteSchoolYear($id);
 
         $this->formResponse(
@@ -71,6 +77,8 @@ class SchoolYearsController extends AppController
     }
 
     public function add() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['SchoolYear'];
 
@@ -88,6 +96,8 @@ class SchoolYearsController extends AppController
     }
 
     public function delete_period($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->SchoolYearsService->deleteSchoolYearPeriod($id);
 
         $this->formResponse(
@@ -97,6 +107,7 @@ class SchoolYearsController extends AppController
     }
 
     public function add_period($school_year_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Period'];
@@ -124,6 +135,7 @@ class SchoolYearsController extends AppController
     }
 
     public function edit_period($period_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Period'];

@@ -45,6 +45,7 @@ class TestTakesController extends AppController
 	}
 
 	public function add_retake($test_take_id = null) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		if($this->request->is('post')) {
 			$data = $this->request->data;
@@ -110,6 +111,7 @@ class TestTakesController extends AppController
 
 
     public function add($test_id = '') {
+		$this->isAuthorizedAs(["Teacher"]);
 
         if($this->request->is('post')) {
 
@@ -249,6 +251,7 @@ class TestTakesController extends AppController
     }
 
 	public function edit($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$take = $this->TestTakesService->getTestTake($take_id);
 
@@ -311,6 +314,8 @@ class TestTakesController extends AppController
 	}
 
 	public function csv_export($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$export = $this->TestTakesService->getExport($take_id);
 
 		$this->response->body($export);
@@ -322,16 +327,22 @@ class TestTakesController extends AppController
 	}
 
 	public function force_taken_away($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->updateParticipantStatus($take_id, $participant_id, 6);
 	}
 
 	public function force_planned($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->updateParticipantStatus($take_id, $participant_id, 3);
 	}
 
 	public function set_taken($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->updateStatus($take_id, 6);
 	}
@@ -343,6 +354,8 @@ class TestTakesController extends AppController
 	}
 
 	public function add_participants($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->Session->write('take_id', $take_id);
 		$classes = $this->TestsService->getClasses();
 
@@ -350,11 +363,15 @@ class TestTakesController extends AppController
 	}
 
 	public function remove_participant($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->removeParticipant($take_id, $participant_id);
 	}
 
 	public function view($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$take = $this->TestTakesService->getTestTake($take_id);
         if(!$take){
             echo "<script>
@@ -394,6 +411,8 @@ class TestTakesController extends AppController
 	}
 
 	public function rated_info($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$participant = $this->TestTakesService->getParticipant($take_id, $participant_id);
 
 		$this->set('participant', $participant);
@@ -402,6 +421,8 @@ class TestTakesController extends AppController
 	}
 
 	public function load_participants($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$participants = $this->TestTakesService->getParticipants($take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
 
@@ -439,6 +460,8 @@ class TestTakesController extends AppController
 	}
 
 	public function start_multiple() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$params = $this->request->data;
 
 		$params['order']['time_start'] = 'asc';
@@ -452,6 +475,8 @@ class TestTakesController extends AppController
 	}
 
 	public function participant_info($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		if($this->request->is('post') || $this->request->is('put')) {
 			$this->TestTakesService->setParticipantNote($take_id, $participant_id, $this->request->data['Participant']['invigilator_note']);
 
@@ -562,6 +587,7 @@ class TestTakesController extends AppController
 	}
 
 	public function normalization($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
 
 		if($this->request->is('post') || $this->request->is('put')) {
 			$this->TestTakesService->saveNormalization($take_id, $this->request->data, false);
@@ -579,6 +605,8 @@ class TestTakesController extends AppController
 	}
 
 	public function normalization_preview($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
 		$this->set('results', $results);
 	}
@@ -629,6 +657,8 @@ class TestTakesController extends AppController
 	}
 
 	public function view_results($take_id, $participant_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$take = $this->TestTakesService->getTestTake($take_id);
 		$allQuestions = $this->TestsService->getQuestions($take['test_id']);
 
@@ -833,6 +863,8 @@ class TestTakesController extends AppController
 
 	public function set_final_rates($take_id) {
 
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$take = $this->TestTakesService->getTestTake($take_id);
 
 		if(!empty($take['retake_test_take_id'])) {
@@ -849,12 +881,15 @@ class TestTakesController extends AppController
 	}
 
 	public function set_final_rate($test_take_id, $participant_id, $rate) {
+        $this->isAuthorizedAs(["Teacher"]);
 
 		$this->autoRender = false;
 		$this->TestTakesService->setParticipantRating($test_take_id, $participant_id, $rate);
 	}
 
 	public function mark_rated($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->markRated($take_id);
 	}
@@ -1214,6 +1249,8 @@ class TestTakesController extends AppController
 	}
 
 	public function planned_teacher() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
@@ -1342,6 +1379,8 @@ class TestTakesController extends AppController
 	}
 
 	public function taken_teacher() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
@@ -1389,6 +1428,7 @@ class TestTakesController extends AppController
 	}
 
 	public function load_planned_teacher() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$params = $this->request->data;
 
@@ -1429,6 +1469,7 @@ class TestTakesController extends AppController
 	}
 
 	public function load_taken_teacher() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$params = $this->request->data;
 
@@ -1495,11 +1536,11 @@ class TestTakesController extends AppController
 
 
 	public function select_test() {
-
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 	}
 
 	public function select_test_retake() {
-
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 	}
 
 	public function lost_focus() {
@@ -1559,6 +1600,8 @@ class TestTakesController extends AppController
 	}
 
 	public function load_to_rate() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$params = $this->request->data;
 
 		$params['order']['time_start'] = 'desc';
@@ -1596,6 +1639,8 @@ class TestTakesController extends AppController
 	}
 
 	public function load_rated() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$params = $this->request->data;
 
 		$params['order']['time_start'] = 'desc';
@@ -1633,6 +1678,8 @@ class TestTakesController extends AppController
 	}
 
 	public function surveillance() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$user_id = AuthComponent::user()['id'];
 
 		$params['filter']['invigilator_id'] = $user_id;
@@ -1653,6 +1700,8 @@ class TestTakesController extends AppController
 	}
 
 	public function surveillance_data() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$user_id = AuthComponent::user()['id'];
 
@@ -1742,12 +1791,16 @@ class TestTakesController extends AppController
 	}
 
 	public function to_rate() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+		
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
 	}
 
 	public function rated() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
@@ -1800,11 +1853,15 @@ class TestTakesController extends AppController
 	}
 
 	public function start_test($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$response = $this->TestTakesService->startTest($take_id);
 	}
 
 	public function start_discussion($take_id, $type) {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$this->autoRender = false;
 		$response = $this->TestTakesService->startDiscussion($take_id, $type);
 
@@ -1815,6 +1872,7 @@ class TestTakesController extends AppController
     }
 
 	public function update_show_results($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
 
 		if($this->request->is('post') || $this->request->is('put')) {
 
@@ -1835,11 +1893,15 @@ class TestTakesController extends AppController
 	}
 
 	public function finish_discussion($take_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$response = $this->TestTakesService->finishDiscussion($take_id);
 	}
 
 	public function skip_discussion($take_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 	    $this->start_discussion($take_id, 'OPEN_ONLY');
 	    $this->discussion($take_id);
 	    $this->finish_discussion($take_id);
@@ -1847,6 +1909,8 @@ class TestTakesController extends AppController
     }
 
 	public function delete($take_id) {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
 		$this->autoRender = false;
 		$this->TestTakesService->deleteTestTake($take_id);
 	}
@@ -1863,6 +1927,8 @@ class TestTakesController extends AppController
 	}
 
 	public function rates_pdf($take_id) {
+
+        $this->isAuthorizedAs(["Teacher"]);
 
 		$take = $this->TestTakesService->getTestTake($take_id);
 
@@ -1888,6 +1954,8 @@ class TestTakesController extends AppController
 	}
 
 	public function answers_pdf_container($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$this->set('take_id', $take_id);
         $this->set("attachment_url", "/test_takes/answers_pdf/" . $take_id);
         // 20190502 uitgezet zodat de print knop naar voren komt bij de antwoorden
@@ -1896,6 +1964,8 @@ class TestTakesController extends AppController
 	}
 
 	public function answers_pdf($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$test_take = $this->TestTakesService->getTestTakeAnswers($take_id);
 		$allQuestions = $this->TestsService->getQuestions($test_take['test']['id']);
 
@@ -1935,6 +2005,7 @@ class TestTakesController extends AppController
 	}
 
 	public function select_test_take_list() {
+		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$params = $this->request->data;
 
@@ -1968,6 +2039,8 @@ class TestTakesController extends AppController
 	}
 
 	public function select_test_list() {
+        $this->isAuthorizedAs(["Teacher"]);
+
 		$education_levels = $this->TestsService->getEducationLevels(true, false);
 		$periods = $this->TestsService->getPeriods();
 		$subjects = $this->TestsService->getSubjects();
@@ -1989,6 +2062,7 @@ class TestTakesController extends AppController
 
 
 	public function export_to_rtti($take_id){
+        $this->isAuthorizedAs(["Teacher"]);
 
 		require __DIR__.'/rtti_api/autoload.php';
 		require __DIR__.'/rtti_api/nusoap.php';

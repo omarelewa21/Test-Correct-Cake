@@ -19,10 +19,13 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+use PhpParser\Node\Stmt\TryCatch;
+
 App::uses('Controller', 'Controller');
 App::uses('AuthService', 'Lib/Services');
 App::uses('HtmlConverter', 'Lib');
-
+App::uses('UsersService', 'Lib/Services');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Application Controller
  *
@@ -92,6 +95,7 @@ class AppController extends Controller {
         $this->Session->Write('headers',$headers);
 
         $this->AuthService = new AuthService();
+        $this->UsersService = new UsersService();
 
         if ($this->Auth->loggedIn()) {
             $this->AuthService->setUser(AuthComponent::user('username'));
@@ -124,6 +128,50 @@ class AppController extends Controller {
         }
 
         return false;
+    }
+
+    public function isAuthorizedAs($roles, $blockRequest = true) {
+        if ($this->UsersService->hasRole($roles)) {
+            return;
+        }
+
+        $userId = AuthComponent::user('id');
+        $route = Router::url();
+        $server = $_SERVER['HTTP_HOST'];
+        $requestType = $_SERVER['REQUEST_METHOD'];
+
+        //source: https://stackoverflow.com/a/5249921
+        $userRoles = implode(", ", array_column($this->UsersService->getRoles(), 'name'));
+
+        $message = "[ACCESS DENIED 403 || SERVER: $server] User with ID $userId and with role $userRoles tried to access route '$route' with request type '$requestType' and access has " . (($blockRequest) ? ' been denied' : ' NOT been denied') . ". The route should only be accessible for roles " . implode(", ", $roles);
+
+        //write message to log
+        CakeLog::write('alert', $message);
+
+        $subject = "Access denied to user $userId - " . date('m/d/Y h:i:s a', time());
+
+        //send email on any *portal.test-correct.nl server
+        //just try to send email and otherwise not
+        if(strpos($server, 'portal.test-correct.nl') !== false){
+            try {
+                $Email = new CakeEmail();
+                $Email->config('smtp');
+                $Email->to(array('tlc@sobit.nl', 'jonathanjagt@teachandlearncompany.com'));
+                $Email->subject($subject);
+                $Email->send($message);
+            } catch (\Throwable $error) {
+            }
+        }
+
+
+        if ($blockRequest) {
+            //disable this for now to get see if it will cause any issues
+            //without causing any issues actually, because it is disabled.
+            //http_response_code(403);
+            //die;
+        }
+
+
     }
 
     public function getallheaders() {

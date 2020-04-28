@@ -14,6 +14,7 @@ class QtiimportController extends AppController
 
     public function index()
     {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data = $this->QtiImportService->getData();
         
@@ -58,6 +59,7 @@ class QtiimportController extends AppController
     }
 
     public function import() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data = $this->request->data['Qti'];
 

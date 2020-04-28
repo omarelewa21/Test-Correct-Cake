@@ -24,10 +24,14 @@ class SchoolsController extends AppController
 
 
     public function index() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->set('isAdministrator', $this->hasRole('Administrator'));
     }
 
     public function view($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $school = $this->SchoolsService->getSchool($id);
         $params['filter'] = [
             'school_id' => $id,
@@ -40,6 +44,8 @@ class SchoolsController extends AppController
     }
 
     public function load() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params = $this->request->data;
         $schools = $this->SchoolsService->getSchools($params);
 
@@ -48,6 +54,7 @@ class SchoolsController extends AppController
     }
 
     public function edit($school_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -127,6 +134,8 @@ class SchoolsController extends AppController
     }
 
     public function delete($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->SchoolsService->deleteSchool($id);
 
         $this->formResponse(
@@ -136,6 +145,8 @@ class SchoolsController extends AppController
     }
 
     public function add() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['School'];
 

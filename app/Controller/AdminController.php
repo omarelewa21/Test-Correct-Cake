@@ -18,6 +18,7 @@ class AdminController extends AppController
     }
 
     public function teacher_stats() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data = $this->UsersService->getAdminTeacherStats();
 

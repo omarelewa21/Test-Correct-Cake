@@ -32,10 +32,14 @@ class UmbrellaOrganisationsController extends AppController
 
 
     public function index() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->set('isAdministrator', $this->hasRole('Administrator'));
     }
 
     public function view($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $organisation = $this->UmbrellaOrganisationsService->getOrganisation($id);
 
         $this->set('organisation', $organisation);
@@ -43,6 +47,8 @@ class UmbrellaOrganisationsController extends AppController
     }
 
     public function load() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params = $this->request->data;
         $organisations = $this->UmbrellaOrganisationsService->getOrganisations($params);
 
@@ -51,6 +57,7 @@ class UmbrellaOrganisationsController extends AppController
     }
 
     public function edit($organisation_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -129,6 +136,8 @@ class UmbrellaOrganisationsController extends AppController
     }
 
     public function delete($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->UmbrellaOrganisationsService->deleteOrganisation($id);
 
         $this->formResponse(
@@ -138,6 +147,8 @@ class UmbrellaOrganisationsController extends AppController
     }
 
     public function add() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['UmbrellaOrganisation'];
 

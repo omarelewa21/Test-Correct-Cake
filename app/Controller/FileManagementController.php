@@ -19,9 +19,8 @@ class FileManagementController extends AppController
     }
 
     protected function ifNotAllowedExit($allowed, $checkforToetsenbakker = false){
-        if(!$this->UsersService->hasRole($allowed)){
-            exit;// no access one gets here by trying;
-        }
+        $this->isAuthorizedAs($allowed);
+        
         if($checkforToetsenbakker){
             if($this->UsersService->hasRole('Teacher') && !AuthComponent::user('isToetsenbakker')){
                 exit; // one should be a toetsenbakker;

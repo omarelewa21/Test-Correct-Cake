@@ -25,6 +25,8 @@ class QuestionsController extends AppController {
     }
 
     public function index() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $education_level_years = [
             0 => 'Alle',
             1 => 1,
@@ -333,16 +335,20 @@ class QuestionsController extends AppController {
     }
 
     public function add_custom($owner, $owner_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
     }
 
     public function add_open_selection($owner, $owner_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
     }
 
     public function move_to_group($test_id = null, $question_id = null) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if($this->request->is('post')) {
             $this->autoRender = false;
@@ -364,6 +370,7 @@ class QuestionsController extends AppController {
     }
 
     public function add_group($test_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if($this->request->is('post')) {
             $group = $this->request->data['QuestionGroup'];
@@ -383,6 +390,7 @@ class QuestionsController extends AppController {
     }
 
     public function edit_group($test_id, $group_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $group = $this->request->data['QuestionGroup'];
@@ -425,6 +433,7 @@ class QuestionsController extends AppController {
 
     public function edit($owner, $owner_id, $type, $question_id, $internal = false,$hideresponse = false)
     {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
 
         if($this->request->is('post') || $internal == true ) {
@@ -597,6 +606,8 @@ class QuestionsController extends AppController {
     }
 
     public function add_existing($owner, $owner_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->Session->write('addExisting', [
             'owner' => $owner,
             'owner_id' => $owner_id
@@ -650,6 +661,8 @@ class QuestionsController extends AppController {
     }
 
     public function add_existing_question($question_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->autoRender = false;
 
         $data = $this->Session->read('addExisting');
@@ -659,6 +672,8 @@ class QuestionsController extends AppController {
 
 
     public function add_existing_question_group($group_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $this->autoRender = false;
 
         $data = $this->Session->read('addExisting');
@@ -667,6 +682,7 @@ class QuestionsController extends AppController {
     }
 
     public function add_existing_question_list() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
         $filters = array();
@@ -721,6 +737,7 @@ class QuestionsController extends AppController {
     }
 
     public function add_existing_test_list() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
@@ -751,6 +768,7 @@ class QuestionsController extends AppController {
     }
 
     public function add($owner, $owner_id, $type) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if($this->request->is('post')) {
 
@@ -930,11 +948,15 @@ class QuestionsController extends AppController {
     }
 
     public function delete($owner, $owner_id, $question_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
         $this->formResponse(!empty($result));
     }
 
     public function delete_group($test_id, $group_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
         $this->formResponse(!empty($result));
     }
@@ -988,6 +1010,7 @@ class QuestionsController extends AppController {
     }
 
     public function load() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
 
@@ -1257,6 +1280,8 @@ class QuestionsController extends AppController {
     }
 
     public function view_group($test_id, $group_id) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        
         $group = $this->QuestionsService->getQuestion('test', '', $group_id);
 
         $questions = $group['question']['group_question_questions'];

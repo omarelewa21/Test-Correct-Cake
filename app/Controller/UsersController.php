@@ -130,6 +130,7 @@ class UsersController extends AppController {
     }
 
     public function index($type) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         switch($type) {
             case 'accountmanagers':
@@ -209,23 +210,9 @@ class UsersController extends AppController {
 
     public function change_password_for_user($user_id,$class_id)
     {
+        $this->isAuthorizedAs(['Teacher']);
 
         if($this->request->is('post') || $this->request->is('put')) {
-
-            $roles = AuthComponent::user('roles');
-            $isTeacher = false;
-            foreach($roles as $role){
-                if($role['id'] == 1) $isTeacher = true;
-            }
-
-            if(!$isTeacher){
-                $this->formResponse(
-                    false,
-                    ['error' => 'Je hebt niet de juiste rechten om deze aanpassing te kunnen doorvoeren.']
-                ); // illigally here, not allowed;
-                die();
-            }
-
 
             $data = $this->request->data['User'];
             $data['class_id'] = $class_id;
@@ -254,6 +241,7 @@ class UsersController extends AppController {
     }
 
     public function edit($user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -325,6 +313,7 @@ class UsersController extends AppController {
     }
 
     public function notify_welcome($type) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($type == 'students') {
             $role_id = 3;
@@ -341,7 +330,7 @@ class UsersController extends AppController {
     }
 
     public function view($user_id) {
-
+        
         $user = $this->UsersService->getUser($user_id);
 
         $this->set('user', $user);
@@ -372,6 +361,7 @@ class UsersController extends AppController {
     }
 
     public function move($user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $params = [
@@ -394,6 +384,7 @@ class UsersController extends AppController {
     }
 
     public function load($type) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $params = $this->request->data;
 
@@ -476,6 +467,7 @@ class UsersController extends AppController {
     }
 
     public function add($type, $parameter1 = null, $parameter2 = null) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['User'];
@@ -595,6 +587,8 @@ class UsersController extends AppController {
     }
 
     public function delete($user_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $this->autoRender = false;
 
         $this->formResponse(

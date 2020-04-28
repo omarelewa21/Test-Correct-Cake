@@ -19,15 +19,19 @@ class SectionsController extends AppController
 
 
     public function index() {
-
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
     }
 
     public function view($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $section = $this->SectionsService->getSection($id);
         $this->set('section', $section);
     }
 
     public function load() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $params = $this->request->data;
         $sections = $this->SectionsService->getSections($params);
 
@@ -35,6 +39,7 @@ class SectionsController extends AppController
     }
 
     public function edit($section_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 
@@ -59,6 +64,8 @@ class SectionsController extends AppController
     }
 
     public function delete($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->SectionsService->deleteSection($id);
 
         $this->formResponse(
@@ -68,6 +75,8 @@ class SectionsController extends AppController
     }
 
     public function delete_subject($id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         $result = $this->SectionsService->deleteSectionSubject($id);
 
         $this->formResponse(
@@ -77,6 +86,8 @@ class SectionsController extends AppController
     }
 
     public function add() {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Section'];
 
@@ -95,6 +106,7 @@ class SectionsController extends AppController
     }
 
     public function add_subject($section_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Subject'];
@@ -115,6 +127,7 @@ class SectionsController extends AppController
     }
 
     public function edit_subject($subject_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Subject'];
