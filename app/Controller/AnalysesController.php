@@ -226,6 +226,7 @@ class AnalysesController extends AppController
 
         $params['with'] = ['studentSubjectAverages'];
         $params['filter']['role'] = 3;
+        $params['filter']['teacher_students'] = true;
 
         $users = $this->UsersService->getUsers($params);
 
