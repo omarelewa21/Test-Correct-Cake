@@ -30,7 +30,7 @@
                 Voornaam
             </th>
             <td>
-                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
@@ -38,7 +38,7 @@
                 Tussenvoegsel
             </th>
             <td>
-                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false, 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
@@ -46,7 +46,7 @@
                 Achternaam
             </th>
             <td>
-                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
@@ -54,7 +54,7 @@
                 Studentennummer
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
@@ -71,7 +71,7 @@
                 E-mailadres
             </th>
             <td>
-                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
+                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
                 Nieuw wachtwoord
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
