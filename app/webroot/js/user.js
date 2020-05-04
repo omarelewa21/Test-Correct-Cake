@@ -154,7 +154,7 @@ var User = {
                 'email' : email
             },
             function(response) {
-                Notify.notify('Er is een email naar je toegestuurd met instructies.', 'info');
+                Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
             });
         }
     }
