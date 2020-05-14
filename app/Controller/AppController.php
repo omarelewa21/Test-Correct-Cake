@@ -165,10 +165,8 @@ class AppController extends Controller {
 
 
         if ($blockRequest) {
-            //disable this for now to get see if it will cause any issues
-            //without causing any issues actually, because it is disabled.
-            //http_response_code(403);
-            //die;
+            http_response_code(403);
+            die;
         }
 
 

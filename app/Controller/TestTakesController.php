@@ -1927,6 +1927,7 @@ class TestTakesController extends AppController
 	}
 
 	public function rates_pdf($take_id) {
+        $this->isAuthorizedAs(["Teacher"]);
 
         $this->isAuthorizedAs(["Teacher"]);
 
