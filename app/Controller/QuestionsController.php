@@ -731,6 +731,11 @@ class QuestionsController extends AppController {
         }
 
         $questions = $this->QuestionsService->getAllQuestions($params);
+        foreach($questions['data'] as $question){
+            if($question['type'] !== 'GroupQuestion') {
+                $question['question'] = $this->stripTagsWithoutMath($question['question']);
+            }
+        }
         $education_levels = $this->TestsService->getEducationLevels();
         $this->set('education_levels', $education_levels);
         $this->set('questions', $questions['data']);
