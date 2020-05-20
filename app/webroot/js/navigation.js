@@ -20,13 +20,29 @@ var Navigation = {
             $.get(url,
                 function(html) {
                     $('#container').html(html);
+                    // if ('com' in window && 'wiris' in window.com && 'js' in window.com.wiris && 'JsPluginViewer' in window.com.wiris.js) {
+                    //     // With this method all non-editable objects are parsed.
+                    //     // com.wiris.js.JsPluginViewer.parseElement(element) can be used in order to parse a custom DOM element.
+                    //     // com.wiris.JsPluginViewer are called on page load so is not necessary to call it explicitly (I'ts called to simulate a custom render).
+                    //     com.wiris.js.JsPluginViewer.parseDocument();
+                    // }
                     Loading.hide();
+                    if ('com' in window && 'wiris' in window.com && 'js' in window.com.wiris && 'JsPluginViewer' in window.com.wiris.js) {
+                        // With this method all non-editable objects are parsed.
+                        // com.wiris.js.JsPluginViewer.parseElement(element) can be used in order to parse a custom DOM element.
+                        // com.wiris.JsPluginViewer are called on page load so is not necessary to call it explicitly (I'ts called to simulate a custom render).
+                        com.wiris.js.JsPluginViewer.parseDocument();
+                    }
                     $('#page_fade').fadeOut();
 
                     if(Navigation.callback != null) {
                         Navigation.callback();
                         Navigation.callback = null;
                     }
+
+                    var _hsq = window._hsq = window._hsq || [];
+                    _hsq.push(['setPath', url]);
+                    _hsq.push(['trackPageView']);
                 }
             );
         });
@@ -39,6 +55,12 @@ var Navigation = {
             $.get(Navigation.history[Navigation.history.length - 1],
                 function(html) {
                     $('#container').html(html);
+                    // if ('com' in window && 'wiris' in window.com && 'js' in window.com.wiris && 'JsPluginViewer' in window.com.wiris.js) {
+                    //     // With this method all non-editable objects are parsed.
+                    //     // com.wiris.js.JsPluginViewer.parseElement(element) can be used in order to parse a custom DOM element.
+                    //     // com.wiris.JsPluginViewer are called on page load so is not necessary to call it explicitly (I'ts called to simulate a custom render).
+                    //     com.wiris.js.JsPluginViewer.parseDocument();
+                    // }
                     Loading.hide();
                     $('#page_fade').fadeOut();
                 }

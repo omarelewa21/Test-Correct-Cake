@@ -11,9 +11,15 @@ foreach($sections as $section) {
             ?>
         </td>
         <td class="nopadding">
+            <?php if((bool) $section['demo'] !== true){?>
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=$section['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
+            <?php } else { ?>
+            <a href="#" class="btn white pull-right dropblock-left" id="section_<?=$section['id']?>" onclick="Notify.notify('De demo sectie kan niet gewijzigd of verwijderd worden','error');">
+                <span class="fa fa-list-ul"></span>
+            </a>
+            <?php } ?>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/sections/view/<?=$section['id']?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>

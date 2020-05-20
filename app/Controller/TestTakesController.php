@@ -371,7 +371,7 @@ class TestTakesController extends AppController
 
 	public function view($take_id) {
 
-        $take = $this->TestTakesService->getTestTake($take_id);
+		$take = $this->TestTakesService->getTestTake($take_id);
         if(!$take){
             echo "<script>
             Navigation.back();

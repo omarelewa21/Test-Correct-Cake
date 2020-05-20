@@ -29,9 +29,15 @@ foreach($users as $user) {
             ?>
         </td>
         <td class="nopadding">
+            <?php if((bool) $user['demo'] === true){?>
+            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=$user['id']?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verwijderen','error');">
+                <span class="fa fa-list-ul"></span>
+            </a>
+            <?php } else {?>
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$user['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
+            <?php } ?>
             <? if($role != 'Administrator') { ?>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/users/view/<?=$user['id']?>')">
                 <span class="fa fa-folder-open-o"></span>

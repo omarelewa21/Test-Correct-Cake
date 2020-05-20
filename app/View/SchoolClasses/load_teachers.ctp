@@ -18,9 +18,11 @@
                 <?=$teacher['subject']['name']?>
             </td>
             <td class="nopadding">
+                <?php if((bool) $class['demo'] !== true){?>
                 <a href="#" class="btn white pull-right dropblock-left" onclick="SchoolClass.removeTeacher(<?=$teacher['id']?>);">
                     <span class="fa fa-remove"></span>
                 </a>
+                <?php } ?>
             </td>
         </tr>
     <?
@@ -30,7 +32,9 @@
 
 <br />
 <center>
+    <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_teacher/<?=$class['id']?>', 400);">
         Docent toevoegen
     </a>
+    <?php } ?>
 </center>

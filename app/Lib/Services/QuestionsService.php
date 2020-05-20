@@ -352,7 +352,7 @@ class QuestionsService extends BaseService
             if ($this->isValidJson($error)) {
                 $err = json_decode($error);
                 foreach ($err as $k => $e) {
-                    if (is_array($e)) {
+                    if (is_array($e) || is_object($e)) {
                         foreach ($e as $a) {
                             $this->addError($a);
                         }

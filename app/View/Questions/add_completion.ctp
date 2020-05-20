@@ -159,13 +159,14 @@
                 { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
                 { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
                 { name: 'insert', items: [ 'addImage', 'Table' ] },
-                { name: 'editing', items: [ 'EqnEditor' ] },
+                //{ name: 'editing', items: [ 'EqnEditor' ] },
                 // { name: 'editing', items: [ 'Scayt', 'EqnEditor' ] },
                 '/',
                 { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
                 { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
                 { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                { name: 'extra', items: ['advanced']}
+                { name: 'extra', items: ['advanced']},
+                {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
             ]
         });
 

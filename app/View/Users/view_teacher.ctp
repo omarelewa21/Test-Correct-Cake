@@ -1,8 +1,10 @@
 <div id="buttons">
+    <?php if((bool) $user['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=$user['id']?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         Terug

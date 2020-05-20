@@ -58,6 +58,9 @@ class BaseService {
     public function addError($error){
         $this->errors[] = $error;
     }
+    public function addAssocError($key, $error) {
+        $this->errors[$key] = $error;
+    }
 
     public function getErrors(){
         return $this->errors;

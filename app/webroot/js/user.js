@@ -92,6 +92,8 @@ var User = {
                 function (status) {
                     if (status == 1) {
                         Core.afterLogin();
+                    } else if(Utils.urlContainsEduIx()) {
+                        Popup.load('/users/registereduix/' + window.location.search, 800);
                     } else {
                         Popup.load('/users/login', 500);
                     }

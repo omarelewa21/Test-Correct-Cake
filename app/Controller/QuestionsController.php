@@ -1286,6 +1286,10 @@ class QuestionsController extends AppController {
 
         $questions = $group['question']['group_question_questions'];
 
+        foreach($questions as $question){
+            $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
+        }
+
         usort($questions, function($a, $b) {
             $a = $a['order'];
             $b = $b['order'];

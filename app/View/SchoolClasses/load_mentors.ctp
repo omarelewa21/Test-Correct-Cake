@@ -17,6 +17,7 @@ foreach($mentors as $mentor) {
             <?=$mentor['username']?>
         </td>
         <td class="nopadding">
+            <?php if((bool) $class['demo'] !== true){?>
             <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=$mentor['id']?>', 500);">
                 <span class="fa fa-edit mr5"></span>
             </a>
@@ -26,6 +27,7 @@ foreach($mentors as $mentor) {
             <a href="#" class="btn white pull-right" onclick="Popup.load('/users/edit/<?=$mentor['id']?>', 400);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
+            <?php } ?>
         </td>
     </tr>
 <?
@@ -38,7 +40,9 @@ foreach($mentors as $mentor) {
     <!-- <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/mentors', 400);">
         Nieuwe gebruiker
     </a> -->
+    <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_mentor/<?=$class_id?>', 400);">
         Bestaande koppelen
     </a>
+    <?php } ?>
 </center>

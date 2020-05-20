@@ -104,7 +104,10 @@
             onfailure : function(result) {
                 if(result.error == 'username') {
                     Notify.notify("E-mailadres al in gebruik", "error");
-                }else{
+                } else if (result.error == 'user_roles'){
+                    Notify.notify('U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt.','error')
+                }
+                else{
                     Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
                 }
             }

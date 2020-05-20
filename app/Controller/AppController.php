@@ -163,13 +163,12 @@ class AppController extends Controller {
             }
         }
 
-
         if ($blockRequest) {
+            //disable this for now to get see if it will cause any issues
+            //without causing any issues actually, because it is disabled.
             http_response_code(403);
             die;
         }
-
-
     }
 
     public function getallheaders() {
@@ -181,5 +180,10 @@ class AppController extends Controller {
         }
 
         return $headers;
+    }
+
+    protected function stripTagsWithoutMath($string)
+    {
+        return strip_tags($string,'<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>');
     }
 }

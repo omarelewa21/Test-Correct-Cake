@@ -466,6 +466,7 @@ var TestTake = {
                 Notify.notify('Toetsbespreking gestart', 'info');
                 Navigation.load('/test_takes/discussion/'+take_id);
                 Popup.closeLast();
+                User.surpressInactive = true;
             }
         );
     },
@@ -530,6 +531,7 @@ var TestTake = {
             }, function() {
                 $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {
+                        User.surpressInactive = false;
                         Navigation.refresh();
                         setTimeout(function() {
                             Popup.load('/test_takes/update_show_results/' + take_id, 420);
