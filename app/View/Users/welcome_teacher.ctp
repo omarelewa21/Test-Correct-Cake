@@ -13,7 +13,7 @@ if ($wizard_steps) {
 <?php } ?>
 
 <div class="block">
-    <div style="margin-top:75px;padding:15px;">
+    <div class="m56" style="margin-top:75px;padding:15px;">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
         Sinds 20 mei hebben we een nieuwe demo tour op het platform die u kort maar duidelijk uitlegt hoe u zo snel mogelijk met Test-Correct aan de slag kunt. Scroll naar beneden om daarmee te starten.<br/>
         <br/>
