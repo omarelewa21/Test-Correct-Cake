@@ -13,11 +13,11 @@ if ($wizard_steps) {
 <?php } ?>
 
 <div class="block">
-    <div class="m56" style="margin-top:75px;padding:15px;">
+    <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
         Sinds 20 mei hebben we een nieuwe demo tour op het platform die u kort maar duidelijk uitlegt hoe u zo snel mogelijk met Test-Correct aan de slag kunt. Scroll naar beneden om daarmee te starten.<br/>
         <br/>
-            We zijn zeer benieuwd naar uw feedback en zullen deze zeker meenemen in updates van de demo tour.
+        We zijn zeer benieuwd naar uw feedback en zullen deze zeker meenemen in updates van de demo tour.
     </div>
 </div>
 
@@ -31,7 +31,7 @@ if ($wizard_steps) {
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
         <div class="block">
-            <div class="block-head m56">
+            <div class="block-head m56" style="padding-top:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
