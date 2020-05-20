@@ -33,7 +33,7 @@
 		<script src="/ckeditor/adapters/jquery.js"></script>
 
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript" src="/js/popup.js"></script>
+		<script type="text/javascript" src="/js/popup.js?20200520193000"></script>
 		<script type="text/javascript" src="/js/definitions.js"></script>
 		<script type="text/javascript" src="/js/navigation.js"></script>
 		<script type="text/javascript" src="/js/core.js?20200304092201"></script>
