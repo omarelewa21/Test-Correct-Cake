@@ -6,6 +6,7 @@
         <li>Samen betekent sneller leren</li>
         <li>Gebruik van elkaars toetsen en toetsvragen</li>
         <li>Uw studenten krijgen een beter inzicht in het kennen en kunnen</li>
+        <li>Vergeet niet je collega te informeren dat jij hem/haar hebt uitgenodigd</li>
     </ul>
 
     <?=$this->Form->create('User') ?>
