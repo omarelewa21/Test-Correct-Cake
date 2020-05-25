@@ -88,17 +88,8 @@ if(!empty($answer['note'])) {
                     $('#score_input_<?=$participant_id.$question_id?>').val(ui.value);
                 },
                 stop: function (event, ui) {
-                    var score = $('#score_input_<?=$participant_id.$question_id?>').val();
-
-                    <?
-                    //fix for bug TC-18
-                    //value of score is empty if slider is not dragged
-                    //if it is empty, we don't want to update the score
-                    ?>
-                    if (score != '') {
-                        $("#rating_<?=$participant_id.$question_id?>").hide();
-                        TestTake.saveTeacherRating(<?=$answer['id']?>, score, <?=$participant_id?>, <?=$ratingId?>, <?=$question_id?>);
-                    }
+                    $("#rating_<?=$participant_id.$question_id?>").hide();
+                    TestTake.saveTeacherRating(<?=$answer['id']?>, $('#score_input_<?=$participant_id.$question_id?>').val(), <?=$participant_id?>, <?=$ratingId?>, <?=$question_id?>);
                 }
             });
             $("#scoreval_<?=$participant_id.$question_id?>").html($("#rating_<?=$participant_id.$question_id?>").slider("value") + ' pt');
