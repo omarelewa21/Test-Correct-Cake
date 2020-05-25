@@ -119,8 +119,8 @@
     }
 
     var qtiImportSetupRun = false;
-    var teachers = JSON.parse('<?php echo json_encode($teacherList)?>');
-    var teachers1 = JSON.parse('<?php echo json_encode($teachers)?>');
+    var teachers = JSON.parse('<?php echo str_replace("'","`",json_encode($teacherList))?>');
+    var teachers1 = JSON.parse('<?php echo str_replace("'","`",json_encode($teachers))?>');
     var subjects = JSON.parse('<?php echo json_encode($subjectList)?>');
     var educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
 
