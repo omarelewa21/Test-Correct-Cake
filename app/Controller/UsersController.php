@@ -734,7 +734,7 @@ class UsersController extends AppController
             $menus['knowledgebase'] = "Kennisbank";
 
             if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "<i class='fa fa-bolt' style='color:red'></i> Collega uitnodigen";
+                $menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:red'></i> Collega uitnodigen";
             }
         }
 
