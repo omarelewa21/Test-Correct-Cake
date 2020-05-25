@@ -16,7 +16,7 @@ if ($wizard_steps) {
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
         Sinds 20 mei hebben we een nieuwe demo tour op het platform die je kort maar duidelijk uitlegt hoe je zo snel mogelijk met Test-Correct aan de slag kunt. Scroll naar beneden om daarmee te starten.
-        Daarnaast hebben we een nieuw knop toegevoegd in het menu: 'Nodig je collega uit!', hiermee kan je zelfstandig een docentaccount aanmaken voor jouw collega's. Probeer het eens!<br />
+        Daarnaast hebben we een nieuw knop toegevoegd in het menu: 'Nodig een collega uit!', hiermee kan je zelfstandig een docentaccount aanmaken voor jouw collega's. Probeer het eens!<br />
         <br/>
         We zijn zeer benieuwd naar je feedback en zullen deze zeker meenemen in updates van de demo tour.
     </div>
