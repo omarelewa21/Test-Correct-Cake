@@ -506,6 +506,58 @@ class UsersController extends AppController
         echo '<script>window.parent.Loading.hide();</script>';
     }
 
+    public function tell_a_teacher()
+    {
+        $this->isAuthorizedAs(['Teacher']);
+
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $data = $this->request->data['User'];
+
+            $data['user_roles'] = [1];
+            $data['send_welcome_mail'] = true;
+            $data['invited_by'] = AuthComponent::user('id');
+
+            if (!isset($data['school_location_id'])) {
+                $data['school_location_id'] = AuthComponent::user()['school_location_id'];
+            }
+
+            $result = $this->UsersService->addUser($type, $data);
+
+            if (isset($result['id'])) {
+                $this->formResponse(
+                    true,
+                    [
+                        'id' => $result['id']
+                    ]
+                );
+            } elseif ($result == 'external_code') {
+                $this->formResponse(
+                    false,
+                    [
+                        'error' => 'external_code'
+                    ]
+                );
+            } elseif ($result == 'username') {
+                $this->formResponse(
+                    false,
+                    [
+                        'error' => 'username'
+                    ]
+                );
+            } else {
+                $this->formResponse(
+                    false,
+                    ['error' => $result]
+                );
+            }
+
+            die;
+        }
+
+
+        $this->render('tell_a_teacher', 'ajax');
+    }
+
     public function add($type, $parameter1 = null, $parameter2 = null)
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
@@ -680,6 +732,10 @@ class UsersController extends AppController
                 $menus['messages'] = "Berichten";
             }
             $menus['knowledgebase'] = "Kennisbank";
+
+            if ($role['name'] == 'Teacher') {
+                $menus['tell_a_teacher'] = "<i class='fa fa-bolt' style='color:red'></i> Collega uitnodigen";
+            }
         }
 
         $this->set('menus', $menus);
@@ -949,6 +1005,15 @@ class UsersController extends AppController
                     'title' => 'Aangeboden toetsen',
                     'path' => '/file_management/testuploads'
                 ];
+
+                $tiles['tell_a_teacher'] = array(
+                    'menu' => 'tell_a_teacher',
+                    'icon' => 'testlist',
+                    'title' => 'Stuur een uitnodiging',
+                    'path' => '/users/tell_a_teacher',
+                    'type' => 'popup',
+                    'width'=> 400
+                );
             }
 
             if ($role['name'] == 'Student') {

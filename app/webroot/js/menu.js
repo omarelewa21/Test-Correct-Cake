@@ -46,15 +46,19 @@ var Menu = {
 
             $('#tiles .tile').click(function() {
                 var type = null;
+                var pWidth = 800;
                 if($(this)[0].hasAttribute("type")) {
                     type = $(this).attr('type');
+                }
+                if($(this)[0].hasAttribute("pwidth")) {
+                    pWidth = $(this).attr('pwidth');
                 }
                 if(type === 'externallink'){
                     window.open($(this).attr('path'),'_blank');
                     return false;
                 }
                 else if(type === 'popup'){
-                    Popup.load($(this).attr('path'),800);
+                    Popup.load($(this).attr('path'),pWidth);
                     return false;
                 }
                 else if(type === 'externalpopup'){
