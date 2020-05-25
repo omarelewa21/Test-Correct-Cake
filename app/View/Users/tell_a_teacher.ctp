@@ -1,9 +1,8 @@
 <div class="popup-head"><i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!</div>
 <div class="popup-content">
-        Nodig uw collega uit en hij/zij krijgt direct een welkomstmail met logingegevens.
-        Test-Correct in gebruik door meerdere docenten op uw school levert de volgende voordelen:
+    Nodig een collega uit en hij/zij krijgt direct een welkomstmail met logingegevens. Test-Correct in gebruik door meerdere docenten op uw school levert de volgende voordelen:
     <ul>
-        <li>Samen overleggen over de voortgang van uw studenten</li>
+        <li>Samen overleggen over de voortgang van jouw studenten</li>
         <li>Samen betekent sneller leren</li>
         <li>Gebruik van elkaars toetsen en toetsvragen</li>
         <li>Uw studenten krijgen een beter inzicht in het kennen en kunnen</li>
