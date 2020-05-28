@@ -152,7 +152,7 @@ class UsersController extends AppController
             if(!$result) exit;
 
             $this->response->body($result);
-            $this->response->header('Content-Disposition', 'attachment; filename=onboarding_wizard_report_'.date('YMDHi').'xls');
+            $this->response->header('Content-Disposition', 'attachment; filename=onboarding_wizard_report_'.date('YmdHi').'.xls');
             return $this->response;
     }
 
