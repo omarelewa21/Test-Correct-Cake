@@ -237,7 +237,7 @@ if ($wizard_steps) {
         _hsq.push(['trackPageView']);
 
         window.HubSpotConversations.widget.load();
-        hubspotLoaded = true;
+        hubspotLoaded = true;cln
     }
 
     HelpHero.identify("<?=AuthComponent::user('id')?>", {

@@ -143,6 +143,19 @@ class UsersController extends AppController
         );
     }
 
+    public function onboarding_wizard_report()
+    {
+//            $this->ifNotAllowedExit(['Account manager'], true);
+
+            $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
+
+            if(!$result) exit;
+
+            $this->response->body($result);
+            $this->response->header('Content-Disposition', 'attachment; filename=onboarding_wizard_report_'.date('YMDHi').'xls');
+            return $this->response;
+    }
+
     public function welcome()
     {
         $roles = AuthComponent::user('roles');
@@ -847,6 +860,14 @@ class UsersController extends AppController
                     'icon' => 'testlist',
                     'title' => 'Toetsbestanden',
                     'path' => '/file_management/testuploads'
+                );
+
+                $tiles['onboarding_wizard_report'] = array(
+                    'menu' => 'files',
+                    'icon' => 'testlist',
+                    'title' => 'Demo tour rapport',
+                    'type' => 'download',
+                    'path' => '/users/onboarding_wizard_report'
                 );
             }
 

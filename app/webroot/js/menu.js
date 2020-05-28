@@ -65,7 +65,10 @@ var Menu = {
                     Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe style="border:0;padding:0;margin:0" width="100%" height="500" src="'+$(this).attr('path')+'"></iframe>',800);
                     return false;
                 }
-
+                else if(type === 'download') {
+                    window.location.href = $(this).attr('path');
+                    return false;
+                }
                 $(this).addClass('active');
                 Menu.menu = Menu.menuTmp;
                 Menu.tile = $(this).attr('id');

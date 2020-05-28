@@ -348,6 +348,14 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function createOnboardingWizardReport($data){
+        $response = $this->Connector->postRequest('/onboarding_wizard_report', [], $data);
+        if ($response) {
+            return $this->Connector->getDownloadRequest('/onboarding_wizard_report', [], $data);
+        }
+    }
+
+
     public function doImportTeacher($data){
         $response = $this->Connector->postRequest('/teacher/import/schoollocation',[], $data);
 
