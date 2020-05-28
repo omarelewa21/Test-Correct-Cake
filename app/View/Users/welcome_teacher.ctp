@@ -236,7 +236,12 @@ if ($wizard_steps) {
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
         _hsq.push(['trackPageView']);
 
-        window.HubSpotConversations.widget.load();
+        try {
+            window.HubSpotConversations.widget.load();
+        } catch (error) {
+
+        }
+        
         hubspotLoaded = true;
     }
 
