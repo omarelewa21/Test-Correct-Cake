@@ -259,8 +259,12 @@ class TestsController extends AppController {
 
             if ($question['question']['type'] == 'GroupQuestion') {
                 for ($i = 0; $i < count($question['question']['group_question_questions']); $i++) {
-                    $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
-                    $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
+
+                //fix for TC-80 / Selenium tests. The selection options were empty for group questions
+                $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
+             
+                $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
+                $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
             } else {
                 $totalScore += $question['question']['score'];
