@@ -445,6 +445,10 @@ class QuestionsController extends AppController {
 
             $test = $this->TestsService->getTest($owner_id);
 
+            if (empty($question['type'])) {
+                $question['type'] = $type;
+            }
+
             if($test['is_open_source_content'] == 1) {
                 $question['add_to_database'] = 1;
                 $question['is_open_source_content'] = 1;
