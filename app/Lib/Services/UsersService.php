@@ -384,4 +384,36 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function registerEduIx($ean, $edurouteSessieID, $signature)
+    {
+        $response = $this->Connector->getRequest(
+            sprintf('/edu-ix/%s/%s/%s/', $ean, $edurouteSessieID, $signature),
+            []
+        );
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function addUserEduIx($ean, $edurouteSessieID, $signature, $data)
+    {
+        $response = $this->Connector->postRequest(
+            sprintf('/edu-ix/%s/%s/%s', $ean, $edurouteSessieID, $signature),
+            [],
+            $data
+        );
+
+
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 }
+

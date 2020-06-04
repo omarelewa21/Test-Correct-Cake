@@ -34,6 +34,43 @@ class UsersController extends AppController
         parent::beforeFilter();
     }
 
+    public function registereduix()
+    {
+        if ($this->request->is('post')) {
+            $result = $this->UsersService->addUserEduIx(
+                $this->params['url']['ean'],
+                $this->params['url']['edurouteSessieID'],
+                $this->params['url']['signature'],
+                $this->request->data['User']
+            );
+            $response = json_decode($result);
+            if (property_exists($response, 'errors') && count( (array) $response->errors) > 0) {
+                $this->formResponse(false, ['message' => $response->message]);
+            } else {
+                $this->formResponse(true, ['data' =>$response]);
+            }
+            exit();
+        }
+
+        $response = $this->UsersService->registerEduIx(
+            $this->params['url']['ean'],
+            $this->params['url']['edurouteSessieID'],
+            $this->params['url']['signature']
+        );
+
+        $user = new stdClass;
+        $user->school_location = $response['eduProfile']['homeOrganization'];
+        $user->name_first = $response['eduProfile']['givenName'];
+        $user->name_suffix = $response['ediProfile']['personTussenvoegsels'];
+        $user->name = $response['eduProfile']['sn'];
+        $user->username = $response['eduProfile']['personRealID'];
+
+
+//        var_dump($response);die;
+
+        $this->set('user', $user);
+    }
+
     public function login()
     {
         ## MarkO: Ik snap nog niet precies wanneer ik in deze methode uit kom. Maar $message hieronder was nog niet gezet en
