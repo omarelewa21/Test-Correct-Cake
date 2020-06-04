@@ -4,6 +4,14 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
     <title>Test Correct</title>
 
+    <script>
+    YETT_BLACKLIST = [
+        /js\.hsadspixel\.net/,
+        /js\.hs-analytics\.net/
+    ]
+    </script>
+    <script src='https://unpkg.com/yett'></script>
+
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=1280, user-scalable = no">
 
