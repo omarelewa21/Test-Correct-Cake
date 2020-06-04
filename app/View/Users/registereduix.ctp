@@ -52,14 +52,6 @@
         </tr>
         <tr>
             <th width="400">
-                Extra E-mailadres (kunnen we nu nog niet opslaan en mee werken overleggen hoe en wat.
-            </th>
-            <td>
-                <?= $this->Form->input('email_extra', array('style' => 'width: 440px', 'label' => false, 'verify' => 'email', 'value' => $user->email_extra)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
                 Geslacht
             </th>
             <td>
