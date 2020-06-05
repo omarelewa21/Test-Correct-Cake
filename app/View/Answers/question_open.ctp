@@ -32,15 +32,16 @@ $value = $answerJson['value'];
     $('textarea').ckeditor({
 
       removePlugins : 'pastefromword,advanced,simpleuploads,dropoff,copyformatting,image,pastetext,uploadwidget,uploadimage',
-      extraPlugins : 'blockimagepaste,eqneditor,quicktable',
+      extraPlugins : 'blockimagepaste,eqneditor,quicktable,ckeditor_wiris',
       // ImageUpload : false,
 
         toolbar: [
             { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ] },
             { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
             { name: 'insert', items: [ 'Table' ] },
-            { name: 'editing', items: ['EqnEditor' ] },
-            { name: 'styles', items: ['Font', 'FontSize' ] }
+            // { name: 'editing', items: ['EqnEditor' ] },
+            { name: 'styles', items: ['Font', 'FontSize' ] },
+            {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
         ]
     });
 

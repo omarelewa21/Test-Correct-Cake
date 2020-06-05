@@ -94,6 +94,7 @@ class CoreConnector {
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
         $url = $path . "?" . http_build_query($params);
+
         $validationHash = $this->_generateHash($url);
         $params['signature'] = $validationHash;
 
@@ -212,6 +213,7 @@ class CoreConnector {
     {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
         $response = curl_exec($handle);
+
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
         curl_close($handle);

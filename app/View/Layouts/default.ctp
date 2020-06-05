@@ -4,6 +4,14 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>Test-Correct</title>
 
+		<script>
+		YETT_BLACKLIST = [
+			/js\.hsadspixel\.net/,
+			/js\.hs-analytics\.net/
+		]
+		</script>
+		<script src='https://unpkg.com/yett'></script>
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=1280, user-scalable = no">
 
@@ -33,12 +41,12 @@
 		<script src="/ckeditor/adapters/jquery.js"></script>
 
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript" src="/js/popup.js"></script>
+		<script type="text/javascript" src="/js/popup.js?20200520193000"></script>
 		<script type="text/javascript" src="/js/definitions.js"></script>
 		<script type="text/javascript" src="/js/navigation.js"></script>
 		<script type="text/javascript" src="/js/core.js?20200304092201"></script>
 		<script type="text/javascript" src="/js/answer.js"></script>
-		<script type="text/javascript" src="/js/menu.js"></script>
+		<script type="text/javascript" src="/js/menu.js?20200520090000"></script>
 		<script type="text/javascript" src="/js/table.js"></script>
 		<script type="text/javascript" src="/js/questions.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
@@ -54,6 +62,8 @@
 		<script type="text/javascript" src="/js/cookie.js"></script>
 		<script type="text/javascript" src="/js/analyses.js"></script>
 		<script type="text/javascript" src="/js/prettyCheckable.min.js"></script>
+		<script src="/js/URLSearchParamsPolyfill.js"></script>
+        <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
 
 	<body>
@@ -95,5 +105,20 @@
 
 		<div id="container"></div>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
+		<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/3780499.js"></script><!-- End of HubSpot Embed Code -->
+		<script>
+            function onConversationsAPIReady() {
+                window.hsConversationsSettings = {
+                    loadImmediately: false
+                };
+			}
+
+            if (window.HubSpotConversations) {
+                onConversationsAPIReady();
+            } else {
+                window.hsConversationsOnReady = [onConversationsAPIReady];
+            }
+
+		</script>
 	</body>
 </html>

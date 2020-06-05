@@ -375,6 +375,31 @@ class Question extends AppModel
             }
         }
 
+        if ($type == 'CompletionQuestion' || $type == 'MultiCompletionQuestion') {
+            //TC-116
+            //https://stackoverflow.com/a/10778067
+            //Forbid the use of HTML between brackets
+            preg_match_all("/\[(.*?)\]/i",$question['question'], $stringsBetweenBrackets);
+
+            //preg_match_all gives multi-dimensional array, so a double foreach
+            foreach ($stringsBetweenBrackets as $stringArray) {
+                foreach($stringArray as $string) {
+                
+                    if (preg_match("/<[^<]+>/",$string) != 0) {
+                        $errors[] = 'U kunt geen opmaak gebruiken tussen de vierkante haakjes';
+                        break 2;
+                    }
+    
+                    //TC-154
+                    //empty brackets are not allowed
+                    if ($string == '' || $string == null) {
+                        $errors[] = 'U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen';
+                        break 2;                    
+                    }
+                }
+            }
+        }
+
         if($type == 'CompletionQuestion') {
 //            if(!strstr($question['question'], '[') && !strstr($question['question'], ']')) {
 //                $errors[] = "U dient minimaal &eacute;&eacute;n woord tussen vierkante haakjes te plaatsen.";

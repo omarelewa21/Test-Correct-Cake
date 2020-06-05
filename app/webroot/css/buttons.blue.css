@@ -10,10 +10,12 @@
     color:              white !important;
 }
 
-.btn.white:hover {
+.btn.white:hover:enabled {
     background:         #1585c5 !important;
     color: white !important;
 }
+
+
 
 .btn.highlight {
     background:         #1585c5 !important;

@@ -239,7 +239,7 @@ class TestsController extends AppController {
 
     public function view($test_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
-        
+
         $test = $this->TestsService->getTest($test_id);
 
         $this->Session->write('active_test', $test);
@@ -254,13 +254,17 @@ class TestsController extends AppController {
             $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
 
             if ($question['question']['type'] == 'CompletionQuestion') {
-                $question['question']['question'] = strip_tags($question['question']['question']);
+                $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
             }
 
             if ($question['question']['type'] == 'GroupQuestion') {
                 for ($i = 0; $i < count($question['question']['group_question_questions']); $i++) {
-                    $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
-                    $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
+
+                //fix for TC-80 / Selenium tests. The selection options were empty for group questions
+                $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
+
+                $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
+                $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
             } else {
                 $totalScore += $question['question']['score'];
@@ -445,7 +449,7 @@ class TestsController extends AppController {
 
     public function pdf($test_id, $attachment_id = null) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
-        
+
         $debug = '';
         $this->autoRender = false;
 
@@ -596,7 +600,7 @@ class TestsController extends AppController {
 
     public function preview($test_id, $question_index = 0) {
         $this->isAuthorizedAs(["Teacher"]);
-        
+
         $allQuestions = $this->TestsService->getQuestions($test_id);
 
         $questions = [];

@@ -17,6 +17,7 @@ foreach($managers as $manager) {
             <?=$manager['username']?>
         </td>
         <td class="nopadding">
+            <?php if((bool) $class['demo'] !== true){?>
             <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=$manager['id']?>', 500);">
                 <span class="fa fa-edit mr5"></span>
             </a>
@@ -26,6 +27,7 @@ foreach($managers as $manager) {
             <a href="#" class="btn white pull-right" onclick="Popup.load('/users/edit/<?=$manager['id']?>', 400);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
+            <?php } ?>
         </td>
     </tr>
     <?
@@ -35,6 +37,7 @@ foreach($managers as $manager) {
 
 <br />
 <center>
+    <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/management/<?=$class_id?>', 400);">
         Nieuwe toevoegen
     </a>
@@ -42,4 +45,5 @@ foreach($managers as $manager) {
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_management/<?=$class_id?>', 400);">
         Bestaande koppelen
     </a>
+    <?php } ?>
 </center>

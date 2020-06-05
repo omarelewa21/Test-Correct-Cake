@@ -3,6 +3,7 @@
         <span class="fa fa-line-chart mr5"></span>
         Analyse
     </a>
+    <?php if((bool) $user['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=$user['id']?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
@@ -11,6 +12,7 @@
         <span class="fa fa-envelope-o"></span>
         Bericht sturen
     </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         Terug
@@ -107,11 +109,13 @@
         </table>
 
         <br clear="all" />
+        <?php if((bool) $user['demo'] !== true){?>
         <center>
             <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/parents/<?=$user['id']?>', 400);">
                 Ouder toevoegen
             </a>
         </center>
+        <?php } ?>
     </div>
 </div>
 

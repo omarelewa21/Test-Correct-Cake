@@ -126,7 +126,10 @@ class SchoolLocationsController extends AppController
             $result = $this->SchoolLocationsService->updateSchoolLocation($school_id, $data);
 
             if(!$result) {
-                $errors[] = 'School kon niet worden aangemaakt';
+                $errors = $this->SchoolLocationsService->getErrors();
+                if(count($errors) < 1) {
+                    $errors[] = 'School kon niet worden aangepast';
+                }
             }
 
             $this->formResponse(
@@ -295,7 +298,10 @@ class SchoolLocationsController extends AppController
             $result = $this->SchoolLocationsService->addSchoolLocation($data);
 
             if(!$result){
-                $errors[] = 'School kon niet worden aangemaakt';
+                $errors = $this->SchoolLocationsService->getErrors();
+                if(count($errors) < 1) {
+                    $errors[] = 'School kon niet worden aangemaakt';
+                }
             }
 
             $this->formResponse(

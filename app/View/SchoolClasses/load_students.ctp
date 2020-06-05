@@ -17,12 +17,14 @@ foreach($students as $student) {
             <?=$student['username']?>
         </td>
         <td class="nopadding">
+            <?php if((bool) $class['demo'] !== true){?>
             <a href="#" class="btn white pull-right" onclick="SchoolClass.removeStudent(<?=$class_id?>, <?=$student['id']?>);">
                 <span class="fa fa-remove"></span>
             </a>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=$student['id']?>', 400);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
+            <?php } ?>
         </td>
     </tr>
 <?
@@ -32,6 +34,7 @@ foreach($students as $student) {
 
 <br />
 <center>
+    <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Navigation.load('/school_classes/import/<?=$location_id?>/<?=$class_id?>', 400);">
         Studenten importeren
     </a>
@@ -41,4 +44,5 @@ foreach($students as $student) {
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_student/<?=$class_id?>', 400);">
         Bestaande koppelen
     </a>
+    <?php } ?>
 </center>

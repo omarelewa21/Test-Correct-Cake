@@ -29,5 +29,5 @@
 </div>
 
 <script type="text/javascript">
-    $('#multiCompletionQuestion').hide();
+    //$('#multiCompletionQuestion').hide();
 </script>

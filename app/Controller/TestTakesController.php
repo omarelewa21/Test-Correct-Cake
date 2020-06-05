@@ -370,7 +370,6 @@ class TestTakesController extends AppController
 	}
 
 	public function view($take_id) {
-		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$take = $this->TestTakesService->getTestTake($take_id);
         if(!$take){
@@ -379,8 +378,13 @@ class TestTakesController extends AppController
             Notify.notify('Je hebt helaas geen toegang tot deze toets','error');
 </script>";
             exit;
+        }
 
-
+        if($take['test_take_status_id'] == 9){
+            $this->isAuthorizedAs(["Teacher", "Invigilator","Student"]);
+        }
+        else{
+            $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         }
 
 		$this->set('take', $take);
@@ -1927,8 +1931,7 @@ class TestTakesController extends AppController
 	}
 
 	public function rates_pdf($take_id) {
-
-        $this->isAuthorizedAs(["Teacher"]);
+        $this->isAuthorizedAs(["Teacher","Student"]);
 
 		$take = $this->TestTakesService->getTestTake($take_id);
 

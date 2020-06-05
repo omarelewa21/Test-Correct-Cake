@@ -45,6 +45,30 @@ var Menu = {
             });
 
             $('#tiles .tile').click(function() {
+                var type = null;
+                var pWidth = 800;
+                if($(this)[0].hasAttribute("type")) {
+                    type = $(this).attr('type');
+                }
+                if($(this)[0].hasAttribute("pwidth")) {
+                    pWidth = $(this).attr('pwidth');
+                }
+                if(type === 'externallink'){
+                    window.open($(this).attr('path'),'_blank');
+                    return false;
+                }
+                else if(type === 'popup'){
+                    Popup.load($(this).attr('path'),pWidth);
+                    return false;
+                }
+                else if(type === 'externalpopup'){
+                    Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe style="border:0;padding:0;margin:0" width="100%" height="500" src="'+$(this).attr('path')+'"></iframe>',800);
+                    return false;
+                }
+                else if(type === 'download') {
+                    window.location.href = $(this).attr('path');
+                    return false;
+                }
                 $(this).addClass('active');
                 Menu.menu = Menu.menuTmp;
                 Menu.tile = $(this).attr('id');

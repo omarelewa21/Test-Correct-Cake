@@ -77,6 +77,7 @@ class SchoolClassesController extends AppController
         $this->set('students', $students);
         $this->set('class_id', $class_id);
         $this->set('location_id',$location_id);
+        $this->set('class',$this->SchoolClassesService->getClass($class_id));
     }
 
     public function load_managers($class_id) {
@@ -86,6 +87,7 @@ class SchoolClassesController extends AppController
         $managers = $this->UsersService->getUserList($params);
         $this->set('managers', $managers);
         $this->set('class_id', $class_id);
+        $this->set('class',$this->SchoolClassesService->getClass($class_id));
     }
 
     public function load_mentors($class_id) {
@@ -95,6 +97,7 @@ class SchoolClassesController extends AppController
         $mentors = $this->UsersService->getUserList($params);
         $this->set('mentors', $mentors);
         $this->set('class_id', $class_id);
+        $this->set('class',$this->SchoolClassesService->getClass($class_id));
     }
 
     public function doImport($location_id,$class_id){
@@ -109,6 +112,7 @@ class SchoolClassesController extends AppController
         }
         $this->formResponse(true,[]);
     }
+
 
     public function import($location_id, $class_id){
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);

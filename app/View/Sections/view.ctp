@@ -1,4 +1,5 @@
 <div id="buttons">
+    <?php if((bool) $section['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Popup.load('/sections/edit/<?=$section['id']?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
@@ -7,6 +8,7 @@
         <span class="fa fa-remove mr5"></span>
         Verwijderen
     </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         Terug
@@ -33,6 +35,7 @@
                         <td><?=$subject['name']?></td>
                         <td><?=$subject['base_subject']['name']?></td>
                         <td class="nopadding">
+                            <?php if((bool) $section['demo'] !== true){?>
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="SchoolYear_<?=$subject['id']?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
@@ -47,6 +50,7 @@
                                     Verwijderen
                                 </a>
                             </div>
+                            <?php } ?>
                         </td>
                     </tr>
                     <?
@@ -55,10 +59,12 @@
             </table>
             <br />
             <center>
+                <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_subject/<?=$section['id']?>', 400);">
                     <span class="icon icon-plus"></span>
                     Nieuw vak
                 </a>
+                <?php } ?>
             </center>
         </table>
     </div>

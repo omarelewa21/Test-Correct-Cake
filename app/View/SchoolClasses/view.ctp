@@ -1,4 +1,5 @@
 <div id="buttons">
+    <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Navigation.load('/school_classes/import/<?=$class['school_location_id']?>/<?=$class['id']?>');">
         <span class="fa fa-cloud-upload mr5"></span>
         Studenten importeren
@@ -15,6 +16,7 @@
         <span class="fa fa-remove mr5"></span>
         Verwijderen
     </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         Terug

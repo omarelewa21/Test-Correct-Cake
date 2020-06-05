@@ -81,6 +81,12 @@ body {
     color:          white;
 }
 
+#notifications .notification.onboardingsuccess {
+    background:     url(/img/logo_1.png) 12px center no-repeat #76b827;
+    color:          white;
+    background-size: 40px;
+}
+
 /* PAGE LOADER */
 #loading {
     position:       fixed;

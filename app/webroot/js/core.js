@@ -1,6 +1,18 @@
 $(function() {
 	Core.initialise();
+	var ajaxCompleteTimer;
 	$.ajaxSetup({cache: false});
+    $( document ).ajaxComplete(function() {
+    	clearTimeout(ajaxCompleteTimer);
+    	ajaxCompleteTimer = setTimeout(function(){
+			if ('com' in window && 'wiris' in window.com && 'js' in window.com.wiris && 'JsPluginViewer' in window.com.wiris.js) {
+				// With this method all non-editable objects are parsed.
+				// com.wiris.js.JsPluginViewer.parseElement(element) can be used in order to parse a custom DOM element.
+				// com.wiris.JsPluginViewer are called on page load so is not necessary to call it explicitly (I'ts called to simulate a custom render).
+				com.wiris.js.JsPluginViewer.parseDocument();
+			}
+        },250);
+    });
 });
 
 
@@ -309,6 +321,9 @@ var Utils = {
     notOnLoginScreen: function() {
         return ! this.onLoginScreen();
     },
+	urlContainsEduIx: function() {
+		return (new URLSearchParams(window.location.search)).has('edurouteSessieID');
+	},
 };
 
 var Dropdowns = {

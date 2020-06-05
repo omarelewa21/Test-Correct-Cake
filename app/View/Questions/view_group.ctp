@@ -55,7 +55,7 @@ if(!empty($group['question']['question'])) {
                         <td><?=$i?></td>
                         <td>
                             <div class="cell_autowidth">
-                                <?= strip_tags($question['question']['question']) ?>
+                                <?= $question['question']['question'] ?>
                             </div>
                         </td>
                         <td>

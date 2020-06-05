@@ -29,6 +29,10 @@
     background:         white;
     color:              #191a17;
 }
+.btn.white:disabled {
+    color : #8a8a8a !important;
+    background-color:red;
+}
 
 .btn.grey {
     background:         #eeeeee;

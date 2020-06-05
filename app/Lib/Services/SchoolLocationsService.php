@@ -79,7 +79,17 @@ class SchoolLocationsService extends BaseService
         $response = $this->Connector->postRequest('/school_location', [], $data);
 
         if($response === false){
-            return $this->Connector->getLastResponse();
+            if ($response === false) {
+                $r = json_decode($this->Connector->getLastResponse(),true);
+                if(array_key_exists('errors',$r)){
+                    if(is_array($r['errors'])){
+                        foreach($r['errors'] as $error){
+                            $this->addError($error);
+                        }
+                    }
+                }
+                return false;
+            }
         }
 
         return $response;
@@ -107,7 +117,15 @@ class SchoolLocationsService extends BaseService
 
         $response = $this->Connector->putRequest('/school_location/' . $id, [], $data);
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            $r = json_decode($this->Connector->getLastResponse(),true);
+            if(array_key_exists('errors',$r)){
+                if(is_array($r['errors'])){
+                    foreach($r['errors'] as $error){
+                        $this->addError($error);
+                    }
+                }
+            }
+            return false;
         }
 
         return $response;

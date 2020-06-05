@@ -109,47 +109,7 @@ if(count($takes) == 0) {
                 $half = floor(count($participants) / 2);
 
                 for ($i = 0; $i < $half; $i++) {
-                    ?>
-                    <tr>
-                        <td style="padding:2px 5px 2px 5px;" width="35">
-                            <? if(!substr(Router::fullBaseUrl(),-5) === '.test') {?>
-                            <img src="/users/profile_picture/<?=$participants[$i]['user']['id']?>" width="35" height="35" style="border-radius: 35px;" />
-                            <?}?>
-                        </td>
-                        <td>
-                            <?= $participants[$i]['user']['name_first'] ?>
-                            <?= $participants[$i]['user']['name_suffix'] ?>
-                            <?= $participants[$i]['user']['name'] ?>
-
-                            <span class="fa fa-exclamation-triangle" id="alert_events_<?= $participants[$i]['id'] ?>" style="color:orange" onclick="Popup.load('/test_takes/events/<?= $participants[$i]['test_take_id'] ?>/<?= $participants[$i]['id'] ?>', 500);"></span>
-                            <span class="fa fa-exclamation-triangle" id="alert_ip_<?= $participants[$i]['id'] ?>" style="color:red" onclick="TestTake.ipAlert();"></span>
-                        </td>
-                        <td width="70">
-                            <div id="label_participant_<?=$participants[$i]['id']?>" class="label"></div>
-                        </td>
-                        <td width="150">
-                            <div class="progress" style="margin-bottom: 0px; height:30px;">
-                                <? round((100 / $participants[$i]['max_score']) * $participants[$i]['made_score']) ?>
-                                <div id="progress_participant_<?=$participants[$i]['id']?>" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="line-height:30px; font-size:16px; min-width:30px;"></div>
-                            </div>
-                        </td>
-                        <td align="center" width="40" class="nopadding">
-                            <a href="#" class="btn highlight small mr2" onclick="Popup.load('/test_takes/participant_info/<?= $participants[$i]['test_take_id'] ?>/<?= $participants[$i]['id'] ?>', 500);">
-                                <span class="fa fa-info-circle"></span>
-                            </a>
-                        </td>
-                        <td align="center" width="120" class="nopadding">
-                            <a href="#" class="btn highlight small" id="buttonTaken<?=$participants[$i]['id']?>"
-                               onclick="TestTake.forceTakenAway(<?= $participants[$i]['test_take_id'] ?>, <?= $participants[$i]['id'] ?>);">
-                                Inleveren
-                            </a>
-                            <a href="#" class="btn highlight small" id="buttonPlanned<?=$participants[$i]['id']?>"
-                               onclick="TestTake.forcePlanned(<?= $participants[$i]['test_take_id'] ?>, <?= $participants[$i]['id'] ?>);">
-                                Heropen
-                            </a>
-                        </td>
-                    </tr>
-                <?
+                   echo $this->element('surveillance_studentrow',['participant' => $participants[$i]]);
                 }
                 ?>
 
@@ -158,54 +118,9 @@ if(count($takes) == 0) {
             <table class="table table-striped" style="float:right; width:48%">
                 <?
                 for ($i = $half; $i < count($participants); $i++) {
-                    ?>
-                    <tr>
-                        <td style="padding:2px 5px 2px 5px;" width="35">
-                            <? if(!substr(Router::fullBaseUrl(),-5) === '.test') {?>
-                            <img src="/users/profile_picture/<?=$participants[$i]['user']['id']?>" width="35" height="35" style="border-radius: 35px;" />
-                            <?}?>
-                        </td>
-                        <td>
-                            <?= $participants[$i]['user']['name_first'] ?>
-                            <?= $participants[$i]['user']['name_suffix'] ?>
-                            <?= $participants[$i]['user']['name'] ?>
-
-                            <span class="fa fa-exclamation-triangle" id="alert_events_<?= $participants[$i]['id'] ?>" style="color:orange" onclick="Popup.load('/test_takes/events/<?= $participants[$i]['test_take_id'] ?>/<?= $participants[$i]['id'] ?>', 500);"></span>
-                            <span class="fa fa-exclamation-triangle" id="alert_ip_<?= $participants[$i]['id'] ?>" style="color:red" onclick="TestTake.ipAlert();"></span>
-                        </td>
-                        <td width="70">
-                            <div id="label_participant_<?=$participants[$i]['id']?>" class="label"></div>
-                        </td>
-                        <td width="150">
-                            <div class="progress" style="margin-bottom: 0px; height:30px;">
-                                <div id="progress_participant_<?=$participants[$i]['id']?>" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="line-height:30px; font-size:16px; min-width:30px;"></div>
-                            </div>
-                        </td>
-                        <td align="center" width="40" class="nopadding">
-                            <a href="#" class="btn highlight small mr2" onclick="Popup.load('/test_takes/participant_info/<?= $participants[$i]['test_take_id'] ?>/<?= $participants[$i]['id'] ?>', 500);">
-                                <span class="fa fa-info-circle"></span>
-                            </a>
-                        </td>
-                        <td align="center" width="120" class="nopadding">
-                            <? if ($participants[$i]['test_take_status_id'] == 3) { ?>
-                                <a href="#" class="btn highlight small"
-                                   onclick="TestTake.forceTakenAway(<?= $participants[$i]['test_take_id'] ?>, <?= $participants[$i]['id'] ?>);">
-                                    Inleveren
-                                </a>
-                            <? } elseif (in_array($participants[$i]['test_take_status_id'], [5, 6, 4])) { ?>
-                                <a href="#" class="btn highlight small"
-                                   onclick="TestTake.forcePlanned(<?= $participants[$i]['test_take_id'] ?>, <?= $participants[$i]['id'] ?>);">
-                                    Heropen
-                                </a>
-                            <?
-                            }
-                            ?>
-                        </td>
-                    </tr>
-                <?
+                    echo $this->element('surveillance_studentrow',['participant' => $participants[$i]]);
                 }
                 ?>
-                </tr>
             </table>
 
             <br clear="all"/>
