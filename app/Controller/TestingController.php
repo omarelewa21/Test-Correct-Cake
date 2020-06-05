@@ -53,6 +53,9 @@ class TestingController extends AppController
             'rate-test-start',
             'rate-test-rate-per-question',
             'rate-test-rate-per-student',
+            'rate-test-normalize-rating',
+            'rate-test-enable-glance',
+            'glance-test-start'
         ];
     }
 }
