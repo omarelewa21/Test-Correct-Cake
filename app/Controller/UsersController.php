@@ -571,7 +571,7 @@ class UsersController extends AppController
                 $data['school_location_id'] = AuthComponent::user()['school_location_id'];
             }
 
-            $result = $this->UsersService->addUser($type, $data);
+            $result = $this->UsersService->addUser('teacher', $data);
 
             if (isset($result['id'])) {
                 $this->formResponse(
