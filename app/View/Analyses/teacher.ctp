@@ -19,12 +19,17 @@
     </div>
 </div>
 
+<?
+if ($is_temp_teacher) {
+?>
+    <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
+<?}?>
 
 <div class="block">
     <div class="block-head">Vergelijking met collega's</div>
     <div class="block-content" id="teacherGraph">
         <?
-        if(!isset($teacher['compared_teachers']) || empty($teacher['compared_teachers'])) {
+        if(!isset($teacher['compared_teachers']) || empty($teacher['compared_teachers']) || $is_temp_teacher) {
             ?>
             <center>Geen rapportage</center>
             <?
@@ -154,7 +159,7 @@ if(isset($teacher['school_class_stats']) && !empty($teacher['school_class_stats'
                         $ratings[] = round($rating['rating'], 1);
                     }
 
-                    if(count($ratings) == 0) {
+                    if(count($ratings) == 0 || $is_temp_teacher) {
                         echo 'Geen gegevens</div></div>';
                         continue;
                     }
