@@ -256,6 +256,10 @@ class UsersController extends AppController
                     'title' => 'Docenten',
                     'add_title' => 'Nieuwe Docent'
                 ];
+                $school_locations = [0 => 'Alle' ];
+                $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
+
+                $this->set('school_location', $school_locations);
                 break;
 
             case 'management':
@@ -833,6 +837,12 @@ class UsersController extends AppController
                     'icon' => 'testlist',
                     'title' => 'Schoollocaties',
                     'path' => '/school_locations'
+                );
+                $tiles['teachers'] = array(
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
+                    'title' => 'Docenten',
+                    'path' => '/users/index/teachers'
                 );
                 $tiles['students'] = array(
                     'menu' => 'lists',
