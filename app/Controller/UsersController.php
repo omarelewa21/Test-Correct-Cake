@@ -112,6 +112,26 @@ class UsersController extends AppController
         }
     }
 
+    public function edit_register_new_teacher($userId)
+    {
+        if ($this->request->is('post')) {
+            $response = $this->UsersService->updateRegisteredNewTeacher(
+                $this->request->data['User'],
+                $userId
+            );
+            $result = (json_decode($response));
+
+            if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+                $this->formResponse(false, $result);
+            } else {
+                $this->formResponse(true, ['data' => $response]);
+            }
+            exit();
+        }
+        $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
+        $this->set('user',(object) $data);
+    }
+
     public function register_new_teacher()
     {
         if ($this->request->is('post')) {
@@ -552,7 +572,12 @@ class UsersController extends AppController
         $this->set('role', $roles['0']['name']);
         $this->set('users', $users);
         $this->set('type', $type);
-        $this->render('load_' . $type, 'ajax');
+        if (in_array($roles['0']['name'], ['Administrator']) && $type =='teachers'){
+            $this->render('load_teachers_for_school_location_switch', 'ajax');
+        }
+        else {
+            $this->render('load_' . $type, 'ajax');
+        }
     }
 
     public function profile_picture_upload()
