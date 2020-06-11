@@ -112,6 +112,26 @@ class UsersController extends AppController
         }
     }
 
+    public function edit_register_new_teacher($userId)
+    {
+        if ($this->request->is('post')) {
+            $response = $this->UsersService->updateRegisteredNewTeacher(
+                $this->request->data['User'],
+                $userId
+            );
+            $result = (json_decode($response));
+
+            if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+                $this->formResponse(false, $result);
+            } else {
+                $this->formResponse(true, ['data' => $response]);
+            }
+            exit();
+        }
+        $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
+        $this->set('user',(object) $data);
+    }
+
     public function register_new_teacher()
     {
         if ($this->request->is('post')) {
@@ -273,6 +293,10 @@ class UsersController extends AppController
                     'title' => 'Docenten',
                     'add_title' => 'Nieuwe Docent'
                 ];
+                $school_locations = [0 => 'Alle' ];
+                $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
+
+                $this->set('school_location', $school_locations);
                 break;
 
             case 'management':
@@ -464,6 +488,39 @@ class UsersController extends AppController
         }
     }
 
+    public function switch_school_location($userId)
+    {
+        $this->isAuthorizedAs(['Administrator']);
+        $user = $this->UsersService->getUser($userId);
+        if ($this->request->is('post') || $this->request->is('put')) {
+            if($user->school_location_id == $this->request->data['User']['school_location_id']){
+                // we don't need to do anything, same school location, so done already
+                $this->formResponse(
+                    true,
+                    []
+                );
+                die;
+            }
+
+            $params = [
+                'school_location_id' => $this->request->data['User']['school_location_id'],
+            ];
+
+            $result = $this->UsersService->switch_school_location($userId, $params);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+
+        $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
+
+        $this->set('user',$user);
+    }
+
     public function move($user_id)
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
@@ -548,7 +605,12 @@ class UsersController extends AppController
         $this->set('role', $roles['0']['name']);
         $this->set('users', $users);
         $this->set('type', $type);
-        $this->render('load_' . $type, 'ajax');
+        if (in_array($roles['0']['name'], ['Administrator']) && $type =='teachers'){
+            $this->render('load_teachers_for_school_location_switch', 'ajax');
+        }
+        else {
+            $this->render('load_' . $type, 'ajax');
+        }
     }
 
     public function profile_picture_upload()
@@ -588,7 +650,7 @@ class UsersController extends AppController
                 $data['school_location_id'] = AuthComponent::user()['school_location_id'];
             }
 
-            $result = $this->UsersService->addUser($type, $data);
+            $result = $this->UsersService->addUser('teacher', $data);
 
             if (isset($result['id'])) {
                 $this->formResponse(
@@ -850,6 +912,12 @@ class UsersController extends AppController
                     'icon' => 'testlist',
                     'title' => 'Schoollocaties',
                     'path' => '/school_locations'
+                );
+                $tiles['teachers'] = array(
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
+                    'title' => 'Docenten',
+                    'path' => '/users/index/teachers'
                 );
                 $tiles['students'] = array(
                     'menu' => 'lists',

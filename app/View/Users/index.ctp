@@ -55,7 +55,21 @@
                         <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                     </td>
                 </tr>
+            <? } elseif ($type == 'teachers' && in_array($role, ['Administrator']) ) { ?>
+            <tr>
+                <th>E-mailadres</th>
+                <td>
+                    <?= $this->Form->input('username', array('label' => false, 'type' => 'text')) ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Locatie</th>
+                <td>
+                    <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
+                </td>
+            </tr>
             <? } ?>
+
         </table>
         <?= $this->Form->end(); ?>
 
