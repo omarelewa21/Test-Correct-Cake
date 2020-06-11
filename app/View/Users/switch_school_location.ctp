@@ -31,7 +31,7 @@
 </div>
 
 <script type="text/javascript">
-    $('#UserMoveForm').formify(
+    $('#UserSwitchSchoolLocationForm').formify(
         {
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
