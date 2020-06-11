@@ -94,7 +94,9 @@ var User = {
                         Core.afterLogin();
                     } else if(Utils.urlContainsEduIx()) {
                         Popup.load('/users/registereduix/' + window.location.search, 800);
-                    } else {
+                    } else if(Utils.urlContainsRegisterNewTeacher()) {
+                        Popup.load('/users/register_new_teacher/', 800);
+                    }else {
                         Popup.load('/users/login', 500);
                     }
                 }

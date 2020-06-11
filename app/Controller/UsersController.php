@@ -22,7 +22,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password');
+        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -109,6 +109,23 @@ class UsersController extends AppController
             } else {
                 $this->formResponse(false);
             }
+        }
+    }
+
+    public function register_new_teacher()
+    {
+        if ($this->request->is('post')) {
+            $response = $this->UsersService->registerNewTeacher(
+                $this->request->data['User']
+            );
+            $result = (json_decode($response));
+
+            if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+                $this->formResponse(false, $result);
+            } else {
+                $this->formResponse(true, ['data' => $response]);
+            }
+            exit();
         }
     }
 
