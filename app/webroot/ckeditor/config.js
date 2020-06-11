@@ -8,7 +8,7 @@ CKEDITOR.plugins.addExternal('ckeditor_wiris', 'plugins/@wiris/mathtype-ckeditor
 
 
 CKEDITOR.editorConfig = function( config ) {
-    config.extraPlugins = 'eqneditor,clipboard,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel';//,ckeditor_wiris';
+    config.extraPlugins = 'eqneditor,clipboard,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
     config.allowedContent = true;
     config.disableNativeSpellChecker = true;
 
@@ -55,8 +55,8 @@ CKEDITOR.editorConfig = function( config ) {
         '/',
         { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
         { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
-        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
-        // {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
+        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
+        {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
     ];
 
     config.stylesSet = [
