@@ -29,29 +29,34 @@ $value = $answerJson['value'];
 
 <? if($question['subtype'] !== 'short') {?>
 <script type="text/javascript">
-    $('textarea').ckeditor({
+    try {
+        $('textarea').ckeditor({
 
-      removePlugins : 'pastefromword,advanced,simpleuploads,dropoff,copyformatting,image,pastetext,uploadwidget,uploadimage',
-      extraPlugins : 'blockimagepaste,eqneditor,quicktable,ckeditor_wiris',
-      // ImageUpload : false,
+            removePlugins: 'pastefromword,advanced,simpleuploads,dropoff,copyformatting,image,pastetext,uploadwidget,uploadimage',
+            extraPlugins: 'blockimagepaste,eqneditor,quicktable,ckeditor_wiris',
+            // ImageUpload : false,
 
-        toolbar: [
-            { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ] },
-            { name: 'paragraph', items: [ 'NumberedList', 'BulletedList' ] },
-            { name: 'insert', items: [ 'Table' ] },
-            // { name: 'editing', items: ['EqnEditor' ] },
-            { name: 'styles', items: ['Font', 'FontSize' ] },
-            {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
-        ]
-    });
-
-    Answer.answerChanged = false;
-
-    for (var i in CKEDITOR.instances) {
-        CKEDITOR.instances[i].on('change', function () {
-            Answer.answerChanged = true;
-
+            toolbar: [
+                {name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript']},
+                {name: 'paragraph', items: ['NumberedList', 'BulletedList']},
+                {name: 'insert', items: ['Table']},
+                // { name: 'editing', items: ['EqnEditor' ] },
+                {name: 'styles', items: ['Font', 'FontSize']},
+                {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
+            ]
         });
+
+        Answer.answerChanged = false;
+
+        for (var i in CKEDITOR.instances) {
+            CKEDITOR.instances[i].on('change', function () {
+                Answer.answerChanged = true;
+
+            });
+        }
+    }
+    catch(err){
+        alert(err.message);
     }
 </script>
 <?
