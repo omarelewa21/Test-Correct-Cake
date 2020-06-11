@@ -41,7 +41,19 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function updateOnboardingWizard($data) {
+    public function registerNewTeacher($data)
+    {
+        $response = $this->Connector->postRequest('/demo_account', [], $data);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function updateOnboardingWizard($data)
+    {
         $response = $this->Connector->putRequest('/onboarding', [], $data);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -242,9 +254,9 @@ class UsersService extends BaseService
                     return 'external_code';
                 } elseif (strstr($response, 'username')) {
                     return 'username';
-                } else if(strstr($response,'user_roles')){
+                } else if (strstr($response, 'user_roles')) {
                     return 'user_roles';
-                } else if(strstr($response,'demo')){
+                } else if (strstr($response, 'demo')) {
                     return 'demo';
                 }
             }
@@ -322,8 +334,9 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function doImport($data){
-        $response = $this->Connector->postRequest('/school_location/import/',[], $data);
+    public function doImport($data)
+    {
+        $response = $this->Connector->postRequest('/school_location/import/', [], $data);
 
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
@@ -348,7 +361,8 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function createOnboardingWizardReport($data){
+    public function createOnboardingWizardReport($data)
+    {
         $response = $this->Connector->postRequest('/onboarding_wizard_report', [], $data);
         if ($response) {
             return $this->Connector->getDownloadRequest('/onboarding_wizard_report', [], $data);
@@ -356,8 +370,9 @@ class UsersService extends BaseService
     }
 
 
-    public function doImportTeacher($data){
-        $response = $this->Connector->postRequest('/teacher/import/schoollocation',[], $data);
+    public function doImportTeacher($data)
+    {
+        $response = $this->Connector->postRequest('/teacher/import/schoollocation', [], $data);
 
 
         if ($response === false) {
