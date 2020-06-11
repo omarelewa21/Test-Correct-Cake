@@ -173,6 +173,17 @@ class UsersService extends BaseService
         }
     }
 
+    public function switch_school_location($userId, $params)
+    {
+        $response = $this->Connector->putRequest('/user/switch_school_location/' . $userId, [], $params);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function move($user_id, $params)
     {
         $response = $this->Connector->putRequest('/user/' . $user_id, [], $params);

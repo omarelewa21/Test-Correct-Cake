@@ -16,7 +16,7 @@ foreach($users as $user) {
                     <?php
                     } else {
                     ?>
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$user['id']?>">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$user['id']?>" onclick="Popup.load('/users/switch_school_location/<?=$user['id']?>', 600);">
                 <span class="fa fa-arrows-h"></span>
             </a>
 
