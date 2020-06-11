@@ -33,7 +33,7 @@ $value = $answerJson['value'];
         $('textarea').ckeditor({
 
             removePlugins: 'pastefromword,advanced,simpleuploads,dropoff,copyformatting,image,pastetext,uploadwidget,uploadimage',
-            extraPlugins: 'blockimagepaste,eqneditor,quicktable,ckeditor_wiris',
+            extraPlugins: 'blockimagepaste,eqneditor,quicktable',
             // ImageUpload : false,
 
             toolbar: [
@@ -42,7 +42,7 @@ $value = $answerJson['value'];
                 {name: 'insert', items: ['Table']},
                 // { name: 'editing', items: ['EqnEditor' ] },
                 {name: 'styles', items: ['Font', 'FontSize']},
-                {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
+
             ]
         });
 
