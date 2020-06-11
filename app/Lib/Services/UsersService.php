@@ -52,9 +52,20 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function registrationNotCompletedForRegisteredNewTeacher($userId)
+    {
+        $response = $this->Connector->getRequest('/demo_account/'.$userId.'/registration_completed', []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function updateRegisteredNewTeacher($data, $userId)
     {
-        $response = $this->Connector->putRequest('/demo_account/'.$userId, [], $data);
+        $response = $this->Connector->putRequest('/demo_account/' . $userId, [], $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -65,7 +76,7 @@ class UsersService extends BaseService
 
     public function getRegisteredNewTeacherByUserId($userId)
     {
-        $response = $this->Connector->getRequest('/demo_account/'.$userId, []);
+        $response = $this->Connector->getRequest('/demo_account/' . $userId, []);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();

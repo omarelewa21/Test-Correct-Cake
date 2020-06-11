@@ -135,12 +135,12 @@
 </div>
 
 <script type="text/javascript">
-    $('#UserRegisterNewTeacherForm').formify(
+    $('form:first').formify(
         {
             confirm: $('#btnAddUser'),
             onsuccess: function (result) {
                 Popup.closeLast();
-                Popup.message({title: 'Account aangemaakt', message: 'Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan'}, ()=>window.location.href='/');
+
                 Notify.notify("Account aangemaakt", "info");
             },
             onfailure: function (result) {

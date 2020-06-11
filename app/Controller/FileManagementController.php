@@ -200,6 +200,10 @@ class FileManagementController extends AppController
 
     public function upload_test() {
         $this->ifNotAllowedExit(['Teacher'], false);
+
+        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
+
+
         $school_location_id = AuthComponent::user('school_location_id');
 
         if($this->request->is('post')) {
@@ -379,6 +383,8 @@ class FileManagementController extends AppController
 
     public function upload_class() {
         $this->ifNotAllowedExit(['Teacher'], false);
+        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
+
         $school_location_id = AuthComponent::user('school_location_id');
 
         if($this->request->is('post')) {
@@ -443,6 +449,35 @@ class FileManagementController extends AppController
             }
             $this->set('educationLevels',$elAr);
             $this->set('educationLevelOptions',$eloAr);
+        }
+    }
+
+    private function blockWithModalIfRegistrationNotCompletedAndInTestSchool()
+    {
+        $userId = AuthComponent::user('id');
+
+        $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userId));
+        if ($result['status'] == 'true') {
+            $userId = AuthComponent::user('id');
+            if ($this->request->is('post')) {
+                $response = $this->UsersService->updateRegisteredNewTeacher(
+                    $this->request->data['User'],
+                    $userId
+                );
+                $result = (json_decode($response));
+
+                if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+                    $this->formResponse(false, $result);
+                } else {
+                    $this->formResponse(true, ['data' => $response]);
+                }
+                exit();
+            }
+            $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
+
+            $this->set('user',(object) $data);
+            echo $this->render('/Users/register_new_teacher', 'ajax');
+            exit;
         }
     }
 }
