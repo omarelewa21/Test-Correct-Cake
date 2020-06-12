@@ -63,7 +63,21 @@ class AppController extends Controller {
     public function beforeFilter()
     {
         $headers = $this->getallheaders();
-        // $headers = $_SERVER;
+
+        $this->Session->delete('AppTooOld');
+        $this->Session->delete('AppOS');
+
+        if(array_key_exists('user-agent',$headers)){
+            $parts = explode('|',$headers['user-agent']);
+            if(strtolower($parts[0]) == 'windows' && $parts[1] == '2.0'){
+                $this->Session->write('AppTooOld',true);
+                $this->Session->write('AppOS','windows');
+            }
+        }
+
+//        App::uses('SobitLogger','Lib');
+//        $logger = SobitLogger::getInstance( $_SERVER['HTTP_HOST'])->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+//        $logger->info('info',var_export($headers,true));
 
         // if(!$this->Session->check("TLCHeader")){
         // $lowercaseheaders = array_change_key_case($headers);
