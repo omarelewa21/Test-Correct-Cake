@@ -9,12 +9,12 @@
                     <br/><br/>
                 </li>
                 <li>
-                    Klik <a href="https://www.test-correct.nl/downloads/" target="_blank">hier</a> om naar de downloadpagina van Test-Correct te gaan en download de meest recente versie voor jou apparaat.
+                    Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jou apparaat.
                     <br/><br/>
                 </li>
                 <li>Installeer de nieuwe app</li>
             </ol>
-        Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op <a href="https://support.test-correct.nl" target="_blank">https://support.test-correct.nl</a> en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op.<br /><br/>
+        Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op.<br /><br/>
         Veel succes met je toets!
         </p>
     </div>
