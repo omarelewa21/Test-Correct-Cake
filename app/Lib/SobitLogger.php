@@ -32,7 +32,7 @@ class SobitLogger
     {
         $this->file = sprintf('../tmp/sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
 
-        $this->isLogging = !!(substr_count('testportal.test-correct.test',$host) > 0);
+        $this->isLogging = !!(substr_count('testportal.test-correct',$host) > 0);
     }
 
     // The object is created from within the class itself
@@ -102,6 +102,13 @@ class SobitLogger
         ];
         $this->resetSub();
         return $this;
+    }
+
+    public function info($type,$string)
+    {
+        $dateTime = (new \DateTime('now'))->format('Y-m-d H:i:s');
+        $line = sprintf('%s [%s] %s',$dateTime,strtoupper($type),$string);
+        file_put_contents($this->file, $line, FILE_APPEND);
     }
 
     protected function log($type, $dateTime = false, $url = '', $method = '', $duration = 0, $cakeTime = 0){

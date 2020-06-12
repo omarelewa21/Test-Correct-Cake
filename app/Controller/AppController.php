@@ -63,6 +63,10 @@ class AppController extends Controller {
     public function beforeFilter()
     {
         $headers = $this->getallheaders();
+        App::uses('SobitLogger','Lib');
+        $logger = SobitLogger::getInstance( $_SERVER['HTTP_HOST'])->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
+        $logger->info('info',var_export($headers,true));
+
         // $headers = $_SERVER;
 
         // if(!$this->Session->check("TLCHeader")){
