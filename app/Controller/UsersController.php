@@ -221,9 +221,7 @@ class UsersController extends AppController
             if ($role['name'] == 'Student') {
                 $view = "welcome_student";
                 if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
-                    if(strtolower($this->Session->read('AppOS')) === 'windows') {
-                        $view = "welcome_student_windows_update";
-                    }
+                    $view = "welcome_student_update";
                 }
             }
         }
