@@ -73,13 +73,13 @@ class UsersController extends AppController
 
     public function login()
     {
-        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
-            if(strtolower($this->Session->read('AppOS')) === 'windows') {
-                $view = "windows_update";
-                echo $this->render($view,'ajax');
-                exit;
-            }
-        }
+//        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
+//            if(strtolower($this->Session->read('AppOS')) === 'windows') {
+//                $view = "windows_update";
+//                echo $this->render($view,'ajax');
+//                exit;
+//            }
+//        }
 
         ## MarkO: Ik snap nog niet precies wanneer ik in deze methode uit kom. Maar $message hieronder was nog niet gezet en
         ## dat gaf een crash op de test/dev portals (niet op live) dus ik heb een default gezet zonder goed te weten wat het doet.
