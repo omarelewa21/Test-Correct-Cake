@@ -103,7 +103,6 @@ class AppController extends Controller {
               }
             }else{
                 $this->Session->Write('TLCVersion', 'x');
-                $this->Session->write('AppTooOld',true);
             }
         }
 
