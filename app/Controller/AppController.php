@@ -64,6 +64,9 @@ class AppController extends Controller {
     {
         $headers = $this->getallheaders();
 
+        $this->Session->delete('AppTooOld');
+        $this->Session->delete('AppOS');
+
         if(array_key_exists('user-agent',$headers)){
             $parts = explode('|',$headers['user-agent']);
             if(strtolower($parts[0]) == 'windows' && $parts[1] == '2.0'){
@@ -98,9 +101,9 @@ class AppController extends Controller {
         if(!$this->Session->check('TLCVersion')) {
             if(isset($headers['tlctestcorrectversion'])) {
               $this->Session->Write('TLCVersion', $headers['tlctestcorrectversion']);
-              if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
-                  $this->Session->write('AppTooOld',true);
-              }
+//              if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
+//                  $this->Session->write('AppTooOld',true);
+//              }
             }else{
                 $this->Session->Write('TLCVersion', 'x');
             }
