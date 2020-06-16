@@ -101,6 +101,9 @@ class AppController extends Controller {
         if(!$this->Session->check('TLCVersion')) {
             if(isset($headers['tlctestcorrectversion'])) {
               $this->Session->Write('TLCVersion', $headers['tlctestcorrectversion']);
+//              if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
+//                  $this->Session->write('AppTooOld',true);
+//              }
             }else{
                 $this->Session->Write('TLCVersion', 'x');
             }
