@@ -327,6 +327,9 @@ var Utils = {
 	urlContainsRegisterNewTeacher:function() {
 		return location.href.split('/').includes('register_new_teacher');
 	},
+	urlContainsRegisterNewTeacherSuccessful:function() {
+		return location.href.split('/').includes('register_new_teacher_successful');
+	},
 };
 
 var Dropdowns = {

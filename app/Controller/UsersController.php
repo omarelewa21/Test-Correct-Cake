@@ -22,7 +22,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher');
+        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -44,10 +44,10 @@ class UsersController extends AppController
                 $this->request->data['User']
             );
             $response = json_decode($result);
-            if (property_exists($response, 'errors') && count( (array) $response->errors) > 0) {
+            if (property_exists($response, 'errors') && count((array)$response->errors) > 0) {
                 $this->formResponse(false, ['message' => $response->message]);
             } else {
-                $this->formResponse(true, ['data' =>$response]);
+                $this->formResponse(true, ['data' => $response]);
             }
             exit();
         }
@@ -88,7 +88,7 @@ class UsersController extends AppController
 
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
-            
+
             if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
                 if (!strpos($this->Session->read('TLCVersion'), '|') || $this->Session->read('TLCVersion') === 'x') {
                     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
@@ -102,7 +102,7 @@ class UsersController extends AppController
                         exit();
                     }
                 }
-            // }else{
+                // }else{
                 // if($appType === 'ipad') {
                 //     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
                 //     $this->formResponse(false,['message' => $message]);
@@ -112,8 +112,8 @@ class UsersController extends AppController
 
             if ($this->Auth->login()) {
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
-              // no need to expose user info
-              $this->formResponse(true, array('message' => $message));
+                // no need to expose user info
+                $this->formResponse(true, array('message' => $message));
             } else {
                 $this->formResponse(false);
             }
@@ -129,7 +129,7 @@ class UsersController extends AppController
             );
             $result = (json_decode($response));
 
-            if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+            if (property_exists($result, 'errors') && count((array)$result->errors) > 0) {
                 $this->formResponse(false, $result);
             } else {
                 $this->formResponse(true, ['data' => $response]);
@@ -137,7 +137,7 @@ class UsersController extends AppController
             exit();
         }
         $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
-        $this->set('user',(object) $data);
+        $this->set('user', (object)$data);
     }
 
     public function register_new_teacher()
@@ -148,13 +148,18 @@ class UsersController extends AppController
             );
             $result = (json_decode($response));
 
-            if (property_exists($result, 'errors') && count( (array) $result->errors) > 0) {
+            if (property_exists($result, 'errors') && count((array)$result->errors) > 0) {
                 $this->formResponse(false, $result);
             } else {
                 $this->formResponse(true, ['data' => $response]);
             }
             exit();
         }
+    }
+
+    public function register_new_teacher_successful()
+    {
+
     }
 
     public function logout()

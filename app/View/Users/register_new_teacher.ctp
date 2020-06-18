@@ -142,6 +142,10 @@
                 Popup.closeLast();
 
                 Notify.notify("Account aangemaakt", "info");
+
+                if (Utils.urlContainsRegisterNewTeacher()) {
+                    window.location.href = '/users/register_new_teacher_successful';
+                }
             },
             onfailure: function (result) {
                 this.hideAllErrors();

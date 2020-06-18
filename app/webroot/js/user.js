@@ -1,22 +1,22 @@
 var User = {
 
-    info : null,
-    inactive : 0,
-    surpressInactive : false,
+    info: null,
+    inactive: 0,
+    surpressInactive: false,
 
-    initialise : function() {
+    initialise: function () {
         $.getJSON('/users/info',
-            function(info) {
+            function (info) {
                 User.info = info;
 
-                if(User.info.isStudent) {
+                if (User.info.isStudent) {
                     $("<link/>", {
                         rel: "stylesheet",
                         type: "text/css",
                         href: "/css/buttons.green.css"
                     }).appendTo("head");
                     $('#menu, #header, #tiles').addClass('green');
-                }else{
+                } else {
                     $("<link/>", {
                         rel: "stylesheet",
                         type: "text/css",
@@ -31,39 +31,39 @@ var User = {
                     User.info.name
                 );
 
-                if(User.info.isTeacher){
+                if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
                 }
             }
         );
 
-        $('#header #top #user').click(function() {
+        $('#header #top #user').click(function () {
             $('#header #top #user_menu').slideDown();
-            setTimeout(function() {
+            setTimeout(function () {
                 $('#header #top #user_menu').slideUp();
             }, 5000);
         });
 
-        $('#header #top #user_menu').mouseleave(function() {
+        $('#header #top #user_menu').mouseleave(function () {
             $(this).slideUp();
         });
 
-        $('body').mouseover(function() {
+        $('body').mouseover(function () {
             User.inactive = 0;
         });
 
-        $('body').keydown(function() {
+        $('body').keydown(function () {
             User.inactive = 0;
         });
 
-        setInterval(function() {
+        setInterval(function () {
             User.inactive++;
 
 
             // Student
             if (User.info.isStudent && User.inactive == 900 && !User.surpressInactive) {
                 TestTake.lostFocus();
-                setTimeout(function() {
+                setTimeout(function () {
                     User.logout();
                 }, 2000);
             }
@@ -76,27 +76,29 @@ var User = {
         }, 1000);
     },
 
-    actOnLogout : function(){
+    actOnLogout: function () {
         $("#supportpage_link, #upload_test_link").remove();
     },
 
-    welcome : function() {
-        if(!TestTake.active) {
+    welcome: function () {
+        if (!TestTake.active) {
             Navigation.load('/users/welcome');
         }
     },
 
-    checkLogin : function() {
-        if(Utils.notOnLoginScreen()) {
+    checkLogin: function () {
+        if (Utils.notOnLoginScreen()) {
             $.get('/users/status',
                 function (status) {
                     if (status == 1) {
                         Core.afterLogin();
-                    } else if(Utils.urlContainsEduIx()) {
+                    } else if (Utils.urlContainsEduIx()) {
                         Popup.load('/users/registereduix/' + window.location.search, 800);
-                    } else if(Utils.urlContainsRegisterNewTeacher()) {
+                    } else if (Utils.urlContainsRegisterNewTeacherSuccessful()) {
+                        Popup.load('/users/register_new_teacher_successful/', 800);
+                    } else if (Utils.urlContainsRegisterNewTeacher()) {
                         Popup.load('/users/register_new_teacher/', 800);
-                    }else {
+                    } else {
                         Popup.load('/users/login', 500);
                     }
                 }
@@ -104,43 +106,43 @@ var User = {
         }
     },
 
-    logout : function() {
-            $.get('/users/logout',
-                function () {
-                    User.actOnLogout();
-                    window.location.href = '/';
-                }
-            );
+    logout: function () {
+        $.get('/users/logout',
+            function () {
+                User.actOnLogout();
+                window.location.href = '/';
+            }
+        );
 
     },
 
-    resetPassword : function() {
+    resetPassword: function () {
         Popup.load('/users/password_reset', 400);
     },
 
-    sendWelcomeMails : function(type) {
+    sendWelcomeMails: function (type) {
         Popup.message({
             btnOk: 'Ja',
             btnCancel: 'Annuleer',
             title: 'Weet u het zeker?',
             message: 'Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?'
-        }, function() {
+        }, function () {
             Notify.notify('Welkomstmails verstuurd', 'info');
 
             $.get('/users/notify_welcome/' + type);
         });
     },
 
-    delete : function(id) {
+    delete: function (id) {
 
         Popup.message({
             btnOk: 'Ja',
             btnCancel: 'Annuleer',
             title: 'Weet u het zeker?',
             message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
-        }, function() {
+        }, function () {
             $.get('/users/delete/' + id,
-                function() {
+                function () {
                     Notify.notify('Gebruiker verwijderd', 'info');
                     Navigation.refresh();
                 }
@@ -148,18 +150,18 @@ var User = {
         });
     },
 
-    forgotPassword : function() {
+    forgotPassword: function () {
         var email = $('#UserEmail').val();
 
-        if(email == "") {
+        if (email == "") {
             Notify.notify('Voer eerst uw emailadres in.', 'error');
-        }else{
+        } else {
             $.post('/users/forgot_password', {
-                'email' : email
-            },
-            function(response) {
-                Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
-            });
+                    'email': email
+                },
+                function (response) {
+                    Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
+                });
         }
     }
 };
