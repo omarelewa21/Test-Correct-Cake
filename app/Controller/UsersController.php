@@ -96,7 +96,7 @@ class UsersController extends AppController
                     exit();
                 } else {
                     $version = explode('|', $this->Session->read('TLCVersion'))[1];
-                    if (!in_array($version, ['2.0', '2.1'])) {
+                    if (!in_array($version, ['2.0', '2.1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'])) {
                         $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
                         $this->formResponse(false, ['message' => $message]);
                         exit();
