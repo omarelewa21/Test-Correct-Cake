@@ -5,6 +5,7 @@ foreach($users as $user) {
         <td><?=$user['name_first']?></td>
         <td><?=$user['name_suffix']?></td>
         <td><?=$user['name']?></td>
+        <td><?=$user['username']?></td>
         <td class="nopadding">
             <?php
                     if((bool) $user['demo'] === true){
