@@ -108,6 +108,9 @@
                     <th>Voornaam</th>
                     <th>Tussenvoegsel</th>
                     <th>Achternaam</th>
+                    <? if ($type == 'teachers' && in_array($role, ['Administrator']) ) { ?>
+                    <th>E-mailadres</th>
+                    <? } ?>
                     <th width="100">&nbsp;</th>
                 <? } ?>
             </tr>

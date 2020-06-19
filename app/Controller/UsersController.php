@@ -593,6 +593,10 @@ class UsersController extends AppController
             $params['filter']['school_location_id'] = $filters['school_location_id'];
         }
 
+        if (!empty($filters['username'])) {
+            $params['filter']['username'] = $filters['username'];
+        }
+
         switch ($type) {
             case 'accountmanagers':
                 $params['filter']['role'] = 5;
