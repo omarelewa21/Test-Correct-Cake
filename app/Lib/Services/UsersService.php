@@ -54,7 +54,7 @@ class UsersService extends BaseService
 
     public function updateRegisteredNewTeacher($data, $userId)
     {
-        $response = $this->Connector->putRequest('/demo_account/'.$userId, [], $data);
+        $response = $this->Connector->putRequest('/demo_account/' . $userId, [], $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -65,7 +65,7 @@ class UsersService extends BaseService
 
     public function getRegisteredNewTeacherByUserId($userId)
     {
-        $response = $this->Connector->getRequest('/demo_account/'.$userId, []);
+        $response = $this->Connector->getRequest('/demo_account/' . $userId, []);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -178,7 +178,9 @@ class UsersService extends BaseService
         $response = $this->Connector->putRequest('/user/switch_school_location/' . $userId, [], $params);
 
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            $this->addError($this->Connector->getLastResponse());
+
+            return false;
         }
 
         return $response;
@@ -453,7 +455,6 @@ class UsersService extends BaseService
             [],
             $data
         );
-
 
 
         if ($response === false) {
