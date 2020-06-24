@@ -1,7 +1,10 @@
 <div class="popup-head">Registreer voor Test-Correct.nl</div>
-<div class="popup-content">
+<div class="popup-content" style="padding-top:0">
     <?= $this->Form->create('User') ?>
     <table class="table">
+        <tr>
+            <th colspan="2"><h2 style="margin-top: 0px; margin-bottom: 0px;">School gegevens</h2></th>
+        </tr>
         <tr>
             <th width="400">
                 Naam van de school
@@ -19,10 +22,10 @@
             </td>
         </tr>
         <tr>
-            <th>Bezoekadres van uw school</th>
+            <th colspan="2">Bezoekadres van uw school</th>
         </tr>
         <tr>
-            <th width="400">
+            <th width="400" style="padding-left:20px">
                 Straat en huisnummer
             </th>
             <td>
@@ -31,7 +34,7 @@
         </tr>
 
         <tr>
-            <th width="400">
+            <th width="400"  style="padding-left:20px">
               Postcode
             </th>
             <td>
@@ -39,7 +42,7 @@
             </td>
         </tr>
         <tr>
-            <th width="400">
+            <th width="400" style="padding-left:20px" >
                Plaats
             </th>
             <td>
@@ -47,7 +50,7 @@
             </td>
         </tr>
         <tr>
-            <th colspan="2">Uw gegevens</th>
+            <th colspan="2"><h2>Uw gegevens</h2></th>
         </tr>
 
         <tr>
@@ -56,7 +59,7 @@
             </th>
             <td>
                 <?= $this->Form->input('gender', array(
-                    'options' => ['Other' => 'Anders', 'Male' => 'Man', 'Female' => 'Vrouw'], 'label' => false
+                    'options' => [ 'Male' => 'Man', 'Female' => 'Vrouw', 'Other' => 'Anders'], 'label' => false
                 )) ?>
 
             </td>
@@ -76,7 +79,7 @@
                Voornaam
             </th>
             <td>
-                <?= $this->Form->input('name_first', array('style' => 'width: 440px', 'label' => false, 'value' => $user->name_first)) ?>
+                <?= $this->Form->input('name_first', array('style' => 'width: 440px', 'label' => false,  'verify' => 'notempty', 'value' => $user->name_first)) ?>
             </td>
         </tr>
         <tr>
@@ -98,18 +101,35 @@
 
         <tr>
             <th width="400">
-                E-mailadres <small> nodig ter verificatie</small>
+                E-mailadres
             </th>
             <td>
-                <?= $this->Form->input('username', array('style' => 'width: 440px', 'label' => false, 'verify' => 'email', 'value' => $user->username)) ?>
+                <?= $this->Form->input('username', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
             </td>
         </tr>
         <tr>
             <th width="400">
-                Welke vakken geeft u op werk niveau
+                Mobielnummer <small> nodig ter verificatie</small>
+            </th>
+            <td>
+                <?= $this->Form->input('mobile', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
+            </td>
+        </tr>
+        <tr>
+            <th width="400">
+                Welke vakken geeft u op welk niveau
             </th>
             <td>
                 <?= $this->Form->input('subjects', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->subjects)) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th width="400">
+                Hoe ben je bij ons terecht gekomen?
+            </th>
+            <td>
+                <?= $this->Form->textarea('how_did_you_hear_about_test_correct', array('style' => 'width: 440px;height:80px', 'label' => false, 'value' => $user->remarks )) ?>
             </td>
         </tr>
 
@@ -135,17 +155,22 @@
 </div>
 
 <script type="text/javascript">
-    $('form:first').formify(
+    $('#UserRegisterNewTeacherForm').formify(
         {
             confirm: $('#btnAddUser'),
             onsuccess: function (result) {
                 Popup.closeLast();
-
+                Popup.message({title: 'Account aangemaakt', message: 'Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan'}, ()=>window.location.href='/');
                 Notify.notify("Account aangemaakt", "info");
 
-                if (Utils.urlContainsRegisterNewTeacher()) {
-                    window.location.href = '/users/register_new_teacher_successful';
+                var redirectTo = 'https://www.test-correct.nl/bedankt-aanmelding-docent';
+
+                if (window.location.href.indexOf('portal.test-correct.nl') === 12) {
+                    redirectTo = 'http://3780499.hs-sites.com/bedankpagina-test';
                 }
+
+                window.location.href = redirectTo;
+
             },
             onfailure: function (result) {
                 this.hideAllErrors();
