@@ -135,6 +135,13 @@ class CakeSession {
 	protected static $_cookieName = null;
 
 /**
+ * Whether or not to make `_validAgentAndTime` 3.x compatible.
+ *
+ * @var bool
+ */
+	protected static $_useForwardsCompatibleTimeout = false;
+
+/**
  * Whether this session is running under a CLI environment
  *
  * @var bool
@@ -360,6 +367,9 @@ class CakeSession {
 	protected static function _validAgentAndTime() {
 		$userAgent = static::read('Config.userAgent');
 		$time = static::read('Config.time');
+		if (static::$_useForwardsCompatibleTimeout) {
+			$time += (Configure::read('Session.timeout') * 60);
+		}
 		$validAgent = (
 			Configure::read('Session.checkAgent') === false ||
 			isset($userAgent) && static::$_userAgent === $userAgent
@@ -422,7 +432,7 @@ class CakeSession {
  * Writes value to given session variable name.
  *
  * @param string|array $name Name of variable
- * @param string $value Value to write
+ * @param mixed $value Value to write
  * @return bool True if the write was successful, false if the write failed
  */
 	public static function write($name, $value = null) {
@@ -527,6 +537,10 @@ class CakeSession {
 		if (isset($sessionConfig['timeout']) && !isset($sessionConfig['cookieTimeout'])) {
 			$sessionConfig['cookieTimeout'] = $sessionConfig['timeout'];
 		}
+		if (isset($sessionConfig['useForwardsCompatibleTimeout']) && $sessionConfig['useForwardsCompatibleTimeout']) {
+			static::$_useForwardsCompatibleTimeout = true;
+		}
+
 		if (!isset($sessionConfig['ini']['session.cookie_lifetime'])) {
 			$sessionConfig['ini']['session.cookie_lifetime'] = $sessionConfig['cookieTimeout'] * 60;
 		}
@@ -538,6 +552,12 @@ class CakeSession {
 
 		if (!empty($sessionConfig['handler'])) {
 			$sessionConfig['ini']['session.save_handler'] = 'user';
+
+			// In PHP7.2.0+ session.save_handler can't be set to 'user' by the user.
+			// https://github.com/php/php-src/commit/a93a51c3bf4ea1638ce0adc4a899cb93531b9f0d
+			if (version_compare(PHP_VERSION, '7.2.0', '>=')) {
+				unset($sessionConfig['ini']['session.save_handler']);
+			}
 		} elseif (!empty($sessionConfig['session.save_path']) && Configure::read('debug')) {
 			if (!is_dir($sessionConfig['session.save_path'])) {
 				mkdir($sessionConfig['session.save_path'], 0775, true);
@@ -555,7 +575,7 @@ class CakeSession {
 			$sessionConfig['cacheLimiter'] = 'must-revalidate';
 		}
 
-		if (empty($_SESSION)) {
+		if (empty($_SESSION) && !headers_sent() && (!function_exists('session_status') || session_status() !== PHP_SESSION_ACTIVE)) {
 			if (!empty($sessionConfig['ini']) && is_array($sessionConfig['ini'])) {
 				foreach ($sessionConfig['ini'] as $setting => $value) {
 					if (ini_set($setting, $value) === false) {
@@ -567,19 +587,24 @@ class CakeSession {
 		if (!empty($sessionConfig['handler']) && !isset($sessionConfig['handler']['engine'])) {
 			call_user_func_array('session_set_save_handler', $sessionConfig['handler']);
 		}
-		if (!empty($sessionConfig['handler']['engine'])) {
+		if (!empty($sessionConfig['handler']['engine']) && !headers_sent()) {
 			$handler = static::_getHandler($sessionConfig['handler']['engine']);
-			session_set_save_handler(
-				array($handler, 'open'),
-				array($handler, 'close'),
-				array($handler, 'read'),
-				array($handler, 'write'),
-				array($handler, 'destroy'),
-				array($handler, 'gc')
-			);
+			if (!function_exists('session_status') || session_status() !== PHP_SESSION_ACTIVE) {
+				session_set_save_handler(
+					array($handler, 'open'),
+					array($handler, 'close'),
+					array($handler, 'read'),
+					array($handler, 'write'),
+					array($handler, 'destroy'),
+					array($handler, 'gc')
+				);
+			}
 		}
 		Configure::write('Session', $sessionConfig);
-		static::$sessionTime = static::$time + ($sessionConfig['timeout'] * 60);
+		static::$sessionTime = static::$time;
+		if (!static::$_useForwardsCompatibleTimeout) {
+			static::$sessionTime += ($sessionConfig['timeout'] * 60);
+		}
 	}
 
 /**

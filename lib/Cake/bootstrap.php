@@ -87,13 +87,6 @@ if (!defined('IMAGES')) {
 }
 
 /**
- * Path to the tests directory.
- */
-if (!defined('TESTS')) {
-	define('TESTS', APP . 'Test' . DS);
-}
-
-/**
  * Path to the temporary files directory.
  */
 if (!defined('TMP')) {
@@ -106,8 +99,6 @@ if (!defined('TMP')) {
 if (!defined('LOGS')) {
 	define('LOGS', TMP . 'logs' . DS);
 }
-
-//define('CACHE',APP .'__cache' . DS);
 
 /**
  * Path to the cache files directory. It can be shared between hosts in a multi-server setup.
