@@ -42,5 +42,5 @@
 </div>
 
 <script type="text/javascript">
-    $('#blockDiscussionQuestion').hide();
+    //$('#blockDiscussionQuestion').hide();
 </script>
