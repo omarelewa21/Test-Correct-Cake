@@ -189,7 +189,9 @@ class UsersService extends BaseService
         $response = $this->Connector->putRequest('/user/switch_school_location/' . $userId, [], $params);
 
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            $this->addError($this->Connector->getLastResponse());
+
+            return false;
         }
 
         return $response;

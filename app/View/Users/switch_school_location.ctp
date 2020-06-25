@@ -40,7 +40,7 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                Notify.notify("Gebruiker kon niet worden verplaatst, bevat de target school al een valide docentenaccount?", "error");
             }
         }
     );
