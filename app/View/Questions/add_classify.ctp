@@ -178,7 +178,7 @@
             { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
             { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
             { name: 'insert', items: [ 'addImage', 'Table' ] },
-            { name: 'editing', items: [ 'Scayt', 'EqnEditor' ] },
+            { name: 'editing', items: [ 'Scayt', ] },
             '/',
             { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
             { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },

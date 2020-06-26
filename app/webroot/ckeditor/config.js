@@ -8,7 +8,7 @@ CKEDITOR.plugins.addExternal('ckeditor_wiris', 'plugins/@wiris/mathtype-ckeditor
 
 
 CKEDITOR.editorConfig = function( config ) {
-    config.extraPlugins = 'eqneditor,clipboard,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
+    config.extraPlugins = 'clipboard,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
     config.allowedContent = true;
     config.disableNativeSpellChecker = true;
 
@@ -49,7 +49,7 @@ CKEDITOR.editorConfig = function( config ) {
         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
         { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
         { name: 'insert', items: [ 'addImage', 'Table' ] },
-        { name: 'editing', items: [ 'EqnEditor' ] },
+        //{ name: 'editing', items: [ 'EqnEditor' ] },
         { name: 'tools' , items: ['Maximize']},
         // { name: 'editing', items: [ 'Scayt', 'EqnEditor' ] },
         '/',
