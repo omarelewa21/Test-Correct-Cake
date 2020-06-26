@@ -476,6 +476,7 @@ class FileManagementController extends AppController
             $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
 
             $this->set('user',(object) $data);
+            $this->set('in_app', true);
             echo $this->render('/Users/register_new_teacher', 'ajax');
             exit;
         }

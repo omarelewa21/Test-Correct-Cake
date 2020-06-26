@@ -2,6 +2,16 @@
 <div class="popup-content" style="padding-top:0">
     <?= $this->Form->create('User') ?>
     <table class="table">
+        <table class="table">
+            <?php if(isset($in_app) && $in_app) { ?>
+                <tr>
+                    <th colspan="4">
+                        <p style="background-color: #d9edf7; padding:15px; margin-top:0">
+                            We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in Test-Correct:
+                        </p>
+                    </th>
+                </tr>
+            <?php }?>
         <tr>
             <th colspan="2"><h2 style="margin-top: 0px; margin-bottom: 0px;">School gegevens</h2></th>
         </tr>

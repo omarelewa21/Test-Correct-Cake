@@ -12,7 +12,7 @@
 <h1>Aangeboden klassen bestanden</h1>
 
 <div class="block autoheight">
-    <div class="block-head">Toetsen</div>
+    <div class="block-head">Bestanden</div>
     <div class="block-content" id="filesContainter">
         <table class="table table-striped" id="filesTable">
             <thead>
