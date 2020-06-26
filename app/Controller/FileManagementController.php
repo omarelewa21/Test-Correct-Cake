@@ -203,7 +203,6 @@ class FileManagementController extends AppController
 
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
-
         $school_location_id = AuthComponent::user('school_location_id');
 
         if($this->request->is('post')) {
