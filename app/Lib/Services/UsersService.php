@@ -277,6 +277,39 @@ class UsersService extends BaseService
         return $this->Connector->getLastCode();
     }
 
+    public function addUserWithTellATeacher($type, $data) {
+        switch ($type) {
+            case 'managers':
+                $data['user_roles'] = [6];
+                break;
+
+            case 'accountmanagers':
+                $data['user_roles'] = [5];
+                break;
+        }
+
+        $response = $this->Connector->postRequest('/tell_a_teacher', [], $data);
+
+        if ($response === false) {
+            if ($this->Connector->getLastCode() == 422) {
+                $response = $this->Connector->getLastResponse();
+
+                if (strstr($response, 'external_id')) {
+                    return 'external_code';
+                } elseif (strstr($response, 'username')) {
+                    return 'username';
+                } else if (strstr($response, 'user_roles')) {
+                    return 'user_roles';
+                } else if (strstr($response, 'demo')) {
+                    return 'demo';
+                }
+            }
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function addUser($type, $data)
     {
 
