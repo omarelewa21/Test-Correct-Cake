@@ -479,5 +479,15 @@ class FileManagementController extends AppController
             echo $this->render('/Users/register_new_teacher', 'ajax');
             exit;
         }
+        if(AuthComponent::user('is_temp_teacher')) {
+            $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
+                $userId
+            );
+
+           echo $this->render(
+               '/Users/block_upload_when_in_test_school_modal', 'ajax'
+           );
+           exit;
+        }
     }
 }

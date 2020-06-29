@@ -85,6 +85,17 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function notifySupportTeacherInDemoSchoolTriesToUpload($userId)
+    {
+        $response = $this->Connector->postRequest('/demo_account/notify_support_teacher_tries_to_upload', [], ['userId' => $userId]);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function updateOnboardingWizard($data)
     {
         $response = $this->Connector->putRequest('/onboarding', [], $data);
