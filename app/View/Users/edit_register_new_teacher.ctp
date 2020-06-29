@@ -1,129 +1,167 @@
 <div class="popup-head">Registratie voor Test-Correct.nl</div>
 <div class="popup-content">
+
     <?= $this->Form->create('User') ?>
     <table class="table">
-        <tr>
-            <th width="400">
-                Naam van de school
-            </th>
-            <td>
-                <?= $this->Form->input('school_location', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->school_location)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
-                Website URL
-            </th>
-            <td>
-                <?= $this->Form->input('website_url', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->website_url)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th>Bezoekadres van uw school</th>
-        </tr>
-        <tr>
-            <th width="400">
-                Straat en huisnummer
-            </th>
-            <td>
-                <?= $this->Form->input('address', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
-            </td>
-        </tr>
+        <table class="table">
+            <?php if (isset($in_app) && $in_app) { ?>
+                <tr>
+                    <th colspan="4">
+                        <p style="background-color: #d9edf7; padding:15px; margin-top:0">
+                            We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in
+                            Test-Correct:
+                        </p>
+                    </th>
+                </tr>
+            <?php } ?>
+            <tr>
+                <th colspan="2"><h2 style="margin-top: 0px; margin-bottom: 0px;">School gegevens</h2></th>
+            </tr>
+            <tr>
+                <th width="170">
+                    Naam
+                </th>
+                <td>
+                    <?= $this->Form->input('school_location', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->school_location)) ?>
+                </td>
 
-        <tr>
-            <th width="400">
-              Postcode
-            </th>
-            <td>
-                <?= $this->Form->input('postcode', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->postcode)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
-               Plaats
-            </th>
-            <td>
-                <?= $this->Form->input('city', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->city)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th colspan="2">Uw gegevens</th>
-        </tr>
+                <th width="80">
+                    Website
+                </th>
+                <td>
+                    <?= $this->Form->input('website_url', array('placeholder' => 'https://www.mijn-school.nl', 'style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->website_url)) ?>
+                </td>
+            </tr>
 
-        <tr>
-            <th width="400">
-               Gewenste aanhef
-            </th>
-            <td>
-                <?= $this->Form->input('gender', array(
-                    'options' => ['Other' => 'Anders', 'Male' => 'Man', 'Female' => 'Vrouw'], 'label' => false
-                )) ?>
+            <tr>
+                <th width="170">
+                    Adres
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->input('address', array('placeholder' => 'Straatnaam en huisnumer', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
+                </td>
+            </tr>
 
-            </td>
-        </tr>
+            <tr>
+                <th width="170">
+                    Postcode
+                </th>
+                <td>
+                    <?= $this->Form->input('postcode', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->postcode)) ?>
+                </td>
 
-        <tr class="hide" id="GenderDifferent">
-            <th width="400">
-                Aanhef anders
-            </th>
-            <td>
-                <?= $this->Form->input('gender_different', array('style' => 'width: 440px', 'label' => false,'verify' => 'notempty', 'value' => $user->name_first)) ?>
-            </td>
-        </tr>
+                <th width="80">
+                    Plaats
+                </th>
+                <td>
+                    <?= $this->Form->input('city', array('style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->city)) ?>
+                </td>
 
-        <tr>
-            <th width="400">
-               Voornaam
-            </th>
-            <td>
-                <?= $this->Form->input('name_first', array('style' => 'width: 440px', 'label' => false, 'value' => $user->name_first)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
-                Tussenvoegsel
-            </th>
-            <td>
-                <?= $this->Form->input('name_suffix', array('style' => 'width: 440px', 'label' => false, 'value' => $user->name_suffix)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
-                Achternaam
-            </th>
-            <td>
-                <?= $this->Form->input('name', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name)) ?>
-            </td>
-        </tr>
 
-        <tr>
-            <th width="400">
-                E-mailadres <small> nodig ter verificatie</small>
-            </th>
-            <td>
-                <?= $this->Form->input('username', array('style' => 'width: 440px', 'label' => false, 'verify' => 'email', 'value' => $user->username)) ?>
-            </td>
-        </tr>
-        <tr>
-            <th width="400">
-                Welke vakken geeft u op werk niveau
-            </th>
-            <td>
-                <?= $this->Form->input('subjects', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->subjects)) ?>
-            </td>
-        </tr>
+            </tr>
+            <tr>
+                <th colspan="2"><h2 style="margin:0">Uw gegevens</h2></th>
+            </tr>
 
-        <tr>
-            <th width="400">
-                Eventuele opmerkingen
-            </th>
-            <td>
-                <?= $this->Form->textarea('remarks', array('style' => 'width: 440px;height:80px', 'label' => false, 'value' => $user->remarks )) ?>
-            </td>
-        </tr>
+            <tr>
+                <th width="170">
+                    Aanhef
+                </th>
+                <td>
+                    <?= $this->Form->input('gender', array(
+                        'style'   => 'width: 191px',
+                        'options' => ['Male' => 'Man', 'Female' => 'Vrouw', 'Other' => 'Anders'], 'label' => false
+                    )) ?>
 
-    </table>
-    <?= $this->Form->end(); ?>
+                </td>
+
+                <th width="80">
+                    Voornaam
+                </th>
+                <td>
+                    <?= $this->Form->input('name_first', array('style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name_first)) ?>
+                </td>
+
+            </tr>
+
+            <tr class="hide" id="GenderDifferent">
+                <th width="170">
+                    Aanhef anders
+                </th>
+                <td>
+                    <?= $this->Form->input('gender_different', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->gender_different)) ?>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th width="170">
+                    Tussenvoegsel
+                </th>
+
+                <td>
+
+                    <?= $this->Form->input('name_suffix', array('style' => 'width: 180px', 'label' => false, 'value' => $user->name_suffix)) ?>
+                </td>
+                <th width="80">
+                    Achernaam
+                </th>
+
+                <td>
+                    <?= $this->Form->input('name', array('style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name)) ?>
+                </td>
+
+
+            </tr>
+
+            <tr>
+                <th width="170">
+                    E-mailadres
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->input('username', array('style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
+                </td>
+            </tr>
+            <tr>
+                <th width="170">
+                    Mobielnummer
+                </th>
+                <td colspan="2">
+                    <?= $this->Form->input('mobile', array('style' => 'width: 340px', 'label' => false, 'verify' => 'notempty', 'value' => $user->mobile)) ?>
+                </td>
+                <th><small> (nodig ter verificatie)</small></th>
+            </tr>
+            <tr>
+                <th width="170">
+                    Vakken/niveau
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->input('subjects', array('style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->subjects)) ?>
+                </td>
+                <th colspan="2"><small></small></th>
+            </tr>
+
+            <tr>
+                <th width="240">
+                    Hoe ben je bij ons terecht gekomen?
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->textarea('how_did_you_hear_about_test_correct', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->remarks)) ?>
+                </td>
+            </tr>
+            <tr>
+
+                <th width="240">
+                    Eventuele opmerkingen
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->textarea('remarks', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->remarks)) ?>
+                </td>
+            </tr>
+
+        </table>
+        <?= $this->Form->end(); ?>
+
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
