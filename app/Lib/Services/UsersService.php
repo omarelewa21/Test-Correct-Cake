@@ -511,8 +511,6 @@ class UsersService extends BaseService
             $data
         );
 
-
-
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

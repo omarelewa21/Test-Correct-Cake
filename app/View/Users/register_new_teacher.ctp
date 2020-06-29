@@ -152,7 +152,7 @@
                     Hoe ben je bij ons terecht gekomen?
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->textarea('how_did_you_hear_about_test_correct', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->remarks)) ?>
+                    <?= $this->Form->textarea('how_did_you_hear_about_test_correct', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->how_did_you_hear_about_test_correct)) ?>
                 </td>
             </tr>
             <tr>
