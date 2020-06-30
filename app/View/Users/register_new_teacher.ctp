@@ -110,7 +110,7 @@
                     <?= $this->Form->input('name_suffix', array('style' => 'width: 180px', 'label' => false, 'value' => $user->name_suffix)) ?>
                 </td>
                 <th width="80">
-                    Achernaam
+                    Achternaam
                 </th>
 
                 <td>
