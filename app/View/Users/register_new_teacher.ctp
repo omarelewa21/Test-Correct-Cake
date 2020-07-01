@@ -76,7 +76,7 @@
                 <td>
                     <?= $this->Form->input('gender', array(
                         'style'   => 'width: 191px',
-                        'options' => ['Mr' => 'Meneer', 'Mrs' => 'mevrouw', 'Other' => 'Anders'], 'label' => false, 'value' => $user->gender
+                        'options' => ['Mister' => 'Meneer', 'Mrs.' => 'mevrouw', 'Other' => 'Anders'], 'label' => false, 'value' => $user->gender
                     )) ?>
 
                 </td>
