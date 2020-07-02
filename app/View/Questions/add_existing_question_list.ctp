@@ -13,7 +13,7 @@ foreach($questions as $question) {
                 <? if($question['type'] == 'GroupQuestion') {
                     echo strip_tags($question['name']) ;
                 }else{
-                    echo strip_tags($question['question']);
+                    echo $question['question'];
                 }?>
             </div>
         </td>

@@ -324,6 +324,12 @@ var Utils = {
 	urlContainsEduIx: function() {
 		return (new URLSearchParams(window.location.search)).has('edurouteSessieID');
 	},
+	urlContainsRegisterNewTeacher:function() {
+		return location.href.split('/').includes('register_new_teacher');
+	},
+	urlContainsRegisterNewTeacherSuccessful:function() {
+		return location.href.split('/').includes('register_new_teacher_successful');
+	},
 };
 
 var Dropdowns = {

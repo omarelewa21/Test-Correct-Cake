@@ -12,6 +12,17 @@ if ($wizard_steps) {
 </div>
 <?php } ?>
 
+<?
+//TC-173
+if (AuthComponent::user('is_temp_teacher')) {
+?>
+<div class="block" style="background-color: #FFFF87;">
+    <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
+        Let op! Je zit nog in de tijdelijke school totdat verificatie van je account heeft plaatsgevonden. Na verificatie zullen we je account overzetten naar je eigen school. Aangemaakte toetsen en toetsafnames in de tijdelijk school zullen dan verloren gaan.
+    </div>
+</div>
+<? } ?>
+
 <div class="block">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
@@ -236,7 +247,12 @@ if ($wizard_steps) {
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
         _hsq.push(['trackPageView']);
 
-        window.HubSpotConversations.widget.load();
+        try {
+            window.HubSpotConversations.widget.load();
+        } catch (error) {
+
+        }
+
         hubspotLoaded = true;
     }
 

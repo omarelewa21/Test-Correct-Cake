@@ -1,5 +1,5 @@
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 600);">
+    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 800);">
         <span class="fa fa-plus mr5"></span>
         Nieuwe Klas
     </a>

@@ -9,8 +9,7 @@
                 <br/><br/>
             </li>
             <li>
-                Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jouw
-                apparaat.
+                Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jouw apparaat.
                 <br/><br/>
             </li>
             <li>Installeer de nieuwe app</li>

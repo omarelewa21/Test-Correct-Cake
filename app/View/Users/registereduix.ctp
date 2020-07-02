@@ -1,4 +1,4 @@
-<div class="popup-head">Registreer voor Test-correct.nl</div>
+<div class="popup-head">Registreer voor Test-Correct.nl</div>
 <div class="popup-content">
     <?= $this->Form->create('User') ?>
     <table class="table">

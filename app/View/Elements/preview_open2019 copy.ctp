@@ -33,7 +33,7 @@
 
 <script type="text/javascript">
     if('<?=$question['subtype']?>' == 'long') {
-        $('#AnswerAnswer<?=$question['id']?>').ckeditor({toolbar : [ [ 'EqnEditor', 'Bold', 'Italic' ] ]} );
+        $('#AnswerAnswer<?=$question['id']?>').ckeditor({toolbar : [ [ 'Bold', 'Italic' ] ]} );
     }else {
         $('#AnswerAnswer<?=$question['id']?>').redactor({
             buttons: ['bold', 'italic', 'orderedlist'],

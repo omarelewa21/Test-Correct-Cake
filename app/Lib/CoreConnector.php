@@ -225,6 +225,10 @@ class CoreConnector {
         if($this->getLastCode() == 440 || ($this->getLastCode() == 500 && $response == 'Session expired.')) {
             die('logout');
         }
+// error handler introduced for 422 but we don't know if 422 is not resolved as !200 so I changed the status code on the laravel side.
+        if($this->getLastCode() === 425) {
+            return $response;
+        }
 
         if($this->getLastCode() != 200){
             $this->lastResponse = $response;

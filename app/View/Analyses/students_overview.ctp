@@ -69,6 +69,14 @@
     </div>
 </div>
 
+<?
+if ($is_temp_teacher) {
+?>
+    <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
+<?
+} else 
+{
+?>
 <script type="text/javascript">
     $('#studentsTable').tablefy({
         'source' : '/analyses/load_students_overview',
@@ -77,3 +85,4 @@
         hideEmpty : true
     });
 </script>
+<? } ?>

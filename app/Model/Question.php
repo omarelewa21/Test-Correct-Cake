@@ -384,17 +384,17 @@ class Question extends AppModel
             //preg_match_all gives multi-dimensional array, so a double foreach
             foreach ($stringsBetweenBrackets as $stringArray) {
                 foreach($stringArray as $string) {
-                
+
                     if (preg_match("/<[^<]+>/",$string) != 0) {
                         $errors[] = 'U kunt geen opmaak gebruiken tussen de vierkante haakjes';
                         break 2;
                     }
-    
+
                     //TC-154
                     //empty brackets are not allowed
                     if ($string == '' || $string == null) {
                         $errors[] = 'U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen';
-                        break 2;                    
+                        break 2;
                     }
                 }
             }

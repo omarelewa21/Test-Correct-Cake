@@ -32,7 +32,7 @@ $value = $answerJson['value'];
     $('textarea').ckeditor({
 
       removePlugins : 'pastefromword,advanced,simpleuploads,dropoff,copyformatting,image,pastetext,uploadwidget,uploadimage',
-      extraPlugins : 'blockimagepaste,eqneditor,quicktable,ckeditor_wiris',
+      extraPlugins : 'blockimagepaste,quicktable,ckeditor_wiris',
       // ImageUpload : false,
 
         toolbar: [

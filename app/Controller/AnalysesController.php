@@ -52,6 +52,9 @@ class AnalysesController extends AppController
 
     public function school_classes_overview() {
         $subjects = $this->TestsService->getSubjects(false, 'all');
+
+        $this->set('is_temp_teacher', AuthComponent::user('is_temp_teacher'));
+
         $this->Session->write('subjects', $subjects);
         $this->set('subjects', $subjects);
     }
@@ -70,6 +73,8 @@ class AnalysesController extends AppController
 
     public function teacher($user_id) {
         $teacher = $this->UsersService->getUser($user_id, ['with' => ['teacherComparison', 'teacherSchoolClassAverages']]);
+
+        $this->set('is_temp_teacher', AuthComponent::user('is_temp_teacher'));
 
         $this->set('teacher', $teacher);
         $this->set('user_id', $user_id);
@@ -184,10 +189,21 @@ class AnalysesController extends AppController
         $params['filter'] = ['current_school_year' => 1];
         
         $school_locations[0] = 'Alle';
-        $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
+        $school_locations_list = $this->SchoolLocationsService->getSchoolLocationList();
+
+        if (!empty($school_locations_list) && is_array($school_locations_list)) {
+            $school_locations += $school_locations_list;
+        }
+
+        $school_classes_list = $this->SchoolClassesService->getClassesList($params);
 
         $school_classes[0] = 'Alle';
-        $school_classes += $this->SchoolClassesService->getClassesList($params);
+
+        if (!empty($school_classes_list) && is_array($school_classes_list)) {
+            $school_classes += $school_classes_list;
+        }
+
+        $this->set('is_temp_teacher', AuthComponent::user('is_temp_teacher'));
 
         $this->set('school_classes', $school_classes);
         $this->set('school_location', $school_locations);

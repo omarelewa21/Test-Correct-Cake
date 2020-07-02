@@ -222,14 +222,18 @@ class TestTakesController extends AppController
             $classes = $this->TestsService->getClasses($params);
             $locations = $this->SchoolLocationsService->getSchoolLocations();
 
-            $inviligators = $this->TestsService->getInvigilators();
-
             $newInviligators = [];
 
-            foreach($inviligators as $inviligator) {
-                $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
-            }
+            if((bool) AuthComponent::user('is_temp_teacher') === true){
+                $newInviligators[AuthComponent::user('id')] = str_replace('  ',' ',sprintf('%s %s %s',AuthComponent::user('name_first'), AuthComponent::user('name_suffix'),AuthComponent::user('name')));
+            } else {
 
+                $inviligators = $this->TestsService->getInvigilators();
+
+                foreach($inviligators as $inviligator) {
+                    $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+                }
+            }
             if (!empty($test_id)) {
                 $test = $this->TestsService->getTest($test_id);
                 $test_name = $test['name'];
@@ -285,13 +289,18 @@ class TestTakesController extends AppController
 		$classes = $this->TestsService->getClasses();
 		$school_location = $this->SchoolLocationsService->getSchoolLocation($take['test']['author']['school_location_id']);
 
-		$inviligators = $this->TestsService->getInvigilators();
+        $newInviligators = [];
 
-		$newInviligators = [];
+        if((bool) AuthComponent::user('is_temp_teacher') === true){
+            $newInviligators[AuthComponent::user('id')] = str_replace('  ',' ',sprintf('%s %s %s',AuthComponent::user('name_first'), AuthComponent::user('name_suffix'),AuthComponent::user('name')));
+        } else {
 
-		foreach($inviligators as $inviligator) {
-			$newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
-		}
+            $inviligators = $this->TestsService->getInvigilators();
+
+            foreach($inviligators as $inviligator) {
+                $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+            }
+        }
 
 		if (!empty($test_id)) {
 			$test = $this->TestsService->getTest($test_id);

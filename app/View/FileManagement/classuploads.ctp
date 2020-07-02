@@ -3,7 +3,7 @@
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
-    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 600);">
+    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 800);">
         <span class="fa fa-plus mr5"></span>
         Nieuwe Klas
     </a>
@@ -12,7 +12,7 @@
 <h1>Aangeboden klassen bestanden</h1>
 
 <div class="block autoheight">
-    <div class="block-head">Toetsen</div>
+    <div class="block-head">Bestanden</div>
     <div class="block-content" id="filesContainter">
         <table class="table table-striped" id="filesTable">
             <thead>
