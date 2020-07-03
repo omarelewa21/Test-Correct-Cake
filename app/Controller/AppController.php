@@ -64,6 +64,7 @@ class AppController extends Controller {
     {
         $headers = $this->getallheaders();
 
+        // only for windows 2.0 and 2.1
         if(array_key_exists('user-agent',$headers)){
             $parts = explode('|',$headers['user-agent']);
             if(strtolower($parts[0]) == 'windows' && $parts[1] == '2.0'){
@@ -72,12 +73,6 @@ class AppController extends Controller {
             }
         }
 
-//        App::uses('SobitLogger','Lib');
-//        $logger = SobitLogger::getInstance( $_SERVER['HTTP_HOST'])->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-//        $logger->info('info',var_export($headers,true));
-
-        // if(!$this->Session->check("TLCHeader")){
-        // $lowercaseheaders = array_change_key_case($headers);
 
         if( !$this->Session->check('TLCHeader') ) {
             if(isset($headers['tlc'])) {
@@ -87,13 +82,13 @@ class AppController extends Controller {
             }
         }
 
-        // }
-
-        // die(var_dump($this->Session->read('TLCHeader')));
-
-        // echo '<pre> ';
-        // die(var_dump($lowercaseheaders));
-
+        // as discussed with Mohamed on 20200703
+        // headers: "TLC" ---> "TLC Test-Correct secure app"
+        // so we need to lowercase all the headers to make sure we can compare them as older version might have lowercase headers
+        // Windows header "TLCTestCorrectVersion"--> "Windows|{versionnumber"
+        // Mac header "TLCTestCorrectVersion"--> "Macbook|{versionnumber}"
+        // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
+        // Chromebook header "TLCTestCorrectVersion"--> "Chromebook|{versionnumber}"
 
         if(!$this->Session->check('TLCVersion')) {
             if(isset($headers['tlctestcorrectversion'])) {
