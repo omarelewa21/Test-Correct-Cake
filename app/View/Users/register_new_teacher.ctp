@@ -2,7 +2,7 @@
     <?php if (isset($in_app) && $in_app) { ?>
         We hebben nog wat gegevens van je nodig
     <?php } else { ?>
-        Registreer voor Test-Correct.nl
+        Registreer voor Test-Correct
     <?php } ?>
 </div>
 
@@ -44,7 +44,7 @@
                     Adres
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->input('address', array('placeholder' => 'Straatnaam en huisnumer', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
+                    <?= $this->Form->input('address', array('placeholder' => 'Straatnaam en huisnummer', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
                 </td>
             </tr>
 
@@ -76,7 +76,7 @@
                 <td>
                     <?= $this->Form->input('gender', array(
                         'style'   => 'width: 191px',
-                        'options' => ['Mr' => 'Meneer', 'Mrs' => 'mevrouw', 'Other' => 'Anders'], 'label' => false, 'value' => $user->gender
+                        'options' => ['Mr' => 'Meneer', 'Mrs' => 'Mevrouw', 'Other' => 'Anders'], 'label' => false, 'value' => $user->gender
                     )) ?>
 
                 </td>
@@ -125,12 +125,12 @@
                     E-mailadres
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->input('username', array('style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
+                    <?= $this->Form->input('username', array('placeholder' => 'uw schoolmail', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
                 </td>
             </tr>
             <tr>
                 <th width="170">
-                    Mobielnummer
+                    Mobiel nummer
                 </th>
                 <td colspan="2">
                     <?= $this->Form->input('mobile', array('style' => 'width: 340px', 'label' => false, 'verify' => 'notempty', 'value' => $user->mobile)) ?>
@@ -139,7 +139,7 @@
             </tr>
             <tr>
                 <th width="170">
-                    Vakken/niveau
+                    Vakken/niveaus
                 </th>
                 <td colspan="3">
                     <?= $this->Form->input('subjects', array('style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->subjects)) ?>
@@ -169,11 +169,11 @@
         <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="window.location.href='/'">
-        Annuleer
-    </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
         Opslaan
+    </a>
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="window.location.href='/'">
+        Annuleer
     </a>
 </div>
 
