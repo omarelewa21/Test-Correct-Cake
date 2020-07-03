@@ -18,7 +18,10 @@ if (AuthComponent::user('is_temp_teacher')) {
 ?>
 <div class="block" style="background-color: #FFFF87;">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-        Let op! Je zit nog in de tijdelijke school totdat verificatie van je account heeft plaatsgevonden. Na verificatie zullen we je account overzetten naar je eigen school. Aangemaakte toetsen en toetsafnames in de tijdelijk school zullen dan verloren gaan.
+    Voordat u een toets of klas kunt uploaden, moeten wij eerst uw account verifiëren (bent u daadwerkelijk werkzaam als docent op de betreffende school).
+    <br>
+    <br>
+    Afhankelijk van de drukte kan dit enkele uren tot dagen duren. Als u niet wilt wachten, bel ons dan op 010-7 171 171 om de verificatie te versnellen.
     </div>
 </div>
 <? } ?>
