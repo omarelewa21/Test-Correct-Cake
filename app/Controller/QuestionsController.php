@@ -446,7 +446,18 @@ class QuestionsController extends AppController {
             $test = $this->TestsService->getTest($owner_id);
 
             if (empty($question['type'])) {
-                $question['type'] = $type;
+                //TCP-133
+                //TrueFalse and ARQ are subtypes of MultipleChoice
+                //so type should be MultipleChoiceQuestion
+                if ($type == "TrueFalseQuestion") {
+                    $question['type'] = 'MultipleChoiceQuestion';
+                    $question['subtype'] = 'TrueFalse';
+                } elseif ($type == "ARQQuestion") {
+                    $question['type'] = 'MultipleChoiceQuestion';
+                    $question['subtype'] = 'ARQ';
+                } else {
+                    $question['type'] = $type;
+                }
             }
 
             if($test['is_open_source_content'] == 1) {
