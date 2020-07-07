@@ -308,7 +308,8 @@ class UsersService extends BaseService
                 if (strstr($response, 'external_id')) {
                     return 'external_code';
                 } elseif (strstr($response, 'username')) {
-                    return 'username';
+                    $this->addError(json_decode($response)->errors->username[0]);
+                    return false;
                 } else if (strstr($response, 'user_roles')) {
                     return 'user_roles';
                 } else if (strstr($response, 'demo')) {
@@ -316,6 +317,10 @@ class UsersService extends BaseService
                 }
             }
             return $this->Connector->getLastResponse();
+        }
+
+        if ($this->Connector->getLastCode() == 200) {
+            return true;
         }
 
         return $response;

@@ -670,11 +670,38 @@ class UsersController extends AppController
         $this->isAuthorizedAs(['Teacher']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $data = $this->request->data['User'];
+            // from
+            // User => [
+            //  'username' => ['a','b','c'],
+            //  'name_suffix' => ['','van',''],
+            //    ...
+            // to
+            // data => [
+            //  [
+            //      'username' => 'a',
+            //      'name_suffix' => '',
+            //  ],
+            //  [
+            //      'username' => 'b',
+            //      'name_suffix' => 'van',
+            //  ],
+            //  [
+            //      'username' => 'c',
+            //      'name_suffix' => '',
+            //  ]
+            //];
+            $data = [
+                'data' => [],
+                'user_roles' => [1],
+                'send_welcome_mail' => true,
+                'invited_by' => AuthComponent::user('id'),
+            ];
 
-            $data['user_roles'] = [1];
-            $data['send_welcome_mail'] = true;
-            $data['invited_by'] = AuthComponent::user('id');
+            foreach($this->request->data['User'] as $key => $ar){
+                foreach($ar as $i => $value) {
+                    $data['data'][$i][$key] = $value;
+                }
+            };
 
             if (!isset($data['school_location_id'])) {
                 $data['school_location_id'] = AuthComponent::user()['school_location_id'];
@@ -682,32 +709,39 @@ class UsersController extends AppController
 
             $result = $this->UsersService->addUserWithTellATeacher('teacher', $data);
 
-            if (isset($result['id'])) {
-                $this->formResponse(
-                    true,
-                    [
-                        'id' => $result['id']
-                    ]
-                );
-            } elseif ($result == 'external_code') {
-                $this->formResponse(
-                    false,
-                    [
-                        'error' => 'external_code'
-                    ]
-                );
-            } elseif ($result == 'username') {
-                $this->formResponse(
-                    false,
-                    [
-                        'error' => 'username'
-                    ]
-                );
-            } else {
-                $this->formResponse(
-                    false,
-                    ['error' => $result]
-                );
+            if ($result === false){
+                 $this->formResponse(
+                     false,
+                     [
+                         'error' => implode(',',$this->UsersService->getErrors())
+                     ]
+                 );
+            }
+            else {
+                if ($result === true) {
+                    $this->formResponse(
+                        true
+                    );
+                } elseif ($result == 'external_code') {
+                    $this->formResponse(
+                        false,
+                        [
+                            'error' => 'external_code'
+                        ]
+                    );
+                } elseif ($result == 'username') {
+                    $this->formResponse(
+                        false,
+                        [
+                            'error' => 'username'
+                        ]
+                    );
+                } else {
+                    $this->formResponse(
+                        false,
+                        ['error' => $result]
+                    );
+                }
             }
 
             die;

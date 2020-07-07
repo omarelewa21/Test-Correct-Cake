@@ -29,7 +29,7 @@
         <tbody id="tellATeacherTableBody">
         <tr>
             <td>
-                <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+                <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty name_first' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
             </td>
             <td>
                 <input name="data[User][name_suffix][]" style="width: 100%" verify="" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
@@ -39,13 +39,13 @@
 
             </td>
             <td>
-                <input name="data[User][email][]" style="width: 100%" verify="" class='verify-email' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+                <input name="data[User][username][]" style="width: 100%" verify="" class='verify-email username' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
 
             </td>
         </tr>
         <tr>
             <td>
-                <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+                <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty name_first' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
             </td>
             <td>
                 <input name="data[User][name_suffix][]" style="width: 100%" verify="" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
@@ -55,7 +55,7 @@
 
             </td>
             <td>
-                <input name="data[User][email][]" style="width: 100%" verify="" class='verify-email' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+                <input name="data[User][username][]" style="width: 100%" verify="" class='verify-email username' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
 
             </td>
         </tr>
@@ -67,7 +67,7 @@
 <table style="display:none" id="rowTemplate">
     <tr>
         <td>
-            <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+            <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty name_first' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
         </td>
         <td>
             <input name="data[User][name_suffix][]" style="width: 100%" verify="" type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
@@ -77,7 +77,7 @@
 
         </td>
         <td>
-            <input name="data[User][email][]" style="width: 100%" verify="" class='verify-email' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
+            <input name="data[User][username][]" style="width: 100%" verify="" class='verify-email username' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
 
         </td>
     </tr>
@@ -100,11 +100,13 @@
             $('#tellATeacherTableBody').on('keydown','input',function(){
                 var tr = $(this).parents('tr:first');
                 if(tr.is(':last-child')){
-                    $('#tellATeacherTableBody').append($('#rowTemplate tr:first').clone());
+                    appendRow();
                 }
             });
         tellATeacherTableJs = true;
-
+        function appendRow(){
+            $('#tellATeacherTableBody').append($('#rowTemplate tr:first').clone());
+        }
     $('#UserTellATeacherForm').formify(
         {
             confirm : $('#btnAddUser'),
@@ -120,21 +122,37 @@
                      $(this).find('.verify-email').attr('verify','email');
                      $(this).find('.verify-notempty').attr('verify','notempty');
                  }
+                 else {
+                     $(this).remove();
+                 }
               });
             },
             onaftersubmit:function(){
-              $('#tellATeacherTableBody .verify-email').attr('verify','');
+                $('#tellATeacherTableBody .verify-email').attr('verify','');
                 $('#tellATeacherTableBody .verify-notempty').attr('verify','');
+                appendRow();
             },
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Super bedankt!<br />We hebben "+$('#UserTellATeacherForm #UserNameFirst').val()+" uitgenodigd voor Test-Correct", "info");
+                var n = [];
+                $('#UserTellATeacherForm .name_first').each(function(){
+                    if($(this).val().length > 0){
+                        n.push($(this).val());
+                    }
+                });
+                if(n.length == 1) {
+                    Notify.notify("Super bedankt!<br />We hebben "+n[0]+" uitgenodigd voor Test-Correct", "info");
+                } else {
+                    Notify.notify("Super bedankt!<br />We hebben " + n.join(' en ') + " uitgenodigd voor Test-Correct", "info");
+                }
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                if(result.error == 'username') {
+                if (result.error == 'username') {
                     Notify.notify("Er is al een collega met dit e-mailadres bij ons bekend", "error");
-                } else if (result.error == 'user_roles'){
+                } else if(result.error.includes('e-mail')){
+                    Notify.notify(result.error, "error");
+                }else if (result.error == 'user_roles'){
                     Notify.notify('U kunt een collega pas uitnodigen nadat er een actuele periode is aangemaakt.','error')
                 }
                 else{
