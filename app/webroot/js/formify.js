@@ -11,7 +11,9 @@
         settings = $.extend({
             'onsuccess': null,
             'confirmPopup': false, 
-            'action': $(element).attr('action')
+            'action': $(element).attr('action'),
+            'onbeforesubmit': false,
+            'onaftersubmit' : false
         }, options);
 
         initialise();
@@ -28,10 +30,16 @@
         if(settings.confirmPopup == false)
         {
             $(settings.confirm).click(function () {
+                if(settings.onbeforesubmit != false){
+                    settings.onbeforesubmit();
+                }
                 if (verifyAll()) {
                     postForm();
                 } else {
                     Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                }
+                if(settings.onaftersubmit != false){
+                    settings.onaftersubmit();
                 }
             });
 
