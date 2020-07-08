@@ -28,6 +28,6 @@
             ?>
 </div>
 
-<?= $this->element("pdf_popup"); ?>
+<?= $this->element("attachment_popup"); ?>
 
 <? } ?>

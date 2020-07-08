@@ -39,7 +39,7 @@
 
 <br clear="all" />
 
-<?= $this->element("pdf_popup"); ?>
+<?= $this->element("attachment_popup"); ?>
 
 <div id="question_load"></div>
 

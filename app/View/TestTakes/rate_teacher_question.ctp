@@ -22,7 +22,7 @@
     <br clear="all" />
 </div>
 
-<?= $this->element("pdf_popup"); ?>
+<?= $this->element("attachment_popup"); ?>
 
 <br clear="all" />
 <div class="block">
