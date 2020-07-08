@@ -130,6 +130,14 @@
             </tr>
             <tr>
                 <th width="170">
+                    Afkorting
+                </th>
+                <td colspan="3">
+                    <?= $this->Form->input('abbreviation', array('placeholder' => 'Welke afkorting wordt voor u gebruikt binnen uw school?', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
+                </td>
+            </tr>
+            <tr>
+                <th width="170">
                     Mobiel nummer
                 </th>
                 <td colspan="2">
@@ -192,7 +200,7 @@
                 that.showError(key);
             });
 
-            Notify.notify("Gebruiker a kon niet worden aangemaakt", "error");
+            Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
         },
         hideAllErrors: function () {
             var that = this;
@@ -208,6 +216,7 @@
                 'name',
                 'username',
                 'subjects',
+                'abbreviation',
             ].forEach(function (field) {
                 var el = +that.toId(field);
                 if ($(el).length !== 0) {
@@ -268,7 +277,7 @@
                         that.showError(key);
                     });
 
-                    Notify.notify("Gebruiker a kon niet worden aangemaakt", "error");
+                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
                 },
                 hideAllErrors: function () {
                     var that = this;
@@ -284,6 +293,7 @@
                         'name',
                         'username',
                         'subjects',
+                        'abbreviation',
                     ].forEach(function (field) {
                         var el = +that.toId(field);
                         if ($(el).length !== 0) {
