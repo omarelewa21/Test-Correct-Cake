@@ -27,4 +27,7 @@
             }
             ?>
 </div>
+
+<?= $this->element("pdf_popup"); ?>
+
 <? } ?>
