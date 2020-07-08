@@ -169,7 +169,7 @@
         <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
+    <a href="#" class="btn highlight mt5 mr5 pull-right blue" id="btnAddUser">
         Opslaan
     </a>
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="window.location.href='/'">
