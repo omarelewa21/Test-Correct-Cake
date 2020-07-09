@@ -26,6 +26,7 @@ App::uses('AuthService', 'Lib/Services');
 App::uses('HtmlConverter', 'Lib');
 App::uses('UsersService', 'Lib/Services');
 App::uses('CakeEmail', 'Network/Email');
+
 /**
  * Application Controller
  *
@@ -34,10 +35,11 @@ App::uses('CakeEmail', 'Network/Email');
  *
  * @property AuthService $AuthService
  *
- * @package		app.Controller
- * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
+ * @package        app.Controller
+ * @link        http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
-class AppController extends Controller {
+class AppController extends Controller
+{
 
     /**
      * Components used by every controller.
@@ -62,52 +64,6 @@ class AppController extends Controller {
      */
     public function beforeFilter()
     {
-        $headers = $this->getallheaders();
-
-        if(array_key_exists('user-agent',$headers)){
-            $parts = explode('|',$headers['user-agent']);
-            if(strtolower($parts[0]) == 'windows' && $parts[1] == '2.0'){
-                $this->Session->write('AppTooOld',true);
-                $this->Session->write('AppOS','windows');
-            }
-        }
-
-//        App::uses('SobitLogger','Lib');
-//        $logger = SobitLogger::getInstance( $_SERVER['HTTP_HOST'])->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);
-//        $logger->info('info',var_export($headers,true));
-
-        // if(!$this->Session->check("TLCHeader")){
-        // $lowercaseheaders = array_change_key_case($headers);
-
-        if( !$this->Session->check('TLCHeader') ) {
-            if(isset($headers['tlc'])) {
-                $this->Session->write('TLCHeader',$headers['tlc']);
-            } else {
-                $this->Session->write('TLCHeader','not secure...');
-            }
-        }
-
-        // }
-
-        // die(var_dump($this->Session->read('TLCHeader')));
-
-        // echo '<pre> ';
-        // die(var_dump($lowercaseheaders));
-
-
-        if(!$this->Session->check('TLCVersion')) {
-            if(isset($headers['tlctestcorrectversion'])) {
-                $this->Session->Write('TLCVersion', $headers['tlctestcorrectversion']);
-                if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
-                    $this->Session->write('AppTooOld',true);
-                }
-            }else{
-                $this->Session->Write('TLCVersion', 'x');
-                $this->Session->write('AppTooOld',true);
-            }
-        }
-
-        $this->Session->Write('headers',$headers);
 
         $this->AuthService = new AuthService();
         $this->UsersService = new UsersService();
@@ -116,28 +72,137 @@ class AppController extends Controller {
             $this->AuthService->setUser(AuthComponent::user('username'));
             $this->AuthService->setApiKey(AuthComponent::user('api_key'));
             $this->AuthService->setSessionHash(AuthComponent::user('session_hash'));
+            $this->handleHeaderCheck(AuthComponent::user('id'));
         }
-        if($this->request->isAjax() || $this->here == '/app' || strstr($this->here, '/users/reset_password')) {
+
+        if ($this->request->isAjax() || $this->here == '/app' || strstr($this->here, '/users/reset_password')) {
             $this->layout = 'ajax';
         }
 
         $this->Auth->allow('get_header_session');
     }
 
-    //todo: Deze methode echo'd in de response, dat verpest aanroepende methodes die zelf nog schrijven in de response
-    public function formResponse($status, $data = array()) {
-        $this->autoRender = false;
-         echo json_encode([
-             'status' => $status ? 1 : 0,
-             'data' => $data
-         ]);
+    protected function handleHeaderCheck($userId)
+    {
+        $osConversion = [
+            'windows' => 'windowsOS',
+            'mackbook' => 'macOS',
+            'ipad' => 'iOS',
+            'chromebook' => 'ChromeOS',
+        ];
+        $allowedVersions = [
+            'windowsOS' => [
+                'ok' => ['2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
+                'needsUpdate' => [],
+            ],
+            'macOS' => [
+                'ok' => ['2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
+                'needsUpdate' => [],
+            ],
+            'iOS' => [
+                'ok' => ['2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
+                'needsUpdate' => [],
+            ],
+            'ChromeOS' => [
+                'ok' => ['2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
+                'needsUpdate' => [],
+            ],
+        ];
+
+        $headers = $this->getallheaders();
+
+        if (!$this->Session->check('TLCHeader')) {
+            if (isset($headers['tlc'])) {
+                $this->Session->write('TLCHeader', $headers['tlc']);
+            } else {
+                $this->Session->write('TLCHeader', 'not secure...');
+            }
+        }
+
+        $currentOS = null;
+        $currentVersion = null;
+        // only for windows 2.0 and 2.1
+        if (array_key_exists('user-agent', $headers)) {
+            $parts = explode('|', $headers['user-agent']);
+            if (strtolower($parts[0]) == 'windows') {
+                $currentOS = $osConversion[strtolower($parts[0])];
+                $currentVersion = $parts[1];
+            }
+        }
+
+        // as discussed with Mohamed on 20200703
+        // headers: "TLC" ---> "TLC Test-Correct secure app"
+        // so we need to lowercase all the headers to make sure we can compare them as older version might have lowercase headers
+        // Windows header "TLCTestCorrectVersion"--> "Windows|{versionnumber"
+        // Mac header "TLCTestCorrectVersion"--> "Macbook|{versionnumber}"
+        // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
+        // Chromebook header "TLCTestCorrectVersion"--> "Chromebook|{versionnumber}"
+
+        $sendVersionInfo = false;
+        if ($userId && !$this->Session->check('TLCVersion') && $this->UsersService->hasRole('student')) {
+            $sendVersionInfo = true;
+            if (isset($headers['tlctestcorrectversion'])) {
+
+                $data = explode('|', $headers['tlctestcorrectversion']);
+                if (isset($osConversion[$data[0]])) {
+                    $currentOS = $osConversion[$data[0]];
+                    $currentVersion = $data[1];
+                } else {
+                    $currentOS = 'unknown';
+                    $currentVersion = isset($data[1]) ? $data[1] : 'unknown';
+                }
+//                $this->Session->Write('TLCVersion', $headers['tlctestcorrectversion']);
+//                if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
+//                    $this->Session->write('AppTooOld',true);
+//                }
+            }else{
+                $currentVersion = 'x';
+                $currentOS = 'unknown';
+            }
+
+            $this->Session->Write('headers', $headers);
+
+            $this->Session->write('TLCVersion', $currentVersion);
+            $this->Session->write('TLCOs', $currentOS);
+
+            $versionCheckResult = null;
+            if (isset($allowedVersions[$currentOS]['ok'])) {
+                $versionCheckResult = 'OK';
+            } else if (isset($allowedVersions[$currentOS]['needsUpdate'])) {
+                $versionCheckResult = 'NEEDSUPDATE';
+            } else {
+                $versionCheckResult = 'NOTALLOWED';
+            }
+            $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
+        }
+
+        if ($sendVersionInfo) {
+            $data = [
+                'os' => $currentOS,
+                'version' => $currentVersion,
+                'version_check_result' => $versionCheckResult,
+                'headers' => json_encode($headers)
+            ];
+            $this->UsersService->storeAppVersionInfo($data, $userId);
+        }
     }
 
-    public function hasRole($find) {
+    //todo: Deze methode echo'd in de response, dat verpest aanroepende methodes die zelf nog schrijven in de response
+    public function formResponse($status, $data = array())
+    {
+        $this->autoRender = false;
+        echo json_encode([
+            'status' => $status ? 1 : 0,
+            'data' => $data
+        ]);
+    }
+
+    public function hasRole($find)
+    {
         $roles = AuthComponent::user('roles');
 
-        foreach($roles as $role) {
-            if($role['name'] == $find) {
+        foreach ($roles as $role) {
+            if ($role['name'] == $find) {
                 return true;
             }
         }
@@ -145,7 +210,8 @@ class AppController extends Controller {
         return false;
     }
 
-    public function isAuthorizedAs($roles, $blockRequest = true) {
+    public function isAuthorizedAs($roles, $blockRequest = true)
+    {
         if ($this->UsersService->hasRole($roles)) {
             return;
         }
@@ -167,7 +233,7 @@ class AppController extends Controller {
 
         //send email on any *portal.test-correct.nl server
         //just try to send email and otherwise not
-        if(strpos($server, 'portal.test-correct.nl') !== false){
+        if (strpos($server, 'portal.test-correct.nl') !== false) {
             try {
                 $Email = new CakeEmail();
                 $Email->config('smtp');
@@ -186,8 +252,9 @@ class AppController extends Controller {
         }
     }
 
-    public function getallheaders() {
-        $headers = array ();
+    public function getallheaders()
+    {
+        $headers = array();
         foreach ($_SERVER as $name => $value) {
             if (substr($name, 0, 5) == 'HTTP_') {
                 $headers[strtolower(str_replace(' ', '-', str_replace('_', ' ', substr($name, 5))))] = $value;
@@ -199,6 +266,6 @@ class AppController extends Controller {
 
     protected function stripTagsWithoutMath($string)
     {
-        return strip_tags($string,'<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>');
+        return strip_tags($string, '<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>');
     }
 }

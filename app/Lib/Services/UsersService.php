@@ -31,6 +31,17 @@ class UsersService extends BaseService
         return $roleExists;
     }
 
+    public function storeAppVersionInfo($data,$userId = false)
+    {
+        $data['userId'] = $userId;
+        $response = $this->Connector->postRequest('/app_version_info', [], $data);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function storeOnboardingWizardStep($data)
     {
         $response = $this->Connector->postRequest('/onboarding/registeruserstep', [], $data);
