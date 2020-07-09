@@ -22,12 +22,7 @@
     <br clear="all" />
 </div>
 
-<a href="#" class="btn red" id="btnAttachmentFrame">
-    <span class="fa fa-remove"></span>
-</a>
-
-<iframe id="attachmentFrame" frameborder="0" scrolling="true" style="-webkit-overflow-scrolling: touch"></iframe>
-<div id="attachmentFade"></div>
+<?= $this->element("attachment_popup"); ?>
 
 <br clear="all" />
 <div class="block">
