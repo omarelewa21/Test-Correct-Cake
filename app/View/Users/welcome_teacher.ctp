@@ -19,8 +19,6 @@ if (AuthComponent::user('is_temp_teacher')) {
 <div class="block" style="background-color: #FFFF87;">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
     <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
-    <br>
-    <br>
     <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons dan op 010 7 171 171 om dit te versnellen.</p>
     </div>
 </div>
