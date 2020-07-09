@@ -14,7 +14,7 @@ if ($wizard_steps) {
 
 <?
 //TC-173
-if (!AuthComponent::user('is_temp_teacher')) {
+if (AuthComponent::user('is_temp_teacher')) {
 ?>
 <div class="block" style="background-color: #FFFF87;">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
