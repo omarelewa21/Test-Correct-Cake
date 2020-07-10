@@ -112,8 +112,23 @@
 
     let educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
 
+    let requiredFields = ['subject','class'];
 
     function handleSubmit(){
+        jQuery('#FileClassForm :input').removeClass('verify-error');
+        var hasErrors = false;
+        requiredFields.forEach(function(r){
+            var id = 'FileClass'+r.charAt(0).toUpperCase() + r.slice(1);
+            if(jQuery('#'+id).val().length < 1){
+                jQuery('#'+id).addClass('verify-error');
+                hasErrors = true;
+            }
+        });
+        if(hasErrors){
+            Notify.notify('Niet alle velden zijn correct ingevuld','error');
+            return false;
+        }
+
         $('#FileClassBlock').height($('#FileClassBlock').height()).css('overflow','scroll').css('padding','8px');
         $('#FileClassContainer').show();
         $('#FileClassForm').hide().submit();
