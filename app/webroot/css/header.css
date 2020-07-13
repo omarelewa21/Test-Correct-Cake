@@ -228,13 +228,13 @@
     font-weight:    bold;
 }
 
-.versionBadge.label-danger-blink {
-    animation:blinkingBackgroundAndText 1.2s infinite;
-}
-@keyframes blinkingBackgroundAndText{
-    0%{     background: #d9534f; color: #fff; }
-    49%{    background: #d9534f; color: #fff; }
-    60%{    background: #fff; color: #d9534f; }
-    99%{    background: #fff; color: #d9534f; }
-    100%{   background: #d9534f; color: #fff; }
-}
+/*.versionBadge.label-danger-blink {*/
+    /*animation:blinkingBackgroundAndText 1.2s infinite;*/
+/*}*/
+/*@keyframes blinkingBackgroundAndText{*/
+    /*0%{     background: #d9534f; color: #fff; }*/
+    /*49%{    background: #d9534f; color: #fff; }*/
+    /*60%{    background: #fff; color: #d9534f; }*/
+    /*99%{    background: #fff; color: #d9534f; }*/
+    /*100%{   background: #d9534f; color: #fff; }*/
+/*}*/
