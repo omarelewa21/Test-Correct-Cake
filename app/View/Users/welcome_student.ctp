@@ -19,4 +19,25 @@
 <script type="text/javascript">
     $('#widget_planned').load('/test_takes/widget_planned');
     $('#widget_rated').load('/test_takes/widget_rated');
+
+
+    <? if($this->Session->check('TLCVersion')){//} && strlen($this->Session->read('TLCVersion')) > 2){
+        if($this->Session->check('TLCVersionCheckResult')){
+            // new setup
+            $version = $this->Session->read('TLCVersion');
+            $versionClassAr = [
+                'OK' => '',
+                'NEEDSUPDATE' => 'label-danger',
+                'NOTALLOWED' => 'label-danger-blink'
+        ];
+            $extraClass = $versionClassAr[$this->Session->read('TLCVersionCheckResult')];
+        } else {
+            // old setup
+            $version = explode('|',$this->Session->read('TLCVersion'))[1];
+            $extraClass = (version_compare($version,'2.1','<') ? 'label-danger' : '');
+        }
+            ?>
+    jQuery("#versionBadge").attr("class","versionBadge <?=$extraClass?>").text("<?=$version?>");
+        <? } ?>
+
 </script>
