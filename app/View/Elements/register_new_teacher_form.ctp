@@ -124,7 +124,6 @@
                     Afkorting
                 </th>
                 <td colspan="3">
-                    <?= var_dump($user); ?>
                     <?= $this->Form->input('abbreviation', array('placeholder' => 'Welke afkorting wordt voor u gebruikt binnen uw school?', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->abbreviation)) ?>
                 </td>
             </tr>
