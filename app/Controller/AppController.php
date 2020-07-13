@@ -143,7 +143,7 @@ class AppController extends Controller
             $sendVersionInfo = true;
             if (isset($headers['tlctestcorrectversion'])) {
 
-                $data = explode('|', $headers['tlctestcorrectversion']);
+                $data = explode('|', strtolower($headers['tlctestcorrectversion']));
                 if (isset($osConversion[$data[0]])) {
                     $currentOS = $osConversion[$data[0]];
                     $currentVersion = $data[1];
