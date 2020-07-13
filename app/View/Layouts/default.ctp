@@ -7,7 +7,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=1280, user-scalable = no">
 
-		<link href="/css/default.css?v=20200412-172700" rel="stylesheet" type="text/css" />
+		<link href="/css/default.css?v=20200713-161800" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"> -->
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
@@ -73,12 +73,7 @@
 		<div id="header" class="highlight">
 			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />
 			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />
-			<? if($this->Session->check('TLCVersion') && strlen($this->Session->read('TLCVersion')) > 2){
-				$version = explode('|',$this->Session->read('TLCVersion'))[1];
-				$extraClass = (version_compare($version,'2.1','<') ? 'label-danger' : '');
-			?>
-				<span class="versionBadge <?= $extraClass ?>"><?= $version ?></span>
-			<? } ?>
+			<span id="versionBadge"></span>
 			<div id="top">
 				<div id="user"></div>
 				<div id="user_menu">
