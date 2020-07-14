@@ -68,8 +68,14 @@ class AppController extends Controller
         $this->AuthService = new AuthService();
         $this->UsersService = new UsersService();
 
+        $headers = $this->getallheaders();
         if(!$this->Session->check('TLCHeader')) {
-            $this->handleHeaderCheck();
+            $this->handleHeaderCheck($headers);
+        } else {
+            // set the details always when there is a tlctestcorrectversion header
+            if(isset($headers['tlctestcorrectversion'])){
+                $this->handleHeaderCheck($headers);
+            }
         }
 
         if ($this->Auth->loggedIn()) {
@@ -85,7 +91,7 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
-    protected function handleHeaderCheck()
+    protected function handleHeaderCheck(array $headers)
     {
         $osConversion = [
             'windows' => 'windowsOS',
@@ -111,8 +117,6 @@ class AppController extends Controller
                 'needsUpdate' => [],
             ],
         ];
-
-        $headers = $this->getallheaders();
 
         if (isset($headers['tlc'])) {
             $this->Session->write('TLCHeader', $headers['tlc']);

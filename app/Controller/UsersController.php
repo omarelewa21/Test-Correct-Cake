@@ -187,11 +187,40 @@ class UsersController extends AppController
 
     }
 
+    protected function getSessionHeaderData()
+    {
+        $ar = ['TLCHeader','TLCOs','TLCVersion','TLCVersionCheckResult','header'];
+        $allAvailable = true;
+        $returnAr = [];
+        foreach($ar as $item){
+            if($this->Session->check($item)){
+                $returnAr[$item] = $this->Session->read($item);
+            } else {$allAvailable = false;}
+        }
+
+        if($allAvailable === false){
+            return null;
+        }
+        return $returnAr;
+    }
+
+    protected function reinitFromSessionHeaderData($data)
+    {
+        foreach($data as $key => $val){
+            $this->Session->write($key,$val);
+        }
+    }
+
     public function logout()
     {
         $this->autoRender = false;
         $this->Auth->logout();
+        $tlcSessionHeaderData = $this->getSessionHeaderData();
         $this->Session->destroy();
+        if($tlcSessionHeaderData !== null && is_array($tlcSessionHeaderData)){
+            $this->Session->Start();
+            $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
+        }
     }
 
     public function forgot_password()
