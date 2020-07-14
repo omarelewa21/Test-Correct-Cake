@@ -189,7 +189,7 @@ class UsersController extends AppController
 
     protected function getSessionHeaderData()
     {
-        $ar = ['TLCHeader','TLCOs','TLCVersion','TLCVersionCheckResult','header'];
+        $ar = ['TLCHeader','TLCOs','TLCVersion','TLCVersionCheckResult','headers'];
         $allAvailable = true;
         $returnAr = [];
         foreach($ar as $item){
