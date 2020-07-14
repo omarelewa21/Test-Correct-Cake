@@ -33,6 +33,15 @@ class UsersService extends BaseService
 
     public function storeAppVersionInfo($data,$userId = false)
     {
+        // could be needed as we are early in the process
+        if(!$this->Connector->hasUser()){
+            $this->Connector->setUser(AuthComponent::user('username'));
+        }
+
+        if(!$this->Connector->hasSessionHash()){
+            $this->Connector->setSessionHash(AuthComponent::user('session_hash'));
+        }
+
         $data['userId'] = $userId;
         $response = $this->Connector->postRequest('/app_version_info', [], $data);
         if ($response === false) {

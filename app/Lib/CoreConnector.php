@@ -40,8 +40,18 @@ class CoreConnector {
         $this->user = $key;
     }
 
+    public function hasUser()
+    {
+        return (bool) $this->user;
+    }
+
     public function setSessionHash($hash) {
         $this->sessionHash = $hash;
+    }
+
+    public function hasSessionHash()
+    {
+        return (bool) $this->sessionHash;
     }
 
     public function fetchKeys($email, $password)
