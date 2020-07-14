@@ -91,7 +91,7 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
-    protected function handleHeaderCheck(array $headers)
+    protected function handleHeaderCheck($headers)
     {
         $osConversion = [
             'windows' => 'windowsOS',
@@ -143,7 +143,7 @@ class AppController extends Controller
         // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
         // Chromebook header "TLCTestCorrectVersion"--> "Chromebook|{versionnumber}"
 
-        if (!$this->Session->check('TLCVersion')) {
+//        if (!$this->Session->check('TLCVersion')) {
             if (isset($headers['tlctestcorrectversion'])) {
 
                 $data = explode('|', strtolower($headers['tlctestcorrectversion']));
@@ -173,7 +173,7 @@ class AppController extends Controller
                 $versionCheckResult = 'NOTALLOWED';
             }
             $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
-        }
+//        }
     }
 
     //todo: Deze methode echo'd in de response, dat verpest aanroepende methodes die zelf nog schrijven in de response
