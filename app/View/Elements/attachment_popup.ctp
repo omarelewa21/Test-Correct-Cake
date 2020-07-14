@@ -1,4 +1,5 @@
-<div id="attachmentContainer" class="ui-resizable" style="display:none">
+
+<div id="attachmentContainer" style="display:none">
     <div id="attachmentButtonContainer">
         <a href="#" class="btn red" id="btnAttachmentFrame" style="display:inline-block;position:relative;float:right">
             <span class="fa fa-remove"></span>
@@ -10,15 +11,11 @@
     </div>
 
 
-    <iframe id="attachmentFrame" frameborder="0" scrolling="true" style="-webkit-overflow-scrolling: touch"></iframe>
+    <iframe id="attachmentFrame" frameborder="0"></iframe>
 </div>
 <div id="attachmentFade"></div>
 
-<script type="text/javascript">
-    jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
-        jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
-    });
-</script>
+
 
 <style>
     #attachmentButtonContainer {

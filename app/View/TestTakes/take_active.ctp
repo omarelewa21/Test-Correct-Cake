@@ -43,6 +43,8 @@
 
 <div id="question_load"></div>
 
+
+
 <script>
 
     TestTake.startHeartBeat('active');
@@ -58,6 +60,11 @@
     Answer.loadQuestionAnswer(<?=$active_question?>);
 
     Answer.takeId = <?=$take_id?>;
+
+    jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
+        console.log('mousentered');
+        jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
+    });
 
 
     <?php

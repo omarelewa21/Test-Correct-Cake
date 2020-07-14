@@ -1,9 +1,4 @@
-
-<a href="#" class="btn red" id="btnAttachmentFrame">
-    <span class="fa fa-remove"></span>
-</a>
-<iframe id="attachmentFrame" frameborder="0"></iframe>
-<div id="attachmentFade"></div>
+<?= $this->element("attachment_popup"); ?>
 
 <div style="float:left; width: 300px;">
     <div class="block">
@@ -116,4 +111,6 @@
 </div>
 
 <br clear="all" />
+
+
 
