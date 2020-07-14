@@ -89,34 +89,58 @@ class UsersController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
 
-            if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
-                if (!strpos($this->Session->read('TLCVersion'), '|') || $this->Session->read('TLCVersion') === 'x') {
-                    $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                    $this->formResponse(false, ['message' => $message]);
-                    exit();
-                } else {
-                    $version = explode('|', $this->Session->read('TLCVersion'))[1];
-                    if (!in_array($version, ['2.0', '2.1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'])) {
-                        $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                        $this->formResponse(false, ['message' => $message]);
-                        exit();
-                    }
-                }
-                // }else{
-                // if($appType === 'ipad') {
-                //     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                //     $this->formResponse(false,['message' => $message]);
-                //     exit();
-                // }
-            }
-
             if ($this->Auth->login()) {
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
+                if ($this->Session->check('TLCHeader')){// && $this->Session->read('TLCHeader') !== 'not secure...') {
+                    if ($this->UsersService->hasRole('student')) {
+                        $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
+                        $data = [
+                            'os' => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'unknown',
+                            'version' => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'unknown',
+                            'version_check_result' => $versionCheckResult,
+                            'headers' => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'unknown'
+                        ];
+                        $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
+
+                        if ($versionCheckResult === 'NOTALLOWED') {
+                            // somebody should be logedout, but we don't doe this yet
+//                            $this->Auth->logout();
+//                            $this->Session->destroy();
+//                            $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                            $this->formResponse(false, ['message' => $message]);
+//                            exit();
+                        }
+                    }
+                }
+
                 // no need to expose user info
                 $this->formResponse(true, array('message' => $message));
             } else {
                 $this->formResponse(false);
             }
+
+//            if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
+//                if (!strpos($this->Session->read('TLCVersion'), '|') || $this->Session->read('TLCVersion') === 'x') {
+//                    $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                    $this->formResponse(false, ['message' => $message]);
+//                    exit();
+//                } else {
+//                    $version = explode('|', $this->Session->read('TLCVersion'))[1];
+//                    if (!in_array($version, ['2.0', '2.1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'])) {
+//                        $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                        $this->formResponse(false, ['message' => $message]);
+//                        exit();
+//                    }
+//                }
+//                // }else{
+//                // if($appType === 'ipad') {
+//                //     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                //     $this->formResponse(false,['message' => $message]);
+//                //     exit();
+//                // }
+//            }
+
+
         }
     }
 

@@ -68,11 +68,14 @@ class AppController extends Controller
         $this->AuthService = new AuthService();
         $this->UsersService = new UsersService();
 
+        if(!$this->Session->check('TLCHeader')) {
+            $this->handleHeaderCheck();
+        }
+
         if ($this->Auth->loggedIn()) {
             $this->AuthService->setUser(AuthComponent::user('username'));
             $this->AuthService->setApiKey(AuthComponent::user('api_key'));
             $this->AuthService->setSessionHash(AuthComponent::user('session_hash'));
-            $this->handleHeaderCheck(AuthComponent::user('id'));
         }
 
         if ($this->request->isAjax() || $this->here == '/app' || strstr($this->here, '/users/reset_password')) {
@@ -82,7 +85,7 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
-    protected function handleHeaderCheck($userId)
+    protected function handleHeaderCheck()
     {
         $osConversion = [
             'windows' => 'windowsOS',
@@ -111,12 +114,10 @@ class AppController extends Controller
 
         $headers = $this->getallheaders();
 
-        if (!$this->Session->check('TLCHeader')) {
-            if (isset($headers['tlc'])) {
-                $this->Session->write('TLCHeader', $headers['tlc']);
-            } else {
-                $this->Session->write('TLCHeader', 'not secure...');
-            }
+        if (isset($headers['tlc'])) {
+            $this->Session->write('TLCHeader', $headers['tlc']);
+        } else {
+            $this->Session->write('TLCHeader', 'not secure...');
         }
 
         $currentOS = null;
@@ -138,9 +139,7 @@ class AppController extends Controller
         // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
         // Chromebook header "TLCTestCorrectVersion"--> "Chromebook|{versionnumber}"
 
-        $sendVersionInfo = false;
-        if ($userId && !$this->Session->check('TLCVersion') && $this->UsersService->hasRole('student')) {
-            $sendVersionInfo = true;
+        if (!$this->Session->check('TLCVersion')) {
             if (isset($headers['tlctestcorrectversion'])) {
 
                 $data = explode('|', strtolower($headers['tlctestcorrectversion']));
@@ -151,10 +150,6 @@ class AppController extends Controller
                     $currentOS = 'unknown';
                     $currentVersion = isset($data[1]) ? $data[1] : 'unknown';
                 }
-//                $this->Session->Write('TLCVersion', $headers['tlctestcorrectversion']);
-//                if(explode('|',$headers['tlctestcorrectversion'])[1] != '2.1'){
-//                    $this->Session->write('AppTooOld',true);
-//                }
             }else{
                 $currentVersion = 'x';
                 $currentOS = 'unknown';
@@ -174,16 +169,6 @@ class AppController extends Controller
                 $versionCheckResult = 'NOTALLOWED';
             }
             $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
-        }
-
-        if ($sendVersionInfo) {
-            $data = [
-                'os' => $currentOS,
-                'version' => $currentVersion,
-                'version_check_result' => $versionCheckResult,
-                'headers' => json_encode($headers)
-            ];
-            $this->UsersService->storeAppVersionInfo($data, $userId);
         }
     }
 
