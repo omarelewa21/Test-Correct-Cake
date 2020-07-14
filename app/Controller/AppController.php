@@ -89,7 +89,7 @@ class AppController extends Controller
     {
         $osConversion = [
             'windows' => 'windowsOS',
-            'mackbook' => 'macOS',
+            'macbook' => 'macOS',
             'ipad' => 'iOS',
             'chromebook' => 'ChromeOS',
         ];
