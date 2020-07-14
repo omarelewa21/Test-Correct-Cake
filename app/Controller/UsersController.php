@@ -218,7 +218,7 @@ class UsersController extends AppController
         $tlcSessionHeaderData = $this->getSessionHeaderData();
         $this->Session->destroy();
         if($tlcSessionHeaderData !== null && is_array($tlcSessionHeaderData)){
-            $this->Session->Start();
+            $this->Session->renew();
             $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
         }
     }
