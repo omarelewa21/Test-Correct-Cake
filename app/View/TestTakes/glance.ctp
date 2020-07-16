@@ -23,7 +23,7 @@
 </div>
 
 <br clear="all" />
-
+<?= $this->element("attachment_popup"); ?>
 <div class="block" style="margin: 0px auto; width:200px; float:right;">
     <div class="block-head">Score</div>
     <div class="block-content">
