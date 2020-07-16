@@ -124,16 +124,8 @@ class AppController extends Controller
             $this->Session->write('TLCHeader', 'not secure...');
         }
 
-        $currentOS = null;
-        $currentVersion = null;
-        // only for windows 2.0 and 2.1
-        if (array_key_exists('user-agent', $headers)) {
-            $parts = explode('|', $headers['user-agent']);
-            if (strtolower($parts[0]) == 'windows') {
-                $currentOS = $osConversion[strtolower($parts[0])];
-                $currentVersion = $parts[1];
-            }
-        }
+        $currentVersion = 'x';
+        $currentOS = 'unknown';
 
         // as discussed with Mohamed on 20200703
         // headers: "TLC" ---> "TLC Test-Correct secure app"
@@ -145,18 +137,19 @@ class AppController extends Controller
 
 //        if (!$this->Session->check('TLCVersion')) {
             if (isset($headers['tlctestcorrectversion'])) {
-
                 $data = explode('|', strtolower($headers['tlctestcorrectversion']));
-                if (isset($osConversion[$data[0]])) {
-                    $currentOS = $osConversion[$data[0]];
-                    $currentVersion = $data[1];
-                } else {
-                    $currentOS = 'unknown';
-                    $currentVersion = isset($data[1]) ? $data[1] : 'unknown';
+                $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS;
+                $currentVersion = isset($data[1]) ? $data[1] : $currentVersion;
+            } else {
+                // only for windows 2.0 and 2.1
+                if (array_key_exists('user-agent', $headers)) {
+                    $parts = explode('|', $headers['user-agent']);
+                    $lowerPart0 = strtolower($parts[0]);
+                    if ($lowerPart0 == 'windows' || $lowerPart0 == 'chromebook') {
+                        $currentOS = $osConversion[$lowerPart0];
+                        $currentVersion = $parts[1];
+                    }
                 }
-            }else{
-                $currentVersion = 'x';
-                $currentOS = 'unknown';
             }
 
             $this->Session->Write('headers', $headers);
