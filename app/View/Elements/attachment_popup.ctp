@@ -70,3 +70,9 @@
         display:none !important;
     }
 </style>
+
+<script>
+    jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
+        jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
+    });
+</script>
