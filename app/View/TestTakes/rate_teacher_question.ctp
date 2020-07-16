@@ -22,6 +22,7 @@
     <br clear="all" />
 </div>
 
+
 <?= $this->element("attachment_popup"); ?>
 
 <br clear="all" />

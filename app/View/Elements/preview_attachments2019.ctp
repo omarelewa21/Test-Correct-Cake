@@ -28,6 +28,5 @@
             ?>
 </div>
 
-<?= $this->element("attachment_popup"); ?>
 
 <? } ?>

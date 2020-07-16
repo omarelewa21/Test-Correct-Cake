@@ -5,6 +5,8 @@
     </a>
 </div>
 
+<?= $this->element("attachment_popup"); ?>
+
 <h1>Toets resultaten</h1>
 <?
     $i = 0;
@@ -48,3 +50,4 @@
     <?
 }
 ?>
+
