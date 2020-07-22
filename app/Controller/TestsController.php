@@ -56,18 +56,22 @@ class TestsController extends AppController {
     public function delete($test_id) {
         $this->isAuthorizedAs(["Teacher"]);
 
-        $result = $this->TestsService->deleteTest($test_id);
-        $this->formResponse(!empty($result));
+        if ($this->request->is('delete')) {
+            $result = $this->TestsService->deleteTest($test_id);
+            $this->formResponse(!empty($result));
+        }
     }
 
     public function duplicate($test_id) {
         $this->isAuthorizedAs(["Teacher"]);
 
-        $response = $this->TestsService->duplicate($test_id);
+        if ($this->request->is('put')) {
+            $response = $this->TestsService->duplicate($test_id);
 
-        $this->formResponse(
-            !empty($response), $response
-        );
+            $this->formResponse(
+                !empty($response), $response
+            );
+        }
     }
 
     public function setQuestionsOpenSource($questions, $owner_id, $owner = 'test' )

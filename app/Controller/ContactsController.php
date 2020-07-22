@@ -14,6 +14,8 @@ class ContactsController extends AppController
     }
 
     public function add($owner, $owner_id) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
         if($this->request->is('post') || $this->request->is('put')) {
 
             $data = $this->request->data['Contact'];
@@ -31,11 +33,17 @@ class ContactsController extends AppController
     }
 
     public function delete($owner, $owner_id, $type, $contact_id) {
-        $this->autoRender = false;
-        $this->ContactsService->deleteContact($owner, $owner_id, $type, $contact_id);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->ContactsService->deleteContact($owner, $owner_id, $type, $contact_id);
+        }
     }
 
     public function edit($contact_id) {
+
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
 

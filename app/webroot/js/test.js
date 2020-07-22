@@ -7,8 +7,11 @@ var Test = {
             title: 'Weet u het zeker?',
             message: 'Weet u zeker dat u deze toets wilt verwijderen?'
         }, function() {
-            $.getJSON('/tests/delete/' + test_id,
-                function(response) {
+            $.ajax({
+                url: '/tests/delete/' + test_id,
+                type: 'DELETE',
+                dataType: 'json',
+                success: function(response) {
                     if(response['status'] == 1) {
                         if(view) {
                             Navigation.load('/tests/index');
@@ -20,13 +23,16 @@ var Test = {
                         Notify.notify('Toets kon niet worden verwijderd', 'error', 3000);
                     }
                 }
-            );
+            });
         });
     },
 
     duplicate : function(test_id) {
-        $.getJSON('/tests/duplicate/' + test_id,
-            function(response) {
+        $.ajax({
+            url: '/tests/duplicate/' + test_id,
+            type: 'PUT',
+            dataType: 'json',
+            success: function(response) {
                 if(response['status'] == 1) {
                     Notify.notify('Toets gedupliceerd', 'info', 3000);
                     Navigation.load('/tests/view/' + response.data.id);
@@ -36,6 +42,6 @@ var Test = {
 
                 Navigation.refresh();
             }
-        );
+        });
     }
 };

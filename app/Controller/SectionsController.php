@@ -66,23 +66,27 @@ class SectionsController extends AppController
     public function delete($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $result = $this->SectionsService->deleteSection($id);
+        if ($this->request->is('delete')) {
+            $result = $this->SectionsService->deleteSection($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function delete_subject($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $result = $this->SectionsService->deleteSectionSubject($id);
+        if($this->request->is('delete')) {
+            $result = $this->SectionsService->deleteSectionSubject($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function add() {

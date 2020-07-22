@@ -136,12 +136,14 @@ class SchoolsController extends AppController
     public function delete($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $result = $this->SchoolsService->deleteSchool($id);
+        if ($this->request->is('delete')) {
+            $result = $this->SchoolsService->deleteSchool($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function add() {

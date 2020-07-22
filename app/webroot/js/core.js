@@ -414,15 +414,17 @@ var Organisation = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze koepelorganisatie wilt verwijderen?'
 		}, function() {
-			$.get('/umbrella_organisations/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/umbrella_organisations/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Organisatie verwijderd', 'info');
 					Navigation.load('/school_locations');
 				}
-			);
-		});
-			}
-};
+			});
+		})
+	}
+}
 
 var School = {
 	delete : function(id) {
@@ -432,12 +434,14 @@ var School = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze schoolgemeenschap wilt verwijderen?'
 		}, function() {
-			$.get('/schools/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/schools/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('School verwijderd', 'info');
 					Navigation.refresh();
 				}
-			);
+			});
 		});
 	}
 };
@@ -450,17 +454,18 @@ var SchoolYear = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u dit schooljaar wilt verwijderen?'
 		}, function() {
-			$.get('/school_years/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/school_years/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Schooljaar verwijderd', 'info');
 					if (view) {
 						Navigation.load('/school_years');
 					} else {
 						Navigation.refresh();
 					}
-					
 				}
-			);
+			});
 		});
 	}
 };
@@ -473,12 +478,14 @@ var Teacher = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
 		}, function() {
-			$.get('/school_classes/delete_teacher/' + id,
-				function() {
+			$.ajax({
+				url: '/school_classes/delete_teacher/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Docent verwijderd', 'info');
 					Navigation.refresh();
 				}
-			);
+			});
 		});
 	}
 };
@@ -492,8 +499,10 @@ var SchoolLocation = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze locatie wilt verwijderen?'
 		}, function() {
-			$.get('/school_locations/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/school_locations/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Schoollocatie verwijderd', 'info');
 					if(source == 0) {
 						Navigation.refresh();
@@ -501,7 +510,7 @@ var SchoolLocation = {
 						Navigation.back();
 					}
 				}
-			);
+			});
 		});
 	},
 
@@ -512,12 +521,14 @@ var SchoolLocation = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u dit licentiepakket wilt verwijderen?'
 		}, function() {
-			$.get('/school_locations/delete_licence/' + location_id + '/' + license_id,
-				function() {
+			$.ajax({
+				url: '/school_locations/delete_licence/' + location_id + '/' + license_id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Licentiepakket verwijderd', 'info');
 					Navigation.refresh();
 				}
-			);
+			});
 		});
 	}
 };
@@ -531,8 +542,10 @@ var SchoolClass = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze klas wilt verwijderen?'
 		}, function() {
-			$.get('/school_classes/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/school_classes/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Klas verwijderd', 'info');
 					if(source == 0) {
 						Navigation.refresh();
@@ -540,7 +553,7 @@ var SchoolClass = {
 						Navigation.back();
 					}
 				}
-			);
+			});
 		});
 	},
 
@@ -551,11 +564,13 @@ var SchoolClass = {
 				title: 'Weet u het zeker?',
 				message: 'Weet u zeker dat u dit persoon wilt verwijderen?'
 			}, function() {
-				$.get('/school_classes/remove_mentor/' + class_id + '/' + id,
-					function () {
+				$.ajax({
+					url: '/school_classes/remove_mentor/' + class_id + '/' + id,
+					type: 'DELETE',
+					success: function(response) {
 						Navigation.refresh();
 					}
-				);
+				});
 			}
 		);
 	},
@@ -567,21 +582,25 @@ var SchoolClass = {
 				title: 'Weet u het zeker?',
 				message: 'Weet u zeker dat u dit persoon wilt verwijderen?'
 			}, function() {
-				$.get('/school_classes/remove_manager/' + class_id + '/' + id,
-					function () {
+				$.ajax({
+					url: '/school_classes/remove_manager/' + class_id + '/' + id,
+					type: 'DELETE',
+					success: function(response) {
 						Navigation.refresh();
 					}
-				);
+				});
 			}
 		);
 	},
 
 	removeTeacher : function(id) {
-		$.get('/school_classes/remove_teacher/' + id,
-			function() {
+		$.ajax({
+			url: '/school_classes/remove_teacher/' + id,
+			type: 'DELETE',
+			success: function(response) {
 				Navigation.refresh();
 			}
-		);
+		});
 	},
 
 	removeStudent : function(class_id, id) {
@@ -591,11 +610,13 @@ var SchoolClass = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze student wilt verwijderen?'
 		}, function() {
-				$.get('/school_classes/remove_student/' + class_id + '/' + id,
-					function () {
+				$.ajax({
+					url: '/school_classes/remove_student/' + class_id + '/' + id,
+					type: 'DELETE',
+					success: function(response) {
 						Navigation.refresh();
 					}
-				);
+				});
 			}
 		);
 	}
@@ -610,17 +631,18 @@ var Section = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze sectie wilt verwijderen?'
 		}, function() {
-			$.get('/sections/delete/' + id,
-				function() {
+			$.ajax({
+				url: '/sections/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Sectie verwijderd', 'info');
 					if (view) {
 						Navigation.load('/sections')
 					} else {
 						Navigation.refresh();
 					}
-
 				}
-			);
+			});
 		});
 
 	}
@@ -635,12 +657,14 @@ var Subject = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u dit vak wilt verwijderen?'
 		}, function() {
-			$.get('/sections/delete_subject/' + id,
-				function() {
+			$.ajax({
+				url: '/sections/delete_subject/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Notify.notify('Vak verwijderd', 'info');
 					Navigation.refresh();
 				}
-			);
+			});
 		});
 	}
 };
@@ -655,13 +679,14 @@ var Contact = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u dit contactpersoon wilt verwijderen?'
 		}, function() {
-
-			$.get('/contacts/delete/' + owner + '/' + owner_id + '/' + type + '/' + id,
-				function() {
+			$.ajax({
+				url: '/contacts/delete/' + owner + '/' + owner_id + '/' + type + '/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Navigation.refresh();
 					Notify.notify('Contact verwijderd');
 				}
-			);
+			});
 		});
 	}
 };
@@ -675,13 +700,14 @@ var Period = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u deze periode wilt verwijderen?'
 		}, function() {
-			$.get('/school_years/delete_period/' + id,
-				function() {
+			$.ajax({
+				url: '/school_years/delete_period/' + id,
+				type: 'DELETE',
+				success: function(response) {
 					Navigation.refresh();
-					Notify.notify('Ip verwijderd');
+					Notify.notify('Periode verwijderd');
 				}
-			);
-
+			});
 		});
 	}
 };
@@ -694,12 +720,14 @@ var Ip = {
 			title: 'Weet u het zeker?',
 			message: 'Weet u zeker dat u dit ip-adres wilt verwijderen?'
 		}, function() {
-			$.get('/school_locations/delete_ip/' + location_id + '/' + ip_id,
-				function() {
+			$.ajax({
+				url: '/school_locations/delete_ip/' + location_id + '/' + ip_id,
+				type: 'DELETE',
+				success: function(response) {
 					Navigation.refresh();
-					Notify.notify('Contact verwijderd');
+					Notify.notify('IP verwijderd');
 				}
-			);
+			});
 		});
 	}
 };

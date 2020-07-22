@@ -374,8 +374,10 @@ class TestTakesController extends AppController
 	public function remove_participant($take_id, $participant_id) {
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-		$this->autoRender = false;
-		$this->TestTakesService->removeParticipant($take_id, $participant_id);
+		if($this->request->is('delete')) {
+			$this->autoRender = false;
+			$this->TestTakesService->removeParticipant($take_id, $participant_id);
+		}
 	}
 
 	public function view($take_id) {

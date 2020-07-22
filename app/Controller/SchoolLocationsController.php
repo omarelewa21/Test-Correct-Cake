@@ -79,12 +79,14 @@ class SchoolLocationsController extends AppController
     public function delete_ip($location_id, $ip_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
-        $result = $this->SchoolLocationsService->deleteIp($location_id, $ip_id);
+        if($this->request->is('delete')) {
+            $result = $this->SchoolLocationsService->deleteIp($location_id, $ip_id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function edit($school_id) {
@@ -174,8 +176,10 @@ class SchoolLocationsController extends AppController
     public function delete_licence($location_id, $licence_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
-        $this->autoRender = false;
-        $this->SchoolLocationsService->deleteLicence($location_id, $licence_id);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolLocationsService->deleteLicence($location_id, $licence_id);
+        }
     }
 
     public function edit_licence($location_id, $licence_id) {
@@ -236,12 +240,14 @@ class SchoolLocationsController extends AppController
     public function delete($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
-        $result = $this->SchoolLocationsService->deleteSchoolLocation($id);
+        if($this->request->is('delete')) {
+            $result = $this->SchoolLocationsService->deleteSchoolLocation($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function add() {

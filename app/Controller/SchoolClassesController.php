@@ -275,69 +275,81 @@ class SchoolClassesController extends AppController
     public function remove_mentor($class_id, $user_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->removeFromClass($user_id, [
-            'delete_mentor_school_class' => $class_id
-        ]);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->removeFromClass($user_id, [
+                'delete_mentor_school_class' => $class_id
+            ]);
+    
+            echo $this->formResponse(
+                true,
+                []
+            );
+        }
 
-        echo $this->formResponse(
-            true,
-            []
-        );
     }
 
     public function remove_manager($class_id, $user_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->removeFromClass($user_id, [
+                'delete_manager_school_class' => $class_id
+            ]);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->removeFromClass($user_id, [
-            'delete_manager_school_class' => $class_id
-        ]);
-
-        echo $this->formResponse(
-            true,
-            []
-        );
+            echo $this->formResponse(
+                true,
+                []
+            );
+        }
     }
 
     public function remove_teacher($teacher_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->removeTeacher($teacher_id);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->removeTeacher($teacher_id);
 
-        echo $this->formResponse(
-            true,
-            []
-        );
+            echo $this->formResponse(
+                true,
+                []
+            );
+        }
     }
 
     public function remove_student($class_id, $user_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->removeFromClass($user_id, [
-            'delete_student_school_class' => $class_id
-        ]);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->removeFromClass($user_id, [
+                'delete_student_school_class' => $class_id
+            ]);
 
-        echo $this->formResponse(
-            true,
-            []
-        );
+            echo $this->formResponse(
+                true,
+                []
+            );
+        }
     }
 
     public function delete($class_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->deleteClass($class_id);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->deleteClass($class_id);
+        }
     }
 
     public function delete_teacher($teacher_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
-        $this->SchoolClassesService->deleteTeacher($teacher_id);
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
+            $this->SchoolClassesService->deleteTeacher($teacher_id);
+        }
     }
 
     public function edit_student($user_id) {
