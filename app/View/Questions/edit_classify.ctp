@@ -99,6 +99,7 @@
                                     $question['question']['matching_question_answers'][$a]['correct_answer_id'] == $left['id'])
                                 {
                                     $right[] = $question['question']['matching_question_answers'][$a]['answer'];
+                                    array_splice($question['question']['matching_question_answers'], $a, 1);//fix the $i counting issue with Selenium tests
                                 }
                             }
                         }
