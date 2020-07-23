@@ -456,8 +456,32 @@ class UsersController extends AppController
                 $this->Session->delete('user_profile_picture');
             }
 
+            //TCP-125
+            //if it is not an array, it is an error
+            if (!is_array($result)) {
+                $response = "De gebruiker kon niet worden bijgewerkt";
+
+                //try to decode the error (JSON to array)
+                //or fail and show a general error
+                try {
+                    $error = json_decode($result, true);
+
+                    if(isset($error['errors']['username'])) {
+                        $response = "Dit e-mailadres is al in gebruik";
+                    }
+                    
+                } catch (\Throwable $th) {}
+
+                $this->formResponse(
+                    false,
+                    [$response]
+                );
+
+                die;
+            }
+
             $this->formResponse(
-                $result ? true : false,
+                true,
                 []
             );
 
