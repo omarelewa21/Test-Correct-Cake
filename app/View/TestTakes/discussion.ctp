@@ -18,6 +18,8 @@ if(!isset($take)) {
 
     <h1>Bespreken <?=$take['test']['name']?></h1>
 
+<?= $this->element("attachment_popup"); ?>
+
     <div class="block" style="float:right; width:250px;">
         <div class="block-head">Studenten</div>
         <div class="block-content" style="padding:13px 15px 13px 15px;" id="participants">

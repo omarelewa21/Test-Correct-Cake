@@ -31,6 +31,26 @@ class UsersService extends BaseService
         return $roleExists;
     }
 
+    public function storeAppVersionInfo($data,$userId = false)
+    {
+        // could be needed as we are early in the process
+        if(!$this->Connector->hasUser()){
+            $this->Connector->setUser(AuthComponent::user('username'));
+        }
+
+        if(!$this->Connector->hasSessionHash()){
+            $this->Connector->setSessionHash(AuthComponent::user('session_hash'));
+        }
+
+        $data['userId'] = $userId;
+        $response = $this->Connector->postRequest('/app_version_info', [], $data);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function storeOnboardingWizardStep($data)
     {
         $response = $this->Connector->postRequest('/onboarding/registeruserstep', [], $data);
@@ -308,7 +328,8 @@ class UsersService extends BaseService
                 if (strstr($response, 'external_id')) {
                     return 'external_code';
                 } elseif (strstr($response, 'username')) {
-                    return 'username';
+                    $this->addError(json_decode($response)->errors->username[0]);
+                    return false;
                 } else if (strstr($response, 'user_roles')) {
                     return 'user_roles';
                 } else if (strstr($response, 'demo')) {
@@ -316,6 +337,10 @@ class UsersService extends BaseService
                 }
             }
             return $this->Connector->getLastResponse();
+        }
+
+        if ($this->Connector->getLastCode() == 200) {
+            return true;
         }
 
         return $response;

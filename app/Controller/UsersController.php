@@ -89,34 +89,59 @@ class UsersController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
 
-            if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
-                if (!strpos($this->Session->read('TLCVersion'), '|') || $this->Session->read('TLCVersion') === 'x') {
-                    $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                    $this->formResponse(false, ['message' => $message]);
-                    exit();
-                } else {
-                    $version = explode('|', $this->Session->read('TLCVersion'))[1];
-                    if (!in_array($version, ['2.0', '2.1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'])) {
-                        $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                        $this->formResponse(false, ['message' => $message]);
-                        exit();
-                    }
-                }
-                // }else{
-                // if($appType === 'ipad') {
-                //     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
-                //     $this->formResponse(false,['message' => $message]);
-                //     exit();
-                // }
-            }
-
             if ($this->Auth->login()) {
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
+                if ($this->Session->check('TLCHeader')){// && $this->Session->read('TLCHeader') !== 'not secure...') {
+                    if ($this->UsersService->hasRole('student')) {
+                        $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
+                        $data = [
+                            'os' => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'unknown',
+                            'version' => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'unknown',
+                            'version_check_result' => $versionCheckResult,
+                            'headers' => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'unknown',
+                        ];
+
+                        $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
+
+                        if ($versionCheckResult === 'NOTALLOWED') {
+                            // somebody should be logedout, but we don't doe this yet
+//                            $this->Auth->logout();
+//                            $this->Session->destroy();
+//                            $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                            $this->formResponse(false, ['message' => $message]);
+//                            exit();
+                        }
+                    }
+                }
+
                 // no need to expose user info
                 $this->formResponse(true, array('message' => $message));
             } else {
                 $this->formResponse(false);
             }
+
+//            if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
+//                if (!strpos($this->Session->read('TLCVersion'), '|') || $this->Session->read('TLCVersion') === 'x') {
+//                    $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                    $this->formResponse(false, ['message' => $message]);
+//                    exit();
+//                } else {
+//                    $version = explode('|', $this->Session->read('TLCVersion'))[1];
+//                    if (!in_array($version, ['2.0', '2.1', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.7', '2.8', '2.9'])) {
+//                        $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                        $this->formResponse(false, ['message' => $message]);
+//                        exit();
+//                    }
+//                }
+//                // }else{
+//                // if($appType === 'ipad') {
+//                //     $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
+//                //     $this->formResponse(false,['message' => $message]);
+//                //     exit();
+//                // }
+//            }
+
+
         }
     }
 
@@ -162,11 +187,40 @@ class UsersController extends AppController
 
     }
 
+    protected function getSessionHeaderData()
+    {
+        $ar = ['TLCHeader','TLCOs','TLCVersion','TLCVersionCheckResult','headers'];
+        $allAvailable = true;
+        $returnAr = [];
+        foreach($ar as $item){
+            if($this->Session->check($item)){
+                $returnAr[$item] = $this->Session->read($item);
+            } else {$allAvailable = false;}
+        }
+
+        if($allAvailable === false){
+            return null;
+        }
+        return $returnAr;
+    }
+
+    protected function reinitFromSessionHeaderData($data)
+    {
+        foreach($data as $key => $val){
+            $this->Session->write($key,$val);
+        }
+    }
+
     public function logout()
     {
         $this->autoRender = false;
         $this->Auth->logout();
+        $tlcSessionHeaderData = $this->getSessionHeaderData();
         $this->Session->destroy();
+        if($tlcSessionHeaderData !== null && is_array($tlcSessionHeaderData)){
+            $this->Session->renew();
+            $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
+        }
     }
 
     public function forgot_password()
@@ -670,11 +724,38 @@ class UsersController extends AppController
         $this->isAuthorizedAs(['Teacher']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $data = $this->request->data['User'];
+            // from
+            // User => [
+            //  'username' => ['a','b','c'],
+            //  'name_suffix' => ['','van',''],
+            //    ...
+            // to
+            // data => [
+            //  [
+            //      'username' => 'a',
+            //      'name_suffix' => '',
+            //  ],
+            //  [
+            //      'username' => 'b',
+            //      'name_suffix' => 'van',
+            //  ],
+            //  [
+            //      'username' => 'c',
+            //      'name_suffix' => '',
+            //  ]
+            //];
+            $data = [
+                'data' => [],
+                'user_roles' => [1],
+                'send_welcome_mail' => true,
+                'invited_by' => AuthComponent::user('id'),
+            ];
 
-            $data['user_roles'] = [1];
-            $data['send_welcome_mail'] = true;
-            $data['invited_by'] = AuthComponent::user('id');
+            foreach($this->request->data['User'] as $key => $ar){
+                foreach($ar as $i => $value) {
+                    $data['data'][$i][$key] = $value;
+                }
+            };
 
             if (!isset($data['school_location_id'])) {
                 $data['school_location_id'] = AuthComponent::user()['school_location_id'];
@@ -682,32 +763,39 @@ class UsersController extends AppController
 
             $result = $this->UsersService->addUserWithTellATeacher('teacher', $data);
 
-            if (isset($result['id'])) {
-                $this->formResponse(
-                    true,
-                    [
-                        'id' => $result['id']
-                    ]
-                );
-            } elseif ($result == 'external_code') {
-                $this->formResponse(
-                    false,
-                    [
-                        'error' => 'external_code'
-                    ]
-                );
-            } elseif ($result == 'username') {
-                $this->formResponse(
-                    false,
-                    [
-                        'error' => 'username'
-                    ]
-                );
-            } else {
-                $this->formResponse(
-                    false,
-                    ['error' => $result]
-                );
+            if ($result === false){
+                 $this->formResponse(
+                     false,
+                     [
+                         'error' => implode(',',$this->UsersService->getErrors())
+                     ]
+                 );
+            }
+            else {
+                if ($result === true) {
+                    $this->formResponse(
+                        true
+                    );
+                } elseif ($result == 'external_code') {
+                    $this->formResponse(
+                        false,
+                        [
+                            'error' => 'external_code'
+                        ]
+                    );
+                } elseif ($result == 'username') {
+                    $this->formResponse(
+                        false,
+                        [
+                            'error' => 'username'
+                        ]
+                    );
+                } else {
+                    $this->formResponse(
+                        false,
+                        ['error' => $result]
+                    );
+                }
             }
 
             die;
@@ -1185,7 +1273,7 @@ class UsersController extends AppController
                     'title' => 'Stuur een uitnodiging',
                     'path' => '/users/tell_a_teacher',
                     'type' => 'popup',
-                    'width'=> 400
+                    'width'=> 650
                 );
             }
 
