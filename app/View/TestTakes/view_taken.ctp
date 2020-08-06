@@ -4,22 +4,20 @@
         Terug
     </a>
 
-    <? if($take['user_id'] == AuthComponent::user('id')) { ?>
-        <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion(<?=$take_id?>);">
-            <span class="fa fa-users mr5"></span>
-            Toets bespreken
+    <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion(<?=$take_id?>);">
+        <span class="fa fa-users mr5"></span>
+        Toets bespreken
+    </a>
+    <a href="#" class="btn white mr2" onclick="$.get('/test_takes/skip_discussion/<?=$take_id?>',[], function(){ Navigation.load('/test_takes/to_rate');})">
+        <span class="fa fa-forward mr5"></span>
+        Meteen naar nakijken
+    </a>
+    <? if($take['test_take_status_id'] >= 6) { ?>
+        <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
+            <span class="fa fa-refresh mr5"></span>
+            Inhaal-toets plannen
         </a>
-        <a href="#" class="btn white mr2" onclick="$.get('/test_takes/skip_discussion/<?=$take_id?>',[], function(){ Navigation.load('/test_takes/to_rate');})">
-            <span class="fa fa-forward mr5"></span>
-            Meteen naar nakijken
-        </a>
-        <? if($take['test_take_status_id'] >= 6) { ?>
-            <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
-                <span class="fa fa-refresh mr5"></span>
-                Inhaal-toets plannen
-            </a>
-        <? } ?>
-    <? }?>
+    <? } ?>
 </div>
 
 <h1>Afgenomen toets</h1>
