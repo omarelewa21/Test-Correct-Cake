@@ -68,4 +68,37 @@
             </center>
         </table>
     </div>
+
 </div>
+
+<?php foreach($section['subjects'] as $subject) { ?>
+<div class="block autoheight">
+    <div class="block-head">Docenten gekoppeld <?=$subject['name']?> </div>
+    <div class="block-content">
+        <table class="table table-striped" id="usersTable">
+            <thead>
+            <tr>
+                <th>Voornaam</th>
+                <th>Tussenvoegsel</th>
+                <th>Achternaam</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($subject['teachers'] as $teacher) { ?>
+
+            <tr>
+                <td> <?= $teacher['user']['name_first'] ?></td>
+                <td> <?= $teacher['user']['name_suffix'] ?></td>
+                <td> <?= $teacher['user']['name'] ?></td>
+            </tr>
+        <?php } ?>
+
+
+            </tbody>
+        </table>
+
+
+    </div>
+    <div class="block-footer"></div>
+</div>
+<?php } ?>
