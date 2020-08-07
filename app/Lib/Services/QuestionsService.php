@@ -338,6 +338,19 @@ class QuestionsService extends BaseService
             $question['rtti'] = $oriQuestion['rtti'];
         }
 
+        if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
+            $question['bloom'] = null;
+        } else {
+            $question['bloom'] = $oriQuestion['bloom'];
+        }
+
+        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+            $question['miller'] = null;
+        } else {
+            $question['miller'] = $oriQuestion['miller'];
+        }
+
+
         if ($owner == 'test') {
             $question['test_id'] = $owner_id;
             $response = $this->Connector->postRequest('/test_question', [], $question);
