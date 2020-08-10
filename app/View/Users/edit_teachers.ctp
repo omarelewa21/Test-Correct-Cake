@@ -95,7 +95,12 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                if (result.length != 0)  {
+                    Notify.notify(result[0], "error");
+                } else {
+                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                }
+                
             }
         }
     );
