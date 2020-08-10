@@ -344,6 +344,13 @@ class QuestionsService extends BaseService
             $question['bloom'] = $oriQuestion['bloom'];
         }
 
+        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+            $question['miller'] = null;
+        } else {
+            $question['miller'] = $oriQuestion['miller'];
+        }
+
+
         if ($owner == 'test') {
             $question['test_id'] = $owner_id;
             $response = $this->Connector->postRequest('/test_question', [], $question);
