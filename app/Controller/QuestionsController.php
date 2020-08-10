@@ -970,15 +970,19 @@ class QuestionsController extends AppController {
     public function delete($owner, $owner_id, $question_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
-        $this->formResponse(!empty($result));
+        if ($this->request->is('delete')) { 
+            $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
+            $this->formResponse(!empty($result));
+        }
     }
 
     public function delete_group($test_id, $group_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
-        $this->formResponse(!empty($result));
+        if ($this->request->is('delete')) { 
+            $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
+            $this->formResponse(!empty($result));
+        }
     }
 
     public function attachments($type, $owner = null, $owner_id = null, $id = null) {
@@ -1018,10 +1022,12 @@ class QuestionsController extends AppController {
     }
 
     public function remove_add_attachment($id) {
-        $this->autoRender = false;
-        $attachments = $this->Session->read('attachments');
-        unset($attachments[$id]);
-        $this->Session->write('attachments', $attachments);
+        if ($this->request->is('delete')) { 
+            $this->autoRender = false;
+            $attachments = $this->Session->read('attachments');
+            unset($attachments[$id]);
+            $this->Session->write('attachments', $attachments);
+        }
     }
 
     public function remove_edit_attachment($owner, $owner_id, $id) {

@@ -380,11 +380,13 @@ var TestTake = {
     },
 
     removeParticipant : function(take_id, participant_id) {
-        $.get('/test_takes/remove_participant/' + take_id + '/' + participant_id,
-            function() {
+        $.ajax({
+            url: '/test_takes/remove_participant/' + take_id + '/' + participant_id,
+            type: 'DELETE',
+            success: function(response) {
                 TestTake.loadParticipants(take_id);
             }
-        );
+        });
     },
 
     closeShowResults : function(take_id) {

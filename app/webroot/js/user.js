@@ -141,12 +141,14 @@ var User = {
             title: 'Weet u het zeker?',
             message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
         }, function () {
-            $.get('/users/delete/' + id,
-                function () {
+            $.ajax({
+				url: '/users/delete/' + id,
+				type: 'DELETE',
+				success: function(response) {
                     Notify.notify('Gebruiker verwijderd', 'info');
                     Navigation.refresh();
-                }
-            );
+				}
+			});
         });
     },
 

@@ -68,12 +68,14 @@ class SchoolYearsController extends AppController
     public function delete($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $result = $this->SchoolYearsService->deleteSchoolYear($id);
+        if($this->request->is('delete')) {
+            $result = $this->SchoolYearsService->deleteSchoolYear($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function add() {
@@ -98,12 +100,14 @@ class SchoolYearsController extends AppController
     public function delete_period($id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $result = $this->SchoolYearsService->deleteSchoolYearPeriod($id);
+        if($this->request->is('delete')) {
+            $result = $this->SchoolYearsService->deleteSchoolYearPeriod($id);
 
-        $this->formResponse(
-            $result ? true : false,
-            []
-        );
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+        }
     }
 
     public function add_period($school_year_id) {

@@ -930,12 +930,14 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $this->autoRender = false;
+        if($this->request->is('delete')) {
+            $this->autoRender = false;
 
-        $this->formResponse(
-            $this->UsersService->deleteUser($user_id) ? true : false,
-            []
-        );
+            $this->formResponse(
+                $this->UsersService->deleteUser($user_id) ? true : false,
+                []
+            );
+        }
     }
 
     public function menu()

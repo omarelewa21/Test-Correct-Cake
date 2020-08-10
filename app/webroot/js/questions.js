@@ -246,8 +246,11 @@ var Questions = {
 
             },
             function() {
-                $.getJSON('/questions/delete/' + owner + '/' + owner_id + '/' + question_id,
-                    function(response) {
+                $.ajax({
+                    url: '/questions/delete/' + owner + '/' + owner_id + '/' + question_id,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
                             Notify.notify('Vraag verwijderd', 'info', 3000);
@@ -255,7 +258,7 @@ var Questions = {
                             Notify.notify('Vraag kon niet worden verwijderd', 'error', 3000);
                         }
                     }
-                );
+                });
             }
         );
     },
@@ -270,8 +273,11 @@ var Questions = {
 
             },
             function() {
-                $.getJSON('/questions/delete_group/' + test_id + '/' + group_id,
-                    function(response) {
+                $.ajax({
+                    url: '/questions/delete_group/' + test_id + '/' + group_id,
+                    type: 'DELETE',
+                    dataType: 'json',
+                    success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
                             Notify.notify('Groep verwijderd', 'info', 3000);
@@ -279,7 +285,7 @@ var Questions = {
                             Notify.notify('Groep kon niet worden verwijderd', 'error', 3000);
                         }
                     }
-                );
+                });
             }
         );
 
@@ -308,19 +314,23 @@ var Attachments = {
     },
 
     removeAddAttachment : function(id) {
-        $.get('/questions/remove_add_attachment/' + id,
-            function(response) {
+        $.ajax({
+            url: '/questions/remove_add_attachment/' + id,
+            type: 'DELETE',
+            success: function(response) {
                 Questions.loadAddAttachments();
             }
-        );
+        });
     },
 
     removeEditAttachment : function(owner, owner_id, id) {
-        $.get('/questions/remove_edit_attachment/' + owner + '/' + owner_id + '/' + id,
-            function(response) {
+        $.ajax({
+            url: '/questions/remove_edit_attachment/' + owner + '/' + owner_id + '/' + id,
+            type: 'DELETE',
+            success: function(response) {
                 Questions.loadEditAttachments(owner, Attachments.owner_id, owner_id);
             }
-        );
+        });
     },
 
     addVideoAdd : function() {
