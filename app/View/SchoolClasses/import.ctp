@@ -30,10 +30,16 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Data</div>
+    <div class="block-head">Data
+        <button id="setDefaultHeading">Zet default kolom headers!!</button>
+    </div>
+    <div class="duplicate" id="duplicates-data-errors"></div>
+    <div class="error" id="column-errors"></div>
+    <div class="error" id="missing-data-errors"></div>
     <div class="block-content">
 
-        <div >
+
+    <div >
             <div>
                 <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
             </div>
@@ -110,12 +116,30 @@
         line-height: 26px;
         cursor: pointer;
     }
+    .duplicate {
+        background-color: dodgerblue;
+    }
+
+    .error {
+        background: indianred;
+    }
+
 </style>
 
 <script type="text/javascript">
     if(typeof window.importPageHasBeenLoadedBefore == 'undefined'){
         window.importPageHasBeenLoadedBefore = true;
         var jsonObj;
+
+        $('#setDefaultHeading').on('click', function () {
+            $('.selectbox-update').each((index, el) => {
+                var nr = $(el).data('nr');
+                $(el).children().eq(nr).prop('selected', true);
+                $(el).trigger('change');
+
+            });
+        })
+
         $(document).on('keypress', 'textarea#jsonDataDump', function(e) {
             e.preventDefault();
             e.stopPropagation();
@@ -261,8 +285,63 @@
                         jQuery('.showAfterProcess').hide();
                         Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
                         Navigation.back();
-                    }else{
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                    }else {
+                        var missingHeaders = [];
+                        var dataMissingHeaders = [];
+                        var hasDuplicates = false;
+                        // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
+                        Object.keys(response.data).forEach(key => {
+
+                            let d, row_nr, header;
+                            [d, row_nr, header] = key.split('.');
+                            var column_nr = headers.indexOf(header)
+                            var placeholder = parseInt(row_nr) + 1;
+                            var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
+                            if (column_nr > -1) {
+                                var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
+                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error')
+                                if (!dataMissingHeaders.includes(header)) {
+                                    dataMissingHeaders.push(header);
+                                }
+
+                            } else if (header === 'duplicate') {
+                                hasDuplicates = true;
+                                $('table#excelDataTable').find(row_selector).addClass('duplicate')
+
+                            } else {
+                                if (!missingHeaders.includes(header)) {
+                                    missingHeaders.push(header);
+                                }
+                            }
+
+                        });
+
+                        $('#duplicates-data-errors, #missing-data-errors, #column-errors').html('');
+                        if (hasDuplicates) {
+                            $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>');
+                        }
+
+                        if (dataMissingHeaders.length) {
+                            let errorMsg = dataMissingHeaders.map(header => {
+                                let field = dbFields.find(field => {
+                                    return field.column == header
+                                })
+                                return 'De kolom [' + field.name + '] bevat waarden die reeds in de database voorkomen, (conflicten gemarkeerd in rood).';
+                            })
+                            $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                        }
+
+
+                        if (missingHeaders.length) {
+                            let errorMsg = missingHeaders.map(header => {
+                                let field = dbFields.find(field => {
+                                    return field.column == header
+                                })
+                                return 'De kolom ' + field.name + ' is verplicht.';
+                            })
+                            $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                        }
+                        //Notify.notify(response.data.join('<br />'), 'error');
                     }
                 }
             );
@@ -270,6 +349,7 @@
 
             $('textarea#jsonDataDump').val(jsonString);
         }
+
 
         var parsePastedData = function(e){
             var cb;
