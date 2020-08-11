@@ -11,5 +11,5 @@
     Bloom<br />
     <?=$this->Form->input('bloom', array('label' => false, 'type' => 'select', 'value' => $bloom, 'options' => ['null' => 'Geen', 'Onthouden' => 'Onthouden', 'Begrijpen' => 'Begrijpen', 'Toepassen' => 'Toepassen', 'Analyseren' => 'Analyseren', 'Evalueren' => 'Evalueren', 'Creëren' => 'Creëren'], 'style' => 'width:750px;'))?>
     Miller<br />
-    <?=$this->Form->input('miller', array('label' => false, 'type' => 'select', 'value' => $bloom, 'options' => ['null' => 'Geen', 'Weten' => 'Weten', 'Weten hoe' => 'Weten hoe', 'Laten zien' => 'Laten zien', 'Doen' => 'Doen'], 'style' => 'width:750px;'))?>
+    <?=$this->Form->input('miller', array('label' => false, 'type' => 'select', 'value' => $miller, 'options' => ['null' => 'Geen', 'Weten' => 'Weten', 'Weten hoe' => 'Weten hoe', 'Laten zien' => 'Laten zien', 'Doen' => 'Doen'], 'style' => 'width:750px;'))?>
 </div>
