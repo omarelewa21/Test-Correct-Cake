@@ -42,13 +42,14 @@ class SchoolClassesService extends BaseService {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
                 $err = json_decode($error);
-                foreach ($err as $k => $e) {
+
+                foreach ($err->errors as $k => $e) {
                     if (is_array($e)) {
-                        foreach ($e as $a) {
-                            $this->addError($a);
+                        foreach ($e as $b => $a) {
+                            $this->addAssocError($k, $a);
                         }
                     } else {
-                        $this->addError($e);
+                        $this->addAssocError($k, $e);
                     }
                 }
             } else {
