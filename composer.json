@@ -21,6 +21,7 @@
 	"require" : {
 	  "php": ">=5.3",
 	  "cakephp/cakephp" : "2.10.*",
-		"phpunit/phpunit": "^9.3"
+		"phpunit/phpunit": "^9.3",
+		"bugsnag/bugsnag": "^3.0"
 	}
   }
