@@ -78,6 +78,7 @@
                 </thead>
                 <tbody>
                     <?
+                    $leftI = 0;
                     for($i = 0; $i < 50; $i++) {
 
                         $left = "";
@@ -99,7 +100,7 @@
                                     $question['question']['matching_question_answers'][$a]['correct_answer_id'] == $left['id'])
                                 {
                                     $right[] = $question['question']['matching_question_answers'][$a]['answer'];
-                                    array_splice($question['question']['matching_question_answers'], $a, 1);//fix the $i counting issue with Selenium tests
+                                    unset($question['question']['matching_question_answers'][$a]);//fix the $i counting issue with Selenium tests
                                 }
                             }
                         }
@@ -112,11 +113,11 @@
                                 <span class="fa fa-arrows"></span>
                             </td>
                             <td valign="top">
-                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
+                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$leftI.'][order]', 'value' => $i, 'class' => 'order'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$leftI.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
                             </td>
                             <td valign="top">
-                                <?=$this->Form->input('', array('style' => 'width: 300px; height:65px;', 'label' => false, 'type' => 'textarea', 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => $right))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px; height:65px;', 'label' => false, 'type' => 'textarea', 'name' => 'data[Question][answers]['.$leftI.'][right]', 'value' => $right))?>
                             </td>
                             <td valign="top">
                                 <? if($editable) { ?>
@@ -127,6 +128,9 @@
                             </td>
                         </tr>
                         <?
+                        if($display) {
+                            $leftI++;//fix the $i counting issue with Selenium tests
+                        }
                     }
                     ?>
                 </tbody>
