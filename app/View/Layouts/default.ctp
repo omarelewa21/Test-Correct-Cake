@@ -4,6 +4,15 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<title>Test-Correct</title>
 
+		<?php
+		if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
+		?>
+
+		<script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
+		<script>Bugsnag.start({ apiKey: '67db9c48927bdfb4918c53d52242ca62' })</script>
+
+		<?php } ?>
+
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=1280, user-scalable = no">
 
