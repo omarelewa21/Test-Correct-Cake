@@ -92,7 +92,9 @@
                         return ($a < $b) ? -1 : 1;
                     });
 
+                    $loopCounter = 0;
                     for($i = 0; $i < 10; $i++) {
+                        $loopCounter++;
 
                         if(isset($question['question']['multiple_choice_question_answers'][$i])) {
                             $answer = $question['question']['multiple_choice_question_answers'][$i];
@@ -108,7 +110,7 @@
                                 <span class="fa fa-arrows"></span>
                             </td>
                             <td>
-                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
+                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $loopCounter, 'class' => 'order'))?>
                                 <?=$this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : ''))?>
                             </td>
                             <td>
