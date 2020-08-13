@@ -502,9 +502,9 @@ class QuestionsController extends AppController {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
                 }
 
-                if($type == 'RankingQuestion') {
-                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
-                }
+//                if($type == 'RankingQuestion') {
+//                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
+//                }
 
 //                if($type == 'ClassifyQuestion') {
 //                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
@@ -842,9 +842,9 @@ class QuestionsController extends AppController {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
                 }
 
-                if($type == 'RankingQuestion') {
-                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
-                }
+//                if($type == 'RankingQuestion') {
+//                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
+//                }
 
                 /**
                  * 20190514 switched off as we decided to save the data in one call with add question

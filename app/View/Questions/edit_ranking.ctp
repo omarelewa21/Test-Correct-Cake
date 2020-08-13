@@ -77,6 +77,15 @@
             <tbody>
             <?
             $loopCounter = 0;
+
+            $a = $question['question']['ranking_question_answers'];
+
+            function cmp1($a,$b){
+                return $a['pivot']['correct_order'] > $b['pivot']['correct_order'];
+            }
+            usort($a,'cmp1');
+
+
             for($i = 0; $i < 10; $i++) {
                 $loopCounter++;
 
