@@ -404,3 +404,11 @@ Configure::write(
         'debug' => false
     )
 );
+
+// add the key if you want to make use of pusher
+Configure::write('pusher-key','');
+
+//Configure BugSnag
+// add the keys if you want to make use of bugsnag
+Configure::write('bugsnag-key-cake','');
+Configure::write('bugsnag-key-browser','');

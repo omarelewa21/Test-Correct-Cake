@@ -5,11 +5,11 @@
 		<title>Test-Correct</title>
 
 		<?php
-		if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
+		if (Configure::read('bugsnag-key-browser')) {
 		?>
 
 		<script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
-		<script>Bugsnag.start({ apiKey: '67db9c48927bdfb4918c53d52242ca62' })</script>
+		<script>Bugsnag.start({ apiKey: '<?=Configure::read('bugsnag-key-browser')?>' })</script>
 
 		<?php } ?>
 

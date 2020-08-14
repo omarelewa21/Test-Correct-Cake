@@ -99,13 +99,6 @@ Configure::write('Dispatcher.filters', array(
 	'CacheDispatcher'
 ));
 
-//Configure BugSnag
-
-if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
-	$bugsnag = Bugsnag\Client::make('25d18370c579d886cfd71240829eccf0');
-	Bugsnag\Handler::register($bugsnag);
-}
-
 /**
  * Configures default file logging options
  */
