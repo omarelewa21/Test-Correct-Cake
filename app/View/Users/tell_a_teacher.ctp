@@ -140,10 +140,20 @@
                         n.push($(this).val());
                     }
                 });
+
+                var removeTags = function (str) {
+                    if ((str===null) || (str===''))
+                    return false;
+                    else
+                    str = str.toString();
+                    return str.replace( /(<([^>]+)>)/ig, '');
+                    }
+
+
                 if(n.length == 1) {
-                    Notify.notify("Super bedankt!<br />We hebben "+n[0]+" uitgenodigd voor Test-Correct", "info");
+                    Notify.notify("Super bedankt!<br />We hebben "+removeTags(n[0])+" uitgenodigd voor Test-Correct", "info");
                 } else {
-                    Notify.notify("Super bedankt!<br />We hebben " + n.join(' en ') + " uitgenodigd voor Test-Correct", "info");
+                    Notify.notify("Super bedankt!<br />We hebben " + removeTags(n.join(' en ')) + " uitgenodigd voor Test-Correct", "info");
                 }
                 Navigation.refresh();
             },
