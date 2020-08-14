@@ -5,7 +5,7 @@
 		<title>Test-Correct</title>
 
 		<?php
-		if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false && Configure::read('bugsnag-key-browser')) {
+		if (Configure::read('bugsnag-key-browser')) {
 		?>
 
 		<script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
