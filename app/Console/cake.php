@@ -24,10 +24,10 @@ if (!defined('DS')) {
 $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
 
 if (function_exists('ini_set')) {
-	$root = dirname(dirname(dirname(__FILE__)));
+	$root = dirname(dirname(dirname(__FILE__))) . $ds . 'vendor' . $ds . 'cakephp' . $ds . 'cakephp';
 	$appDir = basename(dirname(dirname(__FILE__)));
 	$install = $root . DS . 'lib';
-	$composerInstall = $root . DS . $appDir . DS . 'Vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib';
+	$composerInstall = $root . DS . $appDir . DS . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib';
 
 	// the following lines differ from its sibling
 	// /lib/Cake/Console/Templates/skel/Console/cake.php
