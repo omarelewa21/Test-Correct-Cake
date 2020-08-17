@@ -17,6 +17,7 @@
 /app/tmp
 /app/__cache
 info.php
+/vendor/*
 
 /vendor/*
 
