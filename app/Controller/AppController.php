@@ -135,6 +135,7 @@ class AppController extends Controller
         // as discussed with Mohamed on 20200703
         // headers: "TLC" ---> "TLC Test-Correct secure app"
         // so we need to lowercase all the headers to make sure we can compare them as older version might have lowercase headers
+        // Windows10 header "TLCTestCorrectVersion"--> "Windows10|{versionnumber"
         // Windows header "TLCTestCorrectVersion"--> "Windows|{versionnumber"
         // Mac header "TLCTestCorrectVersion"--> "Macbook|{versionnumber}"
         // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
