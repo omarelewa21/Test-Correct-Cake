@@ -10,19 +10,19 @@ foreach($users as $user) {
             <?php
                     if((bool) $user['demo'] === true){
                     ?>
-            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=$user['id']?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verplaatsen','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verplaatsen','error');">
                 <span class="fa fa-arrows-h"></span>
             </a>
 
                     <?php
                     } else {
                     ?>
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$user['id']?>" onclick="Popup.load('/users/switch_school_location/<?=$user['id']?>', 600);">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>" onclick="Popup.load('/users/switch_school_location/<?=getUUID($user, 'get');?>', 600);">
                 <span class="fa fa-arrows-h"></span>
             </a>
 
                         <?php if($user['is_temp_teacher']){?>
-                            <a href="#" onclick="Popup.load('/users/edit_register_new_teacher/<?=$user['id']?>', 800);"  class="btn white pull-right">
+                            <a href="#" onclick="Popup.load('/users/edit_register_new_teacher/<?=getUUID($user, 'get');?>', 800);"  class="btn white pull-right">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
                         <?php } else {?>

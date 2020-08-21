@@ -9,7 +9,7 @@ if(isset($attachmentArray)){
     <? foreach($attachmentArray as $attKey => $attVal) : ?>
         
         <? foreach($attVal as $att): ?>
-            <input type="checkbox" name="attachment" value="<?= $att['attachments']['id'] ?>"><?= $att['attachments']['title']; ?>
+            <input type="checkbox" name="attachment" value="<?=getUUID($att['attachments'], 'get');?>"><?= $att['attachments']['title']; ?>
             <br>
         <? endforeach; ?>        
     <? endforeach; ?>

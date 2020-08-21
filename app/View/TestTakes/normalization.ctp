@@ -1,5 +1,5 @@
 <div id="buttons">
-    <a href="#" class="btn highlight mr2" onclick="TestTake.saveNormalization(<?=$take_id?>);">
+    <a href="#" class="btn highlight mr2" onclick="TestTake.saveNormalization('<?=$take_id?>');">
         <span class="fa fa-check mr5"></span>
         Normering opslaan
     </a>
@@ -25,7 +25,7 @@ foreach($test_take['questions'] as $question) {
         <div class="block-content">
             <table class="table table-striped">
                 <tr>
-                    <td width="20"><input name="data[TestTake][type]" type="radio" value="1" checked onclick="TestTake.normalizationPreview(<?=$take_id?>);" /></td>
+                    <td width="20"><input name="data[TestTake][type]" type="radio" value="1" checked onclick="TestTake.normalizationPreview('<?=$take_id?>');" /></td>
                     <th width="300">
                         Goed per punt
                     </th>
@@ -35,7 +35,7 @@ foreach($test_take['questions'] as $question) {
                     </td>
                 </tr>
                 <tr>
-                    <td width="20"><input name="data[TestTake][type]" type="radio" value="4" onclick="TestTake.normalizationPreview(<?=$take_id?>);" /></td>
+                    <td width="20"><input name="data[TestTake][type]" type="radio" value="4" onclick="TestTake.normalizationPreview('<?=$take_id?>');" /></td>
                     <th width="300">
                         Fouten per punt
                     </th>
@@ -45,7 +45,7 @@ foreach($test_take['questions'] as $question) {
                     </td>
                 </tr>
                 <tr>
-                    <td><input name="data[TestTake][type]" type="radio" value="2" onclick="TestTake.normalizationPreview(<?=$take_id?>);" /></td>
+                    <td><input name="data[TestTake][type]" type="radio" value="2" onclick="TestTake.normalizationPreview('<?=$take_id?>');" /></td>
                     <th>
                         Normeren o.b.v. gemiddeld cijfer
                     </th>
@@ -55,7 +55,7 @@ foreach($test_take['questions'] as $question) {
                     </td>
                 </tr>
                 <tr>
-                    <td><input name="data[TestTake][type]" type="radio" value="3" onclick="TestTake.normalizationPreview(<?=$take_id?>);" /></td>
+                    <td><input name="data[TestTake][type]" type="radio" value="3" onclick="TestTake.normalizationPreview('<?=$take_id?>');" /></td>
                     <th>
                         Normeren o.b.v. n-term
                     </th>
@@ -67,7 +67,7 @@ foreach($test_take['questions'] as $question) {
                     </td>
                 </tr>
                 <tr>
-                    <td><input name="data[TestTake][type]" type="radio" value="5" onclick="TestTake.normalizationPreview(<?=$take_id?>);" /></td>
+                    <td><input name="data[TestTake][type]" type="radio" value="5" onclick="TestTake.normalizationPreview('<?=$take_id?>');" /></td>
                     <th>
                         Normeren o.b.v. cesuur
                     </th>
@@ -122,7 +122,7 @@ foreach($test_take['questions'] as $question) {
                         </td>
                         <td><?=$question['score']?></td>
                         <td>
-                            <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.normalizationPreview(<?=$take_id?>);" />
+                            <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.normalizationPreview('<?=$take_id?>');" />
                         </td>
                     </tr>
                     <?
@@ -135,7 +135,7 @@ foreach($test_take['questions'] as $question) {
     $('input').keyup(function() {
        clearTimeout(window.normalizeTimeout);
         window.normalizeTimeout = setTimeout(function() {
-            TestTake.normalizationPreview(<?=$take_id?>);
+            TestTake.normalizationPreview('<?=$take_id?>');
         }, 1000);
     });
 

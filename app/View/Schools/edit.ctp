@@ -14,7 +14,7 @@
                 Organisatie
             </th>
             <td>
-                <?=$this->Form->input('umbrella_organization_id', array('style' => 'width: 185px', 'label' => false, 'options' => $organisations)) ?>
+                <?=$this->Form->input('umbrella_organization_id', array('style' => 'width: 185px', 'label' => false, 'options' => $organisations)); ?>
             </td>
         </tr>
         <tr>

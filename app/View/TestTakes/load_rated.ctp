@@ -44,7 +44,7 @@ foreach($test_takes as $test_take) {
        <td><?=$test_take['participants_taken']?></td>
        <td><?=$test_take['participants_not_taken']?></td>
         <td class="nopadding" width="100">
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
         </td>

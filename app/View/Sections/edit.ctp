@@ -17,7 +17,7 @@
                 <?
                 $selectedLocations = [];
                 foreach($this->request->data['Section']['school_locations'] as $location) {
-                    $selectedLocations[] = $location['id'];
+                    $selectedLocations[] = getUUID($location, 'get');
                 }
                 ?>
                 <?=$this->Form->input('school_locations', ['options' => $locations, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'value' => $selectedLocations]) ?>

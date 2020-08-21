@@ -10,9 +10,9 @@ if(!isset($take)) {
     ?>
 
     <div id="buttons">
-        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion(<?=$take['id']?>);">Bespreking be&euml;indigen</a>
+        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');">Bespreking be&euml;indigen</a>
         <? if($has_next_question) { ?>
-            <a href="#" onclick="TestTake.nextDiscussionQuestion(<?=$take['id']?>);" class="btn highlight mr2 nextDiscussionQuestion">Volgende vraag</a>
+            <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight mr2 nextDiscussionQuestion">Volgende vraag</a>
         <? }  ?>
     </div>
 
@@ -51,14 +51,16 @@ if(!isset($take)) {
     <div id="attachmentFade"></div>
 
     <script type="text/javascript">
-        $('#questionQuestion').load('/questions/preview_single_load/<?=$take['discussing_question_id']?>/<?=isset($group) ? $group : ''?>');
-        $('#questionAnswer').load('/questions/preview_answer_load/<?=$take['discussing_question_id']?>');
-        $('#participants').load('/test_takes/discussion_participants/<?=$take['id']?>');
+    <?php if (isset($take['discussing_question_uuid'])) { ?>
+        $('#questionQuestion').load('/questions/preview_single_load/<?=$take['discussing_question_uuid']?>/<?=isset($group) ? $group : ''?>');
+        $('#questionAnswer').load('/questions/preview_answer_load/<?=$take['discussing_question_uuid']?>');
+    <?php } ?>
+        $('#participants').load('/test_takes/discussion_participants/<?=getUUID($take, 'get');?>');
 
         clearInterval(window.participantsTimeout);
         window.participantsTimeout = setInterval(function() {
             Loading.discard = true;
-            $('#participants').load('/test_takes/discussion_participants/<?=$take['id']?>');
+            $('#participants').load('/test_takes/discussion_participants/<?=getUUID($take, 'get');?>');
         }, 2000);
     </script>
     <?

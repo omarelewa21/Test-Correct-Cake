@@ -101,7 +101,7 @@
 
 
 <script type="text/javascript">
-    $('#questionQuestion').load('/questions/preview_single_load/<?=$questions[$question_index]['question_id']?>/<?=isset($group) ? $group : ''?>');
-    $('#questionQuestion_correct').load('/questions/preview_answer_load/<?=$questions[$question_index]['question_id']?>');
+    $('#questionQuestion').load('/questions/preview_single_load/<?=getUUID($questions[$question_index]['question'], 'get')?>/<?=isset($group) ? $group : ''?>');
+    $('#questionQuestion_correct').load('/questions/preview_answer_load/<?=getUUID($questions[$question_index]['question'], 'get')?>');
     $('#questionAnswer').load('/test_takes/glance_answer/<?=$take_id?>/<?=$question_index?>');
 </script>

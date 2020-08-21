@@ -40,10 +40,10 @@
 
         <script type="text/javascript">
 
-            $('#question_preview_<?=$question['question']['id']?>').load('/questions/preview_single_load/<?=$question['question']['id']?>');
-            $('#question_answer_<?=$question['question']['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=$question['question']['id']?>',
+            $('#question_preview_<?=$question['question']['id']?>').load('/questions/preview_single_load/<?=getUUID($question['question'], 'get');?>');
+            $('#question_answer_<?=$question['question']['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=getUUID($question['question'], 'get');?>',
                 function() {
-                    $('#score_<?=$participant_id?><?=$question['question']['id']?>').load('/test_takes/rate_teacher_score/<?=$participant_id?>/<?=$question['question']['id']?>/0');
+                    $('#score_<?=$participant_id?><?=$question['question']['id']?>').load('/test_takes/rate_teacher_score/<?=$participant_id?>/<?=getUUID($question['question'], 'get');?>/0');
                 }
             );
         </script>

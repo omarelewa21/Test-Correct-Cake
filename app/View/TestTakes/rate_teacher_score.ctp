@@ -54,7 +54,7 @@ if(!empty($answer['note'])) {
                         echo 'Docent';
 
                         $teacher = $rating['rating'];
-                        $ratingId = $rating['id'];
+                        $ratingId = getUUID($rating, 'get');
 
                         break;
                 }
@@ -89,25 +89,25 @@ if(!empty($answer['note'])) {
                 },
                 stop: function (event, ui) {
                     $("#rating_<?=$participant_id.$question_id?>").hide();
-                    TestTake.saveTeacherRating(<?=$answer['id']?>, $('#score_input_<?=$participant_id.$question_id?>').val(), <?=$participant_id?>, <?=$ratingId?>, <?=$question_id?>);
+                    TestTake.saveTeacherRating('<?=getUUID($answer, 'get');?>', $('#score_input_<?=$participant_id.$question_id?>').val(), '<?=$participant_id?>', '<?=$ratingId?>', '<?=$question_id?>');
                 }
             });
             $("#scoreval_<?=$participant_id.$question_id?>").html($("#rating_<?=$participant_id.$question_id?>").slider("value") + ' pt');
 
-            <?
+            <?php
 
             if(($student1 != $student2 || $student1 == null && $student2 == null) && empty($teacher) && empty($system)) {
                 ?>
                 $('#questionblock_<?=$participant_id.$question_id?>').show();
-                <?
+                <?php
             }elseif(empty($student1) && empty($teacher) && empty($system)){
                 ?>
                 $('#questionblock_<?=$participant_id.$question_id?>').show();
-                <?
+                <?php
             }else{
                 ?>
                 $('#btnShowAll').slideDown();
-                <?
+                <?php
             }
             ?>
         });
