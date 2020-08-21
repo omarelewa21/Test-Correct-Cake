@@ -12,7 +12,7 @@ foreach($participants as $participant) {
     ?>
     <div class="participant <?= $active ? 'active' : ''?>">
         <? if($status == 1) { ?>
-            <span class="pull-right fa fa-remove" style="cursor:pointer;" onclick="TestTake.removeParticipant('<?=$take_id?>', '<?=getUUID($participant, 'get');?>');"></span>
+            <span class="pull-right fa fa-remove" style="cursor:pointer;" onclick="TestTake.removeParticipant(<?=$take_id?>, <?=$participant['id']?>);"></span>
         <? } ?>
         <?=$participant['user']['name_first']?>
         <?=$participant['user']['name_suffix']?>
@@ -42,18 +42,18 @@ foreach($participants as $participant) {
 <script type="text/javascript">
     clearTimeout(window.loadParticipants);
     window.loadParticipants = setTimeout(function() {
-        TestTake.loadParticipants('<?=$take_id?>');
+        TestTake.loadParticipants(<?=$take_id?>);
     }, 2000);
 
-    <?php
+    <?
     if($present) {
         ?>
         TestTake.studentsPresent = true;
-        <?php
+        <?
     }else{
         ?>
         TestTake.studentsPresent = false;
-        <?php
+        <?
     }
     ?>
 </script>

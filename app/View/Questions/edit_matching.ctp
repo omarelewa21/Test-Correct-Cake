@@ -197,7 +197,7 @@
     </a>
 
     <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'MatchingQuestion', '<?=getUUID($question, 'get');?>');">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', <?=$owner_id?>, 'MatchingQuestion', <?=$question['id']?>);">
             Vraag opslaan
         </a>
     <? } ?>
@@ -210,7 +210,7 @@
     <? } ?>
 
     <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        Questions.loadEditAttachments('<?=$owner?>', <?=$owner_id?>, <?=$question['id']?>);
     <? } ?>
 
     $('#QuestionAttainments').select2();

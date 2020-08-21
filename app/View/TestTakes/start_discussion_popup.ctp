@@ -7,10 +7,10 @@
         Wilt u de gesloten vragen overslaan of bespreken?
     </div>
 
-    <div class="btn highlight pull-left" style="cursor:pointer; width:150px; height: 100px; line-height:100px; text-align: center;" onclick="TestTake.startDiscussion('<?=$take_id?>', 'OPEN_ONLY')">
+    <div class="btn highlight pull-left" style="cursor:pointer; width:150px; height: 100px; line-height:100px; text-align: center;" onclick="TestTake.startDiscussion(<?=$take_id?>, 'OPEN_ONLY')">
         Overslaan
     </div>
-    <div class="btn highlight pull-right" style="cursor:pointer; width:150px; height: 100px; line-height:100px; text-align: center;" onclick="TestTake.startDiscussion('<?=$take_id?>', 'ALL')">
+    <div class="btn highlight pull-right" style="cursor:pointer; width:150px; height: 100px; line-height:100px; text-align: center;" onclick="TestTake.startDiscussion(<?=$take_id?>, 'ALL')">
         Bespreken
     </div>
 </div>

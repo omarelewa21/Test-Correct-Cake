@@ -113,7 +113,7 @@ class FileManagementController extends AppController
                 $this->set('testKind', $name);
             }
         }
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels(getUUID($data['school_location'], 'get'));
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($data['school_location_id']);
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
@@ -142,7 +142,7 @@ class FileManagementController extends AppController
 
             $teachers = [];
             foreach ($_teachers as $teacher) {
-                $teachers[getUUID($teacher, 'get')] = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
+                $teachers[$teacher['id']] = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
             }
 
             $this->set('teachers', $teachers);
@@ -206,7 +206,7 @@ class FileManagementController extends AppController
 
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
-        $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
+        $school_location_id = AuthComponent::user('school_location_id');
 
         if ($this->request->is('post')) {
 
@@ -287,7 +287,7 @@ class FileManagementController extends AppController
                     'id'        => $el['education_level']['id'],
                     'max_years' => $el['education_level']['max_years']
                 ];
-                $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
+                $eloAr[$el['education_level']['id']] = $el['education_level']['name'];
             }
             $this->set('educationLevels', $elAr);
             $this->set('educationLevelOptions', $eloAr);
@@ -434,7 +434,7 @@ class FileManagementController extends AppController
                     'id'        => $el['education_level']['id'],
                     'max_years' => $el['education_level']['max_years']
                 ];
-                $eloAr[getUUID($el['education_level'], 'get')]] = $el['education_level']['name'];
+                $eloAr[$el['education_level']['id']] = $el['education_level']['name'];
             }
             $this->set('educationLevels', $elAr);
             $this->set('educationLevelOptions', $eloAr);

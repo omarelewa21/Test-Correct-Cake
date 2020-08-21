@@ -16,7 +16,7 @@
         PDF
     </a>
     <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
-        <a href="#" class="btn white mr2" onclick="Test.delete('<?=$test_id?>', true);">
+        <a href="#" class="btn white mr2" onclick="Test.delete(<?=$test_id?>, true);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
@@ -112,7 +112,7 @@
                         $type = 'question';
                     }
                     ?>
-                    <tr id="<?=$type."_".getUUID($question, 'get')?>">
+                    <tr id="<?=$type."_".$question['id']?>">
                         <td><?=$i?></td>
                         <td>
                             <?
@@ -267,35 +267,35 @@
                         <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
                             <td class="nopadding">
 
-                                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>" onclick="return false;">
+                                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=$question['id']?>" onclick="return false;">
                                     <span class="fa fa-list-ul"></span>
                                 </a>
                                 <? if($question['question']['type'] == 'GroupQuestion') { ?>
-                                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get');?>');">
+                                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=$question['id']?>');">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
 
-                                    <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get');?>');">
+                                    <div class="dropblock blur-close" for="question_<?=$question['id']?>">
+                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=$question['id']?>');">
                                             <span class="fa fa-edit mr5"></span>
                                             Wijzigen
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>',<?=getUUID($question, 'getQuoted');?>);">
+                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', <?=$test_id?>, <?=$question['id']?>);">
                                             <span class="fa fa-trash mr5"></span>
                                             Verwijderen
                                         </a>
                                     </div>
                                 <? }else{ ?>
-                                    <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                                    <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
 
-                                    <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                                    <div class="dropblock blur-close" for="question_<?=$question['id']?>">
+                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
                                             <span class="fa fa-edit mr5"></span>
                                             Wijzigen
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>',<?=getUUID($question, 'getQuoted');?>);">
+                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', <?=$test_id?>, <?=$question['id']?>);">
                                             <span class="fa fa-trash mr5"></span>
                                             Verwijderen
                                         </a>
@@ -332,7 +332,7 @@
         $("#tableQuestions tbody").sortable({
             delay: 150,
             stop: function( event, ui ) {
-                Questions.updateIndex(ui.item[0].id, '<?=$test_id?>');
+                Questions.updateIndex(ui.item[0].id, <?=$test_id?>);
             }
         }).disableSelection();
 

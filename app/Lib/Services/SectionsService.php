@@ -45,7 +45,7 @@ class SectionsService extends BaseService
     }
 
     public function addSectionSubject($section_id, $data) {
-        $data['section_id'] = $this->getSection($section_id)['id'];
+        $data['section_id'] = $section_id;
         $response = $this->Connector->postRequest('/subject', [], $data);
 
         if($response === false){

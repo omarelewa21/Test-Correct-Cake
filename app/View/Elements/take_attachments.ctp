@@ -38,7 +38,7 @@
 
                 $i++;
                 ?>
-                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=$attachment['id']?>',<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
+                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachment['id']?>,<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
                     Bijlage #<?=$i?>
                 </a>
                 <?

@@ -155,7 +155,7 @@
         Annuleer
     </a>
     <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'RankingQuestion', '<?=getUUID($question, 'get');?>');">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', <?=$owner_id?>, 'RankingQuestion', <?=$question['id']?>);">
             Vraag opslaan
         </a>
     <? } ?>
@@ -163,13 +163,13 @@
 
 <script type="text/javascript">
 
-    <?php if(!$editable) { ?>
+    <? if(!$editable) { ?>
     $('.popup-content input, .popup-content select, .popup-content textarea').attr({'disabled' : true});
-    <?php } ?>
+    <? } ?>
 
-    <?php if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-    <?php } ?>
+    <? if($owner != 'group') { ?>
+        Questions.loadEditAttachments('<?=$owner?>', <?=$owner_id?>, <?=$question['id']?>);
+    <? } ?>
 
     $('#QuestionAttainments').select2();
 

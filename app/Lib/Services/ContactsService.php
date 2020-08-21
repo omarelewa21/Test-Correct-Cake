@@ -45,7 +45,7 @@ class ContactsService extends BaseService {
 
     public function deleteContact($owner, $owner_id, $type, $contact_id) {
 
-        $data = ['delete_' . $type . '_contact' => $this->getContact($contact_id)['id']];
+        $data = ['delete_' . $type . '_contact' => $contact_id];
 
         $response = $this->Connector->putRequest('/' . $owner . '/' . $owner_id, [], $data);
 

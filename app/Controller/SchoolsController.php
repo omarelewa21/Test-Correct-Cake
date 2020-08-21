@@ -34,7 +34,7 @@ class SchoolsController extends AppController
 
         $school = $this->SchoolsService->getSchool($id);
         $params['filter'] = [
-            'school_id' => $school['id'],
+            'school_id' => $id,
             'role' => [6]
         ];
 
@@ -63,7 +63,7 @@ class SchoolsController extends AppController
             $data = $this->request->data['School'];
 
             if($data['umbrella_organization_id'] != 0) {
-                $organisation = $this->UmbrellaOrganisationsService->getOrganisation($data['umbrella_organization_id'], 'get');
+                $organisation = $this->UmbrellaOrganisationsService->getOrganisation($data['umbrella_organization_id']);
                 $data['external_main_code'] = $organisation['external_main_code'];
             }
 
@@ -74,15 +74,15 @@ class SchoolsController extends AppController
 
                 $schoolFetch = $this->SchoolsService->getSchool($school_id);
                 foreach($schoolFetch['school_locations'] as $schoollocation) {
-                    $toIgnore[getUUID($schoollocation, 'get')] = $data['external_main_code'].$schoollocation['external_sub_code'];
+                    $toIgnore[$schoollocation['id']] = $data['external_main_code'].$schoollocation['external_sub_code'];
                 }
 
-                $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationListWithUUID();
+                $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationList();
 
-                foreach ($schoolLocationList as $id => $schoolLocationInList) {
-                    if(in_array(getUUID($schoolLocationInList, 'get'), array_keys($toIgnore))) continue;
+                foreach ($schoolLocationList as $id => $name) {
+                    if(in_array($id, array_keys($toIgnore))) continue;
                     foreach ($toIgnore as $matchAgainst) {
-                        $schoolLocationListItem = $this->SchoolLocationsService->getSchoolLocation(getUUID($schoolLocationInList, 'get'));
+                        $schoolLocationListItem = $this->SchoolLocationsService->getSchoolLocation($id);
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
@@ -95,7 +95,7 @@ class SchoolsController extends AppController
                 $school = $this->SchoolsService->getSchool($school_id);
                 foreach($school['school_locations'] as $schoollocation) {
                     $schoollocation['external_main_code'] = $data['external_main_code'];
-                    $this->SchoolLocationsService->updateSchoolLocation(getUUID($schoollocation, 'get'), $schoollocation);
+                    $this->SchoolLocationsService->updateSchoolLocation($schoollocation['id'], $schoollocation);
                 }
             }
 
@@ -125,7 +125,7 @@ class SchoolsController extends AppController
         $accountmanagers = [];
 
         foreach($users as $user) {
-            $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+            $accountmanagers[$user['id']] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
         $this->set('accountmanagers', $accountmanagers);
@@ -174,7 +174,7 @@ class SchoolsController extends AppController
         $accountmanagers = [];
 
         foreach($users as $user) {
-            $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+            $accountmanagers[$user['id']] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
         $this->set('accountmanagers', $accountmanagers);

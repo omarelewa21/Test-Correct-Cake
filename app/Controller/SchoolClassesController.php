@@ -72,7 +72,7 @@ class SchoolClassesController extends AppController
     public function load_students($class_id, $location_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $params['filter'] = ['student_school_class_id' => $this->SchoolClassesService->getClass($class_id)['id']];
+        $params['filter'] = ['student_school_class_id' => $class_id];
         $students = $this->UsersService->getUserList($params);
         $this->set('students', $students);
         $this->set('class_id', $class_id);
@@ -83,25 +83,21 @@ class SchoolClassesController extends AppController
     public function load_managers($class_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $class = $this->SchoolClassesService->getClass($class_id);
-
-        $params['filter'] = ['manager_school_class_id' => $class['id']];
+        $params['filter'] = ['manager_school_class_id' => $class_id];
         $managers = $this->UsersService->getUserList($params);
         $this->set('managers', $managers);
         $this->set('class_id', $class_id);
-        $this->set('class', $class);
+        $this->set('class',$this->SchoolClassesService->getClass($class_id));
     }
 
     public function load_mentors($class_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $class = $this->SchoolClassesService->getClass($class_id);
-
-        $params['filter'] = ['mentor_school_class_id' => $class['id']];
+        $params['filter'] = ['mentor_school_class_id' => $class_id];
         $mentors = $this->UsersService->getUserList($params);
         $this->set('mentors', $mentors);
         $this->set('class_id', $class_id);
-        $this->set('class', $class);
+        $this->set('class',$this->SchoolClassesService->getClass($class_id));
     }
 
     public function doImport($location_id,$class_id){
@@ -140,7 +136,7 @@ class SchoolClassesController extends AppController
             if($result) {
                 $this->formResponse(
                     true,
-                    ['id' => $result['id'], 'uuid' => getUUID($result, 'get')],
+                    ['id' => $result['id']]
                 );
             }else{
                 $this->formResponse(
@@ -154,7 +150,7 @@ class SchoolClassesController extends AppController
 
         $school_locations = array();
         foreach ($this->SchoolLocationsService->getSchoolLocations([]) as $key => $location) {
-            $school_locations[getUUID($location, 'get')] = $location['is_rtti_school_location']; 
+            $school_locations[$location['id']] = $location['is_rtti_school_location']; 
         }
 
         $this->set('location_info', $school_locations);

@@ -77,7 +77,7 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiCompletionQuestion', '<?=$owner?>', <?=$owner_id?>);">
         Vraag opslaan
     </a>
 </div>
@@ -122,9 +122,9 @@
 </script>
 
 <script type="text/javascript">
-    <?php if($owner != 'group') { ?>
+    <? if($owner != 'group') { ?>
         Questions.loadAddAttachments();
-    <?php } ?>
+    <? } ?>
 
     $('#QuestionAttainments').select2();
     $('#QuestionTags').select2({

@@ -10,31 +10,31 @@ foreach($users as $user) {
             <?php
                     if((bool) $user['demo'] === true){
                     ?>
-            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verwijderen','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=$user['id']?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verwijderen','error');">
                 <span class="fa fa-list-ul"></span>
             </a>
                     <?php
                     } else {
                     ?>
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$user['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
                     <?php
                     }
                     ?>
-            <a href="#" onclick="Navigation.load('/users/view/<?=getUUID($user, 'get');?>');"  class="btn white pull-right">
+            <a href="#" onclick="Navigation.load('/users/view/<?=$user['id']?>');"  class="btn white pull-right">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
-            <div class="dropblock blur-close" for="test_<?=getUUID($user, 'get');?>">
+            <div class="dropblock blur-close" for="test_<?=$user['id']?>">
                 <?php
                     if((bool) $user['demo'] !== true){
                     ?>
-                <a href="#" class="btn highlight white" onclick="Popup.load('/users/edit/<?=getUUID($user, 'get');?>', 400);">
+                <a href="#" class="btn highlight white" onclick="Popup.load('/users/edit/<?=$user['id']?>', 400);">
                     <span class="fa fa-edit mr5"></span>
                     Wijzigen
                 </a>
-                <a href="#" class="btn highlight white" onclick="User.delete('<?=getUUID($user, 'get');?>');">
+                <a href="#" class="btn highlight white" onclick="User.delete(<?=$user['id']?>);">
                     <span class="fa fa-remove mr5"></span>
                     Verwijderen
                 </a>

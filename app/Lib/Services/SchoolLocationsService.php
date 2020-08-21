@@ -70,17 +70,6 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocationListWithUUID()
-    {
-        $response = $this->Connector->getRequest('/school_location', ['mode' => 'list-uuid']);
-        if ($response === false) {
-            return $this->Connector->getLastResponse();
-        }
-
-
-        return $response;
-    }
-
     public function addSchoolLocation($data) {
 
         if(empty($data['school_id'])) {

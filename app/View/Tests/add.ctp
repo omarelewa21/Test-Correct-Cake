@@ -133,11 +133,11 @@
             confirm : $('#btnAddTest'),
             onsuccess : function(result) {
 
-                Navigation.load('/tests/view/' + result.uuid);
+                Navigation.load('/tests/view/' + result.id);
                 Popup.closeLast();
                 Notify.notify("Toets aangemaakt", "info");
                 setTimeout(function() {
-                    Popup.load('/questions/add_custom/test/' + result.uuid, 800);
+                    Popup.load('/questions/add_custom/test/' + result.id, 800);
                 }, 1000);
             },
             onfailure : function(result) {
@@ -154,13 +154,13 @@
     function updateEducationYears() {
         var val = $('#TestEducationLevelId').val();
         var years = 0;
-        <?php
+        <?
         foreach($levelyears as $year => $years) {
             ?>
-            if(val == '<?=$year?>') {
-                years = '<?=$years?>';
+            if(val == <?=$year?>) {
+                years = <?=$years?>;
             }
-            <?php
+            <?
         }
         ?>
 

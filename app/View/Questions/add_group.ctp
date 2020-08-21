@@ -61,11 +61,11 @@
         {
             confirm : $('#btbAddQuestionGroup'),
             onsuccess : function(result) {
-                Navigation.load('/questions/view_group/<?=$test_id?>/' + result.uuid);
+                Navigation.load('/questions/view_group/<?=$test_id?>/' + result.id);
                 Popup.closeLast();
                 Notify.notify("Vraag-groep aangemaakt", "info");
                 setTimeout(function() {
-                    Popup.load('/questions/add_custom/group/' + result.uuid, 800);
+                    Popup.load('/questions/add_custom/group/' + result.id, 800);
                 }, 1000);
             },
             onfailure : function(result) {

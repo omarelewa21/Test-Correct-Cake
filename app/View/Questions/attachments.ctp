@@ -135,7 +135,7 @@ if(!empty($attachments)) {
                     <td>
                         <? if($editable) { ?>
                             <a href="#" class="btn red small"
-                               onclick="Attachments.removeEditAttachment('<?=$owner?>', '<?=$id?>', '<?=getUUID($attachment, 'get');?>');">
+                               onclick="Attachments.removeEditAttachment('<?=$owner?>', <?=$id?>, <?=$attachment['id']?>);">
                                 <span class="fa fa-remove"></span>
                             </a>
                         <? } ?>

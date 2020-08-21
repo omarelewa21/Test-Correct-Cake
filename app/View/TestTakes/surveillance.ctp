@@ -52,7 +52,7 @@ if(count($takes) == 0) {
                                 foreach ($take['info']['school_classes'] as $class) {
                                     ?>
                                     <div class="progress" style="margin-bottom: 0px; height:20px; margin-bottom:1px;">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=getUUID($take['info'], 'get')?>_<?=getUUID($class, 'get')?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=$take['info']['id']?>_<?=$class['id']?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
                                     </div>
                                     <?
                                 }
@@ -60,7 +60,7 @@ if(count($takes) == 0) {
                             </td>
                             <td align="center" class="nopadding">
                                 <a href="#" class="btn highlight small"
-                                   onclick="TestTake.setTakeTaken('<?= getUUID($take['info'], 'get'); ?>');">
+                                   onclick="TestTake.setTakeTaken(<?= $take['info']['id'] ?>);">
                                     Inleveren
                                 </a>
                             </td>
@@ -101,11 +101,6 @@ if(count($takes) == 0) {
 
                 foreach ($takes as $take) {
                     if(is_array($take['info']['test_participants'])){
-
-                        foreach ($take['info']['test_participants'] as $key => $value) {
-                            $take['info']['test_participants'][$key]['test_take_uuid'] = getUUID($take['info'], 'get');
-                        }
-
                         $participants = array_merge($participants, $take['info']['test_participants']);
                     }
 

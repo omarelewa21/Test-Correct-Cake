@@ -4,7 +4,7 @@
         Terug
     </a>
 
-    <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion('<?=$take_id?>');">
+    <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion(<?=$take_id?>);">
         <span class="fa fa-users mr5"></span>
         Toets bespreken
     </a>
@@ -82,5 +82,5 @@
 
 <script type="text/javascript">
     clearTimeout(window.loadParticipants);
-    TestTake.loadParticipants('<?=$take_id?>');
+    TestTake.loadParticipants(<?=$take_id?>);
 </script>

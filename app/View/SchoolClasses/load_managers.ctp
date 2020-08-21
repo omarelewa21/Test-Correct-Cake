@@ -18,13 +18,13 @@ foreach($managers as $manager) {
         </td>
         <td class="nopadding">
             <?php if((bool) $class['demo'] !== true){?>
-            <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=getUUID($manager, 'get');?>', 500);">
+            <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=$manager['id']?>', 500);">
                 <span class="fa fa-edit mr5"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="SchoolClass.removeManager('<?=$class_id?>', '<?=getUUID($manager, 'get');?>');">
+            <a href="#" class="btn white pull-right" onclick="SchoolClass.removeManager(<?=$class_id?>, <?=$manager['id']?>);">
                 <span class="fa fa-remove"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Popup.load('/users/edit/<?=getUUID($manager, 'get');?>', 400);">
+            <a href="#" class="btn white pull-right" onclick="Popup.load('/users/edit/<?=$manager['id']?>', 400);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
             <?php } ?>

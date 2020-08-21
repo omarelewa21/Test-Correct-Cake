@@ -39,7 +39,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     <td><?=$test_take['weight']?></td>
                     <? if($teacher){ ?>
                         <td class="nopadding" width="30">
-                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
                         </td>
@@ -91,7 +91,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     }
                     ?>
                     <td>
-                        <a href="#" class="btn white" onclick="Navigation.load('/analyses/student/<?=getUUID($student, 'get');?>');">
+                        <a href="#" class="btn white" onclick="Navigation.load('/analyses/student/<?=$student['id']?>');">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>

@@ -2,7 +2,7 @@
 <div class="popup-content">
 
     <center>
-        <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get');?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
+        <img src="/users/profile_picture/<?=$participant['user']['id']?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
     </center>
 
     <? if(empty($participant['total_time']) && empty($participant['rating'])) { ?>

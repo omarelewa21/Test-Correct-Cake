@@ -39,19 +39,19 @@ foreach($attainments as $id => $data) {
         }
 
         $('#QuestionSubAttainments').find('option').remove();
-        <?php
+        <?
         foreach($attainments as $id => $data) {
             ?>
-        if(value == '<?=$id?>') {
-            <?php
+        if(value == <?=$id?>) {
+            <?
             foreach($data['attainments'] as $sub_id => $sub_title) {
                 ?>
             $('#QuestionSubAttainments').append('<option value="<?=$sub_id?>"><?=str_replace("'", "", $sub_title)?></option>');
-            <?php
+            <?
         }
         ?>
         }
-        <?php
+        <?
     }
     ?>
 

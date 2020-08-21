@@ -151,14 +151,14 @@
                         subjectSelect.find('option').remove();
                         jQuery.each(subjects, function (key, s) {
                             if (teacherSubjects.includes(s.id)) {
-                                subjectSelect.append('<option value="' + s.uuid + '">' + s.name + '</option>');
+                                subjectSelect.append('<option value="' + s.id + '">' + s.name + '</option>');
                             }
                         });
                     }
                 })
                 .on('change', '#QtiEducationLevelId', function () {
                     var elId = $(this).val();
-                    var maxYears = educationLevels.find(level => level.uuid == elId)['max_years'];
+                    var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
                     educationLevelYearSelect.find('option').remove();
                     for(i=1;i<=maxYears;i++){
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');

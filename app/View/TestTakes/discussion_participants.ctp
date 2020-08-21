@@ -1,4 +1,4 @@
-<a id="btnResetAnswerPreview" href="#" class="btn highlight" style="text-align: center; display: none; margin-bottom: 10px; width: 190px" onclick="TestTake.resetAnswerPreview('<?=$take['discussing_question_uuid']?>', '<?=getUUID($take, 'get')?>');">
+<a id="btnResetAnswerPreview" href="#" class="btn highlight" style="text-align: center; display: none; margin-bottom: 10px; width: 190px" onclick="TestTake.resetAnswerPreview(<?=$take['discussing_question_id']?>, <?=$take['id']?>);">
     Reset antwoordmodel
 </a>
 <script type="text/javascript">
@@ -72,7 +72,7 @@
                     </td>
                     <td width="20">
                         <? if (isset($participant['answer_rated']) && $participant['answer_rated'] != $participant['answer_to_rate']) { ?>
-                            <span class="fa fa-eye" style="cursor: pointer;" onclick="TestTake.loadParticipantAnswerPreview('<?=getUUID($take, 'get')?>', '<?=getUUID($participant['user'], 'get')?>');"></span>
+                            <span class="fa fa-eye" style="cursor: pointer;" onclick="TestTake.loadParticipantAnswerPreview(<?=$participant['test_take_id']?>, <?=$participant['user_id']?>);"></span>
                         <? } ?>
                     </td>
                 </tr>

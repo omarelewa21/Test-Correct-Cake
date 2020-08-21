@@ -14,11 +14,11 @@
                 ?>
                 <tr>
                     <td>
-                        <?=$this->Form->input('TestTake.'.getUUID($test_take, 'get'), [
+                        <?=$this->Form->input('TestTake.'.$test_take['id'], [
                             'type' => 'checkbox',
                             'label' => false,
                             'class' => 'test_take',
-                            'take_id' => getUUID($test_take, 'get')
+                            'take_id' => $test_take['id']
                         ])?>
                     </td>
                     <td><?=$test_take['test']['name']?></td>

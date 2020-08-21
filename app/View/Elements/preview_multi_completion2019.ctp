@@ -40,7 +40,7 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>

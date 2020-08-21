@@ -1,7 +1,7 @@
 <?
 foreach($classes as $class) {
     ?>
-    <tr onclick="Navigation.load('/analyses/school_class/<?=getUUID($class, 'get');?>')">
+    <tr onclick="Navigation.load('/analyses/school_class/<?=$class['id']?>')">
         <td><?=$class['name']?></td>
         <td>
             <?

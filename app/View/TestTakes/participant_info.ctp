@@ -7,7 +7,7 @@
 <div class="popup-content" style="max-height:400px; overflow: auto;">
     <div style="width:450px; float:left">
         <center>
-            <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get');?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
+            <img src="/users/profile_picture/<?=$participant['user']['id']?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
         </center>
         <table class="table table-striped">
             <tr>
@@ -112,7 +112,7 @@
 
     $('#ParticipantParticipantInfoForm').formify(
         {
-            action : '/test_takes/participant_info/<?=$test_id?>/<?=getUUID($participant, 'get');?>',
+            action : '/test_takes/participant_info/<?=$test_id?>/<?=$participant['id']?>',
             confirm : $('#btnSaveParticipantNotes'),
             onsuccess : function(result) {
                 Popup.closeLast();

@@ -107,12 +107,10 @@ class QuestionsService extends BaseService
     public function duplicate($owner, $owner_id, $question_id)
     {
 
-        $testservice = new TestsService();
-        $data['test_id'] = $testservice->getTest($owner_id)['id'];
+        $data['test_id'] = $owner_id;
         $data['order'] = 0;
         $data['maintain_position'] = 0;
         $data['discuss'] = 1;
-        $question_id = $this->getSingleQuestion($question_id)['id'];
         $data['question_id'] = $question_id;
 
         $response = $this->Connector->postRequest('/test_question', [], $data);
@@ -210,7 +208,7 @@ class QuestionsService extends BaseService
 
         foreach ($response as $item) {
             if (empty($item['attainment_id'])) {
-                $results[getUUID($item, 'get')] = [
+                $results[$item['id']] = [
                     'title' => "[" . $item['code'] . "] " . $item['description'],
                     'attainments' => [
                         '' => 'Geen subdomein'
@@ -221,7 +219,7 @@ class QuestionsService extends BaseService
 
         foreach ($response as $item) {
             if (!empty($item['attainment_id'])) {
-                $results[$item['attainment_id']]['attainments'][$item['uuid']] = "[" . $item['code'] . $item['subcode'] . "] " . $item['description'];
+                $results[$item['attainment_id']]['attainments'][$item['id']] = "[" . $item['code'] . $item['subcode'] . "] " . $item['description'];
             }
         }
 
@@ -233,9 +231,7 @@ class QuestionsService extends BaseService
 
         $group = $this->_fillNewQuestionGroup($group);
 
-
-        $testservice = new TestsService();
-        $group['test_id'] = $testservice->getTest($test_id)['id'];
+        $group['test_id'] = $test_id;
         $group['type'] = 'GroupQuestion';
 
         if (empty($group['attainments'])) {
@@ -357,12 +353,13 @@ class QuestionsService extends BaseService
 
 
         if ($owner == 'test') {
-            $testservice = new TestsService();
-            $question['test_id'] = $testservice->getTest($owner_id)['id'];
+            $question['test_id'] = $owner_id;
             $response = $this->Connector->postRequest('/test_question', [], $question);
         } else {
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id, [], $question);
         }
+
+        // die(var_dump($this->Connector));
 
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
@@ -393,15 +390,15 @@ class QuestionsService extends BaseService
     public function addTrueFalseAnswers($result, $question, $owner)
     {
 
-        $question_id = $result['uuid'];
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = $result['uuid'];
+            $question_id = $result['id'];
             $changed = $this->checkTrueFalseAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . $result['uuid']; // ID voor wegschrijven vraag
-            $changed = $this->checkTrueFalseAnswersChanged('group', $result['group_question_question_path'], $result['uuid'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkTrueFalseAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -458,15 +455,15 @@ class QuestionsService extends BaseService
     public function addMultiChoiceAnswers($result, $question, $owner)
     {
 
-        $question_id = $result['uuid'];
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = $result['uuid'];
+            $question_id = $result['id'];
             $changed = $this->checkMultiChoiceAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . $result['uuid']; // ID voor wegschrijven vraag
-            $changed = $this->checkMultiChoiceAnswersChanged('group', $result['group_question_question_path'], $result['uuid'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkMultiChoiceAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -496,12 +493,12 @@ class QuestionsService extends BaseService
     {
 
         if ($owner == 'test') {
-            $question_id = $result['uuid'];
+            $question_id = $result['id'];
             $changed = $this->checkARQAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . $result['uuid']; // ID voor wegschrijven vraag
-            $changed = $this->checkARQAnswersChanged('group', $result['group_question_question_path'], $result['uuid'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkARQAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -600,15 +597,15 @@ class QuestionsService extends BaseService
     public function addRankingAnswers($result, $question, $owner)
     {
 
-        $question_id = $result['uuid'];
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = $result['uuid'];
+            $question_id = $result['id'];
             $changed = $this->checkRankingAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . $result['uuid']; // ID voor wegschrijven vraag
-            $changed = $this->checkRankingAnswersChanged('group', $result['group_question_question_path'], $result['uuid'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkRankingAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -665,15 +662,15 @@ class QuestionsService extends BaseService
     public function addMatchingAnswers($result, $question, $owner)
     {
 
-        $question_id = $result['uuid'];
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = $result['uuid'];
+            $question_id = $result['id'];
             $changed = $this->checkMatchingAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . $result['uuid']; // ID voor wegschrijven vraag
-            $changed = $this->checkMatchingAnswersChanged('group', $result['group_question_question_path'], $result['uuid'], $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkMatchingAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -769,15 +766,15 @@ class QuestionsService extends BaseService
     public function addClassifyAnswers($result, $question, $owner)
     {
 
-        $question_id = getUUID($result, 'get');
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = getUUID($result, 'get');
+            $question_id = $result['id'];
             $changed = $this->checkClassifyAnswersChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . getUUID($result, 'get'); // ID voor wegschrijven vraag
-            $changed = $this->checkClassifyAnswersChanged('group', $result['group_question_question_path'], getUUID($result, 'get'), $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkClassifyAnswersChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -881,15 +878,15 @@ class QuestionsService extends BaseService
     public function addCompletionQuestionAnswers($result, $question, $owner)
     {
 
-        $question_id = getUUID($result, 'get');
+        $question_id = $result['id'];
 
         if ($owner == 'test') {
-            $question_id = getUUID($result, 'get');
+            $question_id = $result['id'];
             $changed = $this->checkCompletionQuestionChanged('test', null, $question_id, $question);
             $path = '/test_question/';
         } else {
-            $question_id = $result['group_question_question_path'] . '.' . getUUID($result, 'get'); // ID voor wegschrijven vraag
-            $changed = $this->checkCompletionQuestionChanged('group', $result['group_question_question_path'], getUUID($result, 'get'), $question);
+            $question_id = $result['group_question_question_path'] . '.' . $result['id']; // ID voor wegschrijven vraag
+            $changed = $this->checkCompletionQuestionChanged('group', $result['group_question_question_path'], $result['id'], $question);
             $path = '/group_question_question/';
         }
 
@@ -1228,9 +1225,9 @@ class QuestionsService extends BaseService
             $data['bg'] = new CURLFile($session['drawing_background']);
 
             if ($owner == 'test') {
-                $response = $this->Connector->putRequestFile('/test_question/' . getUUID($result, 'get'), [], $data);
+                $response = $this->Connector->putRequestFile('/test_question/' . $result['id'], [], $data);
             } else {
-                $question_id = $result['group_question_question_path'] . '/' . getUUID($result, 'get');
+                $question_id = $result['group_question_question_path'] . '/' . $result['id'];
                 $response = $this->Connector->putRequestFile('/group_question_question/' . $question_id, [], $data);
             }
 

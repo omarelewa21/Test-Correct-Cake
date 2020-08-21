@@ -35,30 +35,30 @@ foreach($test_takes as $test_take) {
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=getUUID($test_take, 'get');?>">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=$test_take['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
-            <div class="dropblock blur-close" for="test_take_<?=getUUID($test_take, 'get');?>">
-                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+            <div class="dropblock blur-close" for="test_take_<?=$test_take['id']?>">
+                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
                     <span class="fa fa-edit mr5"></span>
                     Wijzigen
                 </a>
                 <? if($test_take['test_take_status_id'] == 1) { ?>
                     <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) {?>
-                        <a href="#" class="btn highlight white" onclick="TestTake.startTake(<?=getUUID($test_take, 'getQuoted');?>);">
+                        <a href="#" class="btn highlight white" onclick="TestTake.startTake(<?=$test_take['id']?>);">
                             <span class="fa fa-calendar mr5"></span>
                             Nu afnemen
                         </a>
                     <? } ?>
-                    <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
+                    <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_take['test']['id']?>', 1000)" class="btn highlight white">
                         <span class="fa fa-file-o mr5"></span>
                         Exporteren / Printen
                     </a>
-                    <a href="#" class="btn highlight white" onclick="TestTake.delete(<?=getUUID($test_take, 'getQuoted');?>);">
+                    <a href="#" class="btn highlight white" onclick="TestTake.delete(<?=$test_take['id']?>);">
                         <span class="fa fa-remove mr5"></span>
                         Verwijderen
                     </a>

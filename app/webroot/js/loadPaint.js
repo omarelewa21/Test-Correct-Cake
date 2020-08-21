@@ -371,28 +371,26 @@ var App = function() {
 		};
 	}
 
-	if (window.question_id != undefined) {
-		$.get('/answers/has_background/' + window.question_id,
-			function(response) {
-				if(response != 0) {
-					var img = new Image(), element = canvas.getCanvas();
+	$.get('/answers/has_background/' + window.question_id,
+		function(response) {
+			if(response != 0) {
+				var img = new Image(), element = canvas.getCanvas();
 
-					img.src = response;
+				img.src = response;
 
-					var size = new Paint.Point(970,475),
-						position = new Paint.Point(0, 0);
+				var size = new Paint.Point(970,475),
+					position = new Paint.Point(0, 0);
 
-					background.clear();
-					background.add(new Paint.Image(img, {
-						position: position,
-						size: size
-					}));
+				background.clear();
+				background.add(new Paint.Image(img, {
+					position: position,
+					size: size
+				}));
 
-					canvas.render();
-				}
+				canvas.render();
 			}
-		);
-	}
+		}
+	);
 	
 	document.getElementById('btn-export').onclick = 
 	document.getElementById('btn-export').ontouchdown = function() {

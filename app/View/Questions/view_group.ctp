@@ -51,7 +51,7 @@ if(!empty($group['question']['question'])) {
                 foreach($questions as $question) {
                     $i++;
                     ?>
-                    <tr id="<?=getUUID($question, 'get');?>">
+                    <tr id="<?=$question['id']?>">
                         <td><?=$i?></td>
                         <td>
                             <div class="cell_autowidth">
@@ -103,19 +103,19 @@ if(!empty($group['question']['question'])) {
                             <?= $question['question']['score'].'pt'; ?>
                         </td>
                         <td class="nopadding">
-                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>">
+                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=$question['id']?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
 
-                            <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                            <div class="dropblock blur-close" for="question_<?=$question['id']?>">
+                                <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
                                     <span class="fa fa-edit mr5"></span>
                                     Wijzigen
                                 </a>
-                                <a href="#" class="btn highlight white" onclick="Questions.delete('group', '<?=$group_id?>',<?=getUUID($question, 'getQuoted');?>);">
+                                <a href="#" class="btn highlight white" onclick="Questions.delete('group', <?=$group_id?>, <?=$question['id']?>);">
                                     <span class="fa fa-remove mr5"></span>
                                     Verwijderen
                                 </a>
@@ -140,12 +140,12 @@ if(!empty($group['question']['question'])) {
 
 <script type="text/javascript">
 
-    Questions.loadEditAttachments('group', '<?=$test_id?>', '<?=$group_id?>');
+    Questions.loadEditAttachments('group', <?=$test_id?>, <?=$group_id?>);
 
    $("#tableQuestions tbody").sortable({
         delay: 150,
         stop: function( event, ui ) {
-            Questions.updateGroupIndex(ui.item[0].id, '<?=$group_id?>');
+            Questions.updateGroupIndex(ui.item[0].id, <?=$group_id?>);
         }
     }).disableSelection();
 

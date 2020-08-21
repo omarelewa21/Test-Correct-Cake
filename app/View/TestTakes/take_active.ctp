@@ -50,16 +50,16 @@
     TestTake.startHeartBeat('active');
     TestTake.questionSaved = false;
 
-    <?php
+    <?
     if(isset($questions[$take_question_index + 1])) { ?>
         TestTake.nextUrl =  '/test_takes/take/<?=$take_id?>/<?=($take_question_index+ 1)?>';
-    <?php }else{ ?>
+    <? }else{ ?>
         TestTake.nextUrl =  '/test_takes/take_answer_overview/<?=$take_id?>';
-    <?php } ?>
+    <? } ?>
 
-    Answer.loadQuestionAnswer('<?=$active_question?>');
+    Answer.loadQuestionAnswer(<?=$active_question?>);
 
-    Answer.takeId = '<?=$take_id?>';
+    Answer.takeId = <?=$take_id?>;
 
     jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
         console.log('mousentered');

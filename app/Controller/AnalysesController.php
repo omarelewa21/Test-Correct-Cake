@@ -105,11 +105,11 @@ class AnalysesController extends AppController
         $base_subjects = [];
 
         foreach($student['subjects'] as $subject) {
-            $subjects[getUUID($subject, 'get')] = $subject['name'];
+            $subjects[$subject['id']] = $subject['name'];
         }
 
         foreach($student['base_subjects'] as $base_subject) {
-            $base_subjects[getUUID($base_subject, 'get')] = $base_subject['name'];
+            $base_subjects[$base_subject['id']] = $base_subject['name'];
         }
 
         $messages = $this->MessagesService->getMessages([

@@ -40,7 +40,7 @@ class TeacherClassesController extends AppController
     }
 
     public function load_students($class_id, $location_id) {
-        $params['filter'] = ['student_school_class_id' => $this->SchoolClassesService->getClass($class_id)['id']];
+        $params['filter'] = ['student_school_class_id' => $class_id];
         $students = $this->UsersService->getUserList($params);
         $this->set('students', $students);
         $this->set('class_id', $class_id);

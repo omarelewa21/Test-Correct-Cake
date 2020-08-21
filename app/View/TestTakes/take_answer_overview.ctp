@@ -56,8 +56,8 @@ foreach($questions as $question) {
     <br clear="all" />
 
     <script type="text/javascript">
-        $('#question_preview_<?=$question['id']?>').load('/questions/preview_single_load/<?=getUUID($question, 'get');?>/0/1');
-        $('#question_answer_<?=$question['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=getUUID($question, 'get');?>');
+        $('#question_preview_<?=$question['id']?>').load('/questions/preview_single_load/<?=$question['question_id']?>/0/1');
+        $('#question_answer_<?=$question['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=$question['question_id']?>');
     </script>
 <?
 }

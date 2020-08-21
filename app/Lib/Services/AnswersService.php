@@ -18,13 +18,13 @@ class AnswersService extends BaseService {
 
         $response = $this->Connector->getRequest(
             sprintf(
-                '/test_participant/%s/question_and_answer2019/%s',
+                '/test_participant/%d/question_and_answer2019/%d',
                 $participant_id,
                 $question_id
             ),
             $params);
 
-            if($response === false){
+        if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;
         }

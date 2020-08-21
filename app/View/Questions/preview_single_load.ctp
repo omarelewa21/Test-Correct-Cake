@@ -9,7 +9,7 @@
         foreach($question['attachments'] as $attachemnt) {
             $i++;
             ?>
-            <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=getUUID($attachemnt, 'get');?>');">
+            <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachemnt['id']?>);">
                 Bijlage #<?=$i?>
             </a>
         <?

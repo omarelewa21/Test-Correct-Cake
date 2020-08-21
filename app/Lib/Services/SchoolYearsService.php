@@ -45,7 +45,6 @@ class SchoolYearsService extends BaseService
     }
 
     public function getSchoolYear($id) {
-
         $response = $this->Connector->getRequest('/school_year/' . $id, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -107,7 +106,7 @@ class SchoolYearsService extends BaseService
             $s2 = strtotime($data['start_date']);
             $e2 = strtotime($data['end_date']);
 
-            if($period_id != getUUID($period, 'get')) {
+            if($period_id != $period['id']) {
                 if ($s2 >= $s1 && $s2 <= $e1) {
                     return false;
                 }
@@ -122,9 +121,7 @@ class SchoolYearsService extends BaseService
 
 
     public function addSchoolYearPeriod($school_year_id, $data) {
-        $school_year = $this->getSchoolYear($school_year_id);
-
-        $data['school_year_id'] = $school_year['id'];
+        $data['school_year_id'] = $school_year_id;
 
         $data['start_date'] = date('Y-m-d H:i:00', strtotime($data['start_date']));
         $data['end_date'] = date('Y-m-d H:i:00', strtotime($data['end_date']));

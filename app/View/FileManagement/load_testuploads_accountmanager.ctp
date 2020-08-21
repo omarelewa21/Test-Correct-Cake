@@ -42,7 +42,7 @@ foreach($files as $file){
             ?>
         </td>
         <td>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/file_management/view_testupload/<?=getUUID($file, 'get');?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/file_management/view_testupload/<?=$file['id']?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
         </td>

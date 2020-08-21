@@ -13,14 +13,14 @@
                 foreach($participants as $participant) {
                     $i++;
 
-                    if(getUUID($participant, 'get') == $participant_id && empty($active_id)) {
+                    if($participant['id'] == $participant_id && empty($active_id)) {
                         $active_id = $participant_id;
                     }elseif(empty($next_index) && !empty($active_id)) {
                         $next_index = $i;
                     }
 
                     ?>
-                    <a href="#" class="btn <?=getUUID($participant, 'get') == $participant_id ? 'highlight' : 'grey'?> mb1"  onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>/<?=$i?>');">
+                    <a href="#" class="btn <?=$participant['id'] == $participant_id ? 'highlight' : 'grey'?> mb1"  onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>/<?=$i?>');">
                         <?=$participant['user']['name_first']?>
                         <?=$participant['user']['name_suffix']?>
                         <?=$participant['user']['name']?>
@@ -46,17 +46,17 @@
         foreach($questions as $question) {
             $i++;
             ?>
-            <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" style="display: none;;">
+            <div id="questionblock_<?=$participant_id?><?=$question['question']['id']?>" class="questionblock" style="display: none;;">
                 <div class="block">
                     <div class="block-head">Vraag #<?=$i?> voorbeeld</div>
-                    <div class="block-content" id="question_preview_<?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content" id="question_preview_<?=$question['question']['id']?>">
                         Laden..
                     </div>
                 </div>
 
                 <div class="block" style="border-left: 3px solid #197cb4;">
                     <div class="block-head">Vraag #<?=$i?> antwoordmodel</div>
-                    <div class="block-content" id="question_answer_preview_<?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content" id="question_answer_preview_<?=$question['question']['id']?>">
                         Laden..
                     </div>
                 </div>
@@ -65,14 +65,14 @@
                     <div class="block-head">
                         Score
                     </div>
-                    <div class="block-content" id="score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content" id="score_<?=$participant_id?><?=$question['question']['id']?>">
                         Laden..
                     </div>
                 </div>
 
                 <div class="block" style="width:calc(100% - 300px); margin-bottom: 100px; border-left: 3px solid #3D9D36">
                     <div class="block-head">Vraag #<?=$i?> antwoord</div>
-                    <div class="block-content" id="question_answer_<?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content" id="question_answer_<?=$question['question']['id']?>">
                         Laden..
                     </div>
                 </div>
@@ -82,12 +82,12 @@
                 <script type="text/javascript">
 
                     Core.surpressLoading = true;
-                    Core.cacheLoad('/questions/preview_single_load/<?=getUUID($question['question'], 'get');?>/<?=isset($question['group_id']) ? $question['group_id'] : ''?>', '#question_preview_<?=getUUID($question['question'], 'get')?>');
-                    Core.cacheLoad('/questions/preview_answer_load/<?=getUUID($question['question'], 'get');?>', '#question_answer_preview_<?=getUUID($question['question'], 'get')?>');
+                    Core.cacheLoad('/questions/preview_single_load/<?=$question['question']['id']?>/<?=isset($question['group_id']) ? $question['group_id'] : ''?>', '#question_preview_<?=$question['question']['id']?>');
+                    Core.cacheLoad('/questions/preview_answer_load/<?=$question['question']['id']?>', '#question_answer_preview_<?=$question['question']['id']?>');
 
-                    $('#question_answer_<?=getUUID($question['question'], 'get')?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=getUUID($question['question'], 'get');?>',
+                    $('#question_answer_<?=$question['question']['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant_id?>/<?=$question['question']['id']?>',
                         function() {
-                            $('#score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>').load('/test_takes/rate_teacher_score/<?=$participant_id?>/<?=getUUID($question['question'], 'get');?>');
+                            $('#score_<?=$participant_id?><?=$question['question']['id']?>').load('/test_takes/rate_teacher_score/<?=$participant_id?>/<?=$question['question']['id']?>');
                         }
                     );
 

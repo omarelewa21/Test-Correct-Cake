@@ -50,22 +50,22 @@ foreach($participants as $participant) {
         $name = str_replace("'", "", $name);
 
         ?>
-        <div id="questionblock_<?=getUUID($participant, 'get')?><?=$question_id?>" style="display: none;" class="questionblock">
+        <div id="questionblock_<?=$participant['id']?><?=$question_id?>" style="display: none;" class="questionblock">
             <div class="block" style="float:left; width:calc(100% - 250px); border-left: 3px solid #3D9D36">
                 <div class="block-head">
-                    <span id="name_student_<?=getUUID($participant, 'get')?>">
+                    <span id="name_student_<?=$participant['id']?>">
                         Student antwoord
                     </span>
-                    <span class="fa fa-eye" onclick="$('#name_student_<?=getUUID($participant, 'get')?>').html('<?=$name?>'); $(this).hide();"></span>
+                    <span class="fa fa-eye" onclick="$('#name_student_<?=$participant['id']?>').html('<?=$name?>'); $(this).hide();"></span>
                 </div>
-                <div id="participant_answer_<?=getUUID($participant, 'get')?>" class="block-content">
+                <div id="participant_answer_<?=$participant['id']?>" class="block-content">
                     Laden..
                 </div>
             </div>
 
             <div class="block" style="float:right; width: 230px;">
                 <div class="block-head">Score</div>
-                <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
+                <div class="block-content" id="score_<?=$participant['id']?><?=$question_id?>">
                     --
                 </div>
             </div>
@@ -74,9 +74,9 @@ foreach($participants as $participant) {
 
         </div>
         <script type="text/javascript">
-            $('#participant_answer_<?=getUUID($participant, 'get')?>').load('/test_takes/rate_teacher_answer/<?=getUUID($participant, 'get');?>/<?=$question_id?>',
+            $('#participant_answer_<?=$participant['id']?>').load('/test_takes/rate_teacher_answer/<?=$participant['id']?>/<?=$question_id?>',
                 function() {
-                    $('#score_<?=getUUID($participant, 'get')?><?=$question_id?>').load('/test_takes/rate_teacher_score/<?=getUUID($participant, 'get');?>/<?=$question_id?>');
+                    $('#score_<?=$participant['id']?><?=$question_id?>').load('/test_takes/rate_teacher_score/<?=$participant['id']?>/<?=$question_id?>');
                 }
             );
         </script>
@@ -96,6 +96,6 @@ foreach($participants as $participant) {
 </center>
 
 <script type="text/javascript">
-    $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
-    $('#question_answer_load').load('/questions/preview_answer_load/<?=$question_id?>');
+    $('#question_load').load('/questions/preview_single_load/<?=$questions[$question_index]['question_id']?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
+    $('#question_answer_load').load('/questions/preview_answer_load/<?=$questions[$question_index]['question_id']?>');
 </script>

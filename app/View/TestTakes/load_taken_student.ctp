@@ -23,7 +23,7 @@ foreach($test_takes as $test_take) {
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="30">
-            <a href="#" class="btn white" onclick="TestTake.loadDiscussion('<?=getUUID($test_take, 'get');?>');">
+            <a href="#" class="btn white" onclick="TestTake.loadDiscussion(<?=$test_take['id']?>);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
         </td>

@@ -33,7 +33,7 @@
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
-    </a>
+    </a>sc
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddLicence">
         Aanmaken
     </a>

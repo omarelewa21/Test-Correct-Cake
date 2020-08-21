@@ -1,9 +1,9 @@
 <div id="buttons">
-    <a href="#" class="btn white" onclick="Popup.load('/school_years/edit/<?=getUUID($school_year, 'get');?>', 400);">
+    <a href="#" class="btn white" onclick="Popup.load('/school_years/edit/<?=$school_year['id']?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="SchoolYear.delete(<?=getUUID($school_year, 'getQuoted');?>, true);">
+    <a href="#" class="btn white" onclick="SchoolYear.delete(<?=$school_year['id']?>, true);">
         <span class="fa fa-remove mr5"></span>
         Verwijderen
     </a>
@@ -35,16 +35,16 @@
                         <td><?=date('d-m-Y', strtotime($period['start_date']))?></td>
                         <td><?=date('d-m-Y', strtotime($period['end_date']))?></td>
                         <td class="nopadding">
-                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="Period_<?=getUUID($period, 'get');?>">
+                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="Period_<?=$period['id']?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
 
-                            <div class="dropblock blur-close" for="Period_<?=getUUID($period, 'get');?>">
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/school_years/edit_period/<?=getUUID($period, 'get');?>', 400);">
+                            <div class="dropblock blur-close" for="Period_<?=$period['id']?>">
+                                <a href="#" class="btn highlight white" onclick="Popup.load('/school_years/edit_period/<?=$period['id']?>', 400);">
                                     <span class="fa fa-edit mr5"></span>
                                     Wijzigen
                                 </a>
-                                <a href="#" class="btn highlight white" onclick="Period.delete(<?=getUUID($period, 'getQuoted');?>);">
+                                <a href="#" class="btn highlight white" onclick="Period.delete(<?=$period['id']?>);">
                                     <span class="fa fa-remove mr5"></span>
                                     Verwijderen
                                 </a>
@@ -59,7 +59,7 @@
             <br />
 
             <center>
-                <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_years/add_period/<?=getUUID($school_year, 'get');?>', 400);">
+                <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_years/add_period/<?=$school_year['id']?>', 400);">
                     <span class="icon icon-plus"></span>
                     Nieuwe periode
                 </a>

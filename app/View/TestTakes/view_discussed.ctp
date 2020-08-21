@@ -22,7 +22,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     <?
     if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
     ?>
-    <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>');">
+    <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults(<?= $take_id ?>);">
         <span class="fa fa-eye mr5"></span>
         Dichtzetten
     </a>
@@ -60,7 +60,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     </a>
 
     <?php if($normalization && $take['is_rtti_test_take'] == 1): ?>
-        <a href="#" onclick="updateRTTI('<?=$take_id?>')" title="Exporteren naar RTTI" class="btn white mr2">Exporteren naar RTTI</a>
+        <a href="#" onclick="updateRTTI(<?=$take_id?>)" title="Exporteren naar RTTI" class="btn white mr2">Exporteren naar RTTI</a>
     <?php endif; ?>
 
     <? } ?>
@@ -147,13 +147,13 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                     <?= empty($participant['invigilator_note']) ? 'Nee' : 'Ja' ?>
                 </td>
                 <td class="nopadding" width="100">
-                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?= getUUID($take, 'get'); ?>/<?= getUUID($participant, 'get'); ?>');">
+                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?= $take['id'] ?>/<?= $participant['id'] ?>');">
                         <span class="fa fa-folder-open-o"></span>
                     </a>
-                    <a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/rated_info/<?= getUUID($take, 'get'); ?>/<?= getUUID($participant, 'get'); ?>', 500);">
+                    <a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/rated_info/<?= $take['id'] ?>/<?= $participant['id'] ?>', 500);">
                         <span class="fa fa-info-circle"></span>
                     </a>
-                    <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?= getUUID($participant['user'], 'get'); ?>', 500);">
+                    <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?= $participant['user']['id'] ?>', 500);">
                         <span class="fa fa-envelope-o"></span>
                     </a>
                 </td>

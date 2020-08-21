@@ -63,20 +63,20 @@ foreach($test_takes as $test_take) {
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=$test_take['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
             <div class="dropblock blur-close" for="test_take_<?=$test_take['id']?>">
-                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
                     <span class="fa fa-folder-open-o mr5"></span>
                     Openen
                 </a>
-                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white">
+                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=$test_take['id']?>', 1000)" class="btn highlight white">
                     <span class="fa fa-file mr5"></span>
                     Antwoorden PDF
                 </a>
-                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white">
+                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=$test_take['id']?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white">
                     <span class="fa fa-forward mr5"></span>
                    Meteen naar nakijken
                 </a>

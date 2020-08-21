@@ -1,6 +1,6 @@
 <div id="buttons">
     <?php if((bool) $user['demo'] !== true){?>
-    <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=getUUID($user, 'get');?>', 400);">
+    <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=$user['id']?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
