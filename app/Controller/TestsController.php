@@ -88,7 +88,7 @@ class TestsController extends AppController {
                 $this->setQuestionsOpenSource(
                     $question['question']['group_question_questions'],
                     $open_sourced,
-                    $question['id'],
+                    getUUID($question, 'get'),
                     'group'
                 );
             }
@@ -99,7 +99,7 @@ class TestsController extends AppController {
                 ['controller' => 'Questions','action' => 'editPost'], 
                 [
                     // 'pass' => [ $owner, $owner_id, $question['question']['type'], $question['id']],
-                    'data' => [ $owner, $owner_id, $question['question']['type'], $question['id'], false, true]
+                    'data' => [ $owner, $owner_id, $question['question']['type'], getUUID($question, 'get'), false, true]
                 ]
             );
         }
@@ -121,7 +121,7 @@ class TestsController extends AppController {
             }
         }
 
-        $school_location_id = $this->Session->read('Auth.User.school_location_id');
+        $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
         $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $params['filter'] = ['current_school_year' => 1];
@@ -159,7 +159,7 @@ class TestsController extends AppController {
             }
         }
 
-        $school_location_id = $this->Session->read('Auth.User.school_location_id');
+        $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
         $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $kinds            = $this->TestsService->getKinds();
@@ -317,14 +317,14 @@ class TestsController extends AppController {
 
         foreach ($questions as $question) {
             if ($question['question']['type'] != 'GroupQuestion') {
-                $question = $this->QuestionsService->getQuestion('test', $test_id, $question['id']);
+                $question = $this->QuestionsService->getQuestion('test', $test_id, getUUID($question, 'get'));
 
                 $questionsArray[] = $this->Question->printVersion($question['question']);
             } else {
 
                 foreach ($question['question']['group_question_questions'] as $groupQuestionsQuestion) {
 
-                    $groupQuestion = $this->QuestionsService->getSingleQuestion($groupQuestionsQuestion['question']['id']);
+                    $groupQuestion = $this->QuestionsService->getSingleQuestion(getUUID($groupQuestionsQuestion['question'], 'get'));
 
                     $groupQuestion['question'] = $question['question']['question'] . '<br />' . $groupQuestion['question'];
                     $groupQuestion['attachments'] = $question['question']['attachments'];
@@ -347,6 +347,7 @@ class TestsController extends AppController {
                             $attachmentCount++;
                             $attchmentArray[$i][$a]['attachments']['title'] = $questionsArray[$i]['attachments'][$a]['title'];
                             $attchmentArray[$i][$a]['attachments']['id'] = $questionsArray[$i]['attachments'][$a]['id'];
+                            $attchmentArray[$i][$a]['attachments']['uuid'] = getUUID($questionsArray[$i]['attachments'][$a], 'get');
                             $attchmentArray[$i][$a]['attachments']['filename'] = $questionsArray[$i]['attachments'][$a]['file_name'];
                             //$questionsArray[$i]['attachments'][$a]['data'] = "data:" . $questionsArray[$i]['attachments'][$a]['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($questionsArray[$i]['attachments'][$a]['id']));
 
@@ -464,14 +465,14 @@ class TestsController extends AppController {
 
         foreach ($questions as $question) {
             if ($question['question']['type'] != 'GroupQuestion') {
-                $question = $this->QuestionsService->getQuestion('test', $test_id, $question['id']);
+                $question = $this->QuestionsService->getQuestion('test', $test_id, getUUID($question, 'get'));
 
                 $questionsArray[] = $this->Question->printVersion($question['question']);
             } else {
 
                 foreach ($question['question']['group_question_questions'] as $groupQuestionsQuestion) {
 
-                    $groupQuestion = $this->QuestionsService->getSingleQuestion($groupQuestionsQuestion['question']['id']);
+                    $groupQuestion = $this->QuestionsService->getSingleQuestion(getUUID($groupQuestionsQuestion['question'], 'get'));
 
                     $groupQuestion['question'] = $question['question']['question'] . '<br />' . $groupQuestion['question'];
                     $groupQuestion['attachments'] = $question['question']['attachments'];
@@ -484,14 +485,14 @@ class TestsController extends AppController {
         for ($i = 0; $i < count($questionsArray); $i++) {
             if($questionsArray[$i]['type'] === 'DrawingQuestion') {
                 if($questionsArray[$i]['bg_name'] !== null) {
-                    $attachmentContent = $this->AnswersService->getBackgroundContent($questionsArray[$i]['id']);
+                    $attachmentContent = $this->AnswersService->getBackgroundContent(getUUID($questionsArray[$i], 'get'));
                     $questionsArray[$i]['answer_background_image'] = "data:".$questionsArray[$i]['bg_mime_type'].";base64,".base64_encode($attachmentContent);
                 }
             }
 
             for ($a = 0; $a < count($questionsArray[$i]['attachments']); $a++) {
                 if ($questionsArray[$i]['attachments'][$a]['type'] == 'file') {
-                    $questionsArray[$i]['attachments'][$a]['data'] = "data:" . $questionsArray[$i]['attachments'][$a]['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($questionsArray[$i]['attachments'][$a]['id']));
+                    $questionsArray[$i]['attachments'][$a]['data'] = "data:" . $questionsArray[$i]['attachments'][$a]['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($questionsArray[$i]['attachments'][$a], 'get')));
                 }
             }
         }
@@ -540,10 +541,10 @@ class TestsController extends AppController {
         foreach ($questions as $question) {
 
             foreach($question['question']['attachments'] as $attachment) {
-                    if($attachment['id'] == $attachment_id) {
+                    if(getUUID($attachment, 'get') == $attachment_id) {
                         $attachmentMatch = $attachment;
                     if ($attachment['type'] == 'file') {
-                        $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($attachment['id']));
+                        $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($attachment, 'get')));
                     }
                 }
             }
@@ -571,10 +572,10 @@ class TestsController extends AppController {
 
         foreach ($questions as $question) {
             foreach($question['question']['attachments'] as $attachment) {
-                    if($attachment['id'] == $attachment_id) {
+                    if(getUUID($attachment, 'get') == $attachment_id) {
                         $attachmentMatch = $attachment;
                         if ($attachment['type'] == 'file') {
-                            $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent($attachment['id']));
+                            $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($attachment, 'get')));
                             break 2;
                         }
                     }

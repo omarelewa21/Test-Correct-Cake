@@ -140,7 +140,7 @@ class QuestionsController extends AppController {
         $selectedAttainments = [];
 
         foreach($question['question']['attainments'] as $attainment) {
-            $selectedAttainments[] = $attainment['id'];
+            $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
         $this->set('selectedAttainments', $selectedAttainments);
@@ -273,7 +273,7 @@ class QuestionsController extends AppController {
         $oriquestion = $questions[$question_index];
 
 
-        $question = $this->AnswersService->getParticipantQuestion($oriquestion['question']['id']);
+        $question = $this->AnswersService->getParticipantQuestion(getUUID($oriquestion['question'], 'get'));
 
         $question['attachments'] = $oriquestion['question']['attachments'];
         $question['question'] = $oriquestion['question']['question'];
@@ -412,7 +412,7 @@ class QuestionsController extends AppController {
         $selectedAttainments = [];
 
         foreach($group['QuestionGroup']['attainments'] as $attainment) {
-            $selectedAttainments[] = $attainment['id'];
+            $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
         $this->set('selectedAttainments', $selectedAttainments);
@@ -594,7 +594,7 @@ class QuestionsController extends AppController {
             $selectedAttainments = [];
 
             foreach($question['question']['attainments'] as $attainment) {
-                $selectedAttainments[] = $attainment['id'];
+                $selectedAttainments[] = getUUID($attainment, 'get');
             }
 
             $this->set('selectedAttainments', $selectedAttainments);
@@ -604,7 +604,7 @@ class QuestionsController extends AppController {
             $this->set('editable', true);
             $this->Session->write('attachments_editable', true);
 
-            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
             $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
@@ -665,7 +665,7 @@ class QuestionsController extends AppController {
         $test = $this->Session->read('active_test');
 
 
-        $this->set('subject_id', $test['subject']['id']);
+        $this->set('subject_id', getUUID($test['subject'], 'get'));
         $this->set('year_id', $test['education_level_year']);
         $this->set('education_level_id', $test['education_level_id']);
 
@@ -797,7 +797,7 @@ class QuestionsController extends AppController {
             if($owner == 'test') {
                 $test = $this->TestsService->getTest($owner_id);
             }else{
-                $test = $this->QuestionsService->getTest($this->Session->read('active_test')['id']);
+                $test = $this->QuestionsService->getTest(getUUID($this->Session->read('active_test'), 'get'));
             }
 
             if($test['is_open_source_content'] == 1) {
@@ -867,7 +867,7 @@ class QuestionsController extends AppController {
 
                 if($owner == 'test') {
                     $attachments = $this->Session->read('attachments');
-                    $this->QuestionsService->addAttachments('question', $result['id'], $attachments);
+                    $this->QuestionsService->addAttachments('question', getUUID($result, 'get'), $attachments);
                     $this->Session->write('attachments', []);
                 }
 
@@ -883,10 +883,10 @@ class QuestionsController extends AppController {
             $test = $this->Session->read('active_test');
             $this->Session->write('attachments_editable', true);
             $this->set('editable', true);
-            $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+            $this->set('attainments', $this->QuestionsService->getAttainments(getUUID($test['education_level'], 'get'), getUUID($test['subject'], 'get')));
             $this->set('selectedAttainments', []);
 
-            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
             $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
@@ -1085,7 +1085,6 @@ class QuestionsController extends AppController {
 
         $questions = $this->QuestionsService->getAllQuestions($params);
 
-        // die(var_dump($questions));
         $this->set('questions', $questions['data']);
     }
 
@@ -1227,7 +1226,7 @@ class QuestionsController extends AppController {
                 if($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", ' . $owner_id.', '.$id.'); window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", "' . $owner_id.'", "'.$id.'"); window.parent.Loading.hide();</script>';
             }
         }
     }

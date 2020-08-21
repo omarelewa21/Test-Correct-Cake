@@ -128,7 +128,7 @@ class UsersService extends BaseService
 
     public function getOnboardingWizard($userId)
     {
-        $response = $this->Connector->getRequest(sprintf('/onboarding/%d/steps', $userId), []);
+        $response = $this->Connector->getRequest(sprintf('/onboarding/%s/steps', $userId), []);
         if ($response === false) {
             $this->addError($this->Connector->getLastResponse());
             return false;
@@ -206,8 +206,8 @@ class UsersService extends BaseService
         if ($combind) {
             $results = [];
 
-            foreach ($response as $id => $user) {
-                $results[$id] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+            foreach ($response as $uuid => $user) {
+                $results[$uuid] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
             }
             return $results;
         } else {
