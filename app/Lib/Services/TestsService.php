@@ -95,7 +95,7 @@ class TestsService extends BaseService {
 
         $params = [
                 'filter' => [
-                    'test_id' => $test_id
+                    'test_id' => $this->getTest($test_id)['id']
                 ],
                 'mode' => 'all',
                 'order' => [

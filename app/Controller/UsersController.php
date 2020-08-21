@@ -308,7 +308,7 @@ class UsersController extends AppController
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
                 $view = "welcome_teacher";
-                $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('id'));
+                $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
                 $this->set('wizard_steps', $wizardSteps);
                 $this->set('progress', floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
@@ -523,7 +523,7 @@ class UsersController extends AppController
                 $activeClasses = [];
 
                 foreach ($user['User']['student_school_classes'] as $class) {
-                    $activeClasses[] = $class['id'];
+                    $activeClasses[] = getUUID($class, 'get');
                 }
 
                 $this->set('active_classes', $activeClasses);
@@ -884,7 +884,7 @@ class UsersController extends AppController
             $result = $this->UsersService->addUser($type, $data);
 
             if ($this->Session->check('user_profile_picture')) {
-                $this->UsersService->updateProfilePicture($result['id'], $this->Session->read('user_profile_picture'));
+                $this->UsersService->updateProfilePicture(getUUID($result, 'get'), $this->Session->read('user_profile_picture'));
                 $this->Session->delete('user_profile_picture');
             }
 
@@ -892,7 +892,8 @@ class UsersController extends AppController
                 $this->formResponse(
                     true,
                     [
-                        'id' => $result['id']
+                        'id' => $result['id'],
+                        'uuid' => getUUID($result, 'get'),
                     ]
                 );
             } elseif ($result == 'external_code') {
@@ -1256,7 +1257,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
                     'title' => 'Uw analyse',
-                    'path'  => '/analyses/teacher/' . AuthComponent::user('id')
+                    'path'  => '/analyses/teacher/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
@@ -1335,7 +1336,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerling',
                     'title' => 'Jouw analyse',
-                    'path'  => '/analyses/student/' . AuthComponent::user('id')
+                    'path'  => '/analyses/student/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['messages'] = array(
@@ -1394,7 +1395,7 @@ class UsersController extends AppController
                 die;
             }
 
-            $user_id = AuthComponent::user('id');
+            $user_id = AuthComponent::user('uuid');
 
             $result = $this->UsersService->resetPasswordForm($user_id, $data);
 

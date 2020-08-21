@@ -29,7 +29,13 @@ class UmbrellaOrganisationsService extends BaseService
             return $this->Connector->getLastResponse();
         }
 
-        return $response;
+        $data = [];
+
+        foreach ($response as $key => $value) {
+            $data[getUUID($value, 'get')] = $value['name'];
+        }
+
+        return $data;
     }
 
     public function addOrganisation($data) {
