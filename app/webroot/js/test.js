@@ -35,7 +35,7 @@ var Test = {
             success: function(response) {
                 if(response['status'] == 1) {
                     Notify.notify('Toets gedupliceerd', 'info', 3000);
-                    Navigation.load('/tests/view/' + response.data.id);
+                    Navigation.load('/tests/view/' + response.data.uuid);
                 }else{
                     Notify.notify('Toets kon niet worden gedupliceerd', 'error', 3000);
                 }
