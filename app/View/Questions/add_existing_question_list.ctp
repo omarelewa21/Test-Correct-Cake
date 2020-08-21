@@ -74,10 +74,10 @@ foreach($questions as $question) {
             ?>
         </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/preview_single/<?=$question['id']?>', 1000);">
+            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/preview_single/<?=getUUID($question, 'get');?>', 1000);">
                 <span class="fa fa-search"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Questions.addExistingQuestion(<?=$question['id']?>, <?=$question['is_subquestion']?>);">
+            <a href="#" class="btn white pull-right" onclick="Questions.addExistingQuestion('<?=getUUID($question, 'get');?>', <?=$question['is_subquestion']?>);">
                 <span class="fa fa-plus"></span>
             </a>
         </td>

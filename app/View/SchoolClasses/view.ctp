@@ -1,18 +1,18 @@
 <div id="buttons">
     <?php if((bool) $class['demo'] !== true){?>
-    <a href="#" class="btn white" onclick="Navigation.load('/school_classes/import/<?=$class['school_location_id']?>/<?=$class['id']?>');">
+    <a href="#" class="btn white" onclick="Navigation.load('/school_classes/import/<?=getUUID($class['school_location'], 'get')?>/<?=getUUID($class, 'get');?>');">
         <span class="fa fa-cloud-upload mr5"></span>
         Studenten importeren
     </a>
-    <a href="#" class="btn white" onclick="Navigation.load('/analyses/school_class/<?=$class['id']?>');">
+    <a href="#" class="btn white" onclick="Navigation.load('/analyses/school_class/<?=getUUID($class, 'get');?>');">
         <span class="fa fa-bar-chart mr5"></span>
         Analyse
     </a>
-    <a href="#" class="btn white" onclick="Popup.load('/school_classes/edit/<?=$class['id']?>', 400);">
+    <a href="#" class="btn white" onclick="Popup.load('/school_classes/edit/<?=getUUID($class, 'get');?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="SchoolClass.delete(<?=$class['id']?>, 1);">
+    <a href="#" class="btn white" onclick="SchoolClass.delete('<?=getUUID($class, 'get');?>', 1);">
         <span class="fa fa-remove mr5"></span>
         Verwijderen
     </a>
@@ -86,9 +86,9 @@
 
 <script type="text/javascript">
     $(function() {
-        $('.page[page="students"]').load('/school_classes/load_students/<?=$class['id']?>/<?=$class["school_location"]["id"]?>?' + new Date().getTime());
-        $('.page[page="mentors"]').load('/school_classes/load_mentors/<?=$class['id']?>?' + new Date().getTime());
-        $('.page[page="managers"]').load('/school_classes/load_managers/<?=$class['id']?>?' + new Date().getTime());
-        $('.page[page="teachers"]').load('/school_classes/load_teachers/<?=$class['id']?>?' + new Date().getTime());
+        $('.page[page="students"]').load('/school_classes/load_students/<?=getUUID($class, 'get');?>/<?=getUUID($class["school_location"], 'get');?>?' + new Date().getTime());
+        $('.page[page="mentors"]').load('/school_classes/load_mentors/<?=getUUID($class, 'get');?>?' + new Date().getTime());
+        $('.page[page="managers"]').load('/school_classes/load_managers/<?=getUUID($class, 'get');?>?' + new Date().getTime());
+        $('.page[page="teachers"]').load('/school_classes/load_teachers/<?=getUUID($class, 'get');?>?' + new Date().getTime());
     });
 </script>

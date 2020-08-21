@@ -80,7 +80,7 @@
         Annuleer
     </a>
     <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', <?=$owner_id?>, 'InfoscreenQuestion', <?=$question['id']?>);">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
             Vraag opslaan
         </a>
     <? } ?>
@@ -93,7 +93,7 @@
     <? } ?>
 
     <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', <?=$owner_id?>, <?=$question['id']?>);
+        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? } ?>
 
     $('#QuestionTags').select2({

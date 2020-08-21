@@ -44,6 +44,6 @@
 
 <script type="text/javascript">
     $(function() {
-        $('.students').load('/teacher_classes/load_students/<?=$class['id']?>/<?=$class["school_location"]["id"]?>?' + new Date().getTime());
+        $('.students').load('/teacher_classes/load_students/<?=getUUID($class, 'get');?>/<?=getUUID($class["school_location"], 'get')?>?' + new Date().getTime());
     });
 </script>

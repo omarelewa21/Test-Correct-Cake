@@ -13,7 +13,7 @@
                 Scholengemeenschap
             </th>
             <td>
-                <?=$this->Form->input('school_id', array('style' => 'width: 185px', 'label' => false, 'options' => $schools)) ?>
+                <?=$this->Form->input('school_id', array('style' => 'width: 185px', 'label' => false, 'options' => $schools, 'selected' => getUUID($school_location['school'], 'get'))); ?>
             </td>
             <th width="130">
                 Niveau

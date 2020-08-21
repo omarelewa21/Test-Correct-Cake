@@ -1,10 +1,10 @@
 <div id="buttons">
     <?php if((bool) $section['demo'] !== true){?>
-    <a href="#" class="btn white" onclick="Popup.load('/sections/edit/<?=$section['id']?>', 400);">
+    <a href="#" class="btn white" onclick="Popup.load('/sections/edit/<?=getUUID($section, 'get');?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="Section.delete(<?=$section['id']?>, true);">
+    <a href="#" class="btn white" onclick="Section.delete(<?=getUUID($section, 'getQuoted');?>, true);">
         <span class="fa fa-remove mr5"></span>
         Verwijderen
     </a>
@@ -36,16 +36,16 @@
                         <td><?=$subject['base_subject']['name']?></td>
                         <td class="nopadding">
                             <?php if((bool) $section['demo'] !== true){?>
-                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="SchoolYear_<?=$subject['id']?>">
+                            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="SchoolYear_<?=getUUID($subject, 'get');?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
 
-                            <div class="dropblock blur-close" for="SchoolYear_<?=$subject['id']?>">
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/sections/edit_subject/<?=$subject['id']?>', 400);">
+                            <div class="dropblock blur-close" for="SchoolYear_<?=getUUID($subject, 'get');?>">
+                                <a href="#" class="btn highlight white" onclick="Popup.load('/sections/edit_subject/<?=getUUID($subject, 'get');?>', 400);">
                                     <span class="fa fa-edit mr5"></span>
                                     Wijzigen
                                 </a>
-                                <a href="#" class="btn highlight white" onclick="Subject.delete(<?=$subject['id']?>);">
+                                <a href="#" class="btn highlight white" onclick="Subject.delete(<?=getUUID($subject, 'getQuoted');?>);">
                                     <span class="fa fa-remove mr5"></span>
                                     Verwijderen
                                 </a>
@@ -60,7 +60,7 @@
             <br />
             <center>
                 <?php if((bool) $section['demo'] !== true){?>
-                <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_subject/<?=$section['id']?>', 400);">
+                <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_subject/<?=getUUID($section, 'get');?>', 400);">
                     <span class="icon icon-plus"></span>
                     Nieuw vak
                 </a>

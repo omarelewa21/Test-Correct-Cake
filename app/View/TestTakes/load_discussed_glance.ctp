@@ -8,7 +8,7 @@ foreach($test_takes as $test_take) {
         <td><?=date('d-m-Y', strtotime($test_take['show_results']))?></td>
 
         <td class="nopadding" width="100">
-            <a href="#" class="btn highlight mb1" onclick="Navigation.load('/test_takes/glance/<?=$test_take['id']?>');">
+            <a href="#" class="btn highlight mb1" onclick="Navigation.load('/test_takes/glance/<?=getUUID($test_take, 'get');?>');">
                 Inzien
             </a>
         </td>

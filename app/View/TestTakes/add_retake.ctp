@@ -45,14 +45,14 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                     </th>
                     <td>
                         <a href="#" class="btn highlight small btnSelectTestTake" style="text-align: center; width:270px;" id="TestTakeSelect" onclick="TestTake.selectTestTake();"><?=isset($test_take['id']) ? $test_take['test']['name'] . ' op ' .$test_take['time_start'] : 'Selecteer toets'?></a>
-                        <?= $this->Form->input('retake_test_take_id', array('type' => 'hidden', 'style' => 'width:150px', 'label' => false, 'value' => isset($test_take['id']) ? $test_take['id'] : '')) ?>
+                        <?= $this->Form->input('retake_test_take_id', array('type' => 'hidden', 'style' => 'width:150px', 'label' => false, 'value' => isset($test_take['id']) ? getUUID($test_take, 'get') : '')) ?>
                     </td>
                     <th width="140">
                         Inhaal toets
                     </th>
                     <td>
                         <a href="#" class="btn highlight small btnSelectTest" style="text-align: center; width:270px;" id="TestTakeSelect_0" onclick="TestTake.selectTest(0);"><?=isset($test_take['test']['id']) ? $test_take['test']['name'] : 'Selecteer toets'?></a>
-                        <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][test_id]', 'id' => 'TestTakeTestId_0', 'style' => 'width:150px', 'label' => false, 'value' => isset($test_take['test']['id']) ? $test_take['test']['id'] : '')) ?>
+                        <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][test_id]', 'id' => 'TestTakeTestId_0', 'style' => 'width:150px', 'label' => false, 'value' => isset($test_take['test']['id']) ? getUUID($test_take['test'], 'get') : '')) ?>
                     </td>
                 </tr>
                 <tr>
@@ -88,7 +88,7 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                 foreach($participants as $participant) {
                     ?>
                     <tr>
-                        <td><?=$this->Form->input('User.' . $participant['id'], array('type' => 'checkbox', 'value' => $participant['id'], 'label' => false, 'checked' => $participant['test_take_status_id'] <= 3)) ?></td>
+                        <td><?=$this->Form->input('User.' . getUUID($participant, 'get'), array('type' => 'checkbox', 'value' => getUUID($participant, 'get'), 'label' => false, 'checked' => $participant['test_take_status_id'] <= 3)) ?></td>
                         <td>
                             <?=$participant['user']['name_first']?>
                             <?=$participant['user']['name_suffix']?>

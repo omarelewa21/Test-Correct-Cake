@@ -12,7 +12,7 @@
         $i++;
 
         ?>
-        <div class="question <?=$class?>" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=($i - 1)?>);"><?=$i?></div>
+        <div class="question <?=$class?>" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=($i - 1)?>');"><?=$i?></div>
     <?
     }
     ?>
@@ -39,7 +39,7 @@
 <div id="question_load"></div>
 
 <script type="text/javascript">
-    TestPreview.loadQuestion(<?=$test_id?>, <?=$question_index?>);
+    TestPreview.loadQuestion('<?=$test_id?>', '<?=$question_index?>');
     jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
         console.log('mousentered');
         jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});

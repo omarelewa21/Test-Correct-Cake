@@ -120,15 +120,15 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiChoiceQuestion', '<?=$owner?>', <?=$owner_id?>);">
+    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');">
         Vraag opslaan
     </a>
 </div>
 
 <script type="text/javascript">
-    <? if($owner != 'group') { ?>
+    <?php if($owner != 'group') { ?>
         Questions.loadAddAttachments();
-    <? } ?>
+    <?php } ?>
 
     $('#QuestionAttainments').select2();
     $('#QuestionTags').select2({

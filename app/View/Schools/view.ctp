@@ -1,10 +1,10 @@
 <div id="buttons">
     <? if($isAdministrator): ?>
-        <a href="#" class="btn white" onclick="Popup.load('/schools/edit/<?=$school['id']?>', 800);">
+        <a href="#" class="btn white" onclick="Popup.load('/schools/edit/<?=getUUID($school, 'get');?>', 800);">
             <span class="fa fa-edit mr5"></span>
             Wijzigen
         </a>
-        <a href="#" class="btn white" onclick="School.delete(<?=$school['id']?>);">
+        <a href="#" class="btn white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
@@ -104,7 +104,7 @@
                 <tr>
                     <td><?=$school_location['name']?></td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/school_locations/view/<?=$school_location['id']?>');">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/school_locations/view/<?=getUUID($school_location, 'get');?>');">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
@@ -144,7 +144,7 @@
                     <td><?=$manager['username']?></td>
                     <td><?=$manager['note']?></td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=$manager['id']?>', 400);">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=getUUID($manager, 'get')?>', 400);">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
@@ -157,7 +157,7 @@
         <br clear="all" />
 
         <center>
-            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/users/add/managers/school/<?=$school['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/users/add/managers/school/<?=getUUID($school, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
                 Schoolbeheerder toevoegen
             </a>
@@ -226,10 +226,10 @@
 
                 <? if($isAdministrator): ?>
                     <center>
-                        <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=$contact['contact_id']?>', 400);">
+                        <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=getUUID($contact['contact'], 'get')?>', 400);">
                             <span class="fa fa-edit"></span>
                         </a>
-                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('school', <?=$school['id']?>, '<?=$type?>', <?=$contact['contact_id']?>);">
+                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('school', <?=getUUID($school, 'getQuoted');?>, '<?=$type?>', '<?=getUUID($contact['contact'], 'get')?>');">
                             <span class="fa fa-remove"></span>
                         </a>
                     </center>
@@ -242,7 +242,7 @@
         <br clear="all" />
         <? if($isAdministrator): ?>
             <center>
-                <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school/<?=$school['id']?>', 400);">
+                <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school/<?=getUUID($school, 'get');?>', 400);">
                     <span class="fa fa-plus"></span>
                     Contactpersoon toevoegen
                 </a>

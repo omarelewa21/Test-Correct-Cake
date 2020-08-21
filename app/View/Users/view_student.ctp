@@ -1,14 +1,14 @@
 <div id="buttons">
-    <a href="#" class="btn white" onclick="Navigation.load('/analyses/student/<?=$user['id']?>');">
+    <a href="#" class="btn white" onclick="Navigation.load('/analyses/student/<?=getUUID($user, 'get');?>');">
         <span class="fa fa-line-chart mr5"></span>
         Analyse
     </a>
     <?php if((bool) $user['demo'] !== true){?>
-    <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=$user['id']?>', 400);">
+    <a href="#" class="btn white" onclick="Popup.load('/users/edit/<?=getUUID($user, 'get');?>', 400);">
         <span class="fa fa-edit mr5"></span>
         Wijzigen
     </a>
-    <a href="#" class="btn white" onclick="Popup.load('/messages/send/<?=$user['id']?>', 500);">
+    <a href="#" class="btn white" onclick="Popup.load('/messages/send/<?=getUUID($user, 'get');?>', 500);">
         <span class="fa fa-envelope-o"></span>
         Bericht sturen
     </a>
@@ -59,7 +59,7 @@
 <div class="block" style="width:180px; float:right;">
     <div class="block-head">Profielfoto</div>
     <div class="block-content">
-        <img src="/users/profile_picture/<?=$user['id']?>/<?=time()?>" id="profile-picture-<?=$user['id']?>" style="max-width:130px;" />
+        <img src="/users/profile_picture/<?=getUUID($user, 'get');?>/<?=time()?>" id="profile-picture-<?=getUUID($user, 'get');?>" style="max-width:130px;" />
     </div>
 </div>
 
@@ -87,15 +87,15 @@
                         <?=$parent['username']?>
                     </td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$parent['id']?>">
+                        <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($parent, 'get');?>">
                             <span class="fa fa-list-ul"></span>
                         </a>
-                        <div class="dropblock blur-close" for="test_<?=$parent['id']?>">
-                            <a href="#" class="btn highlight white" onclick="Popup.load('/users/edit/<?=$parent['id']?>', 400);">
+                        <div class="dropblock blur-close" for="test_<?=getUUID($parent, 'get');?>">
+                            <a href="#" class="btn highlight white" onclick="Popup.load('/users/edit/<?=getUUID($parent, 'get');?>', 400);">
                                 <span class="fa fa-edit mr5"></span>
                                 Wijzigen
                             </a>
-                            <a href="#" class="btn highlight white" onclick="User.delete(<?=$parent['id']?>);">
+                            <a href="#" class="btn highlight white" onclick="User.delete(<?=getUUID($parent, 'getQuoted');?>);">
                                 <span class="fa fa-remove mr5"></span>
                                 Verwijderen
                             </a>
@@ -111,7 +111,7 @@
         <br clear="all" />
         <?php if((bool) $user['demo'] !== true){?>
         <center>
-            <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/parents/<?=$user['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/parents/<?=getUUID($user, 'get');?>', 400);">
                 Ouder toevoegen
             </a>
         </center>
