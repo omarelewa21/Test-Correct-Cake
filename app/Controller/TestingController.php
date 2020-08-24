@@ -8,6 +8,7 @@ class TestingController extends AppController
 
     public function beforeFilter()
     {
+        $this->Auth->allowedActions = array('selenium_state');
         $this->TestingService = new TestingService();
 
         parent::beforeFilter();
@@ -57,5 +58,33 @@ class TestingController extends AppController
             'rate-test-enable-glance',
             'glance-test-start'
         ];
+    }
+
+    public function selenium_toggle($flag)
+    {
+        if(!$this->request->is('post')) {
+            die;
+        }
+
+        $result = $this->TestingService->seleniumToggle($flag);
+
+        $this->formResponse(
+            $result ? true : false,
+            []
+        );
+    }
+
+    public function selenium_state()
+    {
+        if(!$this->request->is('get')) {
+            die;
+        }
+
+        $result = $this->TestingService->seleniumState();
+
+        $this->formResponse(
+            $result ? true : false,
+            []
+        );
     }
 }

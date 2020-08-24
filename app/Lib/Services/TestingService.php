@@ -15,4 +15,22 @@ class TestingService extends BaseService {
 
         return $response;
     }
+
+    public function seleniumToggle($toggle) {
+        $response = $this->Connector->postRequest('/selenium', [] ,[
+            'toggle' => $toggle,
+        ]);
+
+        if ($toggle == 'true') {
+            $this->handle('testdb');
+        }
+
+        return $response;
+    }
+
+    public function seleniumState() {
+        $response = $this->Connector->getRequest('/selenium', []);
+
+        return $response;
+    }
 }
