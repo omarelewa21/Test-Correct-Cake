@@ -18,41 +18,51 @@
     ?>
     <?=$question['question']?><br />
 
-    <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
-
     <?
-    if($question['subtype'] == 'TrueFalse') {
-        $first = false;
-    }else{
-        $first = false;
+
+    $first = true;
+    $radioOptions = [];
+    $useRadio = false;
+    $default = [];
+    if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+        $useRadio = true;
+        $label = '<div class="radio_'.$question['id'].'">';
     }
 
     foreach($question['multiple_choice_question_answers'] as $answer) {
+        if($useRadio){
+            if($first) $default = $answer['id'];
+            $radioOptions[$answer['id']] = ' '.$answer['answer'];
+        } else {
+            echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
+                'value' => 1,
+                'div' => false,
+                'type' => 'checkbox',
+                'checked' => $first,
+                'label' => false,
+                'class' => 'multiple_choice_option'
+            ]);
+            echo '&nbsp;'.$answer['answer'].'</div><br />';
+            $first = false;
+        }
+    }
 
-        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-            'value' => 1,
-            'div' => false,
-            'type' => 'checkbox',
-            'checked' => $first,
+    if($useRadio){
+        echo $this->Form->input('Question.'.$question['id'], [
+            'type' => 'radio',
+            'legend'=> false,
             'label' => false,
-            'class' => 'multiple_choice_option'
-        ]);
-        echo '&nbsp;'.$answer['answer'].'</div><br />';
-        $first = false;
+            'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
+            'class' => 'multiple_choice_option single_choice_option input_'.$question['id'],
+            'default'=> $default,
+            'before' => $label,//'<div class="btn btn-primary">',
+            'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
+            'after' => '</div>',
+            'options' => $radioOptions,//array('1' => 'Radio 1', '2' => 'Radio 2'),
+        ]).'<br/>';
     }
     ?>
 </div>
-
-<? if($question['subtype'] == 'TrueFalse') { ?>
-    <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
-            $('input[type=checkbox]').prop('checked' , false);
-            $(this).prop('checked' , true);
-        });
-    </script>
-<? } ?>
 
 <? if(isset($next_question)) { ?>
     <br />

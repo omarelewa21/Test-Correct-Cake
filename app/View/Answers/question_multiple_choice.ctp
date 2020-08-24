@@ -14,16 +14,22 @@
         [<?=$question['score']?>pt]
     </h1>
 
+<?php
+
+    $useRadio = false;
+    $radioOptions = [];
+    $default = 0;
+    if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+        $useRadio = true;
+        $label = '<div class="radio_'.$question['id'].'">';
+    }
+
+    shuffle($question['multiple_choice_question_answers']);
+?>
+
 <div style="font-size: 20px;">
     <?=$this->element('take_question', ['question' => $question]);?>
 
-    <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
-    
-    <pre>
-        <?php shuffle($question['multiple_choice_question_answers']); ?>        
-    </pre>
     <?
 
     foreach( $question['multiple_choice_question_answers'] as $answer) {
@@ -31,22 +37,56 @@
         $checked = false;
 
         if(isset($answerJson[$answer['id']])) {
-            $checked = $answerJson[$answer['id']] == 1 ? true : false;
+            if($answerJson[$answer['id']] == 1){
+                    $checked = true;
+                    $default = $answer['id'];
+            } else {
+                $checked = false;
+            }
         }
 
-        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-            'value' => 1,
-            'div' => false,
-            'type' => 'checkbox',
-            'checked' => $checked,
-            'label' => false,
-            'class' => 'multiple_choice_option',
-            'onchange' => 'checkMaxSelections(this)'
-        ]);
+        if(!$useRadio){
 
-        echo '&nbsp;'.$answer['answer'].'</div><br />';
+            echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
+                'value' => 1,
+                'div' => false,
+                'type' => 'checkbox',
+                'checked' => $checked,
+                'label' => false,
+                'class' => 'multiple_choice_option input_'.$question['id'].' input_'.$answer['id'],
+                'onchange' => 'checkMaxSelections(this)'
+            ]).'&nbsp;'.$answer['answer'].'</div><br />';
+        }
+        else {
+            $radioOptions[$answer['id']] = ' '.$answer['answer'];
+            echo '
+                        <span style="display:none">'.$this->Form->input('Answer.'.$answer['id'], [
+                            'value' => 1,
+                            'div' => false,
+                            'type' => 'checkbox',
+                            'checked' => $checked,
+                            'label' => false,
+                            'class' => 'multiple_choice_option input_'.$question['id'].' checkbox_radio_'.$answer['id'],
+                        ])
+                        .'</span>';
+        }
 
         $first = false;
+    }
+
+    if($useRadio){
+        echo $this->Form->input('Question.'.$question['id'], [
+            'type' => 'radio',
+            'legend'=> false,
+            'label' => false,
+            'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
+            'class' => 'multiple_choice_option single_choice_option input_radio_'.$question['id'],
+            'default'=> $default,
+            'before' => $label,//'<div class="btn btn-primary">',
+            'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
+            'after' => '</div>',
+            'options' => $radioOptions,
+            ]).'<br/>';
     }
     ?>
 </div>
@@ -56,11 +96,15 @@
 <?=$this->Form->end();?>
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 
-<? if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1) { ?>
+<? if($useRadio) { ?>
     <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
-            $('input[type=checkbox]').prop('checked' , false);
-            $(this).prop('checked' , true);
+
+        $('.input_radio_<?=$question['id']?>').click(function() {
+            var checkbox = $('.checkbox_radio_'+$(this).val());
+            var newChecked = !checkbox.is(':checked');
+            $('.input_<?=$question['id']?>').prop('checked',false);
+            $(this).prop('checked' , newChecked);
+            checkbox.prop('checked',newChecked);
             Answer.answerChanged = true;
         });
 
@@ -68,7 +112,7 @@
     </script>
 <? }else{ ?>
     <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
+        $('input_.<?=$question['id']?>').click(function() {
             Answer.answerChanged = true;
         });
 
@@ -78,7 +122,7 @@
 
 <script type="text/javascript">
     function checkMaxSelections(e) {
-        if( $('.multiple_choice_option:checked').length > <?=$question['selectable_answers']?> ) {
+        if( $('.input_<?=$question['id']?>:checked').length > <?=$question['selectable_answers']?> ) {
             $(e).prop( "checked", false);
         }
     }
