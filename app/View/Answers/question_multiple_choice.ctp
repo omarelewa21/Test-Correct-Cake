@@ -28,67 +28,19 @@
 ?>
 
 <div style="font-size: 20px;">
-    <?=$this->element('take_question', ['question' => $question]);?>
 
-    <?
+    <?php
 
-    foreach( $question['multiple_choice_question_answers'] as $answer) {
-
-        $checked = false;
-
-        if(isset($answerJson[$answer['id']])) {
-            if($answerJson[$answer['id']] == 1){
-                    $checked = true;
-                    $default = $answer['id'];
-            } else {
-                $checked = false;
-            }
-        }
-
-        if(!$useRadio){
-
-            echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-                'checked' => $checked,
-                'label' => false,
-                'class' => 'multiple_choice_option input_'.$question['id'].' input_'.$answer['id'],
-                'onchange' => 'checkMaxSelections(this)'
-            ]).'&nbsp;'.$answer['answer'].'</div><br />';
-        }
-        else {
-            $radioOptions[$answer['id']] = ' '.$answer['answer'];
-            echo '
-                        <span style="display:none">'.$this->Form->input('Answer.'.$answer['id'], [
-                            'value' => 1,
-                            'div' => false,
-                            'type' => 'checkbox',
-                            'checked' => $checked,
-                            'label' => false,
-                            'class' => 'multiple_choice_option input_'.$question['id'].' checkbox_radio_'.$answer['id'],
-                        ])
-                        .'</span>';
-        }
-
-        $first = false;
-    }
+    echo $this->element('take_question', ['question' => $question]);
 
     if($useRadio){
-        echo $this->Form->input('Question.'.$question['id'], [
-            'type' => 'radio',
-            'legend'=> false,
-            'label' => false,
-            'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-            'class' => 'multiple_choice_option single_choice_option input_radio_'.$question['id'],
-            'default'=> $default,
-            'before' => $label,//'<div class="btn btn-primary">',
-            'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
-            'after' => '</div>',
-            'options' => $radioOptions,
-            ]).'<br/>';
+         echo $this->element('question_multiple_choice_radio_answers',['question' => $question]);
+    } else {
+        echo $this->element('question_multiple_choice_regular_answers',['question' => $question]);
     }
+
     ?>
+
 </div>
 
 
@@ -97,27 +49,9 @@
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 
 <? if($useRadio) { ?>
-    <script type="text/javascript">
-
-        $('.input_radio_<?=$question['id']?>').click(function() {
-            var checkbox = $('.checkbox_radio_'+$(this).val());
-            var newChecked = !checkbox.is(':checked');
-            $('.input_<?=$question['id']?>').prop('checked',false);
-            $(this).prop('checked' , newChecked);
-            checkbox.prop('checked',newChecked);
-            Answer.answerChanged = true;
-        });
-
-        Answer.answerChanged = false;
-    </script>
+    <?= $this->element('question_multiple_choice_radio_javascript', ['question' => $question]); ?>
 <? }else{ ?>
-    <script type="text/javascript">
-        $('input_.<?=$question['id']?>').click(function() {
-            Answer.answerChanged = true;
-        });
-
-        Answer.answerChanged = false;
-    </script>
+    <?= $this->element('question_multiple_choice_regular_javascript', ['question' => $question]); ?>
 <? } ?>
 
 <script type="text/javascript">
