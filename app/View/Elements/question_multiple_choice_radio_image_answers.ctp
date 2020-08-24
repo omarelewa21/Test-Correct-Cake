@@ -19,11 +19,18 @@
                     'after' => '</td>',
                     'options' => $radioList,
                     ]);
-    </tr>
-    <tr>
+    echo '</tr>
+    <tr>';
             foreach($radioOptions as $key => $value){
                 echo '<td>'.$value.'</td>';
             }
         ?>
     </tr>
 </table>
+<br />
+
+<style>
+    .multiple_choice_radio_image_table td {
+        text-align: center;
+    }
+</style>
