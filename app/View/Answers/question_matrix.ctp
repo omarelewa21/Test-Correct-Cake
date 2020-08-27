@@ -21,7 +21,7 @@
 
         echo $this->element('question_matrix',[
             'question' => $question,
-            'answerSubQuestionReference' => $answerSubQuestionReference
+            'answerSubQuestionReference' => $answerSubQuestionReference,
         ]);
     ?>
 </div>

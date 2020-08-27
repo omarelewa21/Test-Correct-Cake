@@ -18,3 +18,32 @@
     z-index: 1100;
     box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.2);
 }
+
+table.matrix {
+    border:0px solid grey;
+}
+.matrix thead th {
+    border:1px solid grey;
+    border-bottom-width:0;
+    border-left-width:1px;
+    border-right-width:0;
+}
+.matrix thead th:first-child {
+    border-top-width:0;
+    border-left-width:0;
+}
+.matrix thead th:last-child {
+    border-right-width:1px;
+}
+#question_load .matrix td {
+    border:1px solid grey;
+    border-bottom-width:0;
+    border-left-width:1px;
+    border-right-width:0;
+}
+#question_load .matrix tr > td:last-child {
+    border-right-width:1px;
+}
+#question_load .matrix tr:last-child td {
+    border-bottom-width:1px;
+}

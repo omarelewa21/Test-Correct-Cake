@@ -1121,6 +1121,10 @@ class TestTakesController extends AppController
                 $view = 'rate_info_screen2019';
                 break;
 
+            case "MatrixQuestion":
+                $view = 'rate_matrix';
+                break;
+
             default:
                 die(__FILE__ . __FUNCTION__ . ' Search For ##$$ABC');
                 break;

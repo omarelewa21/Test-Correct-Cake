@@ -1,34 +1,4 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-<style>
-    table.matrix {
-        border:0px solid grey;
-    }
-    .matrix thead th {
-        border:1px solid grey;
-        border-bottom-width:0;
-        border-left-width:1px;
-        border-right-width:0;
-    }
-    .matrix thead th:first-child {
-        border-top-width:0;
-        border-left-width:0;
-    }
-    .matrix thead th:last-child {
-        border-right-width:1px;
-    }
-    #question_load .matrix td {
-        border:1px solid grey;
-        border-bottom-width:0;
-        border-left-width:1px;
-        border-right-width:0;
-    }
-    #question_load .matrix tr > td:last-child {
-        border-right-width:1px;
-    }
-    #question_load .matrix tr:last-child td {
-        border-bottom-width:1px;
-    }
-</style>
 <h1>
     <?
     if($question['subtype'] == 'SingleChoice') {
