@@ -42,13 +42,5 @@
 </script>
 
 <style>
-    .multiple_choice_radio_image_container {
-        display:inline-block;
-        float:left;
-        margin-bottom:25px;
-        margin-right:35px;
-    }
-    .multiple_choice_radio_image_container_name {
-        text-align:center;
-    }
+
 </style>
