@@ -35,16 +35,20 @@ table.matrix {
 .matrix thead th:last-child {
     border-right-width:1px;
 }
-#question_load .matrix td {
+#question_load .matrix td,
+.matrix td{
     border:1px solid grey;
     border-bottom-width:0;
     border-left-width:1px;
     border-right-width:0;
+    padding: 6px;
 }
-#question_load .matrix tr > td:last-child {
+#question_load .matrix tr > td:last-child,
+.matrix tr > td:last-child{
     border-right-width:1px;
 }
-#question_load .matrix tr:last-child td {
+#question_load .matrix tr:last-child td,
+.matrix tr:last-child td{
     border-bottom-width:1px;
 }
 
