@@ -1,6 +1,11 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-
-<h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>">
     <?
     if($question['subtype'] == 'TrueFalse') {
         ?>Juist / Onjuist<?
@@ -29,6 +34,9 @@
         $first = false;
     }
 
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
     foreach($question['multiple_choice_question_answers'] as $answer) {
 
         echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
@@ -42,6 +50,7 @@
         echo '&nbsp;'.$answer['answer'].'</div><br />';
         $first = false;
     }
+        echo '</div>';
     ?>
 </div>
 

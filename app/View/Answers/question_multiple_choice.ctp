@@ -1,7 +1,12 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
-
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
 <?=$this->Form->create('Answer')?>
-    <h1>
+    <h1 class="question_type <?=$citoClass?>">
         <?
         if($question['subtype'] == 'TrueFalse') {
             ?>Juist / Onjuist<?
@@ -26,7 +31,7 @@
 
     shuffle($question['multiple_choice_question_answers']);
 ?>
-
+<div class="anwer_container <?=$citoClass?>"></div>
 <div style="font-size: 20px;">
 
     <?php
@@ -41,6 +46,7 @@
 
     ?>
 
+</div>
 </div>
 
 

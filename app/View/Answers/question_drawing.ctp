@@ -1,7 +1,12 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
-
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
 <?=$this->Form->create('Answer')?>
-<h1>Tekenvraag [<?=$question['score']?>pt]</h1>
+<h1 class="question_type <?=$citoClass?>">Tekenvraag [<?=$question['score']?>pt]</h1>
 
 <?=$this->element('take_question', ['question' => $question])?>
 <center>

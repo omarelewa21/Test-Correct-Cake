@@ -1,5 +1,11 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-<h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?></h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -26,32 +32,37 @@
     ?>
 </div>
 
-<div style="width:300px; padding:20px; float:left;">
-    <?
-    foreach($listLeft as $item) {
-        ?>
-        <div style="margin-bottom: 5px; border:1px grey dotted; text-align: center; height:130px; padding:20px;" class="left_item" id="<?=$item['id']?>">
-            <strong><?=$item['answer']?></strong>
-        </div>
-    <?
-    }
+<?php
+
+echo sprintf('<div class="answer_container %s">',$citoClass);
     ?>
-</div>
 
-<div style="width:200px; float:left; margin-left: 20px;">
-    <?
-    shuffle($listRight);
-
-    foreach($listRight as $item) {
-        ?>
-        <div style="background: grey; padding:10px; margin: 2px;" id="<?=$item['id']?>" class="right_item">
-            <?=$item['answer']?>
-        </div>
+    <div style="width:300px; padding:20px; float:left;">
         <?
-    }
-    ?>
-</div>
+        foreach($listLeft as $item) {
+            ?>
+            <div style="margin-bottom: 5px; border:1px grey dotted; text-align: center; height:130px; padding:20px;" class="left_item" id="<?=$item['id']?>">
+                <strong><?=$item['answer']?></strong>
+            </div>
+        <?
+        }
+        ?>
+    </div>
 
+    <div style="width:200px; float:left; margin-left: 20px;">
+        <?
+        shuffle($listRight);
+
+        foreach($listRight as $item) {
+            ?>
+            <div style="background: grey; padding:10px; margin: 2px;" id="<?=$item['id']?>" class="right_item">
+                <?=$item['answer']?>
+            </div>
+            <?
+        }
+        ?>
+    </div>
+</div>
 <br clear="all" />
 
 <script>
