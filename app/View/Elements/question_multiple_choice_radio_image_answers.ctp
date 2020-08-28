@@ -1,4 +1,5 @@
 <?php
+    $rating = (isset($rating)) ? $rating : false;
     foreach($radioOptions as $key => $value){
 ?>
 <div class="multiple_choice_radio_image_container">
@@ -14,14 +15,15 @@
             $radioList = [];
             $label = '<div>';
     foreach($radioOptions as $key => $value){
-    $radioList[$key] = ' ';
+    $radioList[$key] = '<span> </span>';
     }
     echo $this->Form->input('Question.'.$question['id'], [
     'type' => 'radio',
     'legend'=> false,
     'label' => false,
+    'disabled' => $rating,
     'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-    'class' => 'multiple_choice_option single_choice_option input_radio_'.$question['id'],
+    'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.$question['id'],
     'default'=> $default,
     'before' => $label,
     'separator' => '</div>'.$label,
