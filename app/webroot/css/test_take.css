@@ -85,3 +85,10 @@ table.matrix {
 .answer_container.cito td p {
     display:block;
 }
+.answer_container.cito table.matrix td p {
+    display:inline;
+}
+
+h1.question_type.cito {
+    #display: none;
+}

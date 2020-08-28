@@ -1,6 +1,11 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-
-<h1>Selectievraag</h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>">Selectievraag</h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
@@ -11,10 +16,6 @@
 
     $tags = [];
 
-    $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
-        $citoClass = 'cito';
-    }
     echo sprintf('<div class="answer_container %s">',$citoClass);
 
 //    foreach($question['completion_question_answers'] as $tag) {

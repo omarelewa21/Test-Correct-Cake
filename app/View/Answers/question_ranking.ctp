@@ -1,14 +1,16 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 
 <?=$this->Form->create('Answer')?>
-<h1>Rangschikvraag [<?=$question['score']?>pt]</h1>
-<?=$this->element('take_question', ['question' => $question])?>
-
 <?php
     $citoClass = '';
     if(substr_count($question['metadata'],'cito') > 0){
-        $citoClass = 'cito';
-    }
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>">Rangschikvraag [<?=$question['score']?>pt]</h1>
+<?=$this->element('take_question', ['question' => $question])?>
+
+<?php
     echo sprintf('<div class="answer_container %s">',$citoClass);
 ?>
 
