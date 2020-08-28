@@ -201,6 +201,10 @@ class QuestionsController extends AppController {
                 $view = 'preview_drawing';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'preview_matrix';
+                break;
+
             default:
                 echo $question['type'];
                 break;
@@ -317,6 +321,10 @@ class QuestionsController extends AppController {
 
             case 'DrawingQuestion':
                 $view = 'preview_drawing';
+                break;
+
+            case 'MatrixQuestion':
+                $view = 'preview_matrix';
                 break;
 
             default:

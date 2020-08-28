@@ -98,6 +98,10 @@ class AnswersController extends AppController
                 $view = 'question_drawing';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'question_matrix';
+                break;
+
             default:
                 echo $question['id'];
                 break;

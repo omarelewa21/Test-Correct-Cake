@@ -4,7 +4,6 @@
 <h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag' ?> [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
-<div style="font-size: 20px;">
     <?
 
     $listLeft = [];
@@ -17,23 +16,8 @@
             $listRight[] = $option;
         }
     }
-    ?>
-</div>
 
-<div style="width:300px; padding:20px; float:left;">
-    <?
-    foreach($listLeft as $item) {
-        ?>
-        <div style="margin-bottom: 5px; border:1px grey dotted; text-align: center; height:130px; padding:20px;" class="left_item" id="<?=$item['id']?>">
-            <strong><?=$item['answer']?></strong>
-        </div>
-    <?
-    }
-    ?>
-</div>
-
-<div style="width:200px; float:left; margin-left: 20px;">
-    <?
+    shuffle($listRight);
 
     if(empty($answer['json'])) {
         $answerJson = [];
@@ -41,7 +25,7 @@
         $answerJson = json_decode($answer['json'], true);
     }
 
-    shuffle($listRight);
+    echo sprintf('<div class="matching_item_container">');
     foreach($listRight as $item) {
 
         echo $this->Form->input('Answer.' . $item['id'], [
@@ -50,50 +34,77 @@
             'type' => 'hidden'
         ]);
 
-        ?>
-        <div style="background: grey; padding:10px; margin: 2px;" id="<?=$item['id']?>" class="right_item">
-            <?=$item['answer']?>
-        </div>
+        echo sprintf('<div id="%s" class="right_item matching_item">%s</div>',$item['id'],$item['answer']);
+    }
+    echo sprintf('</div>');
+    echo sprintf('<div style="clear:both;height:25px;"></div>');
 
-        <?
+    foreach($listLeft as $item) {
+            echo sprintf('<div class="matching_container"><div class="matching_container_name"><strong>%s</strong></div><div class="matching_drop_container left_item" id="%s"></div></div>',$item['answer'],$item['id']);
+    }
+
+    ?>
+
+    <script>
+        var c = $('.matching_item_container');
+        c.height(c.height());;
+        c.css({'overflow':'visible'});
+    </script>
+<?php
+
+    $multiplier = [];
+    foreach($listRight as $item) {
         if(isset($answerJson[$item['id']]) && !empty($answerJson[$item['id']])) {
+                $id = $answerJson[$item['id']];
+                if(isset($multiplier[$id])){
+                    $multiplier[$id]++;
+                }
+                else {
+                    $multiplier[$id] = 0;
+                }
             ?>
-            <script type="text/javascript">
+                <script type="text/javascript">
 
-                var leftPos = $('#<?=$answerJson[$item['id']]?>').position();
+                    var leftPos = $('#<?=$answerJson[$item['id']]?>').position();
+                    var left = leftPos.left + 10;
+                    var counter = <?=$multiplier?>;
+                    if(counter > 0){
 
-                $('#<?=$item['id']?>').css({
-                    'position' : 'absolute',
-                    'left' : leftPos.left + 'px',
-                    'top' : (leftPos.top + 40) + 'px',
-                    'width' : '200px'
-                })
-            </script>
-           <?
+                    }
+                    var dragItem = $('#<?=$item['id']?>');
+                    var ownHeight = dragItem.outerHeight();
+                    dragItem.css({
+                        'position' : 'absolute',
+                        'left' : left + 'px',
+                        'top' : (leftPos.top + 10 + ((ownHeight+2)*<?=$multiplier[$id]?>)) + 'px',
+                        'width' : '200px'
+                    })
+                </script>
+            <?php
         }
     }
     ?>
-</div>
 
 <br clear="all" />
 <?=$this->Form->end();?>
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 
 <script>
+    var topHeights = {};
+    var maxParentHeight = 250;
     $(function() {
         $( ".right_item" ).draggable();
         $( ".left_item" ).droppable({
             drop: function( event, ui ) {
                 var left_id = this.id;
                 var right_id = ui.helper[0].id;
-
                 $('#Answer' + right_id).val(left_id);
-
                 Answer.answerChanged = true;
 
             }
         });
     });
+
 
     function saveAnswer() {
 

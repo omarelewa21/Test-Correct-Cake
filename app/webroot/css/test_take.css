@@ -59,3 +59,62 @@ input.multiple_choice_option_radio:disabled:checked + span:after {
     left:-18px;
     top:4px;
 }
+
+table.matrix {
+    border:0px solid grey;
+}
+.matrix thead th {
+    border:1px solid grey;
+    border-bottom-width:0;
+    border-left-width:1px;
+    border-right-width:0;
+}
+.matrix thead th:first-child {
+    border-top-width:0;
+    border-left-width:0;
+}
+.matrix thead th:last-child {
+    border-right-width:1px;
+}
+#question_load .matrix td,
+.matrix td{
+    border:1px solid grey;
+    border-bottom-width:0;
+    border-left-width:1px;
+    border-right-width:0;
+    padding: 6px;
+}
+#question_load .matrix tr > td:last-child,
+.matrix tr > td:last-child{
+    border-right-width:1px;
+}
+#question_load .matrix tr:last-child td,
+.matrix tr:last-child td{
+    border-bottom-width:1px;
+}
+
+.matching_item_container {
+    overflow:auto;
+}
+.matching_drop_container {
+    margin-bottom: 5px;
+    border:1px grey dotted;
+    text-align: center;
+    height:250px;
+    width:243px
+}
+.matching_container {
+    width: 230px;
+    float:left;
+    margin-right:35px;
+    text-align:center;
+}
+
+.matching_item {
+    background: #ddd;
+    padding:10px;
+    margin: 2px;
+    width: 200px;
+    float:left;
+    cursor: move;
+}
