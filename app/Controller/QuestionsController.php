@@ -93,7 +93,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion' :
                 $view = 'edit_infoscreen';
                 break;
-                
+
             case 'OpenQuestion' :
                 $view = 'edit_open';
                 break;
@@ -168,7 +168,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
-                
+
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -225,7 +225,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                     $view = 'preview_infoscreen_answer';
                     break;
-                    
+
             case 'OpenQuestion':
                 $view = 'preview_open_answer';
                 break;
@@ -287,7 +287,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
-                
+
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -532,7 +532,7 @@ class QuestionsController extends AppController {
 //                }
 
                 if($internal === false) {
-                    $this->formResponse(true);die;    
+                    $this->formResponse(true);die;
                 }
             }else if(!$hideresponse) {
                 $this->formResponse(false, $check['errors']);
@@ -559,7 +559,7 @@ class QuestionsController extends AppController {
                 case 'InfoscreenQuestion' :
                     $view = 'edit_infoscreen';
                     break;
-                    
+
                 case 'OpenQuestion' :
                     $view = 'edit_open';
                     break;
@@ -902,7 +902,7 @@ class QuestionsController extends AppController {
                 case 'InfoscreenQuestion':
                     $this->render('add_infoscreen','ajax');
                     break;
-                    
+
                 case 'OpenQuestion' :
                     $this->render('add_open', 'ajax');
                     break;
@@ -978,7 +978,7 @@ class QuestionsController extends AppController {
     public function delete($owner, $owner_id, $question_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
             $this->formResponse(!empty($result));
         }
@@ -987,7 +987,7 @@ class QuestionsController extends AppController {
     public function delete_group($test_id, $group_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
             $this->formResponse(!empty($result));
         }
@@ -1030,7 +1030,7 @@ class QuestionsController extends AppController {
     }
 
     public function remove_add_attachment($id) {
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $this->autoRender = false;
             $attachments = $this->Session->read('attachments');
             unset($attachments[$id]);
@@ -1124,12 +1124,13 @@ class QuestionsController extends AppController {
         }
 
         $mime = mime_content_type($file);
-
         switch($mime) {
             case 'image/jpg':
             case 'image/jpeg':
             case 'image/JPG':
             case 'image/JPEG':
+                //MF 28-8-2020 added gif as image type dirty but it works (for now)
+            case 'image/gif':
 
                 $img = imagecreatefromstring(file_get_contents($file));
 
@@ -1315,7 +1316,7 @@ class QuestionsController extends AppController {
 
     public function view_group($test_id, $group_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
-        
+
         $group = $this->QuestionsService->getQuestion('test', '', $group_id);
 
         $questions = $group['question']['group_question_questions'];
