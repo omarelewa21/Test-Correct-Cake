@@ -92,3 +92,45 @@ table.matrix {
 h1.question_type.cito {
     #display: none;
 }
+
+
+.multiple_choice_radio_image_container {
+    display:inline-block;
+    float:left;
+    margin-bottom:25px;
+    margin-right:35px;
+}
+.multiple_choice_radio_image_container_name {
+    text-align:center;
+}
+
+input.multiple_choice_option_radio:disabled {
+    visibility:hidden;
+}
+input.multiple_choice_option_radio + span {
+    position:relative;
+}
+input.multiple_choice_option_radio:disabled + span:before {
+    border:1px solid #333;
+    border-radius: 12px;
+    width:12px;
+    height:12px;
+    content:'';
+    position:absolute;
+    display:block;
+    left:-20px;
+    top:2px;
+}
+
+input.multiple_choice_option_radio:disabled:checked + span:after {
+    background-color: #333;
+    border:1px solid white;
+    border-radius: 6px;
+    width:8px;
+    height:8px;
+    content:'';
+    position:absolute;
+    display:block;
+    left:-18px;
+    top:4px;
+}
