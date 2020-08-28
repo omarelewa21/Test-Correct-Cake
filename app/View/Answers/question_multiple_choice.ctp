@@ -19,14 +19,18 @@
 
     <? if($question['subtype'] != 'TrueFalse') { ?>
         <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
-    
-    <pre>
-        <?php shuffle($question['multiple_choice_question_answers']); ?>        
-    </pre>
-    <?
+    <? }
 
-    foreach( $question['multiple_choice_question_answers'] as $answer) {
+    shuffle($question['multiple_choice_question_answers']);
+
+        $citoClass = '';
+        if(substr_count($question['metadata'],'cito') > 0){
+            $citoClass = 'cito';
+        }
+        echo sprintf('<div class="answer_container %s">',$citoClass);
+
+
+        foreach( $question['multiple_choice_question_answers'] as $answer) {
 
         $checked = false;
 
@@ -49,7 +53,7 @@
         $first = false;
     }
     ?>
-</div>
+    </div></div>
 
 
 

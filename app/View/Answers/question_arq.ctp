@@ -19,8 +19,15 @@
 
     ?>
     <?=$question['question']?><br />
+    <?php
+        $citoClass = '';
+        if(substr_count($question['metadata'],'cito') > 0){
+    $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+    ?>
 
-    <table class="table" id="tableMultiChoiceOptions">
+        <table class="table" id="tableMultiChoiceOptions">
         <thead>
         <tr>
             <th width="40">&nbsp;</th>
@@ -113,6 +120,7 @@
     </tr>
     </tbody>
     </table>
+</div>
 </div>
 
 <?=$this->Form->end();?>

@@ -4,6 +4,14 @@
 <h1>Rangschikvraag [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+        $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
+
 <div id="answers" style="">
     <?
     $answers = $question['ranking_question_answers'];
@@ -40,7 +48,7 @@
         <?
     }
     ?>
-</div>
+</div></div>
 <?=$this->Form->end();?>
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 <script type="text/javascript">

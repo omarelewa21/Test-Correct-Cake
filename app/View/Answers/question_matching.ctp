@@ -5,6 +5,12 @@
 <?=$this->element('take_question', ['question' => $question])?>
 
     <?
+        $citoClass = '';
+        if(substr_count($question['metadata'],'cito') > 0){
+            $citoClass = 'cito';
+        }
+        echo sprintf('<div class="answer_container %s">',$citoClass);
+
 
     $listLeft = [];
     $listRight = [];
@@ -84,6 +90,7 @@
         }
     }
     ?>
+</div>
 
 <br clear="all" />
 <?=$this->Form->end();?>

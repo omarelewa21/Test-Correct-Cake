@@ -77,3 +77,11 @@ table.matrix {
     float:left;
     cursor: move;
 }
+
+.answer_container.cito p {
+    display:inline;
+}
+
+.answer_container.cito td p {
+    display:block;
+}

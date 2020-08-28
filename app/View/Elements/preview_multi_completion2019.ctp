@@ -11,6 +11,12 @@
 
     $tags = [];
 
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+        $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
 //    foreach($question['completion_question_answers'] as $tag) {
 //        $tags[$tag['tag']] = $tag['answer'];
 //    }
@@ -32,6 +38,7 @@
 //    }
 
     echo $question_text;
+        echo '</div>';
     ?>
 </div>
 

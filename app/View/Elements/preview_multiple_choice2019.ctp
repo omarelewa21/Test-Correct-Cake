@@ -29,6 +29,12 @@
         $first = false;
     }
 
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+    $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
     foreach($question['multiple_choice_question_answers'] as $answer) {
 
         echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
@@ -42,6 +48,7 @@
         echo '&nbsp;'.$answer['answer'].'</div><br />';
         $first = false;
     }
+        echo '</div>';
     ?>
 </div>
 

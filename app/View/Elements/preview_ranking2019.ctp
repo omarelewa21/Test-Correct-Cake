@@ -11,19 +11,28 @@
     <?=$question['question']?>
 </div>
 
-<div id="answers" style="">
-    <?
-    $answers = $question['ranking_question_answers'];
-    shuffle($answers);
-
-    foreach($answers as $answer) {
-        ?>
-        <div style="padding:10px; margin-bottom: 2px; background: grey;" class="ranking_answer">
-            <?=$answer['answer']?>
-        </div>
-        <?
+<?php
+    $citoClass = '';
+        if(substr_count($question['metadata'],'cito') > 0){
+    $citoClass = 'cito';
     }
-    ?>
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
+
+    <div id="answers" style="">
+        <?
+        $answers = $question['ranking_question_answers'];
+        shuffle($answers);
+
+        foreach($answers as $answer) {
+            ?>
+            <div style="padding:10px; margin-bottom: 2px; background: grey;" class="ranking_answer">
+                <?=$answer['answer']?>
+            </div>
+            <?
+        }
+        ?>
+    </div>
 </div>
 <script type="text/javascript">
     $('#answers').sortable();
