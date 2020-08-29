@@ -10,6 +10,15 @@
     <?=$question['question']?>
 </div>
 
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
+
 <div style="font-size: 20px;">
     <?
 
@@ -51,7 +60,7 @@
     }
     ?>
 </div>
-
+</div>
 <br clear="all" />
 
 <script>

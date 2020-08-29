@@ -33,7 +33,7 @@ foreach($tests as $test) {
             </a>
 
             <div class="dropblock blur-close" for="test_<?=$test['id']?>">
-                <? if($test['author']['id'] == $user_id) {?>
+                <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=$test['id']?>');">
                         <span class="fa fa-edit mr5"></span>
                         Wijzigen
@@ -43,11 +43,13 @@ foreach($tests as $test) {
                     <span class="fa fa-calendar mr5"></span>
                     Inplannen
                 </a>
+                <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate(<?=$test['id']?>);">
                     <span class="fa fa-random mr5"></span>
                     Dupliceren
                 </a>
-                <? if($test['author']['id'] == $user_id) {?>
+                <?php } ?>
+                <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Test.delete(<?=$test['id']?>, false);">
                         <span class="fa fa-remove mr5"></span>
                         Verwijderen

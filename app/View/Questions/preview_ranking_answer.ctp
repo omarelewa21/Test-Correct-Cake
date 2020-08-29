@@ -1,3 +1,11 @@
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <?
 $answers = $question['ranking_question_answers'];
 
@@ -9,3 +17,4 @@ foreach($answers as $answer) {
 <?
 }
 ?>
+</div>

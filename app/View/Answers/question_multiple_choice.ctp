@@ -1,7 +1,7 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 <?php
     $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
+    if(AppHelper::isCitoQuestion($question)){
 $citoClass = 'cito';
 }
 ?>
@@ -31,13 +31,14 @@ $citoClass = 'cito';
 
     shuffle($question['multiple_choice_question_answers']);
 ?>
-<div class="anwer_container <?=$citoClass?>"></div>
+
 <div style="font-size: 20px;">
 
     <?php
 
     echo $this->element('take_question', ['question' => $question]);
 
+    echo sprintf('<div class="answer_container %s">',$citoClass);
     if($useRadio){
          echo $this->element('question_multiple_choice_radio_answers',['question' => $question]);
     } else {

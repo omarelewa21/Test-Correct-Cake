@@ -10,7 +10,14 @@
     ?>
     <?=$question['question']?>
 </div>
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
 
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <div id="answers" style="">
     <?
     $answers = $question['ranking_question_answers'];
@@ -24,6 +31,7 @@
         <?
     }
     ?>
+</div>
 </div>
 <script type="text/javascript">
     $('#answers').sortable();
