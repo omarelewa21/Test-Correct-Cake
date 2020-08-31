@@ -2,7 +2,7 @@
 
 <h1>Selectievraag</h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
-    <?
+    <?php
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
         echo '<p>'. $question['question_group']['text'].'</p>';
     }
@@ -31,14 +31,14 @@
 //        $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]), $question_text);
 //    }
 
-    <?php
+
     $citoClass = '';
     if(AppHelper::isCitoQuestion($question)){
         $citoClass = 'cito';
     }
 
     echo sprintf('<div class="answer_container %s">',$citoClass);
-    ?>
+
     echo $question_text;
     ?>
     </div>

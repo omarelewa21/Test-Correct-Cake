@@ -259,12 +259,12 @@ class AppController extends Controller
 
     public function isCitoTest($test)
     {
-        return substr_count($test['metadata'],'cito') > 0;
+        return $test['scope'] == 'cito';
     }
 
     public function isCitoQuestion($question)
     {
-        return substr_count($question['metadata'],'cito') > 0;
+        return $question['scope'] == 'cito';
     }
 
     public function getMaskFromQuestionIfAvailable($question)
