@@ -88,7 +88,11 @@ var Answer = {
                 $('#AnswerQuestionForm').serialize(),
                 function (data) {
 
-                    console.log(data);
+                    if(data.error != undefined){
+                        Notify.notify(data.error,'error');
+                        return true;
+                    }
+
 
                     if(data.alert != undefined){
                         TestTake.alert = data.alert;

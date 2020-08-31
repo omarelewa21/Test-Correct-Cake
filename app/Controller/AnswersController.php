@@ -252,6 +252,19 @@ class AnswersController extends AppController
         }
 //        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
 
+        if($this->isCitoQuestion($question) && $question['type'] == 'CompletionQuestion') {
+            $mask = $this->getMaskFromQuestionIfAvailable($question);
+            if ($mask) {
+                $mask = sprintf('/%s/i',$mask);
+                if(!preg_match($mask,$data['Answer'][0])){
+                    echo json_encode([
+                        'error' => 'Het gegeven antwoord is niet valide',
+                    ]);
+                    exit;
+                }
+            }
+        }
+
         $take_question_index = $this->Session->read('take_question_index');
 
         $response = $this->AnswersService->saveAnswer2019($participant_id, $answer_id, $question, $data, $time, $_SESSION, $take_question_index, $take_id);
