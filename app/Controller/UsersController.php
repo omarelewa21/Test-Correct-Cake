@@ -1104,14 +1104,14 @@ class UsersController extends AppController
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => 'QTI Cito',
-                    'path'  => '/qtiimportcito'
+                    'path'  => '/qtiimport_cito'
                 );
 
                 $tiles['qtiimport_batch_cito'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => 'QTI Batch Cito',
-                    'path'  => '/qtiimportbatchcito'
+                    'path'  => '/qtiimport_batch_cito'
                 );
 
 
