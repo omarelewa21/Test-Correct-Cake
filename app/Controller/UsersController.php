@@ -469,7 +469,7 @@ class UsersController extends AppController
                     if(isset($error['errors']['username'])) {
                         $response = "Dit e-mailadres is al in gebruik";
                     }
-                    
+
                 } catch (\Throwable $th) {}
 
                 $this->formResponse(
@@ -1106,6 +1106,14 @@ class UsersController extends AppController
                     'title' => 'QTI Cito',
                     'path'  => '/qtiimportcito'
                 );
+
+                $tiles['qtiimport_batch_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Batch Cito',
+                    'path'  => '/qtiimportbatchcito'
+                );
+
 
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
