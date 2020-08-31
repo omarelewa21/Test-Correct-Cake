@@ -1100,6 +1100,13 @@ class UsersController extends AppController
                     'path'  => '/umbrella_organisations'
                 );
 
+                $tiles['qtiimport_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Cito',
+                    'path'  => '/qtiimportcito'
+                );
+
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',

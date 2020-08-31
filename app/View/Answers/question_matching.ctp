@@ -1,10 +1,18 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
-
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
 <?=$this->Form->create('Answer')?>
-<h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag' ?> [<?=$question['score']?>pt]</h1>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag' ?> [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
     <?
+
+        echo sprintf('<div class="answer_container %s">',$citoClass);
+
 
     $listLeft = [];
     $listRight = [];
@@ -84,6 +92,7 @@
         }
     }
     ?>
+</div>
 
 <br clear="all" />
 <?=$this->Form->end();?>

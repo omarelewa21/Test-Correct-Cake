@@ -1,6 +1,11 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-
-<h1>Rangschikvraag</h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>">Rangschikvraag</h1>
 
 <div style="font-size: 20px;">
     <?
@@ -11,19 +16,25 @@
     <?=$question['question']?>
 </div>
 
-<div id="answers" style="">
-    <?
-    $answers = $question['ranking_question_answers'];
-    shuffle($answers);
+<?php
 
-    foreach($answers as $answer) {
-        ?>
-        <div style="padding:10px; margin-bottom: 2px; background: grey;" class="ranking_answer">
-            <?=$answer['answer']?>
-        </div>
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
+
+    <div id="answers" style="">
         <?
-    }
-    ?>
+        $answers = $question['ranking_question_answers'];
+        shuffle($answers);
+
+        foreach($answers as $answer) {
+            ?>
+            <div style="padding:10px; margin-bottom: 2px; background: grey;" class="ranking_answer">
+                <?=$answer['answer']?>
+            </div>
+            <?
+        }
+        ?>
+    </div>
 </div>
 <script type="text/javascript">
     $('#answers').sortable();

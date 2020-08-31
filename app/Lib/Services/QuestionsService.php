@@ -1256,7 +1256,7 @@ class QuestionsService extends BaseService
             'is_open_source_content' => 0
         ];
     }
-    
+
     private function _fillNewOpenQuestion($question)
     {
 

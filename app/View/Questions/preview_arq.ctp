@@ -14,6 +14,15 @@
     <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
     <? } ?>
 
+    <?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+    ?>
+
     <table class="table" id="tableMultiChoiceOptions">
         <thead>
         <tr>
@@ -107,6 +116,7 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>

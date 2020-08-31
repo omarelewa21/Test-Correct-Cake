@@ -11,11 +11,13 @@
         <span class="fa fa-search mr5"></span>
         Voorbeeld
     </a>
+    <?php if(1==0){ ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
     </a>
-    <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+    <?php } ?>
+    <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#" class="btn white mr2" onclick="Test.delete(<?=$test_id?>, true);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
@@ -181,6 +183,14 @@
                                             }
                                             break;
 
+                                        case 'MatrixQuestion':
+                                            if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                                echo 'MatrixQuestion';
+                                            } else {
+                                                echo 'MatrixQuestion ONBEKEND';
+                                            }
+                                        break;
+
                                         case 'DrawingQuestion':
                                             echo 'Teken<br />';
                                             break;
@@ -227,6 +237,14 @@
                                         }
                                         break;
 
+                                    case 'MatrixQuestion':
+                                        if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                            echo 'MatrixQuestion';
+                                        } else {
+                                            echo 'MatrixQuestion ONBEKEND';
+                                        }
+                                        break;
+
                                     case 'DrawingQuestion':
                                         echo 'Teken';
                                         break;
@@ -264,7 +282,7 @@
                             }
                             ?>
                         </td>
-                        <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                        <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
                             <td class="nopadding">
 
                                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=$question['id']?>" onclick="return false;">
@@ -310,7 +328,7 @@
             </tbody>
         </table>
     </div>
-    <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+    <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <div class="block-footer">
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing/test/<?=$test_id?>', 1200); return false;">
                 <i class="fa fa-clock-o mr5"></i> Bestaande vraag toevoegen
@@ -329,12 +347,14 @@
 </div>
 <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
     <script type="text/javascript">
+        <?php if(!AppHelper::isCitoTest($test)){?>
         $("#tableQuestions tbody").sortable({
             delay: 150,
             stop: function( event, ui ) {
                 Questions.updateIndex(ui.item[0].id, <?=$test_id?>);
             }
         }).disableSelection();
+        <?php } ?>
 
         var winW = $(window).width();
         $('.cell_autowidth').css({

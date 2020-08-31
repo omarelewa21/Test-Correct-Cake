@@ -7,7 +7,7 @@
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="viewport" content="width=1280, user-scalable = no">
 
-    <link href="/css/test_preview.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/test_preview.css?v20200829143300" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet"
           href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="/js/table.js"></script>
     <script type="text/javascript" src="/js/test_preview.js"></script>
     <script type="text/javascript" src="/js/redactor.js"></script>
-    <script type="text/javascript" src="/js/test_take.js?20200324131501"></script>
+    <script type="text/javascript" src="/js/test_take.js?2020829134501"></script>
     <script type="text/javascript" src="/js/test.js"></script>
     <script type="text/javascript" src="/js/limiter.js"></script>
     <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>

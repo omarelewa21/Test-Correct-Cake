@@ -1,8 +1,13 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 
 <?=$this->Form->create('Answer')?>
-
-<h1>ARQ [<?=$question['score']?>pt]</h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?>">ARQ [<?=$question['score']?>pt]</h1>
 
 <div style="font-size: 20px;">
     <?
@@ -19,8 +24,12 @@
 
     ?>
     <?=$question['question']?><br />
+    <?php
 
-    <table class="table" id="tableMultiChoiceOptions">
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+    ?>
+
+        <table class="table" id="tableMultiChoiceOptions">
         <thead>
         <tr>
             <th width="40">&nbsp;</th>
@@ -113,6 +122,7 @@
     </tr>
     </tbody>
     </table>
+</div>
 </div>
 
 <?=$this->Form->end();?>

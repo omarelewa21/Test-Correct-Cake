@@ -18,7 +18,14 @@
     ?>
     <?=$question['question']?><br />
 
-    <?
+    <?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
 
     $first = true;
     $radioOptions = [];
@@ -29,40 +36,16 @@
         $label = '<div class="radio_'.$question['id'].'">';
     }
 
-    foreach($question['multiple_choice_question_answers'] as $answer) {
-        if($useRadio){
-            if($first) $default = $answer['id'];
-            $radioOptions[$answer['id']] = ' '.$answer['answer'];
-        } else {
-            echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-                'value' => 1,
-                'div' => false,
-                'type' => 'checkbox',
-                'checked' => $first,
-                'label' => false,
-                'class' => 'multiple_choice_option'
-            ]);
-            echo '&nbsp;'.$answer['answer'].'</div><br />';
-            $first = false;
-        }
+    if($useRadio){
+        echo $this->element('question_multiple_choice_radio_answers',['question' => $question,'rating' => true]);
+    } else {
+        echo $this->element('question_multiple_choice_regular_answers',['question' => $question,'rating' => true]);
     }
 
-    if($useRadio){
-        echo $this->Form->input('Question.'.$question['id'], [
-            'type' => 'radio',
-            'legend'=> false,
-            'label' => false,
-            'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-            'class' => 'multiple_choice_option single_choice_option input_'.$question['id'],
-            'default'=> $default,
-            'before' => $label,//'<div class="btn btn-primary">',
-            'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
-            'after' => '</div>',
-            'options' => $radioOptions,//array('1' => 'Radio 1', '2' => 'Radio 2'),
-        ]).'<br/>';
-    }
     ?>
+    </div>
 </div>
+<div style="clear:both;"></div>
 
 <? if(isset($next_question)) { ?>
     <br />

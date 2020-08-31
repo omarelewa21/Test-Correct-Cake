@@ -1,7 +1,12 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
-
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+$citoClass = 'cito';
+}
+?>
 <?=$this->Form->create('Answer')?>
-    <h1>
+    <h1 class="question_type <?=$citoClass?>">
         <?
         if($question['subtype'] == 'TrueFalse') {
             ?>Juist / Onjuist<?
@@ -33,6 +38,7 @@
 
     echo $this->element('take_question', ['question' => $question]);
 
+    echo sprintf('<div class="answer_container %s">',$citoClass);
     if($useRadio){
          echo $this->element('question_multiple_choice_radio_answers',['question' => $question]);
     } else {
@@ -41,6 +47,7 @@
 
     ?>
 
+</div>
 </div>
 
 

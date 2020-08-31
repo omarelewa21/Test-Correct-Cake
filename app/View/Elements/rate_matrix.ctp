@@ -6,6 +6,12 @@ $question = $rating['answer']['question'];
 
 $answerSubQuestionReference = $answer;
 
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+        $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
         echo $this->element('question_matrix',[
 'question' => $question,
 'answerSubQuestionReference' => $answerSubQuestionReference,
@@ -26,3 +32,4 @@ foreach($question['multiple_choice_question_answers'] as $option) {
     echo $option['answer'] . '</div><br />';
 }
 ?>
+        </div>
