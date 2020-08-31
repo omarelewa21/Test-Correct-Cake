@@ -37,7 +37,7 @@
         $citoClass = 'cito';
     }
 
-    echo sprintf('<div class="answer_container %s">',$citoClass);
+    echo sprintf('<div class="answer_container completion_question %s">',$citoClass);
 
     echo $question_text;
     ?>
