@@ -33,12 +33,14 @@ class AppHelper extends Helper {
 
     public static function isCitoTest($test)
     {
-        return substr_count($test['metadata'],'cito') > 0;
+        return (new AppController())->isCitoTest($test);
+//        return substr_count($test['metadata'],'cito') > 0;
     }
 
     public static function isCitoQuestion($question)
     {
-        return substr_count($question['metadata'],'cito') > 0;
+        return (new AppController())->isCitoQuestion($question);
+//        return substr_count($question['metadata'],'cito') > 0;
     }
 
 }
