@@ -109,7 +109,7 @@
             });
 
             $('#testsTable').tablefy({
-                'source' : '/tests/load',
+                'source' : '/cito_tests/load',
                 'filters' : $('#TestIndexForm'),
                 'container' : $('#testsContainter')
             });
