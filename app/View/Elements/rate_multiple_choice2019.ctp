@@ -10,7 +10,7 @@ if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
         $useRadio = true;
 }
 $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
+    if(AppHelper::isCitoQuestion($question)){
 $citoClass = 'cito';
 }
 echo sprintf('<div class="answer_container %s">',$citoClass);

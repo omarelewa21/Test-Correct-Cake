@@ -7,7 +7,7 @@ $question = $rating['answer']['question'];
 $answerSubQuestionReference = $answer;
 
     $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
+    if(AppHelper::isCitoQuestion($question)){
         $citoClass = 'cito';
     }
     echo sprintf('<div class="answer_container %s">',$citoClass);
