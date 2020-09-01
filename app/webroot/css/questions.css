@@ -62,6 +62,9 @@ table.matrix {
 .answer_container.cito p {
     display:inline;
 }
+.answer_container.cito.completion_question p {
+    display:block;
+}
 
 .answer_container.cito td p {
     display:block;

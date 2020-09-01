@@ -46,7 +46,7 @@ foreach($questions as $questionAr) {
         <div class="block-head">Vraag #<?=$i?></div>
         <div class="block-content" id="question_preview_<?=$question['id']?>">
             <? echo $this->element('take_overview_question2019',['question' => $question]);?>
-            <? echo $this->element($questionAr['answerView'],['rating' => ['answer' => $answer],'question_id' => $question['id']]);?>
+            <? echo $this->element($questionAr['answerView'],['rating' => ['answer' => $answer],'question_id' => $question['id'],'question' => $question]);?>
         </div>
     </div>
 
