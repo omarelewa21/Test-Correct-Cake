@@ -44,7 +44,6 @@
     }
 
     echo sprintf('<div class="answer_container %s">',$citoClass);
-    ?>
 
     echo $question_text;
     ?>
