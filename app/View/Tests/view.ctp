@@ -22,7 +22,8 @@
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
-
+    <? } ?>
+    <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test) || AppHelper::isTestPortal())) { ?>
         <a href="#" class="btn white" onclick="Popup.load('/tests/edit/<?=$test_id?>', 1000);">
             <span class="fa fa-edit mr5"></span>
             Gegevens wijzigen
