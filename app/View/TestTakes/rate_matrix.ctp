@@ -1,6 +1,3 @@
-?>
-        </div>
-
 <?
 $answer = $rating['answer']['json'];
 $answer = json_decode($answer, true);
