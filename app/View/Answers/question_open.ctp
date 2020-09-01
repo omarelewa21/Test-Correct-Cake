@@ -1,6 +1,6 @@
 <?= $this->element('take_attachments', ['question' => $question]); ?>
 
-<h1>Open vraag [<?= $question['score'] ?>pt]</h1>
+<h1>Open vraag [<?= $question['score'] ?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <?= $this->element('take_question', ['question' => $question]) ?>
 
 <?

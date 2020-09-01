@@ -115,3 +115,9 @@ input.multiple_choice_option_radio:disabled:checked + span:after {
     left:-18px;
     top:4px;
 }
+span.bracket-open:before {
+    content:'[';
+}
+span.bracket-close:before {
+    content:']';
+}

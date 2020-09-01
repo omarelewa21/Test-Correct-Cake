@@ -14,7 +14,7 @@
             ?>Matrix ONBEKEND<?
         }
         ?>
-        [<?=$question['score']?>pt]
+        [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?>
     </h1>
 
 <div style="font-size: 20px;">

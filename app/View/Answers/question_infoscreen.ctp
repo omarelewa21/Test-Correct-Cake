@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?> infoscreen">Infoscherm</h1>
+<h1 class="question_type <?=$citoClass?> infoscreen">Infoscherm<?=AppHelper::showExternalId($question);?></h1>
 <?= $this->element('take_question', ['question' => $question]) ?>
 
 <br clear="all" />

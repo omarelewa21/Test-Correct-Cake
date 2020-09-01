@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>Selectievraag</h1>
+<h1>Selectievraag<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
     <?php
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {

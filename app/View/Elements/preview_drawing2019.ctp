@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>">Teken-vraag</h1>
+<h1 class="question_type <?=$citoClass?>">Teken-vraag<?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?

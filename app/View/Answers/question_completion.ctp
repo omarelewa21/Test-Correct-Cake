@@ -7,7 +7,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type<?=$citoClass?>">Gatentekst [<?=$question['score']?>pt]</h1>
+<h1 class="question_type<?=$citoClass?>">Gatentekst [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
