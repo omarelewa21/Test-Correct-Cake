@@ -7,7 +7,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>">ARQ [<?=$question['score']?>pt]</h1>
+<h1 class="question_type <?=$citoClass?>">ARQ [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?

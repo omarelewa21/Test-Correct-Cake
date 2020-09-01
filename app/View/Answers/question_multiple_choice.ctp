@@ -17,6 +17,7 @@ $citoClass = 'cito';
         }
         ?>
         [<?=$question['score']?>pt]
+        <?=AppHelper::showExternalId($question);?>
     </h1>
 
 <?php

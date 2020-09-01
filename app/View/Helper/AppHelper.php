@@ -43,4 +43,18 @@ class AppHelper extends Helper {
 //        return substr_count($question['metadata'],'cito') > 0;
     }
 
+    public static function showExternalId($question)
+    {
+        if(static::isTestPortal()){
+            return sprintf(' %s',$question['external_id']);
+        }
+        return '';
+    }
+
+    public static function isTestPortal()
+    {
+        $host = SobitLogger::getInstance()->getHost();
+        return !!(substr_count($host,'testportal.test-correct') > 0);
+    }
+
 }

@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>">Selectievraag</h1>
+<h1 class="question_type <?=$citoClass?>">Selectievraag<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {

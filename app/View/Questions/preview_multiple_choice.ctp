@@ -8,6 +8,7 @@
         ?>Multiple choice<?
     }
     ?>
+    <?=AppHelper::showExternalId($question);?>
 </h1>
 
 <div style="font-size: 20px;">
