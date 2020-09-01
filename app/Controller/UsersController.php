@@ -1218,6 +1218,13 @@ class UsersController extends AppController
                     'path'  => '/tests/index'
                 );
 
+                $tiles['tests_cito_overview'] = array(
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'CITO Toetsen op maat',
+                    'path'  => '/cito_tests/index'
+                );
+
                 $tiles['questions_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'questionlist',
