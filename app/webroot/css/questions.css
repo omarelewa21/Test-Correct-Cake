@@ -88,13 +88,16 @@ h1.question_type.cito {
     text-align:center;
 }
 
-input.multiple_choice_option_radio:disabled {
+input.multiple_choice_option_radio:disabled,
+input.matrix_radio:disabled {
     visibility:hidden;
 }
-input.multiple_choice_option_radio + span {
+input.multiple_choice_option_radio + span,
+input.matrix_radio + span {
     position:relative;
 }
-input.multiple_choice_option_radio:disabled + span:before {
+input.multiple_choice_option_radio:disabled + span:before,
+input.matrix_radio:disabled + span:before{
     border:1px solid #333;
     border-radius: 12px;
     width:12px;
@@ -106,7 +109,13 @@ input.multiple_choice_option_radio:disabled + span:before {
     top:2px;
 }
 
-input.multiple_choice_option_radio:disabled:checked + span:after {
+input.matrix_radio:disabled + span:before {
+    left: -17px;
+    top: 1px;
+}
+
+input.multiple_choice_option_radio:disabled:checked + span:after,
+input.matrix_radio:disabled:checked + span:after{
     background-color: #333;
     border:1px solid white;
     border-radius: 6px;
@@ -118,6 +127,11 @@ input.multiple_choice_option_radio:disabled:checked + span:after {
     left:-18px;
     top:4px;
 }
+input.matrix_radio:disabled:checked + span:after {
+    left: -15px;
+    top:3px;
+}
+
 span.bracket-open:before {
     content:'[';
 }
