@@ -130,6 +130,7 @@ class SchoolsController extends AppController
 
         $this->set('accountmanagers', $accountmanagers);
         $this->set('organisations', $organisations);
+        $this->set('school', $school);
         $this->request->data = $school;
     }
 
