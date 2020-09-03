@@ -434,7 +434,7 @@ class FileManagementController extends AppController
                     'id'        => $el['education_level']['id'],
                     'max_years' => $el['education_level']['max_years']
                 ];
-                $eloAr[getUUID($el['education_level'], 'get')]] = $el['education_level']['name'];
+                $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
             }
             $this->set('educationLevels', $elAr);
             $this->set('educationLevelOptions', $eloAr);
