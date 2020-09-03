@@ -282,7 +282,7 @@
                             }
                             ?>
                         </td>
-                        <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test) || AppHelper::isTestPortal())) { ?>
+                        <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test))) { ?>
                             <td class="nopadding">
 
                                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=$question['id']?>" onclick="return false;">

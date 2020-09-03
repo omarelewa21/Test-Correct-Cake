@@ -32,3 +32,4 @@ $question = $rating['answer']['question'];
     }
     ?>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

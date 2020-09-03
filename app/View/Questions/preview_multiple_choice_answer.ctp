@@ -27,3 +27,4 @@
     ?>
 </div>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

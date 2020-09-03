@@ -108,3 +108,4 @@ $citoClass = 'cito';
 
     Answer.answerChanged = false;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>
