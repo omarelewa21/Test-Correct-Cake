@@ -3,14 +3,7 @@ echo '<p>'. $question['question_group']['text'].'</p>';
 }
 ?>
 <?
-if(in_array($question['type'],['CompletionQuestion'])){
-$question['question'] = preg_replace_callback(
-            '/\[([0-9]+)\]/i',
-            function ($matches) use ($answer) {
-                    return '...';
-            },
-            $question['question']
-        );
+if(!in_array($question['type'],['CompletionQuestion'])){
+    echo $question['question'];
 }
-echo $question['question'];
 ?>

@@ -19,8 +19,8 @@ for($i = 1; $i <= count($answer); $i++) {
 }
 
 ?>
-<div style="font-size: 20px;">
+
     <?=$question?>
+
 </div>
-</div>
-<?=$this->element('question_styling',['question' => $question]);?>
+<?=$this->element('question_styling',['question' => $rating['answer']['question']]);?>
