@@ -17,7 +17,6 @@
         echo '<p>'. $question['question_group']['text'].'</p>';
     }
     ?>
-    <?=$question['question']?><br />
 
     <?php
         $citoClass = '';
@@ -27,6 +26,7 @@
 
         echo sprintf('<div class="answer_container %s">',$citoClass);
 
+         echo $question['question'].'<br />';
 
         $first = true;
         $radioOptions = [];
