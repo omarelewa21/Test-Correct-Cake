@@ -115,7 +115,7 @@ foreach($education_levels as $education_level) {
             onsuccess : function(result) {
                 Popup.closeLast();
                 Notify.notify("Klas aangemaakt", "info");
-                Navigation.load('/school_classes/view/' + result.id)
+                Navigation.load('/school_classes/view/' + result.uuid)
             },
             onfailure : function(result) {
                 Notify.notify("SchoolYear kon niet worden aangemaakt", "error");
