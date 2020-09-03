@@ -26,3 +26,4 @@ foreach($answer as $answer_id => $ranking) {
 
 ?>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

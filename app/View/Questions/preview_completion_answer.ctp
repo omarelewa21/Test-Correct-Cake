@@ -39,3 +39,4 @@
 <script type="text/javascript">
     //$('#multiCompletionQuestion').hide();
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

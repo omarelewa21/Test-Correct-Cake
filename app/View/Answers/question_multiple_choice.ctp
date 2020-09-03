@@ -69,3 +69,4 @@ $citoClass = 'cito';
         }
     }
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

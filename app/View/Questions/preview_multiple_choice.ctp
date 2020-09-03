@@ -57,3 +57,4 @@
         </a>
     </center>
 <?php } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

@@ -68,3 +68,4 @@ $citoClass = 'cito';
     });
     Answer.answerChanged = true;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

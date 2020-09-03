@@ -26,3 +26,4 @@ foreach($question['multiple_choice_question_answers'] as $option) {
 }
 ?>
         </div>
+<?=$this->element('question_styling',['question' => $question]);?>

@@ -66,3 +66,4 @@ echo sprintf('<div class="answer_container %s">',$citoClass);
     </tbody>
 </table>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>
