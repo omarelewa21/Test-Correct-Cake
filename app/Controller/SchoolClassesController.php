@@ -243,7 +243,7 @@ class SchoolClassesController extends AppController
 
         if($this->request->is('post') || $this->request->is('put')) {
 
-            $result = $this->SchoolClassesService->addStudent($class_id, $this->request->data['Student']['student_id']);
+            $result = $this->SchoolClassesService->addStudent($this->SchoolClassesService->getClass($class_id)['id'], $this->request->data['Student']['student_id']);
 
             $this->formResponse(
                 $result ? true : false,
@@ -282,7 +282,7 @@ class SchoolClassesController extends AppController
         if($this->request->is('delete')) {
             $this->autoRender = false;
             $this->SchoolClassesService->removeFromClass($user_id, [
-                'delete_mentor_school_class' => $class_id
+                'delete_mentor_school_class' => $this->SchoolClassesService->getClass($class_id)['id']
             ]);
     
             echo $this->formResponse(
@@ -298,7 +298,7 @@ class SchoolClassesController extends AppController
         if($this->request->is('delete')) {
             $this->autoRender = false;
             $this->SchoolClassesService->removeFromClass($user_id, [
-                'delete_manager_school_class' => $class_id
+                'delete_manager_school_class' => $this->SchoolClassesService->getClass($class_id)['id']
             ]);
 
             echo $this->formResponse(
@@ -328,7 +328,7 @@ class SchoolClassesController extends AppController
         if($this->request->is('delete')) {
             $this->autoRender = false;
             $this->SchoolClassesService->removeFromClass($user_id, [
-                'delete_student_school_class' => $class_id
+                'delete_student_school_class' => $this->SchoolClassesService->getClass($class_id)['id']
             ]);
 
             echo $this->formResponse(
