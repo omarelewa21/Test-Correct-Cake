@@ -342,7 +342,7 @@ class TestTakesService extends BaseService {
 
     public function lostFocus($take_id, $participany_id, $reason='') {
 
-        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id);
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id)['id'];
         $data['test_take_event_type_id'] = 3;
 
         if ($reason !== '') {
@@ -360,7 +360,7 @@ class TestTakesService extends BaseService {
 
     public function screenshotDetected($take_id, $participany_id) {
 
-        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id);
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id)['id'];
         $data['test_take_event_type_id'] = 4;
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
@@ -373,7 +373,7 @@ class TestTakesService extends BaseService {
     }
 
     public function CheckForLogin($take_id, $participant_id) {
-        $data['test_participant_id'] = $this->getParticipant($take_id, $participant_id);
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participant_id)['id'];
         $data['test_take_event_type_id'] = 9;
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
