@@ -103,6 +103,7 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
 
 if (Configure::read('bugsnag-key-cake')) {
     $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+	$bugsnag->setErrorReportingLevel(E_ERROR);
     Bugsnag\Handler::register($bugsnag);
 }
 
