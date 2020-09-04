@@ -37,11 +37,11 @@
                         </td>
                         <td class="nopadding" align="right">
                             <a href="#" class="btn highlight mb1 mr1 inline-block small"
-                               onclick="TestTake.addParticipantNote('<?= $event['test_take_id'] ?>', '<?= getUUID($event['test_participant'], 'get'); ?>');">
+                               onclick="TestTake.addParticipantNote('<?= getUUID($event['test_take'], 'get') ?>', '<?= getUUID($event['test_participant'], 'get'); ?>');">
                                 <span class="fa fa-edit"></span>
                             </a>
                             <a href="#" class="btn highlight mb1 inline-block small"
-                               onclick="TestTake.confirmEvent('<?= $event['test_take_id'] ?>', '<?= getUUID($event, 'get'); ?>');">
+                               onclick="TestTake.confirmEvent('<?= getUUID($event['test_take'], 'get') ?>', '<?= getUUID($event, 'get'); ?>');">
                                 <span class="fa fa-check"></span>
                             </a>
                         </td>
