@@ -9,7 +9,7 @@
 <div style="font-size: 20px;">
     <?
     $type = 'checkbox';
-    if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+    if($question['selectable_answers'] == 1){
         $type = 'radio';
     }
 

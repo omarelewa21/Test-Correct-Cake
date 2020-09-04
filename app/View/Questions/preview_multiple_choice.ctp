@@ -32,7 +32,7 @@
         $radioOptions = [];
         $useRadio = false;
         $default = [];
-        if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+        if($question['selectable_answers'] == 1){
             $useRadio = true;
             $label = '<div class="radio_'.$question['id'].'">';
         }
