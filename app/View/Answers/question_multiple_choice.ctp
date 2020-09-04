@@ -62,11 +62,14 @@ $citoClass = 'cito';
     <?= $this->element('question_multiple_choice_regular_javascript', ['question' => $question]); ?>
 <? } ?>
 
+
 <script type="text/javascript">
     function checkMaxSelections(e) {
+        if(<?= (int) (new AppController)->isClosedQuestion($question);?> == 1) return;
         if( $('.input_<?=$question['id']?>:checked').length > <?=$question['selectable_answers']?> ) {
             $(e).prop( "checked", false);
         }
     }
 </script>
+
 <?=$this->element('question_styling',['question' => $question]);?>
