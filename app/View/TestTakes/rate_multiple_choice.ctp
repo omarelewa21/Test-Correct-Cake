@@ -10,7 +10,7 @@ $question = $rating['answer']['question'];
     }
     $useRadio = false;
     $radioOptions = [];
-    if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+    if($question['selectable_answers'] == 1){
         $useRadio = true;
     }
 
