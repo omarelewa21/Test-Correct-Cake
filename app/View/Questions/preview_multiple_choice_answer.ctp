@@ -9,9 +9,9 @@
 <div style="font-size: 20px;">
     <?
     $type = 'checkbox';
-    if($question['selectable_answers'] == 1){
-        $type = 'radio';
-    }
+//    if($question['subtype'] != 'TrueFalse' && $question['selectable_answers'] == 1){
+//        $type = 'radio';
+//    }
 
     foreach($question['multiple_choice_question_answers'] as $answer) {
 
