@@ -236,7 +236,7 @@
                                         break;
 
                                     case 'MatrixQuestion':
-                                        if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                        if($question['question']['subtype'] == 'SingleChoice'){
                                             echo 'MatrixQuestion';
                                         } else {
                                             echo 'MatrixQuestion ONBEKEND';
