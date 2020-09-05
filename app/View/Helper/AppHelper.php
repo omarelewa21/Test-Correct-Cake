@@ -30,4 +30,31 @@ App::uses('Helper', 'View');
  * @package       app.View.Helper
  */
 class AppHelper extends Helper {
+
+    public static function isCitoTest($test)
+    {
+        return (new AppController())->isCitoTest($test);
+//        return substr_count($test['metadata'],'cito') > 0;
+    }
+
+    public static function isCitoQuestion($question)
+    {
+        return (new AppController())->isCitoQuestion($question);
+//        return substr_count($question['metadata'],'cito') > 0;
+    }
+
+    public static function showExternalId($question)
+    {
+        if(static::isTestPortal()){
+            return sprintf(' %s',$question['external_id']);
+        }
+        return '';
+    }
+
+    public static function isTestPortal()
+    {
+        $host = SobitLogger::getInstance()->getHost();
+        return !!(substr_count($host,'testportal.test-correct') > 0);
+    }
+
 }

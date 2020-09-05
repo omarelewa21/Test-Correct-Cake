@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>Rangschikvraag</h1>
+<h1>Rangschikvraag<?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -10,7 +10,14 @@
     ?>
     <?=$question['question']?>
 </div>
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
 
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <div id="answers" style="">
     <?
     $answers = $question['ranking_question_answers'];
@@ -24,6 +31,7 @@
         <?
     }
     ?>
+</div>
 </div>
 <script type="text/javascript">
     $('#answers').sortable();

@@ -95,18 +95,10 @@ class AnswersService extends BaseService {
                 break;
 
             case 'CompletionQuestion':
-                $data = $data['Answer'];
-                break;
-
             case 'MatchingQuestion':
-                $data = $data['Answer'];
-                break;
-
             case 'MultipleChoiceQuestion':
-                $data = $data['Answer'];
-                break;
-
             case 'RankingQuestion':
+            case 'MatrixQuestion':
                 $data = $data['Answer'];
                 break;
 

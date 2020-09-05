@@ -1,3 +1,11 @@
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <table class="table" id="tableMultiChoiceOptions">
             <thead>
             <tr>
@@ -92,6 +100,7 @@
             </tbody>
         </table>
     </div>
+</div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>
     <script type="text/javascript">

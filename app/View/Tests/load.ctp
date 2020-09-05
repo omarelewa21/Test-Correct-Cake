@@ -32,9 +32,9 @@ foreach($tests as $test) {
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
-            <div class="dropblock blur-close" for="test_<?=getUUID($test, 'get');?>">
-                <? if($test['author']['id'] == $user_id) {?>
-                    <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get');?>');">
+            <div class="dropblock blur-close" for="test_<?=getUUID($test, 'get')?>">
+                <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
+                    <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
                         <span class="fa fa-edit mr5"></span>
                         Wijzigen
                     </a>
@@ -43,12 +43,14 @@ foreach($tests as $test) {
                     <span class="fa fa-calendar mr5"></span>
                     Inplannen
                 </a>
-                <a href="#" class="btn highlight white" onclick="Test.duplicate(<?=getUUID($test, 'getQuoted');?>);">
+                <?php if(!AppHelper::isCitoTest($test)){?>
+                <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>);">
                     <span class="fa fa-random mr5"></span>
                     Dupliceren
                 </a>
-                <? if($test['author']['id'] == $user_id) {?>
-                    <a href="#" class="btn highlight white" onclick="Test.delete(<?=getUUID($test, 'getQuoted');?>, false);">
+                <?php } ?>
+                <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
+                    <a href="#" class="btn highlight white" onclick="Test.delete('<?=getUUID($test, 'get')?>', false);">
                         <span class="fa fa-remove mr5"></span>
                         Verwijderen
                     </a>

@@ -98,6 +98,10 @@ class AnswersController extends AppController
                 $view = 'question_drawing';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'question_matrix';
+                break;
+
             default:
                 echo getUUID($question, 'get');
                 break;
@@ -247,6 +251,19 @@ class AnswersController extends AppController
             $question = $this->AnswersService->getParticipantQuestion($question_id);
         }
 //        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+
+        if($this->isCitoQuestion($question) && $question['type'] == 'CompletionQuestion') {
+            $mask = $this->getMaskFromQuestionIfAvailable($question);
+            if ($mask) {
+                $mask = sprintf('/%s/i',$mask);
+                if(!preg_match($mask,$data['Answer'][0])){
+                    echo json_encode([
+                        'error' => 'Het gegeven antwoord is niet valide',
+                    ]);
+                    exit;
+                }
+            }
+        }
 
         $take_question_index = $this->Session->read('take_question_index');
 

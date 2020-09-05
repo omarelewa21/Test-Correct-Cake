@@ -469,7 +469,7 @@ class UsersController extends AppController
                     if(isset($error['errors']['username'])) {
                         $response = "Dit e-mailadres is al in gebruik";
                     }
-                    
+
                 } catch (\Throwable $th) {}
 
                 $this->formResponse(
@@ -1101,6 +1101,21 @@ class UsersController extends AppController
                     'path'  => '/umbrella_organisations'
                 );
 
+                $tiles['qtiimport_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Cito',
+                    'path'  => '/qtiimport_cito'
+                );
+
+                $tiles['qtiimport_batch_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Batch Cito',
+                    'path'  => '/qtiimport_batch_cito'
+                );
+
+
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
@@ -1202,6 +1217,13 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'Toetsen',
                     'path'  => '/tests/index'
+                );
+
+                $tiles['tests_cito_overview'] = array(
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'CITO Toetsen op maat',
+                    'path'  => '/cito_tests/index'
                 );
 
                 $tiles['questions_overview'] = array(

@@ -21,6 +21,8 @@ class SobitLogger
     protected $subs = [];
     protected $file;
 
+    protected $host;
+
     protected $isLogging = false;
 
     // Hold the class instance.
@@ -30,6 +32,10 @@ class SobitLogger
     // to prevent initiation with outer code.
     private function __construct($host = false)
     {
+
+        if($host){
+            $this->host = $host;
+        }
         $this->file = sprintf('../tmp/sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
 
         $this->isLogging = !!(substr_count('testportal.test-correct',$host) > 0);
@@ -49,6 +55,11 @@ class SobitLogger
 
     private function getTime(){
         return microtime(true);
+    }
+
+    public function getHost()
+    {
+        return $this->host;
     }
 
     public function startMain($url, $method){

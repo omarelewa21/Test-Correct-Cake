@@ -1,8 +1,13 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 
 <?=$this->Form->create('Answer')?>
-
-<h1>Selectievraag [<?=$question['score']?>pt]</h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="<?=$citoClass?>">Selectievraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {

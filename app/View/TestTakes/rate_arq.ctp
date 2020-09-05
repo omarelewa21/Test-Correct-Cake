@@ -7,6 +7,14 @@ $options = [];
 foreach($answers as $id => $answer) {
     $options[] = $answer;
 }
+
+$citoClass = '';
+if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+echo sprintf('<div class="answer_container %s">',$citoClass);
+
+
 ?>
 
 <table class="table" id="tableMultiChoiceOptions">
@@ -57,3 +65,4 @@ foreach($answers as $id => $answer) {
     </tr>
     </tbody>
 </table>
+</div>

@@ -1,5 +1,5 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-<h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?></h1>
+<h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -9,6 +9,15 @@
     ?>
     <?=$question['question']?>
 </div>
+
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 
 <div style="font-size: 20px;">
     <?
@@ -51,7 +60,7 @@
     }
     ?>
 </div>
-
+</div>
 <br clear="all" />
 
 <script>

@@ -58,6 +58,19 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getCitoTests($params)
+    {
+
+        $params['order'] = ['id' => 'desc'];
+
+        $response = $this->Connector->getRequest('/cito_test', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getTests($params)
     {
 

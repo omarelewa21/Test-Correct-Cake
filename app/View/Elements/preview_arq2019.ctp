@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>ARQ</h1>
+<h1>ARQ<?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -10,103 +10,112 @@
     ?>
     <?=$question['question']?><br />
 
-    <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
+    <?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+    $citoClass = 'cito';
+    }
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+        ?>
 
-    <table class="table" id="tableMultiChoiceOptions">
-        <thead>
-        <tr>
-            <th width="40">&nbsp;</th>
-            <th width="40">&nbsp;</th>
-            <th width="40">St. 1</th>
-            <th width="40">St. 2</th>
-            <th>Reden</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>
-                <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][0]['id'], [
-                    'value' => 1,
-                    'div' => false,
-                    'type' => 'checkbox',
+        <? if($question['subtype'] != 'TrueFalse') { ?>
+            <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
+        <? } ?>
 
-                    'label' => false,
-                    'class' => 'multiple_choice_option'
-                ]);?>
-            </td>
-            <td>A</td>
-            <td>J</td>
-            <td>J</td>
-            <td>Juiste reden</td>
-        </tr>
-        <tr>
-            <td>
-                <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][1]['id'], [
-                    'value' => 1,
-                    'div' => false,
-                    'type' => 'checkbox',
+        <table class="table" id="tableMultiChoiceOptions">
+            <thead>
+            <tr>
+                <th width="40">&nbsp;</th>
+                <th width="40">&nbsp;</th>
+                <th width="40">St. 1</th>
+                <th width="40">St. 2</th>
+                <th>Reden</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][0], 'get'), [
+                        'value' => 1,
+                        'div' => false,
+                        'type' => 'checkbox',
 
-                    'label' => false,
-                    'class' => 'multiple_choice_option'
-                ]);?>
-            </td>
-            <td>B</td>
-            <td>J</td>
-            <td>J</td>
-            <td>Onjuiste reden</td>
-        </tr>
-        <tr>
-            <td>
-                <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][2]['id'], [
-                    'value' => 1,
-                    'div' => false,
-                    'type' => 'checkbox',
+                        'label' => false,
+                        'class' => 'multiple_choice_option'
+                    ]);?>
+                </td>
+                <td>A</td>
+                <td>J</td>
+                <td>J</td>
+                <td>Juiste reden</td>
+            </tr>
+            <tr>
+                <td>
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][1], 'get'), [
+                        'value' => 1,
+                        'div' => false,
+                        'type' => 'checkbox',
 
-                    'label' => false,
-                    'class' => 'multiple_choice_option'
-                ]);?>
-            </td>
-            <td>C</td>
-            <td>J</td>
-            <td>O</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>
-                <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][3]['id'], [
-                    'value' => 1,
-                    'div' => false,
-                    'type' => 'checkbox',
+                        'label' => false,
+                        'class' => 'multiple_choice_option'
+                    ]);?>
+                </td>
+                <td>B</td>
+                <td>J</td>
+                <td>J</td>
+                <td>Onjuiste reden</td>
+            </tr>
+            <tr>
+                <td>
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][2], 'get'), [
+                        'value' => 1,
+                        'div' => false,
+                        'type' => 'checkbox',
 
-                    'label' => false,
-                    'class' => 'multiple_choice_option'
-                ]);?>
-            </td>
-            <td>D</td>
-            <td>O</td>
-            <td>J</td>
-            <td>-</td>
-        </tr>
-        <tr>
-            <td>
-                <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][4]['id'], [
-                    'value' => 1,
-                    'div' => false,
-                    'type' => 'checkbox',
+                        'label' => false,
+                        'class' => 'multiple_choice_option'
+                    ]);?>
+                </td>
+                <td>C</td>
+                <td>J</td>
+                <td>O</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][3], 'get'), [
+                        'value' => 1,
+                        'div' => false,
+                        'type' => 'checkbox',
 
-                    'label' => false,
-                    'class' => 'multiple_choice_option'
-                ]);?>
-            </td>
-            <td>E</td>
-            <td>O</td>
-            <td>O</td>
-            <td>-</td>
-        </tr>
-        </tbody>
-    </table>
+                        'label' => false,
+                        'class' => 'multiple_choice_option'
+                    ]);?>
+                </td>
+                <td>D</td>
+                <td>O</td>
+                <td>J</td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][4], 'get'), [
+                        'value' => 1,
+                        'div' => false,
+                        'type' => 'checkbox',
+
+                        'label' => false,
+                        'class' => 'multiple_choice_option'
+                    ]);?>
+                </td>
+                <td>E</td>
+                <td>O</td>
+                <td>O</td>
+                <td>-</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>
