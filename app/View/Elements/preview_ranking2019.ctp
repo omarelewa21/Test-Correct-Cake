@@ -24,7 +24,9 @@ $citoClass = 'cito';
     <div id="answers" style="">
         <?
         $answers = $question['ranking_question_answers'];
-        shuffle($answers);
+        if(!(new AppController())->isCitoQuestion($question)) {
+            shuffle($answers);
+        }
 
         foreach($answers as $answer) {
             ?>

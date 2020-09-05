@@ -3,9 +3,11 @@
 <?=$this->Form->create('Answer')?>
 <?php
     $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
-$citoClass = 'cito';
-}
+    $isCitoQuestion = false;
+    if((new AppController())->isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
 ?>
 <h1 class="<?=$citoClass?>">Selectievraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
@@ -39,7 +41,9 @@ $citoClass = 'cito';
             }
             $answers = $tags[$matches[1]];
             $keys = array_keys($answers);
-            shuffle($keys);
+            if(!$isCitoQuestion) {
+                shuffle($keys);
+            }
             $random = array(
                 0 => 'Selecteer'
             );

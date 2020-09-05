@@ -12,8 +12,10 @@
 </div>
 <?php
     $citoClass = '';
+    $isCitoQuestion = false;
     if(AppHelper::isCitoQuestion($question)){
         $citoClass = 'cito';
+        $isCitoQuestion = true;
     }
 
     echo sprintf('<div class="answer_container %s">',$citoClass);
@@ -21,7 +23,9 @@
 <div id="answers" style="">
     <?
     $answers = $question['ranking_question_answers'];
-    shuffle($answers);
+    if(!$isCitoQuestion) {
+        shuffle($answers);
+    }
 
     foreach($answers as $answer) {
         ?>
