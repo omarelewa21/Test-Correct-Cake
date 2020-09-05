@@ -1,9 +1,11 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 <?php
     $citoClass = '';
+    $isCitoQuestion = false;
     if(AppHelper::isCitoQuestion($question)){
-$citoClass = 'cito';
-}
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
 ?>
 <?=$this->Form->create('Answer')?>
     <h1 class="question_type <?=$citoClass?>">
@@ -29,8 +31,9 @@ $citoClass = 'cito';
         $useRadio = true;
         $label = '<div class="radio_'.$question['id'].'">';
     }
-
-    shuffle($question['multiple_choice_question_answers']);
+    if(!$isCitoQuestion) {
+        shuffle($question['multiple_choice_question_answers']);
+    }
 ?>
 
 <div style="font-size: 20px;">

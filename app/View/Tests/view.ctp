@@ -11,12 +11,10 @@
         <span class="fa fa-search mr5"></span>
         Voorbeeld
     </a>
-    <?php if(1==0){ ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
     </a>
-    <?php } ?>
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#" class="btn white mr2" onclick="Test.delete(<?=$test_id?>, true);">
             <span class="fa fa-remove mr5"></span>
