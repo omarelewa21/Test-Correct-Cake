@@ -32,7 +32,7 @@
 
     $question_text = preg_replace_callback(
         '/\[([0-9]+)\]/i',
-        function ($matches) use ($tags, $answerJson) {
+        function ($matches) use ($tags, $answerJson, $isCitoQuestion) {
             $tag_id = $matches[1];
             if(isset($answerJson[$tag_id])) {
                 $value = $answerJson[$tag_id];
