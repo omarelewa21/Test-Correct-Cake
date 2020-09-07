@@ -2,7 +2,7 @@
     $rating = (isset($rating)) ? $rating : false;
     foreach($radioOptions as $key => $value){
 ?>
-<div class="multiple_choice_radio_image_container">
+<div class="multiple_choice_radio_image_container a_<?=$key?>">
     <div class="multiple_choice_radio_image_container_name"></div>
     <div><?=$value?></div>
 </div>
@@ -10,7 +10,7 @@
     }
 ?>
 
-<div id="radioContainer">
+<div id="radioContainer_<?=$question['id']?>">
     <?php
             $radioList = [];
             $label = '<div>';
@@ -36,11 +36,11 @@
 
 <script>
     var items = [];
-    $('#radioContainer div').each(function(i){
-        var container = $('.multiple_choice_radio_image_container_name').eq(i);
+    $('#radioContainer_<?=$question['id']?> div').each(function(i){
+        var container = $('#radioContainer_<?=$question['id']?> .multiple_choice_radio_image_container_name').eq(i);
         $(this).prependTo(container);
     });
-    $('#radioContainer').remove();
+    $('#radioContainer_<?=$question['id']?>').remove();
 </script>
 
 <style>
