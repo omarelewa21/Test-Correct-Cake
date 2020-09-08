@@ -1,8 +1,9 @@
 <?php
+    $randId = sprintf('%s%s',$question['id'],uniqid());
     $rating = (isset($rating)) ? $rating : false;
     foreach($radioOptions as $key => $value){
 ?>
-<div class="multiple_choice_radio_image_container a_<?=$key?>">
+<div class="multiple_choice_radio_image_container a_<?=$randId?>">
     <div class="multiple_choice_radio_image_container_name"></div>
     <div><?=$value?></div>
 </div>
@@ -10,7 +11,7 @@
     }
 ?>
 
-<div id="radioContainer_<?=$question['id']?>">
+<div id="radioContainer_<?=$randId?>">
     <?php
             $radioList = [];
             $label = '<div>';
@@ -35,12 +36,11 @@
 
 
 <script>
-    var items = [];
-    $('#radioContainer_<?=$question['id']?> div').each(function(i){
-        var container = $('#radioContainer_<?=$question['id']?> .multiple_choice_radio_image_container_name').eq(i);
+    $('#radioContainer_<?=$randId?> div').each(function(i){
+        var container = $('.a_<?=$randId?> .multiple_choice_radio_image_container_name').eq(i);
         $(this).prependTo(container);
     });
-    $('#radioContainer_<?=$question['id']?>').remove();
+    // $('#radioContainer').remove();
 </script>
 
 <style>
