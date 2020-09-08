@@ -40,7 +40,7 @@
         var container = $('.a_<?=$randId?> .multiple_choice_radio_image_container_name').eq(i);
         $(this).prependTo(container);
     });
-    // $('#radioContainer').remove();
+    $('#radioContainer_<?=$randId?>').remove();
 </script>
 
 <style>
