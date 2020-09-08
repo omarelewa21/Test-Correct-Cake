@@ -33,7 +33,7 @@
 ]);
 ?>
 </div>
-
+<br style="clear:both;"/><br/>
 
 <script>
     $('#radioContainer_<?=$randId?> div').each(function(i){

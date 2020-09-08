@@ -33,6 +33,7 @@
     ]);
     ?>
 </div>
+<br style="clear:both;"/><br/>
 
 
 <script>
