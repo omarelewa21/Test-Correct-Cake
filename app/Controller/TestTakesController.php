@@ -1372,6 +1372,10 @@ class TestTakesController extends AppController
 				$view = 'rate_drawing';
 				break;
 
+            case "MatrixQuestion":
+                $view = 'rate_matrix';
+                break;
+
 			default:
 				die;
 				break;
