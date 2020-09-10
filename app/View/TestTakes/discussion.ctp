@@ -47,7 +47,6 @@ if(!isset($take)) {
     <a href="#" class="btn red" id="btnAttachmentFrame">
         <span class="fa fa-remove"></span>
     </a>
-    <iframe id="attachmentFrame" frameborder="0"></iframe>
     <div id="attachmentFade"></div>
 
     <script type="text/javascript">
