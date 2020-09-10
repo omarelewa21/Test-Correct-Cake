@@ -40,3 +40,4 @@ echo sprintf('<div class="answer_container %s">',$citoClass);
     ?>
 </div>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

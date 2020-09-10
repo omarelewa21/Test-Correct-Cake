@@ -31,3 +31,4 @@ $citoClass = 'cito';
         </a>
     </center>
 <? } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

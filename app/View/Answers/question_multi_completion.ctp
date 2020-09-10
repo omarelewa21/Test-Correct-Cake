@@ -3,9 +3,11 @@
 <?=$this->Form->create('Answer')?>
 <?php
     $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
-$citoClass = 'cito';
-}
+    $isCitoQuestion = false;
+    if((new AppController())->isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
 ?>
 <h1 class="<?=$citoClass?>">Selectievraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
@@ -30,18 +32,20 @@ $citoClass = 'cito';
 
     $question_text = preg_replace_callback(
         '/\[([0-9]+)\]/i',
-        function ($matches) use ($tags, $answerJson) {
+        function ($matches) use ($tags, $answerJson, $isCitoQuestion) {
             $tag_id = $matches[1];
             if(isset($answerJson[$tag_id])) {
                 $value = $answerJson[$tag_id];
             }else{
-                $value = 0;
+                $value = '';
             }
             $answers = $tags[$matches[1]];
             $keys = array_keys($answers);
-            shuffle($keys);
+            if(!$isCitoQuestion) {
+                shuffle($keys);
+            }
             $random = array(
-                0 => 'Selecteer'
+                '' => 'Selecteer'
             );
             foreach ($keys as $key) {
                 $random[$key] = $answers[$key];
@@ -108,3 +112,4 @@ $citoClass = 'cito';
 
     Answer.answerChanged = false;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

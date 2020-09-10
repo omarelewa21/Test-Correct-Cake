@@ -16,3 +16,4 @@ for($i = 1; $i <= count($answer); $i++) {
 <div style="font-size: 20px;">
     <?=$question?>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

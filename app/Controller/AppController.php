@@ -282,4 +282,9 @@ class AppController extends Controller
         return $return;
     }
 
+    public function isClosedQuestion($question)
+    {
+        return $this->isCitoQuestion($question);
+    }
+
 }

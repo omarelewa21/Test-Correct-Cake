@@ -52,3 +52,4 @@
 <script type="text/javascript">
     //$('#blockDiscussionQuestion').hide();
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

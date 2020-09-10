@@ -1,9 +1,11 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 <?php
     $citoClass = '';
+    $isCitoQuestion = false;
     if(AppHelper::isCitoQuestion($question)){
-$citoClass = 'cito';
-}
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
 ?>
 <?=$this->Form->create('Answer')?>
     <h1 class="question_type <?=$citoClass?>">
@@ -25,12 +27,13 @@ $citoClass = 'cito';
     $useRadio = false;
     $radioOptions = [];
     $default = 0;
-    if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+    if($question['selectable_answers'] == 1){
         $useRadio = true;
         $label = '<div class="radio_'.getUUID($question, 'get').'">';
     }
-
-    shuffle($question['multiple_choice_question_answers']);
+    if(!$isCitoQuestion) {
+        shuffle($question['multiple_choice_question_answers']);
+    }
 ?>
 
 <div style="font-size: 20px;">
@@ -62,10 +65,14 @@ $citoClass = 'cito';
     <?= $this->element('question_multiple_choice_regular_javascript', ['question' => $question]); ?>
 <? } ?>
 
+
 <script type="text/javascript">
     function checkMaxSelections(e) {
+        if(<?= (int) (new AppController)->isClosedQuestion($question);?> == 1) return;
         if( $('.input_<?=getUUID($question, 'get')?>:checked').length > <?=$question['selectable_answers']?> ) {
             $(e).prop( "checked", false);
         }
     }
 </script>
+
+<?=$this->element('question_styling',['question' => $question]);?>

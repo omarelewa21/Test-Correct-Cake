@@ -20,3 +20,4 @@ echo $this->element('question_matrix',[
 
 ?>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>

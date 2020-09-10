@@ -11,12 +11,10 @@
         <span class="fa fa-search mr5"></span>
         Voorbeeld
     </a>
-    <?php if(1==0){ ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
     </a>
-    <?php } ?>
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#" class="btn white mr2" onclick="Test.delete('<?=$test_id?>', true);">
             <span class="fa fa-remove mr5"></span>
@@ -238,7 +236,7 @@
                                         break;
 
                                     case 'MatrixQuestion':
-                                        if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                        if($question['question']['subtype'] == 'SingleChoice'){
                                             echo 'MatrixQuestion';
                                         } else {
                                             echo 'MatrixQuestion ONBEKEND';
@@ -282,7 +280,7 @@
                             }
                             ?>
                         </td>
-                        <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test) || AppHelper::isTestPortal())) { ?>
+                        <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test))) { ?>
                             <td class="nopadding">
 
                                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>" onclick="return false;">

@@ -3,9 +3,11 @@
 <?=$this->Form->create('Answer')?>
 <?php
     $citoClass = '';
-    if(substr_count($question['metadata'],'cito') > 0){
-$citoClass = 'cito';
-}
+    $isCitoQuestion = false;
+    if((new AppController())->isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
 ?>
 <h1 class="question_type <?=$citoClass?>">Rangschikvraag [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
@@ -31,7 +33,9 @@ $citoClass = 'cito';
 
         $answers = $newArray;
     }else{
-        shuffle($answers);
+        if(!$iCitoQuestion) {
+            shuffle($answers);
+        }
     }
 
     $i = -1;
@@ -68,3 +72,4 @@ $citoClass = 'cito';
     });
     Answer.answerChanged = true;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

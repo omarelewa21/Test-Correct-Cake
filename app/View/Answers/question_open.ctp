@@ -71,3 +71,4 @@ $value = $answerJson['value'];
         // Answer.answerChanged = false;
     </script>
 <? endif; ?>
+<?=$this->element('question_styling',['question' => $question]);?>

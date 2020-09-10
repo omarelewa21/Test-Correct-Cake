@@ -17,7 +17,6 @@
         echo '<p>'. $question['question_group']['text'].'</p>';
     }
     ?>
-    <?=$question['question']?><br />
 
     <?php
         $citoClass = '';
@@ -27,12 +26,13 @@
 
         echo sprintf('<div class="answer_container %s">',$citoClass);
 
+         echo $question['question'].'<br />';
 
         $first = true;
         $radioOptions = [];
         $useRadio = false;
         $default = [];
-        if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1){
+        if($question['selectable_answers'] == 1){
             $useRadio = true;
             $label = '<div class="radio_'.getUUID($question, 'get').'">';
         }
@@ -57,3 +57,4 @@
         </a>
     </center>
 <?php } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

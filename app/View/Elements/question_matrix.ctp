@@ -22,3 +22,4 @@
     ?>
     </tbody>
 </table>
+<?=$this->element('question_styling',['question' => $question]);?>

@@ -1,0 +1,3 @@
+<style>
+    <?=$question['styling']?>
+</style>

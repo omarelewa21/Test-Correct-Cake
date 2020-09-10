@@ -18,3 +18,4 @@ foreach($answers as $answer) {
 }
 ?>
 </div>
+<?=$this->element('question_styling',['question' => $question]);?>
