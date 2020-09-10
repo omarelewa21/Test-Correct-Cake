@@ -37,7 +37,7 @@
             if(isset($answerJson[$tag_id])) {
                 $value = $answerJson[$tag_id];
             }else{
-                $value = 0;
+                $value = '';
             }
             $answers = $tags[$matches[1]];
             $keys = array_keys($answers);
@@ -45,7 +45,7 @@
                 shuffle($keys);
             }
             $random = array(
-                0 => 'Selecteer'
+                '' => 'Selecteer'
             );
             foreach ($keys as $key) {
                 $random[$key] = $answers[$key];
