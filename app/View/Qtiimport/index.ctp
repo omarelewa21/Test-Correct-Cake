@@ -140,7 +140,7 @@
                     teacherSelect.find('option').remove();
                     jQuery.each(teachers1, function (key, t) {
                         if(t.school_location_id == schoolLocationId){
-                            teacherSelect.append('<option value="'+t.id+'">'+t.name+'</option>');
+                            teacherSelect.append('<option value="'+t.uuid+'">'+t.name+'</option>');
                         }
                     });
                 })
@@ -151,7 +151,7 @@
                         subjectSelect.find('option').remove();
                         jQuery.each(subjects, function (key, s) {
                             if (teacherSubjects.includes(s.id)) {
-                                subjectSelect.append('<option value="' + s.uuid + '">' + s.name + '</option>');
+                                subjectSelect.append('<option value="' + s.id + '">' + s.name + '</option>');
                             }
                         });
                     }

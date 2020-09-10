@@ -26,7 +26,7 @@ class QtiimportController extends AppController
 
         $subjectList = [];
         foreach($data['subjects'] as $subject){
-            $subjectList[] = (object) ['id' => $subject['id'], 'uuid' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',$subject['name'],$subject['abbreviation'])];
+            $subjectList[] = (object) ['id' => getUUID($subject, 'get'), 'uuid' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',$subject['name'],$subject['abbreviation'])];
         }
         $this->set('subjectList',$subjectList);
 
