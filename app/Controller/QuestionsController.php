@@ -895,7 +895,7 @@ class QuestionsController extends AppController {
             $test = $this->Session->read('active_test');
             $this->Session->write('attachments_editable', true);
             $this->set('editable', true);
-            $this->set('attainments', $this->QuestionsService->getAttainments(getUUID($test['education_level'], 'get'), getUUID($test['subject'], 'get')));
+            $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
             $this->set('selectedAttainments', []);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
