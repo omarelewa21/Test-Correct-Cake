@@ -61,6 +61,8 @@ class QtiimportBatchCitoController extends AppController
     public function import() {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
+        ini_set('memory_limit','-1');
+
         $data = $this->request->data['Qti'];
 
         if(!$data['file']['tmp_name']){
