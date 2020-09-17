@@ -1121,6 +1121,13 @@ class UsersController extends AppController
                     'path'  => '/attainments'
                 );
 
+                $tiles['attainmentscito_import'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments CITO koppeling',
+                    'path'  => '/attainments_cito'
+                );
+
 
                 $tiles['schools'] = array(
                     'menu'  => 'lists',

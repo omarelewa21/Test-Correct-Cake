@@ -3,7 +3,7 @@
 App::uses('AppController', 'Controller');
 App::uses('AttainmentsService', 'Lib/Services');
 
-class AttainmentsController extends AppController
+class AttainmentsCitoController extends AppController
 {
     public function beforeFilter()
     {
@@ -16,7 +16,15 @@ class AttainmentsController extends AppController
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
+        $data = $this->AttainmentsService->getData();
+
+        $subjects = [];
+        foreach($data['subjects'] as $subject){
+            $subjects[$subject['id']] = $subject['name'];
+        }
+
         $view = 'import';
+        $this->set('subjects',$subjects);
         $this->render($view);
     }
 
@@ -28,7 +36,7 @@ class AttainmentsController extends AppController
         if(!$data['file']['tmp_name']){
             $response = 'File niet gevonden om te importeren, probeer het nogmaals';
         }else{
-            $r = $this->AttainmentsService->uploadData($data);
+            $r = $this->AttainmentsService->uploadCitoData($data);
 
             if(array_key_exists('error',$r)){
                 $response = $r['error'];
