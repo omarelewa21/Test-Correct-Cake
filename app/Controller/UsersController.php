@@ -926,13 +926,14 @@ class UsersController extends AppController
 
         if ($type == 'managers' || $type == 'mentors') {
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
+            $this->set('current_school', $this->SchoolLocationsService->getSchoolLocation($parameter2)['id']);
             $this->set('schools', $this->SchoolsService->getSchoolList());
         }
 
         if ($type == 'students') {
             $this->set('school_classes', $this->SchoolClassesService->getClassesList());
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
-            $this->set('class_id', $parameter1);
+            $this->set('class_id', $this->SchoolClassesService->getClass($parameter1)['id']);
         }
 
         if ($type == 'accountmanagers') {

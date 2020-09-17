@@ -147,7 +147,7 @@ class SchoolLocationsController extends AppController
         $levels = [];
 
         foreach($school_location['education_levels'] as $level) {
-            $levels[] = getUUID($level, 'get');
+            $levels[] = $level['id'];
         }
 
         $school_location['education_levels'] = $levels;

@@ -278,7 +278,7 @@ class UsersService extends BaseService
     {
         $data = [
             'filter' => [
-                'student_parent_of_id' => $user_id
+                'student_parent_of_id' => $this->getUser($user_id)['id']
             ],
             'mode'   => 'list'
         ];

@@ -160,7 +160,7 @@
                         <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=getUUID($contact['contact'], 'get')?>', 400);">
                             <span class="fa fa-edit"></span>
                         </a>
-                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('umbrella_organization', <?=getUUID($organisation, 'getQuoted');?>, '<?=$type?>', <?=getUUID($contact['contact'], 'get')?>);">
+                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('umbrella_organization', <?=getUUID($organisation, 'getQuoted');?>, '<?=$type?>', '<?=getUUID($contact['contact'], 'get')?>');">
                             <span class="fa fa-remove"></span>
                         </a>
                     </center>
