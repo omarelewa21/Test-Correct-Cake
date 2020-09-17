@@ -21,10 +21,6 @@ class TestingService extends BaseService {
             'toggle' => $toggle,
         ]);
 
-        if ($toggle == 'true') {
-            $this->handle('testdb');
-        }
-
         return $response;
     }
 
