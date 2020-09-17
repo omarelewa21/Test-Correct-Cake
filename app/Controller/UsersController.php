@@ -1114,6 +1114,13 @@ class UsersController extends AppController
                     'path'  => '/qtiimport_batch_cito'
                 );
 
+                $tiles['attainments_import'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments Import',
+                    'path'  => '/attainments'
+                );
+
 
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
