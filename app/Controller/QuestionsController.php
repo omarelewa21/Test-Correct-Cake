@@ -606,7 +606,7 @@ class QuestionsController extends AppController {
             $selectedAttainments = [];
 
             foreach($question['question']['attainments'] as $attainment) {
-                $selectedAttainments[] = getUUID($attainment, 'get');
+                $selectedAttainments[] = $attainment['id'];
             }
 
             $this->set('selectedAttainments', $selectedAttainments);

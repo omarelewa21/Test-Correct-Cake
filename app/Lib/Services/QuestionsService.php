@@ -210,7 +210,7 @@ class QuestionsService extends BaseService
 
         foreach ($response as $item) {
             if (empty($item['attainment_id'])) {
-                $results[getUUID($item, 'get')] = [
+                $results[$item['id']] = [
                     'title' => "[" . $item['code'] . "] " . $item['description'],
                     'attainments' => [
                         '' => 'Geen subdomein'
@@ -221,7 +221,7 @@ class QuestionsService extends BaseService
 
         foreach ($response as $item) {
             if (!empty($item['attainment_id'])) {
-                $results[$item['attainment_id']]['attainments'][$item['uuid']] = "[" . $item['code'] . $item['subcode'] . "] " . $item['description'];
+                $results[$item['attainment_id']]['attainments'][$item['id']] = "[" . $item['code'] . $item['subcode'] . "] " . $item['description'];
             }
         }
 
