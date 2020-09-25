@@ -523,7 +523,7 @@ class UsersController extends AppController
                 $activeClasses = [];
 
                 foreach ($user['User']['student_school_classes'] as $class) {
-                    $activeClasses[] = getUUID($class, 'get');
+                    $activeClasses[] = $class['id'];
                 }
 
                 $this->set('active_classes', $activeClasses);
