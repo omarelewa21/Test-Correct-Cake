@@ -224,6 +224,8 @@ class SchoolClassesController extends AppController
 
         if($this->request->is('post') || $this->request->is('put')) {
 
+            $class_id = $this->SchoolClassesService->getClass($class_id)['id'];
+
             $result = $this->SchoolClassesService->addManager($class_id, $this->request->data['Manager']['manager_id']);
 
             $this->formResponse(
