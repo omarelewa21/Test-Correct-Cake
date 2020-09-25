@@ -44,7 +44,7 @@ foreach($tests as $test) {
                     Inplannen
                 </a>
                 <?php if(!AppHelper::isCitoTest($test)){?>
-                <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>);">
+                <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
                     Dupliceren
                 </a>
