@@ -33,7 +33,7 @@
                 Accountmanager
             </th>
             <td>
-                <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers)) ?>
+                <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers, 'selected' => getUUID($school_location['user'], 'get'))) ?>
             </td>
             <th width="130">
                 Cijfermodel
