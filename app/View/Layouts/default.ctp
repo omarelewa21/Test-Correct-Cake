@@ -45,7 +45,7 @@
 		<script type="text/javascript" src="/js/popup.js?20200520193000"></script>
 		<script type="text/javascript" src="/js/definitions.js"></script>
 		<script type="text/javascript" src="/js/navigation.js"></script>
-		<script type="text/javascript" src="/js/core.js?20200304092201"></script>
+		<script type="text/javascript" src="/js/core.js?20200928141201"></script>
 		<script type="text/javascript" src="/js/answer.js"></script>
 		<script type="text/javascript" src="/js/menu.js?20200520090000"></script>
 		<script type="text/javascript" src="/js/table.js"></script>
