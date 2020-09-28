@@ -140,7 +140,7 @@ class SchoolClassesController extends AppController
             if($result) {
                 $this->formResponse(
                     true,
-                    ['id' => $result['id'], 'uuid' => getUUID($result, 'get')],
+                    ['id' => $result['id'], 'uuid' => getUUID($result, 'get')]
                 );
             }else{
                 $this->formResponse(
