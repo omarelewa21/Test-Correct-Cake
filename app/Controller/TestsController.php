@@ -503,7 +503,8 @@ class TestsController extends AppController {
             'OpenQuestion' => 'Open vraag',
             'CompletionQuestion' => 'Gatentekstvraag',
             'RankingQuestion' => 'Rangschik-vraag',
-            'MatchingQuestion' => 'Matching'
+            'MatchingQuestion' => 'Matching',
+            'MatrixQuestion' => 'Matrix',
         ];
 
         $view = new View($this, false);
