@@ -266,7 +266,7 @@ class TestTakesController extends AppController
 			$this->autoRender = false;
 
 			$data = $this->request->data['TestTake'];
-			$test = $this->TestsService->getTest($take['test_id']);
+			$test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
 			$check = $this->TestTake->checkEdit($data, $take['retake'] == 1, $test);
 
 			if(!$check['status']) {
