@@ -37,6 +37,7 @@ class SchoolYearsService extends BaseService
     public function addSchoolYear($data) {
         $response = $this->Connector->postRequest('/school_year', [], $data);
 
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
@@ -131,9 +132,16 @@ class SchoolYearsService extends BaseService
 
         $response = $this->Connector->postRequest('/period', [], $data);
 
+
+        if($this->Connector->getLastCode() === 422) {
+            return $this->Connector->getLastResponse();
+        }
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
+
+
 
         return $response;
     }
