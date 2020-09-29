@@ -169,6 +169,14 @@ class TestsController extends AppController {
 
         $this->request->data['Test'] = $this->TestsService->getTest($test_id);
 
+        $currentEducationlevelUuid = '';
+        foreach($education_levels as $id => $level){
+            if($level['id'] == $this->request->data['Test']['education_level_id']){
+                $currentEducationlevelUuid = $level['uuid'];
+            }
+        }
+
+        $this->set('current_education_level_uuid',$currentEducationlevelUuid);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);

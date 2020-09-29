@@ -47,7 +47,7 @@
                 Niveau
             </th>
             <td>
-                <?= $this->Form->input('education_level_id', array('style' => 'width: 282px', 'label' => false, 'options' => $levels, 'onchange' => 'updateEducationYears();')) ?>
+                <?= $this->Form->input('education_level_id', array('selected' => $current_education_level_uuid,'style' => 'width: 282px', 'label' => false, 'options' => $levels, 'onchange' => 'updateEducationYears();')) ?>
             </td>
             <th width="140">
                 Niveau-jaar
