@@ -131,7 +131,7 @@
         window.importPageHasBeenLoadedBefore = true;
         var jsonObj;
 
-        $('#setDefaultHeading').on('click', function () {
+        $(document).on('click','#setDefaultHeading', function () {
             $('.selectbox-update').each((index, el) => {
                 var nr = $(el).data('nr');
                 $(el).children().eq(nr).prop('selected', true);
