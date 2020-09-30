@@ -378,8 +378,7 @@ class FileManagementController extends AppController
         $this->ifNotAllowedExit(['Teacher'], false);
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
-        $school_location_id = AuthComponent::user('school_location_id');
-        $school_location_uuid = AuthComponent::user('school_location')['uuid'];
+        $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
         if ($this->request->is('post')) {
 
@@ -423,7 +422,7 @@ class FileManagementController extends AppController
         }
 
         // no post
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($school_location_uuid);
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($school_location_id);
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
@@ -432,7 +431,7 @@ class FileManagementController extends AppController
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
                     'name'      => $el['education_level']['name'],
-                    'id'        => $el['education_level']['id'],
+                    'uuid'        => getUUID($el['education_level'], 'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
                 $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
