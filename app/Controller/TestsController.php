@@ -82,8 +82,8 @@ class TestsController extends AppController {
             // In case the type of questions is a group question we want to only apply this logic
             // To questions that are shown in the test, and not questions that are not physical questions.
             if(
-                isset($question['question']['group_question_questions']) && 
-                $question['question']['type'] == 'GroupQuestion' 
+                isset($question['question']['group_question_questions']) &&
+                $question['question']['type'] == 'GroupQuestion'
             ) {
                 $this->setQuestionsOpenSource(
                     $question['question']['group_question_questions'],
@@ -96,7 +96,7 @@ class TestsController extends AppController {
             $question['question']['is_open_source_content'] = $open_sourced;
 
             $r = $this->requestAction(
-                ['controller' => 'Questions','action' => 'editPost'], 
+                ['controller' => 'Questions','action' => 'editPost'],
                 [
                     // 'pass' => [ $owner, $owner_id, $question['question']['type'], $question['id']],
                     'data' => [ $owner, $owner_id, $question['question']['type'], $question['id'], false, true]
@@ -112,7 +112,7 @@ class TestsController extends AppController {
 
         if ($this->request->is('post')) {
             $test   = $this->request->data['Test'];
-            $result = $this->TestsService->add($test);            
+            $result = $this->TestsService->add($test);
 
             if ($result == 'unique_name') {
                 $this->formResponse(  false, 'unique_name' );
@@ -246,6 +246,7 @@ class TestsController extends AppController {
 
         $test = $this->TestsService->getTest($test_id);
 
+
         $this->Session->write('active_test', $test);
 
         $questions = $this->TestsService->getQuestions($test_id);
@@ -266,7 +267,7 @@ class TestsController extends AppController {
 
                 //fix for TC-80 / Selenium tests. The selection options were empty for group questions
                 $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
-             
+
                 $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
                 $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
