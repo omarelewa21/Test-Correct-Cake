@@ -80,6 +80,10 @@ class SchoolYearsService extends BaseService
 
         $response = $this->Connector->putRequest('/period/' . $period_id, [], $data);
 
+        if($this->Connector->getLastCode() === 422) {
+            return $this->Connector->getLastResponse();
+        }
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
