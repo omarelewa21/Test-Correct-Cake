@@ -379,6 +379,7 @@ class FileManagementController extends AppController
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
         $school_location_id = AuthComponent::user('school_location_id');
+        $school_location_uuid = AuthComponent::user('school_location')['uuid'];
 
         if ($this->request->is('post')) {
 
@@ -422,7 +423,7 @@ class FileManagementController extends AppController
         }
 
         // no post
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($school_location_id);
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($school_location_uuid);
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
