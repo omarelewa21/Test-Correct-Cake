@@ -286,6 +286,7 @@
                         Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
                         Navigation.back();
                     }else {
+                        debugger;
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;

@@ -469,6 +469,9 @@ class UsersController extends AppController
                     if(isset($error['errors']['username'])) {
                         $response = "Dit e-mailadres is al in gebruik";
                     }
+                    if(isset($error['errors']['external_id'])) {
+                        $response = "Studentennummer is al in gebruik";
+                    }
 
                 } catch (\Throwable $th) {}
 
