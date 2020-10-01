@@ -284,7 +284,7 @@ class FileManagementController extends AppController
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
                     'name'      => $el['education_level']['name'],
-                    'id'        => $el['education_level']['id'],
+                    'id'        => getUUID($el['education_level'],'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
                 $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
