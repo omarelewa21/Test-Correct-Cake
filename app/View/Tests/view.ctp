@@ -3,10 +3,18 @@
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
+    <? if ($test['has_duplicates']) { ?>
+
+    <a href="#" class="btn grey mr2" >
+        <span class="fa fa-calendar mr5"></span>
+        Inplannen
+    </a>
+    <? } else { ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);">
         <span class="fa fa-calendar mr5"></span>
         Inplannen
     </a>
+    <? } ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
         <span class="fa fa-search mr5"></span>
         Voorbeeld
@@ -78,6 +86,17 @@
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
+            <? if ($test['has_duplicates']) { ?>
+            <tr>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                <td class="danger" colspan="6">
+                    <? } else { ?>
+                <td class="danger" colspan="5">
+                    <? } ?>
+                    E&eacute;n of meerdere toets vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.
+                </td>
+            </tr>
+            <? } ?>
             <tr>
                 <th>#</th>
                 <th>Vraag</th>

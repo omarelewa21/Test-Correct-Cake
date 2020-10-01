@@ -39,10 +39,17 @@ foreach($tests as $test) {
                         Wijzigen
                     </a>
                 <? } ?>
+                <? if ($test['has_duplicates']) { ?>
+                    <a href="#" class="btn highlight grey" >
+                        <span class="fa fa-calendar mr5"></span>
+                        Inplannen niet mogelijk
+                    </a>
+                <? } else { ?>
                 <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
                     <span class="fa fa-calendar mr5"></span>
                     Inplannen
                 </a>
+                <? } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
