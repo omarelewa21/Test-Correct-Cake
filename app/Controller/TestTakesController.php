@@ -2067,7 +2067,7 @@ class TestTakesController extends AppController
 			$this->TestTakesService->addClassStudents($take_id, $class_id, $addArray);
 		}
 
-		$students = $this->TestTakesService->getClassStudents($class_id);
+		$students = $this->TestTakesService->getClassStudents($class_id, 'all');
 		$this->set('students', $students);
 		$this->set('class_id', $class_id);
 	}

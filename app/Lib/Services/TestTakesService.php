@@ -699,7 +699,7 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function getClassStudents($class_id) {
+    public function getClassStudents($class_id, $mode=false) {
 
         $params = [
             'filter' => [
@@ -709,6 +709,10 @@ class TestTakesService extends BaseService {
                 'name' => 'asc'
             ]
         ];
+
+        if ($mode) {
+            $params['mode'] = $mode;
+        }
 
         $response = $this->Connector->getRequest('/student', $params, []);
 
