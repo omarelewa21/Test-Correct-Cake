@@ -443,15 +443,15 @@ class FileManagementController extends AppController
 
     private function blockWithModalIfRegistrationNotCompletedAndInTestSchool()
     {
+        $userUuid = AuthComponent::user('id');
         $userId = AuthComponent::user('id');
         if (AuthComponent::user('is_temp_teacher')) {
-            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userId));
+            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userUuid));
             if ($result['status'] == 'true') {
-                $userId = AuthComponent::user('id');
                 if ($this->request->is('post')) {
                     $response = $this->UsersService->updateRegisteredNewTeacher(
                         $this->request->data['User'],
-                        $userId
+                        $userUuid
                     );
                     $result = (json_decode($response));
 
@@ -462,7 +462,7 @@ class FileManagementController extends AppController
                     }
                     exit();
                 }
-                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
+                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userUuid);
 
                 $this->set('user', (object)$data);
                 $this->set('in_app', true);
@@ -470,7 +470,7 @@ class FileManagementController extends AppController
                 exit;
             } else {
                 $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
-                    $userId
+                    $userUuid
                 );
 
                 echo $this->render(
