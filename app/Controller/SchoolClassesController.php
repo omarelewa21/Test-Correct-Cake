@@ -121,7 +121,7 @@ class SchoolClassesController extends AppController
     public function import($location_id, $class_id){
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        $classes = $this->SchoolClassesService->getForLocationId($location_id);
+        $classes = $this->SchoolClassesService->getForLocationId($location_id,'uuidlist');
         $this->set('classes',$classes);
         $this->set('class_id',$class_id);
         $this->set('location_id',$location_id);

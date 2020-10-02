@@ -6,7 +6,6 @@
 </div>
 
 <h1>Studenten import</h1>
-
 <div class="block">
     <div class="block-head">Informatie</div>
     <div class="block-content">
@@ -18,9 +17,9 @@
                 <td width="35%">
                     <select id="class_id">
                         <?php
-                        foreach($classes as $id => $name){
-                        $selected = ($id == $class_id) ? 'selected="selected"' : '';
-                        ?><option value="<?=$id?>" <?=$selected?>><?=$name?></option><?php
+                        foreach($classes as $class){
+                        $selected = ($class['uuid'] == $class_id) ? 'selected="selected"' : '';
+                        ?><option value="<?=$class['uuid']?>" <?=$selected?>><?=$class['name']?></option><?php
                         }
                     ?>
                     </select></td>
@@ -286,7 +285,6 @@
                         Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
                         Navigation.back();
                     }else {
-                        debugger;
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
