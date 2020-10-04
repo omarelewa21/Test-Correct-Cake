@@ -317,7 +317,7 @@ class FileManagementController extends AppController
 
         $this->set('file', $data);
 
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($data['school_location_id']);
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels(getUUID($data['school_location'], 'get'));
 
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
