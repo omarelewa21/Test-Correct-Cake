@@ -443,7 +443,7 @@ class FileManagementController extends AppController
 
     private function blockWithModalIfRegistrationNotCompletedAndInTestSchool()
     {
-        $userUuid = AuthComponent::user('id');
+        $userUuid = AuthComponent::user('uuid');
         $userId = AuthComponent::user('id');
         if (AuthComponent::user('is_temp_teacher')) {
             $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userUuid));
