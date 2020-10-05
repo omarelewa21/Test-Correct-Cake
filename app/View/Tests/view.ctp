@@ -93,7 +93,7 @@
                     <? } else { ?>
                 <td class="danger" colspan="5">
                     <? } ?>
-                    E&eacute;n of meerdere toets vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.
+                    E&eacute;n of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.
                 </td>
             </tr>
             <? } ?>
