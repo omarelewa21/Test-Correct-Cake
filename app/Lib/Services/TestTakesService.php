@@ -720,6 +720,9 @@ class TestTakesService extends BaseService {
             return $this->Connector->getLastResponse();
         }
 
+        if($mode && $mode === 'all'){
+            return $response;
+        }
         return $response['data'];
     }
 
