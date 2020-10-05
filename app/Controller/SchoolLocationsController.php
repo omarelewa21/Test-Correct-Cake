@@ -152,7 +152,7 @@ class SchoolLocationsController extends AppController
 
         $school_location['education_levels'] = $levels;
 
-        $schools[0] = 'Geen';
+        $schools[''] = 'Geen';
         $schools += $this->SchoolsService->getSchoolList();
 
         $this->set('schools', $schools);
@@ -318,7 +318,7 @@ class SchoolLocationsController extends AppController
             );
         }
 
-        $schools[0] = 'Geen';
+        $schools[''] = 'Geen';
         $schools += $this->SchoolsService->getSchoolList();
 
         $params['filter'] = ['role' => [5]];
