@@ -47,7 +47,15 @@
     if($answersHaveImages){
         echo $this->element('question_multiple_choice_radio_image_answers', ['question' => $question,'radioOptions' => $radioOptions, 'rating' => $rating,'default' => $default]);
     } else {
-        echo $this->Form->input('Question.'.$question['id'], [
+        $random = '';
+        if($rating){
+            // we need a random string here as with rating by a teacher and per question, every student has the same name attribute
+            // 'Question.'.$question['id']
+            // and if that is the case the radio buttons interact and get broken
+            $length = 10;
+            $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+        }
+        echo $this->Form->input('Question.'.$question['id'].$random, [
             'type' => 'radio',
             'legend'=> false,
             'label' => false,
@@ -59,6 +67,7 @@
                 'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
                 'after' => '</div>',
             'options' => $radioOptions,
+            'value' => $default,
             ]).'<br/>';
     }
 
