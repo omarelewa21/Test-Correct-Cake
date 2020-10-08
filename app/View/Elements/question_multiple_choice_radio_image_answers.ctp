@@ -38,6 +38,7 @@
     'separator' => '</div>'.$label,
     'after' => '</div>',
     'options' => $radioList,
+    'value' => $default,
     ]);
     ?>
 </div>

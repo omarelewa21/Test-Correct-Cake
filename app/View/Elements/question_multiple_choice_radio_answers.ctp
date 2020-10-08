@@ -67,6 +67,7 @@
                 'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',
                 'after' => '</div>',
             'options' => $radioOptions,
+            'value' => $default,
             ]).'<br/>';
     }
 
