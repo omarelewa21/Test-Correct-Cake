@@ -18,7 +18,15 @@
     foreach($radioOptions as $key => $value){
     $radioList[$key] = '<span> </span>';
     }
-    echo $this->Form->input('Question.'.getUUID($question, 'get'), [
+    $random = '';
+    if($rating){
+        // we need a random string here as with rating by a teacher and per question, every student has the same name attribute
+        // 'Question.'.$question['id']
+        // and if that is the case the radio buttons interact and get broken
+        $length = 10;
+        $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
+    }
+    echo $this->Form->input('Question.'.getUUID($question, 'get').$random, [
     'type' => 'radio',
     'legend'=> false,
     'label' => false,
