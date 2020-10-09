@@ -2144,7 +2144,8 @@ class TestTakesController extends AppController
 			$ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
 			$ctpSchool->setBrincode($external_main_code);
 
-			$yearinfo = $this->SchoolYearsService->getSchoolYear($testTakeInfo['school_classes']['school_year_id'])["data"][0];
+			$schoolClassData = $this->SchoolClassesService->getClass($testTakeInfo['school_classes'][0]['uuid']);
+			$yearinfo = $schoolClassData['school_year']['year'];
 
 			if(substr_count($yearinfo,'-') > 0){
 			    $year = $yearinfo;
