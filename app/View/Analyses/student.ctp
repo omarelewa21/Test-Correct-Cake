@@ -123,7 +123,7 @@ if(!$isStudent) {
                         <td><?=empty($participant['rating']) ? '-' : number_format($participant['rating'], 1)?></td>
                         <td><?=date('d-m-Y', strtotime($participant['time_start']))?></td>
                         <td class="nopadding" width="30">
-                            <a href="#" onclick="Navigation.load('/test_takes/view/<?=getUUID($participant['test_take'], 'get')?>');" class="btn white">
+                            <a href="#" onclick="Navigation.load('/test_takes/view/<?=getUUID($participant, 'get',['uuid_key' => 'test_take_uuid'])?>');" class="btn white">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
                         </td>

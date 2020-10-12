@@ -16,11 +16,16 @@ if (!function_exists('getUUID')) {
 			}
 		}
 
+		$uuidKey = 'uuid';
+		if(array_key_exists('uuid_key',$options)){
+		    $uuidKey = $options['uuid_key'];
+        }
+
 		switch ($case) {
 			case 'get':
 				
 				if (is_array($item)) {
-					return $item['uuid'];
+					return $item[$uuidKey];
 				}
 				
 				return $item;
@@ -30,7 +35,7 @@ if (!function_exists('getUUID')) {
 			case 'getQuoted':
 
 				if (is_array($item)) {
-					return "'" . $item['uuid'] . "'";
+					return "'" . $item[$uuidKey] . "'";
 				}
 				
 				return "'" . $item . "'";
@@ -39,15 +44,15 @@ if (!function_exists('getUUID')) {
 
 			case 'format':
 				
-				if (is_string($item['uuid'])) {
+				if (is_string($item[$uuidKey])) {
 					$format = "%s";
-				} elseif (is_int($item['uuid'])) {
+				} elseif (is_int($item[$uuidKey])) {
 					$format = "%d";
 				}
 
 				$url = str_replace('%%', $format, $options['formatString']);
 
-				return sprintf($url, $item['uuid']);
+				return sprintf($url, $item[$uuidKey]);
 
 				break;
 			
