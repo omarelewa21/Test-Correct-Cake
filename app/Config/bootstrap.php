@@ -5,21 +5,21 @@ if (!function_exists('getUUID')) {
 
 	function getUUID($item, $case, $options = []) {
 
-		if(is_array($item) && !key_exists('uuid', $item)) {
+        $uuidKey = 'uuid';
+        if(array_key_exists('uuid_key',$options)){
+            $uuidKey = $options['uuid_key'];
+        }
+
+	    if(is_array($item) && !key_exists($uuidKey, $item)) {
 
 			//set uuid to id if not exists
 			//because in the switch statement 
 			//we can assume that the ['uuid'] 
 			//does always exists
 			if (key_exists('id', $item)) {
-				$item['uuid'] = $item['id'];
+				$item[$uuidKey] = $item['id'];
 			}
 		}
-
-		$uuidKey = 'uuid';
-		if(array_key_exists('uuid_key',$options)){
-		    $uuidKey = $options['uuid_key'];
-        }
 
 		switch ($case) {
 			case 'get':
