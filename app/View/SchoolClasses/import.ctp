@@ -297,8 +297,6 @@
                         var hasDuplicatesInDatabase = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
                         Object.keys(response.data).forEach( (key, value) => {
-                            debugger;
-
                             let d, row_nr, header, errorMsg;
                             [d, row_nr, header] = key.split('.');
 
@@ -369,6 +367,9 @@
         function classifyError(error) {
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
+            }
+            if (error.indexOf('has already been taken') !== -1) {
+                return 'duplicate-in-database';
             }
             if (error.indexOf('external id has already been taken.') !== -1) {
                 return 'duplicate-in-database';
