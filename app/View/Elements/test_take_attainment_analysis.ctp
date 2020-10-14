@@ -57,8 +57,6 @@ foreach($ratioAr as $ar){
     }
 }
 
-$factor = 4;
-
 $width = round((300/5) * $factor); // total width 300 with 5 blocks
 
 echo sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="overflow:hidden;border:1px solid %s;width:%dpx;height:20px;background-color:%s;text-align:center;font-size:10px;font-weight:bold;line-height:20px">P%d</div>',$analyse['questions_per_attainment'],$borderColor,$width,$bgColor,$pValue);
@@ -86,7 +84,7 @@ echo sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="over
             <?
             foreach($analysis as $analyse) {
             ?>
-            <tr onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analysis['uuid']?>');">
+            <tr style="cursor:pointer" title="Klik om de details te zien/ te verbergen" onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analyse['uuid']?>');">
                 <td><i class="fa fa-caret-right"></i></td>
                 <td colspan="2">
                     <?= $analyse['code'] ?><?= $analyse['subcode']?>
@@ -96,7 +94,6 @@ echo sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="over
                     <?php echo getDiv($analyse); ?>
                 </td>
             </tr>
-            <div style="display:none;" id="<?= $test_take_id?>-<?= $analysis['uuid']?>"></div>
             <?
             }
             ?>
@@ -118,17 +115,19 @@ echo sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="over
 
 <script>
     function showHideTestTakeAttainmentParticipants(row,testTakeId,attainmentId){
-        var div = jQuery("#"+testTakeId+"-"+attainmentId);
-        if(div.is(':visible')){
-            div.hide();
+        var tr = jQuery("."+testTakeId+"-"+attainmentId);
+        if(tr.length == 0){
+            tr = jQuery('<tr><td colspan="9">Een moment de relevante data wordt opgezocht...</td></tr>');
+            tr.insertAfter((row));
+            TestTake.getTestTakeAttainmentAnalysisDetails(testTakeId,attainmentId,function(data){
+                tr.replaceWith(data);
+            });
+        }
+        else if(tr.first().is(':visible')){
+            tr.hide();
             jQuery(row).find('i:first').removeClass('fa-caret-down').addClass('fa-caret-right');
         } else {
-            if(div.innerHTML === ''){
-
-                div.show();
-            } else {
-                div.show();
-            }
+            tr.show();
             jQuery(row).find('i:first').removeClass('fa-caret-right').addClass('fa-caret-down');
         }
     }

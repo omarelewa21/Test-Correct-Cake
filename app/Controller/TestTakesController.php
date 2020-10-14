@@ -37,8 +37,11 @@ class TestTakesController extends AppController
 
     public function attainment_analysis_per_attainment($test_take_id,$attainment_id){
         $this->isAuthorizedAs(["Teacher"]);
-        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id);
-        $this->set('data',$data);
+        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id);
+        $this->set('participants',$data);
+        $this->set('test_take_id',$test_take_id);
+        $this->set('attainment_id',$attainment_id);
+        $this->render('attainment_analysis_per_attainment', 'ajax');
     }
 
 	public function get_date_period() {
