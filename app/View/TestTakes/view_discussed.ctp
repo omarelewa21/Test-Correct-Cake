@@ -165,6 +165,12 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     </div>
 </div>
 
+<?php
+if($isTeacher && $analysis && count($analysis)){
+ echo $this->element("test_take_attainment_analysis",['analysis' => $analysis, 'test_take_id' => getUUID($take,'get')]);
+}
+?>
+
 <script type="text/javascript">
     function updateRTTI(take_id)
     {
