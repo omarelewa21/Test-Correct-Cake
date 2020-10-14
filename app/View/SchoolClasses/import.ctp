@@ -33,6 +33,8 @@
         <button id="setDefaultHeading">Zet default kolom headers!!</button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
+    <div class="duplicate-in-database" id="duplicates-in-database-data-errors"></div>
+
     <div class="error" id="column-errors"></div>
     <div class="error" id="missing-data-errors"></div>
     <div class="block-content">
@@ -119,6 +121,10 @@
         background-color: dodgerblue;
     }
 
+    .duplicate-in-database {
+        background-color:orange;
+    }
+
     .error {
         background: indianred;
     }
@@ -137,7 +143,7 @@
                 $(el).trigger('change');
 
             });
-        })
+        });
 
         $(document).on('keypress', 'textarea#jsonDataDump', function(e) {
             e.preventDefault();
@@ -288,47 +294,56 @@
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
-                        // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
-                        Object.keys(response.data).forEach(key => {
-
-                            let d, row_nr, header;
+                        var hasDuplicatesInDatabase = false;
+                        // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
+                        Object.keys(response.data).forEach( (key, value) => {
+                            let d, row_nr, header, errorMsg;
                             [d, row_nr, header] = key.split('.');
-                            var column_nr = headers.indexOf(header)
+
+                            var column_nr = headers.indexOf(header);
+
                             var placeholder = parseInt(row_nr) + 1;
                             var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
                             if (column_nr > -1) {
                                 var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
-                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error')
+                                errorMsg = response.data[key];
+
+                                var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
+
+                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass)
                                 if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
-
-                            } else if (header === 'duplicate') {
-                                hasDuplicates = true;
-                                $('table#excelDataTable').find(row_selector).addClass('duplicate')
-
-                            } else {
+                                if (cssClass === 'duplicate') {
+                                    hasDuplicates = true;
+                                }
+                                if (cssClass === 'duplicate-in-database') {
+                                    hasDuplicatesInDatabase = true;
+                                }
+                            }else {
                                 if (!missingHeaders.includes(header)) {
                                     missingHeaders.push(header);
                                 }
                             }
-
                         });
 
                         $('#duplicates-data-errors, #missing-data-errors, #column-errors').html('');
                         if (hasDuplicates) {
-                            $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>');
+                            $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten in de import file zelf (blauw)</li></ul>');
+                        }
+                        if (hasDuplicatesInDatabase) {
+                            $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje)</li></ul>');
                         }
 
-                        if (dataMissingHeaders.length) {
-                            let errorMsg = dataMissingHeaders.map(header => {
-                                let field = dbFields.find(field => {
-                                    return field.column == header
-                                })
-                                return 'De kolom [' + field.name + '] bevat waarden die reeds in de database voorkomen, (conflicten gemarkeerd in rood).';
-                            })
-                            $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
-                        }
+                        // if (dataMissingHeaders.length) {
+                        //     // let errorMsg = dataMissingHeaders.map(header => {
+                        //     //     let field = dbFields.find(field => {
+                        //     //         return field.column == header
+                        //     //     })
+                        //     //     return 'De kolom [' + field.name + '] bevat waarden die reeds in de database voorkomen, (conflicten gemarkeerd in rood).';
+                        //     // })
+                        //     $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                        // }
 
 
                         if (missingHeaders.length) {
@@ -348,6 +363,21 @@
 
             $('textarea#jsonDataDump').val(jsonString);
         }
+
+        function classifyError(error) {
+            if (error.indexOf('Deze import bevat dubbele') !== -1) {
+                return 'duplicate';
+            }
+            if (error.indexOf('has already been taken') !== -1) {
+                return 'duplicate-in-database';
+            }
+            if (error.indexOf('external id has already been taken.') !== -1) {
+                return 'duplicate-in-database';
+            }
+
+            return false;
+        }
+
 
 
         var parsePastedData = function(e){
