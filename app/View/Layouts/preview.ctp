@@ -24,7 +24,7 @@
     <script type="text/javascript" src="/js/table.js"></script>
     <script type="text/javascript" src="/js/test_preview.js"></script>
     <script type="text/javascript" src="/js/redactor.js"></script>
-    <script type="text/javascript" src="/js/test_take.js?2020829134501"></script>
+    <script type="text/javascript" src="/js/test_take.js?20201014130701"></script>
     <script type="text/javascript" src="/js/test.js"></script>
     <script type="text/javascript" src="/js/limiter.js"></script>
     <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>

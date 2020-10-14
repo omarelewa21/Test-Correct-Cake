@@ -29,6 +29,21 @@ class TestTakesController extends AppController
 		parent::beforeFilter();
 	}
 
+	public function attainment_analysis($test_take_id){
+        $this->isAuthorizedAs(["Teacher"]);
+        $data = $this->TestTakesService->getAttainmentAnalysis($test_take_id);
+        $this->set('data',$data);
+    }
+
+    public function attainment_analysis_per_attainment($test_take_id,$attainment_id){
+        $this->isAuthorizedAs(["Teacher"]);
+        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id);
+        $this->set('participants',$data);
+        $this->set('test_take_id',$test_take_id);
+        $this->set('attainment_id',$attainment_id);
+        $this->render('attainment_analysis_per_attainment', 'ajax');
+    }
+
 	public function get_date_period() {
 
 		$this->autoRender = false;
@@ -412,6 +427,14 @@ class TestTakesController extends AppController
 			$participants = $this->TestTakesService->getParticipants($take_id, $params);
 			$this->set('participants', $participants);
 
+			$isTeacher = (bool) $this->hasRole('Teacher');
+
+            if($isTeacher) {
+                $analysis = $this->TestTakesService->getAttainmentAnalysis($take_id);
+                $this->set('analysis', $analysis);
+            }
+
+            $this->set('isTeacher',$isTeacher);
 
 			$this->render('view_discussed', 'ajax');
 		}elseif($take['test_take_status_id'] == 9) {
@@ -419,9 +442,18 @@ class TestTakesController extends AppController
 			$params['with'] = ['statistics'];
 
 			$participants = $this->TestTakesService->getParticipants($take_id, $params);
-
 			$this->set('participants', $participants);
-			// $this->set('is_rtti_test', $take);
+
+            $isTeacher = (bool) $this->hasRole('Teacher');
+
+            if($isTeacher) {
+                $analysis = $this->TestTakesService->getAttainmentAnalysis($take_id);
+                $this->set('analysis', $analysis);
+            }
+
+            $this->set('isTeacher',$isTeacher);
+
+            // $this->set('is_rtti_test', $take);
 			$this->render('view_rated', 'ajax');
 		}else{
 			$this->render('view_taken', 'ajax');
