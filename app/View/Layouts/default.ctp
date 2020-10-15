@@ -58,7 +58,7 @@
 		<script type="text/javascript" src="/js/questions.js"></script>
 		<script type="text/javascript" src="/js/redactor.js"></script>
 		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js?20200324151301"></script>
+		<script type="text/javascript" src="/js/test_take.js?20201014130700"></script>
 		<script type="text/javascript" src="/js/test.js"></script>
 		<script type="text/javascript" src="/js/formify.js?20200707105400"></script>
 		<script type="text/javascript" src="/js/notifications.js"></script>

@@ -8,6 +8,27 @@ App::uses('BaseService', 'Lib/Services');
  *
  */
 class TestTakesService extends BaseService {
+
+    public function getAttainmentAnalysis($test_take_id) {
+        $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/analysis',$test_take_id), []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id) {
+        $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/%s/analysis',$test_take_id,$attainment_id), []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function add($test_take) {
         $test_take['school_classes'] = [$test_take['class_id']];
 
