@@ -1,5 +1,10 @@
 <div class="popup-head">
     Inloggen op Test-Correct
+    <?php
+		if(MaintenanceHelper::getInstance()->isInMaintenanceMode()){
+            echo '<br /><strong style="color:#ff6666">Maintenance mode</strong>';
+        }
+    ?>
 </div>
 
 <div class="popup-content">
