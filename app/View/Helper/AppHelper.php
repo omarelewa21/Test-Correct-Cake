@@ -120,7 +120,7 @@ class AppHelper extends Helper {
             $fontStyle='italic';
         }
 
-        return sprintf('<div title="p-waarde van %d, gebaseerd op %d vragen voor dit leerdoel" style="overflow:hidden;border:1px solid %s;border-radius:3px;width:%dpx;height:15px;background:%s;text-align:center;font-size:10px;font-weight:bold;line-height:15px;font-style:%s">P%d</div>',$pValue, $data['questions_per_attainment'],$borderColor,$width,$bgColor,$fontStyle,$pValue);
+        return sprintf('<div title="p-waarde van %d gebaseerd op %d vragen voor dit leerdoel" style="overflow:hidden;border:1px solid %s;border-radius:3px;width:%dpx;height:15px;background:%s;text-align:center;font-size:10px;font-weight:bold;line-height:15px;font-style:%s">P%d</div>',$pValue, $data['questions_per_attainment'],$borderColor,$width,$bgColor,$fontStyle,$pValue);
 
     }
 
