@@ -49,7 +49,7 @@
                 <td colspan="3"></td>
                 <td colspan="2" valign="top"><small>Legenda:</small></td>
                 <td colspan="4">
-                    <small><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border:1px solid #888;"></span> P-waarde kleinder dan 55 </small><br/>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border:1px solid #888;"></span> P-waarde kleiner dan 55 </small><br/>
                     <small><span style="display:inline-block;width:10px;height:10px;background:#ffff33;border:1px solid #888;"></span> P-waarde tussen 55 en en 65</small><br/>
                     <small><span style="display:inline-block;width:10px;height:10px;background:#85e085;border:1px solid #888;"></span> P-waarde groter dan 65</small>
                 </td>
