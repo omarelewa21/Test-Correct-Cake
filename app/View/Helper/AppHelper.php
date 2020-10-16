@@ -120,7 +120,7 @@ class AppHelper extends Helper {
             $rotation = 135;
         }
 
-        return sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="overflow:hidden;border:1px solid %s;border-radius:3px;width:%dpx;height:15px;background:%s;text-align:center;font-size:10px;font-weight:bold;line-height:15px">P%d</div>',$data['questions_per_attainment'],$borderColor,$width,$rotation,$bgColor,$pValue);
+        return sprintf('<div title="gebasseerd op %d vragen voor dit leerdoel" style="overflow:hidden;border:1px solid %s;border-radius:3px;width:%dpx;height:15px;background:%s;text-align:center;font-size:10px;font-weight:bold;line-height:15px">P%d</div>',$data['questions_per_attainment'],$borderColor,$width,$bgColor,$pValue);
 
     }
 
