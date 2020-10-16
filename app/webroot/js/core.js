@@ -339,7 +339,6 @@ var Dropdowns = {
 	initialise : function() {
 		$.each($('.dropblock-owner'), function() {
 			$(this).unbind().click(function() {
-				console.log($(this).attr('id'))
 				var container = $('.dropblock[for=' + $(this).attr('id') + ']');
 
 				var scrT = $(window).scrollTop();
