@@ -158,15 +158,15 @@
                 activeFilter: false,
                 newFilter: {},
                 filterFields: [
-                    'name',
-                    'kind',
-                    'subject',
-                    'period',
-                    'educationLevels',
-                    'educationLevelYears',
-                    'isOpenSourcedContent',
-                    'createdAtStart',
-                    'createdAtEnd',
+                    {field: 'name', label: 'Toets'},
+                    {field: 'kind', label: 'Type'},
+                    {field: 'subject', label: 'Vak'},
+                    {field: 'period', label: 'Periode'},
+                    {field: 'educationLevels', label: 'Niveau'},
+                    {field: 'educationLevelYears', label: 'Niveau jaar'},
+                    {field: 'isOpenSourcedContent', label: 'Bron'},
+                    {field: 'createdAtStart', label: 'Aanmaakdatum van'},
+                    {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
                 ],
 
                 init: function () {
@@ -174,7 +174,7 @@
                     this.el = '#jquery-saved-filters';
                     this.initializeSavedFilterSelect();
                     this.registerEvents();
-                    this.addChangeEventsToNewFilter();
+                    this.addChangeEventsToNewFilter(this);
                 },
                 initializeSavedFilterSelect: function () {
                     $('#jquery-applied-filters').hide();
@@ -187,7 +187,7 @@
                 initNewFilter: function () {
                     var that = this;
                     this.filterFields.forEach(function (item) {
-                        that.newFilter[item]
+                        that.newFilter[item.field]
                     })
                 },
                 registerEvents: function () {
@@ -251,41 +251,49 @@
                             $('#jquery-filter-filters').append($(
                                 `<span class="mr2 inline-block">
                             <button class="label label-default jquery-remove-filter" jquery-filter-key="${key}">x</button>
-                            <div style="display:inline-block; padding-left:4px">${filterDetail.name}: ${filterDetail.filter}</div>
+                            <div style="display:inline-block; padding-left:4px">${filterDetail.name}: ${filterDetail.label}</div>
                         </span>`));
                         }
                     }
                 },
-                addChangeEventsToNewFilter: function () {
+                addChangeEventsToNewFilter: function (context) {
                     this.filterFields.forEach(function (item) {
-                        var that = this;
-                        let selector = '#Test' + item.charAt(0).toUpperCase() + item.slice(1);
+                        var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         $(document).on('change', selector, function (e) {
-                            window.FilterManager.foo($(e.target, item));
-                        });
+                            this.foo($(e.target), item);
+                        }.bind(context));
                     });
 
-                    $(document).on('reset', '#TestIndexForm', function (e) {
-                        var that = this;
-                        this.filterFields.foreach(function (item) {
-                            let selector = '#Test' + item.charAt(0).toUpperCase() + item.slice(1);
-                            window.FilterManager.foo($(selector), item);
-                        })
-                    })
+                    $(document).on('click', '.btn-reset', function (e) {
+                        context.filterFields.forEach(function (item) {
+                            let selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
+                            this.foo($(selector), item);
+                        }.bind(context));
+                    });
                 },
                 foo: function (el, item) {
+                    console.dir(item);
                     if (el.is('select')) {
-                        this.newFilter[item] = {
-                            name: el.val(),
-                            filter: el.find(':selected').text()
+                        this.newFilter[item.field] = {
+                            name:this.getFilterLabelByField(item.field, this),
+                            filter: el.val(),
+                            label: el.find(':selected').text(),
                         }
                     } else {
-                        this.newFilter[item] = {
-                            name: el.val(),
-                            filter: $(selector).val()
+                        this.newFilter[item.field] = {
+                            name: this.getFilterLabelByField(item.field, this),
+                            filter: el.val(),
+                            label: el.val(),
                         }
                     }
                     this.renderActiveFilter();
+                },
+
+                getFilterLabelByField: function(field, context){
+                    let labelField = context.filterFields.find(function(item){
+                        return item.field == field;
+                    });
+                    return labelField.label;
                 },
 
                 load: function () {
