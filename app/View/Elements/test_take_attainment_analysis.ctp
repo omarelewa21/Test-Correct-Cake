@@ -4,7 +4,8 @@
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th colspan="9">Leerdoel</th>
+                <th colspan="3">Leerdoel</th>
+                <th colspan="6">Aantal vragen</th>
             </tr>
             <tr>
                 <td style="width:15px"></td>
@@ -43,6 +44,15 @@
                 <td style="width:60px;padding-left:0;padding-right:0"><span style="margin-left:-5px">20</span></td>
                 <td style="width:60px;padding-left:0;padding-right:0"><span style="margin-left:-5px">40</span></td>
                 <td style="width:60px;padding-left:0;padding-right:0"><span style="margin-left:-5px">80</span></td>
+            </tr>
+            <tr>
+                <td colspan="3"></td>
+                <td colspan="2" valign="top"><small>Legenda:</small></td>
+                <td colspan="4">
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border:1px solid #888;"></span> P-waarde kleinder dan 55 </small><br/>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#ffff33;border:1px solid #888;"></span> P-waarde tussen 55 en en 65</small><br/>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#85e085;border:1px solid #888;"></span> P-waarde groter dan 65</small>
+                </td>
             </tr>
 
         </table>
