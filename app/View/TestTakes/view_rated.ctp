@@ -176,12 +176,6 @@ foreach(AuthComponent::user()['roles'] as $role) {
     </div>
 </div>
 
-<?php
-if($isTeacher && $analysis && count($analysis)){
- echo $this->element("test_take_attainment_analysis",['analysis' => $analysis, 'test_take_id' => getUUID($take,'get')]);
-}
-?>
-
 <div style="width:250px; float:right">
     <div class="block">
         <div class="block-head">Gemiddeld</div>
@@ -227,6 +221,12 @@ if($isTeacher && $analysis && count($analysis)){
         <?
     } ?>
 </div>
+
+<?php
+if($isTeacher && $analysis && count($analysis)){
+ echo $this->element("test_take_attainment_analysis",['analysis' => $analysis, 'test_take_id' => getUUID($take,'get'),'extra_style' => 'width:calc(100% - 270px); float:left']);
+}
+?>
 
 <br clear="all" />
 <? if(count($scores) > 5) { ?>

@@ -1,5 +1,5 @@
 
-<div class="block">
+<div class="block" style="<?= $extra_style ? $extra_style : ''?>">
     <div class="block-head">Leerdoel analyse</div>
     <div class="block-content">
         <table class="table table-striped">
