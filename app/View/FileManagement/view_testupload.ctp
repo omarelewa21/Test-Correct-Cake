@@ -80,7 +80,7 @@
                                     if($teacher['id'] == $file['handledby']){
                                         $selected = "selected = 'selected'";
                                     }
-                                    echo "<option value='".getGUID($teacher,'get')."' ".$selected.">".$name."</option>";
+                                    echo "<option value='".getUUID($teacher,'get')."' ".$selected.">".$name."</option>";
                             }
                             ?>
 
