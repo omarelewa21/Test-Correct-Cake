@@ -105,7 +105,7 @@
                 ?>
             <tr>
                 <td>
-                    <a href="file_management/download/<?=$child['id']?>/testupload" target="_blank"><?=$child['name']?></a>
+                    <a href="file_management/download/<?=getUuid($child,'get')?>/testupload" target="_blank"><?=$child['name']?></a>
                 </td>
                 <td><?=$child['origname']?></td>
             </tr>
