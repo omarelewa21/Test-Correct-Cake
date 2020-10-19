@@ -74,12 +74,13 @@
                     <div class="editable_elements">
                         <select name="handledby" class="editable_input" style="width:100%">
                             <option value="">-</option>
-                            <? foreach($teachers as $id => $name){
-                                                $selected = "";
-                                                if($id == $file['handledby']){
-                                                    $selected = "selected = 'selected'";
-                                                }
-                                                echo "<option value='".$id."' ".$selected.">".$name."</option>";
+                            <? foreach($teachers as $teacher){
+                                    $name = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
+                                    $selected = "";
+                                    if($teacher['id'] == $file['handledby']){
+                                        $selected = "selected = 'selected'";
+                                    }
+                                    echo "<option value='".getGUID($teacher,'get')."' ".$selected.">".$name."</option>";
                             }
                             ?>
 

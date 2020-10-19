@@ -140,11 +140,14 @@ class FileManagementController extends AppController
 
             $_teachers = $this->UsersService->getUsers($params);
 
-            $teachers = [];
-            foreach ($_teachers as $teacher) {
-                $teachers[getUUID($teacher, 'get')] = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
-            }
-
+            $teachers = $_teachers;
+//            foreach ($_teachers as $teacher) {
+//                $teachers[getUUID($teacher, 'get')] = [
+//                    'name' => sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']),
+//                    
+//                ];
+//            }
+//
             $this->set('teachers', $teachers);
 
             $params = [
