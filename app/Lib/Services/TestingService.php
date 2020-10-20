@@ -9,7 +9,7 @@ App::uses('BaseService', 'Lib/Services');
  */
 class TestingService extends BaseService {
     public function handle($flag) {
-        $response = $this->Connector->postRequest('/testing', [] ,[
+        $response = $this->Connector->postRequest('/testing/testing', [] ,[
             'flag' => $flag,
         ]);
 
@@ -17,7 +17,7 @@ class TestingService extends BaseService {
     }
 
     public function seleniumToggle($toggle) {
-        $response = $this->Connector->postRequest('/selenium', [] ,[
+        $response = $this->Connector->postRequest('/testing/selenium', [] ,[
             'toggle' => $toggle,
         ]);
 
@@ -25,7 +25,7 @@ class TestingService extends BaseService {
     }
 
     public function seleniumState() {
-        $response = $this->Connector->getRequest('/selenium', []);
+        $response = $this->Connector->getRequest('/testing/selenium', []);
 
         return $response;
     }

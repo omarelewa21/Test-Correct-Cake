@@ -5,6 +5,7 @@ App::uses('TestingService', 'Lib/Services');
 
 class TestingController extends AppController
 {
+    protected $token = '0cd66712-d5b2-4fdd-9c15-872d4b0cb7b0';
 
     public function beforeFilter()
     {
@@ -16,6 +17,7 @@ class TestingController extends AppController
 
     public function database($flag)
     {
+        $this->checkForValidToken();
         if($this->request->is('post')) {
             if ($this->isAllowedFlag($flag)) {
                 $result = $this->TestingService->handle($flag);
@@ -27,6 +29,13 @@ class TestingController extends AppController
             );
 
             die;
+        }
+    }
+
+    protected function checkForValidToken()
+    {
+        if(!$this->request->header('token') || $this->request->header('token') !== $this->token){
+            die();
         }
     }
 
@@ -62,6 +71,7 @@ class TestingController extends AppController
 
     public function selenium_toggle($flag)
     {
+        $this->checkForValidToken();
         if(!$this->request->is('post')) {
             die;
         }
@@ -76,6 +86,7 @@ class TestingController extends AppController
 
     public function selenium_state()
     {
+        $this->checkForValidToken();
         if(!$this->request->is('get')) {
             die;
         }
