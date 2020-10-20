@@ -149,7 +149,7 @@ if ($wizard_steps) {
                                             <span class="prr-button knowledgebase-button pull-right"></span>
                                         <?php } ?>
                                         <a
-                                                href="<?= $sub['action_content'] ?>"
+                                                onclick="HelpHero.startTour('<?=/* TCP-358 */ trim(end(explode( "/", $sub['action_content'])));?>')"
                                                 data-id="<?= $sub['id'] ?>"
                                                 class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
                                         ><span class="fa fa-male"></span> Doe de tour</a>
