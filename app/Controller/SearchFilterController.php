@@ -71,7 +71,7 @@ class SearchFilterController extends AppController
 
 
     /**
-	 *  delete searchfilter by key
+	 *  get searchfilter by key
 	 *  test in console: $.ajax({
 									  url: '/searchfilter/get/itembank_toetsen',
 									  type: 'GET',
@@ -81,5 +81,11 @@ class SearchFilterController extends AppController
     	//$this->autoRender = false;
     	$result = $this->SearchFilterService->get($key);
         $this->formResponse(!empty($result),$result);
+    }
+
+    public function activate($uuid){
+    	$this->autoRender = false;
+    	$result = $this->SearchFilterService->activate($uuid);
+    	$this->formResponse(!empty($result),$result);
     }
 }

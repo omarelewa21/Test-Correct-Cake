@@ -30,4 +30,8 @@ class SearchFilterService extends BaseService {
 		return $response;
 	}
 
+	public function activate($uuid){
+		$response = $this->Connector->getRequest('/search_filter_active/' . $uuid, []);
+		return $response;
+	}
 }
