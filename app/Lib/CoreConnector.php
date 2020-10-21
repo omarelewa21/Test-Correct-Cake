@@ -110,7 +110,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -152,7 +151,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
