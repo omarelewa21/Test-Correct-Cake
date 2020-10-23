@@ -34,7 +34,7 @@ class TeacherClassesController extends AppController
 
     public function view($class_id) {
         $class = $this->SchoolClassesService->getClass($class_id);
-        $user = $this->UsersService->getUser(AuthComponent::user('id'));
+        $user = $this->UsersService->getUser(getUUID(AuthComponent::user(), 'get'));
         $this->set('user',$user);
         $this->set('class', $class);
     }
