@@ -80,6 +80,18 @@ foreach($test_takes as $test_take) {
                     <span class="fa fa-forward mr5"></span>
                    Meteen naar nakijken
                 </a>
+                <?php if($test_take['archived']) { ?>
+                <a href="#" onclick="TestTake.unarchive('<?=getUUID($test_take, 'get');?>')" class="btn highlight white">
+                    <span class="fa fa-recycle mr5"></span>
+                    Restore
+                </a>
+                <?php } else { ?>
+                    <a href="#" onclick="TestTake.archive('<?=getUUID($test_take, 'get');?>')" class="btn highlight white">
+                    <span class="fa fa-trash mr5"></span>
+                   Archiveren
+                </a>
+                <?php } ?>
+
             </div>
         </td>
     </tr>

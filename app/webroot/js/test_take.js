@@ -724,6 +724,16 @@ var TestTake = {
             }
         );
     },
+    archive : function(take_id) {
+        $.get('/test_takes/archive/'+take_id, function(response) {
+            console.log(response);
+        });
+    },
+    unarchive : function(take_id) {
+        $.get('/test_takes/unarchive/'+take_id, function(response) {
+            console.log(response);
+        });
+    }
 };
 
 
