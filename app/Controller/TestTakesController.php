@@ -1545,6 +1545,7 @@ class TestTakesController extends AppController
 		$filters = array();
 		parse_str($params['filters'], $filters);
 
+
 		$filters = $filters['data']['TestTake'];
 
 		$params['filter'] = [
@@ -1567,6 +1568,10 @@ class TestTakesController extends AppController
 		if(!empty($filters['time_start_to'])) {
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
+
+        $params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
 
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 

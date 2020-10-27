@@ -1,7 +1,7 @@
 <?
 foreach($test_takes as $test_take) {
     ?>
-    <tr>
+    <tr class=" <?= $test_take['archived'] ?  'jquery-archived': 'jquery-not-archived'  ?>">
         <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
         <td>
             <?
@@ -68,29 +68,28 @@ foreach($test_takes as $test_take) {
             </a>
 
             <div class="dropblock blur-close" for="test_take_<?=$test_take['id']?>">
-                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+
+                <a href="#" class="btn highlight white jquery-show-not-archived" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
                     <span class="fa fa-folder-open-o mr5"></span>
                     Openen
                 </a>
-                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white">
+                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-file mr5"></span>
                     Antwoorden PDF
                 </a>
-                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white">
+                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-forward mr5"></span>
                    Meteen naar nakijken
                 </a>
-                <?php if($test_take['archived']) { ?>
-                <a href="#" onclick="TestTake.unarchive('<?=getUUID($test_take, 'get');?>')" class="btn highlight white">
-                    <span class="fa fa-recycle mr5"></span>
-                    Restore
-                </a>
-                <?php } else { ?>
-                    <a href="#" onclick="TestTake.archive('<?=getUUID($test_take, 'get');?>')" class="btn highlight white">
-                    <span class="fa fa-trash mr5"></span>
-                   Archiveren
-                </a>
-                <?php } ?>
+                    <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
+                        <span class="fa fa-trash mr5"></span>
+                        Archiveren
+                    </a>
+
+                    <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
+                        <span class="fa fa-recycle mr5"></span>
+                        Dearchiveer
+                    </a>
 
             </div>
         </td>

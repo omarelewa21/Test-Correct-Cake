@@ -724,14 +724,17 @@ var TestTake = {
             }
         );
     },
-    archive : function(take_id) {
+    archive : function(e, take_id) {
+
         $.get('/test_takes/archive/'+take_id, function(response) {
-            console.log(response);
+            Notify.notify('De toets is gearchiveerd, je kunt het archiveringsfilter gebruiken om de toets te dearchiveren.');
         });
+        $(e).parents('tr:first').addClass('jquery-has-just-been-archived').addClass('jquery-archived').removeClass('jquery-not-archived');
     },
-    unarchive : function(take_id) {
+    unarchive : function(e,take_id) {
         $.get('/test_takes/unarchive/'+take_id, function(response) {
-            console.log(response);
+            Notify.notify('De toets is gedearchiveerd.');
+            $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
         });
     }
 };
