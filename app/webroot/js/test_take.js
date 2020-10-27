@@ -724,6 +724,26 @@ var TestTake = {
             }
         );
     },
+    archive : function(e, take_id) {
+
+        $.get('/test_takes/archive/'+take_id, function(response) {
+            Notify.notify('De toets is gearchiveerd, je kunt het archiveringsfilter gebruiken om de toets te dearchiveren.');
+        });
+        $(e).parents('tr:first').addClass('jquery-has-just-been-archived').addClass('jquery-archived').removeClass('jquery-not-archived');
+    },
+    unarchive : function(e,take_id) {
+        $.get('/test_takes/unarchive/'+take_id, function(response) {
+            Notify.notify('De toets is gedearchiveerd.');
+            $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
+        });
+    },
+    loadDetails:function (e, take_id) {
+        if ($(e).parents('tr:first').hasClass('jquery-archived')) {
+            Notify.notify('Dearchiveer deze toets om de details in te zien.');
+            return;
+        }
+        Navigation.load('/test_takes/view/'+take_id);
+    },
 };
 
 

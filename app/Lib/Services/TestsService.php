@@ -24,7 +24,7 @@ class TestsService extends BaseService {
         if($response === false){
             return $this->Connector->getLastResponse();
         }
-        
+
         return $response;
     }
 
@@ -245,6 +245,26 @@ class TestsService extends BaseService {
 
     public function getKinds() {
         $response = $this->Connector->getRequest('/test_kind/list', []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function archive($take_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$take_id.'/archive', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function unArchive($take_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$take_id.'/un-archive', [], []);
         if($response === false){
             return $this->Connector->getLastResponse();
         }

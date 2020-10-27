@@ -1009,7 +1009,7 @@ class TestTakesController extends AppController
                     $take_question_index = $question_index;
                     $this->Session->write('take_question_index', $question_index);
 				}
-				
+
                 if(!$questions){
                 	$questions = $this->TestTakesService->getParticipantQuestions($participant_id);
 				}
@@ -1017,7 +1017,7 @@ class TestTakesController extends AppController
                 $this->set('questions', $questions);
                 $this->set('take_question_index', $take_question_index);
 				$this->set('take_id', $take_id);
-				
+
                 if(isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
                     $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
                 }else{
@@ -1545,6 +1545,7 @@ class TestTakesController extends AppController
 		$filters = array();
 		parse_str($params['filters'], $filters);
 
+
 		$filters = $filters['data']['TestTake'];
 
 		$params['filter'] = [
@@ -1568,9 +1569,14 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+        $params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function load_taken_student() {
@@ -1859,7 +1865,7 @@ class TestTakesController extends AppController
 
 	public function to_rate() {
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
-		
+
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
@@ -2125,6 +2131,20 @@ class TestTakesController extends AppController
 		// exit(json_encode($this->Session->read('headers')));
 		exit($this->Session->read("TLCHeader"));
 	}
+
+    public function archive($take_id){
+        $this->isAuthorizedAs(['Teacher']);
+        $response = $this->TestsService->archive($take_id);
+
+        $this->formResponse($response);
+	}
+
+    public function unarchive($take_id){
+        $this->isAuthorizedAs(['Teacher']);
+        $response = $this->TestsService->unArchive($take_id);
+
+        $this->formResponse($response);
+    }
 
 
 	public function export_to_rtti($take_id){
