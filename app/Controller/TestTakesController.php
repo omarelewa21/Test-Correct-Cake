@@ -1706,9 +1706,14 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+		$params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function load_rated() {
@@ -1745,9 +1750,14 @@ class TestTakesController extends AppController
 		$params['order']['time_start'] = 'desc';
 		$params['with'] = ['participantStatus'];
 
+		$params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function surveillance() {

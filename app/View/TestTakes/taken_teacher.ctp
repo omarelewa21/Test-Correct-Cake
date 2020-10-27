@@ -114,34 +114,4 @@
     }
 
 
-    .jquery-hide-when-archived.jquery-has-just-been-archived{
-
-        -moz-animation: cssAnimation 0s ease-out 1s forwards;
-        /* Firefox */
-        -webkit-animation: cssAnimation 0s ease-out 1s forwards;
-        /* Safari and Chrome */
-        -o-animation: cssAnimation 0s ease-out 1s forwards;
-        /* Opera */
-        animation: cssAnimation 0s ease-out 1s forwards;
-        -webkit-animation-fill-mode: forwards;
-        animation-fill-mode: forwards;
-    }
-    @keyframes cssAnimation {
-        to {
-            color:grey;
-            width:0;
-            height:0;
-            visibility:hidden;
-        }
-    }
-    @-webkit-keyframes cssAnimation {
-        to {
-            color:grey;
-            width:0;
-            height:0;
-            visibility:hidden;
-        }
-    }
-
-
 </style>

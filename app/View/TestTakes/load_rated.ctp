@@ -2,7 +2,12 @@
 foreach($test_takes as $test_take) {
     ?>
 
-   <tr><td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
+   <tr
+        class=" <?= $test_take['archived'] ?  'jquery-archived grey': 'jquery-not-archived'  ?>
+         <?= $hide_when_archived ?  'jquery-hide-when-archived': ''  ?>
+
+       ">
+        <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
        <td>
            <?
            foreach($test_take['school_classes'] as $class) {
@@ -44,9 +49,29 @@ foreach($test_takes as $test_take) {
        <td><?=$test_take['participants_taken']?></td>
        <td><?=$test_take['participants_not_taken']?></td>
         <td class="nopadding" width="100">
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=$test_take['id']?>">
+                <span class="fa fa-list-ul"></span>
+            </a>
+            <a href="#" class="btn white pull-right" onclick="TestTake.loadDetails(this, '<?=getUUID($test_take, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
+            <div class="dropblock blur-close" for="test_take_<?=$test_take['id']?>">
+
+                <a href="#" class="btn highlight white jquery-show-not-archived" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+                    <span class="fa fa-folder-open-o mr5"></span>
+                    Openen
+                </a>
+                <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
+                    <span class="fa fa-trash mr5"></span>
+                    Archiveren
+                </a>
+
+                <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
+                    <span class="fa fa-recycle mr5"></span>
+                    Dearchiveer
+                </a>
+
+            </div>
         </td>
     </tr>
     <?

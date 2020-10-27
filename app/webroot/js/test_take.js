@@ -729,7 +729,11 @@ var TestTake = {
         $.get('/test_takes/archive/'+take_id, function(response) {
             Notify.notify('De toets is gearchiveerd, je kunt het archiveringsfilter gebruiken om de toets te dearchiveren.');
         });
+        var row = $(e).parents('tr:first');
         $(e).parents('tr:first').addClass('jquery-has-just-been-archived').addClass('jquery-archived').removeClass('jquery-not-archived');
+        if(row.hasClass('jquery-hide-when-archived')){
+            row.find('td').fadeOut(1600);
+        }
     },
     unarchive : function(e,take_id) {
         $.get('/test_takes/unarchive/'+take_id, function(response) {
