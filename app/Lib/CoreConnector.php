@@ -110,7 +110,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -152,7 +151,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -231,6 +229,11 @@ class CoreConnector {
 
         App::uses('SobitLogger','Lib');
         SobitLogger::getInstance()->endSub();
+
+        if($this->getLastResponse() == 500){
+            $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+            $bugsnag->notifyException('cake => laravel 500 error');
+        }
 
         if($this->getLastCode() == 440 || ($this->getLastCode() == 500 && $response == 'Session expired.')) {
             die('logout');
