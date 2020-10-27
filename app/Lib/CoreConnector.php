@@ -243,6 +243,13 @@ class CoreConnector {
             return $response;
         }
 
+        if($this->getLastCode() === 201) {
+            if($decode) {
+                return json_decode($response, true);
+            }
+            return $response;
+        }
+
         if($this->getLastCode() != 200){
             $this->lastResponse = $response;
             return false;
@@ -250,9 +257,9 @@ class CoreConnector {
 
         if($decode) {
             return json_decode($response, true);
-        }else{
-            return $response;
         }
+        return $response;
+
     }
 
     private function _getHandle($url, $method)

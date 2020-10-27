@@ -158,7 +158,7 @@
         <table id="filterTable" class="table ">
             <tbody>
             <tr>
-                <th>Opgelagen filters</th>
+                <th>Opgeslagen filters</th>
                 <td colspan="2">
                     <select name="opgelagen filters" id="jquery-saved-filters">
                     </select>
@@ -244,13 +244,9 @@
                 ],
 
                 init: function () {
-                    this.load();
                     this.el = '#jquery-saved-filters';
-                    this.initializeSavedFilterSelect();
-                    this.registerEvents();
-                    this.addChangeEventsToNewFilter(this);
-                    this.addChangeEventsToEditFilter();
-                    this.initNewFilter();
+                    this.load();
+
                 },
                 initializeSavedFilterSelect: function () {
                     $('#jquery-applied-filters').hide();
@@ -299,11 +295,11 @@
                         }.bind(this))
 
                         .on('click', '#jquery-save-filter', function (e) {
-                            const isNewFilter =  (this.activeFilter !== this.editFilter);
+                            const isNewFilter = (this.activeFilter !== this.editFilter);
 
                             let filterName = prompt(
                                 'Wat is de naam van dit filter?',
-                                 isNewFilter ?  'Nieuw Filter': this.editFilter.name
+                                isNewFilter ? 'Nieuw Filter' : this.editFilter.name
                             );
                             if (filterName === null) {
                                 return;
@@ -311,7 +307,6 @@
                             if (filterName === "") {
                                 Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
                             } else {
-                                Notify.notify('Filter opgeslagen');
                                 if (isNewFilter) {
                                     this.saveNewFilter(filterName);
                                 } else {
@@ -327,39 +322,73 @@
                         }.bind(this));
                 },
                 saveNewFilter: function (newFilterName) {
-                    const newId = 'aed' + Math.random(100);
-                    this.filters.push({
-                        id: newId,
-                        name: newFilterName,
-                        filters: this.newFilter,
+                    Notify.notify('Filter opgeslagen');
+
+                    $.ajax({
+                        url: '/searchfilter/add',
+                        data: {
+                            data: {
+                                search_filter: {
+                                    key: 'item_bank',
+                                    name: newFilterName,
+                                    filters: this.newFilter,
+                                }
+                            }
+                        },
+                        method:'POST',
+                        context:this,
+                        dataType: 'json',
+                        success: function (response) {
+                            this.filters.push(response.data);
+                            this.renderSelectFilterBox(response.data.id);
+                            this.initNewFilter()
+                        },
                     });
-                    this.renderSelectFilterBox(newId);
-                    this.initNewFilter()
                 },
                 saveActiveFilter: function (newFilterName) {
-                    const index = this.filters.find(function(filter){
+                    const index = this.filters.find(function (filter) {
                         return filter.id == this.activeFilter.id;
                     }.bind(this)).indexOf();
 
                     if (index) {
-                        this.filters[index] = this.editFilter;
-                        this.filters[index].name = newFilterName;
+                        this.editFilter.name = newFilterName;
+                        $.ajax({
+                            url: '/searchfilter/' + this.editFilter.uuid,
+                            method: 'PUT',
+                            dataType: 'json',
+                            data:{
+                                data: this.editFilter,
+                            },
+                            context: this,
+                            success: function (response) {
+                                this.filters[index] = this.editFilter;
+                                Notify.notify('Filter opgeslagen');
+                            },
+                        });
                     }
                 },
                 deleteFilter: function () {
                     if (this.activeFilter === false) {
-                        Notify.notify('Selecteer een filter dat u wilt verwijderen.', 'error')
+                        Notify.notify('Selecteer het filter dat u wilt verwijderen.', 'error')
                         return;
                     }
 
                     if (confirm('Weet je zeker dat je dit filter wilt verwijderen?')) {
-                        this.filters = this.filters.filter(function (filter) {
-                            return filter.id !== this.activeFilter.id;
-                        }.bind(this));
-                        this.renderSelectFilterBox('');
-                        this.activeFilter = false;
-                        this.renderActiveFilter();
-                        Notify.notify('Het filter is succesvol verwijderd.')
+                        $.ajax({
+                            url: '/searchfilter/delete/' + this.activeFilter.uuid,
+                            type: 'DELETE',
+                            context: this,
+                            success: function (response) {
+                                this.filters = this.filters.filter(function (filter) {
+                                    return filter.id !== this.activeFilter.id;
+                                }.bind(this));
+
+                                this.renderSelectFilterBox('');
+                                this.activeFilter = false;
+                                this.renderActiveFilter();
+                                Notify.notify('Het filter is succesvol verwijderd.')
+                            },
+                        });
                     }
                 },
 
@@ -367,7 +396,7 @@
                     if (filterId == '') return;
 
                     this.editFilter = this.filters.find(function (filter) {
-                        return filter.id === filterId;
+                        return filter.id == filterId;
                     });
 
                     this.activeFilter = this.editFilter;
@@ -419,7 +448,7 @@
 
                     $(document).on('click', '.btn-reset', function (e) {
                         context.filterFields.forEach(function (item) {
-                            let selector = '#test' + item.field.charat(0).touppercase() + item.field.slice(1);
+                            let selector = '#test' + item.field.charAt(0).touppercase() + item.field.slice(1);
                             this.syncnewfilterfield($(selector), item);
                         }.bind(context));
                     });
@@ -477,35 +506,43 @@
                 },
 
                 load: function () {
-                    this.filters = [
-                        {
-                            id: 'abc',
-                            name: 'Toetsen 2019',
-                            filters: {
-                                name: {name: 'Toets', filter: 'toe', label: 'toe'},
-                                kind: {name: '', filter: '', label: ''},
-                                subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
-                                period: {name: 'Niveau', filter: '1', label: 'VWO'},
-                                eductionLevels: {name: '', filter: '', label: ''},
-                                isOpenSourceContent: {name: '', filter: '', label: ''},
-                                createdAtStart: {name: '', filter: '', label: ''},
-                                createdAtEnd: {name: '', filter: '', label: ''},
-                            }
-                        }, {
-                            id: 'def',
-                            name: 'Toetsen 2020',
-                            filters: {
-                                name: {name: 'Toets', filter: 'toets', label: 'toets'},
-                                kind: {name: '', filter: '', label: ''},
-                                subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
-                                period: {name: 'Niveau', filter: '1', label: 'VWO'},
-                                eductionLevels: {name: '', filter: '', label: ''},
-                                isOpenSourceContent: {name: '', filter: '', label: ''},
-                                createdAtStart: {name: '', filter: '', label: ''},
-                                createdAtEnd: {name: '', filter: '', label: ''},
-                            }
-                        }
-                    ];
+                    $.getJSON('/searchfilter/get/item_bank', function (response) {
+                        this.filters = response.data;
+                        this.initializeSavedFilterSelect();
+                        this.registerEvents();
+                        this.addChangeEventsToNewFilter(this);
+                        this.addChangeEventsToEditFilter();
+                        this.initNewFilter();
+                    }.bind(this));
+                    // this.filters = [
+                    //     {
+                    //         id: 'abc',
+                    //         name: 'Toetsen 2019',
+                    //         filters: {
+                    //             name: {name: 'Toets', filter: 'toe', label: 'toe'},
+                    //             kind: {name: '', filter: '', label: ''},
+                    //             subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
+                    //             period: {name: 'Niveau', filter: '1', label: 'VWO'},
+                    //             eductionLevels: {name: '', filter: '', label: ''},
+                    //             isOpenSourceContent: {name: '', filter: '', label: ''},
+                    //             createdAtStart: {name: '', filter: '', label: ''},
+                    //             createdAtEnd: {name: '', filter: '', label: ''},
+                    //         }
+                    //     }, {
+                    //         id: 'def',
+                    //         name: 'Toetsen 2020',
+                    //         filters: {
+                    //             name: {name: 'Toets', filter: 'toets', label: 'toets'},
+                    //             kind: {name: '', filter: '', label: ''},
+                    //             subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
+                    //             period: {name: 'Niveau', filter: '1', label: 'VWO'},
+                    //             eductionLevels: {name: '', filter: '', label: ''},
+                    //             isOpenSourceContent: {name: '', filter: '', label: ''},
+                    //             createdAtStart: {name: '', filter: '', label: ''},
+                    //             createdAtEnd: {name: '', filter: '', label: ''},
+                    //         }
+                    //     }
+                    // ];
                 }
             }
 
