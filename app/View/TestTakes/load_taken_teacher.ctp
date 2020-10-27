@@ -1,7 +1,11 @@
 <?
 foreach($test_takes as $test_take) {
     ?>
-    <tr class=" <?= $test_take['archived'] ?  'jquery-archived': 'jquery-not-archived'  ?>">
+    <tr
+        class=" <?= $test_take['archived'] ?  'jquery-archived grey': 'jquery-not-archived'  ?>
+         <?= $hide_when_archived ?  'jquery-hide-when-archived': ''  ?>
+
+       ">
         <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
         <td>
             <?
@@ -63,7 +67,7 @@ foreach($test_takes as $test_take) {
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=$test_take['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
+            <a href="#" class="btn white pull-right" onclick="TestTake.loadDetails(this, '<?=getUUID($test_take, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 

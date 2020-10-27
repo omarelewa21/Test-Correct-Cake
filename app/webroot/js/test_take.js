@@ -736,7 +736,14 @@ var TestTake = {
             Notify.notify('De toets is gedearchiveerd.');
             $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
         });
-    }
+    },
+    loadDetails:function (e, take_id) {
+        if ($(e).parents('tr:first').hasClass('jquery-archived')) {
+            Notify.notify('Dearchiveer deze toets om de details in te zien.');
+            return;
+        }
+        Navigation.load('/test_takes/view/'+take_id);
+    },
 };
 
 

@@ -1576,6 +1576,7 @@ class TestTakesController extends AppController
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function load_taken_student() {

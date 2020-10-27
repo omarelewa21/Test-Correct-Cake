@@ -109,9 +109,12 @@
     .jquery-archived .jquery-show-when-archived {
         display:block;
     }
+    .jquery-archived{
+        color:grey;
+    }
 
 
-    .jquery-has-just-been-archived{
+    .jquery-hide-when-archived.jquery-has-just-been-archived{
 
         -moz-animation: cssAnimation 0s ease-out 1s forwards;
         /* Firefox */
