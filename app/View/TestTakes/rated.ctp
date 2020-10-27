@@ -12,6 +12,10 @@
             0 => 'Standaard',
             1 => 'Inhaaltoetsen'
         );
+        $archivedOptions = array(
+                0 => 'Niet tonen',
+                1 => 'Tonen',
+            );
         ?>
         <table id="testTakeFilters" class="mb5">
             <tr>
@@ -36,6 +40,12 @@
                 <th>Gepland tot</th>
                 <td>
                     <?=$this->Form->input('time_start_to', array('label' => false)) ?>
+                </td>
+            </tr>
+            <tr>
+                <th>Gearchiveerd</th>
+                <td>
+                    <?=$this->Form->input('archived',  array('options' => $archivedOptions, 'label' => false)) ?>
                 </td>
             </tr>
         </table>
@@ -85,3 +95,22 @@
     </div>
     <div class="block-footer"></div>
 </div>
+
+<style>
+    .jquery-not-archived .jquery-show-not-archived {
+        display:block;
+    }
+    .jquery-not-archived .jquery-show-when-archived {
+        display:none;
+    }
+    .jquery-archived .jquery-show-not-archived {
+        display:none;
+    }
+    .jquery-archived .jquery-show-when-archived {
+        display:block;
+    }
+    .jquery-archived{
+        color:grey;
+    }
+
+</style>

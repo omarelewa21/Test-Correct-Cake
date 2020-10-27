@@ -773,4 +773,24 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function archive($test_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$test_id.'/archive', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function unArchive($test_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$test_id.'/un-archive', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }
