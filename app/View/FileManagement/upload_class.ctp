@@ -159,7 +159,7 @@
             jQuery('body')
                 .on('change', '#FileClassEducationLevelId', function () {
                     var elId = $(this).val();
-                    var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
+                    var maxYears = educationLevels.find(level => level.uuid == elId)['max_years'];
                     educationLevelYearSelect.find('option').remove();
                     for(i=1;i<=maxYears;i++){
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');

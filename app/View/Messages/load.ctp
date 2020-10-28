@@ -40,11 +40,11 @@ foreach($messages as $message) {
         <td><?=date('d-m-Y H:i', strtotime($message['created_at']))?></td>
         <td class="nopadding">
             <? if( $message['user_id'] == AuthComponent::user('id')) { ?>
-                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=$message['id']?>', 400);">
+                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=getUUID($message, 'get');?>', 400);">
                     <span class="fa fa-eye"></span>
                 </a>
             <? }else{ ?>
-                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=$message['id']?>', 400); $('#label_read_<?=$message['id']?>').fadeOut();">
+                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=getUUID($message, 'get');?>', 400); $('#label_read_<?=getUUID($message, 'get');?>').fadeOut();">
                     <span class="fa fa-eye"></span>
                 </a>
             <? } ?>

@@ -44,11 +44,15 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Vak gewijzigd", "info");
+                Notify.notify("Periode gewijzigd", "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Vak kon niet worden gewijzigd", "error");
+                if (result.errors && result.errors.end_date) {
+                    Notify.notify('"Datum van" moet een datum voor "Datum tot" zijn.', 'error')
+                } else {
+                    Notify.notify("Periode kon niet worden gewijzigd", "error");
+                }
             }
         }
     );

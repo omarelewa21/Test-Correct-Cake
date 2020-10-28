@@ -7,7 +7,7 @@
         Sluiten
     </a>
     <?if($message['user_id'] != AuthComponent::user('id')) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Message.reply(<?=$message['user_id']?>)">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Message.reply('<?=$message['user_uuid']?>')">
             Reageren
         </a>
     <? } ?>

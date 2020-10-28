@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>ARQ</h1>
+<h1>ARQ<?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -13,6 +13,15 @@
     <? if($question['subtype'] != 'TrueFalse') { ?>
     <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
     <? } ?>
+
+    <?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+    ?>
 
     <table class="table" id="tableMultiChoiceOptions">
         <thead>
@@ -108,6 +117,7 @@
         </tbody>
     </table>
 </div>
+</div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>
 <script type="text/javascript">
@@ -121,9 +131,11 @@
 <? if(isset($next_question)) { ?>
 <br />
 <center>
-    <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+    <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
         <span class="fa fa-check"></span>
         Volgende vraag
     </a>
 </center>
 <? } ?>
+
+<?=$this->element('question_styling',['question' => $question]);?>

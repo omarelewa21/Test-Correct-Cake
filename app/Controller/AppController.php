@@ -91,6 +91,8 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
+
+
     protected function handleHeaderCheck($headers)
     {
         $osConversion = [
@@ -256,4 +258,35 @@ class AppController extends Controller
     {
         return strip_tags($string, '<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>');
     }
+
+    public function isCitoTest($test)
+    {
+        return $test['scope'] == 'cito';
+    }
+
+    public function isCitoQuestion($question)
+    {
+        return $question['scope'] == 'cito';
+    }
+
+    public function getMaskFromQuestionIfAvailable($question)
+    {
+        $metaDataAr = [];
+        $return = null;
+        if(strlen($question['metadata']) > 1){
+            $metaDataAr = explode('|',$question['metadata']);
+        }
+        foreach($metaDataAr as $item){
+            if(substr_count($item,'mask:')){
+                $return = str_replace('mask:','',$item);
+            }
+        }
+        return $return;
+    }
+
+    public function isClosedQuestion($question)
+    {
+        return $this->isCitoQuestion($question);
+    }
+
 }

@@ -325,7 +325,7 @@ var Utils = {
 		return (new URLSearchParams(window.location.search)).has('edurouteSessieID');
 	},
 	urlContainsRegisterNewTeacher:function() {
-		return location.href.split('/').includes('register_new_teacher');
+        return location.href.split('/').filter( function(item){ return item.includes('register_new_teacher')}).length;
 	},
 	urlContainsRegisterNewTeacherSuccessful:function() {
 		return location.href.split('/').includes('register_new_teacher_successful');

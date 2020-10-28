@@ -8,8 +8,28 @@ App::uses('BaseService', 'Lib/Services');
  *
  */
 class TestTakesService extends BaseService {
-    public function add($test_take) {
 
+    public function getAttainmentAnalysis($test_take_id) {
+        $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/analysis',$test_take_id), []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id) {
+        $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/%s/analysis',$test_take_id,$attainment_id), []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function add($test_take) {
         $test_take['school_classes'] = [$test_take['class_id']];
 
         $response = $this->Connector->postRequest('/test_take', [], $test_take);
@@ -48,7 +68,7 @@ class TestTakesService extends BaseService {
 
     public function getEvents($take_id, $participant_id, $not_confirmed = true) {
         $params['filter'] = [
-            'test_participant_id' => $participant_id
+            'test_participant_id' => $this->getParticipant($take_id, $participant_id)['id']
         ];
         $params['order'] = ['id' => 'desc'];
 
@@ -343,7 +363,7 @@ class TestTakesService extends BaseService {
 
     public function lostFocus($take_id, $participany_id, $reason='') {
 
-        $data['test_participant_id'] = $participany_id;
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id)['id'];
         $data['test_take_event_type_id'] = 3;
 
         if ($reason !== '') {
@@ -361,7 +381,7 @@ class TestTakesService extends BaseService {
 
     public function screenshotDetected($take_id, $participany_id) {
 
-        $data['test_participant_id'] = $participany_id;
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participany_id)['id'];
         $data['test_take_event_type_id'] = 4;
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
@@ -374,7 +394,7 @@ class TestTakesService extends BaseService {
     }
 
     public function CheckForLogin($take_id, $participant_id) {
-        $data['test_participant_id'] = $participant_id;
+        $data['test_participant_id'] = $this->getParticipant($take_id, $participant_id)['id'];
         $data['test_take_event_type_id'] = 9;
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
@@ -700,7 +720,7 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function getClassStudents($class_id) {
+    public function getClassStudents($class_id, $mode=false) {
 
         $params = [
             'filter' => [
@@ -711,12 +731,19 @@ class TestTakesService extends BaseService {
             ]
         ];
 
+        if ($mode) {
+            $params['mode'] = $mode;
+        }
+
         $response = $this->Connector->getRequest('/student', $params, []);
 
         if($response === false){
             return $this->Connector->getLastResponse();
         }
 
+        if($mode && $mode === 'all'){
+            return $response;
+        }
         return $response['data'];
     }
 

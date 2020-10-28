@@ -308,7 +308,7 @@ class UsersController extends AppController
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
                 $view = "welcome_teacher";
-                $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('id'));
+                $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
                 $this->set('wizard_steps', $wizardSteps);
                 $this->set('progress', floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
@@ -469,7 +469,10 @@ class UsersController extends AppController
                     if(isset($error['errors']['username'])) {
                         $response = "Dit e-mailadres is al in gebruik";
                     }
-                    
+                    if(isset($error['errors']['external_id'])) {
+                        $response = "Studentennummer is al in gebruik";
+                    }
+
                 } catch (\Throwable $th) {}
 
                 $this->formResponse(
@@ -884,7 +887,7 @@ class UsersController extends AppController
             $result = $this->UsersService->addUser($type, $data);
 
             if ($this->Session->check('user_profile_picture')) {
-                $this->UsersService->updateProfilePicture($result['id'], $this->Session->read('user_profile_picture'));
+                $this->UsersService->updateProfilePicture(getUUID($result, 'get'), $this->Session->read('user_profile_picture'));
                 $this->Session->delete('user_profile_picture');
             }
 
@@ -892,7 +895,8 @@ class UsersController extends AppController
                 $this->formResponse(
                     true,
                     [
-                        'id' => $result['id']
+                        'id' => $result['id'],
+                        'uuid' => getUUID($result, 'get'),
                     ]
                 );
             } elseif ($result == 'external_code') {
@@ -925,13 +929,14 @@ class UsersController extends AppController
 
         if ($type == 'managers' || $type == 'mentors') {
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
+            $this->set('current_school', $this->SchoolLocationsService->getSchoolLocation($parameter2)['id']);
             $this->set('schools', $this->SchoolsService->getSchoolList());
         }
 
         if ($type == 'students') {
             $this->set('school_classes', $this->SchoolClassesService->getClassesList());
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
-            $this->set('class_id', $parameter1);
+            $this->set('class_id', $this->SchoolClassesService->getClass($parameter1)['id']);
         }
 
         if ($type == 'accountmanagers') {
@@ -1100,6 +1105,35 @@ class UsersController extends AppController
                     'path'  => '/umbrella_organisations'
                 );
 
+                $tiles['qtiimport_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Cito',
+                    'path'  => '/qtiimport_cito'
+                );
+
+                $tiles['qtiimport_batch_cito'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'QTI Batch Cito',
+                    'path'  => '/qtiimport_batch_cito'
+                );
+
+                $tiles['attainments_import'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments Import',
+                    'path'  => '/attainments'
+                );
+
+                $tiles['attainmentscito_import'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments CITO koppeling',
+                    'path'  => '/attainments_cito'
+                );
+
+
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
@@ -1203,6 +1237,15 @@ class UsersController extends AppController
                     'path'  => '/tests/index'
                 );
 
+                if(AuthComponent::user('hasCitoToetsen')) {
+                    $tiles['tests_cito_overview'] = array(
+                        'menu' => 'library',
+                        'icon' => 'testlist',
+                        'title' => 'CITO Toetsen op maat',
+                        'path' => '/cito_tests/index'
+                    );
+                }
+
                 $tiles['questions_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'questionlist',
@@ -1256,7 +1299,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
                     'title' => 'Uw analyse',
-                    'path'  => '/analyses/teacher/' . AuthComponent::user('id')
+                    'path'  => '/analyses/teacher/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
@@ -1335,7 +1378,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerling',
                     'title' => 'Jouw analyse',
-                    'path'  => '/analyses/student/' . AuthComponent::user('id')
+                    'path'  => '/analyses/student/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['messages'] = array(
@@ -1394,7 +1437,7 @@ class UsersController extends AppController
                 die;
             }
 
-            $user_id = AuthComponent::user('id');
+            $user_id = AuthComponent::user('uuid');
 
             $result = $this->UsersService->resetPasswordForm($user_id, $data);
 

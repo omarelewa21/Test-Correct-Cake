@@ -28,7 +28,7 @@
         }
         foreach($options as $option){
             ?>
-            <a href="#" class="btn white mr2" onclick="handleFileStatusChange('<?=$file['id']?>','<?=$option['action']?>');">
+            <a href="#" class="btn white mr2" onclick="handleFileStatusChange('<?=getUUID($file, 'get');?>','<?=$option['action']?>');">
                 <span class="fa <?=$option['class']?> mr5"></span>
                 <?=$option['text']?>
             </a>
@@ -94,7 +94,7 @@
                     ?></div>
                     <div id="notes_edit" class='editable_elements'>
                         <textarea name="notes" class='editable_input' style="height:60px;"><?=$file['notes']?></textarea>
-                        <a href="#" onClick="save('<?=$file['id']?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
+                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
                     </div>
                     </td>
                 <th width="12%">Vak</th>
@@ -125,7 +125,7 @@
                    File
                 </th>
                 <td>
-                    <a href="file_management/download/<?=$file['id']?>" target="_blank"><?=$file['name']?> (<?=$file['origname']?>)</a>
+                    <a href="file_management/download/<?=getUUID($file, 'get');?>" target="_blank"><?=$file['name']?> (<?=$file['origname']?>)</a>
                 </td>
                 <th>
                     Stamklas
@@ -173,7 +173,7 @@
 
     function handleFileStatusChange(id,action){
         Loading.show();
-        var jqxhr = $.post('/file_management/update_status/<?= $file['id']?>',
+        var jqxhr = $.post('/file_management/update_status/<?= getUUID($file, 'get');?>',
                 {data: {'action' : action}},
                 function(response) {
                     Loading.hide();
@@ -192,7 +192,7 @@
         jQuery(".editable_input:input").each(function(e){
             data[$(this).attr('name')] = $(this).val();
         });
-        var jqxhr = $.post('/file_management/update/<?= $file['id']?>/classupload',
+        var jqxhr = $.post('/file_management/update/<?= getUUID($file, 'get');?>/classupload',
                 data,
                 function(response) {
                     Loading.hide();

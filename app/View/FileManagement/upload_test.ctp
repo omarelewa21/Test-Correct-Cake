@@ -145,11 +145,13 @@
             jQuery('body')
                 .on('change', '#FileTestEducationLevelId', function () {
                     var elId = $(this).val();
-                    var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
-                    educationLevelYearSelect.find('option').remove();
-                    for(i=1;i<=maxYears;i++){
-                        educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
-                    };
+                    if(elId){
+                        var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
+                        educationLevelYearSelect.find('option').remove();
+                        for(i=1;i<=maxYears;i++){
+                            educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
+                        };
+                    }
                     console.log('changed');
                 });
         });

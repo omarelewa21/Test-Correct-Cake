@@ -37,6 +37,7 @@ class SchoolYearsService extends BaseService
     public function addSchoolYear($data) {
         $response = $this->Connector->postRequest('/school_year', [], $data);
 
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
@@ -45,6 +46,7 @@ class SchoolYearsService extends BaseService
     }
 
     public function getSchoolYear($id) {
+
         $response = $this->Connector->getRequest('/school_year/' . $id, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -78,6 +80,10 @@ class SchoolYearsService extends BaseService
 
         $response = $this->Connector->putRequest('/period/' . $period_id, [], $data);
 
+        if($this->Connector->getLastCode() === 422) {
+            return $this->Connector->getLastResponse();
+        }
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
@@ -106,7 +112,7 @@ class SchoolYearsService extends BaseService
             $s2 = strtotime($data['start_date']);
             $e2 = strtotime($data['end_date']);
 
-            if($period_id != $period['id']) {
+            if($period_id != getUUID($period, 'get')) {
                 if ($s2 >= $s1 && $s2 <= $e1) {
                     return false;
                 }
@@ -121,16 +127,25 @@ class SchoolYearsService extends BaseService
 
 
     public function addSchoolYearPeriod($school_year_id, $data) {
-        $data['school_year_id'] = $school_year_id;
+        $school_year = $this->getSchoolYear($school_year_id);
+
+        $data['school_year_id'] = $school_year['id'];
 
         $data['start_date'] = date('Y-m-d H:i:00', strtotime($data['start_date']));
         $data['end_date'] = date('Y-m-d H:i:00', strtotime($data['end_date']));
 
         $response = $this->Connector->postRequest('/period', [], $data);
 
+
+        if($this->Connector->getLastCode() === 422) {
+            return $this->Connector->getLastResponse();
+        }
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
+
+
 
         return $response;
     }

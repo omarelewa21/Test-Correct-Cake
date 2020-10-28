@@ -18,3 +18,4 @@ foreach($answer as $answer_id => $ranking) {
 }
 
 ?>
+<?=$this->element('question_styling',['question' => $question]);?>

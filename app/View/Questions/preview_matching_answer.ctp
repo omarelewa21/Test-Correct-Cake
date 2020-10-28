@@ -1,3 +1,11 @@
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <div style="font-size: 20px;">
     <?
 
@@ -27,3 +35,5 @@
     }
     ?>
 </div>
+</div>
+<?=$this->element('question_styling',['question' => $question]);?>

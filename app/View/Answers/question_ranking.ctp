@@ -1,8 +1,20 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 
 <?=$this->Form->create('Answer')?>
-<h1>Rangschikvraag [<?=$question['score']?>pt]</h1>
+<?php
+    $citoClass = '';
+    $isCitoQuestion = false;
+    if((new AppController())->isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
+?>
+<h1 class="question_type <?=$citoClass?>">Rangschikvraag [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
+
+<?php
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 
 <div id="answers" style="">
     <?
@@ -21,7 +33,9 @@
 
         $answers = $newArray;
     }else{
-        shuffle($answers);
+        if(!$iCitoQuestion) {
+            shuffle($answers);
+        }
     }
 
     $i = -1;
@@ -40,7 +54,7 @@
         <?
     }
     ?>
-</div>
+</div></div>
 <?=$this->Form->end();?>
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 <script type="text/javascript">
@@ -58,3 +72,4 @@
     });
     Answer.answerChanged = true;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

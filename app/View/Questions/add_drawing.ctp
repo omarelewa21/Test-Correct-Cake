@@ -93,7 +93,7 @@
     <a href="#" class="btn white mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('DrawingQuestion', '<?=$owner?>', <?=$owner_id?>);">
+    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('DrawingQuestion', '<?=$owner?>', '<?=$owner_id?>');">
         Vraag opslaan
     </a>
 </div>

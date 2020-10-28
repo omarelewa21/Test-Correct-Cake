@@ -19,7 +19,7 @@
             </td>
             <td class="nopadding">
                 <?php if((bool) $class['demo'] !== true){?>
-                <a href="#" class="btn white pull-right dropblock-left" onclick="SchoolClass.removeTeacher(<?=$teacher['id']?>);">
+                <a href="#" class="btn white pull-right dropblock-left" onclick="SchoolClass.removeTeacher('<?=getUUID($teacher, 'get');?>');">
                     <span class="fa fa-remove"></span>
                 </a>
                 <?php } ?>
@@ -33,7 +33,7 @@
 <br />
 <center>
     <?php if((bool) $class['demo'] !== true){?>
-    <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_teacher/<?=$class['id']?>', 400);">
+    <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_teacher/<?=getUUID($class, 'get');?>', 400);">
         Docent toevoegen
     </a>
     <?php } ?>

@@ -1,6 +1,11 @@
 <?= $this->element('take_attachments', ['question' => $question]); ?>
-
-<h1>Infoscherm</h1>
+<?php
+    $citoClass = '';
+    if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+?>
+<h1 class="question_type <?=$citoClass?> infoscreen">Infoscherm<?=AppHelper::showExternalId($question);?></h1>
 <?= $this->element('take_question', ['question' => $question]) ?>
 
 <br clear="all" />
@@ -15,3 +20,4 @@
 <script>
     Answer.answerChanged = true;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

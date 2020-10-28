@@ -69,18 +69,18 @@ class UmbrellaOrganisationsController extends AppController
 
                 $toIgnore = array();
                 foreach ($organisation['schools'] as $school) {
-                    $schoolFetch = $this->SchoolsService->getSchool($school['id']);
+                    $schoolFetch = $this->SchoolsService->getSchool(getUUID($school, 'get'));
                     foreach($schoolFetch['school_locations'] as $schoollocation) {
-                        $toIgnore[$schoollocation['id']] = $schoollocation['external_main_code'].$schoollocation['external_sub_code'];
+                        $toIgnore[getUUID($schoollocation, 'get')] = $schoollocation['external_main_code'].$schoollocation['external_sub_code'];
                     }
                 }
 
-                $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationList();
+                $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationListWithUUID();
 
-                foreach ($schoolLocationList as $id => $name) {
-                    if(in_array($id, array_keys($toIgnore))) continue;
+                foreach ($schoolLocationList as $id => $schoolLocationInList) {
+                    if(in_array(getUUID($schoolLocationInList, 'get'), array_keys($toIgnore))) continue;
                     foreach ($toIgnore as $matchAgainst) {
-                        $schoolLocationListItem = $this->SchoolLocationsService->getSchoolLocation($id);
+                        $schoolLocationListItem = $this->SchoolLocationsService->getSchoolLocation(getUUID($schoolLocationInList, 'get'));
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
@@ -92,15 +92,15 @@ class UmbrellaOrganisationsController extends AppController
 
                 foreach ($organisation['schools'] as $school) {
 
-                    $schoolFetch = $this->SchoolsService->getSchool($school['id']);
+                    $schoolFetch = $this->SchoolsService->getSchool(getUUID($school, 'get'));
 
                     foreach($schoolFetch['school_locations'] as $schoollocation) {
                         $schoollocation['external_main_code'] = $data['external_main_code'];
-                        $this->SchoolLocationsService->updateSchoolLocation($schoollocation['id'], $schoollocation);
+                        $this->SchoolLocationsService->updateSchoolLocation(getUUID($schoollocation, 'get'), $schoollocation);
                     }
 
                     $school['external_main_code'] = $data['external_main_code'];
-                    $response = $this->SchoolsService->updateSchool($school['id'],$school);
+                    $response = $this->SchoolsService->updateSchool(getUUID($school, 'get'),$school);
                 }
             }
 
@@ -124,7 +124,7 @@ class UmbrellaOrganisationsController extends AppController
         $accountmanagers = [];
 
         foreach($users as $user) {
-            $accountmanagers[$user['id']] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+            $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
         $this->set('accountmanagers', $accountmanagers);
@@ -132,6 +132,7 @@ class UmbrellaOrganisationsController extends AppController
         $organisation = $this->UmbrellaOrganisationsService->getOrganisation($organisation_id);
         $organisation['UmbrellaOrganisation'] = $organisation;
 
+        $this->set('organisation', $organisation);
         $this->request->data = $organisation;
     }
 
@@ -168,7 +169,7 @@ class UmbrellaOrganisationsController extends AppController
         $accountmanagers = [];
 
         foreach($users as $user) {
-            $accountmanagers[$user['id']] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+            $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
         $this->set('accountmanagers', $accountmanagers);

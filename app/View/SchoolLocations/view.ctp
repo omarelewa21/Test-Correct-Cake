@@ -1,10 +1,10 @@
 <div id="buttons">
     <? if($isAdministrator): ?>
-        <a href="#" class="btn white" onclick="Popup.load('/school_locations/edit/<?=$school_location['id']?>', 1100);">
+        <a href="#" class="btn white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
             <span class="fa fa-edit mr5"></span>
             Wijzigen
         </a>
-        <a href="#" class="btn white" onclick="SchoolLocation.delete(<?=$school_location['id']?>, 1);">
+        <a href="#" class="btn white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 1);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
@@ -114,7 +114,7 @@
                     <td><?=$manager['username']?></td>
                     <td><?=$manager['note']?></td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=$manager['id']?>', 400);">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=getUUID($manager, 'get');?>', 400);">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
@@ -127,7 +127,7 @@
         <br clear="all" />
 
         <center>
-            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/users/add/managers/location/<?=$school_location['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/users/add/managers/location/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
                 Schoolbeheerder toevoegen
             </a>
@@ -155,10 +155,10 @@
                     <td><?=date('d-m-Y', strtotime($license['end']))?></td>
                     <td><?=$license['amount']?></td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="SchoolLocation.deleteLicense(<?=$school_location['id']?>,<?=$license['id']?>);">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="SchoolLocation.deleteLicense(<?=getUUID($school_location, 'getQuoted');?>,<?=getUUID($license, 'getQuoted');?>);">
                             <span class="fa fa-remove"></span>
                         </a>
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/school_locations/edit_licence/<?=$school_location['id']?>/<?=$license['id']?>', 400);">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/school_locations/edit_licence/<?=getUUID($school_location, 'get');?>/<?=getUUID($license, 'get');?>', 400);">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
@@ -171,7 +171,7 @@
         <br clear="all" />
 
         <center>
-            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_licence/<?=$school_location['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_licence/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
                 Licentiepakket toevoegen
             </a>
@@ -246,10 +246,10 @@
                 </table>
 
                 <center>
-                    <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=$contact['contact_id']?>', 400);">
+                    <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=getUUID($contact['contact'], 'get')?>', 400);">
                         <span class="fa fa-edit"></span>
                     </a>
-                    <a href="#" class="btn small red inline-block" onclick="Contact.delete('school_location', <?=$school_location['id']?>, '<?=$type?>', <?=$contact['contact_id']?>);">
+                    <a href="#" class="btn small red inline-block" onclick="Contact.delete('school_location', <?=getUUID($school_location, 'getQuoted');?>, '<?=$type?>', '<?=getUUID($contact['contact'], 'get')?>');">
                         <span class="fa fa-remove"></span>
                     </a>
                 </center>
@@ -261,7 +261,7 @@
         <br clear="all" />
 
         <center>
-            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school_location/<?=$school_location['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school_location/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
                 Contactpersoon toevoegen
             </a>
@@ -285,7 +285,7 @@
                     <td><?=$ip['ip']?></td>
                     <td><?=$ip['netmask']?></td>
                     <td>
-                        <a href="#" class="btn white inline-block" onclick="Ip.delete(<?=$school_location['id']?>, <?=$ip['id']?>);">
+                        <a href="#" class="btn white inline-block" onclick="Ip.delete('<?=getUUID($school_location, 'get');?>', '<?=getUUID($ip, 'get');?>');">
                             <span class="fa fa-remove"></span>
                         </a>
                     </td>
@@ -298,7 +298,7 @@
         <br clear="all" />
 
         <center>
-            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_ip/<?=$school_location['id']?>', 400);">
+            <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_ip/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
                 Ip toevoegen
             </a>

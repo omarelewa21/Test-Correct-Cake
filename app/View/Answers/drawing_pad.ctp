@@ -37,10 +37,10 @@
 </div>
 
 <script type="text/javascript">
-    window.question_id = <?=$question_id?>;
+    window.question_id = '<?=$question_id?>';
     window.drawingSaveUrl = '/answers/save_drawing_pad/<?=$question_id?>';
     window.parent.drawingCallback = function(){
-        window.parent.Answer.drawingPadClose(<?=$question_id?>);
+        window.parent.Answer.drawingPadClose('<?=$question_id?>');
         window.parent.Loading.hide();
     };
 </script>

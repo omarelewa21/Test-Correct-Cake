@@ -12,12 +12,16 @@ foreach($tests as $test) {
             <?=$test['author']['name']?>
         </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right" onclick="Popup.load('/tests/preview_popup/<?=$test['id']?>', 1000);">
+            <a href="#" class="btn white pull-right" onclick="Popup.load('/tests/preview_popup/<?=getUUID($test, 'get');?>', 1000);">
                 <span class="fa fa-search"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="TestTake.setSelectedTest(<?=$test['id']?>, '<?=$test['name']?>', <?=$test['test_kind_id']?>);">
+    <? if ($test['has_duplicates']) { ?>
+        &nbsp;
+    <? } else { ?>
+            <a href="#" class="btn white pull-right" onclick="TestTake.setSelectedTest('<?=getUUID($test, 'get');?>', '<?=$test['name']?>', <?=$test['test_kind_id']?>);">
                 <span class="fa fa-plus"></span>
             </a>
+        <? } ?>
         </td>
     </tr>
 <?

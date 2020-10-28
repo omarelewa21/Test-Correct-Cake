@@ -1,7 +1,14 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
-
+<?php
+    $citoClass = '';
+    $isCitoQuestion = false;
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
+?>
 <?=$this->Form->create('Answer')?>
-    <h1>
+    <h1 class="question_type <?=$citoClass?>">
         <?
         if($question['subtype'] == 'TrueFalse') {
             ?>Juist / Onjuist<?
@@ -12,43 +19,39 @@
         }
         ?>
         [<?=$question['score']?>pt]
+        <?=AppHelper::showExternalId($question);?>
     </h1>
 
-<div style="font-size: 20px;">
-    <?=$this->element('take_question', ['question' => $question]);?>
+<?php
 
-    <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
-    
-    <pre>
-        <?php shuffle($question['multiple_choice_question_answers']); ?>        
-    </pre>
-    <?
-
-    foreach( $question['multiple_choice_question_answers'] as $answer) {
-
-        $checked = false;
-
-        if(isset($answerJson[$answer['id']])) {
-            $checked = $answerJson[$answer['id']] == 1 ? true : false;
-        }
-
-        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-            'value' => 1,
-            'div' => false,
-            'type' => 'checkbox',
-            'checked' => $checked,
-            'label' => false,
-            'class' => 'multiple_choice_option',
-            'onchange' => 'checkMaxSelections(this)'
-        ]);
-
-        echo '&nbsp;'.$answer['answer'].'</div><br />';
-
-        $first = false;
+    $useRadio = false;
+    $radioOptions = [];
+    $default = 0;
+    if($question['selectable_answers'] == 1){
+        $useRadio = true;
+        $label = '<div class="radio_'.getUUID($question, 'get').'">';
     }
+    if(!$isCitoQuestion) {
+        shuffle($question['multiple_choice_question_answers']);
+    }
+?>
+
+<div style="font-size: 20px;">
+
+    <?php
+
+    echo $this->element('take_question', ['question' => $question]);
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+    if($useRadio){
+         echo $this->element('question_multiple_choice_radio_answers',['question' => $question]);
+    } else {
+        echo $this->element('question_multiple_choice_regular_answers',['question' => $question]);
+    }
+
     ?>
+
+</div>
 </div>
 
 
@@ -56,30 +59,20 @@
 <?=$this->Form->end();?>
 <?= $this->element('take_footer', ['has_next_question' => $has_next_question]); ?>
 
-<? if($question['subtype'] == 'TrueFalse' || $question['selectable_answers'] == 1) { ?>
-    <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
-            $('input[type=checkbox]').prop('checked' , false);
-            $(this).prop('checked' , true);
-            Answer.answerChanged = true;
-        });
-
-        Answer.answerChanged = false;
-    </script>
+<? if($useRadio) { ?>
+    <?= $this->element('question_multiple_choice_radio_javascript', ['question' => $question]); ?>
 <? }else{ ?>
-    <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
-            Answer.answerChanged = true;
-        });
-
-        Answer.answerChanged = false;
-    </script>
+    <?= $this->element('question_multiple_choice_regular_javascript', ['question' => $question]); ?>
 <? } ?>
+
 
 <script type="text/javascript">
     function checkMaxSelections(e) {
-        if( $('.multiple_choice_option:checked').length > <?=$question['selectable_answers']?> ) {
+        if(<?= (int) (new AppController)->isClosedQuestion($question);?> == 1) return;
+        if( $('.input_<?=getUUID($question, 'get')?>:checked').length > <?=$question['selectable_answers']?> ) {
             $(e).prop( "checked", false);
         }
     }
 </script>
+
+<?=$this->element('question_styling',['question' => $question]);?>

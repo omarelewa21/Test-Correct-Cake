@@ -149,7 +149,7 @@ if ($wizard_steps) {
                                             <span class="prr-button knowledgebase-button pull-right"></span>
                                         <?php } ?>
                                         <a
-                                                href="<?= $sub['action_content'] ?>"
+                                                onclick="HelpHero.startTour('<?=/* TCP-358 */ trim(end(explode( "/", $sub['action_content'])));?>')"
                                                 data-id="<?= $sub['id'] ?>"
                                                 class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
                                         ><span class="fa fa-male"></span> Doe de tour</a>
@@ -257,7 +257,7 @@ if ($wizard_steps) {
         hubspotLoaded = true;
     }
 
-    HelpHero.identify("<?=AuthComponent::user('id')?>", {
+    HelpHero.identify("<?=AuthComponent::user('uuid')?>", {
         name: "<?=AuthComponent::user('name')?>",
         name_first: "<?=AuthComponent::user('name_first')?>",
         name_suffic: "<?=AuthComponent::user('name_suffix')?>"
@@ -265,7 +265,7 @@ if ($wizard_steps) {
 
     if (jQuery("#supportLinkUserMenu").length != 1) {
         jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" > Supportpagina</a>');
-        <?
+        <?php
         if(AuthComponent::user('isToetsenbakker') == true){
         ?>
         jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" > Te verwerken toetsen</a>');
@@ -278,8 +278,8 @@ if ($wizard_steps) {
         ?>
     }
 
-    var activeStep = <?= $wizard_steps['active_step'] ?>;
-    var showOnboardWizard = <?= $wizard_steps['show'] ?>;
+    var activeStep = "<?= $wizard_steps['active_step'] ?>";
+    var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
 
     if (typeof onboarding_wizard_scripting_loaded == 'undefined') {
         $(document).ready(function () {
@@ -498,7 +498,7 @@ if ($wizard_steps) {
 
     $('#ob-wizard-' + activeStep).find('.ob-wizard-toggle-sub').trigger('click');
     updateDoneButtonStatuses();
-    if (showOnboardWizard !== 1) {
+    if (showOnboardWizard != 1) {
         toggleWizardVisibilityState();
     }
 

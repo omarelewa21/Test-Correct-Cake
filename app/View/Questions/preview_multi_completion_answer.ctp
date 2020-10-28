@@ -37,10 +37,19 @@
 //        $question_text = str_replace('['.$tag_id.']', '<span style="color:green;">'.$answer.'</span>', $question_text);
 //    }
 
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
     echo $question_text;
     ?>
+    </div>
 </div>
 
 <script type="text/javascript">
     //$('#blockDiscussionQuestion').hide();
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

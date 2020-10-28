@@ -14,7 +14,7 @@
             <tr>
                 <th>Schoollocatie</th>
                 <td>
-                    <?=$this->Form->input('school_location_id', array('style' => 'width: 185px', 'value' => $parameter2, 'label' => false, 'options' => $school_locations)) ?>
+                    <?=$this->Form->input('school_location_id', array('style' => 'width: 185px', 'value' => $current_school, 'label' => false, 'options' => $school_locations)); ?>
                 </td>
             </tr>
         <? } ?>

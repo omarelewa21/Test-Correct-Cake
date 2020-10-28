@@ -37,7 +37,7 @@
                 console.log(result);
 
                 setTimeout(function() {
-                    Popup.load('/school_years/add_period/' + result.id, 400);
+                    Popup.load('/school_years/add_period/' + result.uuid, 400);
                 }.bind(result), 1000);
                 
                 Popup.closeLast();
