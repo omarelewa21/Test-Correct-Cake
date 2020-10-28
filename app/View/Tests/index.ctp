@@ -3,152 +3,86 @@
         <span class="fa fa-calendar-o mr5"></span>
         Toetsen inplannen
     </a>
-
-
     <a href="#" class="btn white" onclick="Popup.load('/tests/add', 1000);">
         <span class="fa fa-plus mr5"></span>
         Toets construeren
     </a>
+    <div class='popup' id='popup_search' style="display:none">
+        <div class="popup-head">Zoeken</div>
+        <div class="popup-content">
+            <?= $this->Form->create('Test') ?>
+            <table id="testsFilter" class="mb5">
+                <tr>
+                    <th>Toets</th>
+                    <td>
+                        <?= $this->Form->input('name', array('label' => false)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td>
+                        <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Vak</th>
+                    <td>
+                        <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Periode</th>
+                    <td>
+                        <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Niveau</th>
+                    <td>
+                        <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Niveau jaar</th>
+                    <td>
+                        <?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
+                    </td>
+                </tr>
 
-    <div class="dropblock" for="jquery-add-filter">
-        <?= $this->Form->create('Test') ?>
-        <table id="testsFilter" class="mb5">
-            <tr>
-                <th>Toets</th>
-                <td>
-                    <?= $this->Form->input('name', array('label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>
-                    <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Vak</th>
-                <td>
-                    <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Periode</th>
-                <td>
-                    <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Niveau</th>
-                <td>
-                    <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Niveau jaar</th>
-                <td>
-                    <?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
-                </td>
-            </tr>
+                <?php if (true): ?>
+                    <th>Bron</th>
+                    <td>
+                        <?= $this->Form->input('is_open_sourced_content', array(
+                            'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
+                        )) ?>
+                    </td>
+                <?php endif; ?>
 
-            <?php if (true): ?>
-                <th>Bron</th>
-                <td>
-                    <?= $this->Form->input('is_open_sourced_content', array(
-                        'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
-                    )) ?>
-                </td>
-            <?php endif; ?>
+                <tr>
+                    <th>Aangemaakt van</th>
+                    <td>
+                        <?= $this->Form->input('created_at_start', array('label' => false)) ?>
+                    </td>
+                </tr>
 
-            <tr>
-                <th>Aangemaakt van</th>
-                <td>
-                    <?= $this->Form->input('created_at_start', array('label' => false)) ?>
-                </td>
-            </tr>
+                <tr>
+                    <th>Aangemaakt tot</th>
+                    <td>
+                        <?= $this->Form->input('created_at_end', array('label' => false)) ?>
+                    </td>
+                </tr>
+            </table>
+            <?= $this->Form->end(); ?>
+        </div>
+        <div class="popup-footer">
 
-            <tr>
-                <th>Aangemaakt tot</th>
-                <td>
-                    <?= $this->Form->input('created_at_end', array('label' => false)) ?>
-                </td>
-            </tr>
-        </table>
-        <?= $this->Form->end(); ?>
+            <a href="#" onclick="Popup.closeSearch()" style="float:right"
+               class="btn grey pull-right mr5 mt5">Sluiten</a>
+            <br clear="all"/>
+        </div>
 
-        <a href="#" class="btn btn-close white small pull-right">Sluiten</a>
-        <a href="#" class="btn btn-reset white small pull-right mr5">Reset</a>
-        <br clear="all"/>
     </div>
 
-    <div class="dropblock" for="jquery-edit-filter">
-        <?= $this->Form->create('EditTest') ?>
-        <table id="editTestsFilter" class="mb5">
-            <tr>
-                <th>Toets</th>
-                <td>
-                    <?= $this->Form->input('name', array('label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>
-                    <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Vak</th>
-                <td>
-                    <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Periode</th>
-                <td>
-                    <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Niveau</th>
-                <td>
-                    <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Niveau jaar</th>
-                <td>
-                    <?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
-                </td>
-            </tr>
-
-            <?php if (true): ?>
-                <th>Bron</th>
-                <td>
-                    <?= $this->Form->input('is_open_sourced_content', array(
-                        'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
-                    )) ?>
-                </td>
-            <?php endif; ?>
-
-            <tr>
-                <th>Aangemaakt van</th>
-                <td>
-                    <?= $this->Form->input('created_at_start', array('label' => false)) ?>
-                </td>
-            </tr>
-
-            <tr>
-                <th>Aangemaakt tot</th>
-                <td>
-                    <?= $this->Form->input('created_at_end', array('label' => false)) ?>
-                </td>
-            </tr>
-        </table>
-        <?= $this->Form->end(); ?>
-
-        <a href="#" class="btn btn-close white small pull-right">Sluiten</a>
-        <a href="#" class="btn btn-reset white small pull-right mr5">Reset</a>
-        <br clear="all"/>
-    </div>
 </div>
 
 <h1>Toetsen</h1>
@@ -164,9 +98,9 @@
                     </select>
                 </td>
                 <td>
-                    <a href="#" class="btn inline-block btn-default grey mr2" id="jquery-delete-filter">Verwijderen</a>
-                    <a href="#" class="btn inline-block grey dropblock-owner dropblock-left mr2" id="jquery-add-filter">
-                        <span class="fa fa-filter mr5"></span>
+                    <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter">Verwijderen</a>
+                    <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
+                        <span class="fa mr5"></span>
                         Nieuw Filter maken
                     </a>
                 </td>
@@ -174,15 +108,10 @@
 
             <tr id="jquery-applied-filters">
                 <th>Toegepast filter</th>
-                <td id="jquery-filter-name">[naam filter]</td>
-
-                <td id="jquery-filter-filters">
-
-                </td>
+                <td colspan="2" id="jquery-filter-filters"></td>
                 <td>
-                    <a href="#" class="btn inline-block grey dropblock-owner dropblock-left mr2"
-                       id="jquery-edit-filter">
-                        <span class="fa fa-filter mr5"></span>Filter aanpassen
+                    <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
+                        <span class="fa mr5"></span>Filter aanpassen
                     </a>
                     <a href="#" class="btn inline-block grey mr2" id="jquery-save-filter">Opslaan</a>
                     <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
@@ -252,6 +181,7 @@
                     $('#jquery-applied-filters').hide();
                     this.renderSelectFilterBox();
                 },
+
                 renderSelectFilterBox: function (valueToSelect) {
                     $(this.el).html('').append($('<option></option>').attr('value', '').text('Kies een opgeslagen filter...'));
                     $(this.filters).each(function (key, filter) {
@@ -259,6 +189,10 @@
                     }.bind(this));
                     if (valueToSelect) {
                         $(this.el).val(valueToSelect);
+                    }
+                    if (valueToSelect == '') {
+                        this.activeFilter = false;
+                        this.renderActiveFilter();
                     }
                 },
 
@@ -273,10 +207,12 @@
                             var value = $(e.target).val()
                             if (value === '') {
                                 $('#jquery-applied-filters').hide();
+                                $('#jquery-delete-filter').addClass('disabled');
+                                this.activeFilter = false;
                             } else {
                                 this.setActiveFilter(value);
+                                $('#jquery-delete-filter').removeClass('disabled');
                                 $('#jquery-applied-filters').show();
-
                             }
                         }.bind(this))
                         .on('click', '.jquery-remove-filter', function (e) {
@@ -286,13 +222,20 @@
                         }.bind(this))
                         .on('click', '#jquery-add-filter', function (e) {
                             $(this.el).val('');
+                            this.resetSearchForm();
+                            Popup.showSearch()
                             this.activeFilter = {
                                 id: '',
-                                name: 'New Filter',
+                                name: 'Nieuw',
                                 filters: this.newFilter
                             }
                             this.renderActiveFilter(e);
                         }.bind(this))
+                        .on('click', '#jquery-edit-filter', function (e) {
+                            Popup.showSearch()
+                            this.bindActiveFilterDataToFilterModal();
+                        }.bind(this))
+
 
                         .on('click', '#jquery-save-filter', function (e) {
                             const isNewFilter = (this.activeFilter !== this.editFilter);
@@ -315,12 +258,26 @@
                             }
                         }.bind(this))
                         .on('click', '#jquery-reset-filter', function (e) {
-                            alert('reset filter');
-                        })
+                            this.renderSelectFilterBox('');
+                        }.bind(this))
                         .on('click', '#jquery-delete-filter', function (e) {
                             this.deleteFilter();
-                        }.bind(this));
+                        }.bind(this))
+
                 },
+                resetSearchForm: function () {
+                    this.filterFields.forEach(function (item) {
+                        var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
+
+                        if ($(selector).get(0).tagName == 'SELECT') {
+                            $(selector).val('0').trigger('change');
+                            return;
+                        }
+
+                        $(selector).val('').trigger('change');
+                    }.bind(this));
+                },
+
                 saveNewFilter: function (newFilterName) {
                     Notify.notify('Filter opgeslagen');
 
@@ -335,8 +292,8 @@
                                 }
                             }
                         },
-                        method:'POST',
-                        context:this,
+                        method: 'POST',
+                        context: this,
                         dataType: 'json',
                         success: function (response) {
                             this.filters.push(response.data);
@@ -346,26 +303,21 @@
                     });
                 },
                 saveActiveFilter: function (newFilterName) {
-                    const index = this.filters.find(function (filter) {
-                        return filter.id == this.activeFilter.id;
-                    }.bind(this)).indexOf();
-
-                    if (index) {
-                        this.editFilter.name = newFilterName;
-                        $.ajax({
-                            url: '/searchfilter/' + this.editFilter.uuid,
-                            method: 'PUT',
-                            dataType: 'json',
-                            data:{
-                                data: this.editFilter,
-                            },
-                            context: this,
-                            success: function (response) {
-                                this.filters[index] = this.editFilter;
-                                Notify.notify('Filter opgeslagen');
-                            },
-                        });
-                    }
+                    this.editFilter.name = newFilterName;
+                    $.ajax({
+                        url: '/searchfilter/edit/' + this.editFilter.uuid,
+                        type: 'PUT',
+                        dataType: 'json',
+                        data: {
+                            search_filter: this.editFilter,
+                        },
+                        context: this,
+                        success: function (response) {
+                            Notify.notify('Filter opgeslagen');
+                            this.renderSelectFilterBox(this.editFilter.id);
+                            this.setActiveFilter(this.editFilter.id);
+                        },
+                    });
                 },
                 deleteFilter: function () {
                     if (this.activeFilter === false) {
@@ -400,20 +352,19 @@
                     });
 
                     this.activeFilter = this.editFilter;
-                    this.bindActiveFilterDataToEditFilterModal();
 
                     this.renderActiveFilter();
                 },
 
-                bindActiveFilterDataToEditFilterModal: function () {
-                    var formId = '#EditTest';
+                bindActiveFilterDataToFilterModal: function () {
                     this.filterFields.forEach(function (item) {
-                        var selector = formId + item.field.charAt(0).toUpperCase() + item.field.slice(1);
+                        var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         if (this.activeFilter.filters.hasOwnProperty(item.field)) {
                             $(selector).val(this.activeFilter.filters[item.field].filter)
                         }
                     }.bind(this));
                 },
+
 
                 renderActiveFilter: function (e) {
                     if (e instanceof Event) {
@@ -422,7 +373,6 @@
                     $('#jquery-filter-filters').html('');
                     if (this.activeFilter) {
                         $('#jquery-applied-filters').show();
-                        $('#jquery-filter-name').html(this.activeFilter.name);
                         for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
                             if (filterDetail.filter && filterDetail.name) {
                                 $('#jquery-filter-filters').append($(
@@ -433,7 +383,6 @@
                             }
                         }
                     } else {
-                        $('#jquery-filter-name').html('');
                         $('#jquery-applied-filters').hide();
                     }
                 },
@@ -445,19 +394,11 @@
                             this.syncNewFilterField($(e.target), item);
                         }.bind(context));
                     });
-
-                    $(document).on('click', '.btn-reset', function (e) {
-                        context.filterFields.forEach(function (item) {
-                            let selector = '#test' + item.field.charAt(0).touppercase() + item.field.slice(1);
-                            this.syncnewfilterfield($(selector), item);
-                        }.bind(context));
-                    });
                 },
 
                 addChangeEventsToEditFilter() {
-                    var formId = '#EditTest';
                     this.filterFields.forEach(function (item) {
-                        var selector = formId + item.field.charAt(0).toUpperCase() + item.field.slice(1);
+                        var selector = '#popup_1 #Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         $(document).on('change', selector, function (e) {
                             this.syncEditFilterField($(e.target), item);
                         }.bind(this));
@@ -514,35 +455,6 @@
                         this.addChangeEventsToEditFilter();
                         this.initNewFilter();
                     }.bind(this));
-                    // this.filters = [
-                    //     {
-                    //         id: 'abc',
-                    //         name: 'Toetsen 2019',
-                    //         filters: {
-                    //             name: {name: 'Toets', filter: 'toe', label: 'toe'},
-                    //             kind: {name: '', filter: '', label: ''},
-                    //             subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
-                    //             period: {name: 'Niveau', filter: '1', label: 'VWO'},
-                    //             eductionLevels: {name: '', filter: '', label: ''},
-                    //             isOpenSourceContent: {name: '', filter: '', label: ''},
-                    //             createdAtStart: {name: '', filter: '', label: ''},
-                    //             createdAtEnd: {name: '', filter: '', label: ''},
-                    //         }
-                    //     }, {
-                    //         id: 'def',
-                    //         name: 'Toetsen 2020',
-                    //         filters: {
-                    //             name: {name: 'Toets', filter: 'toets', label: 'toets'},
-                    //             kind: {name: '', filter: '', label: ''},
-                    //             subject: {name: 'Vak', filter: '1', label: 'Nederlands'},
-                    //             period: {name: 'Niveau', filter: '1', label: 'VWO'},
-                    //             eductionLevels: {name: '', filter: '', label: ''},
-                    //             isOpenSourceContent: {name: '', filter: '', label: ''},
-                    //             createdAtStart: {name: '', filter: '', label: ''},
-                    //             createdAtEnd: {name: '', filter: '', label: ''},
-                    //         }
-                    //     }
-                    // ];
                 }
             }
 
@@ -566,3 +478,15 @@
     </div>
     <div class="block-footer"></div>
 </div>
+<style>
+    a.btn.disabled {
+        color: grey;
+        cursor: not-allowed;
+    }
+
+    a.btn.disabled:hover {
+        color: grey;
+        background-color: #eeeeee;
+        cursor: not-allowed;
+    }
+</style>

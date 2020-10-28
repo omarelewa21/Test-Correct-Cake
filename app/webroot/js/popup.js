@@ -22,12 +22,96 @@ var Popup = {
     showCongrats: function (action) {
         this.messageWithPreventDefault({
                 'btnOk': 'Ok',
-                'title': action? action : 'gefeliciteerd',
+                'title': action ? action : 'gefeliciteerd',
                 'message': '<img style="display:block; margin:auto; width:200px; height:200px;" src="/img/logo_1.png">',
             }
         );
 
     },
+
+    promptCallBack: function () {
+        alert(jQuery('#prompt').val());
+        Popup.closeLast();
+    },
+
+    prompt: function (message, title, defaultValue, placeholder) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+
+        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
+            <div class='popup-head'>${title}</div>
+            <div class="popup-content">
+                <form>
+                  <div class="form-group">
+                    <label for="prompt">${message}</label>
+                    <input type="email" class="form-control" id="prompt" placeholder="${placeholder}" value="${defaultValue}">
+                  </div>
+                 </form>
+            </div>
+            <div class="popup-footer">
+            <a href='#' class="btn grey pull-right" onclick="Popup.closeLast()">Annuleren</a>
+            <a href='#' class="btn blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
+            </div>
+            </div>
+        `;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+
+        var width = 600;
+
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
+    closeSearch: function () {
+        $('#fade').fadeOut();
+
+        $('#popup_search').stop().removeClass('center').fadeOut(function () {
+            $(this).hide();
+        });
+        Popup.index = 0;
+        $('#container, #background, #header').removeClass('blurred');
+    },
+
+    showSearch: function () {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.zIndex += 2;
+
+        $('#popup_search').show();
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 800;
+        var height = $('#popup_search').height();
+
+        $('#popup_search').css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
 
     show: function (html, width) {
 
