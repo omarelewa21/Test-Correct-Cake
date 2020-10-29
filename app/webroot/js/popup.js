@@ -30,29 +30,81 @@ var Popup = {
     },
 
     promptCallBack: function () {
-        alert(jQuery('#prompt').val());
         Popup.closeLast();
+        return Popup.callbackFromPrompt(jQuery('#prompt').val());
     },
 
-    prompt: function (message, title, defaultValue, placeholder) {
+    prompt: function (options, callback) {
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
         Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
 
         var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
-            <div class='popup-head'>${title}</div>
+            <div class='popup-head'>${options.title}</div>
             <div class="popup-content">
                 <form>
                   <div class="form-group">
-                    <label for="prompt">${message}</label>
-                    <input type="email" class="form-control" id="prompt" placeholder="${placeholder}" value="${defaultValue}">
+                    <label for="prompt">${options.text}</label>
+                    <input type="email" class="form-control" id="prompt" placeholder="${options.placeholder}" value="${options.inputValue}">
                   </div>
                  </form>
             </div>
             <div class="popup-footer">
-            <a href='#' class="btn grey pull-right" onclick="Popup.closeLast()">Annuleren</a>
+            <a href='#' class="btn grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>
             <a href='#' class="btn blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
+            </div>
+            </div>
+        `;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+
+        var width = 600;
+
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
+    confirmCallBack: function (value) {
+        Popup.closeLast();
+        debugger;
+        return Popup.callbackFromConfirm(value);
+    },
+
+    confirm: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromConfirm = callback;
+
+        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
+            <div class='popup-head'>${options.title}</div>
+            <div class="popup-content">
+                <form>
+                  <div class="form-group">
+                    <label for="prompt">${options.text}</label>
+                  </div>
+                 </form>
+            </div>
+            <div class="popup-footer">
+            <a href='#' class="btn grey pull-right mr-5 mt-5" onclick="Popup.closeLast();">Annuleren</a>
+            <a href='#' class="btn blue pull-right mr-5 mt-5 " onclick="Popup.confirmCallBack(true)">Ok</a>
             </div>
             </div>
         `;
@@ -262,3 +314,48 @@ var Popup = {
         );
     }
 };
+// overload of window.prompt to always show a descently formatted prompt box.
+function prompt(message, value, callback)
+{
+    var options =
+        {
+            title: "title",
+            text: message,
+            type: "input",
+            showCancelButton: true,
+            inputValue: value
+        }
+
+    if(typeof(message) === "object")
+    {
+        options = message;
+    }
+
+    return Popup.prompt(options, function(inputValue) {
+        return callback ? callback(inputValue) : inputValue
+    });
+}
+
+function confirm(message, callback)
+{
+    callback = callback || function(){}
+    var options =
+        {
+            title: "Weet je t zeker?",
+            text: message,
+            type: "warning",
+            showCancelButton: true
+        }
+
+    if(typeof(message) === "object")
+    {
+        options = message
+    }
+
+    Popup.confirm(options, function(isConfirm)
+    {
+        return callback(isConfirm)
+    });
+}
+
+

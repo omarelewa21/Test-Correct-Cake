@@ -175,8 +175,11 @@
                 init: function () {
                     this.el = '#jquery-saved-filters';
                     this.load();
-
                 },
+                reloadData:function() {
+                    $(this.getJqueryFilterInput(this.filterFields[0].field)).trigger('change');
+                },
+
                 initializeSavedFilterSelect: function () {
                     $('#jquery-applied-filters').hide();
                     this.renderSelectFilterBox();
@@ -214,6 +217,7 @@
                                 $('#jquery-delete-filter').removeClass('disabled');
                                 $('#jquery-applied-filters').show();
                             }
+                            this.reloadData();
                         }.bind(this))
                         .on('click', '.jquery-remove-filter', function (e) {
                             var prop = $(e.target).attr('jquery-filter-key');
@@ -239,23 +243,23 @@
 
                         .on('click', '#jquery-save-filter', function (e) {
                             const isNewFilter = (this.activeFilter !== this.editFilter);
-
                             let filterName = prompt(
                                 'Wat is de naam van dit filter?',
-                                isNewFilter ? 'Nieuw Filter' : this.editFilter.name
-                            );
-                            if (filterName === null) {
-                                return;
-                            }
-                            if (filterName === "") {
-                                Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
-                            } else {
-                                if (isNewFilter) {
-                                    this.saveNewFilter(filterName);
-                                } else {
-                                    this.saveActiveFilter(filterName);
-                                }
-                            }
+                                isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
+                                function (filterName) {
+                                    if (filterName === null) {
+                                        return;
+                                    }
+                                    if (filterName === "") {
+                                        Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
+                                    } else {
+                                        if (isNewFilter) {
+                                            this.saveNewFilter(filterName);
+                                        } else {
+                                            this.saveActiveFilter(filterName);
+                                        }
+                                    }
+                                }.bind(this));
                         }.bind(this))
                         .on('click', '#jquery-reset-filter', function (e) {
                             this.renderSelectFilterBox('');
@@ -325,23 +329,28 @@
                         return;
                     }
 
-                    if (confirm('Weet je zeker dat je dit filter wilt verwijderen?')) {
-                        $.ajax({
-                            url: '/searchfilter/delete/' + this.activeFilter.uuid,
-                            type: 'DELETE',
-                            context: this,
-                            success: function (response) {
-                                this.filters = this.filters.filter(function (filter) {
-                                    return filter.id !== this.activeFilter.id;
-                                }.bind(this));
+                    confirm('Weet je zeker dat je dit filter wilt verwijderen?', function (confirmValue) {
+                        debugger;
+                        if (confirmValue) {
 
-                                this.renderSelectFilterBox('');
-                                this.activeFilter = false;
-                                this.renderActiveFilter();
-                                Notify.notify('Het filter is succesvol verwijderd.')
-                            },
-                        });
-                    }
+                            $.ajax({
+                                url: '/searchfilter/delete/' + this.activeFilter.uuid,
+                                type: 'DELETE',
+                                context: this,
+                                success: function (response) {
+                                    this.filters = this.filters.filter(function (filter) {
+                                        return filter.id !== this.activeFilter.id;
+                                    }.bind(this));
+
+                                    this.renderSelectFilterBox('');
+                                    this.activeFilter = false;
+                                    this.renderActiveFilter();
+                                    Notify.notify('Het filter is succesvol verwijderd.')
+                                },
+                            });
+                        }
+
+                    }.bind(this));
                 },
 
                 setActiveFilter(filterId) {
@@ -358,14 +367,14 @@
 
                 bindActiveFilterDataToFilterModal: function () {
                     this.filterFields.forEach(function (item) {
-                        var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         if (this.activeFilter.filters.hasOwnProperty(item.field)) {
-                            $(selector).val(this.activeFilter.filters[item.field].filter)
+                            $(this.getJqueryFilterInput(item.field)).val(this.activeFilter.filters[item.field].filter)
                         }
                     }.bind(this));
                 },
-
-
+                getJqueryFilterInput: function (name) {
+                    return '#Test' + name.charAt(0).toUpperCase() + name.slice(1);
+                },
                 renderActiveFilter: function (e) {
                     if (e instanceof Event) {
                         e.stopPropagation();
@@ -374,18 +383,27 @@
                     if (this.activeFilter) {
                         $('#jquery-applied-filters').show();
                         for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
+
                             if (filterDetail.filter && filterDetail.name) {
+                                let el = $(this.getJqueryFilterInput(key));
+
+                                if (el.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
+
+                                if (el.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
+
                                 $('#jquery-filter-filters').append($(
                                     `<span class="mr2 inline-block">
-                            <button class="label label-default jquery-remove-filter" jquery-filter-key="${key}">x</button>
-                            <div style="display:inline-block; padding-left:4px">${filterDetail.name}: ${filterDetail.label}</div>
-                        </span>`));
+                                        <button class="label-search-filter jquery-remove-filter" jquery-filter-key="${key}">
+                                            <span class="fa fa-times-circle-o"> ${filterDetail.label} </span>
+                                        </button>
+                                    </span>`));
                             }
                         }
                     } else {
                         $('#jquery-applied-filters').hide();
                     }
-                },
+                }
+                ,
 
                 addChangeEventsToNewFilter: function (context) {
                     this.filterFields.forEach(function (item) {
@@ -394,7 +412,8 @@
                             this.syncNewFilterField($(e.target), item);
                         }.bind(context));
                     });
-                },
+                }
+                ,
 
                 addChangeEventsToEditFilter() {
                     this.filterFields.forEach(function (item) {
@@ -403,7 +422,8 @@
                             this.syncEditFilterField($(e.target), item);
                         }.bind(this));
                     }.bind(this))
-                },
+                }
+                ,
 
                 syncNewFilterField: function (el, item) {
                     if (el.is('select')) {
@@ -420,7 +440,8 @@
                         }
                     }
                     this.renderActiveFilter();
-                },
+                }
+                ,
 
                 syncEditFilterField: function (el, item) {
                     if (el.is('select')) {
@@ -437,14 +458,16 @@
                         }
                     }
                     this.renderActiveFilter();
-                },
+                }
+                ,
 
                 getFilterLabelByField: function (field, context) {
                     let labelField = context.filterFields.find(function (item) {
                         return item.field == field;
                     });
                     return labelField.label;
-                },
+                }
+                ,
 
                 load: function () {
                     $.getJSON('/searchfilter/get/item_bank', function (response) {
@@ -489,4 +512,28 @@
         background-color: #eeeeee;
         cursor: not-allowed;
     }
+
+    button.label-search-filter {
+        color: #212529;
+        background-color: #f8f9fa;
+        display: inline-block;
+        padding: .25em .4em;
+        font-size: 75%;
+        font-weight: 700;
+        line-height: 1;
+        text-align: center;
+        white-space: nowrap;
+        vertical-align: baseline;
+        border-radius: .25rem;
+        border: 1px solid;
+    }
+
+    button.label-search-filter:hover {
+        color: #fff;
+        text-decoration: none;
+        background-color: #117a8b;
+        cursor: pointer;
+    }
+
+
 </style>
