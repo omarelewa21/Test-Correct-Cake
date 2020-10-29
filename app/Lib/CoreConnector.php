@@ -236,7 +236,7 @@ class CoreConnector {
             die('logout');
         }
 
-        if(($this->getLastResponse() == 500 || $this->getLastResponse() == 404) && Configure::read('bugsnag-key-cake') != null){
+        if(($this->getLastCode() == 500 || $this->getLastCode() == 404) && Configure::read('bugsnag-key-cake') != null){
             $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
             $bugsnag->setMetaData([
