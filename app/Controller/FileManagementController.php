@@ -119,7 +119,7 @@ class FileManagementController extends AppController
         } else {
             $educationLevel = '';
             foreach ($schoolLocationEducationLevels as $el) {
-                if (getUUID($el['education_level'],'get') == $data['typedetails']['education_level_id']) {
+                if ((int) $el['education_level']['id'] === (int) $data['typedetails']['education_level_id']) {
                     $educationLevel = $el['education_level']['name'];
                 }
             }
