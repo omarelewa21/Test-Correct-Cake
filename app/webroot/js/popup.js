@@ -52,8 +52,8 @@ var Popup = {
                  </form>
             </div>
             <div class="popup-footer">
-            <a href='#' class="btn grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>
-            <a href='#' class="btn blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
+            <a href='#' class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>
+            <a href='#' class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
             </div>
             </div>
         `;
@@ -103,8 +103,8 @@ var Popup = {
                  </form>
             </div>
             <div class="popup-footer">
-            <a href='#' class="btn grey pull-right mr-5 mt-5" onclick="Popup.closeLast();">Annuleren</a>
-            <a href='#' class="btn blue pull-right mr-5 mt-5 " onclick="Popup.confirmCallBack(true)">Ok</a>
+            <a href='#' class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>
+            <a href='#' class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>
             </div>
             </div>
         `;
