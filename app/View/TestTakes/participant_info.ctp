@@ -11,6 +11,18 @@
         </center>
         <table class="table table-striped">
             <tr>
+                <th>Tijdsdispensatie</th>
+                <td>
+                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? 'Ja' : 'Nee'?>
+                </td>
+            </tr>
+            <tr>
+                <th>Tekst-naar-spraak</th>
+                <td>
+                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? 'Ja' : 'Nee'?>
+                </td>
+            </tr>
+            <tr>
                 <th width="170">Vragen beantwoord</th>
                 <td>
                     <?
