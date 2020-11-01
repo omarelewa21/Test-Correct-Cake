@@ -164,7 +164,6 @@
                 'container': $('#testsContainter')
             });
 
-
             window.FilterManager = {
                 el: false,
                 filters: false,
@@ -217,12 +216,12 @@
                     if (valueToSelect) {
                         $(this.el).val(valueToSelect);
                     } else {
-                        let activeItem = this.filters.find(function(item) {
+                        let activeItem = this.filters.find(function (item) {
                             return item.active == 1;
                         })
                         if (activeItem) {
                             $(this.el).val(activeItem.id);
-                            this.activeFilter = activeItem;
+                            this.setActiveFilter(activeItem.id);
                             this.renderActiveFilter();
                         }
                     }
@@ -253,8 +252,6 @@
                                         Notify.notify('actief filter geupdate')
                                     });
                                 }
-
-
                                 this.reloadData();
                             }.bind(this)
                         )
@@ -330,8 +327,7 @@
                         }
                         input.val(newValue).trigger('change');
                     }.bind(this));
-                }
-                ,
+                },
 
                 saveNewFilter: function (newFilterName) {
                     Notify.notify('Filter opgeslagen');
@@ -356,8 +352,7 @@
                             this.initNewFilter()
                         },
                     });
-                }
-                ,
+                },
 
                 saveActiveFilter: function (newFilterName) {
                     this.editFilter.name = newFilterName;
@@ -375,8 +370,7 @@
                             this.setActiveFilter(this.editFilter.id);
                         },
                     });
-                }
-                ,
+                },
 
                 deleteFilter: function () {
                     if (this.activeFilter === false) {
@@ -402,8 +396,7 @@
                             });
                         }
                     }.bind(this));
-                }
-                ,
+                },
 
                 setActiveFilter(filterId) {
                     if (filterId == '') return;
@@ -415,8 +408,7 @@
                     this.activeFilter = this.editFilter;
 
                     this.renderActiveFilter();
-                }
-                ,
+                },
 
                 bindActiveFilterDataToFilterModal: function () {
                     this.filterFields.forEach(function (item) {
@@ -429,12 +421,12 @@
                             input.val(newValue);
                         }
                     }.bind(this));
-                }
-                ,
+                },
+
                 getJqueryFilterInput: function (name) {
                     return $('#Test' + name.charAt(0).toUpperCase() + name.slice(1));
-                }
-                ,
+                },
+
                 renderActiveFilter: function (e) {
                     if (e instanceof Event) {
                         e.stopPropagation();
@@ -463,21 +455,18 @@
                     } else {
                         $('#jquery-applied-filters').hide();
                     }
-                }
-                ,
+                },
 
                 addChangeEventsToFilter: function (context) {
                     this.filterFields.forEach(function (item) {
                         var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         $(document).on('change', selector, function (e) {
-                            this.syncNewFilterField($(e.target), item);
-                            // this.syncEditFilterField($(e.target), item);
+                            this.syncFilterField($(e.target), item);
                         }.bind(context));
                     });
-                }
-                ,
+                },
 
-                syncNewFilterField: function (el, item) {
+                syncFilterField: function (el, item) {
                     let filter = {
                         name: this.getFilterLabelByField(item.field, this),
                         filter: el.val(),
@@ -489,16 +478,14 @@
                     this.newFilter[item.field] = filter;
                     this.editFilter.filters[item.field] = filter;
                     this.renderActiveFilter();
-                }
-                ,
+                },
 
                 getFilterLabelByField: function (field, context) {
                     let labelField = context.filterFields.find(function (item) {
                         return item.field == field;
                     });
                     return labelField.label;
-                }
-                ,
+                },
             }
 
             $(document).ready(function () {
