@@ -82,7 +82,6 @@ var Popup = {
 
     confirmCallBack: function (value) {
         Popup.closeLast();
-        debugger;
         return Popup.callbackFromConfirm(value);
     },
 

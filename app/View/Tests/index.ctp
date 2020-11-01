@@ -212,7 +212,6 @@
                     $(this.filters).each(function (key, filter) {
                         $(this.el).append($('<option></option>').attr('value', filter.id).text(filter.name));
                     }.bind(this));
-
                     if (valueToSelect) {
                         $(this.el).val(valueToSelect);
                     } else {
