@@ -214,6 +214,9 @@
                     }.bind(this));
                     if (valueToSelect) {
                         $(this.el).val(valueToSelect);
+                    } else if (valueToSelect == '') {
+                        this.activeFilter = false;
+                        this.renderActiveFilter();
                     } else {
                         let activeItem = this.filters.find(function (item) {
                             return item.active == 1;
@@ -224,10 +227,7 @@
                             this.renderActiveFilter();
                         }
                     }
-                    if (valueToSelect == '') {
-                        this.activeFilter = false;
-                        this.renderActiveFilter();
-                    }
+
                 },
 
                 initNewFilter: function () {
@@ -248,7 +248,6 @@
                                     $('#jquery-delete-filter').removeClass('disabled');
                                     $('#jquery-applied-filters').show();
                                     $.getJSON('/searchfilter/activate/' + this.activeFilter.uuid, function (response) {
-                                        Notify.notify('actief filter geupdate')
                                     });
                                 }
                                 this.reloadData();
@@ -308,7 +307,10 @@
                         }.bind(this))
 
                         .on('click', '#jquery-reset-filter', function (e) {
-                            this.renderSelectFilterBox('');
+                            if (!$(e.target).hasClass('disabled')) {
+                                this.activeFilter = false;
+                                this.renderSelectFilterBox('');
+                            }
                         }.bind(this))
 
                         .on('click', '#jquery-delete-filter', function (e) {
@@ -430,9 +432,12 @@
                     if (e instanceof Event) {
                         e.stopPropagation();
                     }
+                    let hasActualFilter = false;
                     $('#jquery-filter-filters').html('');
                     if (this.activeFilter) {
+
                         $('#jquery-applied-filters').show();
+                        $('#jquery-delete-filter').removeClass('disabled');
                         for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
 
                             if (filterDetail.filter && filterDetail.name) {
@@ -441,6 +446,8 @@
                                 if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
                                 if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
+
+                                hasActualFilter = true;
 
                                 $('#jquery-filter-filters').append($(
                                     `<span class="mr2 inline-block">
@@ -453,6 +460,12 @@
                         }
                     } else {
                         $('#jquery-applied-filters').hide();
+                    }
+
+                    if (hasActualFilter) {
+                        $('#jquery-reset-filter').removeClass('disabled');
+                    } else {
+                        $('#jquery-reset-filter').addClass('disabled');
                     }
                 },
 
