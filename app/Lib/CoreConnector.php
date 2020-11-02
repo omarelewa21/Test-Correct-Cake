@@ -1,5 +1,12 @@
 <?php
 
+class CakeToLaravelException extends Exception {
+    //$message is now not optional, just for the extension.
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
 class CoreConnector {
 
     /**
@@ -239,12 +246,15 @@ class CoreConnector {
         if(($this->getLastCode() == 500 || $this->getLastCode() == 404) && Configure::read('bugsnag-key-cake') != null){
             $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
+            $bugsnag->setFilters(array_merge($bugsnag->getFilters(), ['api_key', 'session_hash', 
+            'main_address', 'main_city', 'main_country', 'main_postal', 'invoice_address', 'visit_address', 'visit_postal', 'visit_city', 'visit_country', 'name']));
+
             $bugsnag->setMetaData([
                 'response' => $response,
                 'headers' => $headers,
             ]);
 
-            $bugsnag->notifyException(new Exception("Cake => Laravel 500 error"));
+            $bugsnag->notifyException(new CakeToLaravelException("Cake => Laravel 500 error"));
         }
 // error handler introduced for 422 but we don't know if 422 is not resolved as !200 so I changed the status code on the laravel side.
         if($this->getLastCode() === 425) {
