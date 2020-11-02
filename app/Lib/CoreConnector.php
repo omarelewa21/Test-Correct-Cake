@@ -117,7 +117,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -159,7 +158,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -261,6 +259,13 @@ class CoreConnector {
             return $response;
         }
 
+        if($this->getLastCode() === 201) {
+            if($decode) {
+                return json_decode($response, true);
+            }
+            return $response;
+        }
+
         if($this->getLastCode() != 200){
             $this->lastResponse = $response;
             return false;
@@ -268,9 +273,9 @@ class CoreConnector {
 
         if($decode) {
             return json_decode($response, true);
-        }else{
-            return $response;
         }
+        return $response;
+
     }
 
     private function _getHandle($url, $method)
