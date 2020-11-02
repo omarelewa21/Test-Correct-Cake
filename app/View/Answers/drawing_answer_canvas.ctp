@@ -60,7 +60,7 @@
 <textarea id="additional_text" style="width: 1152px; margin-top: 10px; height: 50px; font-family: Arial; font-size: 14px; padding: 15px; background: #f1f1f1;" placeholder="Begeleidende tekst"></textarea>
 
 <script type="text/javascript">
-    window.question_id = <?=$question_id?>;
+    window.question_id = "<?=$question_id?>";
 </script>
 
 <!-- Vendors -->
