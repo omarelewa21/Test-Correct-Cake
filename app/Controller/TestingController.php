@@ -17,9 +17,8 @@ class TestingController extends AppController
 
     public function database($flag)
     {
-        $this->checkForValidToken();
         if($this->request->is('post')) {
-            if ($this->isAllowedFlag($flag)) {
+            if ($this->isAllowed($flag)) {
                 $result = $this->TestingService->handle($flag);
             }
 
@@ -38,9 +37,10 @@ class TestingController extends AppController
             die();
         }
     }
-
-    private function isAllowedFlag($flag)
+    private function isAllowed($flag)
     {
+        $this->checkForValidToken();
+
         return (in_array($flag, $this->allowedFlags()));
     }
 
