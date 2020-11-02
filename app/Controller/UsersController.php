@@ -22,7 +22,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful','registereduix');
+        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -91,7 +91,7 @@ class UsersController extends AppController
 
             if ($this->Auth->login()) {
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
-                if ($this->Session->check('TLCHeader')){// && $this->Session->read('TLCHeader') !== 'not secure...') {
+                if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
@@ -189,16 +189,18 @@ class UsersController extends AppController
 
     protected function getSessionHeaderData()
     {
-        $ar = ['TLCHeader','TLCOs','TLCVersion','TLCVersionCheckResult','headers'];
+        $ar = ['TLCHeader', 'TLCOs', 'TLCVersion', 'TLCVersionCheckResult', 'headers'];
         $allAvailable = true;
         $returnAr = [];
-        foreach($ar as $item){
-            if($this->Session->check($item)){
+        foreach ($ar as $item) {
+            if ($this->Session->check($item)) {
                 $returnAr[$item] = $this->Session->read($item);
-            } else {$allAvailable = false;}
+            } else {
+                $allAvailable = false;
+            }
         }
 
-        if($allAvailable === false){
+        if ($allAvailable === false) {
             return null;
         }
         return $returnAr;
@@ -206,8 +208,8 @@ class UsersController extends AppController
 
     protected function reinitFromSessionHeaderData($data)
     {
-        foreach($data as $key => $val){
-            $this->Session->write($key,$val);
+        foreach ($data as $key => $val) {
+            $this->Session->write($key, $val);
         }
     }
 
@@ -217,7 +219,7 @@ class UsersController extends AppController
         $this->Auth->logout();
         $tlcSessionHeaderData = $this->getSessionHeaderData();
         $this->Session->destroy();
-        if($tlcSessionHeaderData !== null && is_array($tlcSessionHeaderData)){
+        if ($tlcSessionHeaderData !== null && is_array($tlcSessionHeaderData)) {
             $this->Session->renew();
             $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
         }
@@ -288,13 +290,13 @@ class UsersController extends AppController
     {
 //            $this->ifNotAllowedExit(['Account manager'], true);
 
-            $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
+        $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
 
-            if(!$result) exit;
+        if (!$result) exit;
 
-            $this->response->body($result);
-            $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_'.date('YmdHi').'.xls');
-            return $this->response;
+        $this->response->body($result);
+        $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_' . date('YmdHi') . '.xls');
+        return $this->response;
     }
 
     public function welcome()
@@ -334,7 +336,7 @@ class UsersController extends AppController
         switch ($type) {
             case 'accountmanagers':
                 $params = [
-                    'title'     => 'Accountmanagers',
+                    'title' => 'Accountmanagers',
                     'add_title' => 'Nieuwe Accountmanager'
                 ];
                 $this->set('sales_organisations', $this->UsersService->getSalesOrganisations());
@@ -342,7 +344,7 @@ class UsersController extends AppController
 
             case 'managers':
                 $params = [
-                    'title'     => 'Schoolbeheerder',
+                    'title' => 'Schoolbeheerder',
                     'add_title' => 'Nieuwe Schoolbeheerder'
                 ];
                 break;
@@ -350,7 +352,7 @@ class UsersController extends AppController
             case 'students':
 
                 $params = [
-                    'title'     => 'Studenten',
+                    'title' => 'Studenten',
                     'add_title' => 'Nieuwe student'
                 ];
 
@@ -362,10 +364,10 @@ class UsersController extends AppController
 
             case 'teachers':
                 $params = [
-                    'title'     => 'Docenten',
+                    'title' => 'Docenten',
                     'add_title' => 'Nieuwe Docent'
                 ];
-                $school_locations = [0 => 'Alle' ];
+                $school_locations = [0 => 'Alle'];
                 $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
 
                 $this->set('school_location', $school_locations);
@@ -373,7 +375,7 @@ class UsersController extends AppController
 
             case 'management':
                 $params = [
-                    'title'     => 'Directieleden',
+                    'title' => 'Directieleden',
                     'add_title' => 'Nieuw Directielid'
                 ];
                 break;
@@ -466,14 +468,15 @@ class UsersController extends AppController
                 try {
                     $error = json_decode($result, true);
 
-                    if(isset($error['errors']['username'])) {
+                    if (isset($error['errors']['username'])) {
                         $response = "Dit e-mailadres is al in gebruik";
                     }
-                    if(isset($error['errors']['external_id'])) {
+                    if (isset($error['errors']['external_id'])) {
                         $response = "Studentennummer is al in gebruik";
                     }
 
-                } catch (\Throwable $th) {}
+                } catch (\Throwable $th) {
+                }
 
                 $this->formResponse(
                     false,
@@ -635,8 +638,8 @@ class UsersController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             $params = [
                 'school_location_id' => $this->request->data['User']['school_location_id'],
-                'username'           => $this->request->data['User']['email'],
-                'external_id'        => $this->request->data['User']['external_id']
+                'username' => $this->request->data['User']['email'],
+                'external_id' => $this->request->data['User']['external_id']
             ];
 
             $result = $this->UsersService->move($user_id, $params);
@@ -716,10 +719,9 @@ class UsersController extends AppController
         $this->set('role', $roles['0']['name']);
         $this->set('users', $users);
         $this->set('type', $type);
-        if (in_array($roles['0']['name'], ['Administrator']) && $type =='teachers'){
+        if (in_array($roles['0']['name'], ['Administrator']) && $type == 'teachers') {
             $this->render('load_teachers_for_school_location_switch', 'ajax');
-        }
-        else {
+        } else {
             $this->render('load_' . $type, 'ajax');
         }
     }
@@ -778,8 +780,8 @@ class UsersController extends AppController
                 'invited_by' => AuthComponent::user('id'),
             ];
 
-            foreach($this->request->data['User'] as $key => $ar){
-                foreach($ar as $i => $value) {
+            foreach ($this->request->data['User'] as $key => $ar) {
+                foreach ($ar as $i => $value) {
                     $data['data'][$i][$key] = $value;
                 }
             };
@@ -790,15 +792,14 @@ class UsersController extends AppController
 
             $result = $this->UsersService->addUserWithTellATeacher('teacher', $data);
 
-            if ($result === false){
-                 $this->formResponse(
-                     false,
-                     [
-                         'error' => implode(',',$this->UsersService->getErrors())
-                     ]
-                 );
-            }
-            else {
+            if ($result === false) {
+                $this->formResponse(
+                    false,
+                    [
+                        'error' => implode(',', $this->UsersService->getErrors())
+                    ]
+                );
+            } else {
                 if ($result === true) {
                     $this->formResponse(
                         true
@@ -959,7 +960,7 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
-        if($this->request->is('delete')) {
+        if ($this->request->is('delete')) {
             $this->autoRender = false;
 
             $this->formResponse(
@@ -984,6 +985,7 @@ class UsersController extends AppController
             if ($role['name'] == 'Account manager') {
                 $menus['lists'] = "Database";
                 $menus['files'] = "Bestanden";
+                $menus['qti'] = "QTI";
             }
 
             if ($role['name'] == 'School manager') {
@@ -1026,41 +1028,41 @@ class UsersController extends AppController
         $tiles = array();
 
         $tiles['kennisbank'] = [
-            'menu'  => 'knowledgebase',
-            'icon'  => 'testlist',
+            'menu' => 'knowledgebase',
+            'icon' => 'testlist',
             'title' => 'Bezoek de kennisbank',
-            'path'  => 'https://support.test-correct.nl',
-            'type'  => 'externalpopup',
+            'path' => 'https://support.test-correct.nl',
+            'type' => 'externalpopup',
         ];
 
         foreach ($roles as $role) {
             if ($role['name'] == 'Administrator') {
                 $tiles['users_accountmanagers'] = array(
-                    'menu'  => 'accountmanagers',
-                    'icon'  => 'testlist',
+                    'menu' => 'accountmanagers',
+                    'icon' => 'testlist',
                     'title' => 'Gebruikers',
-                    'path'  => '/users/index/accountmanagers'
+                    'path' => '/users/index/accountmanagers'
                 );
 
                 $tiles['umbrella_organisations'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Koepelorganisaties',
-                    'path'  => '/umbrella_organisations'
+                    'path' => '/umbrella_organisations'
                 );
 
                 $tiles['schools'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Scholengemeenschap',
-                    'path'  => '/schools'
+                    'path' => '/schools'
                 );
 
                 $tiles['school_locations'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Schoollocaties',
-                    'path'  => '/school_locations'
+                    'path' => '/school_locations'
                 );
                 $tiles['teachers'] = array(
                     'menu' => 'lists',
@@ -1069,97 +1071,97 @@ class UsersController extends AppController
                     'path' => '/users/index/teachers'
                 );
                 $tiles['students'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Studenten',
-                    'path'  => '/users/index/students'
+                    'path' => '/users/index/students'
                 );
 
                 $tiles['teacherstats'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Docent statistieken',
-                    'path'  => '/admin/teacher_stats'
-                );
-
-                $tiles['qtiimport'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => 'Qti Import',
-                    'path'  => '/qtiimport/index'
+                    'path' => '/admin/teacher_stats'
                 );
             }
 
             if ($role['name'] == 'Account manager') {
                 $tiles['users_administrators'] = array(
-                    'menu'  => 'users',
-                    'icon'  => 'testlist',
+                    'menu' => 'users',
+                    'icon' => 'testlist',
                     'title' => 'Schoolbeheerder',
-                    'path'  => '/users/index/managers'
+                    'path' => '/users/index/managers'
                 );
 
                 $tiles['umbrella_organisations'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Koepelorganisaties',
-                    'path'  => '/umbrella_organisations'
+                    'path' => '/umbrella_organisations'
+                );
+
+                $tiles['qtiimport'] = array(
+                    'menu' => 'qti',
+                    'icon' => 'testlist',
+                    'title' => 'Qti Import',
+                    'path' => '/qtiimport/index'
                 );
 
                 $tiles['qtiimport_cito'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => 'QTI Cito',
-                    'path'  => '/qtiimport_cito'
+                    'menu' => 'qti',
+                    'icon' => 'testlist',
+                    'title' => 'Cito',
+                    'path' => '/qtiimport_cito'
                 );
 
                 $tiles['qtiimport_batch_cito'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => 'QTI Batch Cito',
-                    'path'  => '/qtiimport_batch_cito'
+                    'menu' => 'qti',
+                    'icon' => 'testlist',
+                    'title' => 'Batch Cito',
+                    'path' => '/qtiimport_batch_cito'
                 );
 
                 $tiles['attainments_import'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Attainments Import',
-                    'path'  => '/attainments'
+                    'path' => '/attainments'
                 );
 
                 $tiles['attainmentscito_import'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Attainments CITO koppeling',
-                    'path'  => '/attainments_cito'
+                    'path' => '/attainments_cito'
                 );
 
 
                 $tiles['schools'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Scholengemeenschap',
-                    'path'  => '/schools'
+                    'path' => '/schools'
                 );
 
                 $tiles['school_locations'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Schoollocaties',
-                    'path'  => '/school_locations'
+                    'path' => '/school_locations'
                 );
 
                 $tiles['class_uploads'] = array(
-                    'menu'  => 'files',
-                    'icon'  => 'testlist',
+                    'menu' => 'files',
+                    'icon' => 'testlist',
                     'title' => 'Klassen bestanden',
-                    'path'  => '/file_management/classuploads'
+                    'path' => '/file_management/classuploads'
                 );
 
                 $tiles['test_uploads'] = array(
-                    'menu'  => 'files',
-                    'icon'  => 'testlist',
+                    'menu' => 'files',
+                    'icon' => 'testlist',
                     'title' => 'Toetsbestanden',
-                    'path'  => '/file_management/testuploads'
+                    'path' => '/file_management/testuploads'
                 );
 
                 $tiles['onboarding_wizard_report'] = array(
@@ -1173,71 +1175,71 @@ class UsersController extends AppController
 
             if ($role['name'] == 'School manager') {
                 $tiles['users_teachers'] = array(
-                    'menu'  => 'users',
-                    'icon'  => 'testlist',
+                    'menu' => 'users',
+                    'icon' => 'testlist',
                     'title' => 'Docenten',
-                    'path'  => '/users/index/teachers'
+                    'path' => '/users/index/teachers'
                 );
 
                 $tiles['users_management'] = array(
-                    'menu'  => 'users',
-                    'icon'  => 'testlist',
+                    'menu' => 'users',
+                    'icon' => 'testlist',
                     'title' => 'Directieleden',
-                    'path'  => '/users/index/management'
+                    'path' => '/users/index/management'
                 );
 
                 $tiles['school_years'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Schooljaren',
-                    'path'  => '/school_years'
+                    'path' => '/school_years'
                 );
 
                 $tiles['sections'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Secties',
-                    'path'  => '/sections'
+                    'path' => '/sections'
                 );
 
                 $tiles['school_class'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
+                    'menu' => 'lists',
+                    'icon' => 'testlist',
                     'title' => 'Klassen',
-                    'path'  => '/school_classes'
+                    'path' => '/school_classes'
                 );
 
                 $tiles['students'] = array(
-                    'menu'  => 'users',
-                    'icon'  => 'testlist',
+                    'menu' => 'users',
+                    'icon' => 'testlist',
                     'title' => 'Studenten',
-                    'path'  => '/users/index/students'
+                    'path' => '/users/index/students'
                 );
 
                 $tiles['classes_analyses'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-klassen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-klassen',
                     'title' => 'Klassen',
-                    'path'  => '/analyses/school_classes_overview'
+                    'path' => '/analyses/school_classes_overview'
                 );
 
                 $tiles['student_analyses'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leerlingen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leerlingen',
                     'title' => 'Studenten',
-                    'path'  => '/analyses/students_overview'
+                    'path' => '/analyses/students_overview'
                 );
             }
 
             if ($role['name'] == 'Teacher') {
                 $tiles['tests_overview'] = array(
-                    'menu'  => 'library',
-                    'icon'  => 'testlist',
+                    'menu' => 'library',
+                    'icon' => 'testlist',
                     'title' => 'Toetsen',
-                    'path'  => '/tests/index'
+                    'path' => '/tests/index'
                 );
 
-                if(AuthComponent::user('hasCitoToetsen')) {
+                if (AuthComponent::user('hasCitoToetsen')) {
                     $tiles['tests_cito_overview'] = array(
                         'menu' => 'library',
                         'icon' => 'testlist',
@@ -1247,31 +1249,31 @@ class UsersController extends AppController
                 }
 
                 $tiles['questions_overview'] = array(
-                    'menu'  => 'library',
-                    'icon'  => 'questionlist',
+                    'menu' => 'library',
+                    'icon' => 'questionlist',
                     'title' => 'Vragen',
-                    'path'  => '/questions/index'
+                    'path' => '/questions/index'
                 );
 
                 $tiles['tests_planned'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'gepland',
+                    'menu' => 'tests',
+                    'icon' => 'gepland',
                     'title' => 'Geplande toetsen',
-                    'path'  => '/test_takes/planned_teacher'
+                    'path' => '/test_takes/planned_teacher'
                 );
 
                 $tiles['tests_surveillance'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'surveilleren',
+                    'menu' => 'tests',
+                    'icon' => 'surveilleren',
                     'title' => 'Surveilleren',
-                    'path'  => '/test_takes/surveillance'
+                    'path' => '/test_takes/surveillance'
                 );
 
                 $tiles['tests_taken'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'afgenomen',
+                    'menu' => 'tests',
+                    'icon' => 'afgenomen',
                     'title' => 'Afgenomen',
-                    'path'  => '/test_takes/taken_teacher'
+                    'path' => '/test_takes/taken_teacher'
                 );
 
 //                $tiles['tests_discussed'] = array(
@@ -1282,58 +1284,58 @@ class UsersController extends AppController
 //                );
 
                 $tiles['tests_examine'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'nakijken',
+                    'menu' => 'tests',
+                    'icon' => 'nakijken',
                     'title' => 'Nakijken',
-                    'path'  => '/test_takes/to_rate'
+                    'path' => '/test_takes/to_rate'
                 );
 
                 $tiles['tests_graded'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'becijferd',
+                    'menu' => 'tests',
+                    'icon' => 'becijferd',
                     'title' => 'Becijferd',
-                    'path'  => '/test_takes/rated'
+                    'path' => '/test_takes/rated'
                 );
 
                 $tiles['analyse'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leraar',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leraar',
                     'title' => 'Uw analyse',
-                    'path'  => '/analyses/teacher/' . AuthComponent::user('uuid')
+                    'path' => '/analyses/teacher/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leerlingen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leerlingen',
                     'title' => 'Studenten',
-                    'path'  => '/analyses/students_overview'
+                    'path' => '/analyses/students_overview'
                 );
 
                 $tiles['analyse_classes'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-klassen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-klassen',
                     'title' => 'Klassen',
-                    'path'  => '/analyses/school_classes_overview'
+                    'path' => '/analyses/school_classes_overview'
                 );
 
                 $tiles['messages'] = array(
-                    'menu'  => 'other',
-                    'icon'  => 'messages',
+                    'menu' => 'other',
+                    'icon' => 'messages',
                     'title' => 'Berichten',
-                    'path'  => '/messages'
+                    'path' => '/messages'
                 );
 
                 $tiles['teacher_classes'] = [
-                    'menu'  => 'other',
-                    'icon'  => 'testlist',
+                    'menu' => 'other',
+                    'icon' => 'testlist',
                     'title' => 'Mijn klassen',
-                    'path'  => '/teacher_classes'
+                    'path' => '/teacher_classes'
                 ];
                 $tiles['teacher_test_uploads'] = [
-                    'menu'  => 'other',
-                    'icon'  => 'testlist',
+                    'menu' => 'other',
+                    'icon' => 'testlist',
                     'title' => 'Aangeboden toetsen',
-                    'path'  => '/file_management/testuploads'
+                    'path' => '/file_management/testuploads'
                 ];
 
                 $tiles['tell_a_teacher'] = array(
@@ -1342,79 +1344,79 @@ class UsersController extends AppController
                     'title' => 'Stuur een uitnodiging',
                     'path' => '/users/tell_a_teacher',
                     'type' => 'popup',
-                    'width'=> 650
+                    'width' => 650
                 );
             }
 
             if ($role['name'] == 'Student') {
                 $tiles['tests_planned'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'gepland',
+                    'menu' => 'tests',
+                    'icon' => 'gepland',
                     'title' => 'Geplande toetsen',
-                    'path'  => '/test_takes/planned_student'
+                    'path' => '/test_takes/planned_student'
                 );
                 $tiles['tests_discussed'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'bespreken',
+                    'menu' => 'tests',
+                    'icon' => 'bespreken',
                     'title' => 'Te bespreken',
-                    'path'  => '/test_takes/taken_student'
+                    'path' => '/test_takes/taken_student'
                 );
 
                 $tiles['tests_glance'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'inzien',
+                    'menu' => 'tests',
+                    'icon' => 'inzien',
                     'title' => 'Inzien',
-                    'path'  => '/test_takes/discussed_glance'
+                    'path' => '/test_takes/discussed_glance'
                 );
 
                 $tiles['tests_rated'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'becijferd',
+                    'menu' => 'tests',
+                    'icon' => 'becijferd',
                     'title' => 'Becijferd',
-                    'path'  => '/test_takes/rated_student'
+                    'path' => '/test_takes/rated_student'
                 );
 
                 $tiles['analyses_student'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leerling',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leerling',
                     'title' => 'Jouw analyse',
-                    'path'  => '/analyses/student/' . AuthComponent::user('uuid')
+                    'path' => '/analyses/student/' . AuthComponent::user('uuid')
                 );
 
                 $tiles['messages'] = array(
-                    'menu'  => 'messages',
-                    'icon'  => 'messages',
+                    'menu' => 'messages',
+                    'icon' => 'messages',
                     'title' => 'Berichten',
-                    'path'  => '/messages'
+                    'path' => '/messages'
                 );
             }
 
             if ($role['name'] == 'School management') {
                 $tiles['classes_analyses'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-klassen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-klassen',
                     'title' => 'Klassen',
-                    'path'  => '/analyses/school_classes_overview'
+                    'path' => '/analyses/school_classes_overview'
                 );
 
                 $tiles['teachers'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leraar',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leraar',
                     'title' => 'Docenten',
-                    'path'  => '/analyses/teachers_overview'
+                    'path' => '/analyses/teachers_overview'
                 );
                 $tiles['students'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leerlingen',
+                    'menu' => 'analyses',
+                    'icon' => 'analyse-leerlingen',
                     'title' => 'Studenten',
-                    'path'  => '/analyses/students_overview'
+                    'path' => '/analyses/students_overview'
                 );
 
                 $tiles['messages'] = array(
-                    'menu'  => 'messages',
-                    'icon'  => 'messages',
+                    'menu' => 'messages',
+                    'icon' => 'messages',
                     'title' => 'Berichten',
-                    'path'  => '/messages'
+                    'path' => '/messages'
                 );
             }
         }
