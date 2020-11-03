@@ -10,6 +10,11 @@
 <div class="popup-content">
     <?= $this->Form->create('User') ?>
     <table width="100%" class="table table-striped form">
+        <tr id="SeleniumWarning" style="background-color:yellow;display:none;">
+            <th>
+                Selenium Test is actief
+            </th>
+        </tr>
         <tr>
             <th width="120">E-mail</th>
             <td>
@@ -86,7 +91,7 @@
 
         $(".appType").val(Core.appType);
 
-    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+    <?php if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
         $('#UserPassword, #UserEmail').on('keydown',function(e){
             if(e.keyCode == 13){
                 $('.btnLoginTest').trigger('click');
@@ -95,7 +100,18 @@
         $(".btnLoginTest").on('click',function(){
             Core.inApp = true;
         });
-    <? } ?>
+
+        $.getJSON('/testing/selenium_state',
+            function (state) {
+                if (state.status == 1) {
+                    $('#SeleniumWarning').show();
+                    Notify.notify("Selenium test is actief", 'error')
+                }
+            }
+        );
+
+    <?php } ?>
+
     });
 
     var messageHandler = function(event) {
