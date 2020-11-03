@@ -10,86 +10,78 @@
     <div class='popup' id='popup_search' style="display:none">
         <div class="popup-head">Zoeken</div>
         <div class="popup-content">
-            <?= $this->Form->create('Test') ?>
-            <table id="testsFilter" class="table">
-                <tbody>
-                <tr>
-                    <td>Toets</td>
-                    <td>
-                        <div class="input text"><?= $this->Form->input('name', array('label' => false)) ?></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Type</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Vak</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Peritdode</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Niveau</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?></div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Niveau jaar</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?></div>
-                    </td>
-                </tr>
+            <div id="testsFilter">
+                <?= $this->Form->create('Test') ?>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Toets</label>
+                        <?= $this->Form->input('name', array('label' => false)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Type</label>
+                      <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5"><label for="">Vak</label>
+                      <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="Periode">Periode</label>
+                       <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Niveau</label>
+                        <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="">Niveau jaar</label>
+                        <?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Aangemaakt van</label>
+                        <?= $this->Form->input('created_at_start', array('label' => false)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="">Aangemaakt van</label>
+                        <?= $this->Form->input('created_at_end', array('label' => false)) ?>
+                    </div>
+                </div>
 
                 <?php if (true): ?>
-                    <td>Bron</td>
-                    <td>
-                        <div class="input text">
-                            <?= $this->Form->input('is_open_sourced_content', array(
-                                'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
-                            )) ?>
-                        </div>
-                    </td>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Bron</label>
+                        <?= $this->Form->input('is_open_sourced_content', array(
+                            'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
+                        )) ?>
+
+                    </div>
+                    <div class="col-md-5"> &nbsp;</div>
+                </div>
                 <?php endif; ?>
 
-                <tr>
-                    <td>Aangemaakt van</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('created_at_start', array('label' => false)) ?></div>
-                    </td>
-                </tr>
 
-                <tr>
-                    <td>Aangemaakt tot</td>
-                    <td>
-                        <div
-                            class="input text"><?= $this->Form->input('created_at_end', array('label' => false)) ?></div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <?= $this->Form->end(); ?>
+
+                <?= $this->Form->end(); ?>
+            </div>
         </div>
         <div class="popup-footer">
 
+            <a href="#" style="float:right"
+               id="jquery-save-filter-from-modal"
+               class="btn grey pull-right mr5 mt5 inline-block">Opslaan</a>
+
+
             <a href="#" onclick="Popup.closeSearch()" style="float:right"
-               class="btn grey pull-right mr5 mt5">Sluiten</a>
-            <br clear="all"/>
+               class="btn grey pull-right mr5 mt5 inline-block">Okay</a>
+
         </div>
 
     </div>
@@ -99,7 +91,7 @@
 <h1>Toetsen</h1>
 <div class="block">
     <div class="block-content">
-        <div class="block-head">Zoeken/Filteren</div>
+        <div class="block-head">Filteren</div>
         <table id="filterTable" class="table ">
             <tbody>
             <tr>
@@ -124,7 +116,7 @@
                     <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
                         <span class="fa mr5"></span>Filter aanpassen
                     </a>
-                    <a href="#" class="btn inline-block grey mr2" id="jquery-save-filter">Opslaan</a>
+                    <a href="#" class="btn inline-block grey mr2 disabled" id="jquery-save-filter">Opslaan</a>
                     <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
                 </td>
             </tr>
@@ -184,7 +176,7 @@
 
                 init: function () {
                     this.el = '#jquery-saved-filters';
-                    $.getJSON('/searchfilter/get/item_bank', function (response) {
+                    $.getJSON('/search_filter/get/item_bank', function (response) {
                         this.filters = response.data;
                         this.initializeSavedFilterSelect();
                         this.registerEvents();
@@ -214,6 +206,9 @@
                     }.bind(this));
                     if (valueToSelect) {
                         $(this.el).val(valueToSelect);
+                    } else if (valueToSelect == '') {
+                        this.activeFilter = false;
+                        this.renderActiveFilter();
                     } else {
                         let activeItem = this.filters.find(function (item) {
                             return item.active == 1;
@@ -224,10 +219,7 @@
                             this.renderActiveFilter();
                         }
                     }
-                    if (valueToSelect == '') {
-                        this.activeFilter = false;
-                        this.renderActiveFilter();
-                    }
+
                 },
 
                 initNewFilter: function () {
@@ -247,8 +239,7 @@
                                     this.setActiveFilter(value);
                                     $('#jquery-delete-filter').removeClass('disabled');
                                     $('#jquery-applied-filters').show();
-                                    $.getJSON('/searchfilter/activate/' + this.activeFilter.uuid, function (response) {
-                                        Notify.notify('actief filter geupdate')
+                                    $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
                                     });
                                 }
                                 this.reloadData();
@@ -266,6 +257,7 @@
                             }
                             input.val(newValue).trigger('change');
                             this.activeFilter.filters[prop] = {name: '', filter: '', label: ''};
+                            this.activeFilter.changed = true;
                             this.renderActiveFilter();
                         }.bind(this))
 
@@ -287,33 +279,24 @@
                         }.bind(this))
 
                         .on('click', '#jquery-save-filter', function (e) {
-                            const isNewFilter = (this.activeFilter !== this.editFilter);
-                            prompt(
-                                'Wat is de naam van dit filter?',
-                                isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
-                                function (filterName) {
-                                    if (filterName === null) {
-                                        return;
-                                    }
-                                    if (filterName === "") {
-                                        Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
-                                    } else {
-                                        if (isNewFilter) {
-                                            this.saveNewFilter(filterName);
-                                        } else {
-                                            this.saveActiveFilter(filterName);
-                                        }
-                                    }
-                                }.bind(this));
+                            this.saveFilter(e);
                         }.bind(this))
 
                         .on('click', '#jquery-reset-filter', function (e) {
-                            this.renderSelectFilterBox('');
+                            if (!$(e.target).hasClass('disabled')) {
+                                this.activeFilter = false;
+                                this.renderSelectFilterBox('');
+                            }
                         }.bind(this))
 
                         .on('click', '#jquery-delete-filter', function (e) {
                             this.deleteFilter();
                         }.bind(this))
+                        .on('click', '#jquery-save-filter-from-modal', function (e) {
+                            Popup.closeSearch();
+                            this.saveFilter(e);
+                        }.bind(this))
+
                 },
 
                 resetSearchForm: function () {
@@ -328,11 +311,36 @@
                     }.bind(this));
                 },
 
+                saveFilter: function (e) {
+                    if (!$(e.target).hasClass('disabled')) {
+                        const isNewFilter = (this.activeFilter !== this.editFilter);
+                        Popup.prompt({
+                                text: 'Wat is de naam van dit filter?',
+                                title: 'Opslaan',
+                                inputValue: isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
+                            },
+                            function (filterName) {
+                                if (filterName === null) {
+                                    return;
+                                }
+                                if (filterName === "") {
+                                    Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
+                                } else {
+                                    if (isNewFilter) {
+                                        this.saveNewFilter(filterName);
+                                    } else {
+                                        this.saveActiveFilter(filterName);
+                                    }
+                                }
+                            }.bind(this));
+                    }
+                },
+
                 saveNewFilter: function (newFilterName) {
                     Notify.notify('Filter opgeslagen');
 
                     $.ajax({
-                        url: '/searchfilter/add',
+                        url: '/search_filter/add',
                         data: {
                             data: {
                                 search_filter: {
@@ -349,6 +357,8 @@
                             this.filters.push(response.data);
                             this.renderSelectFilterBox(response.data.id);
                             this.initNewFilter()
+                            this.activeFilter.changed = false;
+                            $('#jquery-save-filter').addClass('disabled');
                         },
                     });
                 },
@@ -356,7 +366,7 @@
                 saveActiveFilter: function (newFilterName) {
                     this.editFilter.name = newFilterName;
                     $.ajax({
-                        url: '/searchfilter/edit/' + this.editFilter.uuid,
+                        url: '/search_filter/edit/' + this.editFilter.uuid,
                         type: 'PUT',
                         dataType: 'json',
                         data: {
@@ -367,6 +377,8 @@
                             Notify.notify('Filter opgeslagen');
                             this.renderSelectFilterBox(this.editFilter.id);
                             this.setActiveFilter(this.editFilter.id);
+                            this.activeFilter.changed = false;
+                            $('#jquery-save-filter').addClass('disabled');
                         },
                     });
                 },
@@ -376,10 +388,13 @@
                         Notify.notify('Selecteer het filter dat u wilt verwijderen.', 'error')
                         return;
                     }
-                    confirm('Weet je zeker dat je dit filter wilt verwijderen?', function (confirmValue) {
+                    Popup.confirm({
+                        title: '',
+                        text: 'Weet je zeker dat je dit filter wilt verwijderen?'
+                    }, function (confirmValue) {
                         if (confirmValue) {
                             $.ajax({
-                                url: '/searchfilter/delete/' + this.activeFilter.uuid,
+                                url: '/search_filter/delete/' + this.activeFilter.uuid,
                                 type: 'DELETE',
                                 context: this,
                                 success: function (response) {
@@ -430,9 +445,12 @@
                     if (e instanceof Event) {
                         e.stopPropagation();
                     }
+                    let hasActualFilter = false;
                     $('#jquery-filter-filters').html('');
                     if (this.activeFilter) {
+
                         $('#jquery-applied-filters').show();
+                        $('#jquery-delete-filter').removeClass('disabled');
                         for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
 
                             if (filterDetail.filter && filterDetail.name) {
@@ -441,6 +459,8 @@
                                 if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
                                 if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
+
+                                hasActualFilter = true;
 
                                 $('#jquery-filter-filters').append($(
                                     `<span class="mr2 inline-block">
@@ -451,8 +471,18 @@
                                 );
                             }
                         }
+
                     } else {
                         $('#jquery-applied-filters').hide();
+                    }
+
+                    if (hasActualFilter) {
+                        $('#jquery-reset-filter').removeClass('disabled');
+                    } else {
+                        $('#jquery-reset-filter').addClass('disabled');
+                    }
+                    if (this.activeFilter.hasOwnProperty('changed') && this.activeFilter.changed) {
+                        $('#jquery-save-filter').removeClass('disabled');
                     }
                 },
 
@@ -476,6 +506,7 @@
                     }
                     this.newFilter[item.field] = filter;
                     this.editFilter.filters[item.field] = filter;
+                    this.editFilter.changed = true;
                     this.renderActiveFilter();
                 },
 
