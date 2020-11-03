@@ -287,9 +287,11 @@
 
                         .on('click', '#jquery-save-filter', function (e) {
                             const isNewFilter = (this.activeFilter !== this.editFilter);
-                            prompt(
-                                'Wat is de naam van dit filter?',
-                                isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
+                            Popup.prompt({
+                                text:'Wat is de naam van dit filter?',
+                                title:'Opslaan',
+                                inputValue: isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
+                            },
                                 function (filterName) {
                                     if (filterName === null) {
                                         return;
@@ -378,7 +380,7 @@
                         Notify.notify('Selecteer het filter dat u wilt verwijderen.', 'error')
                         return;
                     }
-                    confirm('Weet je zeker dat je dit filter wilt verwijderen?', function (confirmValue) {
+                    Popup.confirm({title:'', text:'Weet je zeker dat je dit filter wilt verwijderen?'}, function (confirmValue) {
                         if (confirmValue) {
                             $.ajax({
                                 url: '/searchfilter/delete/' + this.activeFilter.uuid,

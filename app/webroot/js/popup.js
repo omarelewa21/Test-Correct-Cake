@@ -313,48 +313,48 @@ var Popup = {
         );
     }
 };
-// overload of window.prompt to always show a descently formatted prompt box.
-function prompt(message, value, callback)
-{
-    var options =
-        {
-            title: "title",
-            text: message,
-            type: "input",
-            showCancelButton: true,
-            inputValue: value
-        }
-
-    if(typeof(message) === "object")
-    {
-        options = message;
-    }
-
-    return Popup.prompt(options, function(inputValue) {
-        return callback ? callback(inputValue) : inputValue
-    });
-}
-
-function confirm(message, callback)
-{
-    callback = callback || function(){}
-    var options =
-        {
-            title: "Weet je t zeker?",
-            text: message,
-            type: "warning",
-            showCancelButton: true
-        }
-
-    if(typeof(message) === "object")
-    {
-        options = message
-    }
-
-    Popup.confirm(options, function(isConfirm)
-    {
-        return callback(isConfirm)
-    });
-}
+// // overload of window.prompt to always show a descently formatted prompt box.
+// function prompt(message, value, callback)
+// {
+//     var options =
+//         {
+//             title: "title",
+//             text: message,
+//             type: "input",
+//             showCancelButton: true,
+//             inputValue: value
+//         }
+//
+//     if(typeof(message) === "object")
+//     {
+//         options = message;
+//     }
+//
+//     return Popup.prompt(options, function(inputValue) {
+//         return callback ? callback(inputValue) : inputValue
+//     });
+// }
+//
+// function confirm(message, callback)
+// {
+//     callback = callback || function(){}
+//     var options =
+//         {
+//             title: "Weet je t zeker?",
+//             text: message,
+//             type: "warning",
+//             showCancelButton: true
+//         }
+//
+//     if(typeof(message) === "object")
+//     {
+//         options = message
+//     }
+//
+//     Popup.confirm(options, function(isConfirm)
+//     {
+//         return callback(isConfirm)
+//     });
+// }
 
 
