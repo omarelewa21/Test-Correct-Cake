@@ -235,6 +235,17 @@ class CoreConnector {
         if($this->getLastCode() == 440 || ($this->getLastCode() == 500 && $response == 'Session expired.')) {
             die('logout');
         }
+
+        if(($this->getLastResponse() == 500 || $this->getLastResponse() == 404) && Configure::read('bugsnag-key-cake') != null){
+            $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+
+            $bugsnag->setMetaData([
+                'response' => $response,
+                'headers' => $headers,
+            ]);
+
+            $bugsnag->notifyException(new Exception("Cake => Laravel 500 error"));
+        }
 // error handler introduced for 422 but we don't know if 422 is not resolved as !200 so I changed the status code on the laravel side.
         if($this->getLastCode() === 425) {
             return $response;

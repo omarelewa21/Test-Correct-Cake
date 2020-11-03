@@ -17,7 +17,7 @@
                     ?>
                     <tr>
                         <td width="20">
-                            <?=$this->Form->input($student['id'], array('type' => 'checkbox', 'value' => 1, 'label' => false, 'class' => 'class_student'))?>
+                            <?=$this->Form->input(getUUID($student, 'get'), array('type' => 'checkbox', 'value' => 1, 'label' => false, 'class' => 'class_student'))?>
                         </td>
                         <td colspan="2"><?=$student['name_first']?>
                             <?=$student['name_suffix']?>
@@ -37,7 +37,7 @@
         Annuleer
     </a>
 
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="TestTake.addSelectedStudents(<?=$class_id?>);"">
+    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="TestTake.addSelectedStudents('<?=$class_id?>');"">
         <span class="fa fa-check"></span>
         Geselecteerde toevoegen
     </a>

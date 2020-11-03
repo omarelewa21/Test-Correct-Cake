@@ -17,7 +17,7 @@ foreach($students as $student) {
             <?=$student['username']?>
         </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/change_password_for_user/<?=$student['id']?>/<?=$class_id?>', 400);">
+            <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/change_password_for_user/<?=getUUID($student, 'get');?>/<?=$class_id?>', 400);">
                 <span class="fa fa-key"></span>
             </a>
         </td>

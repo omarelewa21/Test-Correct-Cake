@@ -19,9 +19,9 @@ $citoClass = 'cito';
 <? if(!$hideExtra) { ?>
     <?=$this->Form->create('Answer')?>
     <? if($question['subtype'] == 'short') { ?>
-        <?=$this->Form->input('answer'.$question['id'], ['type' => 'text', 'style' => 'width:97%; margin-top:20px;', 'maxlength' => 140, 'label' => false])?>
+        <?=$this->Form->input('answer'.getUUID($question, 'get'), ['type' => 'text', 'style' => 'width:97%; margin-top:20px;', 'maxlength' => 140, 'label' => false])?>
     <? }else{ ?>
-        <?=$this->Form->input('answer'.$question['id'], ['type' => 'textarea', 'style' => 'width:99%; height:70px; margin-top:20px;', 'label' => false])?>
+        <?=$this->Form->input('answer'.getUUID($question, 'get'), ['type' => 'textarea', 'style' => 'width:99%; height:70px; margin-top:20px;', 'label' => false])?>
     <? } ?>
     <?=$this->Form->end();?>
 <? } ?>
@@ -29,7 +29,7 @@ $citoClass = 'cito';
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>

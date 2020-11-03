@@ -3,10 +3,18 @@
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
+    <? if ($test['has_duplicates']) { ?>
+
+    <a href="#" class="btn grey mr2" >
+        <span class="fa fa-calendar mr5"></span>
+        Inplannen
+    </a>
+    <? } else { ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);">
         <span class="fa fa-calendar mr5"></span>
         Inplannen
     </a>
+    <? } ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
         <span class="fa fa-search mr5"></span>
         Voorbeeld
@@ -16,7 +24,7 @@
         PDF
     </a>
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
-        <a href="#" class="btn white mr2" onclick="Test.delete(<?=$test_id?>, true);">
+        <a href="#" class="btn white mr2" onclick="Test.delete('<?=$test_id?>', true);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
@@ -78,6 +86,17 @@
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
+            <? if ($test['has_duplicates']) { ?>
+            <tr>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                <td class="danger" colspan="6">
+                    <? } else { ?>
+                <td class="danger" colspan="5">
+                    <? } ?>
+                    E&eacute;n of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.
+                </td>
+            </tr>
+            <? } ?>
             <tr>
                 <th>#</th>
                 <th>Vraag</th>
@@ -112,7 +131,7 @@
                         $type = 'question';
                     }
                     ?>
-                    <tr id="<?=$type."_".$question['id']?>">
+                    <tr id="<?=$type."_".getUUID($question, 'get')?>">
                         <td><?=$i?></td>
                         <td>
                             <?
@@ -283,35 +302,35 @@
                         <? if($test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test))) { ?>
                             <td class="nopadding">
 
-                                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=$question['id']?>" onclick="return false;">
+                                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>" onclick="return false;">
                                     <span class="fa fa-list-ul"></span>
                                 </a>
                                 <? if($question['question']['type'] == 'GroupQuestion') { ?>
-                                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=$question['id']?>');">
+                                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get');?>');">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
 
-                                    <div class="dropblock blur-close" for="question_<?=$question['id']?>">
-                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=$question['id']?>');">
+                                    <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
+                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get');?>');">
                                             <span class="fa fa-edit mr5"></span>
                                             Wijzigen
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', <?=$test_id?>, <?=$question['id']?>);">
+                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>',<?=getUUID($question, 'getQuoted');?>);">
                                             <span class="fa fa-trash mr5"></span>
                                             Verwijderen
                                         </a>
                                     </div>
                                 <? }else{ ?>
-                                    <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
+                                    <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
 
-                                    <div class="dropblock blur-close" for="question_<?=$question['id']?>">
-                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=$question['id']?>', 800);">
+                                    <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
+                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
                                             <span class="fa fa-edit mr5"></span>
                                             Wijzigen
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', <?=$test_id?>, <?=$question['id']?>);">
+                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>',<?=getUUID($question, 'getQuoted');?>);">
                                             <span class="fa fa-trash mr5"></span>
                                             Verwijderen
                                         </a>
@@ -349,7 +368,7 @@
         $("#tableQuestions tbody").sortable({
             delay: 150,
             stop: function( event, ui ) {
-                Questions.updateIndex(ui.item[0].id, <?=$test_id?>);
+                Questions.updateIndex(ui.item[0].id, '<?=$test_id?>');
             }
         }).disableSelection();
         <?php } ?>

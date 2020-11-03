@@ -5,13 +5,13 @@
     </a>
     <? if($take['test_take_status_id'] == 1) { ?>
         <? if(date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) {?>
-            <a href="#" class="btn white mr2" onclick="TestTake.startTake(<?=$take_id?>);">
+            <a href="#" class="btn white mr2" onclick="TestTake.startTake('<?=$take_id?>');">
                 <span class="fa fa-pencil mr5"></span>
                 Toets afnemen
             </a>
         <? } ?>
 
-        <a class="btn white mr2" href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$take['test_id']?>', 1000)">
+        <a class="btn white mr2" href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($take['test'], 'get')?>', 1000)">
             <span class="fa fa-print mr5"></span>
             PDF
         </a>
@@ -128,6 +128,6 @@
 
 <script type="text/javascript">
     clearTimeout(window.loadParticipants);
-    TestTake.loadParticipants(<?=$take_id?>);
+    TestTake.loadParticipants('<?=$take_id?>');
     User.surpressInactive = true;
 </script>

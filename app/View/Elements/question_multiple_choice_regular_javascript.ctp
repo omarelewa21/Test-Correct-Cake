@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    $('input_.<?=$question['id']?>').click(function() {
+    $('input_.<?=getUUID($question, 'get')?>').click(function() {
         Answer.answerChanged = true;
     });
 

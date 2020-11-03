@@ -91,6 +91,8 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
+
+
     protected function handleHeaderCheck($headers)
     {
         $osConversion = [

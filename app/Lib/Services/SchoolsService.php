@@ -30,8 +30,13 @@ class SchoolsService extends BaseService
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
+        $data = [];
 
-        return $response;
+        foreach ($response as $key => $value) {
+            $data[getUUID($value, 'get')] = $value['name'];
+        }
+
+        return $data;
     }
 
     public function addSchool($data) {

@@ -15,7 +15,7 @@
             echo $this->element('question_matrix_radio_sub_question',[
                 'question' => $question,
                 'subQuestion' => $subQuestion,
-                'default' => isset($answerSubQuestionReference[$subQuestion['id']]) ? $answerSubQuestionReference[$subQuestion['id']] : -1,
+                'default' => isset($answerSubQuestionReference[getUUID($subQuestion, 'get')]) ? $answerSubQuestionReference[getUUID($subQuestion, 'get')] : -1,
                 'rating' => isset($rating) ? $rating : false
                 ]);
         }

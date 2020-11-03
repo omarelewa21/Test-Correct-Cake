@@ -100,7 +100,7 @@
                 } else {
                     Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
                 }
-                
+
             }
         }
     );

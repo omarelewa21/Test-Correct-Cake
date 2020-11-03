@@ -124,7 +124,8 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden gewijzigd", "error");
+
+                Notify.notify(result, "error");
             }
         }
     );

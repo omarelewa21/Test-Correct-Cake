@@ -26,13 +26,14 @@
         $length = 10;
         $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
     }
-    echo $this->Form->input('Question.'.$question['id'].$random, [
+
+    echo $this->Form->input('Question.'.getUUID($question, 'get').$random, [
     'type' => 'radio',
     'legend'=> false,
     'label' => false,
     'disabled' => $rating,
     'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-    'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.$question['id'],
+    'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.getUUID($question, 'get'),
     'default'=> $default,
     'before' => $label,
     'separator' => '</div>'.$label,

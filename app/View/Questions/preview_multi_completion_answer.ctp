@@ -37,7 +37,6 @@
 //        $question_text = str_replace('['.$tag_id.']', '<span style="color:green;">'.$answer.'</span>', $question_text);
 //    }
 
-
     $citoClass = '';
     if(AppHelper::isCitoQuestion($question)){
         $citoClass = 'cito';

@@ -15,7 +15,7 @@
             </div>
         </div>
         <center>
-            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest(<?=$take['id']?>);">
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
                 Toets starten
             </a>
         </center>

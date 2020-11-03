@@ -140,7 +140,7 @@
                     teacherSelect.find('option').remove();
                     jQuery.each(teachers1, function (key, t) {
                         if(t.school_location_id == schoolLocationId){
-                            teacherSelect.append('<option value="'+t.id+'">'+t.name+'</option>');
+                            teacherSelect.append('<option value="'+t.uuid+'">'+t.name+'</option>');
                         }
                     });
                 })
@@ -150,6 +150,7 @@
                         var teacherSubjects = teachers[authorId]['subject_ids'];
                         subjectSelect.find('option').remove();
                         jQuery.each(subjects, function (key, s) {
+                            console.log(s)
                             if (teacherSubjects.includes(s.id)) {
                                 subjectSelect.append('<option value="' + s.id + '">' + s.name + '</option>');
                             }
@@ -158,7 +159,7 @@
                 })
                 .on('change', '#QtiEducationLevelId', function () {
                     var elId = $(this).val();
-                    var maxYears = educationLevels.find(level => level.id == elId)['max_years'];
+                    var maxYears = educationLevels.find(level => level.uuid == elId)['max_years'];
                     educationLevelYearSelect.find('option').remove();
                     for(i=1;i<=maxYears;i++){
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');

@@ -29,6 +29,21 @@ class TestTakesController extends AppController
 		parent::beforeFilter();
 	}
 
+	public function attainment_analysis($test_take_id){
+        $this->isAuthorizedAs(["Teacher"]);
+        $data = $this->TestTakesService->getAttainmentAnalysis($test_take_id);
+        $this->set('data',$data);
+    }
+
+    public function attainment_analysis_per_attainment($test_take_id,$attainment_id){
+        $this->isAuthorizedAs(["Teacher"]);
+        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id);
+        $this->set('participants',$data);
+        $this->set('test_take_id',$test_take_id);
+        $this->set('attainment_id',$attainment_id);
+        $this->render('attainment_analysis_per_attainment', 'ajax');
+    }
+
 	public function get_date_period() {
 
 		$this->autoRender = false;
@@ -38,7 +53,7 @@ class TestTakesController extends AppController
 
 		foreach($periods as $period) {
 			if(strtotime($period['start_date']) < strtotime($date) && strtotime($period['end_date']) > strtotime($date)) {
-				echo $period['id'];
+				echo getUUID($period, 'get');
 				die;
 			}
 		}
@@ -69,7 +84,7 @@ class TestTakesController extends AppController
 			$result = $this->TestTakesService->addRetake($test_take);
 
 			if(isset($result['id'])) {
-				$result = $this->TestTakesService->addParticipants($result['id'], $users);
+				$result = $this->TestTakesService->addParticipants(getUUID($result, 'get'), $users);
 
 				$this->formResponse(
 					!empty($result),
@@ -90,9 +105,9 @@ class TestTakesController extends AppController
 
         foreach($inviligators as $inviligator) {
             if($authUserId == $inviligator['id']){
-                $defaultLoggedInUserId = $inviligator['id'];
+                $defaultLoggedInUserId = getUUID($inviligator, 'get');
             }
-			$newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+			$newInviligators[getUUID($inviligator, 'get')] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
 		}
 
 		if(!empty($test_take_id)) {
@@ -132,7 +147,7 @@ class TestTakesController extends AppController
                 die;
             }
 
-            foreach($test_takes as $test_take) {
+            foreach($test_takes as $key => $test_take) {
 
                 if(!empty($test_take['visible'])) {
                     if($test_take['test_id'] == '' || empty($test_take['test_id'])){
@@ -144,8 +159,10 @@ class TestTakesController extends AppController
                         exit;
                     }
 
-                    $class = $this->SchoolClassesService->getClass($test_take['class_id']);
-                    $test = $this->TestsService->getTest($test_take['test_id']);
+                    //$class = $this->SchoolClassesService->getClass($test_take['class_id']);
+					$test = $this->TestsService->getTest($test_take['test_id']);
+
+					$test_takes[$key]['test_id'] = $test['id'];
 
                     if(strtotime($test_take['date']) == 0) {
                         $this->formResponse(false, [
@@ -219,7 +236,8 @@ class TestTakesController extends AppController
             $periods = $this->TestsService->getPeriods(false, $params);
             $subjects = $this->TestsService->getSubjects();
             $kinds = $this->TestsService->getKinds();
-            $classes = $this->TestsService->getClasses($params);
+			$classes = $this->TestsService->getClasses($params);
+
             $locations = $this->SchoolLocationsService->getSchoolLocations();
 
             $newInviligators = [];
@@ -231,7 +249,7 @@ class TestTakesController extends AppController
                 $inviligators = $this->TestsService->getInvigilators();
 
                 foreach($inviligators as $inviligator) {
-                    $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+                    $newInviligators[getUUID($inviligator, 'get')] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
                 }
             }
             if (!empty($test_id)) {
@@ -263,7 +281,7 @@ class TestTakesController extends AppController
 			$this->autoRender = false;
 
 			$data = $this->request->data['TestTake'];
-			$test = $this->TestsService->getTest($take['test_id']);
+			$test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
 			$check = $this->TestTake->checkEdit($data, $take['retake'] == 1, $test);
 
 			if(!$check['status']) {
@@ -287,7 +305,7 @@ class TestTakesController extends AppController
 		$subjects = $this->TestsService->getSubjects();
 		$kinds = $this->TestsService->getKinds();
 		$classes = $this->TestsService->getClasses();
-		$school_location = $this->SchoolLocationsService->getSchoolLocation($take['test']['author']['school_location_id']);
+		$school_location = $this->SchoolLocationsService->getSchoolLocation(getUUID($take['test']['author']['school_location'], 'get'));
 
         $newInviligators = [];
 
@@ -298,7 +316,7 @@ class TestTakesController extends AppController
             $inviligators = $this->TestsService->getInvigilators();
 
             foreach($inviligators as $inviligator) {
-                $newInviligators[$inviligator['id']] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
+                $newInviligators[getUUID($inviligator, 'get')] = $inviligator['name_first'] . ' ' . $inviligator['name_suffix'] . ' ' .$inviligator['name'];
             }
         }
 
@@ -409,6 +427,14 @@ class TestTakesController extends AppController
 			$participants = $this->TestTakesService->getParticipants($take_id, $params);
 			$this->set('participants', $participants);
 
+			$isTeacher = (bool) $this->hasRole('Teacher');
+
+            if($isTeacher) {
+                $analysis = $this->TestTakesService->getAttainmentAnalysis($take_id);
+                $this->set('analysis', $analysis);
+            }
+
+            $this->set('isTeacher',$isTeacher);
 
 			$this->render('view_discussed', 'ajax');
 		}elseif($take['test_take_status_id'] == 9) {
@@ -416,9 +442,18 @@ class TestTakesController extends AppController
 			$params['with'] = ['statistics'];
 
 			$participants = $this->TestTakesService->getParticipants($take_id, $params);
-
 			$this->set('participants', $participants);
-			// $this->set('is_rtti_test', $take);
+
+            $isTeacher = (bool) $this->hasRole('Teacher');
+
+            if($isTeacher) {
+                $analysis = $this->TestTakesService->getAttainmentAnalysis($take_id);
+                $this->set('analysis', $analysis);
+            }
+
+            $this->set('isTeacher',$isTeacher);
+
+            // $this->set('is_rtti_test', $take);
 			$this->render('view_rated', 'ajax');
 		}else{
 			$this->render('view_taken', 'ajax');
@@ -532,7 +567,7 @@ class TestTakesController extends AppController
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
 
-		$participant_id = $take['test_participant']['id'];
+		$participant_id = getUUID($take['test_participant'], 'get');
 		$participant_status = $take['test_participant']['test_take_status_id'];
 
 		$this->Session->write('participant_id', $participant_id);
@@ -543,10 +578,10 @@ class TestTakesController extends AppController
 				$view = 'take_discuss_waiting';
 				break;
 			case 7:
-				$rating = $this->TestTakesService->getRating($take_id);
+				$rating = $this->TestTakesService->getRating(getUUID($take, 'get'));
 
 				if(!empty($rating['id'])) {
-					$this->Session->write('rating_id', $rating['id']);
+					$this->Session->write('rating_id', getUUID($rating, 'get'));
 
 					$this->set('rating', $rating);
 					$view = 'take_discuss';
@@ -574,7 +609,7 @@ class TestTakesController extends AppController
 	public function rate_teacher_question($take_id, $question_index = 0) {
 
 		$take = $this->TestTakesService->getTestTake($take_id);
-		$allQuestions = $this->TestsService->getQuestions($take['test_id']);
+		$allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
 		$participants = $this->TestTakesService->getParticipants($take_id);
 
 		$this->Session->write('take_id', $take_id);
@@ -584,7 +619,7 @@ class TestTakesController extends AppController
 		foreach ($allQuestions as $allQuestion) {
 			if ($allQuestion['question']['type'] == 'GroupQuestion') {
 				foreach($allQuestion['question']['group_question_questions'] as $item) {
-					$item['group_id'] = $allQuestion['question']['id'];
+					$item['group_id'] = getUUID($allQuestion['question'], 'get');
 					$questions[] = $item;
 				}
 			} else {
@@ -594,7 +629,7 @@ class TestTakesController extends AppController
 
 		$this->Session->write('active_question', $questions[$question_index]);
 
-		$this->set('question_id', $questions[$question_index]['question_id']);
+		$this->set('question_id', getUUID($questions[$question_index]['question'], 'get'));
 		$this->set('questions', $questions);
 		$this->set('question_index', $question_index);
 		$this->set('participants', $participants);
@@ -628,7 +663,7 @@ class TestTakesController extends AppController
 
 	public function rate_teacher_participant($take_id, $participant_index = 0) {
 		$take = $this->TestTakesService->getTestTake($take_id);
-		$allQuestions = $this->TestsService->getQuestions($take['test_id']);
+		$allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
 		$participants = $this->TestTakesService->getParticipants($take_id);
 
 		$this->Session->write('take_id', $take_id);
@@ -639,7 +674,7 @@ class TestTakesController extends AppController
 		foreach ($allQuestions as $allQuestion) {
 			if ($allQuestion['question']['type'] == 'GroupQuestion') {
 				foreach($allQuestion['question']['group_question_questions'] as $item) {
-					$item['group_id'] = $allQuestion['question']['id'];
+					$item['group_id'] = getUUID($allQuestion['question'], 'get');
 					$questions[] = $item;
 				}
 			} else {
@@ -658,7 +693,7 @@ class TestTakesController extends AppController
 		$participants = $newParticipants;
 
 		$this->Session->write('active_participant', $participants[$participant_index]);
-		$this->set('participant_id', $participants[$participant_index]['id']);
+		$this->set('participant_id', getUUID($participants[$participant_index], 'get'));
 		$this->set('questions', $questions);
 		$this->set('participant_index', $participant_index);
 		$this->set('participants', $participants);
@@ -675,7 +710,7 @@ class TestTakesController extends AppController
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$take = $this->TestTakesService->getTestTake($take_id);
-		$allQuestions = $this->TestsService->getQuestions($take['test_id']);
+		$allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
 
 		$questions = [];
 
@@ -708,7 +743,7 @@ class TestTakesController extends AppController
 			$answer_id = $data['answer_id'];
 			$score = $data['score'];
 			$take_id = $this->Session->read('take_id');
-			$user_id = AuthComponent::user('id');
+			$user_id = AuthComponent::user('uuid');
 
 			$rating_id = $data['rating_id'];
 
@@ -928,12 +963,12 @@ class TestTakesController extends AppController
 
 	    $questions = false;
 
-        $participant_id = $this->Session->read('participant_id');
+		$participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
         $participant_status = false;
 
         if($participant_id && $takeId == $take_id){
-            $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+			$response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             if ($response) {
                 $questions = $response['answers'];
                 $take = $response['take'];
@@ -941,8 +976,8 @@ class TestTakesController extends AppController
             }
         }
         if(!$participant_status || !$take) {
-            $take = $this->TestTakesService->getTestTake($take_id);
-            $participant_id = $take['test_participant']['id'];
+			$take = $this->TestTakesService->getTestTake($take_id);
+            $participant_id = getUUID($take['test_participant'], 'get');
             $this->Session->write('participant_id',$participant_id);
             $participant_status = $take['test_participant']['test_take_status_id'];
         }
@@ -973,20 +1008,20 @@ class TestTakesController extends AppController
                 if ($question_index != null) {
                     $take_question_index = $question_index;
                     $this->Session->write('take_question_index', $question_index);
-                }
+				}
 
                 if(!$questions){
-                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
-                }
+                	$questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+				}
 
                 $this->set('questions', $questions);
                 $this->set('take_question_index', $take_question_index);
-                $this->set('take_id', $take_id);
+				$this->set('take_id', $take_id);
 
-                if(isset($questions[$take_question_index]['question_id'])) {
-                    $this->set('active_question', $questions[$take_question_index]['question_id']);
+                if(isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
+                    $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
                 }else{
-                    $this->set('active_question', $questions[0]['question_id']);
+					$this->set('active_question', getUUID($questions[0], 'get'));
                 }
 
                 $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
@@ -1020,7 +1055,7 @@ class TestTakesController extends AppController
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
 
-		$participant_id = $take['test_participant']['id'];
+		$participant_id = getUUID($take['test_participant'], 'get');
 		$participant_status = $take['test_participant']['test_take_status_id'];
 
 		$this->Session->write('participant_id', $participant_id);
@@ -1058,9 +1093,9 @@ class TestTakesController extends AppController
 				$this->set('take_id', $take_id);
 
 				if(isset($questions[$take_question_index]['question_id'])) {
-					$this->set('active_question', $questions[$take_question_index]['question_id']);
+					$this->set('active_question', getUUID($questions[$take_question_index]['question'], 'get'));
 				}else{
-					$this->set('active_question', $questions[0]['question_id']);
+					$this->set('active_question', getUUID($questions[0]['question'], 'get'));
 				}
 
 				$this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
@@ -1201,7 +1236,7 @@ class TestTakesController extends AppController
         $this->Session->write('take_id', $take_id);
 
         $participant_id = $this->Session->read('participant_id');
-        $response = $this->TestTakesService->getParticipantStatusQuestionsAndAnswersForOverview2019($participant_id);
+		$response = $this->TestTakesService->getParticipantStatusQuestionsAndAnswersForOverview2019($participant_id);
         if($response){
             $participant_status = $response['participant_test_take_status_id'];
             if(in_array($participant_status, [4, 5, 6])) {
@@ -1216,7 +1251,7 @@ class TestTakesController extends AppController
                 $answer = $this->getAnswerForQuestion($answers,$question['id']);
                 $questions[] = ['question' => $question,'answer' => $answer, 'answerView' => $this->getAnswerViewForTakeAnswerOverview2019($answer)];
             }
-        }
+		}
 
 
         $this->set('participant_id', $participant_id);
@@ -1309,11 +1344,11 @@ class TestTakesController extends AppController
 			die('Deze toets is niet meer in te zien');
 		}
 
-		$questions = $this->TestTakesService->getParticipantQuestions($take['test_participant']['id']);
-		$answer = $this->TestTakesService->getParticipantQuestionAnswer($take['test_participant']['id'], $questions[$question_index]['question_id']);
+		$questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
+		$answer = $this->TestTakesService->getParticipantQuestionAnswer(getUUID($take['test_participant'], 'get'), getUUID($questions[$question_index]['question'], 'get'));
 
-		if(isset($questions[$question_index]['answer_parent_questions'][0]['group_question_id'])) {
-			$group = $questions[$question_index]['answer_parent_questions'][0]['group_question_id'];
+		if(getUUID($questions[$question_index]['answer_parent_questions'][0]['group_question'], 'get') !== null) {
+			$group = getUUID($questions[$question_index]['answer_parent_questions'][0]['group_question'], 'get');
 		}else{
 			$group = "";
 		}
@@ -1328,8 +1363,8 @@ class TestTakesController extends AppController
 
 	public function glance_answer($take_id, $question_index = 0) {
 		$take = $this->TestTakesService->getTestTake($take_id);
-		$questions = $this->TestTakesService->getParticipantQuestions($take['test_participant']['id']);
-		$answer = $this->TestTakesService->getParticipantQuestionAnswer($take['test_participant']['id'], $questions[$question_index]['question_id']);
+		$questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
+		$answer = $this->TestTakesService->getParticipantQuestionAnswer(getUUID($take['test_participant'], 'get'), getUUID($questions[$question_index]['question'], 'get'));
 
 		$answer['answer'] = $answer[0];
 
@@ -1510,6 +1545,7 @@ class TestTakesController extends AppController
 		$filters = array();
 		parse_str($params['filters'], $filters);
 
+
 		$filters = $filters['data']['TestTake'];
 
 		$params['filter'] = [
@@ -1533,9 +1569,14 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+        $params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function load_taken_student() {
@@ -1665,9 +1706,14 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+		$params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function load_rated() {
@@ -1704,9 +1750,14 @@ class TestTakesController extends AppController
 		$params['order']['time_start'] = 'desc';
 		$params['with'] = ['participantStatus'];
 
+		$params['filter']['archived'] = ($filters['archived'] == 0)
+		    ? 0
+            : 1;
+
 		$test_takes = $this->TestTakesService->getTestTakes($params);
 
 		$this->set('test_takes', $test_takes['data']);
+		$this->set('hide_when_archived', ($filters['archived'] == 0));
 	}
 
 	public function surveillance() {
@@ -1723,7 +1774,7 @@ class TestTakesController extends AppController
 		$newArray = [];
 
 		foreach($takes as $take_id => $take) {
-			$take['info'] = $this->TestTakesService->getTestTakeInfo($take_id);
+			$take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
 			$newArray[$take_id] = $take;
 		}
 
@@ -1752,7 +1803,7 @@ class TestTakesController extends AppController
 		];
 
 		foreach($takes as $take_id => $take) {
-			$take['info'] = $this->TestTakesService->getTestTakeInfo($take_id);
+			$take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
 
 			foreach ($take['info']['school_classes'] as $class) {
 
@@ -1762,7 +1813,7 @@ class TestTakesController extends AppController
 					$percentage = 0;
 				}
 
-				$response['takes']['progress_' . $take['info']['id'] . '_' . $class['id']] = $percentage;
+				$response['takes']['progress_' . getUUID($take['info'], 'get') . '_' . getUUID($class, 'get')] = $percentage;
 			}
 
 			foreach($take['info']['test_participants'] as $participant) {
@@ -1808,7 +1859,7 @@ class TestTakesController extends AppController
 
 				$percentage = round((100 / $participant['max_score']) * $participant['made_score']);
 
-				$response['participants'][$participant['id']] = [
+				$response['participants'][getUUID($participant, 'get')] = [
 					'percentage' => $percentage,
 					'label' => $label,
 					'text' => $text,
@@ -1824,7 +1875,7 @@ class TestTakesController extends AppController
 
 	public function to_rate() {
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
-		
+
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
@@ -1856,7 +1907,7 @@ class TestTakesController extends AppController
 			$take = $this->TestTakesService->getTestTake($getTakeId);
 			if(!empty($take['discussing_parent_questions'])) {
 				//$group = $this->QuestionsService->getSingleQuestion();
-				$group = $take['discussing_parent_questions'][0]['group_question_id'];
+				$group = getUUID($take['discussing_parent_questions'][0]['group_question'], 'get');
 				$this->set('group', $group);
 			}
 
@@ -1998,7 +2049,7 @@ class TestTakesController extends AppController
         $this->isAuthorizedAs(["Teacher"]);
 
 		$test_take = $this->TestTakesService->getTestTakeAnswers($take_id);
-		$allQuestions = $this->TestsService->getQuestions($test_take['test']['id']);
+		$allQuestions = $this->TestsService->getQuestions(getUUID($test_take['test'], 'get'));
 
 		$questions = [];
 
@@ -2017,7 +2068,7 @@ class TestTakesController extends AppController
 		$newArray = [];
 
 		foreach($questions as $question) {
-			$newArray[$question['id']] = $question;
+			$newArray[getUUID($question, 'get')] = $question;
 		}
 
 		$participants = $this->TestTakesService->getParticipants($take_id);
@@ -2064,7 +2115,7 @@ class TestTakesController extends AppController
 			$this->TestTakesService->addClassStudents($take_id, $class_id, $addArray);
 		}
 
-		$students = $this->TestTakesService->getClassStudents($class_id);
+		$students = $this->TestTakesService->getClassStudents($class_id, 'all');
 		$this->set('students', $students);
 		$this->set('class_id', $class_id);
 	}
@@ -2091,6 +2142,20 @@ class TestTakesController extends AppController
 		exit($this->Session->read("TLCHeader"));
 	}
 
+    public function archive($take_id){
+        $this->isAuthorizedAs(['Teacher']);
+        $response = $this->TestsService->archive($take_id);
+
+        $this->formResponse($response);
+	}
+
+    public function unarchive($take_id){
+        $this->isAuthorizedAs(['Teacher']);
+        $response = $this->TestsService->unArchive($take_id);
+
+        $this->formResponse($response);
+    }
+
 
 	public function export_to_rtti($take_id){
         $this->isAuthorizedAs(["Teacher"]);
@@ -2110,8 +2175,8 @@ class TestTakesController extends AppController
 		$test_take      = $this->TestTakesService->getTestTakeAnswers($take_id);
 		$testTakeInfo   = $this->TestTakesService->getTestTakeInfo($take_id);
 		$participants   = $this->TestTakesService->getParticipants($take_id);
-		$allQuestions   = $this->TestsService->getQuestions($test_take['test_id']);
-		$schoolLocation = $this->SchoolLocationsService->getSchoolLocation($testTakeInfo['school_location_id']);
+		$allQuestions   = $this->TestsService->getQuestions(getUUID($test_take['test'], 'get'));
+		$schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID($testTakeInfo['school_location'], 'get'));
 
 		$date = new DateTime($testTakeInfo['time_start']);
 
@@ -2141,7 +2206,9 @@ class TestTakesController extends AppController
 			$ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
 			$ctpSchool->setBrincode($external_main_code);
 
-            $yearinfo = $this->SchoolYearsService->getSchoolYear($testTakeInfo['school_classes'][0]['school_year_id'])['year'];
+
+                        $yearinfo = $this->SchoolYearsService->getSchoolYear($testTakeInfo['school_classes'][0]['school_year_id'])['year'];
+
 
 			if(substr_count($yearinfo,'-') > 0){
 			    $year = $yearinfo;
@@ -2177,9 +2244,9 @@ class TestTakesController extends AppController
 
 				$af = array();
 
-				foreach($this->TestTakesService->getParticipantQuestions($participant['id']) as $question) {
+				foreach($this->TestTakesService->getParticipantQuestions(getUUID($participant, 'get')) as $question) {
 
-					$answer = $this->TestTakesService->getParticipantQuestionAnswer($participant['id'], $question['question_id']);
+					$answer = $this->TestTakesService->getParticipantQuestionAnswer(getUUID($participant, 'get'), getUUID($question['question'], 'get'));
 
 					$resArray['resultaat'][] = array(
 						'key' => $answer[0]['id'],

@@ -86,7 +86,7 @@
         Annuleer
     </a>
     <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="checkBeforeCompletion('<?=$owner?>', <?=$owner_id?>, 'CompletionQuestion', <?=$question['id']?>);">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="checkBeforeCompletion('<?=$owner?>', '<?=$owner_id?>', 'CompletionQuestion', '<?=getUUID($question, 'get');?>');">
             Vraag opslaan
         </a>
     <? } ?>
@@ -142,7 +142,7 @@
     <? } ?>
 
     <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', <?=$owner_id?>, <?=$question['id']?>);
+        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? }?>
 
     $('#QuestionTags').select2({

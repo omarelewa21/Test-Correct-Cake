@@ -18,13 +18,13 @@
     foreach($radioOptions as $key => $value){
     $radioList[$key] = '<span> </span>';
     }
-    echo $this->Form->input('Question.'.$question['id'], [
+    echo $this->Form->input('Question.'.getUUID($question, 'get'), [
     'type' => 'radio',
     'legend'=> false,
     'label' => false,
     'disabled' => $rating,
     'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-    'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.$question['id'],
+    'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.getUUID($question, 'get'),
     'default'=> $default,
     'before' => $label,
     'separator' => '</div>'.$label,

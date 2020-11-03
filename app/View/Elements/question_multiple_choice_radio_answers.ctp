@@ -2,7 +2,7 @@
 
     $radioOptions = [];
     $default = 0;
-    $label = '<div class="radio_'.$question['id'].'">';
+    $label = '<div class="radio_'.getUUID($question, 'get').'">';
     $answersHaveImages = false;
     foreach( $question['multiple_choice_question_answers'] as $answer) {
 
@@ -17,25 +17,25 @@
 
         $checked = false;
 
-            if(isset($answerJson[$answer['id']])) {
-                if($answerJson[$answer['id']] == 1){
+            if(isset($answerJson[getUUID($answer, 'get')])) {
+                if($answerJson[getUUID($answer, 'get')] == 1){
                     $checked = true;
-                    $default = $answer['id'];
+                    $default = getUUID($answer, 'get');
                 } else {
                     $checked = false;
                 }
             }
 
-            $radioOptions[$answer['id']] = sprintf('<span> %s</span>',$answer['answer']);
+            $radioOptions[getUUID($answer, 'get')] = sprintf('<span> %s</span>',$answer['answer']);
             if(!$rating){
                 echo '
-                    <span style="display:none">'.$this->Form->input('Answer.'.$answer['id'], [
+                    <span style="display:none">'.$this->Form->input('Answer.'.getUUID($answer, 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
                         'checked' => $checked,
                         'label' => false,
-                        'class' => 'multiple_choice_option input_'.$question['id'].' checkbox_radio_'.$answer['id'],
+                        'class' => 'multiple_choice_option input_'.getUUID($question, 'get').' checkbox_radio_'.getUUID($answer, 'get'),
                     ])
                     .'</span>';
             }
@@ -55,13 +55,15 @@
             $length = 10;
             $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
         }
-        echo $this->Form->input('Question.'.$question['id'].$random, [
+
+        echo $this->Form->input('Question.'.getUUID($question, 'get').$random, [
+
             'type' => 'radio',
             'legend'=> false,
             'label' => false,
             'disabled' => $rating,
             'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-            'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.$question['id'],
+            'class' => 'multiple_choice_option multiple_choice_option_radio single_choice_option input_radio_'.getUUID($question, 'get'),
             'default'=> $default,
             'before' => $label,//'<div class="btn btn-primary">',
                 'separator' => '</div><br/>'.$label,//'</label><div class="btn btn-primary">',

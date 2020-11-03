@@ -35,7 +35,7 @@
             <tbody>
             <tr>
                 <td>
-                    <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][0]['id'], [
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][0], 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <td>
-                    <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][1]['id'], [
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][1], 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
@@ -67,7 +67,7 @@
             </tr>
             <tr>
                 <td>
-                    <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][2]['id'], [
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][2], 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
@@ -83,7 +83,7 @@
             </tr>
             <tr>
                 <td>
-                    <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][3]['id'], [
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][3], 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
@@ -99,7 +99,7 @@
             </tr>
             <tr>
                 <td>
-                    <?= $this->Form->input('Answer.'.$question['multiple_choice_question_answers'][4]['id'], [
+                    <?= $this->Form->input('Answer.'.getUUID($question['multiple_choice_question_answers'][4], 'get'), [
                         'value' => 1,
                         'div' => false,
                         'type' => 'checkbox',
@@ -130,7 +130,7 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>

@@ -1,17 +1,17 @@
 <?php
     $answerOptions = [];
     foreach($question['matrix_question_answers'] as $answer) {
-        $answerOptions[$answer['id']] = '';
+        $answerOptions[getUUID($answer, 'get')] = '';
     }
 
     $label = '<td style="text-align:center" cellpadding="0" cellspacing="0" border="0">';
 
-    echo $this->Form->input('Answer.'.$subQuestion['id'], [
+    echo $this->Form->input('Answer.'.getUUID($subQuestion, 'get'), [
         'type' => 'radio',
         'legend'=> false,
         'label' => false,
         'div' => [], //array('class' => 'btn-group', 'data-toggle' => 'buttons'),
-        'class' => 'matrix_choice_option single_choice_option input_radio_'.$question['id'],
+        'class' => 'matrix_choice_option single_choice_option input_radio_'.getUUID($question, 'get'),
         'default'=> $default,
         'before' => $label,
         'separator' => '</td>'.$label,

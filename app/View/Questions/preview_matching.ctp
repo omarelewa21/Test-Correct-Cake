@@ -39,7 +39,7 @@
     <?
     foreach($listLeft as $item) {
         ?>
-        <div style="margin-bottom: 5px; border:1px grey dotted; text-align: center; height:130px; padding:20px;" class="left_item" id="<?=$item['id']?>">
+        <div style="margin-bottom: 5px; border:1px grey dotted; text-align: center; height:130px; padding:20px;" class="left_item" id="<?=getUUID($item, 'get');?>">
             <strong><?=$item['answer']?></strong>
         </div>
     <?
@@ -53,7 +53,7 @@
 
     foreach($listRight as $item) {
         ?>
-        <div style="background: grey; padding:10px; margin: 2px;" id="<?=$item['id']?>" class="right_item">
+        <div style="background: grey; padding:10px; margin: 2px;" id="<?=getUUID($item, 'get');?>" class="right_item">
             <?=$item['answer']?>
         </div>
         <?
@@ -81,7 +81,7 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>

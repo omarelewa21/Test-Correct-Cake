@@ -29,7 +29,7 @@
     $default = 0;
     if($question['selectable_answers'] == 1){
         $useRadio = true;
-        $label = '<div class="radio_'.$question['id'].'">';
+        $label = '<div class="radio_'.getUUID($question, 'get').'">';
     }
     if(!$isCitoQuestion) {
         shuffle($question['multiple_choice_question_answers']);
@@ -69,7 +69,7 @@
 <script type="text/javascript">
     function checkMaxSelections(e) {
         if(<?= (int) (new AppController)->isClosedQuestion($question);?> == 1) return;
-        if( $('.input_<?=$question['id']?>:checked').length > <?=$question['selectable_answers']?> ) {
+        if( $('.input_<?=getUUID($question, 'get')?>:checked').length > <?=$question['selectable_answers']?> ) {
             $(e).prop( "checked", false);
         }
     }

@@ -18,10 +18,10 @@ foreach($students as $student) {
         </td>
         <td class="nopadding">
             <?php if((bool) $class['demo'] !== true){?>
-            <a href="#" class="btn white pull-right" onclick="SchoolClass.removeStudent(<?=$class_id?>, <?=$student['id']?>);">
+            <a href="#" class="btn white pull-right" onclick="SchoolClass.removeStudent('<?=$class_id?>', '<?=getUUID($student, 'get');?>');">
                 <span class="fa fa-remove"></span>
             </a>
-            <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=$student['id']?>', 400);">
+            <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=getUUID($student, 'get');?>', 400);">
                 <span class="fa fa-folder-open-o"></span>
             </a>
             <?php } ?>

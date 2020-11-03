@@ -74,4 +74,8 @@ class BaseService {
         json_decode($string);
         return (json_last_error() == JSON_ERROR_NONE) ? true : false;
     }
+
+    public function getLastCode(){
+        return $this->Connector->getLastCode();
+    }
 }

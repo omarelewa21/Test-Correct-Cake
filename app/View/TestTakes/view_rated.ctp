@@ -24,7 +24,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
             Becijferen
         </a>
         <?php if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) { ?>
-        <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults(<?= $take_id ?>);">
+        <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>');">
             <span class="fa fa-eye mr5"></span>
             Dichtzetten
         </a>
@@ -157,13 +157,13 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     </td>
                     <? if($take['user_id'] == AuthComponent::user('id')) { ?>
                         <td class="nopadding" width="100">
-                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?=$take['id']?>/<?=$participant['id']?>');">
+                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?=getUUID($take, 'get');?>/<?=getUUID($participant, 'get');?>');">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/rated_info/<?=$take['id']?>/<?=$participant['id']?>', 500);">
+                            <a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/rated_info/<?=getUUID($take, 'get');?>/<?=getUUID($participant, 'get');?>', 500);">
                                 <span class="fa fa-info-circle"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=$participant['user']['id']?>', 500);">
+                            <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=getUUID($participant['user'], 'get');?>', 500);">
                                 <span class="fa fa-envelope-o"></span>
                             </a>
                         </td>
@@ -222,11 +222,17 @@ foreach(AuthComponent::user()['roles'] as $role) {
     } ?>
 </div>
 
+<?php
+if($isTeacher && $analysis && count($analysis)){
+ echo $this->element("test_take_attainment_analysis",['analysis' => $analysis, 'test_take_id' => getUUID($take,'get'),'extra_style' => 'width:calc(100% - 270px); float:left']);
+}
+?>
+
 <br clear="all" />
 <? if(count($scores) > 5) { ?>
     <script type="text/javascript">
         clearTimeout(window.loadParticipants);
-        TestTake.loadParticipants(<?=$take_id?>);
+        TestTake.loadParticipants('<?=$take_id?>');
 
         $(function () {
             $('#boxplot').highcharts({
@@ -281,4 +287,4 @@ foreach(AuthComponent::user()['roles'] as $role) {
 
 
     </script>
-<? } ?>
+<?php } ?>

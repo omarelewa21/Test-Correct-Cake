@@ -113,7 +113,7 @@ class FileManagementController extends AppController
                 $this->set('testKind', $name);
             }
         }
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($data['school_location_id']);
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels(getUUID($data['school_location'], 'get'));
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
@@ -140,11 +140,14 @@ class FileManagementController extends AppController
 
             $_teachers = $this->UsersService->getUsers($params);
 
-            $teachers = [];
-            foreach ($_teachers as $teacher) {
-                $teachers[$teacher['id']] = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
-            }
-
+            $teachers = $_teachers;
+//            foreach ($_teachers as $teacher) {
+//                $teachers[getUUID($teacher, 'get')] = [
+//                    'name' => sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']),
+//                    
+//                ];
+//            }
+//
             $this->set('teachers', $teachers);
 
             $params = [
@@ -206,7 +209,7 @@ class FileManagementController extends AppController
 
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
-        $school_location_id = AuthComponent::user('school_location_id');
+        $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
         if ($this->request->is('post')) {
 
@@ -284,10 +287,10 @@ class FileManagementController extends AppController
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
                     'name'      => $el['education_level']['name'],
-                    'id'        => $el['education_level']['id'],
+                    'id'        => getUUID($el['education_level'],'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
-                $eloAr[$el['education_level']['id']] = $el['education_level']['name'];
+                $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
             }
             $this->set('educationLevels', $elAr);
             $this->set('educationLevelOptions', $eloAr);
@@ -317,7 +320,7 @@ class FileManagementController extends AppController
 
         $this->set('file', $data);
 
-        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($data['school_location_id']);
+        $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels(getUUID($data['school_location'], 'get'));
 
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
@@ -378,7 +381,7 @@ class FileManagementController extends AppController
         $this->ifNotAllowedExit(['Teacher'], false);
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
-        $school_location_id = AuthComponent::user('school_location_id');
+        $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
         if ($this->request->is('post')) {
 
@@ -431,10 +434,10 @@ class FileManagementController extends AppController
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
                     'name'      => $el['education_level']['name'],
-                    'id'        => $el['education_level']['id'],
+                    'uuid'        => getUUID($el['education_level'], 'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
-                $eloAr[$el['education_level']['id']] = $el['education_level']['name'];
+                $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
             }
             $this->set('educationLevels', $elAr);
             $this->set('educationLevelOptions', $eloAr);
@@ -443,15 +446,15 @@ class FileManagementController extends AppController
 
     private function blockWithModalIfRegistrationNotCompletedAndInTestSchool()
     {
+        $userUuid = AuthComponent::user('uuid');
         $userId = AuthComponent::user('id');
         if (AuthComponent::user('is_temp_teacher')) {
-            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userId));
+            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userUuid));
             if ($result['status'] == 'true') {
-                $userId = AuthComponent::user('id');
                 if ($this->request->is('post')) {
                     $response = $this->UsersService->updateRegisteredNewTeacher(
                         $this->request->data['User'],
-                        $userId
+                        $userUuid
                     );
                     $result = (json_decode($response));
 
@@ -462,7 +465,7 @@ class FileManagementController extends AppController
                     }
                     exit();
                 }
-                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
+                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userUuid);
 
                 $this->set('user', (object)$data);
                 $this->set('in_app', true);
@@ -470,7 +473,7 @@ class FileManagementController extends AppController
                 exit;
             } else {
                 $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
-                    $userId
+                    $userUuid
                 );
 
                 echo $this->render(

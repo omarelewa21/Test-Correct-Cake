@@ -46,7 +46,7 @@ foreach($users as $user) {
         }
         ?>
         <td class="nopadding" width="30">
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/analyses/student/<?=$user['id']?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/analyses/student/<?=getUUID($user, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
         </td>

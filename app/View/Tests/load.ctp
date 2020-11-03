@@ -25,32 +25,39 @@ foreach($tests as $test) {
         <td><?=$kinds[$test['test_kind_id']]?></td>
         <td><?=$test['education_level_year']?> <?=$education_levels[$test['education_level_id']]?></td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=$test['id']?>">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($test, 'get');?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/tests/view/<?=$test['id']?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
-            <div class="dropblock blur-close" for="test_<?=$test['id']?>">
+            <div class="dropblock blur-close" for="test_<?=getUUID($test, 'get')?>">
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
-                    <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=$test['id']?>');">
+                    <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
                         <span class="fa fa-edit mr5"></span>
                         Wijzigen
                     </a>
                 <? } ?>
-                <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=$test['id']?>',1000);">
+                <? if ($test['has_duplicates']) { ?>
+                    <a href="#" class="btn highlight grey" >
+                        <span class="fa fa-calendar mr5"></span>
+                        Inplannen niet mogelijk
+                    </a>
+                <? } else { ?>
+                <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
                     <span class="fa fa-calendar mr5"></span>
                     Inplannen
                 </a>
+                <? } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
-                <a href="#" class="btn highlight white" onclick="Test.duplicate(<?=$test['id']?>);">
+                <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
                     Dupliceren
                 </a>
                 <?php } ?>
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
-                    <a href="#" class="btn highlight white" onclick="Test.delete(<?=$test['id']?>, false);">
+                    <a href="#" class="btn highlight white" onclick="Test.delete('<?=getUUID($test, 'get')?>', false);">
                         <span class="fa fa-remove mr5"></span>
                         Verwijderen
                     </a>
