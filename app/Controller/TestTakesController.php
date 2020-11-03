@@ -927,7 +927,7 @@ class TestTakesController extends AppController
 		$take = $this->TestTakesService->getTestTake($take_id);
 
 		if(!empty($take['retake_test_take_id'])) {
-			$retake_participants = $this->TestTakesService->getParticipants($take['retake_test_take_id']);
+			$retake_participants = $this->TestTakesService->getParticipants(getUUID($take['retake_test_take'], 'get'));
 			$this->set('retake_participants', $retake_participants);
 		}
 
