@@ -47,29 +47,29 @@
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
 
-		<script type="text/javascript" src="/js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript" src="/js/popup.js?20200520193000"></script>
-		<script type="text/javascript" src="/js/definitions.js"></script>
-		<script type="text/javascript" src="/js/navigation.js"></script>
-		<script type="text/javascript" src="/js/core.js?20200928141201"></script>
-		<script type="text/javascript" src="/js/answer.js"></script>
-		<script type="text/javascript" src="/js/menu.js?20200520090000"></script>
-		<script type="text/javascript" src="/js/table.js"></script>
-		<script type="text/javascript" src="/js/questions.js"></script>
-		<script type="text/javascript" src="/js/redactor.js"></script>
-		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js?20201014130700"></script>
-		<script type="text/javascript" src="/js/test.js"></script>
-		<script type="text/javascript" src="/js/formify.js?20200707105400"></script>
-		<script type="text/javascript" src="/js/notifications.js"></script>
-		<script type="text/javascript" src="/js/user.js?20200407202601"></script>
-		<script type="text/javascript" src="/js/subscript.js"></script>
-		<script type="text/javascript" src="/js/limiter.js"></script>
-		<script type="text/javascript" src="/js/counter.js"></script>
-		<script type="text/javascript" src="/js/cookie.js"></script>
-		<script type="text/javascript" src="/js/analyses.js"></script>
-		<script type="text/javascript" src="/js/prettyCheckable.min.js"></script>
-		<script src="/js/URLSearchParamsPolyfill.js"></script>
+		<script type="text/javascript" src="/js/jquery.datetimepicker.js<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/navigation.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/core.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/answer.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/menu.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/table.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/questions.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/redactor.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/tablefy.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/test_take.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/test.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/formify.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/notifications.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/user.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/subscript.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/limiter.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/counter.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/cookie.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
+		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
 
