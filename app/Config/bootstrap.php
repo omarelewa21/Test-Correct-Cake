@@ -80,8 +80,15 @@ function samesiteRewrite() {
 		
 	if ($cake_cookie != "") {
 			header_remove("Set-Cookie");
-	
-			$cake_cookie = str_replace("path=/;", "path=/; samesite=Strict;", $cake_cookie);
+
+			//only do on production servers
+			if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
+				$replace = "path=/; samesite=Strict; secure;";
+			} else {
+				$replace = "path=/; samesite=Strict;";
+			}
+
+			$cake_cookie = str_replace("path=/;", $replace, $cake_cookie);
 	
 			header($cake_cookie, true);
 	}
