@@ -384,7 +384,7 @@ class TestTakesController extends AppController
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$this->Session->write('take_id', $take_id);
-		$classes = $this->TestsService->getClasses();
+		$classes = $this->TestsService->getCurrentClasses();
 
 		$this->set('classes', $classes);
 	}
