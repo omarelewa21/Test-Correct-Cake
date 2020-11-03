@@ -234,6 +234,19 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getCurrentClasses($params = []) {
+
+        $params['mode'] = 'list';
+        $params['filter'] = ['current' => true];
+
+        $response = $this->Connector->getRequest('/school_class', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getClassesItems($params) {
         $response = $this->Connector->getRequest('/school_class', $params);
         if($response === false){
