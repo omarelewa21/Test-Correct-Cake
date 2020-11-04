@@ -19,17 +19,17 @@
                     </div>
                     <div class="col-md-5">
                         <label>Type</label>
-                      <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
+                        <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5"><label for="">Vak</label>
-                      <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
+                        <?= $this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
                     </div>
 
                     <div class="col-md-5">
                         <label for="Periode">Periode</label>
-                       <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
+                        <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
                     </div>
                 </div>
 
@@ -39,8 +39,21 @@
                         <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
                     </div>
                     <div class="col-md-5">
-                        <label for="">Niveau jaar</label>
-                        <?= $this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
+                        <label for="">leerjaar</label>
+                        <div class="input checkbox jquery-checkbox-list-with-all-option">
+                            <?
+                            foreach ($education_level_years as $key => $value) {
+                                echo sprintf(
+                                    '<input type="checkbox" checked class="jquery-checkbox-list-item %s"  value="1" jquery-option="%d" id="level_%d"><label for="level_%d">%s</label><BR>',
+                                    $key == 0 ? 'jquery-checkbox-option-all' : '',
+                                    $key,
+                                    $key,
+                                    $key,
+                                    $value
+                                );
+                            }
+                            ?>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
@@ -48,25 +61,26 @@
                         <label for="">Aangemaakt van</label>
                         <?= $this->Form->input('created_at_start', array('label' => false)) ?>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col-md-5">
                         <label for="">Aangemaakt van</label>
                         <?= $this->Form->input('created_at_end', array('label' => false)) ?>
                     </div>
                 </div>
 
-                <?php if (true): ?>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label for="">Bron</label>
-                        <?= $this->Form->input('is_open_sourced_content', array(
-                            'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
-                        )) ?>
+                <?php if (false): ?>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="">Bron</label>
+                            <?= $this->Form->input('is_open_sourced_content', array(
+                                'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
+                            )) ?>
 
+                        </div>
+                        <div class="col-md-5"> &nbsp;</div>
                     </div>
-                    <div class="col-md-5"> &nbsp;</div>
-                </div>
                 <?php endif; ?>
-
 
 
                 <?= $this->Form->end(); ?>
@@ -168,8 +182,8 @@
                     {field: 'subject', label: 'Vak'},
                     {field: 'period', label: 'Periode'},
                     {field: 'educationLevels', label: 'Niveau'},
-                    {field: 'educationLevelYears', label: 'Niveau jaar'},
-                    {field: 'isOpenSourcedContent', label: 'Bron'},
+                    // {field: 'educationLevelYears', label: 'Niveau jaar'},
+                    // {field: 'isOpenSourcedContent', label: 'Bron'},
                     {field: 'createdAtStart', label: 'Aanmaakdatum van'},
                     {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
                 ],
@@ -182,8 +196,16 @@
                         this.registerEvents();
                         this.addChangeEventsToFilter(this);
                         this.initNewFilter();
+                        this.bindActiveFilterDataToFilterModal();
+                        this.reloadData();
                     }.bind(this));
                 },
+                initCheckboxListWithAllOption: function () {
+                    $('.jquery-checkbox-list-with-all-option input:checkbox').each(function (input) {
+
+                    });
+                },
+
                 reloadData: function () {
                     this.getJqueryFilterInput(this.filterFields[0].field).trigger('change');
                 },
@@ -208,7 +230,7 @@
                         $(this.el).val(valueToSelect);
                     } else if (valueToSelect == '') {
                         this.activeFilter = false;
-                        this.renderActiveFilter();
+                        // this.renderActiveFilter();
                     } else {
                         let activeItem = this.filters.find(function (item) {
                             return item.active == 1;
@@ -216,9 +238,10 @@
                         if (activeItem) {
                             $(this.el).val(activeItem.id);
                             this.setActiveFilter(activeItem.id);
-                            this.renderActiveFilter();
+                            // this.renderActiveFilter();
                         }
                     }
+                    this.renderActiveFilter();
 
                 },
 
@@ -284,7 +307,7 @@
 
                         .on('click', '#jquery-reset-filter', function (e) {
                             if (!$(e.target).hasClass('disabled')) {
-                                this.activeFilter = false;
+                                this.resetSearchForm();
                                 this.renderSelectFilterBox('');
                             }
                         }.bind(this))
@@ -337,8 +360,6 @@
                 },
 
                 saveNewFilter: function (newFilterName) {
-                    Notify.notify('Filter opgeslagen');
-
                     $.ajax({
                         url: '/search_filter/add',
                         data: {
@@ -359,6 +380,7 @@
                             this.initNewFilter()
                             this.activeFilter.changed = false;
                             $('#jquery-save-filter').addClass('disabled');
+                            Notify.notify('Filter opgeslagen');
                         },
                     });
                 },
@@ -426,7 +448,7 @@
 
                 bindActiveFilterDataToFilterModal: function () {
                     this.filterFields.forEach(function (item) {
-                        if (this.activeFilter.filters.hasOwnProperty(item.field)) {
+                        if (this.activeFilter && this.activeFilter.filters.hasOwnProperty(item.field)) {
                             let newValue = this.activeFilter.filters[item.field].filter;
                             let input = this.getJqueryFilterInput(item.field);
                             if (!newValue && input.get(0).tagName === 'SELECT') {
@@ -487,11 +509,27 @@
                 },
 
                 addChangeEventsToFilter: function (context) {
+                    this.addToggleAllEventToCheckboxes();
+
                     this.filterFields.forEach(function (item) {
                         var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         $(document).on('change', selector, function (e) {
                             this.syncFilterField($(e.target), item);
                         }.bind(context));
+                    });
+                },
+                addToggleAllEventToCheckboxes: function () {
+                    $(document).on('click', '.jquery-checkbox-option-all', function (e) {
+
+                            $(this).parent().find('.jquery-checkbox-list-item').prop('checked', $(this).prop('checked'));
+                       
+                    });
+                    $(document).on('click', '.jquery-checkbox-list-item', function (e) {
+
+                        if (!$(this).hasClass('jquery-checkbox-option-all')) {
+                            console.log ($(this).attr('class'));
+                            $(this).parent().find('.jquery-checkbox-option-all').prop('checked', false);
+                        }
                     });
                 },
 
@@ -506,6 +544,7 @@
                     }
                     this.newFilter[item.field] = filter;
                     this.editFilter.filters[item.field] = filter;
+
                     this.editFilter.changed = true;
                     this.renderActiveFilter();
                 },
