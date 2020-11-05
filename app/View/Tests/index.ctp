@@ -162,6 +162,7 @@
                 activeFilter: false,
                 newFilter: {},
                 editFilter: {'filters': {}},
+                isInitalizing: true,
                 filterFields: [
                     {field: 'name', label: 'Toets'},
                     {field: 'kind', label: 'Type'},
@@ -189,6 +190,7 @@
                         this.initNewFilter();
                         this.bindActiveFilterDataToFilterModal();
                         this.reloadData();
+                        this.isInitalizing = false;
                     }.bind(this));
                 },
                 initCheckboxListWithAllOption: function () {
@@ -222,7 +224,6 @@
                         $(this.el).val(valueToSelect);
                     } else if (valueToSelect == '') {
                         this.activeFilter = false;
-                        // this.renderActiveFilter();
                     } else {
                         let activeItem = this.filters.find(function (item) {
                             return item.active == 1;
@@ -230,7 +231,7 @@
                         if (activeItem) {
                             $(this.el).val(activeItem.id);
                             this.setActiveFilter(activeItem.id);
-                            // this.renderActiveFilter();
+
                         }
                     }
                     this.renderActiveFilter();
@@ -257,8 +258,13 @@
                                     $('#jquery-applied-filters').show();
                                     $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
                                     });
+
+
+
                                 }
                                 this.reloadData();
+                                this.activeFilter.changed = false;
+                            $('#jquery-save-filter').addClass('disabled');
                             }.bind(this)
                         )
 
@@ -555,23 +561,11 @@
                 },
 
                 addChangeEventsToFilter: function (context) {
-                    this.addToggleAllEventToCheckboxes();
-
                     this.filterFields.forEach(function (item) {
                         var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
                         $(document).on('change', selector, function (e) {
                             this.syncFilterField($(e.target), item);
                         }.bind(context));
-                    });
-                },
-                addToggleAllEventToCheckboxes: function () {
-                    $(document).on('click', '.jquery-checkbox-option-all', function (e) {
-                        $(this).parent().find('.jquery-checkbox-list-item').prop('checked', $(this).prop('checked'));
-                    });
-                    $(document).on('click', '.jquery-checkbox-list-item', function (e) {
-                        if (!$(this).hasClass('jquery-checkbox-option-all')) {
-                            $(this).parent().find('.jquery-checkbox-option-all').prop('checked', false);
-                        }
                     });
                 },
 
@@ -589,8 +583,9 @@
                     }
                     this.newFilter[item.field] = filter;
                     this.editFilter.filters[item.field] = filter;
-
-                    this.editFilter.changed = true;
+                    if (!this.isInitalizing) {
+                        this.editFilter.changed = true;
+                    }
                     this.renderActiveFilter();
                 },
 
