@@ -72,9 +72,7 @@ class MessagesService extends BaseService {
     }
 
     public function markRead($message_id) {
-        $response = $this->Connector->putRequest('/message/' . $message_id, [], [
-            'read' => 1
-        ]);
+        $response = $this->Connector->putRequest('/message/mark_read/' . $message_id, [], []);
 
         if($response === false){
             return $this->Connector->getLastResponse();
