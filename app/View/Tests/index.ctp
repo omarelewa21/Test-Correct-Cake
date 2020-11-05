@@ -8,7 +8,7 @@
         Toets construeren
     </a>
     <div class='popup' id='popup_search' style="display:none">
-        <div class="popup-head">Zoeken</div>
+        <div class="popup-head" id="modal-head">Zoeken</div>
         <div class="popup-content">
             <div id="testsFilter">
                 <?= $this->Form->create('Test') ?>
@@ -39,21 +39,8 @@
                         <?= $this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
                     </div>
                     <div class="col-md-5">
-                        <label for="">leerjaar</label>
-                        <div class="input checkbox jquery-checkbox-list-with-all-option">
-                            <?
-                            foreach ($education_level_years as $key => $value) {
-                                echo sprintf(
-                                    '<input type="checkbox" checked class="jquery-checkbox-list-item %s"  value="1" jquery-option="%d" id="level_%d"><label for="level_%d">%s</label><BR>',
-                                    $key == 0 ? 'jquery-checkbox-option-all' : '',
-                                    $key,
-                                    $key,
-                                    $key,
-                                    $value
-                                );
-                            }
-                            ?>
-                        </div>
+                        <label for="">Leerjaar</label>
+                        <?=$this->Form->input('education_level_years', array('placeholder'=> 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
                     </div>
                 </div>
                 <div class="row">
@@ -61,10 +48,9 @@
                         <label for="">Aangemaakt van</label>
                         <?= $this->Form->input('created_at_start', array('label' => false)) ?>
                     </div>
-                </div>
-                <div class="row">
+
                     <div class="col-md-5">
-                        <label for="">Aangemaakt van</label>
+                        <label for="">Aangemaakt tot</label>
                         <?= $this->Form->input('created_at_end', array('label' => false)) ?>
                     </div>
                 </div>
@@ -87,14 +73,14 @@
             </div>
         </div>
         <div class="popup-footer">
-
             <a href="#" style="float:right"
                id="jquery-save-filter-from-modal"
-               class="btn grey pull-right mr5 mt5 inline-block">Opslaan</a>
-
-
+               class="btn blue pull-right mr5 mt5 inline-block">Opslaan</a>
+            <a href="#" style="float:right"
+               id="jquery-save-filter-as-from-modal"
+               class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
             <a href="#" onclick="Popup.closeSearch()" style="float:right"
-               class="btn grey pull-right mr5 mt5 inline-block">Okay</a>
+               class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
         </div>
 
@@ -182,7 +168,12 @@
                     {field: 'subject', label: 'Vak'},
                     {field: 'period', label: 'Periode'},
                     {field: 'educationLevels', label: 'Niveau'},
-                    // {field: 'educationLevelYears', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_1', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_2', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_3', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_4', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_5', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears_6', label: 'Niveau jaar'},
                     // {field: 'isOpenSourcedContent', label: 'Bron'},
                     {field: 'createdAtStart', label: 'Aanmaakdatum van'},
                     {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
@@ -211,6 +202,7 @@
                 },
 
                 initializeSavedFilterSelect: function () {
+                    $('#TestEducationLevelYears').select2();
                     $('#jquery-applied-filters').hide();
                     this.renderSelectFilterBox();
                 },
@@ -242,7 +234,6 @@
                         }
                     }
                     this.renderActiveFilter();
-
                 },
 
                 initNewFilter: function () {
@@ -257,6 +248,7 @@
                                 if (value === '') {
                                     $('#jquery-applied-filters').hide();
                                     $('#jquery-delete-filter').addClass('disabled');
+                                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {});
                                     this.activeFilter = false;
                                 } else {
                                     this.setActiveFilter(value);
@@ -278,6 +270,12 @@
                             if (input.get(0).tagName === 'SELECT') {
                                 newValue = '0';
                             }
+
+                            if (input.is(':checkbox')){
+                                input.prop('checked', false);
+                                newValue = '1';
+                            }
+
                             input.val(newValue).trigger('change');
                             this.activeFilter.filters[prop] = {name: '', filter: '', label: ''};
                             this.activeFilter.changed = true;
@@ -287,6 +285,8 @@
                         .on('click', '#jquery-add-filter', function (e) {
                             $(this.el).val('');
                             this.resetSearchForm();
+                            this.setSearchFormTitle('Filter aanmaken');
+                            $('#jquery-save-filter-as-from-modal').hide();
                             Popup.showSearch()
                             this.activeFilter = {
                                 id: '',
@@ -297,6 +297,8 @@
                         }.bind(this))
 
                         .on('click', '#jquery-edit-filter', function (e) {
+                            this.setSearchFormTitle('Filter aanpassen: '+this.activeFilter.name);
+                            $('#jquery-save-filter-as-from-modal').show();
                             Popup.showSearch()
                             this.bindActiveFilterDataToFilterModal();
                         }.bind(this))
@@ -520,14 +522,10 @@
                 },
                 addToggleAllEventToCheckboxes: function () {
                     $(document).on('click', '.jquery-checkbox-option-all', function (e) {
-
                             $(this).parent().find('.jquery-checkbox-list-item').prop('checked', $(this).prop('checked'));
-                       
                     });
                     $(document).on('click', '.jquery-checkbox-list-item', function (e) {
-
                         if (!$(this).hasClass('jquery-checkbox-option-all')) {
-                            console.log ($(this).attr('class'));
                             $(this).parent().find('.jquery-checkbox-option-all').prop('checked', false);
                         }
                     });
@@ -542,6 +540,9 @@
                     if (el.is('select')) {
                         filter.label = el.find(':selected').text();
                     }
+                    if (el.is(':checkbox')){
+                        filter.label = el.attr('jquery-option');
+                    }
                     this.newFilter[item.field] = filter;
                     this.editFilter.filters[item.field] = filter;
 
@@ -554,6 +555,9 @@
                         return item.field == field;
                     });
                     return labelField.label;
+                },
+                setSearchFormTitle:function(title) {
+                    $('#modal-head').html(title);
                 },
             }
 

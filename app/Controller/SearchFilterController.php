@@ -91,4 +91,11 @@ class SearchFilterController extends AppController
         $result = $this->SearchFilterService->activate($uuid);
         $this->formResponse(!empty($result), $result);
     }
+
+    public function deactivate($uuid)
+    {
+        $this->autoRender = false;
+        $result = $this->SearchFilterService->deactivate($uuid);
+        $this->formResponse(!empty($result), $result);
+    }
 }
