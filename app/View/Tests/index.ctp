@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-5">
                         <label for="">Leerjaar</label>
-                        <?=$this->Form->input('education_level_years', array('placeholder'=> 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
+                        <?= $this->Form->input('education_level_years', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
                     </div>
                 </div>
                 <div class="row">
@@ -168,13 +168,13 @@
                     {field: 'subject', label: 'Vak'},
                     {field: 'period', label: 'Periode'},
                     {field: 'educationLevels', label: 'Niveau'},
-                    {field: 'educationLevelYears_1', label: 'Niveau jaar'},
-                    {field: 'educationLevelYears_2', label: 'Niveau jaar'},
-                    {field: 'educationLevelYears_3', label: 'Niveau jaar'},
-                    {field: 'educationLevelYears_4', label: 'Niveau jaar'},
-                    {field: 'educationLevelYears_5', label: 'Niveau jaar'},
-                    {field: 'educationLevelYears_6', label: 'Niveau jaar'},
-                    // {field: 'isOpenSourcedContent', label: 'Bron'},
+                    {field: 'educationLevelYears', label: 'Niveau jaar'},
+                    // {field: 'educationLevelYears_2', label: 'Niveau jaar'},
+                    // {field: 'educationLevelYears_3', label: 'Niveau jaar'},
+                    // {field: 'educationLevelYears_4', label: 'Niveau jaar'},
+                    // {field: 'educationLevelYears_5', label: 'Niveau jaar'},
+                    // {field: 'educationLevelYears_6', label: 'Niveau jaar'},
+                    // // {field: 'isOpenSourcedContent', label: 'Bron'},
                     {field: 'createdAtStart', label: 'Aanmaakdatum van'},
                     {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
                 ],
@@ -248,7 +248,8 @@
                                 if (value === '') {
                                     $('#jquery-applied-filters').hide();
                                     $('#jquery-delete-filter').addClass('disabled');
-                                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {});
+                                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                                    });
                                     this.activeFilter = false;
                                 } else {
                                     this.setActiveFilter(value);
@@ -271,7 +272,7 @@
                                 newValue = '0';
                             }
 
-                            if (input.is(':checkbox')){
+                            if (input.is(':checkbox')) {
                                 input.prop('checked', false);
                                 newValue = '1';
                             }
@@ -297,7 +298,7 @@
                         }.bind(this))
 
                         .on('click', '#jquery-edit-filter', function (e) {
-                            this.setSearchFormTitle('Filter aanpassen: '+this.activeFilter.name);
+                            this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
                             $('#jquery-save-filter-as-from-modal').show();
                             Popup.showSearch()
                             this.bindActiveFilterDataToFilterModal();
@@ -306,6 +307,7 @@
                         .on('click', '#jquery-save-filter', function (e) {
                             this.saveFilter(e);
                         }.bind(this))
+
 
                         .on('click', '#jquery-reset-filter', function (e) {
                             if (!$(e.target).hasClass('disabled')) {
@@ -319,6 +321,11 @@
                         }.bind(this))
                         .on('click', '#jquery-save-filter-from-modal', function (e) {
                             Popup.closeSearch();
+                            this.saveFilter(e);
+                        }.bind(this))
+                        .on('click', '#jquery-save-filter-as-from-modal', function (e) {
+                            Popup.closeSearch();
+
                             this.saveFilter(e);
                         }.bind(this))
 
@@ -337,12 +344,16 @@
                 },
 
                 saveFilter: function (e) {
+                    const saveAs = e.target.id === 'jquery-save-filter-as-from-modal';
+
                     if (!$(e.target).hasClass('disabled')) {
                         const isNewFilter = (this.activeFilter !== this.editFilter);
                         Popup.prompt({
                                 text: 'Wat is de naam van dit filter?',
-                                title: 'Opslaan',
-                                inputValue: isNewFilter ? 'Nieuw Filter' : this.editFilter.name,
+                                title: saveAs ? 'Opslaan als' : 'Opslaan',
+                                inputValue: isNewFilter
+                                    ? 'Nieuw Filter'
+                                    : saveAs ? this.editFilter.name + ' copy' : this.editFilter.name,
                             },
                             function (filterName) {
                                 if (filterName === null) {
@@ -353,12 +364,43 @@
                                 } else {
                                     if (isNewFilter) {
                                         this.saveNewFilter(filterName);
+                                    } else if (saveAs) {
+                                        this.saveActiveFilterAs(filterName);
                                     } else {
                                         this.saveActiveFilter(filterName);
                                     }
                                 }
                             }.bind(this));
                     }
+                },
+
+                saveActiveFilterAs: function (newFilterName) {
+                    const copyActiveFilter = JSON.parse(JSON.stringify(this.activeFilter));
+                    delete (copyActiveFilter.uuid);
+
+                    $.ajax({
+                        url: '/search_filter/add',
+                        data: {
+                            data: {
+                                search_filter: {
+                                    key: 'item_bank',
+                                    name: newFilterName,
+                                    filters: copyActiveFilter,
+                                }
+                            }
+                        },
+                        method: 'POST',
+                        context: this,
+                        dataType: 'json',
+                        success: function (response) {
+                            this.filters.push(response.data);
+                            this.renderSelectFilterBox(response.data.id);
+                            this.initNewFilter()
+                            this.activeFilter.changed = false;
+                            $('#jquery-save-filter').addClass('disabled');
+                            Notify.notify('Filter opgeslagen');
+                        },
+                    });
                 },
 
                 saveNewFilter: function (newFilterName) {
@@ -442,7 +484,7 @@
                     this.editFilter = this.filters.find(function (filter) {
                         return filter.id == filterId;
                     });
-
+// clone the object using the oldest trick in the book because we have no deep clone helper;
                     this.activeFilter = this.editFilter;
 
                     this.renderActiveFilter();
@@ -486,10 +528,12 @@
 
                                 hasActualFilter = true;
 
+                                let label = Array.isArray(filterDetail.filter) ? filterDetail.filter.join(', ') : filterDetail.label;
+
                                 $('#jquery-filter-filters').append($(
                                     `<span class="mr2 inline-block">
                                         <button title="Filter verwijderen" class="label-search-filter jquery-remove-filter fa fa-times-x-circle-o" jquery-filter-key="${key}">
-                                         ${filterDetail.label}
+                                         ${label}
                                         </button>
                                     </span>`)
                                 );
@@ -522,7 +566,7 @@
                 },
                 addToggleAllEventToCheckboxes: function () {
                     $(document).on('click', '.jquery-checkbox-option-all', function (e) {
-                            $(this).parent().find('.jquery-checkbox-list-item').prop('checked', $(this).prop('checked'));
+                        $(this).parent().find('.jquery-checkbox-list-item').prop('checked', $(this).prop('checked'));
                     });
                     $(document).on('click', '.jquery-checkbox-list-item', function (e) {
                         if (!$(this).hasClass('jquery-checkbox-option-all')) {
@@ -540,7 +584,7 @@
                     if (el.is('select')) {
                         filter.label = el.find(':selected').text();
                     }
-                    if (el.is(':checkbox')){
+                    if (el.is(':checkbox')) {
                         filter.label = el.attr('jquery-option');
                     }
                     this.newFilter[item.field] = filter;
@@ -556,7 +600,7 @@
                     });
                     return labelField.label;
                 },
-                setSearchFormTitle:function(title) {
+                setSearchFormTitle: function (title) {
                     $('#modal-head').html(title);
                 },
             }

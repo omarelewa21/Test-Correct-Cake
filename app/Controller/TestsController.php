@@ -27,7 +27,7 @@ class TestsController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => 'Alle',
+//            0 => 'Alle',
             1 => 1,
             2 => 2,
             3 => 3,
