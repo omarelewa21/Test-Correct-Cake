@@ -69,6 +69,7 @@
 		<script type="text/javascript" src="/js/cookie.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
+        <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
