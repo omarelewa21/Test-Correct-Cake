@@ -21,15 +21,18 @@ window.FilterManager = {
         this.el = '#jquery-saved-filters';
         $.getJSON('/search_filter/get/item_bank', function (response) {
             this.filters = response.data;
+            //initailze select 2 twice once for filter twice for modal...
+            this.initializeSelect2Fields();
             this.initializeSavedFilterSelect();
-            if (this.isInitalizing) {
+           if (this.isInitalizing) {
                 this.registerEvents();
                 this.addChangeEventsToFilter(this);
                 this.initNewFilter();
-                this.bindActiveFilterDataToFilterModal();
             }
+            this.bindActiveFilterDataToFilterModal();
             this.reloadData();
             this.isInitalizing = false;
+
             this.initializeSelect2Fields();
 
         }.bind(this));
@@ -356,6 +359,7 @@ window.FilterManager = {
             if (this.activeFilter && this.activeFilter.filters.hasOwnProperty(item.field)) {
                 let newValue = this.activeFilter.filters[item.field].filter;
                 let input = this.getJqueryFilterInput(item.field);
+
                 if (!newValue && input.get(0).tagName === 'SELECT') {
                     newValue = '0';
                 }
