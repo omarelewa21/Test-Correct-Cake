@@ -72,7 +72,7 @@ window.FilterManager = {
             $(this.el).val(valueToSelect);
         } else if (valueToSelect == '') {
             this.activeFilter = false;
-        } else {
+        } else if (this.filters) {
             let activeItem = this.filters.find(function (item) {
                 return item.active == 1;
             })
@@ -80,6 +80,8 @@ window.FilterManager = {
                 $(this.el).val(activeItem.id);
                 this.setActiveFilter(activeItem.id);
             }
+        } else {
+            this.activeFilter = false;
         }
         this.renderActiveFilter();
     },
