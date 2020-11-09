@@ -34,7 +34,7 @@
                 'text' : $('#txtNote').val()
             },
             function() {
-                window.parent.Answer.notePadClose(<?=$question_id?>);
+                window.parent.Answer.notePadClose('<?=$question_id?>');
             }
         );
     }
