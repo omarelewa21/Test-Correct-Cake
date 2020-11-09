@@ -37,13 +37,15 @@ class TestsController extends AppController {
         ];
 
         $education_levels = $this->TestsService->getEducationLevels();
+
+
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(false);
         $kinds = $this->TestsService->getKinds();
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
+        //$education_levels = [0 => 'Alle'] + $education_levels;
         $periods = [0 => 'Alle'] + $periods;
-        $subjects = [0 => 'Alle'] + $subjects;
+//        $subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
         $this->set('education_levels', $education_levels);

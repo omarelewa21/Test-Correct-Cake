@@ -18,7 +18,6 @@ var Popup = {
         );
     },
 
-
     showCongrats: function (action) {
         this.messageWithPreventDefault({
                 'btnOk': 'Ok',
