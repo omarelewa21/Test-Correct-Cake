@@ -14,7 +14,7 @@
                 <?= $this->Form->create('Test') ?>
                 <div class="row">
                     <div class="col-md-5">
-                        <label>Toets</label>
+                        <label>Titel (trefwoord)</label>
                         <?= $this->Form->input('name', array('label' => false)) ?>
                     </div>
                     <div class="col-md-5">
@@ -95,7 +95,7 @@
         <table id="filterTable" class="table ">
             <tbody>
             <tr>
-                <th width="150">Opgeslagen filters</th>
+                <th width="150">Kies filter</th>
                 <td colspan="2">
                     <select name="opgelagen filters" id="jquery-saved-filters">
                     </select>
@@ -104,7 +104,7 @@
                     <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter">Verwijderen</a>
                     <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
                         <span class="fa mr5"></span>
-                        Nieuw Filter maken
+                        Nieuw filter maken
                     </a>
                 </td>
             </tr>
@@ -116,7 +116,7 @@
                     <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
                         <span class="fa mr5"></span>Filter aanpassen
                     </a>
-                    <a href="#" class="btn inline-block grey mr2 disabled" id="jquery-save-filter">Opslaan</a>
+                    <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter">Opslaan</a>
                     <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
                 </td>
             </tr>
@@ -169,12 +169,7 @@
                     {field: 'subject', label: 'Vak'},
                     {field: 'period', label: 'Periode'},
                     {field: 'educationLevels', label: 'Niveau'},
-                    {field: 'educationLevelYears', label: 'Niveau jaar'},
-                    // {field: 'educationLevelYears_2', label: 'Niveau jaar'},
-                    // {field: 'educationLevelYears_3', label: 'Niveau jaar'},
-                    // {field: 'educationLevelYears_4', label: 'Niveau jaar'},
-                    // {field: 'educationLevelYears_5', label: 'Niveau jaar'},
-                    // {field: 'educationLevelYears_6', label: 'Niveau jaar'},
+                    {field: 'educationLevelYears', label: 'Leerjaar'},
                     // // {field: 'isOpenSourcedContent', label: 'Bron'},
                     {field: 'createdAtStart', label: 'Aanmaakdatum van'},
                     {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
@@ -191,6 +186,7 @@
                         this.bindActiveFilterDataToFilterModal();
                         this.reloadData();
                         this.isInitalizing = false;
+                        $('#TestEducationLevelYears').select2();
                     }.bind(this));
                 },
                 initCheckboxListWithAllOption: function () {
@@ -204,7 +200,7 @@
                 },
 
                 initializeSavedFilterSelect: function () {
-                    $('#TestEducationLevelYears').select2();
+
                     $('#jquery-applied-filters').hide();
                     this.renderSelectFilterBox();
                 },
@@ -214,7 +210,7 @@
                         .append(
                             $('<option></option>')
                                 .attr('value', '')
-                                .text('Kies een opgeslagen filter...')
+                                .text('Kies een filter (geen filter)')
                         );
 
                     $(this.filters).each(function (key, filter) {
@@ -231,7 +227,6 @@
                         if (activeItem) {
                             $(this.el).val(activeItem.id);
                             this.setActiveFilter(activeItem.id);
-
                         }
                     }
                     this.renderActiveFilter();
@@ -448,6 +443,15 @@
                         success: function (response) {
                             Notify.notify('Filter opgeslagen');
                             this.renderSelectFilterBox(this.editFilter.id);
+                            //TODO splice the current filter from the array and replace with the new one;
+                            this.filters = this.filters.map(function(filter){
+                                if (filter.id == this.activeFilter.id) {
+                                    return this.activeFilter;
+                                }
+                                return filter;
+                            }.bind(this));
+
+
                             this.setActiveFilter(this.editFilter.id);
                             this.activeFilter.changed = false;
                             $('#jquery-save-filter').addClass('disabled');
@@ -487,10 +491,12 @@
                 setActiveFilter(filterId) {
                     if (filterId == '') return;
 
-                    this.editFilter = this.filters.find(function (filter) {
+                    let filterToClone = this.filters.find(function (filter) {
                         return filter.id == filterId;
                     });
-// clone the object using the oldest trick in the book because we have no deep clone helper;
+                    this.editFilter = JSON.parse(JSON.stringify(filterToClone));
+                    // clone the object using the oldest trick in the book because we have no deep clone helper;
+
                     this.activeFilter = this.editFilter;
 
                     this.renderActiveFilter();
@@ -534,7 +540,7 @@
 
                                 hasActualFilter = true;
 
-                                let label = Array.isArray(filterDetail.filter) ? filterDetail.filter.join(', ') : filterDetail.label;
+                                let label = Array.isArray(filterDetail.filter) ? filterDetail.name+': '+filterDetail.filter.join(', ') : filterDetail.label;
 
                                 $('#jquery-filter-filters').append($(
                                     `<span class="mr2 inline-block">
@@ -624,11 +630,12 @@
     a.btn.disabled {
         color: grey;
         cursor: not-allowed;
+        background-color: #eeeeee !important;
     }
 
     a.btn.disabled:hover {
         color: grey;
-        background-color: #eeeeee;
+        background-color: #eeeeee !important;
         cursor: not-allowed;
     }
 
@@ -671,6 +678,18 @@
         background-color: #197cb4;
     / / #117a8b;
         cursor: pointer;
+    }
+
+    #modal-head.popup-head{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        padding-left:22px;
+        padding-right: 22px;
+    }
+    .select2-selection.select2-selection--multiple:hover{
+        border:1px solid #1d93d6;
+        cursor:pointer;
     }
 
 
