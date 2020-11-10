@@ -1,8 +1,15 @@
 <div id="buttons">
+    <?php if($totalScore === 0) { ?>
+    <a href="#" class="btn grey mr2">
+        <span class="fa fa-check mr5"></span>
+        Normering opslaan
+    </a>
+    <?php } else { ?>
     <a href="#" class="btn highlight mr2" onclick="TestTake.saveNormalization('<?=$take_id?>');">
         <span class="fa fa-check mr5"></span>
         Normering opslaan
     </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         Terug
@@ -13,12 +20,27 @@
 
 <?=$this->Form->create('TestTake')?>
 
-<?
-$score = 0;
-foreach($test_take['questions'] as $question) {
-    $score += $question['score'];
-}
+<?php
+
+if($totalScore === 0){
+
 ?>
+    <div class="block">
+        <div class="block-head">Normering</div>
+        <div class="block-content">
+            <table class="table table-striped" id="tableQuestions">
+                <thead>
+                    <tr>
+                        <td class="danger">
+                            Er zijn geen punten om mee te rekenen. Daarom is het niet mogelijk een normering te kiezen.
+                        </td>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+
+<?php } else { ?>
 
     <div class="block">
         <div class="block-head">Normering</div>
@@ -93,6 +115,7 @@ foreach($test_take['questions'] as $question) {
         <div class="block-content" id="divPreview"></div>
     </div>
 
+<?php } ?>
 
     <div class="block">
         <div class="block-head">Vragen</div>
