@@ -4,14 +4,14 @@ window.FilterManager = {
     activeFilter: false,
     newFilter: {},
     editFilter: {'filters': {}},
-    isInitalizing: true,
+    isInitalizingEvents: true,
     filterFields: [
-        {field: 'name', label: 'Toets', type:'text'},
-        {field: 'kind', label: 'Type', type:'select'},
-        {field: 'subject', label: 'Vak', type:'multiSelect'},
-        {field: 'period', label: 'Periode', type:'select'},
-        {field: 'educationLevels', label: 'Niveau', type:'multiSelect'},
-        {field: 'educationLevelYears', label: 'Leerjaar', type:'multiSelect'},
+        {field: 'name', label: 'Toets', type: 'text'},
+        {field: 'kind', label: 'Type', type: 'select'},
+        {field: 'subject', label: 'Vak', type: 'multiSelect'},
+        {field: 'period', label: 'Periode', type: 'select'},
+        {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
+        {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
         // // {field: 'isOpenSourcedContent', label: 'Bron'},
         {field: 'createdAtStart', label: 'Aanmaakdatum van'},
         {field: 'createdAtEnd', label: 'Aanmaakdatum tot'},
@@ -21,38 +21,37 @@ window.FilterManager = {
         this.el = '#jquery-saved-filters';
         $.getJSON('/search_filter/get/item_bank', function (response) {
             this.filters = response.data;
-            //initailze select 2 twice once for filter twice for modal...
-            this.initializeSelect2Fields();
+            this.disableDeleteButton();
+            this.isInitalizingState = true;
+
             this.initializeSavedFilterSelect();
-           if (this.isInitalizing) {
+            if (this.isInitalizingEvents) {
                 this.registerEvents();
                 this.addChangeEventsToFilter(this);
                 this.initNewFilter();
             }
-            this.bindActiveFilterDataToFilterModal();
-            this.reloadData();
-            this.isInitalizing = false;
 
-            this.initializeSelect2Fields();
+            this.reloadData();
+            this.isInitalizingEvents = false;
+            this.isInitalizingState = false;
+
 
         }.bind(this));
     },
 
-    initializeSelect2Fields:function(){
-        this.filterFields.forEach(function(field) {
+    initializeSelect2Fields: function () {
+        this.filterFields.forEach(function (field) {
             if (field.type === 'multiSelect') {
                 this.getJqueryFilterInput(field.field).select2();
             }
         }.bind(this));
     },
 
-
     reloadData: function () {
         this.getJqueryFilterInput(this.filterFields[0].field).trigger('change');
     },
 
     initializeSavedFilterSelect: function () {
-
         $('#jquery-applied-filters').hide();
         this.renderSelectFilterBox();
     },
@@ -71,11 +70,14 @@ window.FilterManager = {
         if (valueToSelect) {
             $(this.el).val(valueToSelect);
         } else if (valueToSelect == '') {
+            this.resetSearchForm();
+            this.disableDeleteButton();
             this.activeFilter = false;
+            this.editFilter = {'filters': {}};
         } else if (this.filters) {
             let activeItem = this.filters.find(function (item) {
                 return item.active == 1;
-            })
+            });
             if (activeItem) {
                 $(this.el).val(activeItem.id);
                 this.setActiveFilter(activeItem.id);
@@ -95,25 +97,26 @@ window.FilterManager = {
         $(document)
             .on('change', this.el, function (e) {
                     var value = $(e.target).val();
+                    this.activeFilter.changed = false;
+                    this.setActiveFilter(value);
                     if (value === '') {
                         $('#jquery-applied-filters').hide();
-                        $('#jquery-delete-filter').addClass('disabled');
+                        this.disableDeleteButton();
+                        this.resetSearchForm();
                         $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
                         });
                         this.activeFilter = false;
                     } else {
 
-                        $('#jquery-delete-filter').removeClass('disabled');
+                        this.enableDeleteButton();
                         $('#jquery-applied-filters').show();
                         $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
                         });
                     }
 
                     this.reloadData();
-                    this.activeFilter.changed = false;
-                    this.setActiveFilter(value);
 
-                    $('#jquery-save-filter').addClass('disabled');
+                    this.disableSaveButton();
                 }.bind(this)
             )
 
@@ -143,7 +146,7 @@ window.FilterManager = {
                 this.resetSearchForm();
                 this.setSearchFormTitle('Filter aanmaken');
                 $('#jquery-save-filter-as-from-modal').hide();
-                Popup.showSearch()
+                Popup.showSearch();
                 this.activeFilter = {
                     id: '',
                     name: 'Nieuw',
@@ -155,8 +158,8 @@ window.FilterManager = {
             .on('click', '#jquery-edit-filter', function (e) {
                 this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
                 $('#jquery-save-filter-as-from-modal').show();
-                Popup.showSearch()
-                this.bindActiveFilterDataToFilterModal();
+                Popup.showSearch();
+                // this.bindActiveFilterDataToFilterModal();
             }.bind(this))
 
             .on('click', '#jquery-save-filter', function (e) {
@@ -250,12 +253,21 @@ window.FilterManager = {
             success: function (response) {
                 this.filters.push(response.data);
                 this.renderSelectFilterBox(response.data.id);
-                this.initNewFilter()
+                this.initNewFilter();
                 this.activeFilter.changed = false;
-                $('#jquery-save-filter').addClass('disabled');
+
                 Notify.notify('Filter opgeslagen');
+                this.enableDeleteButton();
+                this.disableSaveButton();
             },
         });
+    },
+
+    disableSaveButton: function () {
+        $('#jquery-save-filter').addClass('disabled');
+    },
+    enableSaveButton: function () {
+        $('#jquery-save-filter').removeClass('disabled');
     },
 
     saveNewFilter: function (newFilterName) {
@@ -278,7 +290,7 @@ window.FilterManager = {
                 this.renderSelectFilterBox(response.data.id);
                 this.initNewFilter()
                 this.activeFilter.changed = false;
-                $('#jquery-save-filter').addClass('disabled');
+                this.disableSaveButton();
                 Notify.notify('Filter opgeslagen');
             },
         });
@@ -298,7 +310,7 @@ window.FilterManager = {
                 Notify.notify('Filter opgeslagen');
                 this.renderSelectFilterBox(this.editFilter.id);
                 //TODO splice the current filter from the array and replace with the new one;
-                this.filters = this.filters.map(function(filter){
+                this.filters = this.filters.map(function (filter) {
                     if (filter.id == this.activeFilter.id) {
                         return this.activeFilter;
                     }
@@ -308,7 +320,7 @@ window.FilterManager = {
 
                 this.setActiveFilter(this.editFilter.id);
                 this.activeFilter.changed = false;
-                $('#jquery-save-filter').addClass('disabled');
+                this.disableSaveButton();
             },
         });
     },
@@ -335,11 +347,19 @@ window.FilterManager = {
                         this.renderSelectFilterBox('');
                         this.activeFilter = false;
                         this.renderActiveFilter();
-                        Notify.notify('Het filter is succesvol verwijderd.')
+                        Notify.notify('Het filter is succesvol verwijderd.');
+                        this.disableDeleteButton();
                     },
                 });
             }
         }.bind(this));
+    },
+
+    disableDeleteButton: function () {
+        $('#jquery-delete-filter').addClass('disabled');
+    },
+    enableDeleteButton: function () {
+        $('#jquery-delete-filter').removeClass('disabled');
     },
 
     setActiveFilter(filterId) {
@@ -368,6 +388,7 @@ window.FilterManager = {
                 input.val(newValue);
             }
         }.bind(this));
+        this.initializeSelect2Fields();
     },
 
     getJqueryFilterInput: function (name) {
@@ -375,6 +396,8 @@ window.FilterManager = {
     },
 
     renderActiveFilter: function (e) {
+        this.bindActiveFilterDataToFilterModal();
+        this.initializeSelect2Fields();
         if (e instanceof Event) {
             e.stopPropagation();
         }
@@ -383,7 +406,6 @@ window.FilterManager = {
         if (this.activeFilter) {
 
             $('#jquery-applied-filters').show();
-            $('#jquery-delete-filter').removeClass('disabled');
             for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
 
                 if (filterDetail.filter && filterDetail.name) {
@@ -397,7 +419,9 @@ window.FilterManager = {
 
 
                     let label = Array.isArray(filterDetail.filter)
-                        ? filterDetail.name+': '+ input.find(':selected').toArray().map(function(option) { return option.innerText; }).sort().join(', ')
+                        ? filterDetail.name + ': ' + input.find(':selected').toArray().map(function (option) {
+                        return option.innerText;
+                    }).sort().join(', ')
                         : filterDetail.label;
 
                     $('#jquery-filter-filters').append($(
@@ -419,9 +443,11 @@ window.FilterManager = {
         } else {
             $('#jquery-reset-filter').addClass('disabled');
         }
-       // if (this.activeFilter.hasOwnProperty('changed') && this.activeFilter.changed) {
-            $('#jquery-save-filter').removeClass('disabled');
-       // }
+        if (this.activeFilter.hasOwnProperty('changed') && this.activeFilter.changed) {
+            this.enableSaveButton();
+        } else {
+            this.disableSaveButton();
+        }
     },
 
     addChangeEventsToFilter: function (context) {
@@ -447,8 +473,8 @@ window.FilterManager = {
         }
         this.newFilter[item.field] = filter;
         this.editFilter.filters[item.field] = filter;
-        if (!this.isInitalizing) {
-            this.editFilter.changed = true;
+        if (!this.isInitalizingState) {
+            this.activeFilter.changed = true;
         }
         this.renderActiveFilter();
     },
