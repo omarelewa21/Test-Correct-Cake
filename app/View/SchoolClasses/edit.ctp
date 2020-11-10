@@ -37,14 +37,14 @@ foreach($education_levels as $education_level) {
         <tr>
             <th>Niveau</th>
             <td>
-                <?=$this->Form->input('education_level_id', ['options' => $levels,  'label' => false, 'onchange' => 'updateEducationYears();']) ?>
+                <?=$this->Form->input('education_level_id', ['options' => $levels, 'selected' => $SchoolClassEducationLevelUuid, 'label' => false, 'onchange' => 'updateEducationYears();']) ?>
             </td>
         </tr>
 
         <tr>
             <th>Niveau-jaar</th>
             <td>
-                <?=$this->Form->input('education_level_year', ['options' => [], 'label' => false]) ?>
+                <?=$this->Form->input('education_level_year', ['options' => $initEducationLevelYears, 'selected' => $SchoolClassEducationLevelYear, 'label' => false]) ?>
             </td>
         </tr>
         <tr>
@@ -94,6 +94,7 @@ foreach($education_levels as $education_level) {
     $('#SchoolYearSchoolLocations').select2();
 
     function updateEducationYears() {
+        console.log('hier');
         var val = $('#SchoolClassEducationLevelId').val();
         var years = 0;
 
