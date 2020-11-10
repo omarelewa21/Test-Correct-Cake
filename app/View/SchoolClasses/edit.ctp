@@ -44,7 +44,7 @@ foreach($education_levels as $education_level) {
         <tr>
             <th>Niveau-jaar</th>
             <td>
-                <?=$this->Form->input('education_level_year', ['options' => $initEducationLevelYears, 'selected' => $SchoolClassEducationLevelYear, 'label' => false]) ?>
+                <?=$this->Form->input('education_level_year', ['options' => $initEducationLevelYears,  'label' => false]) ?>
             </td>
         </tr>
         <tr>
@@ -94,7 +94,6 @@ foreach($education_levels as $education_level) {
     $('#SchoolYearSchoolLocations').select2();
 
     function updateEducationYears() {
-        console.log('hier');
         var val = $('#SchoolClassEducationLevelId').val();
         var years = 0;
 
@@ -115,5 +114,11 @@ foreach($education_levels as $education_level) {
         }
     }
 
+    function initEducationYears(){
+        var val = '<? echo $SchoolClassEducationLevelYear ?>';
+        $("#SchoolClassEducationLevelYear").val(val);
+    }
+
     updateEducationYears();
+    initEducationYears();
 </script>
