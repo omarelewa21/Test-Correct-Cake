@@ -192,10 +192,13 @@ class SchoolClassesController extends AppController
         $this->set('is_rtti', $this->SchoolClassesService->getClass($class_id)['school_location']['is_rtti_school_location'] );
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
-        $this->set('education_levels', $this->TestsService->getEducationLevels(false, false));
+        $educationLevels = $this->TestsService->getEducationLevels(false, false);
+        $this->set('education_levels', $educationLevels);
         $this->set('school_years', $this->SchoolYearsService->getSchoolYearList());
-
         $this->request->data['SchoolClass'] = $this->SchoolClassesService->getClass($class_id);
+        $this->set('SchoolClassEducationLevelUuid',$this->request->data['SchoolClass']['education_level']['uuid']);
+        $this->set('SchoolClassEducationLevelYear',$this->request->data['SchoolClass']['education_level_year']);
+        $this->set('initEducationLevelYears',$this->getInitEducationLevelYears($educationLevels,$this->request->data['SchoolClass']['education_level']['uuid']));
     }
 
     public function add_teacher($class_id) {
@@ -376,5 +379,19 @@ class SchoolClassesController extends AppController
         }
 
         $this->request->data['User'] = $this->UsersService->getUser($user_id);
+    }
+
+    private function getInitEducationLevelYears($education_levels,$uuid){
+        $maxYear = 1;
+        foreach ($education_levels as $key => $education_level) {
+            if($education_level['uuid']==$uuid){
+                $maxYear = $education_level['max_years'];
+            }
+        }
+        $initEducationLevelYears = [];
+        for ($i=1; $i <= $maxYear; $i++) { 
+            $initEducationLevelYears[] = $i;
+        }
+        return $initEducationLevelYears;
     }
 }
