@@ -27,6 +27,11 @@ class SchoolClassesController extends AppController
     public function index()
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $school_years1 = [''=>'Kies een jaar'];
+        $school_years2 = $this->SchoolYearsService->getSchoolYearList();
+        $school_years = $school_years1+$school_years2;
+        $this->set('school_years', $school_years);
+
     }
 
     public function load() {
@@ -39,12 +44,17 @@ class SchoolClassesController extends AppController
 
         $filters = $filters['data']['SchoolClass'];
 
+
+
         unset($params['filters']);
         $params['filter'] = [];
 
-        $params['filter'] = ['current_school_year' => 1];
+        //$params['filter'] = ['current_school_year' => 1];
         if(!empty($filters['name'])) {
             $params['filter']['name'] = $filters['name'];
+        }
+        if(!empty($filters['school_year_id'])) {
+            $params['filter']['school_year_id'] = $filters['school_year_id'];
         }
 
         $classes  = $this->SchoolClassesService->getClasses($params);
