@@ -3,7 +3,7 @@
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
-    <? if ($test['has_duplicates']) { ?>
+    <? if ($test['has_duplicates'] || $totalScore === 0) { ?>
 
     <a href="#" class="btn grey mr2" >
         <span class="fa fa-calendar mr5"></span>
@@ -94,6 +94,18 @@
                 <td class="danger" colspan="5">
                     <? } ?>
                     E&eacute;n of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.
+                </td>
+            </tr>
+            <? } ?>
+
+            <?php if($totalScore === 0){ ?>
+            <tr>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                <td class="danger" colspan="6">
+                    <? } else { ?>
+                <td class="danger" colspan="5">
+                    <? } ?>
+                    Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden. Het is daarom niet mogelijk om de toets in te plannen.
                 </td>
             </tr>
             <? } ?>

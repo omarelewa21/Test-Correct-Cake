@@ -650,6 +650,12 @@ class TestTakesController extends AppController
 			]
 		]);
 
+        $totalScore = 0;
+        foreach($test_take['questions'] as $question) {
+            $totalScore += $question['score'];
+        }
+
+		$this->set('totalScore',$totalScore);
 		$this->set('test_take', $test_take);
 		$this->set('take_id', $take_id);
 	}
