@@ -72,6 +72,9 @@ window.FilterManager = {
         } else if (valueToSelect == '') {
             this.resetSearchForm();
             this.disableDeleteButton();
+            $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+
+            }.bind(this));
             this.activeFilter = false;
             this.editFilter = {'filters': {}};
         } else if (this.filters) {
@@ -107,7 +110,6 @@ window.FilterManager = {
                         });
                         this.activeFilter = false;
                     } else {
-
                         this.enableDeleteButton();
                         $('#jquery-applied-filters').show();
                         $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
@@ -235,16 +237,14 @@ window.FilterManager = {
     saveActiveFilterAs: function (newFilterName) {
         const copyActiveFilter = JSON.parse(JSON.stringify(this.activeFilter));
         delete (copyActiveFilter.uuid);
+        copyActiveFilter.key = 'item_bank';
+        copyActiveFilter.name = newFilterName;
 
         $.ajax({
             url: '/search_filter/add',
             data: {
                 data: {
-                    search_filter: {
-                        key: 'item_bank',
-                        name: newFilterName,
-                        filters: copyActiveFilter,
-                    }
+                    search_filter: copyActiveFilter,
                 }
             },
             method: 'POST',
