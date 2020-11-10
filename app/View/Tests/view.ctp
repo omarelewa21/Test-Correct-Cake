@@ -3,7 +3,7 @@
         <span class="fa fa-backward mr5"></span>
         Terug
     </a>
-    <? if ($test['has_duplicates'] || $totalScore === 0) { ?>
+    <? if ($test['has_duplicates']) { ?>
 
     <a href="#" class="btn grey mr2" >
         <span class="fa fa-calendar mr5"></span>
@@ -105,7 +105,7 @@
                     <? } else { ?>
                 <td class="danger" colspan="5">
                     <? } ?>
-                    Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden. Het is daarom niet mogelijk om de toets in te plannen.
+                    Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden.
                 </td>
             </tr>
             <? } ?>
