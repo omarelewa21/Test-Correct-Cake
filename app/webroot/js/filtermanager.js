@@ -216,13 +216,13 @@ function FilterManager(settings) {
         const saveAs = e.target.id === 'jquery-save-filter-as-from-modal';
 
         if (!$(e.target).hasClass('disabled')) {
-            const isNewFilter = (this.activeFilter !== this.editFilter);
+            const isNewFilter = (this.activeFilter.id === '')
             Popup.prompt({
                     text: 'Wat is de naam van dit filter?',
                     title: saveAs ? 'Opslaan als' : 'Opslaan',
                     inputValue: isNewFilter
                         ? 'Nieuw Filter'
-                        : saveAs ? this.editFilter.name + ' copy' : this.editFilter.name,
+                        : saveAs ? this.activeFilter.name + ' copy' : this.activeFilter.name,
                 },
                 function (filterName) {
                     if (filterName === null) {
@@ -297,6 +297,7 @@ function FilterManager(settings) {
                 success: function (response) {
                     this.filters.push(response.data);
                     this.renderSelectFilterBox(response.data.id);
+                    this.activeFilter = response.data;
                     this.initNewFilter()
                     this.activeFilter.changed = false;
                     this.disableSaveButton();
@@ -306,18 +307,18 @@ function FilterManager(settings) {
         };
 
     this.saveActiveFilter = function (newFilterName) {
-        this.editFilter.name = newFilterName;
+        this.activeFilter.name = newFilterName;
         $.ajax({
-            url: '/search_filter/edit/' + this.editFilter.uuid,
+            url: '/search_filter/edit/' + this.activeFilter.uuid,
             type: 'PUT',
             dataType: 'json',
             data: {
-                search_filter: this.editFilter,
+                search_filter: this.activeFilter,
             },
             context: this,
             success: function (response) {
                 Notify.notify('Filter opgeslagen');
-                this.renderSelectFilterBox(this.editFilter.id);
+                this.renderSelectFilterBox(this.activeFilter.id);
                 //TODO splice the current filter from the array and replace with the new one;
                 this.filters = this.filters.map(function (filter) {
                     if (filter.id == this.activeFilter.id) {
@@ -327,7 +328,8 @@ function FilterManager(settings) {
                 }.bind(this));
 
 
-                this.setActiveFilter(this.editFilter.id);
+                this.setActiveFilter(this.activeFilter.id);
+                this.renderSelectFilterBox(this.activeFilter.id);
                 this.activeFilter.changed = false;
                 this.disableSaveButton();
             },
@@ -366,24 +368,24 @@ function FilterManager(settings) {
 
     this.disableDeleteButton = function () {
         $('#jquery-delete-filter').addClass('disabled');
-    },
-        this.enableDeleteButton = function () {
-            $('#jquery-delete-filter').removeClass('disabled');
-        },
+    };
+    this.enableDeleteButton = function () {
+        $('#jquery-delete-filter').removeClass('disabled');
+    };
 
-        this.setActiveFilter = function (filterId) {
-            if (filterId == '') return;
+    this.setActiveFilter = function (filterId) {
+        if (filterId == '') return;
 
-            let filterToClone = this.filters.find(function (filter) {
-                return filter.id == filterId;
-            });
-            this.editFilter = JSON.parse(JSON.stringify(filterToClone));
-            // clone the object using the oldest trick in the book because we have no deep clone helper;
+        let filterToClone = this.filters.find(function (filter) {
+            return filter.id == filterId;
+        });
+        this.editFilter = JSON.parse(JSON.stringify(filterToClone));
+        // clone the object using the oldest trick in the book because we have no deep clone helper;
 
-            this.activeFilter = this.editFilter;
+        this.activeFilter = this.editFilter;
 
-            this.renderActiveFilter();
-        };
+        this.renderActiveFilter();
+    };
 
     this.bindActiveFilterDataToFilterModal = function () {
         this.filterFields.forEach(function (item) {
