@@ -1,3 +1,4 @@
+<div id="TestTakesPlannedTeacher">
 <div id="buttons">
 
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
@@ -26,24 +27,24 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label>Periode</label>
-            
+
                         <?=$this->Form->input('period_id', array('options' => $periods, 'label' => false)) ?>
                     </div>
                     <div class="col-md-5">
                         <label>Type</label>
-            
+
                         <?=$this->Form->input('retake', array('options' => $retakeOptions, 'label' => false)) ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5">
                         <label>Gepland van</label>
-            
+
                         <?=$this->Form->input('time_start_from', array('label' => false)) ?>
                     </div>
                     <div class="col-md-5">
                         <label>Gepland tot</label>
-            
+
                         <?=$this->Form->input('time_start_to', array('label' => false)) ?>
                     </div>
                 </div>
@@ -102,7 +103,7 @@
         </table>
     </div>
 </div>
-
+</div>
 <div class="block autoheight">
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
@@ -123,7 +124,7 @@
         </table>
 
         <script type="text/javascript">
-            
+
         </script>
        <script type="text/javascript">
 
@@ -139,6 +140,7 @@
                             {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
                             {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
                         ],
+                        eventScope: '#TestTakesPlannedTeacher',
                         formPrefix: '#TestTake',
                         table: '#testsTable',
                         tablefy: {

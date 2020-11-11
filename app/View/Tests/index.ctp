@@ -1,3 +1,4 @@
+<div id="ItemBank">
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
         <span class="fa fa-calendar-o mr5"></span>
@@ -124,6 +125,7 @@
         </table>
     </div>
 </div>
+</div>
 <div class="block autoheight">
     <!--    <div class="block-head">Toetsen</div>-->
     <div class="block-content" id="testsContainter">
@@ -163,6 +165,7 @@
                             {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
                             {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
                         ],
+                        eventScope:'#ItemBank',
                         formPrefix: '#Test',
                         table: '#testsTable',
                         tablefy: {
