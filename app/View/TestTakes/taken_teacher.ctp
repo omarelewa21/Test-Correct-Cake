@@ -11,6 +11,11 @@
                 0 => 'Standaard',
                 1 => 'Inhaaltoetsen'
             );
+
+            $archivedOptions = array(
+                0 => 'Niet tonen',
+                1 => 'Tonen',
+            );
             ?>
                 <div class="row">
                     <div class="col-md-5">
@@ -30,6 +35,12 @@
                     <div class="col-md-5">
                         <label>Gepland tot</label>
                         <?=$this->Form->input('time_start_to', array('label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Gearchiveerd</label>
+                        <?=$this->Form->input('archived',  array('options' => $archivedOptions, 'label' => false)) ?>
                     </div>
                 </div>
                 <?=$this->Form->end();?>
@@ -117,6 +128,7 @@
                             {field: 'retake', label: 'Type', type: 'select'},
                             {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
                             {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
                         ],
                         formPrefix: '#TestTake',
                         table: '#testsTable',
@@ -140,3 +152,22 @@
     </div>
     <div class="block-footer"></div>
 </div>
+<style>
+    .jquery-not-archived .jquery-show-not-archived {
+        display:block;
+    }
+    .jquery-not-archived .jquery-show-when-archived {
+        display:none;
+    }
+    .jquery-archived .jquery-show-not-archived {
+        display:none;
+    }
+    .jquery-archived .jquery-show-when-archived {
+        display:block;
+    }
+    .jquery-archived{
+        color:grey;
+    }
+
+
+</style>
