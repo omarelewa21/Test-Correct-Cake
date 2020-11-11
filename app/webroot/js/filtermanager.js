@@ -35,7 +35,7 @@ function FilterManager(settings) {
                 this.initNewFilter();
 
             }
-            $('#testsTable').tablefy(this.settings.tablefy);
+            $(this.settings.table).tablefy(this.settings.tablefy);
 
             // this.reloadData();
             this.isInitalizingEvents = false;
@@ -401,7 +401,7 @@ function FilterManager(settings) {
     };
 
     this.getJqueryFilterInput = function (name) {
-        return $('#Test' + name.charAt(0).toUpperCase() + name.slice(1));
+        return $(this.settings.formPrefix + name.charAt(0).toUpperCase() + name.slice(1));
     };
 
     this.renderActiveFilter = function (e) {
@@ -461,7 +461,7 @@ function FilterManager(settings) {
 
     this.addChangeEventsToFilter = function (context) {
         this.filterFields.forEach(function (item) {
-            var selector = '#Test' + item.field.charAt(0).toUpperCase() + item.field.slice(1);
+            var selector = this.settings.formPrefix + item.field.charAt(0).toUpperCase() + item.field.slice(1);
             $(document).on('change', selector, function (e) {
                 this.syncFilterField($(e.target), item);
             }.bind(context));

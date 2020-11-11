@@ -163,6 +163,8 @@
                             {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
                             {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
                         ],
+                        formPrefix: '#Test',
+                        table: '#testsTable',
                         tablefy: {
                             'source': '/tests/load',
                             'filters': $('#TestIndexForm'),
