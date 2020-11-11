@@ -464,8 +464,8 @@ function FilterManager(settings) {
             var selector = this.settings.formPrefix + item.field.charAt(0).toUpperCase() + item.field.slice(1);
             $(document).on('change', selector, function (e) {
                 this.syncFilterField($(e.target), item);
-            }.bind(context));
-        });
+            }.bind(this));
+        }.bind(this));
     };
 
     this.syncFilterField = function (el, item) {
