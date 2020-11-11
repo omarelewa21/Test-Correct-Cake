@@ -84,7 +84,7 @@
             });
         }
 
-        loadResults();
+         loadResults();
     }
 
     function afterSortOrFilter() {

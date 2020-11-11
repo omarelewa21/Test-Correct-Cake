@@ -36,7 +36,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for="">Niveau</label>
-                        <?= $this->Form->input('education_levels', array    ('style' => 'width: 100%', 'options' => $education_levels, 'label' => false, 'multiple' => true)) ?>
+                        <?= $this->Form->input('education_levels', array('style' => 'width: 100%', 'options' => $education_levels, 'label' => false, 'multiple' => true)) ?>
                     </div>
                     <div class="col-md-5">
                         <label for="">Leerjaar</label>
@@ -146,18 +146,37 @@
 
         <script type="text/javascript">
 
-            $('#TestCreatedAtStart, #TestCreatedAtEnd').datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
 
-            $('#testsTable').tablefy({
-                'source': '/tests/load',
-                'filters': $('#TestIndexForm'),
-                'container': $('#testsContainter')
-            });
+
 
             $(document).ready(function () {
-                FilterManager.init();
+                if (typeof (itembankFiltermanager) === 'undefined') {
+                    const settings = {
+                        filterFields: [
+                            {field: 'name', label: 'Toets', type: 'text'},
+                            {field: 'kind', label: 'Type', type: 'select'},
+                            {field: 'subject', label: 'Vak', type: 'multiSelect'},
+                            {field: 'period', label: 'Periode', type: 'select'},
+                            {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
+                            {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
+                            // // {field: 'isOpenSourcedContent', label: 'Bron'},
+                            {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
+                            {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
+                        ],
+                        tablefy: {
+                            'source': '/tests/load',
+                            'filters': $('#TestIndexForm'),
+                            'container': $('#testsContainter')
+                        },
+                        filterKey: 'item_bank',
+                    };
+
+                    itembankFiltermanager = new FilterManager(settings);
+                }
+
+                itembankFiltermanager.init();
+
+
             });
 
         </script>
