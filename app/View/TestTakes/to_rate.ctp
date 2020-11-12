@@ -124,15 +124,15 @@
         </table>
 
         <script type="text/javascript">
-            $('#testsTable').tablefy({
-                'source': '/test_takes/load_to_rate',
-                'filters': $('#TestTakeToRateForm'),
-                'container': $('#testsContainter')
-            });
+            // $('#testsTable').tablefy({
+            //     'source': '/test_takes/load_to_rate',
+            //     'filters': $('#TestTakeToRateForm'),
+            //     'container': $('#testsContainter')
+            // });
 
-            $('#TestTakeTimeStartFrom, #TestTakeTimeStartTo').datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
+            // $('#TestTakeTimeStartFrom, #TestTakeTimeStartTo').datepicker({
+            //     dateFormat: 'dd-mm-yy'
+            // });
         </script>
 
         <script type="text/javascript">
