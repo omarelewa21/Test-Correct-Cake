@@ -1,3 +1,4 @@
+<div id="TestTakesRated">
 <div id="buttons">
 
     <div class='popup' id='popup_search' style="display:none">
@@ -95,6 +96,7 @@
         </table>
     </div>
 </div>
+</div>
 <div class="block autoheight">
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
@@ -140,6 +142,7 @@
                             {field: 'archived', label: 'Gearchiveerd', type: 'select'},
 
                         ],
+                        eventScope:'#TestTakesRated',
                         formPrefix: '#TestTake',
                         table: '#testsTable',
                         tablefy: {

@@ -1,3 +1,4 @@
+<div id="TestTakesToRate">
 <div id="buttons">
 
     <div class='popup' id='popup_search' style="display:none">
@@ -98,6 +99,7 @@
         </table>
     </div>
 </div>
+</div>
 
 <div class="block autoheight">
     <div class="block-content" id="testsContainter">
@@ -144,6 +146,7 @@
                             {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
                             {field: 'archived', label: 'Gearchiveerd', type: 'select'},
                         ],
+                        eventScope:'#TestTakesToRate',
                         formPrefix: '#TestTake',
                         table: '#testsTable',
                         tablefy: {

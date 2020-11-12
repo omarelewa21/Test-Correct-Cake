@@ -1,10 +1,11 @@
+<div id="TestTakesCito">
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
         <span class="fa fa-calendar-o mr5"></span>
         Toetsen inplannen
     </a>
 
-    
+
 
     <div class='popup' id='popup_search' style="display:none">
         <div class="popup-head" id="modal-head">Zoeken</div>
@@ -116,6 +117,7 @@
         </table>
     </div>
 </div>
+</div>
 <div class="block autoheight">
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
@@ -135,7 +137,7 @@
             <tbody></tbody>
         </table>
 
-        
+
         <script type="text/javascript">
         $(document).ready(function () {
             if (typeof (citoTestsFiltermanager) === 'undefined') {
@@ -151,6 +153,7 @@
                         {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
                         {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
                     ],
+                    eventScope:'#TestTakesCito',
                     formPrefix: '#Test',
                     table: '#testsTable',
                     tablefy: {

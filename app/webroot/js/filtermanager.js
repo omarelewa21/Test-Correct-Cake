@@ -107,7 +107,7 @@ function FilterManager(settings) {
     },
         this.registerEvents = function () {
             $(document)
-                .on('change', this.el, function (e) {
+                .on('change',this.settings.eventScope+' '+this.el, function (e) {
                         var value = $(e.target).val();
                         this.activeFilter.changed = false;
                         this.setActiveFilter(value);
@@ -131,7 +131,7 @@ function FilterManager(settings) {
                     }.bind(this)
                 )
 
-                .on('click', '.jquery-remove-filter', function (e) {
+                .on('click', this.settings.eventScope+' .jquery-remove-filter', function (e) {
                     e.stopPropagation();
                     var prop = $(e.target).attr('jquery-filter-key');
 
@@ -152,7 +152,7 @@ function FilterManager(settings) {
                     this.renderActiveFilter();
                 }.bind(this))
 
-                .on('click', '#jquery-add-filter', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-add-filter', function (e) {
                     $(this.el).val('');
                     this.resetSearchForm();
                     this.setSearchFormTitle('Filter aanmaken');
@@ -166,33 +166,33 @@ function FilterManager(settings) {
                     this.renderActiveFilter(e);
                 }.bind(this))
 
-                .on('click', '#jquery-edit-filter', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-edit-filter', function (e) {
                     this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
                     $('#jquery-save-filter-as-from-modal').show();
                     Popup.showSearch();
                     // this.bindActiveFilterDataToFilterModal();
                 }.bind(this))
 
-                .on('click', '#jquery-save-filter', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-save-filter', function (e) {
                     this.saveFilter(e);
                 }.bind(this))
 
 
-                .on('click', '#jquery-reset-filter', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-reset-filter', function (e) {
                     if (!$(e.target).hasClass('disabled')) {
                         this.resetSearchForm();
                         this.renderSelectFilterBox('');
                     }
                 }.bind(this))
 
-                .on('click', '#jquery-delete-filter', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-delete-filter', function (e) {
                     this.deleteFilter();
                 }.bind(this))
-                .on('click', '#jquery-save-filter-from-modal', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-save-filter-from-modal', function (e) {
                     Popup.closeSearch();
                     this.saveFilter(e);
                 }.bind(this))
-                .on('click', '#jquery-save-filter-as-from-modal', function (e) {
+                .on('click', this.settings.eventScope+' #jquery-save-filter-as-from-modal', function (e) {
                     Popup.closeSearch();
 
                     this.saveFilter(e);
@@ -464,7 +464,7 @@ function FilterManager(settings) {
     this.addChangeEventsToFilter = function (context) {
         this.filterFields.forEach(function (item) {
             var selector = this.settings.formPrefix + item.field.charAt(0).toUpperCase() + item.field.slice(1);
-            $(document).on('change', selector, function (e) {
+            $(document).on('change', this.settings.eventScope +' '+ selector, function (e) {
                 this.syncFilterField($(e.target), item);
             }.bind(this));
         }.bind(this));
