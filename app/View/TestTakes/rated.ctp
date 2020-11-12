@@ -119,17 +119,7 @@
             <tbody></tbody>
         </table>
 
-        <script type="text/javascript">
-            $('#testsTable').tablefy({
-                'source' : '/test_takes/load_rated',
-                'filters' : $('#TestTakeRatedForm'),
-                'container' : $('#testsContainter')
-            });
 
-            $('#TestTakeTimeStartFrom, #TestTakeTimeStartTo').datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
-        </script>
         <script type="text/javascript">
             $(document).ready(function () {
                     let testtakesRatedFirstTimeRun = false;
