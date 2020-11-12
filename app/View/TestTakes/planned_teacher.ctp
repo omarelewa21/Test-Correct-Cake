@@ -132,8 +132,15 @@
 
 
             $(document).ready(function () {
-                if (typeof (testtakesPlannedFiltermanager) === 'undefined') {
-                    const settings = {
+
+
+                    let testtakesPlannedFirstTimeRun = false;
+                    if (typeof (testtakesPlannedFiltermanager) === 'undefined') {
+                        testtakesPlannedFirstTimeRun = true;
+                    }
+
+
+                    testtakesPlannedFiltermanager = new FilterManager({
                         filterFields: [
                             {field: 'periodId', label: 'Periode', type: 'select'},
                             {field: 'retake', label: 'Type', type: 'select'},
@@ -149,12 +156,10 @@
                             'container' : $('#testsContainter')
                         },
                         filterKey: 'testtakes_planned',
-                    };
+                    });
 
-                    testtakesPlannedFiltermanager = new FilterManager(settings);
-                }
 
-                testtakesPlannedFiltermanager.init();
+                testtakesPlannedFiltermanager.init(testtakesPlannedFirstTimeRun);
 
 
             });

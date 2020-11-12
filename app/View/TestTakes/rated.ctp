@@ -132,8 +132,14 @@
         </script>
         <script type="text/javascript">
             $(document).ready(function () {
-                if (typeof (testtakesRatedFiltermanager) === 'undefined') {
-                    const settings = {
+                    let testtakesRatedFirstTimeRun = false;
+                    if (typeof (testtakesRatedFiltermanager) === 'undefined') {
+                        testtakesRatedFirstTimeRun = true;
+                    }
+
+
+
+                    testtakesRatedFiltermanager = new FilterManager({
                         filterFields: [
                             {field: 'periodId', label: 'Periode', type: 'select'},
                             {field: 'retake', label: 'Type', type: 'select'},
@@ -151,12 +157,10 @@
                             'container' : $('#testsContainter')
                         },
                         filterKey: 'testtakes_rated',
-                    };
+                    });
 
-                    testtakesRatedFiltermanager = new FilterManager(settings);
-                }
 
-                testtakesRatedFiltermanager.init();
+                testtakesRatedFiltermanager.init(testtakesRatedFirstTimeRun);
 
 
             });

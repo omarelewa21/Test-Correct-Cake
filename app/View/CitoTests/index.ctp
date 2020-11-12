@@ -140,8 +140,14 @@
 
         <script type="text/javascript">
         $(document).ready(function () {
-            if (typeof (citoTestsFiltermanager) === 'undefined') {
-                const settings = {
+
+
+                let citoTestsFirstTimeRun = false;
+                if (typeof (citoTestsFiltermanager) === 'undefined') {
+                    citoTestsFirstTimeRun = true;
+                }
+
+                citoTestsFiltermanager = new FilterManager({
                     filterFields: [
                         {field: 'name', label: 'Toets', type: 'text'},
                         {field: 'kind', label: 'Type', type: 'select'},
@@ -162,14 +168,9 @@
                         'container' : $('#testsContainter')
                     },
                     filterKey: 'cito_tests',
-                };
+                });
 
-                citoTestsFiltermanager = new FilterManager(settings);
-            }
-
-            citoTestsFiltermanager.init();
-
-
+            citoTestsFiltermanager.init(citoTestsFirstTimeRun);
         });
 
     </script>

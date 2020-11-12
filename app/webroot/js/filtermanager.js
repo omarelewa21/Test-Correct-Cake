@@ -19,7 +19,7 @@ function FilterManager(settings) {
         }.bind(this));
     };
 
-    this.init = function () {
+    this.init = function (firstTimeRun) {
         this.el = '#jquery-saved-filters';
         this.developmentErrors();
         $.getJSON('/search_filter/get/' + this.settings.filterKey, function (response) {
@@ -30,10 +30,11 @@ function FilterManager(settings) {
 
             this.initializeSavedFilterSelect();
             if (this.isInitalizingEvents) {
-                this.registerEvents();
-                this.addChangeEventsToFilter(this);
-                this.initNewFilter();
-
+                if (firstTimeRun) {
+                    this.registerEvents();
+                    this.addChangeEventsToFilter(this);
+                    this.initNewFilter();
+                }
             }
             $(this.settings.table).tablefy(this.settings.tablefy);
 
