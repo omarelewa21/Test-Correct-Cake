@@ -123,8 +123,13 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                if (typeof (testtakesTakenFiltermanager) === 'undefined') {
-                    const settings = {
+                     let testtakesTakenFirstTimeRun = false;
+                     if (typeof (testtakesTakenFiltermanager) === 'undefined') {
+                         testtakesTakenFirstTimeRun = true;
+                     }
+                    // let settings = ;
+
+                    testtakesTakenFiltermanager = new FilterManager({
                         filterFields: [
                             {field: 'periodId', label: 'Periode', type: 'select'},
                             {field: 'retake', label: 'Type', type: 'select'},
@@ -141,14 +146,10 @@
                             'container' : $('#testsContainter')
                         },
                         filterKey: 'testtakes_taken',
-                    };
+                    });
+                // }
 
-                    testtakesTakenFiltermanager = new FilterManager(settings);
-                }
-
-                testtakesTakenFiltermanager.init();
-
-
+                testtakesTakenFiltermanager.init(testtakesTakenFirstTimeRun);
             });
 
         </script>
