@@ -156,7 +156,9 @@ var Core = {
 
 		$('#header').show();
 		Navigation.load('/users/welcome');
-		Core.checkUnreadMessages();
+
+		setTimeout(function() {Core.checkUnreadMessages()}, 3000);
+		
 	},
 
 	checkUnreadMessages : function() {
@@ -166,7 +168,10 @@ var Core = {
             $.get('/messages/unread',
                 function (unread) {
                     if (unread > 0) {
-                        $('#messages .counter').show().html(unread);
+						//stuent
+						$('#messages .counter').show().html(unread);
+						//teacher
+						$('#other .counter').show().html(unread);
                     }
                 }
             );
@@ -319,7 +324,7 @@ var Utils = {
 	},
 
     notOnLoginScreen: function() {
-        return ! this.onLoginScreen();
+        return !this.onLoginScreen();
     },
 	urlContainsEduIx: function() {
 		return (new URLSearchParams(window.location.search)).has('edurouteSessieID');
@@ -339,7 +344,6 @@ var Dropdowns = {
 	initialise : function() {
 		$.each($('.dropblock-owner'), function() {
 			$(this).unbind().click(function() {
-				console.log($(this).attr('id'))
 				var container = $('.dropblock[for=' + $(this).attr('id') + ']');
 
 				var scrT = $(window).scrollTop();

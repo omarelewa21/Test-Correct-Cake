@@ -18,6 +18,12 @@
                     <?= $this->Form->input('name', array('label' => false)) ?>
                 </td>
             </tr>
+            <tr>
+                <th>Schooljaar</th>
+                <td>
+                    <?=$this->Form->input('school_year_id', ['options' => $school_years, 'label' => false]) ?>
+                </td>
+            </tr>
         </table>
         <?= $this->Form->end(); ?>
         <a href="#" class="btn btn-close white small pull-right">Sluiten</a>

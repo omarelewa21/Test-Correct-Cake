@@ -2,7 +2,7 @@
 foreach($test_takes as $test_take) {
     ?>
     <tr
-        class=" <?= $test_take['archived'] ?  'jquery-archived grey': 'jquery-not-archived'  ?>
+            class=" <?= $test_take['archived'] ?  'jquery-archived grey': 'jquery-not-archived'  ?>
          <?= $hide_when_archived ?  'jquery-hide-when-archived': ''  ?>
 
        ">
@@ -14,13 +14,13 @@ foreach($test_takes as $test_take) {
             }
             ?>
         </td>
-<!--        <td>-->
-<!--            --><?//
-//            foreach($test_take['invigilator_users'] as $user) {
-//                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
-//            }
-//            ?>
-<!--        </td>-->
+        <!--        <td>-->
+        <!--            --><?//
+        //            foreach($test_take['invigilator_users'] as $user) {
+        //                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
+        //            }
+        //            ?>
+        <!--        </td>-->
         <td>
             <?=$test_take['test']['question_count']?>
         </td>
@@ -40,7 +40,7 @@ foreach($test_takes as $test_take) {
             }else{
                 ?>
                 <div class="label label-warning">Inhaaltoets</div>
-            <?
+                <?
             }
             ?>
         </td>
@@ -60,7 +60,7 @@ foreach($test_takes as $test_take) {
             echo $statusText;
 
 
-             ?>
+            ?>
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
@@ -83,17 +83,17 @@ foreach($test_takes as $test_take) {
                 </a>
                 <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-forward mr5"></span>
-                   Meteen naar nakijken
+                    Meteen naar nakijken
                 </a>
-                    <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
-                        <span class="fa fa-trash mr5"></span>
-                        Archiveren
-                    </a>
+                <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
+                    <span class="fa fa-trash mr5"></span>
+                    Archiveren
+                </a>
 
-                    <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
-                        <span class="fa fa-recycle mr5"></span>
-                        Dearchiveer
-                    </a>
+                <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
+                    <span class="fa fa-recycle mr5"></span>
+                    Dearchiveer
+                </a>
 
             </div>
         </td>

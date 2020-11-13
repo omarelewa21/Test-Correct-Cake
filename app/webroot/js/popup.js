@@ -18,16 +18,150 @@ var Popup = {
         );
     },
 
-
     showCongrats: function (action) {
         this.messageWithPreventDefault({
                 'btnOk': 'Ok',
-                'title': action? action : 'gefeliciteerd',
+                'title': action ? action : 'gefeliciteerd',
                 'message': '<img style="display:block; margin:auto; width:200px; height:200px;" src="/img/logo_1.png">',
             }
         );
 
     },
+
+    promptCallBack: function () {
+        Popup.closeLast();
+        return Popup.callbackFromPrompt(jQuery('#prompt').val());
+    },
+
+    prompt: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
+            <div class='popup-head'>${options.title}</div>
+            <div class="popup-content">
+                <form>
+                  <div class="form-group">
+                    <label for="prompt">${options.text}</label>
+                    <input type="email" class="form-control" id="prompt" placeholder="${options.placeholder}" value="${options.inputValue}">
+                  </div>
+                 </form>
+            </div>
+            <div class="popup-footer">
+            <a href='#' class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>
+            <a href='#' class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
+            </div>
+            </div>
+        `;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+
+        var width = 600;
+
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
+    confirmCallBack: function (value) {
+        Popup.closeLast();
+        return Popup.callbackFromConfirm(value);
+    },
+
+    confirm: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromConfirm = callback;
+
+        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
+            <div class='popup-head'>${options.title}</div>
+            <div class="popup-content">
+                <form>
+                  <div class="form-group">
+                    <label for="prompt">${options.text}</label>
+                  </div>
+                 </form>
+            </div>
+            <div class="popup-footer">
+            <a href='#' class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>
+            <a href='#' class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>
+            </div>
+            </div>
+        `;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+
+        var width = 600;
+
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
+    closeSearch: function () {
+        $('#fade').fadeOut();
+
+        $('#popup_search').stop().removeClass('center').fadeOut(function () {
+            $(this).hide();
+        });
+        Popup.index = 0;
+        $('#container, #background, #header').removeClass('blurred');
+    },
+
+    showSearch: function () {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.zIndex += 2;
+
+        $('#popup_search').show();
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 800;
+        var height = $('#popup_search').height();
+
+        $('#popup_search').css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
+
 
     show: function (html, width) {
 
@@ -178,3 +312,48 @@ var Popup = {
         );
     }
 };
+// // overload of window.prompt to always show a descently formatted prompt box.
+// function prompt(message, value, callback)
+// {
+//     var options =
+//         {
+//             title: "title",
+//             text: message,
+//             type: "input",
+//             showCancelButton: true,
+//             inputValue: value
+//         }
+//
+//     if(typeof(message) === "object")
+//     {
+//         options = message;
+//     }
+//
+//     return Popup.prompt(options, function(inputValue) {
+//         return callback ? callback(inputValue) : inputValue
+//     });
+// }
+//
+// function confirm(message, callback)
+// {
+//     callback = callback || function(){}
+//     var options =
+//         {
+//             title: "Weet je t zeker?",
+//             text: message,
+//             type: "warning",
+//             showCancelButton: true
+//         }
+//
+//     if(typeof(message) === "object")
+//     {
+//         options = message
+//     }
+//
+//     Popup.confirm(options, function(isConfirm)
+//     {
+//         return callback(isConfirm)
+//     });
+// }
+
+

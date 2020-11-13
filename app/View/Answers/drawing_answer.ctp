@@ -12,10 +12,11 @@
 <script type="text/javascript">
     window.drawingSaveUrl = '/answers/save_drawing/<?=$question_id?>';
     window.drawingCallback = function(){
+        window.parent.Answer.drawingPadClose('<?=$question_id?>');
         Popup.closeLast();
     };
 
-    <?
+    <?php
      if(isset($drawing_data)) {
         ?>
 
@@ -39,12 +40,12 @@
         $('#imgDrawing').show().attr({
             'src' : '<?=isset($drawing_data) && isset($drawing_data['drawing']) ? $drawing_data['drawing'] : ''?>'
         });
-        <?
+        <?php
     }else{
         ?>
         $('#imgDrawing').hide();
         $('#drawingFrame').show();
-        <?
+        <?php
     }
     ?>
 </script>

@@ -53,10 +53,10 @@ class QuestionsController extends AppController {
 //            'OpenQuestion.Long' => 'Wiskunde vraag',
             'OpenQuestion.Long' => 'Lange open vraag',
             'CompletionQuestion.multi' => 'Selectie',
-            'CompletionQuestion' => 'Gatentekst',
+            'CompletionQuestion.completion' => 'Gatentekst',
             'RankingQuestion' => 'Rangschik',
             'MatchingQuestion.Matching' => 'Combineer',
-            'MatchingQuestion.' => 'Rubriceer',
+            'MatchingQuestion.Classify' => 'Rubriceer',
             'DrawingQuestion' => 'Teken',
             'GroupQuestion' => 'Groepvraag'
         ];

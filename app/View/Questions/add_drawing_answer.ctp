@@ -13,10 +13,11 @@
 <script type="text/javascript">
     window.drawingSaveUrl = '/questions/save_drawing';
     window.drawingCallback = function(){
+        window.parent.Answer.drawingPadClose('<?=$question_id?>');
         Popup.closeLast();
     };
 
-    <? if(isset($drawing_data)) {
+    <?php if(isset($drawing_data)) {
         ?>
         $('#imgDrawing').show().attr({
             'src' : '<?=$drawing_data?>'
@@ -31,12 +32,12 @@
             }
         });
         $('#btn-cancel').show();
-        <?
+        <?php
     }else{
         ?>
         $('#imgDrawing').hide();
         $('#drawingFrame').show();
-        <?
+        <?php
     }
     ?>
 </script>

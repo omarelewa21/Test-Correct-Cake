@@ -27,7 +27,7 @@ class TestsController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => 'Alle',
+//            0 => 'Alle',
             1 => 1,
             2 => 2,
             3 => 3,
@@ -37,13 +37,15 @@ class TestsController extends AppController {
         ];
 
         $education_levels = $this->TestsService->getEducationLevels();
+
+
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(false);
         $kinds = $this->TestsService->getKinds();
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
+        //$education_levels = [0 => 'Alle'] + $education_levels;
         $periods = [0 => 'Alle'] + $periods;
-        $subjects = [0 => 'Alle'] + $subjects;
+//        $subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
         $this->set('education_levels', $education_levels);

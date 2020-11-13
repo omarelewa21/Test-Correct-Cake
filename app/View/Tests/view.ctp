@@ -97,6 +97,18 @@
                 </td>
             </tr>
             <? } ?>
+
+            <?php if($totalScore === 0){ ?>
+            <tr>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                <td class="danger" colspan="6">
+                    <? } else { ?>
+                <td class="danger" colspan="5">
+                    <? } ?>
+                    Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden.
+                </td>
+            </tr>
+            <? } ?>
             <tr>
                 <th>#</th>
                 <th>Vraag</th>

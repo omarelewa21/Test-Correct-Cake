@@ -384,7 +384,7 @@ class TestTakesController extends AppController
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$this->Session->write('take_id', $take_id);
-		$classes = $this->TestsService->getClasses();
+		$classes = $this->TestsService->getCurrentClasses();
 
 		$this->set('classes', $classes);
 	}
@@ -650,6 +650,12 @@ class TestTakesController extends AppController
 			]
 		]);
 
+        $totalScore = 0;
+        foreach($test_take['questions'] as $question) {
+            $totalScore += $question['score'];
+        }
+
+		$this->set('totalScore',$totalScore);
 		$this->set('test_take', $test_take);
 		$this->set('take_id', $take_id);
 	}
@@ -927,7 +933,7 @@ class TestTakesController extends AppController
 		$take = $this->TestTakesService->getTestTake($take_id);
 
 		if(!empty($take['retake_test_take_id'])) {
-			$retake_participants = $this->TestTakesService->getParticipants($take['retake_test_take_id']);
+			$retake_participants = $this->TestTakesService->getParticipants(getUUID($take['retake_test_take'], 'get'));
 			$this->set('retake_participants', $retake_participants);
 		}
 

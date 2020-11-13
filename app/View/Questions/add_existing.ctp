@@ -13,37 +13,37 @@
                 <tr>
                     <th>Id</th>
                     <td>
-                        <?=$this->Form->input('id', array('label' => false, 'type' => 'text')) ?>
+                        <?=$this->Form->input('id', array('label' => false, 'type' => 'text', 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Termen</th>
                     <td>
-                        <?=$this->Form->input('search', array('label' => false, 'type' => 'select', 'multiple' => true)) ?>
+                        <?=$this->Form->input('search', array('label' => false, 'type' => 'select', 'multiple' => true, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Type </th>
                     <td>
-                        <?=$this->Form->input('type', array('options' => $filterTypes, 'label' => false)) ?>
+                        <?=$this->Form->input('type', array('options' => $filterTypes, 'label' => false, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Vak</th>
                     <td>
-                        <?=$this->Form->input('subject', array('options' => $subjects, 'label' => false, 'value' => $subject_id)) ?>
+                        <?=$this->Form->input('subject', array('options' => $subjects, 'label' => false, 'value' => $subject_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Niveau</th>
                     <td>
-                        <?=$this->Form->input('education_levels', array('options' => $education_levels, 'label' => false, 'value' => $education_level_id)) ?>
+                        <?=$this->Form->input('education_levels', array('options' => $education_levels, 'label' => false, 'value' => $education_level_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
                     <th>Leerjaar</th>
                     <td>
-                        <?=$this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false, 'value' => $year_id)) ?>
+                        <?=$this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false, 'value' => $year_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
 
@@ -53,7 +53,7 @@
                     <?=
                       $this->Form->input('is_open_source_content',array('options' => array(
                         'Alles', 'Eigen content', 'Gratis content'
-                      ),'label' => false))
+                      ),'label' => false, 'class' => 'disable_protect'))
                     ?>
                   </td>
                 </tr>

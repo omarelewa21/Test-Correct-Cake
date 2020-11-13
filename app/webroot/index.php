@@ -22,8 +22,6 @@
  * Use the DS to separate the directories in other defines
  */
 
-session_set_cookie_params(['samesite' => 'Strict']);
-
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }

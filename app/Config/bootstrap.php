@@ -65,6 +65,36 @@ if (!function_exists('getUUID')) {
 	}
 
 }
+
+function samesiteRewrite() {
+	$headers = headers_list();
+
+	$cake_cookie = "";
+	
+	foreach ($headers as $value) {
+			if (strpos($value, "CAKEPHP")) {
+					$cake_cookie = $value;
+					break;
+			}
+	}
+		
+	if ($cake_cookie != "") {
+			header_remove("Set-Cookie");
+
+			//only do on production servers
+			if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
+				$replace = "path=/; samesite=Strict; secure;";
+			} else {
+				$replace = "path=/; samesite=Strict;";
+			}
+
+			$cake_cookie = str_replace("path=/;", $replace, $cake_cookie);
+	
+			header($cake_cookie, true);
+	}
+}
+
+header_register_callback('samesiteRewrite');
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -183,3 +213,4 @@ CakeLog::config('alert', array(
 	'types' => array('alert'),
 	'file' => 'alert',
 ));
+

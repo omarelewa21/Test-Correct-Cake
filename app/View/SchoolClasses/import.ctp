@@ -18,8 +18,8 @@
                     <select id="class_id">
                         <?php
                         foreach($classes as $class){
-                        $selected = ($class['uuid'] == $class_id) ? 'selected="selected"' : '';
-                        ?><option value="<?=$class['uuid']?>" <?=$selected?>><?=$class['name']?></option><?php
+                        $selected = (getUUID($class,'get') == $class_id) ? 'selected="selected"' : '';
+                        ?><option value="<?=GetUUID($class,'get')?>" <?=$selected?>><?=$class['name']?></option><?php
                         }
                     ?>
                     </select></td>
@@ -280,7 +280,13 @@
                 data.push(h);
             });
 
-            $.post('/school_classes/doImport/<?= $location_id?>/' + $('#class_id').val(),
+            var classId = $('#class_id').val();
+            if(classId.length < 10){
+                Loading.hide();
+                Notify.notify('Er dient een klas gekozen te worden', 'error');
+                return false;
+            }
+            $.post('/school_classes/doImport/<?= $location_id?>/' + classId,
                 {data:data},
                 function(response) {
                     Loading.hide();

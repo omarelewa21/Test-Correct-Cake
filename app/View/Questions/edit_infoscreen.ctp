@@ -89,7 +89,7 @@
 <script type="text/javascript">
 
     <? if(!$editable) { ?>
-        $('.popup-content input, .popup-content select, .popup-content textarea').attr({'disabled' : true});
+        $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
     <? if($owner != 'group') { ?>

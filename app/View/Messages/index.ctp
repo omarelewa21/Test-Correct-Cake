@@ -30,4 +30,5 @@
 
 <script type="text/javascript">
     $('#messages .counter').fadeOut();
+    $('#other .counter').fadeOut();
 </script>
