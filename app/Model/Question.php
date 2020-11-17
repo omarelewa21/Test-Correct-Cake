@@ -261,6 +261,8 @@ class Question extends AppModel
             $errors[] = "Geen vraag ingevuld";
         }
 
+        $errors = $this->validateScore($question,$errors);
+
         if($type == 'OpenQuestion') {
             if(empty($question['answer'])) {
                 $errors[] = "Geen antwoord ingevuld";
@@ -321,6 +323,8 @@ class Question extends AppModel
         if($type == 'MatchingQuestion') {
             $found = 0;
             $right = true;
+
+
 
             for($i = 0; $i < 10; $i++) {
                 if($question['answers'][$i]['left'] != '') {
@@ -416,6 +420,22 @@ class Question extends AppModel
             'status' => count($errors) == 0 ? true : false,
             'errors' => $errors
         ];
+    }
+
+    private function validateScore($question,$errors){
+        if(!is_numeric($question['score'])){
+            $errors[] = "De score is dient numeriek te zijn";
+        }
+        if($question['score']==''||is_null($question['score'])){
+            $errors[] = "De score is verplicht";
+        }
+        if(stristr($question['score'], '.')||stristr($question['score'], ',')){
+                $errors[] = "De score dient in hele getallen te worden opgegeven";
+        }
+        if(is_numeric($question['score'])&&(intval($question['score']<0))){
+            $errors[] = "De score is dient groter dan nul te zijn";
+        }
+        return $errors;
     }
 
 }

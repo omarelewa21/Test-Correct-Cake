@@ -363,7 +363,7 @@ class QuestionsService extends BaseService
         } else {
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id, [], $question);
         }
-
+        
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
