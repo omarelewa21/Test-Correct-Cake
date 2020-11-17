@@ -76,7 +76,7 @@
 
 
 <div class="block">
-    <div class="block-head">Toets vragen</div>
+    <div class="block-head">Toetsvragen</div>
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
