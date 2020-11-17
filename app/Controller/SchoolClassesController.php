@@ -26,10 +26,18 @@ class SchoolClassesController extends AppController
 
     public function index()
     {
+        $currentYear = date('Y');
+        $currentYearId = '';
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
         $school_years1 = [''=>'Kies een jaar'];
         $school_years2 = $this->SchoolYearsService->getSchoolYearList();
         $school_years = $school_years1+$school_years2;
+        foreach($school_years as $key=>$year){
+            if(intval($year)==intval($currentYear)){
+                $currentYearId = $key;
+            }
+        }
+        $this->set('currentYearId',$currentYearId);
         $this->set('school_years', $school_years);
 
     }
