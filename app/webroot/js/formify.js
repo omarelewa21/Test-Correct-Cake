@@ -188,6 +188,7 @@
                 if (check == 'date' && $(element).val() != '') {
                     passed = true;
                 }
+
             });
         }
 
