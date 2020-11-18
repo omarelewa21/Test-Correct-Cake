@@ -31,6 +31,16 @@ var User = {
                     User.info.name
                 );
 
+                var schoolLocationsTemplate = '';
+
+                User.info.school_location_list.forEach(function(schoolLocation, index) {
+                    var activeClass = schoolLocation.active ? 'blue' : 'white';
+                    schoolLocationsTemplate += `<a href="#" onclick="User.switchLocation(this, '${schoolLocation.uuid}');" class="btn ${activeClass} mb5">${schoolLocation.name}</a>`;
+                });
+
+                $('#header #user_school_locations').html( schoolLocationsTemplate );
+
+
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
                 }
@@ -165,5 +175,12 @@ var User = {
                     Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
                 });
         }
+    },
+
+    switchLocation: function(link, uuid) {
+        $.getJSON('/users/setActiveSchoolLocation/'+ uuid, function(){
+            $('#user_school_locations .blue').removeClass('blue').addClass('white');
+            $(link).removeClass('white').addClass('blue');
+        });
     }
 };
