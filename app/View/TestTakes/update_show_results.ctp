@@ -16,7 +16,7 @@
     <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien(); ">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();">
         Niet laten inzien
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
@@ -32,6 +32,11 @@
         }else{
             $('#specifyDate').hide();
         }
+    }
+
+    function NietLatenInzien(){
+        $('#TestTakeActive').removeAttr('checked');
+        $('#btnSave').click();
     }
 
     $('#TestTakeShowResults').datetimepicker({
