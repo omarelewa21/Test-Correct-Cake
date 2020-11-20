@@ -1248,6 +1248,16 @@ class UsersController extends AppController
                     );
                 }
 
+                if (AuthComponent::user('hasSharedSections')) {
+                    $tiles['tests_shared_sections_overview'] = array(
+                        'menu' => 'library',
+                        'icon' => 'testlist',
+                        'title' => 'Gedeelde toetsen',
+                        'path' => '/shared_sections_tests/index'
+                    );
+                }
+
+
                 $tiles['questions_overview'] = array(
                     'menu' => 'library',
                     'icon' => 'questionlist',
