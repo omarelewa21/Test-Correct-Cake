@@ -1477,12 +1477,12 @@ class UsersController extends AppController
         if (!$student) {
             $info['name_first'] = substr($info['name_first'], 0, 1) . '.';//. $info['school_location_id'];
 
-            $info['school_location_list'] = array_map(function($location) use ($info) {
-                return (object) [
+            $info['school_location_list'] = array_map(function ($location) use ($info) {
+                return (object)[
                     'uuid' => $location['uuid'],
                     'name' => $location['name'],
-                    'active' => $location['id'] === $info['school_location_id']
-                    ];
+                    'active' => $location['active'],
+                ];
             }, $this->UsersService->getSchoolLocationList());
 
         }
@@ -1537,7 +1537,7 @@ class UsersController extends AppController
             $this->formResponse(false, $this->UsersService->getErrors());
             return false;
         }
-        $this->formResponse(true, []);
+        $this->formResponse(true, $result);
 
     }
 
