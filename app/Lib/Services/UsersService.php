@@ -562,5 +562,17 @@ class UsersService extends BaseService
 
         return $response;
     }
+
+    public function getTeachersFromOtherLocations()
+    {
+        $response = $this->Connector->getRequest('/school_location_user/existing_teachers', []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+
+    }
 }
 

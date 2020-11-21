@@ -1541,4 +1541,9 @@ class UsersController extends AppController
 
     }
 
+    public function add_existing_teachers()
+    {
+        $result = $this->UsersService->getTeachersFromOtherLocations();
+        $this->set('data', $result);
+    }
 }
