@@ -261,7 +261,9 @@ class Question extends AppModel
             $errors[] = "Geen vraag ingevuld";
         }
 
-//        $errors = $this->validateScore($question,$errors);
+        if($type !== 'MultiChoiceQuestion' && $type !== 'MultipleChoiceQuestion') {
+            $errors = $this->validateScore($question, $errors);
+        }
 
         if($type == 'OpenQuestion') {
             if(empty($question['answer'])) {
