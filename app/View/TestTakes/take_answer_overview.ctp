@@ -22,11 +22,11 @@
         }
 
         ?>
-        <div class="question <?=$class?>" onclick="Answer.loadQuestion('/test_takes/take/<?=$take_id?>/<?=$index?>');"><?=$i?></div>
+        <div class="question <?=$class?>" onclick="Answer.loadQuestion('/test_takes/take/' +  TestTake.activeTest.take_id +'/' + TestTake.activeTest.participant_id + '/<?=$index?>');"><?=$i?></div>
         <?
     }
     ?>
-    <div class="question active" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/<?=$take_id?>');">
+    <div class="question active" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id);">
         <span class="fa fa-list"></span>
     </div>
     <br clear="all" />

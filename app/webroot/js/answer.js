@@ -84,7 +84,7 @@ var Answer = {
 
     saveAnswer : function(url) {
         if(Answer.answerChanged) {
-            $.post('/answers/save/' + Answer.count,
+            $.post('/answers/save/' + Answer.count + '/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id,
                 $('#AnswerQuestionForm').serialize(),
                 function (data) {
 
@@ -108,9 +108,9 @@ var Answer = {
                     }else {
                         if (data.status == 'next') {
                             Notify.notify('Antwoord opgeslagen', 'info');
-                            Navigation.load('/test_takes/take/' + data.take_id + '/' + data.question_id);
+                            Navigation.load('/test_takes/take/' +  TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id + '/' + data.question_id);
                         } else if (data.status == 'done') {
-                            Navigation.load('/test_takes/take_answer_overview/' + Answer.takeId);
+                            Navigation.load('/test_takes/take_answer_overview/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id);
                         }
                     }
                 },
