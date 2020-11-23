@@ -289,4 +289,9 @@ class AppController extends Controller
         return $this->isCitoQuestion($question);
     }
 
+    function is_eu_numeric($value)
+    {
+        return (preg_match ("/^(-){0,1}([0-9]+)(,[0-9][0-9][0-9])*([0-9]){0,1}([0-9]*)$/", $value) == 1);
+    }
+
 }

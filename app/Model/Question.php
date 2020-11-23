@@ -261,7 +261,9 @@ class Question extends AppModel
             $errors[] = "Geen vraag ingevuld";
         }
 
-        $errors = $this->validateScore($question,$errors);
+        if($type !== 'MultiChoiceQuestion' && $type !== 'MultipleChoiceQuestion') {
+            $errors = $this->validateScore($question, $errors);
+        }
 
         if($type == 'OpenQuestion') {
             if(empty($question['answer'])) {
@@ -296,6 +298,16 @@ class Question extends AppModel
 
             if(!$scoresFound) {
                 $errors[] = "U dient minimaal 1 antwoord van een score te voorzien.";
+            }
+
+            $answerErrors = [];
+            foreach($question['answers'] as $answer){
+                if($error = $this->validateScore($answer, [])){
+                    $answerErrors = $error;
+                }
+            }
+            if(count($answerErrors) > 0) {
+                $errors = array_merge($errors, $answerErrors);
             }
         }
 
@@ -423,7 +435,8 @@ class Question extends AppModel
     }
 
     private function validateScore($question,$errors){
-        if(!is_numeric($question['score'])){
+
+        if(!(new AppController())->is_eu_numeric($question['score'])){
             $errors[] = "De score is dient numeriek te zijn";
         }
         if($question['score']==''||is_null($question['score'])){
