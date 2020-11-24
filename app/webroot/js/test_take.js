@@ -11,7 +11,6 @@ var TestTake = {
     isVisible : true,
     checkIframe : false,
     alert: false,
-    activeTest: {participant_id: null, take_id: null},
 
     startHeartBeat : function(callback, interval) {
         if(callback == 'active'){
@@ -179,7 +178,7 @@ var TestTake = {
     },
 
     doHandIn : function() {
-        $.get('/test_takes/hand_in/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id,
+        $.get('/test_takes/hand_in',
             function() {
                 clearTimeout(TestTake.heartBeatInterval);
                 stopCheckFocus();
@@ -197,14 +196,38 @@ var TestTake = {
 
         setTimeout(function() {
             // Navigation.refresh();
-            Navigation.load('/test_takes/take/' + take_id + '/' + TestTake.activeTest.participant_id);
+            Navigation.load('/test_takes/take/' + take_id);
         }, 500);
     },
 
-    atTestStop : function() {
-        TestTake.activeTest.participant_id = null;
-        TestTake.activeTest.take_id = null;
+    atTestStart : function() {
+        $.get('/test_takes/start_take_participant', function(response) {
+            if(response == 'error') {
+                alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
+            }else{
+                $('#tiles').hide();
+                $('#header #menu').fadeOut();
+                $('#header #logo_1').animate({
+                    'height' : '30px'
+                });
+                TestTake.active = true;
+                startfullscreentimer();
+                $('#header #logo_2').animate({
+                    'margin-left' : '50px'
+                });
+                $('#btnLogout').hide();
+                $('#btnMenuHandIn').show();
+                $('#container').animate({'margin-top' : '30px'});
 
+                $('body').on('contextmenu',function(e){
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        });
+    },
+
+    atTestStop : function() {
         $('#header #menu').fadeIn();
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
@@ -224,35 +247,33 @@ var TestTake = {
     },
 
     atTestStart : function() {
-        $.getJSON('/test_takes/start_take_participant', function(response) {
-            if(response["error"] != 0) {
+        $.get('/test_takes/start_take_participant', function(response) {
+            if(response == 'error') {
                 alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
-                return;
+            }else{
+                Core.stopCheckUnreadMessagesListener();
+                runCheckFocus();
+                $('#tiles').hide();
+                $('#header #menu').fadeOut();
+                $('#header #logo_1').animate({
+                    'height' : '30px'
+                });
+                TestTake.active = true;
+
+                $('#header #logo_2').animate({
+                    'margin-left' : '50px'
+                });
+                $('#btnLogout').hide();
+                $('#btnMenuHandIn').show();
+                $('#container').animate({'margin-top' : '30px'});
+
+                $('body').on('contextmenu',function(e){
+                    e.preventDefault();
+                    return false;
+                });
+
+                TestTake.alert = false;
             }
-
-            TestTake.active = true;
-            TestTake.alert = false;
-            TestTake.activeTest.participant_id = response["participant_id"];
-            TestTake.activeTest.take_id = response["take_id"];
-            startfullscreentimer();
-
-            $('#tiles').hide();
-            $('#header #menu').fadeOut();
-            $('#header #logo_1').animate({
-                'height' : '30px'
-            });
-
-            $('#header #logo_2').animate({
-                'margin-left' : '50px'
-            });
-            $('#btnLogout').hide();
-            $('#btnMenuHandIn').show();
-            $('#container').animate({'margin-top' : '30px'});
-
-            $('body').on('contextmenu',function(e){
-                e.preventDefault();
-                return false;
-            });
         });
     },
 
@@ -561,7 +582,7 @@ var TestTake = {
     loadTake : function(take_id, makebutton) {
         if(Core.inApp) {
             if(makebutton === true) {check = '/null/true'; } else  { check = '';}
-            Navigation.load('/test_takes/take/' + take_id + '/null' + check);
+            Navigation.load('/test_takes/take/' + take_id + check);
         }else{
             Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
         }

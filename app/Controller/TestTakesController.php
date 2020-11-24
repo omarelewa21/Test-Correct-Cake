@@ -482,8 +482,12 @@ class TestTakesController extends AppController
 		$this->set('status', $take['test_take_status_id']);
 	}
 
-	public function hand_in($take_id, $participant_id) {
+	public function hand_in() {
 		$this->autoRender = false;
+		$participant_id = $this->Session->read('participant_id');
+
+		$take_id = $this->Session->read('take_id');
+
 		$this->Session->delete('drawing_pad');
 		$this->Session->delete('drawing_data');
 
@@ -500,13 +504,9 @@ class TestTakesController extends AppController
 		$this->Session->delete('take_question_index');
 		$this->Session->delete('active_question');
 
-		$response = ["error" => 0, "participant_id" => $participent_id, "take_id" => $take_id];
-
 		if(!$this->TestTakesService->startParticpantTest($take_id, $participent_id)) {
-			$response["error"] = 1;
+			echo 'error';
 		}
-
-		echo json_encode($response);
 	}
 
 	public function start_multiple() {
@@ -965,10 +965,11 @@ class TestTakesController extends AppController
 		$this->TestTakesService->setRating($rating_id, $this->request->data['rating']);
 	}
 
-    public function take2019($take_id, $participant_id = null, $question_index = null, $clean = false) {
+    public function take2019($take_id, $question_index = null, $clean = false) {
 
 	    $questions = false;
 
+		$participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
         $participant_status = false;
 
@@ -1054,8 +1055,8 @@ class TestTakesController extends AppController
         $this->render($view, 'ajax');
     }
 
-	public function take($take_id, $participant_id = null, $question_index = null, $clean = false) {
-	    return $this->take2019($take_id, $participant_id, $question_index, $clean);
+	public function take($take_id, $question_index = null, $clean = false) {
+	    return $this->take2019($take_id, $question_index, $clean);
 
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
@@ -1237,9 +1238,10 @@ class TestTakesController extends AppController
         return false;
     }
 
-    public function take_answer_overview2019($take_id, $participant_id) {
+    public function take_answer_overview2019($take_id) {
         $this->Session->write('take_id', $take_id);
 
+        $participant_id = $this->Session->read('participant_id');
 		$response = $this->TestTakesService->getParticipantStatusQuestionsAndAnswersForOverview2019($participant_id);
         if($response){
             $participant_status = $response['participant_test_take_status_id'];
@@ -1265,8 +1267,8 @@ class TestTakesController extends AppController
         $this->render('take_answer_overview2019');
     }
 
-	public function take_answer_overview($take_id, $participant_id) {
-        return $this->take_answer_overview2019($take_id, $participant_id);
+	public function take_answer_overview($take_id) {
+        return $this->take_answer_overview2019($take_id);
 
 		$this->Session->write('take_id', $take_id);
 		$take = $this->TestTakesService->getTestTake($take_id);
@@ -1620,19 +1622,23 @@ class TestTakesController extends AppController
 		$this->isAuthorizedAs(["Teacher", "Invigilator"]);
 	}
 
-	public function lost_focus($take_id, $participant_id) {
-		$this->autoRender = false;
+	public function lost_focus() {
 	    $reason = '';
 	    if (array_key_exists('reason', $this->request->data)) {
 	        $reason = $this->request->data['reason'];
         }
 
+		$this->autoRender = false;
+		$take_id = $this->Session->read('take_id');
+		$participant_id = $this->Session->read('participant_id');
 
 		$this->TestTakesService->lostFocus($take_id, $participant_id, $reason);
 	}
 
-	public function screenshot_detected($take_id, $participant_id) {
+	public function screenshot_detected() {
 		$this->autoRender = false;
+		$take_id = $this->Session->read('take_id');
+		$participant_id = $this->Session->read('participant_id');
 
 		$this->TestTakesService->screenshotDetected($take_id, $participant_id);
 	}

@@ -31,13 +31,12 @@ var TestPreview = {
     },
 
     saveAnswer : function() {
-        //note: this function does not work
-        $.post('/answers/save/' + Answer.count + '/null/null',
+        $.post('/answers/save/' + Answer.count,
             $('#AnswerQuestionForm').serialize(),
             function(data) {
                 if(data.status == 'next') {
                     Notify.notify('Antwoord opgeslagen', 'info');
-                    Navigation.load('/test_takes/take/' + data.take_id + '/null/' + data.question_id);
+                    Navigation.load('/test_takes/take/' + data.take_id + '/' + data.question_id);
                     Answer.questionSaved = true;
                 }else if(data.status == 'done') {
                     Notify.notify('Er zijn geen vragen meer. Lever de toets in.');
