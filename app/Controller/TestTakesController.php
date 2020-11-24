@@ -1621,7 +1621,6 @@ class TestTakesController extends AppController
 	}
 
 	public function lost_focus($take_id, $participant_id) {
-		$this->autoRender = false;
 	    $reason = '';
 	    if (array_key_exists('reason', $this->request->data)) {
 	        $reason = $this->request->data['reason'];
