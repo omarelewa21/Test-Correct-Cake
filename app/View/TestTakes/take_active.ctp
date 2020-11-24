@@ -18,11 +18,11 @@
         }
 
         ?>
-        <div class="question <?=$class?>" onclick="Answer.loadQuestion('/test_takes/take/' + TestTake.activeTest.take_id +'/' + TestTake.activeTest.participant_id +'/<?=$index?>');"><?=$i?></div>
+        <div class="question <?=$class?>" onclick="Answer.loadQuestion('/test_takes/take/<?=$take_id?>/<?=$index?>');"><?=$i?></div>
         <?
     }
     ?>
-    <div class="question green" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id);">
+    <div class="question green" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/<?=$take_id?>');">
         <span class="fa fa-list"></span>
     </div>
 
@@ -52,9 +52,9 @@
 
     <?php
     if(isset($questions[$take_question_index + 1])) { ?>
-        TestTake.nextUrl =  '/test_takes/take/'+ TestTake.activeTest.take_id +'/' + TestTake.activeTest.participant_id + '/<?=($take_question_index+ 1)?>';
+        TestTake.nextUrl =  '/test_takes/take/<?=$take_id?>/<?=($take_question_index+ 1)?>';
     <?php }else{ ?>
-        TestTake.nextUrl =  '/test_takes/take_answer_overview/' + TestTake.activeTest.take_id + '/' + TestTake.activeTest.participant_id;
+        TestTake.nextUrl =  '/test_takes/take_answer_overview/<?=$take_id?>';
     <?php } ?>
 
     Answer.loadQuestionAnswer('<?=$active_question?>');

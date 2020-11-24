@@ -226,12 +226,14 @@ class AnswersController extends AppController
         }
     }
 
-    public function save2019($time, $take_id, $participant_id) {
+    public function save2019($time) {
 
         $this->autoRender = false;
 
         $answer_id = $this->Session->read('answer_id');
         $question_id = $this->Session->read('question_id');
+        $participant_id = $this->Session->read('participant_id');
+        $take_id = $this->Session->read('take_id');
 
         $data = $this->request->data;
 
@@ -294,8 +296,8 @@ class AnswersController extends AppController
     }
 
 
-    public function save($time, $take_id, $participant_id) {
-        return $this->save2019($time, $take_id, $participant_id);
+    public function save($time) {
+        return $this->save2019($time);
 
         $this->autoRender = false;
 
