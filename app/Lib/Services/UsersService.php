@@ -215,9 +215,9 @@ class UsersService extends BaseService
         }
     }
 
-    public function switch_school_location($userId, $params)
+    public function move_school_location($userId, $params)
     {
-        $response = $this->Connector->putRequest('/user/switch_school_location/' . $userId, [], $params);
+        $response = $this->Connector->putRequest('/user/move_school_location/' . $userId, [], $params);
 
         if ($response === false) {
             $this->addError($this->Connector->getLastResponse());
@@ -543,5 +543,36 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getSchoolLocationList()
+    {
+        $response = $this->Connector->getRequest('/school_location_user', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function switchSchool($uuid)
+    {
+        $response = $this->Connector->putRequest('/school_location_user', [],['school_location' => $uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getTeachersFromOtherLocations()
+    {
+        $response = $this->Connector->getRequest('/school_location_user/existing_teachers', []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+
+    }
 }
 

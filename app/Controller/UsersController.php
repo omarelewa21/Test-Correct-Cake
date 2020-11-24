@@ -590,7 +590,7 @@ class UsersController extends AppController
         }
     }
 
-    public function switch_school_location($userId)
+    public function move_school_location($userId)
     {
         $this->isAuthorizedAs(['Administrator']);
         $user = $this->UsersService->getUser($userId);
@@ -608,7 +608,7 @@ class UsersController extends AppController
                 'school_location_id' => $this->request->data['User']['school_location_id'],
             ];
 
-            $result = $this->UsersService->switch_school_location($userId, $params);
+            $result = $this->UsersService->move_school_location($userId, $params);
 
             if ($result === false) {
 
@@ -1475,14 +1475,23 @@ class UsersController extends AppController
         }
 
         if (!$student) {
-            $info['name_first'] = substr($info['name_first'], 0, 1) . '.';
+            $info['name_first'] = substr($info['name_first'], 0, 1) . '.';//. $info['school_location_id'];
+
+            $info['school_location_list'] = array_map(function ($location) use ($info) {
+                return (object)[
+                    'uuid' => $location['uuid'],
+                    'name' => $location['name'],
+                    'active' => $location['active'],
+                ];
+            }, $this->UsersService->getSchoolLocationList());
+
         }
 
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
 
         $return = [];
-        $allowed = ['name_first', 'name_suffix', 'name', 'abbriviation', 'isTeacher', 'isStudent'];
+        $allowed = ['name_first', 'name_suffix', 'name', 'abbriviation', 'isTeacher', 'isStudent', 'school_location_list', 'school_location_id'];
         foreach ($allowed as $key) {
             $return[$key] = array_key_exists($key, $info) ? $info[$key] : '';
         }
@@ -1520,4 +1529,21 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
+    public function setActiveSchoolLocation($uuid)
+    {
+        $result = $this->UsersService->switchSchool($uuid);
+
+        if (!$result) {
+            $this->formResponse(false, $this->UsersService->getErrors());
+            return false;
+        }
+        $this->formResponse(true, $result);
+
+    }
+
+    public function add_existing_teachers()
+    {
+        $result = $this->UsersService->getTeachersFromOtherLocations();
+        $this->set('data', $result);
+    }
 }
