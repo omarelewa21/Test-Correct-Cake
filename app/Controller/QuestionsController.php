@@ -7,7 +7,8 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('File', 'Utility');
 
-class QuestionsController extends AppController {
+class QuestionsController extends AppController
+{
 
     public function beforeFilter()
     {
@@ -19,12 +20,14 @@ class QuestionsController extends AppController {
         parent::beforeFilter();
     }
 
-    protected function hasBackendValidation($questionType){
-        $questionTypesWithBackendValidation = ['matchingquestion','completionquestion','multicompletionquestion','completionautovalidatequestion'];
-        return (bool) (in_array(strtolower($questionType),$questionTypesWithBackendValidation));
+    protected function hasBackendValidation($questionType)
+    {
+        $questionTypesWithBackendValidation = ['matchingquestion', 'completionquestion', 'multicompletionquestion', 'completionautovalidatequestion'];
+        return (bool)(in_array(strtolower($questionType), $questionTypesWithBackendValidation));
     }
 
-    public function index() {
+    public function index()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
@@ -39,6 +42,16 @@ class QuestionsController extends AppController {
 
         $education_levels = $this->TestsService->getEducationLevels();
         $subjects = $this->TestsService->getSubjects(true);
+
+        $_baseSubjects = $this->TestsService->getMyBaseSubjects();
+
+        $baseSubjects = [
+          '' => 'Alle',
+        ];
+
+        foreach($_baseSubjects as $baseSubject){
+            $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
+        }
 
         $education_levels = [0 => 'Alle'] + $education_levels;
         $subjects = [0 => 'Alle'] + $subjects;
@@ -61,13 +74,26 @@ class QuestionsController extends AppController {
             'GroupQuestion' => 'Groepvraag'
         ];
 
+        $filterSource = [
+            '' => 'Alles',
+            'me' => 'Eigen content',
+            'schoolLocation' => 'School locatie',
+        ];
+        if(AuthComponent::user('hasSharedSections')){
+            $filterSource['school'] = 'Scholengemeenschap';
+        }
+
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
         $this->set('subjects', $subjects);
         $this->Set('filterTypes', $filterTypes);
+        $this->set('filterSource',$filterSource);
+        $this->set('baseSubjects',$baseSubjects);
+
     }
 
-    public function preview_single($question_id) {
+    public function preview_single($question_id)
+    {
 
         $question = $this->QuestionsService->getSingleQuestion($question_id);
 
@@ -77,7 +103,7 @@ class QuestionsController extends AppController {
 
         $tagsArray = [];
 
-        foreach($question['question']['tags'] as $tag) {
+        foreach ($question['question']['tags'] as $tag) {
             $tagsArray[$tag['name']] = $tag['name'];
         }
 
@@ -100,19 +126,19 @@ class QuestionsController extends AppController {
 
             case 'CompletionQuestion' :
                 $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
-                if($question['question']['subtype'] == 'multi') {
+                if ($question['question']['subtype'] == 'multi') {
                     $view = 'edit_multi_completion';
-                }else{
+                } else {
                     $view = 'edit_completion';
                 }
                 break;
 
             case 'MultipleChoiceQuestion' :
-                if($question['question']['subtype'] == 'TrueFalse') {
+                if ($question['question']['subtype'] == 'TrueFalse') {
                     $view = 'edit_true_false';
-                }elseif($question['question']['subtype'] == 'ARQ') {
+                } elseif ($question['question']['subtype'] == 'ARQ') {
                     $view = 'edit_arq';
-                }else{
+                } else {
                     $view = 'edit_multiple_choice';
                 }
                 break;
@@ -122,9 +148,9 @@ class QuestionsController extends AppController {
                 break;
 
             case 'MatchingQuestion' :
-                if($question['question']['subtype'] == 'Classify') {
+                if ($question['question']['subtype'] == 'Classify') {
                     $view = 'edit_classify';
-                }else{
+                } else {
                     $view = 'edit_matching';
                 }
                 break;
@@ -139,7 +165,7 @@ class QuestionsController extends AppController {
 
         $selectedAttainments = [];
 
-        foreach($question['question']['attainments'] as $attainment) {
+        foreach ($question['question']['attainments'] as $attainment) {
             $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
@@ -154,17 +180,18 @@ class QuestionsController extends AppController {
         $this->render($view, 'ajax');
     }
 
-    public function preview_single_load($question_id, $group_id = null, $hideExtra = false) {
+    public function preview_single_load($question_id, $group_id = null, $hideExtra = false)
+    {
         $this->autoRender = false;
         $question = $this->QuestionsService->getSingleQuestion($question_id);
 
-        if(isset($group_id) && !empty($group_id)) {
+        if (isset($group_id) && !empty($group_id)) {
             $group = $this->QuestionsService->getSingleQuestion($group_id);
             $question['attachments'] = $group['attachments'];
             $question['question'] = $group['question'] . '<br /><br />' . $question['question'];
         }
 
-        switch($question['type']) {
+        switch ($question['type']) {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
@@ -174,9 +201,9 @@ class QuestionsController extends AppController {
                 break;
 
             case 'CompletionQuestion':
-                if($question['subtype'] == 'completion') {
+                if ($question['subtype'] == 'completion') {
                     $view = 'preview_completion';
-                }else{
+                } else {
                     $view = 'preview_multi_completion';
                 }
                 break;
@@ -186,7 +213,7 @@ class QuestionsController extends AppController {
                 break;
 
             case 'MultipleChoiceQuestion':
-                if($question['subtype'] == 'ARQ') {
+                if ($question['subtype'] == 'ARQ') {
                     $view = 'preview_arq';
                 } else {
                     $view = 'preview_multiple_choice';
@@ -217,23 +244,24 @@ class QuestionsController extends AppController {
 
     }
 
-    public function preview_answer_load($id) {
+    public function preview_answer_load($id)
+    {
         $time = microtime(true);
         $question = $this->QuestionsService->getSingleQuestion($id);
 
-        switch($question['type']) {
+        switch ($question['type']) {
             case 'InfoscreenQuestion':
-                    $view = 'preview_infoscreen_answer';
-                    break;
+                $view = 'preview_infoscreen_answer';
+                break;
 
             case 'OpenQuestion':
                 $view = 'preview_open_answer';
                 break;
 
             case 'CompletionQuestion':
-                if($question['subtype'] == 'completion') {
+                if ($question['subtype'] == 'completion') {
                     $view = 'preview_completion_answer';
-                }else{
+                } else {
                     $view = 'preview_multi_completion_answer';
                 }
                 break;
@@ -243,9 +271,9 @@ class QuestionsController extends AppController {
                 break;
 
             case 'MultipleChoiceQuestion':
-                if($question['subtype'] == 'ARQ') {
+                if ($question['subtype'] == 'ARQ') {
                     $view = 'preview_arq_answer';
-                }else{
+                } else {
                     $view = 'preview_multiple_choice_answer';
                 }
                 break;
@@ -274,9 +302,10 @@ class QuestionsController extends AppController {
     }
 
 
-    public function preview($test_id, $question_index) {
+    public function preview($test_id, $question_index)
+    {
         $this->autoRender = false;
-        $questions = $this->Session->read('preview.questions.'.$test_id);
+        $questions = $this->Session->read('preview.questions.' . $test_id);
 
         $oriquestion = $questions[$question_index];
 
@@ -287,7 +316,7 @@ class QuestionsController extends AppController {
         $question['question'] = $oriquestion['question']['question'];
 
 
-        switch($question['type']) {
+        switch ($question['type']) {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
@@ -297,9 +326,9 @@ class QuestionsController extends AppController {
                 break;
 
             case 'CompletionQuestion':
-                if($question['subtype'] == 'completion') {
+                if ($question['subtype'] == 'completion') {
                     $view = 'preview_completion';
-                }else{
+                } else {
                     $view = 'preview_multi_completion';
                 }
                 break;
@@ -310,11 +339,11 @@ class QuestionsController extends AppController {
 
             case 'MultipleChoiceQuestion':
 
-                if($question['subtype'] == 'MultipleChoice' || $question['subtype'] == 'MultiChoice') {
+                if ($question['subtype'] == 'MultipleChoice' || $question['subtype'] == 'MultiChoice') {
                     $view = 'preview_multiple_choice';
-                }elseif($question['subtype'] == 'TrueFalse') {
+                } elseif ($question['subtype'] == 'TrueFalse') {
                     $view = 'preview_multiple_choice';
-                }else{
+                } else {
                     $view = 'preview_arq';
                 }
                 break;
@@ -336,7 +365,7 @@ class QuestionsController extends AppController {
                 break;
         }
 
-        if($question_index < (count($questions) - 1)) {
+        if ($question_index < (count($questions) - 1)) {
             $this->set('next_question', ($question_index + 1));
         }
 
@@ -346,23 +375,26 @@ class QuestionsController extends AppController {
         $this->render($view, 'ajax');
     }
 
-    public function add_custom($owner, $owner_id) {
+    public function add_custom($owner, $owner_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
     }
 
-    public function add_open_selection($owner, $owner_id) {
+    public function add_open_selection($owner, $owner_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
     }
 
-    public function move_to_group($test_id = null, $question_id = null) {
+    public function move_to_group($test_id = null, $question_id = null)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if($this->request->is('post')) {
+        if ($this->request->is('post')) {
             $this->autoRender = false;
             $group_id = $this->request->data['group_id'];
             $test_id = $this->Session->read('test_id');
@@ -370,7 +402,7 @@ class QuestionsController extends AppController {
 
             $this->QuestionsService->moveToGroup($question_id, $group_id);
 
-        }else {
+        } else {
 
             $this->Session->write('question_id', $question_id);
             $this->Session->write('test_id', $test_id);
@@ -381,10 +413,11 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function add_group($test_id) {
+    public function add_group($test_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if($this->request->is('post')) {
+        if ($this->request->is('post')) {
             $group = $this->request->data['QuestionGroup'];
 
             $result = $this->QuestionsService->addGroup($test_id, $group);
@@ -401,13 +434,14 @@ class QuestionsController extends AppController {
         $this->set('test_id', $test_id);
     }
 
-    public function edit_group($test_id, $group_id) {
+    public function edit_group($test_id, $group_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if($this->request->is('post') || $this->request->is('put')) {
+        if ($this->request->is('post') || $this->request->is('put')) {
             $group = $this->request->data['QuestionGroup'];
 
-            $result = $this->QuestionsService->updateGroup($test_id, $group_id,  $group);
+            $result = $this->QuestionsService->updateGroup($test_id, $group_id, $group);
 
             $this->formResponse(
                 !empty($result),
@@ -423,7 +457,7 @@ class QuestionsController extends AppController {
 
         $selectedAttainments = [];
 
-        foreach($group['QuestionGroup']['attainments'] as $attainment) {
+        foreach ($group['QuestionGroup']['attainments'] as $attainment) {
             $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
@@ -443,15 +477,15 @@ class QuestionsController extends AppController {
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $internal = false,$hideresponse = false)
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
 
-        if($this->request->is('post') || $internal == true ) {
+        if ($this->request->is('post') || $internal == true) {
 
             $question = $this->request->data['Question'];
-            if($question == null && $internal == true) {
+            if ($question == null && $internal == true) {
                 $question = $oldQuestion['question'];
             }
 
@@ -472,14 +506,14 @@ class QuestionsController extends AppController {
                 }
             }
 
-            if($test['is_open_source_content'] == 1) {
+            if ($test['is_open_source_content'] == 1) {
                 $question['add_to_database'] = 1;
                 $question['is_open_source_content'] = 1;
-            }else{
+            } else {
                 $question['is_open_source_content'] = 0;
             }
 
-            if(!empty($question['sub_attainments'])) {
+            if (!empty($question['sub_attainments'])) {
                 $question['attainments'] = [
                     $question['attainments'], $question['sub_attainments']
                 ];
@@ -487,17 +521,17 @@ class QuestionsController extends AppController {
 
             $check = $this->Question->check($type, $question, $this->Session->read());
 
-            if($check['status'] == true) {
+            if ($check['status'] == true) {
 
                 $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
 
-                if($this->hasBackendValidation($type) && !$result){
+                if ($this->hasBackendValidation($type) && !$result) {
 
                     $this->formResponse(false, $this->QuestionsService->getErrors());
                     return false;
                 }
 
-                if($type == 'TrueFalseQuestion') {
+                if ($type == 'TrueFalseQuestion') {
                     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
                 }
 
@@ -505,12 +539,12 @@ class QuestionsController extends AppController {
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if($type == 'MultipleChoiceQuestion') {
+                if ($type == 'MultipleChoiceQuestion') {
                     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
 
                 }
 
-                if($type == 'ARQQuestion') {
+                if ($type == 'ARQQuestion') {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
                 }
 
@@ -521,7 +555,7 @@ class QuestionsController extends AppController {
 //                if($type == 'ClassifyQuestion') {
 //                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
 //                }
-                if($type == 'DrawingQuestion') {
+                if ($type == 'DrawingQuestion') {
                     $this->Session->delete('drawing_grid');
                     $this->Session->delete('drawing_data');
                     $this->Session->delete('drawing_background');
@@ -535,19 +569,20 @@ class QuestionsController extends AppController {
 //                    }
 //                }
 
-                if($internal === false) {
-                    $this->formResponse(true);die;
+                if ($internal === false) {
+                    $this->formResponse(true);
+                    die;
                 }
-            }else if(!$hideresponse) {
+            } else if (!$hideresponse) {
                 $this->formResponse(false, $check['errors']);
             }
-        }else {
+        } else {
 
             $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
 
             $tagsArray = [];
 
-            foreach($question['question']['tags'] as $tag) {
+            foreach ($question['question']['tags'] as $tag) {
                 $tagsArray[$tag['name']] = $tag['name'];
             }
 
@@ -570,19 +605,19 @@ class QuestionsController extends AppController {
 
                 case 'CompletionQuestion' :
                     $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
-                    if($question['question']['subtype'] == 'multi') {
+                    if ($question['question']['subtype'] == 'multi') {
                         $view = 'edit_multi_completion';
-                    }else{
+                    } else {
                         $view = 'edit_completion';
                     }
                     break;
 
                 case 'MultipleChoiceQuestion' :
-                    if($question['question']['subtype'] == 'TrueFalse') {
+                    if ($question['question']['subtype'] == 'TrueFalse') {
                         $view = 'edit_true_false';
-                    }elseif($question['question']['subtype'] == 'ARQ') {
+                    } elseif ($question['question']['subtype'] == 'ARQ') {
                         $view = 'edit_arq';
-                    }else{
+                    } else {
                         $view = 'edit_multiple_choice';
                     }
                     break;
@@ -592,9 +627,9 @@ class QuestionsController extends AppController {
                     break;
 
                 case 'MatchingQuestion' :
-                    if($question['question']['subtype'] == 'Classify') {
+                    if ($question['question']['subtype'] == 'Classify') {
                         $view = 'edit_classify';
-                    }else{
+                    } else {
                         $view = 'edit_matching';
                     }
                     break;
@@ -605,7 +640,7 @@ class QuestionsController extends AppController {
 
             $selectedAttainments = [];
 
-            foreach($question['question']['attainments'] as $attainment) {
+            foreach ($question['question']['attainments'] as $attainment) {
                 $selectedAttainments[] = $attainment['id'];
             }
 
@@ -617,22 +652,25 @@ class QuestionsController extends AppController {
             $this->Session->write('attachments_editable', true);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
-            $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+            $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
             $this->render($view, 'ajax');
         }
     }
 
-    public function add_multi_completion_item() {
+    public function add_multi_completion_item()
+    {
 
     }
 
-    public function add_completion_item() {
+    public function add_completion_item()
+    {
 
     }
 
-    public function add_existing($owner, $owner_id) {
+    public function add_existing($owner, $owner_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->Session->write('addExisting', [
@@ -687,7 +725,8 @@ class QuestionsController extends AppController {
         $this->set('filterTypes', $filterTypes);
     }
 
-    public function add_existing_question($question_id) {
+    public function add_existing_question($question_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
@@ -698,7 +737,8 @@ class QuestionsController extends AppController {
     }
 
 
-    public function add_existing_question_group($group_id) {
+    public function add_existing_question_group($group_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
@@ -708,7 +748,8 @@ class QuestionsController extends AppController {
         $this->QuestionsService->duplicateGroup('test', $data['owner_id'], $group_id);
     }
 
-    public function add_existing_question_list() {
+    public function add_existing_question_list()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
@@ -721,45 +762,45 @@ class QuestionsController extends AppController {
 
         $params['filter'] = [];
 
-        if(!empty($filters['subject'])) {
+        if (!empty($filters['subject'])) {
             $params['filter']['subject_id'] = $filters['subject'];
         }
 
-        if(!empty($filters['education_levels'])) {
+        if (!empty($filters['education_levels'])) {
             $params['filter']['education_level_id'] = $filters['education_levels'];
         }
 
-        if(!empty($filters['education_level_years'])) {
+        if (!empty($filters['education_level_years'])) {
             $params['filter']['education_level_year'] = $filters['education_level_years'];
         }
 
-        if(!empty($filters['id'])) {
+        if (!empty($filters['id'])) {
             $params['filter']['id'] = $filters['id'];
         }
 
 
-        if(!empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             $params['filter']['search'] = $filters['search'];
         }
 
-        if(!empty($filters['is_open_source_content'])){
-          $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        if (!empty($filters['is_open_source_content'])) {
+            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
         }
 
-        if(!empty($filters['type'])) {
+        if (!empty($filters['type'])) {
 
             $typeFilter = explode('.', $filters['type']);
 
             $params['filter']['type'] = $typeFilter[0];
 
-            if(isset($typeFilter[1])) {
+            if (isset($typeFilter[1])) {
                 $params['filter']['subtype'] = $typeFilter[1];
             }
         }
 
         $questions = $this->QuestionsService->getAllQuestions($params);
-        foreach($questions['data'] as $question){
-            if($question['type'] !== 'GroupQuestion') {
+        foreach ($questions['data'] as $question) {
+            if ($question['type'] !== 'GroupQuestion') {
                 $question['question'] = $this->stripTagsWithoutMath($question['question']);
             }
         }
@@ -768,7 +809,8 @@ class QuestionsController extends AppController {
         $this->set('questions', $questions['data']);
     }
 
-    public function add_existing_test_list() {
+    public function add_existing_test_list()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_levels = $this->TestsService->getEducationLevels();
@@ -787,11 +829,13 @@ class QuestionsController extends AppController {
         $this->set('tests', $tests['data']);
     }
 
-    public function public_info() {
+    public function public_info()
+    {
 
     }
 
-    public function drawing_background_add() {
+    public function drawing_background_add()
+    {
         $this->autoRender = false;
         $file = new File($this->request->data['Question']['background']['tmp_name']);
         $tmpFile = TMP . time();
@@ -799,43 +843,44 @@ class QuestionsController extends AppController {
         $this->Session->write('drawing_background', $tmpFile);
     }
 
-    public function add($owner, $owner_id, $type) {
+    public function add($owner, $owner_id, $type)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if($this->request->is('post')) {
+        if ($this->request->is('post')) {
 
             $question = $this->request->data['Question'];
 
-            if($owner == 'test') {
+            if ($owner == 'test') {
                 $test = $this->TestsService->getTest($owner_id);
-            }else{
+            } else {
                 $test = $this->QuestionsService->getTest(getUUID($this->Session->read('active_test'), 'get'));
             }
 
-            if($test['is_open_source_content'] == 1) {
+            if ($test['is_open_source_content'] == 1) {
                 $question['add_to_database'] = 1;
                 $question['is_open_source_content'] = 1;
-            }else{
+            } else {
                 $question['is_open_source_content'] = 0;
             }
 
-            if(!empty($question['sub_attainments'])) {
+            if (!empty($question['sub_attainments'])) {
                 $question['attainments'] = [
                     $question['attainments'], $question['sub_attainments']
                 ];
             }
 
             $check = $this->Question->check($type, $question, $this->Session->read());
-
-            if($check['status'] == true) {
+            if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
-                if($this->hasBackendValidation($type) && !$result){
+
+                if ($this->hasBackendValidation($type) && !$result) {
 
                     $this->formResponse(false, $this->QuestionsService->getErrors());
                     return false;
                 }
 
-                if($type == 'TrueFalseQuestion') {
+                if ($type == 'TrueFalseQuestion') {
                     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
                 }
 
@@ -846,11 +891,11 @@ class QuestionsController extends AppController {
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if($type == 'MultiChoiceQuestion') {
+                if ($type == 'MultiChoiceQuestion') {
                     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
                 }
 
-                if($type == 'ARQQuestion') {
+                if ($type == 'ARQQuestion') {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
                 }
 
@@ -870,21 +915,21 @@ class QuestionsController extends AppController {
 //                }
 
 
-                if($type == 'DrawingQuestion') {
+                if ($type == 'DrawingQuestion') {
                     $this->QuestionsService->uploadBackground($result, $question, $owner, $this->Session->read());
                     $this->Session->delete('drawing_data');
                     $this->Session->delete('drawing_grid');
                     $this->Session->delete('drawing_background');
                 }
 
-                if($owner == 'test') {
+                if ($owner == 'test') {
                     $attachments = $this->Session->read('attachments');
                     $this->QuestionsService->addAttachments('question', getUUID($result, 'get'), $attachments);
                     $this->Session->write('attachments', []);
                 }
 
                 $this->formResponse(true);
-            }else{
+            } else {
                 $this->formResponse(false, $check['errors']);
             }
         } else {
@@ -899,12 +944,12 @@ class QuestionsController extends AppController {
             $this->set('selectedAttainments', []);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
-            $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+            $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
             switch ($type) {
                 case 'InfoscreenQuestion':
-                    $this->render('add_infoscreen','ajax');
+                    $this->render('add_infoscreen', 'ajax');
                     break;
 
                 case 'OpenQuestion' :
@@ -953,33 +998,38 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function save_drawing() {
+    public function save_drawing()
+    {
         $this->autoRender = false;
         $data = $this->request->data['drawing'];
 
-        if($this->Session->write('drawing_data', $data)) {
+        if ($this->Session->write('drawing_data', $data)) {
             echo 1;
-        }else{
+        } else {
             echo 0;
         }
     }
 
-    public function add_drawing_answer() {
-        if($this->Session->check('drawing_data')) {
+    public function add_drawing_answer()
+    {
+        if ($this->Session->check('drawing_data')) {
             $this->set('drawing_data', $this->Session->read('drawing_data'));
         }
     }
 
-    public function add_drawing_grid($grid) {
+    public function add_drawing_grid($grid)
+    {
         $this->autoRender = false;
         $this->Session->write('drawing_grid', $grid);
     }
 
-    public function add_drawing_answer_canvas() {
+    public function add_drawing_answer_canvas()
+    {
         $this->render('add_drawing_answer_canvas', 'ajax');
     }
 
-    public function delete($owner, $owner_id, $question_id) {
+    public function delete($owner, $owner_id, $question_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if ($this->request->is('delete')) {
@@ -988,7 +1038,8 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function delete_group($test_id, $group_id) {
+    public function delete_group($test_id, $group_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         if ($this->request->is('delete')) {
@@ -997,15 +1048,16 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function attachments($type, $owner = null, $owner_id = null, $id = null) {
-        if($type == 'add') {
+    public function attachments($type, $owner = null, $owner_id = null, $id = null)
+    {
+        if ($type == 'add') {
             if (!$this->Session->check('attachments')) {
                 $this->Session->write('attachments', []);
                 $attachments = [];
             } else {
                 $attachments = $this->Session->read('attachments');
             }
-        }elseif($type == 'edit') {
+        } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
 
             $attachments = $question['question']['attachments'];
@@ -1019,21 +1071,24 @@ class QuestionsController extends AppController {
         $this->set('attachments', $attachments);
     }
 
-    public function attachments_sound($type, $owner = null, $owner_id = null, $id = null) {
+    public function attachments_sound($type, $owner = null, $owner_id = null, $id = null)
+    {
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
         $this->set('id', $id);
         $this->set('type', $type);
     }
 
-    public function attachments_video($type, $owner = null, $owner_id = null, $id = null) {
+    public function attachments_video($type, $owner = null, $owner_id = null, $id = null)
+    {
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
         $this->set('id', $id);
         $this->set('type', $type);
     }
 
-    public function remove_add_attachment($id) {
+    public function remove_add_attachment($id)
+    {
         if ($this->request->is('delete')) {
             $this->autoRender = false;
             $attachments = $this->Session->read('attachments');
@@ -1042,12 +1097,14 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function remove_edit_attachment($owner, $owner_id, $id) {
+    public function remove_edit_attachment($owner, $owner_id, $id)
+    {
         $this->autoRender = false;
         $this->QuestionsService->removeAttachment($owner, $owner_id, $id);
     }
 
-    public function load() {
+    public function load()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
@@ -1060,39 +1117,47 @@ class QuestionsController extends AppController {
 
         $params['filter'] = [];
 
-        if(!empty($filters['education_levels'])) {
+        if(!empty($filters['source'])){
+            $params['filter']['source'] = $filters['source'];
+        }
+
+        if(!empty($filters['base_subject_id'])){
+            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
+        }
+
+        if (!empty($filters['education_levels'])) {
             $params['filter']['education_level_id'] = $filters['education_levels'];
         }
 
-        if(!empty($filters['education_level_years'])) {
+        if (!empty($filters['education_level_years'])) {
             $params['filter']['education_level_year'] = $filters['education_level_years'];
         }
 
-        if(!empty($filters['subject'])) {
+        if (!empty($filters['subject'])) {
             $params['filter']['subject_id'] = $filters['subject'];
         }
 
-        if(!empty($filters['search'])) {
+        if (!empty($filters['search'])) {
             $params['filter']['search'] = $filters['search'];
         }
 
-        if(!empty($filters['id'])) {
+        if (!empty($filters['id'])) {
             $params['filter']['id'] = $filters['id'];
         }
 
-        if(!empty($filters['type'])) {
+        if (!empty($filters['type'])) {
 
             $typeFilter = explode('.', $filters['type']);
 
             $params['filter']['type'] = $typeFilter[0];
 
-            if(isset($typeFilter[1])) {
+            if (isset($typeFilter[1])) {
                 $params['filter']['subtype'] = $typeFilter[1];
             }
         }
 
-        if(!empty($filters['is_open_source_content'])) {
-          $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        if (!empty($filters['is_open_source_content'])) {
+            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
         }
 
         $questions = $this->QuestionsService->getAllQuestions($params);
@@ -1100,9 +1165,10 @@ class QuestionsController extends AppController {
         $this->set('questions', $questions['data']);
     }
 
-    public function inlineimage($image){
+    public function inlineimage($image)
+    {
 
-        if(substr_count($image,'..') > 0) {
+        if (substr_count($image, '..') > 0) {
             exit;
         }
 
@@ -1110,24 +1176,23 @@ class QuestionsController extends AppController {
 
         $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . 'inlineimages' . DS);
 
-        if(!is_dir($path)){
-            mkdir($path,0777);
+        if (!is_dir($path)) {
+            mkdir($path, 0777);
         }
 
-        $file = $path.$image;
+        $file = $path . $image;
 
-        if(!file_exists($file)){
+        if (!file_exists($file)) {
             $content = ($this->QuestionsService->getInlineImageContent($image));
-            if(strlen($content) > 15){
-                file_put_contents($file,base64_decode($content));
-            }
-            else{
+            if (strlen($content) > 15) {
+                file_put_contents($file, base64_decode($content));
+            } else {
                 exit;
             }
         }
 
         $mime = mime_content_type($file);
-        switch($mime) {
+        switch ($mime) {
             case 'image/jpg':
             case 'image/jpeg':
             case 'image/JPG':
@@ -1137,7 +1202,7 @@ class QuestionsController extends AppController {
 
                 $img = imagecreatefromstring(file_get_contents($file));
 
-                header('Content-type: '.$mime);
+                header('Content-type: ' . $mime);
                 imagejpeg($img);
                 break;
             case 'image/png':
@@ -1145,11 +1210,11 @@ class QuestionsController extends AppController {
 
                 $img = imagecreatefrompng($file);
 
-                imagealphablending( $img, false );
-                imagesavealpha( $img, true );
-                imagecolorallocatealpha($img, 0,0,0,127);
+                imagealphablending($img, false);
+                imagesavealpha($img, true);
+                imagecolorallocatealpha($img, 0, 0, 0, 127);
 
-                header('Content-type: '.$mime);
+                header('Content-type: ' . $mime);
                 imagepng($img);
                 break;
         }
@@ -1158,52 +1223,53 @@ class QuestionsController extends AppController {
         exit();
     }
 
-    public function upload_attachment($type, $owner = null, $owner_id = null, $id = null) {
+    public function upload_attachment($type, $owner = null, $owner_id = null, $id = null)
+    {
         $this->autoRender = false;
         $data = $this->request->data;
 
 
-        if(isset($this->request->data['Question']['file2']['name']) && !empty($this->request->data['Question']['file2']['name'])) {
+        if (isset($this->request->data['Question']['file2']['name']) && !empty($this->request->data['Question']['file2']['name'])) {
             $this->request->data['Question']['file'] = $this->request->data['Question']['file2'];
         }
 
-        if(empty($this->request->data['Question']['file']['name'])) {
+        if (empty($this->request->data['Question']['file']['name'])) {
             echo '<script>window.parent.Attachments.uploadError("no_file");window.parent.Loading.hide();</script>';
             die;
         }
 
         $extension = substr($this->request->data['Question']['file']['name'], -3);
 
-        if(!in_array($extension, ['jpg', 'peg', 'png', 'mp3', 'pdf'])) {
+        if (!in_array($extension, ['jpg', 'peg', 'png', 'mp3', 'pdf'])) {
             echo '<script>window.parent.Attachments.uploadError("file_type");window.parent.Loading.hide();</script>';
             die;
         }
 
-        if(isset($this->request->data['Question']['file']['name']) && !empty($this->request->data['Question']['file']['name'])) {
+        if (isset($this->request->data['Question']['file']['name']) && !empty($this->request->data['Question']['file']['name'])) {
             $file = new File($this->request->data['Question']['file']['tmp_name']);
             $tmpFile = TMP . time();
             $file->copy($tmpFile);
 
-            if(!empty($errors)) {
-                echo '<script>window.parent.Attachments.uploadError("'.$errors.'");window.parent.Loading.hide();</script>';
+            if (!empty($errors)) {
+                echo '<script>window.parent.Attachments.uploadError("' . $errors . '");window.parent.Loading.hide();</script>';
                 die;
             }
 
             $settings = [];
 
-            if(isset($data['Question']['pausable'])) {
+            if (isset($data['Question']['pausable'])) {
                 $settings['pausable'] = $data['Question']['pausable'];
             }
 
-            if(isset($data['Question']['play_once'])) {
+            if (isset($data['Question']['play_once'])) {
                 $settings['play_once'] = $data['Question']['play_once'];
             }
 
-            if(isset($data['Question']['timeout'])) {
+            if (isset($data['Question']['timeout'])) {
                 $settings['timeout'] = $data['Question']['timeout'];
             }
 
-            if($type == 'add') {
+            if ($type == 'add') {
                 if (!$this->Session->check('attachments')) {
                     $this->Session->write('attachments', []);
                     $attachments = [];
@@ -1220,11 +1286,11 @@ class QuestionsController extends AppController {
 
                 $this->Session->write('attachments', $attachments);
 
-                if($extension == 'mp3') {
+                if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
                 echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
-            }else{
+            } else {
 
                 $attachments = [];
 
@@ -1236,15 +1302,16 @@ class QuestionsController extends AppController {
                 ]);
 
                 $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
-                if($extension == 'mp3') {
+                if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", "' . $owner_id.'", "'.$id.'"); window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadEditAttachments("' . $owner . '", "' . $owner_id . '", "' . $id . '"); window.parent.Loading.hide();</script>';
             }
         }
     }
 
-    public function add_video_attachment() {
+    public function add_video_attachment()
+    {
         $this->autoRender = false;
         if (!$this->Session->check('attachments')) {
             $this->Session->write('attachments', []);
@@ -1253,9 +1320,9 @@ class QuestionsController extends AppController {
             $attachments = $this->Session->read('attachments');
         }
 
-        if(!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'youtu.be') && !strstr($this->request->data['url'], 'vimeo')) {
+        if (!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'youtu.be') && !strstr($this->request->data['url'], 'vimeo')) {
             echo 0;
-        }else {
+        } else {
 
             array_push($attachments, [
                 'type' => 'video',
@@ -1268,13 +1335,14 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function add_edit_video_attachment($owner, $owner_id, $id) {
+    public function add_edit_video_attachment($owner, $owner_id, $id)
+    {
         $this->autoRender = false;
         $attachments = [];
 
-        if(!strstr($this->request->data['url'], 'youtube')  && !strstr($this->request->data['url'], 'youtu.be')  && !strstr($this->request->data['url'], 'vimeo')) {
+        if (!strstr($this->request->data['url'], 'youtube') && !strstr($this->request->data['url'], 'youtu.be') && !strstr($this->request->data['url'], 'vimeo')) {
             echo 0;
-        }else {
+        } else {
 
             array_push($attachments, [
                 'type' => 'video',
@@ -1287,15 +1355,16 @@ class QuestionsController extends AppController {
         }
     }
 
-    public function tags() {
+    public function tags()
+    {
         $this->autoRender = false;
         $query = $_GET['q'];
 
         $results = ['items' => []];
         $tags = $this->QuestionsService->getTags($query);
 
-         $i =1;
-        foreach($tags as $tag) {
+        $i = 1;
+        foreach ($tags as $tag) {
             $results['items'][] = [
                 'id' => $tag,
                 'text' => $tag
@@ -1303,32 +1372,35 @@ class QuestionsController extends AppController {
             $i++;
         }
 
-        echo  json_encode($results);
+        echo json_encode($results);
 
     }
 
-    public function update_index($type, $question_id, $test_id, $index) {
+    public function update_index($type, $question_id, $test_id, $index)
+    {
         $this->autoRender = false;
         $this->QuestionsService->setIndex($question_id, $test_id, $index);
     }
 
-    public function update_group_question_index($question_id, $group_id, $index) {
+    public function update_group_question_index($question_id, $group_id, $index)
+    {
         $this->autoRender = false;
         $this->QuestionsService->setGroupQuestionIndex($question_id, $group_id, $index);
     }
 
-    public function view_group($test_id, $group_id) {
+    public function view_group($test_id, $group_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $group = $this->QuestionsService->getQuestion('test', '', $group_id);
 
         $questions = $group['question']['group_question_questions'];
 
-        foreach($questions as $question){
+        foreach ($questions as $question) {
             $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
         }
 
-        usort($questions, function($a, $b) {
+        usort($questions, function ($a, $b) {
             $a = $a['order'];
             $b = $b['order'];
             if ($a == $b) {
