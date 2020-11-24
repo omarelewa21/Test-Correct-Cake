@@ -10,12 +10,27 @@ App::uses('BaseService', 'Lib/Services');
 class SharedSectionsService extends BaseService {
 
 
-    public function add($test) {
-
-        $response = $this->Connector->postRequest('/test', [], $test);
+    public function delete($sectionId,$schoolLocactionId)
+    {
+        $response = $this->Connector->deleteRequest(sprintf('/shared_sections/%s/%s',$sectionId, $schoolLocactionId), []);
 
         if($this->Connector->getLastCode() == 422) {
-            return 'unique_name';
+            return 'Er is iets fout gegaan, probeer het nogmaals';
+        }
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function add($sectionId,$data) {
+
+        $response = $this->Connector->postRequest('/shared_sections/'.$sectionId, [], $data);
+
+        if($this->Connector->getLastCode() == 422) {
+            return 'Er is iets fout gegaan, probeer het nogmaals';
         }
 
         if($response === false){

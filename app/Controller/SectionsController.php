@@ -19,6 +19,22 @@ class SectionsController extends AppController
         parent::beforeFilter();
     }
 
+    public function delete_shared_section_school_location($sectionId,$schoolLocationId)
+    {
+        $this->isAuthorizedAs(['School manager']);
+
+        if($this->request->is('delete')) {
+
+            $result = $this->SharedSectionsService->delete($sectionId, $schoolLocationId);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+    }
 
     public function add_school_location($sectionId)
     {
@@ -26,9 +42,9 @@ class SectionsController extends AppController
 
         if($this->request->is('post') || $this->request->is('put')) {
 
-            $data = $this->request->data['Section'];
+            $data = $this->request->data['SchoolLocation'];
 
-            $result = $this->SectionsService->updateSection($section_id, $data);
+            $result = $this->SharedSectionsService->add($sectionId, $data);
 
             $this->formResponse(
                 $result ? true : false,

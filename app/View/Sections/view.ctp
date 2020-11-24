@@ -118,7 +118,12 @@
 
             <tr>
                 <td> <?= $schoolLocation['name'] ?></td>
-                <td>x</td>
+                <td style="text-align:right;">
+                    <a href="#" class="danger" onclick="SharedSectionLocation.delete(<?=getUUID($section, 'getQuoted');?>,<?=getUUID($schoolLocation, 'getQuoted');?>);">
+                        <span class="fa fa-remove mr5"></span>
+
+                    </a>
+                </td>
             </tr>
             <?php } ?>
 
@@ -139,3 +144,25 @@
     </div>
 </div>
 
+<script>
+    var SharedSectionLocation = {
+        delete : function(sectionId,schoolLocationId) {
+
+            Popup.message({
+                btnOk: 'Ja',
+                btnCancel: 'Annuleer',
+                title: 'Weet u het zeker?',
+                message: 'Weet u zeker dat u deze school locatie wilt ontkoppelen?'
+            }, function() {
+                $.ajax({
+                    url: '/sections/delete_shared_section_school_location/' + sectionId+'/'+schoolLocationId,
+                    type: 'DELETE',
+                    success: function(response) {
+                        Notify.notify('De school locatie is ontkoppeld', 'info');
+                        Navigation.refresh();
+                    }
+                });
+            });
+        }
+    };
+</script>

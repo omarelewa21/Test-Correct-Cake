@@ -21,16 +21,16 @@
 </div>
 
 <script type="text/javascript">
-    $('#SubjectAddSubjectForm').formify(
+    $('#SchoolLocationAddSchoolLocationForm').formify(
         {
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Vak aangemaakt", "info");
+                Notify.notify("School locatie gekoppeld", "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Vak kon niet worden aangemaakt", "error");
+                Notify.notify("Het koppelen is mislukt, probeer het nogmaals", "error");
             }
         }
     );
