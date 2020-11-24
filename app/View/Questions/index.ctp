@@ -32,6 +32,14 @@
                 </td>
             </tr>
             <tr>
+                <th>Examenvak</th>
+                <td>
+                    <?=
+                  $this->Form->input('base_subject_id',array('options' => $baseSubjects,'label' => false))
+                    ?>
+                </td>
+            </tr>
+            <tr>
                 <th>Niveau</th>
                 <td>
                     <?=$this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
@@ -47,9 +55,7 @@
               <th>Bron</th>
               <td>
                 <?=
-                  $this->Form->input('is_open_source_content',array('options' => array(
-                    'Alles', 'Eigen content', 'Gratis content'
-                  ),'label' => false))
+                  $this->Form->input('source',array('options' => $filterSource,'label' => false))
                 ?>
               </td>
             </tr>

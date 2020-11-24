@@ -262,6 +262,18 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getMyBaseSubjects() {
+
+        $response = $this->Connector->getRequest('/my_base_subject', []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+
     public function getInvigilators() {
         $response = $this->Connector->getRequest('/invigilator/list', []);
         if($response === false){
