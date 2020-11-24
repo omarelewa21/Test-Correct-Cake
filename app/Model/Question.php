@@ -261,15 +261,31 @@ class Question extends AppModel
             $errors[] = "Geen vraag ingevuld";
         }
 
-        if($type !== 'MultiChoiceQuestion' && $type !== 'MultipleChoiceQuestion') {
-            $errors = $this->validateScore($question, $errors);
-        }
-
         if($type == 'OpenQuestion') {
             if(empty($question['answer'])) {
                 $errors[] = "Geen antwoord ingevuld";
             }
         }
+
+        $questionsWithAnswerScore = ['TrueFalseQuestion','MultiChoiceQuestion','MultipleChoiceQuestion','ARQQuestion'];
+
+
+        if(!in_array($type,$questionsWithAnswerScore)){
+            $errors = $this->validateScore($question, $errors);
+        } else {
+            $answerErrors = [];
+            foreach($question['answers'] as $answer){
+                if($answer['answer'] !== ''){
+                    if($error = $this->validateScore($answer, [])){
+                        $answerErrors = $error;
+                    }
+                }
+            }
+            if(count($answerErrors) > 0) {
+                $errors = array_merge($errors, $answerErrors);
+            }
+        }
+
 
         if($type == 'MultiChoiceQuestion' || $type == 'MultipleChoiceQuestion') {
             $found = 0;
@@ -300,15 +316,6 @@ class Question extends AppModel
                 $errors[] = "U dient minimaal 1 antwoord van een score te voorzien.";
             }
 
-            $answerErrors = [];
-            foreach($question['answers'] as $answer){
-                if($error = $this->validateScore($answer, [])){
-                    $answerErrors = $error;
-                }
-            }
-            if(count($answerErrors) > 0) {
-                $errors = array_merge($errors, $answerErrors);
-            }
         }
 
         if($type == 'ARQQuestion') {
@@ -437,7 +444,7 @@ class Question extends AppModel
     private function validateScore($question,$errors){
 
         if(!(new AppController())->is_eu_numeric($question['score'])){
-            $errors[] = "De score is dient numeriek te zijn";
+            $errors[] = "De score dient numeriek te zijn";
         }
         if($question['score']==''||is_null($question['score'])){
             $errors[] = "De score is verplicht";
@@ -446,7 +453,7 @@ class Question extends AppModel
                 $errors[] = "De score dient in hele getallen te worden opgegeven";
         }
         if(is_numeric($question['score'])&&(intval($question['score']<0))){
-            $errors[] = "De score is dient groter dan nul te zijn";
+            $errors[] = "De score dient groter dan nul te zijn";
         }
         return $errors;
     }
