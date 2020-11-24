@@ -10,7 +10,7 @@ var User = {
                 User.info = info;
                 var activeSchool = '';
 
-                if (User.info.hasOwnProperty('school_location_list')) {
+                if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')) {
                     var result = User.info.school_location_list.find(function (school_location) {
                         return school_location.active;
                     });
