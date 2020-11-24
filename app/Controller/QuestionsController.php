@@ -694,6 +694,16 @@ class QuestionsController extends AppController
         $education_levels = [0 => 'Alle'] + $education_levels;
         $subjects = [0 => 'Alle'] + $subjects;
 
+        $_baseSubjects = $this->TestsService->getMyBaseSubjects();
+
+        $baseSubjects = [
+            '' => 'Alle',
+        ];
+
+        foreach($_baseSubjects as $baseSubject){
+            $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
+        }
+
         $filterTypes = [
             '' => 'Alle',
             'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
@@ -714,6 +724,14 @@ class QuestionsController extends AppController
 
         $test = $this->Session->read('active_test');
 
+        $filterSource = [
+            '' => 'Alles',
+            'me' => 'Eigen content',
+            'schoolLocation' => 'School locatie',
+        ];
+        if(AuthComponent::user('hasSharedSections')){
+            $filterSource['school'] = 'Scholengemeenschap';
+        }
 
         $this->set('subject_id', getUUID($test['subject'], 'get'));
         $this->set('year_id', $test['education_level_year']);
@@ -723,6 +741,8 @@ class QuestionsController extends AppController
         $this->set('education_level_years', $education_level_years);
         $this->set('subjects', $subjects);
         $this->set('filterTypes', $filterTypes);
+        $this->set('baseSubjects',$baseSubjects);
+        $this->set('filterSource',$filterSource);
     }
 
     public function add_existing_question($question_id)
@@ -761,6 +781,14 @@ class QuestionsController extends AppController
         unset($params['filters']);
 
         $params['filter'] = [];
+
+        if(!empty($filters['source'])){
+            $params['filter']['source'] = $filters['source'];
+        }
+
+        if(!empty($filters['base_subject_id'])){
+            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
+        }
 
         if (!empty($filters['subject'])) {
             $params['filter']['subject_id'] = $filters['subject'];
