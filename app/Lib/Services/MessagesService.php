@@ -9,10 +9,11 @@ App::uses('BaseService', 'Lib/Services');
  */
 class MessagesService extends BaseService {
     public function send($user_id, $data) {
+        $userservice = new UsersService;
         $response = $this->Connector->postRequest('/message', [] ,[
             'message' => $data['Message']['message'],
             'subject' => $data['Message']['subject'],
-            'to' => [$user_id]
+            'to' => [$userservice->getUser($user_id)['id']]
         ]);
         if($response === false){
             return $this->Connector->getLastResponse();
@@ -71,9 +72,7 @@ class MessagesService extends BaseService {
     }
 
     public function markRead($message_id) {
-        $response = $this->Connector->putRequest('/message/' . $message_id, [], [
-            'read' => 1
-        ]);
+        $response = $this->Connector->putRequest('/message/mark_read/' . $message_id, [], []);
 
         if($response === false){
             return $this->Connector->getLastResponse();

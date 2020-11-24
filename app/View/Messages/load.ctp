@@ -11,10 +11,10 @@ foreach($messages as $message) {
         </td>
         <td>
             <? if ($message['message_receivers'][0]['read'] == 0) { ?>
-                <div class="label label-success" id="label_read_<?=$message['id']?>">Ongelezen</div>
+                <div class="label label-success" id="label_read_<?=getUUID($message, 'get');?>">Ongelezen</div>
             <? }else{
                 ?>
-                <div class="label" id="label_read_<?=$message['id']?>">Gelezen</div>
+                <div class="label label-info" id="label_read_<?=getUUID($message, 'get');?>">Gelezen</div>
                 <?
             } ?>
         </td>
@@ -40,11 +40,11 @@ foreach($messages as $message) {
         <td><?=date('d-m-Y H:i', strtotime($message['created_at']))?></td>
         <td class="nopadding">
             <? if( $message['user_id'] == AuthComponent::user('id')) { ?>
-                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=$message['id']?>', 400);">
+                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=getUUID($message, 'get');?>', 400);">
                     <span class="fa fa-eye"></span>
                 </a>
             <? }else{ ?>
-                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=$message['id']?>', 400); $('#label_read_<?=$message['id']?>').fadeOut();">
+                <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/show/<?=getUUID($message, 'get');?>', 400); $('#label_read_<?=getUUID($message, 'get');?>').not('.label-info').fadeOut();">
                     <span class="fa fa-eye"></span>
                 </a>
             <? } ?>

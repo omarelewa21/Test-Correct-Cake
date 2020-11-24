@@ -27,10 +27,9 @@ if (AuthComponent::user('is_temp_teacher')) {
 <div class="block">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
-        Sinds 20 mei hebben we een nieuwe demo tour op het platform die je kort maar duidelijk uitlegt hoe je zo snel mogelijk met Test-Correct aan de slag kunt. Scroll naar beneden om daarmee te starten.
-        Daarnaast hebben we een nieuw knop toegevoegd in het menu: 'Nodig een collega uit!', hiermee kan je zelfstandig een docentaccount aanmaken voor jouw collega's. Probeer het eens!<br />
-        <br/>
-        We zijn zeer benieuwd naar je feedback en zullen deze zeker meenemen in updates van de demo tour.
+        <h3>Onze november update staat nu online.</h3><br/>
+        <b>Creëer filters</b> en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt. <b>Archiveer toetsen</b> die je al hebt afgenomen en becijferd. <b>Creëer analyses</b> van je toetsresultaten en zie precies hoeveel grip je leerlingen hebben op elk leerdoel.<br />
+        <br/><a href="https://support.test-correct.nl/knowledge/nieuwe-functionaliteiten" target="_blank">Lees hier alles over onze nieuwe functionaliteiten.</a>
     </div>
 </div>
 
@@ -149,7 +148,7 @@ if ($wizard_steps) {
                                             <span class="prr-button knowledgebase-button pull-right"></span>
                                         <?php } ?>
                                         <a
-                                                href="<?= $sub['action_content'] ?>"
+                                                onclick="HelpHero.startTour('<?=/* TCP-358 */ trim(end(explode( "/", $sub['action_content'])));?>')"
                                                 data-id="<?= $sub['id'] ?>"
                                                 class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
                                         ><span class="fa fa-male"></span> Doe de tour</a>
@@ -257,7 +256,7 @@ if ($wizard_steps) {
         hubspotLoaded = true;
     }
 
-    HelpHero.identify("<?=AuthComponent::user('id')?>", {
+    HelpHero.identify("<?=AuthComponent::user('uuid')?>", {
         name: "<?=AuthComponent::user('name')?>",
         name_first: "<?=AuthComponent::user('name_first')?>",
         name_suffic: "<?=AuthComponent::user('name_suffix')?>"
@@ -265,7 +264,7 @@ if ($wizard_steps) {
 
     if (jQuery("#supportLinkUserMenu").length != 1) {
         jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" > Supportpagina</a>');
-        <?
+        <?php
         if(AuthComponent::user('isToetsenbakker') == true){
         ?>
         jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" > Te verwerken toetsen</a>');
@@ -278,8 +277,8 @@ if ($wizard_steps) {
         ?>
     }
 
-    var activeStep = <?= $wizard_steps['active_step'] ?>;
-    var showOnboardWizard = <?= $wizard_steps['show'] ?>;
+    var activeStep = "<?= $wizard_steps['active_step'] ?>";
+    var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
 
     if (typeof onboarding_wizard_scripting_loaded == 'undefined') {
         $(document).ready(function () {
@@ -498,7 +497,7 @@ if ($wizard_steps) {
 
     $('#ob-wizard-' + activeStep).find('.ob-wizard-toggle-sub').trigger('click');
     updateDoneButtonStatuses();
-    if (showOnboardWizard !== 1) {
+    if (showOnboardWizard != 1) {
         toggleWizardVisibilityState();
     }
 

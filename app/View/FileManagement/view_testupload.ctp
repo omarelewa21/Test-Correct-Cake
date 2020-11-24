@@ -74,12 +74,13 @@
                     <div class="editable_elements">
                         <select name="handledby" class="editable_input" style="width:100%">
                             <option value="">-</option>
-                            <? foreach($teachers as $id => $name){
-                                                $selected = "";
-                                                if($id == $file['handledby']){
-                                                    $selected = "selected = 'selected'";
-                                                }
-                                                echo "<option value='".$id."' ".$selected.">".$name."</option>";
+                            <? foreach($teachers as $teacher){
+                                    $name = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
+                                    $selected = "";
+                                    if($teacher['id'] == $file['handledby']){
+                                        $selected = "selected = 'selected'";
+                                    }
+                                    echo "<option value='".getUUID($teacher,'get')."' ".$selected.">".$name."</option>";
                             }
                             ?>
 
@@ -143,7 +144,7 @@
                         ?></div>
                     <div id="notes_edit" class='editable_elements'>
                         <input type="text" name="invite" class='editable_input' value="<?=isset($file['typedetails']['invite']) ? $file['typedetails']['invite'] : ''?>">
-                        <a href="#" onClick="save('<?=$file['id']?>')" class="btn highlight pull-right mt2 mr5" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
+                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right mt2 mr5" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
                     </div>
                 </td>
                 <th>
@@ -176,7 +177,7 @@
                 ?>
             <tr>
                 <td>
-                    <a href="file_management/download/<?=$child['id']?>/testupload"><?=$child['name']?></a>
+                    <a href="file_management/download/<?=getUUID($child, 'get');?>/testupload"><?=$child['name']?></a>
                 </td>
                 <td><?=$child['origname']?></td>
             </tr>
@@ -231,7 +232,7 @@
 
     function handleFileStatusChange(id,action){
         Loading.show();
-        var jqxhr = $.post('/file_management/update_status/<?= $file['id']?>',
+        var jqxhr = $.post('/file_management/update_status/<?= getUUID($file, 'get');?>',
                 {data: {'action' : action}},
                 function(response) {
                     Loading.hide();
@@ -250,7 +251,7 @@
         jQuery(".editable_input:input").each(function(e){
             data[$(this).attr('name')] = $(this).val();
         });
-        var jqxhr = $.post('/file_management/update/<?= $file['id']?>/testupload',
+        var jqxhr = $.post('/file_management/update/<?= getUUID($file, 'get');?>/testupload',
                 data,
                 function(response) {
                     Loading.hide();

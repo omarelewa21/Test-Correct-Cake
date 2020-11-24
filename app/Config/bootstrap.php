@@ -1,5 +1,100 @@
 <?php
 require dirname(dirname(__DIR__)) . '/vendor/autoload.php';
+
+if (!function_exists('getUUID')) {
+
+	function getUUID($item, $case, $options = []) {
+
+        $uuidKey = 'uuid';
+        if(array_key_exists('uuid_key',$options)){
+            $uuidKey = $options['uuid_key'];
+        }
+
+	    if(is_array($item) && !key_exists($uuidKey, $item)) {
+
+			//set uuid to id if not exists
+			//because in the switch statement 
+			//we can assume that the ['uuid'] 
+			//does always exists
+			if (key_exists('id', $item)) {
+				$item[$uuidKey] = $item['id'];
+			}
+		}
+
+		switch ($case) {
+			case 'get':
+				
+				if (is_array($item)) {
+					return $item[$uuidKey];
+				}
+				
+				return $item;
+
+				break;
+
+			case 'getQuoted':
+
+				if (is_array($item)) {
+					return "'" . $item[$uuidKey] . "'";
+				}
+				
+				return "'" . $item . "'";
+
+				break;
+
+			case 'format':
+				
+				if (is_string($item[$uuidKey])) {
+					$format = "%s";
+				} elseif (is_int($item[$uuidKey])) {
+					$format = "%d";
+				}
+
+				$url = str_replace('%%', $format, $options['formatString']);
+
+				return sprintf($url, $item[$uuidKey]);
+
+				break;
+			
+			default:
+				return null;
+				break;
+		}
+
+
+	}
+
+}
+
+function samesiteRewrite() {
+	$headers = headers_list();
+
+	$cake_cookie = "";
+	
+	foreach ($headers as $value) {
+			if (strpos($value, "CAKEPHP")) {
+					$cake_cookie = $value;
+					break;
+			}
+	}
+		
+	if ($cake_cookie != "") {
+			header_remove("Set-Cookie");
+
+			//only do on production servers
+			if (strpos($_SERVER['HTTP_HOST'], 'portal.test-correct.nl') !== false) {
+				$replace = "path=/; samesite=Strict; secure;";
+			} else {
+				$replace = "path=/; samesite=Strict;";
+			}
+
+			$cake_cookie = str_replace("path=/;", $replace, $cake_cookie);
+	
+			header($cake_cookie, true);
+	}
+}
+
+header_register_callback('samesiteRewrite');
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -118,3 +213,4 @@ CakeLog::config('alert', array(
 	'types' => array('alert'),
 	'file' => 'alert',
 ));
+

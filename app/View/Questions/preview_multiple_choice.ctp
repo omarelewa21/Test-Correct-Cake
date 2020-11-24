@@ -1,13 +1,14 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
 <h1>
-    <?
+    <?php
     if($question['subtype'] == 'TrueFalse') {
         ?>Juist / Onjuist<?
     }else{
         ?>Multiple choice<?
     }
     ?>
+    <?=AppHelper::showExternalId($question);?>
 </h1>
 
 <div style="font-size: 20px;">
@@ -16,50 +17,44 @@
         echo '<p>'. $question['question_group']['text'].'</p>';
     }
     ?>
-    <?=$question['question']?><br />
 
-    <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
-    <? } ?>
+    <?php
+        $citoClass = '';
+        if(AppHelper::isCitoQuestion($question)){
+            $citoClass = 'cito';
+        }
 
-    <?
-    if($question['subtype'] == 'TrueFalse') {
-        $first = false;
-    }else{
-        $first = false;
-    }
+        echo sprintf('<div class="answer_container %s">',$citoClass);
 
-    foreach($question['multiple_choice_question_answers'] as $answer) {
+         echo $question['question'].'<br />';
 
-        echo '<div>'.$this->Form->input('Answer.'.$answer['id'], [
-            'value' => 1,
-            'div' => false,
-            'type' => 'checkbox',
-            'checked' => $first,
-            'label' => false,
-            'class' => 'multiple_choice_option'
-        ]);
-        echo '&nbsp;'.$answer['answer'].'</div><br />';
-        $first = false;
-    }
+        $first = true;
+        $radioOptions = [];
+        $useRadio = false;
+        $default = [];
+        if($question['selectable_answers'] == 1){
+            $useRadio = true;
+            $label = '<div class="radio_'.getUUID($question, 'get').'">';
+        }
+
+        if($useRadio){
+            echo $this->element('question_multiple_choice_radio_answers',['question' => $question,'rating' => true]);
+        } else {
+            echo $this->element('question_multiple_choice_regular_answers',['question' => $question,'rating' => true]);
+        }
+
     ?>
+    </div>
 </div>
+<div style="clear:both;"></div>
 
-<? if($question['subtype'] == 'TrueFalse') { ?>
-    <script type="text/javascript">
-        $('input[type=checkbox]').click(function() {
-            $('input[type=checkbox]').prop('checked' , false);
-            $(this).prop('checked' , true);
-        });
-    </script>
-<? } ?>
-
-<? if(isset($next_question)) { ?>
+<?php if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>
     </center>
-<? } ?>
+<?php } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

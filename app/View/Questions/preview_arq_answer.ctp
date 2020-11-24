@@ -1,3 +1,11 @@
+<?php
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+?>
 <table class="table" id="tableMultiChoiceOptions">
             <thead>
             <tr>
@@ -92,6 +100,7 @@
             </tbody>
         </table>
     </div>
+</div>
 
 <? if($question['subtype'] == 'TrueFalse') { ?>
     <script type="text/javascript">
@@ -105,9 +114,10 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>
     </center>
 <? } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

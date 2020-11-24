@@ -3,8 +3,8 @@ $levels = [];
 $levelyears = [];
 
 foreach($education_levels as $education_level) {
-    $levels[$education_level['id']] = $education_level['name'];
-    $levelyears[$education_level['id']] = $education_level['max_years'];
+    $levels[$education_level['uuid']] = $education_level['name'];
+    $levelyears[$education_level['uuid']] = $education_level['max_years'];
 }
 ?>
 
@@ -37,14 +37,14 @@ foreach($education_levels as $education_level) {
         <tr>
             <th>Niveau</th>
             <td>
-                <?=$this->Form->input('education_level_id', ['options' => $levels,  'label' => false, 'onchange' => 'updateEducationYears();']) ?>
+                <?=$this->Form->input('education_level_id', ['options' => $levels, 'selected' => $SchoolClassEducationLevelUuid, 'label' => false, 'onchange' => 'updateEducationYears();']) ?>
             </td>
         </tr>
 
         <tr>
             <th>Niveau-jaar</th>
             <td>
-                <?=$this->Form->input('education_level_year', ['options' => [], 'label' => false]) ?>
+                <?=$this->Form->input('education_level_year', ['options' => $initEducationLevelYears,  'label' => false]) ?>
             </td>
         </tr>
         <tr>
@@ -97,13 +97,13 @@ foreach($education_levels as $education_level) {
         var val = $('#SchoolClassEducationLevelId').val();
         var years = 0;
 
-        <?
+        <?php
         foreach($levelyears as $year => $years) {
             ?>
-            if(val == <?=$year?>) {
-                years = <?=$years?>;
+            if(val == '<?=$year?>') {
+                years = '<?=$years?>';
             }
-            <?
+            <?php
         }
         ?>
 
@@ -114,5 +114,11 @@ foreach($education_levels as $education_level) {
         }
     }
 
+    function initEducationYears(){
+        var val = '<? echo $SchoolClassEducationLevelYear ?>';
+        $("#SchoolClassEducationLevelYear").val(val);
+    }
+
     updateEducationYears();
+    initEducationYears();
 </script>

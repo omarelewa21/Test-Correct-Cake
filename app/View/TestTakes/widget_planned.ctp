@@ -40,7 +40,7 @@ if(count($test_takes) == 0) {
                     <td class="nopadding">
                         <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
                             <a href="#" class="btn highlight mb1"
-                               onclick="TestTake.loadTake(<?=$test_take['id']?>, true);">
+                               onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
                                 Nu maken
                             </a>
                         <? }else{ ?>

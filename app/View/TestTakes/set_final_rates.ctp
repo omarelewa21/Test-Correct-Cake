@@ -1,5 +1,5 @@
 <div id="buttons">
-    <a href="#" class="btn highlight mr2" onclick="TestTake.markRated(<?=$take_id?>);">
+    <a href="#" class="btn highlight mr2" onclick="TestTake.markRated('<?=$take_id?>');">
         <span class="fa fa-check mr5"></span>
         Becijferd markeren
     </a>
@@ -120,7 +120,7 @@
                                         $('#final_rating_label_<?=$participant['id']?>').html(ui.value);
                                     },
                                     stop: function (event, ui) {
-                                        TestTake.setFinalRate(<?=$take_id?>, <?=$participant['id']?>, ui.value);
+                                        TestTake.setFinalRate('<?=$take_id?>', '<?=getUUID($participant, 'get');?>', ui.value);
                                     }
                                 });
                             });

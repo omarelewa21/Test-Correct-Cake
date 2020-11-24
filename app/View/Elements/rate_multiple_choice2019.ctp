@@ -1,20 +1,26 @@
 <?
 $answer = $rating['answer']['json'];
-$answer = json_decode($answer, true);
+$answer = $answerJson = json_decode($answer, true);
 
 $question = $rating['answer']['question'];
 
-foreach($question['multiple_choice_question_answers'] as $option) {
-    if($answer[$option['id']] == 0) {
-        ?>
-        <div><span class="fa fa-square-o"></span>
-        <?
-    }else{
-        ?>
-        <div><span class="fa fa-check-square-o"></span>
-        <?
-    }
-
-    echo $option['answer'] . '</div><br />';
+$useRadio = false;
+$radioOptions = [];
+if($question['selectable_answers'] == 1){
+        $useRadio = true;
 }
+$citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+$citoClass = 'cito';
+}
+echo sprintf('<div class="answer_container %s">',$citoClass);
+
+if($useRadio){
+   echo $this->element('question_multiple_choice_radio_answers',['question' => $question,'rating' => true,'answerJson' => $answerJson]);
+} else {
+   echo $this->element('question_multiple_choice_regular_answers',['question' => $question, 'rating' => true, 'answerJson' => $answerJson]);
+}
+
 ?>
+</div>
+<?=$this->element('question_styling',['question' => $question]);?>

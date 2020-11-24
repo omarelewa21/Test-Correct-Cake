@@ -11,3 +11,4 @@
 <div style="padding: 15px 20px; background: #f1f1f1;">
     <?=$answer['additional_text']?>
 </div>
+<?=$this->element('question_styling',['question' => $rating['answer']['question']]);?>

@@ -1,8 +1,15 @@
 <?=$this->element('take_attachments', ['question' => $question]);?>
 
 <?=$this->Form->create('Answer')?>
-
-<h1>Selectievraag [<?=$question['score']?>pt]</h1>
+<?php
+    $citoClass = '';
+    $isCitoQuestion = false;
+    if((new AppController())->isCitoQuestion($question)){
+        $citoClass = 'cito';
+        $isCitoQuestion = true;
+    }
+?>
+<h1 class="<?=$citoClass?>">Selectievraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
@@ -25,18 +32,20 @@
 
     $question_text = preg_replace_callback(
         '/\[([0-9]+)\]/i',
-        function ($matches) use ($tags, $answerJson) {
+        function ($matches) use ($tags, $answerJson, $isCitoQuestion) {
             $tag_id = $matches[1];
             if(isset($answerJson[$tag_id])) {
                 $value = $answerJson[$tag_id];
             }else{
-                $value = 0;
+                $value = '';
             }
             $answers = $tags[$matches[1]];
             $keys = array_keys($answers);
-            shuffle($keys);
+            if(!$isCitoQuestion) {
+                shuffle($keys);
+            }
             $random = array(
-                0 => 'Selecteer'
+                '' => 'Selecteer'
             );
             foreach ($keys as $key) {
                 $random[$key] = $answers[$key];
@@ -103,3 +112,4 @@
 
     Answer.answerChanged = false;
 </script>
+<?=$this->element('question_styling',['question' => $question]);?>

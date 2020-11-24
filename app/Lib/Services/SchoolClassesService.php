@@ -85,8 +85,12 @@ class SchoolClassesService extends BaseService {
         return $response;
     }
 
-    public function getForLocationId($location_id) {
-        $response = $this->Connector->getRequest('/school_class', ['mode' => 'list', 'filter' => ['school_location_id' => $location_id]]);
+    public function getForLocationId($location_id,$mode = 'list') {
+        $allowedModes = ['all','list','uuidlist','paginate'];
+        if(!in_array($mode,$allowedModes)){
+            throw new Exception(('mode not allowed in '.__CLASS__.' on line '.__LINE__));
+        }
+        $response = $this->Connector->getRequest('/school_class', ['mode' => $mode, 'filter' => ['school_location_id' => $location_id]]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

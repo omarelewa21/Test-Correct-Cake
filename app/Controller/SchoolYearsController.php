@@ -121,6 +121,12 @@ class SchoolYearsController extends AppController
             if($check) {
                 $result = $this->SchoolYearsService->addSchoolYearPeriod($school_year_id, $data);
 
+                if ($this->SchoolYearsService->getLastCode() === 422){
+
+                    $this->formResponse(false, json_decode($result));
+                    die;
+                }
+
                 $this->formResponse(
                     $result ? true : false,
                     []
@@ -151,6 +157,12 @@ class SchoolYearsController extends AppController
             if($check) {
 
                 $result = $this->SchoolYearsService->updateSchoolYearPeriod($period_id, $data);
+
+                if ($this->SchoolYearsService->getLastCode() === 422){
+
+                    $this->formResponse(false, json_decode($result));
+                    die;
+                }
 
                 $this->formResponse(
                     $result ? true : false,

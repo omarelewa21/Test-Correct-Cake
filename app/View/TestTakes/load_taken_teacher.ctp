@@ -1,7 +1,11 @@
 <?
 foreach($test_takes as $test_take) {
     ?>
-    <tr>
+    <tr
+            class=" <?= $test_take['archived'] ?  'jquery-archived grey': 'jquery-not-archived'  ?>
+         <?= $hide_when_archived ?  'jquery-hide-when-archived': ''  ?>
+
+       ">
         <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
         <td>
             <?
@@ -10,13 +14,13 @@ foreach($test_takes as $test_take) {
             }
             ?>
         </td>
-<!--        <td>-->
-<!--            --><?//
-//            foreach($test_take['invigilator_users'] as $user) {
-//                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
-//            }
-//            ?>
-<!--        </td>-->
+        <!--        <td>-->
+        <!--            --><?//
+        //            foreach($test_take['invigilator_users'] as $user) {
+        //                echo $user['name_first']. ' ' . $user['name_suffix'] . ' ' . $user['name']. '<br />';
+        //            }
+        //            ?>
+        <!--        </td>-->
         <td>
             <?=$test_take['test']['question_count']?>
         </td>
@@ -36,7 +40,7 @@ foreach($test_takes as $test_take) {
             }else{
                 ?>
                 <div class="label label-warning">Inhaaltoets</div>
-            <?
+                <?
             }
             ?>
         </td>
@@ -56,30 +60,41 @@ foreach($test_takes as $test_take) {
             echo $statusText;
 
 
-             ?>
+            ?>
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=$test_take['id']?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
+            <a href="#" class="btn white pull-right" onclick="TestTake.loadDetails(this, '<?=getUUID($test_take, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
             <div class="dropblock blur-close" for="test_take_<?=$test_take['id']?>">
-                <a href="#" class="btn highlight white" onclick="Navigation.load('/test_takes/view/<?=$test_take['id']?>');">
+
+                <a href="#" class="btn highlight white jquery-show-not-archived" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
                     <span class="fa fa-folder-open-o mr5"></span>
                     Openen
                 </a>
-                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=$test_take['id']?>', 1000)" class="btn highlight white">
+                <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-file mr5"></span>
                     Antwoorden PDF
                 </a>
-                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=$test_take['id']?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white">
+                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-forward mr5"></span>
-                   Meteen naar nakijken
+                    Meteen naar nakijken
                 </a>
+                <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
+                    <span class="fa fa-trash mr5"></span>
+                    Archiveren
+                </a>
+
+                <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
+                    <span class="fa fa-recycle mr5"></span>
+                    Dearchiveer
+                </a>
+
             </div>
         </td>
     </tr>

@@ -32,7 +32,7 @@ class AnswersController extends AppController
         $question = $response['question'];
         $answer = $response['answer'];
 
-        $this->Session->write('answer_id', $answer['id']);
+        $this->Session->write('answer_id', getUUID($answer, 'get'));
         $this->Session->write('question_id', $question_id);
 
         /**
@@ -98,8 +98,12 @@ class AnswersController extends AppController
                 $view = 'question_drawing';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'question_matrix';
+                break;
+
             default:
-                echo $question['id'];
+                echo getUUID($question, 'get');
                 break;
         }
 
@@ -130,7 +134,7 @@ class AnswersController extends AppController
         $question = $this->AnswersService->getParticipantQuestion($question_id);
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id);
 
-        $this->Session->write('answer_id', $answer['id']);
+        $this->Session->write('answer_id', getUUID($answer, 'get'));
         $this->Session->write('question_id', $question_id);
 
         if(empty($answer['json'])) {
@@ -188,7 +192,7 @@ class AnswersController extends AppController
                 break;
 
             default:
-                echo $question['id'];
+                echo getUUID($question, 'get');
                 break;
         }
 
@@ -238,7 +242,7 @@ class AnswersController extends AppController
         $needsQuestionFromRemote = true;
         if($question && strlen($question) > 3){
             $question = unserialize($question);
-            if($question['id'] == $question_id){
+            if(getUUID($question, 'get') == $question_id){
                 $needsQuestionFromRemote = false;
             }
         }
@@ -247,6 +251,19 @@ class AnswersController extends AppController
             $question = $this->AnswersService->getParticipantQuestion($question_id);
         }
 //        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+
+        if($this->isCitoQuestion($question) && $question['type'] == 'CompletionQuestion') {
+            $mask = $this->getMaskFromQuestionIfAvailable($question);
+            if ($mask) {
+                $mask = sprintf('/%s/i',$mask);
+                if(!preg_match($mask,$data['Answer'][0])){
+                    echo json_encode([
+                        'error' => 'Het gegeven antwoord is niet valide',
+                    ]);
+                    exit;
+                }
+            }
+        }
 
         $take_question_index = $this->Session->read('take_question_index');
 

@@ -25,20 +25,21 @@ foreach($schools as $school) {
         <td><?=$school['count_questions']?></td>
         <td class="nopadding">
             <? if($isAdministrator): ?>
-                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="school_<?=$school['id']?>">
+                <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="school_<?=getUUID($school, 'get');?>">
                     <span class="fa fa-list-ul"></span>
                 </a>
             <? endif;  ?>
-            <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/schools/view/<?=$school['id']?>');">
+            <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/schools/view/<?=getUUID($school, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
             <? if($isAdministrator): ?>
-                <div class="dropblock blur-close" for="school_<?=$school['id']?>">
-                    <a href="#" class="btn highlight white" onclick="Popup.load('/schools/edit/<?=$school['id']?>', 800);">
+                <div class="dropblock blur-close" for="school_<?=getUUID($school, 'get');?>">
+                <a href="#" class="btn highlight white" onclick="Popup.load('/schools/edit/<?=getUUID($school, 'get');?>', 800);">
+                    
                         <span class="fa fa-edit mr5"></span>
                         Wijzigen
                     </a>
-                    <a href="#" class="btn highlight white" onclick="School.delete(<?=$school['id']?>);">
+                    <a href="#" class="btn highlight white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
                         Verwijderen
                     </a>

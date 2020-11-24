@@ -1,10 +1,10 @@
 <div id="buttons">
     <? if($isAdministrator): ?>
-        <a href="#" class="btn white" onclick="Popup.load('/umbrella_organisations/edit/<?=$organisation['id']?>', 800);">
+        <a href="#" class="btn white" onclick="Popup.load('/umbrella_organisations/edit/<?=getUUID($organisation, 'get');?>', 800);">
             <span class="fa fa-edit mr5"></span>
             Wijzigen
         </a>
-        <a href="#" class="btn white" onclick="Organisation.delete(<?=$organisation['id']?>);">
+        <a href="#" class="btn white" onclick="Organisation.delete(<?=getUUID($organisation, 'getQuoted');?>);">
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
@@ -84,7 +84,7 @@
                 <tr>
                     <td><?=$school['name']?></td>
                     <td class="nopadding">
-                        <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/schools/view/<?=$school['id']?>');">
+                        <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/schools/view/<?=getUUID($school, 'get');?>');">
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
@@ -157,10 +157,10 @@
 
                 <? if($isAdministrator): ?>
                     <center>
-                        <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=$contact['contact_id']?>', 400);">
+                        <a href="#" class="btn small highlight inline-block"onclick="Popup.load('/contacts/edit/<?=getUUID($contact['contact'], 'get')?>', 400);">
                             <span class="fa fa-edit"></span>
                         </a>
-                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('umbrella_organization', <?=$organisation['id']?>, '<?=$type?>', <?=$contact['contact_id']?>);">
+                        <a href="#" class="btn small red inline-block" onclick="Contact.delete('umbrella_organization', <?=getUUID($organisation, 'getQuoted');?>, '<?=$type?>', '<?=getUUID($contact['contact'], 'get')?>');">
                             <span class="fa fa-remove"></span>
                         </a>
                     </center>
@@ -173,7 +173,7 @@
         <br clear="all" />
         <? if($isAdministrator): ?>
             <center>
-                <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/umbrella_organization/<?=$organisation['id']?>', 400);">
+                <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/umbrella_organization/<?=getUUID($organisation, 'get');?>', 400);">
                     <span class="fa fa-plus"></span>
                     Contactpersoon toevoegen
                 </a>

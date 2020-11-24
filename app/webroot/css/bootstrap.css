@@ -359,3 +359,121 @@ a.label:focus {
 .label-danger[href]:focus {
     background-color: #c9302c;
 }
+.row {
+    clear:both;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.col-md-1,
+.col-md-2,
+.col-md-3,
+.col-md-4,
+.col-md-5,
+.col-md-6,
+.col-md-7,
+.col-md-8,
+.col-md-9,
+.col-md-10,
+.col-md-11,
+.col-md-12 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+    .col-md-1,
+    .col-md-2,
+    .col-md-3,
+    .col-md-4,
+    .col-md-5,
+    .col-md-6,
+    .col-md-7,
+    .col-md-8,
+    .col-md-9,
+    .col-md-10,
+    .col-md-11,
+    .col-md-12 {
+        float: left;
+    }
+    .col-md-5:nth-child(2) {
+        float:right;
+    }
+
+
+    .col-md-5 {
+        width: 45%;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+
+a.btn.disabled {
+    color: grey;
+    cursor: not-allowed;
+    background-color: #eeeeee !important;
+}
+
+a.btn.disabled:hover {
+    color: grey;
+    background-color: #eeeeee !important;
+    cursor: not-allowed;
+}
+
+button.fa.fa-times-x-circle-o::after {
+    content: "\f05c";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    margin: 0px 0px 0px 10px;
+    text-decoration: none;
+    color: #212529;
+}
+
+button.fa.fa-times-x-circle-o:hover::after {
+    color: #fff;
+    content: "\f014";
+    padding-right: 1px;
+}
+
+button.label-search-filter {
+    color: #212529;
+    background-color: rgb(238, 238, 238);
+/ / #f8f9fa;
+    display: inline-block;
+    padding: .45em .45em;
+    font-size: 80%;
+    font-weight: 500;
+    font-family: Myriad Pro, Arial !important;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: .25rem;
+    border: none;
+}
+
+button.label-search-filter:hover {
+    color: #fff;
+    text-decoration: none;
+    background-color: #197cb4;
+/ / #117a8b;
+    cursor: pointer;
+}
+
+#modal-head.popup-head{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-left:22px;
+    padding-right: 22px;
+}
+.select2-selection.select2-selection--multiple:hover{
+    border:1px solid #1d93d6;
+    cursor:pointer;
+}
+
+
+
+
+

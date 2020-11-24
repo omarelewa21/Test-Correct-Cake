@@ -6,8 +6,8 @@
     $levelyears = [];
 
     foreach ($education_levels as $education_level) {
-        $levels[$education_level['id']] = $education_level['name'];
-        $levelyears[$education_level['id']] = $education_level['max_years'];
+        $levels[$education_level['uuid']] = $education_level['name'];
+        $levelyears[$education_level['uuid']] = $education_level['max_years'];
     }
     ?>
     <table class="table mb15">
@@ -47,7 +47,7 @@
                 Niveau
             </th>
             <td>
-                <?= $this->Form->input('education_level_id', array('style' => 'width: 282px', 'label' => false, 'options' => $levels, 'onchange' => 'updateEducationYears();')) ?>
+                <?= $this->Form->input('education_level_id', array('selected' => $current_education_level_uuid,'style' => 'width: 282px', 'label' => false, 'options' => $levels, 'onchange' => 'updateEducationYears();')) ?>
             </td>
             <th width="140">
                 Niveau-jaar
@@ -133,13 +133,13 @@
             oldVal = '<?=$this->request->data['Test']['education_level_year']?>';
         }
 
-        <?
+        <?php
         foreach($levelyears as $year => $years) {
         ?>
-        if (val == <?=$year?>) {
-            years = <?=$years?>;
+        if (val == '<?=$year?>') {
+            years = '<?=$years?>';
         }
-        <?
+        <?php
         }
         ?>
 

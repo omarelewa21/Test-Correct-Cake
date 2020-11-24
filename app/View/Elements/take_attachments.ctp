@@ -2,13 +2,13 @@
     <?
     if($question['note_type'] == 'TEXT') {
         ?>
-        <a href="#" class="btn highlight btn-attachment" onclick="Answer.notePad(<?=$question['id']?>);" style="width:260px; text-align: center;">
+        <a href="#" class="btn highlight btn-attachment" onclick="Answer.notePad('<?=getUUID($question, 'get');?>');" style="width:260px; text-align: center;">
             Tekstblok
         </a>
         <?
     }elseif($question['note_type'] == 'DRAWING') {
         ?>
-        <a href="#" class="btn highlight btn-attachment" onclick="Answer.drawingPad(<?=$question['id']?>);" style="width:260px; text-align: center;">
+        <a href="#" class="btn highlight btn-attachment" onclick="Answer.drawingPad('<?=getUUID($question, 'get');?>');" style="width:260px; text-align: center;">
             Tekenblok
         </a>
         <?
@@ -38,7 +38,7 @@
 
                 $i++;
                 ?>
-                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment(<?=$attachment['id']?>,<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
+                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=$attachment['id']?>',<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
                     Bijlage #<?=$i?>
                 </a>
                 <?

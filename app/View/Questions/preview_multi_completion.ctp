@@ -1,8 +1,8 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>Selectievraag</h1>
+<h1>Selectievraag<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
-    <?
+    <?php
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
         echo '<p>'. $question['question_group']['text'].'</p>';
     }
@@ -31,8 +31,17 @@
 //        $question_text = str_replace('['.$tag_id.']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]), $question_text);
 //    }
 
+
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container completion_question %s">',$citoClass);
+
     echo $question_text;
     ?>
+    </div>
 </div>
 
 <br clear="all" />
@@ -40,9 +49,10 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>
     </center>
 <? } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

@@ -7,9 +7,21 @@
 <div class="popup-content" style="max-height:400px; overflow: auto;">
     <div style="width:450px; float:left">
         <center>
-            <img src="/users/profile_picture/<?=$participant['user']['id']?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
+            <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get');?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
         </center>
         <table class="table table-striped">
+            <tr>
+                <th>Tijdsdispensatie</th>
+                <td>
+                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? 'Ja' : 'Nee'?>
+                </td>
+            </tr>
+            <tr>
+                <th>Tekst-naar-spraak</th>
+                <td>
+                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? 'Ja' : 'Nee'?>
+                </td>
+            </tr>
             <tr>
                 <th width="170">Vragen beantwoord</th>
                 <td>
@@ -112,7 +124,7 @@
 
     $('#ParticipantParticipantInfoForm').formify(
         {
-            action : '/test_takes/participant_info/<?=$test_id?>/<?=$participant['id']?>',
+            action : '/test_takes/participant_info/<?=$test_id?>/<?=getUUID($participant, 'get');?>',
             confirm : $('#btnSaveParticipantNotes'),
             onsuccess : function(result) {
                 Popup.closeLast();

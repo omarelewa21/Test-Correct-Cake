@@ -16,7 +16,7 @@
 		<meta name="apple-mobile-web-app-capable" content="yes">
 		<meta name="viewport" content="width=1280, user-scalable = no">
 
-		<link href="/css/default.css?v=20200713-161800" rel="stylesheet" type="text/css" />
+		<link href="/css/default.css?v=20200829-143300" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 		<!-- <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css"> -->
 		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css" />
@@ -26,6 +26,12 @@
 		<link rel="icon" href="https://www.test-correct.nl/wp-content/uploads/2019/01/cropped-fav-192x192.png" sizes="192x192" />
 		<link rel="apple-touch-icon-precomposed" href="https://www.test-correct.nl/wp-content/uploads/2019/01/cropped-fav-180x180.png" />
 		<meta name="msapplication-TileImage" content="https://www.test-correct.nl/wp-content/uploads/2019/01/cropped-fav-270x270.png" />
+
+		<?php
+			if(MaintenanceHelper::getInstance()->isInMaintenanceMode()){
+				echo '<style> #header.blue { background: #ff6666; }</style>';
+			}
+		?>
 
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
@@ -41,29 +47,30 @@
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
 
-		<script type="text/javascript" src="/js/jquery.datetimepicker.js"></script>
-		<script type="text/javascript" src="/js/popup.js?20200520193000"></script>
-		<script type="text/javascript" src="/js/definitions.js"></script>
-		<script type="text/javascript" src="/js/navigation.js"></script>
-		<script type="text/javascript" src="/js/core.js?20200304092201"></script>
-		<script type="text/javascript" src="/js/answer.js"></script>
-		<script type="text/javascript" src="/js/menu.js?20200520090000"></script>
-		<script type="text/javascript" src="/js/table.js"></script>
-		<script type="text/javascript" src="/js/questions.js"></script>
-		<script type="text/javascript" src="/js/redactor.js"></script>
-		<script type="text/javascript" src="/js/tablefy.js"></script>
-		<script type="text/javascript" src="/js/test_take.js?20200324151301"></script>
-		<script type="text/javascript" src="/js/test.js"></script>
-		<script type="text/javascript" src="/js/formify.js?20200707105400"></script>
-		<script type="text/javascript" src="/js/notifications.js"></script>
-		<script type="text/javascript" src="/js/user.js?20200407202601"></script>
-		<script type="text/javascript" src="/js/subscript.js"></script>
-		<script type="text/javascript" src="/js/limiter.js"></script>
-		<script type="text/javascript" src="/js/counter.js"></script>
-		<script type="text/javascript" src="/js/cookie.js"></script>
-		<script type="text/javascript" src="/js/analyses.js"></script>
-		<script type="text/javascript" src="/js/prettyCheckable.min.js"></script>
-		<script src="/js/URLSearchParamsPolyfill.js"></script>
+		<script type="text/javascript" src="/js/jquery.datetimepicker.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/navigation.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/core.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/answer.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/menu.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/table.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/questions.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/redactor.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/tablefy.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/test_take.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/test.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/formify.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/notifications.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/user.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/subscript.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/limiter.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/counter.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/cookie.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
+		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
+        <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
+		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
 

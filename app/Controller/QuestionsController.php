@@ -53,10 +53,10 @@ class QuestionsController extends AppController {
 //            'OpenQuestion.Long' => 'Wiskunde vraag',
             'OpenQuestion.Long' => 'Lange open vraag',
             'CompletionQuestion.multi' => 'Selectie',
-            'CompletionQuestion' => 'Gatentekst',
+            'CompletionQuestion.completion' => 'Gatentekst',
             'RankingQuestion' => 'Rangschik',
             'MatchingQuestion.Matching' => 'Combineer',
-            'MatchingQuestion.' => 'Rubriceer',
+            'MatchingQuestion.Classify' => 'Rubriceer',
             'DrawingQuestion' => 'Teken',
             'GroupQuestion' => 'Groepvraag'
         ];
@@ -93,7 +93,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion' :
                 $view = 'edit_infoscreen';
                 break;
-                
+
             case 'OpenQuestion' :
                 $view = 'edit_open';
                 break;
@@ -140,7 +140,7 @@ class QuestionsController extends AppController {
         $selectedAttainments = [];
 
         foreach($question['question']['attainments'] as $attainment) {
-            $selectedAttainments[] = $attainment['id'];
+            $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
         $this->set('selectedAttainments', $selectedAttainments);
@@ -168,7 +168,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
-                
+
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -201,6 +201,10 @@ class QuestionsController extends AppController {
                 $view = 'preview_drawing';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'preview_matrix';
+                break;
+
             default:
                 echo $question['type'];
                 break;
@@ -221,7 +225,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                     $view = 'preview_infoscreen_answer';
                     break;
-                    
+
             case 'OpenQuestion':
                 $view = 'preview_open_answer';
                 break;
@@ -254,6 +258,10 @@ class QuestionsController extends AppController {
                 $view = 'preview_drawing_answer';
                 break;
 
+            case 'MatrixQuestion':
+                $view = 'preview_matrix_answer';
+                break;
+
             default:
                 echo $question['type'];
                 break;
@@ -273,7 +281,7 @@ class QuestionsController extends AppController {
         $oriquestion = $questions[$question_index];
 
 
-        $question = $this->AnswersService->getParticipantQuestion($oriquestion['question']['id']);
+        $question = $this->AnswersService->getParticipantQuestion(getUUID($oriquestion['question'], 'get'));
 
         $question['attachments'] = $oriquestion['question']['attachments'];
         $question['question'] = $oriquestion['question']['question'];
@@ -283,7 +291,7 @@ class QuestionsController extends AppController {
             case 'InfoscreenQuestion':
                 $view = 'preview_infoscreen';
                 break;
-                
+
             case 'OpenQuestion':
                 $view = 'preview_open';
                 break;
@@ -317,6 +325,10 @@ class QuestionsController extends AppController {
 
             case 'DrawingQuestion':
                 $view = 'preview_drawing';
+                break;
+
+            case 'MatrixQuestion':
+                $view = 'preview_matrix';
                 break;
 
             default:
@@ -412,7 +424,7 @@ class QuestionsController extends AppController {
         $selectedAttainments = [];
 
         foreach($group['QuestionGroup']['attainments'] as $attainment) {
-            $selectedAttainments[] = $attainment['id'];
+            $selectedAttainments[] = getUUID($attainment, 'get');
         }
 
         $this->set('selectedAttainments', $selectedAttainments);
@@ -524,7 +536,7 @@ class QuestionsController extends AppController {
 //                }
 
                 if($internal === false) {
-                    $this->formResponse(true);die;    
+                    $this->formResponse(true);die;
                 }
             }else if(!$hideresponse) {
                 $this->formResponse(false, $check['errors']);
@@ -551,7 +563,7 @@ class QuestionsController extends AppController {
                 case 'InfoscreenQuestion' :
                     $view = 'edit_infoscreen';
                     break;
-                    
+
                 case 'OpenQuestion' :
                     $view = 'edit_open';
                     break;
@@ -604,7 +616,7 @@ class QuestionsController extends AppController {
             $this->set('editable', true);
             $this->Session->write('attachments_editable', true);
 
-            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
             $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
@@ -665,7 +677,7 @@ class QuestionsController extends AppController {
         $test = $this->Session->read('active_test');
 
 
-        $this->set('subject_id', $test['subject']['id']);
+        $this->set('subject_id', getUUID($test['subject'], 'get'));
         $this->set('year_id', $test['education_level_year']);
         $this->set('education_level_id', $test['education_level_id']);
 
@@ -797,7 +809,7 @@ class QuestionsController extends AppController {
             if($owner == 'test') {
                 $test = $this->TestsService->getTest($owner_id);
             }else{
-                $test = $this->QuestionsService->getTest($this->Session->read('active_test')['id']);
+                $test = $this->QuestionsService->getTest(getUUID($this->Session->read('active_test'), 'get'));
             }
 
             if($test['is_open_source_content'] == 1) {
@@ -867,7 +879,7 @@ class QuestionsController extends AppController {
 
                 if($owner == 'test') {
                     $attachments = $this->Session->read('attachments');
-                    $this->QuestionsService->addAttachments('question', $result['id'], $attachments);
+                    $this->QuestionsService->addAttachments('question', getUUID($result, 'get'), $attachments);
                     $this->Session->write('attachments', []);
                 }
 
@@ -886,7 +898,7 @@ class QuestionsController extends AppController {
             $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
             $this->set('selectedAttainments', []);
 
-            $school_location_id = $this->Session->read('Auth.User.school_location_id');
+            $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
             $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
             $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
 
@@ -894,7 +906,7 @@ class QuestionsController extends AppController {
                 case 'InfoscreenQuestion':
                     $this->render('add_infoscreen','ajax');
                     break;
-                    
+
                 case 'OpenQuestion' :
                     $this->render('add_open', 'ajax');
                     break;
@@ -970,7 +982,7 @@ class QuestionsController extends AppController {
     public function delete($owner, $owner_id, $question_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $result = $this->QuestionsService->deleteQuestion($owner, $owner_id, $question_id);
             $this->formResponse(!empty($result));
         }
@@ -979,7 +991,7 @@ class QuestionsController extends AppController {
     public function delete_group($test_id, $group_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $result = $this->QuestionsService->deleteGroup($test_id, $group_id);
             $this->formResponse(!empty($result));
         }
@@ -1022,7 +1034,7 @@ class QuestionsController extends AppController {
     }
 
     public function remove_add_attachment($id) {
-        if ($this->request->is('delete')) { 
+        if ($this->request->is('delete')) {
             $this->autoRender = false;
             $attachments = $this->Session->read('attachments');
             unset($attachments[$id]);
@@ -1085,7 +1097,6 @@ class QuestionsController extends AppController {
 
         $questions = $this->QuestionsService->getAllQuestions($params);
 
-        // die(var_dump($questions));
         $this->set('questions', $questions['data']);
     }
 
@@ -1116,12 +1127,13 @@ class QuestionsController extends AppController {
         }
 
         $mime = mime_content_type($file);
-
         switch($mime) {
             case 'image/jpg':
             case 'image/jpeg':
             case 'image/JPG':
             case 'image/JPEG':
+                //MF 28-8-2020 added gif as image type dirty but it works (for now)
+            case 'image/gif':
 
                 $img = imagecreatefromstring(file_get_contents($file));
 
@@ -1227,7 +1239,7 @@ class QuestionsController extends AppController {
                 if($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", ' . $owner_id.', '.$id.'); window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadEditAttachments("'.$owner.'", "' . $owner_id.'", "'.$id.'"); window.parent.Loading.hide();</script>';
             }
         }
     }
@@ -1307,7 +1319,7 @@ class QuestionsController extends AppController {
 
     public function view_group($test_id, $group_id) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
-        
+
         $group = $this->QuestionsService->getQuestion('test', '', $group_id);
 
         $questions = $group['question']['group_question_questions'];

@@ -24,7 +24,7 @@ class TestsService extends BaseService {
         if($response === false){
             return $this->Connector->getLastResponse();
         }
-        
+
         return $response;
     }
 
@@ -51,6 +51,19 @@ class TestsService extends BaseService {
             return 'unique_name';
         }
 
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getCitoTests($params)
+    {
+
+        $params['order'] = ['id' => 'desc'];
+
+        $response = $this->Connector->getRequest('/cito_test', $params);
         if($response === false){
             return $this->Connector->getLastResponse();
         }
@@ -95,7 +108,7 @@ class TestsService extends BaseService {
 
         $params = [
                 'filter' => [
-                    'test_id' => $test_id
+                    'test_id' => $this->getTest($test_id)['id']
                 ],
                 'mode' => 'all',
                 'order' => [
@@ -221,6 +234,19 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getCurrentClasses($params = []) {
+
+        $params['mode'] = 'list';
+        $params['filter'] = ['current' => true];
+
+        $response = $this->Connector->getRequest('/school_class', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getClassesItems($params) {
         $response = $this->Connector->getRequest('/school_class', $params);
         if($response === false){
@@ -232,6 +258,26 @@ class TestsService extends BaseService {
 
     public function getKinds() {
         $response = $this->Connector->getRequest('/test_kind/list', []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function archive($take_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$take_id.'/archive', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function unArchive($take_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$take_id.'/un-archive', [], []);
         if($response === false){
             return $this->Connector->getLastResponse();
         }

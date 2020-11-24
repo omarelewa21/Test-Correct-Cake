@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>Gatentekst</h1>
+<h1>Gatentekst<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
@@ -29,8 +29,18 @@
 //      $question_text = str_replace('['.$tag['tag'].']', $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px']), $question_text);
 //  }
 
+
+    $citoClass = '';
+    if(AppHelper::isCitoQuestion($question)){
+        $citoClass = 'cito';
+    }
+
+    echo sprintf('<div class="answer_container %s">',$citoClass);
+
+
     echo $question_text;
     ?>
+    </div>
 </div>
 
 <br clear="all" />
@@ -38,9 +48,10 @@
 <? if(isset($next_question)) { ?>
     <br />
     <center>
-        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview(<?=$test_id?>, <?=$next_question?>);">
+        <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
             Volgende vraag
         </a>
     </center>
 <? } ?>
+<?=$this->element('question_styling',['question' => $question]);?>

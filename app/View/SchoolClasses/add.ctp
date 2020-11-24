@@ -3,8 +3,8 @@ $levels = [];
 $levelyears = [];
 
 foreach($education_levels as $education_level) {
-    $levels[$education_level['id']] = $education_level['name'];
-    $levelyears[$education_level['id']] = $education_level['max_years'];
+    $levels[$education_level['uuid']] = $education_level['name'];
+    $levelyears[$education_level['uuid']] = $education_level['max_years'];
 }
 ?>
 <div class="popup-head">Klas</div>
@@ -115,7 +115,7 @@ foreach($education_levels as $education_level) {
             onsuccess : function(result) {
                 Popup.closeLast();
                 Notify.notify("Klas aangemaakt", "info");
-                Navigation.load('/school_classes/view/' + result.id)
+                Navigation.load('/school_classes/view/' + result.uuid)
             },
             onfailure : function(result) {
                 Notify.notify("SchoolYear kon niet worden aangemaakt", "error");
@@ -129,13 +129,13 @@ foreach($education_levels as $education_level) {
         var val = $('#SchoolClassEducationLevelId').val();
         var years = 0;
 
-        <?
+        <?php
         foreach($levelyears as $year => $years) {
             ?>
-            if(val == <?=$year?>) {
-                years = <?=$years?>;
+            if(val == '<?=$year?>') {
+                years = '<?=$years?>';
             }
-            <?
+            <?php
         }
         ?>
 

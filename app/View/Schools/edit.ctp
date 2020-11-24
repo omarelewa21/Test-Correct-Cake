@@ -14,7 +14,7 @@
                 Organisatie
             </th>
             <td>
-                <?=$this->Form->input('umbrella_organization_id', array('style' => 'width: 185px', 'label' => false, 'options' => $organisations)) ?>
+                <?=$this->Form->input('umbrella_organization_id', array('style' => 'width: 185px', 'label' => false, 'options' => $organisations, 'selected' => getUUID($school['umbrella_organization'], 'get'))); ?>
             </td>
         </tr>
         <tr>
@@ -22,7 +22,7 @@
                 Accountmanager
             </th>
             <td>
-                <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers)) ?>
+                <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers, 'selected' => getUUID($school['user'], 'get'))) ?>
             </td>
             <th width="130">
                 Klantcode

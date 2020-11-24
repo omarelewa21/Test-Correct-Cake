@@ -10,7 +10,7 @@
 
 <div class="block">
     <div class="block-head">Data
-        <button id="setDefaultHeading">Zet default kolom headers!!</button>
+        <button id="setDefaultHeadingTeacher">Zet default kolom headers!!</button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="error" id="column-errors"></div>
@@ -116,7 +116,7 @@
         window.importTeacherPageHasBeenLoadedBefore = true;
         var jsonObj;
 
-        $('#setDefaultHeading').on('click', function () {
+        $(document).on('click','#setDefaultHeadingTeacher', function () {
             $('.selectbox-update').each((index, el) => {
                 var nr = $(el).data('nr');
                 $(el).children().eq(nr).prop('selected', true);

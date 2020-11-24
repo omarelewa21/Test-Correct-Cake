@@ -4,6 +4,12 @@ $answer = json_decode($answer, true);
 
 $question = $rating['answer']['question']['question'];
 
+    $citoClass = '';
+        if(substr_count($question['metadata'],'cito') > 0){
+$citoClass = 'cito';
+}
+echo sprintf('<div class="answer_container %s">',$citoClass);
+
 for($i = 1; $i <= count($answer); $i++) {
 
     $html = '<strong>' . $answer[$i] . '</strong>';
@@ -13,6 +19,8 @@ for($i = 1; $i <= count($answer); $i++) {
 }
 
 ?>
-<div style="font-size: 20px;">
+
     <?=$question?>
+
 </div>
+<?=$this->element('question_styling',['question' => $rating['answer']['question']]);?>

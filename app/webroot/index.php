@@ -22,8 +22,6 @@
  * Use the DS to separate the directories in other defines
  */
 
-session_set_cookie_params(['samesite' => 'Strict']);
-
 if (!defined('DS')) {
 	define('DS', DIRECTORY_SEPARATOR);
 }
@@ -103,6 +101,7 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
 
 if (Configure::read('bugsnag-key-cake')) {
     $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+	$bugsnag->setErrorReportingLevel(E_ERROR);
     Bugsnag\Handler::register($bugsnag);
 }
 

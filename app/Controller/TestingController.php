@@ -5,9 +5,11 @@ App::uses('TestingService', 'Lib/Services');
 
 class TestingController extends AppController
 {
+    protected $token = '0cd66712-d5b2-4fdd-9c15-872d4b0cb7b0';
 
     public function beforeFilter()
     {
+        $this->Auth->allowedActions = array('selenium_state');
         $this->TestingService = new TestingService();
 
         parent::beforeFilter();
@@ -16,7 +18,7 @@ class TestingController extends AppController
     public function database($flag)
     {
         if($this->request->is('post')) {
-            if ($this->isAllowedFlag($flag)) {
+            if ($this->isAllowed($flag)) {
                 $result = $this->TestingService->handle($flag);
             }
 
@@ -29,8 +31,16 @@ class TestingController extends AppController
         }
     }
 
-    private function isAllowedFlag($flag)
+    protected function checkForValidToken()
     {
+        if(!$this->request->header('token') || $this->request->header('token') !== $this->token){
+            die();
+        }
+    }
+    private function isAllowed($flag)
+    {
+        $this->checkForValidToken();
+
         return (in_array($flag, $this->allowedFlags()));
     }
 
@@ -57,5 +67,35 @@ class TestingController extends AppController
             'rate-test-enable-glance',
             'glance-test-start'
         ];
+    }
+
+    public function selenium_toggle($flag)
+    {
+        $this->checkForValidToken();
+        if(!$this->request->is('post')) {
+            die;
+        }
+
+        $result = $this->TestingService->seleniumToggle($flag);
+
+        $this->formResponse(
+            $result ? true : false,
+            []
+        );
+    }
+
+    public function selenium_state()
+    {
+        $this->checkForValidToken();
+        if(!$this->request->is('get')) {
+            die;
+        }
+
+        $result = $this->TestingService->seleniumState();
+
+        $this->formResponse(
+            $result ? true : false,
+            []
+        );
     }
 }

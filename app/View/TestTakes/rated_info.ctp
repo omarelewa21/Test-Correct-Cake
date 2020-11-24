@@ -2,7 +2,7 @@
 <div class="popup-content">
 
     <center>
-        <img src="/users/profile_picture/<?=$participant['user']['id']?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
+        <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get');?>" width="100" height="100" style="border-radius: 100px; margin-bottom: 20px;" />
     </center>
 
     <? if(empty($participant['total_time']) && empty($participant['rating'])) { ?>
@@ -53,13 +53,13 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Sluiten
     </a>
-    <a href="#" class="btn grey mt5 mr5 highlight pull-right" onclick="Popup.load('/messages/send/<?=$participant['user_id']?>');">
+    <a href="#" class="btn grey mt5 mr5 highlight pull-right" onclick="Popup.load('/messages/send/<?=getUUID($participant['user'], 'get');?>');">
         Bericht sturen
     </a>
     <a href="#" class="btn grey mt5 mr5 highlight pull-right" onclick="Popup.closeLast(); Navigation.load('/test_takes/view_results/<?=$take_id?>/<?=$participant_id?>');">
         Toets bekijken
     </a>
-    <a href="#" class="btn grey mt5 mr5 highlight pull-right" onclick="Popup.closeLast(); Navigation.load('/analyses/student/<?=$participant['user_id']?>');">
+    <a href="#" class="btn grey mt5 mr5 highlight pull-right" onclick="Popup.closeLast(); Navigation.load('/analyses/student/<?=getUUID($participant['user'], 'get');?>');">
         Analyse
     </a>
 </div>
