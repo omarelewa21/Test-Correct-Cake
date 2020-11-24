@@ -1235,7 +1235,7 @@ class UsersController extends AppController
                 $tiles['tests_overview'] = array(
                     'menu' => 'library',
                     'icon' => 'testlist',
-                    'title' => 'Toetsen',
+                    'title' => 'Toetsen schoollocatie',
                     'path' => '/tests/index'
                 );
 
@@ -1252,7 +1252,7 @@ class UsersController extends AppController
                     $tiles['tests_shared_sections_overview'] = array(
                         'menu' => 'library',
                         'icon' => 'testlist',
-                        'title' => 'Gedeelde toetsen',
+                        'title' => 'Toetsen scholengemeenschap',
                         'path' => '/shared_sections_tests/index'
                     );
                 }
@@ -1261,7 +1261,7 @@ class UsersController extends AppController
                 $tiles['questions_overview'] = array(
                     'menu' => 'library',
                     'icon' => 'questionlist',
-                    'title' => 'Vragen',
+                    'title' => 'Vragenbank',
                     'path' => '/questions/index'
                 );
 
