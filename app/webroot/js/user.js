@@ -194,5 +194,38 @@ var User = {
             document.getElementById('active_school').innerHTML = active_location.name;
             Notify.notify('Gewisseld naar school ' + active_location.name);
         });
+    },
+    addExistingTeacherToSchoolLocation: function (uuid) {
+        $.ajax({
+            url: '/users/add_existing_teacher_to_schoolLocation',
+            method: 'POST',
+            data: {user: uuid},
+            success: function (data) {
+                Notify.notify('Docent succesvol toegevoegd');
+                var selector = '#'+uuid;
+                $(selector).removeClass('white').addClass('blue').find('span:first').removeClass('fa-link').addClass('fa-trash');
+            }
+        });
+    },
+    removeExistingTeacherFromSchoolLocation: function (uuid) {
+        $.ajax({
+            url: '/users/delete_existing_teacher_from_schoolLocation',
+            type: 'DELETE',
+            data: {user: uuid},
+            success: function (result) {
+                Notify.notify('Docent succesvol verwijderd');
+                var selector = '#'+uuid;
+                $(selector).removeClass('blue').addClass('white').find('span:first').removeClass('fa-trash').addClass('fa-link');
+            }
+        });
+    },
+
+    existingTeacherAction:function(uuid) {
+        var element = '#'+uuid;
+        if ($(element).find('span:first').hasClass('fa-trash')) {
+            this.removeExistingTeacherFromSchoolLocation(uuid);
+        } else {
+            this.addExistingTeacherToSchoolLocation(uuid);
+        }
     }
 };
