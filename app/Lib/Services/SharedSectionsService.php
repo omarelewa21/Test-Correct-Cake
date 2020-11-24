@@ -26,12 +26,22 @@ class SharedSectionsService extends BaseService {
     }
 
 
-    public function getSharedSections($params)
+    public function getSharedSectionSchoolLocations($sectionId,$params)
     {
 
-        $params['order'] = ['id' => 'desc'];
+        $params['order'] = ['name' => 'desc'];
 
-        $response = $this->Connector->getRequest('/shared_sections', $params);
+        $response = $this->Connector->getRequest('/shared_sections/'.$sectionId, $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getOptionalSharedShoolLocations($sectionId)
+    {
+        $response = $this->Connector->getRequest('/shared_sections/optional_school_locations/'.$sectionId, []);
         if($response === false){
             return $this->Connector->getLastResponse();
         }

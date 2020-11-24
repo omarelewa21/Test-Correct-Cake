@@ -72,7 +72,7 @@
 </div>
 
 <?php foreach($section['subjects'] as $subject) { ?>
-<div class="block autoheight">
+<div class="block ">
     <div class="block-head">Docenten gekoppeld <?=$subject['name']?> </div>
     <div class="block-content">
         <table class="table table-striped" id="usersTable">
@@ -102,3 +102,40 @@
     <div class="block-footer"></div>
 </div>
 <?php } ?>
+
+<div class="block ">
+    <div class="block-head">Sectie gedeeld met</div>
+    <div class="block-content">
+        <table class="table table-striped" id="schoolLocationTable">
+            <thead>
+            <tr>
+                <th>School locatie naam</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($sharedSchoolLocations as $schoolLocation) { ?>
+
+            <tr>
+                <td> <?= $schoolLocation['name'] ?></td>
+                <td>x</td>
+            </tr>
+            <?php } ?>
+
+
+            </tbody>
+        </table>
+        <br/>
+        <center>
+        <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_school_location/<?=getUUID($section, 'get');?>', 600);">
+            <span class="icon icon-plus"></span>
+            Nieuwe schoollocatie toevoegen
+        </a>
+        </center>
+
+    </div>
+    <div class="block-footer">
+        <br />
+    </div>
+</div>
+
