@@ -563,15 +563,30 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function getTeachersFromOtherLocations()
+    public function getTeachersFromOtherLocations($data)
     {
-        $response = $this->Connector->getRequest('/school_location_user/existing_teachers', []);
+        $response = $this->Connector->getRequest('/school_location_user/existing_teachers', $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
 
         return $response;
+
+    }
+
+    public function addExistingTeacherToSchoolLocation($user_uuid) {
+        $response = $this->Connector->postRequest('/school_location_user', [],['user_uuid' => $user_uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+    }
+
+    public function removeExistingTeacherToSchoolLocation($user_uuid) {
+        $response = $this->Connector->deleteRequest('/school_location_user',['user_uuid' => $user_uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
 
     }
 }
