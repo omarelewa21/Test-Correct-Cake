@@ -193,6 +193,9 @@ var User = {
 
             document.getElementById('active_school').innerHTML = active_location.name;
             Notify.notify('Gewisseld naar school ' + active_location.name);
+            Navigation.load('users/welcome');
+            // I would rather do refresh but this might break things.
+            //Navigation.refresh();
         });
     },
     addExistingTeacherToSchoolLocation: function (uuid) {
