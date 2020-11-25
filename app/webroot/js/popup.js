@@ -319,7 +319,7 @@ var Popup = {
             schoolLocationsTemplate += `<a href="#" onclick="User.switchLocation(this, '${schoolLocation.uuid}');" class="btn hover-blue ${activeClass} mb5">${schoolLocation.name}</a>`;
         });
 
-        this.message({title: 'Wissel van school', message: schoolLocationsTemplate});
+        this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});
     }
 };
 // // overload of window.prompt to always show a descently formatted prompt box.
