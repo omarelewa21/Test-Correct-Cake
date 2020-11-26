@@ -77,7 +77,7 @@ class QuestionsController extends AppController
         $filterSource = [
             '' => 'Alles',
             'me' => 'Eigen content',
-            'schoolLocation' => 'School locatie',
+            'schoolLocation' => 'Schoollocatie',
         ];
         if(AuthComponent::user('hasSharedSections')){
             $filterSource['school'] = 'Scholengemeenschap';
@@ -727,7 +727,7 @@ class QuestionsController extends AppController
         $filterSource = [
             '' => 'Alles',
             'me' => 'Eigen content',
-            'schoolLocation' => 'School locatie',
+            'schoolLocation' => 'Schoollocatie',
         ];
         if(AuthComponent::user('hasSharedSections')){
             $filterSource['school'] = 'Scholengemeenschap';
