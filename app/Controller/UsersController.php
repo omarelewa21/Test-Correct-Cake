@@ -1239,15 +1239,6 @@ class UsersController extends AppController
                     'path' => '/tests/index'
                 );
 
-                if (AuthComponent::user('hasCitoToetsen')) {
-                    $tiles['tests_cito_overview'] = array(
-                        'menu' => 'library',
-                        'icon' => 'testlist',
-                        'title' => 'CITO Toetsen op maat',
-                        'path' => '/cito_tests/index'
-                    );
-                }
-
                 if (AuthComponent::user('hasSharedSections')) {
                     $tiles['tests_shared_sections_overview'] = array(
                         'menu' => 'library',
@@ -1264,6 +1255,15 @@ class UsersController extends AppController
                     'title' => 'Vragenbank',
                     'path' => '/questions/index'
                 );
+
+                if (AuthComponent::user('hasCitoToetsen')) {
+                    $tiles['tests_cito_overview'] = array(
+                        'menu' => 'library',
+                        'icon' => 'testlist',
+                        'title' => 'CITO Toetsen op maat',
+                        'path' => '/cito_tests/index'
+                    );
+                }
 
                 $tiles['tests_planned'] = array(
                     'menu' => 'tests',
