@@ -1,4 +1,4 @@
-<div id="sharedSectionsTest">
+<div id="TestsSharedSections">
 <div id="buttons">
 
 
@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<h1>Toetsen</h1>
+<h1>Toetsitems andere schoollocaties binnen uw scholengemeenschap</h1>
 <div class="block">
     <div class="block-content">
         <div class="block-head">Filteren</div>
