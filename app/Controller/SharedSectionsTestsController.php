@@ -144,7 +144,7 @@ class SharedSectionsTestsController extends AppController {
 
         $test = $this->TestsService->getSharedSectionsTest($test_id);
 
-        $subjects = $this->TestsService->getSubjects();
+        $subjects = $this->TestsService->getSubjects(true);
 
         $this->set('subjects',$subjects);
 
