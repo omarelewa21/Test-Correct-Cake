@@ -590,10 +590,12 @@ class UsersController extends AppController
         }
     }
 
-    public function switch_school_location($userId)
+    public function move_school_location($userId)
     {
+
         $this->isAuthorizedAs(['Administrator']);
         $user = $this->UsersService->getUser($userId);
+
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($user->school_location_id == $this->request->data['User']['school_location_id']) {
                 // we don't need to do anything, same school location, so done already
@@ -608,7 +610,7 @@ class UsersController extends AppController
                 'school_location_id' => $this->request->data['User']['school_location_id'],
             ];
 
-            $result = $this->UsersService->switch_school_location($userId, $params);
+            $result = $this->UsersService->move_school_location($userId, $params);
 
             if ($result === false) {
 
