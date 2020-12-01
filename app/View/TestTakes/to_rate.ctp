@@ -66,7 +66,7 @@
                 <a href="#" style="float:right"
                    id="jquery-save-filter-as-from-modal"
                    class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
-                <a href="#" onclick="Popup.closeSearch()" style="float:right"
+                <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
                    class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
             </div>
