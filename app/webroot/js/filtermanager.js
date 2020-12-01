@@ -167,6 +167,8 @@ function FilterManager(settings) {
                     this.renderActiveFilter(e);
                 }.bind(this))
 
+                
+
                 .on('click', this.settings.eventScope+' #jquery-edit-filter', function (e) {
                     this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
                     $('#jquery-save-filter-as-from-modal').show();
@@ -197,6 +199,11 @@ function FilterManager(settings) {
                     Popup.closeSearch();
 
                     this.saveFilter(e);
+                }.bind(this))
+
+                .on('click', this.settings.eventScope+' #jquery-cache-filter-from-modal', function (e) {
+                    Popup.closeSearch();
+                    this.cacheFilter();
                 }.bind(this))
 
         };
@@ -306,6 +313,34 @@ function FilterManager(settings) {
                 },
             });
         };
+
+    this.cacheFilter = function () {
+        $.ajax({
+            url: '/search_filter/add',
+            data: {
+                data: {
+                    search_filter: {
+                        key: this.settings.filterKey,
+                        name: 'Bewaard filter',
+                        filters: this.newFilter,
+                        cached_filter: true
+                    }
+                }
+            },
+            method: 'POST',
+            context: this,
+            dataType: 'json',
+            success: function (response) {
+                // this.filters.push(response.data);
+                // this.renderSelectFilterBox(response.data.id);
+                // this.activeFilter = response.data;
+                // this.initNewFilter()
+                // this.activeFilter.changed = false;
+                // this.disableSaveButton();
+                // Notify.notify('Filter opgeslagen');
+            },
+        });
+    };
 
     this.saveActiveFilter = function (newFilterName) {
         this.activeFilter.name = newFilterName;
