@@ -1,13 +1,13 @@
 <div class="popup-head">Docenten van andere locaties toevoegen</div>
 <div class="popup-content" >
 
-    <div style="display:none;" id="buttons" class="pull-right">
-        <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters">
+    <div id="buttons" class="pull-right">
+        <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters_existing_teacher">
             <span class="fa fa-filter mr5"></span>
             Filteren
         </a>
 
-        <div class="dropblock" for="filters">
+        <div class="dropblock" for="filters_existing_teacher">
             <?= $this->Form->create('ExistingTeacher') ?>
             <table id="testsFilter" class="mb5">
                 <tr>
@@ -44,7 +44,7 @@
 
     <div class="block autoheight">
 
-        <div class="block-content" id="existingTeachersContainer">
+        <div style="padding:25px;" id="existingTeachersContainer">
             <table class="table table-striped" id="existingTeachersTable">
                 <thead>
                 <tr>
@@ -62,7 +62,7 @@
             <script type="text/javascript">
                 $('#existingTeachersTable').tablefy({
                     'source': '/users/load_existing_teachers',
-                    'filters': $('#ExistingTeacherIndexForm'),
+                    'filters': $('#ExistingTeacherAddExistingTeachersForm'),
                     'container': $('#existingTeachersContainer')
                 });
             </script>
@@ -73,7 +73,7 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();Navigation.load('users/index/teachers')">
-        Annuleer
+       Sluiten
     </a>
 </div>
 
