@@ -1594,8 +1594,31 @@ class UsersController extends AppController
 
     public function load_existing_teachers()
     {
+        $params = $this->request->data;
+
+        $filters = array();
+        parse_str($params['filters'], $filters);
+        $filters = $filters['data']['ExistingTeacher'];
+
+        unset($params['filters']);
+
+        $params['filter'] = [];
+
+        if (!empty($filters['name'])) {
+            $params['filter']['name'] = $filters['name'];
+        }
+
+        if (!empty($filters['name_first'])) {
+            $params['filter']['name_first'] = $filters['name_first'];
+        }
+
+
+        if (!empty($filters['username'])) {
+            $params['filter']['username'] = $filters['username'];
+        }
+
         //if ($this->isAuthorizedAs(['Administrator']) ){
-        $result = $this->UsersService->getTeachersFromOtherLocations($this->request->data);
+        $result = $this->UsersService->getTeachersFromOtherLocations($params);
         $this->set('users', $result);
 //        }
     }
