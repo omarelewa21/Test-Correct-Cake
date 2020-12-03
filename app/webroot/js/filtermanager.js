@@ -187,8 +187,8 @@ function FilterManager(settings) {
 
                 .on('click', this.settings.eventScope + ' #jquery-reset-filter', function (e) {
                     if (!$(e.target).hasClass('disabled')) {
-                        this.resetSearchForm();
                         this.renderSelectFilterBox('');
+                        this.resetSearchForm();
                     }
                 }.bind(this))
 
