@@ -120,11 +120,11 @@ class CoreConnector {
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, array(
-            "Content-Type: application/json"
-        ));
+        $headers = [
+            "Content-Type" => "application/json"
+        ];
 
-        return $this->_execute($handle);
+        return $this->_execute($handle,true,$headers);
     }
 
     public function postRequestFile($path, $params, $body)
@@ -140,12 +140,12 @@ class CoreConnector {
 
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, array(
-            "Content-Type: multipart/form-data",
-        ));
+        $headers = [
+            "Content-Type" => "multipart/form-data",
+        ];
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
 
-        return $this->_execute($handle);
+        return $this->_execute($handle,true,$headers);
     }
 
     public function putRequest($path, $params, $body)
@@ -161,12 +161,12 @@ class CoreConnector {
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, array(
-            "Content-Type: application/json",
-            "Content-Length: " . strlen($body)
-        ));
+        $headers = [
+            "Content-Type" => "application/json",
+            "Content-Length" => strlen($body)
+        ];
 
-        return $this->_execute($handle);
+        return $this->_execute($handle,true,$headers);
     }
 
     public function putRequestFile($path, $params, $body)
@@ -182,9 +182,9 @@ class CoreConnector {
 
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
-        curl_setopt($handle, CURLOPT_HTTPHEADER, array(
-            "Content-Type: multipart/form-data",
-        ));
+        $headers = [
+            "Content-Type" => "multipart/form-data",
+        ];
 
         $body['_method'] = 'PUT';
 
@@ -208,7 +208,7 @@ class CoreConnector {
 
         curl_setopt($handle, CURLOPT_POSTFIELDS, $newBody);
 
-        return $this->_execute($handle);
+        return $this->_execute($handle,true,$headers);
     }
 
     public function deleteRequest($path, $params)
@@ -224,9 +224,18 @@ class CoreConnector {
         return $this->_execute($this->_getHandle($finalUrl, "DELETE"));
     }
 
-    private function _execute($handle, $decode = true)
+    private function _execute($handle, $decode = true, $headers = [])
     {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
+
+        $headers['cakeLaravelFilterKey'] = Configure::read('cake_laravel_filter_key');
+
+        foreach($headers as $key => $value){
+            $_headers[] = sprintf('%s: %s',$key,$value);
+        }
+
+        curl_setopt($handle, CURLOPT_HTTPHEADER, $_headers);
+
         $response = curl_exec($handle);
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
