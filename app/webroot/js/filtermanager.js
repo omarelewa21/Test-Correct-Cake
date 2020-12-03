@@ -327,7 +327,7 @@ function FilterManager(settings) {
                         key: this.settings.filterKey,
                         name: 'Bewaard filter',
                         filters: this.newFilter,
-                        cached_filter: true
+                        cached_filter: 1
                     }
                 }
             },
