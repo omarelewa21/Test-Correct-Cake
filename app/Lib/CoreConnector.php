@@ -260,7 +260,7 @@ class CoreConnector {
                 'headers' => $headers,
             ]);
 
-            $bugsnag->notifyException(new CakeToLaravelException("Cake => Laravel 500 error"));
+            $bugsnag->notifyException(new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")"));
         }
 // error handler introduced for 422 but we don't know if 422 is not resolved as !200 so I changed the status code on the laravel side.
         if($this->getLastCode() === 425) {
