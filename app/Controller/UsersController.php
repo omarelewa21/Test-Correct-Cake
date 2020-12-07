@@ -1533,7 +1533,17 @@ class UsersController extends AppController
     }
 
     public function resendEmailVerificationMail() {
-        $result = $this->UsersService->resendEmailVerificationMail();
+        $this->isAuthorizedAs(["Teacher"]);
+
+        if ($this->request->is('post')) {
+            $result = $this->UsersService->resendEmailVerificationMail();
+            if (!$result) {
+                $this->formResponse(false, $this->UsersService->getErrors());
+                return false;
+            }
+            $this->formResponse(true, []);
+        }
+        die();
     }
 
 }

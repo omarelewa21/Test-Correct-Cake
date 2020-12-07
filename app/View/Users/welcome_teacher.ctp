@@ -19,7 +19,11 @@ if (null === AuthComponent::user('account_verified')) {
     <div class="block">
         Account not verified
 
-        <a href="">Stuur mail opnieuw</a>
+        <span class="blue">
+            <div class="tile btn pull-left defaultMenuButton plus"
+                 onclick="resendEmailVerificationMail()">
+            Stuur verificatie mail opnieuw
+            </div></span>
     </div>
     <?php
 } else if (AuthComponent::user('is_temp_teacher')) {
@@ -346,8 +350,6 @@ if ($wizard_steps) {
                 .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
-
-
         })
 
         function saveShowState(show) {
@@ -519,6 +521,16 @@ if ($wizard_steps) {
     updateDoneButtonStatuses();
     if (showOnboardWizard != 1) {
         toggleWizardVisibilityState();
+    }
+
+    function resendEmailVerificationMail() {
+        $.ajax({
+            url: '/users/resendEmailVerificationMail',
+            type: 'POST',
+            onSuccess: function(){
+                Notify.notify('De mail is nogmaals naar je verstuurd','info');
+            }
+        });
     }
 
 </script>

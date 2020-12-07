@@ -593,7 +593,7 @@ class UsersService extends BaseService
 
     public function resendEmailVerificationMail()
     {
-        $response = $this->Connector->postRequest('/user/resend_email_verification_mail',[], '');
+        $response = $this->Connector->putRequest('/user/resend_onboarding_welcome_email',[], '');
 
 
         if ($response === false) {
