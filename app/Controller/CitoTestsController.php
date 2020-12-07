@@ -38,7 +38,7 @@ class CitoTestsController extends AppController {
 
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
-        $subjects = $this->TestsService->getCitoSubjects(false);
+        $subjects = $this->TestsService->getSubjects(false);
         $kinds = $this->TestsService->getKinds();
 
         $education_levels = [0 => 'Alle'] + $education_levels;
