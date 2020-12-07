@@ -1,38 +1,52 @@
 <?php
 if ($wizard_steps) {
-?>
-<div id="buttons">
-    <a id="toggle-ob-wizard" href="#0" class="btn white">
+    ?>
+    <div id="buttons">
+        <a id="toggle-ob-wizard" href="#0" class="btn white">
             <span>
                 <i class="fa fa-minus mr5"></i>
                 Verberg demo tour
             </span>
-        <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-    </a>
-</div>
+            <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
+        </a>
+    </div>
 <?php } ?>
 
 <?
 //TC-173
-if (AuthComponent::user('is_temp_teacher')) {
-?>
-<div class="block" style="background-color: #FFFF87;">
-    <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-    <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
-    <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons dan op 010 7 171 171 om dit te versnellen.</p>
+if (null === AuthComponent::user('account_verified')) {
+    ?>
+    <div class="block">
+        Account not verified
+
+        <a href="">Stuur mail opnieuw</a>
     </div>
-</div>
-<? } ?>
+    <?php
+} else if (AuthComponent::user('is_temp_teacher')) {
+    ?>
+    <div class="block" style="background-color: #FFFF87;">
+        <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
+            <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
+            <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven
+                data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in
+                Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons
+                dan op 010 7 171 171 om dit te versnellen.</p>
+        </div>
+    </div>
+<?php } ?>
+
 
 <div class="block">
     <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
         <h3>Onze november update staat nu online.</h3><br/>
-        <b>Creëer filters</b> en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt. <b>Archiveer toetsen</b> die je al hebt afgenomen en becijferd. <b>Creëer analyses</b> van je toetsresultaten en zie precies hoeveel grip je leerlingen hebben op elk leerdoel.<br />
-        <br/><a href="https://support.test-correct.nl/knowledge/nieuwe-functionaliteiten" target="_blank">Lees hier alles over onze nieuwe functionaliteiten.</a>
+        <b>Creëer filters</b> en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt. <b>Archiveer
+            toetsen</b> die je al hebt afgenomen en becijferd. <b>Creëer analyses</b> van je toetsresultaten en zie
+        precies hoeveel grip je leerlingen hebben op elk leerdoel.<br/>
+        <br/><a href="https://support.test-correct.nl/knowledge/nieuwe-functionaliteiten" target="_blank">Lees hier
+            alles over onze nieuwe functionaliteiten.</a>
     </div>
 </div>
-
 
 
 <?php
@@ -60,7 +74,7 @@ if ($wizard_steps) {
                                  <BR>we willen je graag snel op weg helpen binnen Test-Correct!
                              <?php } else if ($progress == 100) { ?>
                                  <strong>Welkom  <?= $name ?>,</strong>
-                                 <BR > gefeliciteerd je hebt de demo tour afgerond!
+                                 <BR> gefeliciteerd je hebt de demo tour afgerond!
                              <?php } else { ?>
                                  <strong>Welkom terug <?= $name ?>.</strong> <BR>Je bent goed bezig!
                              <?php } ?>
@@ -149,7 +163,8 @@ if ($wizard_steps) {
                                             <span class="prr-button knowledgebase-button pull-right"></span>
                                         <?php } ?>
                                         <a
-                                                onclick="HelpHero.startTour('<?=/* TCP-358 */ trim(end(explode( "/", $sub['action_content'])));?>')"
+                                                onclick="HelpHero.startTour('<?= /* TCP-358 */
+                                                trim(end(explode("/", $sub['action_content']))); ?>')"
                                                 data-id="<?= $sub['id'] ?>"
                                                 class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
                                         ><span class="fa fa-male"></span> Doe de tour</a>
@@ -243,7 +258,7 @@ if ($wizard_steps) {
 </div>
 <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 <script>
-    if(typeof hubspotLoaded == 'undefined') {
+    if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
         _hsq.push(['trackPageView']);
@@ -287,18 +302,18 @@ if ($wizard_steps) {
                 .on('click', '#ob-wizard .block-head', function () {
                     $(this).find('a:first').trigger('click');
                 })
-                .on("click", ".ob-wizard-toggle-sub", function(e) {
+                .on("click", ".ob-wizard-toggle-sub", function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     toggleWizardSub($(e.target))
                 })
-                .on("click", ".ob-wizard-step-link", function(e) {
+                .on("click", ".ob-wizard-step-link", function (e) {
                     if ($(e.target).data('type') === 'video') {
                         e.preventDefault();
                     }
                     consumeStepLink($(e.target))
                 })
-                .on('click', '.btn-done', function(e) {
+                .on('click', '.btn-done', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
                     e.stopImmediatePropagation();
@@ -311,24 +326,26 @@ if ($wizard_steps) {
                             'title': 'Waarschuwing',
                             'message': 'U kunt deze stap pas afronden als de voorgaande stap is afgerond',
                             'btnOk': 'Ok'
-                        }, function() {$.Event().preventDefault();});
+                        }, function () {
+                            $.Event().preventDefault();
+                        });
                     } else {
                         if ($(e.target).attr('disabled') !== 'disabled') {
                             Popup.messageWithPreventDefault({
                                     'title': 'Waarschuwing',
                                     'message': 'Doorloop eerst alle sub stappen',
                                     'btnOk': 'Ok'
-                                }, function() { $.Event().preventDefault();}
+                                }, function () {
+                                    $.Event().preventDefault();
+                                }
                             );
                         }
                     }
                     return false
                 })
-                .on('click', '#toggle-ob-wizard', function(e) {
+                .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
-
-
 
 
         })
@@ -383,14 +400,16 @@ if ($wizard_steps) {
                     $(el).closest('div').prev().find('span:first').css({'text-decoration': 'line-through'});
 
                     $.post('users/store_onboarding_wizard_step', {'onboarding_wizard_step_id': $(el).data('id')})
-                        .then(function(e) {
+                        .then(function (e) {
                             var response = JSON.parse(e);
                             updateProgressBarTo(response.data.progress);
-                            var confettiMaxCount = $(el).data('confetti-max-count') ?  parseInt($(el).data('confetti-max-count')) : 150;
+                            var confettiMaxCount = $(el).data('confetti-max-count') ? parseInt($(el).data('confetti-max-count')) : 150;
                             confetti.start()
 
-                            var confettiTimeOut =   $(el).data('confetti-time-out') ?  parseInt($(el).data('confetti-time-out')) : 3000;
-                            setTimeout(function(e) {confetti.stop()}, confettiTimeOut)
+                            var confettiTimeOut = $(el).data('confetti-time-out') ? parseInt($(el).data('confetti-time-out')) : 3000;
+                            setTimeout(function (e) {
+                                confetti.stop()
+                            }, confettiTimeOut)
                             Popup.showCongrats($(el).data('action'));
                             updateDoneButtonStatuses();
                         })
@@ -417,7 +436,7 @@ if ($wizard_steps) {
 
         function consumeStepLink(el) {
             $.post('users/store_onboarding_wizard_step', {'onboarding_wizard_step_id': el.data('id')})
-                .then(function(e) {
+                .then(function (e) {
                     whileCount = 0
                     while (!el.hasClass('fa-circle-o')) {
                         whileCount++
@@ -483,8 +502,8 @@ if ($wizard_steps) {
             });
             // update active step.
             canAddArrow = true;
-            $('.block-head > div > i').each(function(){
-                if (! $(this).hasClass('fa-check') && canAddArrow){
+            $('.block-head > div > i').each(function () {
+                if (!$(this).hasClass('fa-check') && canAddArrow) {
                     $(this).addClass('fa-chevron-right');
                     canAddArrow = false;
                 } else {
@@ -505,28 +524,33 @@ if ($wizard_steps) {
 </script>
 <style>
     .block .block-content {
-        width:80%;
-        padding-bottom:0px;
+        width: 80%;
+        padding-bottom: 0px;
     }
+
     .block-content > ul {
-        margin:0 0 0 25px;
-        border-left:1px solid #eeeeee;
+        margin: 0 0 0 25px;
+        border-left: 1px solid #eeeeee;
         padding-left: 23px;
-        padding-top:1em;
-        padding-bottom:1em;
+        padding-top: 1em;
+        padding-bottom: 1em;
     }
+
     .block li {
         list-style-type: none;
         border-bottom: 2px solid white;
-        padding-left:8px;
+        padding-left: 8px;
     }
-    .block-content li:nth-child(even){
+
+    .block-content li:nth-child(even) {
         background-color: #f9f9f9;
     }
+
     .text-success {
         color: #76b827;
     }
-    .text-strong{
+
+    .text-strong {
         font-weight: bold;
     }
 
@@ -554,17 +578,19 @@ if ($wizard_steps) {
         line-height: 15px;
         text-align: center;
         width: 300px;
-        border-left:1px solid white;
-        border-right:1px solid white;
+        border-left: 1px solid white;
+        border-right: 1px solid white;
     }
+
     .knowledgebase-button {
-        width:214px;
+        width: 214px;
     }
+
     .btn-done {
-        margin-left:5px;
-        display:block;
-        padding-left:19px;
-        padding-right:19px;
-        margin-left:-9px;
+        margin-left: 5px;
+        display: block;
+        padding-left: 19px;
+        padding-right: 19px;
+        margin-left: -9px;
     }
 </style>

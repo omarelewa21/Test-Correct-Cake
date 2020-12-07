@@ -1532,4 +1532,8 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
+    public function resendEmailVerificationMail() {
+        $result = $this->UsersService->resendEmailVerificationMail();
+    }
+
 }

@@ -589,5 +589,36 @@ class UsersService extends BaseService
         }
 
     }
+
+
+    public function resendEmailVerificationMail()
+    {
+        $response = $this->Connector->postRequest('/user/resend_email_verification_mail',[], '');
+
+
+        if ($response === false) {
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+
+                foreach ($err->errors as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $b => $a) {
+                            $this->addAssocError($k, $a);
+                        }
+                    } else {
+                        $this->addAssocError($k, $e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
+
+            return false;
+        }
+
+        return $response;
+    }
+
 }
 
