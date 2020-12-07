@@ -128,31 +128,32 @@
             $(document).ready(function () {
                     let testtakesRatedFirstTimeRun = false;
                     if (typeof (testtakesRatedFiltermanager) === 'undefined') {
+                        testtakesRatedFiltermanager = new FilterManager({
+                            filterFields: [
+                                {field: 'periodId', label: 'Periode', type: 'select'},
+                                {field: 'retake', label: 'Type', type: 'select'},
+                                {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                                {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                                {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                                {field: 'schoolClassName', label: 'Klas', type: 'text'},
+
+                            ],
+                            eventScope:'#TestTakesRated',
+                            formPrefix: '#TestTake',
+                            table: '#testsTable',
+                            tablefy: {
+                                'source' : '/test_takes/load_rated',
+                                'filters' : '#TestTakeRatedForm',
+                                'container' : '#testsContainter'
+                            },
+                            filterKey: 'testtakes_rated',
+                        });
                         testtakesRatedFirstTimeRun = true;
                     }
 
 
 
-                    testtakesRatedFiltermanager = new FilterManager({
-                        filterFields: [
-                            {field: 'periodId', label: 'Periode', type: 'select'},
-                            {field: 'retake', label: 'Type', type: 'select'},
-                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
-                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
-                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
-                            {field: 'schoolClassName', label: 'Klas', type: 'text'},
-
-                        ],
-                        eventScope:'#TestTakesRated',
-                        formPrefix: '#TestTake',
-                        table: '#testsTable',
-                        tablefy: {
-                            'source' : '/test_takes/load_rated',
-                            'filters' : $('#TestTakeRatedForm'),
-                            'container' : $('#testsContainter')
-                        },
-                        filterKey: 'testtakes_rated',
-                    });
+                    
 
 
                 testtakesRatedFiltermanager.init(testtakesRatedFirstTimeRun);

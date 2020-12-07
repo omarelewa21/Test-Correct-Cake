@@ -122,28 +122,29 @@ if ($is_temp_teacher) {
     $(document).ready(function () {
         let analysesStudentOverviewFirstTimeRun = false;
         if (typeof (analysesStudentOverviewFiltermanager) === 'undefined') {
+            analysesStudentOverviewFiltermanager = new FilterManager({
+                filterFields: [
+                    {field: 'nameFirst', label: 'Voornaam', type: 'text'},
+                    {field: 'name', label: 'Achternaam', type: 'text'},
+                    {field: 'externalId', label: 'Studentnummer', type: 'text'},
+                    {field: 'schoolLocationId', label: 'Locatie', type: 'select'},
+                    {field: 'schoolClassId', label: 'Klas', type: 'select'},
+                ],
+                eventScope: '#AnalysesStudentOverview',
+                formPrefix: '#User',
+                table: '#studentsTable',
+                tablefy: {
+                        'source' : '/analyses/load_students_overview',
+                        'container' : '#studentsContainer,
+                        'filters' : '#UserStudentsOverviewForm,
+                        'hideEmpty' : true
+                },
+                filterKey: 'analyses_student_overview',
+            });
             analysesStudentOverviewFirstTimeRun = true;
         }
 
-        analysesStudentOverviewFiltermanager = new FilterManager({
-            filterFields: [
-                {field: 'nameFirst', label: 'Voornaam', type: 'text'},
-                {field: 'name', label: 'Achternaam', type: 'text'},
-                {field: 'externalId', label: 'Studentnummer', type: 'text'},
-                {field: 'schoolLocationId', label: 'Locatie', type: 'select'},
-                {field: 'schoolClassId', label: 'Klas', type: 'select'},
-            ],
-            eventScope: '#AnalysesStudentOverview',
-            formPrefix: '#User',
-            table: '#studentsTable',
-            tablefy: {
-                    'source' : '/analyses/load_students_overview',
-                    'container' : $('#studentsContainer'),
-                    'filters' : $('#UserStudentsOverviewForm'),
-                    'hideEmpty' : true
-            },
-            filterKey: 'analyses_student_overview',
-        });
+        
         
         analysesStudentOverviewFiltermanager.init(analysesStudentOverviewFirstTimeRun);
 

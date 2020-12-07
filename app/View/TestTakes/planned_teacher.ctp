@@ -136,27 +136,28 @@
 
                     let testtakesPlannedFirstTimeRun = false;
                     if (typeof (testtakesPlannedFiltermanager) === 'undefined') {
+                        testtakesPlannedFiltermanager = new FilterManager({
+                            filterFields: [
+                                {field: 'periodId', label: 'Periode', type: 'select'},
+                                {field: 'retake', label: 'Type', type: 'select'},
+                                {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                                {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                            ],
+                            eventScope: '#TestTakesPlannedTeacher',
+                            formPrefix: '#TestTake',
+                            table: '#testsTable',
+                            tablefy: {
+                                'source' : '/test_takes/load_planned_teacher',
+                                'filters' : '#TestTakePlannedTeacherForm',
+                                'container' : '#testsContainter'
+                            },
+                            filterKey: 'testtakes_planned',
+                        });
                         testtakesPlannedFirstTimeRun = true;
                     }
 
 
-                    testtakesPlannedFiltermanager = new FilterManager({
-                        filterFields: [
-                            {field: 'periodId', label: 'Periode', type: 'select'},
-                            {field: 'retake', label: 'Type', type: 'select'},
-                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
-                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
-                        ],
-                        eventScope: '#TestTakesPlannedTeacher',
-                        formPrefix: '#TestTake',
-                        table: '#testsTable',
-                        tablefy: {
-                            'source' : '/test_takes/load_planned_teacher',
-                            'filters' : $('#TestTakePlannedTeacherForm'),
-                            'container' : $('#testsContainter')
-                        },
-                        filterKey: 'testtakes_planned',
-                    });
+                    
 
 
                 testtakesPlannedFiltermanager.init(testtakesPlannedFirstTimeRun);

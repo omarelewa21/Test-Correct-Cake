@@ -129,31 +129,28 @@
             $(document).ready(function () {
                      let testtakesTakenFirstTimeRun = false;
                      if (typeof (testtakesTakenFiltermanager) === 'undefined') {
+                        testtakesTakenFiltermanager = new FilterManager({
+                            filterFields: [
+                                {field: 'periodId', label: 'Periode', type: 'select'},
+                                {field: 'retake', label: 'Type', type: 'select'},
+                                {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                                {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                                {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                                {field: 'schoolClassName', label: 'Klas', type: 'text'},
+                            ],
+                            eventScope:'#TestTakesTaken',
+                            formPrefix: '#TestTake',
+                            table: '#testsTable',
+                            tablefy: {
+                                'source' : '/test_takes/load_taken_teacher',
+                                'filters' : '#TestTakeTakenTeacherForm',
+                                'container' : '#testsContainter'
+                            },
+                            filterKey: 'testtakes_taken',
+                        });
                          testtakesTakenFirstTimeRun = true;
                      }
-                    // let settings = ;
-
-                    testtakesTakenFiltermanager = new FilterManager({
-                        filterFields: [
-                            {field: 'periodId', label: 'Periode', type: 'select'},
-                            {field: 'retake', label: 'Type', type: 'select'},
-                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
-                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
-                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
-                            {field: 'schoolClassName', label: 'Klas', type: 'text'},
-                        ],
-                        eventScope:'#TestTakesTaken',
-                        formPrefix: '#TestTake',
-                        table: '#testsTable',
-                        tablefy: {
-                            'source' : '/test_takes/load_taken_teacher',
-                            'filters' : $('#TestTakeTakenTeacherForm'),
-                            'container' : $('#testsContainter')
-                        },
-                        filterKey: 'testtakes_taken',
-                    });
-                // }
-
+                
                 testtakesTakenFiltermanager.init(testtakesTakenFirstTimeRun);
             });
 

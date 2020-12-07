@@ -145,28 +145,28 @@
 
                 let testtakesToRateFirstTimeRun = false;
                 if (typeof (testtakesToRateFiltermanager) === 'undefined') {
+                    testtakesToRateFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'periodId', label: 'Periode', type: 'select'},
+                            {field: 'retake', label: 'Type', type: 'select'},
+                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                            {field: 'schoolClassName', label: 'Klas', type: 'text'},
+                        ],
+                        eventScope: '#TestTakesToRate',
+                        formPrefix: '#TestTake',
+                        table: '#testsTable',
+                        tablefy: {
+                            'source': '/test_takes/load_to_rate',
+                            'filters': '#TestTakeToRateForm',
+                            'container': '#testsContainter'
+                        },
+                        filterKey: 'testtakes_to_rate',
+                    });
+
                     testtakesToRateFirstTimeRun = true;
                 }
-
-                testtakesToRateFiltermanager = new FilterManager({
-                    filterFields: [
-                        {field: 'periodId', label: 'Periode', type: 'select'},
-                        {field: 'retake', label: 'Type', type: 'select'},
-                        {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
-                        {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
-                        {field: 'archived', label: 'Gearchiveerd', type: 'select'},
-                        {field: 'schoolClassName', label: 'Klas', type: 'text'},
-                    ],
-                    eventScope: '#TestTakesToRate',
-                    formPrefix: '#TestTake',
-                    table: '#testsTable',
-                    tablefy: {
-                        'source': '/test_takes/load_to_rate',
-                        'filters': $('#TestTakeToRateForm'),
-                        'container': $('#testsContainter')
-                    },
-                    filterKey: 'testtakes_to_rate',
-                });
 
 
                 testtakesToRateFiltermanager.init(testtakesToRateFirstTimeRun);

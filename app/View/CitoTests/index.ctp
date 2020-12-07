@@ -144,31 +144,32 @@
 
                 let citoTestsFirstTimeRun = false;
                 if (typeof (citoTestsFiltermanager) === 'undefined') {
+                    citoTestsFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'name', label: 'Toets', type: 'text'},
+                            {field: 'kind', label: 'Type', type: 'select'},
+                            {field: 'subject', label: 'Vak', type: 'multiSelect'},
+                            {field: 'period', label: 'Periode', type: 'select'},
+                            {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
+                            {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
+                            {field: 'isOpenSourcedContent', label: 'Bron'},
+                            {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
+                            {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
+                        ],
+                        eventScope:'#TestTakesCito',
+                        formPrefix: '#Test',
+                        table: '#testsTable',
+                        tablefy: {
+                            'source' : '/cito_tests/load',
+                            'filters' : '#TestIndexForm',
+                            'container' : '#testsContainter'
+                        },
+                        filterKey: 'cito_tests',
+                    });
                     citoTestsFirstTimeRun = true;
                 }
 
-                citoTestsFiltermanager = new FilterManager({
-                    filterFields: [
-                        {field: 'name', label: 'Toets', type: 'text'},
-                        {field: 'kind', label: 'Type', type: 'select'},
-                        {field: 'subject', label: 'Vak', type: 'multiSelect'},
-                        {field: 'period', label: 'Periode', type: 'select'},
-                        {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
-                        {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
-                        {field: 'isOpenSourcedContent', label: 'Bron'},
-                        {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
-                        {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
-                    ],
-                    eventScope:'#TestTakesCito',
-                    formPrefix: '#Test',
-                    table: '#testsTable',
-                    tablefy: {
-                        'source' : '/cito_tests/load',
-                        'filters' : $('#TestIndexForm'),
-                        'container' : $('#testsContainter')
-                    },
-                    filterKey: 'cito_tests',
-                });
+                
 
             citoTestsFiltermanager.init(citoTestsFirstTimeRun);
         });
