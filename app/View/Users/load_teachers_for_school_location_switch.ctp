@@ -17,7 +17,7 @@ foreach($users as $user) {
                     <?php
                     } else {
                     ?>
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>" onclick="Popup.load('/users/switch_school_location/<?=getUUID($user, 'get');?>', 600);">
+            <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>" onclick="Popup.load('/users/move_school_location/<?=getUUID($user, 'get');?>', 600);">
                 <span class="fa fa-arrows-h"></span>
             </a>
 

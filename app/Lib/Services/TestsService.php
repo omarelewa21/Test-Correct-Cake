@@ -71,6 +71,55 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getSharedSectionsTests($params)
+    {
+
+        $params['order'] = ['name' => 'desc'];
+
+        $response = $this->Connector->getRequest('/shared_section_test', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getSharedSectionsTest($test_id)
+    {
+
+        $response = $this->Connector->getRequest('/shared_section_test/'.$test_id,[]);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function duplicateSharedSectionsTest($test_id,$params)
+    {
+        $response = $this->Connector->postRequest('/shared_section_test/'.$test_id, [], $params);
+        if($response === false){
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+                foreach ($err as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $a) {
+                            $this->addError($a);
+                        }
+                    } else {
+                        $this->addError($e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
+            return false;
+        }
+
+        return $response;
+    }
+
     public function getTests($params)
     {
 
@@ -212,6 +261,18 @@ class TestsService extends BaseService {
 
         return $response;
     }
+
+    public function getMyBaseSubjects() {
+
+        $response = $this->Connector->getRequest('/my_base_subject', []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 
     public function getInvigilators() {
         $response = $this->Connector->getRequest('/invigilator/list', []);

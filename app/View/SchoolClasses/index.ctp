@@ -4,7 +4,7 @@
         Nieuwe Klas
     </a>
 
-    <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters">
+    <a href="#" class="btn white dropblock-owner dropblock-left mr2 <?php if($currentYearId !== ''){?>highlight <?php } ?>" id="filters">
         <span class="fa fa-filter mr5"></span>
         Filteren
     </a>
@@ -21,7 +21,7 @@
             <tr>
                 <th>Schooljaar</th>
                 <td>
-                    <?=$this->Form->input('school_year_id', ['options' => $school_years, 'label' => false]) ?>
+                    <?=$this->Form->input('school_year_id', ['selected'=>$currentYearId, 'options' => $school_years, 'label' => false]) ?>
                 </td>
             </tr>
         </table>

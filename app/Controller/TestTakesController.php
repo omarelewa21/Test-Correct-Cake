@@ -1575,6 +1575,10 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+		if(!empty($filters['school_class_name'])){
+			$params['filter']['school_class_name'] = $filters['school_class_name'];
+		}
+
         $params['filter']['archived'] = ($filters['archived'] == 0)
 		    ? 0
             : 1;
@@ -1712,6 +1716,10 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+		if(!empty($filters['school_class_name'])){
+			$params['filter']['school_class_name'] = $filters['school_class_name'];
+		}
+
 		$params['filter']['archived'] = ($filters['archived'] == 0)
 		    ? 0
             : 1;
@@ -1755,6 +1763,10 @@ class TestTakesController extends AppController
 
 		$params['order']['time_start'] = 'desc';
 		$params['with'] = ['participantStatus'];
+
+		if(!empty($filters['school_class_name'])){
+			$params['filter']['school_class_name'] = $filters['school_class_name'];
+		}
 
 		$params['filter']['archived'] = ($filters['archived'] == 0)
 		    ? 0

@@ -43,7 +43,12 @@
                                 <label>Gearchiveerd</label>
                                 <?= $this->Form->input('archived', array('options' => $archivedOptions, 'label' => false)) ?>
                             </div>
+                            <div class="col-md-5">
+                                <label>Klas</label>
+                                <?= $this->Form->input('school_class_name', array('label' => false)) ?>
+                            </div>
                         </div>
+                        
                     </table>
                     <?= $this->Form->end(); ?>
                 </div>
@@ -150,6 +155,7 @@
                         {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
                         {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
                         {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                        {field: 'schoolClassName', label: 'Klas', type: 'text'},
                     ],
                     eventScope: '#TestTakesToRate',
                     formPrefix: '#TestTake',

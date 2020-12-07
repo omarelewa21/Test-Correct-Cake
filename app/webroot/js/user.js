@@ -8,6 +8,16 @@ var User = {
         $.getJSON('/users/info',
             function (info) {
                 User.info = info;
+                var activeSchool = '';
+
+                if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')) {
+                    var result = User.info.school_location_list.find(function (school_location) {
+                        return school_location.active;
+                    });
+                    if (result) {
+                        activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                    }
+                }
 
                 if (User.info.isStudent) {
                     $("<link/>", {
@@ -28,8 +38,15 @@ var User = {
                 $('#header #user').html(
                     User.info.name_first + ' ' +
                     User.info.name_suffix + ' ' +
-                    User.info.name
+                    User.info.name + ' ' +
+                    activeSchool
                 );
+
+
+                if (activeSchool) {
+                    $('#header #user_school_locations').html(`<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>`);
+                }
+
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
@@ -58,8 +75,6 @@ var User = {
 
         setInterval(function () {
             User.inactive++;
-
-
             // Student
             if (User.info.isStudent && User.inactive == 900 && !User.surpressInactive) {
                 TestTake.lostFocus();
@@ -142,13 +157,13 @@ var User = {
             message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
         }, function () {
             $.ajax({
-				url: '/users/delete/' + id,
-				type: 'DELETE',
-				success: function(response) {
+                url: '/users/delete/' + id,
+                type: 'DELETE',
+                success: function (response) {
                     Notify.notify('Gebruiker verwijderd', 'info');
                     Navigation.refresh();
-				}
-			});
+                }
+            });
         });
     },
 
@@ -164,6 +179,56 @@ var User = {
                 function (response) {
                     Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
                 });
+        }
+    },
+
+    switchLocation: function (link, uuid) {
+        $.getJSON('/users/setActiveSchoolLocation/' + uuid, function (data) {
+            Popup.closeLast();
+            User.info.school_location_list = data.data;
+            var active_location = data.data.find(function (location) {
+                return location.active;
+            });
+            User.info.school_location_id = active_location.id;
+
+            document.getElementById('active_school').innerHTML = active_location.name;
+            Notify.notify('Gewisseld naar school ' + active_location.name);
+            Navigation.load('users/welcome');
+            // I would rather do refresh but this might break things.
+            //Navigation.refresh();
+        });
+    },
+    addExistingTeacherToSchoolLocation: function (uuid) {
+        $.ajax({
+            url: '/users/add_existing_teacher_to_schoolLocation',
+            method: 'POST',
+            data: {user: uuid},
+            success: function (data) {
+                Notify.notify('Docent succesvol toegevoegd');
+                var selector = '#'+uuid;
+                $(selector).removeClass('white').addClass('blue').find('span:first').removeClass('fa-link').addClass('fa-trash');
+            }
+        });
+    },
+    removeExistingTeacherFromSchoolLocation: function (uuid) {
+        $.ajax({
+            url: '/users/delete_existing_teacher_from_schoolLocation',
+            type: 'DELETE',
+            data: {user: uuid},
+            success: function (result) {
+                Notify.notify('Docent succesvol verwijderd');
+                var selector = '#'+uuid;
+                $(selector).removeClass('blue').addClass('white').find('span:first').removeClass('fa-trash').addClass('fa-link');
+            }
+        });
+    },
+
+    existingTeacherAction:function(uuid) {
+        var element = '#'+uuid;
+        if ($(element).find('span:first').hasClass('fa-trash')) {
+            this.removeExistingTeacherFromSchoolLocation(uuid);
+        } else {
+            this.addExistingTeacherToSchoolLocation(uuid);
         }
     }
 };

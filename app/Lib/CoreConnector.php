@@ -228,7 +228,6 @@ class CoreConnector {
     {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
         $response = curl_exec($handle);
-
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
         curl_close($handle);

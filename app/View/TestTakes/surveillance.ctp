@@ -61,7 +61,7 @@ if(count($takes) == 0) {
                             <td align="center" class="nopadding">
                                 <a href="#" class="btn highlight small"
                                    onclick="TestTake.setTakeTaken('<?= getUUID($take['info'], 'get'); ?>');">
-                                    Inleveren
+                                    Innemen
                                 </a>
                             </td>
                         </tr>

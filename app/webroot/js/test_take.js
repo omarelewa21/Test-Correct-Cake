@@ -652,7 +652,7 @@ var TestTake = {
             btnOk: 'Ja',
             btnCancel: 'Annuleer',
             title: 'Weet u het zeker?',
-            message: 'Weet je zeker dat je de toets wilt inleveren?'
+            message: 'Weet je zeker dat je de toets wilt innemen?'
         }, function() {
             $.get('/test_takes/set_taken/' + take_id,
                 function() {

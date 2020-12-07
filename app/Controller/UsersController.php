@@ -590,10 +590,12 @@ class UsersController extends AppController
         }
     }
 
-    public function switch_school_location($userId)
+    public function move_school_location($userId)
     {
+
         $this->isAuthorizedAs(['Administrator']);
         $user = $this->UsersService->getUser($userId);
+
         if ($this->request->is('post') || $this->request->is('put')) {
             if ($user->school_location_id == $this->request->data['User']['school_location_id']) {
                 // we don't need to do anything, same school location, so done already
@@ -608,7 +610,7 @@ class UsersController extends AppController
                 'school_location_id' => $this->request->data['User']['school_location_id'],
             ];
 
-            $result = $this->UsersService->switch_school_location($userId, $params);
+            $result = $this->UsersService->move_school_location($userId, $params);
 
             if ($result === false) {
 
@@ -1235,8 +1237,25 @@ class UsersController extends AppController
                 $tiles['tests_overview'] = array(
                     'menu' => 'library',
                     'icon' => 'testlist',
-                    'title' => 'Toetsen',
+                    'title' => 'Schoollocatie',
                     'path' => '/tests/index'
+                );
+
+                if (AuthComponent::user('hasSharedSections')) {
+                    $tiles['tests_shared_sections_overview'] = array(
+                        'menu' => 'library',
+                        'icon' => 'testlist',
+                        'title' => 'Scholengemeenschap',
+                        'path' => '/shared_sections_tests/index'
+                    );
+                }
+
+
+                $tiles['questions_overview'] = array(
+                    'menu' => 'library',
+                    'icon' => 'questionlist',
+                    'title' => 'Vragenbank',
+                    'path' => '/questions/index'
                 );
 
                 if (AuthComponent::user('hasCitoToetsen')) {
@@ -1247,13 +1266,6 @@ class UsersController extends AppController
                         'path' => '/cito_tests/index'
                     );
                 }
-
-                $tiles['questions_overview'] = array(
-                    'menu' => 'library',
-                    'icon' => 'questionlist',
-                    'title' => 'Vragen',
-                    'path' => '/questions/index'
-                );
 
                 $tiles['tests_planned'] = array(
                     'menu' => 'tests',

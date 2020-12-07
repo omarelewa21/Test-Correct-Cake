@@ -29,7 +29,9 @@ class SchoolClassesController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
         $school_years1 = [''=>'Kies een jaar'];
         $school_years2 = $this->SchoolYearsService->getSchoolYearList();
+        $activeSchoolYearId = $this->SchoolYearsService->getActiveSchoolYearId();
         $school_years = $school_years1+$school_years2;
+        $this->set('currentYearId',$activeSchoolYearId);
         $this->set('school_years', $school_years);
 
     }

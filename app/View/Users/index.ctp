@@ -6,7 +6,16 @@
     <? } ?>
 
     <? if (in_array($role, ['Administrator', 'Manager', 'School manager'])) {
+        if ($role === 'School manager' && $type === 'teachers' ) {
+            ?>
+    <a href="#" class="btn white" onclick="Popup.load('/users/add_existing_teachers', 900);">
+        <span class="fa fa-plus mr5"></span>
+        Bestaande docent koppelen
+    </a>
+        <?}
         ?>
+
+
         <a href="#" class="btn white" onclick="Popup.load('/users/add/<?= $type ?>', 400);">
             <span class="fa fa-plus mr5"></span
             >
