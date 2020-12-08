@@ -44,9 +44,15 @@
                 </div>
                 <div class="col-md-5">
                     <label>Klas</label>
-                    <?= $this->Form->input('school_class_name', array('label' => false)) ?>
+                    <?=$this->Form->input('school_class_id', array('style' => 'width: 100%','options' => $schoolClasses, 'label' => false,'multiple' => true)) ?>
                 </div>
             </div>
+            <div class="row">
+                    <div class="col-md-5">
+                        <label>Vak</label>
+                        <?=$this->Form->input('subject_id', array('options' => $subjects, 'label' => false)) ?>
+                    </div>
+                </div>
             <?=$this->Form->end();?>
             </div>
         </div>
@@ -135,7 +141,8 @@
                                 {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
                                 {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
                                 {field: 'archived', label: 'Gearchiveerd', type: 'select'},
-                                {field: 'schoolClassName', label: 'Klas', type: 'text'},
+                                {field: 'schoolClassId', label: 'Klas', type: 'multiSelect'},
+                                {field: 'subjectId', label: 'Vak', type: 'select'},
 
                             ],
                             eventScope:'#TestTakesRated',
