@@ -140,7 +140,7 @@ function FilterManager(settings) {
         this.filterFields.forEach(function (item) {
             this.newFilter[item.field]
         }.bind(this))
-    },
+    };
     this.registerEvents = function () {
         $(document)
             .on('change',this.settings.eventScope+' '+this.el, function (e) {
@@ -317,36 +317,35 @@ function FilterManager(settings) {
     this.disableSaveButton = function () {
         $('#jquery-save-filter').addClass('disabled');
     },
-        this.enableSaveButton = function () {
-            $('#jquery-save-filter').removeClass('disabled');
-        },
+    this.enableSaveButton = function () {
+        $('#jquery-save-filter').removeClass('disabled');
+    },
 
-        this.saveNewFilter = function (newFilterName) {
-            $.ajax({
-                url: '/search_filter/add',
+    this.saveNewFilter = function (newFilterName) {
+        $.ajax({
+            url: '/search_filter/add',
+            data: {
                 data: {
-                    data: {
-                        search_filter: {
-                            key: this.settings.filterKey,
-                            name: newFilterName,
-                            filters: this.newFilter,
-                        }
+                    search_filter: {
+                        key: this.settings.filterKey,
+                        name: newFilterName,
+                        filters: this.newFilter,
                     }
-                },
-                method: 'POST',
-                context: this,
-                dataType: 'json',
-                success: function (response) {
-                    this.filters.push(response.data);
-                    this.renderSelectFilterBox(response.data.id);
-                    this.activeFilter = response.data;
-                    this.initNewFilter()
-                    this.activeFilter.changed = false;
-                    this.disableSaveButton();
-                    Notify.notify('Filter opgeslagen');
-                },
-            });
-        };
+                }
+            },
+            method: 'POST',
+            context: this,
+            dataType: 'json',
+            success: function (response) {
+                this.filters.push(response.data);
+                this.renderSelectFilterBox(response.data.id);
+                this.activeFilter = response.data;
+                this.initNewFilter()
+                this.activeFilter.changed = false;
+                this.disableSaveButton();
+                Notify.notify('Filter opgeslagen');
+            },
+        });
     };
 
     this.saveActiveFilter = function (newFilterName) {
