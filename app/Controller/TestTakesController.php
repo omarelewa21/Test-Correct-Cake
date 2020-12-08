@@ -1457,6 +1457,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 	public function widget_planned() {
@@ -1897,6 +1903,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 	public function rated() {
@@ -1905,6 +1917,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 
