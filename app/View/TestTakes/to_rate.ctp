@@ -174,7 +174,6 @@
                     testtakesToRateFirstTimeRun = true;
                 }
 
-
                 testtakesToRateFiltermanager.init(testtakesToRateFirstTimeRun);
 
 

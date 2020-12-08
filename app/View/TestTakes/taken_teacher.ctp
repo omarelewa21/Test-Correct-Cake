@@ -157,7 +157,7 @@
                         });
                          testtakesTakenFirstTimeRun = true;
                      }
-                
+
                 testtakesTakenFiltermanager.init(testtakesTakenFirstTimeRun);
             });
 

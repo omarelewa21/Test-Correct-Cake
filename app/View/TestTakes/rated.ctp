@@ -53,6 +53,7 @@
                         <?=$this->Form->input('subject_id', array('options' => $subjects, 'label' => false)) ?>
                     </div>
                 </div>
+
             <?=$this->Form->end();?>
             </div>
         </div>
@@ -157,11 +158,6 @@
                         });
                         testtakesRatedFirstTimeRun = true;
                     }
-
-
-
-                    
-
 
                 testtakesRatedFiltermanager.init(testtakesRatedFirstTimeRun);
 

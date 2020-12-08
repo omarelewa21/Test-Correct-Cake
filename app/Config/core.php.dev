@@ -34,6 +34,15 @@
 	Configure::write('debug', 1);
 
 /**
+ * CAKE LARAVEL FILTER KEY
+ * key which is send along with every call to the backend as one of the ways to secure the
+ * connection
+ */
+
+	Configure::write('cake_laravel_filter_key','');
+
+
+/**
  * Configure the Error handler used to handle errors for your application. By default
  * ErrorHandler::handleError() is used. It will display errors using Debugger, when debug > 0
  * and log errors with CakeLog when debug = 0.
