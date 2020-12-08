@@ -16,21 +16,21 @@ if ($wizard_steps) {
 //TC-173
 if (null === AuthComponent::user('account_verified')) {
     ?>
-    <div class="block">
-        Account not verified
-
-        <span class="blue">
-            <div class="tile btn pull-left defaultMenuButton plus"
-                 onclick="resendEmailVerificationMail()">
-            Stuur verificatie mail opnieuw
-            </div></span>
+    <div class="block" style="background-color: #ff8787;">
+        <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
+            <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
+            <p></p>
+            <button onclick="resendEmailVerificationMail()">
+                Stuur verificatie mail opnieuw
+            </button>
+        </div>
     </div>
     <?php
 } else if (AuthComponent::user('is_temp_teacher')) {
     ?>
     <div class="block" style="background-color: #FFFF87;">
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-            <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
+            <h2><b>Let op: je account is nog niet geactiveerd.</b></h2>
             <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven
                 data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in
                 Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons
@@ -527,8 +527,8 @@ if ($wizard_steps) {
         $.ajax({
             url: '/users/resendEmailVerificationMail',
             type: 'POST',
-            onSuccess: function(){
-                Notify.notify('De mail is nogmaals naar je verstuurd','info');
+            onSuccess: function () {
+                Notify.notify('De mail is nogmaals naar je verstuurd', 'info');
             }
         });
     }
