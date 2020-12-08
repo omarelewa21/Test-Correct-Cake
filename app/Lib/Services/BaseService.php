@@ -20,6 +20,7 @@ class BaseService {
 
     public function __construct()
     {
+        /** @var  Connector */
         $this->Connector = CoreConnector::instance();
         $this->Bridge = CoreBridge::instance();
     }

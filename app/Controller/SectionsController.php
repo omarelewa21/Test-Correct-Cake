@@ -3,6 +3,7 @@
 App::uses('AppController', 'Controller');
 App::uses('SectionsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
+app::uses('SharedSectionsService','Lib/Services');
 
 /**
  * Sections controller
@@ -14,9 +15,48 @@ class SectionsController extends AppController
     {
         $this->SectionsService = new SectionsService();
         $this->SchoolLocationsService = new SchoolLocationsService();
+        $this->SharedSectionsService = new SharedSectionsService();
         parent::beforeFilter();
     }
 
+    public function delete_shared_section_school_location($sectionId,$schoolLocationId)
+    {
+        $this->isAuthorizedAs(['School manager']);
+
+        if($this->request->is('delete')) {
+
+            $result = $this->SharedSectionsService->delete($sectionId, $schoolLocationId);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+    }
+
+    public function add_school_location($sectionId)
+    {
+        $this->isAuthorizedAs(['School manager']);
+
+        if($this->request->is('post') || $this->request->is('put')) {
+
+            $data = $this->request->data['SchoolLocation'];
+
+            $result = $this->SharedSectionsService->add($sectionId, $data);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+        $schoolLocations = $this->SharedSectionsService->getOptionalSharedShoolLocations($sectionId);
+
+        $this->set('schoolLocations',$schoolLocations);
+    }
 
     public function index() {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
@@ -26,7 +66,9 @@ class SectionsController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $section = $this->SectionsService->getSection($id);
+        $sharedSchoolLocations = $this->SharedSectionsService->getSharedSectionSchoolLocations(getUUID($section,'get'),[]);
         $this->set('section', $section);
+        $this->set('sharedSchoolLocations',$sharedSchoolLocations);
     }
 
     public function load() {

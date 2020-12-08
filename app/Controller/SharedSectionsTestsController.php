@@ -7,7 +7,7 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 
-class CitoTestsController extends AppController {
+class SharedSectionsTestsController extends AppController {
 
     public $uses = array('Test', 'Question');
 
@@ -24,7 +24,7 @@ class CitoTestsController extends AppController {
     public function test() {}
 
     public function index() {
-        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->isAuthorizedAs(["Teacher"]);
 
         $education_level_years = [
             0 => 'Alle',
@@ -37,34 +37,34 @@ class CitoTestsController extends AppController {
         ];
 
         $education_levels = $this->TestsService->getEducationLevels();
-        $periods = $this->TestsService->getPeriods();
-        $subjects = $this->TestsService->getSubjects(false);
+//        $periods = $this->TestsService->getPeriods();
+//        $subjects = $this->TestsService->getSubjects(false);
         $kinds = $this->TestsService->getKinds();
 
         $education_levels = [0 => 'Alle'] + $education_levels;
-        $periods = [0 => 'Alle'] + $periods;
-        $subjects = [0 => 'Alle'] + $subjects;
+//        $periods = [0 => 'Alle'] + $periods;
+//        $subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
         $this->set('kinds', $kinds);
-        $this->set('periods', $periods);
-        $this->set('subjects', $subjects);
+//        $this->set('periods', $periods);
+//        $this->set('subjects', $subjects);
     }
 
     public function load() {
-        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->isAuthorizedAs(["Teacher"]);
 
         $education_levels = $this->TestsService->getEducationLevels(true, false);
 
-        $periods = $this->TestsService->getPeriods();
+//        $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
 
         $this->set('education_levels', $education_levels);
         $this->set('kinds', $kinds);
-        $this->set('periods', $periods);
+//        $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
         $params = $this->request->data;
@@ -85,13 +85,13 @@ class CitoTestsController extends AppController {
             $params['filter']['test_kind_id'] = $filters['kind'];
         }
 
-        if (!empty($filters['subject'])) {
-            $params['filter']['subject_id'] = $filters['subject'];
-        }
+//        if (!empty($filters['subject'])) {
+//            $params['filter']['subject_id'] = $filters['subject'];
+//        }
 
-        if (!empty($filters['period'])) {
-            $params['filter']['period_id'] = $filters['period'];
-        }
+//        if (!empty($filters['period'])) {
+//            $params['filter']['period_id'] = $filters['period'];
+//        }
 
         if (!empty($filters['education_levels'])) {
             $params['filter']['education_level_id'] = $filters['education_levels'];
@@ -113,10 +113,43 @@ class CitoTestsController extends AppController {
           $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
-        $tests = $this->TestsService->getCitoTests($params);
+        $tests = $this->TestsService->getSharedSectionsTests($params);
 
         $this->set('tests', $tests['data']);
     }
 
+    public function duplicate($test_id)
+    {
+        $this->isAuthorizedAs(["Teacher"]);
+
+        if ($this->request->is('post') ) {
+            $data = $this->request->data['Test'];
+            $response = $this->TestsService->duplicateSharedSectionsTest($test_id,$data);
+            if($response === false){
+                if(substr_count('The name has already been taken.',json_encode($this->TestsService->getErrors())) > 0){
+                    $this->formResponse(false, [
+                        'message' => 'Deze naam heb je inmiddels in gebruik voor een van je toetsen.'
+                    ]);
+
+                } else {
+                    $this->formResponse(false, [
+                        'message' => 'Er is iets fout gegaan, probeer het nogmaals.'
+                    ]);
+                }
+            } else {
+                $this->formResponse(true,['test_id' => getUUID($response,'get')]);
+            }
+            exit;
+        }
+
+        $test = $this->TestsService->getSharedSectionsTest($test_id);
+
+        $subjects = $this->TestsService->getSubjects(true);
+
+        $this->set('subjects',$subjects);
+
+        $this->set('test',$test);
+
+    }
 
 }

@@ -363,7 +363,7 @@ class QuestionsService extends BaseService
         } else {
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id, [], $question);
         }
-
+        
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
@@ -1086,11 +1086,25 @@ class QuestionsService extends BaseService
             $question['tags'] = $oriQuestion['tags'];
         }
 
-        if (empty($oriQuestion['rtti'])) {
+
+        if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
             $question['rtti'] = null;
         } else {
             $question['rtti'] = $oriQuestion['rtti'];
         }
+
+        if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
+            $question['bloom'] = null;
+        } else {
+            $question['bloom'] = $oriQuestion['bloom'];
+        }
+
+        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+            $question['miller'] = null;
+        } else {
+            $question['miller'] = $oriQuestion['miller'];
+        }
+
 
         if ($owner == 'test') {
             $response = $this->Connector->putRequest($testUrl, $params, $question);

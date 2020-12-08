@@ -1,10 +1,5 @@
-<div id="TestTakesCito">
+<div id="TestsSharedSections">
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
-        <span class="fa fa-calendar-o mr5"></span>
-        Toetsen inplannen
-    </a>
-
 
 
     <div class='popup' id='popup_search' style="display:none">
@@ -20,16 +15,6 @@
                     <div class="col-md-5">
                         <label>Type</label>
                         <?=$this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-5">
-                        <label>Vak</label>
-                        <?=$this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
-                    </div>
-                    <div class="col-md-5">
-                        <label>Periode</label>
-                        <?=$this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
                     </div>
                 </div>
                 <div class="row">
@@ -81,7 +66,7 @@
     </div>
 </div>
 
-<h1>CITO Toetsen op maat</h1>
+<h1>Toetsitems andere schoollocaties binnen uw scholengemeenschap</h1>
 <div class="block">
     <div class="block-content">
         <div class="block-head">Filteren</div>
@@ -128,7 +113,6 @@
                 <th sortkey="name">Titel</th>
                 <th width="70" style="text-align: center" sortkey="subject">Vragen</th>
                 <th width="170" sortkey="subject">Vak</th>
-                <th width="170" sortkey="author">Auteur</th>
                 <th width="170" sortkey="kind">Type</th>
                 <th width="150" sortkey="level">Niveau</th>
                 <th width="100">&nbsp;</th>
@@ -142,35 +126,33 @@
         $(document).ready(function () {
 
 
-                let citoTestsFirstTimeRun = false;
-                if (typeof (citoTestsFiltermanager) === 'undefined') {
-                    citoTestsFirstTimeRun = true;
+                let sharedSectionsTestsFirstTimeRun = false;
+                if (typeof (sharedSectionsTestsFiltermanager) === 'undefined') {
+                    sharedSectionsTestsFirstTimeRun = true;
                 }
 
-                citoTestsFiltermanager = new FilterManager({
+                sharedSectionsTestsFiltermanager = new FilterManager({
                     filterFields: [
                         {field: 'name', label: 'Toets', type: 'text'},
                         {field: 'kind', label: 'Type', type: 'select'},
-                        {field: 'subject', label: 'Vak', type: 'multiSelect'},
-                        {field: 'period', label: 'Periode', type: 'select'},
                         {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
                         {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
                         {field: 'isOpenSourcedContent', label: 'Bron'},
                         {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
                         {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
                     ],
-                    eventScope:'#TestTakesCito',
+                    eventScope:'#TestsSharedSections',
                     formPrefix: '#Test',
                     table: '#testsTable',
                     tablefy: {
-                        'source' : '/cito_tests/load',
+                        'source' : '/shared_sections_tests/load',
                         'filters' : $('#TestIndexForm'),
                         'container' : $('#testsContainter')
                     },
-                    filterKey: 'cito_tests',
+                    filterKey: 'shared_sections_tests',
                 });
 
-            citoTestsFiltermanager.init(citoTestsFirstTimeRun);
+            sharedSectionsTestsFiltermanager.init(sharedSectionsTestsFirstTimeRun);
         });
 
     </script>

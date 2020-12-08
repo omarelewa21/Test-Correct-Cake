@@ -1,11 +1,11 @@
+<div id="TestTakesRated">
 <div id="buttons">
-    <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters">
-        <span class="fa fa-filter mr5"></span>
-        Filteren
-    </a>
 
-    <div class="dropblock" for="filters">
-        <?=$this->Form->create('TestTake')?>
+    <div class='popup' id='popup_search' style="display:none">
+        <div class="popup-head" id="modal-head">Zoeken</div>
+        <div class="popup-content">
+        <div id="testTakeFilters">
+            <?=$this->Form->create('TestTake')?>
         <?
         $retakeOptions = array(
             -1 => 'Alle',
@@ -13,53 +13,101 @@
             1 => 'Inhaaltoetsen'
         );
         $archivedOptions = array(
-                0 => 'Niet tonen',
-                1 => 'Tonen',
-            );
+            0 => 'Niet tonen',
+            1 => 'Tonen',
+        );
         ?>
-        <table id="testTakeFilters" class="mb5">
-            <tr>
-                <th>Periode</th>
-                <td>
+            <div class="row">
+                <div class="col-md-5">
+                        <label>Periode</label>
                     <?=$this->Form->input('period_id', array('options' => $periods, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>
+                </div>
+                <div class="col-md-5">
+                        <label>Type</label>
                     <?=$this->Form->input('retake', array('options' => $retakeOptions, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Gepland van</th>
-                <td>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                        <label>Gepland van</label>
                     <?=$this->Form->input('time_start_from', array('label' => false, 'value' => null)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Gepland tot</th>
-                <td>
+                </div>
+                <div class="col-md-5">
+                        <label>Gepland tot</label>
                     <?=$this->Form->input('time_start_to', array('label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th>Gearchiveerd</th>
-                <td>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <label>Gearchiveerd</label>
                     <?=$this->Form->input('archived',  array('options' => $archivedOptions, 'label' => false)) ?>
-                </td>
-            </tr>
-        </table>
-        <?=$this->Form->end();?>
+                </div>
+                <div class="col-md-5">
+                        <label>Klas</label>
+                        <?=$this->Form->input('school_class_id', array('style' => 'width: 100%','options' => $schoolClasses, 'label' => false,'multiple' => true)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Vak</label>
+                        <?=$this->Form->input('subject_id', array('options' => $subjects, 'label' => false)) ?>
+                    </div>
+                </div>
+            <?=$this->Form->end();?>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <a href="#" style="float:right"
+               id="jquery-save-filter-from-modal"
+               class="btn blue pull-right mr5 mt5 inline-block">Opslaan</a>
+            <a href="#" style="float:right"
+               id="jquery-save-filter-as-from-modal"
+               class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
+            <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
+               class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
-        <a href="#" class="btn btn-close white small pull-right">Sluiten</a>
-        <br clear="all" />
+        </div>
     </div>
 </div>
 
 <h1>Becijferd</h1>
+<div class="block">
+    <div class="block-content">
+        <div class="block-head">Filteren</div>
+        <table id="filterTable" class="table ">
+            <tbody>
+            <tr>
+                <th width="150">Kies filter</th>
+                <td colspan="2">
+                    <select name="opgelagen filters" id="jquery-saved-filters">
+                    </select>
+                </td>
+                <td width="380">
+                    <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter">Verwijderen</a>
+                    <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
+                        <span class="fa mr5"></span>
+                        Nieuw filter maken
+                    </a>
+                </td>
+            </tr>
 
+            <tr id="jquery-applied-filters" style="display:none">
+                <th>Toegepast filter</th>
+                <td colspan="2" id="jquery-filter-filters"></td>
+                <td>
+                    <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
+                        <span class="fa mr5"></span>Filter aanpassen
+                    </a>
+                    <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter">Opslaan</a>
+                    <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</div>
 <div class="block autoheight">
-    <div class="block-head">Becijferd</div>
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
             <thead>
@@ -81,16 +129,44 @@
             <tbody></tbody>
         </table>
 
+
         <script type="text/javascript">
-            $('#testsTable').tablefy({
-                'source' : '/test_takes/load_rated',
-                'filters' : $('#TestTakeRatedForm'),
-                'container' : $('#testsContainter')
+            $(document).ready(function () {
+                    let testtakesRatedFirstTimeRun = false;
+                    if (typeof (testtakesRatedFiltermanager) === 'undefined') {
+                        testtakesRatedFirstTimeRun = true;
+                    }
+
+
+
+                    testtakesRatedFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'periodId', label: 'Periode', type: 'select'},
+                            {field: 'retake', label: 'Type', type: 'select'},
+                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                            {field: 'schoolClassId', label: 'Klas', type: 'multiSelect'},
+                            {field: 'subjectId', label: 'Vak', type: 'select'},
+
+                        ],
+                        eventScope:'#TestTakesRated',
+                        formPrefix: '#TestTake',
+                        table: '#testsTable',
+                        tablefy: {
+                            'source' : '/test_takes/load_rated',
+                            'filters' : $('#TestTakeRatedForm'),
+                            'container' : $('#testsContainter')
+                        },
+                        filterKey: 'testtakes_rated',
+                    });
+
+
+                testtakesRatedFiltermanager.init(testtakesRatedFirstTimeRun);
+
+
             });
 
-            $('#TestTakeTimeStartFrom, #TestTakeTimeStartTo').datepicker({
-                dateFormat: 'dd-mm-yy'
-            });
         </script>
     </div>
     <div class="block-footer"></div>

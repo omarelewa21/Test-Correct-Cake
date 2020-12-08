@@ -1457,6 +1457,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 	public function widget_planned() {
@@ -1573,6 +1579,14 @@ class TestTakesController extends AppController
 
 		if(!empty($filters['time_start_to'])) {
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
+		}
+
+		if(!empty($filters['school_class_id'])){
+			$params['filter']['school_class_id'] = $filters['school_class_id'];
+		}
+
+		if(!empty($filters['subject_id'])){
+			$params['filter']['subject_id'] = $filters['subject_id'];
 		}
 
         $params['filter']['archived'] = ($filters['archived'] == 0)
@@ -1712,6 +1726,14 @@ class TestTakesController extends AppController
 			$params['filter']['time_start_to'] = date('Y-m-d 00:00:00', strtotime($filters['time_start_to']));
 		}
 
+		if(!empty($filters['school_class_id'])){
+			$params['filter']['school_class_id'] = $filters['school_class_id'];
+		}
+
+		if(!empty($filters['subject_id'])){
+			$params['filter']['subject_id'] = $filters['subject_id'];
+		}
+
 		$params['filter']['archived'] = ($filters['archived'] == 0)
 		    ? 0
             : 1;
@@ -1755,6 +1777,14 @@ class TestTakesController extends AppController
 
 		$params['order']['time_start'] = 'desc';
 		$params['with'] = ['participantStatus'];
+
+		if(!empty($filters['school_class_id'])){
+			$params['filter']['school_class_id'] = $filters['school_class_id'];
+		}
+
+		if(!empty($filters['subject_id'])){
+			$params['filter']['subject_id'] = $filters['subject_id'];
+		}
 
 		$params['filter']['archived'] = ($filters['archived'] == 0)
 		    ? 0
@@ -1885,6 +1915,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 	public function rated() {
@@ -1893,6 +1929,12 @@ class TestTakesController extends AppController
 		$periods = $this->TestsService->getPeriods();
 		$periods = [0 => 'Alle'] + $periods;
 		$this->set('periods', $periods);
+		$params['filter'] = ['current_school_year' => 1];
+		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
+		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$this->set('schoolClasses', $schoolClasses);
+		$subjects = $this->TestsService->getSubjects(true);
+		$this->set('subjects', $subjects);
 	}
 
 
