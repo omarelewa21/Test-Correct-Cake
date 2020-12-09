@@ -620,5 +620,15 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getUserWithTlid($tlid)
+    {
+        $response = $this->Connector->getRequest('/temporary_login/' . $tlid, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 }
 
