@@ -38,7 +38,12 @@ class CitoTestsController extends AppController {
 
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
-        $subjects = $this->TestsService->getSubjects(false);
+        $_subjects = $this->TestsService->getCitoSubjects(true);
+        foreach($_subjects as $key => $val){
+            if(substr(strtolower($val),0,4) == 'cito'){
+                $subjects[$key] = $val;
+            }
+        }
         $kinds = $this->TestsService->getKinds();
 
         $education_levels = [0 => 'Alle'] + $education_levels;
