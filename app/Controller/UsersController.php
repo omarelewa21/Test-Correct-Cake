@@ -1546,11 +1546,24 @@ class UsersController extends AppController
         die();
     }
     public function temporary_login($tlid) {
-        $message = "";
         $result = $this->UsersService->getUserWithTlid($tlid);
         $this->Auth->login($result);
-        if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
 
+        try {
+            $this->render('templogin','templogin');
+        } catch(Exception $e){
+            echo '
+                <html>
+                    <head>
+                        <meta http-equiv="refresh" content="0;url=/" />
+                        <title>Een moment</title>
+                    </head>
+                    <body>
+                        Een moment...
+                    </body>
+                </html>
+              ';
+        exit();
         }
     }
 }
