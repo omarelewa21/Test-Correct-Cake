@@ -16,7 +16,7 @@
     <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();"> 
         Niet laten inzien
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
@@ -35,25 +35,20 @@
     }
 
     function NietLatenInzien(){
-        $('#TestTakeActive').removeAttr('checked');
-        $('#btnSave').click();
+        Popup.closeLast();
+        TestTake.loadDetails(this, '<?=getUUID($take, 'get');?>');
     }
 
     $('#TestTakeShowResults').datetimepicker({
         format:'d-m-Y H:i'
     });
 
-    function NietLatenInzien(){
-        $('#TestTakeActive').removeAttr('checked');
-        $('#btnSave').click();
-    }
-
     $('#TestTakeUpdateShowResultsForm').formify(
         {
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Navigation.load('/test_takes/to_rate');
+                TestTake.loadDetails(this, '<?=getUUID($take, 'get');?>');
             },
             onfailure : function(result) {
 
