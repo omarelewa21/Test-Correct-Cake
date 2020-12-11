@@ -32,13 +32,12 @@ class SobitLogger
     // to prevent initiation with outer code.
     private function __construct($host = false)
     {
-
         if($host){
             $this->host = $host;
         }
         $this->file = sprintf('../tmp/sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
 
-        $this->isLogging = !!(substr_count('testportal.test-correct',$host) > 0);
+        $this->isLogging = true; //!!(substr_count($host, 'testportal.test-correct') > 0);
     }
 
     // The object is created from within the class itself
@@ -49,7 +48,6 @@ class SobitLogger
         {
             self::$instance = new SobitLogger($host);
         }
-
         return self::$instance;
     }
 

@@ -1919,7 +1919,7 @@ class TestTakesController extends AppController
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
 		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = $this->TestsService->getSubjects(true);
+		$subjects = ['' => 'Alle'] +$this->TestsService->getSubjects(true);
 		$this->set('subjects', $subjects);
 	}
 
