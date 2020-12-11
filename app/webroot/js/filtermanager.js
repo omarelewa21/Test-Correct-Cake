@@ -135,13 +135,24 @@ function FilterManager(settings) {
             if (activeItem) {
                 $(this.el).val(activeItem.id);
                 this.setActiveFilter(activeItem.id);
-            } 
+            }
         }
         this.renderActiveFilter();
     };
 
     this.initNewFilter = function () {
         this.filterFields.forEach(function (item) {
+            this.newFilter[item.field];
+        }.bind(this));
+    };
+    this.setActiveFilterToEmpty = function () {
+        this.activeFilter = false;
+        this.editFilter = false;
+        this.filters = this.filters.map(function(filter) {
+            filter.active = false;
+            return filter;
+        });
+    };
             this.newFilter[item.field]
         }.bind(this))
     },
@@ -155,6 +166,9 @@ function FilterManager(settings) {
                         $('#jquery-applied-filters').hide();
                         this.disableDeleteButton();
                         this.resetSearchForm();
+                        $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                            this.setActiveFilterToEmpty();
+                        }.bind(this));
                         if (!this.isDeleting) {
                             $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
                             });
