@@ -43,6 +43,15 @@ if(!$isStudent) {
         <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student mag tekst <b>niet</b> naar spraak omzetten.</div>
         <?
     }
+    if ($student['time_dispensation']) {
+        ?>
+        <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">
+            Deze student heeft tijdsdispensatie
+        </div>
+        <?
+    } else { ?>
+        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student heeft <b>geen</b> tijdsdispensatie</div>
+    <?php }
 }
 ?>
 
