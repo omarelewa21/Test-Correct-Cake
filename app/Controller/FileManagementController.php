@@ -172,6 +172,7 @@ class FileManagementController extends AppController {
     }
 
     public function load_testuploads() {
+
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $params = $this->request->data;
         $params['type'] = 'testupload';
@@ -188,8 +189,11 @@ class FileManagementController extends AppController {
         }
 
         $this->set('files', $files);
+        
+        $this->log($files, 'debug');
 
         $view = 'load_testuploads';
+        
         if ($this->UsersService->hasRole('Account manager')) {
             $view = 'load_testuploads_accountmanager';
         } else if (AuthComponent::user('isToetsenbakker')) {
@@ -197,32 +201,6 @@ class FileManagementController extends AppController {
         }
 
         $this->render($view);
-    }
-
-    public function upload_test_filepond() {
-        
-         $this->log('upload_test_filepond', 'debug');
-
-        $this->ifNotAllowedExit(['Teacher'], false);
-
-        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
-
-        $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
-        
-        if ($this->request->is('post')) {
-
-            $data = $this->request->data['FileTest'];
-
-            foreach ($data['file'] as $file) {
-
-                $this->log($file, 'debug');
-
-                if (!isset($file['tmp_name']) || !$file['tmp_name']) {
-                    $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
-                    $error = true;
-                }
-            }
-        }
     }
 
     public function upload_test() {
@@ -234,12 +212,29 @@ class FileManagementController extends AppController {
 
         $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
+        $this->log('request data', 'debug');
+        
+        $this->log($this->request->data,'request data');
+        
         if ($this->request->is('post')) {
 
             $data = $this->request->data['FileTest'];
+            
+            $r = $this->FileService->uploadTest($school_location_id, $data);
+            
+            $this->log('response', 'debug');
+            $this->log($r, 'debug');
+            
             $error = false;
 
-            $this->log($data, 'debug');
+            $this->log('FileTest data', 'debug');
+            $this->log($_POST, 'debug');
+            $tmp_name = $data['file'][0]['tmp_name'];
+            $this->log($tmp_name, 'debug');
+            
+            $contents = file_get_contents($tmp_name);
+            $this->log($contents, 'debug');
+            $this->log('end contents', 'debug');
 
             if (!isset($data['education_level_id'])) {
                 $response = 'Het is niet duidelijk om welk niveau het gaat';
@@ -265,6 +260,7 @@ class FileManagementController extends AppController {
             } else {
                 foreach ($data['file'] as $file) {
 
+                    $this->log('file name', 'debug');
                     $this->log($file, 'debug');
 
                     if (!isset($file['tmp_name']) || !$file['tmp_name']) {
@@ -274,6 +270,9 @@ class FileManagementController extends AppController {
                 }
                 if (!$error) {
                     $r = $this->FileService->uploadTest($school_location_id, $data);
+                    
+                    $this->log('test uploaded', 'debug');
+                    
                     if ($r === false) {
                         $response = 'Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals';
                         $error = true;
@@ -389,6 +388,8 @@ class FileManagementController extends AppController {
         }
 
         $data = $this->FileService->getData($params);
+        
+        $this->log($data,'debug');
 
         $this->set('files', $data['data']);
 

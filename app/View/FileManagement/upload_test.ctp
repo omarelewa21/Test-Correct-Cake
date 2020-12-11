@@ -188,20 +188,21 @@
 <script>
 
 // Get a reference to the file input element
-const inputElement = document.querySelector('input[type="file"]');
+    const inputElement = document.querySelector('input[type="file"]');
 
 // Create the FilePond instance
-const pond = FilePond.create(inputElement, {
-    allowMultiple: true,
-    allowReorder: true
-});
+    const pond = FilePond.create(inputElement, {
+        allowMultiple: true,
+        allowReorder: true
+    });
 
-FilePond.setOptions({
-    server: '/filemanagement/upload_test_filepond',
-    instantUpload: false
-});
+    FilePond.setOptions({
+        server: '/filemanagement/upload_test',
+        instantUpload: false,
+        checkValidity: true
+    });
 
 // Easy console access for testing purposes
-window.pond = pond;
+    window.pond = pond;
 
 </script>
