@@ -775,18 +775,20 @@ class UsersController extends AppController
             //      'name_suffix' => '',
             //  ]
             //];
+
             $data = [
-                'data' => [],
+                'data' => ['email_addresses' => $this->request->data['emailAddresses']],
                 'user_roles' => [1],
+
                 'send_welcome_mail' => true,
                 'invited_by' => AuthComponent::user('id'),
             ];
 
-            foreach ($this->request->data['User'] as $key => $ar) {
-                foreach ($ar as $i => $value) {
-                    $data['data'][$i][$key] = $value;
-                }
-            };
+//            foreach ($this->request->data['User'] as $key => $ar) {
+//                foreach ($ar as $i => $value) {
+//                    $data['data'][$i][$key] = $value;
+//                }
+//            };
 
             if (!isset($data['school_location_id'])) {
                 $data['school_location_id'] = AuthComponent::user()['school_location_id'];

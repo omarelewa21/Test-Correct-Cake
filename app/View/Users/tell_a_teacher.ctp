@@ -8,6 +8,8 @@
         <li>Uw studenten krijgen een beter inzicht in het kennen en kunnen</li>
     </ul>
     Vergeet niet je collega te informeren dat jij hem/haar hebt uitgenodigd.
+    <textarea id="lotsOfEmailAddresses" width="200px" height="200px"></textarea>
+    <button id="sendEmailAddresses">Send</button>
     <?=$this->Form->create('User') ?>
     <table class="table">
         <thead>
@@ -27,6 +29,7 @@
         </tr>
         </thead>
         <tbody id="tellATeacherTableBody">
+
         <tr>
             <td>
                 <input name="data[User][name_first][]" style="width: 100%" verify="" class='verify-notempty name_first' type="text" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off">
@@ -95,6 +98,26 @@
 </div>
 
 <script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#sendEmailAddresses').click(function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: '/users/tell_a_teacher',
+                data:   {emailAddresses:        $('#lotsOfEmailAddresses').val()},
+                method: 'POST',
+                success: function(data) {
+                    alert('bravo');
+                    console.dir(data);
+                },
+                onfailure: function(data) {
+                    alert('nah');
+                    console.dir(data);
+                },
+            }
+           );
+        });
+    })
 
 
             $('#tellATeacherTableBody').on('keydown','input',function(){
