@@ -131,15 +131,23 @@ function FilterManager(settings) {
             if (activeItem) {
                 $(this.el).val(activeItem.id);
                 this.setActiveFilter(activeItem.id);
-            } 
+            }
         }
         this.renderActiveFilter();
     };
 
     this.initNewFilter = function () {
         this.filterFields.forEach(function (item) {
-            this.newFilter[item.field]
-        }.bind(this))
+            this.newFilter[item.field];
+        }.bind(this));
+    };
+    this.setActiveFilterToEmpty = function () {
+        this.activeFilter = false;
+        this.editFilter = false;
+        this.filters = this.filters.map(function(filter) {
+            filter.active = false;
+            return filter;
+        });
     };
     this.registerEvents = function () {
         $(document)
@@ -152,7 +160,8 @@ function FilterManager(settings) {
                         this.disableDeleteButton();
                         this.resetSearchForm();
                         $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
-                        });
+                            this.setActiveFilterToEmpty();
+                        }.bind(this));
                         this.activeFilter = false;
                     } else {
                         this.enableDeleteButton();
@@ -202,7 +211,7 @@ function FilterManager(settings) {
                 this.renderActiveFilter(e);
             }.bind(this))
 
-            
+
 
             .on('click', this.settings.eventScope+' #jquery-edit-filter', function (e) {
                 this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
