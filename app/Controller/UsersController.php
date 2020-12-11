@@ -22,10 +22,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array(
-            'login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher',
-            'register_new_teacher_successful', 'registereduix'
-        );
+        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -1651,4 +1648,38 @@ class UsersController extends AppController
     }
 
 
+    public function resendEmailVerificationMail() {
+        $this->isAuthorizedAs(["Teacher"]);
+
+        if ($this->request->is('post')) {
+            $result = $this->UsersService->resendEmailVerificationMail();
+            if (!$result) {
+                $this->formResponse(false, $this->UsersService->getErrors());
+                return false;
+            }
+            $this->formResponse(true, []);
+        }
+        die();
+    }
+    public function temporary_login($tlid) {
+        $result = $this->UsersService->getUserWithTlid($tlid);
+        $this->Auth->login($result);
+
+        try {
+            $this->render('templogin','templogin');
+        } catch(Exception $e){
+            echo '
+                <html>
+                    <head>
+                        <meta http-equiv="refresh" content="0;url=/" />
+                        <title>Een moment</title>
+                    </head>
+                    <body>
+                        Een moment...
+                    </body>
+                </html>
+              ';
+        exit();
+        }
+    }
 }
