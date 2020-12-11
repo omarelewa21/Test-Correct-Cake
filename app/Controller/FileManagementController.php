@@ -6,10 +6,9 @@ App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('UsersService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
 
-class FileManagementController extends AppController
-{
-    public function beforeFilter()
-    {
+class FileManagementController extends AppController {
+
+    public function beforeFilter() {
         $this->FileService = new FileManagementService();
         $this->SchoolLocationService = new SchoolLocationsService();
         $this->UsersService = new UsersService();
@@ -18,8 +17,7 @@ class FileManagementController extends AppController
         parent::beforeFilter();
     }
 
-    protected function ifNotAllowedExit($allowed, $checkforToetsenbakker = false)
-    {
+    protected function ifNotAllowedExit($allowed, $checkforToetsenbakker = false) {
         $this->isAuthorizedAs($allowed);
 
         if ($checkforToetsenbakker) {
@@ -29,8 +27,7 @@ class FileManagementController extends AppController
         }
     }
 
-    public function update($id, $type = 'classupload')
-    {
+    public function update($id, $type = 'classupload') {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], true);
         $params = $this->request->data;
 
@@ -50,8 +47,7 @@ class FileManagementController extends AppController
         exit;
     }
 
-    public function update_status($id, $type = 'classupload')
-    {
+    public function update_status($id, $type = 'classupload') {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], true);
         $school_location_id = AuthComponent::user('school_location_id');
         $params = [
@@ -76,8 +72,7 @@ class FileManagementController extends AppController
         exit;
     }
 
-    public function download($id, $type = 'classupload')
-    {
+    public function download($id, $type = 'classupload') {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], true);
 //        $school_location_id = AuthComponent::user('school_location_id');
 
@@ -86,7 +81,8 @@ class FileManagementController extends AppController
         ];
 
         $data = $this->FileService->getItem($id, $params);
-        if (!$data) exit;
+        if (!$data)
+            exit;
         $download = $this->FileService->getDownload($id);
 
         $this->response->body($download);
@@ -94,9 +90,7 @@ class FileManagementController extends AppController
         return $this->response;
     }
 
-
-    public function view_testupload($id)
-    {
+    public function view_testupload($id) {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], true);
 
         $params = [
@@ -130,10 +124,10 @@ class FileManagementController extends AppController
         if (!AuthComponent::user('isToetsenbakker')) {
             $view = 'view_testupload';
             $params = [
-                'mode'   => 'all',
+                'mode' => 'all',
                 'filter' => [
                     'school_location_id' => $data['school_location_id'],
-                    'role'               => [1],
+                    'role' => [1],
                 ],
             ];
 
@@ -151,10 +145,10 @@ class FileManagementController extends AppController
             $this->set('teachers', $teachers);
 
             $params = [
-                'mode'   => 'all',
+                'mode' => 'all',
                 'filter' => [
                     'school_location_id' => $data['school_location_id'],
-                    'role'               => [6],
+                    'role' => [6],
                 ],
             ];
 
@@ -166,8 +160,7 @@ class FileManagementController extends AppController
         $this->render($view);
     }
 
-    public function testuploads()
-    {
+    public function testuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $view = 'testuploads';
         if ($this->UsersService->hasRole('Account manager')) {
@@ -178,13 +171,16 @@ class FileManagementController extends AppController
         $this->render($view);
     }
 
-    public function load_testuploads()
-    {
+    public function load_testuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $params = $this->request->data;
         $params['type'] = 'testupload';
 
         $data = $this->FileService->getData($params);
+
+        $this->log('load_testuploads', 'debug');
+        $this->log($data, 'debug');
+        $this->log($params, 'debug');
 
         $files = [];
         foreach ($data['data'] as $file) {
@@ -203,8 +199,35 @@ class FileManagementController extends AppController
         $this->render($view);
     }
 
-    public function upload_test()
-    {
+    public function upload_test_filepond() {
+        
+         $this->log('upload_test_filepond', 'debug');
+
+        $this->ifNotAllowedExit(['Teacher'], false);
+
+        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
+
+        $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
+        
+        if ($this->request->is('post')) {
+
+            $data = $this->request->data['FileTest'];
+
+            foreach ($data['file'] as $file) {
+
+                $this->log($file, 'debug');
+
+                if (!isset($file['tmp_name']) || !$file['tmp_name']) {
+                    $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
+                    $error = true;
+                }
+            }
+        }
+    }
+
+    public function upload_test() {
+        $this->log('upload_test', 'debug');
+
         $this->ifNotAllowedExit(['Teacher'], false);
 
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
@@ -215,6 +238,8 @@ class FileManagementController extends AppController
 
             $data = $this->request->data['FileTest'];
             $error = false;
+
+            $this->log($data, 'debug');
 
             if (!isset($data['education_level_id'])) {
                 $response = 'Het is niet duidelijk om welk niveau het gaat';
@@ -239,6 +264,9 @@ class FileManagementController extends AppController
                 $error = true;
             } else {
                 foreach ($data['file'] as $file) {
+
+                    $this->log($file, 'debug');
+
                     if (!isset($file['tmp_name']) || !$file['tmp_name']) {
                         $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
                         $error = true;
@@ -277,6 +305,12 @@ class FileManagementController extends AppController
             exit;
         }
 
+        if ($this->request->is('delete')) {
+
+
+            $this->log('File delete action required', 'debug');
+        }
+
         // no post
         $schoolLocationEducationLevels = $this->SchoolLocationService->getSchoolLocationEducationLevels($school_location_id);
         if (!$schoolLocationEducationLevels) {
@@ -286,8 +320,8 @@ class FileManagementController extends AppController
             $eloAr = [];
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
-                    'name'      => $el['education_level']['name'],
-                    'id'        => getUUID($el['education_level'],'get'),
+                    'name' => $el['education_level']['name'],
+                    'id' => getUUID($el['education_level'], 'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
                 $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
@@ -303,13 +337,10 @@ class FileManagementController extends AppController
         }
     }
 
-
     /**
      * START of Class Related upload methods
      */
-
-    public function view_classupload($id)
-    {
+    public function view_classupload($id) {
         $this->ifNotAllowedExit(['Account manager'], false);
         $params = [
             'type' => 'classupload'
@@ -335,21 +366,19 @@ class FileManagementController extends AppController
         }
 
         $params = [
-            'mode'   => 'all',
+            'mode' => 'all',
             'filter' => [
                 'school_location_id' => $data['school_location_id'],
-                'role'               => [6],
+                'role' => [6],
             ],
         ];
 
         $schoolbeheerders = $this->UsersService->getUsers($params);
 
         $this->set('schoolbeheerders', $schoolbeheerders);
-
     }
 
-    public function load_classuploads()
-    {
+    public function load_classuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $params = $this->request->data;
         $params['type'] = 'classupload';
@@ -366,8 +395,7 @@ class FileManagementController extends AppController
         $this->render($view);
     }
 
-    public function classuploads()
-    {
+    public function classuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $view = 'classuploads';
         if ($this->UsersService->hasRole('Account manager')) {
@@ -376,8 +404,7 @@ class FileManagementController extends AppController
         $this->render($view);
     }
 
-    public function upload_class()
-    {
+    public function upload_class() {
         $this->ifNotAllowedExit(['Teacher'], false);
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
@@ -433,8 +460,8 @@ class FileManagementController extends AppController
             $eloAr = [];
             foreach ($schoolLocationEducationLevels as $el) {
                 $elAr[] = [
-                    'name'      => $el['education_level']['name'],
-                    'uuid'        => getUUID($el['education_level'], 'get'),
+                    'name' => $el['education_level']['name'],
+                    'uuid' => getUUID($el['education_level'], 'get'),
                     'max_years' => $el['education_level']['max_years']
                 ];
                 $eloAr[getUUID($el['education_level'], 'get')] = $el['education_level']['name'];
@@ -444,8 +471,7 @@ class FileManagementController extends AppController
         }
     }
 
-    private function blockWithModalIfRegistrationNotCompletedAndInTestSchool()
-    {
+    private function blockWithModalIfRegistrationNotCompletedAndInTestSchool() {
         $userUuid = AuthComponent::user('uuid');
         $userId = AuthComponent::user('id');
         if (AuthComponent::user('is_temp_teacher')) {
@@ -453,12 +479,11 @@ class FileManagementController extends AppController
             if ($result['status'] == 'true') {
                 if ($this->request->is('post')) {
                     $response = $this->UsersService->updateRegisteredNewTeacher(
-                        $this->request->data['User'],
-                        $userUuid
+                            $this->request->data['User'], $userUuid
                     );
                     $result = (json_decode($response));
 
-                    if (property_exists($result, 'errors') && count((array)$result->errors) > 0) {
+                    if (property_exists($result, 'errors') && count((array) $result->errors) > 0) {
                         $this->formResponse(false, $result);
                     } else {
                         $this->formResponse(true, ['data' => $response]);
@@ -467,20 +492,21 @@ class FileManagementController extends AppController
                 }
                 $data = $this->UsersService->getRegisteredNewTeacherByUserId($userUuid);
 
-                $this->set('user', (object)$data);
+                $this->set('user', (object) $data);
                 $this->set('in_app', true);
                 echo $this->render('/Users/register_new_teacher', 'ajax');
                 exit;
             } else {
                 $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
-                    $userUuid
+                        $userUuid
                 );
 
                 echo $this->render(
-                    '/Users/block_upload_when_in_test_school_modal', 'ajax'
+                        '/Users/block_upload_when_in_test_school_modal', 'ajax'
                 );
                 exit;
             }
-            }
         }
     }
+
+}

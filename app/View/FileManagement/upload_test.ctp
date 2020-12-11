@@ -1,5 +1,5 @@
-
-<div class="popup-head">Toets uploaden</div>
+<link href="/css/filepond.css" rel="stylesheet">
+<div class="popup-head">Toets uploaden 2</div>
 <div class="popup-content">
 
     <div class=" " id="FileTestBlock">
@@ -47,22 +47,34 @@
                 <tr>
                     <td>Kies 1 of meerdere bestanden</td>
                     <td>
-                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>
-                        <ol id="fileList">
-                            
-                        </ol>
+                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
+                        <script>
+                            [
+                                {supported: 'Symbol' in window, fill: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js'},
+                                {supported: 'Promise' in window, fill: 'https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js'},
+                                {supported: 'fetch' in window, fill: 'https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js'},
+                                {supported: 'CustomEvent' in window && 'log10' in Math && 'sign' in Math && 'assign' in Object && 'from' in Array &&
+                                            ['find', 'findIndex', 'some', 'includes'].reduce(function (previous, prop) {
+                                        return (prop in Array.prototype) ? previous : false;
+                                    }, true), fill: 'https://unpkg.com/filepond-polyfill/dist/filepond-polyfill.js'}
+                            ].forEach(function (p) {
+                                if (p.supported)
+                                    return;
+                                document.write('<script src="' + p.fill + '"><\/script>');
+                            });
+                        </script>
                     </td>
                 </tr>
                 <tr>
                     <td><label>Correctiemodel toegevoegd?</label></td>
                     <td>
-                        <?= $this->Form->input('correctiemodel', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
+                        <?= $this->Form->input('correctiemodel', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'], 'value' => 1)) ?>
                     </td>
                 </tr>
                 <tr>
                     <td><label>Een enkele of meerdere toetsen?</label></td>
                     <td>
-                        <?= $this->Form->input('multiple', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
+                        <?= $this->Form->input('multiple', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'], 'value' => 0)) ?>
                     </td>
                 </tr>
             </table>
@@ -89,23 +101,6 @@
 
 <script>
 
-    function makeFileList() {
-        var input = document.getElementById("FileTestFile");
-        var ul = document.getElementById("fileList");
-        while (ul.hasChildNodes()) {
-            ul.removeChild(ul.firstChild);
-        }
-        for (var i = 0; i < input.files.length; i++) {
-            var li = document.createElement("li");
-            li.innerHTML = input.files[i].name;
-            ul.appendChild(li);
-        }
-        if (!ul.hasChildNodes()) {
-            var li = document.createElement("li");
-            li.innerHTML = 'No Files Selected';
-            ul.appendChild(li);
-        }
-    }
 
 
     function handleUploadError(error) {
@@ -187,4 +182,26 @@
     }
 
     educationLevelSelect.trigger('change');
+</script>
+<script src="/js/filepond.js"></script>
+
+<script>
+
+// Get a reference to the file input element
+const inputElement = document.querySelector('input[type="file"]');
+
+// Create the FilePond instance
+const pond = FilePond.create(inputElement, {
+    allowMultiple: true,
+    allowReorder: true
+});
+
+FilePond.setOptions({
+    server: '/filemanagement/upload_test_filepond',
+    instantUpload: false
+});
+
+// Easy console access for testing purposes
+window.pond = pond;
+
 </script>
