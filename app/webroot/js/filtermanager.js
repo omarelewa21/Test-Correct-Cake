@@ -499,26 +499,29 @@ function FilterManager(settings) {
                 if (filterDetail.filter && filterDetail.name) {
                     let input = this.getJqueryFilterInput(key);
 
-                    if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
+                    if(typeof input != 'undefined') {
 
-                    if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
+                        if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
-                    hasActualFilter = true;
+                        if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
+
+                        hasActualFilter = true;
 
 
-                    let label = Array.isArray(filterDetail.filter)
-                        ? filterDetail.name + ': ' + input.find(':selected').toArray().map(function (option) {
-                        return option.innerText;
-                    }).sort().join(', ')
-                        : filterDetail.label;
+                        let label = Array.isArray(filterDetail.filter)
+                            ? filterDetail.name + ': ' + input.find(':selected').toArray().map(function (option) {
+                            return option.innerText;
+                        }).sort().join(', ')
+                            : filterDetail.label;
 
-                    $('#jquery-filter-filters').append($(
-                        `<span class="mr2 inline-block">
-                                        <button title="Filter verwijderen" class="label-search-filter jquery-remove-filter fa fa-times-x-circle-o" jquery-filter-key="${key}">
-                                         ${label}
-                                        </button>
-                                    </span>`)
-                    );
+                        $('#jquery-filter-filters').append($(
+                            `<span class="mr2 inline-block">
+                                            <button title="Filter verwijderen" class="label-search-filter jquery-remove-filter fa fa-times-x-circle-o" jquery-filter-key="${key}">
+                                             ${label}
+                                            </button>
+                                        </span>`)
+                        );
+                    }
                 }
             }
 
