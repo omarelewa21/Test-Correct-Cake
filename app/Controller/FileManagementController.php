@@ -204,31 +204,30 @@ class FileManagementController extends AppController {
     }
 
     public function upload_test() {
-        $this->log('upload_test', 'debug');
 
         $this->ifNotAllowedExit(['Teacher'], false);
 
         $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
         $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
-
-        $this->log('request data', 'debug');
-        
-        $this->log($this->request->data,'request data');
         
         if ($this->request->is('post')) {
 
             $data = $this->request->data['FileTest'];
             
+            $this->log($school_location_id,'debug');
+            $this->log($data, 'debug');
+            
+            $data['extra_field']='test';
+            
+           
+            
             $r = $this->FileService->uploadTest($school_location_id, $data);
-            
-            $this->log('response', 'debug');
-            $this->log($r, 'debug');
-            
+                  
             $error = false;
 
-            $this->log('FileTest data', 'debug');
-            $this->log($_POST, 'debug');
+            $this->log('FileTest data 2', 'debug');
+            $this->log( $_POST, 'debug');
             $tmp_name = $data['file'][0]['tmp_name'];
             $this->log($tmp_name, 'debug');
             
@@ -334,6 +333,9 @@ class FileManagementController extends AppController {
         } else {
             $this->set('testKindOptions', $testKinds);
         }
+        
+        $this->set('school_location_id',$school_location_id);
+        $this->set('user_uuid',AuthComponent::user('uuid'));
     }
 
     /**

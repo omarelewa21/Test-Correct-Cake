@@ -1,5 +1,5 @@
 <link href="/css/filepond.css" rel="stylesheet">
-<div class="popup-head">Toets uploaden 2</div>
+<div class="popup-head">Toets uploaden</div>
 <div class="popup-content">
 
     <div class=" " id="FileTestBlock">
@@ -85,7 +85,8 @@
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
                 Toets uploaden
             </a>
-            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();Navigation.refresh();">
+            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();
+                    Navigation.refresh();">
                 Annuleer
             </a>
         </div>
@@ -184,25 +185,36 @@
     educationLevelSelect.trigger('change');
 </script>
 <script src="/js/filepond.js"></script>
+<script src="/js/filepond_metadata.js"></script>
 
 <script>
 
+    $(document).ready(function () {
+
+
+        FilePond.registerPlugin(FilePondPluginFileMetadata);
 // Get a reference to the file input element
-    const inputElement = document.querySelector('input[type="file"]');
+        const inputElement = document.querySelector('input[type="file"]');
 
 // Create the FilePond instance
-    const pond = FilePond.create(inputElement, {
-        allowMultiple: true,
-        allowReorder: true
-    });
+        const pond = FilePond.create(inputElement, {
+            allowMultiple: true,
+            allowReorder: true
+        });
 
-    FilePond.setOptions({
-        server: '/filemanagement/upload_test',
-        instantUpload: false,
-        checkValidity: true
-    });
+        FilePond.setOptions({
+            server: '/filemanagement/upload_test',
+            instantUpload: false,
+            checkValidity: true,
+            fileMetadataObject: {
+                'user_uuid': '<?php echo $user_uuid; ?>',
+                'school_location_id':'<?php echo $school_location_id; ?>'
+
+            }
+
+        });
 
 // Easy console access for testing purposes
-    window.pond = pond;
-
+        window.pond = pond;
+    });
 </script>
