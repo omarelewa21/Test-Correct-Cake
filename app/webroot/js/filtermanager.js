@@ -153,7 +153,7 @@ function FilterManager(settings) {
             return filter;
         });
 
-    },
+    };
     this.registerEvents = function () {
         $(document)
             .on('change', this.settings.eventScope + ' ' + this.el, function (e) {
