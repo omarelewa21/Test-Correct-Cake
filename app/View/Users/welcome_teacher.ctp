@@ -20,9 +20,9 @@ if (null === AuthComponent::user('account_verified')) {
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
             <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
             <p></p>
-            <button onclick="resendEmailVerificationMail()">
+            <a class="btn white inline-block" style="cursor: pointer;" onclick="resendEmailVerificationMail()">
                 Stuur verificatie mail opnieuw
-            </button>
+            </a>
         </div>
     </div>
     <?php
@@ -527,7 +527,7 @@ if ($wizard_steps) {
         $.ajax({
             url: '/users/resendEmailVerificationMail',
             type: 'POST',
-            onSuccess: function () {
+            success: function () {
                 Notify.notify('De mail is nogmaals naar je verstuurd', 'info');
             }
         });
