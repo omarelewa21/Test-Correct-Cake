@@ -150,7 +150,7 @@
 
 
             $(document).ready(function () {
-                let itemBankFirstTimeRun = false;
+                var itemBankFirstTimeRun = false;
                 if (typeof (itembankFiltermanager) === 'undefined') {
                     itemBankFirstTimeRun = true;
                     itembankFiltermanager = new FilterManager({

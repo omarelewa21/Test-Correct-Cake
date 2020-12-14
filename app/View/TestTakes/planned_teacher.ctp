@@ -134,7 +134,7 @@
             $(document).ready(function () {
 
 
-                    let testtakesPlannedFirstTimeRun = false;
+                var testtakesPlannedFirstTimeRun = false;
                     if (typeof (testtakesPlannedFiltermanager) === 'undefined') {
                         testtakesPlannedFiltermanager = new FilterManager({
                             filterFields: [

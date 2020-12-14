@@ -126,7 +126,7 @@
         $(document).ready(function () {
 
 
-                let sharedSectionsTestsFirstTimeRun = false;
+            var sharedSectionsTestsFirstTimeRun = false;
                 if (typeof (sharedSectionsTestsFiltermanager) === 'undefined') {
                     sharedSectionsTestsFiltermanager = new FilterManager({
                         filterFields: [

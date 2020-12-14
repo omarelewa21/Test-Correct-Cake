@@ -44,7 +44,7 @@ var User = {
 
 
                 if (activeSchool) {
-                    $('#header #user_school_locations').html(`<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>`);
+                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
                 }
 
 

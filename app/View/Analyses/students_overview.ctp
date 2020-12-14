@@ -120,7 +120,7 @@ if ($is_temp_teacher) {
 ?>
 <script type="text/javascript">
     $(document).ready(function () {
-        let analysesStudentOverviewFirstTimeRun = false;
+        var analysesStudentOverviewFirstTimeRun = false;
         if (typeof (analysesStudentOverviewFiltermanager) === 'undefined') {
             analysesStudentOverviewFirstTimeRun = true;
         }

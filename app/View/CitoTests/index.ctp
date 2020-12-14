@@ -142,7 +142,7 @@
         $(document).ready(function () {
 
 
-                let citoTestsFirstTimeRun = false;
+                var citoTestsFirstTimeRun = false;
                 if (typeof (citoTestsFiltermanager) === 'undefined') {
                     citoTestsFiltermanager = new FilterManager({
                         filterFields: [

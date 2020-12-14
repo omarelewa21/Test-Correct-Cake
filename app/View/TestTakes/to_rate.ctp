@@ -148,7 +148,7 @@
         <script type="text/javascript">
             $(document).ready(function () {
 
-                let testtakesToRateFirstTimeRun = false;
+                var testtakesToRateFirstTimeRun = false;
                 if (typeof (testtakesToRateFiltermanager) === 'undefined') {
                     testtakesToRateFiltermanager = new FilterManager({
                         filterFields: [

@@ -133,7 +133,7 @@
 
         <script type="text/javascript">
             $(document).ready(function () {
-                     let testtakesTakenFirstTimeRun = false;
+                     var testtakesTakenFirstTimeRun = false;
                      if (typeof (testtakesTakenFiltermanager) === 'undefined') {
                         testtakesTakenFiltermanager = new FilterManager({
                             filterFields: [

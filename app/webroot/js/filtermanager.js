@@ -98,7 +98,7 @@ function FilterManager(settings) {
             this.activeFilter = false;
             this.editFilter = {'filters': {}};
         } else if (this.filters) {
-            let activeItem = this.filters.find(function (item) {
+            var activeItem = this.filters.find(function (item) {
                 return item.active == 1;
             });
             if (activeItem) {
@@ -129,7 +129,7 @@ function FilterManager(settings) {
         if (valueToSelect) {
             $(this.el).val(valueToSelect);
         } else if (this.filters) {
-            let activeItem = this.filters.find(function (item) {
+            var activeItem = this.filters.find(function (item) {
                 return item.active == 1;
             });
             if (activeItem) {
@@ -189,8 +189,8 @@ function FilterManager(settings) {
             var prop = $(e.target).attr('jquery-filter-key');
 
 
-            let input = this.getJqueryFilterInput(prop);
-            let newValue = '';
+            var input = this.getJqueryFilterInput(prop);
+            var newValue = '';
             if (input.get(0).tagName === 'SELECT') {
                 newValue = '0';
             }
@@ -272,8 +272,8 @@ function FilterManager(settings) {
 
     this.resetSearchForm = function () {
         this.filterFields.forEach(function (item) {
-            let input = this.getJqueryFilterInput(item.field);
-            let newValue = '';
+            var input = this.getJqueryFilterInput(item.field);
+            var newValue = '';
 
             if (input.get(0).tagName == 'SELECT') {
                 newValue = '0';
@@ -448,7 +448,7 @@ function FilterManager(settings) {
     this.setActiveFilter = function (filterId) {
         if (filterId == '') return;
 
-        let filterToClone = this.filters.find(function (filter) {
+        var filterToClone = this.filters.find(function (filter) {
             return filter.id == filterId;
         });
         this.editFilter = JSON.parse(JSON.stringify(filterToClone));
@@ -467,8 +467,8 @@ function FilterManager(settings) {
     this.bindActiveFilterDataToFilterModal = function () {
         this.filterFields.forEach(function (item) {
             if (this.activeFilter && this.activeFilter.filters.hasOwnProperty(item.field)) {
-                let newValue = this.activeFilter.filters[item.field].filter;
-                let input = this.getJqueryFilterInput(item.field);
+                var newValue = this.activeFilter.filters[item.field].filter;
+                var input = this.getJqueryFilterInput(item.field);
 
                 if (!newValue && input.get(0).tagName === 'SELECT') {
                     newValue = '0';
@@ -489,7 +489,7 @@ function FilterManager(settings) {
         if (e instanceof Event) {
             e.stopPropagation();
         }
-        let hasActualFilter = false;
+        var hasActualFilter = false;
         $('#jquery-filter-filters').html('');
         if (this.activeFilter) {
 
@@ -497,7 +497,7 @@ function FilterManager(settings) {
             for (const [key, filterDetail] of Object.entries(this.activeFilter.filters)) {
 
                 if (filterDetail.filter && filterDetail.name) {
-                    let input = this.getJqueryFilterInput(key);
+                    var input = this.getJqueryFilterInput(key);
 
                     if(typeof input != 'undefined') {
 
@@ -508,18 +508,18 @@ function FilterManager(settings) {
                         hasActualFilter = true;
 
 
-                        let label = Array.isArray(filterDetail.filter)
+                        var label = Array.isArray(filterDetail.filter)
                             ? filterDetail.name + ': ' + input.find(':selected').toArray().map(function (option) {
                             return option.innerText;
                         }).sort().join(', ')
                             : filterDetail.label;
 
                         $('#jquery-filter-filters').append($(
-                            `<span class="mr2 inline-block">
-                                            <button title="Filter verwijderen" class="label-search-filter jquery-remove-filter fa fa-times-x-circle-o" jquery-filter-key="${key}">
-                                             ${label}
-                                            </button>
-                                        </span>`)
+                            '<span class="mr2 inline-block">'+
+                                            '<button title="Filter verwijderen" class="label-search-filter jquery-remove-filter fa fa-times-x-circle-o" jquery-filter-key="'+key+'">'+
+                                             label
+                                            +'</button>'+
+                                        '</span>')
                         );
                     }
                 }
@@ -551,7 +551,7 @@ function FilterManager(settings) {
     };
 
     this.syncFilterField = function (el, item) {
-        let filter = {
+        var filter = {
             name: this.getFilterLabelByField(item.field, this),
             filter: el.val(),
             label: el.val(),
@@ -571,7 +571,7 @@ function FilterManager(settings) {
     };
 
     this.getFilterLabelByField = function (field, context) {
-        let labelField = context.filterFields.find(function (item) {
+        var labelField = context.filterFields.find(function (item) {
             return item.field == field;
         });
         return labelField.label;
@@ -584,11 +584,11 @@ function FilterManager(settings) {
             alert('settings needs a valid filterKey');
         }
         if ($(this.el).length === 0) {
-            alert(`${this.el} not present`);
+            alert(this.el+' not present');
         }
     };
     this.initTablefy = function(){
-        let tablefySettings = {
+        var tablefySettings = {
                             'source': this.settings.tablefy.source,
                             'filters': $(this.settings.tablefy.filters),
                             'container': $(this.settings.tablefy.container)
