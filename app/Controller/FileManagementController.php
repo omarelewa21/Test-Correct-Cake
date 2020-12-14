@@ -219,9 +219,7 @@ class FileManagementController extends AppController {
             $this->log($data, 'debug');
             
             $data['extra_field']='test';
-            
-           
-            
+
             $r = $this->FileService->uploadTest($school_location_id, $data);
                   
             $error = false;
@@ -257,6 +255,7 @@ class FileManagementController extends AppController {
                 $response = "Er kan maximaal 1 toets per keer geupload worden";
                 $error = true;
             } else {
+                /*
                 foreach ($data['file'] as $file) {
 
                     $this->log('file name', 'debug');
@@ -267,10 +266,10 @@ class FileManagementController extends AppController {
                         $error = true;
                     }
                 }
+                 * 
+                 */
                 if (!$error) {
                     $r = $this->FileService->uploadTest($school_location_id, $data);
-                    
-                    $this->log('test uploaded', 'debug');
                     
                     if ($r === false) {
                         $response = 'Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals';
