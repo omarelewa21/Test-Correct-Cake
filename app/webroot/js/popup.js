@@ -40,22 +40,22 @@ var Popup = {
         Popup.zIndex += 2;
         Popup.callbackFromPrompt = callback;
 
-        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
-            <div class='popup-head'>${options.title}</div>
-            <div class="popup-content">
-                <form>
-                  <div class="form-group">
-                    <label for="prompt">${options.text}</label>
-                    <input type="email" class="form-control" id="prompt" placeholder="${options.placeholder}" value="${options.inputValue}">
-                  </div>
-                 </form>
-            </div>
-            <div class="popup-footer">
-            <a href='#' class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>
-            <a href='#' class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>
-            </div>
-            </div>
-        `;
+        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
+            '<div class="popup-head">'+options.title+'</div>'+
+            '<div class="popup-content">'+
+                '<form>'+
+                  '<div class="form-group">'+
+                    '<label for="prompt">'+options.text+'</label>'+
+                    '<input type="email" class="form-control" id="prompt" placeholder="'+options.placeholder+'" value="'+options.inputValue+'">'+
+                  '</div>'+
+                 '</form>'+
+            '</div>'+
+            '<div class="popup-footer">'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>'+
+            '<a href="#" class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>'+
+            '</div>'+
+            '</div>'
+        ;
 
         $('body').append(htmlBlock);
 
@@ -91,21 +91,21 @@ var Popup = {
         Popup.zIndex += 2;
         Popup.callbackFromConfirm = callback;
 
-        var htmlBlock = `<div class='popup' id='popup_${Popup.index}'>
-            <div class='popup-head'>${options.title}</div>
-            <div class="popup-content">
-                <form>
-                  <div class="form-group">
-                    <label for="prompt">${options.text}</label>
-                  </div>
-                 </form>
-            </div>
-            <div class="popup-footer">
-            <a href='#' class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>
-            <a href='#' class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>
-            </div>
-            </div>
-        `;
+        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
+            '<div class="popup-head">'+options.title+'</div>'+
+            '<div class="popup-content">'+
+                '<form>'+
+                  '<div class="form-group">'+
+                    '<label for="prompt">'+options.text+'</label>'+
+                  '</div>'+
+                 '</form>'+
+            '</div>'+
+            '<div class="popup-footer">'+
+            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>'+
+            '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>'+
+            '</div>'+
+            '</div>'
+        ;
 
         $('body').append(htmlBlock);
 
@@ -316,7 +316,7 @@ var Popup = {
         schoolLocationsTemplate = '';
         locations.forEach(function(schoolLocation, index) {
             var activeClass = schoolLocation.active ? 'blue' : 'white';
-            schoolLocationsTemplate += `<a href="#" onclick="User.switchLocation(this, '${schoolLocation.uuid}');" class="btn hover-blue ${activeClass} mb5">${schoolLocation.name}</a>`;
+            schoolLocationsTemplate += '<a href="#" onclick="User.switchLocation(this, \''+schoolLocation.uuid+'\');" class="btn hover-blue '+activeClass+' mb5">'+schoolLocation.name+'</a>';
         });
 
         this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});
