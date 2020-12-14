@@ -1358,7 +1358,7 @@ class UsersController extends AppController
                     'title' => 'Stuur een uitnodiging',
                     'path' => '/users/tell_a_teacher',
                     'type' => 'popup',
-                    'width' => 650
+                    'width' => 800
                 );
             }
 

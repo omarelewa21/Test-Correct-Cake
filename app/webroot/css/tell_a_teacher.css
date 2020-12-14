@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+
+:root {
+    --cta-primary: #3DBB56;
+    --cta-primary-mid-dark: #27973D;
+    --cta-primary-dark: #006314;
+    --cta-secondary: #004DF5;
+    --primary: #004df5;
+    --secondary: #ECD900;
+    --highlight-primary: #ECD900;
+    --system-base: #041F74;
+    --system-secondary: #CEDAF3;
+    --mid-grey: #929DAF;
+    --light-grey: #F0F2F5;
+    --blue-grey: #C3D0ED;
+    --shadow-blue: #4D578F;
+    --off-white: #F9FAFF;
+}
+
+.inline-block {
+    display: inline-block;
+}
+.display-block {
+    display: block;
+}
+.tat-head {
+    background: linear-gradient(90deg, rgba(0,77,245,1) 0%, rgba(71,129,255,1) 100%);
+    text-align: left!important;
+    color: white;
+    padding: 40px!important;
+    font-family: 'Nunito', sans-serif;
+    -webkit-clip-path: polygon(0 0, 100% 0, 100% 78%, 0 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 78%, -1% 100%);
+    position: relative;
+    min-height: 200px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.tat-content a {
+    text-decoration: none;
+}
+.tat-content a:focus {
+    outline: none;
+}
+.tat-content a:hover, .tat-content a:active {
+    color: var(--primary)!important;
+}
+.tat-content a:visited {
+    color: var(--system-base);
+}
+
+.tat-head h1 {
+    font-size: 32px;
+    line-height: 2rem;
+    margin-top: 5px;
+    vertical-align: top;
+}
+.tat-head h6 {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 0 0 8px;
+}
+.tat-check {
+    margin-right: 5px;
+    margin-top: 3px;
+    vertical-align: top;
+}
+.body1 {
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+.body2 {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+    color: var(--system-base);
+}
+
+.tat-top-text {
+    max-width: 450px;
+    position: relative;
+}
+.tat-head .close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+.tat-top-img {
+    width: 100%;
+    position: relative;
+}
+.tat-top-img img {
+    position: absolute;
+    right: 40px;
+    top: -210px;
+}
+.tat-usp {
+    margin-left: 60px;
+}
+
+.tat-usp span {
+    width: 350px;
+    display: inline-block;
+}
+
+.tat-content {
+    padding: 20px 40px 40px!important;
+    font-family: 'Nunito', sans-serif;
+    color: var(--system-base);
+}
+.tat-content .mb-4 {
+    margin-bottom: 1rem;
+}
+
+.tat-content textarea + label {
+    transition: 150ms ease-in-out;
+}
+
+.tat-content textarea:focus + label {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    color: var(--primary);
+    transition: ease-in-out 150ms;
+}
+.tat-content label {
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 8px;
+}
+.tat-content textarea {
+    padding: 10px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--blue-grey);
+    font-size: 16px;
+    min-height: 150px;
+    transition: 150ms ease-in-out;
+    color: var(--system-base);
+    font-family: 'Nunito', sans-serif;
+    resize: vertical;
+}
+.tat-content textarea:hover {
+    border: 1px solid var(--primary);
+    transition: 150ms ease-in-out;
+}
+
+.tat-content textarea:active, .tat-content textarea:focus {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    outline: none;
+    transition: 150ms ease-in-out;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column-reverse;
+}
+.tat-content .tip {
+    margin-top: 8px;
+    margin-bottom: 16px;
+    color: var(--mid-grey);
+    font-size: 14px;
+}
+
+.tat-footer {
+    padding: 0 40px 40px;
+    border-top: none!important;
+    position: relative;
+}
+
+.indicator {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 100%);
+}
+
+.primary {
+    color: var(--primary);
+    fill: var(--primary);
+}
+.light-grey {
+    color: var(--light-grey);
+    fill: var(--light-grey);
+}
+
+.button {
+    border-radius: 10px;
+    font-size: 18px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 700;
+    padding: 0 20px 0 20px;
+    border: none;
+}
+
+.button:focus {
+    outline: none;
+    padding: 0 18px 0 18px;
+}
+
+.button-sm {
+    min-height: 40px;
+}
+
+.button-md {
+    min-height: 50px;
+}
+
+.button-lg {
+    min-height: 60px;
+}
+
+.primary-button.btn-disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.primary-button.btn-disabled:hover {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.primary-button.btn-disabled:focus {
+    border: none;
+}
+
+.primary-button {
+    color: white;
+    background-color: rgba(0,77,245,1);
+    background-image: radial-gradient(ellipse farthest-side at 10% 10%,rgba(0,77,245,.5) 0,rgba(0,77,245,0) 100%);
+    background-size: 0px 0px;
+    background-repeat: no-repeat;
+    box-shadow: 0 1px 2px 1px rgba(0,0,0,.15);
+    transition: color 0.3s cubic-bezier(.215,.61,.355,1);
+}
+
+.primary-button:hover {
+    background-color: rgba(71,129,255,1);
+    background-size: 100% 100%;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(.215,.61,.355,1);
+}
+.primary-button:focus {
+    outline: none;
+    border: none;
+}
+.primary-button:active {
+    border: none;
+}
