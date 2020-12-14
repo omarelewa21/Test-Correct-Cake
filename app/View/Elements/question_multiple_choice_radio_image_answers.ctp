@@ -26,6 +26,7 @@
         $length = 10;
         $random = substr(str_shuffle('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'),1,$length);
     }
+
     echo $this->Form->input('Question.'.getUUID($question, 'get').$random, [
     'type' => 'radio',
     'legend'=> false,
