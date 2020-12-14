@@ -1,6 +1,6 @@
 <div id="AnalysesStudentOverview">
     <div id="buttons">
-        
+
         <div class='popup' id='popup_search' style="display:none">
                 <div class="popup-head" id="modal-head">Zoeken</div>
                 <div class="popup-content">
@@ -42,7 +42,7 @@
                     <a href="#" style="float:right"
                        id="jquery-save-filter-as-from-modal"
                        class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
-                    <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
+                    <a href="#" onclick="Popup.closeSearch()" style="float:right"
                        class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
                 </div>
         </div>
@@ -115,37 +115,36 @@ if ($is_temp_teacher) {
 ?>
     <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
 <?
-} else 
+} else
 {
 ?>
 <script type="text/javascript">
     $(document).ready(function () {
         let analysesStudentOverviewFirstTimeRun = false;
         if (typeof (analysesStudentOverviewFiltermanager) === 'undefined') {
-            analysesStudentOverviewFiltermanager = new FilterManager({
-                filterFields: [
-                    {field: 'nameFirst', label: 'Voornaam', type: 'text'},
-                    {field: 'name', label: 'Achternaam', type: 'text'},
-                    {field: 'externalId', label: 'Studentnummer', type: 'text'},
-                    {field: 'schoolLocationId', label: 'Locatie', type: 'select'},
-                    {field: 'schoolClassId', label: 'Klas', type: 'select'},
-                ],
-                eventScope: '#AnalysesStudentOverview',
-                formPrefix: '#User',
-                table: '#studentsTable',
-                tablefy: {
-                        'source' : '/analyses/load_students_overview',
-                        'container' : '#studentsContainer,
-                        'filters' : '#UserStudentsOverviewForm,
-                        'hideEmpty' : true
-                },
-                filterKey: 'analyses_student_overview',
-            });
             analysesStudentOverviewFirstTimeRun = true;
         }
 
-        
-        
+        analysesStudentOverviewFiltermanager = new FilterManager({
+            filterFields: [
+                {field: 'nameFirst', label: 'Voornaam', type: 'text'},
+                {field: 'name', label: 'Achternaam', type: 'text'},
+                {field: 'externalId', label: 'Studentnummer', type: 'text'},
+                {field: 'schoolLocationId', label: 'Locatie', type: 'select'},
+                {field: 'schoolClassId', label: 'Klas', type: 'select'},
+            ],
+            eventScope: '#AnalysesStudentOverview',
+            formPrefix: '#User',
+            table: '#studentsTable',
+            tablefy: {
+                    'source' : '/analyses/load_students_overview',
+                    'container' : '#studentsContainer',
+                    'filters' : '#UserStudentsOverviewForm',
+                    'hideEmpty' : true
+            },
+            filterKey: 'analyses_student_overview',
+        });
+
         analysesStudentOverviewFiltermanager.init(analysesStudentOverviewFirstTimeRun);
 
     });
