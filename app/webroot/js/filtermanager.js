@@ -152,9 +152,7 @@ function FilterManager(settings) {
             filter.active = false;
             return filter;
         });
-    };
-            this.newFilter[item.field]
-        }.bind(this))
+
     },
     this.registerEvents = function () {
         $(document)
@@ -288,7 +286,7 @@ function FilterManager(settings) {
         const saveAs = e.target.id === 'jquery-save-filter-as-from-modal';
 
         if (!$(e.target).hasClass('disabled')) {
-            const isNewFilter = (this.activeFilter.id === '')
+            const isNewFilter = (this.activeFilter.id === '');
             Popup.prompt({
                     text: 'Wat is de naam van dit filter?',
                     title: saveAs ? 'Opslaan als' : 'Opslaan',
