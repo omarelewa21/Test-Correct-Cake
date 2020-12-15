@@ -23,12 +23,13 @@ function FilterManager(settings) {
     this.init = function (firstTimeRun) {
         this.el = '#jquery-saved-filters';
         this.developmentErrors();
+
         if(!firstTimeRun){
             this.renderActiveFilter();
             this.isInitalizingState = true;
             this.initializeDatePickerFields();
             this.renderSelectFilterBoxNotFirstRun();
-            this.registerEvents();
+            // this.registerEvents();
             this.addChangeEventsToFilter(this);
             this.initTablefy();
             this.isInitalizingState = false;
@@ -220,19 +221,6 @@ function FilterManager(settings) {
             this.renderActiveFilter(e);
         }.bind(this))
 
-        .on('click', this.settings.eventScope + ' #jquery-add-filter', function (e) {
-            $(this.el).val('');
-            this.resetSearchForm();
-            this.setSearchFormTitle('Filter aanmaken');
-            $('#jquery-save-filter-as-from-modal').hide();
-            Popup.showSearch();
-            this.activeFilter = {
-                id: '',
-                name: 'Nieuw',
-                filters: this.newFilter
-            }
-            this.renderActiveFilter(e);
-        }.bind(this))
 
         .on('click', this.settings.eventScope + ' #jquery-edit-filter', function (e) {
             this.setSearchFormTitle('Filter aanpassen: ' + this.activeFilter.name);
@@ -247,12 +235,15 @@ function FilterManager(settings) {
 
         .on('click', this.settings.eventScope + ' #jquery-reset-filter', function (e) {
             if (!$(e.target).hasClass('disabled')) {
+                this.isInitalizingState = true;
                 this.renderSelectFilterBox('');
                 this.resetSearchForm();
+                this.isInitalizingState = false;
             }
         }.bind(this))
 
         .on('click', this.settings.eventScope + ' #jquery-delete-filter', function (e) {
+            e.stopPropagation();
             this.deleteFilter();
         }.bind(this))
         .on('click', this.settings.eventScope + ' #jquery-save-filter-from-modal', function (e) {
@@ -563,6 +554,9 @@ function FilterManager(settings) {
             filter.label = el.attr('jquery-option');
         }
         this.newFilter[item.field] = filter;
+        if (!this.editFilter) {
+            this.editFilter = {'filters': {}};
+        }
         this.editFilter.filters[item.field] = filter;
         if (!this.isInitalizingState) {
             this.activeFilter.changed = true;
