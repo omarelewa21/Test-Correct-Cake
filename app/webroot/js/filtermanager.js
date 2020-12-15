@@ -91,8 +91,9 @@ function FilterManager(settings) {
             this.disableDeleteButton();
             if (!this.isDeleting) {
                 $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
-
+                    this.setActiveFilterToEmpty();
                 }.bind(this));
+                this.activeFilter = false;
             }
 
             this.activeFilter = false;
@@ -164,12 +165,11 @@ function FilterManager(settings) {
                         $('#jquery-applied-filters').hide();
                         this.disableDeleteButton();
                         this.resetSearchForm();
+                        if (!this.isDeleting) {
                         $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
                             this.setActiveFilterToEmpty();
                         }.bind(this));
-                        if (!this.isDeleting) {
-                            $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
-                            });
+
                         }
                         this.activeFilter = false;
                     } else {
