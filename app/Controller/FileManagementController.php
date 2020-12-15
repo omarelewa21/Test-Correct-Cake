@@ -202,8 +202,31 @@ class FileManagementController extends AppController {
 
         $this->render($view);
     }
+    
 
+    public function upload_test_filepond() {
+        
+        if ($this->request->is('post')) {
+            
+            echo json_encode($this->request->data['FileTest']);
+            
+        }
+        
+        //$data = $this->request->data['FileTest'];
+        
+        //return json_encode($data);
+        
+    }
+    
+    public function upload_test_process() {
+        
+        $this->log('in upload handling', 'debug');
+        
+    }
+    
     public function upload_test() {
+          
+        $this->log($_POST,'debug');
 
         $this->ifNotAllowedExit(['Teacher'], false);
 
@@ -215,23 +238,14 @@ class FileManagementController extends AppController {
 
             $data = $this->request->data['FileTest'];
             
-            $this->log($school_location_id,'debug');
-            $this->log($data, 'debug');
+             $this->log( $data, 'debug');
             
-            $data['extra_field']='test';
-
-            $r = $this->FileService->uploadTest($school_location_id, $data);
+            // route file uploads to handler
+            if(isset($data['file'])) return $this->upload_test_process();
                   
             $error = false;
-
-            $this->log('FileTest data 2', 'debug');
+    
             $this->log( $_POST, 'debug');
-            $tmp_name = $data['file'][0]['tmp_name'];
-            $this->log($tmp_name, 'debug');
-            
-            $contents = file_get_contents($tmp_name);
-            $this->log($contents, 'debug');
-            $this->log('end contents', 'debug');
 
             if (!isset($data['education_level_id'])) {
                 $response = 'Het is niet duidelijk om welk niveau het gaat';
@@ -245,29 +259,13 @@ class FileManagementController extends AppController {
             } else if (!isset($data['name'])) {
                 $response = "het is niet duidelijk om wat de naam van de toets is";
                 $error = true;
-            } else if (!isset($data['file']) || count($data['file']) < 1) {
-                $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
-                $error = true;
-            } else if (!isset($data['correctiemodel']) || $data['correctiemodel'] != 1) {
+            }  else if (!isset($data['correctiemodel']) || $data['correctiemodel'] != 1) {
                 $response = "Er dient een correctiemodel mee gestuurd te worden";
                 $error = true;
             } else if (!isset($data['multiple']) || $data['multiple'] != 0) {
                 $response = "Er kan maximaal 1 toets per keer geupload worden";
                 $error = true;
-            } else {
-                /*
-                foreach ($data['file'] as $file) {
-
-                    $this->log('file name', 'debug');
-                    $this->log($file, 'debug');
-
-                    if (!isset($file['tmp_name']) || !$file['tmp_name']) {
-                        $response = 'File(s) niet gevonden om te uploaden, probeer het nogmaals';
-                        $error = true;
-                    }
-                }
-                 * 
-                 */
+            } else {        
                 if (!$error) {
                     $r = $this->FileService->uploadTest($school_location_id, $data);
                     
@@ -333,6 +331,7 @@ class FileManagementController extends AppController {
             $this->set('testKindOptions', $testKinds);
         }
         
+        $this->set('form_id',md5(time()));
         $this->set('school_location_id',$school_location_id);
         $this->set('user_uuid',AuthComponent::user('uuid'));
     }
