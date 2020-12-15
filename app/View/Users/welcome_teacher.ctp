@@ -18,7 +18,7 @@ if (null === AuthComponent::user('account_verified')) {
     ?>
     <div class="block" style="background-color: #ff8787;">
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-            <h2 style="display: inline-block;"><b>Let op: je account is nog niet geverifieerd.</b></h2>
+            <h2 style="display: inline-block;"><b>Let op: je e-mailadres is nog niet geverifieerd.</b></h2>
             <a class="btn white inline-block pull-right" style="cursor: pointer; margin-top: 20px;" onclick="resendEmailVerificationMail()">
                 Stuur verificatiemail opnieuw
             </a>
