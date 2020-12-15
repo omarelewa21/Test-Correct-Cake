@@ -18,10 +18,9 @@ if (null === AuthComponent::user('account_verified')) {
     ?>
     <div class="block" style="background-color: #ff8787;">
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-            <h2><b>Let op: je account is nog niet geverifieerd.</b></h2>
-            <p></p>
-            <a class="btn white inline-block" style="cursor: pointer;" onclick="resendEmailVerificationMail()">
-                Stuur verificatie mail opnieuw
+            <h2 style="display: inline-block;"><b>Let op: je account is nog niet geverifieerd.</b></h2>
+            <a class="btn white inline-block pull-right" style="cursor: pointer; margin-top: 20px;" onclick="resendEmailVerificationMail()">
+                Stuur verificatiemail opnieuw
             </a>
         </div>
     </div>
@@ -528,7 +527,7 @@ if ($wizard_steps) {
             url: '/users/resendEmailVerificationMail',
             type: 'POST',
             success: function () {
-                Notify.notify('De mail is nogmaals naar je verstuurd', 'info');
+                Notify.notify('De verificatiemail is nogmaals naar je verstuurd', 'info');
             }
         });
     }
