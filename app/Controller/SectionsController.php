@@ -98,9 +98,12 @@ class SectionsController extends AppController
         }
 
         $section = $this->SectionsService->getSection($section_id);
+
         $section['Section'] = $section;
-        
+
         $this->request->data = $section;
+
+        $this->request->data['Section']['name'] = html_entity_decode($this->request->data['Section']['name']);
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
     }
@@ -173,6 +176,7 @@ class SectionsController extends AppController
     }
 
     public function edit_subject($subject_id) {
+
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
@@ -189,6 +193,10 @@ class SectionsController extends AppController
         }
 
         $subject = $this->SectionsService->getSectionSubject($subject_id);
+
+        $subject['name'] = html_entity_decode($subject['name']);
+
+        $subject['abbreviation']= html_entity_decode($subject['abbreviation']);
 
         $this->set('base_subjects', $this->SectionsService->getBaseSubjects());
 

@@ -143,6 +143,10 @@ class SchoolClassesController extends AppController
     public function add() {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
+        // klas niet overschrijven checkbox 
+        $school_location = AuthComponent::user('school_location');     
+        $this->set('is_rtti',$school_location['is_rtti_school_location']);
+        
         if($this->request->is('post') || $this->request->is('put')) {
 
             $data = $this->request->data['SchoolClass'];
@@ -207,7 +211,8 @@ class SchoolClassesController extends AppController
         $educationLevels = $this->TestsService->getEducationLevels(false, false);
         $this->set('education_levels', $educationLevels);
         $this->set('school_years', $this->SchoolYearsService->getSchoolYearList());
-        $this->request->data['SchoolClass'] = $this->SchoolClassesService->getClass($class_id);
+        $this->request->data['SchoolClass'] = $this->SchoolClassesService->getClass($class_id);    
+        $this->request->data['SchoolClass']['name']= html_entity_decode($this->request->data['SchoolClass']['name']);   
         $this->set('SchoolClassEducationLevelUuid',$this->request->data['SchoolClass']['education_level']['uuid']);
         $this->set('SchoolClassEducationLevelYear',$this->request->data['SchoolClass']['education_level_year']);
         $this->set('initEducationLevelYears',$this->getInitEducationLevelYears($educationLevels,$this->request->data['SchoolClass']['education_level']['uuid']));

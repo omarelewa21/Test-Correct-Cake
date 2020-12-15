@@ -62,12 +62,15 @@ foreach($education_levels as $education_level) {
                 </td>
             </tr>
 
-            <tr class="is_rtti_school_location">
-                <th> LVS: Klas niet overschrijven </th>
+           <?php if($is_rtti == 1): ?>
+            <tr>
+                <th>LVS</th>
                 <td>
-                    <?= $this->Form->Input('do_not_overwrite_from_interface',['type' => 'checkbox', 'label' => false, 'checked' => 'checked']) ?>
+                    <?=$this->Form->input('do_not_overwrite_from_interface', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'checked'=>1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    Klas niet overschrijven
                 </td>
             </tr>
+        <?php endif; ?>
 
 
         </table>
@@ -86,28 +89,6 @@ foreach($education_levels as $education_level) {
 </div>
 
 <script type="text/javascript">
-
-    $(document).ready(function(){
-        var is_rtti_mapping = <?= json_encode($location_info); ?>;
-
-        if(is_rtti_mapping[$("#SchoolClassSchoolLocationId").val()] == "1"){
-            $(".is_rtti_school_location").css('display','auto');
-            $(".is_rtti_school_location").removeAttr('checked');
-        } else {
-            $(".is_rtti_school_location").css('display','none');
-            $(".is_rtti_school_location").attr('checked','checked');
-        }
-
-        $("#SchoolClassSchoolLocationId").on('change',function(){
-            if(is_rtti_mapping[$("#SchoolClassSchoolLocationId").val()] == "1"){
-                $(".is_rtti_school_location").css('display','auto');
-                $(".is_rtti_school_location").removeAttr('checked');
-            } else {
-                $(".is_rtti_school_location").css('display','none');
-                $(".is_rtti_school_location").attr('checked','checked');
-            }
-        });
-    });
 
     $('#SchoolClassAddForm').formify(
         {

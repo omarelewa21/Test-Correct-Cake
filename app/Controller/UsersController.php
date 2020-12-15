@@ -1090,6 +1090,13 @@ class UsersController extends AppController
                     'title' => 'Docent statistieken',
                     'path'  => '/admin/teacher_stats'
                 );
+                
+                $tiles['rttiimport'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'RTTI Import',
+                    'path'  => '/rttiimport/index'
+                );
             }
 
             if ($role['name'] == 'Account manager') {
