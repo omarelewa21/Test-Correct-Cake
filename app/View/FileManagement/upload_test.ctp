@@ -9,35 +9,7 @@
         </div>
         <?= $this->Form->create('FileTest', array('id' => 'FileTestForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment')) ?>
         <div class="block-content" id="testsContainer">
-            <table class='table'>
-                <tr>
-                    <td>Kies één of meerdere bestanden</td>
-                    <td>
-                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
-                        <script>
-                            [
-                                {supported: 'Symbol' in window, fill: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js'},
-                                {supported: 'Promise' in window, fill: 'https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js'},
-                                {supported: 'fetch' in window, fill: 'https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js'},
-                                {supported: 'CustomEvent' in window && 'log10' in Math && 'sign' in Math && 'assign' in Object && 'from' in Array &&
-                                            ['find', 'findIndex', 'some', 'includes'].reduce(function (previous, prop) {
-                                        return (prop in Array.prototype) ? previous : false;
-                                    }, true), fill: 'https://unpkg.com/filepond-polyfill/dist/filepond-polyfill.js'}
-                            ].forEach(function (p) {
-                                if (p.supported)
-                                    return;
-
-                                document.write('<script src="' + p.fill + '"><\/script>');
-                            });
-                        </script>
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <label>Informatie over de bestanden</label>
-                    </td>
-                </tr>
+            <table class='table'>               
                 <tr>
                     <td><label>Niveau</label></td>
                     <td>
@@ -83,6 +55,29 @@
                     <td><label>Een enkele of meerdere toetsen?</label></td>
                     <td>
                         <?= $this->Form->input('multiple', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'], 'value' => 0)) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Kies één of meerdere bestanden</td>
+                    <td>
+                        <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' =>$form_id)) ?>
+                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
+                        <script>
+                            [
+                                {supported: 'Symbol' in window, fill: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js'},
+                                {supported: 'Promise' in window, fill: 'https://cdn.jsdelivr.net/npm/promise-polyfill@8/dist/polyfill.min.js'},
+                                {supported: 'fetch' in window, fill: 'https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js'},
+                                {supported: 'CustomEvent' in window && 'log10' in Math && 'sign' in Math && 'assign' in Object && 'from' in Array &&
+                                            ['find', 'findIndex', 'some', 'includes'].reduce(function (previous, prop) {
+                                        return (prop in Array.prototype) ? previous : false;
+                                    }, true), fill: 'https://unpkg.com/filepond-polyfill/dist/filepond-polyfill.js'}
+                            ].forEach(function (p) {
+                                if (p.supported)
+                                    return;
+                                document.write('<script src="' + p.fill + '"><\/script>');
+                            });
+                        </script>
+                        
                     </td>
                 </tr>
             </table>
@@ -147,22 +142,22 @@
 
                 function handleSubmit() {
 
-                    if (canSubmit) {
+                    if ($('#name').val() == "" || $('#subject').val() == "") {
+                        alert("niet alle velden zijn ingevuld");
+                        //$('#error').text('Niet alle velden zijn ingevuld');
+                        return false;
+                    } 
 
-                        if ($('#name').val() == "" || $('#subject').val() == "") {
-                            alert("niet alle velden zijn ingevuld");
-                            
-                        } else {
-                            $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
-                            $('#FileTestContainer').show();
-                            $('#FileTestForm').hide().submit();
-                            showWistJeDatJe();
-                        }
-
-                    } else {
+                    if (!canSubmit) {
                         
                         alert("Niet alle bestanden zijn geupload of er zijn geen bestanden gekozen");
                         return false;
+
+                    } else {
+                        $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
+                        $('#FileTestContainer').show();
+                        $('#FileTestForm').hide().submit();
+                        showWistJeDatJe();
                     }
 
                 }
@@ -231,7 +226,7 @@
                         server: '/filemanagement/upload_test',
                         instantUpload: false,
                         checkValidity: true,
-                        onaddfile: function (error, file) {    
+                        onaddfile: function (error, file) {
                             uploaded[file.id] = file.filename
                             var canSubmit = false;
                             $('#submitbutton').addClass('disabled');
@@ -240,7 +235,7 @@
                         onprocessfile: function (error, file) {
                             if (error === null)
                                 console.log('File processed: [' + error + ']   file: [' + file.id + ']');
-                                console.log('cant submit ' + canSubmit);
+                            console.log('cant submit ' + canSubmit);
                         },
                         onremovefile: function (error, file) {
                             if (file.id in uploaded)
@@ -253,14 +248,8 @@
                             $('#submitbutton').removeClass('disabled');
                         },
                         fileMetadataObject: {
-                            'user_uuid': '<?= $user_uuid; ?>',
                             'form_id': '<?= $form_id; ?>'
                         }
-
-
-
-
-
                     });
 
 // Easy console access for testing purposes
