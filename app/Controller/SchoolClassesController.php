@@ -8,6 +8,7 @@ App::uses('TestsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('File', 'Utility');
+App::uses('HelperFunctions','Lib');
 
 class SchoolClassesController extends AppController
 {
@@ -212,7 +213,7 @@ class SchoolClassesController extends AppController
         $this->set('education_levels', $educationLevels);
         $this->set('school_years', $this->SchoolYearsService->getSchoolYearList());
         $this->request->data['SchoolClass'] = $this->SchoolClassesService->getClass($class_id);    
-        $this->request->data['SchoolClass']['name']= html_entity_decode($this->request->data['SchoolClass']['name']);   
+        $this->request->data['SchoolClass']['name']= HelperFunctions::getInstance()->revertSpecialChars($this->request->data['SchoolClass']['name']);
         $this->set('SchoolClassEducationLevelUuid',$this->request->data['SchoolClass']['education_level']['uuid']);
         $this->set('SchoolClassEducationLevelYear',$this->request->data['SchoolClass']['education_level_year']);
         $this->set('initEducationLevelYears',$this->getInitEducationLevelYears($educationLevels,$this->request->data['SchoolClass']['education_level']['uuid']));
@@ -236,7 +237,7 @@ class SchoolClassesController extends AppController
         }
 
         $this->set('teachers', $this->UsersService->getUserList(['mode' => 'list', 'filter' => ['role' => [1]]], true));
-        $this->set('subjects', $this->SectionsService->getSectionSubjectList());
+        $this->set('subjects', HelperFunctions::getInstance()->revertSpecialChars($this->SectionsService->getSectionSubjectList()));
     }
 
     public function add_management($class_id) {

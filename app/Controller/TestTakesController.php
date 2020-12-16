@@ -8,6 +8,7 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('SchoolClassesService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
+App::uses('HelperFunctions','Lib');
 
 // App::uses('TestsService', 'Lib/Services');
 
@@ -227,9 +228,9 @@ class TestTakesController extends AppController {
 
             $education_levels = $this->TestsService->getEducationLevels();
             $periods = $this->TestsService->getPeriods(false, $params);
-            $subjects = $this->TestsService->getSubjects();
+            $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getSubjects());
             $kinds = $this->TestsService->getKinds();
-            $classes = $this->TestsService->getClasses($params);
+            $classes = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getClasses($params));
 
             $locations = $this->SchoolLocationsService->getSchoolLocations();
 
@@ -293,9 +294,9 @@ class TestTakesController extends AppController {
 
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
-        $subjects = $this->TestsService->getSubjects();
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getSubjects());
         $kinds = $this->TestsService->getKinds();
-        $classes = $this->TestsService->getClasses();
+        $classes = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getClasses());
         $school_location = $this->SchoolLocationsService->getSchoolLocation(getUUID($take['test']['author']['school_location'], 'get'));
 
         $newInviligators = [];
@@ -1445,9 +1446,9 @@ class TestTakesController extends AppController {
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = ['' => 'Alle'] + $this->TestsService->getSubjects(true);
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -1896,9 +1897,9 @@ class TestTakesController extends AppController {
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = ['' => 'Alle'] +$this->TestsService->getSubjects(true);
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] +$this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -1910,9 +1911,9 @@ class TestTakesController extends AppController {
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = ['' => 'Alle'] + $schoolClasses;
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = ['' => 'Alle'] + $this->TestsService->getSubjects(true);
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2150,7 +2151,7 @@ class TestTakesController extends AppController {
 
         $education_levels = $this->TestsService->getEducationLevels(true, false);
         $periods = $this->TestsService->getPeriods();
-        $subjects = $this->TestsService->getSubjects();
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getSubjects());
         $kinds = $this->TestsService->getKinds();
 
         $this->set('education_levels', $education_levels);

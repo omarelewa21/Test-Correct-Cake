@@ -6,6 +6,7 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
+App::users('HelperFunctions','Lib');
 
 class TestsController extends AppController {
 
@@ -40,7 +41,8 @@ class TestsController extends AppController {
 
 
         $periods = $this->TestsService->getPeriods();
-        $subjects = ['' => 'Alle'] + $this->TestsService->getSubjects(false);
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(false));
+
         $kinds = $this->TestsService->getKinds();
 
         //$education_levels = [0 => 'Alle'] + $education_levels;

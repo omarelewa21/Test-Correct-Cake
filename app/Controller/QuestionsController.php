@@ -6,6 +6,7 @@ App::uses('TestsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('File', 'Utility');
+App::uses('HelperFunctions','Lib');
 
 class QuestionsController extends AppController
 {
@@ -53,8 +54,9 @@ class QuestionsController extends AppController
             $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
         }
 
+        $baseSubjects = HelperFunctions::getInstance()->revertSpecialChars($baseSubjects);
         $education_levels = [0 => 'Alle'] + $education_levels;
-        $subjects = [0 => 'Alle'] + $subjects;
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars([0 => 'Alle'] + $subjects);
 
         $filterTypes = [
             '' => 'Alle',
