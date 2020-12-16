@@ -4,6 +4,7 @@ App::uses('AppController', 'Controller');
 App::uses('SectionsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 app::uses('SharedSectionsService','Lib/Services');
+App::uses('HelperFunctions','Lib');
 
 /**
  * Sections controller
@@ -66,6 +67,15 @@ class SectionsController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $section = $this->SectionsService->getSection($id);
+        $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
+        $subjects = [];
+        foreach($section['subjects'] as $subject){
+            $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
+            $subject['abbreviation'] = HelperFunctions::getInstance()->revertSpecialChars($subject['abbreviation']);
+            $subject['base_subject']['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['base_subject']['name']);
+            $subjects[] = $subject;
+        }
+        $section['subjects'] = $subjects;
         $sharedSchoolLocations = $this->SharedSectionsService->getSharedSectionSchoolLocations(getUUID($section,'get'),[]);
         $this->set('section', $section);
         $this->set('sharedSchoolLocations',$sharedSchoolLocations);
@@ -75,7 +85,12 @@ class SectionsController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $params = $this->request->data;
-        $sections = $this->SectionsService->getSections($params);
+        $_sections = $this->SectionsService->getSections($params);
+        $sections = [];
+        foreach($_sections as $section){
+            $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
+            $sections[] = $section;
+        }
 
         $this->set('sections', $sections);
     }
@@ -103,7 +118,7 @@ class SectionsController extends AppController
 
         $this->request->data = $section;
 
-        $this->request->data['Section']['name'] = html_entity_decode($this->request->data['Section']['name']);
+        $this->request->data['Section']['name'] = HelperFunctions::getInstance()->revertSpecialChars($this->request->data['Section']['name']);
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
     }
@@ -194,9 +209,9 @@ class SectionsController extends AppController
 
         $subject = $this->SectionsService->getSectionSubject($subject_id);
 
-        $subject['name'] = html_entity_decode($subject['name']);
+        $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
 
-        $subject['abbreviation']= html_entity_decode($subject['abbreviation']);
+        $subject['abbreviation']= HelperFunctions::getInstance()->revertSpecialChars($subject['abbreviation']);
 
         $this->set('base_subjects', $this->SectionsService->getBaseSubjects());
 

@@ -7,6 +7,7 @@ App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('SchoolsService', 'Lib/Services');
 App::uses('UmbrellaOrganisationsService', 'Lib/Services');
+App::uses('HelperFunctions','Lib');
 
 /**
  * Users controller
@@ -538,7 +539,7 @@ class UsersController extends AppController
 
                 $this->set('active_classes', $activeClasses);
 
-                $this->set('school_classes', $this->SchoolClassesService->getClassesList());
+                $this->set('school_classes', HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
                 $this->render('edit_students', 'ajax');
                 break;
         }
@@ -942,7 +943,7 @@ class UsersController extends AppController
         }
 
         if ($type == 'students') {
-            $this->set('school_classes', $this->SchoolClassesService->getClassesList());
+            $this->set('school_classes', HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
             $this->set('class_id', $this->SchoolClassesService->getClass($parameter1)['id']);
         }

@@ -184,9 +184,11 @@ class AnalysesController extends AppController
 
     public function students_overview() {
         $_subjects = $this->TestsService->getSubjects(false, 'all');
+
         $subjects = [];
         foreach($_subjects as $subject){
             $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
+            $subject['base_subject']['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['base_subject']['name']);
             $subjects[] = $subject;
         }
         $this->Session->write('subjects', $subjects);
@@ -208,6 +210,8 @@ class AnalysesController extends AppController
         if (!empty($school_classes_list) && is_array($school_classes_list)) {
             $school_classes += $school_classes_list;
         }
+
+        $school_classes = HelperFunctions::getInstance()->revertSpecialChars($school_classes);
 
         $this->set('is_temp_teacher', AuthComponent::user('is_temp_teacher'));
 
