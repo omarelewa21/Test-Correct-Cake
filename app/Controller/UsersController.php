@@ -39,10 +39,7 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             $result = $this->UsersService->addUserEduIx(
-                $this->params['url']['ean'],
-                $this->params['url']['edurouteSessieID'],
-                $this->params['url']['signature'],
-                $this->request->data['User']
+                $this->params['url']['ean'], $this->params['url']['edurouteSessieID'], $this->params['url']['signature'], $this->request->data['User']
             );
             $response = json_decode($result);
             if (property_exists($response, 'errors') && count((array) $response->errors) > 0) {
@@ -54,9 +51,7 @@ class UsersController extends AppController
         }
 
         $response = $this->UsersService->registerEduIx(
-            $this->params['url']['ean'],
-            $this->params['url']['edurouteSessieID'],
-            $this->params['url']['signature']
+            $this->params['url']['ean'], $this->params['url']['edurouteSessieID'], $this->params['url']['signature']
         );
 
         $user = new stdClass;
@@ -81,7 +76,6 @@ class UsersController extends AppController
 //                exit;
 //            }
 //        }
-
         ## MarkO: Ik snap nog niet precies wanneer ik in deze methode uit kom. Maar $message hieronder was nog niet gezet en
         ## dat gaf een crash op de test/dev portals (niet op live) dus ik heb een default gezet zonder goed te weten wat het doet.
         $message = "";
@@ -91,9 +85,11 @@ class UsersController extends AppController
             $appType = $this->request->data['appType'];
 
             if ($this->Auth->login()) {
+
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
                 if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
+
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
                             'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'unknown',
@@ -105,7 +101,7 @@ class UsersController extends AppController
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
 
                         if ($versionCheckResult === 'NOTALLOWED') {
-                            // somebody should be logedout, but we don't doe this yet
+                            // somebody should be logedout, but we don't do this yet
 //                            $this->Auth->logout();
 //                            $this->Session->destroy();
 //                            $message = 'Uw versie van de app wordt niet meer ondersteund. Download de nieuwe versie via http://www.test-correct.nl';
@@ -113,10 +109,26 @@ class UsersController extends AppController
 //                            exit();
                         }
                     }
+
+                    // check if teacher has active contract
+                    if ($this->UsersService->hasRole('teacher')) {
+
+                        $user_school_location = AuthComponent::user('school_location');
+
+                        if (null === $user_school_location || !isset($user_school_location['activated']) || $user_school_location['activated'] == 0) {
+
+                            $this->logout();
+
+                            $this->formResponse(false, ['message' => 'U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is.']);
+
+                            return false;
+                        }
+                    }
                 }
 
+
                 // no need to expose user info
-                $this->formResponse(true, array('message' => $message));
+                $this->formResponse(true, ['message' => $message]);
             } else {
                 $this->formResponse(false);
             }
@@ -141,8 +153,6 @@ class UsersController extends AppController
 //                //     exit();
 //                // }
 //            }
-
-
         }
     }
 
@@ -150,8 +160,7 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             $response = $this->UsersService->updateRegisteredNewTeacher(
-                $this->request->data['User'],
-                $userId
+                $this->request->data['User'], $userId
             );
             $result = (json_decode($response));
 
@@ -262,8 +271,7 @@ class UsersController extends AppController
             $result = $this->UsersService->storeOnboardingWizardStep($data);
 
             return $this->formResponse(
-                $result ? true : false,
-                ['progress' => $result['progress']]
+                $result ? true : false, ['progress' => $result['progress']]
             );
         }
         return $this->formResponse(
@@ -433,8 +441,7 @@ class UsersController extends AppController
                 $result = $this->UsersService->updatePasswordForUser($user_id, $data);
 
                 $this->formResponse(
-                    $result ? true : false,
-                    []
+                    $result ? true : false, []
                 );
             }
 
@@ -479,21 +486,19 @@ class UsersController extends AppController
                     if (isset($error['errors']['external_id'])) {
                         $response = "Studentennummer is al in gebruik";
                     }
-
                 } catch (\Throwable $th) {
+
                 }
 
                 $this->formResponse(
-                    false,
-                    [$response]
+                    false, [$response]
                 );
 
                 die;
             }
 
             $this->formResponse(
-                true,
-                []
+                true, []
             );
 
             die;
@@ -605,8 +610,7 @@ class UsersController extends AppController
             if ($user->school_location_id == $this->request->data['User']['school_location_id']) {
                 // we don't need to do anything, same school location, so done already
                 $this->formResponse(
-                    true,
-                    []
+                    true, []
                 );
                 die;
             }
@@ -620,13 +624,11 @@ class UsersController extends AppController
             if ($result === false) {
 
                 $this->formResponse(
-                    false,
-                    $this->UsersService->getErrors()
+                    false, $this->UsersService->getErrors()
                 );
             } else {
                 $this->formResponse(
-                    true,
-                    []
+                    true, []
                 );
             }
 
@@ -652,8 +654,7 @@ class UsersController extends AppController
             $result = $this->UsersService->move($user_id, $params);
 
             $this->formResponse(
-                $result ? true : false,
-                []
+                $result ? true : false, []
             );
 
             die;
@@ -801,8 +802,7 @@ class UsersController extends AppController
 
             if ($result === false) {
                 $this->formResponse(
-                    false,
-                    [
+                    false, [
                         'error' => implode(',', $this->UsersService->getErrors())
                     ]
                 );
@@ -813,22 +813,19 @@ class UsersController extends AppController
                     );
                 } elseif ($result == 'external_code') {
                     $this->formResponse(
-                        false,
-                        [
+                        false, [
                             'error' => 'external_code'
                         ]
                     );
                 } elseif ($result == 'username') {
                     $this->formResponse(
-                        false,
-                        [
+                        false, [
                             'error' => 'username'
                         ]
                     );
                 } else {
                     $this->formResponse(
-                        false,
-                        ['error' => $result]
+                        false, ['error' => $result]
                     );
                 }
             }
@@ -910,22 +907,19 @@ class UsersController extends AppController
                 );
             } elseif ($result == 'external_code') {
                 $this->formResponse(
-                    false,
-                    [
+                    false, [
                         'error' => 'external_code'
                     ]
                 );
             } elseif ($result == 'username') {
                 $this->formResponse(
-                    false,
-                    [
+                    false, [
                         'error' => 'username'
                     ]
                 );
             } else {
                 $this->formResponse(
-                    false,
-                    ['error' => $result]
+                    false, ['error' => $result]
                 );
             }
 
@@ -972,8 +966,7 @@ class UsersController extends AppController
             $this->autoRender = false;
 
             $this->formResponse(
-                $this->UsersService->deleteUser($user_id) ? true : false,
-                []
+                $this->UsersService->deleteUser($user_id) ? true : false, []
             );
         }
     }
@@ -1091,7 +1084,7 @@ class UsersController extends AppController
                     'title' => 'Docent statistieken',
                     'path'  => '/admin/teacher_stats'
                 );
-                
+
                 $tiles['rttiimport'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
