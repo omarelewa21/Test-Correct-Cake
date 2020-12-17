@@ -1,3 +1,9 @@
+<?php
+$hasErrors = false;
+if (isset($email_addresses)) {
+    $hasErrors = true;
+} ?>
+
 <div class="popup-head tat-head">
     <div class="close">
         <a href="#" onclick="Popup.closeLast()"><img src="img/ico/close.svg" alt=""></a>
@@ -21,22 +27,42 @@
 <div class="tat-top-img">
     <img src="img/Collegas-aan-tafel.svg" width="295px" height="209px" alt="">
 </div>
+
+<?php if (isset($returned)) {
+    echo 'JALLO';
+} else {
+    echo 'nope';
+} ?>
 <?= $this->Form->create('User') ?>
 <div class="popup-content tat-content body1">
     <span class="mb-4 display-block">Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken.</span>
 
-    <div class="input-group">
-        <textarea id="lotsOfEmailAddresses" width="200px" height="200px" autofocus></textarea>
+    <div class="input-group <?php if ($hasErrors) {
+        echo 'error';
+    } ?>">
+        <textarea id="lotsOfEmailAddresses" width="200px" height="200px" autofocus><?php
+                echo $email_addresses;
+             ?></textarea>
         <label for="lotsOfEmailAddresses">School e-mailadressen van jouw collega's</label>
     </div>
     <div>
-        <span class="display-block tip">Separeer meerdere e-mailadressen met komma's</span>
+        <span class="display-block tip">Separeer meerdere e-mailadressen met puntkomma's</span>
     </div>
+    <?php if ($hasErrors): ?>
+        <?php if ($email_addresses != null): ?>
+            <div class="notification error">
+                <span class="title">{emailadres} is geen geldig e-mailadres.</span>
+            </div>
+        <?php else: ?>
+            <div class="notification error">
+                <span class="title">Geen e-mailadressen ingevuld.</span>
+            </div>
+        <?php endif; ?>
+    <?php endif; ?>
     <div class="body2">
         <span class="display-block"> Stuur je liever zelf een e-mail? Deel een link:
-            <a class="bold" href="#">email url
+            <button id="copyBtn" class="text-button">email url</button>
             <img class="inline-block" src="img/ico/copy.svg" alt="">
-            </a>
         </span>
     </div>
 </div>
@@ -50,7 +76,8 @@
             <circle class="light-grey" cx="7" cy="7" r="7"/>
         </svg>
     </div>
-    <button id="sendEmailAddresses" class="button button-md primary-button pull-right">Bekijk e-mailvoorbeeld<img style="margin-left: 10px" src="img/ico/chevron.svg" alt=""></button>
+    <button id="sendEmailAddresses" class="button button-md primary-button pull-right">Bekijk e-mailvoorbeeld<i
+                class="fa fa-chevron-right" style="margin-left: 10px"></i></button>
 </div>
 <?= $this->Form->end(); ?>
 
@@ -61,10 +88,10 @@
             e.preventDefault();
             $.ajax({
                     url: '/users/tell_a_teacher',
-                    data: {emailAddresses: $('#lotsOfEmailAddresses').val()},
+                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), step: '2'},
                     method: 'POST',
                     success: function (data) {
-                        alert('bravo');
+                        $('#popup_' + Popup.index).html(data);
                         console.dir(data);
                     },
                     onfailure: function (data) {
@@ -76,79 +103,4 @@
         });
     })
 
-
-    $('#tellATeacherTableBody').on('keydown', 'input', function () {
-        var tr = $(this).parents('tr:first');
-        if (tr.is(':last-child')) {
-            appendRow();
-        }
-    });
-    tellATeacherTableJs = true;
-
-    function appendRow() {
-        $('#tellATeacherTableBody').append($('#rowTemplate tr:first').clone());
-    }
-
-    $('#UserTellATeacherForm').formify(
-        {
-            confirm: $('#btnAddUser'),
-            onbeforesubmit: function () {
-                $('#tellATeacherTableBody tr').each(function () {
-                    var allEmpty = true;
-                    $(this).find(':input').each(function () {
-                        if ($(this).val() !== '') {
-                            allEmpty = false;
-                        }
-                    });
-                    if (allEmpty == false) {
-                        $(this).find('.verify-email').attr('verify', 'email');
-                        $(this).find('.verify-notempty').attr('verify', 'notempty');
-                    } else {
-                        $(this).remove();
-                    }
-                });
-            },
-            onaftersubmit: function () {
-                $('#tellATeacherTableBody .verify-email').attr('verify', '');
-                $('#tellATeacherTableBody .verify-notempty').attr('verify', '');
-                appendRow();
-            },
-            onsuccess: function (result) {
-                Popup.closeLast();
-                var n = [];
-                $('#UserTellATeacherForm .name_first').each(function () {
-                    if ($(this).val().length > 0) {
-                        n.push($(this).val());
-                    }
-                });
-
-                var removeTags = function (str) {
-                    if ((str === null) || (str === ''))
-                        return false;
-                    else
-                        str = str.toString();
-                    return str.replace(/(<([^>]+)>)/ig, '');
-                }
-
-
-                if (n.length == 1) {
-                    Notify.notify("Super bedankt!<br />We hebben " + removeTags(n[0]) + " uitgenodigd voor Test-Correct", "info");
-                } else {
-                    Notify.notify("Super bedankt!<br />We hebben " + removeTags(n.join(' en ')) + " uitgenodigd voor Test-Correct", "info");
-                }
-                Navigation.refresh();
-            },
-            onfailure: function (result) {
-                if (result.error == 'username') {
-                    Notify.notify("Er is al een collega met dit e-mailadres bij ons bekend", "error");
-                } else if (result.error.includes('e-mail')) {
-                    Notify.notify(result.error, "error");
-                } else if (result.error == 'user_roles') {
-                    Notify.notify('U kunt een collega pas uitnodigen nadat er een actuele periode is aangemaakt.', 'error')
-                } else {
-                    Notify.notify("Collega kon niet worden uitgenodigd", "error");
-                }
-            }
-        }
-    );
 </script>
