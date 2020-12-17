@@ -6,7 +6,7 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
-App::users('HelperFunctions','Lib');
+App::uses('HelperFunctions','Lib');
 
 class TestsController extends AppController {
 
