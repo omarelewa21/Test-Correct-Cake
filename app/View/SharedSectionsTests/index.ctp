@@ -59,7 +59,7 @@
             <a href="#" style="float:right"
                id="jquery-save-filter-as-from-modal"
                class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
-            <a href="#" onclick="Popup.closeSearch()" style="float:right"
+            <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
                class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
         </div>
@@ -126,31 +126,32 @@
         $(document).ready(function () {
 
 
-                let sharedSectionsTestsFirstTimeRun = false;
+            var sharedSectionsTestsFirstTimeRun = false;
                 if (typeof (sharedSectionsTestsFiltermanager) === 'undefined') {
+                    sharedSectionsTestsFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'name', label: 'Toets', type: 'text'},
+                            {field: 'kind', label: 'Type', type: 'select'},
+                            {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
+                            {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
+                            {field: 'isOpenSourcedContent', label: 'Bron'},
+                            {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
+                            {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
+                        ],
+                        eventScope:'#TestsSharedSections',
+                        formPrefix: '#Test',
+                        table: '#testsTable',
+                        tablefy: {
+                            'source' : '/shared_sections_tests/load',
+                            'filters' : '#TestIndexForm',
+                            'container' : '#testsContainter'
+                        },
+                        filterKey: 'shared_sections_tests',
+                    });
                     sharedSectionsTestsFirstTimeRun = true;
                 }
 
-                sharedSectionsTestsFiltermanager = new FilterManager({
-                    filterFields: [
-                        {field: 'name', label: 'Toets', type: 'text'},
-                        {field: 'kind', label: 'Type', type: 'select'},
-                        {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
-                        {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
-                        {field: 'isOpenSourcedContent', label: 'Bron'},
-                        {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
-                        {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker' },
-                    ],
-                    eventScope:'#TestsSharedSections',
-                    formPrefix: '#Test',
-                    table: '#testsTable',
-                    tablefy: {
-                        'source' : '/shared_sections_tests/load',
-                        'filters' : $('#TestIndexForm'),
-                        'container' : $('#testsContainter')
-                    },
-                    filterKey: 'shared_sections_tests',
-                });
+                
 
             sharedSectionsTestsFiltermanager.init(sharedSectionsTestsFirstTimeRun);
         });

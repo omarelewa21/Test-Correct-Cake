@@ -1,6 +1,6 @@
 <div id="AnalysesStudentOverview">
     <div id="buttons">
-        
+
         <div class='popup' id='popup_search' style="display:none">
                 <div class="popup-head" id="modal-head">Zoeken</div>
                 <div class="popup-content">
@@ -115,12 +115,12 @@ if ($is_temp_teacher) {
 ?>
     <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
 <?
-} else 
+} else
 {
 ?>
 <script type="text/javascript">
     $(document).ready(function () {
-        let analysesStudentOverviewFirstTimeRun = false;
+        var analysesStudentOverviewFirstTimeRun = false;
         if (typeof (analysesStudentOverviewFiltermanager) === 'undefined') {
             analysesStudentOverviewFirstTimeRun = true;
         }
@@ -138,13 +138,13 @@ if ($is_temp_teacher) {
             table: '#studentsTable',
             tablefy: {
                     'source' : '/analyses/load_students_overview',
-                    'container' : $('#studentsContainer'),
-                    'filters' : $('#UserStudentsOverviewForm'),
+                    'container' : '#studentsContainer',
+                    'filters' : '#UserStudentsOverviewForm',
                     'hideEmpty' : true
             },
             filterKey: 'analyses_student_overview',
         });
-        
+
         analysesStudentOverviewFiltermanager.init(analysesStudentOverviewFirstTimeRun);
 
     });

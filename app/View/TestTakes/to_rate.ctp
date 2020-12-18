@@ -45,10 +45,15 @@
                             </div>
                             <div class="col-md-5">
                                 <label>Klas</label>
-                                <?= $this->Form->input('school_class_name', array('label' => false)) ?>
+                                <?=$this->Form->input('school_class_id', array('style' => 'width: 100%','options' => $schoolClasses, 'label' => false,'multiple' => true)) ?>
                             </div>
                         </div>
-                        
+                        <div class="row">
+                            <div class="col-md-5">
+                                <label>Vak</label>
+                                <?=$this->Form->input('subject_id', array('options' => $subjects, 'label' => false)) ?>
+                            </div>
+                        </div>
                     </table>
                     <?= $this->Form->end(); ?>
                 </div>
@@ -60,7 +65,7 @@
                 <a href="#" style="float:right"
                    id="jquery-save-filter-as-from-modal"
                    class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
-                <a href="#" onclick="Popup.closeSearch()" style="float:right"
+                <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
                    class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
             </div>
@@ -143,31 +148,31 @@
         <script type="text/javascript">
             $(document).ready(function () {
 
-                let testtakesToRateFirstTimeRun = false;
+                var testtakesToRateFirstTimeRun = false;
                 if (typeof (testtakesToRateFiltermanager) === 'undefined') {
+                    testtakesToRateFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'periodId', label: 'Periode', type: 'select'},
+                            {field: 'retake', label: 'Type', type: 'select'},
+                            {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
+                            {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
+                            {field: 'archived', label: 'Gearchiveerd', type: 'select'},
+                            {field: 'schoolClassId', label: 'Klas', type: 'multiSelect'},
+                            {field: 'subjectId', label: 'Vak', type: 'select'},
+                        ],
+                        eventScope: '#TestTakesToRate',
+                        formPrefix: '#TestTake',
+                        table: '#testsTable',
+                        tablefy: {
+                            'source': '/test_takes/load_to_rate',
+                            'filters': '#TestTakeToRateForm',
+                            'container': '#testsContainter'
+                        },
+                        filterKey: 'testtakes_to_rate',
+                    });
+
                     testtakesToRateFirstTimeRun = true;
                 }
-
-                testtakesToRateFiltermanager = new FilterManager({
-                    filterFields: [
-                        {field: 'periodId', label: 'Periode', type: 'select'},
-                        {field: 'retake', label: 'Type', type: 'select'},
-                        {field: 'timeStartFrom', label: 'Gepland van', type: 'datePicker'},
-                        {field: 'timeStartTo', label: 'Gepland tot', type: 'datePicker'},
-                        {field: 'archived', label: 'Gearchiveerd', type: 'select'},
-                        {field: 'schoolClassName', label: 'Klas', type: 'text'},
-                    ],
-                    eventScope: '#TestTakesToRate',
-                    formPrefix: '#TestTake',
-                    table: '#testsTable',
-                    tablefy: {
-                        'source': '/test_takes/load_to_rate',
-                        'filters': $('#TestTakeToRateForm'),
-                        'container': $('#testsContainter')
-                    },
-                    filterKey: 'testtakes_to_rate',
-                });
-
 
                 testtakesToRateFiltermanager.init(testtakesToRateFirstTimeRun);
 

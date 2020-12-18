@@ -44,7 +44,7 @@ var User = {
 
 
                 if (activeSchool) {
-                    $('#header #user_school_locations').html(`<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>`);
+                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
                 }
 
 
@@ -193,7 +193,9 @@ var User = {
 
             document.getElementById('active_school').innerHTML = active_location.name;
             Notify.notify('Gewisseld naar school ' + active_location.name);
-            Navigation.load('users/welcome');
+            // disable before unload;
+            window.onbeforeunload = function () {  }
+            window.location.reload();
             // I would rather do refresh but this might break things.
             //Navigation.refresh();
         });

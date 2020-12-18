@@ -7,6 +7,7 @@ App::uses('SchoolClassesService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('TestTakesService', 'Lib/Services');
 App::uses('MessagesService', 'Lib/Services');
+App::uses('HelperFunctions','Lib');
 
 class AnalysesController extends AppController
 {
@@ -37,9 +38,9 @@ class AnalysesController extends AppController
 
         $students = $class['student_users'];
         $teachers = $class['teacher'];
-        $subjects = $class['subjects'];
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars($class['subjects']);
         $subject_stats = $class['subjects_stats'];
-        $parallel_classes = $class['parallel_school_classes'];
+        $parallel_classes = HelperFunctions::getInstance()->revertSpecialChars($class['parallel_school_classes']);
 
         $this->set('students', $students);
         $this->set('teachers', $teachers);
@@ -97,7 +98,7 @@ class AnalysesController extends AppController
     }
 
     public function student($user_id) {
-        $this->set('subjects', $this->TestsService->getSubjects());
+        $this->set('subjects', HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getSubjects()));
 
         $student = $this->UsersService->getUser($user_id, ['with' => ['studentAverageGraph', 'studentSubjectAverages', 'testsParticipated']]);
 
@@ -182,7 +183,14 @@ class AnalysesController extends AppController
     }
 
     public function students_overview() {
-        $subjects = $this->TestsService->getSubjects(false, 'all');
+        $_subjects = $this->TestsService->getSubjects(false, 'all');
+
+        $subjects = [];
+        foreach($_subjects as $subject){
+            $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
+            $subject['base_subject']['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['base_subject']['name']);
+            $subjects[] = $subject;
+        }
         $this->Session->write('subjects', $subjects);
         $this->set('subjects', $subjects);
 
@@ -202,6 +210,8 @@ class AnalysesController extends AppController
         if (!empty($school_classes_list) && is_array($school_classes_list)) {
             $school_classes += $school_classes_list;
         }
+
+        $school_classes = HelperFunctions::getInstance()->revertSpecialChars($school_classes);
 
         $this->set('is_temp_teacher', AuthComponent::user('is_temp_teacher'));
 

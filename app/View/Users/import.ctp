@@ -281,7 +281,7 @@
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
 
-                            let d, row_nr, header;
+                            var d, row_nr, header;
                             [d, row_nr, header] = key.split('.');
                             var column_nr = headers.indexOf(header)
                             var placeholder = parseInt(row_nr) + 1;
@@ -311,8 +311,8 @@
                         }
 
                         if (dataMissingHeaders.length) {
-                            let errorMsg = dataMissingHeaders.map(header => {
-                                let field = dbFields.find(field => {
+                            var errorMsg = dataMissingHeaders.map(header => {
+                                var field = dbFields.find(field => {
                                     return field.column == header
                                 })
                                 return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).';
@@ -322,8 +322,8 @@
 
 
                         if (missingHeaders.length) {
-                            let errorMsg = missingHeaders.map(header => {
-                                let field = dbFields.find(field => {
+                            var errorMsg = missingHeaders.map(header => {
+                                var field = dbFields.find(field => {
                                     return field.column == header
                                 })
                                 return 'De kolom ' + field.name + ' is verplicht.';

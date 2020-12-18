@@ -303,7 +303,7 @@
                         var hasDuplicatesInDatabase = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
                         Object.keys(response.data).forEach( (key, value) => {
-                            let d, row_nr, header, errorMsg;
+                            var d, row_nr, header, errorMsg;
                             [d, row_nr, header] = key.split('.');
 
                             var column_nr = headers.indexOf(header);
@@ -353,8 +353,8 @@
 
 
                         if (missingHeaders.length) {
-                            let errorMsg = missingHeaders.map(header => {
-                                let field = dbFields.find(field => {
+                            var errorMsg = missingHeaders.map(header => {
+                                var field = dbFields.find(field => {
                                     return field.column == header
                                 })
                                 return 'De kolom ' + field.name + ' is verplicht.';

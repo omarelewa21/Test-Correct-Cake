@@ -589,5 +589,46 @@ class UsersService extends BaseService
         }
 
     }
+
+
+    public function resendEmailVerificationMail()
+    {
+        $response = $this->Connector->putRequest('/user/resend_onboarding_welcome_email',[], '');
+
+
+        if ($response === false) {
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+
+                foreach ($err->errors as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $b => $a) {
+                            $this->addAssocError($k, $a);
+                        }
+                    } else {
+                        $this->addAssocError($k, $e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
+
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function getUserWithTlid($tlid)
+    {
+        $response = $this->Connector->getRequest('/temporary_login/' . $tlid, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 }
 
