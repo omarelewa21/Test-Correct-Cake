@@ -75,7 +75,7 @@
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
         Sluiten
     </a>
-    <a href="/logout" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
+    <a onclick="window.close()" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
         Sluiten
     </a>
 </div>
