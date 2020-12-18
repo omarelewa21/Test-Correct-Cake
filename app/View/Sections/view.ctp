@@ -72,7 +72,7 @@
 </div>
 
 <?php foreach($section['subjects'] as $subject) { ?>
-<div class="block autoheight">
+<div class="block ">
     <div class="block-head">Docenten gekoppeld <?=$subject['name']?> </div>
     <div class="block-content">
         <table class="table table-striped" id="usersTable">
@@ -102,3 +102,67 @@
     <div class="block-footer"></div>
 </div>
 <?php } ?>
+
+<div class="block ">
+    <div class="block-head">Sectie gedeeld met</div>
+    <div class="block-content">
+        <table class="table table-striped" id="schoolLocationTable">
+            <thead>
+            <tr>
+                <th>School locatie naam</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach($sharedSchoolLocations as $schoolLocation) { ?>
+
+            <tr>
+                <td> <?= $schoolLocation['name'] ?></td>
+                <td style="text-align:right;">
+                    <a href="#" class="danger" onclick="SharedSectionLocation.delete(<?=getUUID($section, 'getQuoted');?>,<?=getUUID($schoolLocation, 'getQuoted');?>);">
+                        <span class="fa fa-remove mr5"></span>
+
+                    </a>
+                </td>
+            </tr>
+            <?php } ?>
+
+
+            </tbody>
+        </table>
+        <br/>
+        <center>
+        <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_school_location/<?=getUUID($section, 'get');?>', 600);">
+            <span class="icon icon-plus"></span>
+            Nieuwe schoollocatie toevoegen
+        </a>
+        </center>
+
+    </div>
+    <div class="block-footer">
+        <br />
+    </div>
+</div>
+
+<script>
+    var SharedSectionLocation = {
+        delete : function(sectionId,schoolLocationId) {
+
+            Popup.message({
+                btnOk: 'Ja',
+                btnCancel: 'Annuleer',
+                title: 'Weet u het zeker?',
+                message: 'Weet u zeker dat u deze school locatie wilt ontkoppelen?'
+            }, function() {
+                $.ajax({
+                    url: '/sections/delete_shared_section_school_location/' + sectionId+'/'+schoolLocationId,
+                    type: 'DELETE',
+                    success: function(response) {
+                        Notify.notify('De school locatie is ontkoppeld', 'info');
+                        Navigation.refresh();
+                    }
+                });
+            });
+        }
+    };
+</script>

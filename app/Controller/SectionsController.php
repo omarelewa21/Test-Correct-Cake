@@ -3,6 +3,8 @@
 App::uses('AppController', 'Controller');
 App::uses('SectionsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
+app::uses('SharedSectionsService','Lib/Services');
+App::uses('HelperFunctions','Lib');
 
 /**
  * Sections controller
@@ -14,9 +16,48 @@ class SectionsController extends AppController
     {
         $this->SectionsService = new SectionsService();
         $this->SchoolLocationsService = new SchoolLocationsService();
+        $this->SharedSectionsService = new SharedSectionsService();
         parent::beforeFilter();
     }
 
+    public function delete_shared_section_school_location($sectionId,$schoolLocationId)
+    {
+        $this->isAuthorizedAs(['School manager']);
+
+        if($this->request->is('delete')) {
+
+            $result = $this->SharedSectionsService->delete($sectionId, $schoolLocationId);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+    }
+
+    public function add_school_location($sectionId)
+    {
+        $this->isAuthorizedAs(['School manager']);
+
+        if($this->request->is('post') || $this->request->is('put')) {
+
+            $data = $this->request->data['SchoolLocation'];
+
+            $result = $this->SharedSectionsService->add($sectionId, $data);
+
+            $this->formResponse(
+                $result ? true : false,
+                []
+            );
+
+            die;
+        }
+        $schoolLocations = $this->SharedSectionsService->getOptionalSharedShoolLocations($sectionId);
+
+        $this->set('schoolLocations',$schoolLocations);
+    }
 
     public function index() {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
@@ -26,14 +67,30 @@ class SectionsController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $section = $this->SectionsService->getSection($id);
+        $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
+        $subjects = [];
+        foreach($section['subjects'] as $subject){
+            $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
+            $subject['abbreviation'] = HelperFunctions::getInstance()->revertSpecialChars($subject['abbreviation']);
+            $subject['base_subject']['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['base_subject']['name']);
+            $subjects[] = $subject;
+        }
+        $section['subjects'] = $subjects;
+        $sharedSchoolLocations = $this->SharedSectionsService->getSharedSectionSchoolLocations(getUUID($section,'get'),[]);
         $this->set('section', $section);
+        $this->set('sharedSchoolLocations',$sharedSchoolLocations);
     }
 
     public function load() {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $params = $this->request->data;
-        $sections = $this->SectionsService->getSections($params);
+        $_sections = $this->SectionsService->getSections($params);
+        $sections = [];
+        foreach($_sections as $section){
+            $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
+            $sections[] = $section;
+        }
 
         $this->set('sections', $sections);
     }
@@ -56,9 +113,12 @@ class SectionsController extends AppController
         }
 
         $section = $this->SectionsService->getSection($section_id);
+
         $section['Section'] = $section;
-        
+
         $this->request->data = $section;
+
+        $this->request->data['Section']['name'] = HelperFunctions::getInstance()->revertSpecialChars($this->request->data['Section']['name']);
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
     }
@@ -131,6 +191,7 @@ class SectionsController extends AppController
     }
 
     public function edit_subject($subject_id) {
+
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if($this->request->is('post') || $this->request->is('put')) {
@@ -147,6 +208,10 @@ class SectionsController extends AppController
         }
 
         $subject = $this->SectionsService->getSectionSubject($subject_id);
+
+        $subject['name'] = HelperFunctions::getInstance()->revertSpecialChars($subject['name']);
+
+        $subject['abbreviation']= HelperFunctions::getInstance()->revertSpecialChars($subject['abbreviation']);
 
         $this->set('base_subjects', $this->SectionsService->getBaseSubjects());
 

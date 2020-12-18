@@ -215,9 +215,9 @@ class UsersService extends BaseService
         }
     }
 
-    public function switch_school_location($userId, $params)
+    public function move_school_location($userId, $params)
     {
-        $response = $this->Connector->putRequest('/user/switch_school_location/' . $userId, [], $params);
+        $response = $this->Connector->putRequest('/user/move_school_location/' . $userId, [], $params);
 
         if ($response === false) {
             $this->addError($this->Connector->getLastResponse());
@@ -536,6 +536,93 @@ class UsersService extends BaseService
             $data
         );
 
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getSchoolLocationList()
+    {
+        $response = $this->Connector->getRequest('/school_location_user', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function switchSchool($uuid)
+    {
+        $response = $this->Connector->putRequest('/school_location_user', [],['school_location' => $uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getTeachersFromOtherLocations($data)
+    {
+        $response = $this->Connector->getRequest('/school_location_user/existing_teachers', $data);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+
+    }
+
+    public function addExistingTeacherToSchoolLocation($user_uuid) {
+        $response = $this->Connector->postRequest('/school_location_user', [],['user_uuid' => $user_uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+    }
+
+    public function removeExistingTeacherToSchoolLocation($user_uuid) {
+        $response = $this->Connector->deleteRequest('/school_location_user',['user_uuid' => $user_uuid]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+    }
+
+
+    public function resendEmailVerificationMail()
+    {
+        $response = $this->Connector->putRequest('/user/resend_onboarding_welcome_email',[], '');
+
+
+        if ($response === false) {
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+
+                foreach ($err->errors as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $b => $a) {
+                            $this->addAssocError($k, $a);
+                        }
+                    } else {
+                        $this->addAssocError($k, $e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
+
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function getUserWithTlid($tlid)
+    {
+        $response = $this->Connector->getRequest('/temporary_login/' . $tlid, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

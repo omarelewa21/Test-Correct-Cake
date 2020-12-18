@@ -60,7 +60,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     </a>
 
     <?php if($normalization && $take['is_rtti_test_take'] == 1): ?>
-        <a href="#" onclick="updateRTTI('<?=$take_id?>')" title="Exporteren naar RTTI" class="btn white mr2">Exporteren naar RTTI</a>
+        <a href="#" onclick="updateRTTI('<?=$take_id?>')" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
     <? } ?>

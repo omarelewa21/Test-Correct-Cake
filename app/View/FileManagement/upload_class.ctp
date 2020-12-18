@@ -99,20 +99,20 @@
         Popup.closeLast();
     };
 
-    let wistjedatjeTime = 10*1000;
+    var wistjedatjeTime = 10*1000;
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
-    let wistjedatjes = [
+    var wistjedatjes = [
         'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
         'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
         'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
         'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
     ];
-    let wistjedatjesEl = jQuery('#wistjedatjes');
+    var wistjedatjesEl = jQuery('#wistjedatjes');
 
-    let educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
+    var educationLevels = JSON.parse('<?php echo json_encode($educationLevels)?>');
 
-    let requiredFields = ['subject','class'];
+    var requiredFields = ['subject','class'];
 
     function handleSubmit(){
         jQuery('#FileClassForm :input').removeClass('verify-error');

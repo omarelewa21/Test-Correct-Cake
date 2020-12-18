@@ -1,7 +1,6 @@
 <div class="popup-head">Sectie</div>
 <div class="popup-content">
     <?=$this->Form->create('Section') ?>
-
     <table class="table">
         <tr>
             <th width="130">

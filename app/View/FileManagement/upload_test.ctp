@@ -107,6 +107,7 @@
 <script>
 
 
+
                 var uploaded = [];
                 var canSubmit = false;
                 $('#submitbutton').addClass('disabled');

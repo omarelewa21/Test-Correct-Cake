@@ -13,9 +13,10 @@
         Inzien mogelijk tot<br />
         <?=$this->Form->input('show_results', ['type' => 'text', 'class' => 'mt5', 'value' => $take['show_results'] , 'label' => false, 'value' => date('d-m-Y H:i', strtotime('+ 20 min'))])?>
     </div>
+    <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast(); Navigation.load('/test_takes/taken_teacher');">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();"> 
         Niet laten inzien
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
@@ -33,6 +34,11 @@
         }
     }
 
+    function NietLatenInzien(){
+        Popup.closeLast();
+        TestTake.loadDetails(this, '<?=getUUID($take, 'get');?>');
+    }
+
     $('#TestTakeShowResults').datetimepicker({
         format:'d-m-Y H:i'
     });
@@ -42,7 +48,7 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Navigation.load('/test_takes/taken_teacher');
+                TestTake.loadDetails(this, '<?=getUUID($take, 'get');?>');
             },
             onfailure : function(result) {
 

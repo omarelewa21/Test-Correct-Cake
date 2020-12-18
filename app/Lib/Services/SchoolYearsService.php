@@ -34,6 +34,21 @@ class SchoolYearsService extends BaseService
         return $response;
     }
 
+    public function getActiveSchoolYearId()
+    {
+        $response = $this->Connector->getRequest('/school_year_active',[]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        if(!array_key_exists(0, $response)){
+            return '';
+        }
+        if(!array_key_exists('id', $response[0])){
+            return '';
+        }
+        return $response[0]['id'];
+    }
+
     public function addSchoolYear($data) {
         $response = $this->Connector->postRequest('/school_year', [], $data);
 

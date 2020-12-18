@@ -117,7 +117,7 @@
     </div>
 </div>
 
-
+<!--
 <div class="block">
     <div class="block-head">Schoolbeheerders</div>
     <div class="block-content">
@@ -164,7 +164,7 @@
         </center>
     </div>
 </div>
-
+-->
 
 <div class="block">
     <div class="block-head">Contactpersonen</div>
