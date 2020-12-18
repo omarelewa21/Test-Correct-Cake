@@ -754,12 +754,20 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs(['Teacher']);
 
+
         if ($this->request->is('post') || $this->request->is('put')) {
+            $submit = false;
+            if ($this->request->data['submit']) {
+                $submit = $this->request->data['submit'];
+            }
+
             $data = [
-                'data'       => ['email_addresses' => $this->request->data['emailAddresses'], 'message' => $this->request->data['message']],
-                'user_roles' => [1],
+                'data'              => ['email_addresses' => $this->request->data['emailAddresses'], 'message' => $this->request->data['message']],
+                'user_roles'        => [1],
                 'send_welcome_mail' => true,
                 'invited_by'        => AuthComponent::user('id'),
+                'step'              => $this->request->data['step'],
+                'submit'            => $submit
             ];
 
             if (!isset($data['school_location_id'])) {
@@ -767,14 +775,32 @@ class UsersController extends AppController
             }
 
             $result = $this->UsersService->addUserWithTellATeacher('teacher', $data);
+            if ($this->request->data['submit'] == true) {
+
+            }
         }
+
+        if ($this->request->data['message']){
+            $message = $this->request->data['message'];
+        } else {
+            $message = 'Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!';
+        }
+        $this->set('message', $message);
+
+        $errors = json_decode($result)->errors->form[0];
+        $this->set('errors', $errors);
 
         $this->set('email_addresses', $this->request->data['emailAddresses']);
-        if ($this->request->data['step'] === '2' && $this->request->data['go_back']) {
-            $this->set('returned', true);
-            $this->render('tell_a_teacher', 'ajax');
-        }
 
+        if ($submit) {
+            $this->render('tell_a_teacher_complete', 'ajax');
+            return;
+        }
+        if($this->request->data['step'] == 1 && $this->request->data['stepback']){
+            $this->set('stepback', true);
+            $this->render('tell_a_teacher', 'ajax');
+            return;
+        }
         if ($result === true && !empty($this->request->data['emailAddresses'])) {
             $this->render('tell_a_teacher_step_2', 'ajax');
         } else {

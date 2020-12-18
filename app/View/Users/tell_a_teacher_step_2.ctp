@@ -49,15 +49,14 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         </div>
         <div class="tat-content body1">
             <div class="input-group">
-                <textarea id="message" width="200px" height="200px" autofocus
-                          value="">Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!</textarea>
+                <textarea id="message" width="200px" height="200px" autofocus><?php echo $message ?></textarea>
                 <label for="message">Het bericht aan jouw collega's</label>
             </div>
             <div>
                 <input id="lotsOfEmailAddresses" type="hidden" value="<?php echo $email_addresses ?>">
             </div>
             <div style="opacity: 50%;">
-                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem">Maak jouw
+                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem" disabled>Maak jouw
                     gratis account
                 </button>
             </div>
@@ -77,7 +76,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             <circle class="primary" cx="7" cy="7" r="7"/>
         </svg>
     </div>
-    <button id="sendInvitations" class="button button-md primary-button pull-right">Stuur uitnodiging<i
+    <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;">Stuur uitnodiging<i
                 class="fa fa-chevron-right ml10"></i></button>
 </div>
 <?= $this->Form->end(); ?>
@@ -89,14 +88,12 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             e.preventDefault();
             $.ajax({
                     url: '/users/tell_a_teacher',
-                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: '2'},
+                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), submit: true},
                     method: 'POST',
                     success: function (data) {
 
-                        //show success popup
-
                         alert($('#message').val());
-                        console.dir(data);
+                        // $('#popup_' + Popup.index).html(data);
                     },
                     onfailure: function (data) {
                         alert('nah');
@@ -110,9 +107,10 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             e.preventDefault();
             $.ajax({
                 url: '/users/tell_a_teacher',
-                data: {step: '1', go_back: true},
+                data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: 1, stepback: true},
                 method: 'POST',
                 success: function (data) {
+                    console.log(data);
                     $('#popup_' + Popup.index).html(data);
                 }
             })
