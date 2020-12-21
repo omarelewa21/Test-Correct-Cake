@@ -289,7 +289,7 @@ class TestsController extends AppController {
 
             array_push($questionsArray, $question);
         }
-
+        
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();

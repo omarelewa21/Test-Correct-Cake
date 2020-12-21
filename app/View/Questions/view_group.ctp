@@ -70,7 +70,19 @@ if(!empty($group['question']['question'])) {
                                     break;
 
                                 case 'OpenQuestion':
-                                    echo 'Open vraag';
+                                    switch($question['question']['subtype']){
+                                        
+                                        case 'short':
+                                            echo 'Open vraag - kort<br />';
+                                            break;
+                                        case 'long':
+                                        case 'medium':
+                                            echo 'Open vraag - lang<br />';
+                                            break;
+                                        default:
+                                            echo 'Open vraag<br />';
+                                            break;
+                                    }
                                     break;
 
                                 case 'CompletionQuestion':
