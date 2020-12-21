@@ -75,7 +75,10 @@
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
         Sluiten
     </a>
-    <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
+    <a href="/users/logout" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
+        Sluiten
+    </a>
+    <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseElectron" style="display: none;">
         Sluiten
     </a>
 </div>
@@ -126,7 +129,11 @@
         {
             open('/', '_self').close();
         } else if (cmd=='close') {
-            window.close();
+            try {
+                electron.closeApp();
+            } catch (error) {
+                window.close();
+            }
         }
         return false;
     }
@@ -139,6 +146,13 @@
         if(window.navigator.userAgent.indexOf('CrOS') > 0) {
             $('#btnCloseChromebook').show();
         }
+
+        try {
+            if (typeof(electron.closeApp) === typeof(Function)) {
+                $('#btnCloseElectron').show();
+            }
+        } catch (error) {}
+
     }, 500);
 
     $('#UserLoginForm').formify(
