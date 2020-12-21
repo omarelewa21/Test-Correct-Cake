@@ -630,5 +630,12 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getShortcode($userId) {
+        $response = $this->Connector->postRequest('/shortcode', [], ['user_id' => $userId]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

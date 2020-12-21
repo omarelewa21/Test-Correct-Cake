@@ -1,4 +1,5 @@
 <?php
+$shortcodeUrl = 'http://testwelcome.testcorrect.test/inv/' . $shortcode;
 $hasErrors = false;
 if (isset($email_addresses) && !$stepback) {
     $hasErrors = true;
@@ -56,9 +57,14 @@ if (isset($email_addresses) && !$stepback) {
     <?php endif; ?>
     <div class="body2">
         <span class="display-block"> Stuur je liever zelf een e-mail? Deel een link:
-            <a id="copyBtn" onclick="setClipboard('http://testwelcome.testcorrect.test')"
-               class="text-button">email url</a>
-            <img class="inline-block" src="img/ico/copy.svg" alt="">
+            <a id="copyBtn" onclick="setClipboard('<?php echo $shortcodeUrl ?>')"
+               class="text-button"><?php echo $shortcodeUrl ?>
+                <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+                    <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">
+                        <path d="M1.5 9.5V3A1.5 1.5 0 013 1.5h6.5M7 5.5h4A1.5 1.5 0 0112.5 7v4a1.5 1.5 0 01-1.5 1.5H7A1.5 1.5 0 015.5 11V7A1.5 1.5 0 017 5.5z"/>
+                    </g>
+                </svg>
+            </a>
         </span>
     </div>
 </div>
@@ -85,7 +91,7 @@ if (isset($email_addresses) && !$stepback) {
             e.preventDefault();
             $.ajax({
                     url: '/users/tell_a_teacher',
-                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: 2},
+                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: 1},
                     method: 'POST',
                     success: function (data) {
                         $('#popup_' + Popup.index).html(data);

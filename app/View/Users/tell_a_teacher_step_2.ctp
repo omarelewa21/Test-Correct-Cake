@@ -31,7 +31,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             </div>
             <div class="">
                 <h5 class="inline-block">Je collega <?php echo $fullname ?> heeft je uitgenodigd voor Test-Correct</h5>
-                <div class="tat-top-text">
+                <div class="tat-top-text tat-usp">
                     <h6 class="">Samen met je collega's kun je:</h6>
                     <div>
                         <img class="tat-check" src="img/ico/checkmark-small.svg" width="16px" height="16px" alt="">
@@ -55,6 +55,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             <div>
                 <input id="lotsOfEmailAddresses" type="hidden" value="<?php echo $email_addresses ?>">
             </div>
+            <div><?php echo $errors ?></div>
             <div style="opacity: 50%;">
                 <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem" disabled>Maak jouw
                     gratis account
@@ -88,16 +89,10 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             e.preventDefault();
             $.ajax({
                     url: '/users/tell_a_teacher',
-                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), submit: true},
+                    data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: 2},
                     method: 'POST',
                     success: function (data) {
-
-                        alert($('#message').val());
-                        // $('#popup_' + Popup.index).html(data);
-                    },
-                    onfailure: function (data) {
-                        alert('nah');
-                        console.dir(data);
+                        $('#popup_' + Popup.index).html(data);
                     },
                 }
             );

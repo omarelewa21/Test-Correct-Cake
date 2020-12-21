@@ -478,3 +478,18 @@
 .terug-btn > svg > path {
     stroke: var(--system-base) !important;
 }
+
+.email-preview-body .tat-usp {
+    margin: 0;
+}
+.email-preview-body .tat-usp span {
+    width: 320px;
+    margin-bottom: 8px;
+}
+
+#copyBtn g {
+    stroke: var(--system-base);
+}
+#copyBtn:hover g{
+ stroke: var(--primary)
+}
