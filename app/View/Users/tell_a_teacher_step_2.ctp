@@ -35,12 +35,12 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 <span class="body">Het bericht moet minimaal 10 karakters lang zijn.</span>
             </div>
         <?php endif; ?>
-        <div class="tat-head">
+        <div class="tat-head border-radius-bottom-0">
             <div class="tat-top-logo">
                 <img width="164px" height="30px" src="img/Logo-Test-Correct-wit.svg" alt="">
             </div>
             <div class="">
-                <h5 class="inline-block">Je collega <?php echo $fullname ?> heeft je uitgenodigd voor Test-Correct</h5>
+                <h5 class="inline-block" style="margin-bottom: 16px!important;">Je collega <?php echo $fullname ?> heeft je uitgenodigd voor Test-Correct</h5>
                 <div class="tat-top-text tat-usp">
                     <h6 class="">Samen met je collega's kun je:</h6>
                     <div>

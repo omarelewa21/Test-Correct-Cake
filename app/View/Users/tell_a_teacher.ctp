@@ -5,7 +5,7 @@ if (isset($email_addresses) && !$stepback) {
     $hasErrors = true;
 } ?>
 
-<div class="popup-head tat-head">
+<div class="popup-head tat-head border-radius-bottom-0">
     <div class="close">
         <a href="#" onclick="Popup.closeLast()"><img src="img/ico/close.svg" alt=""></a>
     </div>
@@ -29,7 +29,7 @@ if (isset($email_addresses) && !$stepback) {
     <img src="img/Collegas-aan-tafel.svg" width="295px" height="209px" alt="">
 </div>
 <?= $this->Form->create('User') ?>
-<div class="popup-content tat-content body1">
+<div class="popup-content tat-content body1" style="padding-top: 16px!important;">
     <span class="mb-4 display-block">Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken.</span>
 
     <div class="input-group <?php if ($hasErrors) {

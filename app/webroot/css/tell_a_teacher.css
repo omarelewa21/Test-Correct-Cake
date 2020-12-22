@@ -494,3 +494,8 @@
 #copyBtn:hover g{
  stroke: var(--primary)
 }
+
+.border-radius-bottom-0 {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
