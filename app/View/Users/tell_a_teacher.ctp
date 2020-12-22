@@ -1,5 +1,5 @@
 <?php
-$shortcodeUrl = 'http://testwelcome.testcorrect.test/inv/' . $shortcode;
+$shortcodeUrl = $url . $shortcode;
 $hasErrors = false;
 if (isset($email_addresses) && !$stepback) {
     $hasErrors = true;

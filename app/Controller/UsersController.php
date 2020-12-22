@@ -788,16 +788,28 @@ class UsersController extends AppController
             $message = 'Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!';
         }
         $this->set('message', $message);
-        $errors = json_decode($result)->errors->form[0];
-        $this->set('errors', $errors);
+        $errors = json_decode($result)->errors;
+        $this->set('errors', $errors->form[0]);
         $this->set('email_addresses', $this->request->data['emailAddresses']);
         $this->set('shortcode', $shortcode['data']['code']);
+        $this->set('url', $shortcode['url']);
 
-        if ($this->request->data['step'] == 2 && $result === true) {
+
+        if ($this->request->data['step'] == 2 && $errors === null) {
             $this->render('tell_a_teacher_complete', 'ajax');
             return;
         }
 
+        if ($this->request->data['step'] == 2 && array_key_exists('data.message', $errors) && $message == '') {
+            $this->set('messageEmpty', true);
+            $this->render('tell_a_teacher_step_2', 'ajax');
+            return;
+        }
+        if ($this->request->data['step'] == 2 && array_key_exists('data.message', $errors)) {
+            $this->set('messageShort', true);
+            $this->render('tell_a_teacher_step_2', 'ajax');
+            return;
+        }
         if ($this->request->data['step'] == 1 && $this->request->data['stepback']) {
             $this->set('stepback', true);
             $this->render('tell_a_teacher', 'ajax');
@@ -811,7 +823,8 @@ class UsersController extends AppController
 
     }
 
-    public function add($type, $parameter1 = null, $parameter2 = null)
+    public
+    function add($type, $parameter1 = null, $parameter2 = null)
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
@@ -932,7 +945,8 @@ class UsersController extends AppController
         $this->render('add_' . $type, 'ajax');
     }
 
-    public function delete($user_id)
+    public
+    function delete($user_id)
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
@@ -945,7 +959,8 @@ class UsersController extends AppController
         }
     }
 
-    public function menu()
+    public
+    function menu()
     {
         $roles = AuthComponent::user('roles');
 
@@ -996,7 +1011,8 @@ class UsersController extends AppController
         $this->set('menus', $menus);
     }
 
-    public function tiles()
+    public
+    function tiles()
     {
         $roles = AuthComponent::user('roles');
 
@@ -1416,7 +1432,8 @@ class UsersController extends AppController
         $this->set('tiles', $tiles);
     }
 
-    public function password_reset()
+    public
+    function password_reset()
     {
         if ($this->request->is('post')) {
             $this->autoRender = false;
@@ -1446,7 +1463,8 @@ class UsersController extends AppController
         }
     }
 
-    public function info()
+    public
+    function info()
     {
         $this->autoRender = false;
         $info = AuthComponent::user();
@@ -1500,12 +1518,14 @@ class UsersController extends AppController
         echo json_encode($return);
     }
 
-    public function import($type)
+    public
+    function import($type)
     {
 
     }
 
-    public function doImport($type)
+    public
+    function doImport($type)
     {
         $data['data'] = $this->request->data;
 
@@ -1517,7 +1537,8 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public function doImportTeachers()
+    public
+    function doImportTeachers()
     {
         $data['data'] = $this->request->data;
 
@@ -1530,7 +1551,8 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public function setActiveSchoolLocation($uuid)
+    public
+    function setActiveSchoolLocation($uuid)
     {
 //        if (! $this->isAuthorizedAs(['Teacher']) ) {
 //            $this->formResponse(false, '');
@@ -1547,7 +1569,8 @@ class UsersController extends AppController
 
     }
 
-    public function add_existing_teachers()
+    public
+    function add_existing_teachers()
     {
 //        if (!$this->isAuthorizedAs('Administrator') ) {
 //            $this->formResponse(false, 'U heeft onvoldoende rechten om dit te mogen uitvoeren');
@@ -1564,7 +1587,8 @@ class UsersController extends AppController
 
     }
 
-    public function load_existing_teachers()
+    public
+    function load_existing_teachers()
     {
         $params = $this->request->data;
 
@@ -1595,7 +1619,8 @@ class UsersController extends AppController
 //        }
     }
 
-    public function add_existing_teacher_to_schoolLocation()
+    public
+    function add_existing_teacher_to_schoolLocation()
     {
         $this->isAuthorizedAs(['School manager']);
 
@@ -1609,7 +1634,8 @@ class UsersController extends AppController
         }
     }
 
-    public function delete_existing_teacher_from_schoolLocation()
+    public
+    function delete_existing_teacher_from_schoolLocation()
     {
         $this->isAuthorizedAs(['School manager']);
 
@@ -1624,7 +1650,8 @@ class UsersController extends AppController
     }
 
 
-    public function resendEmailVerificationMail()
+    public
+    function resendEmailVerificationMail()
     {
         $this->isAuthorizedAs(["Teacher"]);
 
@@ -1639,7 +1666,8 @@ class UsersController extends AppController
         die();
     }
 
-    public function temporary_login($tlid)
+    public
+    function temporary_login($tlid)
     {
         $result = $this->UsersService->getUserWithTlid($tlid);
         $this->Auth->login($result);

@@ -25,6 +25,16 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 </svg>
                 Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan</span>
         </div>
+        <?php if ($messageEmpty): ?>
+            <div class="notification notification-shadow error mb16">
+                <span class="body">Het bericht is verplicht.</span>
+            </div>
+        <?php endif; ?>
+        <?php if ($messageShort): ?>
+            <div class="notification notification-shadow error mb16">
+                <span class="body">Het bericht moet minimaal 10 karakters lang zijn.</span>
+            </div>
+        <?php endif; ?>
         <div class="tat-head">
             <div class="tat-top-logo">
                 <img width="164px" height="30px" src="img/Logo-Test-Correct-wit.svg" alt="">
@@ -55,9 +65,9 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             <div>
                 <input id="lotsOfEmailAddresses" type="hidden" value="<?php echo $email_addresses ?>">
             </div>
-            <div><?php echo $errors ?></div>
             <div style="opacity: 50%;">
-                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem" disabled>Maak jouw
+                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem" disabled>Maak
+                    jouw
                     gratis account
                 </button>
             </div>
@@ -65,7 +75,6 @@ if (!empty(AuthComponent::user('name_suffix'))) {
     </div>
 
 </div>
-
 <div class="popup-footer tat-footer">
     <a id="backToStep1" class="text-button button pull-left terug-btn"><i class="fa fa-chevron-left mr10"></i>Terug naar
         e-mailadressen invullen</a>
@@ -77,7 +86,8 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             <circle class="primary" cx="7" cy="7" r="7"/>
         </svg>
     </div>
-    <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;">Stuur uitnodiging<i
+    <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;">Stuur
+        uitnodiging<i
                 class="fa fa-chevron-right ml10"></i></button>
 </div>
 <?= $this->Form->end(); ?>
@@ -102,7 +112,12 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             e.preventDefault();
             $.ajax({
                 url: '/users/tell_a_teacher',
-                data: {emailAddresses: $('#lotsOfEmailAddresses').val(), message: $('#message').val(), step: 1, stepback: true},
+                data: {
+                    emailAddresses: $('#lotsOfEmailAddresses').val(),
+                    message: $('#message').val(),
+                    step: 1,
+                    stepback: true
+                },
                 method: 'POST',
                 success: function (data) {
                     console.log(data);

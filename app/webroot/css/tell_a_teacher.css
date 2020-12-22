@@ -426,8 +426,9 @@
 
 .notification.error {
     background: #FFEDEB;
-    border-color: #EBCCC8;
-    color: #CF1B04
+    border: solid 1px #EBCCC8!important;
+    color: #CF1B04;
+    border-radius: 5px;
 }
 
 .warning {
