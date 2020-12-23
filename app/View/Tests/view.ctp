@@ -189,7 +189,7 @@
                                             break;
 
                                         case 'OpenQuestion':
-                                            switch($question['question']['subtype']){
+                                            switch($subquestion['question']['subtype']){
                                                 
                                                 case 'short':
                                                     echo 'Open vraag - kort<br />';
