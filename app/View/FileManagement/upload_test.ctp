@@ -45,18 +45,7 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td><label>Correctiemodel toegevoegd?</label></td>
-                    <td>
-                        <?= $this->Form->input('correctiemodel', array('id'=>'correctiemodel','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Een enkele of meerdere toetsen?</label></td>
-                    <td>
-                        <?= $this->Form->input('multiple', array('id'=>'multiple','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
-                    </td>
-                </tr>
+               
                 <tr>
                     <td>Kies één of meerdere bestanden en <br>klik rechts om te uploaden</td>
                     <td>
@@ -78,6 +67,18 @@
                             });
                         </script>
                         
+                    </td>
+                </tr>
+                 <tr>
+                    <td><label>Correctiemodel toegevoegd?</label></td>
+                    <td>
+                        <?= $this->Form->input('correctiemodel', array('id'=>'correctiemodel','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Een enkele of meerdere toetsen?</label></td>
+                    <td>
+                        <?= $this->Form->input('multiple', array('id'=>'multiple','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
                     </td>
                 </tr>
             </table>
