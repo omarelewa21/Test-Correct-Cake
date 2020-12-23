@@ -56,8 +56,8 @@
 .tat-complete .tat-top-text {
     max-width: none;
 }
-.popup, .tat-complete, .tat-head {
-    border-radius: 10px;
+.tat-complete, .tat-head {
+    border-radius: 3px;
 }
 .bold {
     font-weight: 700;

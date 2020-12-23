@@ -112,6 +112,7 @@ if (isset($email_addresses) && !$stepback) {
         tempInput.select();
         document.execCommand("copy");
         document.body.removeChild(tempInput);
+        Notify.notify("Link gekopieerd", "info");
     }
 
 </script>
