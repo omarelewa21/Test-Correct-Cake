@@ -44,7 +44,7 @@ if (isset($email_addresses) && !$stepback) {
         <input id="message" type="hidden" value="<?php echo $message ?>">
     </div>
     <div>
-        <span class="display-block tip">Separeer meerdere e-mailadressen met puntkomma's</span>
+        <span class="display-block tip">Separeer meerdere e-mailadressen met komma's of puntkomma's</span>
     </div>
     <?php if ($hasErrors): ?>
         <div class="notification error mb16">
