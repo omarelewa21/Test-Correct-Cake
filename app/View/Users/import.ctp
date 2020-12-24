@@ -273,7 +273,7 @@
                         jQuery('#output').html('');
                         jQuery('.showAfterProcess').hide();
                         Notify.notify('De docenten zijn succesvol geimporteerd', 'success');
-                        Navigation.load('/users/index/students');
+                        Navigation.load('/users/index/teachers');
                     } else {
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
