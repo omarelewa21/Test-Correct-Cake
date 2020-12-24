@@ -162,10 +162,15 @@ class SchoolClassesController extends AppController
 
             $result = $this->SchoolClassesService->addClass($data);
 
-            if ($result == 'Double class names for same year.' || $result == 'Failed to create school class') {
+            if ($result == 'Double class names for same year.') {
                 $this->formResponse(
                     false,
-                    []
+                    'De opgegeven klasnaam bestaat al in dit schooljaar'
+                );
+            } elseif($result == 'Failed to create school class') {
+                $this->formResponse(
+                    false,
+                    'Klas kon niet worden aangemaakt'
                 );
             } else {
                 $this->formResponse(
