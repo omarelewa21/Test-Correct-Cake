@@ -99,7 +99,7 @@ foreach($education_levels as $education_level) {
                 Navigation.load('/school_classes/view/' + result.uuid)
             },
             onfailure : function(result) {
-                Notify.notify("SchoolYear kon niet worden aangemaakt", "error");
+                Notify.notify(result, "error");
             }
         }
     );
