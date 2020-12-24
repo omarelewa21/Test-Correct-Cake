@@ -208,7 +208,7 @@
                                         }
                                         ;
                                     }
-                                    console.log('changed');
+                                    
                                 });
                     });
                     FileTestSetupRun = true;
@@ -244,21 +244,21 @@
                             uploaded[file.id] = file.filename
                             var canSubmit = false;
                             $('#submitbutton').addClass('disabled');
-                            console.log('cant submit');
+                            
                         },
                         onprocessfile: function (error, file) {
                             if (error === null)
-                                console.log('File processed: [' + error + ']   file: [' + file.id + ']');
-                            console.log('cant submit ' + canSubmit);
+                               
+                            
                         },
                         onremovefile: function (error, file) {
                             if (file.id in uploaded)
                                 delete uploaded[file.id];
                         },
                         onprocessfiles: function () {
-                            console.log('all files done');
+                         
                             canSubmit = true;
-                            console.log('cant submit!');
+                           
                             $('#submitbutton').removeClass('disabled');
                         },
                         fileMetadataObject: {
@@ -266,7 +266,7 @@
                         }
                     });
 
-// Easy console access for testing purposes
+
                     window.pond = pond;
                 });
 </script>
