@@ -244,13 +244,18 @@ class TestsService extends BaseService {
         return $periods;
     }
 
-    public function getSubjects($personal = false, $mode = 'list') {
+    public function getSubjects($personal = false, $mode = 'list', $params = []) {
 
         if($personal) {
-            $params['filter'] = [
-                'user_id' => AuthComponent::user()['id']
-            ];
+            if(isset($params['filter'])){
+                $params['filter']['user_id'] = AuthComponent::user()['id'];
+            } else {
+                $params['filter'] = [
+                    'user_id' => AuthComponent::user()['id']
+                ];
+            }
         }
+
         $params['mode'] = $mode;
 
         $response = $this->Connector->getRequest('/subject', $params);

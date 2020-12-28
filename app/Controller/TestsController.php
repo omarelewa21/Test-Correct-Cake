@@ -132,7 +132,7 @@ class TestsController extends AppController {
 
         $kinds            = $this->TestsService->getKinds();
         $periods          = $this->TestsService->getPeriods(false, $params);
-        $subjects         = $this->TestsService->getSubjects(true,'year');
+        $subjects         = $this->TestsService->getSubjects(false,'list',['filter' => ['user_current' => AuthComponent::user()['id']]]);
         $education_levels = $this->TestsService->getEducationLevels(false);
 
         $this->set('kinds', $kinds);
