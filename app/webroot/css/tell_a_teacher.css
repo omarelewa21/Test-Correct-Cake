@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap');
 
 :root {
     --cta-primary: #3DBB56;
     --cta-primary-mid-dark: #27973D;
     --cta-primary-dark: #006314;
     --cta-secondary: #004DF5;
-    --primary: #004df5;
+    --primary: #004DF5;
     --secondary: #ECD900;
     --highlight-primary: #ECD900;
     --system-base: #041F74;
@@ -52,6 +52,8 @@
     clip-path: none;
     min-height: 0;
     border: 0!important;
+    box-shadow: 0 3px 18px rgba(4, 31, 116, 0.3);
+
 }
 .tat-complete .tat-top-text {
     max-width: none;
@@ -59,8 +61,12 @@
 .tat-complete, .tat-head {
     border-radius: 3px;
 }
+.tat-complete .close:hover {
+    opacity: 60%;
+}
+
 .bold {
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .tat-content a, .tat-footer a {
@@ -80,7 +86,8 @@
 }
 
 .tat-head h1 {
-    font-size: 32px;
+    font-size: 2rem;
+    font-weight: 600;
     line-height: 2rem;
     margin-top: 5px;
     vertical-align: top;
@@ -88,31 +95,32 @@
 
 .tat-head h5 {
     font-family: 'Nunito', sans-serif;
-    font-size: 20px;
+    font-size: 1.25rem;
     margin: 0;
 }
 
 .tat-head h6 {
     font-weight: bold;
-    font-size: 18px;
+    font-size: 1.125rem;
     margin: 0 0 8px;
 }
 
 .tat-check {
     margin-right: 5px;
-    margin-top: 3px;
+    margin-top: 8px;
     vertical-align: top;
 }
 
 .body1 {
-    font-size: 18px;
-    line-height: 18px;
-    margin-bottom: 8px;
+    font-size: 1.125rem;
+    line-height: 2rem;
+    font-weight: 400;
 }
 
 .body2 {
     font-family: 'Nunito', sans-serif;
-    font-size: 16px;
+    font-size: 1rem;
+    line-height: 1.5rem;
     color: var(--system-base);
 }
 
@@ -125,6 +133,12 @@
     position: absolute;
     right: 20px;
     top: 20px;
+}
+.tat-head .close g {
+    stroke: white;
+}
+.tat-head .close:hover g {
+    stroke: var(--primary);
 }
 
 .tat-top-img {
@@ -177,9 +191,7 @@
 }
 
 .tat-content label {
-    font-size: 18px;
-    line-height: 18px;
-    margin-bottom: 8px;
+    font-size: 1rem;
 }
 
 .tat-content textarea {
@@ -187,12 +199,13 @@
     border-radius: 8px;
     background: var(--off-white);
     border: 1px solid var(--blue-grey);
-    font-size: 16px;
+    font-size: 1rem;
     min-height: 100px;
     transition: 150ms ease-in-out;
     color: var(--system-base);
     font-family: 'Nunito', sans-serif;
-    resize: vertical;
+    resize: none;
+    width: auto;
 }
 
 .tat-content textarea:hover {
@@ -248,12 +261,16 @@
     color: var(--light-grey);
     fill: var(--light-grey);
 }
+.system-secondary {
+    color: var(--system-secondary);
+    fill: var(--system-secondary);
+}
 
 .button {
     border-radius: 10px;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-family: 'Nunito', sans-serif;
-    font-weight: 700;
+    font-weight: 600;
     padding: 0 20px 0 20px;
     border: none;
 }
@@ -269,7 +286,7 @@
     font-family: 'Nunito', sans-serif;
     border: none;
     background: none;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: bold;
     cursor: pointer;
 }
@@ -360,6 +377,13 @@
     top: 20px;
     z-index: 2;
 }
+.email-preview .close g {
+    stroke: var(--system-base);
+}
+.email-preview .close:hover g,.email-preview .close:focus g,.email-preview .close:active g {
+    stroke: var(--primary);
+    outline: none;
+}
 
 .email-preview .tat-head {
     border-top-left-radius: 5px;
@@ -380,13 +404,13 @@
     position: absolute;
     background: white;
     width: 100%;
-    height: 340px;
+    height: 380px;
     opacity: 50%;
     top: 0px;
     z-index: 1;
 }
 
-.email-preview-body .notification {
+.email-preview-body .fixed-notification {
     font-family: 'Nunito', sans-serif;
     border-radius: 4px;
     display: inline-block;
@@ -406,7 +430,8 @@
 .email-preview-body .notification > .body {
     font-size: 1rem;
     font-weight: bold;
-    display: block;
+    display: flex;
+    justify-content: center;
     line-height: 1.5rem;
 }
 
@@ -424,7 +449,7 @@
     line-height: 1.5rem;
 }
 
-.notification.error {
+.popup-head .notification.error, .popup-content .notification.error {
     background: #FFEDEB;
     border: solid 1px #EBCCC8!important;
     color: #CF1B04;
@@ -485,7 +510,6 @@
 }
 .email-preview-body .tat-usp span {
     width: 320px;
-    margin-bottom: 8px;
 }
 
 #copyBtn g {

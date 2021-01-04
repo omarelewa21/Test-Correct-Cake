@@ -11,13 +11,19 @@ if (!empty(AuthComponent::user('name_suffix'))) {
 <?= $this->Form->create('User') ?>
 <div class="popup-head email-preview padding-20">
     <div class="close">
-        <a href="#" onclick="Popup.closeLast()"><img src="img/ico/close-base.svg" alt=""></a>
+        <a href="#" onclick="Popup.closeLast()"><svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">
+                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>
+                </g>
+            </svg>
+        </a>
     </div>
     <div class="email-preview-body">
         <div class="overlay"></div>
-        <div class="notification notification-shadow warning">
+        <div class="fixed-notification notification notification-shadow warning">
             <span class="body">
-                <svg width="4" height="14" xmlns="http://www.w3.org/2000/svg">
+                <svg style="align-self: center;margin-right: .5rem;" width="4" height="14"
+                     xmlns="http://www.w3.org/2000/svg">
                     <g class="attention" fill-rule="evenodd">
                         <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>
                         <circle cx="2" cy="12" r="2"/>
@@ -25,22 +31,13 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 </svg>
                 Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan</span>
         </div>
-        <?php if ($messageEmpty): ?>
-            <div class="notification notification-shadow error mb16">
-                <span class="body">Het bericht is verplicht.</span>
-            </div>
-        <?php endif; ?>
-        <?php if ($messageShort): ?>
-            <div class="notification notification-shadow error mb16">
-                <span class="body">Het bericht moet minimaal 10 karakters lang zijn.</span>
-            </div>
-        <?php endif; ?>
         <div class="tat-head border-radius-bottom-0">
             <div class="tat-top-logo">
                 <img width="164px" height="30px" src="img/Logo-Test-Correct-wit.svg" alt="">
             </div>
             <div class="">
-                <h5 class="inline-block" style="margin-bottom: 16px!important;">Je collega <?php echo $fullname ?> heeft je uitgenodigd voor Test-Correct</h5>
+                <h5 class="inline-block" style="margin-bottom: 16px!important;">Je collega <?php echo $fullname ?> heeft
+                    je uitgenodigd voor Test-Correct</h5>
                 <div class="tat-top-text tat-usp">
                     <h6 class="">Samen met je collega's kun je:</h6>
                     <div>
@@ -62,18 +59,21 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 <textarea id="message" width="200px" height="200px" autofocus><?php echo $message ?></textarea>
                 <label for="message">Het bericht aan jouw collega's</label>
             </div>
+            <?php if ($errorMessage): ?>
+                <div class="notification error mt8">
+                    <span class="body"><?php echo $errorMessage ?></span>
+                </div>
+            <?php endif; ?>
             <div>
                 <input id="lotsOfEmailAddresses" type="hidden" value="<?php echo $email_addresses ?>">
             </div>
             <div style="opacity: 50%;">
-                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: 1rem" disabled>Maak
-                    jouw
-                    gratis account
+                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: .5rem" disabled>Maak
+                    jouw gratis account
                 </button>
             </div>
         </div>
     </div>
-
 </div>
 <div class="popup-footer tat-footer">
     <a id="backToStep1" class="text-button button pull-left terug-btn"><i class="fa fa-chevron-left mr10"></i>Terug naar
@@ -87,8 +87,13 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         </svg>
     </div>
     <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;">Stuur
-        uitnodiging<i
-                class="fa fa-chevron-right ml10"></i></button>
+        uitnodiging<svg style="margin-left: 10px" width="14" height="13" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke="#ffffff" stroke-width="3">
+                <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5"/>
+            </g>
+        </svg>
+
+    </button>
 </div>
 <?= $this->Form->end(); ?>
 
