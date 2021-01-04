@@ -86,7 +86,7 @@ foreach($education_levels as $education_level) {
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("SchoolYear kon niet worden aangemaakt", "error");
+                Notify.notify(result, "error");
             }
         }
     );
