@@ -162,12 +162,15 @@ class SchoolClassesController extends AppController
 
             $result = $this->SchoolClassesService->addClass($data);
 
-            if ($result == 'Double class names for same year.') {
-                $this->formResponse(
-                    false,
-                    'De opgegeven klasnaam bestaat al in dit schooljaar'
-                );
-            } elseif($result == 'Failed to create school class') {
+            $decodedResult = json_decode($result);
+            if (array_key_exists('errors', $decodedResult)) {
+                if (array_key_exists('name', $decodedResult->errors)) {
+                    $this->formResponse(
+                        false,
+                        $decodedResult->errors->name[0]
+                    );
+                }
+            } elseif ($result == 'Failed to create school class') {
                 $this->formResponse(
                     false,
                     'Klas kon niet worden aangemaakt'
@@ -213,10 +216,20 @@ class SchoolClassesController extends AppController
 
             $result = $this->SchoolClassesService->updateClass($class_id, $data);
 
-            $this->formResponse(
-                $result ? true : false,
-                []
-            );
+            $decodedResult = json_decode($result);
+            if (array_key_exists('errors', $decodedResult)) {
+                if (array_key_exists('name', $decodedResult->errors)) {
+                    $this->formResponse(
+                        false,
+                        $decodedResult->errors->name[0]
+                    );
+                }
+            } else {
+                $this->formResponse(
+                    true,
+                    []
+                );
+            }
 
             die;
         }
