@@ -793,20 +793,14 @@ class UsersController extends AppController
         $this->set('email_addresses', $this->request->data['emailAddresses']);
         $this->set('shortcode', $shortcode['data']['code']);
         $this->set('url', $shortcode['url']);
-
+        $dataMessage = 'data.message';
 
         if ($this->request->data['step'] == 2 && $errors === null) {
             $this->render('tell_a_teacher_complete', 'ajax');
             return;
         }
-
-        if ($this->request->data['step'] == 2 && array_key_exists('data.message', $errors) && $message == '') {
-            $this->set('messageEmpty', true);
-            $this->render('tell_a_teacher_step_2', 'ajax');
-            return;
-        }
-        if ($this->request->data['step'] == 2 && array_key_exists('data.message', $errors)) {
-            $this->set('messageShort', true);
+        if ($this->request->data['step'] == 2 && property_exists($errors, 'data.message')) {
+            $this->set('errorMessage', $errors->$dataMessage[0]);
             $this->render('tell_a_teacher_step_2', 'ajax');
             return;
         }
@@ -820,7 +814,6 @@ class UsersController extends AppController
         } else {
             $this->render('tell_a_teacher', 'ajax');
         }
-
     }
 
     public
