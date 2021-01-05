@@ -47,7 +47,7 @@ class TestsController extends AppController {
 
         //$education_levels = [0 => 'Alle'] + $education_levels;
         $periods = [0 => 'Alle'] + $periods;
-//        $subjects = [0 => 'Alle'] + $subjects;
+        //$subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
         $this->set('education_levels', $education_levels);
@@ -132,7 +132,7 @@ class TestsController extends AppController {
 
         $kinds            = $this->TestsService->getKinds();
         $periods          = $this->TestsService->getPeriods(false, $params);
-        $subjects         = $this->TestsService->getSubjects(true);
+        $subjects         = $this->TestsService->getCurrentSubjectsForTeacher();
         $education_levels = $this->TestsService->getEducationLevels(false);
 
         $this->set('kinds', $kinds);
