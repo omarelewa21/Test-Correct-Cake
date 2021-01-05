@@ -45,22 +45,11 @@
                     </td>
                 </tr>
 
-                <tr>
-                    <td><label>Correctiemodel toegevoegd?</label></td>
-                    <td>
-                        <?= $this->Form->input('correctiemodel', array('id'=>'correctiemodel','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
-                    </td>
-                </tr>
-                <tr>
-                    <td><label>Een enkele of meerdere toetsen?</label></td>
-                    <td>
-                        <?= $this->Form->input('multiple', array('id'=>'multiple','type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
-                    </td>
-                </tr>
+
                 <tr>
                     <td>Kies één of meerdere bestanden en <br>klik rechts om te uploaden</td>
                     <td>
-                        <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' =>$form_id)) ?>
+                        <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' => $form_id)) ?>
                         <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
                         <script>
                             [
@@ -77,7 +66,19 @@
                                 document.write('<script src="' + p.fill + '"><\/script>');
                             });
                         </script>
-                        
+
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Correctiemodel toegevoegd?</label></td>
+                    <td>
+                        <?= $this->Form->input('correctiemodel', array('id' => 'correctiemodel', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label>Een enkele of meerdere toetsen?</label></td>
+                    <td>
+                        <?= $this->Form->input('multiple', array('id' => 'multiple', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
                     </td>
                 </tr>
             </table>
@@ -140,29 +141,29 @@
 
 
                 function handleSubmit() {
-                    
-                    if($('#correctiemodel').val() == "-1") {
+
+                    if ($('#correctiemodel').val() == "-1") {
                         window.parent.handleUploadError("Er dient een correctiemodel mee gestuurd te worden");
                         return false;
                     }
-                    
-                    if($('#multiple').val() == "-1") {
+
+                    if ($('#multiple').val() == "-1") {
                         window.parent.handleUploadError("Er kan maximaal 1 toets per keer geupload worden");
                         return false;
                     }
-                    
-                    if($('#subject').val() == "") {
+
+                    if ($('#subject').val() == "") {
                         window.parent.handleUploadError("U heeft geen vaknaam ingevuld");
                         return false;
                     }
-                    
-                    if($('#name').val() == "") {
+
+                    if ($('#name').val() == "") {
                         window.parent.handleUploadError("U heeft geen toetsnaam ingevuld");
                         return false;
                     }
-                    
+
                     if (!canSubmit) {
-                        
+
                         window.parent.handleUploadError("Niet alle bestanden zijn geupload of er zijn geen bestanden gekozen");
                         return false;
 
@@ -207,7 +208,7 @@
                                         }
                                         ;
                                     }
-                                    console.log('changed');
+                                    
                                 });
                     });
                     FileTestSetupRun = true;
@@ -236,28 +237,28 @@
                     });
 
                     FilePond.setOptions({
-                        server: '/filemanagement/upload_test',
+                        server: '/FileManagement/upload_test',
                         instantUpload: false,
                         checkValidity: true,
                         onaddfile: function (error, file) {
                             uploaded[file.id] = file.filename
                             var canSubmit = false;
                             $('#submitbutton').addClass('disabled');
-                            console.log('cant submit');
+                            
                         },
                         onprocessfile: function (error, file) {
                             if (error === null)
-                                console.log('File processed: [' + error + ']   file: [' + file.id + ']');
-                            console.log('cant submit ' + canSubmit);
+                               
+                            
                         },
                         onremovefile: function (error, file) {
                             if (file.id in uploaded)
                                 delete uploaded[file.id];
                         },
                         onprocessfiles: function () {
-                            console.log('all files done');
+                         
                             canSubmit = true;
-                            console.log('cant submit!');
+                           
                             $('#submitbutton').removeClass('disabled');
                         },
                         fileMetadataObject: {
@@ -265,7 +266,7 @@
                         }
                     });
 
-// Easy console access for testing purposes
+
                     window.pond = pond;
                 });
 </script>
