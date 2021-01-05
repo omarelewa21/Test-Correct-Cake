@@ -35,7 +35,13 @@ foreach($users as $user) {
                     }
                     ?>
 
-
+            <a class="btn white pull-right" href="#">
+                <?php if(empty($user['account_verified'])) { ?>
+                    <span title="Niet geverifieerd" class="fa fa-times"></span>
+                <?php }else { ?>
+                    <span title="Geverifieerd" class="fa fa-check"></span>
+                <?php } ?>
+            </a>
         </td>
     </tr>
     <?
