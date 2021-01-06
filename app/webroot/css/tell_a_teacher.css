@@ -234,8 +234,7 @@
 }
 
 .tat-content .tip {
-    margin-top: 8px;
-    margin-bottom: 16px;
+    margin: 8px 0;
     color: var(--mid-grey);
     font-size: 14px;
 }
@@ -439,7 +438,7 @@
     font-family: 'Nunito', sans-serif;
     border-radius: 4px;
     border: solid 1px;
-    padding: 16px;
+    padding: 8px 16px;
 }
 
 .tat-content .notification > .body {
