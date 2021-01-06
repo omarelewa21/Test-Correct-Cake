@@ -47,7 +47,11 @@
 
 
                 <tr>
-                    <td>Kies één of meerdere bestanden en <br>klik rechts om te uploaden</td>
+                    <td>Kies één of meerdere bestanden en <br>klik dan op de 
+                        <svg width="26" height="26" viewBox="0 -8 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z" fill="currentColor" fill-rule="evenodd"/></svg>
+
+                        om te uploaden
+                    </td>
                     <td>
                         <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' => $form_id)) ?>
                         <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
@@ -109,6 +113,7 @@
 
                 var uploaded = [];
                 var canSubmit = false;
+                var fileAdded = false;
                 $('#submitbutton').addClass('disabled');
 
                 function handleUploadError(error) {
@@ -142,13 +147,25 @@
 
                 function handleSubmit() {
 
+                    if (!fileAdded) {
+                        window.parent.handleUploadError("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden en klik rechts om te uploaden.");
+                        return false;
+                    }
+                    
+                    if (!canSubmit) {
+
+                        window.parent.handleUploadError('U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width="26" height="26" viewBox="0 -8 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z" fill="currentColor" fill-rule="evenodd"/></svg>) rechts naast de file(s) om deze te uploaden.');
+                        return false;
+
+                    }
+
                     if ($('#correctiemodel').val() == "-1") {
-                        window.parent.handleUploadError("Er dient een correctiemodel mee gestuurd te worden");
+                        window.parent.handleUploadError("Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)");
                         return false;
                     }
 
                     if ($('#multiple').val() == "-1") {
-                        window.parent.handleUploadError("Er kan maximaal 1 toets per keer geupload worden");
+                        window.parent.handleUploadError("Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)");
                         return false;
                     }
 
@@ -162,17 +179,11 @@
                         return false;
                     }
 
-                    if (!canSubmit) {
+                    $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
+                    $('#FileTestContainer').show();
+                    $('#FileTestForm').hide().submit();
+                    showWistJeDatJe();
 
-                        window.parent.handleUploadError("Niet alle bestanden zijn geupload of er zijn geen bestanden gekozen");
-                        return false;
-
-                    } else {
-                        $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
-                        $('#FileTestContainer').show();
-                        $('#FileTestForm').hide().submit();
-                        showWistJeDatJe();
-                    }
 
                 }
 
@@ -208,7 +219,7 @@
                                         }
                                         ;
                                     }
-                                    
+
                                 });
                     });
                     FileTestSetupRun = true;
@@ -242,23 +253,19 @@
                         checkValidity: true,
                         onaddfile: function (error, file) {
                             uploaded[file.id] = file.filename
-                            var canSubmit = false;
+                            canSubmit = false;
+                            fileAdded = true;
                             $('#submitbutton').addClass('disabled');
-                            
-                        },
-                        onprocessfile: function (error, file) {
-                            if (error === null)
-                               
-                            
+
                         },
                         onremovefile: function (error, file) {
                             if (file.id in uploaded)
                                 delete uploaded[file.id];
                         },
                         onprocessfiles: function () {
-                         
+
                             canSubmit = true;
-                           
+
                             $('#submitbutton').removeClass('disabled');
                         },
                         fileMetadataObject: {
