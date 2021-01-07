@@ -23,7 +23,14 @@
                         }
                         ?>
                     </select></td>
-            </tr> 
+            </tr>
+            <tr>
+                <th width="10%">Vertrouw email</th>
+                <td width="20%"><input type="checkbox" id="trust_email" checked></td>
+                <th width="10%">Vul ontbrekend met klasnaam</th>
+                <td width="20%"><input type="checkbox" id="fill_classname" checked></td>
+                <td width="30%"> <button id="setDefaultHeading">Zet default kolom headers!!</button></td>
+            </tr>
         </table>
     </div>
 </div>
