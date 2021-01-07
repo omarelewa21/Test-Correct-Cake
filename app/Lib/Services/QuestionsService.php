@@ -1430,7 +1430,8 @@ class QuestionsService extends BaseService
             'attainments' => $question['attainments'],
             'selectable_answers' => $selectable_answers,
             'note_type' => $question['note_type'],
-            'is_open_source_content' => $question['is_open_source_content']
+            'is_open_source_content' => $question['is_open_source_content'],
+            'answers' => $question['answers']
         ];
     }
 

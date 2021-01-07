@@ -541,10 +541,10 @@ class QuestionsController extends AppController
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if ($type == 'MultipleChoiceQuestion') {
-                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                // if ($type == 'MultipleChoiceQuestion') {
+                //     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
 
-                }
+                // }
 
                 if ($type == 'ARQQuestion') {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
@@ -921,9 +921,9 @@ class QuestionsController extends AppController
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if ($type == 'MultiChoiceQuestion') {
-                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
-                }
+                // if ($type == 'MultiChoiceQuestion') {
+                //     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                // }
 
                 if ($type == 'ARQQuestion') {
                     $this->QuestionsService->addARQAnswers($result, $question, $owner);
