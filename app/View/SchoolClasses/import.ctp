@@ -12,16 +12,16 @@
         <table class="table table-striped">
             <tr>
                 <th width="15%">Locatie</th>
-                <td width="35%"><?=$school_location['name']?></td>
+                <td width="35%"><?= $school_location['name'] ?></td>
                 <th width="15%">Klas</th>
                 <td width="35%">
                     <select id="class_id">
                         <?php
-                        foreach($classes as $class){
-                        $selected = (getUUID($class,'get') == $class_id) ? 'selected="selected"' : '';
-                        ?><option value="<?=GetUUID($class,'get')?>" <?=$selected?>><?=$class['name']?></option><?php
+                        foreach ($classes as $class) {
+                            $selected = (getUUID($class, 'get') == $class_id) ? 'selected="selected"' : '';
+                            ?><option value="<?= GetUUID($class, 'get') ?>" <?= $selected ?>><?= $class['name'] ?></option><?php
                         }
-                    ?>
+                        ?>
                     </select></td>
             </tr>
         </table>
@@ -40,7 +40,7 @@
     <div class="block-content">
 
 
-    <div >
+        <div >
             <div>
                 <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
             </div>
@@ -132,11 +132,11 @@
 </style>
 
 <script type="text/javascript">
-    if(typeof window.importPageHasBeenLoadedBefore == 'undefined'){
+    if (typeof window.importPageHasBeenLoadedBefore == 'undefined') {
         window.importPageHasBeenLoadedBefore = true;
         var jsonObj;
 
-        $(document).on('click','#setDefaultHeading', function () {
+        $(document).on('click', '#setDefaultHeading', function () {
             $('.selectbox-update').each((index, el) => {
                 var nr = $(el).data('nr');
                 $(el).children().eq(nr).prop('selected', true);
@@ -145,95 +145,95 @@
             });
         });
 
-        $(document).on('keypress', 'textarea#jsonDataDump', function(e) {
+        $(document).on('keypress', 'textarea#jsonDataDump', function (e) {
             e.preventDefault();
             e.stopPropagation();
         })
-        .on('keypress', 'textarea#excelPasteBox', function(e) {
-            if (e.ctrlKey !== true && e.key != 'v') {
-                e.preventDefault();
-                e.stopPropagation();
-            }
-        })
-        .on('paste', 'textarea#excelPasteBox', function(e) {
-            e.preventDefault();
-            try {
-                parsePastedData(e);
-            }
-            catch(e){
-                Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
-            }
-        })
-        .on('change','.selectbox-update',function(){
-            var val = $(this).val();
-            var index = $(this).data('nr');
-            var td = $("table#excelDataTable th:eq("+index+") div").text(val);
-        })
-        .on('click', 'a#exportJsonData', function() {
-            uploadData()
-        })
-        .on('click', 'table#excelDataTable td', function(e) {
-            makeElementEditable(this);
-        })
-        .on('mouseenter','table#excelDataTable tr',function(){
-            var span = '<span class="deleteicon"><i class="fa fa-minus-circle"></i></span>';
-            $(this).find('td:first').append(span);
-            $('tr.rowToDelete').removeClass('rowToDelete');
-        })
-        .on('click','.deleteicon',function(){
-            $(this).parents('tr:first').addClass('rowToDelete');
-            Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze rij wil verwijderen?'
-            }, function() {
-                $('.rowToDelete').remove();
-                var studentCount = $('table#excelDataTable tbody tr').length;
-                if(studentCount < 1){
-                    $('.showAfterProcess').hide();
-                    $("#output").empty();
-                }else {
-                    setStudentCountOnButton($('table#excelDataTable tbody tr').length);
-                }
-            });
-        })
-        .on('mouseleave','table#excelDataTable tr',function(e){
-            $('.deleteicon').remove();
-        });
+                .on('keypress', 'textarea#excelPasteBox', function (e) {
+                    if (e.ctrlKey !== true && e.key != 'v') {
+                        e.preventDefault();
+                        e.stopPropagation();
+                    }
+                })
+                .on('paste', 'textarea#excelPasteBox', function (e) {
+                    e.preventDefault();
+                    try {
+                        parsePastedData(e);
+                    } catch (e) {
+                        Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
+                    }
+                })
+                .on('change', '.selectbox-update', function () {
+                    var val = $(this).val();
+                    var index = $(this).data('nr');
+                    var td = $("table#excelDataTable th:eq(" + index + ") div").text(val);
+                })
+                .on('click', 'a#exportJsonData', function () {
+                    uploadData()
+                })
+                .on('click', 'table#excelDataTable td', function (e) {
+                    makeElementEditable(this);
+                })
+                .on('mouseenter', 'table#excelDataTable tr', function () {
+                    var span = '<span class="deleteicon"><i class="fa fa-minus-circle"></i></span>';
+                    $(this).find('td:first').append(span);
+                    $('tr.rowToDelete').removeClass('rowToDelete');
+                })
+                .on('click', '.deleteicon', function () {
+                    $(this).parents('tr:first').addClass('rowToDelete');
+                    Popup.message({
+                        btnOk: 'Ja',
+                        btnCancel: 'Annuleer',
+                        title: 'Weet u het zeker?',
+                        message: 'Weet u zeker dat u deze rij wil verwijderen?'
+                    }, function () {
+                        $('.rowToDelete').remove();
+                        var studentCount = $('table#excelDataTable tbody tr').length;
+                        if (studentCount < 1) {
+                            $('.showAfterProcess').hide();
+                            $("#output").empty();
+                        } else {
+                            setStudentCountOnButton($('table#excelDataTable tbody tr').length);
+                        }
+                    });
+                })
+                .on('mouseleave', 'table#excelDataTable tr', function (e) {
+                    $('.deleteicon').remove();
+                });
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = 'https://s3.amazonaws.com/dynatable-docs-assets/js/jquery.dynatable.js';
         document.getElementsByTagName('head')[0].appendChild(script);
 
-        function setStudentCountOnButton(nr){
+        function setStudentCountOnButton(nr) {
             $('#dynatable-record-count-excelDataTable').remove();
-            $('#exportJsonData').text(nr+' studenten importeren?');
+            $('#exportJsonData').text(nr + ' studenten importeren?');
         }
 
         var dbFields = [
-            {'column' :  'external_id','name' : 'stamnummer'},
-            {'column' : 'name_first','name' : 'voornaam'},
-            {'column' : 'name_suffix','name' : 'tussenvoegsel'},
-            {'column' : 'name','name':'achternaam'},
-            {'column' : 'username', 'name' : 'email'},
+            {'column': 'external_id', 'name': 'stamnummer'},
+            {'column': 'name_first', 'name': 'voornaam'},
+            {'column': 'name_suffix', 'name': 'tussenvoegsel'},
+            {'column': 'name', 'name': 'achternaam'},
+            {'column': 'username', 'name': 'email'}
         ];
 
-        var createSelectbox = function(value, index){
+
+        var createSelectbox = function (value, index) {
             var options = [];
-            dbFields.forEach(function(obj,index){
+            dbFields.forEach(function (obj, index) {
                 options.push(
-                    '<option value="'+obj['column']+'">'+obj['name']+'</option>'
-                );
+                        '<option value="' + obj['column'] + '">' + obj['name'] + '</option>'
+                        );
             });
-            options.push('<option value="'+value+'" selected="selected">negeren</option>');
-            return '<select class="selectbox-update" data-nr="'+index+'">'+options.join('')+'</option>';
+            options.push('<option value="' + value + '" selected="selected">negeren</option>');
+            return '<select class="selectbox-update" data-nr="' + index + '">' + options.join('') + '</option>';
         }
 
-        var customCellWriter = function(column, record) {
+        var customCellWriter = function (column, record) {
             var html = column.attributeWriter(record),
-                td = '<td';
+                    td = '<td';
             if (column.hidden || column.textAlign) {
                 td += ' style="';
                 if (column.hidden) {
@@ -246,24 +246,24 @@
             }
             return td + '><div>' + html + '<\/td>';
         };
-        var makeElementEditable = function(element) {
+        var makeElementEditable = function (element) {
             $('div', element).attr('contenteditable', true);
-            $(element).focusout(function() {
+            $(element).focusout(function () {
                 $('div', element).attr('contenteditable', false);
             });
-            $(element).keydown(function(e) {
+            $(element).keydown(function (e) {
                 if (e.which == 13) {
                     e.preventDefault();
                     $('div', element).attr('contenteditable', false);
                     $(document).focus();
                 }
             });
-            $('div', element).on('paste', function(e) {
+            $('div', element).on('paste', function (e) {
                 e.preventDefault();
             });
         };
 
-        var uploadData = function(){
+        var uploadData = function () {
             Loading.show();
             var $rows = $('table#excelDataTable').find('tr:not(:hidden)');
             var headers = [];

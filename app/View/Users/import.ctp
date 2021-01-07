@@ -315,6 +315,10 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
+
+                                if (field.name === 'E-mailadres') {
+                                    return 'De kolom [E-mailadres] bevat waarden met internationale karakters (gemarkeerd met rood)';
+                                }
                                 return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).';
                             })
                             $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
