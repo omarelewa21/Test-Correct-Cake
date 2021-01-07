@@ -257,7 +257,6 @@ class TestsService extends BaseService {
         }
 
         return $response;
-
     }
 
     public function getSubjects($personal = false, $mode = 'list') {
