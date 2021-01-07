@@ -92,7 +92,7 @@
                         Antwoord is:
                     </td>
                     <td>
-                        <?=$this->Form->input('anwser', [
+                        <?=$this->Form->input('answer', [
                             'options' => [
                                 1 => 'Juist',
                                 0 => 'Onjuist'
