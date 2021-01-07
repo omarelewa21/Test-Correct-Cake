@@ -70,7 +70,7 @@
     $(document).ready(function() {
         $(document).on('change', '#UserGender', function(e) {
             $('#GenderDifferent').css('display', 'none');
-            if (e.target.value === 'different') {
+            if (e.target.value === 'Other' || e.target.value === 'different') {
                 $('#GenderDifferent').css('display', 'table-row');
                 $('#UserGenderDifferent').trigger('keyup');
             }
