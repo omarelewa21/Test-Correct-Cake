@@ -1,0 +1,45 @@
+.dashboard {
+  display: flex;
+  font-family: "Nunito", sans-serif;
+  color: var(--system-base);
+}
+.dashboard h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 2rem;
+  margin-top: 5px;
+  vertical-align: top;
+}
+.dashboard h5 {
+  font-family: "Nunito", sans-serif;
+  font-size: 1.25rem;
+  margin: 0;
+}
+.dashboard h6 {
+  font-weight: 600;
+  font-size: 1.125rem;
+  margin: 0 0 8px;
+}
+.dashboard .body1 {
+  font-size: 1.125rem;
+  line-height: 2rem;
+  font-weight: 400;
+}
+.dashboard .body2 {
+  font-family: "Nunito", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  color: var(--system-base);
+}
+.dashboard .cta {
+  font-weight: bold;
+}
+.dashboard .cta .send-icon, .dashboard .cta .checkmark-icon {
+  stroke: var(--system-base);
+}
+.dashboard .cta .checkmark-icon {
+  vertical-align: top;
+  margin-top: 8px;
+}
+
+/*# sourceMappingURL=dashboard.css.map */

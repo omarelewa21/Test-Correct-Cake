@@ -11,6 +11,28 @@ if ($wizard_steps) {
         </a>
     </div>
 <?php } ?>
+<div class="dashboard m56">
+    <div class="notes">
+
+    </div>
+    <div class="cta">
+        <div class="tat-top-text">
+            <?php echo $this->element('send'); ?>
+            <h1 class="inline-block">Nodig een collega uit!</h1>
+            <div class="tat-usp">
+                <h6 class="">Samen met je collega's kun je:</h6>
+                <div>
+                    <?php echo $this->element('checkmark-small') ?>
+                    <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                </div>
+                <div>
+                    <?php echo $this->element('checkmark-small') ?>
+                    <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?
 //TC-173
@@ -19,7 +41,8 @@ if (null === AuthComponent::user('account_verified')) {
     <div class="block" style="background-color: #ff8787;">
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
             <h2 style="display: inline-block;"><b>Let op: je e-mailadres is nog niet geverifieerd.</b></h2>
-            <a class="btn white inline-block pull-right" style="cursor: pointer; margin-top: 20px;" onclick="resendEmailVerificationMail()">
+            <a class="btn white inline-block pull-right" style="cursor: pointer; margin-top: 20px;"
+               onclick="resendEmailVerificationMail()">
                 Stuur verificatiemail opnieuw
             </a>
         </div>
