@@ -533,22 +533,22 @@ class QuestionsController extends AppController
                     return false;
                 }
 
-                if ($type == 'TrueFalseQuestion') {
-                    $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
-                }
+                // if ($type == 'TrueFalseQuestion') {
+                //     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
+                // }
 
 //                if($type == 'CompletionQuestion') {
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if ($type == 'MultipleChoiceQuestion') {
-                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                // if ($type == 'MultipleChoiceQuestion') {
+                //     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
 
-                }
+                // }
 
-                if ($type == 'ARQQuestion') {
-                    $this->QuestionsService->addARQAnswers($result, $question, $owner);
-                }
+                // if ($type == 'ARQQuestion') {
+                //     $this->QuestionsService->addARQAnswers($result, $question, $owner);
+                // }
 
 //                if($type == 'RankingQuestion') {
 //                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
@@ -910,9 +910,9 @@ class QuestionsController extends AppController
                     return false;
                 }
 
-                if ($type == 'TrueFalseQuestion') {
-                    $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
-                }
+                // if ($type == 'TrueFalseQuestion') {
+                //     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
+                // }
 
                 /**
                  * 20190110 switched off as we decided to save the data in one call with add question
@@ -921,13 +921,13 @@ class QuestionsController extends AppController
 //                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
 //                }
 
-                if ($type == 'MultiChoiceQuestion') {
-                    $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
-                }
+                // if ($type == 'MultiChoiceQuestion') {
+                //     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+                // }
 
-                if ($type == 'ARQQuestion') {
-                    $this->QuestionsService->addARQAnswers($result, $question, $owner);
-                }
+                // if ($type == 'ARQQuestion') {
+                //     $this->QuestionsService->addARQAnswers($result, $question, $owner);
+                // }
 
 //                if($type == 'RankingQuestion') {
 //                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
