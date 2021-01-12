@@ -45,9 +45,8 @@
                     </td>
                 </tr>
 
-
                 <tr>
-                    <td>Kies één of meerdere bestanden</td>
+                    <td>Kies één of meerdere bestanden. (Max. <?php echo $readable_max_upload_size ?>)</td>
                     <td>
                         <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' => $form_id)) ?>
                         <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>
