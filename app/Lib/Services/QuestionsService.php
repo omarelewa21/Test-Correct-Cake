@@ -326,34 +326,36 @@ class QuestionsService extends BaseService
                 break;
         }
 
-        if (empty($question['attainments'])) {
-            $question['attainments'] = [];
-        }
+        $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
 
-        if (empty($oriQuestion['tags'])) {
-            $question['tags'] = [];
-        } else {
-            $question['tags'] = $oriQuestion['tags'];
-        }
+        // if (empty($question['attainments'])) {
+        //     $question['attainments'] = [];
+        // }
 
-        // added or operator for rtti equaling string null because apparently the frontend return string 'null' an not an empty value;
-        if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
-            $question['rtti'] = null;
-        } else {
-            $question['rtti'] = $oriQuestion['rtti'];
-        }
+        // if (empty($oriQuestion['tags'])) {
+        //     $question['tags'] = [];
+        // } else {
+        //     $question['tags'] = $oriQuestion['tags'];
+        // }
 
-        if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
-            $question['bloom'] = null;
-        } else {
-            $question['bloom'] = $oriQuestion['bloom'];
-        }
+        // // added or operator for rtti equaling string null because apparently the frontend return string 'null' an not an empty value;
+        // if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
+        //     $question['rtti'] = null;
+        // } else {
+        //     $question['rtti'] = $oriQuestion['rtti'];
+        // }
 
-        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
-            $question['miller'] = null;
-        } else {
-            $question['miller'] = $oriQuestion['miller'];
-        }
+        // if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
+        //     $question['bloom'] = null;
+        // } else {
+        //     $question['bloom'] = $oriQuestion['bloom'];
+        // }
+
+        // if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+        //     $question['miller'] = null;
+        // } else {
+        //     $question['miller'] = $oriQuestion['miller'];
+        // }
 
 
         if ($owner == 'test') {
@@ -1028,25 +1030,25 @@ class QuestionsService extends BaseService
                     $question['grid'] = $session['drawing_grid'];
                 }
 
-                if (empty($question['attainments'])) {
-                    $question['attainments'] = [];
-                }
+                // if (empty($question['attainments'])) {
+                //     $question['attainments'] = [];
+                // }
 
-                if (empty($oriQuestion['tags'])) {
-                    $question['tags'] = [];
-                } else {
-                    $question['tags'] = $oriQuestion['tags'];
-                }
+                // if (empty($oriQuestion['tags'])) {
+                //     $question['tags'] = [];
+                // } else {
+                //     $question['tags'] = $oriQuestion['tags'];
+                // }
 
-                if (empty($oriQuestion['rtti'])) {
-                    $question['rtti'] = null;
-                } else {
-                    $question['rtti'] = $oriQuestion['rtti'];
-                }
+                // if (empty($oriQuestion['rtti'])) {
+                //     $question['rtti'] = null;
+                // } else {
+                //     $question['rtti'] = $oriQuestion['rtti'];
+                // }
 
                 $question['answer'] = $session['drawing_data'];
                 $question['bg'] = $attachment;
-
+                $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
                 if ($owner == 'test') {
                     $response = $this->Connector->putRequestFile($testUrl, $params, $question);
                 }
@@ -1082,34 +1084,36 @@ class QuestionsService extends BaseService
                 break;
         }
 
-        if (empty($question['attainments'])) {
-            $question['attainments'] = [];
-        }
+        $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
 
-        if (empty($oriQuestion['tags'])) {
-            $question['tags'] = [];
-        } else {
-            $question['tags'] = $oriQuestion['tags'];
-        }
+        // if (empty($question['attainments'])) {
+        //     $question['attainments'] = [];
+        // }
+
+        // if (empty($oriQuestion['tags'])) {
+        //     $question['tags'] = [];
+        // } else {
+        //     $question['tags'] = $oriQuestion['tags'];
+        // }
 
 
-        if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
-            $question['rtti'] = null;
-        } else {
-            $question['rtti'] = $oriQuestion['rtti'];
-        }
+        // if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null') {
+        //     $question['rtti'] = null;
+        // } else {
+        //     $question['rtti'] = $oriQuestion['rtti'];
+        // }
 
-        if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
-            $question['bloom'] = null;
-        } else {
-            $question['bloom'] = $oriQuestion['bloom'];
-        }
+        // if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
+        //     $question['bloom'] = null;
+        // } else {
+        //     $question['bloom'] = $oriQuestion['bloom'];
+        // }
 
-        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
-            $question['miller'] = null;
-        } else {
-            $question['miller'] = $oriQuestion['miller'];
-        }
+        // if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+        //     $question['miller'] = null;
+        // } else {
+        //     $question['miller'] = $oriQuestion['miller'];
+        // }
 
 
         if ($owner == 'test') {
@@ -1574,5 +1578,37 @@ class QuestionsService extends BaseService
             'order' => 0
         ];
         return [$answerTrue,$answerFalse];
+    }
+
+    private function handleEmptyQuestionVars($question,$oriQuestion){
+        if (empty($question['attainments'])) {
+            $question['attainments'] = [];
+        }
+
+        if (empty($oriQuestion['tags'])) {
+            $question['tags'] = [];
+        } else {
+            $question['tags'] = $oriQuestion['tags'];
+        }
+
+        // added or operator for rtti equaling string null because apparently the frontend return string 'null' an not an empty value;
+        if (empty($oriQuestion['rtti']) || $oriQuestion['rtti'] === 'null' ) {
+            $question['rtti'] = null;
+        } else {
+            $question['rtti'] = $oriQuestion['rtti'];
+        }
+
+        if (empty($oriQuestion['bloom']) || $oriQuestion['bloom'] === 'null') {
+            $question['bloom'] = null;
+        } else {
+            $question['bloom'] = $oriQuestion['bloom'];
+        }
+
+        if (empty($oriQuestion['miller']) || $oriQuestion['miller'] === 'null') {
+            $question['miller'] = null;
+        } else {
+            $question['miller'] = $oriQuestion['miller'];
+        }
+        return $question;
     }
 }
