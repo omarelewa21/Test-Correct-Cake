@@ -14,7 +14,7 @@ var TestTake = {
 
     startHeartBeat : function(callback, interval) {
         if(callback == 'active'){
-            console.log('startheartbeat');
+            // console.log('startheartbeat');
             if(!TestTake.active) {
                 TestTake.atTestStart();
             }
@@ -586,6 +586,23 @@ var TestTake = {
         }else{
             Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
         }
+    },
+
+    loadTakeInLaravel : function(take_id, makebutton) {
+        // if(Core.inApp) {
+            if(makebutton === true) {check = '/null/true'; } else  { check = '';}
+            $.ajax({
+               type:'post',
+               url: '/test_takes/startinlaravel/'+take_id + check,
+               dataType: 'json',
+               data: {},
+               success: function(data){
+                   window.open(data.data.url, '_self');
+               },
+            });
+        // }else{
+        //     Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+        // }
     },
 
     loadDiscussion : function(take_id) {

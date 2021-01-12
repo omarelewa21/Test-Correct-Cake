@@ -1044,6 +1044,11 @@ class TestTakesController extends AppController {
         $this->render($view, 'ajax');
     }
 
+    public function startinlaravel($take_id, $question_index = null, $clean = false) {
+        $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+        die;
+    }
+
     public function take($take_id, $question_index = null, $clean = false) {
         return $this->take2019($take_id, $question_index, $clean);
 

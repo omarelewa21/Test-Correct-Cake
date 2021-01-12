@@ -3,11 +3,15 @@
 App::uses('BaseService', 'Lib/Services');
 
 /**
- * Class QuestionsService
+ * Class TestTakesService
  *
  *
  */
 class TestTakesService extends BaseService {
+
+    public function getTestTakeUrlForLaravel($take_id) {
+        return $this->Connector->postRequest(sprintf('/test_take/%s/with_short_code', $take_id), [], []);
+    }
 
     public function getAttainmentAnalysis($test_take_id) {
         $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/analysis',$test_take_id), []);
@@ -402,7 +406,7 @@ class TestTakesService extends BaseService {
         if($response === false){
             return $this->Connector->getLastResponse();
         }
-        
+
         return $response;
     }
 

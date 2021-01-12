@@ -37,6 +37,9 @@ foreach($test_takes as $test_take) {
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
             <? if(in_array($test_take['test_take_status_id'], [1, 3]) && date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
+                <a href="#" class="btn highlight mb1" onclick="TestTake.loadTakeInLaravel('<?=getUUID($test_take, 'get');?>', true);">
+                   <i class="fa fa-safari"></i> Start in laravel
+                </a>
                 <a href="#" class="btn highlight mb1" onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
                     Toets maken
                 </a>
