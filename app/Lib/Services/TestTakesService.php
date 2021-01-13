@@ -1,6 +1,7 @@
 <?php
 
 App::uses('BaseService', 'Lib/Services');
+App::uses('CakeLog', 'Log');
 
 /**
  * Class QuestionsService
@@ -109,6 +110,20 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+    
+    public function closeNonDispensation($take_id) {
+        
+        $params['time_dispensation'] = true;
+
+        $response = $this->Connector->putRequest('/test_take/' . $take_id , $params, []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+            
 
     public function updateParticipantStatus($take_id, $participant_id, $status) {
 

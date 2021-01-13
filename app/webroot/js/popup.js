@@ -78,6 +78,44 @@ var Popup = {
             $(this).addClass('center');
         });
     },
+    
+    promptDispensation: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
+            '<div class="popup-head">Toets innemen</div>'+       
+            '<div class="popup-footer">'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="TestTake.setTakeTakenNonDispensation(\''+ options[0] + '\',[' + options[1] +']); Popup.closeLast();">Innemend voor niet tijdsdispensatie</a>'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="TestTake.setTakeTaken(\''+ options[0] + '\',[]);">Innemend voor alle deelnemers</a>'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>'+    
+            '</div>'+
+            '</div>'
+        ;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 147 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
 
     confirmCallBack: function (value) {
         Popup.closeLast();
