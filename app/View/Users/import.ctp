@@ -273,7 +273,7 @@
                         jQuery('#output').html('');
                         jQuery('.showAfterProcess').hide();
                         Notify.notify('De docenten zijn succesvol geimporteerd', 'success');
-                        Navigation.back();
+                        Navigation.load('/users/index/teachers');
                     } else {
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
@@ -315,6 +315,10 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
+
+                                if (field.name === 'E-mailadres') {
+                                    return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
+                                }
                                 return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).';
                             })
                             $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');

@@ -2,7 +2,7 @@
 $data = "";
 
 foreach($subjects as $subject) {
-    if($subject['id'] == $subject_id) {
+    if($subject['uuid'] == $subject_id) {
         $data = $subject;
     }
 }

@@ -6,13 +6,15 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
-App::uses('HelperFunctions','Lib');
+App::uses('HelperFunctions', 'Lib');
 
-class TestsController extends AppController {
+class TestsController extends AppController
+{
 
     public $uses = array('Test', 'Question');
 
-    public function beforeFilter() {
+    public function beforeFilter()
+    {
         $this->TestsService = new TestsService();
         $this->QuestionsService = new QuestionsService();
         $this->AnswersService = new AnswersService();
@@ -22,9 +24,12 @@ class TestsController extends AppController {
         parent::beforeFilter();
     }
 
-    public function test() {}
+    public function test()
+    {
+    }
 
-    public function index() {
+    public function index()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
@@ -47,7 +52,7 @@ class TestsController extends AppController {
 
         //$education_levels = [0 => 'Alle'] + $education_levels;
         $periods = [0 => 'Alle'] + $periods;
-//        $subjects = [0 => 'Alle'] + $subjects;
+        //$subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
         $this->set('education_levels', $education_levels);
@@ -57,7 +62,8 @@ class TestsController extends AppController {
         $this->set('subjects', $subjects);
     }
 
-    public function delete($test_id) {
+    public function delete($test_id)
+    {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('delete')) {
@@ -66,7 +72,8 @@ class TestsController extends AppController {
         }
     }
 
-    public function duplicate($test_id) {
+    public function duplicate($test_id)
+    {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('put')) {
@@ -78,14 +85,14 @@ class TestsController extends AppController {
         }
     }
 
-    public function setQuestionsOpenSource($questions, $owner_id, $owner = 'test' )
+    public function setQuestionsOpenSource($questions, $owner_id, $owner = 'test')
     {
         $this->isAuthorizedAs(["Teacher"]);
 
-        foreach($questions as $question) {
+        foreach ($questions as $question) {
             // In case the type of questions is a group question we want to only apply this logic
             // To questions that are shown in the test, and not questions that are not physical questions.
-            if(
+            if (
                 isset($question['question']['group_question_questions']) &&
                 $question['question']['type'] == 'GroupQuestion'
             ) {
@@ -100,10 +107,10 @@ class TestsController extends AppController {
             $question['question']['is_open_source_content'] = $open_sourced;
 
             $r = $this->requestAction(
-                ['controller' => 'Questions','action' => 'editPost'],
+                ['controller' => 'Questions', 'action' => 'editPost'],
                 [
                     // 'pass' => [ $owner, $owner_id, $question['question']['type'], $question['id']],
-                    'data' => [ $owner, $owner_id, $question['question']['type'], getUUID($question, 'get'), false, true]
+                    'data' => [$owner, $owner_id, $question['question']['type'], getUUID($question, 'get'), false, true]
                 ]
             );
         }
@@ -111,28 +118,29 @@ class TestsController extends AppController {
         return true;
     }
 
-    public function add() {
+    public function add()
+    {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('post')) {
-            $test   = $this->request->data['Test'];
+            $test = $this->request->data['Test'];
             $result = $this->TestsService->add($test);
 
             if ($result == 'unique_name') {
-                $this->formResponse(  false, 'unique_name' );
+                $this->formResponse(false, 'unique_name');
             } else {
-                $this->formResponse( !empty($result), $result );
+                $this->formResponse(!empty($result), $result);
             }
         }
 
         $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
-        $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $params['filter'] = ['current_school_year' => 1];
 
-        $kinds            = $this->TestsService->getKinds();
-        $periods          = $this->TestsService->getPeriods(false, $params);
-        $subjects         = $this->TestsService->getSubjects(true);
+        $kinds = $this->TestsService->getKinds();
+        $periods = $this->TestsService->getPeriods(false, $params);
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
 
         $this->set('kinds', $kinds);
@@ -143,7 +151,8 @@ class TestsController extends AppController {
 
     }
 
-    public function edit($test_id) {
+    public function edit($test_id)
+    {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -157,30 +166,30 @@ class TestsController extends AppController {
             $result = $this->TestsService->edit($test_id, $test);
 
             if ($result == 'unique_name') {
-                $this->formResponse(  false, 'unique_name');
+                $this->formResponse(false, 'unique_name');
             } else {
-                $this->formResponse( !empty($result), $result );
+                $this->formResponse(!empty($result), $result);
             }
         }
 
         $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
-        $school_location    = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
-        $kinds            = $this->TestsService->getKinds();
-        $periods          = $this->TestsService->getPeriods();
-        $subjects         = $this->TestsService->getSubjects(true);
+        $kinds = $this->TestsService->getKinds();
+        $periods = $this->TestsService->getPeriods();
+        $subjects = $this->TestsService->getSubjects(true);
         $education_levels = $this->TestsService->getEducationLevels(false);
 
         $this->request->data['Test'] = $this->TestsService->getTest($test_id);
 
         $currentEducationlevelUuid = '';
-        foreach($education_levels as $id => $level){
-            if($level['id'] == $this->request->data['Test']['education_level_id']){
+        foreach ($education_levels as $id => $level) {
+            if ($level['id'] == $this->request->data['Test']['education_level_id']) {
                 $currentEducationlevelUuid = $level['uuid'];
             }
         }
 
-        $this->set('current_education_level_uuid',$currentEducationlevelUuid);
+        $this->set('current_education_level_uuid', $currentEducationlevelUuid);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
@@ -188,7 +197,8 @@ class TestsController extends AppController {
         $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
     }
 
-    public function load() {
+    public function load()
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_levels = $this->TestsService->getEducationLevels(true, false);
@@ -244,8 +254,8 @@ class TestsController extends AppController {
             $params['filter']['created_at_end'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_end']));
         }
 
-        if(!empty($filters['is_open_sourced_content']) && $filters['is_open_sourced_content'] != 0) {
-          $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
+        if (!empty($filters['is_open_sourced_content']) && $filters['is_open_sourced_content'] != 0) {
+            $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
         $tests = $this->TestsService->getTests($params);
@@ -253,7 +263,8 @@ class TestsController extends AppController {
         $this->set('tests', $tests['data']);
     }
 
-    public function view($test_id) {
+    public function view($test_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $test = $this->TestsService->getTest($test_id);
@@ -277,11 +288,11 @@ class TestsController extends AppController {
             if ($question['question']['type'] == 'GroupQuestion') {
                 for ($i = 0; $i < count($question['question']['group_question_questions']); $i++) {
 
-                //fix for TC-80 / Selenium tests. The selection options were empty for group questions
-                $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
+                    //fix for TC-80 / Selenium tests. The selection options were empty for group questions
+                    $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
 
-                $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
-                $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
+                    $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
+                    $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
             } else {
                 $totalScore += $question['question']['score'];
@@ -289,7 +300,7 @@ class TestsController extends AppController {
 
             array_push($questionsArray, $question);
         }
-
+        
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
@@ -310,7 +321,8 @@ class TestsController extends AppController {
     /**
      * Show Regular PDF with attachments.
      */
-    public function pdf_preview($test_id) {
+    public function pdf_preview($test_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->set('test_id', $test_id);
@@ -321,7 +333,8 @@ class TestsController extends AppController {
      * Check if the PDF has attachment and load a different view that shows
      * an overview of all different attachment for seperate download functionality.
      */
-    public function pdf_showPDFAttachment($test_id) {
+    public function pdf_showPDFAttachment($test_id)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->set('test_id', $test_id);
@@ -354,9 +367,9 @@ class TestsController extends AppController {
         for ($i = 0; $i < count($questionsArray); $i++) {
             if ($questionsArray[$i]['attachments'] != '') {
                 for ($a = 0; $a < count($questionsArray[$i]['attachments']); $a++) {
-                    if ($questionsArray[$i]['attachments'][$a]['type'] == 'file' && strpos($questionsArray[$i]['attachments'][$a]['title'],'.pdf' ) ) {
+                    if ($questionsArray[$i]['attachments'][$a]['type'] == 'file' && strpos($questionsArray[$i]['attachments'][$a]['title'], '.pdf')) {
                         // only show a file once in the list, based on title
-                        if(!in_array($questionsArray[$i]['attachments'][$a]['title'], $referenceList)) {
+                        if (!in_array($questionsArray[$i]['attachments'][$a]['title'], $referenceList)) {
                             $attachmentCount++;
                             $attchmentArray[$i][$a]['attachments']['title'] = $questionsArray[$i]['attachments'][$a]['title'];
                             $attchmentArray[$i][$a]['attachments']['id'] = $questionsArray[$i]['attachments'][$a]['id'];
@@ -380,58 +393,59 @@ class TestsController extends AppController {
         }
     }
 
-    public function pdf_attachment_select($test_id, $attachment_id = null) {
+    public function pdf_attachment_select($test_id, $attachment_id = null)
+    {
 
         // if ($this->request->is('post')) {
 
-            $this->set('test_id', $test_id);
+        $this->set('test_id', $test_id);
 
-            // $view = new View($this, false);
-            // $view->set('questionTypes', $questionTypes);
-            // $view->set('education_levels', $education_levels);
-            // $view->set('test', $test);
-            // $view->set('questions', $questionsArray);
-            // $view->set('test_id', $test_id);
+        // $view = new View($this, false);
+        // $view->set('questionTypes', $questionTypes);
+        // $view->set('education_levels', $education_levels);
+        // $view->set('test', $test);
+        // $view->set('questions', $questionsArray);
+        // $view->set('test_id', $test_id);
 
-            // $attachment = $this->request->data['attachment'];
+        // $attachment = $this->request->data['attachment'];
 
-            if(!empty($attachment_id)) {
+        if (!empty($attachment_id)) {
 
-                $this->set('attachment_id', $attachment_id);
+            $this->set('attachment_id', $attachment_id);
 
-                // foreach ($attachment as $value) {
-                    // print_r($value);
+            // foreach ($attachment as $value) {
+            // print_r($value);
 
-                    //$this->set('test_id', $value);
-                    //$this->render('pdf_preview', 'ajax');
-    //                $this->autoRender = false;
-    //
-    //                $attachmentInfo = $this->AnswersService->getAttachmentInfo($value);
-    //                $attachmentContent = $this->AnswersService->getAttachmentContent($value);
-    //
-    //                //file_put_contents(WWW_ROOT.'/mp3/' . time() . '.mp3', $attachmentContent);
-    //                //header('location: /mp3/' . time() . '.mp3');
-    //                //$this->response->type($attachmentInfo['file_mime_type']);
-    //                //$this->response->body($attachmentContent);
-    //                //$view->set('test_id', $test_id);
-    //                $view = new View($this, false);
-    //                // Generate PDF
-    //                $html = $view->render('attachmentpdf', 'pdf');
-    //                $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
-    //                //$this->response->body($attachmentContent);
-    //                $this->response->type('pdf');
-    //
-    //                return $this->response;
+            //$this->set('test_id', $value);
+            //$this->render('pdf_preview', 'ajax');
+            //                $this->autoRender = false;
+            //
+            //                $attachmentInfo = $this->AnswersService->getAttachmentInfo($value);
+            //                $attachmentContent = $this->AnswersService->getAttachmentContent($value);
+            //
+            //                //file_put_contents(WWW_ROOT.'/mp3/' . time() . '.mp3', $attachmentContent);
+            //                //header('location: /mp3/' . time() . '.mp3');
+            //                //$this->response->type($attachmentInfo['file_mime_type']);
+            //                //$this->response->body($attachmentContent);
+            //                //$view->set('test_id', $test_id);
+            //                $view = new View($this, false);
+            //                // Generate PDF
+            //                $html = $view->render('attachmentpdf', 'pdf');
+            //                $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+            //                //$this->response->body($attachmentContent);
+            //                $this->response->type('pdf');
+            //
+            //                return $this->response;
 
-                    //print_r();
-                    //$getAttachment = $this->AttachmentsService->getAttachment($value);
-                // }
+            //print_r();
+            //$getAttachment = $this->AttachmentsService->getAttachment($value);
+            // }
 
-                $this->render('pdf_attachment', 'ajax');
-            } else {
-                $this->render('pdf_preview', 'ajax');
-                return;
-            }
+            $this->render('pdf_attachment', 'ajax');
+        } else {
+            $this->render('pdf_preview', 'ajax');
+            return;
+        }
 //            exit;
 //
 //
@@ -443,29 +457,31 @@ class TestsController extends AppController {
 //            $this->set('attachmentArray', $attchmentArray);
 //            $this->set('attachmentcount', $attachmentCount);
 
-            // $html = $view->render('pdf_preview_attchment', 'ajax');
+        // $html = $view->render('pdf_preview_attchment', 'ajax');
 
 
-            // Generate PDF
-            // $html = $view->render('pdf', 'pdf');
+        // Generate PDF
+        // $html = $view->render('pdf', 'pdf');
 
-            // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
-            // $this->response->type('json');
+        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        // $this->response->type('json');
 
-            // return $this->response;
+        // return $this->response;
         // }
 
     }
 
-    public function pdf_container($test_id, $attachment_id = null) {
+    public function pdf_container($test_id, $attachment_id = null)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->set('test_id', $test_id);
-        $this->set('attachment_id',$attachment_id);
+        $this->set('attachment_id', $attachment_id);
         $this->render('/Pdf/pdf_container', 'ajax');
     }
 
-    public function pdf($test_id, $attachment_id = null) {
+    public function pdf($test_id, $attachment_id = null)
+    {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $debug = '';
@@ -496,10 +512,10 @@ class TestsController extends AppController {
         }
 
         for ($i = 0; $i < count($questionsArray); $i++) {
-            if($questionsArray[$i]['type'] === 'DrawingQuestion') {
-                if($questionsArray[$i]['bg_name'] !== null) {
+            if ($questionsArray[$i]['type'] === 'DrawingQuestion') {
+                if ($questionsArray[$i]['bg_name'] !== null) {
                     $attachmentContent = $this->AnswersService->getBackgroundContent(getUUID($questionsArray[$i], 'get'));
-                    $questionsArray[$i]['answer_background_image'] = "data:".$questionsArray[$i]['bg_mime_type'].";base64,".base64_encode($attachmentContent);
+                    $questionsArray[$i]['answer_background_image'] = "data:" . $questionsArray[$i]['bg_mime_type'] . ";base64," . base64_encode($attachmentContent);
                 }
             }
 
@@ -541,7 +557,8 @@ class TestsController extends AppController {
     }
 
 
-    public function pdf_attachmentpdf($test_id, $attachment_id) {
+    public function pdf_attachmentpdf($test_id, $attachment_id)
+    {
 
         $test = $this->request->data['Test'];
         $this->autoRender = false;
@@ -554,9 +571,9 @@ class TestsController extends AppController {
 
         foreach ($questions as $question) {
 
-            foreach($question['question']['attachments'] as $attachment) {
-                    if(getUUID($attachment, 'get') == $attachment_id) {
-                        $attachmentMatch = $attachment;
+            foreach ($question['question']['attachments'] as $attachment) {
+                if (getUUID($attachment, 'get') == $attachment_id) {
+                    $attachmentMatch = $attachment;
                     if ($attachment['type'] == 'file') {
                         $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($attachment, 'get')));
                     }
@@ -565,7 +582,7 @@ class TestsController extends AppController {
         }
 
         $view = new View($this, false);
-        $view->set('attachment',$attachmentMatch);
+        $view->set('attachment', $attachmentMatch);
 
         // Generate PDF
         $html = $view->render('attachmentpdf', 'pdf');
@@ -577,7 +594,8 @@ class TestsController extends AppController {
         return $this->response;
     }
 
-    public function load_att_pdf($test_id, $attachment_id) {
+    public function load_att_pdf($test_id, $attachment_id)
+    {
         $test = $this->TestsService->getTest($test_id);
 
         $questions = $this->TestsService->getQuestions($test_id);
@@ -585,20 +603,20 @@ class TestsController extends AppController {
         $attachmentMatch = array();
 
         foreach ($questions as $question) {
-            foreach($question['question']['attachments'] as $attachment) {
-                    if(getUUID($attachment, 'get') == $attachment_id) {
-                        $attachmentMatch = $attachment;
-                        if ($attachment['type'] == 'file') {
-                            $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($attachment, 'get')));
-                            break 2;
-                        }
+            foreach ($question['question']['attachments'] as $attachment) {
+                if (getUUID($attachment, 'get') == $attachment_id) {
+                    $attachmentMatch = $attachment;
+                    if ($attachment['type'] == 'file') {
+                        $attachmentMatch['data'] = "data:" . $attachment['file_mime_type'] . ";base64," . base64_encode($this->AnswersService->getAttachmentContent(getUUID($attachment, 'get')));
+                        break 2;
                     }
+                }
             }
         }
 
 
         // $view = new View($this, false);
-        $this->set('base64',$attachmentMatch['data']);
+        $this->set('base64', $attachmentMatch['data']);
         $this->set('filename', $attachment['title']);
         $this->render('pdfatt', 'ajax');
         // Generate PDF
@@ -612,12 +630,14 @@ class TestsController extends AppController {
 
     }
 
-    public function preview_popup($test_id) {
+    public function preview_popup($test_id)
+    {
         $this->set('test_id', $test_id);
         $this->render('preview_popup', 'ajax');
     }
 
-    public function preview($test_id, $question_index = 0) {
+    public function preview($test_id, $question_index = 0)
+    {
         $this->isAuthorizedAs(["Teacher"]);
 
         $allQuestions = $this->TestsService->getQuestions($test_id);

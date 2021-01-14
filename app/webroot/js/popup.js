@@ -4,7 +4,20 @@ var Popup = {
     callback: null,
     timeout: null,
     cancelCallback: null,
+    debounceTime:0,
+    
+    debounce: function() {
+        
+        var now = new Date().getTime();
+        
+        if (this.debounceTime > now - 2000) {
+            return false;
+        } 
+        
+        this.debounceTime = now;
 
+        return true;
+    },
 
     load: function (url, width) {
 
@@ -34,6 +47,9 @@ var Popup = {
     },
 
     prompt: function (options, callback) {
+        
+        this.debounce();
+        
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
@@ -169,6 +185,9 @@ var Popup = {
         });
     },
     confirm: function (options, callback) {
+        
+        this.debounce();
+        
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
@@ -224,6 +243,9 @@ var Popup = {
     },
 
     showSearch: function () {
+        
+        this.debounce();
+        
         $('#container, #background, #header').addClass('blurred');
 
         Popup.zIndex += 2;
@@ -248,6 +270,8 @@ var Popup = {
 
 
     show: function (html, width) {
+        
+        this.debounce();
 
         $('#container, #background, #header').addClass('blurred');
 

@@ -120,7 +120,7 @@
                     <? if ($type == 'teachers' && in_array($role, ['Administrator']) ) { ?>
                     <th>E-mailadres</th>
                     <? } ?>
-                    <th width="100">&nbsp;</th>
+                    <th width="125">&nbsp;</th>
                 <? } ?>
             </tr>
             </thead>

@@ -244,13 +244,33 @@ class TestsService extends BaseService {
         return $periods;
     }
 
+    public function getCurrentSubjectsForTeacher($mode = 'list') {
+        $params = [
+            'mode' => $mode,
+            'filter' => ['user_current' => AuthComponent::user()['id']],
+        ];
+
+        $response = $this->Connector->getRequest('/subject', $params);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getSubjects($personal = false, $mode = 'list') {
 
         if($personal) {
-            $params['filter'] = [
-                'user_id' => AuthComponent::user()['id']
-            ];
+            if(isset($params['filter'])){
+                $params['filter']['user_id'] = AuthComponent::user()['id'];
+            } else {
+                $params['filter'] = [
+                    'user_id' => AuthComponent::user()['id']
+                ];
+            }
         }
+
         $params['mode'] = $mode;
 
         $response = $this->Connector->getRequest('/subject', $params);
