@@ -615,8 +615,7 @@ var TestTake = {
                     date: date
                 },
                 function (response) {
-                    // console.log(response);
-                    // console.log(i);
+            
                     if (response != "") {
                         $('#TestTakePeriodId_' + i).val(response);
                     }
@@ -660,9 +659,7 @@ var TestTake = {
     },
 
     setTakeTaken: function (take_id, time_dispensation_ids) {
-        
-        console.log(time_dispensation_ids);
-
+       
         if (time_dispensation_ids.length != []) {
 
             Popup.promptDispensation([take_id,[time_dispensation_ids]]);
@@ -675,6 +672,7 @@ var TestTake = {
                 title: 'Weet u het zeker?',
                 message: 'Weet je zeker dat je de toets wilt innemen?'
             }, function () {
+
                 $.get('/test_takes/set_taken/' + take_id,
                         function () {
                             Navigation.refresh();

@@ -106,7 +106,7 @@ var Popup = {
             '<div class="popup-head">Toets innemen</div>'+       
             '<div class="popup-footer">'+
             '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="TestTake.setTakeTakenNonDispensation(\''+ options[0] + '\',[' + options[1] +']); Popup.closeLast();">Innemend voor niet tijdsdispensatie</a>'+
-            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="TestTake.setTakeTaken(\''+ options[0] + '\',[]);">Innemend voor alle deelnemers</a>'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); setTimeout(function(){ TestTake.setTakeTaken(\''+ options[0] + '\',[]); }, 500);">Innemend voor alle deelnemers</a>'+
             '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>'+    
             '</div>'+
             '</div>'
@@ -157,9 +157,9 @@ var Popup = {
                  '</form>'+
             '</div>'+
             '<div class="popup-footer">'+
-            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">__('Close for non-time dispensation students')</a>'+
-            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">__('Close for all')</a>'+
-            '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">__('Cancel')</a>'+
+            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">Innemen voor studenten zonder tijds dispensatie</a>'+
+            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">Voor idereen innemen</a>'+
+            '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleer</a>'+
             '</div>'+
             '</div>';
 
@@ -169,10 +169,7 @@ var Popup = {
             'zIndex': (Popup.zIndex - 1)
         }).fadeIn();
 
-
         var width = 600;
-
-
         var height = $('#popup_' + Popup.index).height();
 
         $('#popup_' + Popup.index).css({
@@ -207,8 +204,7 @@ var Popup = {
             '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>'+
             '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>'+
             '</div>'+
-            '</div>'
-        ;
+            '</div>';
 
         $('body').append(htmlBlock);
 
@@ -216,9 +212,7 @@ var Popup = {
             'zIndex': (Popup.zIndex - 1)
         }).fadeIn();
 
-
         var width = 600;
-
 
         var height = $('#popup_' + Popup.index).height();
 
