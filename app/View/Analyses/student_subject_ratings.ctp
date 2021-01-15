@@ -91,23 +91,27 @@ $data = $data['school_years'][0];
                 ]
             }, {
                 name: 'Behaalde resultaten',
+                type:'scatter',        
                 data: [
                     <?
                     foreach($student['ratings'] as $rating) {
+                    
+                        if($rating['user_id']==$student['id']) {
 
-                        $dateFixed = date('Y', strtotime($rating['time_start'])) . ', ';
-                        $dateFixed .= (date('m', strtotime($rating['time_start'])) - 1) . ', ';
-                        $dateFixed .= date('d', strtotime($rating['time_start']));
+                            $dateFixed = date('Y', strtotime($rating['time_start'])) . ', ';
+                            $dateFixed .= (date('m', strtotime($rating['time_start'])) - 1) . ', ';
+                            $dateFixed .= date('d', strtotime($rating['time_start']));
 
-                        if($type == 'percentages') {
-                            $percentage = 0;
-                            if($rating['max_score'] != '0.0' && $rating['score'] != '0.0') {
-                                $percentage = (100 / $rating['max_score']) * $rating['score'];
+                            if($type == 'percentages') {
+                                $percentage = 0;
+                                if($rating['max_score'] != '0.0' && $rating['score'] != '0.0') {
+                                    $percentage = (100 / $rating['max_score']) * $rating['score'];
+                                }
+
+                                echo "[Date.UTC(" . $dateFixed . "), " . round($percentage, 1) . "],";
+                            }else{
+                                echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
                             }
-
-                            echo "[Date.UTC(" . $dateFixed . "), " . round($percentage, 1) . "],";
-                        }else{
-                            echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
                         }
                     }
                     ?>
