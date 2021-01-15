@@ -1648,6 +1648,7 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs(["Teacher"]);
 
+        CakeSession::write('Auth.User.account_verified', 'temp');
         if ($this->request->is('post')) {
             $result = $this->UsersService->resendEmailVerificationMail();
             if (!$result) {
