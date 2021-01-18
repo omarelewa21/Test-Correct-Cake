@@ -1191,7 +1191,6 @@ class QuestionsController extends AppController
         }
 
         $questions = $this->QuestionsService->getAllQuestions($params);
-
         $this->set('questions', $questions['data']);
     }
 

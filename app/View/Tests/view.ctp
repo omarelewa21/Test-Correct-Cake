@@ -189,7 +189,19 @@
                                             break;
 
                                         case 'OpenQuestion':
-                                            echo 'Open vraag<br />';
+                                            switch($subquestion['question']['subtype']){
+                                                
+                                                case 'short':
+                                                    echo 'Open vraag - kort<br />';
+                                                    break;
+                                                case 'long':
+                                                case 'medium':
+                                                    echo 'Open vraag - lang<br />';
+                                                    break;
+                                                default:
+                                                    echo 'Open vraag<br />';
+                                                    break;
+                                            }
                                             break;
 
                                         case 'CompletionQuestion':
@@ -243,7 +255,19 @@
                                         break;
 
                                     case 'OpenQuestion':
-                                        echo 'Open vraag<br />';
+                                        switch($question['question']['subtype']){
+                                            
+                                            case 'short':
+                                                echo 'Open vraag - kort<br />';
+                                                break;
+                                            case 'long':
+                                            case 'medium':
+                                                echo 'Open vraag - lang<br />';
+                                                break;
+                                            default:
+                                                echo 'Open vraag<br />';
+                                                break;
+                                        }
                                         break;
 
                                     case 'CompletionQuestion':

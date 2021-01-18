@@ -126,6 +126,9 @@ var User = {
             function () {
                 User.actOnLogout();
                 window.location.href = '/';
+                try {
+                    electron.closeApp();
+                } catch (error) {}
             }
         );
 
