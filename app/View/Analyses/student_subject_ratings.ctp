@@ -44,7 +44,6 @@ $data = $data['school_years'][0];
                     value: <?=$type == 'percentages' ? 55 : 5.5?>
                 }]
             },
-
             legend: {
                 layout: 'vertical',
                 align: 'right',
@@ -54,7 +53,7 @@ $data = $data['school_years'][0];
             series: [{
                 name: 'Studentgemiddelde',
                 data: [
-                    <?
+                    <?php
                     foreach($data['studentAverages'] as $date => $rating) {
 
                         $dateFixed = date('Y', strtotime($date)) . ', ';
@@ -73,7 +72,7 @@ $data = $data['school_years'][0];
             }, {
                 name: 'Klassengemiddelde',
                 data: [
-                    <?
+                    <?php
                     foreach($data['classAverages'] as $date => $rating) {
 
                         $dateFixed = date('Y', strtotime($date)) . ', ';
@@ -90,10 +89,9 @@ $data = $data['school_years'][0];
                     ?>
                 ]
             }, {
-                name: 'Behaalde resultaten',
-                type:'scatter',        
+                name: 'Behaalde resultaten',     
                 data: [
-                    <?
+                    <?php
                     foreach($student['ratings'] as $rating) {
                     
                         if($rating['user_id']==$student['id']) {
@@ -107,10 +105,12 @@ $data = $data['school_years'][0];
                                 if($rating['max_score'] != '0.0' && $rating['score'] != '0.0') {
                                     $percentage = (100 / $rating['max_score']) * $rating['score'];
                                 }
-
-                                echo "[Date.UTC(" . $dateFixed . "), " . round($percentage, 1) . "],";
-                            }else{
+                                                 
+                            }else{                           
+                                
+                               
                                 echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
+                                
                             }
                         }
                     }
