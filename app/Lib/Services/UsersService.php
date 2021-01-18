@@ -637,5 +637,14 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function getAccountVerifiedValue()
+    {
+        $response = $this->Connector->getRequest('/user/is_account_verified', ['user_id' => AuthComponent::user('id')]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

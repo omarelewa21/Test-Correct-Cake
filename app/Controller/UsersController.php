@@ -323,7 +323,13 @@ class UsersController extends AppController
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
+                $verified = CakeSession::read('Auth.User.account_verified');
+                if($verified == null) {
+                    $verified = $this->UsersService->getAccountVerifiedValue();
+                    CakeSession::write('Auth.User.account_verified', $verified);
+                }
                 $this->set('wizard_steps', $wizardSteps);
+                $this->set('account_verified', $verified);
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
             }
@@ -1648,7 +1654,6 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs(["Teacher"]);
 
-        CakeSession::write('Auth.User.account_verified', 'temp');
         if ($this->request->is('post')) {
             $result = $this->UsersService->resendEmailVerificationMail();
             if (!$result) {
