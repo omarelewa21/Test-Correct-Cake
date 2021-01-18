@@ -9,7 +9,7 @@
         </div>
         <?= $this->Form->create('FileTest', array('id' => 'FileTestForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment')) ?>
         <div class="block-content" id="testsContainer">
-            <table class='table'>               
+            <table class='table'>
                 <tr>
                     <td><label>Niveau</label></td>
                     <td>
@@ -45,16 +45,11 @@
                     </td>
                 </tr>
 
-
                 <tr>
-                    <td>Kies één of meerdere bestanden en <br>klik dan op de 
-                        <svg width="26" height="26" viewBox="0 -8 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z" fill="currentColor" fill-rule="evenodd"/></svg>
-
-                        om te uploaden
-                    </td>
+                    <td>Kies één of meerdere bestanden. (Max. <?php echo $readable_max_upload_size ?>)</td>
                     <td>
                         <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' => $form_id)) ?>
-                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>  
+                        <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>
                         <script>
                             [
                                 {supported: 'Symbol' in window, fill: 'https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.6.15/browser-polyfill.min.js'},
@@ -109,6 +104,7 @@
 </style>
 <script src="/js/filepond.js"></script>
 <script src="/js/filepond_metadata.js"></script>
+<script src="/js/filepond-plugin-file-validate-size.js"></script>
 <script>
 
                 var uploaded = [];
@@ -151,7 +147,7 @@
                         window.parent.handleUploadError("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden en klik rechts om te uploaden.");
                         return false;
                     }
-                    
+
                     if (!canSubmit) {
 
                         window.parent.handleUploadError('U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width="26" height="26" viewBox="0 -8 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z" fill="currentColor" fill-rule="evenodd"/></svg>) rechts naast de file(s) om deze te uploaden.');
@@ -159,7 +155,7 @@
 
                     }
 
-                    if ($('#correctiemodel').val() == "-1") {
+                    if ($('#correctiemodel').val() != "1") {
                         window.parent.handleUploadError("Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)");
                         return false;
                     }
@@ -181,7 +177,10 @@
 
                     $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
                     $('#FileTestContainer').show();
-                    $('#FileTestForm').hide().submit();
+                    pond.processFiles().then(files => {
+                        $('#FileTestForm').hide().submit();
+                    });
+
                     showWistJeDatJe();
 
 
@@ -236,6 +235,7 @@
                 $(document).ready(function () {
 
                     FilePond.registerPlugin(FilePondPluginFileMetadata);
+                    FilePond.registerPlugin(FilePondPluginFileValidateSize);
 // Get a reference to the file input element
                     const inputElement = document.querySelector('input[type="file"]');
 
@@ -244,29 +244,38 @@
                         allowMultiple: true,
                         allowReorder: true,
                         allowRevert: false,
-                        allowRemove: true
-                    });
+                        allowRemove: true,
+                        allowProcess: false,
+                        allowFileSizeValidation: true,
+                        maxTotalFileSize: <?php echo $max_file_upload_size ?>,
+                        labelMaxTotalFileSizeExceeded: 'Maximale bestandsgrootte bereikt',
+                        labelMaxTotalFileSize: 'Bestandsgrootte is maximaal {filesize}',
 
+                    });
                     FilePond.setOptions({
                         server: '/FileManagement/upload_test',
                         instantUpload: false,
                         checkValidity: true,
                         onaddfile: function (error, file) {
                             uploaded[file.id] = file.filename
-                            canSubmit = false;
+                            canSubmit = true;
                             fileAdded = true;
-                            $('#submitbutton').addClass('disabled');
+
+                            $('#submitbutton').removeClass('disabled');
+                        },
+                        onerror:function (error, file, status){
+                            if(file !== undefined){
+                                pond.removeFile(file);
+                                if(status !== undefined){
+                                    Notify.notify(status.main+'<br>'+status.sub,'error');
+                                }
+                            }
+
 
                         },
                         onremovefile: function (error, file) {
                             if (file.id in uploaded)
                                 delete uploaded[file.id];
-                        },
-                        onprocessfiles: function () {
-
-                            canSubmit = true;
-
-                            $('#submitbutton').removeClass('disabled');
                         },
                         fileMetadataObject: {
                             'form_id': '<?= $form_id; ?>'
