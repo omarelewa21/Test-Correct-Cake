@@ -50,6 +50,31 @@ $data = $data['school_years'][0];
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
+            plotOptions : {
+            
+                    scatter: {
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br>',
+                            pointFormat: '<br>Cijfer {point.y}'
+                        }
+                    }
+            },
             series: [{
                 name: 'Studentgemiddelde',
                 data: [
@@ -90,6 +115,7 @@ $data = $data['school_years'][0];
                 ]
             }, {
                 name: 'Behaalde resultaten',     
+                type : 'scatter',
                 data: [
                     <?php
                     foreach($student['ratings'] as $rating) {
@@ -107,8 +133,7 @@ $data = $data['school_years'][0];
                                 }
                                                  
                             }else{                           
-                                
-                               
+         
                                 echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
                                 
                             }
