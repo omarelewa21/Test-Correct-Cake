@@ -94,12 +94,93 @@ var Popup = {
             $(this).addClass('center');
         });
     },
+    
+    promptDispensation: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
+            '<div class="popup-head">Toets innemen</div>'+       
+            '<div class="popup-footer">'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="TestTake.setTakeTakenNonDispensation(\''+ options[0] + '\',[' + options[1] +']); Popup.closeLast();">Innemend voor niet tijdsdispensatie</a>'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); setTimeout(function(){ TestTake.setTakeTaken(\''+ options[0] + '\',[]); }, 500);">Innemend voor alle deelnemers</a>'+
+            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>'+    
+            '</div>'+
+            '</div>'
+        ;
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 147 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
 
     confirmCallBack: function (value) {
         Popup.closeLast();
         return Popup.callbackFromConfirm(value);
     },
+    closeTest: function (options, callback) {
+        
+        // the switch between the popup with dispensation
+        // option and the normal one can be made in the page
+        // arriving here means there are students with dispensation
+        $('#container, #background, #header').addClass('blurred');
 
+        Popup.index++;
+        Popup.zIndex += 2;
+       
+        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
+            '<div class="popup-head">'+options.title+'</div>'+
+            '<div class="popup-content">'+
+                '<form>'+
+                  '<div class="form-group">'+
+                    '<label for="prompt">'+options.text+'</label>'+
+                  '</div>'+
+                 '</form>'+
+            '</div>'+
+            '<div class="popup-footer">'+
+            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">Innemen voor studenten zonder tijds dispensatie</a>'+
+            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">Voor idereen innemen</a>'+
+            '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleer</a>'+
+            '</div>'+
+            '</div>';
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 600;
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
     confirm: function (options, callback) {
         
         this.debounce();
@@ -123,8 +204,7 @@ var Popup = {
             '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>'+
             '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>'+
             '</div>'+
-            '</div>'
-        ;
+            '</div>';
 
         $('body').append(htmlBlock);
 
@@ -132,9 +212,7 @@ var Popup = {
             'zIndex': (Popup.zIndex - 1)
         }).fadeIn();
 
-
         var width = 600;
-
 
         var height = $('#popup_' + Popup.index).height();
 
