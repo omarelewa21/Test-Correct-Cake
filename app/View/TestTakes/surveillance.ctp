@@ -61,7 +61,7 @@ if(count($takes) == 0) {
                             </td>
                             <td align="center" class="nopadding">
                                 <a href="#" class="btn highlight small"
-                                   onclick="TestTake.setTakeTaken('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids']; ?>);">
+                                   onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids']; ?>);">
                                     Innemen
                                 </a>
                             </td>
@@ -215,7 +215,6 @@ if(count($takes) == 0) {
         User.inactive = 0;
         $.getJSON('/test_takes/surveillance_data/?' + new Date().getTime(),
             function(response) {
-                console.log(response);
 
                 $('#time').html(response.time);
 
@@ -304,4 +303,43 @@ if(count($takes) == 0) {
         $('#blockProgress').hide();
         $('#alertOrange, #alertRed').hide();
     }
+    
+    $(document).on("click", "#test_close_confirm", function () {
+        
+        if($('#test_close_confirm').hasClass( "disabled")) {
+            return false;
+        }
+        
+        if(TestTake.testCloseMethod == 'Close all') {
+            
+            TestTake.setTakeTakenNoPrompt(TestTake.lastTestSelected);   
+            
+        } else {
+            
+            TestTake.setTakeTakenNonDispensation(TestTake.lastTestSelected,TestTake.lastTestTimeDispensedIds)
+            
+        }
+
+        Popup.closeLast();
+    });  
+    
+     $(document).on("click", "#test_close_non_dispensation", function () {
+            $('#test_close_non_dispensation').addClass( "highlight");
+            $('#test_close_confirm').removeClass( "disabled");
+            $('#test_close_confirm').removeClass( "grey");
+            $('#test_close_confirm').addClass( "blue");
+            $('#test_close_all').addClass( "grey");
+            $('#test_close_all').removeClass( "highlight");
+            TestTake.testCloseMethod = 'Close non dispensation';
+        });
+
+        $(document).on("click", "#test_close_all", function () {
+            $('#test_close_all').addClass( "highlight");
+            $('#test_close_confirm').removeClass( "disabled");
+            $('#test_close_confirm').removeClass( "grey");
+            $('#test_close_confirm').addClass( "blue");
+            $('#test_close_non_dispensation').addClass( "grey");
+            $('#test_close_non_dispensation').removeClass( "highlight");
+            TestTake.testCloseMethod = 'Close all'; 
+        });
 </script>

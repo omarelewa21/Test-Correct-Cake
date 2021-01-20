@@ -11,6 +11,9 @@ var TestTake = {
     isVisible: true,
     checkIframe: false,
     alert: false,
+    lastTestSelected:null,
+    lastTestTimeDispensedIds:null,
+    testCloseMethod:null,
 
     startHeartBeat: function (callback, interval) {
         if (callback == 'active') {
@@ -638,7 +641,6 @@ var TestTake = {
             );
         });
     },
-
     forcePlanned: function (take_id, participant_id) {
         $.get('/test_takes/force_planned/' + take_id + '/' + participant_id,
                 function () {
@@ -648,8 +650,6 @@ var TestTake = {
     },
     setTakeTakenNonDispensation: function (take_id, time_dispensation_ids) {
 
-        alert("closing test for non time dispensation students");
-        
         $.get('/test_takes/set_taken_for_non_dispensation/' + take_id,
                         function () {
                             Navigation.refresh();
@@ -657,14 +657,31 @@ var TestTake = {
                 );
 
     },
-
-    setTakeTaken: function (take_id, time_dispensation_ids) {
+    setTakeTakenSelector: function (take_id, time_dispensation_ids) {
+        
+        TestTake.lastTestSelected = take_id;
+        TestTake.lastTestTimeDispensedIds = time_dispensation_ids;
        
         if (time_dispensation_ids.length != []) {
 
             Popup.promptDispensation([take_id,[time_dispensation_ids]]);
 
         } else {
+            
+            this.setTakeTaken(take_id);
+            
+        }     
+    },
+    setTakeTakenNoPrompt: function (take_id) {
+        
+         $.get('/test_takes/set_taken/' + take_id,
+                        function () {
+                            Navigation.refresh();
+                        }
+                );
+        
+    },
+    setTakeTaken: function (take_id) {
 
             Popup.message({
                 btnOk: 'Ja',
@@ -679,11 +696,7 @@ var TestTake = {
                         }
                 );
             });
-
-        }
-
     },
-
     setFinalRate: function (take_id, participant_id, rate) {
         $.get('/test_takes/set_final_rate/' + take_id + '/' + participant_id + '/' + rate,
                 function () {
