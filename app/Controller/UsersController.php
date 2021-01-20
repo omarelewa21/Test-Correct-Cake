@@ -177,6 +177,11 @@ class UsersController extends AppController
 
     public function register_new_teacher()
     {
+        
+        header('location:https://welcome.test-correct.nl/onboarding');
+        
+        exit();
+        
         if ($this->request->is('post')) {
             $response = $this->UsersService->registerNewTeacher(
                 $this->request->data['User']
