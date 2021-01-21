@@ -14,7 +14,8 @@ if ($wizard_steps) {
 
 <?
 //TC-173
-if (null === AuthComponent::user('account_verified')) {
+
+if (!$account_verified) {
     ?>
     <div class="block" style="background-color: #ff8787;">
         <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
