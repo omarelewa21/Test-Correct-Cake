@@ -3,7 +3,7 @@
 <div class="popup-content">
 
     <div class=" " id="FileTestBlock">
-        <div id="FileTestContainer" style="display:none;overflow:scroll;padding: 8px;">
+        <div id="FileTestContainer" style="display:none;padding: 8px;">
             Een moment dit kan even duren...
             <h4 style="color:green;" id="wistjedatjes"></h4>
         </div>
@@ -144,7 +144,7 @@
                 function handleSubmit() {
 
                     if (!fileAdded) {
-                        window.parent.handleUploadError("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden en klik rechts om te uploaden.");
+                        window.parent.handleUploadError("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden.");
                         return false;
                     }
 
@@ -160,7 +160,7 @@
                         return false;
                     }
 
-                    if ($('#multiple').val() == "-1") {
+                    if ($('#multiple').val() != "0") {
                         window.parent.handleUploadError("Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)");
                         return false;
                     }
@@ -175,10 +175,12 @@
                         return false;
                     }
 
-                    $('#FileTestBlock').height($('#FileTestBlock').height()).css('overflow', 'scroll').css('padding', '8px');
                     $('#FileTestContainer').show();
+                    $('#FileTestForm').hide();
+                    $('#FileTestBlock').css('height', '100%').css('padding', '8px');
+
                     pond.processFiles().then(files => {
-                        $('#FileTestForm').hide().submit();
+                        $('#FileTestForm').submit();
                     });
 
                     showWistJeDatJe();
