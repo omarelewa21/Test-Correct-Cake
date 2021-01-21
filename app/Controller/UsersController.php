@@ -177,11 +177,18 @@ class UsersController extends AppController
 
     public function register_new_teacher()
     {
+
+        $core_url = Configure::read('core_url');
         
-        header('location:https://welcome.test-correct.nl/onboarding');
+        $core_url_parts = explode('/',$core_url);
+
+        // get the part directly after '//' 
+        $onboarding_location_string = "location:https://" . $core_url_parts[2] . "/onboarding";
+         
+        header($onboarding_location_string);
         
         exit();
-        
+
         if ($this->request->is('post')) {
             $response = $this->UsersService->registerNewTeacher(
                 $this->request->data['User']
@@ -195,6 +202,7 @@ class UsersController extends AppController
             }
             exit();
         }
+
     }
 
     public function register_new_teacher_successful()
