@@ -23,7 +23,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -178,14 +178,11 @@ class UsersController extends AppController
     public function register_new_teacher()
     {
 
-        $core_url = Configure::read('core_url');
+        $onboarding_url_config_variable = 'shortcode.shortcode.redirect'; 
+        $onboarding_url = $this->get_config($onboarding_url_config_variable);     
+        $location_string = 'location:' . $onboarding_url;
         
-        $core_url_parts = explode('/',$core_url);
-
-        // get the part directly after '//' 
-        $onboarding_location_string = "location:https://" . $core_url_parts[2] . "/onboarding";
-         
-        header($onboarding_location_string);
+        header($location_string);
         
         exit();
 
@@ -204,10 +201,18 @@ class UsersController extends AppController
         }
 
     }
+    
+    public function get_config($laravel_config_variable) {
+
+        $response = $this->UsersService->getConfig($laravel_config_variable);  
+
+        return $response['status'];
+        
+    }
 
     public function register_new_teacher_successful()
     {
-
+        
     }
 
     protected function getSessionHeaderData()
@@ -1010,7 +1015,7 @@ class UsersController extends AppController
             $menus['knowledgebase'] = "Kennisbank";
 
             if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
+                //$menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
             }
         }
 
