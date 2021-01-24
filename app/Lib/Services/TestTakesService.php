@@ -383,6 +383,7 @@ class TestTakesService extends BaseService {
 
         if ($reason !== '') {
             $data['test_take_event_type_id'] = 10; // for now only if alt+ tab
+            $data['reason'] = $reason;
         }
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
