@@ -18,10 +18,25 @@
                 'Started late' => 'Laat gestart',
                 'Application closed' => 'Opnieuw gestart met toets',
                 'Lost focus alt tab' => 'Via alt+tab naar ander venster',
+                'Pressed meta key' => 'Windows toets ingedrukt',
+                'Pressed alt key' => 'Alt toets ingedrukt',
+                'Application closed alt+f4' => 'Applicatie afgesloten via alt+f4',
+                'Lost focus blur' => 'App verlaten',
+                'Window hidden' => 'Applicatie verborgen',
+                'Window minimized' => 'Applicatie geminimalizeerd',
+                'Window moved' => 'Venster bewogen',
+                'Window not fullscreen' => 'Applicatie niet volledig scherm',
+                'Always on top changed' => 'Applicatie niet altijd op de voorgrond',
+                'Window resized' => 'Venster groote aangepast',
+                'Force shutdown' => 'Applicatie geforceerd afgesloten'
             ];
 
             foreach($events as $event) {
                 if (isset($translations[$event['test_take_event_type']['name']])) {
+                    $translation = $translations[$event['test_take_event_type']['name']];
+                } else {
+                    $translation = $event['test_take_event_type']['name'];
+                }
                     ?>
                     <tr id="event_<?= getUUID($event, 'get'); ?>">
                         <td>
@@ -30,7 +45,7 @@
                             <?= $event['test_participant']['user']['name'] ?>
                         </td>
                         <td>
-                            <?= $translations[$event['test_take_event_type']['name']] ?>
+                            <?= $translation ?>
                         </td>
                         <td>
                             <?= date('H:i', strtotime($event['created_at'])) ?>
@@ -47,7 +62,6 @@
                         </td>
                     </tr>
                 <?
-                }
             }
             ?>
         </table>
