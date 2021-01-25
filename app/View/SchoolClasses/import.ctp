@@ -324,8 +324,11 @@
                                 if (cssClass === 'duplicate') {
                                     hasDuplicates = true;
                                 }
+                                if (cssClass === 'amparsand') {
+                                    hasAmparsandEmail = true;
+                                }
                                 if (cssClass === 'invalid-email-characters') {
-                                    //hasInvaildEmail = true;
+                                    hasInvaildEmail = true;
                                 }
                                 
                                 if (cssClass === 'duplicate-in-database') {
@@ -345,8 +348,8 @@
                         if (hasDuplicatesInDatabase) {
                             $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje 1)</li></ul>');
                         }
-                          if (hasInvaildEmail) {
-                            //$('#duplicates-in-database-data-errors').html('<ul><li>The email address(es) contain invalid or international characters (oranje)</li></ul>');
+                        if (hasInvaildEmail) {
+                            $('#duplicates-in-database-data-errors').html('<ul><li>The email address(es) contain invalid or international characters (oranje)</li></ul>');
                         }
 
                         // if (dataMissingHeaders.length) {
@@ -382,6 +385,9 @@
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
             }
+            if (error.indexOf('amparsand') !== -1) {
+                return 'amparsand';
+            }
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';
             }
@@ -389,7 +395,7 @@
                 return 'duplicate-in-database';
             }
             if (error.indexOf('international characters') !== -1) {
-                //return 'invalid-email-characters';
+                return 'invalid-email-characters';
             }
 
             return false;
