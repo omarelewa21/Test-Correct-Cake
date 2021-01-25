@@ -316,6 +316,8 @@
                                 errorMsg = response.data[key];
 
                                 var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
+                                
+                                console.log(cssClass);
 
                                 $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass)
                                 if (!dataMissingHeaders.includes(header)) {
@@ -325,6 +327,7 @@
                                     hasDuplicates = true;
                                 }
                                 if (cssClass === 'amparsand') {
+                                    console.log('amp1');
                                     hasAmparsandEmail = true;
                                 }
                                 if (cssClass === 'invalid-email-characters') {
@@ -347,6 +350,10 @@
                         }
                         if (hasDuplicatesInDatabase) {
                             $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje 1)</li></ul>');
+                        }
+                        if (hasAmparsandEmail) {
+                            console.log('amp2');
+                            $('#duplicates-in-database-data-errors').html('<ul><li>The email address(es) contain an Amparsand & (oranje)</li></ul>');
                         }
                         if (hasInvaildEmail) {
                             $('#duplicates-in-database-data-errors').html('<ul><li>The email address(es) contain invalid or international characters (oranje)</li></ul>');
@@ -382,6 +389,7 @@
         }
 
         function classifyError(error) {
+            
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
             }
