@@ -23,7 +23,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -177,6 +177,15 @@ class UsersController extends AppController
 
     public function register_new_teacher()
     {
+
+        $onboarding_url_config_variable = 'shortcode.shortcode.redirect'; 
+        $onboarding_url = $this->get_config($onboarding_url_config_variable);     
+        $location_string = 'location:' . $onboarding_url;
+        
+        header($location_string);
+        
+        exit();
+
         if ($this->request->is('post')) {
             $response = $this->UsersService->registerNewTeacher(
                 $this->request->data['User']
@@ -190,11 +199,20 @@ class UsersController extends AppController
             }
             exit();
         }
+
+    }
+    
+    public function get_config($laravel_config_variable) {
+
+        $response = $this->UsersService->getConfig($laravel_config_variable);  
+
+        return $response['status'];
+        
     }
 
     public function register_new_teacher_successful()
     {
-
+        
     }
 
     protected function getSessionHeaderData()
@@ -323,7 +341,13 @@ class UsersController extends AppController
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
+                $verified = CakeSession::read('Auth.User.account_verified');
+                if($verified == null) {
+                    $verified = $this->UsersService->getAccountVerifiedValue();
+                    CakeSession::write('Auth.User.account_verified', $verified);
+                }
                 $this->set('wizard_steps', $wizardSteps);
+                $this->set('account_verified', $verified);
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
             }

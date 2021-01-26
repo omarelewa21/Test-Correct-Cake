@@ -59,4 +59,30 @@ class HelperFunctions
         return html_entity_decode($var);
     }
 
+    public function getMaxFileUploadSize()
+    {
+        return $this->return_bytes(ini_get('upload_max_filesize'));
+    }
+
+    public function return_bytes($val) {
+        $val = trim($val);
+        $last = strtolower($val[strlen($val)-1]);
+        switch($last)
+        {
+            case 'g':
+                $val *= 1024;
+            case 'm':
+                $val *= 1024;
+            case 'k':
+                $val *= 1024;
+        }
+        return $val;
+    }
+    function formatBytes($size, $precision = 2)
+    {
+        $base = log($size, 1024);
+        $suffixes = array('', 'KB', 'MB', 'GB', 'TB');
+
+        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+    }
 }

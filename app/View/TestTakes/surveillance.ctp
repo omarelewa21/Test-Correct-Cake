@@ -32,14 +32,15 @@ if(count($takes) == 0) {
                         <th width="200">Voortgang</th>
                         <th width="120"></th>
                     </tr>
-                    <?
-                    foreach ($takes as $take) {
+                    <?php
+                    
+                        foreach ($takes as $take) {
 
                         ?>
                         <tr>
                             <td><?= $take[0]['test'] ?></td>
                             <td>
-                                <?
+                                <?php
                                 foreach ($take as $take_item) {
                                     if (isset($take_item['schoolClass'])) {
                                         echo $take_item['schoolClass'] . '<br />';
@@ -48,24 +49,24 @@ if(count($takes) == 0) {
                                 ?>
                             </td>
                             <td>
-                                <?
+                                <?php
                                 foreach ($take['info']['school_classes'] as $class) {
                                     ?>
                                     <div class="progress" style="margin-bottom: 0px; height:20px; margin-bottom:1px;">
                                         <div class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=getUUID($take['info'], 'get')?>_<?=getUUID($class, 'get')?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
                                     </div>
-                                    <?
+                                    <?php
                                 }
                                 ?>
                             </td>
                             <td align="center" class="nopadding">
                                 <a href="#" class="btn highlight small"
-                                   onclick="TestTake.setTakeTaken('<?= getUUID($take['info'], 'get'); ?>');">
+                                   onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids']; ?>);">
                                     Innemen
                                 </a>
                             </td>
                         </tr>
-                    <?
+                    <?php
                     }
                     ?>
                 </table>
@@ -95,11 +96,12 @@ if(count($takes) == 0) {
         <div class="block-head">Voortgang Studenten</div>
         <div class="block-content">
             <table class="table table-striped" style="float:left; width:48%">
-                <?
+                <?php
 
                 $participants = [];
 
                 foreach ($takes as $take) {
+                
                     if(is_array($take['info']['test_participants'])){
 
                         foreach ($take['info']['test_participants'] as $key => $value) {
@@ -121,7 +123,7 @@ if(count($takes) == 0) {
             </table>
 
             <table class="table table-striped" style="float:right; width:48%">
-                <?
+                <?php
                 for ($i = $half; $i < count($participants); $i++) {
                     echo $this->element('surveillance_studentrow',['participant' => $participants[$i]]);
                 }
@@ -131,7 +133,7 @@ if(count($takes) == 0) {
             <br clear="all"/>
         </div>
     </div>
-<?
+<?php
 }
 ?>
 
@@ -213,7 +215,6 @@ if(count($takes) == 0) {
         User.inactive = 0;
         $.getJSON('/test_takes/surveillance_data/?' + new Date().getTime(),
             function(response) {
-                console.log(response);
 
                 $('#time').html(response.time);
 
@@ -302,4 +303,43 @@ if(count($takes) == 0) {
         $('#blockProgress').hide();
         $('#alertOrange, #alertRed').hide();
     }
+    
+    $(document).on("click", "#test_close_confirm", function () {
+        
+        if($('#test_close_confirm').hasClass( "disabled")) {
+            return false;
+        }
+        
+        if(TestTake.testCloseMethod == 'Close all') {
+            
+            TestTake.setTakeTakenNoPrompt(TestTake.lastTestSelected);   
+            
+        } else {
+            
+            TestTake.setTakeTakenNonDispensation(TestTake.lastTestSelected,TestTake.lastTestTimeDispensedIds)
+            
+        }
+
+        Popup.closeLast();
+    });  
+    
+     $(document).on("click", "#test_close_non_dispensation", function () {
+            $('#test_close_non_dispensation').addClass( "highlight");
+            $('#test_close_confirm').removeClass( "disabled");
+            $('#test_close_confirm').removeClass( "grey");
+            $('#test_close_confirm').addClass( "blue");
+            $('#test_close_all').addClass( "grey");
+            $('#test_close_all').removeClass( "highlight");
+            TestTake.testCloseMethod = 'Close non dispensation';
+        });
+
+        $(document).on("click", "#test_close_all", function () {
+            $('#test_close_all').addClass( "highlight");
+            $('#test_close_confirm').removeClass( "disabled");
+            $('#test_close_confirm').removeClass( "grey");
+            $('#test_close_confirm').addClass( "blue");
+            $('#test_close_non_dispensation').addClass( "grey");
+            $('#test_close_non_dispensation').removeClass( "highlight");
+            TestTake.testCloseMethod = 'Close all'; 
+        });
 </script>

@@ -267,6 +267,7 @@ class TestTakesController extends AppController {
     }
 
     public function edit($take_id) {
+        
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $take = $this->TestTakesService->getTestTake($take_id);
@@ -365,6 +366,14 @@ class TestTakesController extends AppController {
         $this->TestTakesService->updateStatus($take_id, 6);
     }
 
+    public function set_taken_for_non_dispensation($take_id) {
+
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $this->autoRender = false;
+        $this->TestTakesService->closeNonDispensation($take_id);
+    }
+    
     public function add_class($class_id) {
         $this->autoRender = false;
         $take_id = $this->Session->read('take_id');
@@ -1776,6 +1785,22 @@ class TestTakesController extends AppController {
         $this->set('hide_when_archived', ($filters['archived'] == 0));
     }
 
+    public function get_time_dispensation_ids($participants):array {
+        
+        $dispensation = [];
+        
+         foreach($participants as $test_participant) {
+
+                if($test_participant['user']['time_dispensation'] == 1) {
+                     $dispensation[] = $test_participant['user']['id'];
+                }
+                
+            }
+            
+        return $dispensation;    
+        
+    }
+    
     public function surveillance() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -1790,11 +1815,17 @@ class TestTakesController extends AppController {
         $newArray = [];
 
         foreach ($takes as $take_id => $take) {
+            
             $take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
+            
+            $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
+            
             $newArray[$take_id] = $take;
+          
         }
 
         $takes = $newArray;
+        
         $this->set('takes', $takes);
     }
 

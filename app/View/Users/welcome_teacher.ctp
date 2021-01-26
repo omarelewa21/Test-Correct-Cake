@@ -18,7 +18,7 @@ if ($wizard_steps) {
     <div class="notes">
         <?php
 
-        if (null === AuthComponent::user('account_verified')) {
+        if (!$account_verified) {
             ?>
             <div class="notification error">
                 <div class="title">
@@ -98,6 +98,7 @@ if ($wizard_steps) {
         </div>
     </div>
 </div>
+
 
 <?php
 if ($wizard_steps) {

@@ -205,6 +205,7 @@ class CoreConnector {
             }
         }
 
+       
 
         curl_setopt($handle, CURLOPT_POSTFIELDS, $newBody);
 
