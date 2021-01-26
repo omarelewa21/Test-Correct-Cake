@@ -14,11 +14,12 @@ var Menu = {
 
                 // Highlight menu
                 $('#header #menu .item').removeClass('active');
-                $(this).addClass('active');
+
 
                 $('#tiles .tile').hide();
                 if($('#tiles .tile[menu='+Menu.menuTmp + ']').length > 0) {
 
+                    $(this).addClass('active');
                     $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
 
                     clearTimeout(window.menuTimer);
@@ -27,6 +28,8 @@ var Menu = {
                     $('#tiles').stop().animate({
                         'top': '93px'
                     });
+                } else {
+                    $(this).addClass('noItemHover');
                 }
             }).mouseout(function() {
                 window.menuTimer = setTimeout(function() {

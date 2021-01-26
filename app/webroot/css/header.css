@@ -97,7 +97,7 @@
     color:          white;
 }
 
-#header #menu .item:hover, #header #menu .item.active {
+#header #menu .item:hover:not(.noItemHover), #header #menu .item.active {
     cursor:         pointer;
     background:     url(/img/header/active-menu.png) bottom no-repeat;
 }
