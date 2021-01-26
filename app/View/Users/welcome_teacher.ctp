@@ -1,3 +1,33 @@
+
+<style>
+
+
+
+    .test_tile {
+
+        padding:15px 15px 25px 15px;
+        margin-bottom: 2.6875rem;
+        text-align: center;
+        color: #2d3e50;
+        border: 1px solid #eaf0f6;
+        border-radius: 3px;
+        background-color: #fff;
+        width: 332px;
+        min-height: 200px;
+    }
+
+    .btn-primary, .btn-primary:active, .btn-primary:visited {
+        border-radius: 12px;
+        background-color: #3DBB56;
+        border-width:0px;
+    }
+    .btn-primary:hoover {
+        border-radius: 12px;
+        background-color: #56D76F
+        border-width:0px;
+    }
+
+</style>
 <?php
 if ($wizard_steps) {
     ?>
@@ -10,31 +40,7 @@ if ($wizard_steps) {
             <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
         </a>
     </div>
-<?php } ?>
-<div class="dashboard m56">
-    <div class="notes">
-
-    </div>
-    <div class="cta">
-        <div class="tat-top-text">
-            <?php echo $this->element('send'); ?>
-            <h1 class="inline-block">Nodig een collega uit!</h1>
-            <div class="tat-usp">
-                <h6 class="">Samen met je collega's kun je:</h6>
-                <div>
-                    <?php echo $this->element('checkmark-small') ?>
-                    <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
-                </div>
-                <div>
-                    <?php echo $this->element('checkmark-small') ?>
-                    <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<?
+<?php } 
 //TC-173
 if (null === AuthComponent::user('account_verified')) {
     ?>
@@ -62,8 +68,8 @@ if (null === AuthComponent::user('account_verified')) {
 <?php } ?>
 
 
-<div class="block">
-    <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
+<div class="block" >
+    <div class="m56 test_tile" style="display:inline-block;width:60%;height:200px;border:none">
         <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
         <h3>Onze november update staat nu online.</h3><br/>
         <b>Creëer filters</b> en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt. <b>Archiveer
@@ -71,6 +77,30 @@ if (null === AuthComponent::user('account_verified')) {
         precies hoeveel grip je leerlingen hebben op elk leerdoel.<br/>
         <br/><a href="https://support.test-correct.nl/knowledge/nieuwe-functionaliteiten" target="_blank">Lees hier
             alles over onze nieuwe functionaliteiten.</a>
+    </div>
+    
+     <div class="md56 dashboard test_tile" style="display:inline-block;width:30%;height:200px;border:none">
+       <div class="cta" >
+        <div class="tat-top-text">
+            <?php echo $this->element('send'); ?>
+            <h1 class="inline-block">Nodig een collega uit!</h1>
+            <div class="tat-usp">
+                <h6 class="">Samen met je collega's kun je:</h6>
+                <div>
+                    <?php echo $this->element('checkmark-small') ?>
+                    <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                </div>
+                <div>
+                    <?php echo $this->element('checkmark-small') ?>
+                    <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
+                </div>
+                <div style="text-align:center">
+                    <br>
+                   <div class="btn btn-primary" style="text-align:center;color:#FFFFFF;background-color:#3DBB56;hoover:#56D76F;padding:5px 5px 5px 5px" onClick="Popup.load('/users/tell_a_teacher');">Nodig een collega uit! <i class='fa fa-chevron-right' style='background:#3DBB56;color:#FFFFFF;font-weight:bold;'></i></div>
+                </div>
+            </div>
+        </div>
+    </div>
     </div>
 </div>
 
