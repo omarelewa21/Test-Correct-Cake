@@ -17,14 +17,17 @@ var Menu = {
                 $(this).addClass('active');
 
                 $('#tiles .tile').hide();
-                $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
+                if($('#tiles .tile[menu='+Menu.menuTmp + ']').length > 0) {
 
-                clearTimeout(window.menuTimer);
+                    $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
 
-                $('#tiles').show();
-                $('#tiles').stop().animate({
-                    'top' : '93px'
-                });
+                    clearTimeout(window.menuTimer);
+
+                    $('#tiles').show();
+                    $('#tiles').stop().animate({
+                        'top': '93px'
+                    });
+                }
             }).mouseout(function() {
                 window.menuTimer = setTimeout(function() {
                     Menu.hideTiles();
