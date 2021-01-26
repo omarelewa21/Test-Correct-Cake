@@ -300,6 +300,7 @@
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
+                        var hasAmparsandEmail = false;
                         var hasInvaildEmail = false;
                         var hasDuplicatesInDatabase = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
