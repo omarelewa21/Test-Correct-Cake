@@ -997,7 +997,7 @@ class UsersController extends AppController
             $menus['knowledgebase'] = "Kennisbank";
 
             if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
+                //$menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
             }
         }
 
@@ -1339,6 +1339,7 @@ class UsersController extends AppController
                     'path'  => '/file_management/testuploads'
                 ];
 
+                /*
                 $tiles['tell_a_teacher'] = array(
                     'menu'  => 'tell_a_teacher',
                     'icon'  => 'testlist',
@@ -1347,6 +1348,8 @@ class UsersController extends AppController
                     'type'  => 'popup',
                     'width' => 800
                 );
+                 * 
+                 */
             }
 
             if ($role['name'] == 'Student') {
