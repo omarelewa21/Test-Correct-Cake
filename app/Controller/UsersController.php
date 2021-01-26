@@ -1021,7 +1021,18 @@ class UsersController extends AppController
             $menus['knowledgebase'] = "Kennisbank";
 
             if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
+                $menus['tell_a_teacher'] = "
+                                                <button class='button cta-button button-sm' style='cursor: pointer;'
+                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
+                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
+                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
+                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
+                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
+                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            ";
             }
         }
 
@@ -1363,6 +1374,7 @@ class UsersController extends AppController
                     'path'  => '/file_management/testuploads'
                 ];
 
+                /*
                 $tiles['tell_a_teacher'] = array(
                     'menu'  => 'tell_a_teacher',
                     'icon'  => 'testlist',
@@ -1371,6 +1383,8 @@ class UsersController extends AppController
                     'type'  => 'popup',
                     'width' => 800
                 );
+                 * 
+                 */
             }
 
             if ($role['name'] == 'Student') {
