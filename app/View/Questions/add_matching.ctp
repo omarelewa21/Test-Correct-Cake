@@ -1,4 +1,4 @@
- ̰<div class="popup-head">Combineervraag</div>
+<div class="popup-head">Combineervraag</div>
 <div class="popup-content">
     <?=$this->Form->create('Question')?>
 
