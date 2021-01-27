@@ -35,6 +35,7 @@
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="duplicate-in-database" id="duplicates-in-database-data-errors"></div>
     <div class="duplicate-in-database" id="amparsand-errors"></div>
+    <div class="duplicate-in-database" id="invalid-email"></div>
     <div class="error" id="column-errors"></div>
     <div class="error" id="missing-data-errors"></div>
     <div class="block-content">
@@ -120,11 +121,19 @@
     .duplicate {
         background-color: dodgerblue;
     }
+    
+     .amparsand {
+        background-color:orange;
+    }
 
     .duplicate-in-database {
         background-color:orange;
     }
 
+    .invalid-email {
+        background-color:orange;
+    }
+    
     .error {
         background: indianred;
     }
@@ -322,7 +331,8 @@
 
                                 var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
 
-                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass)
+                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass);
+                                
                                 if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
@@ -332,7 +342,7 @@
                                 if (cssClass === 'amparsand') {
                                     hasAmparsandEmail = true;
                                 }
-                                if (cssClass === 'invalid-email-characters') {
+                                if (cssClass === 'invalid-email') {
                                     hasInvalidEmail = true;
                                 }
                                 
@@ -357,7 +367,7 @@
                             $('#amparsand-errors').html('<ul><li>The email address(es) contain an Amparsand & (oranje)</li></ul>');
                         }
                         if (hasInvalidEmail) {
-                            $('#duplicates-in-database-data-errors').html('<ul><li>The email address(es) contain invalid or international characters</li></ul>');
+                            $('#invalid-email').html('<ul><li>The email address(es) contain invalid or international characters</li></ul>');
                         }
 
                         // if (dataMissingHeaders.length) {
@@ -404,7 +414,7 @@
                 return 'duplicate-in-database';
             }
             if (error.indexOf('international characters') !== -1) {
-                return 'invalid-email-characters';
+                return 'invalid-email';
             }
 
             return false;
