@@ -52,13 +52,11 @@ if ($wizard_steps) {
         <?php } ?>
         <div class="notification info">
             <div class="title">
-                <h5>Welkom op het Test-Correct platform! Onze november update staat nu online.</h5>
+                <h5>Welkom op het Test-Correct platform! Anti-virussoftware Update.</h5>
             </div>
             <div class="body">
                 <p>
-                    Creëer filters en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt in de
-                    itembank. Archiveer toetsen die je al hebt afgenomen en becijferd. Creëer analyses van je
-                    toetsesultaten en zie precies hoeveel grip je leerlingen hebben op elk leerdoel.
+                    <b>Let op</b>, het kan zijn dat één of meerdere studenten/leerlingen problemen ondervinden met het starten van de Test-Correct app. Dit heeft te maken met een update van de anti-virussoftware op zijn/haar windows computer. Als u dit probleem tegen komt, vraag de student/leerling om de app te deïnstalleren. Vervolgens kan versie 2.3 van onze Windows app geïnstalleerd worden. Deze kan je <a href="https://www.test-correct.nl/student/" target="_blank">HIER</a> downloaden. Hierdoor moet dit probleem verholpen zijn.
                 </p>
             </div>
         </div>
