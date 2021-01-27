@@ -618,7 +618,7 @@ var TestTake = {
                     date: date
                 },
                 function (response) {
-            
+
                     if (response != "") {
                         $('#TestTakePeriodId_' + i).val(response);
                     }
@@ -658,28 +658,33 @@ var TestTake = {
 
     },
     setTakeTakenSelector: function (take_id, time_dispensation_ids) {
-        
-        TestTake.lastTestSelected = take_id;
-        TestTake.lastTestTimeDispensedIds = time_dispensation_ids;
-       
-        if (time_dispensation_ids.length != []) {
-
-            Popup.promptDispensation([take_id,[time_dispensation_ids]]);
-
-        } else {
-            
+        if (time_dispensation_ids.length == 0) {
             this.setTakeTaken(take_id);
-            
-        }     
+        } else {
+            $.getJSON('/test_takes/has_active_test_participants_with_time_dispensation/' + take_id, function (data) {
+//TODO I dont know what the next two lines are for.
+// I think TestTake is a singleton but surveillence screen has multiple instances....
+// I leave them in but I think they do nothing;
+// MF 27-01-2021
+                TestTake.lastTestSelected = take_id;
+                TestTake.lastTestTimeDispensedIds = time_dispensation_ids;
+
+                if (data.response == true) {
+                    Popup.promptDispensation([take_id, [time_dispensation_ids]]);
+                } else {
+                    this.setTakeTaken(take_id);
+                }
+            });
+        }
     },
     setTakeTakenNoPrompt: function (take_id) {
-        
+
          $.get('/test_takes/set_taken/' + take_id,
                         function () {
                             Navigation.refresh();
                         }
                 );
-        
+
     },
     setTakeTaken: function (take_id) {
 
