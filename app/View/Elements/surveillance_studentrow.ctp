@@ -9,6 +9,9 @@
         <?= $participant['user']['name_suffix'] ?>
         <?= $participant['user']['name'] ?>
 
+        <?php if($participant['user']['time_dispensation'] == 1) {?>
+            <span class="fa fa-clock-o" title="Deze student heeft tijdsdispensatie"></span>
+        <?php } ?>
         <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
         <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red" onclick="TestTake.ipAlert();"></span>
     </td>
