@@ -301,43 +301,47 @@ if(count($takes) == 0) {
         $('#blockProgress').hide();
         $('#alertOrange, #alertRed').hide();
     }
-    
-    $(document).on("click", "#test_close_confirm", function () {
-        
-        if($('#test_close_confirm').hasClass( "disabled")) {
-            return false;
-        }
-        
-        if(TestTake.testCloseMethod == 'Close all') {
-            
-            TestTake.setTakeTakenNoPrompt(TestTake.lastTestSelected);   
-            
-        } else {
-            
-            TestTake.setTakeTakenNonDispensation(TestTake.lastTestSelected,TestTake.lastTestTimeDispensedIds)
-            
-        }
 
-        Popup.closeLast();
-    });  
-    
-     $(document).on("click", "#test_close_non_dispensation", function () {
-            $('#test_close_non_dispensation').addClass( "highlight");
-            $('#test_close_confirm').removeClass( "disabled");
-            $('#test_close_confirm').removeClass( "grey");
-            $('#test_close_confirm').addClass( "blue");
-            $('#test_close_all').addClass( "grey");
-            $('#test_close_all').removeClass( "highlight");
+    if(typeof(nonDispensationJs) == 'undefined') {
+
+        $(document).on("click", "#test_close_confirm", function () {
+
+            if ($('#test_close_confirm').hasClass("disabled")) {
+                return false;
+            }
+
+            if (TestTake.testCloseMethod == 'Close all') {
+
+                TestTake.setTakeTakenNoPrompt(TestTake.lastTestSelected);
+
+            } else {
+
+                TestTake.setTakeTakenNonDispensation(TestTake.lastTestSelected, TestTake.lastTestTimeDispensedIds)
+
+            }
+
+            Popup.closeLast();
+        });
+
+        $(document).on("click", "#test_close_non_dispensation", function () {
+            $('#test_close_non_dispensation').addClass("highlight");
+            $('#test_close_confirm').removeClass("disabled");
+            $('#test_close_confirm').removeClass("grey");
+            $('#test_close_confirm').addClass("blue");
+            $('#test_close_all').addClass("grey");
+            $('#test_close_all').removeClass("highlight");
             TestTake.testCloseMethod = 'Close non dispensation';
         });
 
         $(document).on("click", "#test_close_all", function () {
-            $('#test_close_all').addClass( "highlight");
-            $('#test_close_confirm').removeClass( "disabled");
-            $('#test_close_confirm').removeClass( "grey");
-            $('#test_close_confirm').addClass( "blue");
-            $('#test_close_non_dispensation').addClass( "grey");
-            $('#test_close_non_dispensation').removeClass( "highlight");
-            TestTake.testCloseMethod = 'Close all'; 
+            $('#test_close_all').addClass("highlight");
+            $('#test_close_confirm').removeClass("disabled");
+            $('#test_close_confirm').removeClass("grey");
+            $('#test_close_confirm').addClass("blue");
+            $('#test_close_non_dispensation').addClass("grey");
+            $('#test_close_non_dispensation').removeClass("highlight");
+            TestTake.testCloseMethod = 'Close all';
         });
+        nonDispensationJs = true;
+    }
 </script>
