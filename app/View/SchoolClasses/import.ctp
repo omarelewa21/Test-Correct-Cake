@@ -122,15 +122,9 @@
         background-color: dodgerblue;
     }
     
-     .amparsand {
-        background-color:orange;
-    }
-
-    .duplicate-in-database {
-        background-color:orange;
-    }
-
-    .invalid-email {
+     .amparsand,
+     .duplicate-in-database,
+     .invalid-email {
         background-color:orange;
     }
     
