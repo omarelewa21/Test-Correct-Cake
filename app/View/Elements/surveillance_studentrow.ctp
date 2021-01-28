@@ -12,8 +12,8 @@
         <?php if($participant['user']['time_dispensation'] == 1) {?>
             <span class="fa fa-clock-o" title="Deze student heeft tijdsdispensatie"></span>
         <?php } ?>
-        <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
-        <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red" onclick="TestTake.ipAlert();"></span>
+        <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange;display:none" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
+        <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red;display:none" onclick="TestTake.ipAlert();"></span>
     </td>
     <td width="70">
         <div id="label_participant_<?=getUUID($participant, 'get');?>" class="label"></div>

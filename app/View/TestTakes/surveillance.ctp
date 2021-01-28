@@ -158,11 +158,9 @@ if(count($takes) == 0) {
 
             var channel = pusher.subscribe('my-channel');
             channel.bind('stop-polling', function (data) {
-                console.dir(data);
                 stopPolling(data.message, data.title);
             });
             channel.bind('start-polling', function (data) {
-                console.dir(data);
                 if (!data.pollingInterval) {
                     data.pollingInterval = 10000;
                 }
