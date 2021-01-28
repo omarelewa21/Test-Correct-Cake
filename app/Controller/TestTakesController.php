@@ -267,7 +267,7 @@ class TestTakesController extends AppController {
     }
 
     public function edit($take_id) {
-        
+
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $take = $this->TestTakesService->getTestTake($take_id);
@@ -373,7 +373,7 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
         $this->TestTakesService->closeNonDispensation($take_id);
     }
-    
+
     public function add_class($class_id) {
         $this->autoRender = false;
         $take_id = $this->Session->read('take_id');
@@ -1786,21 +1786,36 @@ class TestTakesController extends AppController {
     }
 
     public function get_time_dispensation_ids($participants):array {
-        
+
         $dispensation = [];
-        
+
          foreach($participants as $test_participant) {
 
                 if($test_participant['user']['time_dispensation'] == 1) {
                      $dispensation[] = $test_participant['user']['id'];
                 }
-                
+
             }
-            
-        return $dispensation;    
-        
+
+        return $dispensation;
+
     }
-    
+    public function has_active_test_participants_with_time_dispensation($take_uuid) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $hasActiveParticipantWithTimeDispensation = false;
+        $take = $this->TestTakesService->getTestTakeInfo($take_uuid, 'get');
+        foreach ($take['test_participants'] as $participant) {
+            // status is taking test same as green badge in overview. could be complemented with last_heart_beat?
+            if($participant['test_take_status_id'] == 3) {
+                if($participant['user']['time_dispensation'] == 1) {
+                    $hasActiveParticipantWithTimeDispensation = true;
+                }
+            }
+        }
+        echo json_encode(['response' => $hasActiveParticipantWithTimeDispensation]);
+        exit;
+    }
+
     public function surveillance() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -1815,17 +1830,17 @@ class TestTakesController extends AppController {
         $newArray = [];
 
         foreach ($takes as $take_id => $take) {
-            
+
             $take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
-            
+
             $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
-            
+
             $newArray[$take_id] = $take;
-          
+
         }
 
         $takes = $newArray;
-        
+
         $this->set('takes', $takes);
     }
 

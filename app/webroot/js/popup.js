@@ -107,10 +107,10 @@ var Popup = {
                 'Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?' +
                 '</div>' +
                 '<div class="popup-footer">' +
-                '<div id="test_close_non_dispensation" class="btn highlight pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;">' +
+                '<div id="test_close_non_dispensation" class="btn highlight pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
                 'Alleen afsluiten voor de studenten zonder tijdsdispensatie.' +
                 '</div>' +
-                '<div id="test_close_all" class="btn highlight pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;">' +
+                '<div id="test_close_all" class="btn highlight pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
                 'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.' +
                 ' </div>' +
                 '<a href="#" id="test_close_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
