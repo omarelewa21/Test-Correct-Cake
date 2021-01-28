@@ -104,13 +104,13 @@ var Popup = {
         var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
                 '<div class="popup-head">Toets innemen</div>' +
                 '<div class="popup-content">' +
-                'Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?' +
+                'Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?<br/>Selecteer de gewenste optie.' +
                 '</div>' +
                 '<div class="popup-footer">' +
-                '<div id="test_close_non_dispensation" class="btn highlight pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
+                '<div id="test_close_non_dispensation" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
                 'Alleen afsluiten voor de studenten zonder tijdsdispensatie.' +
                 '</div>' +
-                '<div id="test_close_all" class="btn highlight pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
+                '<div id="test_close_all" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
                 'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.' +
                 ' </div>' +
                 '<a href="#" id="test_close_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
@@ -133,7 +133,7 @@ var Popup = {
             'margin-left': (0 - (width / 2)) + 'px',
             'margin-top': (0 - (height / 2)) + 'px',
             'width': width + 'px',
-            'height': 280 + 'px',
+            'height': 300 + 'px',
             'zIndex': Popup.zIndex
         }).fadeIn(function () {
             $(this).addClass('center');
