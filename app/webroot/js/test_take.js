@@ -661,6 +661,7 @@ var TestTake = {
         if (time_dispensation_ids.length == 0) {
             this.setTakeTaken(take_id);
         } else {
+            var that = this;
             $.getJSON('/test_takes/has_active_test_participants_with_time_dispensation/' + take_id, function (data) {
 //TODO I dont know what the next two lines are for.
 // I think TestTake is a singleton but surveillence screen has multiple instances....
@@ -672,7 +673,7 @@ var TestTake = {
                 if (data.response == true) {
                     Popup.promptDispensation([take_id, [time_dispensation_ids]]);
                 } else {
-                    this.setTakeTaken(take_id);
+                    that.setTakeTaken(take_id);
                 }
             });
         }
