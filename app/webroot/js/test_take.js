@@ -582,14 +582,29 @@ var TestTake = {
 
     loadTake: function (take_id, makebutton) {
         if (Core.inApp) {
+            this.redirectToTest(take_id, makebutton, Core.inApp);
+        } else {
+            var that = this;
+            Loading.show();
+            $.getJSON('/answers/is_allowed_inbrowser_testing/'+take_id, function(data) {
+                if (data.response == true) {
+                    that.redirectToTest(take_id, makebutton, true);
+                    return;
+                }
+                Loading.hide();
+                Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+            });
+        }
+    },
+
+    redirectToTest:function(take_id, makebutton, override) {
+        if (override) {
             if (makebutton === true) {
                 check = '/null/true';
             } else {
                 check = '';
             }
             Navigation.load('/test_takes/take/' + take_id + check);
-        } else {
-            Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
         }
     },
 
