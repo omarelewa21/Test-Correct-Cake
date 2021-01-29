@@ -803,7 +803,7 @@ var TestTake = {
         }
         Navigation.load('/test_takes/view/' + take_id);
     },
-    toggleInbrowserTestingForParticipant:function(el, take_id, test_partcipant_id) {
+    toggleInbrowserTestingForParticipant:function(el, take_id, test_partcipant_id, name) {
         $.ajax({
             url: '/test_takes/toggle_inbrowser_testing_for_participant/' + take_id + '/' + test_partcipant_id ,
             type: 'PUT',
@@ -811,10 +811,12 @@ var TestTake = {
             success: function (response) {
                 if (el.classList.contains('cta-button')) {
                     el.classList.remove('cta-button');
-                    el.classList.add('highlight');
+                    el.classList.add('grey');
+                    Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
                 } else {
                     el.classList.add('cta-button');
-                    el.classList.remove('highlight');
+                    el.classList.remove('grey');
+                    Notify.notify('Browsertoetsing voor '+name+' ingeschakeld' );
                 }
             },
             error: function(response) {

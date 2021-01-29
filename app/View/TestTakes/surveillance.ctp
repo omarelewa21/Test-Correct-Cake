@@ -287,9 +287,9 @@ if(count($takes) == 0) {
                     $('#label_participant_' + id).html(data.text).removeClass().addClass('label').addClass('label-' + data.label);
 
                     if (data.allow_inbrowser_testing) {
-                        $('#allow_inbrowser_testing_' + id).addClass('cta-button').removeClass('highlight')
+                        $('#allow_inbrowser_testing_' + id).addClass('cta-button').removeClass('grey')
                     } else {
-                        $('#allow_inbrowser_testing_' + id).removeClass('cta-button').addClass('highlight')
+                        $('#allow_inbrowser_testing_' + id).removeClass('cta-button').addClass('grey')
                     }
 
 
