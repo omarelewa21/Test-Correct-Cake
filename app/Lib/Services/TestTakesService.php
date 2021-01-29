@@ -110,9 +110,9 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
-    
+
     public function closeNonDispensation($take_id) {
-        
+
         $params['time_dispensation'] = true;
 
         $response = $this->Connector->putRequest('/test_take/' . $take_id , $params, []);
@@ -123,7 +123,7 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
-            
+
 
     public function updateParticipantStatus($take_id, $participant_id, $status) {
 
@@ -418,7 +418,7 @@ class TestTakesService extends BaseService {
         if($response === false){
             return $this->Connector->getLastResponse();
         }
-        
+
         return $response;
     }
 
@@ -803,6 +803,19 @@ class TestTakesService extends BaseService {
     public function unArchive($test_id)
     {
         $response = $this->Connector->putRequest('/test_take/'.$test_id.'/un-archive', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function toggleInbrowserTestingForParticipant($test_take_id, $participant_id) {
+        $response = $this->Connector->putRequest(
+            sprintf('/test_take/%s/test_participant/%s/toggle_inbrowser_testing', $test_take_id, $participant_id),
+            [],
+            []
+        );
         if($response === false){
             return $this->Connector->getLastResponse();
         }

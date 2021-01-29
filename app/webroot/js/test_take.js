@@ -803,6 +803,27 @@ var TestTake = {
         }
         Navigation.load('/test_takes/view/' + take_id);
     },
+    toggleInbrowserTestingForParticipant:function(el, take_id, test_partcipant_id) {
+        $.ajax({
+            url: '/test_takes/toggle_inbrowser_testing_for_participant/' + take_id + '/' + test_partcipant_id ,
+            type: 'PUT',
+            contentType: 'application/json',
+            success: function (response) {
+                if (el.classList.contains('cta-button')) {
+                    el.classList.remove('cta-button');
+                    el.classList.add('highlight');
+                } else {
+                    el.classList.add('cta-button');
+                    el.classList.remove('highlight');
+                }
+            },
+            error: function(response) {
+                console.dir(response);
+                alert('error');
+            },
+        });
+    }
+
 };
 
 

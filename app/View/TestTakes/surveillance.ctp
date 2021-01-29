@@ -33,7 +33,7 @@ if(count($takes) == 0) {
                         <th width="120"></th>
                     </tr>
                     <?php
-                    
+
                         foreach ($takes as $take) {
 
                         ?>
@@ -101,7 +101,7 @@ if(count($takes) == 0) {
                 $participants = [];
 
                 foreach ($takes as $take) {
-                
+
                     if(is_array($take['info']['test_participants'])){
 
                         foreach ($take['info']['test_participants'] as $key => $value) {
@@ -285,6 +285,14 @@ if(count($takes) == 0) {
                     }).html(data.percentage + '%');
 
                     $('#label_participant_' + id).html(data.text).removeClass().addClass('label').addClass('label-' + data.label);
+
+                    if (data.allow_inbrowser_testing) {
+                        $('#allow_inbrowser_testing_' + id).addClass('cta-button').removeClass('highlight')
+                    } else {
+                        $('#allow_inbrowser_testing_' + id).removeClass('cta-button').addClass('highlight')
+                    }
+
+
                 });
             }
         );

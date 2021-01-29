@@ -29,6 +29,15 @@
             <span class="fa fa-info-circle"></span>
         </a>
     </td>
+
+    <?php if ($allow_inbrowser_testing) {  ?>
+    <td align="center" width="40" class="nopadding">
+        <a href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>" class="btn <?= $participant['allow_inbrowser_testing'] ?  'cta-button' : 'highlight' ?> small mr2" onclick="TestTake.toggleInbrowserTestingForParticipant(this, '<?=$participant['test_take_uuid']?>','<?= getUUID($participant, 'get'); ?>')">
+            <span class="fa fa-chrome"></span>
+        </a>
+    </td>
+    <?php } ?>
+
     <td align="center" width="120" class="nopadding">
         <?
             $style = 'display:none';
