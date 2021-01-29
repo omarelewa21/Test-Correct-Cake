@@ -25,6 +25,16 @@ class SchoolLocationsController extends AppController
         parent::beforeFilter();
     }
 
+    public function change_allow_inbrowser_testing($locationId, $allow) {
+        $this->isAuthorizedAs(['Account manager']);
+        if($this->request->is('post') || $this->request->is('put')) {
+            $this->SchoolLocationsService->change_allow_inbrowser_testing($locationId, $allow);
+        }
+        $this->formResponse(
+            true,
+            []
+        );
+    }
 
     public function index() {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);

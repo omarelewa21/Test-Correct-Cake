@@ -86,6 +86,27 @@
                 <th>Locatie brin code</th>
                 <td><?=$school_location['external_sub_code']?></td>
             </tr>
+            <tr>
+                <th>InBrowser toetsen toestaan</th>
+                <td>
+                    <?=$school_location['allow_inbrowser_testing'] ? 'ja' : 'nee' ?>
+                    <?php
+                        if($school_location['allow_inbrowser_testing']){
+                            $allow = 0;
+                            $btnClass = 'blue';
+                            $btnText = 'Ontnemen';
+                        } else {
+                            $allow = 1;
+                            $btnClass = 'red';
+                            $btnText = 'Toestaan';
+                        }
+                    ?>
+                    <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
+                </td>
+
+                <th></th>
+                <td></td>
+            </tr>
         </table>
     </div>
 </div>
@@ -305,3 +326,12 @@
         </center>
     </div>
 </div>
+
+<script>
+    function ChangeAllowInBrowserTesting(allow){
+        Loading.show();
+        $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+           Navigation.refresh();
+        });
+    }
+</script>

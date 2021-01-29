@@ -515,4 +515,9 @@ class AnswersController extends AppController
     public function clear() {
         $this->autoRender = false;
     }
+
+    public function is_allowed_inbrowser_testing($test_take_id) {
+        echo json_encode(['response' => $this->AnswersService->is_allowed_inbrowser_testing($test_take_id)]);
+        die;
+    }
 }

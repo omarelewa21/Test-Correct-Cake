@@ -1841,6 +1841,10 @@ class TestTakesController extends AppController {
 
         $takes = $newArray;
 
+        $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
+
+
+        $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
         $this->set('takes', $takes);
     }
 
@@ -1927,7 +1931,8 @@ class TestTakesController extends AppController {
                     'text' => $text,
                     'alert' => $participant['alert'],
                     'ip' => $participant['ip_correct'],
-                    'status' => $participant['test_take_status']['id']
+                    'status' => $participant['test_take_status']['id'],
+                    'allow_inbrowser_testing' => $participant['allow_inbrowser_testing'],
                 ];
             }
         }
@@ -2450,6 +2455,13 @@ class TestTakesController extends AppController {
         $this->formResponse(
                 empty($errors), $debug
         );
+    }
+
+    public function toggle_inbrowser_testing_for_participant($test_take_id, $participant_id) {
+        $this->TestTakesService->toggleInbrowserTestingForParticipant($test_take_id, $participant_id);
+
+        echo json_encode (['response' => true]);
+        exit;
     }
 
 }
