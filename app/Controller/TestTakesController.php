@@ -2216,7 +2216,7 @@ class TestTakesController extends AppController {
 
     public function get_header_session() {
         // exit(json_encode($this->Session->read('headers')));
-        exit($this->Session->read("TLCHeader"));
+        exit($this->Session->read("TLCVersionCheckResult"));
     }
 
     public function archive($take_id) {
