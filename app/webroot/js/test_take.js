@@ -592,7 +592,7 @@ var TestTake = {
                     return;
                 }
                 Loading.hide();
-                Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+                Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error");
             });
         }
     },
