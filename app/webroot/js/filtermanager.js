@@ -485,12 +485,12 @@ function FilterManager(settings) {
         if (this.activeFilter) {
 
             $('#jquery-applied-filters').show();
-            
+
             var filtersArray = Object.entries(this.activeFilter.filters);
-            
-            for (key in filtersArray) {
-                
-                filterDetail =  filtersArray[key];
+
+            for (var index in filtersArray) {
+                var filterDetail = filtersArray[index][1];
+                var key = filtersArray[index][0];
 
                 if (filterDetail.filter && filterDetail.name) {
                     var input = this.getJqueryFilterInput(key);
