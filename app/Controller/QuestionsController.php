@@ -432,17 +432,8 @@ class QuestionsController extends AppController
 
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
-        $this->set('groupquestion_type', $groupquestion_type);
         $this->set('test_id', $test_id);
-        $this->set('title','Vraag-groep aanmaken');
-        switch ($groupquestion_type) {
-            case 'standard':
-                $this->set('title','Standaard vraag-groep aanmaken');
-                break;
-            case 'carousel':
-                $this->set('title','Carrousel vraag-groep aanmaken');
-                break;
-        }
+        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');     
 
 
     }
@@ -477,6 +468,8 @@ class QuestionsController extends AppController
         $this->set('selectedAttainments', $selectedAttainments);
         $this->request->data = $group;
         $this->set('test_id', $test_id);
+        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],'bewerken');
+        $this->setNotificationsForViewGroup($group['QuestionGroup']);
     }
 
     public function editPost()
@@ -1448,11 +1441,41 @@ class QuestionsController extends AppController
             }
             return ($a < $b) ? -1 : 1;
         });
-
+        
+        $this->setNotificationsForViewGroup($group['question']);
         $this->set('questions', $questions);
         $this->set('group', $group);
         $this->set('group_id', $group_id);
         $this->set('test_id', $test_id);
         $this->Session->write('attachments_editable', true);
+    }
+
+    private function handleGroupQuestionType($groupquestion_type,$mode = 'aanmaken'){
+        $this->set('groupquestion_type', $groupquestion_type);
+        $this->set('title','Vraag-groep '.$mode);
+        switch ($groupquestion_type) {
+            case 'standard':
+                $this->set('title','Standaard vraag-groep '.$mode);
+                break;
+            case 'carousel':
+                $this->set('title','Carrousel vraag-groep '.$mode);
+                break;
+        }
+    }
+
+    private function setNotificationsForViewGroup($groupQuestion){
+        $this->set('groupQuestionNotify', false);
+        if($groupQuestion['groupquestion_type']!='carousel'){
+            return;
+        }
+        $arr = array_map(function($question){
+                                                return $question['question']['score'];
+                                            }, 
+                                            $groupQuestion['group_question_questions']
+                        );
+        if(count(array_unique($arr)) === 1){
+            return;
+        }
+        $this->set('groupQuestionNotify', true);        
     }
 }
