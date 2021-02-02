@@ -129,25 +129,61 @@ if($totalScore === 0){
                     <th>Overslaan</th>
                 </tr>
                 <?
-                foreach($test_take['questions'] as $question_id => $question) {
+                $groupQuestionUuid = '';
+                foreach($questions as $question_id => $question) {
                     ?>
-                    <tr>
-                        <td><?=substr(strip_tags($question['question']), 0, 100)?></td>
-                        <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
-                        <td>
-                            <?
-                            if(isset($question['ratings']) && $question['ratings'] > 0) {
-                                echo round($question['total_score'] / $question['ratings']);
-                            }else{
-                                echo '-';
-                            }
-                            ?>
-                        </td>
-                        <td><?=$question['score']?></td>
-                        <td>
-                            <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.normalizationPreview('<?=$take_id?>');" />
-                        </td>
-                    </tr>
+                        <? 
+                            if($question['type']=='GroupQuestion'){
+
+                        ?>
+                            <tr>
+                                <td><?=substr(strip_tags($question['name']), 0, 100)?> - <? echo($question['groupquestion_type']) ?></td>
+                                <td>&nbsp;</td>
+                                <td>
+                                    &nbsp;
+                                </td>
+                                <td><?=$question['score']?></td>
+                                <td>
+                                    <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.handleGroupQuestionSkip(this,'<? echo($question['uuid'])?>','<?=$take_id?>');" />
+                                </td>
+                            </tr>
+                        <? }elseif($question['is_subquestion']=='1'){ ?>
+                            <tr>
+                                <td style="padding-left:15px"><?=substr(strip_tags($question['question']), 0, 100)?></td>
+                                <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
+                                <td>
+                                    <?
+                                    if(isset($question['ratings']) && $question['ratings'] > 0) {
+                                        echo round($question['total_score'] / $question['ratings']);
+                                    }else{
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
+                                <td><?=$question['score']?></td>
+                                <td>
+                                    <input name="data[Question][<?=$groupQuestionChildArray[$question_id]?>]" value="1" type="checkbox" class="child_<?echo($question['groupQuestionUuid'])?> groupquestion_child" disabled />
+                                </td>
+                            </tr>  
+                        <? }else{ ?>
+                            <tr>
+                                <td><?=substr(strip_tags($question['question']), 0, 100)?></td>
+                                <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
+                                <td>
+                                    <?
+                                    if(isset($question['ratings']) && $question['ratings'] > 0) {
+                                        echo round($question['total_score'] / $question['ratings']);
+                                    }else{
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
+                                <td><?=$question['score']?></td>
+                                <td>
+                                    <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.normalizationPreview('<?=$take_id?>');" />
+                                </td>
+                            </tr>
+                        <? } ?>
                     <?
                 }
                 ?>

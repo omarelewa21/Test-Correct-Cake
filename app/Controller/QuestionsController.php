@@ -7,9 +7,13 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('File', 'Utility');
 App::uses('HelperFunctions','Lib');
+App::uses('CarouselMethods', 'Trait');
 
 class QuestionsController extends AppController
 {
+    use CarouselMethods;
+
+    private $carouselGroupQuestionNotifyMsg = '';
 
     public function beforeFilter()
     {
@@ -186,7 +190,7 @@ class QuestionsController extends AppController
     {
         $this->autoRender = false;
         $question = $this->QuestionsService->getSingleQuestion($question_id);
-
+        
         if (isset($group_id) && !empty($group_id)) {
             $group = $this->QuestionsService->getSingleQuestion($group_id);
             $question['attachments'] = $group['attachments'];
@@ -415,7 +419,7 @@ class QuestionsController extends AppController
         }
     }
 
-    public function add_group($test_id)
+    public function add_group($test_id,$groupquestion_type = 'standard')
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -432,8 +436,10 @@ class QuestionsController extends AppController
 
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
-
         $this->set('test_id', $test_id);
+        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');     
+
+
     }
 
     public function edit_group($test_id, $group_id)
@@ -453,6 +459,7 @@ class QuestionsController extends AppController
 
         $group = $this->QuestionsService->getQuestion('test', $test_id, $group_id);
         $group['QuestionGroup'] = $group['question'];
+        $this->set('groupQuestionName',$group['question']['name']);
 
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
@@ -466,6 +473,9 @@ class QuestionsController extends AppController
         $this->set('selectedAttainments', $selectedAttainments);
         $this->request->data = $group;
         $this->set('test_id', $test_id);
+        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],'bewerken');
+        $this->set('carouselGroupQuestionNotify', false);
+        $this->setNotificationsForViewGroup($group['QuestionGroup']);
     }
 
     public function editPost()
@@ -1437,11 +1447,27 @@ class QuestionsController extends AppController
             }
             return ($a < $b) ? -1 : 1;
         });
-
+        $this->set('carouselGroupQuestionNotify', false);
+        $this->setNotificationsForViewGroup($group['question']);
         $this->set('questions', $questions);
         $this->set('group', $group);
         $this->set('group_id', $group_id);
         $this->set('test_id', $test_id);
         $this->Session->write('attachments_editable', true);
     }
+
+    private function handleGroupQuestionType($groupquestion_type,$mode = 'aanmaken'){
+        $this->set('groupquestion_type', $groupquestion_type);
+        $this->set('title','Vraaggroep '.$mode);
+        switch ($groupquestion_type) {
+            case 'standard':
+                $this->set('title','Standaard vraaggroep '.$mode);
+                break;
+            case 'carousel':
+                $this->set('title','Carrousel vraaggroep '.$mode);
+                break;
+        }
+    }
+
+
 }

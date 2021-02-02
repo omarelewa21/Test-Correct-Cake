@@ -1,9 +1,16 @@
-<div class="popup-head">Vraag-groep aanmaken</div>
+<div class="popup-head"><?= $title ?></div>
 <div class="popup-content">
 
     <?=$this->Form->create('QuestionGroup')?>
 
         <table class="table mb15">
+            <?php if($carouselGroupQuestionNotify){  ?>
+            <tr>
+                <td class="danger" colspan="2">
+                    <?=$carouselGroupQuestionNotifyMsg?>
+                </td>
+            </tr>
+            <? } ?>
             <tr>
                 <th width="10%">
                     Naam
@@ -20,6 +27,21 @@
                     <?=$this->Form->input('question', array('style' => 'width: 400px', 'type' => 'textarea', 'label' => false)) ?>
                 </td>
             </tr>
+            <?
+                if($groupquestion_type=='carousel') {
+            ?>
+            <tr>
+                <th width="10%" valign="top">
+                    Aantal vragen
+                </th>
+                <td>
+                    <?=$this->Form->input('number_of_subquestions', array('style' => 'width: 400px', 'type' => 'text', 'label' => false)) ?>
+                </td>
+            </tr>
+
+            <?
+            }
+            ?>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'label' => false, 'div' => false, 'value' => 1, 'checked' => $this->request->data['maintain_position'] == 1)) ?>
@@ -36,6 +58,7 @@
                 <td colspan="2">
                     <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
                     Delen Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                    <?=$this->Form->input('groupquestion_type', array('type' => 'hidden', 'label' => false, 'value' => $groupquestion_type))?>
                 </td>
             </tr>
         </table>
@@ -47,7 +70,7 @@
         Annuleer
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btbEditQuestionGroup">
-        Vraag-groep opslaan
+        Vraaggroep opslaan
     </a>
 </div>
 
@@ -64,7 +87,7 @@
             onsuccess : function(result) {
                 Popup.closeLast();
                 Navigation.refresh();
-                Notify.notify("Vraag-groep opgeslagen", "info");
+                Notify.notify("Vraaggroep opgeslagen", "info");
             },
             onfailure : function(result) {}
         }

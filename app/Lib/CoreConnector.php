@@ -90,6 +90,9 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+        //$response = file_get_contents($this->baseUrl .$finalUrl);
+        
+        
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
     }
 

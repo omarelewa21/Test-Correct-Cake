@@ -10,7 +10,13 @@
         Inplannen
     </a>
     <? } else { ?>
-    <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);">
+    <a href="#" class="btn white mr2" 
+            <? if($carouselGroupQuestionNotify){ ?>
+            onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');"
+            <? }else{ ?>
+            onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);"
+            <? } ?>
+            >
         <span class="fa fa-calendar mr5"></span>
         Inplannen
     </a>
@@ -106,6 +112,17 @@
                 <td class="danger" colspan="5">
                     <? } ?>
                     Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden.
+                </td>
+            </tr>
+            <? } ?>
+            <?php if($carouselGroupQuestionNotify){  ?>
+            <tr>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                <td class="danger" colspan="6">
+                    <? } else { ?>
+                <td class="danger" colspan="5">
+                    <? } ?>
+                    <? echo($carouselGroupQuestionNotifyMsg) ?>
                 </td>
             </tr>
             <? } ?>
@@ -389,8 +406,8 @@
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/test/<?=$test_id?>', 800); return false;">
                 <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
             </a>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_group/<?=$test_id?>', 600); return false;">
-                <i class="fa fa-plus mr5"></i> Nieuwe vraag-groep
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Test.groupQuestionChooseTypePopup('<?=$test_id?>')">
+                <i class="fa fa-plus mr5"></i> Nieuwe vraaggroep
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;">
                 <i class="fa fa-check mr5"></i> Bestaande vraag toevoegen

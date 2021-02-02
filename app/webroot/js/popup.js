@@ -140,6 +140,58 @@ var Popup = {
         });
 
     },
+    promptChooseGroupQuestionType: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+                '<div class="popup-head">Vraaggroep type kiezen</div>' +
+                '<div class="popup-content">' +
+                'Wilt u een standaard vraaggroep maken of een carrousel vraaggroep maken? Selecteer een type.' +
+                '</div>' +
+                '<div class="popup-footer">' +
+                '<div id="groupquestion_type_standard" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
+                '<h4 class="mt1 mb2">Standaard</h4>' +
+                '<div>'+
+                'In een standaard vraaggroep worden alle vragen uit de vraaggroep gesteld aan de student.'+
+                '</div>'+
+                '</div>' +
+                '<div id="groupquestion_type_carousel" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
+                '<h4 class="mt1 mb2">Carrousel</h4>' +
+                '<div>'+
+                'In een carrousel vraaggroep worden een aantal vragen uit de vraaggroep willekeurig gesteld aan de student.'+
+                '</div>'+
+                ' </div>' +
+                '<a href="#" id="groupquestion_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+                '</div>' +
+                '</div>'
+                ;
+
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 300 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+
+    },
     confirmCallBack: function (value) {
         Popup.closeLast();
         return Popup.callbackFromConfirm(value);
@@ -278,6 +330,25 @@ var Popup = {
                 'zIndex': (Popup.zIndex - 1)
             });
         }
+    },
+
+    closeWithNewPopup: function (url) {
+
+        $('#fade').hide();
+        $('#popup_' + Popup.index).stop().removeClass('center').hide();
+        $('#popup_' + Popup.index).remove();
+        $('#container, #background, #header').removeClass('blurred');
+        if (Popup.index === 1) {
+            Popup.index = 0;
+        } else {
+            Popup.index--;
+            Popup.zIndex -= 2;
+        }
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        });
+        Popup.load(url, 600); 
+        return false;
     },
 
     messageCancel: function () {
