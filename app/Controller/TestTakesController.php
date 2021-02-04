@@ -1117,6 +1117,7 @@ class TestTakesController extends AppController {
                 $view = 'take_taken';
                 break;
         }
+        
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
