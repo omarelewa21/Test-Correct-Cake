@@ -55,7 +55,6 @@ var Core = {
 		}
 
 		if(window.navigator.userAgent.indexOf('CrOS') > 0) {
-			Core.inApp = true;
 			Core.appType = 'Chromebook';
 		}
 
@@ -65,9 +64,7 @@ var Core = {
 			type: 'POST',
 			dataType: 'text',
 			success: function(data) {
-				// Notify.notify(data, 'success', 10000);
-				Core.header = data;
-				if(Core.header.indexOf('secure app') > 0) {
+				if(data == 'NEEDSUPDATE' || data == 'OK') {
 					Core.inApp = true;
 					if(Core.appType !== 'ipad'){
 						Core.appType = 'mac';
@@ -159,7 +156,7 @@ var Core = {
 		Navigation.load('/users/welcome');
 
 		setTimeout(function() {Core.checkUnreadMessages()}, 3000);
-		
+
 	},
 
 	checkUnreadMessages : function() {

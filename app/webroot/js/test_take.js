@@ -592,7 +592,11 @@ var TestTake = {
                     return;
                 }
                 Loading.hide();
-                Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error");
+                if(Core.appType === 'Chromebook') {
+                    Notify.notify("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>",'error');
+                } else {
+                    Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error");
+                }
             });
         }
     },
