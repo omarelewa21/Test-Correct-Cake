@@ -37,7 +37,7 @@ class SobitLogger
         }
         $this->file = sprintf('../tmp/sobitLogs/sobitLogger-%s.log',date('Y-m-d'));
 
-        $this->isLogging = true; //!!(substr_count($host, 'testportal.test-correct') > 0);
+        $this->isLogging = !!(substr_count($host, 'testportal.test-correct') > 0);
     }
 
     // The object is created from within the class itself
