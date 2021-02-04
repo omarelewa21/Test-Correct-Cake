@@ -495,7 +495,7 @@ function FilterManager(settings) {
                 if (filterDetail.filter && filterDetail.name) {
                     var input = this.getJqueryFilterInput(key);
 
-                    if(typeof input != 'undefined') {
+                    if(typeof input != 'undefined' && typeof input.get(0) != 'undefined') {
 
                         if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
