@@ -8,7 +8,6 @@ foreach(AuthComponent::user()['roles'] as $role) {
 ?>
 
 <div id="buttons">
-    <? if($take['user_id'] == AuthComponent::user('id')) { ?>
         <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
             <span class="fa fa-refresh mr5"></span>
             Inhaal-toets plannen
@@ -34,7 +33,6 @@ foreach(AuthComponent::user()['roles'] as $role) {
             Openzetten
         </a>
         <? }?>
-    <? } ?>
     <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-file mr5"></span>
         Cijferlijst
