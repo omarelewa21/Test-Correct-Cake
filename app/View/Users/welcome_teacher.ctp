@@ -60,10 +60,10 @@ if ($wizard_steps) {
                 </p>
                 <p>
                     Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op.
+
                 </p>
             </div>
         </div>
-
     </div>
 
     <div class="cta">
