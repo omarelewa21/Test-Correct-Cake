@@ -259,8 +259,8 @@ var Core = {
 			return true;
 		}
 
-		let now = (new Date()).getTime()/1000;
-		let lastTime = Core.lastLostFocus.reported[reason];
+		var now = (new Date()).getTime()/1000;
+		var lastTime = Core.lastLostFocus.reported[reason];
 		if (lastTime <= now - Core.lastLostFocus.delay) {
 			Core.lastLostFocus.reported[reason] = (new Date()).getTime()/1000;
 			return true;
