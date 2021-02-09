@@ -52,12 +52,23 @@ if ($wizard_steps) {
         <?php } ?>
         <div class="notification info">
             <div class="title">
+<<<<<<< Updated upstream
                 <h5>Welkom op het Test-Correct platform!<br/>
                     Anti-virussoftware Update.</h5>
             </div>
             <div class="body">
                 <p>
                     <b>Let op</b>, het kan zijn dat één of meerdere studenten/leerlingen problemen ondervinden met het starten van de Test-Correct app. Dit heeft te maken met een update van de anti-virussoftware op zijn/haar windows computer. Als u dit probleem tegen komt, vraag de student/leerling om de app te deïnstalleren. Vervolgens kan de laatste versie van onze Windows app geïnstalleerd worden. Deze kan je <a href="https://www.test-correct.nl/student/" target="_blank">HIER</a> downloaden. Hierdoor moet dit probleem verholpen zijn.
+=======
+                <h5>Welkom op het Test-Correct platform!<br/>Februari update</h5>
+            </div>
+            <div class="body">
+                <p>
+                    Vanaf donderdag 11 februari is onze nieuwe en verbeterde applicatie voor studenten beschikbaar in de Microsoft Store. Installatie vanuit de Microsoft Store maakt het voor leerlingen en studenten gemakkelijker om de app te installeren. Automatische updates zorgen er voor dat wij sneller verbeteringen kunnen doorvoeren. Dit maakt toetsen op afstand een stuk prettiger.
+                </p>
+                <p>
+                    Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op.
+>>>>>>> Stashed changes
                 </p>
             </div>
         </div>
