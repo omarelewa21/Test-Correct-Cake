@@ -101,6 +101,7 @@ class AppController extends Controller
             'macbook' => 'macOS',
             'ipad' => 'iOS',
             'chromebook' => 'ChromeOS',
+            'win32' => 'windowsElectron',
         ];
         $allowedVersions = [
             'windows10OS' => [
@@ -123,6 +124,10 @@ class AppController extends Controller
                 'ok' => ['2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
                 'needsUpdate' => [],
             ],
+            'windowsElectron' => [
+                'ok' => ['3.0.0'],
+                'needsUpdate' => ['2.300.2-beta.2']
+            ]
         ];
 
         if (isset($headers['tlc'])) {

@@ -52,10 +52,14 @@ if ($wizard_steps) {
         <?php } ?>
         <div class="notification info">
             <div class="title">
-                <h5>Welkom op het Test-Correct platform!</h5>
+                <h5>Welkom op het Test-Correct platform!<br/>Februari update</h5>
             </div>
-            <div style="display:none" class="body">
+            <div class="body">
                 <p>
+                    Vanaf donderdag 11 februari is onze nieuwe en verbeterde applicatie voor studenten beschikbaar in de Microsoft Store. Installatie vanuit de Microsoft Store maakt het voor leerlingen en studenten gemakkelijker om de app te installeren. Automatische updates zorgen er voor dat wij sneller verbeteringen kunnen doorvoeren. Dit maakt toetsen op afstand een stuk prettiger.
+                </p>
+                <p>
+                    Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op.
 
                 </p>
             </div>
