@@ -332,6 +332,26 @@ var Popup = {
         }
     },
 
+    closeWithNewPopup: function (url) {
+
+        $('#fade').fadeOut();
+        $('#popup_' + Popup.index).stop().removeClass('center').fadeOut(function () {
+            $(this).remove();
+        });
+        $('#container, #background, #header').removeClass('blurred');
+        if (Popup.index === 1) {
+            Popup.index = 0;
+        } else {
+            Popup.index--;
+            Popup.zIndex -= 2;
+        }
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        });
+        Popup.load(url, 600); 
+        return false;
+    },
+
     messageCancel: function () {
         if (Popup.cancelCallback != null) {
             Popup.cancelCallback();
