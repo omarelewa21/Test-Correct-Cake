@@ -75,52 +75,91 @@ var Answer = {
         }, 1000);
     },
 
-    loadQuestion : function(url) {
+    loadQuestion : function(url, el) {
         TestTake.nextUrl = url;
-        Answer.saveAnswer(url);
+        Answer.saveAnswer(url, el);
         Answer.timeoutDeadline = null;
         Answer.timeoutStart = null;
     },
 
-    saveAnswer : function(url) {
-        if(Answer.answerChanged) {
-            $.post('/answers/save/' + Answer.count,
-                $('#AnswerQuestionForm').serialize(),
-                function (data) {
+    saveAnswer: function(url, el) {
+        if (Answer.partOfCloseableGroup && typeof el !== 'undefined' && Answer.currentGroupId != $(el).attr('group-id')) {
+                Popup.confirm(
+                    {
+                        'title' : 'Let op! Vraaggroep sluit',
+                        'text': 'Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.“',
+                        'okBtn': 'Ja'
+                    },function() {
+                        return Answer.saveAnswerComplete(url, 'close_group');
+                    });
 
-                    if(data.error != undefined){
-                        Notify.notify(data.error,'error');
-                        return true;
-                    }
+        } else if (Answer.closeable) {
+            Popup.confirm(
+                {
+                    'title' : 'Let op! Vraag sluit',
+                    'text': 'Door naar deze vraag te gaan, sluit je de vraag af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.“',
+                    'okBtn': 'Ja'
+                },function() {
+                    return Answer.saveAnswerComplete(url, 'close_question');
+                });
+        } else {
+            this.saveAnswerComplete(url);
+        }
 
+    },
 
-                    if(data.alert != undefined){
-                        TestTake.alert = data.alert;
-                        TestTake.markBackground();
-                    }
-
-                    Answer.questionSaved = true;
-
-                    if(url != undefined) {
-                        if(url != "void") {
-                            Navigation.load(url);
-                        }
-                    }else {
-                        if (data.status == 'next') {
-                            Notify.notify('Antwoord opgeslagen', 'info');
-                            Navigation.load('/test_takes/take/' + data.take_id + '/' + data.question_id);
-                        } else if (data.status == 'done') {
-                            Navigation.load('/test_takes/take_answer_overview/' + Answer.takeId);
-                        }
-                    }
-                },
-                'JSON'
-            );
-        }else{
-            if(url != "void") {
+    saveAnswerComplete : function(url, closeAction) {
+        if (!closeAction){
+            closeAction = false;
+        }
+        if (Answer.answerChanged) {
+           this.postSaveAnswer(url, closeAction);
+        } else if (closeAction) {
+            this.postSaveAnswer(url, closeAction);
+        } else {
+            if (url != "void") {
                 Navigation.load(TestTake.nextUrl);
             }
         }
+    },
+
+    saveAndNextAnswerPlease : function() {
+        $('.question.active').next().trigger('click')
+    },
+
+
+    postSaveAnswer: function(url, closeAction) {
+        $.post('/answers/save/' + Answer.count+'/'+closeAction,
+            $('#AnswerQuestionForm').serialize(),
+            function (data) {
+
+                if (data.error != undefined) {
+                    Notify.notify(data.error, 'error');
+                    return true;
+                }
+
+                if (data.alert != undefined) {
+                    TestTake.alert = data.alert;
+                    TestTake.markBackground();
+                }
+
+                Answer.questionSaved = true;
+
+                if (url != undefined) {
+                    if (url != "void") {
+                        Navigation.load(url);
+                    }
+                } else {
+                    if (data.status == 'next') {
+                        Notify.notify('Antwoord opgeslagen', 'info');
+                        Navigation.load('/test_takes/take/' + data.take_id + '/' + data.question_id);
+                    } else if (data.status == 'done') {
+                        Navigation.load('/test_takes/take_answer_overview/' + Answer.takeId);
+                    }
+                }
+            },
+            'JSON'
+        );
     },
 
     completeAnswer : function(tag_id) {

@@ -59,7 +59,12 @@ class AnswersController extends AppController
         if(!empty($timeout) && $answer['time'] > 0) {
             die('Het is niet meer mogelijk deze vraag te beantwoorden');
         }
-
+        if($answer['closed'] == 1) {
+            die('Het is niet meer mogelijk deze vraag te beantwoorden.');
+        }
+        if($answer['closed_group'] == 1) {
+            die('Het is niet meer mogelijk deze vraag te beantwoorden.');
+        }
 
         switch($question['type']) {
             case 'InfoscreenQuestion':
@@ -226,7 +231,7 @@ class AnswersController extends AppController
         }
     }
 
-    public function save2019($time) {
+    public function save2019($time, $closeAction) {
 
         $this->autoRender = false;
 
@@ -237,8 +242,13 @@ class AnswersController extends AppController
 
         $data = $this->request->data;
 
-
         $question = $this->Session->read('question');
+
+        if (!in_array($closeAction, ['close_group', 'close_question'])) {
+            $closeAction = false;
+        }
+
+        $data['close_action'] = $closeAction;
         $needsQuestionFromRemote = true;
         if($question && strlen($question) > 3){
             $question = unserialize($question);
@@ -296,8 +306,8 @@ class AnswersController extends AppController
     }
 
 
-    public function save($time) {
-        return $this->save2019($time);
+    public function save($time, $markClosed = false) {
+        return $this->save2019($time, $markClosed);
 
         $this->autoRender = false;
 

@@ -982,7 +982,6 @@ class TestTakesController extends AppController {
         if (!$participant_status || !$take) {
             $take = $this->TestTakesService->getTestTake($take_id);
             $participant_id = getUUID($take['test_participant'], 'get');
-            $this->Session->write('participant_id', $participant_id);
             $participant_status = $take['test_participant']['test_take_status_id'];
         }
 
@@ -1016,6 +1015,12 @@ class TestTakesController extends AppController {
 
                 if (!$questions) {
                     $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+                    if (Configure::read('bugsnag-key-cake') !== null) {
+                        $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+                        $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
+                    } else {
+                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
+                    }
                 }
 
                 $this->set('questions', $questions);

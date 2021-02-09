@@ -5,20 +5,24 @@
 </div>
 
 <br><br><br>
-<a href="#" class="btn highlight large" onclick="Answer.saveAnswer();" style="position: fixed; bottom: 0px; left: 0px; width: 100%; text-align: center">
+<a href="#" class="btn highlight large" onclick="Answer.saveAnswer();"
+   style="position: fixed; bottom: 0px; left: 0px; width: 100%; text-align: center">
     <span class="fa fa-check"></span>
-    <?=$has_next_question ? 'Volgende vraag' : 'Gereed' ?>
+    <?= $has_next_question ? 'Volgende vraag' : 'Gereed' ?>
 </a>
 
 <script type="text/javascript">
     Answer.startCount();
+
+    Answer.closeable = <?php echo (int) $question['closeable'] == 1 ? 'true;' : 'false;' ?>
+
 
     function calcMaxLength(e) {
         Answer.answerChanged = true;
         var text = $(e).val();
 
         $('#barInputLength').css({
-            'width' : ((100 / 140) * text.length) + '%'
+            'width': ((100 / 140) * text.length) + '%'
         }).html(text.length + '/140 tekens');
     }
 </script>
