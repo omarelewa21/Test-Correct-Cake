@@ -125,8 +125,8 @@ class AppController extends Controller
                 'needsUpdate' => [],
             ],
             'windowsElectron' => [
-                'ok' => ['2.300.2-beta.2'],
-                'needsUpdate' => []
+                'ok' => ['3.0.0'],
+                'needsUpdate' => ['2.300.2-beta.2']
             ]
         ];
 
