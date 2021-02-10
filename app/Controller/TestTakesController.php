@@ -778,6 +778,20 @@ class TestTakesController extends AppController {
         $this->set('editable', $editable);
     }
 
+    public function drawing_question_answers($answer_id)
+    {
+        $this->autoRender = false;
+        $drawing = $this->AnswersService->getDrawingAnswer($answer_id, true);
+
+//        $img = imagecreatefromstring($drawing);
+//        imagepng($img);
+//        exit;
+        header('Content-type: image/png');
+        echo $drawing;
+        exit;
+        return $drawing;
+    }
+
     public function rate_teacher_answer($participant_id, $question_id) {
         $this->autoRender = false;
 
@@ -844,6 +858,14 @@ class TestTakesController extends AppController {
 
         $answer['answer'] = $answer;
 
+        if ($answer['question']['type'] == 'DrawingQuestion') {
+            $drawingAnswer = json_decode($answer['json'])->answer;
+
+            if (strpos($drawingAnswer, 'http') === false) {
+                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+                $this->set('drawing_url', $drawingAnswerUrl);
+            }
+        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');

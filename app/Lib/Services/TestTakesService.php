@@ -797,4 +797,15 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function getDrawingAnswerUrl($answer_uuid)
+    {
+        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }
