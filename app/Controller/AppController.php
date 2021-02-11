@@ -137,7 +137,7 @@ class AppController extends Controller
         }
 
         $currentVersion = 'x';
-        $currentOS = 'unknown';
+        $currentOS = 'unknown-';
 
         // as discussed with Mohamed on 20200703
         // headers: "TLC" ---> "TLC Test-Correct secure app"
@@ -151,7 +151,7 @@ class AppController extends Controller
 //        if (!$this->Session->check('TLCVersion')) {
             if (isset($headers['tlctestcorrectversion'])) {
                 $data = explode('|', strtolower($headers['tlctestcorrectversion']));
-                $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS;
+                $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS.'|'.$data[0].'|';
                 $currentVersion = isset($data[1]) ? $data[1] : $currentVersion;
             } else {
                 // only for windows 2.0 and 2.1
@@ -171,14 +171,17 @@ class AppController extends Controller
             $this->Session->write('TLCOs', $currentOS);
 
             $versionCheckResult = null;
-            if (isset($allowedVersions[$currentOS]['ok'])) {
+            $okAr = $allowedVersions[$currentOS]['ok'];
+            $needsUpdateAr = $allowedVersions[$currentOS]['needsUpdate'];
+            if (in_array($currentVersion,$okAr)) {
                 $versionCheckResult = 'OK';
-            } else if (isset($allowedVersions[$currentOS]['needsUpdate'])) {
+            } else if (in_array($currentVersion,$needsUpdateAr)) {
                 $versionCheckResult = 'NEEDSUPDATE';
             } else {
                 $versionCheckResult = 'NOTALLOWED';
             }
-            $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
+
+        $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
 //        }
     }
 
