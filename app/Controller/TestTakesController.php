@@ -783,13 +783,13 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
         $drawing = $this->AnswersService->getDrawingAnswer($answer_id, true);
 
-//        $img = imagecreatefromstring($drawing);
-//        imagepng($img);
-//        exit;
-        header('Content-type: image/png');
         echo $drawing;
-        exit;
-        return $drawing;
+        die;
+        header('Content-type: image/png');
+
+        $this->response->body(($drawing));
+        $this->response->type('png');
+        return $this->response;
     }
 
     public function rate_teacher_answer($participant_id, $question_id) {
