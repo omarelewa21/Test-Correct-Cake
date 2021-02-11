@@ -92,10 +92,10 @@ class UsersController extends AppController
 
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
-                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'unknown',
-                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'unknown',
+                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'not in session',
+                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not in session',
                             'version_check_result' => $versionCheckResult,
-                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'unknown',
+                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not in session',
                         ];
 
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
