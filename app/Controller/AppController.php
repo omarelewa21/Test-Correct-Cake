@@ -151,7 +151,7 @@ class AppController extends Controller
 //        if (!$this->Session->check('TLCVersion')) {
             if (isset($headers['tlctestcorrectversion'])) {
                 $data = explode('|', strtolower($headers['tlctestcorrectversion']));
-                $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS;
+                $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS.'|'.$data[0].'|';
                 $currentVersion = isset($data[1]) ? $data[1] : $currentVersion;
             } else {
                 // only for windows 2.0 and 2.1
