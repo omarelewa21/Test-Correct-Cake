@@ -100,9 +100,9 @@
                 $('.btnLoginTest').trigger('click');
             }
         });
-        $(".btnLoginTest").on('click',function(){
-            Core.inApp = true;
-        });
+        // $(".btnLoginTest").on('click',function(){
+        //     Core.inApp = true;
+        // });
 
         $.getJSON('/testing/selenium_state',
             function (state) {
