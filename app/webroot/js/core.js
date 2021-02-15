@@ -30,7 +30,6 @@ var Core = {
 	lastLostFocus: { notification: false, delay: 3*60, reported: {} },
 
 	initialise : function() {
-
 		var isIOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
   		var isAndroid = /Android/g.test(navigator.userAgent);
 
