@@ -5,7 +5,7 @@
 </div>
 
 <br><br><br>
-<a href="#" class="btn highlight large" onclick="Answer.saveAnswer();"
+<a href="#" class="btn highlight large" onclick="Answer.saveAndNextAnswerPlease();"
    style="position: fixed; bottom: 0px; left: 0px; width: 100%; text-align: center">
     <span class="fa fa-check"></span>
     <?= $has_next_question ? 'Volgende vraag' : 'Gereed' ?>

@@ -124,7 +124,7 @@ var Answer = {
     },
 
     saveAndNextAnswerPlease : function() {
-        $('.question.active').next().trigger('click')
+        $(document.getElementById(Answer.nextId)).trigger('click');
     },
 
 
