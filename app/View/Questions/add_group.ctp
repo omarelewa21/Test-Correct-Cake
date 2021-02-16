@@ -50,7 +50,7 @@
                 <td colspan="2">
                     <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'label' => false, 'checked' => true, 'div' => false)) ?>
                     Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
-                    <?=$this->Form->input('groupquestion_type', array('type' => 'hidden', 'label' => false, 'value' => $groupquestion_type))?>
+                    <?=$this->Form->input('groupquestion_type', array('type' => 'hidden', 'label' => false, 'name' => 'groupquestion_type', 'value' => $groupquestion_type))?>
                 </td>
             </tr>
         </table>

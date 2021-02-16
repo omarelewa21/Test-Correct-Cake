@@ -37,13 +37,6 @@ if(!empty($group['question']['question'])) {
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
-            <?php if($groupQuestionNotify){ ?>
-            <tr>
-                <td class="warning" colspan="5">
-                    Let op: de vragen in de carrousel vraaggroep <?=$group['question']['name']?> hebben verschillende punten. Na de toetsafname kan hierdoor geen score/cijfer berekend worden. Pas de punten voor elke vraag in deze vraaggroep aan, zodat ze hetzelfde zijn.
-                </td>
-            </tr>
-            <? } ?>
             <tr>
                 <th>#</th>
                 <th>Vraag</th>

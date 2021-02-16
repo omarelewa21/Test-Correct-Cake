@@ -1384,8 +1384,6 @@ class QuestionsService extends BaseService
             'maintain_position' => $group['maintain_position'],
             'discuss' => 0,
             'add_to_database' => (int) $group['add_to_database'],
-            'groupquestion_type' => $group['groupquestion_type'],
-            'number_of_subquestions' => (int) $group['number_of_subquestions'],
         ];
     }
 
