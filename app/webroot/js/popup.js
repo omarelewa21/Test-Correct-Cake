@@ -334,9 +334,10 @@ var Popup = {
 
     closeWithNewPopup: function (url) {
 
-        $('#fade').hide();
-        $('#popup_' + Popup.index).stop().removeClass('center').hide();
-        $('#popup_' + Popup.index).remove();
+        $('#fade').fadeOut();
+        $('#popup_' + Popup.index).stop().removeClass('center').fadeOut(function () {
+            $(this).remove();
+        });
         $('#container, #background, #header').removeClass('blurred');
         if (Popup.index === 1) {
             Popup.index = 0;
