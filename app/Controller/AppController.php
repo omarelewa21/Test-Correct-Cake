@@ -176,9 +176,9 @@ class AppController extends Controller
         $this->Session->write('TLCOs', $currentOS);
 
         $versionCheckResult = null;
-        if (isset($allowedVersions[$currentOS]['ok'])) {
+        if (isset($allowedVersions[$currentOS]['ok']) && in_array($currentVersion, $allowedVersions[$currentOS]['ok'])) {
             $versionCheckResult = 'OK';
-        } else if (isset($allowedVersions[$currentOS]['needsUpdate'])) {
+        } else if (isset($allowedVersions[$currentOS]['needsUpdate']) && in_array($currentVersion, $allowedVersions[$currentOS]['needsUpdate'])) {
             $versionCheckResult = 'NEEDSUPDATE';
         } else {
             $versionCheckResult = 'NOTALLOWED';

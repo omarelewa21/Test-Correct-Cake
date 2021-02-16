@@ -580,8 +580,32 @@ var TestTake = {
         Navigation.refresh();
     },
 
+    doIHaveAGoodApp: function() {
+        if(window.navigator.userAgent.indexOf('CrOS') == 0) {
+            return false;
+        }
+
+        $.ajax({
+            url: '/test_takes/get_header_session',
+            cache: false,
+            type: 'POST',
+            dataType: 'text',
+            async: false,
+            success: function(data) {
+                if(data == 'NEEDSUPDATE' || data == 'OK') {
+                    Core.inApp = true;
+                    if(Core.appType !== 'ipad'){
+                        Core.appType = 'mac';
+                    }
+                }
+                return Core.inApp;
+            }
+        });
+
+    },
+
     loadTake: function (take_id, makebutton) {
-        if (Core.inApp) {
+        if (Core.inApp || this.doIHaveAGoodApp()) {
             this.redirectToTest(take_id, makebutton, Core.inApp);
         } else {
             var that = this;
