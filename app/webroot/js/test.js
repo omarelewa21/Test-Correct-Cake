@@ -68,8 +68,10 @@ var Test = {
                 if ($('#groupquestion_type_confirm').hasClass("disabled")) {
                     return false;
                 }
-                var url = '/questions/add_group/'+this.test_id+'/'+this.groupQuestionType;
-                Popup.closeWithNewPopup(url);
+
+                testObj.groupQuestionCreatePopup();            
+
+                Popup.closeLast();
             });
 
             $(document).on("click", "#groupquestion_type_standard", function () {
