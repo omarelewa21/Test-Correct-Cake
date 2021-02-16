@@ -415,7 +415,7 @@ class QuestionsController extends AppController
         }
     }
 
-    public function add_group($test_id,$groupquestion_type = 'standard')
+    public function add_group($test_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -432,19 +432,8 @@ class QuestionsController extends AppController
 
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
-        $this->set('groupquestion_type', $groupquestion_type);
+
         $this->set('test_id', $test_id);
-        $this->set('title','Vraag-groep aanmaken');
-        switch ($groupquestion_type) {
-            case 'standard':
-                $this->set('title','Standaard vraag-groep aanmaken');
-                break;
-            case 'carousel':
-                $this->set('title','Carrousel vraag-groep aanmaken');
-                break;
-        }
-
-
     }
 
     public function edit_group($test_id, $group_id)
