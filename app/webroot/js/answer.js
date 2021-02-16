@@ -87,7 +87,7 @@ var Answer = {
                 Popup.confirm(
                     {
                         'title' : 'Let op! Vraaggroep sluit',
-                        'text': 'Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.“',
+                        'text': 'Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.',
                         'okBtn': 'Ja'
                     },function() {
                         return Answer.saveAnswerComplete(url, 'close_group');
@@ -97,7 +97,7 @@ var Answer = {
             Popup.confirm(
                 {
                     'title' : 'Let op! Vraag sluit',
-                    'text': 'Door naar deze vraag te gaan, sluit je de vraag af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.“',
+                    'text': 'Door naar deze vraag te gaan, sluit je de vraag af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.',
                     'okBtn': 'Ja'
                 },function() {
                     return Answer.saveAnswerComplete(url, 'close_question');

@@ -99,9 +99,13 @@
     if ($closeGroupStarted) {
         echo END_DEL;
     }
+    $action = 'Answer.loadQuestion';
+    if ($currentItemClosed) {
+        $action = 'Navigation.load';
+    }
 
     ?>
-    <div class="question green" group-id="0" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/<?= $take_id ?>', this);">
+    <div class="question green" group-id="0" onclick="<?= $action ?>('/test_takes/take_answer_overview/<?= $take_id ?>', this);">
         <span class="fa fa-list"></span>
     </div>
 

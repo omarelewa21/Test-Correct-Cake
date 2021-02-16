@@ -37,6 +37,7 @@
 <?
 $i = 0;
 foreach($questions as $questionAr) {
+
     $question = $questionAr['question'];
     $answer = $questionAr['answer'];
 
