@@ -1035,7 +1035,7 @@ class TestTakesController extends AppController {
 
                 $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
 
-                $view = 'take_active';
+                $view = 'take_planned';
                 break;
 
             case 4:
@@ -1430,6 +1430,15 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
+        }
+
+        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
+            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+
+            if (strpos($drawingAnswer, 'http') === false) {
+                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+                $this->set('drawing_url', $drawingAnswerUrl);
+            }
         }
 
         $this->set('rating', $answer);

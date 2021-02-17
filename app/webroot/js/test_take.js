@@ -53,6 +53,7 @@ var TestTake = {
 
                     if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                         $('#btnStartTest').slideDown();
+                        $('#btnStartTestInLaravel').slideDown();
                         $('#waiting').slideUp();
                         clearInterval(TestTake.heartBeatInterval);
                     }
@@ -191,6 +192,25 @@ var TestTake = {
         );
     },
 
+    startTestInLaravel : function(take_id) {
+        var _take_id = take_id;
+        TestTake.atTestStart();
+        setTimeout(function() {
+            $.ajax({
+                type: 'post',
+                url: '/test_takes/startinlaravel/' + _take_id,
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    window.open(data.data.url, '_self');
+                },
+            });
+        }, 500);
+        // }else{
+        //     Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+        // }
+    },
+
     startTest : function(take_id) {
         TestTake.atTestStart();
 
@@ -198,52 +218,6 @@ var TestTake = {
             // Navigation.refresh();
             Navigation.load('/test_takes/take/' + take_id);
         }, 500);
-    },
-
-    atTestStart : function() {
-        $.get('/test_takes/start_take_participant', function(response) {
-            if(response == 'error') {
-                alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
-            }else{
-                $('#tiles').hide();
-                $('#header #menu').fadeOut();
-                $('#header #logo_1').animate({
-                    'height' : '30px'
-                });
-                TestTake.active = true;
-                startfullscreentimer();
-                $('#header #logo_2').animate({
-                    'margin-left' : '50px'
-                });
-                $('#btnLogout').hide();
-                $('#btnMenuHandIn').show();
-                $('#container').animate({'margin-top' : '30px'});
-
-                $('body').on('contextmenu',function(e){
-                    e.preventDefault();
-                    return false;
-                });
-            }
-        });
-    },
-
-    atTestStop : function() {
-        $('#header #menu').fadeIn();
-        $('#btnLogout').show();
-        $('#btnMenuHandIn').hide();
-        TestTake.active = false;
-        stopfullscreentimer();
-        $('#header #logo_1').animate({
-            'height' : '70px'
-        });
-        $('#header #logo_2').animate({
-            'margin-left' : '90px'
-        });
-        $('#container').animate({'margin-top' : '92px'},
-            function() {
-                $('#tiles').show();
-            }
-        );
     },
 
     atTestStart : function() {
@@ -588,22 +562,6 @@ var TestTake = {
         }
     },
 
-    loadTakeInLaravel : function(take_id, makebutton) {
-        // if(Core.inApp) {
-            if(makebutton === true) {check = '/null/true'; } else  { check = '';}
-            $.ajax({
-               type:'post',
-               url: '/test_takes/startinlaravel/'+take_id + check,
-               dataType: 'json',
-               data: {},
-               success: function(data){
-                   window.open(data.data.url, '_self');
-               },
-            });
-        // }else{
-        //     Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
-        // }
-    },
 
     loadDiscussion : function(take_id) {
         // @@ OFFLINE ivm Corona

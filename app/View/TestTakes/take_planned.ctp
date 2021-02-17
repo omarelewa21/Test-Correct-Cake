@@ -18,6 +18,9 @@
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
                 Toets starten
             </a>
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');">
+                <i class="fa fa-safari"></i> Start in laravel
+            </a>
         </center>
     </div>
 </div>
