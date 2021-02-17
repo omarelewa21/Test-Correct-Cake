@@ -34,26 +34,29 @@
         ) {
             $currentGroupId = ($questions_item['answer_parent_questions'][0]['group_question']['id']);
             $groupCloseable = $questions_item['answer_parent_questions'][0]['group_question']['closeable'];
+
 // nieuwe group gestart
             if($groupId != $currentGroupId) {
                 if ($closeGroupStarted) {
                     $before .= END_DEL;
-                    if($groupCloseable) {
+                    //if($groupCloseable) {
                         $before .= START_DEL;
-                    }
+                        $closeGroupStarted = true;
+                    //}
                 } else {
                     $before .= START_DEL;
+                    $closeGroupStarted = true;
                 }
             }
 
-            $closeGroupStarted = true;//$groupCloseable;
+
             $groupId = $currentGroupId;
         } else {
             if($closeGroupStarted) {
                 $before .= END_DEL;
-                $closeGroupStarted = false;
                 $groupId = false;
             }
+            $closeGroupStarted = false;
         }
 
 
