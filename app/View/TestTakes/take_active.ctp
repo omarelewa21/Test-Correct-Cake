@@ -46,7 +46,7 @@
                 }
             }
 
-            $closeGroupStarted = $groupCloseable;
+            $closeGroupStarted = true;//$groupCloseable;
             $groupId = $currentGroupId;
         } else {
             if($closeGroupStarted) {
@@ -72,17 +72,13 @@
             $class = 'grey';
         }
 
-
-
         $item['target_url'] = sprintf('/test_takes/take/%s/%s', $take_id, $index);
         $item['closed'] = $questions_item['closed'];
         $item['closed_group'] = $questions_item['closed_group'];
 
-
         $item['element'] = sprintf('%s<div id="%s" group-id="%d" class="question %s" onclick="%s" current-item-closed="%s">%d</div>', $before, getUUID($questions_item, 'get') ,$groupId, $class,'%s', $currentItemClosed, $i);
 
         $navigationItems[] = $item;
-
 
         $before = '';
     }
@@ -103,7 +99,6 @@
     if ($currentItemClosed) {
         $action = 'Navigation.load';
     }
-
     ?>
     <div class="question green" group-id="0" onclick="<?= $action ?>('/test_takes/take_answer_overview/<?= $take_id ?>', this);">
         <span class="fa fa-list"></span>
