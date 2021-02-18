@@ -595,10 +595,10 @@ var TestTake = {
     },
 
     doIHaveAGoodApp: function() {
-        if(window.navigator.userAgent.indexOf('CrOS') == 0) {
+        if(window.navigator.userAgent.indexOf('CrOS') == -1) {
             return false;
         }
-
+        Core.appType = 'Chromebook';
         $.ajax({
             url: '/test_takes/get_header_session',
             cache: false,
@@ -608,9 +608,6 @@ var TestTake = {
             success: function(data) {
                 if(data == 'NEEDSUPDATE' || data == 'OK') {
                     Core.inApp = true;
-                    if(Core.appType !== 'ipad'){
-                        Core.appType = 'mac';
-                    }
                 }
             }
         });
