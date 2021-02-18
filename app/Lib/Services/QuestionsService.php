@@ -112,7 +112,9 @@ class QuestionsService extends BaseService
         $data['order'] = 0;
         $data['maintain_position'] = 0;
         $data['discuss'] = 1;
-        $question_id = $this->getSingleQuestion($question_id)['id'];
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
         $response = $this->Connector->postRequest('/test_question', [], $data);
