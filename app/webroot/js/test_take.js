@@ -146,6 +146,14 @@ var TestTake = {
     },
 
     handIn: function () {
+
+            var oldCloseable = {
+                'closeable': Answer.closeable,
+                'partOfCloseableGroup' : Answer.partOfCloseableGroup
+            };
+        Answer.closeable = false;
+        Answer.partOfCloseableGroup = false;
+
         Answer.saveAnswer("void");
 
         if ($('.question.grey').length > 0) {
@@ -156,6 +164,9 @@ var TestTake = {
                 message: 'Niet alle vragen zijn beantwoord, weet je het zeker?'
             }, function () {
                 TestTake.doHandIn();
+            }, function(){
+                Answer.closeable = oldCloseable.closeable;
+                Answer.partOfCloseableGroup = oldCloseable.partOfCloseableGroup;
             });
         }/*else if(!Answer.questionSaved) {
          Popup.message({
@@ -174,6 +185,9 @@ var TestTake = {
                 message: 'Weet je zeker dat je de toets wilt inleveren?'
             }, function () {
                 TestTake.doHandIn();
+            }, function(){
+                Answer.closeable = oldCloseable.closeable;
+                Answer.partOfCloseableGroup = oldCloseable.partOfCloseableGroup;
             });
         }
     },
