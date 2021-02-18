@@ -34,7 +34,8 @@
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="duplicate-in-database" id="duplicates-in-database-data-errors"></div>
-
+    <div class="duplicate-in-database" id="amparsand-errors"></div>
+    <div class="duplicate-in-database" id="invalid-email"></div>
     <div class="error" id="column-errors"></div>
     <div class="error" id="missing-data-errors"></div>
     <div class="block-content">
@@ -120,11 +121,13 @@
     .duplicate {
         background-color: dodgerblue;
     }
-
-    .duplicate-in-database {
+    
+     .amparsand,
+     .duplicate-in-database,
+     .invalid-email {
         background-color:orange;
     }
-
+    
     .error {
         background: indianred;
     }
@@ -296,11 +299,16 @@
                         jQuery('.showAfterProcess').hide();
                         Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
                         Navigation.back();
+                        
                     }else {
+                        
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
+                        var hasAmparsandEmail = false;
+                        var hasInvalidEmail = false;
                         var hasDuplicatesInDatabase = false;
+                        
                         // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
                         Object.keys(response.data).forEach( (key, value) => {
                             var d, row_nr, header, errorMsg;
@@ -312,17 +320,26 @@
                             var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
                             if (column_nr > -1) {
                                 var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
+                                
                                 errorMsg = response.data[key];
 
                                 var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
 
-                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass)
+                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass(cssClass);
+                                
                                 if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
                                 if (cssClass === 'duplicate') {
                                     hasDuplicates = true;
                                 }
+                                if (cssClass === 'amparsand') {
+                                    hasAmparsandEmail = true;
+                                }
+                                if (cssClass === 'invalid-email') {
+                                    hasInvalidEmail = true;
+                                }
+                                
                                 if (cssClass === 'duplicate-in-database') {
                                     hasDuplicatesInDatabase = true;
                                 }
@@ -338,7 +355,13 @@
                             $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten in de import file zelf (blauw)</li></ul>');
                         }
                         if (hasDuplicatesInDatabase) {
-                            $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje)</li></ul>');
+                            $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje 1)</li></ul>');
+                        }
+                        if (hasAmparsandEmail) {
+                            $('#amparsand-errors').html('<ul><li>The email address(es) contain an Amparsand & (oranje)</li></ul>');
+                        }
+                        if (hasInvalidEmail) {
+                            $('#invalid-email').html('<ul><li>The email address(es) contain invalid or international characters</li></ul>');
                         }
 
                         // if (dataMissingHeaders.length) {
@@ -371,14 +394,21 @@
         }
 
         function classifyError(error) {
+            
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
+            }
+            if (error.indexOf('amparsand') !== -1) {
+                return 'amparsand';
             }
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';
             }
             if (error.indexOf('external id has already been taken.') !== -1) {
                 return 'duplicate-in-database';
+            }
+            if (error.indexOf('international characters') !== -1) {
+                return 'invalid-email';
             }
 
             return false;

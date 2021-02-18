@@ -44,17 +44,41 @@ $data = $data['school_years'][0];
                     value: <?=$type == 'percentages' ? 55 : 5.5?>
                 }]
             },
-
             legend: {
                 layout: 'vertical',
                 align: 'right',
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
+            plotOptions : {
+            
+                    scatter: {
+                        marker: {
+                            radius: 5,
+                            states: {
+                                hover: {
+                                    enabled: true,
+                                    lineColor: 'rgb(100,100,100)'
+                                }
+                            }
+                        },
+                        states: {
+                            hover: {
+                                marker: {
+                                    enabled: false
+                                }
+                            }
+                        },
+                        tooltip: {
+                            headerFormat: '<b>{series.name}</b><br>',
+                            pointFormat: '<br>Cijfer {point.y}'
+                        }
+                    }
+            },
             series: [{
                 name: 'Studentgemiddelde',
                 data: [
-                    <?
+                    <?php
                     foreach($data['studentAverages'] as $date => $rating) {
 
                         $dateFixed = date('Y', strtotime($date)) . ', ';
@@ -73,7 +97,7 @@ $data = $data['school_years'][0];
             }, {
                 name: 'Klassengemiddelde',
                 data: [
-                    <?
+                    <?php
                     foreach($data['classAverages'] as $date => $rating) {
 
                         $dateFixed = date('Y', strtotime($date)) . ', ';
@@ -90,24 +114,29 @@ $data = $data['school_years'][0];
                     ?>
                 ]
             }, {
-                name: 'Behaalde resultaten',
+                name: 'Behaalde resultaten',     
+                type : 'scatter',
                 data: [
-                    <?
+                    <?php
                     foreach($student['ratings'] as $rating) {
+                    
+                        if($rating['user_id']==$student['id']) {
 
-                        $dateFixed = date('Y', strtotime($rating['time_start'])) . ', ';
-                        $dateFixed .= (date('m', strtotime($rating['time_start'])) - 1) . ', ';
-                        $dateFixed .= date('d', strtotime($rating['time_start']));
+                            $dateFixed = date('Y', strtotime($rating['time_start'])) . ', ';
+                            $dateFixed .= (date('m', strtotime($rating['time_start'])) - 1) . ', ';
+                            $dateFixed .= date('d', strtotime($rating['time_start']));
 
-                        if($type == 'percentages') {
-                            $percentage = 0;
-                            if($rating['max_score'] != '0.0' && $rating['score'] != '0.0') {
-                                $percentage = (100 / $rating['max_score']) * $rating['score'];
+                            if($type == 'percentages') {
+                                $percentage = 0;
+                                if($rating['max_score'] != '0.0' && $rating['score'] != '0.0') {
+                                    $percentage = (100 / $rating['max_score']) * $rating['score'];
+                                }
+                                                 
+                            }else{                           
+         
+                                echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
+                                
                             }
-
-                            echo "[Date.UTC(" . $dateFixed . "), " . round($percentage, 1) . "],";
-                        }else{
-                            echo "[Date.UTC(" . $dateFixed . "), " . round($rating['rating'], 1) . "],";
                         }
                     }
                     ?>

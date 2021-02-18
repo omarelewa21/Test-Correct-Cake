@@ -1,53 +1,103 @@
 <?php
 if ($wizard_steps) {
     ?>
-    <div id="buttons">
-        <a id="toggle-ob-wizard" href="#0" class="btn white">
+    <div style="position: relative; width: 100%">
+        <div id="buttons" style="position:absolute; right: 0;">
+            <a id="toggle-ob-wizard" href="#0" class="btn white">
             <span>
                 <i class="fa fa-minus mr5"></i>
                 Verberg demo tour
             </span>
-            <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-        </a>
-    </div>
-<?php } ?>
-
-<?
-//TC-173
-if (null === AuthComponent::user('account_verified')) {
-    ?>
-    <div class="block" style="background-color: #ff8787;">
-        <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-            <h2 style="display: inline-block;"><b>Let op: je e-mailadres is nog niet geverifieerd.</b></h2>
-            <a class="btn white inline-block pull-right" style="cursor: pointer; margin-top: 20px;" onclick="resendEmailVerificationMail()">
-                Stuur verificatiemail opnieuw
+                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
             </a>
         </div>
     </div>
-    <?php
-} else if (AuthComponent::user('is_temp_teacher')) {
-    ?>
-    <div class="block" style="background-color: #FFFF87;">
-        <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-            <h2><b>Let op: je account is nog niet geactiveerd.</b></h2>
-            <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven
-                data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in
-                Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons
-                dan op 010 7 171 171 om dit te versnellen.</p>
-        </div>
-    </div>
 <?php } ?>
 
+<div class="dashboard">
+    <div class="notes">
+        <?php
 
-<div class="block">
-    <div class="m56" style="margin-top:75px;padding:15px 15px 25px 15px">
-        <h1 style="text-align:center">Welkom op het Test-Correct platform!!</h1>
-        <h3>Onze november update staat nu online.</h3><br/>
-        <b>Creëer filters</b> en sla deze op zodat je altijd snel de juiste toetsen bij de hand hebt. <b>Archiveer
-            toetsen</b> die je al hebt afgenomen en becijferd. <b>Creëer analyses</b> van je toetsresultaten en zie
-        precies hoeveel grip je leerlingen hebben op elk leerdoel.<br/>
-        <br/><a href="https://support.test-correct.nl/knowledge/nieuwe-functionaliteiten" target="_blank">Lees hier
-            alles over onze nieuwe functionaliteiten.</a>
+        if (!$account_verified) {
+            ?>
+            <div class="notification error">
+                <div class="title">
+                    <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
+                            style="margin-left: 20px;">Let op! Je account is nog niet geverifieerd.</h5>
+                </div>
+                <div class="body">
+                    <p>Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?</p>
+                    <a class="text-button" onclick="resendEmailVerificationMail()">
+                        Stuur verificatiemail opnieuw<?php echo $this->element('arrow') ?>
+                    </a>
+                </div>
+            </div>
+            <?php
+        } else if (AuthComponent::user('is_temp_teacher')) {
+            ?>
+            <div class="notification warning">
+                <div class="title">
+                    <?php echo $this->element('warning', array('color' => 'var(--teacher-Highlight-dark)')) ?><h5
+                            style="margin-left: 30px;">Let op: je account is nog niet geactiveerd.</h5>
+                </div>
+                <div class="body">
+                    <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw
+                        opgegeven
+                        data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in
+                        Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel
+                        ons
+                        dan op <a href="tel:010 7 171 171">010 7 171 171</a> om dit te versnellen.</p>
+                </div>
+            </div>
+        <?php } ?>
+        <div class="notification info">
+            <div class="title">
+                <h5>Welkom op het Test-Correct platform!<br/>Februari update</h5>
+            </div>
+            <div class="body">
+                <p>
+                    Vanaf donderdag 11 februari is onze nieuwe en verbeterde applicatie voor studenten beschikbaar in de Microsoft Store. Installatie vanuit de Microsoft Store maakt het voor leerlingen en studenten gemakkelijker om de app te installeren. Automatische updates zorgen er voor dat wij sneller verbeteringen kunnen doorvoeren. Dit maakt toetsen op afstand een stuk prettiger.
+                </p>
+                <p>
+                    Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op.
+
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="cta">
+        <div class="tat-top-text">
+            <?php echo $this->element('send_big_blue'); ?>
+            <h1 class="inline-block">Nodig een collega uit!</h1>
+            <div class="ml60">
+                <h6 class="">Samen met je collega's kun je:</h6>
+                <div class="flex">
+                    <div class="mr10">
+                        <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
+                    </div>
+                    <div class="flex-grow">
+                        <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                    </div>
+                </div>
+                <div class="flex">
+                    <div class="mr10">
+                        <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
+                    </div>
+                    <div>
+                        <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
+                    </div>
+                </div>
+                <div style="margin-top: 8px">
+                    <button type="button"
+                            onClick="Popup.load('/users/tell_a_teacher', 800);"
+                            class="inline-block button cta-button button-md"
+                    >
+                        <span style="margin-right: 10px; display: inline">Nodig een collega uit</span><?php echo $this->element('chevron', array('color' => 'white')) ?>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

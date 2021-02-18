@@ -74,7 +74,7 @@
 
 #header #menu .item {
     float:          left;
-    padding:        14px 25px 10px 25px;
+    padding:        16px 25px 16px 25px;
     font-size:      16px;
 }
 
@@ -97,7 +97,7 @@
     color:          white;
 }
 
-#header #menu .item:hover, #header #menu .item.active {
+#header #menu .item:hover:not(.noItemHover), #header #menu .item.active {
     cursor:         pointer;
     background:     url(/img/header/active-menu.png) bottom no-repeat;
 }

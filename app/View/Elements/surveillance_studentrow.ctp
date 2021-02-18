@@ -9,8 +9,11 @@
         <?= $participant['user']['name_suffix'] ?>
         <?= $participant['user']['name'] ?>
 
-        <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
-        <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red" onclick="TestTake.ipAlert();"></span>
+        <?php if($participant['user']['time_dispensation'] == 1) {?>
+            <span class="fa fa-clock-o" title="Deze student heeft tijdsdispensatie"></span>
+        <?php } ?>
+        <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange;display:none" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
+        <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red;display:none" onclick="TestTake.ipAlert();"></span>
     </td>
     <td width="70">
         <div id="label_participant_<?=getUUID($participant, 'get');?>" class="label"></div>
@@ -26,6 +29,15 @@
             <span class="fa fa-info-circle"></span>
         </a>
     </td>
+
+    <?php if ($allow_inbrowser_testing) {  ?>
+    <td align="center" width="40" class="nopadding">
+        <a title="Browser toetsen aan/uit" href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>" class="btn active <?= $participant['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2" onclick="TestTake.toggleInbrowserTestingForParticipant(this, '<?=$participant['test_take_uuid']?>','<?= getUUID($participant, 'get'); ?>','<?= $participant['user']['name_first'] ?> <?= $participant['user']['name_suffix'] ?> <?= $participant['user']['name'] ?>')">
+            <span class="fa fa-chrome"></span>
+        </a>
+    </td>
+    <?php } ?>
+
     <td align="center" width="120" class="nopadding">
         <?
             $style = 'display:none';

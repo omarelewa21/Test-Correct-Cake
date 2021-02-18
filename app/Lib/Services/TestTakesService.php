@@ -1,6 +1,7 @@
 <?php
 
 App::uses('BaseService', 'Lib/Services');
+App::uses('CakeLog', 'Log');
 
 /**
  * Class TestTakesService
@@ -113,6 +114,20 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function closeNonDispensation($take_id) {
+
+        $params['time_dispensation'] = true;
+
+        $response = $this->Connector->putRequest('/test_take/' . $take_id , $params, []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 
     public function updateParticipantStatus($take_id, $participant_id, $status) {
 
@@ -372,6 +387,7 @@ class TestTakesService extends BaseService {
 
         if ($reason !== '') {
             $data['test_take_event_type_id'] = 10; // for now only if alt+ tab
+            $data['reason'] = $reason;
         }
 
         $response = $this->Connector->postRequest('/test_take/' . $take_id . '/test_take_event', $data, []);
@@ -798,6 +814,18 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function toggleInbrowserTestingForParticipant($test_take_id, $participant_id) {
+        $response = $this->Connector->putRequest(
+            sprintf('/test_take/%s/test_participant/%s/toggle_inbrowser_testing', $test_take_id, $participant_id),
+            [],
+            []
+        );
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
     public function getDrawingAnswerUrl($answer_uuid)
     {
         $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);

@@ -4,16 +4,16 @@ var Popup = {
     callback: null,
     timeout: null,
     cancelCallback: null,
-    debounceTime:0,
-    
-    debounce: function() {
-        
+    debounceTime: 0,
+
+    debounce: function () {
+
         var now = new Date().getTime();
-        
+
         if (this.debounceTime > now - 2000) {
             return false;
-        } 
-        
+        }
+
         this.debounceTime = now;
 
         return true;
@@ -25,18 +25,18 @@ var Popup = {
         $('.dropblock-owner').removeClass('active');
         User.inactive = 0;
         $.get(url,
-            function (html) {
-                Popup.show(html, width);
-            }
+                function (html) {
+                    Popup.show(html, width);
+                }
         );
     },
 
     showCongrats: function (action) {
         this.messageWithPreventDefault({
-                'btnOk': 'Ok',
-                'title': action ? action : 'gefeliciteerd',
-                'message': '<img style="display:block; margin:auto; width:200px; height:200px;" src="/img/logo_1.png">',
-            }
+            'btnOk': 'Ok',
+            'title': action ? action : 'gefeliciteerd',
+            'message': '<img style="display:block; margin:auto; width:200px; height:200px;" src="/img/logo_1.png">',
+        }
         );
 
     },
@@ -47,31 +47,31 @@ var Popup = {
     },
 
     prompt: function (options, callback) {
-        
+
         this.debounce();
-        
+
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
         Popup.zIndex += 2;
         Popup.callbackFromPrompt = callback;
 
-        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
-            '<div class="popup-head">'+options.title+'</div>'+
-            '<div class="popup-content">'+
-                '<form>'+
-                  '<div class="form-group">'+
-                    '<label for="prompt">'+options.text+'</label>'+
-                    '<input type="email" class="form-control" id="prompt" placeholder="'+options.placeholder+'" value="'+options.inputValue+'">'+
-                  '</div>'+
-                 '</form>'+
-            '</div>'+
-            '<div class="popup-footer">'+
-            '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>'+
-            '<a href="#" class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>'+
-            '</div>'+
-            '</div>'
-        ;
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+                '<div class="popup-head">' + options.title + '</div>' +
+                '<div class="popup-content">' +
+                '<form>' +
+                '<div class="form-group">' +
+                '<label for="prompt">' + options.text + '</label>' +
+                '<input type="email" class="form-control" id="prompt" placeholder="' + options.placeholder + '" value="' + options.inputValue + '">' +
+                '</div>' +
+                '</form>' +
+                '</div>' +
+                '<div class="popup-footer">' +
+                '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+                '<a href="#" class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>' +
+                '</div>' +
+                '</div>'
+                ;
 
         $('body').append(htmlBlock);
 
@@ -81,7 +81,6 @@ var Popup = {
 
 
         var width = 600;
-
 
         var height = $('#popup_' + Popup.index).height();
 
@@ -95,36 +94,30 @@ var Popup = {
         });
     },
 
-    confirmCallBack: function (value) {
-        Popup.closeLast();
-        return Popup.callbackFromConfirm(value);
-    },
-
-    confirm: function (options, callback) {
-        
-        this.debounce();
-        
+    promptDispensation: function (options, callback) {
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
         Popup.zIndex += 2;
-        Popup.callbackFromConfirm = callback;
+        Popup.callbackFromPrompt = callback;
 
-        var htmlBlock = '<div class="popup" id="popup_'+Popup.index+'">'+
-            '<div class="popup-head">'+options.title+'</div>'+
-            '<div class="popup-content">'+
-                '<form>'+
-                  '<div class="form-group">'+
-                    '<label for="prompt">'+options.text+'</label>'+
-                  '</div>'+
-                 '</form>'+
-            '</div>'+
-            '<div class="popup-footer">'+
-            '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>'+
-            '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>'+
-            '</div>'+
-            '</div>'
-        ;
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+                '<div class="popup-head">Toets innemen</div>' +
+                '<div class="popup-content">' +
+                'Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?<br/>Selecteer de gewenste optie.' +
+                '</div>' +
+                '<div class="popup-footer">' +
+                '<div id="test_close_non_dispensation" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
+                'Alleen afsluiten voor de studenten zonder tijdsdispensatie.' +
+                '</div>' +
+                '<div id="test_close_all" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
+                'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.' +
+                ' </div>' +
+                '<a href="#" id="test_close_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+                '</div>' +
+                '</div>'
+                ;
+
 
         $('body').append(htmlBlock);
 
@@ -132,9 +125,57 @@ var Popup = {
             'zIndex': (Popup.zIndex - 1)
         }).fadeIn();
 
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 300 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+
+    },
+    confirmCallBack: function (value) {
+        Popup.closeLast();
+        return Popup.callbackFromConfirm(value);
+    },
+    confirm: function (options, callback) {
+
+        this.debounce();
+
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromConfirm = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+                '<div class="popup-head">' + options.title + '</div>' +
+                '<div class="popup-content">' +
+                '<form>' +
+                '<div class="form-group">' +
+                '<label for="prompt">' + options.text + '</label>' +
+                '</div>' +
+                '</form>' +
+                '</div>' +
+                '<div class="popup-footer">' +
+                '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>' +
+                '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>' +
+                '</div>' +
+                '</div>';
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
 
         var width = 600;
-
 
         var height = $('#popup_' + Popup.index).height();
 
@@ -159,9 +200,9 @@ var Popup = {
     },
 
     showSearch: function () {
-        
+
         this.debounce();
-        
+
         $('#container, #background, #header').addClass('blurred');
 
         Popup.zIndex += 2;
@@ -184,9 +225,8 @@ var Popup = {
         });
     },
 
-
     show: function (html, width) {
-        
+
         this.debounce();
 
         $('#container, #background, #header').addClass('blurred');
@@ -321,26 +361,26 @@ var Popup = {
 
     calcPosition: function () {
         $.each($('.popup.center'),
-            function () {
-                var popH = $(this).height();
-                var winH = $(window).height();
+                function () {
+                    var popH = $(this).height();
+                    var winH = $(window).height();
 
-                $(this).animate({
-                    'margin-top': (0 - (popH / 2)) + 'px'
-                });
+                    $(this).animate({
+                        'margin-top': (0 - (popH / 2)) + 'px'
+                    });
 
-                $('.popup-content').css({
-                    'max-height': (winH - 200) + 'px'
-                });
-            }
+                    $('.popup-content').css({
+                        'max-height': (winH - 200) + 'px'
+                    });
+                }
         );
     },
 
-    showSchoolSwitcher:function(locations) {
+    showSchoolSwitcher: function (locations) {
         schoolLocationsTemplate = '';
-        locations.forEach(function(schoolLocation, index) {
+        locations.forEach(function (schoolLocation, index) {
             var activeClass = schoolLocation.active ? 'blue' : 'white';
-            schoolLocationsTemplate += '<a href="#" onclick="User.switchLocation(this, \''+schoolLocation.uuid+'\');" class="btn hover-blue '+activeClass+' mb5">'+schoolLocation.name+'</a>';
+            schoolLocationsTemplate += '<a href="#" onclick="User.switchLocation(this, \'' + schoolLocation.uuid + '\');" class="btn hover-blue ' + activeClass + ' mb5">' + schoolLocation.name + '</a>';
         });
 
         this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});

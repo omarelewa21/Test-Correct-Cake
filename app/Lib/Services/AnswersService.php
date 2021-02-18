@@ -287,6 +287,16 @@ class AnswersService extends BaseService {
 
     }
 
+    public function is_allowed_inbrowser_testing($test_take_id) {
+        return $response = $this->Connector->getRequest(
+            sprintf(
+                '/test_participant/%s/is_allowed_inbrowser_testing',
+                $test_take_id
+            ),
+            []
+        );
+    }
+
     public function getDrawingAnswer($answer_id)
     {
         $response = $this->Connector->getDownloadRequest('/answers/drawing_answer/'.$answer_id, []);

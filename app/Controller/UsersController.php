@@ -23,7 +23,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -92,10 +92,10 @@ class UsersController extends AppController
 
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
-                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'unknown',
-                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'unknown',
+                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'not in session',
+                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not in session',
                             'version_check_result' => $versionCheckResult,
-                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'unknown',
+                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not in session',
                         ];
 
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
@@ -177,6 +177,15 @@ class UsersController extends AppController
 
     public function register_new_teacher()
     {
+
+        $onboarding_url_config_variable = 'shortcode.shortcode.redirect'; 
+        $onboarding_url = $this->get_config($onboarding_url_config_variable);     
+        $location_string = 'location:' . $onboarding_url;
+        
+        header($location_string);
+        
+        exit();
+
         if ($this->request->is('post')) {
             $response = $this->UsersService->registerNewTeacher(
                 $this->request->data['User']
@@ -190,11 +199,20 @@ class UsersController extends AppController
             }
             exit();
         }
+
+    }
+    
+    public function get_config($laravel_config_variable) {
+
+        $response = $this->UsersService->getConfig($laravel_config_variable);  
+
+        return $response['status'];
+        
     }
 
     public function register_new_teacher_successful()
     {
-
+        
     }
 
     protected function getSessionHeaderData()
@@ -323,7 +341,13 @@ class UsersController extends AppController
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
+                $verified = CakeSession::read('Auth.User.account_verified');
+                if($verified == null) {
+                    $verified = $this->UsersService->getAccountVerifiedValue();
+                    CakeSession::write('Auth.User.account_verified', $verified);
+                }
                 $this->set('wizard_steps', $wizardSteps);
+                $this->set('account_verified', $verified);
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
             }
@@ -997,7 +1021,18 @@ class UsersController extends AppController
             $menus['knowledgebase'] = "Kennisbank";
 
             if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "<i class='fa fa-bullhorn' style='color:#FF3333;font-weight:bold;'></i> Nodig een collega uit!";
+                $menus['tell_a_teacher'] = "
+                                                <button class='button cta-button button-sm' style='cursor: pointer;'
+                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
+                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
+                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
+                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
+                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
+                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
+                                                        </g>
+                                                    </svg>
+                                                </button>
+                                            ";
             }
         }
 
@@ -1339,6 +1374,7 @@ class UsersController extends AppController
                     'path'  => '/file_management/testuploads'
                 ];
 
+                /*
                 $tiles['tell_a_teacher'] = array(
                     'menu'  => 'tell_a_teacher',
                     'icon'  => 'testlist',
@@ -1347,6 +1383,8 @@ class UsersController extends AppController
                     'type'  => 'popup',
                     'width' => 800
                 );
+                 * 
+                 */
             }
 
             if ($role['name'] == 'Student') {

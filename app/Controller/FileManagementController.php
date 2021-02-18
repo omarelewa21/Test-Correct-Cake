@@ -5,6 +5,7 @@ App::uses('FileManagementService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('UsersService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
+App::uses('HelperFunctions', 'Lib');
 
 class FileManagementController extends AppController {
 
@@ -346,6 +347,9 @@ class FileManagementController extends AppController {
             $this->set('testKindOptions', $testKinds);
         }
 
+        $maxFileUpload = HelperFunctions::getInstance()->getMaxFileUploadSize();
+        $this->set('max_file_upload_size', $maxFileUpload);
+        $this->set('readable_max_upload_size', HelperFunctions::getInstance()->formatBytes($maxFileUpload));
         $this->set('form_id', md5(time()));
         $this->set('school_location_id', $school_location_id);
         $this->set('user_uuid', AuthComponent::user('uuid'));

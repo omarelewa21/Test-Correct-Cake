@@ -1,11 +1,9 @@
-<?
-foreach($menus as $id => $title) {
+<?php
+foreach ($menus as $id => $title) {
     ?>
-    <div class="item" id="<?=$id?>"><?=$title?>
+    <div class="item" id="<?= $id ?>"><?= $title ?>
         <span class="counter"></span>
     </div>
-    <?
+    <?php
 }
 ?>
-
-<br clear="all" />

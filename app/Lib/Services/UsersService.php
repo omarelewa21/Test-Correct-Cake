@@ -61,6 +61,17 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getConfig($laravel_config_variable)
+    {
+        $response = $this->Connector->getRequest('/config', ['laravel_config_variable'=>$laravel_config_variable],NULL);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+    
     public function registerNewTeacher($data)
     {
         $response = $this->Connector->postRequest('/demo_account', [], $data);
@@ -632,6 +643,15 @@ class UsersService extends BaseService
 
     public function getShortcode($userId) {
         $response = $this->Connector->getRequest('/shortcode', ['user_id' => $userId]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getAccountVerifiedValue()
+    {
+        $response = $this->Connector->getRequest('/user/is_account_verified', ['user_id' => AuthComponent::user('id')]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
