@@ -599,8 +599,6 @@ var TestTake = {
             return false;
         }
 
-        var ajaxTestResult = false;
-
         $.ajax({
             url: '/test_takes/get_header_session',
             cache: false,
@@ -614,11 +612,10 @@ var TestTake = {
                         Core.appType = 'mac';
                     }
                 }
-                ajaxTestResult = Core.inApp;
             }
         });
 
-        return ajaxTestResult;
+        return Core.inApp;
 
     },
 
