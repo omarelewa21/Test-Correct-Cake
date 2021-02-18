@@ -104,8 +104,22 @@
                     <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
                 </td>
 
-                <th></th>
-                <td></td>
+                <th>Toetsen in nieuwe speler</th>
+                <td>
+                    <?=$school_location['allow_new_player_access'] ? 'ja' : 'nee' ?>
+                    <?php
+                    if($school_location['allow_new_player_access']){
+                        $allow = 0;
+                        $btnClass = 'blue';
+                        $btnText = 'Ontnemen';
+                    } else {
+                        $allow = 1;
+                        $btnClass = 'red';
+                        $btnText = 'Toestaan';
+                    }
+                    ?>
+                    <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowNewPlayerAccess(<?=$allow?>)"><?=$btnText?></span>
+                </td>
             </tr>
         </table>
     </div>
@@ -331,6 +345,12 @@
     function ChangeAllowInBrowserTesting(allow){
         Loading.show();
         $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+           Navigation.refresh();
+        });
+    }
+    function ChangeAllowNewPlayerAccess(allow){
+        Loading.show();
+        $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
            Navigation.refresh();
         });
     }

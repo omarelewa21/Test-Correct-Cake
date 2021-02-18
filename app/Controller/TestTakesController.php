@@ -1044,7 +1044,7 @@ class TestTakesController extends AppController {
 
                 $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
 
-                $view = 'take_planned';
+                $view = 'take_active';
                 break;
 
             case 4:

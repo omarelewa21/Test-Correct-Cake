@@ -30,6 +30,12 @@ class SchoolLocationsService extends BaseService
         return $this->updateSchoolLocation($locationId,$data);
     }
 
+    public function change_allow_new_player_access($locationId, $allow)
+    {
+        $data = ['allow_new_player_access' => (bool) $allow];
+        return $this->updateSchoolLocation($locationId,$data);
+    }
+
     public function getIps($location_id) {
         $response = $this->Connector->getRequest('/school_location/' . $location_id . '/school_location_ip', [
             'mode' => 'all'
