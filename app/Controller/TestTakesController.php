@@ -1006,6 +1006,9 @@ class TestTakesController extends AppController {
         switch ($participant_status) {
             case 1:
             case 2:
+                $allowNewPlayerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess($take['school_location_id']);
+                $this->set('allowNewPlayerAccess', $allowNewPlayerAccess);
+
                 $view = 'take_planned';
                 break;
             case 3:

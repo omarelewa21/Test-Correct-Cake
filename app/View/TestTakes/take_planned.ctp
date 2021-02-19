@@ -18,9 +18,11 @@
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
                 Toets starten
             </a>
+            <?php if(isset($allowNewPlayerAccess) && $allowNewPlayerAccess == true) { ?>
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');">
                 <i class="fa fa-safari"></i> Start in laravel
             </a>
+            <?php } ?>
         </center>
     </div>
 </div>
