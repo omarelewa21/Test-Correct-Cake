@@ -92,10 +92,10 @@ class UsersController extends AppController
 
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
-                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'not in session',
-                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not in session',
+                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'not set in session',
+                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not set in session',
                             'version_check_result' => $versionCheckResult,
-                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not in session',
+                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not set is session',
                         ];
 
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
@@ -178,12 +178,12 @@ class UsersController extends AppController
     public function register_new_teacher()
     {
 
-        $onboarding_url_config_variable = 'shortcode.shortcode.redirect'; 
-        $onboarding_url = $this->get_config($onboarding_url_config_variable);     
+        $onboarding_url_config_variable = 'shortcode.shortcode.redirect';
+        $onboarding_url = $this->get_config($onboarding_url_config_variable);
         $location_string = 'location:' . $onboarding_url;
-        
+
         header($location_string);
-        
+
         exit();
 
         if ($this->request->is('post')) {
@@ -201,18 +201,18 @@ class UsersController extends AppController
         }
 
     }
-    
+
     public function get_config($laravel_config_variable) {
 
-        $response = $this->UsersService->getConfig($laravel_config_variable);  
+        $response = $this->UsersService->getConfig($laravel_config_variable);
 
         return $response['status'];
-        
+
     }
 
     public function register_new_teacher_successful()
     {
-        
+
     }
 
     protected function getSessionHeaderData()
@@ -1383,7 +1383,7 @@ class UsersController extends AppController
                     'type'  => 'popup',
                     'width' => 800
                 );
-                 * 
+                 *
                  */
             }
 

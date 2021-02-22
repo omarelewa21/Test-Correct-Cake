@@ -3,7 +3,8 @@
 
     <?=$this->Form->create('Question')?>
 
-    <?=$this->Form->create('Question')?>
+
+    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br /
     <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('decimal_score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('score', array('value' => '0','label' => false, 'type' => 'hidden'))?>

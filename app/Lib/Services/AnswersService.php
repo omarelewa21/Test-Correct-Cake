@@ -88,6 +88,7 @@ class AnswersService extends BaseService {
     }
 
     public function saveAnswer2019($participant_id, $answer_id, $question, $data, $time, $session, $take_question_index, $take_id) {
+        $originalData = $data;
 
         switch($question['type']) {
             case 'OpenQuestion':
@@ -138,13 +139,13 @@ class AnswersService extends BaseService {
         }
 
         // $data['value'] = preg_replace('!\\r?\\n!', "<br/>", $data['value']);
-
         $data = [
             'json' => json_encode($data, JSON_FORCE_OBJECT),
             'add_time' => $time,
             'question_id' => $question['id'],
             'take_question_index' => $take_question_index,
             'take_id' => $take_id,
+            'close_action' => $originalData['close_action'],
         ];
 
         //$json = preg_replace('!\\r?\\n!', "", $json);

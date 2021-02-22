@@ -21,6 +21,12 @@
             </tr>
             <tr>
                 <td colspan="2">
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?>
+                    Deze vraaggroep afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br /
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
                     <?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
                     Deze vraaggroep vastzetten
                 </td>

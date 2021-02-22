@@ -56,9 +56,13 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         </div>
         <div class="tat-content body1">
             <div class="input-group">
-                <textarea id="message" width="200px" height="200px" autofocus><?php echo $message ?></textarea>
-                <label for="message">Het bericht aan jouw collega's</label>
+                <textarea onkeyup="countCharacters()" id="message" width="200px" height="200px" autofocus maxlength="640"><?php echo $message ?></textarea>
+                <label for="message">Het bericht aan jouw collega's </label>
             </div>
+            <div>
+                <span id="maxCharacters" class="tip"></span>
+            </div>
+
             <?php if ($errorMessage): ?>
                 <div class="notification error mt8">
                     <span class="body"><?php echo $errorMessage ?></span>
@@ -98,8 +102,23 @@ if (!empty(AuthComponent::user('name_suffix'))) {
 <?= $this->Form->end(); ?>
 
 <script type="text/javascript">
+    function countCharacters(){
+        var max = $('#message').attr('maxlength');
+        var chars = $('#message').val().length
+
+        $('#maxCharacters').html( chars + ' van '+ max + ' karakters');
+
+        if (chars >= max) {
+            $('#maxCharacters').parent().addClass('notification error ');
+            $('#maxCharacters').addClass('black');
+        } else {
+            $('#maxCharacters').parent().removeClass('notification error black');
+            $('#maxCharacters').removeClass('black');
+        }
+    }
 
     $(document).ready(function () {
+        countCharacters();
         $('#sendInvitations').click(function (e) {
             e.preventDefault();
             $.ajax({
@@ -112,6 +131,8 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 }
             );
         });
+
+
 
         $('#backToStep1').click(function (e) {
             e.preventDefault();

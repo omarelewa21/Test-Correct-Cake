@@ -112,7 +112,9 @@ class QuestionsService extends BaseService
         $data['order'] = 0;
         $data['maintain_position'] = 0;
         $data['discuss'] = 1;
-        $question_id = $this->getSingleQuestion($question_id)['id'];
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
         $response = $this->Connector->postRequest('/test_question', [], $data);
@@ -365,7 +367,7 @@ class QuestionsService extends BaseService
         } else {
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id, [], $question);
         }
-        
+
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
@@ -1275,6 +1277,7 @@ class QuestionsService extends BaseService
             'order' => 0,
             'subtype' => 'nvt',
             'maintain_position' => 1,
+            'closeable' => $question['closeable'],
             'discuss' => 0,
             'decimal_score' => 0,
             'add_to_database' => (int) $question['add_to_database'],
@@ -1295,6 +1298,7 @@ class QuestionsService extends BaseService
             'order' => 0,
             'subtype' => $question['subtype'],
             'maintain_position' => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
             'add_to_database' => (int) $question['add_to_database'],
@@ -1321,6 +1325,7 @@ class QuestionsService extends BaseService
             'order' => 0,
             'grid' => $grid,
             'maintain_position' => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
             'add_to_database' => (int) $question['add_to_database'],
@@ -1365,6 +1370,7 @@ class QuestionsService extends BaseService
 //            'answers' => $processed['answers'],
             'maintain_position' => $question['maintain_position'],
             'subtype' => $subtype,
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
             'add_to_database' => (int) $question['add_to_database'],
@@ -1382,6 +1388,7 @@ class QuestionsService extends BaseService
             'order' => 0,
             'shuffle' => $group['shuffle'],
             'maintain_position' => $group['maintain_position'],
+            'closeable' => $group['closeable'],
             'discuss' => 0,
             'add_to_database' => (int) $group['add_to_database'],
         ];
@@ -1395,6 +1402,7 @@ class QuestionsService extends BaseService
             'type' => 'MultipleChoiceQuestion',
             'order' => 0,
             'maintain_position' => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'score' => $question['score'],
             'subtype' => 'TrueFalse',
@@ -1434,6 +1442,7 @@ class QuestionsService extends BaseService
             'type' => 'MultipleChoiceQuestion',
             'order' => 0,
             'maintain_position' => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'score' => $score,
             'subtype' => $subtype,
@@ -1455,6 +1464,7 @@ class QuestionsService extends BaseService
             'question' => $question['question'],
             'order' => 0,
             'maintain_position' => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss' => $question['discuss'],
             'decimal_score' => $question['decimal_score'],
             'add_to_database' => (int) $question['add_to_database'],
@@ -1474,6 +1484,7 @@ class QuestionsService extends BaseService
             'question'               => $question['question'],
             'order'                  => 0,
             'maintain_position'      => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss'                => $question['discuss'],
             'subtype'                => 'Matching',
             'decimal_score'          => $question['decimal_score'],
@@ -1493,6 +1504,7 @@ class QuestionsService extends BaseService
             'question'               => $question['question'],
             'order'                  => 0,
             'maintain_position'      => $question['maintain_position'],
+            'closeable' => $question['closeable'],
             'discuss'                => $question['discuss'],
             'subtype'                => 'Classify',
             'decimal_score'          => $question['decimal_score'],

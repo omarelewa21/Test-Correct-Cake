@@ -77,6 +77,7 @@
             <thead>
             <tr>
                 <th></th>
+                <th width="40"></th>
                 <th>Vraag</th>
                 <th>Type</th>
                 <th>Auteur(s)</th>
