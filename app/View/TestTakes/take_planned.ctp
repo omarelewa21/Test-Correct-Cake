@@ -15,12 +15,22 @@
             </div>
         </div>
         <center>
+            <?php if( $take['test_participant']['intense']) { ?>
+                <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibrationForTest('<?=getUUID($take, 'get');?>');">
+                    Toets starten Intense
+                </a>
+            <?php } else { ?>
+
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
                 Toets starten
             </a>
+            <?php } ?>
         </center>
     </div>
 </div>
+<?php if( $take['test_participant']['intense']) { ?>
+<script src="https://education.intense.solutions/collector/latest.uncompressed.js"></script>
+<?php } ?>
 
 <script>
     TestTake.startHeartBeat('planned');

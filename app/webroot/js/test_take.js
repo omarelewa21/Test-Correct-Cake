@@ -864,6 +864,31 @@ var TestTake = {
                 alert('error');
             },
         });
+    },
+
+    startIntenseCalibrationForTest: function(take_id) {
+        Popup.show('<h1>Typcalibratie test</h1>' +
+            '<p>Lees de onderstaande tekst en type deze over in het tekstveld eronder.</p>' +
+            '<p>Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>'+
+            '<p>Type de tekst over</p>'+
+            '<p><textarea id="typecalibration_textarea"></textarea></p>'+
+            '<button class="btn large" id="typecalibration_complete_button">Afronden</button>',
+            800
+        );
+
+        Intense = new IntenseWrapper({
+            api_key: "api_key", // This is a public key which will be provided by Intense.
+            app: "name of the app that implements Intense. example: TC@1.0.0",
+            debug: true // If true, all debug data will be written to console.log().
+        }).onCallibrated(function() {
+            alert('calibration completed')// Callibration completed!
+            var btn = document.getElementById('typecalibration_complete_button')
+            btn.classList.add('highlight');
+            btn.onclick = TestTake.startTest(take_id);
+        }).onError(function(e, msg) {
+
+        });
+        //Intense.start($('#device-id').val(), $('#session-id').val(), '{{md5($deviceId.\'.\'.$sessionId.\'.\'.$secretToken)}}');">
     }
 
 };
