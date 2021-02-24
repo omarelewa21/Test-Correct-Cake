@@ -26,10 +26,10 @@ var Core = {
     lastLostFocusNotification : false,
     lastLostFocusNotificationDelay : 3 * 60, // 3 minutes
 	unreadMessagesTimer : false,
-    cheatIntervalInSeconds : 5,
+	cheatIntervalInSeconds : 5,
+	lastLostFocus: { notification: false, delay: 3*60, reported: {} },
 
 	initialise : function() {
-
 		var isIOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
   		var isAndroid = /Android/g.test(navigator.userAgent);
 
@@ -54,7 +54,6 @@ var Core = {
 		}
 
 		if(window.navigator.userAgent.indexOf('CrOS') > 0) {
-			Core.inApp = true;
 			Core.appType = 'Chromebook';
 		}
 
@@ -64,9 +63,7 @@ var Core = {
 			type: 'POST',
 			dataType: 'text',
 			success: function(data) {
-				// Notify.notify(data, 'success', 10000);
-				Core.header = data;
-				if(Core.header.indexOf('secure app') > 0) {
+				if(data == 'NEEDSUPDATE' || data == 'OK') {
 					Core.inApp = true;
 					if(Core.appType !== 'ipad'){
 						Core.appType = 'mac';
@@ -158,7 +155,7 @@ var Core = {
 		Navigation.load('/users/welcome');
 
 		setTimeout(function() {Core.checkUnreadMessages()}, 3000);
-		
+
 	},
 
 	checkUnreadMessages : function() {
@@ -231,21 +228,44 @@ var Core = {
 
 	lostFocus : function(reason) {
 		if(TestTake.active) {
-			Notify.notify('Het is niet toegestaan om uit de app te gaan', 'error');
-			if(TestTake.alert == false) {
-                $.post('/test_takes/lost_focus', {reason: reason});
-                Core.lastLostFocusNotification = (new Date()).getTime()/1000;
+			if (reason == "printscreen") {
+				Notify.notify('Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd', 'error');
+			} else {
+				Notify.notify('Het is niet toegestaan om uit de app te gaan', 'error');
+			}
+
+			if (Core.shouldLostFocusBeReported(reason)) {
+				$.post('/test_takes/lost_focus', {reason: reason});
                 TestTake.startHeartBeat(TestTake.heartBeatCallback,Core.cheatIntervalInSeconds);
-            } else {
-		        var ref = (new Date()).getTime()/1000;
-                if(Core.lastLostFocusNotification == false || Core.lastLostFocusNotification <= (ref - Core.lastLostFocusNotificationDelay)){
-                    $.post('/test_takes/lost_focus', {reason: reason});
-                    Core.lastLostFocusNotification = (new Date()).getTime()/1000;
-                }
-            }
+			}
             TestTake.alert = true;
             TestTake.markBackground();
 		}
+	},
+
+	shouldLostFocusBeReported: function(reason) {
+
+		if (reason == null) {
+			reason == "undefined";
+		}
+
+		if (!TestTake.active) {
+			return false;
+		}
+
+		if (!(reason in Core.lastLostFocus.reported) || !TestTake.alert) {
+			Core.lastLostFocus.reported[reason] = (new Date()).getTime()/1000;
+			return true;
+		}
+
+		var now = (new Date()).getTime()/1000;
+		var lastTime = Core.lastLostFocus.reported[reason];
+		if (lastTime <= now - Core.lastLostFocus.delay) {
+			Core.lastLostFocus.reported[reason] = (new Date()).getTime()/1000;
+			return true;
+		}
+
+		return false;
 	},
 
 	screenshotnotify : false,

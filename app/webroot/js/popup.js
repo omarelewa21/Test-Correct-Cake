@@ -206,6 +206,8 @@ var Popup = {
         Popup.zIndex += 2;
         Popup.callbackFromConfirm = callback;
 
+        var okBtn = options.okBtn ? options.okBtn: 'OK';
+
         var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
                 '<div class="popup-head">' + options.title + '</div>' +
                 '<div class="popup-content">' +
@@ -216,7 +218,7 @@ var Popup = {
                 '</form>' +
                 '</div>' +
                 '<div class="popup-footer">' +
-                '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">OK</a>' +
+                '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">'+ okBtn +'</a>' +
                 '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>' +
                 '</div>' +
                 '</div>';

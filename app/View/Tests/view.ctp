@@ -128,8 +128,10 @@
             <? } ?>
             <tr>
                 <th>#</th>
+                <th width="40">&nbsp;</th>
                 <th>Vraag</th>
                 <th>Soort</th>
+
                 <th width="80">Score</th>
                 <th width="80">Besprk.</th>
                 <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
@@ -162,6 +164,20 @@
                     ?>
                     <tr id="<?=$type."_".getUUID($question, 'get')?>">
                         <td><?=$i?></td>
+                        <td style="text-align:center">
+                            <?php
+                            if($question['question']['closeable'] == 1) {
+
+                                $title = 'Deze vraag afsluiten';
+                                if ($question['question']['type'] == 'GroupQuestion') {
+                                    $title = 'Deze vraaggroep afsluiten';
+                                }
+                                printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
+                            } else {
+                                echo '&nbsp;';
+                            }
+                            ?>
+                        </td>
                         <td>
                             <?
                             if($question['question']['type'] == 'GroupQuestion') {
@@ -207,7 +223,7 @@
 
                                         case 'OpenQuestion':
                                             switch($subquestion['question']['subtype']){
-                                                
+
                                                 case 'short':
                                                     echo 'Open vraag - kort<br />';
                                                     break;
@@ -273,7 +289,7 @@
 
                                     case 'OpenQuestion':
                                         switch($question['question']['subtype']){
-                                            
+
                                             case 'short':
                                                 echo 'Open vraag - kort<br />';
                                                 break;
@@ -322,6 +338,7 @@
                             }
                             ?>
                         </td>
+
                         <td>
                             <?
                             if($question['question']['type'] == 'GroupQuestion') {
@@ -333,6 +350,7 @@
                             }
                             ?>
                         </td>
+
                         <td>
                             <?
                             if($question['question']['type'] == 'GroupQuestion') {

@@ -155,8 +155,8 @@
     background-image: url('/img/header/tile-becijferd.png');
 }
 .tile.tile-inzien::before{
-     background-image: url('/img/header/tile-inzien.png');
- }
+    background-image: url('/img/header/tile-inzien.png');
+}
 .tile.tile-bespreken::before{
     background-image: url('/img/header/tile-bespreken.png');
 }
@@ -229,12 +229,12 @@
 }
 
 /*.versionBadge.label-danger-blink {*/
-    /*animation:blinkingBackgroundAndText 1.2s infinite;*/
+/*animation:blinkingBackgroundAndText 1.2s infinite;*/
 /*}*/
 /*@keyframes blinkingBackgroundAndText{*/
-    /*0%{     background: #d9534f; color: #fff; }*/
-    /*49%{    background: #d9534f; color: #fff; }*/
-    /*60%{    background: #fff; color: #d9534f; }*/
-    /*99%{    background: #fff; color: #d9534f; }*/
-    /*100%{   background: #d9534f; color: #fff; }*/
+/*0%{     background: #d9534f; color: #fff; }*/
+/*49%{    background: #d9534f; color: #fff; }*/
+/*60%{    background: #fff; color: #d9534f; }*/
+/*99%{    background: #fff; color: #d9534f; }*/
+/*100%{   background: #d9534f; color: #fff; }*/
 /*}*/

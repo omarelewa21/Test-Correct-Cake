@@ -869,6 +869,16 @@ class QuestionsController extends AppController
         $this->set('tests', $tests['data']);
     }
 
+    public function closeable_info()
+    {
+
+    }
+
+    public function group_closeable_info()
+    {
+
+    }
+
     public function public_info()
     {
 

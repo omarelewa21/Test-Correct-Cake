@@ -37,6 +37,7 @@
 <?
 $i = 0;
 foreach($questions as $questionAr) {
+
     $question = $questionAr['question'];
     $answer = $questionAr['answer'];
 
@@ -45,8 +46,15 @@ foreach($questions as $questionAr) {
     <div class="block">
         <div class="block-head">Vraag #<?=$i?></div>
         <div class="block-content" id="question_preview_<?=getUUID($question, 'get')?>">
-            <? echo $this->element('take_overview_question2019',['question' => $question]);?>
-            <? echo $this->element($questionAr['answerView'],['rating' => ['answer' => $answer],'question_id' => getUUID($question, 'get'),'question' => $question]);?>
+            <?php
+            if($answer['closed'] == 1 || $answer['closed_group'] == 1){
+                echo "<div>Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten</div>";
+            } else {
+
+             echo $this->element('take_overview_question2019',['question' => $question]);
+             echo $this->element($questionAr['answerView'],['rating' => ['answer' => $answer],'question_id' => getUUID($question, 'get'),'question' => $question]);
+            }
+            ?>
         </div>
     </div>
 
@@ -60,6 +68,8 @@ foreach($questions as $questionAr) {
     TestTake.startHeartBeat('active');
     Answer.answerChanged = false;
     Answer.questionSaved = true;
+    Answer.partOfCloseableGroup = false;
+    Answer.closeable = false;
 </script>
 
 <style>

@@ -5,45 +5,128 @@
     <?
     $i = 0;
 
-    foreach($questions as $index => $questions_item) {
+    const START_DEL = '<div style="float:left; overflow:auto; margin:0 5px; padding-left:2px">';
+    const END_DEL = '</div>';
+
+    $groupId = false;
+    $groupCloseable = false;
+    $closeGroupStarted = false;
+
+    $groupId = false;
+
+    $before = '';
+    $nextId = '';
+    $pickNext = false;
+
+    $navigationItems = [];
+    $currentItemClosed = false;
+    foreach ($questions as $index => $questions_item) {
+        if ($pickNext) {
+            $nextId = getUUID($questions_item, 'get');
+            $pickNext = false;
+        }
+
+        $item =  [];
+
+        if (array_key_exists('answer_parent_questions', $questions_item)
+            && array_key_exists(0, $questions_item['answer_parent_questions'])
+            && array_key_exists('group_question', $questions_item['answer_parent_questions'][0])
+        ) {
+            $currentGroupId = ($questions_item['answer_parent_questions'][0]['group_question']['id']);
+            $groupCloseable = $questions_item['answer_parent_questions'][0]['group_question']['closeable'];
+
+// nieuwe group gestart
+            if($groupId != $currentGroupId) {
+                if ($closeGroupStarted) {
+                    $before .= END_DEL;
+                    //if($groupCloseable) {
+                        $before .= START_DEL;
+                        $closeGroupStarted = true;
+                    //}
+                } else {
+                    $before .= START_DEL;
+                    $closeGroupStarted = true;
+                }
+            }
+
+
+            $groupId = $currentGroupId;
+        } else {
+            if($closeGroupStarted) {
+                $before .= END_DEL;
+                $groupId = false;
+            }
+            $closeGroupStarted = false;
+        }
+
 
         $i++;
 
-        if($index == $take_question_index) {
+        if ($index == $take_question_index) {
+            if ($questions_item['closed'] || $questions_item['closed_group']) {
+                $currentItemClosed  = true;
+            }
             $class = 'active';
-        }elseif($questions_item['done'] == 1) {
+            $pickNext = true;
+
+        } elseif ($questions_item['done'] == 1) {
             $class = 'green';
-        }else{
+        } else {
             $class = 'grey';
         }
 
-        ?>
-        <div class="question <?=$class?>" onclick="Answer.loadQuestion('/test_takes/take/<?=$take_id?>/<?=$index?>');"><?=$i?></div>
-        <?
+        $item['target_url'] = sprintf('/test_takes/take/%s/%s', $take_id, $index);
+        $item['closed'] = $questions_item['closed'];
+        $item['closed_group'] = $questions_item['closed_group'];
+
+        $item['element'] = sprintf('%s<div id="%s" group-id="%d" class="question %s" onclick="%s" current-item-closed="%s">%d</div>', $before, getUUID($questions_item, 'get') ,$groupId, $class,'%s', $currentItemClosed, $i);
+
+        $navigationItems[] = $item;
+
+        $before = '';
+    }
+
+    foreach($navigationItems as $item) {
+        $onclickEvent = sprintf("Answer.loadQuestion('%s', this)",$item['target_url']);
+        if ($currentItemClosed == true) {
+            $onclickEvent = sprintf("Navigation.load('%s')",$item['target_url']);
+        }
+
+        printf($item['element'], $onclickEvent);
+    }
+
+    if ($closeGroupStarted) {
+        echo END_DEL;
+    }
+    $action = 'Answer.loadQuestion';
+    if ($currentItemClosed) {
+        $action = 'Navigation.load';
     }
     ?>
-    <div class="question green" onclick="Answer.loadQuestion('/test_takes/take_answer_overview/<?=$take_id?>');">
+    <div class="question green" group-id="0" onclick="<?= $action ?>('/test_takes/take_answer_overview/<?= $take_id ?>', this);">
         <span class="fa fa-list"></span>
     </div>
 
     <?
-     if($this->Session->read('Auth.User.has_text2speech') == 1){
+    if ($this->Session->read('Auth.User.has_text2speech') == 1) {
         ?>
-        <div id="__ba_launchpad"><div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;" onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor</div></div>
+        <div id="__ba_launchpad">
+            <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
+                 onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
+            </div>
+        </div>
         <?
-      }
+    }
     ?>
 
-    <br clear="all" />
+    <br clear="all"/>
 </div>
 
-<br clear="all" />
+<br clear="all"/>
 
 <?= $this->element("attachment_popup"); ?>
 
 <div id="question_load"></div>
-
-
 
 <script>
 
@@ -52,52 +135,68 @@
 
     <?php
     if(isset($questions[$take_question_index + 1])) { ?>
-        TestTake.nextUrl =  '/test_takes/take/<?=$take_id?>/<?=($take_question_index+ 1)?>';
+    TestTake.nextUrl = '/test_takes/take/<?=$take_id?>/<?=($take_question_index + 1)?>';
     <?php }else{ ?>
-        TestTake.nextUrl =  '/test_takes/take_answer_overview/<?=$take_id?>';
+    TestTake.nextUrl = '/test_takes/take_answer_overview/<?=$take_id?>';
     <?php } ?>
 
     Answer.loadQuestionAnswer('<?=$active_question?>');
+    Answer.partOfCloseableGroup = false;
+    Answer.currentGroupId = false;
+    Answer.nextId = '<?= $nextId ?>';
+
+    <?php
+    if (array_key_exists('answer_parent_questions', $questions[$take_question_index])
+    && array_key_exists(0, $questions[$take_question_index]['answer_parent_questions'])
+    && array_key_exists('group_question', $questions[$take_question_index]['answer_parent_questions'][0])
+    && array_key_exists('closeable', $questions[$take_question_index]['answer_parent_questions'][0]['group_question'])
+    ) {
+    ?>
+    Answer.partOfCloseableGroup = <?php echo (int) $questions[$take_question_index]['answer_parent_questions'][0]['group_question']['closeable'] == 1 ? 'true;' : 'false;' ?>
+    Answer.currentGroupId = <?php echo (int) $questions[$take_question_index]['answer_parent_questions'][0]['group_question']['id']  ?>
+    <?php } ?>
+
 
     Answer.takeId = '<?=$take_id?>';
 
-    jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
+    jQuery("#btnAttachmentFrameMove").on('mouseenter', function (e) {
         console.log('mousentered');
-        jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
+        jQuery("#attachmentContainer").draggable({handle: '#btnAttachmentFrameMove'});
     });
 
 
     <?php
     if($this->Session->read('Auth.User.has_text2speech') == 1){
-        ?>
-        function toggleBrowseAloud(){
-            if(typeof BrowseAloud == 'undefined'){
-                var s = document.createElement('script');
-                s.crossorigin='anonymous';
-                s.src='https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
-                document.getElementsByTagName('BODY')[0].appendChild(s);
-                waitForBrowseAloudAndThenRun();
-            }
-            else {
-                _toggleBA();
-            }
+    ?>
+    function toggleBrowseAloud() {
+        if (typeof BrowseAloud == 'undefined') {
+            var s = document.createElement('script');
+            s.crossorigin = 'anonymous';
+            s.src = 'https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
+            document.getElementsByTagName('BODY')[0].appendChild(s);
+            waitForBrowseAloudAndThenRun();
+        } else {
+            _toggleBA();
         }
-        var _baTimer;
-        function waitForBrowseAloudAndThenRun(){
-            if(typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined'){
-                _baTimer = setTimeout(function(){
+    }
+
+    var _baTimer;
+
+    function waitForBrowseAloudAndThenRun() {
+        if (typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined') {
+            _baTimer = setTimeout(function () {
                     waitForBrowseAloudAndThenRun();
                 },
                 150);
-            }else{
-                clearTimeout(_baTimer);
-                _toggleBA();
-            }
+        } else {
+            clearTimeout(_baTimer);
+            _toggleBA();
         }
+    }
 
-        function _toggleBA(){
-            BrowseAloud.panel.toggleBar(!0);
-        }
+    function _toggleBA() {
+        BrowseAloud.panel.toggleBar(!0);
+    }
 
     <?php
     }

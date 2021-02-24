@@ -28,7 +28,8 @@
                 'Window not fullscreen' => 'Applicatie niet volledig scherm',
                 'Always on top changed' => 'Applicatie niet altijd op de voorgrond',
                 'Window resized' => 'Venster groote aangepast',
-                'Force shutdown' => 'Applicatie geforceerd afgesloten'
+                'Force shutdown' => 'Applicatie geforceerd afgesloten',
+                'Other window on top' => 'Ander venster op de voorgrond'
             ];
 
             foreach($events as $event) {
