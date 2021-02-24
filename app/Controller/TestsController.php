@@ -7,11 +7,15 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('HelperFunctions', 'Lib');
+App::uses('CarouselMethods', 'Trait');
 
 class TestsController extends AppController
 {
+    use CarouselMethods;
 
     public $uses = array('Test', 'Question');
+
+    public $carouselGroupQuestionNotifyMsg = '';
 
     public function beforeFilter()
     {
@@ -275,7 +279,9 @@ class TestsController extends AppController
         $questions = $this->TestsService->getQuestions($test_id);
 
         $questionsArray = array();
-        $totalScore = 0;
+        $totalScore = $this->TestsService->getTestScore($test_id,[]);
+
+        $this->set('carouselGroupQuestionNotify', false);
 
         foreach ($questions as $question) {
 
@@ -291,13 +297,11 @@ class TestsController extends AppController
                     //fix for TC-80 / Selenium tests. The selection options were empty for group questions
                     $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
 
-                    $totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
+                    //$totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
                     $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
-            } else {
-                $totalScore += $question['question']['score'];
-            }
-
+                $this->setNotificationsForViewGroup($question['question']);
+            } 
             array_push($questionsArray, $question);
         }
         
@@ -306,12 +310,15 @@ class TestsController extends AppController
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
 
+        $this->set('totalScore', $totalScore);
+        if($msg != ''){
+            $this->set('totalScore', '<i class="fa fa-exclamation-triangle" title="'.$msg.'"></i>');
+        }
+
         $this->set('education_levels', $education_levels);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
-
-        $this->set('totalScore', $totalScore);
         $this->set('test', $test);
         $this->set('canEdit', $test['author']['id'] == AuthComponent::user()['id'] && $test['status'] != 1);
         $this->set('questions', $questionsArray);
@@ -663,5 +670,7 @@ class TestsController extends AppController
         $this->set('questions', $questions);
         $this->render('preview', 'preview');
     }
+
+    
 
 }

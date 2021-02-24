@@ -501,6 +501,19 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function getTestTakeScore($take_id, $params = []) {
+        $response = $this->Connector->getRequest('/test_take_max_score/' . $take_id, $params);
+        if($this->Connector->getLastCode() == 403) {
+            return false;
+        }
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getTestTakeAnswers($take_id) {
         $response = $this->Connector->getRequest('/test_take/' . $take_id, ['with' => ['answers', 'participantStatus']]);
 

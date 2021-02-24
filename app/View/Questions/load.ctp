@@ -88,7 +88,11 @@ foreach($questions as $question) {
                     break;
 
                 case 'GroupQuestion':
-                    echo 'Groepvraag';
+                    if($question['groupquestion_type'] == 'carousel') {
+                        echo 'Groepvraag - carrousel ('.$question['number_of_subquestions'].')';
+                    }else{
+                        echo 'Groepvraag';
+                    }
                     break;
             }
             ?>

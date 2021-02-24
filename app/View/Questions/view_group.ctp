@@ -37,6 +37,13 @@ if(!empty($group['question']['question'])) {
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
+            <?php if($carouselGroupQuestionNotify){ ?>
+            <tr>
+                <td class="danger" colspan="5">
+                    <?=$carouselGroupQuestionNotifyMsg?>
+                </td>
+            </tr>
+            <? } ?>
             <tr>
                 <th>#</th>
                 <th>Vraag</th>

@@ -2,8 +2,10 @@
 App::uses('AppModel', 'Model');
 App::uses('AppController', 'Controller');
 
+
 class Question extends AppModel
 {
+
     /**
      * Display field
      *

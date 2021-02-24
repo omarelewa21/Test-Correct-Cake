@@ -775,12 +775,21 @@ var TestTake = {
     },
 
     normalizationPreview: function (take_id) {
+        $(".groupquestion_child").prop( "disabled", false );
         $.post('/test_takes/normalization_preview/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
                     $('#divPreview').html(response);
+                    $(".groupquestion_child").prop( "disabled", true );
                 }
         );
+    },
+    handleGroupQuestionSkip: function(checkbox,group_question_id,take_id){
+        var checked = $(checkbox).is(':checked');
+        $(".child_"+group_question_id).prop( "checked", checked );
+        $(".groupquestion_child").prop( "disabled", false );
+        this.normalizationPreview(take_id);
+        $(".groupquestion_child").prop( "disabled", true );
     },
 
     loadParticipantResults: function (participant_id) {

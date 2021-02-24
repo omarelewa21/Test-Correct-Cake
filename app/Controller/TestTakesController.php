@@ -9,10 +9,13 @@ App::uses('SchoolClassesService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('HelperFunctions','Lib');
+App::uses('CarouselMethods', 'Trait');
 
 // App::uses('TestsService', 'Lib/Services');
 
 class TestTakesController extends AppController {
+
+    use CarouselMethods;
 
     public $uses = array('Test', 'Question', 'TestTake');
 
@@ -236,6 +239,8 @@ class TestTakesController extends AppController {
 
             $newInviligators = [];
 
+            $this->set('carouselGroupQuestionNotify', false);
+
             if ((bool) AuthComponent::user('is_temp_teacher') === true) {
                 $newInviligators[AuthComponent::user('id')] = str_replace('  ', ' ', sprintf('%s %s %s', AuthComponent::user('name_first'), AuthComponent::user('name_suffix'), AuthComponent::user('name')));
             } else {
@@ -250,6 +255,7 @@ class TestTakesController extends AppController {
                 $test = $this->TestsService->getTest($test_id);
                 $test_name = $test['name'];
                 $this->set('test', $test);
+                $this->validateCarouselQuestionsInTest($test_id);
             } else {
                 $test_name = 'Selecteer';
             }
@@ -649,12 +655,25 @@ class TestTakesController extends AppController {
                 'averages'
             ]
         ]);
-
-        $totalScore = 0;
-        foreach ($test_take['questions'] as $question) {
-            $totalScore += $question['score'];
+        
+        $totalScore = $this->TestTakesService->getTestTakeScore($take_id, []);
+        $questions = [];
+        $groupQuestionChildArray = [];
+        foreach ($test_take['questions'] as $key => $question) {
+            if(!stristr($key, '.')){
+                $questions[$key] = $question;
+                continue;
+            }
+            $groupQuestionChildArray[explode('.', $key)[1]] = $key;
+            $groupQuestionId = explode('.', $key)[0];
+            if(!array_key_exists($groupQuestionId, $questions)){
+                $groupQuestionUuid = $question['groupQuestionUuid'];
+                $questions[$groupQuestionId] = $this->getGroupQuestionByUuid($groupQuestionUuid);
+            }
+            $questions[explode('.', $key)[1]] = $question;
         }
-
+        $this->set('groupQuestionChildArray',$groupQuestionChildArray);
+        $this->set('questions',$questions);
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
@@ -714,16 +733,27 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $take = $this->TestTakesService->getTestTake($take_id);
-        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
+        $result = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+        $answers = $result['answers'];
+        $filteredQuestions = array_map(function($answer){
+            return $answer['question_id'];
+        },$answers);
 
+        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $questions = [];
 
-        foreach ($allQuestions as $allQuestion) {
+        foreach ($allQuestions as $allQuestion) {       
             if ($allQuestion['question']['type'] == 'GroupQuestion') {
                 foreach ($allQuestion['question']['group_question_questions'] as $item) {
+                    if(!in_array($item['question']['id'], $filteredQuestions)){
+                        continue;
+                    }
                     $questions[] = $item;
                 }
             } else {
+                if(!in_array($allQuestion['question']['id'], $filteredQuestions)){
+                        continue;
+                }
                 $questions[] = $allQuestion;
             }
         }
@@ -766,7 +796,6 @@ class TestTakesController extends AppController {
             echo 'Vraag niet gemaakt';
             die;
         }
-
         if (!empty($question_id)) {
 
             if ($this->Session->check('rate-question-cache-' . $question_id)) {
@@ -797,7 +826,53 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
-
+        // $answer = [
+        //               'id' =>  149,
+        //               'created_at' =>  '2021-02-09T10:49:35.000000Z' ,
+        //               'updated_at' =>  '2021-02-09T10:49:46.000000Z' ,
+        //               'deleted_at' => null,
+        //               'test_participant_id' =>  45,
+        //               'question_id' =>  11,
+        //               'json' =>  '{"value":"bssdfsdfas"}' ,
+        //               'note' => null,
+        //               'order' =>  1,
+        //               'time' =>  6,
+        //               'done' =>  1,
+        //               'final_rating' => null,
+        //               'ignore_for_rating' =>  0,
+        //               'uuid' =>  'ce2e6a2b-0e2c-4499-9a67-06209fdfc62a' ,
+        //               'answer_parent_questions' => [],
+        //               'answer_ratings' => [],
+        //               'question' => 
+        //                 [
+        //                   'id' =>  11,
+        //                   'created_at' =>  '2019-01-04T10:38:45.000000Z' ,
+        //                   'updated_at' =>  '2019-01-04T10:38:45.000000Z' ,
+        //                   'deleted_at' => null,
+        //                   'subject_id' =>  1,
+        //                   'education_level_id' =>  1,
+        //                   'type' =>  'OpenQuestion' ,
+        //                   'question' =>  '<p>Open kort</p>',
+        //                   'education_level_year' =>  1,
+        //                   'score' =>  5,
+        //                   'decimal_score' =>  0,
+        //                   'note_type' =>  'NONE' ,
+        //                   'rtti' =>  '' ,
+        //                   'bloom' => null,
+        //                   'miller' => null,
+        //                   'add_to_database' =>  1,
+        //                   'is_subquestion' =>  0,
+        //                   'derived_question_id' => null,
+        //                   'is_open_source_content' =>  1,
+        //                   'metadata' => null,
+        //                   'external_id' => null,
+        //                   'scope' => null,
+        //                   'styling' => null,
+        //                   'uuid' =>  '5cde9229-e4f2-4a86-81cf-85e2ee93173b' ,
+        //                   'subtype' =>  'short' ,
+        //                   'answer' =>  '<p>Antwoord open kort</p>,'
+        //                 ]
+        // ];
         if (!$answer) {
             echo 'Vraag niet gemaakt';
             die;
@@ -1147,6 +1222,7 @@ class TestTakesController extends AppController {
                 $view = 'take_taken';
                 break;
         }
+        
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
@@ -2250,6 +2326,9 @@ class TestTakesController extends AppController {
         $this->set('subjects', $subjects);
 
         $tests = $this->TestsService->getTests($this->request->data);
+        $msgArray = [];
+        $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
+        $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);
         $this->set('tests', $tests['data']);
     }
 
@@ -2503,4 +2582,30 @@ class TestTakesController extends AppController {
         exit;
     }
 
+    private function validateCarouselQuestionsInTests($tests,&$msgArray):void
+    {
+        foreach ($tests as $test) {
+            $this->carouselGroupQuestionNotifyMsg = false;
+            $test_id = getUUID($test, 'get');
+            $this->validateCarouselQuestionsInTest($test_id,$msg);
+            if($this->carouselGroupQuestionNotifyMsg){
+                $msgArray[$test['id']] = $this->carouselGroupQuestionNotifyMsg;
+            }
+        }
+    }
+
+    private function validateCarouselQuestionsInTest($test_id):void
+    {
+        
+        $questions = $this->TestsService->getQuestions($test_id);
+        foreach ($questions as $question) {
+            
+            if ($question['question']['type'] == 'GroupQuestion') {
+
+                $this->setNotificationsForViewGroup($question['question']);
+            }
+        }
+    }
+
+    
 }
