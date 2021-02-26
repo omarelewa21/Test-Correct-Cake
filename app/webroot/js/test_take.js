@@ -875,10 +875,13 @@ var TestTake = {
             '<button class="btn large" id="typecalibration_complete_button">Afronden</button>',
             800
         );
+        var deviceId = 1;
+        var sessionId = 1;
+
 
         Intense = new IntenseWrapper({
             api_key: "api_key", // This is a public key which will be provided by Intense.
-            app: "name of the app that implements Intense. example: TC@1.0.0",
+            app: "TC@1.0.0",
             debug: true // If true, all debug data will be written to console.log().
         }).onCallibrated(function() {
             alert('calibration completed')// Callibration completed!
@@ -888,7 +891,7 @@ var TestTake = {
         }).onError(function(e, msg) {
 
         });
-        //Intense.start($('#device-id').val(), $('#session-id').val(), '{{md5($deviceId.\'.\'.$sessionId.\'.\'.$secretToken)}}');">
+         Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
     }
 
 };
