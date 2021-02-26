@@ -1,5 +1,19 @@
 <h1>Welkom in Test-Correct</h1>
 
+<div class="dashboard">
+    <div class="notes">
+        <div class="notification error">
+            <div class="title">
+                <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
+                    style="margin-left: 20px;">Let op!</h5>
+            </div>
+            <div class="body">
+                <p>Verouderde versies van de apps worden vanaf 2 april 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 2 april.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="block" style="width:calc(50% - 10px); float: left">
     <div class="block-head">Geplande toetsen</div>
     <div id="widget_planned" style="height:200px; overflow: auto;">
@@ -28,7 +42,8 @@
             $versionClassAr = [
                 'OK' => '',
                 'NEEDSUPDATE' => 'label-danger',
-                'NOTALLOWED' => 'label-danger-blink'
+                //'NOTALLOWED' => 'label-danger-blink',
+                'NOTALLOWED' => 'label-danger',
         ];
             $extraClass = $versionClassAr[$this->Session->read('TLCVersionCheckResult')];
         } else {
