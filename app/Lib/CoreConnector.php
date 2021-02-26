@@ -205,7 +205,7 @@ class CoreConnector {
             }
         }
 
-       
+
 
         curl_setopt($handle, CURLOPT_POSTFIELDS, $newBody);
 
@@ -250,10 +250,13 @@ class CoreConnector {
             die('logout');
         }
 
-        if(($this->getLastCode() == 500 || $this->getLastCode() == 404) && Configure::read('bugsnag-key-cake') != null){
+
+        if(($this->getLastCode() == 500 || $this->getLastCode() == 404) && (! $this->responseMarkedAsDontReport($response) && Configure::read('bugsnag-key-cake') != null)){
+
+
             $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
-            $bugsnag->setFilters(array_merge($bugsnag->getFilters(), ['api_key', 'session_hash', 
+            $bugsnag->setFilters(array_merge($bugsnag->getFilters(), ['api_key', 'session_hash',
             'main_address', 'main_city', 'main_country', 'main_postal', 'invoice_address', 'visit_address', 'visit_postal', 'visit_city', 'visit_country', 'name']));
 
             $bugsnag->setMetaData([
@@ -263,6 +266,7 @@ class CoreConnector {
 
             $bugsnag->notifyException(new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")"));
         }
+
 // error handler introduced for 422 but we don't know if 422 is not resolved as !200 so I changed the status code on the laravel side.
         if($this->getLastCode() === 425) {
             return $response;
@@ -324,5 +328,15 @@ class CoreConnector {
     public function getLastCode()
     {
         return $this->lastCode;
+    }
+
+    private function responseMarkedAsDontReport($response)
+    {
+        $object = json_decode($response);
+        if ($object !== null && property_exists($object, 'handled') && $object->error_status == 'handled') {
+            return true;
+        }
+
+        return false;
     }
 }
