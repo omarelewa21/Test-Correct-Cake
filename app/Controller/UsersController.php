@@ -313,9 +313,11 @@ class UsersController extends AppController
         );
     }
 
-    public function onboarding_wizard_report()
+    public function marketing_report()
     {
-//            $this->ifNotAllowedExit(['Account manager'], true);
+        $this->log('marketing test','debug');
+        
+        //$this->ifNotAllowedExit(['Account manager'], true);
 
         $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
 
@@ -325,7 +327,29 @@ class UsersController extends AppController
 
         $this->response->body($result);
         $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_' . date('YmdHi') . '.xls');
+        
         return $this->response;
+        
+    }
+    
+    public function location_report()
+    {
+
+        $this->log('location test','debug');
+        
+        //$this->ifNotAllowedExit(['Account manager'], true);
+
+        $result = $this->UsersService->createLocationReport($this->request->data);
+
+        if (!$result) {
+            exit;
+        }
+
+        $this->response->body($result);
+        $this->response->header('Content-Disposition', 'attachment; filename=location_report_' . date('YmdHi') . '.xls');
+        
+        return $this->response;
+        
     }
 
     public function welcome()
@@ -1190,12 +1214,20 @@ class UsersController extends AppController
                     'path'  => '/file_management/testuploads'
                 );
 
-                $tiles['onboarding_wizard_report'] = array(
+                $tiles['marketing_report'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
-                    'title' => 'Demo tour rapport',
+                    'title' => 'Marketing Rapport',
                     'type'  => 'download',
-                    'path'  => '/users/onboarding_wizard_report'
+                    'path'  => '/users/marketing_report'
+                );
+                
+                 $tiles['location_report'] = array(
+                    'menu'  => 'files',
+                    'icon'  => 'testlist',
+                    'title' => 'Locatie Rapport',
+                    'type'  => 'download',
+                    'path'  => '/users/location_report'
                 );
             }
 
