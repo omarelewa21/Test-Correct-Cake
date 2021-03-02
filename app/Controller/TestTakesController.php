@@ -2576,7 +2576,10 @@ class TestTakesController extends AppController {
         }
     }
 
-    
+    private function getGroupQuestionByUuid($groupQuestionId)
+    {
+        return $this->QuestionsService->getSingleQuestion($groupQuestionId);
+    }
 
     
 }
