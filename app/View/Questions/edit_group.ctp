@@ -35,7 +35,7 @@
                     Aantal vragen
                 </th>
                 <td>
-                    <?=$this->Form->input('number_of_subquestions', array('style' => 'width: 400px', 'type' => 'text', 'label' => false)) ?>
+                    <?=$this->Form->input('number_of_subquestions', array('style' => 'width: 400px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
                 </td>
             </tr>
 

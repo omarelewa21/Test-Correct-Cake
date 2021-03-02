@@ -33,7 +33,15 @@ if(!empty($group['question']['question'])) {
 </div>
 
 <div class="block">
-    <div class="block-head">Groep vragen</div>
+    <div class="block-head">Groep vragen 
+        <?
+                if($group['question']['groupquestion_type']=='carousel') {
+        ?>
+                (Aantal te beantwoorden vragen: <?=$group['question']['number_of_subquestions']?>)
+        <?
+                }
+        ?>
+    </div>
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
