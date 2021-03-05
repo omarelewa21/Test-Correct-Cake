@@ -999,63 +999,32 @@ class TestTakesController extends AppController {
             $participant_status = $take['test_participant']['test_take_status_id'];
         }
 
+        $playerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess();
+
+        $newPlayerAccess = in_array($playerAccess, [1,2]);
+        $oldPlayerAccess = in_array($playerAccess, [0,1]);
+        $this->set('newPlayerAccess', $newPlayerAccess);
+        $this->set('oldPlayerAccess', $oldPlayerAccess);
+
         $this->Session->write('take_id', $take_id);
         $this->Session->write('participant_id', $participant_id);
 
         switch ($participant_status) {
             case 1:
             case 2:
-                $allowNewPlayerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess($take['school_location_id']);
-                $this->set('allowNewPlayerAccess', $allowNewPlayerAccess);
-
                 $view = 'take_planned';
                 break;
             case 3:
 //				$participants = $this->TestTakesService->getParticipants($take_id);
 //				$test_take = $this->TestTakesService->getTestTake($take_id);
-
-                if ($clean && $participant_status == 3) {
-                    $this->check_for_login();
+                $showPlayerChoice = $_REQUEST['show_player_choice'] === 'true' ? true : false;
+                if ($newPlayerAccess && $showPlayerChoice) {
+                    $view = 'take_planned';
+                    break;
                 }
 
-                if (!$this->Session->check('take_question_index')) {
-                    $take_question_index = 0;
-                    $this->Session->write('take_question_index', 0);
-                } else {
-                    $take_question_index = $this->Session->read('take_question_index');
-                }
 
-                if ($question_index != null) {
-                    $take_question_index = $question_index;
-                    $this->Session->write('take_question_index', $question_index);
-                }
-
-                if (!$questions) {
-                    /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
-//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
-                    $response =$this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
-                    $questions = $response['answers'];
-                    if (Configure::read('bugsnag-key-cake') !== null) {
-                        $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-                        $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
-                    } else {
-//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
-                    }
-                }
-
-                $this->set('questions', $questions);
-                $this->set('take_question_index', $take_question_index);
-                $this->set('take_id', $take_id);
-
-                if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
-                    $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
-                } else {
-                    $this->set('active_question', getUUID($questions[0], 'get'));
-                }
-
-                $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
-
-                $view = 'take_active';
+                $view = $this->take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id);
                 break;
 
             case 4:
@@ -2501,6 +2470,62 @@ class TestTakesController extends AppController {
 
         echo json_encode (['response' => true]);
         exit;
+    }
+
+    /**
+     * @param $clean
+     * @param $participant_status
+     * @param $question_index
+     * @param $questions
+     * @param array $participant_id
+     * @param $take_id
+     * @return string
+     */
+    private function take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id)
+    {
+        if ($clean && $participant_status == 3) {
+            $this->check_for_login();
+        }
+
+        if (!$this->Session->check('take_question_index')) {
+            $take_question_index = 0;
+            $this->Session->write('take_question_index', 0);
+        } else {
+            $take_question_index = $this->Session->read('take_question_index');
+        }
+
+        if ($question_index != null) {
+            $take_question_index = $question_index;
+            $this->Session->write('take_question_index', $question_index);
+        }
+
+        if (!$questions) {
+            /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
+//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+            $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+            $questions = $response['answers'];
+            if (Configure::read('bugsnag-key-cake') !== null) {
+                $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+                $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
+            } else {
+//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
+            }
+        }
+
+        $this->set('questions', $questions);
+        $this->set('take_question_index', $take_question_index);
+        $this->set('take_id', $take_id);
+
+        if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
+            $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
+        } else {
+            $this->set('active_question', getUUID($questions[0], 'get'));
+        }
+
+        $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
+
+        $view = 'take_active';
+        return $view;
     }
 
 }

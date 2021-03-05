@@ -15,12 +15,16 @@
             </div>
         </div>
         <center>
+            <?php if($oldPlayerAccess) { ?>
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
                 Toets starten
             </a>
-            <?php if(isset($allowNewPlayerAccess) && $allowNewPlayerAccess == true) { ?>
+            <?php
+            }
+            if($newPlayerAccess) {
+                ?>
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');">
-                <i class="fa fa-safari"></i> Start in laravel
+                <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
             </a>
             <?php } ?>
         </center>

@@ -618,7 +618,7 @@ var TestTake = {
             } else {
                 check = '';
             }
-            Navigation.load('/test_takes/take/' + take_id + check);
+            Navigation.load('/test_takes/take/' + take_id + check + '/?show_player_choice=true');
         }
     },
 
