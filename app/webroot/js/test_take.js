@@ -218,6 +218,9 @@ var TestTake = {
                 data: {},
                 success: function (data) {
                     window.open(data.data.url, '_self');
+                    try {
+                        electron.loadUrl(data.data.url)
+                    } catch(error) {}
                 },
             });
         }, 500);
