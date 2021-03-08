@@ -222,9 +222,9 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getAllowNewPlayerAccess($school_location_id)
+    public function getAllowNewPlayerAccess()
     {
-        $response = $this->Connector->getRequest('/school_location/'.$school_location_id.'/is_allowed_new_player_access/', []);
+        $response = $this->Connector->getRequest('/school_location/is_allowed_new_player_access/', []);
         if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;

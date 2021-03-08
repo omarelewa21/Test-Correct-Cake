@@ -655,7 +655,7 @@ class TestTakesController extends AppController {
                 'averages'
             ]
         ]);
-        
+
         $totalScore = $this->TestTakesService->getTestTakeScore($take_id, []);
         $questions = [];
         $groupQuestionChildArray = [];
@@ -742,7 +742,7 @@ class TestTakesController extends AppController {
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $questions = [];
 
-        foreach ($allQuestions as $allQuestion) {       
+        foreach ($allQuestions as $allQuestion) {
             if ($allQuestion['question']['type'] == 'GroupQuestion') {
                 foreach ($allQuestion['question']['group_question_questions'] as $item) {
                     if(!in_array($item['question']['id'], $filteredQuestions)){
@@ -826,53 +826,7 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
-        // $answer = [
-        //               'id' =>  149,
-        //               'created_at' =>  '2021-02-09T10:49:35.000000Z' ,
-        //               'updated_at' =>  '2021-02-09T10:49:46.000000Z' ,
-        //               'deleted_at' => null,
-        //               'test_participant_id' =>  45,
-        //               'question_id' =>  11,
-        //               'json' =>  '{"value":"bssdfsdfas"}' ,
-        //               'note' => null,
-        //               'order' =>  1,
-        //               'time' =>  6,
-        //               'done' =>  1,
-        //               'final_rating' => null,
-        //               'ignore_for_rating' =>  0,
-        //               'uuid' =>  'ce2e6a2b-0e2c-4499-9a67-06209fdfc62a' ,
-        //               'answer_parent_questions' => [],
-        //               'answer_ratings' => [],
-        //               'question' => 
-        //                 [
-        //                   'id' =>  11,
-        //                   'created_at' =>  '2019-01-04T10:38:45.000000Z' ,
-        //                   'updated_at' =>  '2019-01-04T10:38:45.000000Z' ,
-        //                   'deleted_at' => null,
-        //                   'subject_id' =>  1,
-        //                   'education_level_id' =>  1,
-        //                   'type' =>  'OpenQuestion' ,
-        //                   'question' =>  '<p>Open kort</p>',
-        //                   'education_level_year' =>  1,
-        //                   'score' =>  5,
-        //                   'decimal_score' =>  0,
-        //                   'note_type' =>  'NONE' ,
-        //                   'rtti' =>  '' ,
-        //                   'bloom' => null,
-        //                   'miller' => null,
-        //                   'add_to_database' =>  1,
-        //                   'is_subquestion' =>  0,
-        //                   'derived_question_id' => null,
-        //                   'is_open_source_content' =>  1,
-        //                   'metadata' => null,
-        //                   'external_id' => null,
-        //                   'scope' => null,
-        //                   'styling' => null,
-        //                   'uuid' =>  '5cde9229-e4f2-4a86-81cf-85e2ee93173b' ,
-        //                   'subtype' =>  'short' ,
-        //                   'answer' =>  '<p>Antwoord open kort</p>,'
-        //                 ]
-        // ];
+
         if (!$answer) {
             echo 'Vraag niet gemaakt';
             die;
@@ -1074,63 +1028,32 @@ class TestTakesController extends AppController {
             $participant_status = $take['test_participant']['test_take_status_id'];
         }
 
+        $playerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess();
+
+        $newPlayerAccess = in_array($playerAccess, [1,2]);
+        $oldPlayerAccess = in_array($playerAccess, [0,1]);
+        $this->set('newPlayerAccess', $newPlayerAccess);
+        $this->set('oldPlayerAccess', $oldPlayerAccess);
+
         $this->Session->write('take_id', $take_id);
         $this->Session->write('participant_id', $participant_id);
 
         switch ($participant_status) {
             case 1:
             case 2:
-                $allowNewPlayerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess($take['school_location_id']);
-                $this->set('allowNewPlayerAccess', $allowNewPlayerAccess);
-
                 $view = 'take_planned';
                 break;
             case 3:
 //				$participants = $this->TestTakesService->getParticipants($take_id);
 //				$test_take = $this->TestTakesService->getTestTake($take_id);
-
-                if ($clean && $participant_status == 3) {
-                    $this->check_for_login();
+                $showPlayerChoice = $_REQUEST['show_player_choice'] === 'true' ? true : false;
+                if ($newPlayerAccess && $showPlayerChoice) {
+                    $view = 'take_planned';
+                    break;
                 }
 
-                if (!$this->Session->check('take_question_index')) {
-                    $take_question_index = 0;
-                    $this->Session->write('take_question_index', 0);
-                } else {
-                    $take_question_index = $this->Session->read('take_question_index');
-                }
 
-                if ($question_index != null) {
-                    $take_question_index = $question_index;
-                    $this->Session->write('take_question_index', $question_index);
-                }
-
-                if (!$questions) {
-                    /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
-//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
-                    $response =$this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
-                    $questions = $response['answers'];
-                    if (Configure::read('bugsnag-key-cake') !== null) {
-                        $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-                        $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
-                    } else {
-//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
-                    }
-                }
-
-                $this->set('questions', $questions);
-                $this->set('take_question_index', $take_question_index);
-                $this->set('take_id', $take_id);
-
-                if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
-                    $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
-                } else {
-                    $this->set('active_question', getUUID($questions[0], 'get'));
-                }
-
-                $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
-
-                $view = 'take_active';
+                $view = $this->take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id);
                 break;
 
             case 4:
@@ -1222,7 +1145,7 @@ class TestTakesController extends AppController {
                 $view = 'take_taken';
                 break;
         }
-        
+
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
@@ -2596,10 +2519,10 @@ class TestTakesController extends AppController {
 
     private function validateCarouselQuestionsInTest($test_id):void
     {
-        
+
         $questions = $this->TestsService->getQuestions($test_id);
         foreach ($questions as $question) {
-            
+
             if ($question['question']['type'] == 'GroupQuestion') {
 
                 $this->setNotificationsForViewGroup($question['question']);
@@ -2612,5 +2535,61 @@ class TestTakesController extends AppController {
         return $this->QuestionsService->getSingleQuestion($groupQuestionId);
     }
 
-    
+
+    /**
+     * @param $clean
+     * @param $participant_status
+     * @param $question_index
+     * @param $questions
+     * @param array $participant_id
+     * @param $take_id
+     * @return string
+     */
+    private function take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id)
+    {
+        if ($clean && $participant_status == 3) {
+            $this->check_for_login();
+        }
+
+        if (!$this->Session->check('take_question_index')) {
+            $take_question_index = 0;
+            $this->Session->write('take_question_index', 0);
+        } else {
+            $take_question_index = $this->Session->read('take_question_index');
+        }
+
+        if ($question_index != null) {
+            $take_question_index = $question_index;
+            $this->Session->write('take_question_index', $question_index);
+        }
+
+        if (!$questions) {
+            /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
+//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+            $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+            $questions = $response['answers'];
+            if (Configure::read('bugsnag-key-cake') !== null) {
+                $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+                $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
+            } else {
+//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
+            }
+        }
+
+        $this->set('questions', $questions);
+        $this->set('take_question_index', $take_question_index);
+        $this->set('take_id', $take_id);
+
+        if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
+            $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
+        } else {
+            $this->set('active_question', getUUID($questions[0], 'get'));
+        }
+
+        $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
+
+        $view = 'take_active';
+        return $view;
+    }
+
 }
