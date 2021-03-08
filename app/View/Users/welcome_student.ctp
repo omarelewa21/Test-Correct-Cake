@@ -1,5 +1,5 @@
 <h1>Welkom in Test-Correct</h1>
-<?php if ($this->Session->read('TLCVersionCheckResult') !== 'OK') ?>
+<?php if ($this->Session->read('TLCVersionCheckResult') !== 'OK') { ?>
 <div class="dashboard">
     <div class="notes">
         <div class="notification error">
