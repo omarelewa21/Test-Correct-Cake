@@ -1,5 +1,5 @@
 <h1>Welkom in Test-Correct</h1>
-
+<?php if ($this->Session->read('TLCVersionCheckResult') !== 'OK') ?>
 <div class="dashboard">
     <div class="notes">
         <div class="notification error">
@@ -13,6 +13,7 @@
         </div>
     </div>
 </div>
+<?php } ?>
 
 <div class="block" style="width:calc(50% - 10px); float: left">
     <div class="block-head">Geplande toetsen</div>
