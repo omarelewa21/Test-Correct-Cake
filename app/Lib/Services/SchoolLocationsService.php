@@ -32,7 +32,7 @@ class SchoolLocationsService extends BaseService
 
     public function change_allow_new_player_access($locationId, $allow)
     {
-        $data = ['allow_new_player_access' => (bool) $allow];
+        $data = ['allow_new_player_access' => $allow];
         return $this->updateSchoolLocation($locationId,$data);
     }
 
