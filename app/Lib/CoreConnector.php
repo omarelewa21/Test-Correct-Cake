@@ -336,7 +336,7 @@ class CoreConnector {
     private function responseMarkedAsDontReport($response)
     {
         $object = json_decode($response);
-        if ($object !== null && property_exists($object, 'handled') && $object->error_status == 'handled') {
+        if ($object !== null && property_exists($object, 'error_status') && $object->error_status == 'handled') {
             return true;
         }
 
