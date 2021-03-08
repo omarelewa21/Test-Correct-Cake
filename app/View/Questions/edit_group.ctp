@@ -44,7 +44,7 @@
             ?>
             <tr>
                 <td colspan="2">
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $this->request->data['question']['closeable'] == 1 ? 'checked' : ''))?> Deze vraaggroep afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br /
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $this->request->data['question']['closeable'] == 1 ? 'checked' : ''))?> Deze vraaggroep afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br />
                 </td>
             </tr>
             <tr>
