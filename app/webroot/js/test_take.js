@@ -245,7 +245,7 @@ var TestTake = {
             } else {
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
-                ShiftCtrlBtuCrOS();
+                shiftCtrlBtuCrOSAdd();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#header #logo_1').animate({
@@ -280,8 +280,7 @@ var TestTake = {
         $('#btnMenuHandIn').hide();
         TestTake.active = false;
         stopfullscreentimer();
-        document.removeEventListener("keydown", ctrlpressaction);
-        document.removeEventListener('copy', copyeventlistener);
+        shiftCtrlBtuCrOSRemove();
 
 
         $('#header #logo_1').animate({
@@ -958,25 +957,34 @@ function checkPageFocus() {
     }
 }
 
-function ShiftCtrlBtuCrOS (){
+function shiftCtrlBtuCrOSRemove (){
     if(window.navigator.userAgent.indexOf('CrOS') > 0) {
-        var copyeventlistener = function(e){
+        document.removeEventListener('copy', copyeventlistener);
+        document.removeEventListener("keydown", ctrlpressaction);
+        window.copyeventlistener = null;
+        window.ctrlpressaction = null;
+    }
+}
+
+function shiftCtrlBtuCrOSAdd (){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        window.copyeventlistener = function(e){
             e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
             e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
             e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
         };
-        document.removeEventListener('copy', copyeventlistener);
-        document.addEventListener('copy', copyeventlistener);
-        document.removeEventListener("keydown", ctrlpressaction);
-        document.addEventListener("keydown", ctrlpressaction );
-        function ctrlpressaction (){
+        window.ctrlpressaction = function(){
           var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
             if (event.ctrlKey ) {
                 Notify.notify('U hebt een toetsencombinatie gebruikt die niet toegestaan is.', 'error');
-                Core.lostFocus("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.")
+                Core.lostFocus("ctrl-key")
 
             }
         }
+        document.removeEventListener('copy', window.copyeventlistener);
+        document.addEventListener('copy', window.copyeventlistener);
+        document.removeEventListener("keydown", window.ctrlpressaction);
+        document.addEventListener("keydown", window.ctrlpressaction );
     }
 }
 
