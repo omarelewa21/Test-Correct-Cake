@@ -242,12 +242,14 @@ var TestTake = {
             } else {
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
+                ShiftCtrlBtuCrOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#header #logo_1').animate({
                     'height': '30px'
                 });
                 TestTake.active = true;
+                startfullscreentimer();
 
                 $('#header #logo_2').animate({
                     'margin-left': '50px'
@@ -274,6 +276,10 @@ var TestTake = {
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
         TestTake.active = false;
+        stopfullscreentimer();
+        document.removeEventListener("keydown", ctrlpressaction);
+        document.removeEventListener('copy', copyeventlistener);
+
 
         $('#header #logo_1').animate({
             'height': '70px'
@@ -622,7 +628,6 @@ var TestTake = {
         }
     },
 
-
     loadDiscussion: function (take_id) {
         // @@ OFFLINE ivm Corona
         // if(Core.inApp) {
@@ -950,6 +955,27 @@ function checkPageFocus() {
     }
 }
 
+function ShiftCtrlBtuCrOS (){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        var copyeventlistener = function(e){
+            e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
+        };
+        document.removeEventListener('copy', copyeventlistener);
+        document.addEventListener('copy', copyeventlistener);
+        document.removeEventListener("keydown", ctrlpressaction);
+        document.addEventListener("keydown", ctrlpressaction );
+        function ctrlpressaction (){
+          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
+            if (event.ctrlKey ) {
+                Notify.notify('U hebt een toetsencombinatie gebruikt die niet toegestaan is.', 'error');
+                Core.lostFocus("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.")
+
+            }
+        }
+    }
+}
 
 
 // set the initial state (but only if browser supports the Page Visibility API)
