@@ -106,19 +106,11 @@
 
                 <th>Toetsen in nieuwe speler</th>
                 <td>
-                    <?=$school_location['allow_new_player_access'] ? 'ja' : 'nee' ?>
-                    <?php
-                    if($school_location['allow_new_player_access']){
-                        $allow = 0;
-                        $btnClass = 'blue';
-                        $btnText = 'Ontnemen';
-                    } else {
-                        $allow = 1;
-                        $btnClass = 'red';
-                        $btnText = 'Toestaan';
-                    }
-                    ?>
-                    <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowNewPlayerAccess(<?=$allow?>)"><?=$btnText?></span>
+                    <select id="new_player_access" onchange="ChangeAllowNewPlayerAccess(this.value)">
+                        <option value="0">Niet toestaan</option>
+                        <option value="1">Beide spelers aanbieden</option>
+                        <option value="2">Alleen nieuwe speler</option>
+                    </select>
                 </td>
             </tr>
         </table>
@@ -342,6 +334,8 @@
 </div>
 
 <script>
+    $('#new_player_access').val("<?= $school_location['allow_new_player_access'] ?>");
+
     function ChangeAllowInBrowserTesting(allow){
         Loading.show();
         $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
@@ -351,7 +345,7 @@
     function ChangeAllowNewPlayerAccess(allow){
         Loading.show();
         $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
-           Navigation.refresh();
+           Loading.hide();
         });
     }
 </script>
