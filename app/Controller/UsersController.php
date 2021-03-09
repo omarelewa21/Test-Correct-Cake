@@ -1006,19 +1006,21 @@ class UsersController extends AppController
                 $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyses";
                 $menus['other'] = "Overig";
+                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'Student') {
                 $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyse";
                 $menus['messages'] = "Berichten";
+                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'School management') {
                 $menus['analyses'] = "Analyse";
                 $menus['messages'] = "Berichten";
             }
-            $menus['knowledgebase'] = "Kennisbank";
+
 
             if ($role['name'] == 'Teacher') {
                 $menus['tell_a_teacher'] = "
@@ -1046,8 +1048,9 @@ class UsersController extends AppController
 
         $tiles = array();
 
+
         $tiles['kennisbank'] = [
-            'menu'  => 'knowledgebase',
+            'menu'  => 'support',
             'icon'  => 'testlist',
             'title' => 'Bezoek de kennisbank',
             'path'  => 'https://support.test-correct.nl',
@@ -1274,7 +1277,6 @@ class UsersController extends AppController
                     );
                 }
 
-
                 $tiles['questions_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'questionlist',
@@ -1367,11 +1369,28 @@ class UsersController extends AppController
                     'title' => 'Mijn klassen',
                     'path'  => '/teacher_classes'
                 ];
+
                 $tiles['teacher_test_uploads'] = [
                     'menu'  => 'other',
                     'icon'  => 'testlist',
                     'title' => 'Aangeboden toetsen',
                     'path'  => '/file_management/testuploads'
+                ];
+
+                $tiles['webinar'] = [
+                    'menu' => 'support',
+                    'icon' => 'tile-bespreken',
+                    'title' => 'Webinar',
+                    'type' => 'externalpopup',
+                    'path' => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
+                ];
+
+                $tiles['supportmail'] = [
+                    'menu' => 'support',
+                    'icon' => 'tile-messages',
+                    'title' => 'Support mailen',
+                    'type' => 'externallink',
+                    'path' => 'mailto:support@test-correct.nl',
                 ];
 
                 /*
