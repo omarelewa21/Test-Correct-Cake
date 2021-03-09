@@ -2038,7 +2038,9 @@ class TestTakesController extends AppController {
     }
 
     public function start_discussion_popup($take_id) {
+        $take = $this->TestTakesService->hasCarouselQuestion($take_id);
         $this->set('take_id', $take_id);
+        $this->set('has_carousel', $take['has_carousel']);
     }
 
     public function start_rate_popup($take_id) {

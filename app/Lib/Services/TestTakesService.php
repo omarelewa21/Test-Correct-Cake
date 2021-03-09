@@ -849,4 +849,15 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function hasCarouselQuestion($test_take_id)
+    {
+        $response = $this->Connector->getRequest('/test_take/'. $test_take_id .'/has_carousel_question/', [], []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }
