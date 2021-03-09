@@ -121,7 +121,10 @@ var User = {
         }
     },
 
-    logout: function (closeApp = true) {
+    logout: function (closeApp) {
+        if(typeof closeapp == 'undefined'){
+            closeapp = true;
+        }
         $.get('/users/logout',
             function () {
                 User.actOnLogout();
