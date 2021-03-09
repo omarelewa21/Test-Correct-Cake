@@ -54,7 +54,11 @@
                 ?>
                 <tr>
                     <td width="13">
-                        <div style="width:13px; height:13px; background: <?= $color ?>; border-radius: 15px;"></div>
+                        <?php if ($color == 'grey') { ?>
+                            <div title="Student heeft geen antwoorden om te beoordelen" style="width:13px; height:13px; background: <?= $color ?>; border-radius: 15px;"></div>
+                        <?php } else { ?>
+                            <div style="width:13px; height:13px; background: <?= $color ?>; border-radius: 15px;"></div>
+                        <?php } ?>
                     </td>
                     <td>
                         <?= $participant['user']['name_first'] ?>
