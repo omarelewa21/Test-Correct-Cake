@@ -131,10 +131,14 @@ var User = {
                 window.location.href = '/';
                 try {
                     if (typeof(electron.closeApp) === typeof(Function)) {
-                        if (closeApp) {
-                            electron.closeApp();
+                        if (typeof(electron.reloadApp) === typeof(Function)) {
+                            if (closeApp) {
+                                electron.closeApp();
+                            } else {
+                                electron.reloadApp();
+                            }
                         } else {
-                            electron.reloadApp();
+                            electron.closeApp();
                         }
                     }
                 } catch (error) {}
