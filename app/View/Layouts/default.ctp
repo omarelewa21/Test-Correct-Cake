@@ -112,7 +112,6 @@
 
 		<div id="container"></div>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
-		<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/3780499.js"></script><!-- End of HubSpot Embed Code -->
 		<script>
             function onConversationsAPIReady() {
                 window.hsConversationsSettings = {
