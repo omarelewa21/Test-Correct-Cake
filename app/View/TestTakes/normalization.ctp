@@ -147,7 +147,7 @@ if($totalScore === 0){
                                     <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.handleGroupQuestionSkip(this,'<? echo($question['uuid'])?>','<?=$take_id?>');" />
                                 </td>
                             </tr>
-                        <? }elseif($question['is_subquestion']=='1'){ ?>
+                        <? }elseif($question['is_subquestion']=='1' && $question['sub_type'] === 'carousel'){ ?>
                             <tr>
                                 <td style="padding-left:15px"><?=substr(strip_tags($question['question']), 0, 100)?></td>
                                 <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
