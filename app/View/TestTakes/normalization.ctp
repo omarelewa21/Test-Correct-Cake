@@ -137,14 +137,25 @@ if($totalScore === 0){
 
                         ?>
                             <tr>
-                                <td><?=substr(strip_tags($question['name']), 0, 100)?> - <? echo($question['groupquestion_type']) ?></td>
+                                <td><?=substr(strip_tags($question['name']), 0, 100)?> - <? 
+                                        if($question['groupquestion_type']=='carousel'){   
+                                             echo('carrousel');
+                                        }else{
+                                            echo($question['groupquestion_type']);
+                                        }
+
+                                    ?>
+
+                                </td>
                                 <td>&nbsp;</td>
                                 <td>
                                     &nbsp;
                                 </td>
                                 <td><?=$question['score']?></td>
                                 <td>
-                                    <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.handleGroupQuestionSkip(this,'<? echo($question['uuid'])?>','<?=$take_id?>');" />
+                                    <? if($question['groupquestion_type']=='carousel'){ ?>
+                                        <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox" onchange="TestTake.handleGroupQuestionSkip(this,'<? echo($question['uuid'])?>','<?=$take_id?>');" />
+                                    <? } ?>
                                 </td>
                             </tr>
                         <? }elseif($question['is_subquestion']=='1' && $question['groupquestion_type'] === 'carousel'){ ?>
@@ -162,7 +173,13 @@ if($totalScore === 0){
                                 </td>
                                 <td><?=$question['score']?></td>
                                 <td>
-                                    <input name="data[Question][<?=$groupQuestionChildArray[$question_id]?>]" value="1" type="checkbox" class="child_<?echo($question['groupQuestionUuid'])?> groupquestion_child" disabled />
+                                    <input name="data[Question][<?=$groupQuestionChildArray[$question_id]?>]" value="1" type="checkbox" 
+                                    <? if(in_array($question_id,$carouselQuestionsChildArray)){ ?>
+                                            class="child_<?echo($question['groupQuestionUuid'])?> groupquestion_child" disabled 
+                                    <? }else{ ?>
+                                            onchange="TestTake.normalizationPreview('<?=$take_id?>');"
+                                    <? } ?>
+                                    />
                                 </td>
                             </tr>  
                         <? }else{ ?>
