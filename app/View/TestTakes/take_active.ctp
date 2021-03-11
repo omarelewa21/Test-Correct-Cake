@@ -174,23 +174,34 @@
             s.crossOrigin = 'anonymous';
             s.src = 'https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
             document.getElementsByTagName('BODY')[0].appendChild(s);
-            waitForBrowseAloudAndThenRun();
+                waitForBrowseAloudAndThenRun();
         } else {
             _toggleBA();
         }
     }
 
     var _baTimer;
+    var tryIterator = 0;
 
     function waitForBrowseAloudAndThenRun() {
-        if (typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined') {
+        if (typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined' || typeof $jqTm == 'undefined') {
             _baTimer = setTimeout(function () {
                     waitForBrowseAloudAndThenRun();
                 },
                 150);
         } else {
             clearTimeout(_baTimer);
-            _toggleBA();
+            try {
+                _toggleBA();
+            } catch(e) {
+                tryIterator ++;
+                if (tryIterator < 10) { // just stop when it still fails after 10 tries;
+                    setTimeout(function () {
+                            waitForBrowseAloudAndThenRun();
+                        },
+                        150);
+                }
+            }
         }
     }
 
