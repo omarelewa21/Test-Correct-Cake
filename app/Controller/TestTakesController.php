@@ -659,6 +659,7 @@ class TestTakesController extends AppController {
         $totalScore = $this->TestTakesService->getTestTakeScore($take_id, []);
         $questions = [];
         $groupQuestionChildArray = [];
+        $carouselQuestionsChildArray = [];
         foreach ($test_take['questions'] as $key => $question) {
             if(!stristr($key, '.')){
                 $questions[$key] = $question;
@@ -670,9 +671,13 @@ class TestTakesController extends AppController {
                 $groupQuestionUuid = $question['groupQuestionUuid'];
                 $questions[$groupQuestionId] = $this->getGroupQuestionByUuid($groupQuestionUuid);
             }
+            if($questions[$groupQuestionId]['groupquestion_type']=='carousel'){
+                $carouselQuestionsChildArray[] = explode('.', $key)[1];
+            }
             $questions[explode('.', $key)[1]] = $question;
         }
         $this->set('groupQuestionChildArray',$groupQuestionChildArray);
+        $this->set('carouselQuestionsChildArray',$carouselQuestionsChildArray);
         $this->set('questions',$questions);
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
