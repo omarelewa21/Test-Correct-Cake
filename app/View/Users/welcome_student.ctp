@@ -8,7 +8,7 @@
                     style="margin-left: 20px;">Let op!</h5>
             </div>
             <div class="body">
-                <p>Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 2 april.</p>
+                <p>Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei.</p>
             </div>
         </div>
     </div>
