@@ -1051,7 +1051,7 @@ class UsersController extends AppController
 
         $tiles['kennisbank'] = [
             'menu'  => 'support',
-            'icon'  => 'testlist',
+            'icon'  => 'knowledgebase',
             'title' => 'Bezoek de kennisbank',
             'path'  => 'https://support.test-correct.nl',
             'type'  => 'externalpopup',
@@ -1379,15 +1379,15 @@ class UsersController extends AppController
 
                 $tiles['webinar'] = [
                     'menu' => 'support',
-                    'icon' => 'tile-bespreken',
-                    'title' => 'Webinar',
+                    'icon' => 'webinar',
+                    'title' => 'Aanmelden voor webinar',
                     'type' => 'externalpopup',
                     'path' => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
                 ];
 
                 $tiles['supportmail'] = [
                     'menu' => 'support',
-                    'icon' => 'tile-messages',
+                    'icon' => 'send-email',
                     'title' => 'Support mailen',
                     'type' => 'externallink',
                     'path' => 'mailto:support@test-correct.nl',
