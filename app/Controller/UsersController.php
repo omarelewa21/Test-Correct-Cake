@@ -1380,7 +1380,7 @@ class UsersController extends AppController
                 $tiles['webinar'] = [
                     'menu' => 'support',
                     'icon' => 'webinar',
-                    'title' => 'Aanmelden voor webinar',
+                    'title' => 'Inschrijven webinar',
                     'type' => 'externalpopup',
                     'path' => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
                 ];
