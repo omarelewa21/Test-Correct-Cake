@@ -171,7 +171,7 @@
     function toggleBrowseAloud() {
         if (typeof BrowseAloud == 'undefined') {
             var s = document.createElement('script');
-            s.crossorigin = 'anonymous';
+            s.crossOrigin = 'anonymous';
             s.src = 'https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
             document.getElementsByTagName('BODY')[0].appendChild(s);
             waitForBrowseAloudAndThenRun();
