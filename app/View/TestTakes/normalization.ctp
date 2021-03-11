@@ -158,7 +158,7 @@ if($totalScore === 0){
                                     <? } ?>
                                 </td>
                             </tr>
-                        <? }elseif($question['is_subquestion']=='1' && $question['groupquestion_type'] === 'carousel'){ ?>
+                        <? }elseif($question['is_subquestion']=='1'){ ?>
                             <tr>
                                 <td style="padding-left:15px"><?=substr(strip_tags($question['question']), 0, 100)?></td>
                                 <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
