@@ -123,7 +123,7 @@ var User = {
 
     logout: function (closeApp) {
         if(typeof closeapp == 'undefined'){
-            closeApp = true;
+            closeApp = false;
         }
         $.get('/users/logout',
             function () {

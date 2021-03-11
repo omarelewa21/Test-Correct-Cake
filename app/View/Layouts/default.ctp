@@ -95,7 +95,7 @@
 
 				<div id="user_menu">
                     <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout();" id="btnLogout" class="btn white">Uitloggen</a>
+					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
 
 					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
 
