@@ -111,9 +111,10 @@
     if ($this->Session->read('Auth.User.has_text2speech') == 1) {
         ?>
         <div id="__ba_launchpad">
-            <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
-                 onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
-            </div>
+
+        </div>
+        <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
+             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
         </div>
         <?
     }
