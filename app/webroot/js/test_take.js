@@ -28,10 +28,11 @@ var TestTake = {
         var intervalInSeconds = 3 * 60;
         if (callback == 'rating'
                 || callback == 'discussing'
-                || callback == 'planned'
                 || callback == 'waiting_next'
                 ) {
             intervalInSeconds = 5;
+        } else if(callback == 'planned'){
+            intervalInSeconds = 3;
         }
         if (Number.isInteger(interval)) {
             intervalInSeconds = interval;
