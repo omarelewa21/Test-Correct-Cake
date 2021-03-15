@@ -58,6 +58,8 @@ var TestTake = {
                                 if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
                                     clearInterval(TestTake.heartBeatInterval);
+                                } else {
+                                    $('#chromebook-menu-notice-container-notinapp').show();
                                 }
                                 $('#chromebook-menu-notice-container').slideDown();
                             } else {
