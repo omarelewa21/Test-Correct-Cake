@@ -50,6 +50,9 @@ var User = {
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
+                    var hubspotScript = document.createElement('script');
+                    hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
+                    document.head.appendChild(hubspotScript);
                 }
             }
         );
