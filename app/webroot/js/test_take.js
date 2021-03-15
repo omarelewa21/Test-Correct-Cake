@@ -53,10 +53,19 @@ var TestTake = {
                         TestTake.markBackground();
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
-                            $('#btnStartTest').slideDown();
-                            $('#btnStartTestInLaravel').slideDown();
-                            $('#waiting').slideUp();
-                            clearInterval(TestTake.heartBeatInterval);
+                            if(Core.isChromebook() && !isFullScreen()){
+                                $('#waiting').slideUp();
+                                if(Core.inApp == true){
+                                    $('#chromebook-menu-notice-container-inapp').show();
+                                }
+                                $('#chromebook-menu-notice-container').slideDown();
+                            } else {
+                                $('#chromebook-menu-notice-container').slideUp();
+                                $('#btnStartTest').slideDown();
+                                $('#btnStartTestInLaravel').slideDown();
+                                $('#waiting').slideUp();
+                                clearInterval(TestTake.heartBeatInterval);
+                            }
                         }
 
                         if (
@@ -914,15 +923,19 @@ function stopCheckFocus() {
     }
 }
 
+function isFullScreen(){
+    return !!(window.innerWidth === screen.width && window.innerHeight === screen.height);
+}
+
 var fullscreentimer;
 function checkfullscreen() {
-    if (window.innerWidth !== screen.width || window.innerHeight !== screen.height) {
+    if (!isFullScreen()) {
         console.log('hand in from checkfullscreen');
         Core.lostFocus();
     }
 }
 function startfullscreentimer() {
-    if (window.navigator.userAgent.indexOf('CrOS') > 0) {
+    if (Core.isChromebook()) {
         fullscreentimer = setInterval(checkfullscreen, 300);
     }
 }
