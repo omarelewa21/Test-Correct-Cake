@@ -1,3 +1,13 @@
+<style>
+    #chromebook-menu-notice-container {
+        background-color: var(--error-bg);
+        border: 1px solid var(--error-border);
+        color: var(--error-text);
+        padding: 20px 30px;
+        border-radius: 10px;
+        margin-bottom: 16px;
+    }
+</style>
 <div class="block" style="width:500px; margin: 0px auto; margin-top:100px;">
     <div class="block-head"><?=$take['test']['name']?></div>
     <div class="block-content">
@@ -15,15 +25,16 @@
             </div>
         </div>
         <center>
-        <div id="chromebook-menu-notice-container" style="display:block;text-align:left">
-            <p>We kunnen de toets alleen starten wanneer de browser op volledig scherm staat.</p>
-            <p>
-                In Chromebooks kan het zijn dat de menu balk hieronder nog zichtbaar is, in dat geval kun je deze uit zetten door op het icoontje boven de 5 te klikken<br />
-                <img src="/img/chromebook-menu-btn.png" title="Deze button"/>
-            </p>
-            <div id="chromebook-menu-notice-container-inapp" style="display:block">
-                <p>Je dient na de aanpassing de app af te sluiten en opnieuw op te starten.</p>
+        <div id="chromebook-menu-notice-container" style="display:none;text-align:left">
+            <div class="notification error">
+                <div class="body">
+                    <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de knop <img src="/img/chromebook-menu-btn.png" title="Deze button" style="vertical-align:middle;max-height:30px"/> om naar full screen modus te gaan.</p>
+                    <div id="chromebook-menu-notice-container-inapp" style="display:none">
+                        <p>Je dient na de aanpassing de app af te sluiten en opnieuw op te starten.</p>
+                    </div>
+                </div>
             </div>
+
         </div>
         <?php if($oldPlayerAccess) { ?>
         <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
