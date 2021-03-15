@@ -57,6 +57,7 @@ var TestTake = {
                                 $('#waiting').slideUp();
                                 if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
+                                    clearInterval(TestTake.heartBeatInterval);
                                 }
                                 $('#chromebook-menu-notice-container').slideDown();
                             } else {

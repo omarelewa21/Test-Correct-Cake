@@ -28,7 +28,7 @@
         <div id="chromebook-menu-notice-container" style="display:none;text-align:left">
             <div class="notification error">
                 <div class="body">
-                    <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de knop <img src="/img/chromebook-menu-btn.png" title="Deze button" style="vertical-align:middle;max-height:30px"/> om naar full screen modus te gaan.</p>
+                    <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de knop <img src="/img/chromebook-menu-icon.png" title="Deze button" style="vertical-align:middle;max-height:30px"/> om naar full screen modus te gaan.</p>
                     <div id="chromebook-menu-notice-container-inapp" style="display:none">
                         <p>Je dient na de aanpassing de app af te sluiten en opnieuw op te starten.</p>
                     </div>
