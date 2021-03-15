@@ -29,10 +29,10 @@
             <div class="notification error">
                 <div class="body">
                     <div id="chromebook-menu-notice-container-inapp" style="display:none">
-                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de fullscreen knop (<img src="/img/chromebook-menu-icon.png" title="Deze button boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>) om naar full screen modus te gaan, sluit de app af en start de app opnieuw op om de toets te starten.</p>
+                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop (<img src="/img/chromebook-menu-icon.png" title="Deze knop kun je vinden boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>) , sluit de Test-Correct app af en start de app opnieuw op om de toets te maken.</p>
                     </div>
                     <div id="chromebook-menu-notice-container-notinapp" style="display:block">
-                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de fullscreen knop (<img src="/img/chromebook-menu-icon.png" title="Deze button boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>) om naar full screen modus te gaan.</p>
+                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop (<img src="/img/chromebook-menu-icon.png" title="Deze knop kun je vinden boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>) om verder te gaan.</p>
                     </div>
                 </div>
             </div>
