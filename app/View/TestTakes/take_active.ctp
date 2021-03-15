@@ -192,8 +192,6 @@
         [... shadowRoot.querySelectorAll('.th-browsealoud-toolbar-button__icon')].forEach(function(item) {
             item.setAttribute('style', 'fill : #515151');
         });
-        //#004DF5 blue;
-        //  #ECD900 yellow
     }
 
     var _baTimer;
@@ -223,7 +221,9 @@
 
     function _toggleBA() {
         BrowseAloud.panel.toggleBar(!0);
-        hideBrowseAloudButtons();
+        setTimeout(function() {
+            hideBrowseAloudButtons();
+        }, 300);
     }
 
     <?php
