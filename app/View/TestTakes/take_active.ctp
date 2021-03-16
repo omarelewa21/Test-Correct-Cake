@@ -183,12 +183,20 @@
     }
 
     function hideBrowseAloudButtons() {
-        var shadowRoot = document.querySelector('div#__bs_entryDiv').querySelector('div').shadowRoot
-        var elementsToHide = ['th_translate','th_mp3Maker', 'ba-toggle-menu']
+        var shadowRoot = document.querySelector('div#__bs_entryDiv').querySelector('div').shadowRoot;
+        var elementsToHide = ['th_translate','th_mp3Maker', 'ba-toggle-menu'];
         elementsToHide.forEach(function(id) {
-            shadowRoot.getElementById(id).setAttribute('style', 'display:none');
+            var el = shadowRoot.getElementById(id);
+            if (el !== null) {
+                shadowRoot.getElementById(id).setAttribute('style', 'display:none');
+            }
         });
-        shadowRoot.getElementById('th_toolbar').setAttribute('style', 'background-color: #fff');
+
+        var toolbar = shadowRoot.getElementById('th_toolbar');
+        if (toolbar !== null) {
+           toolbar.setAttribute('style', 'background-color: #fff');
+        }
+
         [... shadowRoot.querySelectorAll('.th-browsealoud-toolbar-button__icon')].forEach(function(item) {
             item.setAttribute('style', 'fill : #515151');
         });
