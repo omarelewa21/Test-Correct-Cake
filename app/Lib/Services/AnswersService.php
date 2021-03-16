@@ -280,6 +280,23 @@ class AnswersService extends BaseService {
         return $response;
     }
 
+    public function getTestTakeUuid($answer_id){
+        $response = $this->getTestTake($answer_id);
+        if(in_array('uuid', $response)){
+            return $response['uuid'];
+        }
+        return false;
+    }
+
+    public function getTestTake($answer_id){
+        $response = $this->Connector->getRequest('/answer/' . $answer_id . '/test_take', []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     private function _fillOpenQuestion($question, $data) {
         return ['value' => $data['Answer']['answer']];
     }

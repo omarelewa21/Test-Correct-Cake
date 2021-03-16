@@ -781,7 +781,8 @@ class TestTakesController extends AppController {
 
             $answer_id = $data['answer_id'];
             $score = $data['score'];
-            $take_id = $this->Session->read('take_id');
+            $take_id = $this->AnswersService->getTestTakeUuid($answer_id);
+            //$take_id = $this->Session->read('take_id');
             $user_id = AuthComponent::user('uuid');
 
             $rating_id = $data['rating_id'];
