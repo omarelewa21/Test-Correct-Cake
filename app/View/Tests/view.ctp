@@ -10,7 +10,7 @@
         Inplannen
     </a>
     <? } else { ?>
-    <a href="#" class="btn white mr2" 
+    <a href="#" class="btn white mr2"
             <? if($carouselGroupQuestionNotify){ ?>
             onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');"
             <? }else{ ?>
@@ -191,7 +191,13 @@
                                     $a ++;
                                     ?>
                                     <div class="cell_autowidth">
-                                        <?= $a . '. '. $subquestion['question']['question']; ?>
+                            <?php
+                            $closableIcon = '';
+                            if($subquestion['question']['closeable'] == 1) {
+                                $closableIcon ='<i title="Deze vraag afsluiten" style="cursor:pointer" class="fa fa-lock"></i>';
+                            }
+                            echo $a . '. '. $subquestion['question']['question']. $closableIcon;
+                            ?>
                                     </div>
                                     <?
                                 }

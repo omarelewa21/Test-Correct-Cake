@@ -78,6 +78,7 @@
             <thead>
             <tr>
                 <th></th>
+                <th></th>
                 <th>Vraag</th>
                 <th>Leerjaar</th>
                 <th>Niveau</th>
