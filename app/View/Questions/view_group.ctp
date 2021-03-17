@@ -33,7 +33,7 @@ if(!empty($group['question']['question'])) {
 </div>
 
 <div class="block">
-    <div class="block-head">Groep vragen 
+    <div class="block-head">Groep vragen
         <?
                 if($group['question']['groupquestion_type']=='carousel') {
         ?>
@@ -54,6 +54,7 @@ if(!empty($group['question']['question'])) {
             <? } ?>
             <tr>
                 <th>#</th>
+                <th>&nbsp;</th>
                 <th>Vraag</th>
                 <th>Soort</th>
                 <th>Score</th>
@@ -68,6 +69,20 @@ if(!empty($group['question']['question'])) {
                     ?>
                     <tr id="<?=getUUID($question, 'get');?>">
                         <td><?=$i?></td>
+                        <td style="text-align:center">
+                            <?php
+
+                            if($question['question']['closeable'] == 1) {
+                                $title = 'Deze vraag afsluiten';
+                                if ($question['question']['type'] == 'GroupQuestion') {
+                                    $title = 'Deze vraaggroep afsluiten';
+                                }
+                                printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
+                            } else {
+                                echo '&nbsp;';
+                            }
+                            ?>
+                        </td>
                         <td>
                             <div class="cell_autowidth">
                                 <?= $question['question']['question'] ?>
@@ -86,7 +101,7 @@ if(!empty($group['question']['question'])) {
 
                                 case 'OpenQuestion':
                                     switch($question['question']['subtype']){
-                                        
+
                                         case 'short':
                                             echo 'Open vraag - kort<br />';
                                             break;
