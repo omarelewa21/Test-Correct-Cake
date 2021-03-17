@@ -1739,4 +1739,11 @@ class UsersController extends AppController
             exit();
         }
     }
+
+    public function toggle_verified($uuid) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $response = $this->UsersService->toggleAccountVerified($uuid);
+        echo json_encode($response);
+        exit;
+    }
 }

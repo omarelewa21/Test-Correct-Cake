@@ -39,6 +39,15 @@
         </tr>
         <tr>
             <th width="130">
+                Geverifieerd
+            </th>
+            <td><a style="cursor:pointer" class="btn <?= $this->request->data['account_verified']?  'blue': 'grey' ?>" id="updateVerified">
+                    <?= $this->request->data['account_verified'] ?  $this->request->data['account_verified'] : 'Niet geverifieerd'?>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th width="130">
                 E-mailadres
             </th>
             <td>
@@ -104,4 +113,30 @@
             }
         }
     );
+
+    $('#updateVerified').click(function(e) {
+        e.stopImmediatePropagation();
+        e.preventDefault();
+        var uuid = '<?= getUUID($this->request->data, "get") ?>';
+        $.ajax({
+            url: '/users/toggle_verified/' + uuid,
+            type: 'put',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                if (data.account_verified) {
+                    $('#updateVerified').text(data.account_verified).addClass('blue').removeClass('grey');
+                } else {
+                    $('#updateVerified').text('Niet geverifieerd').addClass('grey').removeClass('blue');
+                }
+            },
+            failure: function(data) {
+                alert('error');
+                console.dir(data);
+            }
+        });
+
+    });
+
+
 </script>
