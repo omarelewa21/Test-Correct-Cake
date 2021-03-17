@@ -206,7 +206,6 @@
     var tryIterator = 0;
 
     function waitForBrowseAloudAndThenRun() {
-        debugger;
         if (typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined') {
             _baTimer = setTimeout(function () {
                     waitForBrowseAloudAndThenRun();
