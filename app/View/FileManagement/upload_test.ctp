@@ -1,44 +1,44 @@
 <link href="/css/filepond.css" rel="stylesheet">
-<div class="popup-head">Toets uploaden</div>
+<div class="popup-head"><?= __("Toets uploaden")?></div>
 <div class="popup-content">
 
     <div class=" " id="FileTestBlock">
         <div id="FileTestContainer" style="display:none;padding: 8px;">
-            Een moment dit kan even duren...
+        <?= __("Een moment dit kan even duren...")?>
             <h4 style="color:green;" id="wistjedatjes"></h4>
         </div>
         <?= $this->Form->create('FileTest', array('id' => 'FileTestForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment')) ?>
         <div class="block-content" id="testsContainer">
             <table class='table'>
                 <tr>
-                    <td><label>Niveau</label></td>
+                    <td><label><?= __("Niveau")?></label></td>
                     <td>
                         <?= $this->Form->input('education_level_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $educationLevelOptions)) ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Jaar</label></td>
+                    <td><label><?= __("Jaar")?></label></td>
                     <td>
                         <?= $this->Form->input('education_level_year', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [])) ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Vak</label>
+                        <label><?= __("Vak")?></label>
                     </td>
                     <td>
                         <?= $this->Form->input('subject', array('id' => 'subject', 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Type toets</label></td>
+                    <td><label><?= __("Type toets")?></label></td>
                     <td>
                         <?= $this->Form->input('test_kind_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $testKindOptions)) ?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Toets naam</label>
+                        <label><?= __("Toets naam")?></label>
                     </td>
                     <td>
                         <?= $this->Form->input('name', array('id' => 'name', 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
@@ -46,7 +46,7 @@
                 </tr>
 
                 <tr>
-                    <td>Kies één of meerdere bestanden. (Max. <?php echo $readable_max_upload_size ?>)</td>
+                    <td><?= __("Kies één of meerdere bestanden. (Max.")?> <?php echo $readable_max_upload_size ?>)</td>
                     <td>
                         <?= $this->Form->input('form_id', array('type' => 'hidden', 'label' => false, 'div' => false, 'value' => $form_id)) ?>
                         <?= $this->Form->input('file.', array('type' => 'file', 'multiple', 'label' => false, 'div' => false, 'onchange' => 'makeFileList()')) ?>
@@ -69,15 +69,15 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Correctiemodel toegevoegd?</label></td>
+                    <td><label><?= __("Correctiemodel toegevoegd?")?></label></td>
                     <td>
-                        <?= $this->Form->input('correctiemodel', array('id' => 'correctiemodel', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Nee, dat heb ik nog niet gedaan', 1 => 'Ja, die zit erbij'])) ?>
+                        <?= $this->Form->input('correctiemodel', array('id' => 'correctiemodel', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => __("Maak een keuze"), 0 => __("Nee, dat heb ik nog niet gedaan"), 1 => __("Ja, die zit erbij")])) ?>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Een enkele of meerdere toetsen?</label></td>
+                    <td><label><?= __("Een enkele of meerdere toetsen?")?></label></td>
                     <td>
-                        <?= $this->Form->input('multiple', array('id' => 'multiple', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => 'Maak een keuze', 0 => 'Eén enkele toets ', 1 => 'Meerdere toetsen'])) ?>
+                        <?= $this->Form->input('multiple', array('id' => 'multiple', 'type' => 'select', 'label' => false, 'div' => false, 'options' => [-1 => __("Maak een keuze"), 0 => __("Eén enkele toets "), 1 => __("Meerdere toetsen")])) ?>
                     </td>
                 </tr>
             </table>
@@ -86,11 +86,11 @@
         </div>
         <div class="block-footer">
             <a href="#" id="submitbutton" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
-                Toets uploaden
+            <?= __("Toets uploaden")?>
             </a>
             <a href="#" id="cancelbutton" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();
                     Navigation.refresh();">
-                Annuleer
+                <?= __("Annuleer")?>
             </a>
         </div>
         <?= $this->Form->end ?>
@@ -131,10 +131,10 @@
                 var wistjedatjeTimer
                 var wistjedatjeNr = 0;
                 let wistjedatjes = [
-                    'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-                    'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-                    'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-                    'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+                    '<?= __("Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+                    '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..")?>',
+                    '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+                    '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
                 ];
                 let wistjedatjesEl = jQuery('#wistjedatjes');
 
@@ -144,34 +144,34 @@
                 function handleSubmit() {
 
                     if (!fileAdded) {
-                        window.parent.handleUploadError("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden.");
+                        window.parent.handleUploadError('<?= __("U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden.")?>');
                         return false;
                     }
 
                     if (!canSubmit) {
 
-                        window.parent.handleUploadError('U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width="26" height="26" viewBox="0 -8 26 26" xmlns="http://www.w3.org/2000/svg"><path d="M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z" fill="currentColor" fill-rule="evenodd"/></svg>) rechts naast de file(s) om deze te uploaden.');
+                        window.parent.handleUploadError('<?= __("U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width=\"26\" height=\"26\" viewBox=\"0 -8 26 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>) rechts naast de file(s) om deze te uploaden.")?>');
                         return false;
 
                     }
 
                     if ($('#correctiemodel').val() != "1") {
-                        window.parent.handleUploadError("Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)");
+                        window.parent.handleUploadError('<?= __("Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)")?>');
                         return false;
                     }
 
                     if ($('#multiple').val() != "0") {
-                        window.parent.handleUploadError("Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)");
+                        window.parent.handleUploadError('<?= __("Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)")?>');
                         return false;
                     }
 
                     if ($('#subject').val() == "") {
-                        window.parent.handleUploadError("U heeft geen vaknaam ingevuld");
+                        window.parent.handleUploadError('<?= __("U heeft geen vaknaam ingevuld")?>');
                         return false;
                     }
 
                     if ($('#name').val() == "") {
-                        window.parent.handleUploadError("U heeft geen toetsnaam ingevuld");
+                        window.parent.handleUploadError('<?= __("U heeft geen toetsnaam ingevuld")?>');
                         return false;
                     }
 
@@ -250,8 +250,8 @@
                         allowProcess: false,
                         allowFileSizeValidation: true,
                         maxTotalFileSize: <?php echo $max_file_upload_size ?>,
-                        labelMaxTotalFileSizeExceeded: 'Maximale bestandsgrootte bereikt',
-                        labelMaxTotalFileSize: 'Bestandsgrootte is maximaal {filesize}',
+                        labelMaxTotalFileSizeExceeded: __("Maximale bestandsgrootte bereikt"),
+                        labelMaxTotalFileSize: __("Bestandsgrootte is maximaal {filesize}"),
 
                     });
                     FilePond.setOptions({

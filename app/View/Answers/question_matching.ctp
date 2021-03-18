@@ -6,7 +6,7 @@ $citoClass = 'cito';
 }
 ?>
 <?=$this->Form->create('Answer')?>
-<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag' ?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == __("Matching") ? __("Combineervraag") : __("Rubriceer-vraag") ?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
     <?

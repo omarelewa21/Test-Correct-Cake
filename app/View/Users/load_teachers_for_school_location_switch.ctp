@@ -10,7 +10,7 @@ foreach($users as $user) {
             <?php
                     if((bool) $user['demo'] === true){
                     ?>
-            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verplaatsen','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('<?= __("Je kunt een demo gebruiker niet verplaatsen")?>','error');">
                 <span class="fa fa-arrows-h"></span>
             </a>
 
@@ -37,9 +37,9 @@ foreach($users as $user) {
 
             <a class="btn white pull-right" href="#">
                 <?php if(empty($user['account_verified'])) { ?>
-                    <span title="Niet geverifieerd" class="fa fa-times" style="color:red"></span>
+                    <span title='<?= __("Niet geverifieerd")?>' class="fa fa-times" style="color:red"></span>
                 <?php }else { ?>
-                    <span title="Geverifieerd" class="fa fa-check" style="color:forestgreen"></span>
+                    <span title='<?= __("Geverifieerd")?>' class="fa fa-check" style="color:forestgreen"></span>
                 <?php } ?>
             </a>
         </td>

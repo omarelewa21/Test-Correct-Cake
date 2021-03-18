@@ -1,5 +1,5 @@
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?

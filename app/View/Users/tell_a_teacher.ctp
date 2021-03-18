@@ -17,16 +17,16 @@ if (isset($email_addresses) && !$stepback) {
     </div>
     <div class="tat-top-text">
         <img class="inline-block" src="img/ico/send-blue-big.svg" width="53px" height="41px" alt="">
-        <h1 class="inline-block">Nodig een collega uit!</h1>
+        <h1 class="inline-block"><?= __("Nodig een collega uit!")?></h1>
         <div class="tat-usp">
-            <h6 class="">Samen met je collega's kun je:</h6>
+            <h6 class=""><?= __("Samen met je collega's kun je:")?></h6>
             <div>
                 <img class="tat-check" src="img/ico/checkmark-small.svg" width="16px" height="16px" alt="">
-                <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                <span class="body1"><?= __("Overleggen over de voortgang van jouw studenten en ervaringen delen.")?></span>
             </div>
             <div>
                 <img class="tat-check" src="img/ico/checkmark-small.svg" width="16px" height="16px" alt="">
-                <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
+                <span class="body1"><?= __("Gebruikmaken van elkaars toetsen en toetsvragen.")?></span>
             </div>
         </div>
     </div>
@@ -36,7 +36,7 @@ if (isset($email_addresses) && !$stepback) {
 </div>
 <?= $this->Form->create('User') ?>
 <div class="popup-content tat-content body1" style="padding-top: 16px!important;">
-    <span class="mb4 display-block">Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken.</span>
+    <span class="mb4 display-block"><?= __("Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken.")?></span>
 
     <div class="input-group <?php if ($hasErrors) {
         echo 'error';
@@ -44,25 +44,25 @@ if (isset($email_addresses) && !$stepback) {
         <textarea id="lotsOfEmailAddresses" width="200px" height="200px" autofocus><?php
             echo $email_addresses;
             ?></textarea>
-        <label for="lotsOfEmailAddresses">School e-mailadressen van jouw collega's</label>
+        <label for="lotsOfEmailAddresses"><?= __("School e-mailadressen van jouw collega's")?></label>
     </div>
     <div>
         <input id="message" type="hidden" value="<?php echo $message ?>">
     </div>
     <div>
-        <span class="display-block tip">Separeer meerdere e-mailadressen met komma's of puntkomma's.</span>
+        <span class="display-block tip"><?= __("Separeer meerdere e-mailadressen met komma's of puntkomma's.")?></span>
     </div>
     <?php if ($hasErrors): ?>
         <div class="notification error mb16">
             <?php if ($email_addresses != null): ?>
                 <span class="body"><?php echo $errors ?></span>
             <?php else: ?>
-                <span class="body">Geen e-mailadressen ingevuld.</span>
+                <span class="body"><?= __("Geen e-mailadressen ingevuld.")?></span>
             <?php endif; ?>
         </div>
     <?php endif; ?>
     <div class="body2">
-        <span class="display-block"> Stuur je liever zelf een e-mail? Deel een link:
+        <span class="display-block"> <?= __("Stuur je liever zelf een e-mail? Deel een link:")?>
             <a id="copyBtn" onclick="setClipboard('<?php echo $shortcodeUrl ?>')"
                class="text-button"><?php echo $shortcodeUrl ?>
                 <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
@@ -84,8 +84,8 @@ if (isset($email_addresses) && !$stepback) {
             <circle class="system-secondary" cx="7" cy="7" r="7"/>
         </svg>
     </div>
-    <button id="sendEmailAddresses" class="button button-md primary-button pull-right" style="cursor: pointer;">Bekijk
-        e-mailvoorbeeld<svg style="margin-left: 10px" width="9" height="13" xmlns="http://www.w3.org/2000/svg">
+    <button id="sendEmailAddresses" class="button button-md primary-button pull-right" style="cursor: pointer;"><?= __("Bekijk")?>
+    <?= __("e-mailvoorbeeld")?><svg style="margin-left: 10px" width="9" height="13" xmlns="http://www.w3.org/2000/svg">
             <path stroke="white" stroke-width="3" d="M1.5 1.5l5 5-5 5" fill="none" fill-rule="evenodd"
                   stroke-linecap="round"/>
         </svg>
@@ -121,7 +121,7 @@ if (isset($email_addresses) && !$stepback) {
         tempInput.select();
         document.execCommand("copy");
         document.body.removeChild(tempInput);
-        Notify.notify("Link gekopieerd", "info");
+        Notify.notify('<?= __("Link gekopieerd")?>', "info");
     }
 
 </script>

@@ -6,7 +6,7 @@ if ($wizard_steps) {
             <a id="toggle-ob-wizard" href="#0" class="btn white">
             <span>
                 <i class="fa fa-minus mr5"></i>
-                Verberg demo tour
+                <?= __("Verberg demo tour")?>
             </span>
                 <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
             </a>
@@ -23,12 +23,12 @@ if ($wizard_steps) {
             <div class="notification error">
                 <div class="title">
                     <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
-                            style="margin-left: 20px;">Let op! Je account is nog niet geverifieerd.</h5>
+                            style="margin-left: 20px;"><?= __("Let op! Je account is nog niet geverifieerd.")?></h5>
                 </div>
                 <div class="body">
-                    <p>Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?</p>
+                    <p><?= __("Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?")?></p>
                     <a class="text-button" onclick="resendEmailVerificationMail()">
-                        Stuur verificatiemail opnieuw<?php echo $this->element('arrow') ?>
+                    <?= __("Stuur verificatiemail opnieuw")?><?php echo $this->element('arrow') ?>
                     </a>
                 </div>
             </div>
@@ -38,21 +38,21 @@ if ($wizard_steps) {
             <div class="notification warning">
                 <div class="title">
                     <?php echo $this->element('warning', array('color' => 'var(--teacher-Highlight-dark)')) ?><h5
-                            style="margin-left: 30px;">Let op: je account is nog niet geactiveerd.</h5>
+                            style="margin-left: 30px;"><?= __("Let op: je account is nog niet geactiveerd.")?></h5>
                 </div>
                 <div class="body">
-                    <p>Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw
-                        opgegeven
-                        data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in
-                        Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel
-                        ons
-                        dan op <a href="tel:010 7 171 171">010 7 171 171</a> om dit te versnellen.</p>
+                    <p><?= __("Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw")?>
+                    <?= __("opgegeven")?>
+                    <?= __("data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in")?>
+                    <?= __("Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel
+                        ons")?>
+                        <?= __("dan op")?> <a href="tel:010 7 171 171">010 7 171 171</a> <?= __("om dit te versnellen.")?></p>
                 </div>
             </div>
         <?php } ?>
         <div class="notification info">
             <div class="title">
-                <h5>Welkom op het Test-Correct platform!</h5>
+                <h5><?= __("Welkom op het Test-Correct platform!")?></h5>
             </div>
             <div class="body">
                 <h6></h6>
@@ -66,15 +66,15 @@ if ($wizard_steps) {
     <div class="cta">
         <div class="tat-top-text">
             <?php echo $this->element('send_big_blue'); ?>
-            <h1 class="inline-block">Nodig een collega uit!</h1>
+            <h1 class="inline-block"><?= __("Nodig een collega uit!")?></h1>
             <div class="ml60">
-                <h6 class="">Samen met je collega's kun je:</h6>
+                <h6 class=""><?= __("Samen met je collega's kun je:")?></h6>
                 <div class="flex">
                     <div class="mr10">
                         <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
                     </div>
                     <div class="flex-grow">
-                        <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                        <span class="body1"><?= __("Overleggen over de voortgang van jouw studenten en ervaringen delen.")?></span>
                     </div>
                 </div>
                 <div class="flex">
@@ -82,7 +82,7 @@ if ($wizard_steps) {
                         <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
                     </div>
                     <div>
-                        <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
+                        <span class="body1"><?= __("Gebruikmaken van elkaars toetsen en toetsvragen.")?></span>
                     </div>
                 </div>
                 <div style="margin-top: 8px">
@@ -90,7 +90,7 @@ if ($wizard_steps) {
                             onClick="Popup.load('/users/tell_a_teacher', 800);"
                             class="inline-block button cta-button button-md"
                     >
-                        <span style="margin-right: 10px; display: inline">Nodig een collega uit</span><?php echo $this->element('chevron', array('color' => 'white')) ?>
+                        <span style="margin-right: 10px; display: inline"><?= __("Nodig een collega uit")?></span><?php echo $this->element('chevron', array('color' => 'white')) ?>
                     </button>
                 </div>
             </div>
@@ -120,13 +120,13 @@ if ($wizard_steps) {
                 <div id="welcome-text" style="height:70px; text-align: left;">
                         <span class="pull-left" style="line-height: 30px;">
                              <?php if ($progress == 0) { ?>
-                                 <strong>Welkom  <?= $name ?>,</strong>
-                                 <BR>we willen je graag snel op weg helpen binnen Test-Correct!
+                                 <strong><?= __("Welkom")?>  <?= $name ?>,</strong>
+                                 <BR><?= __("we willen je graag snel op weg helpen binnen Test-Correct!")?>
                              <?php } else if ($progress == 100) { ?>
-                                 <strong>Welkom  <?= $name ?>,</strong>
-                                 <BR> gefeliciteerd je hebt de demo tour afgerond!
+                                 <strong><?= __("Welkom")?>  <?= $name ?>,</strong>
+                                 <BR> <?= __("gefeliciteerd je hebt de demo tour afgerond!")?>
                              <?php } else { ?>
-                                 <strong>Welkom terug <?= $name ?>.</strong> <BR>Je bent goed bezig!
+                                 <strong><?= __("Welkom terug")?> <?= $name ?>.</strong> <BR><?= __("Je bent goed bezig!")?>
                              <?php } ?>
                         </span>
                     <span class="pull-right">
@@ -135,7 +135,7 @@ if ($wizard_steps) {
 
                 </div>
 
-                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
+                <div style="height:25px;"><span class="pull-left"><?= __("Voortgang...")?></span> <span id="progress-percentage"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
                 <div class="progress">
@@ -180,7 +180,7 @@ if ($wizard_steps) {
                                            data-confetti-max-count="<?= $sub['confetti_max_count'] ?>"
                                            data-confetti-time-out="<?= $sub['confetti_time_out'] ?>"
                                            data-action="<?= $sub['action_content'] ?>"
-                                           data-step="<?= $step['id'] ?>">Klik hier als je alle stappen hebt gedaan</a>
+                                           data-step="<?= $step['id'] ?>"><?= __("Klik hier als je alle stappen hebt gedaan")?></a>
                                     </li>
                                     <?php
                                     break;
@@ -207,7 +207,7 @@ if ($wizard_steps) {
                                                     data-id="<?= $sub['id'] ?>"
                                                     class="prr-button knowledgebase-button btn white inline-block grey pull-right ob-wizard-step-link">
                                                 <span
-                                                        class="fa fa-external-link"></span> Lees in kennisbank
+                                                        class="fa fa-external-link"></span> <?= __("Lees in kennisbank")?>
                                             </a>
                                         <?php } else { ?>
                                             <span class="prr-button knowledgebase-button pull-right"></span>
@@ -217,7 +217,7 @@ if ($wizard_steps) {
                                                 trim(end(explode("/", $sub['action_content']))); ?>')"
                                                 data-id="<?= $sub['id'] ?>"
                                                 class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
-                                        ><span class="fa fa-male"></span> Doe de tour</a>
+                                        ><span class="fa fa-male"></span> <?= __("Doe de tour")?></a>
 
                                     </li>
                                     <?php
@@ -239,7 +239,7 @@ if ($wizard_steps) {
                                                     data-id="<?= $sub['id'] ?>"
                                                     class="prr-button knowledgebase-button btn white inline-block grey pull-right ob-wizard-step-link">
                                                 <span
-                                                        class="fa fa-external-link"></span> Lees in kennisbank
+                                                        class="fa fa-external-link"></span> <?= __("Lees in kennisbank")?>
                                             </a>
                                         <?php } else { ?>
                                             <span class="prr-button knowledgebase-button pull-right"></span>
@@ -255,7 +255,7 @@ if ($wizard_steps) {
                                            onclick="Popup.load('/video/popup/?url=<?= rawurlencode($sub['action_content']) ?>', '630')"
                                            class="prr-button btn white inline-block grey pull-right ob-wizard-step-link"
                                            data-id="<?= $sub['id'] ?>"
-                                        ><span class="fa fa-film"></span> Bekijk de video
+                                        ><span class="fa fa-film"></span> <?= __("Bekijk de video")?>
                                         </a>
                                     </li>
                                     <?php
@@ -276,7 +276,7 @@ if ($wizard_steps) {
 </div>
 
 
-<h1 style="text-align:center; margin-top: 50px;">Meteen naar:</h1>
+<h1 style="text-align:center; margin-top: 50px;"><?= __("Meteen naar:")?></h1>
 <div style="text-align:center;">
     <div style="display:inline-block;">
         <?php
@@ -285,22 +285,22 @@ if ($wizard_steps) {
             <span class="blue">
             <div class="tile btn pull-left defaultMenuButton plus"
                  onclick="Navigation.load('file_management/testuploads');">
-            Te verwerken toetsen
+                 <?= __("Te verwerken toetsen")?>
             </div></span>
         <?php } else { ?>
 
             <span class="blue">
             <div class="tile btn pull-left defaultMenuButton plus" onclick="Popup.load('/tests/add', 1000);">
-            Toets construeren
+            <?= __("Toets construeren")?>
             </div></span>
 
             <span class="blue"><div class="tile tile-surveilleren"
                                     onclick="Navigation.load('/test_takes/surveillance');">
-            Surveilleren
+            <?= __("Surveilleren")?>
             </div></span>
 
             <span class="blue"><div class="tile tile-nakijken" onclick="Navigation.load('/test_takes/to_rate');">
-            Nakijken
+            <?= __("Nakijken")?>
             </div></span>
         <?php } ?>
     </div>
@@ -329,15 +329,15 @@ if ($wizard_steps) {
     });
 
     if (jQuery("#supportLinkUserMenu").length != 1) {
-        jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" > Supportpagina</a>');
+        jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" >' + '<?= __("Supportpagina")?>' + '</a>');
         <?php
         if(AuthComponent::user('isToetsenbakker') == true){
         ?>
-        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" > Te verwerken toetsen</a>');
+        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' + '<?= __("Te verwerken toetsen")?>' + '</a>');
         <?php
         }else {
         ?>
-        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >Uploaden toets</a>');
+        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' +  '<?= __("Uploaden toets")?>' + '</a>');
         <?php
         }
         ?>
@@ -373,18 +373,18 @@ if ($wizard_steps) {
                         openNextStepOrCloseWizard($(e.target))
                     } else if ($(e.target).hasClass('not-all-previous-steps-completed')) {
                         Popup.messageWithPreventDefault({
-                            'title': 'Waarschuwing',
-                            'message': 'U kunt deze stap pas afronden als de voorgaande stap is afgerond',
-                            'btnOk': 'Ok'
+                            'title': '<?= __("Waarschuwing")?>',
+                            'message': '<?= __("U kunt deze stap pas afronden als de voorgaande stap is afgerond")?>',
+                            'btnOk': '<?= __("Ok")?>'
                         }, function () {
                             $.Event().preventDefault();
                         });
                     } else {
                         if ($(e.target).attr('disabled') !== 'disabled') {
                             Popup.messageWithPreventDefault({
-                                    'title': 'Waarschuwing',
-                                    'message': 'Doorloop eerst alle sub stappen',
-                                    'btnOk': 'Ok'
+                                    'title': '<?= __("Waarschuwing")?>',
+                                    'message': '<?= __("Doorloop eerst alle sub stappen")?>',
+                                    'btnOk': '<?= __("Ok")?>'
                                 }, function () {
                                     $.Event().preventDefault();
                                 }
@@ -574,7 +574,7 @@ if ($wizard_steps) {
             url: '/users/resendEmailVerificationMail',
             type: 'POST',
             success: function () {
-                Notify.notify('De verificatiemail is nogmaals naar je verstuurd', 'info');
+                Notify.notify('<?= __("De verificatiemail is nogmaals naar je verstuurd")?>', 'info');
             }
         });
     }

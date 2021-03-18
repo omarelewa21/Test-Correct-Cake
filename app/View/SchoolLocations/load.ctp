@@ -14,7 +14,7 @@ foreach($school_locations as $school_location) {
         <td>
             <?
             if(empty($school_location['school']['name'])) {
-                echo '<div class="label" style="background:green">Geen, locatie is eindklant</div>';
+                echo '<div class="label" style="background:green">__("Geen, locatie is eindklant")</div>';
             }else{
                 echo $school_location['school']['name'];
             }
@@ -37,11 +37,11 @@ foreach($school_locations as $school_location) {
                 <div class="dropblock blur-close" for="school_location_<?=getUUID($school_location, 'get');?>">
                     <a href="#" class="btn highlight white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 0);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif;?>

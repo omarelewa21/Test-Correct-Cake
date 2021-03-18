@@ -1,47 +1,47 @@
 <div id="buttons">
     <a href="#" class="btn highlight mr2" onclick="TestTake.markRated('<?=$take_id?>');">
         <span class="fa fa-check mr5"></span>
-        Becijferd markeren
+        <?= __("Becijferd markeren")?>
     </a>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Becijferen</h1>
+<h1><?= __("Becijferen")?></h1>
 <div class="block">
-    <div class="block-head">Toets informatie</div>
+    <div class="block-head"><?= __("Toets informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="12%">Toets</th>
+                <th width="12%"><?= __("Toets")?></th>
                 <td width="21%"><?=$take['test']['name']?></td>
-                <th width="12%">Gepland</th>
+                <th width="12%"><?= __("Gepland")?></th>
                 <td width="21%"><?=date('d-m-Y', strtotime($take['time_start']))?></td>
-                <th width="12%">Normering</th>
+                <th width="12%"><?= __("Normering")?></th>
                 <td width="21%">
                     <?
                     if(!empty($take['ppp'])) {
-                        echo 'Goed per punt: ' . $take['ppp'];
+                        echo __("Goed per punt: ") . $take['ppp'];
                     }else if(!empty($take['epp'])) {
-                        echo 'Fouten per punt: ' . $take['epp'];
+                        echo __("Fouten per punt: ") . $take['epp'];
                     }else if(!empty($take['wanted_average'])) {
-                        echo 'Gemiddeld cijfer: ' . $take['wanted_average'];
+                        echo __("Gemiddeld cijfer: ") . $take['wanted_average'];
                     }else if(!empty($take['pass_mark'])) {
-                        echo 'Cesuur: ' . $take['pass_mark'] . ' - N-term: ' . $take['n_term'];
+                        echo __("Cesuur: ") . $take['pass_mark'] . ' - N-term: ' . $take['n_term'];
                     }else{
-                        echo 'N-term: ' . $take['n_term'];
+                        echo __("N-term: ") . $take['n_term'];
                     }
                     ?>
                 </td>
             </tr>
             <tr>
-                <th>Type</th>
-                <td><?=$take['retake'] == 0 ? 'Geplande toets' : 'Inhaal toets'?></td>
-                <th>Weging</th>
+                <th><?= __("Type")?></th>
+                <td><?=$take['retake'] == 0 ? __("Geplande toets") : __("Inhaal toets")?></td>
+                <th><?= __("Weging")?></th>
                 <td><?=$take['weight']?></td>
-                <th>Vakdocent</th>
+                <th><?= __("Vakdocent")?></th>
                 <td>
                     <?=$take['user']['name_first']?>
                     <?=$take['user']['name_suffix']?>
@@ -49,11 +49,11 @@
                 </td>
             </tr>
             <tr>
-                <th>Vak</th>
+                <th><?= __("Vak")?></th>
                 <td>
                     <?=$take['test']['subject']['name']?>
                 </td>
-                <th>Klas(sen)</th>
+                <th><?= __("Klas(sen)")?></th>
                 <td colspan="3">
                     <?
                     foreach($take['school_classes'] as $class) {
@@ -68,17 +68,17 @@
 
 
 <div class="block">
-    <div class="block-head">Becijferen</div>
+    <div class="block-head"><?= __("Becijferen")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="200">Student</th>
-                <th>Notities</th>
+                <th width="200"><?= __("Student")?></th>
+                <th><?= __("Notities")?></th>
                 <? if(isset($retake_participants)) { ?>
-                    <th width="150">Vorige beoordeling</th>
+                    <th width="150"><?= __("Vorige beoordeling")?></th>
                 <? } ?>
-                <th width="150">Beoordeling</th>
-                <th width="200">Aangepaste beoordeling</th>
+                <th width="150"><?= __("Beoordeling")?></th>
+                <th width="200"><?= __("Aangepaste beoordeling")?></th>
                 <th width="50"></th>
             </tr>
             <?

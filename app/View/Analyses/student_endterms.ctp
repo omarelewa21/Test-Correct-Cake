@@ -80,7 +80,7 @@
                         style: {
                             fontStyle: 'italic'
                         },
-                        text: 'Minimaal gewenste p-waarde'
+                        text: '<?= __("'Minimaal gewenste p-waarde'")?>'
                     },
                     zIndex: 3
                 }]
@@ -106,7 +106,7 @@
                         style: {
                             fontStyle: 'italic'
                         },
-                        text: 'Minimaal gewenste hoeveelheid vraagitems'
+                        text: '<?= __("'Minimaal gewenste hoeveelheid vraagitems'")?>'
                     },
                     zIndex: 3
                 }]
@@ -221,7 +221,7 @@
                 }
             },
             series: [{
-                name: 'B1 - Eiwitsynthese (Dit schooljaar)',
+                name: '<?= __("B1 - Eiwitsynthese (Dit schooljaar)")?>',
                 color: 'rgba(83, 83, 223, .5)',
                 data: [
                     <?
@@ -233,7 +233,7 @@
                     ?>
                 ]
             },{
-                name: 'B1 - Eiwitsynthese (Totaal)',
+                name: '<?= __("'B1 - Eiwitsynthese (Totaal)'")?>',
                 color: 'rgba(20, 20, 20, .5)',
                 data: [
                     <?

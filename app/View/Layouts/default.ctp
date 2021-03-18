@@ -95,11 +95,11 @@
 
 				<div id="user_menu">
                     <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
+					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
 
-					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
+					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
 
-					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
+					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
 
 
 				</div>

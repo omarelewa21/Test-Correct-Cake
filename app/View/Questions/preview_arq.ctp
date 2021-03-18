@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1>ARQ<?=AppHelper::showExternalId($question);?></h1>
+<h1><?= __("ARQ")?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -11,7 +11,7 @@
     <?=$question['question']?><br />
 
     <? if($question['subtype'] != 'TrueFalse') { ?>
-    <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
+    <br /><?= __("Selecteer maximaal")?> <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? __("antwoorden") : __("antwoord")?><br /><br />
     <? } ?>
 
     <?php
@@ -30,7 +30,7 @@
             <th width="40">&nbsp;</th>
             <th width="40">St. 1</th>
             <th width="40">St. 2</th>
-            <th>Reden</th>
+            <th><?= __("Reden")?></th>
         </tr>
         </thead>
         <tbody>
@@ -48,7 +48,7 @@
             <td>A</td>
             <td>J</td>
             <td>J</td>
-            <td>Juiste reden</td>
+            <td><?= __("Juiste reden")?></td>
         </tr>
         <tr>
             <td>
@@ -64,7 +64,7 @@
             <td>B</td>
             <td>J</td>
             <td>J</td>
-            <td>Onjuiste reden</td>
+            <td><?= __("Onjuiste reden")?></td>
         </tr>
         <tr>
             <td>
@@ -133,7 +133,7 @@
 <center>
     <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
         <span class="fa fa-check"></span>
-        Volgende vraag
+        <?= __("Volgende vraag")?>
     </a>
 </center>
 <? } ?>

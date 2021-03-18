@@ -36,7 +36,7 @@
 
             <a class="btn highlight small mr2 pull-left" title="Raster">
                 <select id="select-grid" class="btn highlight small mr2 pull-left" style='position: absolute; width:25px; margin-left: -10px; z-index:100; opacity: 0;'>
-                    <option value="0">Geen</option>
+                    <option value="0"><?= __("Geen")?></option>
                     <option value="1">2</option>
                     <option value="2">3</option>
                     <option value="3">4</option>
@@ -53,8 +53,8 @@
                 <span class="fa fa-file-image-o"></span>
             </a>
 
-            <a id="btn-export" class="btn highlight small ml5 pull-right" style="cursor:pointer;"><span class="fa fa-check"></span> Opslaan</a>
-            <a class="btn grey small ml5 pull-right" style="cursor:pointer;" onclick="window.parent.Popup.closeLast();"><span class="fa fa-remove"></span> Sluiten</a>
+            <a id="btn-export" class="btn highlight small ml5 pull-right" style="cursor:pointer;"><span class="fa fa-check"></span> <?= __("Opslaan")?></a>
+            <a class="btn grey small ml5 pull-right" style="cursor:pointer;" onclick="window.parent.Popup.closeLast();"><span class="fa fa-remove"></span> <?= __("Sluiten")?></a>
 
             <a id="btn-color-blue" class="btn small mr2 pull-right colorBtn" style="background: blue; width:7px; height:16px; opacity: .3;"></a>
             <a id="btn-color-red" class="btn small mr2 pull-right colorBtn" style="background: red; width:7px; height:16px; opacity: .3;"></a>

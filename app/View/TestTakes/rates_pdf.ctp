@@ -4,13 +4,13 @@
 
 <div style="margin:0 auto; width:80%;">
 
-    <h1>Cijferlijst <?=$take['test']['name']?></h1>
+    <h1><?= __("Cijferlijst")?> <?=$take['test']['name']?></h1>
 
     <?
     if(count($take['school_classes']) == 1) {
-        echo 'Klas: ' . $take['school_classes'][0]['name'];
+        echo __("Klas: ") . $take['school_classes'][0]['name'];
     }else{
-        echo 'Klassen: ';
+        echo __("Klassen: ");
 
         foreach($take['school_classes'] as $class) {
             echo $class['name'] . '&nbsp;&nbsp;';
@@ -20,8 +20,8 @@
 
     <table width="100%" cellpadding="10" cellspacing="0" border="1" >
         <tr>
-            <th align="left">Student</th>
-            <th align="left">Cijfer</th>
+            <th align="left"><?= __("Student")?></th>
+            <th align="left"><?= __("Cijfer")?></th>
         </tr>
         <?
         foreach($participants as $participant) {

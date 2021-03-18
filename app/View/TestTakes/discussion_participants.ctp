@@ -1,5 +1,5 @@
 <a id="btnResetAnswerPreview" href="#" class="btn highlight" style="text-align: center; display: none; margin-bottom: 10px; width: 190px" onclick="TestTake.resetAnswerPreview('<?=$take['discussing_question_uuid']?>', '<?=getUUID($take, 'get')?>');">
-    Reset antwoordmodel
+<?= __("Reset antwoordmodel")?>
 </a>
 <script type="text/javascript">
     TestTake.discussingAllDiscussed = true;

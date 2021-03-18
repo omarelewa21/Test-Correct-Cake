@@ -1,7 +1,7 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
@@ -17,14 +17,14 @@ foreach(AuthComponent::user()['roles'] as $role) {
 ?>
 
 <div class="block" style="float: left; width: 49.5%">
-    <div class="block-head">Afgenomen toetsen</div>
+    <div class="block-head"><?= __("Afgenomen toetsen")?></div>
     <div class="block-content" style="height: 400px; overflow: auto;">
         <table class="table">
             <tr>
-                <th>Toets</th>
-                <th width="40">Vak</th>
-                <th width="90">Afname</th>
-                <th width="60">Weging</th>
+                <th><?= __("Toets")?></th>
+                <th width="40"><?= __("Vak")?></th>
+                <th width="90"><?= __("Afname")?></th>
+                <th width="60"><?= __("Weging")?></th>
                 <? if($teacher){ ?>
                     <th width="30">&nbsp;</th>
                 <? } ?>
@@ -53,11 +53,11 @@ foreach(AuthComponent::user()['roles'] as $role) {
 </div>
 
 <div class="block" style="float: right; width: 49.5%">
-    <div class="block-head">Cijferlijst</div>
+    <div class="block-head"><?= __("Cijferlijst")?></div>
     <div class="block-content" style="height: 430px; overflow: auto; padding:10px;">
         <table class="table">
             <tr>
-                <th>Student</th>
+                <th><?= __("Student")?></th>
                 <?
                 foreach($subjects_stats as $subject) {
                     echo '<th>' . $subject['abbreviation'] . '</th>';

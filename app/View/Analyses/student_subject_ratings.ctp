@@ -8,7 +8,7 @@ foreach($subjects as $subject) {
 }
 
 if(!isset($data['school_years'][0])) {
-    die('Deze grafiek kon niet worden gegegereerd');
+    die(__("Deze grafiek kon niet worden gegegereer"));
 }
 
 $data = $data['school_years'][0];

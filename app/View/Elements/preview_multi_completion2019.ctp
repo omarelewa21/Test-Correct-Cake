@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>">Selectievraag<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= __("Selectievraag")?><?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;" id="multiCompletionQuestion">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
@@ -50,7 +50,7 @@ $citoClass = 'cito';
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

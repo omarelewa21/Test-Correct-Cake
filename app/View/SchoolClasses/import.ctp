@@ -1,19 +1,19 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Studenten import</h1>
+<h1><?= __("Studenten import")?></h1>
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="15%">Locatie</th>
+                <th width="15%"><?= __("Locatie")?></th>
                 <td width="35%"><?= $school_location['name'] ?></td>
-                <th width="15%">Klas</th>
+                <th width="15%"><?= __("Klas")?></th>
                 <td width="35%">
                     <select id="class_id">
                         <?php
@@ -29,8 +29,8 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Data
-        <button id="setDefaultHeading">Zet default kolom headers!!</button>
+    <div class="block-head"><?= __("Data")?>
+        <button id="setDefaultHeading"><?= __("Zet default kolom headers!!")?></button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="duplicate-in-database" id="duplicates-in-database-data-errors"></div>
@@ -49,7 +49,7 @@
             <div id="output">
             </div>
             <hr class="showAfterProcess"/>
-            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess" >Studenten importeren</a>
+            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess" ><?= __("Studenten importeren")?></a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump" placeholder="JSON Data will appear here..."></textarea>
         </div>
     </div>
@@ -163,7 +163,7 @@
                     try {
                         parsePastedData(e);
                     } catch (e) {
-                        Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
+                        Notify.notify('<?= __("Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.")?>', 'error');
                     }
                 })
                 .on('change', '.selectbox-update', function () {
@@ -185,10 +185,10 @@
                 .on('click', '.deleteicon', function () {
                     $(this).parents('tr:first').addClass('rowToDelete');
                     Popup.message({
-                        btnOk: 'Ja',
-                        btnCancel: 'Annuleer',
-                        title: 'Weet u het zeker?',
-                        message: 'Weet u zeker dat u deze rij wil verwijderen?'
+                        btnOk: '<?= __("Ja")?>',
+                        btnCancel: '<?= __("Annuleer")?>',
+                        title: '<?= __("Weet u het zeker?',")?>'
+                        message: '<?= __("Weet u zeker dat u deze rij wil verwijderen?")?>'
                     }, function () {
                         $('.rowToDelete').remove();
                         var studentCount = $('table#excelDataTable tbody tr').length;
@@ -215,11 +215,11 @@
         }
 
         var dbFields = [
-            {'column': 'external_id', 'name': 'stamnummer'},
-            {'column': 'name_first', 'name': 'voornaam'},
-            {'column': 'name_suffix', 'name': 'tussenvoegsel'},
-            {'column': 'name', 'name': 'achternaam'},
-            {'column': 'username', 'name': 'email'}
+            {'column': 'external_id', 'name': '<?= __("stamnummer")?>'},
+            {'column': 'name_first', 'name': '<?= __("voornaam")?>'},
+            {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
+            {'column': 'name', 'name': '<?= __("achternaam")?>'},
+            {'column': 'username', 'name': '<?= __("email")?>'}
         ];
 
 
@@ -286,7 +286,7 @@
             var classId = $('#class_id').val();
             if(classId.length < 10){
                 Loading.hide();
-                Notify.notify('Er dient een klas gekozen te worden', 'error');
+                Notify.notify('<?= __("Er dient een klas gekozen te worden")?>', 'error');
                 return false;
             }
             $.post('/school_classes/doImport/<?= $location_id?>/' + classId,
@@ -297,7 +297,7 @@
                     if(response['status'] == true) {
                         jQuery('#output').html('');
                         jQuery('.showAfterProcess').hide();
-                        Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
+                        Notify.notify('<?= __("De studenten zijn succesvol geimporteerd")?>', 'success');
                         Navigation.back();
                         
                     }else {
@@ -380,7 +380,7 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
-                                return 'De kolom ' + field.name + ' is verplicht.';
+                                return '<?= __("De kolom ")?>' + field.name + '<?= __(" is verplicht.")?>';
                             })
                             $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                         }
@@ -395,11 +395,11 @@
 
         function classifyError(error) {
             
-            if (error.indexOf('Deze import bevat dubbele') !== -1) {
-                return 'duplicate';
+            if (error.indexOf('<?= __("Deze import bevat dubbele")?>') !== -1) {
+                return '<?= __("duplicate")?>';
             }
-            if (error.indexOf('amparsand') !== -1) {
-                return 'amparsand';
+            if (error.indexOf('<?= __("amparsand")?>') !== -1) {
+                return '<?= __("amparsand")?>';
             }
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';

@@ -28,11 +28,11 @@ foreach($organisations as $organisation) {
                 <div class="dropblock blur-close" for="organisation_<?=getUUID($organisation, 'get');?>">
                     <a href="#" class="btn highlight white" onclick="Popup.load('/umbrella_organisations/edit/<?=getUUID($organisation, 'get');?>', 800);">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="Organisation.delete(<?=getUUID($organisation, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif; ?>

@@ -1,14 +1,14 @@
-<div class="popup-head">Toets plannen</div>
+<div class="popup-head"><?= __("Toets plannen")?></div>
 <div class="popup-content">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
-            <th width="70">Datum</th>
-            <th width="110">Periode</th>
-            <th>Surveillanten</th>
-            <th width="110">Klas</th>
-            <th width="150">Toets</th>
-            <th width="50">Weging</th>
+            <th width="70"><?= __("Datum")?></th>
+            <th width="110"><?= __("Periode")?></th>
+            <th><?= __("Surveillanten")?></th>
+            <th width="110"><?= __("Klas")?></th>
+            <th width="150"><?= __("Toets")?></th>
+            <th width="50"><?= __("Weging")?></th>
             <th width="30"></th>
         </tr>
 
@@ -73,7 +73,7 @@
 
         <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
-            <th>Is RTTI</th>
+            <th><?= __("Is RTTI")?></th>
             <td>
                 <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'name' => 'data[TestTake][' . $i . '][is_rtti_test_take]', 'value' => '1', 'checked' => true)) ?>
             </td>
@@ -81,7 +81,7 @@
         <?php endif; ?>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="notes_<?= $i ?>" class="testTakeRowNotes">
             <td colspan="7">
-                <strong>Notities voor surveillant</strong><br />
+                <strong><?= __("Notities voor surveillant")?></strong><br />
                 <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
             </td>
         </tr>
@@ -94,16 +94,16 @@
     <center>
         <a href="#" class="btn highlight small inline-block" onclick="TestTake.addTestRow();">
             <span class="fa fa-plus"></span>
-            Extra toets plannen
+            <?= __("Extra toets plannen")?>
         </a>
     </center>
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-        Toetsen plannen
+    <?= __("Toetsen plannen")?>
     </a>
 </div>
 
@@ -127,10 +127,10 @@
     $('#TestTakeAddForm').formify({
         confirm: $('#btnAddTestTakes'),
         confirmPopup: confirmPopup,
-        confirmMessage: 'Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?',
+        confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify("Toetsen zijn ingepland", "info");
+            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
             Navigation.refresh();
             Popup.closeLast();
         },

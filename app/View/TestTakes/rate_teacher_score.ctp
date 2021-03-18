@@ -3,7 +3,7 @@
 if(!empty($answer['note'])) {
     ?>
     <a href="#" class="btn highlight" onclick="Popup.load('/answers/show_note/<?=$participant_id?>/<?=$question_id?>', 600); return false;" style="margin-bottom: 10px;">
-        Notitie inzien
+    <?= __("Notitie inzien")?>
     </a>
     <?
 }
@@ -26,7 +26,7 @@ if(!empty($answer['note'])) {
                 <?
                 switch($rating['type']) {
                     case 'SYSTEM' :
-                        echo 'Systeem';
+                        echo __("Systeem");
                         $score = $rating['rating'];
                         $system = $rating['rating'];
                         break;
@@ -51,7 +51,7 @@ if(!empty($answer['note'])) {
                         break;
 
                     case 'TEACHER' :
-                        echo 'Docent';
+                        echo __("Docent");
 
                         $teacher = $rating['rating'];
                         $ratingId = getUUID($rating, 'get');

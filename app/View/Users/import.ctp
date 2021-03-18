@@ -1,16 +1,16 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Docenten import</h1>
+<h1><?= __("Docenten import")?></h1>
 
 
 <div class="block">
-    <div class="block-head">Data
-        <button id="setDefaultHeadingTeacher">Zet default kolom headers!!</button>
+    <div class="block-head"><?= __("Data")?>
+        <button id="setDefaultHeadingTeacher"><?= __("Zet default kolom headers!!")?></button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="error" id="column-errors"></div>
@@ -19,14 +19,14 @@
 
         <div>
             <div>
-                <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
+                <textarea rows="1" id="excelPasteBox" placeholder='<?= __("Plak je excel data hier...")?>'></textarea>
             </div>
             <hr class="showAfterProcess"/>
             <div id="output">
             </div>
             <hr class="showAfterProcess"/>
-            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess">Docenten
-                importeren</a>
+            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess"><?= __("Docenten")?>
+            <?= __("importeren")?></a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump"
                       placeholder="JSON Data will appear here..."></textarea>
         </div>
@@ -140,7 +140,7 @@
                 try {
                     parsePastedData(e);
                 } catch (e) {
-                    Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
+                    Notify.notify('<?= __("Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.")?>', 'error');
                 }
             })
             .on('change', '.selectbox-update', function () {
@@ -162,10 +162,10 @@
             .on('click', '.deleteicon', function () {
                 $(this).parents('tr:first').addClass('rowToDelete');
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
-                    message: 'Weet u zeker dat u deze rij wil verwijderen?'
+                    btnOk: '<?= __("Ja")?>',
+                    btnCancel: '<?= __("Annuleer")?>',
+                    title: '<?= __("Weet u het zeker?")?>',
+                    message: '<?= __("Weet u zeker dat u deze rij wil verwijderen?")?>'
                 }, function () {
                     $('.rowToDelete').remove();
                     var studentCount = $('table#excelDataTable tbody tr').length;
@@ -188,19 +188,19 @@
 
         function setStudentCountOnButton(nr) {
             $('#dynatable-record-count-excelDataTable').remove();
-            $('#exportJsonData').text(nr + ' docenten importeren?');
+            $('#exportJsonData').text(nr + '<?= __(" docenten importeren?")?>');
         }
 
         var dbFields = [
-            {'column': 'name_first', 'name': 'Voornaam'},
-            {'column': 'name_suffix', 'name': 'tussenvoegsel'},
-            {'column': 'name', 'name': 'Achternaam'},
-            {'column': 'abbrviation', 'name': 'Afkorting'},
-            {'column': 'username', 'name': 'E-mailadres'},
-            {'column': 'external_id', 'name': 'Externe code'},
-            {'column': 'notes', 'name': 'Notities'},
-            {'column': 'school_class', 'name': 'Koppeling klasnaam'},
-            {'column': 'subject', 'name': 'Koppeling welk vak'},
+            {'column': 'name_first', 'name': '<?= __("Voornaam")?>'},
+            {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
+            {'column': 'name', 'name': '<?= __("Achternaam")?>'},
+            {'column': 'abbrviation', 'name': '<?= __("Afkorting")?>'},
+            {'column': 'username', 'name': '<?= __("E-mailadres")?>'},
+            {'column': 'external_id', 'name': '<?= __("Externe code")?>'},
+            {'column': 'notes', 'name': '<?= __("Notities")?>'},
+            {'column': 'school_class', 'name': '<?= __("Koppeling klasnaam")?>'},
+            {'column': 'subject', 'name': '<?= __("Koppeling welk vak")?>'},
         ];
 
         var createSelectbox = function (value, index) {
@@ -272,7 +272,7 @@
                     if (response['status'] == true) {
                         jQuery('#output').html('');
                         jQuery('.showAfterProcess').hide();
-                        Notify.notify('De docenten zijn succesvol geimporteerd', 'success');
+                        Notify.notify('<?= __("De docenten zijn succesvol geimporteerd")?>', 'success');
                         Navigation.load('/users/index/teachers');
                     } else {
                         var missingHeaders = [];
@@ -307,7 +307,7 @@
 
                         $('#duplicates-data-errors, #missing-data-errors, #column-errors').html('');
                         if (hasDuplicates) {
-                            $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>');
+                            $('#duplicates-data-errors').html('<?= __("<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>")?>');
                         }
 
                         if (dataMissingHeaders.length) {
@@ -317,9 +317,9 @@
                                 })
 
                                 if (field.name === 'E-mailadres') {
-                                    return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
+                                    return '<?= __("De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)")?>';
                                 }
-                                return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).';
+                                return '<?= __("De kolom [")?>' + field.name + '<?= __("] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).")?>';
                             })
                             $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                         }
@@ -330,7 +330,7 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
-                                return 'De kolom ' + field.name + ' is verplicht.';
+                                return '<?= __("De kolom ")?>' + field.name + '<?= __(" is verplicht.")?>';
                             })
                             $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                         }

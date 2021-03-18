@@ -9,7 +9,7 @@ foreach($test_takes as $test_take) {
 
         <td class="nopadding" width="100">
             <a href="#" class="btn highlight mb1" onclick="Navigation.load('/test_takes/glance/<?=getUUID($test_take, 'get');?>');">
-                Inzien
+            <?= __("Inzien")?>
             </a>
         </td>
     </tr>

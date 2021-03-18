@@ -35,11 +35,11 @@ foreach($test_takes as $test_take) {
             <?
             if($test_take['retake'] == 0) {
                 ?>
-                <div class="label label-info">Standaard</div>
+                <div class="label label-info"><?= __("Standaard")?></div>
                 <?
             }else{
                 ?>
-                <div class="label label-warning">Inhaaltoets</div>
+                <div class="label label-warning"><?= __("Inhaaltoets")?></div>
                 <?
             }
             ?>
@@ -48,13 +48,13 @@ foreach($test_takes as $test_take) {
             <?
             switch ($test_take['test_take_status_id']) {
                 case 6:
-                    $statusText = 'Afgenomen';
+                    $statusText = __("Afgenomen");
                     break;
                 case 7:
-                    $statusText = 'CO-Learning gestart';
+                    $statusText = __("CO-Learning gestart");
                     break;
                 default:
-                    $statusText = 'Onbekend';
+                    $statusText = __("Onbekend");
                     break;
             }
             echo $statusText;
@@ -75,24 +75,24 @@ foreach($test_takes as $test_take) {
 
                 <a href="#" class="btn highlight white jquery-show-not-archived" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
                     <span class="fa fa-folder-open-o mr5"></span>
-                    Openen
+                    <?= __("Openen")?>
                 </a>
                 <a href="#" onclick="Popup.load('/test_takes/answers_preview/<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-file mr5"></span>
-                    Antwoorden PDF
+                    <?= __("Antwoorden PDF")?>
                 </a>
                 <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-forward mr5"></span>
-                    Meteen naar nakijken
+                    <?= __("Meteen naar nakijken")?>
                 </a>
                 <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-trash mr5"></span>
-                    Archiveren
+                    <?= __("Archiveren")?>
                 </a>
 
                 <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
                     <span class="fa fa-recycle mr5"></span>
-                    Dearchiveer
+                    <?= __("Dearchiveer")?>
                 </a>
 
             </div>

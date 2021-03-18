@@ -1,6 +1,6 @@
 <?= $this->element('take_attachments', ['question' => $question]); ?>
 
-<h1>Open vraag [<?= $question['score'] ?>pt]<?=AppHelper::showExternalId($question);?></h1>
+<h1><?= __("Open vraag")?> [<?= $question['score'] ?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <?= $this->element('take_question', ['question' => $question]) ?>
 
 <?
@@ -17,7 +17,7 @@ $value = $answerJson['value'];
 <?= $this->Form->input('answer', ['type' => 'textarea', 'spellcheck' => 'false', 'style' => 'width:99%; height:14px; margin-top:20px;', 'maxlength' => '140', 'label' => false, 'value' => preg_replace('/\<br(\s*)?\/?\>/i', "\n", $value), 'onkeyup' => 'calcMaxLength(this);']) ?>
 <div class="progress" style="margin: 10px 0px 0px 0px; background: white;">
     <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-        0/140 tekens
+    <?= __("0/140 tekens")?>
     </div>
 </div>
 <? }else{ ?>

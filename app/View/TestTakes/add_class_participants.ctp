@@ -1,4 +1,4 @@
-<div class="popup-head">Studenten toevoegen</div>
+<div class="popup-head"><?= __("Studenten toevoegen")?></div>
 <div class="popup-content">
     <div id="classesContainer" style="height:300px; overflow: auto;">
         <?=$this->Form->create('Student')?>
@@ -6,9 +6,9 @@
                 <thead>
                 <tr>
                     <th width="20"></th>
-                    <th>Student</th>
-                    <th><a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').attr({'checked' : 'checked'});">Selecteer alle</a>
-                        <a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').removeAttr('checked');">De-selecteer alle</a></th>
+                    <th><?= __("Student")?></th>
+                    <th><a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').attr({'checked' : 'checked'});"><?= __("Selecteer alle")?></a>
+                        <a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').removeAttr('checked');"><?= __("De-selecteer alle")?></a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -34,11 +34,11 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
 
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="TestTake.addSelectedStudents('<?=$class_id?>');"">
         <span class="fa fa-check"></span>
-        Geselecteerde toevoegen
+        <?= __("Geselecteerde toevoegen")?>
     </a>
 </div>

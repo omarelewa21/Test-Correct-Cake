@@ -6,7 +6,7 @@
 <div id="attachmentFade"></div>
 
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?
@@ -44,7 +44,7 @@ foreach($questions as $questionAr) {
     $i++;
     ?>
     <div class="block">
-        <div class="block-head">Vraag #<?=$i?></div>
+        <div class="block-head"><?= __("Vraag")?> #<?=$i?></div>
         <div class="block-content" id="question_preview_<?=getUUID($question, 'get')?>">
             <?php
             if($answer['closed'] == 1 || $answer['closed_group'] == 1){

@@ -1,10 +1,10 @@
-<div class="popup-head">Registreer voor Test-Correct.nl</div>
+<div class="popup-head"><?= __("Registreer voor Test-Correct.nl")?></div>
 <div class="popup-content">
     <?= $this->Form->create('User') ?>
     <table class="table">
         <tr>
             <th width="400">
-                Schoollocatie
+            <?= __("Schoollocatie")?>
             </th>
             <td>
                 <?= $this->Form->input('school_location', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->school_location)) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th width="400">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?= $this->Form->input('name_first', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name_first)) ?>
@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th width="400">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?= $this->Form->input('name_suffix', array('style' => 'width: 440px', 'label' => false, 'value' => $user->name_suffix)) ?>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th width="400">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?= $this->Form->input('name', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name)) ?>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th width="400">
-                Leerlingnummer
+            <?= __("Leerlingnummer")?>
             </th>
             <td>
                 <?= $this->Form->input('externalId', array('style' => 'width: 440px', 'label' => false, 'value' => '')) ?>
@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <th width="400">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?= $this->Form->input('username', array('style' => 'width: 440px', 'label' => false, 'verify' => 'email', 'value' => $user->username)) ?>
@@ -52,17 +52,17 @@
         </tr>
         <tr>
             <th width="400">
-                Geslacht
+            <?= __("Geslacht")?>
             </th>
             <td>
                 <?= $this->Form->input('gender', array(
-                    'options' => ['Other' => 'Anders', 'Male' => 'Man', 'Female' => 'Vrouw'], 'label' => false
+                    'options' => ['Other' => __("Anders"), 'Male' => __("Man"), 'Female' => __("Vrouw")], 'label' => false
                 )) ?>
             </td>
         </tr>
         <tr>
             <th width="400">
-                Wachtwoord
+            <?= __("Wachtwoord")?>
             </th>
             <td>
                 <?= $this->Form->input('password', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'type' => 'password')) ?>
@@ -70,7 +70,7 @@
         </tr>
         <tr>
             <th width="400">
-                Wachtwoord herhaal
+            <?= __("Wachtwoord herhaal")?>
             </th>
             <td>
                 <?= $this->Form->input('password_confirm', array('style' => 'width: 440px', 'label' => false, 'verify' => 'notempty', 'type' => 'password')) ?>
@@ -84,10 +84,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="window.location.href='/'">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -98,11 +98,11 @@
             onsuccess: function (result) {
                 Popup.closeLast();
                 Popup.message({title: 'Account aangemaakt', message: 'Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan'}, ()=>window.location.href='/');
-                Notify.notify("Account aangemaakt", "info");
+                Notify.notify('<?= __("Account aangemaakt")?>', "info");
 
             },
             onfailure: function (result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );

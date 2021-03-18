@@ -1,11 +1,11 @@
 
 <div class="block" style="<?= $extra_style ? $extra_style : ''?>">
-    <div class="block-head">Leerdoel analyse</div>
+    <div class="block-head"><?= __("Leerdoel analyse")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th colspan="3">Leerdoel</th>
-                <th colspan="6">Aantal vragen</th>
+                <th colspan="3"><?= __("Leerdoel")?></th>
+                <th colspan="6"><?= __("Aantal vragen")?></th>
             </tr>
             <tr>
                 <td style="width:15px"></td>
@@ -47,11 +47,11 @@
             </tr>
             <tr>
                 <td colspan="3"></td>
-                <td colspan="2" valign="top"><small>Legenda:</small></td>
+                <td colspan="2" valign="top"><small><?= __("Legenda:")?></small></td>
                 <td colspan="4">
-                    <small><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border:1px solid #888;"></span> P-waarde kleiner dan 55 </small><br/>
-                    <small><span style="display:inline-block;width:10px;height:10px;background:#ffff33;border:1px solid #888;"></span> P-waarde tussen 55 en en 65</small><br/>
-                    <small><span style="display:inline-block;width:10px;height:10px;background:#85e085;border:1px solid #888;"></span> P-waarde groter dan 65</small>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#ff6666;border:1px solid #888;"></span> <?= __("P-waarde kleiner dan 55")?> </small><br/>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#ffff33;border:1px solid #888;"></span> <?= __("P-waarde tussen 55 en en 65")?></small><br/>
+                    <small><span style="display:inline-block;width:10px;height:10px;background:#85e085;border:1px solid #888;"></span> <?= __("P-waarde groter dan 65")?></small>
                 </td>
             </tr>
 
@@ -63,7 +63,7 @@
     function showHideTestTakeAttainmentParticipants(row,testTakeId,attainmentId){
         var tr = jQuery("."+testTakeId+"-"+attainmentId);
         if(tr.length == 0){
-            tr = jQuery('<tr><td colspan="9">Een moment de relevante data wordt opgezocht...</td></tr>');
+            tr = jQuery('<?= __("<tr><td colspan=\"9\">Een moment de relevante data wordt opgezocht...</td></tr>")?>');
             tr.insertAfter((row));
             TestTake.getTestTakeAttainmentAnalysisDetails(testTakeId,attainmentId,function(data){
                 tr.replaceWith(data);

@@ -10,30 +10,30 @@ foreach($test_take['invigilator_users'] as $invigilator) {
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
     <a href="#" class="btn highlight mr2" id="btnAddTestRetake">
-        Plannen
+    <?= __("Plannen")?>
     </a>
 </div>
 
-<h1>Inhaaltoets plannen</h1>
+<h1><?= __("Inhaaltoets plannen")?></h1>
 
     <?=$this->Form->create('TestTake') ?>
 
     <div class="block">
-        <div class="block-head">Inhaal-toets maken</div>
+        <div class="block-head"><?= __("Inhaal-toets maken")?></div>
         <div class="block-content">
             <table class="table mb15">
                 <tr>
                     <th width="140">
-                        Datum
+                    <?= __("Datum")?>
                     </th>
                     <td>
                         <?=$this->Form->input('time_start', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, 0)')) ?>
                     </td>
                     <th width="140">
-                        Surveillanten
+                    <?= __("Surveillanten")?>
                     </th>
                     <td>
                         <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'value' => $defaultInviligator, 'multiple' => true, 'class' => 'takers_select', 'verify' => 'notempty')) ?>
@@ -41,14 +41,14 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                 </tr>
                 <tr>
                     <th width="140">
-                        Inhaaltoets van
+                    <?= __("Inhaaltoets van")?>
                     </th>
                     <td>
                         <a href="#" class="btn highlight small btnSelectTestTake" style="text-align: center; width:270px;" id="TestTakeSelect" onclick="TestTake.selectTestTake();"><?=isset($test_take['id']) ? $test_take['test']['name'] . ' op ' .$test_take['time_start'] : 'Selecteer toets'?></a>
                         <?= $this->Form->input('retake_test_take_id', array('type' => 'hidden', 'style' => 'width:150px', 'label' => false, 'value' => isset($test_take['id']) ? getUUID($test_take, 'get') : '')) ?>
                     </td>
                     <th width="140">
-                        Inhaal toets
+                    <?= __("Inhaal toets")?>
                     </th>
                     <td>
                         <a href="#" class="btn highlight small btnSelectTest" style="text-align: center; width:270px;" id="TestTakeSelect_0" onclick="TestTake.selectTest(0);"><?=isset($test_take['test']['id']) ? $test_take['test']['name'] : 'Selecteer toets'?></a>
@@ -56,7 +56,7 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                     </td>
                 </tr>
                 <tr>
-                    <th colspan="4">Surveillant notities</th>
+                    <th colspan="4"><?= __("Surveillant notities")?></th>
                 </tr>
                 <tr>
                     <td colspan="4">
@@ -75,14 +75,14 @@ foreach($test_take['invigilator_users'] as $invigilator) {
     </div>
 
     <div class="block">
-        <div class="block-head">Studenten</div>
+        <div class="block-head"><?= __("Studenten")?></div>
         <div class="block-content">
             <table class="table table-striped">
                 <tr>
                     <th width="12"></th>
-                    <th width="200">Student</th>
-                    <th width="75">Gemaakt</th>
-                    <th>Cijfer</th>
+                    <th width="200"><?= __("Student")?></th>
+                    <th width="75"><?= __("Gemaakt")?></th>
+                    <th><?= __("Cijfer")?></th>
                 </tr>
                 <?
                 foreach($participants as $participant) {
@@ -116,13 +116,13 @@ foreach($test_take['invigilator_users'] as $invigilator) {
             confirm : $('#btnAddTestRetake'),
             onsuccess : function(result) {
                 Navigation.back()
-                Notify.notify("Inhaaltoets gepland", "info");
+                Notify.notify('<?= __("Inhaaltoets gepland")?>', "info");
             },
             onfailure : function(result) {
                 if($('#TestTakeInvigilators').val() == null) {
-                    Notify.notify("Selecteer minimaal 1 surveillant", "error");
+                    Notify.notify('<?= __("Selecteer minimaal 1 surveillant")?>', "error");
                 }else{
-                    Notify.notify("Er ging iets mis", "error");
+                    Notify.notify('<?= __("Er ging iets mis")?>', "error");
                 }
             }
         }

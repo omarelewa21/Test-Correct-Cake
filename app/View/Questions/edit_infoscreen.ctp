@@ -1,4 +1,4 @@
-<div class="popup-head">Infoscherm</div>
+<div class="popup-head"><?= __("Infoscherm")?></div>
 <div class="popup-content">
 
     <?=$this->Form->create('Question')?>
@@ -15,34 +15,34 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-                Info
+            <?= __("Info")?>
             </a>
 
             <a href="#" class="btn grey" page="options" tabs="edit_question">
-                Antwoord
+            <?= __("Antwoord")?>
             </a>
 
             <? if($owner != 'group') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                    Bronnen
+                <?= __("Bronnen")?>
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-                Eindtermen
+            <?= __("Eindtermen")?>
             </a>
 
 
             <a href="#" class="btn grey" page="tags" tabs="edit_question">
-                Tags
+            <?= __("Tags")?>
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-                Taxonomie
+            <?= __("Taxonomie")?>
             </a>
 
             <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                Info
+            <?= __("Info")?>
             </a>
 
             <br clear="all" />
@@ -54,7 +54,7 @@
 
         <div page="options" class="page" tabs="edit_question">
             <?=$this->Form->input('answer', array('value' => $question['question']['answer'],'label' => false, 'type' => 'hidden'))?>
-            Niet van toepassing
+            <?= __("Niet van toepassing")?>
         </div>
 
         <div page="attainments" class="page" tabs="edit_question">
@@ -79,11 +79,11 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <? if($editable) { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
-            Vraag opslaan
+        <?= __("Vraag opslaan")?>
         </a>
     <? } ?>
 </div>

@@ -5,8 +5,8 @@
                 <tr>
                     <th colspan="4">
                         <p style="background-color: #d9edf7; padding:15px; margin-top:0">
-                            We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in
-                            Test-Correct:
+                        <?= __("We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in
+                            Test-Correct:")?>
                         </p>
                     </th>
                 </tr>
@@ -16,14 +16,14 @@
             </tr>
             <tr>
                 <th width="170">
-                    Naam
+                <?= __("Naam")?>
                 </th>
                 <td>
                     <?= $this->Form->input('school_location', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->school_location)) ?>
                 </td>
 
                 <th width="80">
-                    Website
+                <?= __("Website")?>
                 </th>
                 <td>
                     <?= $this->Form->input('website_url', array('placeholder' => 'https://www.mijn-school.nl', 'style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->website_url)) ?>
@@ -32,7 +32,7 @@
 
             <tr>
                 <th width="170">
-                    Adres
+                <?= __("Adres")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->input('address', array('placeholder' => 'Straatnaam en huisnummer', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
@@ -41,14 +41,14 @@
 
             <tr>
                 <th width="170">
-                    Postcode
+                <?= __("Postcode")?>
                 </th>
                 <td>
                     <?= $this->Form->input('postcode', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->postcode)) ?>
                 </td>
 
                 <th width="80">
-                    Plaats
+                <?= __("Plaats")?>
                 </th>
                 <td>
                     <?= $this->Form->input('city', array('style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->city)) ?>
@@ -57,30 +57,30 @@
 
             </tr>
             <tr>
-                <th colspan="2"><h2 style="margin:0">Uw gegevens</h2></th>
+                <th colspan="2"><h2 style="margin:0"><?= __("Uw gegevens")?></h2></th>
             </tr>
 
             <tr>
                 <th width="170">
-                    Aanhef
+                <?= __("Aanhef")?>
                 </th>
                 <td>
                     <?= $this->Form->input('gender', array(
                         'style'   => 'width: 191px',
                         'options' => [
-                                'Mr'         => 'Meneer',
-                                'Mrs'        => 'Mevrouw',
-                                'Other'      => 'Anders',
-                                'male'       => 'Meneer',
-                                'female'     => 'Mevrouw',
-                                'different'  => 'Anders',
+                                'Mr'         => __("Meneer"),
+                                'Mrs'        => __("Mevrouw"),
+                                'Other'      => __("Anders"),
+                                'male'       => __("Meneer"),
+                                'female'     => __("Mevrouw"),
+                                'different'  => __("Anders"),
                         ], 'label' => false, 'value' => $user->gender
                     )) ?>
 
                 </td>
 
                 <th width="80">
-                    Voornaam
+                <?= __("Voornaam")?>
                 </th>
                 <td>
                     <?= $this->Form->input('name_first', array('style' => 'width: 210px', 'label' => false, 'verify' => 'notempty', 'value' => $user->name_first)) ?>
@@ -90,7 +90,7 @@
 
             <tr class="hide" id="GenderDifferent">
                 <th width="170">
-                    Aanhef anders
+                <?= __("Aanhef anders")?>
                 </th>
                 <td>
                     <?= $this->Form->input('gender_different', array('style' => 'width: 180px', 'label' => false, 'verify' => 'notempty', 'value' => $user->gender_different)) ?>
@@ -100,7 +100,7 @@
 
             <tr>
                 <th width="170">
-                    Tussenvoegsel
+                <?= __("Tussenvoegsel")?>
                 </th>
 
                 <td>
@@ -108,7 +108,7 @@
                     <?= $this->Form->input('name_suffix', array('style' => 'width: 180px', 'label' => false, 'value' => $user->name_suffix)) ?>
                 </td>
                 <th width="80">
-                    Achternaam
+                <?= __("Achternaam")?>
                 </th>
 
                 <td>
@@ -120,7 +120,7 @@
 
             <tr>
                 <th width="170">
-                    E-mailadres
+                <?= __("E-mailadres")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->input('username', array('placeholder' => 'uw schoolmail', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
@@ -128,7 +128,7 @@
             </tr>
             <tr>
                 <th width="170">
-                    Afkorting
+                <?= __("Afkorting")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->input('abbreviation', array('placeholder' => 'Welke afkorting wordt voor u gebruikt binnen uw school?', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->abbreviation)) ?>
@@ -136,16 +136,16 @@
             </tr>
             <tr>
                 <th width="170">
-                    Mobiel nummer
+                <?= __("Mobiel nummer")?>
                 </th>
                 <td colspan="2">
                     <?= $this->Form->input('mobile', array('style' => 'width: 340px', 'label' => false, 'verify' => 'notempty', 'value' => $user->mobile)) ?>
                 </td>
-                <th><small> (nodig ter verificatie)</small></th>
+                <th><small> <?= __("(nodig ter verificatie)")?></small></th>
             </tr>
             <tr>
                 <th width="170">
-                    Vakken/niveaus
+                <?= __("Vakken/niveaus")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->input('subjects', array('style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->subjects)) ?>
@@ -155,7 +155,7 @@
 
             <tr>
                 <th width="240">
-                    Hoe ben je bij ons terecht gekomen?
+                <?= __("Hoe ben je bij ons terecht gekomen?")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->textarea('how_did_you_hear_about_test_correct', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->how_did_you_hear_about_test_correct)) ?>
@@ -164,7 +164,7 @@
             <tr>
 
                 <th width="240">
-                    Eventuele opmerkingen
+                <?= __("Eventuele opmerkingen")?>
                 </th>
                 <td colspan="3">
                     <?= $this->Form->textarea('remarks', array('style' => 'width: 580px;height:30px', 'label' => false, 'value' => $user->remarks)) ?>

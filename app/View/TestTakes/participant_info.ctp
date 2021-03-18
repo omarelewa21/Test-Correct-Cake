@@ -11,19 +11,19 @@
         </center>
         <table class="table table-striped">
             <tr>
-                <th>Tijdsdispensatie</th>
+                <th><?= __("Tijdsdispensatie")?></th>
                 <td>
-                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? 'Ja' : 'Nee'?>
+                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? __("Ja") : __("Nee")?>
                 </td>
             </tr>
             <tr>
-                <th>Tekst-naar-spraak</th>
+                <th><?= __("Tekst-naar-spraak")?></th>
                 <td>
-                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? 'Ja' : 'Nee'?>
+                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? __("Ja") : __("Nee")?>
                 </td>
             </tr>
             <tr>
-                <th width="170">Vragen beantwoord</th>
+                <th width="170"><?= __("Vragen beantwoord")?></th>
                 <td>
                     <?
                     $answerCount = 0;
@@ -49,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Tijd per vraag</th>
+                <th><?= __("Tijd per vraag")?></th>
                 <td>
                     <?
                     $total = 0;
@@ -62,18 +62,18 @@
                     }else {
                         $time = round($total / count($participant['answers']));
 
-                        echo $time . ' seconden (gemiddeld)';
+                        echo $time . __(" seconden (gemiddeld)");
                     }
                     ?>
                 </td>
             </tr>
             <Tr>
-                <th>Huidige vraag</th>
+                <th><?= __("Huidige vraag")?></th>
                 <td><?=$question_index?></td>
             </Tr>
             <tr>
                 <th>
-                    Notities
+                <?= __("Notities")?>
                 </th>
             </tr>
         </table>
@@ -94,12 +94,12 @@
 
                 <?
                 $translations = [
-                    'Start' => 'Gestart met toets',
-                    'Stop' => 'Gestopt met toets',
-                    'Lost focus' => 'App verlaten',
-                    'Screenshot' => 'Screenshot gemaakt',
-                    'Started late' => 'Laat gestart',
-                    'Application closed' => 'Opnieuw gestart met toets'
+                    'Start' => __("Gestart met toets"),
+                    'Stop' => __("Gestopt met toets"),
+                    'Lost focus' => __("App verlaten"),
+                    'Screenshot' => __("Screenshot gemaakt"),
+                    'Started late' => __("Laat gestart"),
+                    'Application closed' => __("Opnieuw gestart met toets")
                 ];
 
                 echo isset($translations[$event['test_take_event_type']['name']]) ? $translations[$event['test_take_event_type']['name']] : $event['test_take_event_type']['name'];
@@ -113,10 +113,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSaveParticipantNotes">
-        Notities opslaan
+    <?= __("Notities opslaan")?>
     </a>
 </div>
 
