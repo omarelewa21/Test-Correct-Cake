@@ -1,0 +1,6324 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/AnswersController.php:157
+msgid "Het is niet meer mogelijk deze vraag te beantwoorden"
+msgstr ""
+
+#: Controller/AnswersController.php:261
+msgid "Het gegeven antwoord is niet valide"
+msgstr ""
+
+#: Controller/AnswersController.php:378
+msgid "Iets ging er mis "
+msgstr ""
+
+#: Controller/AttainmentsController.php:29
+#: Controller/QtiimportBatchCitoController.php:69
+#: Controller/QtiimportCitoController.php:67
+#: Controller/QtiimportController.php:67
+#: Controller/RttiimportController.php:33
+msgid "File niet gevonden om te importeren, probeer het nogmaals"
+msgstr ""
+
+#: Controller/CitoTestsController.php:30
+#: Controller/QuestionsController.php:35;50;58;59;62;684;696;697;702;710
+#: Controller/SharedSectionsTestsController.php:30;44;47
+#: Controller/TestTakesController.php:1320;1454;1458;1460;1947;1951;1953;1961;1965;1967
+#: Controller/TestsController.php:49;54;56
+#: Controller/UsersController.php:395;406
+#: View/Tests/index.ctp:44
+msgid "Alle"
+msgstr ""
+
+#: Controller/FileManagementController.php:243;451
+msgid "De klas is klaargezet voor verwerking"
+msgstr ""
+
+#: Controller/FileManagementController.php:273
+msgid "Het is niet duidelijk om welk niveau het gaat"
+msgstr ""
+
+#: Controller/FileManagementController.php:276
+msgid "Het is niet duidelijk om welk leerjaar het gaat"
+msgstr ""
+
+#: Controller/FileManagementController.php:279
+msgid "het is niet duidelijk om wat voor type toets het gaat"
+msgstr ""
+
+#: Controller/FileManagementController.php:282
+msgid "het is niet duidelijk om wat de naam van de toets is"
+msgstr ""
+
+#: Controller/FileManagementController.php:285
+msgid "Er dient een correctiemodel mee gestuurd te worden"
+msgstr ""
+
+#: Controller/FileManagementController.php:288
+msgid "Er kan maximaal 1 toets per keer geupload worden"
+msgstr ""
+
+#: Controller/FileManagementController.php:295
+msgid "Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals"
+msgstr ""
+
+#: Controller/FileManagementController.php:301
+msgid "De toets is klaargezet voor verwerking"
+msgstr ""
+
+#: Controller/FileManagementController.php:439
+msgid "Het is niet duidelijk om welke klas deze upload gaat."
+msgstr ""
+
+#: Controller/FileManagementController.php:442
+msgid "File niet gevonden om te uploaden, probeer het nogmaals"
+msgstr ""
+
+#: Controller/QuestionsController.php:63;711
+#: View/Answers/question_multiple_choice.ctp:14
+#: View/Elements/preview_multiple_choice2019.ctp:11
+#: View/Questions/add_custom.ctp:21
+#: View/Questions/add_true_false.ctp:1
+#: View/Questions/edit_true_false.ctp:1
+#: View/Questions/preview_multiple_choice.ctp:6
+msgid "Juist / Onjuist"
+msgstr ""
+
+#: Controller/QuestionsController.php:64;712
+#: View/Questions/add_custom.ctp:29
+#: View/Questions/edit_arq.ctp:1
+#: View/Questions/preview_arq.ctp:3
+msgid "ARQ"
+msgstr ""
+
+#: Controller/QuestionsController.php:65;713
+#: View/Answers/question_multiple_choice.ctp:18
+#: View/Questions/add_custom.ctp:6
+msgid "Meerkeuze"
+msgstr ""
+
+#: Controller/QuestionsController.php:66;714
+msgid "Korte open vraag"
+msgstr ""
+
+#: Controller/QuestionsController.php:69;717
+msgid "Lange open vraag"
+msgstr ""
+
+#: Controller/QuestionsController.php:70;718
+#: View/Questions/add_custom.ctp:25
+msgid "Selectie"
+msgstr ""
+
+#: Controller/QuestionsController.php:71;719
+#: View/Answers/question_completion.ctp:10
+#: View/Elements/preview_completion2019.ctp:8
+#: View/Questions/add_completion.ctp:1
+#: View/Questions/edit_completion.ctp:1
+msgid "Gatentekst"
+msgstr ""
+
+#: Controller/QuestionsController.php:72;720
+#: View/Questions/add_custom.ctp:17
+msgid "Rangschik"
+msgstr ""
+
+#: Controller/QuestionsController.php:73;721
+#: View/Questions/add_custom.ctp:10
+msgid "Combineer"
+msgstr ""
+
+#: Controller/QuestionsController.php:74;722
+#: View/Questions/add_custom.ctp:13
+msgid "Rubriceer"
+msgstr ""
+
+#: Controller/QuestionsController.php:75;723
+msgid "Teken"
+msgstr ""
+
+#: Controller/QuestionsController.php:76;724
+msgid "Groepvraag"
+msgstr ""
+
+#: Controller/QuestionsController.php:80;730
+#: View/CitoTests/index.ctp:62
+#: View/SharedSectionsTests/index.ctp:47
+#: View/Tests/index.ctp:64
+msgid "Alles"
+msgstr ""
+
+#: Controller/QuestionsController.php:81;731
+#: View/CitoTests/index.ctp:62
+#: View/SharedSectionsTests/index.ctp:47
+#: View/Tests/index.ctp:64
+msgid "Eigen content"
+msgstr ""
+
+#: Controller/QuestionsController.php:82;732
+#: Controller/UsersController.php:1264
+#: View/SchoolClasses/add.ctp:32
+#: View/SchoolClasses/edit.ctp:24
+#: View/SchoolLocations/add.ctp:1
+#: View/SchoolLocations/edit.ctp:1
+#: View/Schools/view.ctp:96
+#: View/Users/add_managers.ctp:15
+#: View/Users/add_mentors.ctp:6
+#: View/Users/add_students.ctp:8
+#: View/Users/add_teachers.ctp:7
+#: View/Users/edit_managers.ctp:7
+#: View/Users/edit_mentor.ctp:6
+#: View/Users/move.ctp:7
+#: View/Users/move_school_location.ctp:15
+#: View/Users/registereduix.ctp:7
+msgid "Schoollocatie"
+msgstr ""
+
+#: Controller/QuestionsController.php:85;735
+#: Controller/UsersController.php:1076;1168;1272
+#: View/SchoolLocations/add.ctp:13
+#: View/SchoolLocations/edit.ctp:13
+#: View/SchoolLocations/view.ctp:67
+#: View/Schools/add.ctp:1
+msgid "Scholengemeenschap"
+msgstr ""
+
+#: Controller/SchoolClassesController.php:176
+msgid "Klas kon niet worden aangemaakt"
+msgstr ""
+
+#: Controller/SchoolLocationsController.php:127;285;310
+#: Controller/SchoolsController.php:89
+#: Controller/UmbrellaOrganisationsController.php:87
+msgid "Combinatie brin/locatie code bestaat reeds op andere school"
+msgstr ""
+
+#: Controller/SchoolLocationsController.php:143
+msgid "School kon niet worden aangepast"
+msgstr ""
+
+#: Controller/SchoolLocationsController.php:233
+msgid "Aantal niet numeriek"
+msgstr ""
+
+#: Controller/SchoolLocationsController.php:321
+#: Controller/SchoolsController.php:105
+#: Controller/UmbrellaOrganisationsController.php:110
+#: View/Schools/add.ctp:105
+msgid "School kon niet worden aangemaakt"
+msgstr ""
+
+#: Controller/SharedSectionsController.php:96
+#: Controller/SharedSectionsTestsController.php:131
+msgid "Deze naam heb je inmiddels in gebruik voor een van je toetsen."
+msgstr ""
+
+#: Controller/SharedSectionsController.php:101
+#: Controller/SharedSectionsTestsController.php:136
+msgid "Er is iets fout gegaan, probeer het nogmaals."
+msgstr ""
+
+#: Controller/TestTakesController.php:140
+msgid "Er dient tenminste één toets gekozen te worden"
+msgstr ""
+
+#: Controller/TestTakesController.php:153
+msgid "Er dient een toets gekozen te worden."
+msgstr ""
+
+#: Controller/TestTakesController.php:167
+msgid "Datum is incorrect"
+msgstr ""
+
+#: Controller/TestTakesController.php:599
+msgid "Niet te bespreken"
+msgstr ""
+
+#: Controller/TestTakesController.php:796
+msgid "Vraag niet gemaakt"
+msgstr ""
+
+#: Controller/TestTakesController.php:866
+msgid "Geen antwoord om weer te geven"
+msgstr ""
+
+#: Controller/TestTakesController.php:1346
+msgid "Deze toets is niet meer in te zien"
+msgstr ""
+
+#: Controller/TestTakesController.php:1897
+msgid "Ingepland"
+msgstr ""
+
+#: Controller/TestTakesController.php:1902
+msgid "Niet gemaakt"
+msgstr ""
+
+#: Controller/TestTakesController.php:1907
+msgid "Maakt toets"
+msgstr ""
+
+#: Controller/TestTakesController.php:1912
+msgid "Ingeleverd"
+msgstr ""
+
+#: Controller/TestTakesController.php:1917
+msgid "Ingeleverd (geforceerd)"
+msgstr ""
+
+#: Controller/TestTakesController.php:1922
+msgid "Ingenomen"
+msgstr ""
+
+#: Controller/TestTakesController.php:2263
+msgid "Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar."
+msgstr ""
+
+#: Controller/TestTakesController.php:2272
+msgid "Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar."
+msgstr ""
+
+#: Controller/TestTakesController.php:2278
+msgid "Geen brincode gevonden voor deze setup, neem contact op met administrators."
+msgstr ""
+
+#: Controller/TestsController.php:531
+#: View/Questions/add_multiple_choice.ctp:1
+#: View/Questions/edit_multiple_choice.ctp:1
+msgid "Multiple Choice"
+msgstr ""
+
+#: Controller/TestsController.php:532
+#: View/Answers/question_open.ctp:3
+#: View/Elements/preview_open2019 copy.ctp:8
+#: View/Questions/add_custom.ctp:54
+#: View/Questions/edit_open.ctp:1
+#: View/Questions/preview_open.ctp:3
+msgid "Open vraag"
+msgstr ""
+
+#: Controller/TestsController.php:533
+msgid "Gatentekstvraag"
+msgstr ""
+
+#: Controller/TestsController.php:534
+msgid "Rangschik-vraag"
+msgstr ""
+
+#: Controller/TestsController.php:535
+#: View/Answers/question_matching.ctp:9
+msgid "Matching"
+msgstr ""
+
+#: Controller/TestsController.php:536
+#: View/Answers/question_matrix.ctp:12
+#: View/Questions/preview_matrix.ctp:5
+msgid "Matrix"
+msgstr ""
+
+#: Controller/UsersController.php:122
+msgid "U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is."
+msgstr ""
+
+#: Controller/UsersController.php:375;988
+msgid "Accountmanagers"
+msgstr ""
+
+#: Controller/UsersController.php:376
+msgid "Nieuwe Accountmanager"
+msgstr ""
+
+#: Controller/UsersController.php:383;1118
+#: View/Users/add_managers.ctp:1
+#: View/Users/edit_managers.ctp:1
+msgid "Schoolbeheerder"
+msgstr ""
+
+#: Controller/UsersController.php:384
+msgid "Nieuwe Schoolbeheerder"
+msgstr ""
+
+#: Controller/UsersController.php:391;1095;1241;1255;1346;1450
+#: View/Analyses/school_classes_overview.ctp:9
+#: View/SchoolClasses/view.ctp:53
+#: View/SchoolLocations/view.ctp:49
+#: View/Schools/view.ctp:50
+#: View/TeacherClasses/view.ctp:39
+#: View/TestTakes/add_retake.ctp:78
+#: View/TestTakes/discussion.ctp:24
+#: View/TestTakes/rate_teacher_participant.ctp:5
+#: View/TestTakes/view_discussed.ctp:119
+#: View/TestTakes/view_planned.ctp:90
+#: View/TestTakes/view_rated.ctp:117
+#: View/TestTakes/view_taken.ctp:72
+#: View/Tests/test2.ctp:10
+#: View/UmbrellaOrganisations/view.ctp:48
+msgid "Studenten"
+msgstr ""
+
+#: Controller/UsersController.php:392
+msgid "Nieuwe student"
+msgstr ""
+
+#: Controller/UsersController.php:403;1089;1206;1444
+#: View/Analyses/teachers_overview.ctp:1;3
+#: View/SchoolClasses/view.ctp:62
+#: View/SchoolLocations/view.ctp:63
+#: View/Users/import.ctp:28
+#: View/Users/view_accountmanager.ctp:41
+msgid "Docenten"
+msgstr ""
+
+#: Controller/UsersController.php:404
+msgid "Nieuwe Docent"
+msgstr ""
+
+#: Controller/UsersController.php:414;1213
+msgid "Directieleden"
+msgstr ""
+
+#: Controller/UsersController.php:415
+msgid "Nieuw Directielid"
+msgstr ""
+
+#: Controller/UsersController.php:461
+msgid "Er dient een wachtwoord opgegven te worden"
+msgstr ""
+
+#: Controller/UsersController.php:500
+msgid "De gebruiker kon niet worden bijgewerkt"
+msgstr ""
+
+#: Controller/UsersController.php:508
+msgid "Dit e-mailadres is al in gebruik"
+msgstr ""
+
+#: Controller/UsersController.php:511
+msgid "Studentennummer is al in gebruik"
+msgstr ""
+
+#: Controller/UsersController.php:989;993;1000
+msgid "Database"
+msgstr ""
+
+#: Controller/UsersController.php:994
+#: View/FileManagement/classuploads.ctp:15
+#: View/FileManagement/classuploads_accountmanager.ctp:1
+#: View/FileManagement/testuploads_accountmanager.ctp:1
+#: View/FileManagement/testuploads_toetsenbakker.ctp:1
+#: View/FileManagement/view_testupload.ctp:166
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:94
+msgid "Bestanden"
+msgstr ""
+
+#: Controller/UsersController.php:995
+msgid "QTI"
+msgstr ""
+
+#: Controller/UsersController.php:999;1062
+msgid "Gebruikers"
+msgstr ""
+
+#: Controller/UsersController.php:1001;1007
+msgid "Analyses"
+msgstr ""
+
+#: Controller/UsersController.php:1005
+msgid "Itembank"
+msgstr ""
+
+#: Controller/UsersController.php:1006;1012
+msgid "Toetsing"
+msgstr ""
+
+#: Controller/UsersController.php:1008
+#: View/Questions/add_custom.ctp:57
+msgid "Overig"
+msgstr ""
+
+#: Controller/UsersController.php:1013;1018
+#: View/SchoolClasses/view.ctp:9
+#: View/TestTakes/rated_info.ctp:63
+#: View/Users/view_student.ctp:4
+msgid "Analyse"
+msgstr ""
+
+#: Controller/UsersController.php:1014;1019;1360;1428;1457
+#: View/Analyses/student.ctp:213
+#: View/Messages/index.ctp:1;4
+msgid "Berichten"
+msgstr ""
+
+#: Controller/UsersController.php:1021
+msgid "Kennisbank"
+msgstr ""
+
+#: Controller/UsersController.php:1052
+msgid "Bezoek de kennisbank"
+msgstr ""
+
+#: Controller/UsersController.php:1069;1125
+#: View/UmbrellaOrganisations/index.ctp:10;13
+msgid "Koepelorganisaties"
+msgstr ""
+
+#: Controller/UsersController.php:1083;1175
+#: View/SchoolLocations/index.ctp:10;13
+#: View/SchoolYears/index.ctp:17
+#: View/Schools/view.ctp:91
+#: View/Sections/index.ctp:17
+msgid "Schoollocaties"
+msgstr ""
+
+#: Controller/UsersController.php:1102
+msgid "Docent statistieken"
+msgstr ""
+
+#: Controller/UsersController.php:1109
+msgid "RTTI Import"
+msgstr ""
+
+#: Controller/UsersController.php:1132
+msgid "Qti Import"
+msgstr ""
+
+#: Controller/UsersController.php:1139
+msgid "Cito"
+msgstr ""
+
+#: Controller/UsersController.php:1146
+msgid "Batch Cito"
+msgstr ""
+
+#: Controller/UsersController.php:1153
+msgid "Attainments Import"
+msgstr ""
+
+#: Controller/UsersController.php:1160
+msgid "Attainments CITO koppeling"
+msgstr ""
+
+#: Controller/UsersController.php:1182
+msgid "Klassen bestanden"
+msgstr ""
+
+#: Controller/UsersController.php:1189
+msgid "Toetsbestanden"
+msgstr ""
+
+#: Controller/UsersController.php:1196
+msgid "Demo tour rapport"
+msgstr ""
+
+#: Controller/UsersController.php:1220
+msgid "Schooljaren"
+msgstr ""
+
+#: Controller/UsersController.php:1227
+#: View/Sections/index.ctp:8;11
+msgid "Secties"
+msgstr ""
+
+#: Controller/UsersController.php:1234;1248;1353;1437
+#: View/SchoolClasses/index.ctp:37;40
+#: View/TeacherClasses/index.ctp:16
+#: View/TestTakes/start_multiple.ctp:8
+#: View/Users/add_students.ctp:16
+#: View/Users/edit_students.ctp:7
+#: View/Users/index.ctp:105
+#: View/Users/view_student.ctp:46
+msgid "Klassen"
+msgstr ""
+
+#: Controller/UsersController.php:1281
+msgid "Vragenbank"
+msgstr ""
+
+#: Controller/UsersController.php:1289
+#: View/CitoTests/index.ctp:84
+msgid "CITO Toetsen op maat"
+msgstr ""
+
+#: Controller/UsersController.php:1297;1394
+#: View/TestTakes/planned_student.ctp:1;4
+#: View/TestTakes/planned_teacher.ctp:69
+#: View/Users/welcome_student.ctp:4
+#: View/Users/welcome_student_update.ctp:24
+msgid "Geplande toetsen"
+msgstr ""
+
+#: Controller/UsersController.php:1304
+#: View/Users/welcome_teacher.ctp:302
+msgid "Surveilleren"
+msgstr ""
+
+#: Controller/UsersController.php:1311
+msgid "Afgenomen"
+msgstr ""
+
+#: Controller/UsersController.php:1325
+#: View/TestTakes/view_discussed.ctp:37
+#: View/Users/welcome_teacher.ctp:306
+msgid "Nakijken"
+msgstr ""
+
+#: Controller/UsersController.php:1332;1414
+#: View/TestTakes/rated.ctp:74
+msgid "Becijferd"
+msgstr ""
+
+#: Controller/UsersController.php:1339
+msgid "Uw analyse"
+msgstr ""
+
+#: Controller/UsersController.php:1367
+#: View/TeacherClasses/index.ctp:13
+msgid "Mijn klassen"
+msgstr ""
+
+#: Controller/UsersController.php:1373
+msgid "Aangeboden toetsen"
+msgstr ""
+
+#: Controller/UsersController.php:1400
+msgid "Te bespreken"
+msgstr ""
+
+#: Controller/UsersController.php:1407
+#: View/TestTakes/load_discussed_glance.ctp:12
+msgid "Inzien"
+msgstr ""
+
+#: Controller/UsersController.php:1421
+msgid "Jouw analyse"
+msgstr ""
+
+#: Controller/UsersController.php:1476;1491
+msgid "Wachtwoorden komen niet overeen"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:2
+msgid "Statistieken"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:5
+msgid "Nog geen toets aangemaak"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:5
+msgid "Non users"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:10;36;62;88
+#: View/Users/login.ctp:19
+msgid "E-mail"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:11;37;63;89
+#: View/FileManagement/classuploads_accountmanager.ctp:10
+#: View/FileManagement/testuploads_accountmanager.ctp:10
+#: View/Qtiimport/index.ctp:15
+#: View/QtiimportBatchCito/index.ctp:15
+#: View/QtiimportCito/index.ctp:15
+#: View/SchoolLocations/index.ctp:19
+#: View/Schools/index.ctp:19
+#: View/UmbrellaOrganisations/view.ctp:76
+#: View/Users/index.ctp:104
+msgid "School"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:12;38;64;90
+msgid "Aantal afgenomen toetsen"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:31
+msgid "afgelopen 6 maanden een toets afgenomen maar laatste 2 maanden niet"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:31
+msgid "Small users"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:57
+msgid "Afgelopen 2 maanden 1 toets afgenomen"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:57
+msgid "Medium users"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:83
+msgid "Afgelopen maand tenminste 1 test afgenomen"
+msgstr ""
+
+#: View/Admin/teacher_stats.ctp:83
+msgid "Heavy users"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:4
+#: View/Analyses/student.ctp:18
+#: View/Answers/drawing_answer.ctp:8
+#: View/CitoTests/view.ctp:4
+#: View/FileManagement/classuploads.ctp:4
+#: View/FileManagement/view_testupload.ctp:25
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:13
+#: View/Questions/view_group.ctp:8
+#: View/Rttiimport/index.ctp:4
+#: View/SchoolClasses/import.ctp:4
+#: View/SchoolClasses/view.ctp:22
+#: View/SchoolLocations/view.ctp:14
+#: View/SchoolYears/view.ctp:12
+#: View/Schools/view.ctp:14
+#: View/Sections/view.ctp:14
+#: View/TeacherClasses/view.ctp:4
+#: View/TestTakes/add_retake.ctp:13
+#: View/TestTakes/normalization.ctp:15
+#: View/TestTakes/rate_teacher_participant.ctp:35
+#: View/TestTakes/rate_teacher_question.ctp:2
+#: View/TestTakes/rate_teacher_random.ctp:2
+#: View/TestTakes/set_final_rates.ctp:8
+#: View/TestTakes/view_discussed.ctp:14
+#: View/TestTakes/view_planned.ctp:4
+#: View/TestTakes/view_rated.ctp:55
+#: View/TestTakes/view_results.ctp:4
+#: View/TestTakes/view_taken.ctp:4
+#: View/Tests/pdf_preview_attchment.ctp:19
+#: View/Tests/view.ctp:4
+#: View/UmbrellaOrganisations/view.ctp:14
+#: View/Users/import.ctp:4
+#: View/Users/view_accountmanager.ctp:8
+#: View/Users/view_student.ctp:18
+#: View/Users/view_teacher.ctp:10
+msgid "Terug"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:20
+#: View/Analyses/teacher.ctp:13
+#: View/SchoolLocations/view.ctp:55
+#: View/Schools/view.ctp:56
+#: View/TestTakes/taken_teacher.ctp:75
+#: View/UmbrellaOrganisations/view.ctp:54
+#: View/Users/view_teacher.ctp:37
+msgid "Afgenomen toetsen"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:24
+#: View/CitoTests/index.ctp:17;149
+#: View/SharedSectionsTests/index.ctp:12;133
+#: View/TestTakes/add.ctp:10
+#: View/TestTakes/discussed_glance.ctp:9
+#: View/TestTakes/planned_student.ctp:9
+#: View/TestTakes/planned_teacher.ctp:112
+#: View/TestTakes/rated.ctp:116
+#: View/TestTakes/rated_student.ctp:9
+#: View/TestTakes/select_test_retake.ctp:7
+#: View/TestTakes/set_final_rates.ctp:18
+#: View/TestTakes/start_multiple.ctp:7
+#: View/TestTakes/surveillance.ctp:30
+#: View/TestTakes/surveillance_test_overview.ctp:4
+#: View/TestTakes/taken_student.ctp:9
+#: View/TestTakes/taken_teacher.ctp:117
+#: View/TestTakes/to_rate.ctp:119
+#: View/TestTakes/view_discussed.ctp:77
+#: View/TestTakes/view_planned.ctp:39
+#: View/TestTakes/view_rated.ctp:65
+#: View/TestTakes/view_taken.ctp:30
+#: View/TestTakes/widget_planned.ctp:13
+#: View/TestTakes/widget_rated.ctp:13
+#: View/Tests/index.ctp:158
+msgid "Toets"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:25
+#: View/Analyses/student.ctp:80;157;180
+#: View/AttainmentsCito/import.ctp:15
+#: View/CitoTests/index.ctp:27;130;151
+#: View/CitoTests/view.ctp:60
+#: View/FileManagement/testuploads.ctp:20
+#: View/FileManagement/testuploads_accountmanager.ctp:13
+#: View/FileManagement/testuploads_toetsenbakker.ctp:11
+#: View/FileManagement/upload_class.ctp:57
+#: View/FileManagement/upload_test.ctp:27
+#: View/FileManagement/view_classupload.ctp:100
+#: View/FileManagement/view_testupload.ctp:111
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:58
+#: View/Questions/add_existing.ctp:32
+#: View/Questions/index.ctp:29
+#: View/SchoolClasses/add_teacher.ctp:15
+#: View/SchoolClasses/load_teachers.ctp:12
+#: View/Sections/add_subject.ctp:1
+#: View/Sections/edit_subject.ctp:1
+#: View/Sections/view.ctp:27
+#: View/SharedSections/duplicate.ctp:26
+#: View/SharedSectionsTests/duplicate.ctp:26
+#: View/SharedSectionsTests/index.ctp:115
+#: View/TestTakes/planned_student.ctp:13
+#: View/TestTakes/planned_teacher.ctp:116
+#: View/TestTakes/rated.ctp:52;121;146
+#: View/TestTakes/rated_student.ctp:12
+#: View/TestTakes/select_test.ctp:9
+#: View/TestTakes/set_final_rates.ctp:52
+#: View/TestTakes/start_multiple.ctp:9
+#: View/TestTakes/taken_student.ctp:10
+#: View/TestTakes/taken_teacher.ctp:53;122;146
+#: View/TestTakes/to_rate.ctp:53;124;161
+#: View/TestTakes/view_discussed.ctp:94
+#: View/TestTakes/view_planned.ctp:56
+#: View/TestTakes/view_rated.ctp:99
+#: View/TestTakes/view_taken.ctp:47
+#: View/TestTakes/widget_planned.ctp:15
+#: View/TestTakes/widget_rated.ctp:15
+#: View/Tests/add.ctp:50
+#: View/Tests/edit.ctp:39
+#: View/Tests/index.ctp:27;139;160
+#: View/Tests/view.ctp:66
+#: View/Users/view_teacher.ctp:49
+msgid "Vak"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:26
+#: View/TestTakes/planned_teacher.ctp:117
+#: View/TestTakes/rated.ctp:122
+#: View/TestTakes/rated_student.ctp:13
+#: View/TestTakes/taken_teacher.ctp:123
+#: View/TestTakes/to_rate.ctp:125
+msgid "Afname"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:27
+#: View/TestTakes/add.ctp:11
+#: View/TestTakes/edit.ctp:35
+#: View/TestTakes/planned_student.ctp:17
+#: View/TestTakes/planned_teacher.ctp:119
+#: View/TestTakes/rated.ctp:124
+#: View/TestTakes/rated_student.ctp:15
+#: View/TestTakes/select_test_retake.ctp:10
+#: View/TestTakes/set_final_rates.ctp:42
+#: View/TestTakes/taken_student.ctp:14
+#: View/TestTakes/taken_teacher.ctp:126
+#: View/TestTakes/to_rate.ctp:127
+#: View/TestTakes/view_discussed.ctp:86
+#: View/TestTakes/view_planned.ctp:48
+#: View/TestTakes/view_rated.ctp:89
+#: View/TestTakes/view_taken.ctp:39
+msgid "Weging"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:56
+#: View/TestTakes/rates_pdf.ctp:7
+#: View/TestTakes/rates_preview.ctp:1
+#: View/TestTakes/view_rated.ctp:40
+msgid "Cijferlijst"
+msgstr ""
+
+#: View/Analyses/school_class.ctp:60
+#: View/SchoolClasses/add_student.ctp:1
+#: View/SchoolClasses/edit_student.ctp:1
+#: View/TestTakes/add_class_participants.ctp:9
+#: View/TestTakes/add_retake.ctp:83
+#: View/TestTakes/events.ctp:6
+#: View/TestTakes/normalization_preview.ctp:8
+#: View/TestTakes/rates_pdf.ctp:23
+#: View/TestTakes/set_final_rates.ctp:75
+#: View/TestTakes/view_discussed.ctp:123
+#: View/TestTakes/view_rated.ctp:121
+#: View/Users/add_students.ctp:1
+#: View/Users/edit_students.ctp:1
+msgid "Student"
+msgstr ""
+
+#: View/Analyses/school_classes_overview.ctp:1
+msgid "Klassen analyse"
+msgstr ""
+
+#: View/Analyses/school_classes_overview.ctp:3
+msgid "Klassen overzicht"
+msgstr ""
+
+#: View/Analyses/school_classes_overview.ctp:7
+#: View/Analyses/students_overview.ctp:31;98;134
+#: View/FileManagement/classuploads.ctp:22
+#: View/FileManagement/classuploads_accountmanager.ctp:13
+#: View/FileManagement/upload_class.ctp:29
+#: View/FileManagement/view_classupload.ctp:118
+#: View/SchoolClasses/add.ctp:10
+#: View/SchoolClasses/edit.ctp:11
+#: View/SchoolClasses/import.ctp:16
+#: View/TestTakes/add.ctp:9
+#: View/TestTakes/add_participants.ctp:7
+#: View/TestTakes/planned_teacher.ctp:113
+#: View/TestTakes/rated.ctp:46;117;145
+#: View/TestTakes/taken_teacher.ctp:47;118;145
+#: View/TestTakes/to_rate.ctp:47;120;160
+#: View/Users/view_teacher.ctp:50
+msgid "Klas"
+msgstr ""
+
+#: View/Analyses/school_classes_overview.ctp:8
+#: View/Users/add_mentors.ctp:1
+#: View/Users/edit_mentor.ctp:1
+msgid "Mentor"
+msgstr ""
+
+#: View/Analyses/school_classes_overview.ctp:24
+#: View/Analyses/students_overview.ctp:116
+#: View/Analyses/teacher.ctp:25
+msgid "Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school"
+msgstr ""
+
+#: View/Analyses/student.ctp:12;218
+#: View/TestTakes/rated_info.ctp:57
+#: View/Users/load_accountmanagers.ctp:23
+#: View/Users/load_management.ctp:16
+#: View/Users/load_managers.ctp:16
+#: View/Users/view_student.ctp:13
+msgid "Bericht sturen"
+msgstr ""
+
+#: View/Analyses/student.ctp:32
+msgid "Deze student mag tekst naar spraak omzetten."
+msgstr ""
+
+#: View/Analyses/student.ctp:35
+msgid "Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student"
+msgstr ""
+
+#: View/Analyses/student.ctp:43
+msgid "Deze student mag tekst"
+msgstr ""
+
+#: View/Analyses/student.ctp:43
+msgid "niet"
+msgstr ""
+
+#: View/Analyses/student.ctp:43
+msgid "naar spraak omzetten."
+msgstr ""
+
+#: View/Analyses/student.ctp:49
+msgid "Deze student heeft tijdsdispensatie"
+msgstr ""
+
+#: View/Analyses/student.ctp:53
+msgid "Deze student heeft"
+msgstr ""
+
+#: View/Analyses/student.ctp:53
+msgid "geen"
+msgstr ""
+
+#: View/Analyses/student.ctp:53
+msgid "tijdsdispensatie"
+msgstr ""
+
+#: View/Analyses/student.ctp:61
+#: View/Users/add_students.ctp:103
+#: View/Users/edit_students.ctp:96
+#: View/Users/view_student.ctp:60
+msgid "Profielfoto"
+msgstr ""
+
+#: View/Analyses/student.ctp:67
+msgid "Prestaties per vak"
+msgstr ""
+
+#: View/Analyses/student.ctp:73
+msgid "Geen gegevens"
+msgstr ""
+
+#: View/Analyses/student.ctp:81
+msgid "Jouw cijfe"
+msgstr ""
+
+#: View/Analyses/student.ctp:81
+msgid "Student cijfe"
+msgstr ""
+
+#: View/Analyses/student.ctp:82
+msgid "Gemiddeld klassecijfer"
+msgstr ""
+
+#: View/Analyses/student.ctp:83
+msgid "Gemiddelde cijfer zelfde"
+msgstr ""
+
+#: View/Analyses/student.ctp:84
+msgid "niveau / leerjaar"
+msgstr ""
+
+#: View/Analyses/student.ctp:107
+msgid "Toetsafnames"
+msgstr ""
+
+#: View/Analyses/student.ctp:116
+msgid "Toetsnaam"
+msgstr ""
+
+#: View/Analyses/student.ctp:117
+#: View/SchoolLocations/view.ctp:125
+#: View/TestTakes/participant_info.ctp:76
+#: View/TestTakes/participant_notes.ctp:2
+#: View/TestTakes/rated_info.ctp:44
+#: View/TestTakes/set_final_rates.ctp:76
+#: View/TestTakes/view_discussed.ctp:127
+#: View/TestTakes/view_rated.ctp:127
+#: View/Users/add_accountmanagers.ctp:54
+#: View/Users/add_management.ctp:54
+#: View/Users/add_managers.ctp:62
+#: View/Users/add_mentors.ctp:52
+#: View/Users/add_parents.ctp:46
+#: View/Users/add_students.ctp:86
+#: View/Users/add_teachers.ctp:72
+#: View/Users/edit_accountmanagers.ctp:54
+#: View/Users/edit_management.ctp:54
+#: View/Users/edit_managers.ctp:62
+#: View/Users/edit_mentor.ctp:52
+#: View/Users/edit_parents.ctp:46
+#: View/Users/edit_students.ctp:79
+#: View/Users/edit_teachers.ctp:65
+#: View/Users/import.ctp:201
+#: View/Users/view_accountmanager.ctp:55
+#: View/Users/view_student.ctp:124
+msgid "Notities"
+msgstr ""
+
+#: View/Analyses/student.ctp:118;196
+#: View/TestTakes/add_retake.ctp:85
+#: View/TestTakes/normalization_preview.ctp:9
+#: View/TestTakes/rated_student.ctp:16
+#: View/TestTakes/rates_pdf.ctp:24
+#: View/TestTakes/view_rated.ctp:126
+#: View/TestTakes/widget_rated.ctp:16
+msgid "Cijfer"
+msgstr ""
+
+#: View/Analyses/student.ctp:119
+msgid "Moment"
+msgstr ""
+
+#: View/Analyses/student.ctp:151
+#: View/Questions/add_arq_question.ctp:43
+#: View/Questions/add_classify.ctp:47
+#: View/Questions/add_completion.ctp:43
+#: View/Questions/add_drawing.ctp:49
+#: View/Questions/add_infoscreen.ctp:28
+#: View/Questions/add_matching.ctp:47
+#: View/Questions/add_multi_completion.ctp:44
+#: View/Questions/add_multiple_choice.ctp:42
+#: View/Questions/add_open.ctp:50
+#: View/Questions/add_ranking.ctp:47
+#: View/Questions/add_true_false.ctp:48
+#: View/Questions/edit_arq.ctp:48
+#: View/Questions/edit_classify.ctp:47
+#: View/Questions/edit_completion.ctp:43
+#: View/Questions/edit_drawing.ctp:47
+#: View/Questions/edit_infoscreen.ctp:30
+#: View/Questions/edit_matching.ctp:47
+#: View/Questions/edit_multi_completion.ctp:42
+#: View/Questions/edit_multiple_choice.ctp:53
+#: View/Questions/edit_open.ctp:55
+#: View/Questions/edit_ranking.ctp:46
+#: View/Questions/edit_true_false.ctp:67
+msgid "Eindtermen"
+msgstr ""
+
+#: View/Analyses/student.ctp:163;202
+msgid "Analyse laden"
+msgstr ""
+
+#: View/Analyses/student.ctp:174
+msgid "Cijfers"
+msgstr ""
+
+#: View/Analyses/student.ctp:186
+#: View/Questions/add_existing.ctp:38
+#: View/Questions/index.ctp:35
+msgid "Examenvak"
+msgstr ""
+
+#: View/Analyses/student.ctp:192
+msgid "Score in"
+msgstr ""
+
+#: View/Analyses/student.ctp:197
+msgid "Percentage"
+msgstr ""
+
+#: View/Analyses/student.ctp:226
+#: View/Messages/index.ctp:10
+#: View/Messages/send.ctp:4
+#: View/Questions/add_classify.ctp:75
+#: View/Questions/edit_classify.ctp:74
+msgid "Onderwerp"
+msgstr ""
+
+#: View/Analyses/student.ctp:229
+#: View/Messages/index.ctp:13
+msgid "Datum/tijd"
+msgstr ""
+
+#: View/Analyses/student.ctp:247
+#: View/Messages/load.ctp:14
+msgid "Ongelezen"
+msgstr ""
+
+#: View/Analyses/student.ctp:250
+#: View/Messages/load.ctp:17
+msgid "Gelezen"
+msgstr ""
+
+#: View/Analyses/student.ctp:265
+msgid "van"
+msgstr ""
+
+#: View/Analyses/student_endterms.ctp:83
+msgid "'Minimaal gewenste p-waarde'"
+msgstr ""
+
+#: View/Analyses/student_endterms.ctp:109
+msgid "'Minimaal gewenste hoeveelheid vraagitems'"
+msgstr ""
+
+#: View/Analyses/student_endterms.ctp:224
+msgid "B1 - Eiwitsynthese (Dit schooljaar)"
+msgstr ""
+
+#: View/Analyses/student_endterms.ctp:236
+msgid "'B1 - Eiwitsynthese (Totaal)'"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:5
+#: View/CitoTests/index.ctp:11
+#: View/SharedSectionsTests/index.ctp:6
+#: View/TestTakes/planned_teacher.ctp:16
+#: View/TestTakes/rated.ctp:5
+#: View/TestTakes/taken_teacher.ctp:5
+#: View/TestTakes/to_rate.ctp:5
+#: View/Tests/index.ctp:12
+msgid "Zoeken"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:11;96;130
+#: View/Analyses/teachers_overview.ctp:7
+#: View/Elements/register_new_teacher_form.ctp:83
+#: View/FileManagement/upload_class.ctp:15
+#: View/FileManagement/view_classupload.ctp:146
+#: View/FileManagement/view_testupload.ctp:199
+#: View/SchoolClasses/add_student.ctp:7
+#: View/SchoolClasses/edit_student.ctp:7
+#: View/SchoolLocations/view.ctp:121
+#: View/Sections/view.ctp:81
+#: View/Users/add_accountmanagers.ctp:15
+#: View/Users/add_existing_teachers.ctp:14;51
+#: View/Users/add_management.ctp:7
+#: View/Users/add_managers.ctp:23
+#: View/Users/add_mentors.ctp:13
+#: View/Users/add_parents.ctp:7
+#: View/Users/add_students.ctp:30
+#: View/Users/add_teachers.ctp:15
+#: View/Users/edit_accountmanagers.ctp:15
+#: View/Users/edit_management.ctp:7
+#: View/Users/edit_managers.ctp:23
+#: View/Users/edit_mentor.ctp:13
+#: View/Users/edit_parents.ctp:7
+#: View/Users/edit_students.ctp:21
+#: View/Users/edit_teachers.ctp:10
+#: View/Users/import.ctp:195
+#: View/Users/index.ctp:43;101;109;117
+#: View/Users/registereduix.ctp:15
+msgid "Voornaam"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:15;97;131
+#: View/Analyses/teachers_overview.ctp:8
+#: View/Elements/register_new_teacher_form.ctp:111
+#: View/FileManagement/upload_class.ctp:17
+#: View/FileManagement/view_classupload.ctp:148
+#: View/FileManagement/view_testupload.ctp:201
+#: View/SchoolClasses/add_student.ctp:23
+#: View/SchoolClasses/edit_student.ctp:23
+#: View/SchoolLocations/view.ctp:123
+#: View/Sections/view.ctp:83
+#: View/Users/add_accountmanagers.ctp:31
+#: View/Users/add_existing_teachers.ctp:20;53
+#: View/Users/add_management.ctp:23
+#: View/Users/add_managers.ctp:39
+#: View/Users/add_mentors.ctp:29
+#: View/Users/add_parents.ctp:23
+#: View/Users/add_students.ctp:46
+#: View/Users/add_teachers.ctp:31
+#: View/Users/edit_accountmanagers.ctp:31
+#: View/Users/edit_management.ctp:23
+#: View/Users/edit_managers.ctp:39
+#: View/Users/edit_mentor.ctp:29
+#: View/Users/edit_parents.ctp:23
+#: View/Users/edit_students.ctp:37
+#: View/Users/edit_teachers.ctp:26
+#: View/Users/import.ctp:197
+#: View/Users/index.ctp:49;103;111;119
+#: View/Users/registereduix.ctp:31
+msgid "Achternaam"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:21;132
+#: View/Users/index.ctp:56
+#: View/Users/move.ctp:23
+msgid "Studentnummer"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:25;133
+#: View/SchoolClasses/import.ctp:14
+#: View/SchoolClasses/view.ctp:39
+#: View/TeacherClasses/view.ctp:29
+#: View/Users/index.ctp:62;75
+msgid "Locatie"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:41;81
+#: View/CitoTests/index.ctp:73;112
+#: View/FileManagement/view_classupload.ctp:97
+#: View/FileManagement/view_testupload.ctp:147
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:55
+#: View/Questions/add_drawing_answer_canvas.ctp:56
+#: View/Questions/attachments_sound.ctp:47
+#: View/Questions/attachments_video.ctp:18
+#: View/SharedSectionsTests/index.ctp:58;97
+#: View/TestTakes/participant_notes.ctp:8
+#: View/TestTakes/planned_teacher.ctp:58;98
+#: View/TestTakes/rated.ctp:63;102
+#: View/TestTakes/taken_teacher.ctp:63;103
+#: View/TestTakes/to_rate.ctp:64;104
+#: View/Tests/index.ctp:79;120
+#: View/Users/edit_managers.ctp:81
+#: View/Users/edit_teachers.ctp:84
+#: View/Users/register_new_teacher.ctp:14
+msgid "Opslaan"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:44
+#: View/CitoTests/index.ctp:76
+#: View/SharedSectionsTests/index.ctp:61
+#: View/TestTakes/planned_teacher.ctp:61
+#: View/TestTakes/rated.ctp:66
+#: View/TestTakes/taken_teacher.ctp:66
+#: View/TestTakes/to_rate.ctp:67
+#: View/Tests/index.ctp:82
+msgid "Opslaan als"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:46
+#: View/CitoTests/index.ctp:78
+#: View/SharedSectionsTests/index.ctp:63
+#: View/TestTakes/planned_teacher.ctp:63
+#: View/TestTakes/rated.ctp:68
+#: View/TestTakes/taken_teacher.ctp:68
+#: View/TestTakes/to_rate.ctp:69
+#: View/Tests/index.ctp:84
+msgid "Bevestigen"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:52
+msgid "Studenten analyse"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:56
+#: View/CitoTests/index.ctp:87
+#: View/Questions/add_existing.ctp:7
+#: View/Questions/index.ctp:4
+#: View/SchoolClasses/index.ctp:9
+#: View/SharedSectionsTests/index.ctp:72
+#: View/TestTakes/planned_teacher.ctp:73
+#: View/TestTakes/rated.ctp:77
+#: View/TestTakes/taken_teacher.ctp:78
+#: View/TestTakes/to_rate.ctp:79
+#: View/Tests/index.ctp:95
+#: View/Users/add_existing_teachers.ctp:7
+#: View/Users/index.ctp:36
+msgid "Filteren"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:60
+#: View/CitoTests/index.ctp:91
+#: View/SharedSectionsTests/index.ctp:76
+#: View/TestTakes/planned_teacher.ctp:77
+#: View/TestTakes/rated.ctp:81
+#: View/TestTakes/taken_teacher.ctp:82
+#: View/TestTakes/to_rate.ctp:83
+#: View/Tests/index.ctp:99
+msgid "Kies filter"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:66
+#: View/CitoTests/index.ctp:97
+#: View/CitoTests/view.ctp:23;327;342
+#: View/Questions/view_group.ctp:132
+#: View/SchoolClasses/load.ctp:28
+#: View/SchoolClasses/view.ctp:17
+#: View/SchoolLocations/load.ctp:44
+#: View/SchoolLocations/view.ctp:9
+#: View/SchoolYears/load.ctp:28
+#: View/SchoolYears/view.ctp:8;49
+#: View/Schools/load.ctp:44
+#: View/Schools/view.ctp:9
+#: View/Sections/load.ctp:34
+#: View/Sections/view.ctp:9;50
+#: View/SharedSectionsTests/index.ctp:82
+#: View/TestTakes/load_planned_teacher.ctp:63
+#: View/TestTakes/planned_teacher.ctp:83
+#: View/TestTakes/rated.ctp:87
+#: View/TestTakes/taken_teacher.ctp:88
+#: View/TestTakes/to_rate.ctp:89
+#: View/Tests/index.ctp:105
+#: View/Tests/load.ctp:62
+#: View/Tests/view.ctp:29;357;372
+#: View/UmbrellaOrganisations/load.ctp:35
+#: View/UmbrellaOrganisations/view.ctp:9
+#: View/Users/load_accountmanagers.ctp:31
+#: View/Users/load_management.ctp:24
+#: View/Users/load_managers.ctp:24
+#: View/Users/load_students.ctp:55
+#: View/Users/load_teachers.ctp:39
+#: View/Users/view_student.ctp:100
+msgid "Verwijderen"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:69
+#: View/CitoTests/index.ctp:100
+#: View/SharedSectionsTests/index.ctp:85
+#: View/TestTakes/planned_teacher.ctp:86
+#: View/TestTakes/rated.ctp:90
+#: View/TestTakes/taken_teacher.ctp:91
+#: View/TestTakes/to_rate.ctp:92
+#: View/Tests/index.ctp:108
+msgid "Nieuw filter maken"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:75
+#: View/CitoTests/index.ctp:106
+#: View/SharedSectionsTests/index.ctp:91
+#: View/TestTakes/planned_teacher.ctp:92
+#: View/TestTakes/rated.ctp:96
+#: View/TestTakes/taken_teacher.ctp:97
+#: View/TestTakes/to_rate.ctp:98
+#: View/Tests/index.ctp:114
+msgid "Toegepast filter"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:79
+#: View/CitoTests/index.ctp:110
+#: View/SharedSectionsTests/index.ctp:95
+#: View/TestTakes/planned_teacher.ctp:96
+#: View/TestTakes/rated.ctp:100
+#: View/TestTakes/taken_teacher.ctp:101
+#: View/TestTakes/to_rate.ctp:102
+#: View/Tests/index.ctp:118
+msgid "Filter aanpassen"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:82
+#: View/CitoTests/index.ctp:113
+#: View/SharedSectionsTests/index.ctp:98
+#: View/TestTakes/planned_teacher.ctp:99
+#: View/TestTakes/rated.ctp:103
+#: View/TestTakes/taken_teacher.ctp:104
+#: View/TestTakes/to_rate.ctp:105
+#: View/Tests/index.ctp:121
+msgid "Reset Filter"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:91
+msgid "Studenten overzicht"
+msgstr ""
+
+#: View/Analyses/students_overview.ctp:95
+msgid "Nummer"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:3
+#: View/SchoolClasses/import.ctp:10
+#: View/SchoolClasses/view.ctp:29
+#: View/SchoolLocations/view.ctp:21
+#: View/Schools/view.ctp:22
+#: View/TeacherClasses/view.ctp:11
+#: View/TestTakes/rated_info.ctp:1
+#: View/TestTakes/rtti_exported.ctp:2
+#: View/TestTakes/view_planned.ctp:86
+#: View/TestTakes/view_taken.ctp:68
+#: View/UmbrellaOrganisations/view.ctp:20
+#: View/Users/view_accountmanager.ctp:19
+#: View/Users/view_student.ctp:29
+#: View/Users/view_teacher.ctp:21
+msgid "Informatie"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:7
+msgid "Vraag-items"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:9
+msgid "Toets-items"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:15
+msgid "Besproken toetsen"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:29
+msgid "Vergelijking met collega's"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:34
+msgid "Geen rapportage"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:80
+#: View/TestTakes/view_rated.ctp:181
+msgid "Gemiddeld"
+msgstr ""
+
+#: View/Analyses/teacher.ctp:90
+msgid "Vergelijkende docen"
+msgstr ""
+
+#: View/Analyses/teachers_overview.ctp:9
+#: View/CitoTests/view.ctp:40
+#: View/Elements/register_new_teacher_form.ctp:131
+#: View/Sections/add_subject.ctp:15
+#: View/Sections/edit_subject.ctp:15
+#: View/Tests/add.ctp:33
+#: View/Tests/edit.ctp:22
+#: View/Tests/view.ctp:46
+#: View/Users/add_management.ctp:31
+#: View/Users/add_teachers.ctp:39
+#: View/Users/edit_management.ctp:31
+#: View/Users/edit_teachers.ctp:34
+#: View/Users/import.ctp:198
+msgid "Afkorting"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:1
+#: View/Answers/question_drawing.ctp:15
+#: View/Elements/preview_drawing2019.ctp:20
+#: View/Questions/add_drawing.ctp:73
+#: View/Questions/add_drawing_answer.ctp:1
+#: View/Questions/preview_drawing.ctp:15
+msgid "Antwoord tekenen"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:7
+#: View/Questions/add_drawing_answer.ctp:9
+msgid "Tekening wijzigen"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:28
+#: View/SchoolClasses/import.ctp:188
+#: View/SchoolClasses/view.ctp:36
+#: View/SchoolLocations/edit.ctp:161
+#: View/Sections/view.ctp:152
+#: View/TestTakes/participant_info.ctp:16;22
+#: View/TestTakes/view_rated.ctp:156
+#: View/Users/import.ctp:165
+#: View/Users/view_student.ctp:40
+msgid "Ja"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:29
+#: View/Questions/add_drawing_answer.ctp:10
+msgid "Annuleren"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:30
+#: View/SchoolLocations/edit.ctp:163
+#: View/Sections/view.ctp:154
+#: View/Users/import.ctp:167
+msgid "Weet u het zeker?"
+msgstr ""
+
+#: View/Answers/drawing_answer.ctp:31
+msgid "De huidige tekening gaat verloren."
+msgstr ""
+
+#: View/Answers/drawing_pad.ctp:31
+#: View/Answers/note_pad.ctp:24
+msgid "Klaar"
+msgstr ""
+
+#: View/Answers/question_arq.ctp:39
+#: View/Elements/preview_arq2019.ctp:32
+#: View/Elements/rate_arq2019.ctp:19
+#: View/Questions/add_arq_question.ctp:67
+#: View/Questions/edit_arq.ctp:77
+#: View/Questions/preview_arq.ctp:33
+#: View/Questions/preview_arq_answer.ctp:16
+#: View/TestTakes/rate_arq.ctp:27
+msgid "Reden"
+msgstr ""
+
+#: View/Answers/question_arq.ctp:57
+#: View/Elements/preview_arq2019.ctp:50
+#: View/Elements/rate_arq2019.ctp:28
+#: View/Questions/add_arq_question.ctp:76
+#: View/Questions/edit_arq.ctp:86
+#: View/Questions/preview_arq.ctp:51
+#: View/Questions/preview_arq_answer.ctp:34
+#: View/TestTakes/rate_arq.ctp:36
+msgid "Juiste reden"
+msgstr ""
+
+#: View/Answers/question_arq.ctp:73
+#: View/Elements/preview_arq2019.ctp:66
+#: View/Elements/rate_arq2019.ctp:35
+#: View/Questions/add_arq_question.ctp:85
+#: View/Questions/edit_arq.ctp:95
+#: View/Questions/preview_arq.ctp:67
+#: View/Questions/preview_arq_answer.ctp:50
+#: View/TestTakes/rate_arq.ctp:43
+msgid "Onjuiste reden"
+msgstr ""
+
+#: View/Answers/question_drawing.ctp:9
+#: View/Questions/add_drawing.ctp:1
+#: View/Questions/edit_drawing.ctp:1
+msgid "Tekenvraag"
+msgstr ""
+
+#: View/Answers/question_infoscreen.ctp:8
+#: View/Elements/preview_infoscreen2019.ctp:8
+#: View/Questions/add_custom.ctp:59
+#: View/Questions/add_infoscreen.ctp:1
+#: View/Questions/edit_infoscreen.ctp:1
+#: View/Questions/preview_infoscreen.ctp:3
+msgid "Infoscherm"
+msgstr ""
+
+#: View/Answers/question_infoscreen.ctp:16
+#: View/Questions/preview_infoscreen.ctp:14
+msgid "Dit is een informatiescherm, een antwoord is niet nodig."
+msgstr ""
+
+#: View/Answers/question_matching.ctp:9
+#: View/Questions/add_matching.ctp:1
+#: View/Questions/edit_matching.ctp:1
+msgid "Combineervraag"
+msgstr ""
+
+#: View/Answers/question_matching.ctp:9
+msgid "Rubriceer-vraag"
+msgstr ""
+
+#: View/Answers/question_matrix.ctp:14
+msgid "Matrix ONBEKEND"
+msgstr ""
+
+#: View/Answers/question_multi_completion.ctp:12
+#: View/Elements/preview_multi_completion2019.ctp:8
+#: View/Questions/add_multi_completion.ctp:1
+#: View/Questions/edit_multi_completion.ctp:1
+#: View/Questions/preview_multi_completion.ctp:3
+msgid "Selectievraag"
+msgstr ""
+
+#: View/Answers/question_multi_completion.ctp:109
+msgid "Niet alle opties geselecteerd"
+msgstr ""
+
+#: View/Answers/question_open.ctp:20
+msgid "0/140 tekens"
+msgstr ""
+
+#: View/Answers/question_ranking.ctp:12
+#: View/Elements/preview_ranking2019.ctp:8
+#: View/Questions/preview_ranking.ctp:3
+msgid "Rangschikvraag"
+msgstr ""
+
+#: View/Answers/show_note.ctp:1
+msgid "Aantekening"
+msgstr ""
+
+#: View/Answers/show_note.ctp:15
+#: View/Elements/preview_group2019.ctp:38
+#: View/FileManagement/view_classupload.ctp:23
+#: View/Messages/send.ctp:10
+#: View/Messages/show.ctp:7
+#: View/Questions/add_drawing_answer_canvas.ctp:57
+#: View/Questions/add_existing.ctp:69
+#: View/Questions/index.ctp:65
+#: View/Questions/no_preview_group_question.ctp:7
+#: View/Questions/preview_group.ctp:38
+#: View/Questions/preview_single.ctp:7
+#: View/Questions/preview_single_answer.ctp:7
+#: View/Questions/public_info.ctp:17
+#: View/SchoolClasses/index.ctp:29
+#: View/TestTakes/answers_preview.ctp:5
+#: View/TestTakes/events.ctp:72
+#: View/TestTakes/glance.ctp:2
+#: View/TestTakes/participant_notes.ctp:11
+#: View/TestTakes/rated_info.ctp:54
+#: View/TestTakes/rates_preview.ctp:5
+#: View/TestTakes/rtti_exported.ctp:29
+#: View/Tests/pdf_attachment.ctp:5
+#: View/Tests/pdf_attachment_select.ctp:20
+#: View/Tests/pdf_preview.ctp:5
+#: View/Tests/pdf_preview_attchment.ctp:33
+#: View/Tests/pdfatt.ctp:5
+#: View/Tests/preview_popup.ctp:7
+#: View/Users/add_existing_teachers.ctp:37;76
+#: View/Users/index.ctp:85
+#: View/Users/login.ctp:76;79;82
+#: View/Video/popup.ctp:8
+msgid "Sluiten"
+msgstr ""
+
+#: View/Answers/time_over.ctp:1
+msgid "Tijd over, baluh"
+msgstr ""
+
+#: View/Attainments/import.ctp:3
+msgid "Leerdoelen import"
+msgstr ""
+
+#: View/Attainments/import.ctp:7
+#: View/AttainmentsCito/import.ctp:7
+#: View/Qtiimport/index.ctp:7
+#: View/QtiimportBatchCito/index.ctp:7
+#: View/QtiimportCito/index.ctp:7
+#: View/Rttiimport/index.ctp:12
+msgid "Een moment dit kan enige tijd duren (als in een paar minuten);"
+msgstr ""
+
+#: View/Attainments/import.ctp:25
+#: View/AttainmentsCito/import.ctp:33
+msgid "Import verwerken"
+msgstr ""
+
+#: View/Attainments/import.ctp:43
+#: View/AttainmentsCito/import.ctp:50
+#: View/FileManagement/upload_test.ctp:134
+#: View/Qtiimport/index.ctp:90
+#: View/QtiimportBatchCito/index.ctp:90
+#: View/QtiimportCito/index.ctp:90
+msgid "Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken.."
+msgstr ""
+
+#: View/Attainments/import.ctp:44
+#: View/AttainmentsCito/import.ctp:51
+#: View/FileManagement/upload_test.ctp:135
+#: View/Qtiimport/index.ctp:91
+#: View/QtiimportBatchCito/index.ctp:91
+#: View/QtiimportCito/index.ctp:91
+msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z'n device.."
+msgstr ""
+
+#: View/Attainments/import.ctp:45
+#: View/AttainmentsCito/import.ctp:52
+#: View/FileManagement/upload_test.ctp:136
+#: View/Qtiimport/index.ctp:92
+#: View/QtiimportBatchCito/index.ctp:92
+#: View/QtiimportCito/index.ctp:92
+msgid "Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets..."
+msgstr ""
+
+#: View/Attainments/import.ctp:46
+#: View/AttainmentsCito/import.ctp:53
+#: View/FileManagement/upload_test.ctp:137
+#: View/Qtiimport/index.ctp:93
+#: View/QtiimportBatchCito/index.ctp:93
+#: View/QtiimportCito/index.ctp:93
+msgid "Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen..."
+msgstr ""
+
+#: View/AttainmentsCito/import.ctp:3
+msgid "Leerdoelen aan CITO vragen koppelen"
+msgstr ""
+
+#: View/CitoTests/index.ctp:5
+#: View/TestTakes/planned_teacher.ctp:6
+#: View/Tests/index.ctp:5
+msgid "Toetsen inplannen"
+msgstr ""
+
+#: View/CitoTests/index.ctp:21;132;150
+#: View/Contacts/add.ctp:16
+#: View/FileManagement/view_testupload.ctp:151
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:79
+#: View/Questions/add_existing.ctp:26;84
+#: View/Questions/attachments.ctp:8;79
+#: View/Questions/index.ctp:23;81
+#: View/SchoolLocations/view.ctp:212
+#: View/Schools/view.ctp:178
+#: View/SharedSectionsTests/index.ctp:16;116;134
+#: View/TestTakes/planned_student.ctp:16
+#: View/TestTakes/planned_teacher.ctp:34;118;142
+#: View/TestTakes/rated.ctp:26;123;141
+#: View/TestTakes/rated_student.ctp:14
+#: View/TestTakes/set_final_rates.ctp:40
+#: View/TestTakes/start_multiple.ctp:10
+#: View/TestTakes/taken_student.ctp:13
+#: View/TestTakes/taken_teacher.ctp:27;124;141
+#: View/TestTakes/to_rate.ctp:27;126;156
+#: View/TestTakes/view_discussed.ctp:81
+#: View/TestTakes/view_planned.ctp:43
+#: View/TestTakes/view_rated.ctp:87
+#: View/TestTakes/view_taken.ctp:34
+#: View/TestTakes/widget_planned.ctp:16
+#: View/Tests/add.ctp:44
+#: View/Tests/edit.ctp:33
+#: View/Tests/index.ctp:22;141;159
+#: View/UmbrellaOrganisations/view.ctp:109
+msgid "Type"
+msgstr ""
+
+#: View/CitoTests/index.ctp:31;152
+#: View/CitoTests/view.ctp:62
+#: View/SchoolYears/add_period.ctp:1
+#: View/SchoolYears/edit_period.ctp:1
+#: View/TestTakes/add.ctp:7
+#: View/TestTakes/edit.ctp:27
+#: View/TestTakes/planned_teacher.ctp:29;141
+#: View/TestTakes/rated.ctp:22;140
+#: View/TestTakes/taken_teacher.ctp:23;140
+#: View/TestTakes/to_rate.ctp:23;155
+#: View/Tests/add.ctp:72
+#: View/Tests/edit.ctp:61
+#: View/Tests/index.ctp:32;161
+#: View/Tests/view.ctp:68
+msgid "Periode"
+msgstr ""
+
+#: View/CitoTests/index.ctp:37;133;153
+#: View/CitoTests/view.ctp:68
+#: View/FileManagement/upload_class.ctp:36
+#: View/FileManagement/upload_test.ctp:14
+#: View/FileManagement/view_testupload.ctp:134
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:72
+#: View/Qtiimport/index.ctp:35
+#: View/QtiimportBatchCito/index.ctp:35
+#: View/QtiimportCito/index.ctp:35
+#: View/Questions/add_existing.ctp:46;83
+#: View/Questions/index.ctp:43
+#: View/SchoolClasses/add.ctp:46
+#: View/SchoolClasses/edit.ctp:38
+#: View/SchoolClasses/view.ctp:41
+#: View/SchoolLocations/add.ctp:19
+#: View/SchoolLocations/edit.ctp:19
+#: View/SharedSectionsTests/index.ctp:22;117;135
+#: View/TeacherClasses/view.ctp:31
+#: View/Tests/add.ctp:58
+#: View/Tests/edit.ctp:47
+#: View/Tests/index.ctp:39;142;162
+#: View/Tests/view.ctp:74
+msgid "Niveau"
+msgstr ""
+
+#: View/CitoTests/index.ctp:41
+#: View/SharedSectionsTests/index.ctp:26
+msgid "Niveau jaar"
+msgstr ""
+
+#: View/CitoTests/index.ctp:48
+#: View/SharedSectionsTests/index.ctp:33
+#: View/Tests/index.ctp:49
+msgid "Aangemaakt van"
+msgstr ""
+
+#: View/CitoTests/index.ctp:52
+#: View/SharedSectionsTests/index.ctp:37
+#: View/Tests/index.ctp:54
+msgid "Aangemaakt tot"
+msgstr ""
+
+#: View/CitoTests/index.ctp:60;155
+#: View/Questions/add_existing.ctp:59
+#: View/Questions/index.ctp:55
+#: View/SharedSectionsTests/index.ctp:45;137
+#: View/Tests/index.ctp:62
+msgid "Bron"
+msgstr ""
+
+#: View/CitoTests/index.ctp:62
+#: View/SharedSectionsTests/index.ctp:47
+#: View/Tests/index.ctp:64
+msgid "Gratis content"
+msgstr ""
+
+#: View/CitoTests/index.ctp:127
+msgid "Afk."
+msgstr ""
+
+#: View/CitoTests/index.ctp:128
+#: View/SharedSectionsTests/index.ctp:113
+#: View/TestTakes/select_test.ctp:8
+#: View/Tests/add.ctp:27
+#: View/Tests/index.ctp:137
+msgid "Titel"
+msgstr ""
+
+#: View/CitoTests/index.ctp:129
+#: View/Questions/index.ctp:71;74
+#: View/SharedSectionsTests/index.ctp:114
+#: View/TestTakes/normalization.ctp:121;125
+#: View/TestTakes/planned_student.ctp:10
+#: View/TestTakes/planned_teacher.ctp:114
+#: View/TestTakes/rated.ctp:119
+#: View/TestTakes/rated_student.ctp:10
+#: View/TestTakes/taken_teacher.ctp:120
+#: View/TestTakes/to_rate.ctp:122
+#: View/Tests/index.ctp:138
+msgid "Vragen"
+msgstr ""
+
+#: View/CitoTests/index.ctp:131
+#: View/CitoTests/view.ctp:42
+#: View/TestTakes/select_test.ctp:11
+#: View/Tests/index.ctp:140
+#: View/Tests/view.ctp:48
+msgid "Auteur"
+msgstr ""
+
+#: View/CitoTests/index.ctp:154
+#: View/Questions/add_existing.ctp:52;82
+#: View/Questions/index.ctp:49
+#: View/SharedSectionsTests/index.ctp:136
+#: View/TestTakes/select_test.ctp:10
+#: View/Tests/index.ctp:43;163
+#: View/Users/view_teacher.ctp:51
+msgid "Leerjaar"
+msgstr ""
+
+#: View/CitoTests/index.ctp:156
+#: View/SharedSectionsTests/index.ctp:138
+#: View/Tests/index.ctp:165
+msgid "Aanmaakdatum van"
+msgstr ""
+
+#: View/CitoTests/index.ctp:157
+#: View/SharedSectionsTests/index.ctp:139
+#: View/Tests/index.ctp:166
+msgid "Aanmaakdatum tot"
+msgstr ""
+
+#: View/CitoTests/load.ctp:38
+#: View/CitoTests/view.ctp:8
+#: View/Tests/load.ctp:50
+#: View/Tests/view.ctp:10;15
+msgid "Inplannen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:12
+#: View/TestTakes/normalization.ctp:114
+#: View/Tests/view.ctp:20
+msgid "Voorbeeld"
+msgstr ""
+
+#: View/CitoTests/view.ctp:17
+#: View/TestTakes/view_discussed.ctp:20
+#: View/TestTakes/view_planned.ctp:16
+#: View/Tests/view.ctp:24
+msgid "PDF"
+msgstr ""
+
+#: View/CitoTests/view.ctp:28
+#: View/TestTakes/view_planned.ctp:21
+#: View/Tests/view.ctp:34
+msgid "Gegevens wijzigen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:36
+#: View/TestTakes/set_final_rates.ctp:14
+#: View/TestTakes/view_discussed.ctp:73
+#: View/TestTakes/view_planned.ctp:35
+#: View/TestTakes/view_rated.ctp:61
+#: View/TestTakes/view_taken.ctp:26
+#: View/Tests/view.ctp:42
+msgid "Toets informatie"
+msgstr ""
+
+#: View/CitoTests/view.ctp:48
+#: View/Tests/view.ctp:54
+msgid "Eigenaar"
+msgstr ""
+
+#: View/CitoTests/view.ctp:64;86
+#: View/Questions/view_group.ctp:43
+#: View/Tests/view.ctp:70;115
+msgid "Soort"
+msgstr ""
+
+#: View/CitoTests/view.ctp:70
+#: View/Tests/view.ctp:76
+msgid "Maximale score"
+msgstr ""
+
+#: View/CitoTests/view.ctp:79
+#: View/Tests/view.ctp:85
+msgid "Toetsvragen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:85
+#: View/Elements/preview_group2019.ctp:11
+#: View/Questions/add_arq_question.ctp:29
+#: View/Questions/add_classify.ctp:34
+#: View/Questions/add_drawing.ctp:35
+#: View/Questions/add_existing.ctp:81
+#: View/Questions/add_matching.ctp:33
+#: View/Questions/add_multiple_choice.ctp:28
+#: View/Questions/add_open.ctp:36
+#: View/Questions/add_ranking.ctp:33
+#: View/Questions/add_true_false.ctp:34
+#: View/Questions/edit_arq.ctp:34
+#: View/Questions/edit_classify.ctp:33
+#: View/Questions/edit_drawing.ctp:34
+#: View/Questions/edit_matching.ctp:33
+#: View/Questions/edit_multiple_choice.ctp:39
+#: View/Questions/edit_open.ctp:41
+#: View/Questions/edit_ranking.ctp:33
+#: View/Questions/edit_true_false.ctp:55
+#: View/Questions/index.ctp:80
+#: View/Questions/preview_group.ctp:11
+#: View/Questions/view_group.ctp:42
+#: View/TestTakes/answers_pdf.ctp:27
+#: View/TestTakes/discussion.ctp:32
+#: View/TestTakes/glance.ctp:74
+#: View/TestTakes/rate_teacher_participant.ctp:51;58;74
+#: View/TestTakes/rate_teacher_participant_answer.ctp:2;9;25
+#: View/TestTakes/rate_teacher_question.ctp:30
+#: View/TestTakes/rate_teacher_random.ctp:12
+#: View/TestTakes/take_answer_overview.ctp:43;50
+#: View/TestTakes/take_answer_overview2019.ctp:46
+#: View/TestTakes/view_results.ctp:17;33
+#: View/Tests/test2.ctp:61
+#: View/Tests/view.ctp:114
+msgid "Vraag"
+msgstr ""
+
+#: View/CitoTests/view.ctp:87
+#: View/Questions/add_arq_question.ctp:68
+#: View/Questions/add_multiple_choice.ctp:66
+#: View/Questions/edit_arq.ctp:78
+#: View/Questions/edit_multiple_choice.ctp:80
+#: View/Questions/view_group.ctp:44
+#: View/TestTakes/rate_teacher_participant.ctp:66
+#: View/TestTakes/rate_teacher_participant_answer.ctp:17
+#: View/TestTakes/rate_teacher_question.ctp:67
+#: View/TestTakes/rate_teacher_random.ctp:35
+#: View/TestTakes/view_results.ctp:25
+#: View/Tests/view.ctp:116
+msgid "Score"
+msgstr ""
+
+#: View/CitoTests/view.ctp:88
+msgid "Besprk."
+msgstr ""
+
+#: View/CitoTests/view.ctp:323;338
+#: View/Contacts/edit.ctp:79
+#: View/Questions/view_group.ctp:4;128
+#: View/SchoolClasses/edit.ctp:75
+#: View/SchoolClasses/load.ctp:24
+#: View/SchoolClasses/view.ctp:13
+#: View/SchoolLocations/edit.ctp:139
+#: View/SchoolLocations/load.ctp:40
+#: View/SchoolLocations/view.ctp:5
+#: View/SchoolYears/edit.ctp:34
+#: View/SchoolYears/load.ctp:24
+#: View/SchoolYears/view.ctp:4;45
+#: View/Schools/edit.ctp:76
+#: View/Schools/load.ctp:40
+#: View/Schools/view.ctp:5
+#: View/Sections/edit.ctp:33
+#: View/Sections/load.ctp:30
+#: View/Sections/view.ctp:5;46
+#: View/TestTakes/load_planned_teacher.ctp:48
+#: View/Tests/load.ctp:39
+#: View/Tests/view.ctp:353;368
+#: View/UmbrellaOrganisations/edit.ctp:73
+#: View/UmbrellaOrganisations/load.ctp:31
+#: View/UmbrellaOrganisations/view.ctp:5
+#: View/Users/change_password_for_user.ctp:33
+#: View/Users/edit_accountmanagers.ctp:73
+#: View/Users/edit_management.ctp:73
+#: View/Users/edit_register_new_teacher.ctp:12
+#: View/Users/edit_students.ctp:112
+#: View/Users/load_accountmanagers.ctp:27
+#: View/Users/load_management.ctp:20
+#: View/Users/load_managers.ctp:20
+#: View/Users/load_students.ctp:51
+#: View/Users/load_teachers.ctp:35
+#: View/Users/view_accountmanager.ctp:4
+#: View/Users/view_student.ctp:9;96
+#: View/Users/view_teacher.ctp:5
+msgid "Wijzigen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:358;367
+#: View/Questions/view_group.ctp:148
+#: View/Tests/view.ctp:388;397
+msgid "Bestaande vraag toevoegen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:361
+#: View/Questions/view_group.ctp:145
+#: View/Tests/view.ctp:391
+msgid "Nieuwe vraag toevoegen"
+msgstr ""
+
+#: View/CitoTests/view.ctp:364
+#: View/Tests/view.ctp:394
+msgid "Nieuwe vraag-groep"
+msgstr ""
+
+#: View/Contacts/add.ctp:10
+#: View/Contacts/edit.ctp:1
+msgid "Contactpersoon"
+msgstr ""
+
+#: View/Contacts/add.ctp:24
+#: View/Contacts/edit.ctp:7
+#: View/Elements/register_new_teacher_form.ctp:19
+#: View/FileManagement/testuploads.ctp:21
+#: View/FileManagement/testuploads_accountmanager.ctp:14
+#: View/FileManagement/testuploads_toetsenbakker.ctp:12
+#: View/FileManagement/view_testupload.ctp:157
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:85
+#: View/Questions/add_group.ctp:8
+#: View/Questions/edit_group.ctp:9
+#: View/SchoolClasses/add.ctp:25
+#: View/SchoolClasses/edit.ctp:17
+#: View/SchoolClasses/index.ctp:16;45
+#: View/SchoolClasses/load_managers.ctp:3
+#: View/SchoolClasses/load_mentors.ctp:3
+#: View/SchoolClasses/load_students.ctp:3
+#: View/SchoolClasses/view.ctp:33
+#: View/SchoolLocations/add.ctp:7
+#: View/SchoolLocations/edit.ctp:7
+#: View/SchoolLocations/view.ctp:240
+#: View/SchoolYears/add_period.ctp:7
+#: View/SchoolYears/edit_period.ctp:7
+#: View/SchoolYears/view.ctp:25
+#: View/Schools/add.ctp:7
+#: View/Schools/edit.ctp:8
+#: View/Schools/view.ctp:206
+#: View/Sections/add.ctp:7
+#: View/Sections/add_school_location.ctp:6
+#: View/Sections/add_subject.ctp:7
+#: View/Sections/edit.ctp:7
+#: View/Sections/edit_subject.ctp:7
+#: View/TeacherClasses/index.ctp:21
+#: View/TeacherClasses/load_students.ctp:3
+#: View/TeacherClasses/view.ctp:15
+#: View/UmbrellaOrganisations/add.ctp:7
+#: View/UmbrellaOrganisations/edit.ctp:7
+#: View/UmbrellaOrganisations/view.ctp:137
+#: View/Users/view_accountmanager.ctp:23
+#: View/Users/view_student.ctp:33;73
+#: View/Users/view_teacher.ctp:25
+msgid "Naam"
+msgstr ""
+
+#: View/Contacts/add.ctp:32
+#: View/Contacts/edit.ctp:15
+msgid "Telefoon nr"
+msgstr ""
+
+#: View/Contacts/add.ctp:40
+#: View/Contacts/edit.ctp:23
+msgid "Mobiel nr"
+msgstr ""
+
+#: View/Contacts/add.ctp:48
+#: View/Contacts/edit.ctp:31
+#: View/Elements/register_new_teacher_form.ctp:35
+#: View/SchoolLocations/add.ctp:99;101;103
+#: View/SchoolLocations/edit.ctp:100;102;104
+#: View/SchoolLocations/view.ctp:244;298
+#: View/Schools/add.ctp:46;48
+#: View/Schools/edit.ctp:45;47
+#: View/Schools/view.ctp:210
+#: View/UmbrellaOrganisations/add.ctp:39;41
+#: View/UmbrellaOrganisations/edit.ctp:42;44
+#: View/UmbrellaOrganisations/view.ctp:141
+msgid "Adres"
+msgstr ""
+
+#: View/Contacts/add.ctp:56
+#: View/Contacts/edit.ctp:39
+#: View/Elements/register_new_teacher_form.ctp:44
+#: View/SchoolLocations/add.ctp:107;109;111
+#: View/SchoolLocations/edit.ctp:108;110;112
+#: View/Schools/add.ctp:52;54
+#: View/Schools/edit.ctp:51;53
+#: View/UmbrellaOrganisations/add.ctp:45;47
+#: View/UmbrellaOrganisations/edit.ctp:48;50
+msgid "Postcode"
+msgstr ""
+
+#: View/Contacts/add.ctp:64
+#: View/Contacts/edit.ctp:47
+#: View/SchoolLocations/add.ctp:115;117;119
+#: View/SchoolLocations/edit.ctp:116;118;120
+#: View/SchoolLocations/index.ctp:21
+#: View/Schools/add.ctp:58;60
+#: View/Schools/edit.ctp:57;59
+#: View/Schools/index.ctp:21
+#: View/UmbrellaOrganisations/add.ctp:51;53
+#: View/UmbrellaOrganisations/edit.ctp:54;56
+msgid "Stad"
+msgstr ""
+
+#: View/Contacts/add.ctp:72
+#: View/Contacts/edit.ctp:55
+#: View/SchoolLocations/add.ctp:123;125;127
+#: View/SchoolLocations/edit.ctp:124;126;128
+#: View/Schools/add.ctp:64;66
+#: View/Schools/edit.ctp:63;65
+#: View/UmbrellaOrganisations/add.ctp:57;59
+#: View/UmbrellaOrganisations/edit.ctp:60;62
+msgid "Land"
+msgstr ""
+
+#: View/Contacts/add.ctp:80
+#: View/Contacts/edit.ctp:63
+#: View/FileManagement/view_classupload.ctp:90
+#: View/FileManagement/view_testupload.ctp:117
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:48
+#: View/SchoolLocations/view.ctp:260
+msgid "Notitie"
+msgstr ""
+
+#: View/Contacts/add.ctp:93
+#: View/Contacts/edit.ctp:76
+#: View/FileManagement/upload_class.ctp:79
+#: View/FileManagement/upload_test.ctp:93
+#: View/Questions/add_arq_question.ctp:137
+#: View/Questions/add_classify.ctp:132
+#: View/Questions/add_completion.ctp:77
+#: View/Questions/add_completion_item.ctp:15
+#: View/Questions/add_custom.ctp:66
+#: View/Questions/add_drawing.ctp:94
+#: View/Questions/add_existing.ctp:104
+#: View/Questions/add_group.ctp:46
+#: View/Questions/add_infoscreen.ctp:68
+#: View/Questions/add_matching.ctp:126
+#: View/Questions/add_multi_completion.ctp:78
+#: View/Questions/add_multi_completion_item.ctp:75
+#: View/Questions/add_multiple_choice.ctp:121
+#: View/Questions/add_open.ctp:89
+#: View/Questions/add_open_selection.ctp:15
+#: View/Questions/add_ranking.ctp:122
+#: View/Questions/add_true_false.ctp:101
+#: View/Questions/attachments_sound.ctp:44
+#: View/Questions/attachments_video.ctp:15
+#: View/Questions/edit_arq.ctp:154
+#: View/Questions/edit_classify.ctp:166
+#: View/Questions/edit_completion.ctp:86
+#: View/Questions/edit_drawing.ctp:102
+#: View/Questions/edit_group.ctp:47
+#: View/Questions/edit_infoscreen.ctp:80
+#: View/Questions/edit_matching.ctp:196
+#: View/Questions/edit_multi_completion.ctp:85
+#: View/Questions/edit_multiple_choice.ctp:166
+#: View/Questions/edit_open.ctp:104
+#: View/Questions/edit_ranking.ctp:155
+#: View/Questions/edit_true_false.ctp:128
+#: View/Questions/move_to_group.ctp:26
+#: View/SchoolClasses/add.ctp:84
+#: View/SchoolClasses/add_existing_student.ctp:18
+#: View/SchoolClasses/add_management.ctp:18
+#: View/SchoolClasses/add_mentor.ctp:18
+#: View/SchoolClasses/add_student.ctp:50
+#: View/SchoolClasses/add_teacher.ctp:26
+#: View/SchoolClasses/edit.ctp:72
+#: View/SchoolClasses/edit_student.ctp:50
+#: View/SchoolClasses/import.ctp:189
+#: View/SchoolLocations/add.ctp:135
+#: View/SchoolLocations/add_ip.ctp:26
+#: View/SchoolLocations/add_licence.ctp:35
+#: View/SchoolLocations/edit.ctp:136;162
+#: View/SchoolLocations/edit_licence.ctp:35
+#: View/SchoolYears/add.ctp:24
+#: View/SchoolYears/add_period.ctp:34
+#: View/SchoolYears/edit.ctp:31
+#: View/SchoolYears/edit_period.ctp:34
+#: View/Schools/add.ctp:74
+#: View/Schools/edit.ctp:73
+#: View/Sections/add.ctp:24
+#: View/Sections/add_school_location.ctp:16
+#: View/Sections/add_subject.ctp:32
+#: View/Sections/edit.ctp:30
+#: View/Sections/edit_subject.ctp:32
+#: View/Sections/view.ctp:153
+#: View/SharedSections/duplicate.ctp:37
+#: View/SharedSectionsTests/duplicate.ctp:37
+#: View/TestTakes/add.ctp:103
+#: View/TestTakes/add_class_participants.ctp:37
+#: View/TestTakes/add_participants.ctp:37
+#: View/TestTakes/edit.ctp:72
+#: View/TestTakes/participant_info.ctp:116
+#: View/TestTakes/select_test.ctp:29
+#: View/TestTakes/select_test_retake.ctp:28
+#: View/TestTakes/start_discussion_popup.ctp:19
+#: View/TestTakes/start_multiple.ctp:43
+#: View/TestTakes/start_rate_popup.ctp:30
+#: View/Tests/add.ctp:117
+#: View/Tests/edit.ctp:101
+#: View/UmbrellaOrganisations/add.ctp:67
+#: View/UmbrellaOrganisations/edit.ctp:70
+#: View/Users/add_accountmanagers.ctp:70
+#: View/Users/add_management.ctp:70
+#: View/Users/add_managers.ctp:78
+#: View/Users/add_mentors.ctp:68
+#: View/Users/add_parents.ctp:62
+#: View/Users/add_students.ctp:116
+#: View/Users/add_teachers.ctp:88
+#: View/Users/change_password_for_user.ctp:30
+#: View/Users/edit_accountmanagers.ctp:70
+#: View/Users/edit_management.ctp:70
+#: View/Users/edit_managers.ctp:78
+#: View/Users/edit_mentor.ctp:68
+#: View/Users/edit_parents.ctp:62
+#: View/Users/edit_register_new_teacher.ctp:9
+#: View/Users/edit_students.ctp:109
+#: View/Users/edit_teachers.ctp:81
+#: View/Users/import.ctp:166
+#: View/Users/move.ctp:34
+#: View/Users/move_school_location.ctp:26
+#: View/Users/password_reset.ctp:34
+#: View/Users/register_new_teacher.ctp:17
+#: View/Users/registereduix.ctp:87
+msgid "Annuleer"
+msgstr ""
+
+#: View/Contacts/add.ctp:96
+#: View/SchoolClasses/add.ctp:87
+#: View/SchoolClasses/add_existing_student.ctp:21
+#: View/SchoolClasses/add_management.ctp:21
+#: View/SchoolClasses/add_mentor.ctp:21
+#: View/SchoolClasses/add_student.ctp:53
+#: View/SchoolClasses/add_teacher.ctp:29
+#: View/SchoolClasses/edit_student.ctp:53
+#: View/SchoolLocations/add.ctp:138
+#: View/SchoolLocations/add_licence.ctp:38
+#: View/SchoolLocations/edit_licence.ctp:38
+#: View/SchoolYears/add.ctp:27
+#: View/SchoolYears/add_period.ctp:37
+#: View/SchoolYears/edit_period.ctp:37
+#: View/Schools/add.ctp:77
+#: View/Sections/add.ctp:27
+#: View/Sections/add_subject.ctp:35
+#: View/Sections/edit_subject.ctp:35
+#: View/UmbrellaOrganisations/add.ctp:70
+#: View/Users/add_accountmanagers.ctp:73
+#: View/Users/add_management.ctp:73
+#: View/Users/add_managers.ctp:81
+#: View/Users/add_mentors.ctp:71
+#: View/Users/add_parents.ctp:65
+#: View/Users/add_students.ctp:119
+#: View/Users/add_teachers.ctp:91
+#: View/Users/edit_mentor.ctp:71
+#: View/Users/edit_parents.ctp:65
+#: View/Users/password_reset.ctp:37
+#: View/Users/registereduix.ctp:90
+msgid "Aanmaken"
+msgstr ""
+
+#: View/Contacts/add.ctp:106
+msgid "Contactpersoon aangemaakt"
+msgstr ""
+
+#: View/Contacts/add.ctp:110
+msgid "Contactpersoon kon niet worden aangemaakt"
+msgstr ""
+
+#: View/Contacts/edit.ctp:89
+msgid "Contactpersoon gewijzigd"
+msgstr ""
+
+#: View/Contacts/edit.ctp:93
+msgid "Contactpersoon kon niet worden gewijzigd"
+msgstr ""
+
+#: View/Elements/attainments.ctp:22
+msgid "Domein"
+msgstr ""
+
+#: View/Elements/attainments.ctp:26
+msgid "Subdomein"
+msgstr ""
+
+#: View/Elements/preview_arq2019.ctp:22
+#: View/Elements/preview_multiple_choice2019.ctp:28
+#: View/Questions/preview_arq.ctp:14
+msgid "Selecteer maximaal"
+msgstr ""
+
+#: View/Elements/preview_arq2019.ctp:22
+#: View/Elements/preview_multiple_choice2019.ctp:28
+#: View/Questions/preview_arq.ctp:14
+#: View/TestTakes/rate_teacher_participant.ctp:74
+#: View/TestTakes/rate_teacher_participant_answer.ctp:25
+#: View/TestTakes/take_answer_overview.ctp:50
+#: View/TestTakes/view_results.ctp:33
+msgid "antwoord"
+msgstr ""
+
+#: View/Elements/preview_arq2019.ctp:135
+#: View/Elements/preview_completion2019.ctp:48
+#: View/Elements/preview_drawing2019.ctp:30
+#: View/Elements/preview_infoscreen2019.ctp:25
+#: View/Elements/preview_matching2019.ctp:88
+#: View/Elements/preview_multi_completion2019.ctp:53
+#: View/Elements/preview_multiple_choice2019.ctp:72
+#: View/Elements/preview_open2019 copy.ctp:34
+#: View/Elements/preview_ranking2019.ctp:50
+#: View/Questions/preview_arq.ctp:136
+#: View/Questions/preview_arq_answer.ctp:119
+#: View/Questions/preview_completion.ctp:53
+#: View/Questions/preview_drawing.ctp:25
+#: View/Questions/preview_infoscreen.ctp:21
+#: View/Questions/preview_matching.ctp:86
+#: View/Questions/preview_matrix.ctp:50
+#: View/Questions/preview_multi_completion.ctp:54
+#: View/Questions/preview_multiple_choice.ctp:56
+#: View/Questions/preview_open.ctp:29
+#: View/Questions/preview_ranking.ctp:49
+#: View/TestTakes/discussion.ctp:15
+#: View/TestTakes/rate_teacher_question.ctp:92
+#: View/Tests/test2.ctp:3
+msgid "Volgende vraag"
+msgstr ""
+
+#: View/Elements/preview_attachments2019.ctp:4
+#: View/Elements/take_attachments.ctp:21
+#: View/Questions/add_arq_question.ctp:38
+#: View/Questions/add_classify.ctp:42
+#: View/Questions/add_completion.ctp:38
+#: View/Questions/add_drawing.ctp:44
+#: View/Questions/add_infoscreen.ctp:23
+#: View/Questions/add_matching.ctp:42
+#: View/Questions/add_multi_completion.ctp:39
+#: View/Questions/add_multiple_choice.ctp:37
+#: View/Questions/add_open.ctp:45
+#: View/Questions/add_ranking.ctp:42
+#: View/Questions/add_true_false.ctp:43
+#: View/Questions/edit_arq.ctp:43
+#: View/Questions/edit_classify.ctp:42
+#: View/Questions/edit_completion.ctp:38
+#: View/Questions/edit_drawing.ctp:42
+#: View/Questions/edit_infoscreen.ctp:25
+#: View/Questions/edit_matching.ctp:42
+#: View/Questions/edit_multi_completion.ctp:37
+#: View/Questions/edit_multiple_choice.ctp:48
+#: View/Questions/edit_open.ctp:50
+#: View/Questions/edit_ranking.ctp:41
+#: View/Questions/edit_true_false.ctp:63
+#: View/Questions/preview_single_load.ctp:5
+msgid "Bronnen"
+msgstr ""
+
+#: View/Elements/preview_attachments2019.ctp:24
+#: View/Elements/take_attachments.ctp:42
+#: View/Questions/attachments.ctp:19;90
+#: View/Questions/preview_single_load.ctp:13
+#: View/Tests/pdf.ctp:135
+#: View/Tests/pdf_attachment.ctp:1
+msgid "Bijlage"
+msgstr ""
+
+#: View/Elements/preview_drawing2019.ctp:8
+#: View/Questions/preview_drawing.ctp:3
+msgid "Teken-vraag"
+msgstr ""
+
+#: View/Elements/preview_group2019.ctp:1
+#: View/Questions/preview_group.ctp:1
+#: View/Questions/preview_single.ctp:1
+#: View/Questions/preview_single_answer.ctp:1
+msgid "Vraag voorbeeld"
+msgstr ""
+
+#: View/Elements/preview_multiple_choice2019.ctp:13
+#: View/Questions/preview_multiple_choice.ctp:8
+msgid "Multiple choice"
+msgstr ""
+
+#: View/Elements/question_info.ctp:6
+msgid "P-waarde"
+msgstr ""
+
+#: View/Elements/question_info.ctp:8
+msgid "keer afgenomen"
+msgstr ""
+
+#: View/Elements/question_info.ctp:32
+#: View/Questions/index.ctp:11
+msgid "Uniek ID"
+msgstr ""
+
+#: View/Elements/question_info.ctp:36
+msgid "Auteurs"
+msgstr ""
+
+#: View/Elements/question_tab_rtti.ctp:9
+msgid "Selecteer tot welke categorie deze vraag hoort binnen de RTTI-methode"
+msgstr ""
+
+#: View/Elements/question_tab_rtti.ctp:11
+msgid "Bloom"
+msgstr ""
+
+#: View/Elements/question_tab_rtti.ctp:13
+msgid "Miller"
+msgstr ""
+
+#: View/Elements/rate_empty2019.ctp:1
+#: View/TestTakes/rate_empty.ctp:1
+msgid "Er is geen antwoord opgegeven"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:8
+msgid "We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in\n                            Test-Correct:"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:26
+msgid "Website"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:51
+msgid "Plaats"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:60
+msgid "Uw gegevens"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:65
+msgid "Aanhef"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:71;74
+msgid "Meneer"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:72;75
+msgid "Mevrouw"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:73;76
+#: View/Users/registereduix.ctp:59
+msgid "Anders"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:93
+msgid "Aanhef anders"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:103
+#: View/FileManagement/upload_class.ctp:16
+#: View/SchoolClasses/add_student.ctp:15
+#: View/SchoolClasses/edit_student.ctp:15
+#: View/Sections/view.ctp:82
+#: View/Users/add_accountmanagers.ctp:23
+#: View/Users/add_existing_teachers.ctp:52
+#: View/Users/add_management.ctp:15
+#: View/Users/add_managers.ctp:31
+#: View/Users/add_mentors.ctp:21
+#: View/Users/add_parents.ctp:15
+#: View/Users/add_students.ctp:38
+#: View/Users/add_teachers.ctp:23
+#: View/Users/edit_accountmanagers.ctp:23
+#: View/Users/edit_management.ctp:15
+#: View/Users/edit_managers.ctp:31
+#: View/Users/edit_mentor.ctp:21
+#: View/Users/edit_parents.ctp:15
+#: View/Users/edit_students.ctp:29
+#: View/Users/edit_teachers.ctp:18
+#: View/Users/index.ctp:102;110;118
+#: View/Users/registereduix.ctp:23
+msgid "Tussenvoegsel"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:123
+#: View/FileManagement/upload_class.ctp:19
+#: View/FileManagement/view_classupload.ctp:149
+#: View/FileManagement/view_testupload.ctp:202
+#: View/SchoolClasses/add_student.ctp:31
+#: View/SchoolClasses/edit_student.ctp:31
+#: View/SchoolLocations/view.ctp:124
+#: View/Users/add_accountmanagers.ctp:39
+#: View/Users/add_existing_teachers.ctp:27;54
+#: View/Users/add_management.ctp:39
+#: View/Users/add_managers.ctp:47
+#: View/Users/add_mentors.ctp:37
+#: View/Users/add_parents.ctp:31
+#: View/Users/add_students.ctp:71
+#: View/Users/add_teachers.ctp:47
+#: View/Users/edit_accountmanagers.ctp:39
+#: View/Users/edit_management.ctp:39
+#: View/Users/edit_managers.ctp:47
+#: View/Users/edit_mentor.ctp:37
+#: View/Users/edit_parents.ctp:31
+#: View/Users/edit_students.ctp:45
+#: View/Users/edit_teachers.ctp:42
+#: View/Users/import.ctp:199
+#: View/Users/index.ctp:69;121
+#: View/Users/move.ctp:15
+#: View/Users/registereduix.ctp:47
+#: View/Users/reset_password.ctp:38
+#: View/Users/view_student.ctp:74
+msgid "E-mailadres"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:139
+msgid "Mobiel nummer"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:144
+msgid "(nodig ter verificatie)"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:148
+msgid "Vakken/niveaus"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:158
+msgid "Hoe ben je bij ons terecht gekomen?"
+msgstr ""
+
+#: View/Elements/register_new_teacher_form.ctp:167
+msgid "Eventuele opmerkingen"
+msgstr ""
+
+#: View/Elements/surveillance_studentrow.ctp:50
+#: View/Layouts/default.ctp:102
+#: View/TestTakes/take_active.ctp:2
+#: View/TestTakes/take_answer_overview.ctp:9
+#: View/TestTakes/take_answer_overview2019.ctp:9
+msgid "Inleveren"
+msgstr ""
+
+#: View/Elements/surveillance_studentrow.ctp:60
+msgid "Heropen"
+msgstr ""
+
+#: View/Elements/take_attachments.ctp:6
+msgid "Tekstblok"
+msgstr ""
+
+#: View/Elements/take_attachments.ctp:12
+msgid "Tekenblok"
+msgstr ""
+
+#: View/Elements/take_footer.ctp:10
+msgid "Gereed"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:3
+msgid "Leerdoel analyse"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:7
+msgid "Leerdoel"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:8
+msgid "Aantal vragen"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:50
+msgid "Legenda:"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:52
+msgid "P-waarde kleiner dan 55"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:53
+msgid "P-waarde tussen 55 en en 65"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:54
+msgid "P-waarde groter dan 65"
+msgstr ""
+
+#: View/Elements/test_take_attainment_analysis.ctp:66
+msgid "<tr><td colspan=\"9\">Een moment de relevante data wordt opgezocht...</td></tr>"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:4
+msgid "Voorlees"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:5
+msgid "functionaliteit"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:9
+msgid "Is toegekend én"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:9
+msgid "mag hier"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:9
+msgid "momenteel"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:9
+msgid "gebruik van maken"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:14
+msgid "Toekennen"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:19
+msgid "Let op, de voorleesfunctionaliteit brengt extra kosten met zich mee, hier wordt jaarlijks"
+msgstr ""
+
+#: View/Elements/text2speech.ctp:19
+msgid "euro (excl btw) voor in rekening gebracht."
+msgstr ""
+
+#: View/FileManagement/classuploads.ctp:8
+#: View/SchoolClasses/index.ctp:4
+#: View/TeacherClasses/index.ctp:4
+msgid "Nieuwe Klas"
+msgstr ""
+
+#: View/FileManagement/classuploads.ctp:12
+msgid "Aangeboden klassen bestanden"
+msgstr ""
+
+#: View/FileManagement/classuploads.ctp:20
+#: View/FileManagement/classuploads_accountmanager.ctp:9
+#: View/FileManagement/testuploads.ctp:18
+#: View/FileManagement/testuploads_accountmanager.ctp:9
+#: View/FileManagement/testuploads_toetsenbakker.ctp:9
+#: View/TestTakes/add.ctp:6
+#: View/TestTakes/add_retake.ctp:30
+#: View/TestTakes/edit.ctp:18
+#: View/TestTakes/widget_planned.ctp:14
+#: View/TestTakes/widget_rated.ctp:14
+msgid "Datum"
+msgstr ""
+
+#: View/FileManagement/classuploads.ctp:21
+#: View/FileManagement/classuploads_accountmanager.ctp:12
+#: View/FileManagement/testuploads.ctp:19
+#: View/FileManagement/testuploads_accountmanager.ctp:12
+#: View/FileManagement/testuploads_toetsenbakker.ctp:10
+#: View/FileManagement/view_classupload.ctp:106
+#: View/FileManagement/view_testupload.ctp:126
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:64
+#: View/Qtiimport/index.ctp:22
+#: View/QtiimportBatchCito/index.ctp:22
+#: View/QtiimportCito/index.ctp:22
+#: View/SchoolClasses/add_teacher.ctp:1;7
+#: View/SchoolClasses/load_teachers.ctp:11
+#: View/TestTakes/rated_student.ctp:11
+#: View/Users/add_teachers.ctp:1
+#: View/Users/edit_teachers.ctp:1
+msgid "Docent"
+msgstr ""
+
+#: View/FileManagement/classuploads.ctp:23
+#: View/FileManagement/classuploads_accountmanager.ctp:14
+#: View/FileManagement/testuploads.ctp:22
+#: View/FileManagement/testuploads_accountmanager.ctp:15
+#: View/FileManagement/testuploads_toetsenbakker.ctp:13
+#: View/FileManagement/view_classupload.ctp:47
+#: View/FileManagement/view_testupload.ctp:36
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:24
+#: View/TestTakes/planned_student.ctp:15
+#: View/TestTakes/taken_student.ctp:12
+#: View/TestTakes/taken_teacher.ctp:125
+msgid "Status"
+msgstr ""
+
+#: View/FileManagement/classuploads_accountmanager.ctp:4
+#: View/FileManagement/testuploads.ctp:11
+#: View/FileManagement/testuploads_accountmanager.ctp:4
+#: View/FileManagement/testuploads_toetsenbakker.ctp:4
+#: View/SharedSections/index.ctp:6
+#: View/TestTakes/surveillance.ctp:26
+msgid "Toetsen"
+msgstr ""
+
+#: View/FileManagement/classuploads_accountmanager.ctp:11
+#: View/FileManagement/testuploads_accountmanager.ctp:11
+#: View/FileManagement/view_classupload.ctp:84
+#: View/FileManagement/view_testupload.ctp:90
+msgid "Code"
+msgstr ""
+
+#: View/FileManagement/classuploads_accountmanager.ctp:15
+#: View/FileManagement/testuploads_accountmanager.ctp:16
+#: View/FileManagement/view_classupload.ctp:71
+#: View/FileManagement/view_testupload.ctp:60
+msgid "Behandelaar"
+msgstr ""
+
+#: View/FileManagement/testuploads.ctp:4
+#: View/FileManagement/upload_test.ctp:2;89
+msgid "Toets uploaden"
+msgstr ""
+
+#: View/FileManagement/testuploads.ctp:8
+msgid "Aangeboden toets bestanden"
+msgstr ""
+
+#: View/FileManagement/testuploads.ctp:13
+msgid "Hier kunt u uw toetsmateriaal aanleveren."
+msgstr ""
+
+#: View/FileManagement/testuploads.ctp:14
+msgid "Onze toetsenbakkers zorgen ervoor dat deze toetsen z.s.m. klaar staan in uw itembank."
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:2;76
+msgid "Klas uploaden"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:7
+#: View/FileManagement/upload_test.ctp:7
+msgid "Een moment dit kan even duren..."
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:12
+msgid "Hier kunt u de klassen in een Excel-format uploaden (of een ander spreadsheet format)."
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:13
+msgid "Let op"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:13
+msgid ": het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: (de gegevens ieder in een eigen kolom)."
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:18
+#: View/Users/edit_teachers.ctp:50
+msgid "Stamnummer"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:21
+msgid "Optioneel maar niet verplicht:"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:23
+msgid "Recht op tijdsdispensatie ja of nee"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:24
+msgid "Tekst2speech-functie aan of uit (er zijn hier additionele kosten aan verbonden)"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:43
+#: View/FileManagement/upload_test.ctp:20
+#: View/Qtiimport/index.ctp:42
+#: View/QtiimportBatchCito/index.ctp:42
+#: View/QtiimportCito/index.ctp:42
+#: View/SchoolYears/add.ctp:7
+#: View/SchoolYears/edit.ctp:8
+msgid "Jaar"
+msgstr ""
+
+#: View/FileManagement/upload_class.ctp:50
+#: View/FileManagement/view_classupload.ctp:131
+#: View/SchoolClasses/add.ctp:39
+#: View/SchoolClasses/edit.ctp:31
+#: View/SchoolClasses/view.ctp:35
+msgid "Stamklas"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:34
+msgid "Type toets"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:41
+msgid "Toets naam"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:49
+msgid "Kies één of meerdere bestanden. (Max."
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:72
+msgid "Correctiemodel toegevoegd?"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:74;80
+msgid "Maak een keuze"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:74
+msgid "Nee, dat heb ik nog niet gedaan"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:74
+msgid "Ja, die zit erbij"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:78
+msgid "Een enkele of meerdere toetsen?"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:80
+msgid "Eén enkele toets "
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:80
+msgid "Meerdere toetsen"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:147
+msgid "U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden."
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:153
+msgid "U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width=\"26\" height=\"26\" viewBox=\"0 -8 26 26\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z\" fill=\"currentColor\" fill-rule=\"evenodd\"/></svg>) rechts naast de file(s) om deze te uploaden."
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:159
+msgid "Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:164
+msgid "Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:169
+msgid "U heeft geen vaknaam ingevuld"
+msgstr ""
+
+#: View/FileManagement/upload_test.ctp:174
+msgid "U heeft geen toetsnaam ingevuld"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:19
+msgid "In beheer nemen"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:22
+msgid "Overnemen"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:40
+#: View/FileManagement/view_testupload.ctp:172
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:100
+#: View/Questions/attachments_sound.ctp:15
+msgid "Bestand"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:43
+#: View/FileManagement/view_testupload.ctp:32
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:20
+msgid "informatie"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:65
+#: View/FileManagement/view_testupload.ctp:54
+#: View/Sections/add_school_location.ctp:1
+#: View/SharedSections/index.ctp:16
+msgid "School locatie"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:92
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:50
+msgid "Klik om te wijzigen"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:125
+msgid "File"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:140
+#: View/FileManagement/view_testupload.ctp:193
+#: View/SchoolLocations/view.ctp:115
+msgid "Schoolbeheerders"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:147
+#: View/FileManagement/view_testupload.ctp:200
+#: View/SchoolLocations/view.ctp:122
+msgid "Tussenv"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:180
+#: View/FileManagement/view_testupload.ctp:239
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:132
+msgid "De status is aangepast"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:186
+#: View/FileManagement/view_testupload.ctp:245
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:138
+msgid "Er is iets fout gegaan bij het aanpassen van de status"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:199
+#: View/FileManagement/view_testupload.ctp:258
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:151
+msgid "De gegevens zijn aangepast"
+msgstr ""
+
+#: View/FileManagement/view_classupload.ctp:205
+#: View/FileManagement/view_testupload.ctp:264
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:157
+msgid "Er is iets fout gegaan bij het aanpassen van de gegevens"
+msgstr ""
+
+#: View/FileManagement/view_testupload.ctp:29
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:17
+msgid "Toetsbestand"
+msgstr ""
+
+#: View/FileManagement/view_testupload.ctp:96
+msgid "Kleurcode"
+msgstr ""
+
+#: View/FileManagement/view_testupload.ctp:140
+msgid "Uitnodiging"
+msgstr ""
+
+#: View/FileManagement/view_testupload.ctp:173
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:101
+msgid "Originele naam"
+msgstr ""
+
+#: View/FileManagement/view_testupload_toetsenbakker.ctp:42
+#: View/SchoolLocations/add.ctp:27
+#: View/SchoolLocations/edit.ctp:27
+#: View/SchoolLocations/index.ctp:18
+#: View/SchoolLocations/view.ctp:25
+#: View/Schools/add.ctp:27
+#: View/Schools/edit.ctp:28
+#: View/Schools/view.ctp:26
+#: View/UmbrellaOrganisations/add.ctp:22
+#: View/UmbrellaOrganisations/edit.ctp:22
+#: View/UmbrellaOrganisations/view.ctp:24
+msgid "Klantcode"
+msgstr ""
+
+#: View/Layouts/default.ctp:98
+msgid "Uitloggen"
+msgstr ""
+
+#: View/Layouts/default.ctp:100
+#: View/Users/password_reset.ctp:1
+msgid "Wachtwoord wijzigen"
+msgstr ""
+
+#: View/Messages/send.ctp:1;13
+msgid "Bericht versturen"
+msgstr ""
+
+#: View/Messages/send.ctp:5
+msgid "Bericht"
+msgstr ""
+
+#: View/Messages/send.ctp:24
+msgid "Bericht verstuurd"
+msgstr ""
+
+#: View/Messages/show.ctp:11
+msgid "Reageren"
+msgstr ""
+
+#: View/Qtiimport/index.ctp:3
+msgid "QTI import"
+msgstr ""
+
+#: View/Qtiimport/index.ctp:29
+#: View/QtiimportBatchCito/index.ctp:29
+#: View/QtiimportCito/index.ctp:29
+msgid "Vakgebied"
+msgstr ""
+
+#: View/Qtiimport/index.ctp:49
+#: View/QtiimportBatchCito/index.ctp:49
+#: View/QtiimportCito/index.ctp:49
+msgid "Type toetsen"
+msgstr ""
+
+#: View/Qtiimport/index.ctp:55
+#: View/QtiimportBatchCito/index.ctp:55
+#: View/QtiimportCito/index.ctp:55
+msgid "Voorloop afkorting voor de toets namen (max 3 karakters)"
+msgstr ""
+
+#: View/Qtiimport/index.ctp:72
+#: View/QtiimportBatchCito/index.ctp:72
+#: View/QtiimportCito/index.ctp:72
+#: View/Questions/add_arq_question.ctp:140
+#: View/Questions/add_classify.ctp:135
+#: View/Questions/add_completion.ctp:80
+#: View/Questions/add_drawing.ctp:97
+#: View/Questions/add_infoscreen.ctp:71
+#: View/Questions/add_matching.ctp:129
+#: View/Questions/add_multi_completion.ctp:81
+#: View/Questions/add_multiple_choice.ctp:124
+#: View/Questions/add_open.ctp:92
+#: View/Questions/add_ranking.ctp:125
+#: View/Questions/add_true_false.ctp:104
+#: View/Questions/edit_arq.ctp:158
+#: View/Questions/edit_classify.ctp:170
+#: View/Questions/edit_completion.ctp:90
+#: View/Questions/edit_drawing.ctp:106
+#: View/Questions/edit_infoscreen.ctp:84
+#: View/Questions/edit_matching.ctp:201
+#: View/Questions/edit_multi_completion.ctp:89
+#: View/Questions/edit_multiple_choice.ctp:170
+#: View/Questions/edit_open.ctp:108
+#: View/Questions/edit_ranking.ctp:159
+#: View/Questions/edit_true_false.ctp:132
+msgid "Vraag opslaan"
+msgstr ""
+
+#: View/QtiimportBatchCito/index.ctp:3
+msgid "QTI import Batch Cito"
+msgstr ""
+
+#: View/QtiimportCito/index.ctp:3
+msgid "QTI import Cito"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:1
+msgid "ARQ Choice"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:8
+#: View/Questions/add_classify.ctp:14
+#: View/Questions/add_completion.ctp:14
+#: View/Questions/add_drawing.ctp:15
+#: View/Questions/add_matching.ctp:14
+#: View/Questions/add_multi_completion.ctp:14
+#: View/Questions/add_multiple_choice.ctp:8
+#: View/Questions/add_open.ctp:14
+#: View/Questions/add_ranking.ctp:13
+#: View/Questions/add_true_false.ctp:14
+#: View/Questions/edit_arq.ctp:15
+#: View/Questions/edit_classify.ctp:14
+#: View/Questions/edit_completion.ctp:15
+#: View/Questions/edit_drawing.ctp:15
+#: View/Questions/edit_matching.ctp:14
+#: View/Questions/edit_multi_completion.ctp:14
+#: View/Questions/edit_multiple_choice.ctp:20
+#: View/Questions/edit_open.ctp:22
+#: View/Questions/edit_ranking.ctp:14
+#: View/Questions/edit_true_false.ctp:14
+msgid "Bespreken in de klas"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:9
+msgid " Deze vraag vastzetten"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:10
+#: View/Questions/add_classify.ctp:16
+#: View/Questions/add_completion.ctp:16
+#: View/Questions/add_drawing.ctp:17
+#: View/Questions/add_matching.ctp:16
+#: View/Questions/add_multi_completion.ctp:16
+#: View/Questions/add_multiple_choice.ctp:10
+#: View/Questions/add_open.ctp:16
+#: View/Questions/add_ranking.ctp:15
+#: View/Questions/add_true_false.ctp:16
+#: View/Questions/edit_arq.ctp:17
+#: View/Questions/edit_classify.ctp:16
+#: View/Questions/edit_completion.ctp:17
+#: View/Questions/edit_drawing.ctp:17
+#: View/Questions/edit_matching.ctp:16
+#: View/Questions/edit_multi_completion.ctp:16
+#: View/Questions/edit_multiple_choice.ctp:22
+#: View/Questions/edit_open.ctp:24
+#: View/Questions/edit_ranking.ctp:16
+#: View/Questions/edit_true_false.ctp:16
+msgid "Halve punten mogelijk"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:13
+#: View/Questions/add_classify.ctp:18
+#: View/Questions/add_completion.ctp:18
+#: View/Questions/add_drawing.ctp:19
+#: View/Questions/add_group.ctp:37
+#: View/Questions/add_matching.ctp:18
+#: View/Questions/add_multi_completion.ctp:18
+#: View/Questions/add_multiple_choice.ctp:12
+#: View/Questions/add_open.ctp:19
+#: View/Questions/add_ranking.ctp:17
+#: View/Questions/add_true_false.ctp:18
+#: View/Questions/edit_arq.ctp:19
+#: View/Questions/edit_classify.ctp:18
+#: View/Questions/edit_completion.ctp:19
+#: View/Questions/edit_drawing.ctp:19
+#: View/Questions/edit_matching.ctp:18
+#: View/Questions/edit_multi_completion.ctp:18
+#: View/Questions/edit_multiple_choice.ctp:24
+#: View/Questions/edit_open.ctp:26
+#: View/Questions/edit_ranking.ctp:18
+#: View/Questions/edit_true_false.ctp:18
+#: View/Questions/public_info.ctp:2
+msgid "Openbaar maken"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:19
+#: View/Questions/add_classify.ctp:24
+#: View/Questions/add_completion.ctp:24
+#: View/Questions/add_drawing.ctp:25
+#: View/Questions/add_matching.ctp:23
+#: View/Questions/add_multi_completion.ctp:24
+#: View/Questions/add_multiple_choice.ctp:18
+#: View/Questions/add_open.ctp:24
+#: View/Questions/add_ranking.ctp:23
+#: View/Questions/add_true_false.ctp:24
+#: View/Questions/edit_arq.ctp:24
+#: View/Questions/edit_classify.ctp:23
+#: View/Questions/edit_completion.ctp:24
+#: View/Questions/edit_drawing.ctp:24
+#: View/Questions/edit_matching.ctp:23
+#: View/Questions/edit_multi_completion.ctp:23
+#: View/Questions/edit_multiple_choice.ctp:29
+#: View/Questions/edit_open.ctp:31
+#: View/Questions/edit_ranking.ctp:23
+#: View/Questions/edit_true_false.ctp:23
+msgid "Geen kladblok"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:20
+#: View/Questions/add_classify.ctp:25
+#: View/Questions/add_completion.ctp:25
+#: View/Questions/add_drawing.ctp:26
+#: View/Questions/add_matching.ctp:24
+#: View/Questions/add_multi_completion.ctp:25
+#: View/Questions/add_multiple_choice.ctp:19
+#: View/Questions/add_open.ctp:25
+#: View/Questions/add_ranking.ctp:24
+#: View/Questions/add_true_false.ctp:25
+#: View/Questions/edit_arq.ctp:25
+#: View/Questions/edit_classify.ctp:24
+#: View/Questions/edit_completion.ctp:25
+#: View/Questions/edit_drawing.ctp:25
+#: View/Questions/edit_matching.ctp:24
+#: View/Questions/edit_multi_completion.ctp:24
+#: View/Questions/edit_multiple_choice.ctp:30
+#: View/Questions/edit_open.ctp:32
+#: View/Questions/edit_ranking.ctp:24
+#: View/Questions/edit_true_false.ctp:24
+msgid "Tekstvlak"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:21
+#: View/Questions/add_classify.ctp:26
+#: View/Questions/add_completion.ctp:26
+#: View/Questions/add_drawing.ctp:27
+#: View/Questions/add_matching.ctp:25
+#: View/Questions/add_multi_completion.ctp:26
+#: View/Questions/add_multiple_choice.ctp:20
+#: View/Questions/add_open.ctp:26
+#: View/Questions/add_ranking.ctp:25
+#: View/Questions/add_true_false.ctp:26
+#: View/Questions/edit_arq.ctp:26
+#: View/Questions/edit_classify.ctp:25
+#: View/Questions/edit_completion.ctp:26
+#: View/Questions/edit_drawing.ctp:26
+#: View/Questions/edit_matching.ctp:25
+#: View/Questions/edit_multi_completion.ctp:25
+#: View/Questions/edit_multiple_choice.ctp:31
+#: View/Questions/edit_open.ctp:33
+#: View/Questions/edit_ranking.ctp:25
+#: View/Questions/edit_true_false.ctp:25
+msgid "Tekenvlak"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:33
+#: View/Questions/add_classify.ctp:38
+#: View/Questions/add_matching.ctp:37
+#: View/Questions/add_multiple_choice.ctp:32
+#: View/Questions/add_ranking.ctp:37
+#: View/Questions/edit_arq.ctp:38
+#: View/Questions/edit_classify.ctp:37
+#: View/Questions/edit_matching.ctp:37
+#: View/Questions/edit_multiple_choice.ctp:43
+#: View/Questions/edit_ranking.ctp:37
+#: View/TestTakes/answers_pdf.ctp:14
+msgid "Antwoorden"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:47
+#: View/Questions/add_classify.ctp:51
+#: View/Questions/add_completion.ctp:47
+#: View/Questions/add_drawing.ctp:53
+#: View/Questions/add_existing.ctp:86
+#: View/Questions/add_infoscreen.ctp:32
+#: View/Questions/add_matching.ctp:51
+#: View/Questions/add_multi_completion.ctp:48
+#: View/Questions/add_multiple_choice.ctp:46
+#: View/Questions/add_open.ctp:54
+#: View/Questions/add_ranking.ctp:51
+#: View/Questions/add_true_false.ctp:52
+#: View/Questions/edit_arq.ctp:53
+#: View/Questions/edit_classify.ctp:51
+#: View/Questions/edit_completion.ctp:47
+#: View/Questions/edit_drawing.ctp:51
+#: View/Questions/edit_infoscreen.ctp:35
+#: View/Questions/edit_matching.ctp:51
+#: View/Questions/edit_multi_completion.ctp:47
+#: View/Questions/edit_multiple_choice.ctp:57
+#: View/Questions/edit_open.ctp:60
+#: View/Questions/edit_ranking.ctp:50
+#: View/Questions/edit_true_false.ctp:71
+#: View/Questions/index.ctp:84
+msgid "Tags"
+msgstr ""
+
+#: View/Questions/add_arq_question.ctp:51
+#: View/Questions/add_classify.ctp:55
+#: View/Questions/add_completion.ctp:51
+#: View/Questions/add_drawing.ctp:57
+#: View/Questions/add_infoscreen.ctp:36
+#: View/Questions/add_matching.ctp:55
+#: View/Questions/add_multi_completion.ctp:52
+#: View/Questions/add_multiple_choice.ctp:50
+#: View/Questions/add_open.ctp:58
+#: View/Questions/add_ranking.ctp:55
+#: View/Questions/add_true_false.ctp:56
+#: View/Questions/edit_arq.ctp:57
+#: View/Questions/edit_classify.ctp:55
+#: View/Questions/edit_completion.ctp:51
+#: View/Questions/edit_drawing.ctp:55
+#: View/Questions/edit_infoscreen.ctp:39
+#: View/Questions/edit_matching.ctp:55
+#: View/Questions/edit_multi_completion.ctp:51
+#: View/Questions/edit_multiple_choice.ctp:61
+#: View/Questions/edit_open.ctp:64
+#: View/Questions/edit_ranking.ctp:54
+#: View/Questions/edit_true_false.ctp:75
+msgid "Taxonomie"
+msgstr ""
+
+#: View/Questions/add_classify.ctp:1
+#: View/Questions/edit_classify.ctp:1
+msgid "Rubriceervraag"
+msgstr ""
+
+#: View/Questions/add_classify.ctp:8
+#: View/Questions/add_completion.ctp:8
+#: View/Questions/add_drawing.ctp:9
+#: View/Questions/add_existing.ctp:85
+#: View/Questions/add_matching.ctp:8
+#: View/Questions/add_multi_completion.ctp:8
+#: View/Questions/add_open.ctp:8
+#: View/Questions/add_ranking.ctp:7
+#: View/Questions/add_true_false.ctp:8
+#: View/Questions/edit_classify.ctp:8
+#: View/Questions/edit_completion.ctp:9
+#: View/Questions/edit_drawing.ctp:9
+#: View/Questions/edit_matching.ctp:8
+#: View/Questions/edit_multi_completion.ctp:8
+#: View/Questions/edit_open.ctp:16
+#: View/Questions/edit_ranking.ctp:8
+#: View/Questions/edit_true_false.ctp:8
+#: View/Questions/index.ctp:83
+msgid "Punten"
+msgstr ""
+
+#: View/Questions/add_classify.ctp:15
+#: View/Questions/add_completion.ctp:15
+#: View/Questions/add_drawing.ctp:16
+#: View/Questions/add_matching.ctp:15
+#: View/Questions/add_multi_completion.ctp:15
+#: View/Questions/add_multiple_choice.ctp:9
+#: View/Questions/add_open.ctp:15
+#: View/Questions/add_ranking.ctp:14
+#: View/Questions/add_true_false.ctp:15
+#: View/Questions/edit_arq.ctp:16
+#: View/Questions/edit_classify.ctp:15
+#: View/Questions/edit_completion.ctp:16
+#: View/Questions/edit_drawing.ctp:16
+#: View/Questions/edit_matching.ctp:15
+#: View/Questions/edit_multi_completion.ctp:15
+#: View/Questions/edit_multiple_choice.ctp:21
+#: View/Questions/edit_open.ctp:23
+#: View/Questions/edit_ranking.ctp:15
+#: View/Questions/edit_true_false.ctp:15
+msgid "Deze vraag vastzetten"
+msgstr ""
+
+#: View/Questions/add_classify.ctp:68
+msgid "Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \"Mogelijkheden\"."
+msgstr ""
+
+#: View/Questions/add_classify.ctp:76
+#: View/Questions/edit_classify.ctp:75
+msgid "Mogelijkheden"
+msgstr ""
+
+#: View/Questions/add_classify.ctp:110
+#: View/Questions/add_completion_item.ctp:1
+#: View/Questions/add_matching.ctp:105
+#: View/Questions/add_multi_completion_item.ctp:1;69
+#: View/Questions/add_multiple_choice.ctp:100
+#: View/Questions/add_ranking.ctp:101
+#: View/Questions/edit_classify.ctp:137
+#: View/Questions/edit_matching.ctp:167
+#: View/Questions/edit_multiple_choice.ctp:137
+#: View/Questions/edit_ranking.ctp:127
+msgid "Optie toevoegen"
+msgstr ""
+
+#: View/Questions/add_completion.ctp:34
+#: View/Questions/add_multi_completion.ctp:34
+#: View/Questions/edit_completion.ctp:34
+#: View/Questions/edit_multi_completion.ctp:33
+msgid "Tekst"
+msgstr ""
+
+#: View/Questions/add_completion.ctp:178
+#: View/Questions/edit_completion.ctp:193
+msgid "Geen verticale streepjes (|) toegestaan in gatentekst"
+msgstr ""
+
+#: View/Questions/add_completion_item.ctp:5
+#: View/Questions/add_drawing.ctp:39
+#: View/Questions/add_infoscreen.ctp:18
+#: View/Questions/add_multiple_choice.ctp:65
+#: View/Questions/add_open.ctp:40
+#: View/Questions/add_ranking.ctp:70
+#: View/Questions/add_true_false.ctp:38
+#: View/Questions/edit_drawing.ctp:38
+#: View/Questions/edit_infoscreen.ctp:20
+#: View/Questions/edit_multiple_choice.ctp:79
+#: View/Questions/edit_open.ctp:45
+#: View/Questions/edit_ranking.ctp:73
+#: View/Questions/edit_true_false.ctp:59
+#: View/TestTakes/rate_teacher_random.ctp:27
+#: View/TestTakes/take_discuss.ctp:8
+#: View/Tests/test.ctp:4
+#: View/Tests/test2.ctp:67
+msgid "Antwoord"
+msgstr ""
+
+#: View/Questions/add_completion_item.ctp:18
+#: View/Questions/add_multi_completion_item.ctp:78
+#: View/SchoolLocations/add_ip.ctp:29
+msgid "Toevoegen"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:1
+msgid "Vraag toevoegen"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:3
+msgid "Gesloten vraagtypes"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:33
+msgid "Gesloten gatentekst"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:36
+msgid "Open vraagtypes"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:39
+msgid "Leg uit kort"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:43
+msgid "Leg uit lang"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:47
+msgid "Open gatentekst"
+msgstr ""
+
+#: View/Questions/add_custom.ctp:51
+msgid "Tekenen"
+msgstr ""
+
+#: View/Questions/add_drawing.ctp:69
+msgid "Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1)."
+msgstr ""
+
+#: View/Questions/add_drawing_answer_canvas.ctp:39
+msgid "Geen"
+msgstr ""
+
+#: View/Questions/add_existing.ctp:1
+msgid "Toetsvraag importeren"
+msgstr ""
+
+#: View/Questions/add_existing.ctp:14
+msgid "Id"
+msgstr ""
+
+#: View/Questions/add_existing.ctp:20
+#: View/Questions/index.ctp:17
+msgid "Termen"
+msgstr ""
+
+#: View/Questions/add_group.ctp:1
+#: View/Questions/edit_group.ctp:1
+msgid "Vraag-groep aanmaken"
+msgstr ""
+
+#: View/Questions/add_group.ctp:16
+#: View/Questions/edit_group.ctp:17
+#: View/Questions/view_group.ctp:18
+#: View/Tests/edit.ctp:16
+msgid "Omschrijving"
+msgstr ""
+
+#: View/Questions/add_group.ctp:25
+#: View/Questions/edit_group.ctp:26
+msgid "Deze vraaggroep vastzetten"
+msgstr ""
+
+#: View/Questions/add_group.ctp:31
+#: View/Questions/edit_group.ctp:32
+msgid "Vragen in deze groep shuffelen"
+msgstr ""
+
+#: View/Questions/add_group.ctp:49
+#: View/Questions/edit_group.ctp:50
+msgid "Vraag-groep opslaan"
+msgstr ""
+
+#: View/Questions/add_group.ctp:66
+msgid "Vraag-groep aangemaakt"
+msgstr ""
+
+#: View/Questions/add_group.ctp:72
+#: View/Users/login.ctp:175
+msgid "Inloggegevens incorrect"
+msgstr ""
+
+#: View/Questions/add_infoscreen.ctp:14
+#: View/Questions/edit_arq.ctp:61
+#: View/Questions/edit_classify.ctp:60
+#: View/Questions/edit_completion.ctp:55
+#: View/Questions/edit_drawing.ctp:60
+#: View/Questions/edit_infoscreen.ctp:16;43
+#: View/Questions/edit_matching.ctp:59
+#: View/Questions/edit_multi_completion.ctp:56
+#: View/Questions/edit_multiple_choice.ctp:65
+#: View/Questions/edit_open.ctp:68
+#: View/Questions/edit_ranking.ctp:58
+#: View/Questions/edit_true_false.ctp:79
+msgid "Info"
+msgstr ""
+
+#: View/Questions/add_infoscreen.ctp:47
+msgid "niet van toepassing"
+msgstr ""
+
+#: View/Questions/add_infoscreen.ctp:48
+#: View/Questions/edit_infoscreen.ctp:55
+msgid "Niet van toepassing"
+msgstr ""
+
+#: View/Questions/add_matching.ctp:70
+#: View/Questions/edit_matching.ctp:73
+msgid "Links"
+msgstr ""
+
+#: View/Questions/add_matching.ctp:71
+#: View/Questions/edit_matching.ctp:74
+msgid "Rechts"
+msgstr ""
+
+#: View/Questions/add_multi_completion_item.ctp:5
+msgid "Juiste antwoord"
+msgstr ""
+
+#: View/Questions/add_multi_completion_item.ctp:11;17;23;29;35;41;47;53;59
+msgid "Foutief antwoord"
+msgstr ""
+
+#: View/Questions/add_open_selection.ctp:1
+msgid "Open-vraag toevoegen"
+msgstr ""
+
+#: View/Questions/add_open_selection.ctp:4
+msgid "Kort"
+msgstr ""
+
+#: View/Questions/add_open_selection.ctp:7
+msgid "Lang"
+msgstr ""
+
+#: View/Questions/add_ranking.ctp:1
+#: View/Questions/edit_ranking.ctp:1
+msgid "Rangschik vraag"
+msgstr ""
+
+#: View/Questions/add_true_false.ctp:70
+#: View/Questions/edit_true_false.ctp:92
+msgid "Antwoord is:"
+msgstr ""
+
+#: View/Questions/add_true_false.ctp:75
+#: View/Questions/edit_true_false.ctp:97
+msgid "Juist"
+msgstr ""
+
+#: View/Questions/add_true_false.ctp:76
+#: View/Questions/edit_true_false.ctp:98
+msgid "Onjuist"
+msgstr ""
+
+#: View/Questions/attachments.ctp:7;78
+msgid "Omschrijving / Pad"
+msgstr ""
+
+#: View/Questions/attachments.ctp:9;80
+msgid "Instellingen"
+msgstr ""
+
+#: View/Questions/attachments.ctp:165
+msgid "Afbeelding uploaden"
+msgstr ""
+
+#: View/Questions/attachments.ctp:170
+msgid "PDF uploaden"
+msgstr ""
+
+#: View/Questions/attachments.ctp:175;184
+msgid "Geluidsfragment uploaden"
+msgstr ""
+
+#: View/Questions/attachments.ctp:179;188
+msgid "Video toevoegen"
+msgstr ""
+
+#: View/Questions/attachments_sound.ctp:1
+msgid "Geluidsfragment"
+msgstr ""
+
+#: View/Questions/attachments_sound.ctp:21
+msgid "Pauzeerbaar"
+msgstr ""
+
+#: View/Questions/attachments_sound.ctp:27
+msgid "Eenmalig afspelen"
+msgstr ""
+
+#: View/Questions/attachments_sound.ctp:33
+msgid "Seconden voor antwoord"
+msgstr ""
+
+#: View/Questions/attachments_video.ctp:1
+msgid "Videofragment"
+msgstr ""
+
+#: View/Questions/attachments_video.ctp:6
+msgid "URL"
+msgstr ""
+
+#: View/Questions/edit_drawing.ctp:73
+msgid "Antwoord wijzigen"
+msgstr ""
+
+#: View/Questions/edit_group.ctp:38
+msgid "Delen Openbaar maken"
+msgstr ""
+
+#: View/Questions/edit_group.ctp:67
+msgid "Vraag-groep opgeslagen"
+msgstr ""
+
+#: View/Questions/index.ctp:66
+#: View/SchoolClasses/index.ctp:30
+#: View/Users/add_existing_teachers.ctp:38
+#: View/Users/index.ctp:86
+msgid "Reset"
+msgstr ""
+
+#: View/Questions/index.ctp:82
+msgid "Auteur(s)"
+msgstr ""
+
+#: View/Questions/move_to_group.ctp:1
+msgid "Verplaats naar groep"
+msgstr ""
+
+#: View/Questions/move_to_group.ctp:5
+msgid "Groep"
+msgstr ""
+
+#: View/Questions/no_preview_group_question.ctp:1
+msgid "Geen voorbeeld"
+msgstr ""
+
+#: View/Questions/no_preview_group_question.ctp:3
+msgid "Er is geen voorbeeld weergave voor een vraag-groep."
+msgstr ""
+
+#: View/Questions/preview_arq.ctp:14
+msgid "antwoorden"
+msgstr ""
+
+#: View/Questions/preview_matrix.ctp:7
+msgid "Matrix subtype ONBEKEND"
+msgstr ""
+
+#: View/Questions/preview_open.ctp:3
+msgid "kort"
+msgstr ""
+
+#: View/Questions/preview_open.ctp:3
+msgid "lang"
+msgstr ""
+
+#: View/Questions/public_info.ctp:6
+msgid "In de nabije toekomst zullen wij Test-Correct uitbreiden met de Nationale Itembank. U krijgt dan de mogelijkheid om items van uw vakcollega’s uit het hele land te gebruiken."
+msgstr ""
+
+#: View/Questions/public_info.ctp:9
+msgid "Als deze optie is aangevinkt geeft u uw vakcollega’s (buiten uw school) de mogelijkheid om dit item te vinden in de Nationale Itembank en te gebruiken binnen hun eigen toets."
+msgstr ""
+
+#: View/Questions/public_info.ctp:12
+msgid "U blijft overigens auteur van dit item. U blijft de zeggenschap houden, ook als u wenst te delen met uw collega’s."
+msgstr ""
+
+#: View/Questions/view_group.ctp:29
+msgid "Bijlages"
+msgstr ""
+
+#: View/Questions/view_group.ctp:36
+msgid "Groep vragen"
+msgstr ""
+
+#: View/Rttiimport/index.ctp:8
+msgid "RTTI import"
+msgstr ""
+
+#: View/Rttiimport/index.ctp:19
+msgid "Email domein"
+msgstr ""
+
+#: View/Rttiimport/index.ctp:25
+msgid "Scheidingsteken"
+msgstr ""
+
+#: View/Rttiimport/index.ctp:40
+msgid "Gegevens importeren"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:16
+msgid "U heeft nog geen schooljaren"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:53
+#: View/SchoolClasses/edit.ctp:45
+#: View/Tests/add.ctp:64
+#: View/Tests/edit.ctp:53
+msgid "Niveau-jaar"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:59
+#: View/SchoolClasses/edit.ctp:51
+#: View/SchoolClasses/index.ctp:22
+#: View/SchoolYears/add.ctp:1
+#: View/SchoolYears/edit.ctp:1
+#: View/SchoolYears/index.ctp:8;11;16
+msgid "Schooljaar"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:67
+#: View/SchoolClasses/edit.ctp:59
+msgid "LVS"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:70
+#: View/SchoolClasses/edit.ctp:62
+msgid "Klas niet overschrijven"
+msgstr ""
+
+#: View/SchoolClasses/add.ctp:98
+msgid "Klas aangemaakt"
+msgstr ""
+
+#: View/SchoolClasses/add_existing_student.ctp:1
+#: View/SchoolClasses/add_management.ctp:1
+#: View/SchoolClasses/add_mentor.ctp:1
+#: View/Sections/add_school_location.ctp:19
+msgid "Koppelen"
+msgstr ""
+
+#: View/SchoolClasses/add_existing_student.ctp:7
+#: View/SchoolClasses/add_management.ctp:7
+#: View/SchoolClasses/add_mentor.ctp:7
+msgid "Gebruiker"
+msgstr ""
+
+#: View/SchoolClasses/add_existing_student.ctp:31
+#: View/SchoolClasses/add_management.ctp:31
+#: View/SchoolClasses/add_mentor.ctp:31
+msgid "Gebruiker gekoppeld"
+msgstr ""
+
+#: View/SchoolClasses/add_existing_student.ctp:35
+#: View/SchoolClasses/add_management.ctp:35
+#: View/SchoolClasses/add_mentor.ctp:35
+#: View/SchoolClasses/add_student.ctp:67
+#: View/SchoolClasses/add_teacher.ctp:43
+#: View/SchoolClasses/edit_student.ctp:67
+#: View/Users/add_management.ctp:87
+#: View/Users/add_managers.ctp:95
+#: View/Users/add_mentors.ctp:85
+#: View/Users/add_teachers.ctp:111
+#: View/Users/edit_accountmanagers.ctp:87
+#: View/Users/edit_management.ctp:87
+#: View/Users/edit_managers.ctp:95
+#: View/Users/edit_mentor.ctp:85
+#: View/Users/edit_teachers.ctp:101
+#: View/Users/move.ctp:51
+#: View/Users/register_new_teacher.ctp:36;113
+#: View/Users/registereduix.ctp:105
+msgid "Gebruiker kon niet worden aangemaakt"
+msgstr ""
+
+#: View/SchoolClasses/add_student.ctp:39
+#: View/Users/add_accountmanagers.ctp:47
+#: View/Users/add_management.ctp:47
+#: View/Users/add_managers.ctp:55
+#: View/Users/add_mentors.ctp:45
+#: View/Users/add_parents.ctp:39
+#: View/Users/add_teachers.ctp:55
+#: View/Users/edit_management.ctp:47
+#: View/Users/edit_parents.ctp:39
+#: View/Users/login.ctp:35;43
+#: View/Users/registereduix.ctp:65
+msgid "Wachtwoord"
+msgstr ""
+
+#: View/SchoolClasses/add_student.ctp:63
+#: View/SchoolClasses/add_teacher.ctp:39
+#: View/SchoolClasses/edit_student.ctp:63
+#: View/Users/add_accountmanagers.ctp:83
+#: View/Users/add_management.ctp:83
+#: View/Users/add_managers.ctp:91
+#: View/Users/add_mentors.ctp:81
+#: View/Users/add_students.ctp:130
+#: View/Users/add_teachers.ctp:101
+#: View/Users/edit_management.ctp:83
+#: View/Users/edit_managers.ctp:91
+#: View/Users/edit_mentor.ctp:81
+#: View/Users/edit_teachers.ctp:94
+msgid "Gebruiker aangemaakt"
+msgstr ""
+
+#: View/SchoolClasses/edit.ctp:85
+msgid "Klas is gewijzigd"
+msgstr ""
+
+#: View/SchoolClasses/edit_student.ctp:39
+#: View/Users/add_students.ctp:79
+#: View/Users/change_password_for_user.ctp:10
+#: View/Users/edit_accountmanagers.ctp:47
+#: View/Users/edit_managers.ctp:55
+#: View/Users/edit_mentor.ctp:45
+#: View/Users/edit_students.ctp:53
+#: View/Users/edit_teachers.ctp:58
+#: View/Users/password_reset.ctp:15
+msgid "Nieuw wachtwoord"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:8
+msgid "Studenten import"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:32
+#: View/Users/import.ctp:12
+msgid "Data"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:33
+#: View/Users/import.ctp:13
+msgid "Zet default kolom headers!!"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:52
+#: View/SchoolClasses/load_students.ctp:39
+#: View/SchoolClasses/view.ctp:5
+msgid "Studenten importeren"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:166
+#: View/Users/import.ctp:143
+msgid "Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op."
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:190
+msgid "Weet u het zeker?',"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:191
+#: View/Users/import.ctp:168
+msgid "Weet u zeker dat u deze rij wil verwijderen?"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:218
+msgid "stamnummer"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:219
+msgid "voornaam"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:220
+#: View/Users/import.ctp:196
+msgid "tussenvoegsel"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:221
+msgid "achternaam"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:222
+msgid "email"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:289
+msgid "Er dient een klas gekozen te worden"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:300
+msgid "De studenten zijn succesvol geimporteerd"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:383
+#: View/Users/import.ctp:333
+msgid "De kolom "
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:383
+#: View/Users/import.ctp:333
+msgid " is verplicht."
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:398
+msgid "Deze import bevat dubbele"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:399
+msgid "duplicate"
+msgstr ""
+
+#: View/SchoolClasses/import.ctp:401;402
+msgid "amparsand"
+msgstr ""
+
+#: View/SchoolClasses/load.ctp:12
+msgid "De demoklas kan niet aangepast of verwijderd worden"
+msgstr ""
+
+#: View/SchoolClasses/load_managers.ctp:4
+#: View/SchoolClasses/load_mentors.ctp:4
+#: View/SchoolClasses/load_students.ctp:4
+#: View/TeacherClasses/load_students.ctp:4
+msgid "Emailadres"
+msgstr ""
+
+#: View/SchoolClasses/load_managers.ctp:42
+msgid "Nieuwe toevoegen"
+msgstr ""
+
+#: View/SchoolClasses/load_managers.ctp:46
+#: View/SchoolClasses/load_mentors.ctp:45
+#: View/SchoolClasses/load_students.ctp:45
+msgid "Bestaande koppelen"
+msgstr ""
+
+#: View/SchoolClasses/load_students.ctp:42
+msgid "Student toevoegen"
+msgstr ""
+
+#: View/SchoolClasses/load_teachers.ctp:4
+msgid "Docent toevoegen"
+msgstr ""
+
+#: View/SchoolClasses/view.ctp:36
+#: View/TestTakes/participant_info.ctp:16;22
+#: View/TestTakes/view_rated.ctp:156
+#: View/Users/view_student.ctp:40;43
+msgid "Nee"
+msgstr ""
+
+#: View/SchoolClasses/view.ctp:49
+msgid "Gerelateerd"
+msgstr ""
+
+#: View/SchoolClasses/view.ctp:56
+msgid "Mentor(en)"
+msgstr ""
+
+#: View/SchoolClasses/view.ctp:59
+msgid "Teamleiders / coördinators"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:33
+#: View/SchoolLocations/edit.ctp:33
+#: View/SchoolLocations/view.ctp:29
+#: View/Schools/add.ctp:21
+#: View/Schools/edit.ctp:22
+#: View/Schools/view.ctp:30
+#: View/UmbrellaOrganisations/add.ctp:14
+#: View/UmbrellaOrganisations/edit.ctp:14
+#: View/UmbrellaOrganisations/view.ctp:28
+#: View/Users/add_accountmanagers.ctp:1
+#: View/Users/edit_accountmanagers.ctp:1
+msgid "Accountmanager"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:39
+#: View/SchoolLocations/edit.ctp:39
+msgid "Cijfermodel"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:46
+#: View/SchoolLocations/edit.ctp:46
+msgid "Contact actief"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:49
+#: View/SchoolLocations/edit.ctp:49
+msgid "Contract is actief"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:52
+#: View/SchoolLocations/edit.ctp:52
+msgid "Aantal Studenten"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:58
+#: View/SchoolLocations/edit.ctp:58
+msgid "Aantal docenten"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:66
+#: View/SchoolLocations/edit.ctp:66
+#: View/SchoolLocations/view.ctp:83
+#: View/Schools/add.ctp:35
+#: View/Schools/edit.ctp:35
+#: View/Schools/view.ctp:79
+#: View/UmbrellaOrganisations/add.ctp:28
+#: View/UmbrellaOrganisations/edit.ctp:30
+#: View/UmbrellaOrganisations/view.ctp:63
+msgid "Brin code"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:70
+#: View/SchoolLocations/edit.ctp:70
+#: View/SchoolLocations/view.ctp:86
+msgid "Locatie brin code"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:75
+#: View/SchoolLocations/edit.ctp:76
+msgid "Is rtti school location"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:78
+#: View/SchoolLocations/edit.ctp:80
+msgid "Is RTTI school"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:83
+#: View/SchoolLocations/edit.ctp:84
+msgid "Open source content creator"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:87
+#: View/SchoolLocations/edit.ctp:88
+msgid "Mag open source content bekijken"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:94
+#: View/SchoolLocations/edit.ctp:95
+#: View/Schools/add.ctp:42
+#: View/Schools/edit.ctp:41
+#: View/UmbrellaOrganisations/add.ctp:35
+#: View/UmbrellaOrganisations/edit.ctp:38
+msgid "Vestigingsadres"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:95
+#: View/SchoolLocations/edit.ctp:96
+#: View/SchoolLocations/view.ctp:41
+#: View/Schools/add.ctp:43
+#: View/Schools/edit.ctp:42
+#: View/Schools/view.ctp:42
+#: View/UmbrellaOrganisations/add.ctp:36
+#: View/UmbrellaOrganisations/edit.ctp:39
+#: View/UmbrellaOrganisations/view.ctp:40
+msgid "Factuuradres"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:96
+#: View/SchoolLocations/edit.ctp:97
+#: View/SchoolLocations/view.ctp:35
+#: View/Schools/view.ctp:36
+#: View/UmbrellaOrganisations/view.ctp:34
+msgid "Bezoekadres"
+msgstr ""
+
+#: View/SchoolLocations/add.ctp:160
+#: View/Schools/add.ctp:101
+msgid "School aangemaakt"
+msgstr ""
+
+#: View/SchoolLocations/add_ip.ctp:1
+msgid "IP toevoegen"
+msgstr ""
+
+#: View/SchoolLocations/add_ip.ctp:7
+msgid "Ip"
+msgstr ""
+
+#: View/SchoolLocations/add_ip.ctp:15
+#: View/SchoolLocations/view.ctp:299
+msgid "Netmask"
+msgstr ""
+
+#: View/SchoolLocations/add_ip.ctp:39
+msgid "IP toegevoegd"
+msgstr ""
+
+#: View/SchoolLocations/add_ip.ctp:43
+msgid "IP kon niet worden aangemaakt"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:1
+#: View/SchoolLocations/edit_licence.ctp:1
+msgid "Licentiepakket"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:7
+#: View/SchoolLocations/edit_licence.ctp:7
+#: View/SchoolLocations/index.ctp:22
+#: View/Schools/index.ctp:22
+msgid "Licenties"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:15
+#: View/SchoolLocations/edit_licence.ctp:15
+#: View/SchoolLocations/view.ctp:166
+msgid "Startdatum"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:23
+#: View/SchoolLocations/edit_licence.ctp:23
+#: View/SchoolLocations/view.ctp:167
+msgid "Einddatum"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:52
+#: View/SchoolLocations/edit_licence.ctp:52
+msgid "Licentiepakket aangemaakt"
+msgstr ""
+
+#: View/SchoolLocations/add_licence.ctp:56
+msgid "Licentiepakket kon niet worden aangemaakt. Controleer of u alle velden correct heeft ingevuld."
+msgstr ""
+
+#: View/SchoolLocations/edit.ctp:164
+msgid "School gemeenschap aanpassen verwijderd de RTTI code"
+msgstr ""
+
+#: View/SchoolLocations/edit.ctp:181
+#: View/Schools/edit.ctp:102
+msgid "School gewijzigd"
+msgstr ""
+
+#: View/SchoolLocations/edit_licence.ctp:56
+msgid "Licentiepakket kon niet worden aangemaakt"
+msgstr ""
+
+#: View/SchoolLocations/index.ctp:5
+msgid "Nieuwe schoollocatie"
+msgstr ""
+
+#: View/SchoolLocations/index.ctp:20
+msgid "Gemeenschap"
+msgstr ""
+
+#: View/SchoolLocations/index.ctp:23
+#: View/Schools/index.ctp:23
+#: View/UmbrellaOrganisations/index.ctp:22
+msgid "Geactiveerd"
+msgstr ""
+
+#: View/SchoolLocations/index.ctp:24
+#: View/SchoolLocations/view.ctp:51
+#: View/Schools/index.ctp:24
+#: View/Schools/view.ctp:52
+#: View/UmbrellaOrganisations/view.ctp:50
+msgid "Vraagitems"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:57
+#: View/Schools/view.ctp:58
+#: View/UmbrellaOrganisations/view.ctp:56
+msgid "Actieve docenten"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:61
+#: View/Schools/view.ctp:74
+#: View/UmbrellaOrganisations/view.ctp:60
+#: View/Users/view_accountmanager.ctp:35
+msgid "Actieve licenties"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:74
+#: View/Schools/view.ctp:69
+msgid "Geen, dit is de eindklant"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:79
+#: View/Schools/view.ctp:81
+msgid "Voorlees licenties"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:90
+msgid "InBrowser toetsen toestaan"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:92
+msgid "ja"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:92
+msgid "nee"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:97
+msgid "Ontnemen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:101
+msgid "Toestaan"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:153
+msgid "Schoolbeheerder toevoegen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:160
+msgid "Licentiepakketten"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:168
+msgid "Aantal"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:197
+msgid "Licentiepakket toevoegen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:204
+#: View/Schools/view.ctp:170
+#: View/UmbrellaOrganisations/view.ctp:101
+msgid "Contactpersonen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:252
+#: View/Schools/view.ctp:218
+#: View/UmbrellaOrganisations/view.ctp:149
+msgid "Telefoon"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:256
+#: View/Schools/view.ctp:222
+#: View/UmbrellaOrganisations/view.ctp:153
+msgid "Mobiel"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:287
+#: View/Schools/view.ctp:247
+#: View/UmbrellaOrganisations/view.ctp:178
+msgid "Contactpersoon toevoegen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:294
+msgid "IP-adressen"
+msgstr ""
+
+#: View/SchoolLocations/view.ctp:324
+msgid "Ip toevoegen"
+msgstr ""
+
+#: View/SchoolYears/add.ctp:14
+#: View/SchoolYears/edit.ctp:15
+#: View/Sections/add.ctp:14
+#: View/Sections/edit.ctp:14
+msgid "Locaties"
+msgstr ""
+
+#: View/SchoolYears/add.ctp:44
+msgid "Schooljaar aangemaakt"
+msgstr ""
+
+#: View/SchoolYears/add.ctp:48
+#: View/SchoolYears/edit.ctp:48
+msgid "SchoolYear kon niet worden aangemaakt"
+msgstr ""
+
+#: View/SchoolYears/add_period.ctp:15
+#: View/SchoolYears/edit_period.ctp:15
+#: View/SchoolYears/view.ctp:26
+msgid "Datum van"
+msgstr ""
+
+#: View/SchoolYears/add_period.ctp:23
+#: View/SchoolYears/edit_period.ctp:23
+#: View/SchoolYears/view.ctp:27
+msgid "Datum tot"
+msgstr ""
+
+#: View/SchoolYears/add_period.ctp:47
+msgid "Periode aangemaakt"
+msgstr ""
+
+#: View/SchoolYears/add_period.ctp:52
+#: View/SchoolYears/edit_period.ctp:52
+msgid "\"Datum van\" moet een datum voor \"Datum tot\" zijn."
+msgstr ""
+
+#: View/SchoolYears/add_period.ctp:54
+msgid "Deze data overlapt met andere periode's"
+msgstr ""
+
+#: View/SchoolYears/edit.ctp:44
+msgid "SchoolYear gewijzigd"
+msgstr ""
+
+#: View/SchoolYears/edit_period.ctp:47
+msgid "Periode gewijzigd"
+msgstr ""
+
+#: View/SchoolYears/edit_period.ctp:54
+msgid "Periode kon niet worden gewijzigd"
+msgstr ""
+
+#: View/SchoolYears/index.ctp:4
+msgid "Nieuwe Schooljaar"
+msgstr ""
+
+#: View/SchoolYears/view.ctp:20
+msgid "Periodes"
+msgstr ""
+
+#: View/SchoolYears/view.ctp:64
+msgid "Nieuwe periode"
+msgstr ""
+
+#: View/Schools/add.ctp:13
+#: View/Schools/edit.ctp:14
+#: View/Schools/index.ctp:20
+#: View/UmbrellaOrganisations/index.ctp:19
+msgid "Organisatie"
+msgstr ""
+
+#: View/Schools/edit.ctp:1
+msgid "Schoolgemeenschap"
+msgstr ""
+
+#: View/Schools/index.ctp:5
+msgid "Nieuwe school"
+msgstr ""
+
+#: View/Schools/index.ctp:10;13
+#: View/UmbrellaOrganisations/view.ctp:71
+msgid "Scholengemeenschappen"
+msgstr ""
+
+#: View/Schools/index.ctp:18
+#: View/UmbrellaOrganisations/index.ctp:18
+msgid "Klantnummer"
+msgstr ""
+
+#: View/Schools/view.ctp:62
+#: View/UmbrellaOrganisations/add.ctp:1
+#: View/UmbrellaOrganisations/edit.ctp:1
+msgid "Koepelorganisatie"
+msgstr ""
+
+#: View/Sections/add.ctp:1
+#: View/Sections/edit.ctp:1
+#: View/Sections/index.ctp:16
+#: View/SharedSections/index.ctp:15
+msgid "Sectie"
+msgstr ""
+
+#: View/Sections/add.ctp:37
+msgid "Sectie aangemaakt"
+msgstr ""
+
+#: View/Sections/add.ctp:41
+#: View/Sections/edit.ctp:47
+msgid "Sectie kon niet worden aangemaakt"
+msgstr ""
+
+#: View/Sections/add_school_location.ctp:29
+msgid "School locatie gekoppeld"
+msgstr ""
+
+#: View/Sections/add_school_location.ctp:33
+msgid "Het koppelen is mislukt, probeer het nogmaals"
+msgstr ""
+
+#: View/Sections/add_subject.ctp:22
+#: View/Sections/edit_subject.ctp:22
+#: View/Sections/view.ctp:28
+msgid "Categorie"
+msgstr ""
+
+#: View/Sections/add_subject.ctp:45
+msgid "Vak aangemaakt"
+msgstr ""
+
+#: View/Sections/add_subject.ctp:49
+msgid "Vak kon niet worden aangemaakt"
+msgstr ""
+
+#: View/Sections/edit.ctp:43
+msgid "Sectie gewijzigd"
+msgstr ""
+
+#: View/Sections/edit_subject.ctp:45
+msgid "Vak gewijzigd"
+msgstr ""
+
+#: View/Sections/edit_subject.ctp:49
+msgid "Vak kon niet worden gewijzigd"
+msgstr ""
+
+#: View/Sections/index.ctp:4
+msgid "Nieuwe Sectie"
+msgstr ""
+
+#: View/Sections/view.ctp:22
+msgid "Vakken"
+msgstr ""
+
+#: View/Sections/view.ctp:65
+msgid "Nieuw vak"
+msgstr ""
+
+#: View/Sections/view.ctp:76
+msgid "Docenten gekoppeld"
+msgstr ""
+
+#: View/Sections/view.ctp:107
+msgid "Sectie gedeeld met"
+msgstr ""
+
+#: View/Sections/view.ctp:112
+msgid "School locatie naam"
+msgstr ""
+
+#: View/Sections/view.ctp:137
+msgid "Nieuwe schoollocatie toevoegen"
+msgstr ""
+
+#: View/Sections/view.ctp:155
+msgid "Weet u zeker dat u deze school locatie wilt ontkoppelen?"
+msgstr ""
+
+#: View/Sections/view.ctp:161
+msgid "De school locatie is ontkoppeld"
+msgstr ""
+
+#: View/SharedSections/duplicate.ctp:2
+#: View/SharedSectionsTests/duplicate.ctp:2
+msgid "Toets dupliceren"
+msgstr ""
+
+#: View/SharedSections/duplicate.ctp:8
+#: View/SharedSectionsTests/duplicate.ctp:8
+msgid "Huidige naam"
+msgstr ""
+
+#: View/SharedSections/duplicate.ctp:17
+#: View/SharedSectionsTests/duplicate.ctp:17
+msgid "Nieuwe naam"
+msgstr ""
+
+#: View/SharedSections/duplicate.ctp:40
+#: View/SharedSections/load.ctp:29
+#: View/SharedSectionsTests/duplicate.ctp:40
+#: View/SharedSectionsTests/load.ctp:29
+#: View/Tests/load.ctp:56
+msgid "Dupliceren"
+msgstr ""
+
+#: View/SharedSections/duplicate.ctp:50
+#: View/SharedSectionsTests/duplicate.ctp:50
+msgid "De toets is gedupliceerd"
+msgstr ""
+
+#: View/SharedSectionsTests/index.ctp:69
+msgid "Toetsitems andere schoollocaties binnen uw scholengemeenschap"
+msgstr ""
+
+#: View/SharedSectionsTests/index.ctp:112
+#: View/TestTakes/select_test.ctp:7
+#: View/Tests/index.ctp:136
+msgid "Afk"
+msgstr ""
+
+#: View/TeacherClasses/index.ctp:8
+msgid "Aangeboden bestanden"
+msgstr ""
+
+#: View/TeacherClasses/view.ctp:17
+msgid "Vak(ken)"
+msgstr ""
+
+#: View/TestTakes/add.ctp:1
+msgid "Toets plannen"
+msgstr ""
+
+#: View/TestTakes/add.ctp:8
+#: View/TestTakes/add_retake.ctp:36
+#: View/TestTakes/edit.ctp:44
+#: View/TestTakes/planned_student.ctp:11
+#: View/TestTakes/rated.ctp:118
+#: View/TestTakes/to_rate.ctp:121
+#: View/TestTakes/view_planned.ctp:94
+msgid "Surveillanten"
+msgstr ""
+
+#: View/TestTakes/add.ctp:76
+#: View/TestTakes/edit.ctp:61
+msgid "Is RTTI"
+msgstr ""
+
+#: View/TestTakes/add.ctp:84
+#: View/TestTakes/view_planned.ctp:77
+msgid "Notities voor surveillant"
+msgstr ""
+
+#: View/TestTakes/add.ctp:97
+msgid "Extra toets plannen"
+msgstr ""
+
+#: View/TestTakes/add.ctp:106
+msgid "Toetsen plannen"
+msgstr ""
+
+#: View/TestTakes/add.ctp:121
+#: View/TestTakes/edit.ctp:90
+msgid "Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?"
+msgstr ""
+
+#: View/TestTakes/add.ctp:124
+#: View/TestTakes/edit.ctp:93
+msgid "Toetsen zijn ingepland"
+msgstr ""
+
+#: View/TestTakes/add_class_participants.ctp:1
+#: View/TestTakes/add_participants.ctp:1
+#: View/TestTakes/load_participants.ctp:37
+msgid "Studenten toevoegen"
+msgstr ""
+
+#: View/TestTakes/add_class_participants.ctp:10
+msgid "Selecteer alle"
+msgstr ""
+
+#: View/TestTakes/add_class_participants.ctp:11
+msgid "De-selecteer alle"
+msgstr ""
+
+#: View/TestTakes/add_class_participants.ctp:42
+msgid "Geselecteerde toevoegen"
+msgstr ""
+
+#: View/TestTakes/add_participants.ctp:20
+msgid "Voeg klas toe"
+msgstr ""
+
+#: View/TestTakes/add_participants.ctp:24
+msgid "Selecteer Studenten"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:16
+msgid "Plannen"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:20
+msgid "Inhaaltoets plannen"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:25
+msgid "Inhaal-toets maken"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:44
+msgid "Inhaaltoets van"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:51
+#: View/TestTakes/set_final_rates.ctp:41
+#: View/TestTakes/view_discussed.ctp:82
+#: View/TestTakes/view_planned.ctp:44
+#: View/TestTakes/view_rated.ctp:88
+msgid "Inhaal toets"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:59
+msgid "Surveillant notities"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:84
+msgid "Gemaakt"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:119
+msgid "Inhaaltoets gepland"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:123
+msgid "Selecteer minimaal 1 surveillant"
+msgstr ""
+
+#: View/TestTakes/add_retake.ctp:125
+msgid "Er ging iets mis"
+msgstr ""
+
+#: View/TestTakes/answers_preview.ctp:1
+#: View/Tests/pdf_attachment_select.ctp:16
+#: View/Tests/pdf_preview.ctp:1
+#: View/Tests/pdf_preview_attchment.ctp:1
+#: View/Tests/pdfatt.ctp:1
+msgid "Toets in PDF"
+msgstr ""
+
+#: View/TestTakes/discussed_glance.ctp:1;4
+msgid "Toetsen inzien"
+msgstr ""
+
+#: View/TestTakes/discussed_glance.ctp:10
+msgid "Notities surveillant"
+msgstr ""
+
+#: View/TestTakes/discussed_glance.ctp:11
+#: View/TestTakes/planned_student.ctp:14
+#: View/TestTakes/select_test_retake.ctp:9
+#: View/TestTakes/taken_student.ctp:11
+msgid "Afname-datum"
+msgstr ""
+
+#: View/TestTakes/discussed_glance.ctp:12
+msgid "Inzien tot"
+msgstr ""
+
+#: View/TestTakes/discussion.ctp:4
+#: View/TestTakes/view_taken.ctp:9
+msgid "Toets bespreken"
+msgstr ""
+
+#: View/TestTakes/discussion.ctp:6
+msgid "Er is geen toets om te bespreken."
+msgstr ""
+
+#: View/TestTakes/discussion.ctp:13
+msgid "Bespreking beéindigen"
+msgstr ""
+
+#: View/TestTakes/discussion.ctp:19
+#: View/TestTakes/start_discussion_popup.ctp:14
+#: View/Tests/test.ctp:1
+#: View/Tests/test2.ctp:7
+msgid "Bespreken"
+msgstr ""
+
+#: View/TestTakes/discussion.ctp:39
+#: View/TestTakes/glance.ctp:83
+#: View/TestTakes/rate_teacher_question.ctp:35
+#: View/TestTakes/rate_teacher_random.ctp:19
+msgid "Antwoordmodel"
+msgstr ""
+
+#: View/TestTakes/discussion_participants.ctp:2
+msgid "Reset antwoordmodel"
+msgstr ""
+
+#: View/TestTakes/edit.ctp:12;75
+msgid "Geplande toets wijzigen"
+msgstr ""
+
+#: View/TestTakes/edit.ctp:52
+msgid "Instructies"
+msgstr ""
+
+#: View/TestTakes/events.ctp:2
+msgid "Gebeurtenissen"
+msgstr ""
+
+#: View/TestTakes/events.ctp:7
+msgid "Gebeurtenis"
+msgstr ""
+
+#: View/TestTakes/events.ctp:8
+#: View/TestTakes/surveillance_test_overview.ctp:6
+msgid "Tijd"
+msgstr ""
+
+#: View/TestTakes/glance.ctp:68
+msgid "SCORE"
+msgstr ""
+
+#: View/TestTakes/glance.ctp:90
+msgid "Jouw antwoord"
+msgstr ""
+
+#: View/TestTakes/load_planned_student.ctp:28
+#: View/TestTakes/load_planned_teacher.ctp:27
+#: View/TestTakes/load_rated.ctp:39
+#: View/TestTakes/load_rated_student.ctp:20
+#: View/TestTakes/load_taken_student.ctp:15
+#: View/TestTakes/load_taken_teacher.ctp:38
+#: View/TestTakes/load_to_rate.ctp:39
+#: View/TestTakes/widget_planned.ctp:31
+msgid "Standaard"
+msgstr ""
+
+#: View/TestTakes/load_planned_student.ctp:32
+#: View/TestTakes/load_planned_teacher.ctp:31
+#: View/TestTakes/load_rated.ctp:43
+#: View/TestTakes/load_rated_student.ctp:24
+#: View/TestTakes/load_taken_student.ctp:19
+#: View/TestTakes/load_taken_teacher.ctp:42
+#: View/TestTakes/load_to_rate.ctp:43
+#: View/TestTakes/widget_planned.ctp:35
+msgid "Inhaaltoets"
+msgstr ""
+
+#: View/TestTakes/load_planned_student.ctp:41;45
+msgid "Toets maken"
+msgstr ""
+
+#: View/TestTakes/load_planned_teacher.ctp:54
+msgid "Nu afnemen"
+msgstr ""
+
+#: View/TestTakes/load_planned_teacher.ctp:59
+msgid "Exporteren / Printen"
+msgstr ""
+
+#: View/TestTakes/load_rated.ctp:62
+#: View/TestTakes/load_taken_teacher.ctp:78
+#: View/TestTakes/load_to_rate.ctp:62
+msgid "Openen"
+msgstr ""
+
+#: View/TestTakes/load_rated.ctp:66
+#: View/TestTakes/load_taken_teacher.ctp:90
+#: View/TestTakes/load_to_rate.ctp:66
+msgid "Archiveren"
+msgstr ""
+
+#: View/TestTakes/load_rated.ctp:71
+#: View/TestTakes/load_taken_teacher.ctp:95
+#: View/TestTakes/load_to_rate.ctp:71
+msgid "Dearchiveer"
+msgstr ""
+
+#: View/TestTakes/load_taken_teacher.ctp:82
+msgid "Antwoorden PDF"
+msgstr ""
+
+#: View/TestTakes/load_taken_teacher.ctp:86
+#: View/TestTakes/view_taken.ctp:13
+msgid "Meteen naar nakijken"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:5;10
+msgid "Normering opslaan"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:19
+#: View/TestTakes/view_discussed.ctp:42
+#: View/TestTakes/view_rated.ctp:19
+msgid "Normeren"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:29;46
+#: View/TestTakes/set_final_rates.ctp:22
+#: View/TestTakes/view_rated.ctp:69
+msgid "Normering"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:35
+msgid "Er zijn geen punten om mee te rekenen. Daarom is het niet mogelijk een normering te kiezen."
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:52;54
+msgid "Goed per punt"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:62;64
+msgid "Fouten per punt"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:72
+msgid "Normeren o.b.v. gemiddeld cijfer"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:74
+msgid "Gemiddeld cijfer"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:82
+msgid "Normeren o.b.v. n-term"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:85;97
+msgid "N-term:"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:94
+msgid "Normeren o.b.v. cesuur"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:103
+msgid "Cesuur:"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:126
+msgid "Beoordelingen"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:127
+msgid "Gem. score"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:128
+msgid "Max score"
+msgstr ""
+
+#: View/TestTakes/normalization.ctp:129
+#: View/TestTakes/start_discussion_popup.ctp:11
+msgid "Overslaan"
+msgstr ""
+
+#: View/TestTakes/normalization_preview.ctp:36
+msgid "Gemiddelde"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:14
+msgid "Tijdsdispensatie"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:20
+msgid "Tekst-naar-spraak"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:26
+msgid "Vragen beantwoord"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:52
+#: View/TestTakes/rated_info.ctp:27
+msgid "Tijd per vraag"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:71
+msgid "Huidige vraag"
+msgstr ""
+
+#: View/TestTakes/participant_info.ctp:119
+msgid "Notities opslaan"
+msgstr ""
+
+#: View/TestTakes/planned_student.ctp:12
+#: View/TestTakes/planned_teacher.ctp:115
+#: View/TestTakes/select_test_retake.ctp:8
+#: View/TestTakes/taken_teacher.ctp:121
+#: View/TestTakes/to_rate.ctp:123
+msgid "Ingepland door"
+msgstr ""
+
+#: View/TestTakes/planned_teacher.ctp:11
+msgid "Toetsen afnemen"
+msgstr ""
+
+#: View/TestTakes/planned_teacher.ctp:41;143
+#: View/TestTakes/rated.ctp:32;142
+#: View/TestTakes/taken_teacher.ctp:33;142
+#: View/TestTakes/to_rate.ctp:33;157
+msgid "Gepland van"
+msgstr ""
+
+#: View/TestTakes/planned_teacher.ctp:46;144
+#: View/TestTakes/rated.ctp:36;143
+#: View/TestTakes/taken_teacher.ctp:37;143
+#: View/TestTakes/to_rate.ctp:37;158
+msgid "Gepland tot"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_participant.ctp:42
+#: View/TestTakes/rate_teacher_question.ctp:40
+msgid "Alle antwoorden weergeven"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_participant.ctp:51
+#: View/TestTakes/rate_teacher_participant_answer.ctp:2
+#: View/TestTakes/take_answer_overview.ctp:43
+#: View/TestTakes/view_results.ctp:17
+msgid "voorbeeld"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_participant.ctp:53;60;69;76
+#: View/TestTakes/rate_teacher_participant_answer.ctp:4;11;20;27
+#: View/TestTakes/rate_teacher_question.ctp:62
+#: View/TestTakes/rate_teacher_random.ctp:30
+#: View/TestTakes/take_answer_overview.ctp:45;52
+#: View/TestTakes/view_results.ctp:19;28;35
+msgid "Laden.."
+msgstr ""
+
+#: View/TestTakes/rate_teacher_participant.ctp:58
+#: View/TestTakes/rate_teacher_participant_answer.ctp:9
+msgid "antwoordmodel"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_participant.ctp:107
+msgid "Volgende"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_question.ctp:57
+msgid "Student antwoord"
+msgstr ""
+
+#: View/TestTakes/rate_teacher_score.ctp:6
+msgid "Notitie inzien"
+msgstr ""
+
+#: View/TestTakes/rated.ctp:42;144
+#: View/TestTakes/taken_teacher.ctp:43;144
+#: View/TestTakes/to_rate.ctp:43;159
+msgid "Gearchiveerd"
+msgstr ""
+
+#: View/TestTakes/rated.ctp:120
+#: View/TestTakes/set_final_rates.ctp:44
+#: View/TestTakes/view_rated.ctp:91
+msgid "Vakdocent"
+msgstr ""
+
+#: View/TestTakes/rated.ctp:125
+#: View/TestTakes/to_rate.ctp:128
+msgid "Aanwezig"
+msgstr ""
+
+#: View/TestTakes/rated.ctp:126
+#: View/TestTakes/to_rate.ctp:129
+msgid "Afwezig"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:10
+msgid "Geen informatie voor deze Student"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:15
+msgid "Cijfer voor deze toets"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:19
+msgid "Cijfer voor dit vak"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:23
+msgid "Tijd totaal"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:38
+msgid "Duurde het langst"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:46
+msgid "Geen notities"
+msgstr ""
+
+#: View/TestTakes/rated_info.ctp:60
+msgid "Toets bekijken"
+msgstr ""
+
+#: View/TestTakes/rated_student.ctp:1;4
+msgid "Becijferde toetsen"
+msgstr ""
+
+#: View/TestTakes/rtti_exported.ctp:13
+msgid "RTTI is verstuurd. U kunt dit venster sluiten."
+msgstr ""
+
+#: View/TestTakes/rtti_exported.ctp:22
+msgid "Los eerst bovenstaande fouten op voor dat de toets geexporteerd kan worden naar RTTI"
+msgstr ""
+
+#: View/TestTakes/select_test.ctp:1
+msgid "Selecteer toets"
+msgstr ""
+
+#: View/TestTakes/select_test_retake.ctp:1
+msgid "Selecteer geplande toets"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:4
+msgid "Becijferd markeren"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:12;71
+#: View/TestTakes/view_discussed.ctp:54
+#: View/TestTakes/view_rated.ctp:24
+msgid "Becijferen"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:20
+#: View/TestTakes/view_discussed.ctp:79
+#: View/TestTakes/view_planned.ctp:41
+#: View/TestTakes/view_rated.ctp:67
+#: View/TestTakes/view_taken.ctp:32
+msgid "Gepland"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:41
+#: View/TestTakes/view_planned.ctp:32
+#: View/TestTakes/view_rated.ctp:88
+msgid "Geplande toets"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:56
+#: View/TestTakes/surveillance.ctp:31
+#: View/TestTakes/view_discussed.ctp:100
+#: View/TestTakes/view_planned.ctp:62
+#: View/TestTakes/view_rated.ctp:103
+#: View/TestTakes/view_taken.ctp:53
+msgid "Klas(sen)"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:78
+msgid "Vorige beoordeling"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:80
+#: View/TestTakes/take_discuss.ctp:18
+msgid "Beoordeling"
+msgstr ""
+
+#: View/TestTakes/set_final_rates.ctp:81
+msgid "Aangepaste beoordeling"
+msgstr ""
+
+#: View/TestTakes/start_discussion_popup.ctp:2
+msgid "Bespreking starten"
+msgstr ""
+
+#: View/TestTakes/start_discussion_popup.ctp:7
+msgid "Wilt u de gesloten vragen overslaan of bespreken?"
+msgstr ""
+
+#: View/TestTakes/start_multiple.ctp:1
+msgid "Meerdere toets-afnames starten"
+msgstr ""
+
+#: View/TestTakes/start_multiple.ctp:33
+msgid "Normaal"
+msgstr ""
+
+#: View/TestTakes/start_multiple.ctp:33
+msgid "Inhalen"
+msgstr ""
+
+#: View/TestTakes/start_multiple.ctp:46
+msgid "Toetsen nu afnemen"
+msgstr ""
+
+#: View/TestTakes/start_rate_popup.ctp:2
+msgid "Nakijken starten"
+msgstr ""
+
+#: View/TestTakes/start_rate_popup.ctp:7
+msgid "Alles per vraag"
+msgstr ""
+
+#: View/TestTakes/start_rate_popup.ctp:10
+msgid "Alles per Student"
+msgstr ""
+
+#: View/TestTakes/start_rate_popup.ctp:13
+msgid "Steekproef"
+msgstr ""
+
+#: View/TestTakes/start_rate_popup.ctp:24
+msgid "Starten"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:5
+msgid "Surveillance"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:15
+msgid "Er zijn geen toetsen om te surveilleren"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:32
+#: View/TestTakes/surveillance_test_overview.ctp:5
+msgid "Voortgang"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:65
+msgid "Innemen"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:77
+msgid "Huidige tijd"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:96
+msgid "Voortgang Studenten"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:182
+msgid "Door de hoge serverbelasting wordt het surveillance scherm tijdelijk niet geupdate."
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:209
+msgid "U bent aan het surveilleren, weet u het zeker?"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:305
+msgid "Naar smartboard weergave"
+msgstr ""
+
+#: View/TestTakes/surveillance.ctp:308
+msgid "Naar surveillant weergave"
+msgstr ""
+
+#: View/TestTakes/surveillance_test_overview.ctp:9
+msgid "Klas ABC - Geschiedenis Toets 1"
+msgstr ""
+
+#: View/TestTakes/take_discuss.ctp:5
+msgid "Vraag beoordelen"
+msgstr ""
+
+#: View/TestTakes/take_discuss.ctp:13
+msgid "Beoordeling opslaan"
+msgstr ""
+
+#: View/TestTakes/take_discuss.ctp:68
+msgid "Je dient eerst een beoordeling te geven"
+msgstr ""
+
+#: View/TestTakes/take_discuss_waiting.ctp:9
+msgid "Bespreken is nog niet gestart, wacht op de docent.."
+msgstr ""
+
+#: View/TestTakes/take_discuss_waiting_next.ctp:2
+msgid "Moment geduld.."
+msgstr ""
+
+#: View/TestTakes/take_discuss_waiting_next.ctp:9
+msgid "Wacht tot de docent de volgende vraag toont."
+msgstr ""
+
+#: View/TestTakes/take_discussed.ctp:2
+msgid "Bespreking is afgerond"
+msgstr ""
+
+#: View/TestTakes/take_discussed.ctp:5
+msgid "De bespreking is afgerond."
+msgstr ""
+
+#: View/TestTakes/take_planned.ctp:14
+msgid "Deze toets is nog niet gestart, wacht op de surveillant.."
+msgstr ""
+
+#: View/TestTakes/take_planned.ctp:19
+msgid "Toets starten"
+msgstr ""
+
+#: View/TestTakes/take_taken.ctp:2
+msgid "Toets is afgerond"
+msgstr ""
+
+#: View/TestTakes/take_taken.ctp:5
+msgid "Deze toets is afgerond en kan niet meer worden geopend."
+msgstr ""
+
+#: View/TestTakes/taken_student.ctp:1;4
+msgid "Te bespreken toetsen"
+msgstr ""
+
+#: View/TestTakes/to_rate.ctp:75
+msgid "Na te kijken"
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:2
+msgid "Inzien door Studenten"
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:6
+msgid "Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien."
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:10
+msgid " Mogelijkheid tot inzien activeren"
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:13
+msgid "Inzien mogelijk tot"
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:20
+msgid "Niet laten inzien"
+msgstr ""
+
+#: View/TestTakes/update_show_results.ctp:23
+msgid "Toepassen"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:27
+#: View/TestTakes/view_rated.ctp:29
+msgid "Dichtzetten"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:32
+#: View/TestTakes/view_rated.ctp:34
+msgid "Openzetten"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:48
+#: View/TestTakes/view_rated.ctp:45
+msgid "RTTI-Export"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:59
+#: View/TestTakes/view_planned.ctp:27
+#: View/TestTakes/view_rated.ctp:14
+#: View/TestTakes/view_taken.ctp:18
+msgid "Inhaal-toets plannen"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:70
+msgid "Na te kijken toets"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:82
+#: View/TestTakes/view_planned.ctp:44
+msgid "Normale toets"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:88
+#: View/TestTakes/view_planned.ctp:50
+#: View/TestTakes/view_taken.ctp:41
+msgid "Gepland door"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:109
+msgid "Laatste RTTI export"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:110
+msgid "Nog niet geëxporteerd"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:124
+msgid "Vragen na te kijken"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:125
+#: View/TestTakes/view_rated.ctp:123
+msgid "Score / Max"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:126
+#: View/TestTakes/view_rated.ctp:124
+msgid "Veroorzaakte discrepanties"
+msgstr ""
+
+#: View/TestTakes/view_discussed.ctp:185
+msgid "Toets met succes naar RTTI verzonden."
+msgstr ""
+
+#: View/TestTakes/view_planned.ctp:10
+msgid "Toets afnemen"
+msgstr ""
+
+#: View/TestTakes/view_planned.ctp:121
+msgid "Surveillanten wijzigen"
+msgstr ""
+
+#: View/TestTakes/view_rated.ctp:59
+msgid "Becijferde toets"
+msgstr ""
+
+#: View/TestTakes/view_rated.ctp:197
+msgid "Hoogste:"
+msgstr ""
+
+#: View/TestTakes/view_rated.ctp:197
+msgid "Laagste:"
+msgstr ""
+
+#: View/TestTakes/view_rated.ctp:203;216
+msgid "Boxplot"
+msgstr ""
+
+#: View/TestTakes/view_rated.ctp:218
+msgid "Niet voldoende gegevens"
+msgstr ""
+
+#: View/TestTakes/view_results.ctp:10
+msgid "Toets resultaten"
+msgstr ""
+
+#: View/TestTakes/view_taken.ctp:23
+msgid "Afgenomen toets"
+msgstr ""
+
+#: View/TestTakes/widget_planned.ctp:6
+msgid "Vandaag geen geplande toetsen"
+msgstr ""
+
+#: View/TestTakes/widget_planned.ctp:44;48
+msgid "Nu maken"
+msgstr ""
+
+#: View/TestTakes/widget_rated.ctp:6
+msgid "Er zijn nog geen cijfers bekend."
+msgstr ""
+
+#: View/Tests/add.ctp:1;123
+msgid "Toets aanmaken"
+msgstr ""
+
+#: View/Tests/add.ctp:17
+msgid "Er zijn nog geen vakken aan uw account gekoppeld, hierdoor kunt u geen toets aanmaken."
+msgstr ""
+
+#: View/Tests/add.ctp:37
+#: View/Tests/edit.ctp:26
+msgid "(max 5 karakters)"
+msgstr ""
+
+#: View/Tests/add.ctp:78
+#: View/Tests/edit.ctp:67
+msgid "Vragen shuffelen"
+msgstr ""
+
+#: View/Tests/add.ctp:82
+#: View/Tests/edit.ctp:71
+msgid "Shuffle vragen tijdens afname"
+msgstr ""
+
+#: View/Tests/add.ctp:89
+#: View/Tests/edit.ctp:77
+msgid "Open source toets"
+msgstr ""
+
+#: View/Tests/add.ctp:98
+#: View/Tests/edit.ctp:85
+msgid "Introductie-tekst"
+msgstr ""
+
+#: View/Tests/add.ctp:138
+msgid "Toets aangemaakt"
+msgstr ""
+
+#: View/Tests/add.ctp:146
+#: View/Tests/edit.ctp:119
+msgid "De gekozen titel is al in gebruik. Gebruik een unieke titel."
+msgstr ""
+
+#: View/Tests/add.ctp:148
+msgid "Toets kon niet worden aangemaakt"
+msgstr ""
+
+#: View/Tests/edit.ctp:1;104
+msgid "Toets wijzigen"
+msgstr ""
+
+#: View/Tests/edit.ctp:115
+msgid "Toets gewijzigd"
+msgstr ""
+
+#: View/Tests/edit.ctp:121
+msgid "Fout bij het wijzigen van de toets"
+msgstr ""
+
+#: View/Tests/index.ctp:9
+#: View/Users/welcome_teacher.ctp:297
+msgid "Toets construeren"
+msgstr ""
+
+#: View/Tests/index.ctp:18
+msgid "Titel (trefwoord)"
+msgstr ""
+
+#: View/Tests/index.ctp:92
+msgid "Toetsitems binnen uw schoollocatie"
+msgstr ""
+
+#: View/Tests/load.ctp:45
+msgid "Inplannen niet mogelijk"
+msgstr ""
+
+#: View/Tests/pdf.ctp:22
+msgid "Belangrijk"
+msgstr ""
+
+#: View/Tests/pdf.ctp:122
+msgid "Bijlages vraag"
+msgstr ""
+
+#: View/Tests/pdf_preview_attchment.ctp:6
+msgid "Selecteer de bijlages die u mee wilt printen."
+msgstr ""
+
+#: View/Tests/pdf_preview_attchment.ctp:22
+msgid "Print PDF"
+msgstr ""
+
+#: View/Tests/preview_popup.ctp:1
+msgid "Toets voorbeeld"
+msgstr ""
+
+#: View/Tests/test.ctp:11
+msgid "Beoordelen"
+msgstr ""
+
+#: View/Tests/test2.ctp:63
+msgid "Bij het destileren van wijn scheidt je de alcohol van het water. Geef met een cirkel aan waar de alcohol uitkomt."
+msgstr ""
+
+#: View/Tests/view.ctp:96
+msgid "én of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken."
+msgstr ""
+
+#: View/Tests/view.ctp:108
+msgid "Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden."
+msgstr ""
+
+#: View/Tests/view.ctp:117
+msgid "Besprk"
+msgstr ""
+
+#: View/UmbrellaOrganisations/add.ctp:80
+msgid "Organisatie aangemaakt"
+msgstr ""
+
+#: View/UmbrellaOrganisations/add.ctp:84
+msgid "Organisatie kon niet worden aangemaakt"
+msgstr ""
+
+#: View/UmbrellaOrganisations/edit.ctp:83
+msgid "Organisatie gewijzigd"
+msgstr ""
+
+#: View/UmbrellaOrganisations/index.ctp:5
+msgid "Nieuwe koepelorganisatie"
+msgstr ""
+
+#: View/UmbrellaOrganisations/index.ctp:20
+msgid "Eindklant"
+msgstr ""
+
+#: View/UmbrellaOrganisations/index.ctp:21
+msgid "Aantal licenties"
+msgstr ""
+
+#: View/UmbrellaOrganisations/index.ctp:23
+msgid "Vraagitems gecreëerd"
+msgstr ""
+
+#: View/Users/add_accountmanagers.ctp:7
+#: View/Users/edit_accountmanagers.ctp:7
+#: View/Users/index.ctp:108
+msgid "In dienst van"
+msgstr ""
+
+#: View/Users/add_accountmanagers.ctp:87
+msgid "Controleer of alle gegevens correct zijn."
+msgstr ""
+
+#: View/Users/add_existing_teachers.ctp:1
+msgid "Docenten van andere locaties toevoegen"
+msgstr ""
+
+#: View/Users/add_existing_teachers.ctp:55
+msgid "Stammnummer"
+msgstr ""
+
+#: View/Users/add_management.ctp:1
+#: View/Users/edit_management.ctp:1
+msgid "Directielid"
+msgstr ""
+
+#: View/Users/add_managers.ctp:7
+msgid "Scholengemeens"
+msgstr ""
+
+#: View/Users/add_parents.ctp:1
+#: View/Users/edit_parents.ctp:1
+msgid "Ouder"
+msgstr ""
+
+#: View/Users/add_parents.ctp:75
+#: View/Users/edit_parents.ctp:75
+msgid "Ouder aangemaakt"
+msgstr ""
+
+#: View/Users/add_parents.ctp:79
+#: View/Users/edit_parents.ctp:79
+msgid "Ouder kon niet worden aangemaakt"
+msgstr ""
+
+#: View/Users/add_students.ctp:23
+#: View/Users/edit_students.ctp:14
+#: View/Users/registereduix.ctp:55
+msgid "Geslacht"
+msgstr ""
+
+#: View/Users/add_students.ctp:54
+#: View/Users/edit_students.ctp:61
+msgid "Studentennummer"
+msgstr ""
+
+#: View/Users/add_students.ctp:62
+#: View/Users/edit_students.ctp:69
+#: View/Users/view_student.ctp:39
+msgid "Dyslexie"
+msgstr ""
+
+#: View/Users/add_students.ctp:135
+msgid "Studentnummer is al in gebruik"
+msgstr ""
+
+#: View/Users/add_students.ctp:137
+msgid "Het opgegeven e-mailadres is al in gebruik of onvolledig"
+msgstr ""
+
+#: View/Users/add_teachers.ctp:64
+#: View/Users/import.ctp:200
+msgid "Externe code"
+msgstr ""
+
+#: View/Users/add_teachers.ctp:106
+msgid "E-mailadres al in gebruik"
+msgstr ""
+
+#: View/Users/add_teachers.ctp:108
+msgid "U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt."
+msgstr ""
+
+#: View/Users/block_upload_when_in_test_school_modal.ctp:2
+msgid "Mededeling"
+msgstr ""
+
+#: View/Users/block_upload_when_in_test_school_modal.ctp:6
+msgid "Je kunt nog geen klassen en toetsen uploaden omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je je klassen en toetsen wel uploaden. We sturen je een bericht zodra we je gekoppeld hebben aan je school."
+msgstr ""
+
+#: View/Users/block_upload_when_in_test_school_modal.ctp:10
+#: View/Users/welcome_teacher.ctp:381;390
+msgid "Ok"
+msgstr ""
+
+#: View/Users/change_password_for_user.ctp:6
+msgid "Wijzig het wachtwoord van de gebruiker"
+msgstr ""
+
+#: View/Users/change_password_for_user.ctp:18
+msgid "Herhaal wachtwoord"
+msgstr ""
+
+#: View/Users/change_password_for_user.ctp:44
+#: View/Users/edit_accountmanagers.ctp:83
+#: View/Users/edit_students.ctp:123
+msgid "Gebruiker gewijzigd"
+msgstr ""
+
+#: View/Users/change_password_for_user.ctp:52
+msgid "Er is iets niet goed gegaan bij het wijzigen van de gegevens"
+msgstr ""
+
+#: View/Users/edit_managers.ctp:15
+msgid "Schoolgem"
+msgstr ""
+
+#: View/Users/edit_register_new_teacher.ctp:1
+msgid "Registratie voor Test-Correct.nl"
+msgstr ""
+
+#: View/Users/edit_register_new_teacher.ctp:22
+msgid "Account gewijzigd"
+msgstr ""
+
+#: View/Users/edit_register_new_teacher.ctp:31
+msgid "Gebruiker a kon niet worden Gewijzigd"
+msgstr ""
+
+#: View/Users/import.ctp:8
+msgid "Docenten import"
+msgstr ""
+
+#: View/Users/import.ctp:22
+msgid "Plak je excel data hier..."
+msgstr ""
+
+#: View/Users/import.ctp:29
+msgid "importeren"
+msgstr ""
+
+#: View/Users/import.ctp:191
+msgid " docenten importeren?"
+msgstr ""
+
+#: View/Users/import.ctp:202
+msgid "Koppeling klasnaam"
+msgstr ""
+
+#: View/Users/import.ctp:203
+msgid "Koppeling welk vak"
+msgstr ""
+
+#: View/Users/import.ctp:275
+msgid "De docenten zijn succesvol geimporteerd"
+msgstr ""
+
+#: View/Users/import.ctp:310
+msgid "<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>"
+msgstr ""
+
+#: View/Users/import.ctp:320
+msgid "De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)"
+msgstr ""
+
+#: View/Users/import.ctp:322
+msgid "De kolom ["
+msgstr ""
+
+#: View/Users/import.ctp:322
+msgid "] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood)."
+msgstr ""
+
+#: View/Users/index.ctp:4
+msgid "Verstuur welkomstmail"
+msgstr ""
+
+#: View/Users/index.ctp:13
+msgid "Bestaande docent koppelen"
+msgstr ""
+
+#: View/Users/index.ctp:29
+msgid "Importeren"
+msgstr ""
+
+#: View/Users/index.ctp:112
+#: View/Users/view_accountmanager.ctp:29
+msgid "Accounts"
+msgstr ""
+
+#: View/Users/index.ctp:113
+msgid "Licenties totaal"
+msgstr ""
+
+#: View/Users/index.ctp:114
+msgid "Licenties actief"
+msgstr ""
+
+#: View/Users/load_students.ctp:60
+#: View/Users/move.ctp:1;37
+#: View/Users/move_school_location.ctp:29
+msgid "Overplaatsen"
+msgstr ""
+
+#: View/Users/load_teachers.ctp:13
+msgid "Je kunt een demo gebruiker niet verwijderen"
+msgstr ""
+
+#: View/Users/load_teachers_for_school_location_switch.ctp:13
+msgid "Je kunt een demo gebruiker niet verplaatsen"
+msgstr ""
+
+#: View/Users/load_teachers_for_school_location_switch.ctp:40
+msgid "Niet geverifieerd"
+msgstr ""
+
+#: View/Users/load_teachers_for_school_location_switch.ctp:42
+msgid "Geverifieerd"
+msgstr ""
+
+#: View/Users/login.ctp:2
+#: View/Users/login_offline.ctp:2
+msgid "Inloggen op Test-Correct"
+msgstr ""
+
+#: View/Users/login.ctp:15
+msgid "Selenium Test is actief"
+msgstr ""
+
+#: View/Users/login.ctp:27
+msgid "Gebruikersnaam"
+msgstr ""
+
+#: View/Users/login.ctp:60
+msgid "Test login"
+msgstr ""
+
+#: View/Users/login.ctp:64;68
+#: View/Users/register_new_teacher_successful.ctp:14
+msgid "Inloggen"
+msgstr ""
+
+#: View/Users/login.ctp:72
+msgid "Wachtwoord vergeten"
+msgstr ""
+
+#: View/Users/login.ctp:111
+msgid "Selenium test is actief"
+msgstr ""
+
+#: View/Users/login.ctp:168
+msgid "Je bent ingelogd"
+msgstr ""
+
+#: View/Users/login_offline.ctp:9
+msgid "Wegens werkzaamheden op onze servers, is Test-Correct niet beschikbaar tot 25 augustus. Onze excuses voor het ongemak."
+msgstr ""
+
+#: View/Users/move.ctp:47
+#: View/Users/move_school_location.ctp:39
+msgid "Gebruiker overgeplaatst"
+msgstr ""
+
+#: View/Users/move_school_location.ctp:1
+msgid "Verplaats"
+msgstr ""
+
+#: View/Users/move_school_location.ctp:7
+msgid "Huidige schoollocatie"
+msgstr ""
+
+#: View/Users/move_school_location.ctp:43
+msgid "Gebruiker kon niet worden verplaatst, bevat de target school al een valide docentenaccount?"
+msgstr ""
+
+#: View/Users/password_reset.ctp:7
+msgid "Voormalig wachtwoord"
+msgstr ""
+
+#: View/Users/password_reset.ctp:23
+msgid "Herhaal nieuw wachtwoord"
+msgstr ""
+
+#: View/Users/password_reset.ctp:47
+msgid "Wachtwoord gewijzigd"
+msgstr ""
+
+#: View/Users/register_new_teacher.ctp:3
+msgid "We hebben nog wat gegevens van je nodig"
+msgstr ""
+
+#: View/Users/register_new_teacher.ctp:5
+msgid "Registreer voor Test-Correct"
+msgstr ""
+
+#: View/Users/register_new_teacher.ctp:27
+msgid "Je gegevens zijn opgeslagen"
+msgstr ""
+
+#: View/Users/register_new_teacher.ctp:93
+msgid "Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan"
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:1
+#: View/Users/registereduix.ctp:1
+msgid "Registreer voor Test-Correct.nl"
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:3
+msgid "Dank je wel voor je aanmelding!"
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:5
+msgid "We hebben jouw aanvraag ontvangen. Je ontvangt binnen enkele minuten een e-mail met inloggegevens voor Test-Correct. Hiermee kun je direct aan de slag in de demo-omgeving."
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:6
+msgid "Een welgemeend advies: begin bij de demo tour!"
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:8
+msgid "Wij gaan dan intussen je gegevens verifiëren. Dit is een noodzakelijke controle, voordat we je toegang geven tot de itembank van je school, waar je samen kunt werken met je vakcollega’s. We gaan na of je daadwerkelijk les geeft op de genoemde schoollocatie. Mocht het voor je gevoel te lang duren voordat je de welkomstmail met je inloggegevens ontvangt, neem dan contact op met ons via: support@test-correct.nl"
+msgstr ""
+
+#: View/Users/register_new_teacher_successful.ctp:10
+msgid "Heel veel plezier en succes met het gebruik van Test-Correct!"
+msgstr ""
+
+#: View/Users/registereduix.ctp:39
+msgid "Leerlingnummer"
+msgstr ""
+
+#: View/Users/registereduix.ctp:59
+msgid "Man"
+msgstr ""
+
+#: View/Users/registereduix.ctp:59
+msgid "Vrouw"
+msgstr ""
+
+#: View/Users/registereduix.ctp:73
+msgid "Wachtwoord herhaal"
+msgstr ""
+
+#: View/Users/registereduix.ctp:101
+msgid "Account aangemaakt"
+msgstr ""
+
+#: View/Users/reset_password.ctp:29
+msgid "Je wachtwoord kon niet worden gereset. Zorg ervoor dat het wachtwoord minimaal 6 karakters bevat."
+msgstr ""
+
+#: View/Users/reset_password.ctp:40
+msgid "Nieuw wachtwoord:"
+msgstr ""
+
+#: View/Users/reset_password.ctp:41
+msgid "Minimaal 6 karakters"
+msgstr ""
+
+#: View/Users/reset_password.ctp:43
+msgid "Wachtwoord resetten"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:20
+#: View/Users/welcome_teacher.ctp:72
+msgid "Nodig een collega uit!"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:22
+#: View/Users/tell_a_teacher_step_2.ctp:42
+#: View/Users/welcome_teacher.ctp:74
+msgid "Samen met je collega's kun je:"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:25
+#: View/Users/tell_a_teacher_step_2.ctp:45
+#: View/Users/welcome_teacher.ctp:80
+msgid "Overleggen over de voortgang van jouw studenten en ervaringen delen."
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:29
+#: View/Users/welcome_teacher.ctp:88
+msgid "Gebruikmaken van elkaars toetsen en toetsvragen."
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:39
+msgid "Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken."
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:47
+msgid "School e-mailadressen van jouw collega's"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:53
+msgid "Separeer meerdere e-mailadressen met komma's of puntkomma's."
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:60
+msgid "Geen e-mailadressen ingevuld."
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:65
+msgid "Stuur je liever zelf een e-mail? Deel een link:"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:87
+msgid "Bekijk"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:88
+msgid "e-mailvoorbeeld"
+msgstr ""
+
+#: View/Users/tell_a_teacher.ctp:124
+msgid "Link gekopieerd"
+msgstr ""
+
+#: View/Users/tell_a_teacher_complete.ctp:12
+msgid "We hebben een uitnodiging gestuurd naar jouw collega's!"
+msgstr ""
+
+#: View/Users/tell_a_teacher_complete.ctp:13
+msgid "Jouw collega's kunnen gratis een account aanmaken. Je ontvangt een bericht als een van hen zich heeft aangemeld."
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:32
+msgid "Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:39
+msgid "Je collega"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:39
+msgid "heeft"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:40
+msgid "je uitgenodigd voor Test-Correct"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:49
+msgid "Gebruikmaken van elkaars toetsen en toetsvragen"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:60
+msgid "Het bericht aan jouw collega's"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:71
+msgid "Maak"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:72
+msgid "jouw gratis account"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:79
+msgid "Terug naar"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:80
+msgid "e-mailadressen invullen"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:89
+msgid "Stuur"
+msgstr ""
+
+#: View/Users/tell_a_teacher_step_2.ctp:90
+msgid "uitnodiging"
+msgstr ""
+
+#: View/Users/view_accountmanager.ctp:33
+msgid "Hoeveelheid licenties"
+msgstr ""
+
+#: View/Users/view_accountmanager.ctp:39
+msgid "Verlopen licenties"
+msgstr ""
+
+#: View/Users/view_accountmanager.ctp:45
+msgid "Gebruikte licenties"
+msgstr ""
+
+#: View/Users/view_student.ctp:41
+msgid "Voorlees functionaliteit"
+msgstr ""
+
+#: View/Users/view_student.ctp:43
+msgid "Is toegekend"
+msgstr ""
+
+#: View/Users/view_student.ctp:44
+msgid "<br />maar is (tijdelijk) gedeactiveerd"
+msgstr ""
+
+#: View/Users/view_student.ctp:69
+msgid "Ouders"
+msgstr ""
+
+#: View/Users/view_student.ctp:115
+msgid "Ouder toevoegen"
+msgstr ""
+
+#: View/Users/view_teacher.ctp:31
+msgid "Vraag items"
+msgstr ""
+
+#: View/Users/view_teacher.ctp:35
+msgid "Toets items"
+msgstr ""
+
+#: View/Users/view_teacher.ctp:45
+msgid "Klassen en vakken"
+msgstr ""
+
+#: View/Users/welcome.ctp:1
+#: View/Users/welcome_student.ctp:1
+msgid "Welkom in Test-Correct"
+msgstr ""
+
+#: View/Users/welcome_student.ctp:11
+#: View/Users/welcome_student_update.ctp:31
+msgid "Laatste cijfers"
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:3
+#: View/Users/windows_update.ctp:3
+msgid "Let op! Je gebruikt een oude versie van Test-Correct."
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:4
+#: View/Users/windows_update.ctp:4
+msgid "Volg onderstaande stappen om je toets te kunnen maken. Schrijf deze stappen op of maak een foto zodat je ze dadelijk nog weet;"
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:7
+#: View/Users/windows_update.ctp:7
+msgid "Verwijder de huidige Windows App van Test-Correct"
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:8
+#: View/Users/windows_update.ctp:8
+msgid "Om er voor te zorgen dat de nieuwe app goed werkt moet de oude versie helemaal verwijderd zijn voordat je de nieuwe installatie uitvoert."
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:12
+msgid "Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jouw apparaat."
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:15
+#: View/Users/welcome_student_windows_update.ctp:13
+#: View/Users/windows_update.ctp:15
+msgid "Installeer de nieuwe app"
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:17
+#: View/Users/windows_update.ctp:17
+msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
+msgstr ""
+
+#: View/Users/welcome_student_update.ctp:18
+#: View/Users/windows_update.ctp:18
+msgid "Veel succes met je toets!"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:3
+msgid "Belangrijk: Nieuwe Windows app beschikbaar!"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:5
+msgid "Om toetsen te kunnen maken dien je de nieuwe versie van de app te installeren in een drietal stappen:"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:7
+msgid "Deinstalleer de huidige Windows App van Test-Correct"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:8
+msgid "Zonder het verwijderen van de oude app, kan de nieuwe app problemen geven bij het maken van de toetsen"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:11
+msgid "Download the nieuwe app"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:15
+msgid "Let op:"
+msgstr ""
+
+#: View/Users/welcome_student_windows_update.ctp:15
+msgid "Lukt het niet of loop je tegen problemen aan, laat het ons dan weten via mail: support@test-correct.nl of telefonisch via: 0107 171 171, we helpen je graag verder."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:9
+msgid "Verberg demo tour"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:26
+msgid "Let op! Je account is nog niet geverifieerd."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:29
+msgid "Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:31
+msgid "Stuur verificatiemail opnieuw"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:41
+msgid "Let op: je account is nog niet geactiveerd."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:44
+msgid "Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:45
+msgid "opgegeven"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:46
+msgid "data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:47
+msgid "Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel\n                        ons"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:49
+msgid "dan op"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:49
+msgid "om dit te versnellen."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:55
+msgid "Welkom op het Test-Correct platform!"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:55
+msgid "Februari update"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:59
+msgid "Vanaf donderdag 11 februari is onze nieuwe en verbeterde applicatie voor studenten beschikbaar in de Microsoft Store. Installatie vanuit de Microsoft Store maakt het voor leerlingen en studenten gemakkelijker om de app te installeren. Automatische updates zorgen er voor dat wij sneller verbeteringen kunnen doorvoeren. Dit maakt toetsen op afstand een stuk prettiger."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:62
+msgid "Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:96
+msgid "Nodig een collega uit"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:126;129
+msgid "Welkom"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:127
+msgid "we willen je graag snel op weg helpen binnen Test-Correct!"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:130
+msgid "gefeliciteerd je hebt de demo tour afgerond!"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:132
+msgid "Welkom terug"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:132
+msgid "Je bent goed bezig!"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:141
+msgid "Voortgang..."
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:186
+msgid "Klik hier als je alle stappen hebt gedaan"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:245
+msgid "Lees in kennisbank"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:261
+msgid "Bekijk de video"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:282
+msgid "Meteen naar:"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:291
+msgid "Te verwerken toetsen"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:379;388
+msgid "Waarschuwing"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:380
+msgid "U kunt deze stap pas afronden als de voorgaande stap is afgerond"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:389
+msgid "Doorloop eerst alle sub stappen"
+msgstr ""
+
+#: View/Users/welcome_teacher.ctp:580
+msgid "De verificatiemail is nogmaals naar je verstuurd"
+msgstr ""
+
+#: View/Users/windows_update.ctp:12
+msgid "Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jou apparaat."
+msgstr ""
+
+#: View/Video/popup.ctp:1
+msgid "Video popup"
+msgstr ""
+
+#: View/Errors/error400.ctp:19
+#: View/Errors/error500.ctp:19
+msgid "Error"
+msgstr ""
+
+#: View/Errors/error400.ctp:21
+msgid "The requested address %s was not found on this server."
+msgstr ""
+
+#: View/Errors/error500.ctp:20
+msgid "An Internal Error Has Occurred."
+msgstr ""
+
+#: View/Layouts/error.ctp:17
+msgid "CakePHP: the rapid development php framework"
+msgstr ""
+
+#: View/Pages/home.ctp:14
+msgid "Release Notes for CakePHP %s."
+msgstr ""
+
+#: View/Pages/home.ctp:16
+msgid "Read the changelog"
+msgstr ""
+
+#: View/Pages/home.ctp:25
+msgid "URL rewriting is not properly configured on your server."
+msgstr ""
+
+#: View/Pages/home.ctp:34
+msgid "Your version of PHP is 5.2.8 or higher."
+msgstr ""
+
+#: View/Pages/home.ctp:38
+msgid "Your version of PHP is too low. You need PHP 5.2.8 or higher to use CakePHP."
+msgstr ""
+
+#: View/Pages/home.ctp:47
+msgid "Your tmp directory is writable."
+msgstr ""
+
+#: View/Pages/home.ctp:51
+msgid "Your tmp directory is NOT writable."
+msgstr ""
+
+#: View/Pages/home.ctp:61
+msgid "The %s is being used for core caching. To change the config edit %s"
+msgstr ""
+
+#: View/Pages/home.ctp:65
+msgid "Your cache is NOT working. Please check the settings in %s"
+msgstr ""
+
+#: View/Pages/home.ctp:75
+msgid "Your database configuration file is present."
+msgstr ""
+
+#: View/Pages/home.ctp:80
+msgid "Your database configuration file is NOT present."
+msgstr ""
+
+#: View/Pages/home.ctp:82
+msgid "Rename %s to %s"
+msgstr ""
+
+#: View/Pages/home.ctp:107
+msgid "CakePHP is able to connect to the database."
+msgstr ""
+
+#: View/Pages/home.ctp:111
+msgid "CakePHP is NOT able to connect to the database."
+msgstr ""
+
+#: View/Pages/home.ctp:124
+msgid "PCRE has not been compiled with Unicode support."
+msgstr ""
+
+#: View/Pages/home.ctp:126
+msgid "Recompile PCRE with Unicode support by adding <code>--enable-unicode-properties</code> when configuring"
+msgstr ""
+
+#: View/Pages/home.ctp:135
+msgid "DebugKit plugin is present"
+msgstr ""
+
+#: View/Pages/home.ctp:139
+msgid "DebugKit is not installed. It will help you inspect and debug different aspects of your application."
+msgstr ""
+
+#: View/Pages/home.ctp:141
+msgid "You can install it from %s"
+msgstr ""
+
+#: View/Pages/home.ctp:147
+msgid "Editing this Page"
+msgstr ""
+
+#: View/Pages/home.ctp:150
+msgid "To change the content of this page, edit: %s.<br />\nTo change its layout, edit: %s.<br />\nYou can also add some CSS styles for your pages at: %s."
+msgstr ""
+
+#: View/Pages/home.ctp:157
+msgid "Getting Started"
+msgstr ""
+
+#: View/Pages/home.ctp:161
+msgid "New"
+msgstr ""
+
+#: View/Pages/home.ctp:161
+msgid "CakePHP 2.0 Docs"
+msgstr ""
+
+#: View/Pages/home.ctp:170
+msgid "The 15 min Blog Tutorial"
+msgstr ""
+
+#: View/Pages/home.ctp:177
+msgid "Official Plugins"
+msgstr ""
+
+#: View/Pages/home.ctp:182
+msgid "provides a debugging toolbar and enhanced debugging tools for CakePHP applications."
+msgstr ""
+
+#: View/Pages/home.ctp:186
+msgid "contains various localized validation classes and translations for specific countries"
+msgstr ""
+
+#: View/Pages/home.ctp:191
+msgid "More about CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:193
+msgid "CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Active Record, Association Data Mapping, Front Controller and MVC."
+msgstr ""
+
+#: View/Pages/home.ctp:196
+msgid "Our primary goal is to provide a structured framework that enables PHP users at all levels to rapidly develop robust web applications, without any loss to flexibility."
+msgstr ""
+
+#: View/Pages/home.ctp:201
+msgid "The Rapid Development Framework"
+msgstr ""
+
+#: View/Pages/home.ctp:202
+msgid "CakePHP Documentation"
+msgstr ""
+
+#: View/Pages/home.ctp:203
+msgid "Your Rapid Development Cookbook"
+msgstr ""
+
+#: View/Pages/home.ctp:204
+msgid "CakePHP API"
+msgstr ""
+
+#: View/Pages/home.ctp:205
+msgid "Quick API Reference"
+msgstr ""
+
+#: View/Pages/home.ctp:206
+msgid "The Bakery"
+msgstr ""
+
+#: View/Pages/home.ctp:207
+msgid "Everything CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:208
+msgid "CakePHP Plugins"
+msgstr ""
+
+#: View/Pages/home.ctp:209
+msgid "A comprehensive list of all CakePHP plugins created by the community"
+msgstr ""
+
+#: View/Pages/home.ctp:210
+msgid "CakePHP Community Center"
+msgstr ""
+
+#: View/Pages/home.ctp:211
+msgid "Everything related to the CakePHP community in one place"
+msgstr ""
+
+#: View/Pages/home.ctp:212
+msgid "CakePHP Google Group"
+msgstr ""
+
+#: View/Pages/home.ctp:213
+msgid "Community mailing list"
+msgstr ""
+
+#: View/Pages/home.ctp:215
+msgid "Live chat about CakePHP"
+msgstr ""
+
+#: View/Pages/home.ctp:216
+msgid "CakePHP Code"
+msgstr ""
+
+#: View/Pages/home.ctp:217
+msgid "Find the CakePHP code on GitHub and contribute to the framework"
+msgstr ""
+
+#: View/Pages/home.ctp:218;219
+msgid "CakePHP Issues"
+msgstr ""
+
+#: View/Pages/home.ctp:220;221
+msgid "CakePHP Roadmaps"
+msgstr ""
+
+#: View/Pages/home.ctp:222
+msgid "Training"
+msgstr ""
+
+#: View/Pages/home.ctp:223
+msgid "Join a live session and get skilled with the framework"
+msgstr ""
+
+#: View/Pages/home.ctp:224
+msgid "CakeFest"
+msgstr ""
+
+#: View/Pages/home.ctp:225
+msgid "Don't miss our annual CakePHP conference"
+msgstr ""
+
+#: View/Pages/home.ctp:226
+msgid "Cake Software Foundation"
+msgstr ""
+
+#: View/Pages/home.ctp:227
+msgid "Promoting development related to CakePHP"
+msgstr ""
+
+#: webroot/test.php:103
+msgid "Debug setting does not allow access to this url."
+msgstr ""
+
