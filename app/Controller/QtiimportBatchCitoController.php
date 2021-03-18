@@ -66,7 +66,7 @@ class QtiimportBatchCitoController extends AppController
         $data = $this->request->data['Qti'];
 
         if(!$data['file']['tmp_name']){
-            $response = 'File niet gevonden om te importeren, probeer het nogmaals';
+            $response = __("File niet gevonden om te importeren, probeer het nogmaals");
         }else{
             $r = $this->QtiImportService->uploadData($data);
 

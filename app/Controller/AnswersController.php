@@ -158,7 +158,7 @@ class AnswersController extends AppController
             }
         }
         if(!empty($timeout) && $answer['time'] > 0) {
-            die('Het is niet meer mogelijk deze vraag te beantwoorden');
+            die(__("Het is niet meer mogelijk deze vraag te beantwoorden"));
         }
 
 
@@ -268,7 +268,7 @@ class AnswersController extends AppController
                 $mask = sprintf('/%s/i',$mask);
                 if(!preg_match($mask,$data['Answer'][0])){
                     echo json_encode([
-                        'error' => 'Het gegeven antwoord is niet valide',
+                        'error' => __("Het gegeven antwoord is niet valide"),
                     ]);
                     exit;
                 }
@@ -385,7 +385,7 @@ class AnswersController extends AppController
 
                 $this->render('/Pdf/pdf_container', 'ajax');
             }else{
-                die('Iets ging er mis ' . $extension);
+                die(__("Iets ging er mis ") . $extension);
             }
         }elseif($attachmentInfo['type'] == 'video') {
             $link = $this->_getVideoCode($attachmentInfo['link']);
