@@ -104,8 +104,14 @@
                     <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
                 </td>
 
-                <th></th>
-                <td></td>
+                <th>Toetsen in nieuwe speler</th>
+                <td>
+                    <select id="new_player_access" onchange="ChangeAllowNewPlayerAccess(this.value)">
+                        <option value="0">Niet toestaan</option>
+                        <option value="1">Beide spelers aanbieden</option>
+                        <option value="2">Alleen nieuwe speler</option>
+                    </select>
+                </td>
             </tr>
         </table>
     </div>
@@ -328,10 +334,18 @@
 </div>
 
 <script>
+    $('#new_player_access').val("<?= $school_location['allow_new_player_access'] ?>");
+
     function ChangeAllowInBrowserTesting(allow){
         Loading.show();
         $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
            Navigation.refresh();
+        });
+    }
+    function ChangeAllowNewPlayerAccess(allow){
+        Loading.show();
+        $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+           Loading.hide();
         });
     }
 </script>

@@ -29,6 +29,10 @@ var Core = {
 	cheatIntervalInSeconds : 5,
 	lastLostFocus: { notification: false, delay: 3*60, reported: {} },
 
+	isChromebook: function(){
+        return !!(window.navigator.userAgent.indexOf('CrOS') > 0);
+	},
+
 	initialise : function() {
 		var isIOS = /(iPad|iPhone|iPod)/g.test(navigator.userAgent);
   		var isAndroid = /Android/g.test(navigator.userAgent);

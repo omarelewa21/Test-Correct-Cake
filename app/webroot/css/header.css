@@ -178,6 +178,26 @@
 .tile.tile-testlist::before{
     background-image: url('/img/header/tile-testlist.png');
 }
+
+.tile.tile-webinar::before,
+.tile.tile-knowledgebase::before,
+.tile.tile-send-email::before {
+    width: 16px;
+    height: 16px;
+    background-position: center;
+    margin-top:4px;
+}
+
+.tile.tile-webinar::before{
+    background-image: url('/img/header/tile-webinar.png');
+}
+.tile.tile-send-email::before{
+    background-image: url('/img/header/tile-send-mail.png');
+}
+.tile.tile-knowledgebase::before{
+    background-image: url('/img/header/tile-kennisbank.png');
+}
+
 .tile.plus::before {
     font-family: "FontAwesome";
     content: "\f067";

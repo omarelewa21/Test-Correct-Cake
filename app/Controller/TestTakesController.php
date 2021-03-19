@@ -9,10 +9,13 @@ App::uses('SchoolClassesService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('HelperFunctions','Lib');
+App::uses('CarouselMethods', 'Trait');
 
 // App::uses('TestsService', 'Lib/Services');
 
 class TestTakesController extends AppController {
+
+    use CarouselMethods;
 
     public $uses = array('Test', 'Question', 'TestTake');
 
@@ -236,6 +239,8 @@ class TestTakesController extends AppController {
 
             $newInviligators = [];
 
+            $this->set('carouselGroupQuestionNotify', false);
+
             if ((bool) AuthComponent::user('is_temp_teacher') === true) {
                 $newInviligators[AuthComponent::user('id')] = str_replace('  ', ' ', sprintf('%s %s %s', AuthComponent::user('name_first'), AuthComponent::user('name_suffix'), AuthComponent::user('name')));
             } else {
@@ -250,6 +255,7 @@ class TestTakesController extends AppController {
                 $test = $this->TestsService->getTest($test_id);
                 $test_name = $test['name'];
                 $this->set('test', $test);
+                $this->validateCarouselQuestionsInTest($test_id);
             } else {
                 $test_name = 'Selecteer';
             }
@@ -650,11 +656,29 @@ class TestTakesController extends AppController {
             ]
         ]);
 
-        $totalScore = 0;
-        foreach ($test_take['questions'] as $question) {
-            $totalScore += $question['score'];
+        $totalScore = $this->TestTakesService->getTestTakeScore($take_id, []);
+        $questions = [];
+        $groupQuestionChildArray = [];
+        $carouselQuestionsChildArray = [];
+        foreach ($test_take['questions'] as $key => $question) {
+            if(!stristr($key, '.')){
+                $questions[$key] = $question;
+                continue;
+            }
+            $groupQuestionChildArray[explode('.', $key)[1]] = $key;
+            $groupQuestionId = explode('.', $key)[0];
+            if(!array_key_exists($groupQuestionId, $questions)){
+                $groupQuestionUuid = $question['groupQuestionUuid'];
+                $questions[$groupQuestionId] = $this->getGroupQuestionByUuid($groupQuestionUuid);
+            }
+            if($questions[$groupQuestionId]['groupquestion_type']=='carousel'){
+                $carouselQuestionsChildArray[] = explode('.', $key)[1];
+            }
+            $questions[explode('.', $key)[1]] = $question;
         }
-
+        $this->set('groupQuestionChildArray',$groupQuestionChildArray);
+        $this->set('carouselQuestionsChildArray',$carouselQuestionsChildArray);
+        $this->set('questions',$questions);
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
@@ -714,16 +738,27 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $take = $this->TestTakesService->getTestTake($take_id);
-        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
+        $result = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+        $answers = $result['answers'];
+        $filteredQuestions = array_map(function($answer){
+            return $answer['question_id'];
+        },$answers);
 
+        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $questions = [];
 
         foreach ($allQuestions as $allQuestion) {
             if ($allQuestion['question']['type'] == 'GroupQuestion') {
                 foreach ($allQuestion['question']['group_question_questions'] as $item) {
+                    if(!in_array($item['question']['id'], $filteredQuestions)){
+                        continue;
+                    }
                     $questions[] = $item;
                 }
             } else {
+                if(!in_array($allQuestion['question']['id'], $filteredQuestions)){
+                        continue;
+                }
                 $questions[] = $allQuestion;
             }
         }
@@ -766,7 +801,6 @@ class TestTakesController extends AppController {
             echo 'Vraag niet gemaakt';
             die;
         }
-
         if (!empty($question_id)) {
 
             if ($this->Session->check('rate-question-cache-' . $question_id)) {
@@ -785,6 +819,12 @@ class TestTakesController extends AppController {
         $this->set('question', $question);
         $this->set('answer', $answer);
         $this->set('editable', $editable);
+    }
+
+    public function drawing_question_answers($answer_id)
+    {
+        $this->autoRender = false;
+        return $this->AnswersService->getDrawingAnswer($answer_id, true);
     }
 
     public function rate_teacher_answer($participant_id, $question_id) {
@@ -853,6 +893,14 @@ class TestTakesController extends AppController {
 
         $answer['answer'] = $answer;
 
+        if ($answer['question']['type'] == 'DrawingQuestion') {
+            $drawingAnswer = json_decode($answer['json'])->answer;
+
+            if (strpos($drawingAnswer, 'http') === false) {
+                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+                $this->set('drawing_url', $drawingAnswerUrl);
+            }
+        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');
@@ -985,6 +1033,13 @@ class TestTakesController extends AppController {
             $participant_status = $take['test_participant']['test_take_status_id'];
         }
 
+        $playerAccess = $this->SchoolLocationsService->getAllowNewPlayerAccess();
+
+        $newPlayerAccess = in_array($playerAccess, [1,2]);
+        $oldPlayerAccess = in_array($playerAccess, [0,1]);
+        $this->set('newPlayerAccess', $newPlayerAccess);
+        $this->set('oldPlayerAccess', $oldPlayerAccess);
+
         $this->Session->write('take_id', $take_id);
         $this->Session->write('participant_id', $participant_id);
 
@@ -996,49 +1051,14 @@ class TestTakesController extends AppController {
             case 3:
 //				$participants = $this->TestTakesService->getParticipants($take_id);
 //				$test_take = $this->TestTakesService->getTestTake($take_id);
-
-                if ($clean && $participant_status == 3) {
-                    $this->check_for_login();
+                $showPlayerChoice = $_REQUEST['show_player_choice'] === 'true' ? true : false;
+                if ($newPlayerAccess && $showPlayerChoice) {
+                    $view = 'take_planned';
+                    break;
                 }
 
-                if (!$this->Session->check('take_question_index')) {
-                    $take_question_index = 0;
-                    $this->Session->write('take_question_index', 0);
-                } else {
-                    $take_question_index = $this->Session->read('take_question_index');
-                }
 
-                if ($question_index != null) {
-                    $take_question_index = $question_index;
-                    $this->Session->write('take_question_index', $question_index);
-                }
-
-                if (!$questions) {
-                    /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
-//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
-                    $response =$this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
-                    $questions = $response['answers'];
-                    if (Configure::read('bugsnag-key-cake') !== null) {
-                        $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-                        $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
-                    } else {
-//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
-                    }
-                }
-
-                $this->set('questions', $questions);
-                $this->set('take_question_index', $take_question_index);
-                $this->set('take_id', $take_id);
-
-                if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
-                    $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
-                } else {
-                    $this->set('active_question', getUUID($questions[0], 'get'));
-                }
-
-                $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
-
-                $view = 'take_active';
+                $view = $this->take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id);
                 break;
 
             case 4:
@@ -1059,6 +1079,11 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
 
         $this->render($view, 'ajax');
+    }
+
+    public function startinlaravel($take_id, $question_index = null, $clean = false) {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+
     }
 
     public function take($take_id, $question_index = null, $clean = false) {
@@ -1125,6 +1150,7 @@ class TestTakesController extends AppController {
                 $view = 'take_taken';
                 break;
         }
+
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
@@ -1428,6 +1454,15 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
+        }
+
+        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
+            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+
+            if (strpos($drawingAnswer, 'http') === false) {
+                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+                $this->set('drawing_url', $drawingAnswerUrl);
+            }
         }
 
         $this->set('rating', $answer);
@@ -2008,7 +2043,9 @@ class TestTakesController extends AppController {
     }
 
     public function start_discussion_popup($take_id) {
+        $take = $this->TestTakesService->hasCarouselQuestion($take_id);
         $this->set('take_id', $take_id);
+        $this->set('has_carousel', $take['has_carousel']);
     }
 
     public function start_rate_popup($take_id) {
@@ -2219,6 +2256,9 @@ class TestTakesController extends AppController {
         $this->set('subjects', $subjects);
 
         $tests = $this->TestsService->getTests($this->request->data);
+        $msgArray = [];
+        $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
+        $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);
         $this->set('tests', $tests['data']);
     }
 
@@ -2470,6 +2510,93 @@ class TestTakesController extends AppController {
 
         echo json_encode (['response' => true]);
         exit;
+    }
+
+    private function validateCarouselQuestionsInTests($tests,&$msgArray):void
+    {
+        foreach ($tests as $test) {
+            $this->carouselGroupQuestionNotifyMsg = false;
+            $test_id = getUUID($test, 'get');
+            $this->validateCarouselQuestionsInTest($test_id,$msg);
+            if($this->carouselGroupQuestionNotifyMsg){
+                $msgArray[$test['id']] = $this->carouselGroupQuestionNotifyMsg;
+            }
+        }
+    }
+
+    private function validateCarouselQuestionsInTest($test_id):void
+    {
+
+        $questions = $this->TestsService->getQuestions($test_id);
+        foreach ($questions as $question) {
+
+            if ($question['question']['type'] == 'GroupQuestion') {
+
+                $this->setNotificationsForViewGroup($question['question']);
+            }
+        }
+    }
+
+    private function getGroupQuestionByUuid($groupQuestionId)
+    {
+        return $this->QuestionsService->getSingleQuestion($groupQuestionId);
+    }
+
+
+    /**
+     * @param $clean
+     * @param $participant_status
+     * @param $question_index
+     * @param $questions
+     * @param array $participant_id
+     * @param $take_id
+     * @return string
+     */
+    private function take_active($clean, $participant_status, $question_index, $questions, $participant_id, $take_id)
+    {
+        if ($clean && $participant_status == 3) {
+            $this->check_for_login();
+        }
+
+        if (!$this->Session->check('take_question_index')) {
+            $take_question_index = 0;
+            $this->Session->write('take_question_index', 0);
+        } else {
+            $take_question_index = $this->Session->read('take_question_index');
+        }
+
+        if ($question_index != null) {
+            $take_question_index = $question_index;
+            $this->Session->write('take_question_index', $question_index);
+        }
+
+        if (!$questions) {
+            /**  Note if this error occurs you can swich to commented version; this does not include code for closed_groups but the call is not dependent on the take_id which I presume causses this problem. */
+//                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
+            $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
+            $questions = $response['answers'];
+            if (Configure::read('bugsnag-key-cake') !== null) {
+                $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
+                $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
+            } else {
+//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
+            }
+        }
+
+        $this->set('questions', $questions);
+        $this->set('take_question_index', $take_question_index);
+        $this->set('take_id', $take_id);
+
+        if (isset($questions[$take_question_index]['question_id']) && getUUID($questions[$take_question_index], 'get') != null) {
+            $this->set('active_question', getUUID($questions[$take_question_index], 'get'));
+        } else {
+            $this->set('active_question', getUUID($questions[0], 'get'));
+        }
+
+        $this->Session->write('has_next_question', isset($questions[$take_question_index + 1]));
+
+        $view = 'take_active';
+        return $view;
     }
 
 }

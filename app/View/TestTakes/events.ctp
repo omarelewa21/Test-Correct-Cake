@@ -29,7 +29,8 @@
                 'Always on top changed' => 'Applicatie niet altijd op de voorgrond',
                 'Window resized' => 'Venster groote aangepast',
                 'Force shutdown' => 'Applicatie geforceerd afgesloten',
-                'Other window on top' => 'Ander venster op de voorgrond'
+                'Other window on top' => 'Ander venster op de voorgrond',
+                'Used unallowed Ctrl key combination' => 'De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.',
             ];
 
             foreach($events as $event) {

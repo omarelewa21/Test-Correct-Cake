@@ -4,11 +4,15 @@ App::uses('BaseService', 'Lib/Services');
 App::uses('CakeLog', 'Log');
 
 /**
- * Class QuestionsService
+ * Class TestTakesService
  *
  *
  */
 class TestTakesService extends BaseService {
+
+    public function getTestTakeUrlForLaravel($take_id) {
+        return $this->Connector->postRequest(sprintf('/test_take/%s/with_short_code', $take_id), [], []);
+    }
 
     public function getAttainmentAnalysis($test_take_id) {
         $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/analysis',$test_take_id), []);
@@ -497,6 +501,19 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function getTestTakeScore($take_id, $params = []) {
+        $response = $this->Connector->getRequest('/test_take_max_score/' . $take_id, $params);
+        if($this->Connector->getLastCode() == 403) {
+            return false;
+        }
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getTestTakeAnswers($take_id) {
         $response = $this->Connector->getRequest('/test_take/' . $take_id, ['with' => ['answers', 'participantStatus']]);
 
@@ -816,6 +833,27 @@ class TestTakesService extends BaseService {
             [],
             []
         );
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+    public function getDrawingAnswerUrl($answer_uuid)
+    {
+        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function hasCarouselQuestion($test_take_id)
+    {
+        $response = $this->Connector->getRequest('/test_take/'. $test_take_id .'/has_carousel_question/', [], []);
+
         if($response === false){
             return $this->Connector->getLastResponse();
         }
