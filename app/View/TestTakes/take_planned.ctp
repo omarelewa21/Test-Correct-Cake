@@ -40,7 +40,7 @@
         </div>
         <?php if($oldPlayerAccess) {
             if( $take['test_participant']['intense']) { ?>
-                <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibrationForTest('<?=getUUID($take, 'get');?>');">
+                <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibrationForTest('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?= AuthComponent::user('id'); ?>');">
                     Toets starten Intense
                 </a>
             <?php } else { ?>
