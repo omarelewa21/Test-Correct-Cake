@@ -42,7 +42,6 @@ class SchoolClassesService extends BaseService {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
                 $err = json_decode($error);
-
                 foreach ($err->errors as $k => $e) {
                     if (is_array($e)) {
                         foreach ($e as $b => $a) {
@@ -55,10 +54,8 @@ class SchoolClassesService extends BaseService {
             } else {
                 $this->addError($response);
             }
-
             return false;
         }
-
         return $response;
     }
 
