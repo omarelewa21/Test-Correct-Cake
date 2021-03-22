@@ -319,7 +319,7 @@ class UsersController extends AppController
         
         //$this->ifNotAllowedExit(['Account manager'], true);
 
-        $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
+        $result = $this->UsersService->createMarketingReport($this->request->data);
 
         if (!$result) {
             exit;
