@@ -489,10 +489,10 @@ class UsersService extends BaseService
 
     public function createMarketingReport($data)
     {
-        $response = $this->Connector->postRequest('/marketing_report', [], $data);
+        $response = $this->Connector->postRequest('/onboardingwizard_report', [], $data);
         
         if ($response) {
-            return $this->Connector->getDownloadRequest('/marketing_report', [], $data);
+            return $this->Connector->getDownloadRequest('/onboardingwizard_report', [], $data);
         }
     }
     
