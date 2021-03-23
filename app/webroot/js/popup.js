@@ -457,6 +457,10 @@ var Popup = {
         });
 
         this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});
+    },
+
+    showPreviewTest: function (testId) {
+        this.show('<iframe src="http://testwelcome.testcorrect.test/preview/'+testId+'" width="1200" height="800"></iframe>', 1200);
     }
 };
 // // overload of window.prompt to always show a descently formatted prompt box.

@@ -25,6 +25,10 @@
         <span class="fa fa-search mr5"></span>
         Voorbeeld
     </a>
+    <a href="#" class="btn white mr2" onclick="Popup.showPreviewTest('<?=$test_id?>');">
+        <span class="fa fa-search mr5"></span>
+        Voorbeeld nieuwe speler
+    </a>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
