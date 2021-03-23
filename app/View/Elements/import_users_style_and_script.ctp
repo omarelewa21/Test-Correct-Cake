@@ -76,6 +76,13 @@
 </style>
 
 <script type="text/javascript">
+    <? if($type=='school_classes') { ?>
+        var classId = $('#class_id').val();
+        var url = '/school_classes/doImport/<?= $location_id ?>/' + classId;
+    <? }else{ ?>
+        var url = '/users/doImportStudentsWithClasses';
+    <? } ?>
+
     if (typeof window.importPageHasBeenLoadedBefore == 'undefined') {
         window.importPageHasBeenLoadedBefore = true;
         var jsonObj;
@@ -230,15 +237,17 @@
                 h['fill_classname']=fill_classname;                
                 data.push(h);
             });
-
-            var classId = $('#class_id').val();
-            if (classId.length < 10) {
-                Loading.hide();
-                Notify.notify('Er dient een klas gekozen te worden', 'error');
-                return false;
+            
+            if(url.search('school_classes')>0){
+                var classId = $('#class_id').val();
+                if (classId.length < 10) {
+                    Loading.hide();
+                    Notify.notify('Er dient een klas gekozen te worden', 'error');
+                    return false;
+                }
             }
 
-            $.post('/school_classes/doImport/<?= $location_id ?>/' + classId,
+            $.post(url,
                     {data: data},
                     function (response) {
                         Loading.hide();

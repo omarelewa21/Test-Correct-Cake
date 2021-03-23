@@ -47,4 +47,4 @@
     </div>
 </div>
 
-<?= $this->element('import_users_style_and_script') ?>
+<?= $this->element('import_users_style_and_script',['type'=>'students']) ?>
