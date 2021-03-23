@@ -15,14 +15,7 @@
                 <td width="35%"><?= $school_location['name'] ?></td>
                 <th width="15%">Klas</th>
                 <td width="35%">
-                    <select id="class_id">
-                        <?php
-                        foreach ($classes as $class) {
-                            $selected = (getUUID($class, 'get') == $class_id) ? 'selected="selected"' : '';
-                            ?><option value="<?= GetUUID($class, 'get') ?>" <?= $selected ?>><?= $class['name'] ?></option><?php
-                        }
-                        ?>
-                    </select></td>
+                    </td>
             </tr> 
         </table>
     </div>

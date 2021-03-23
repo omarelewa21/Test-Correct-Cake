@@ -1571,7 +1571,14 @@ class UsersController extends AppController
     public
     function import($type)
     {
-
+        if($type=='students'){
+            $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+            $school_location = AuthComponent::user('school_location');
+            $this->set('school_location_id', $school_location['id']);
+            $this->set('school_location', $school_location);
+            $this->render('import_students');
+            return;
+        }
     }
 
     public
