@@ -38,10 +38,16 @@
             </div>
 
         </div>
-        <?php if($oldPlayerAccess) { ?>
-        <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
-            Toets starten
-        </a>
+        <?php if($oldPlayerAccess) {
+            if( $take['test_participant']['intense']) { ?>
+                <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibrationForTest('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?= AuthComponent::user('id'); ?>');">
+                    Toets starten Intense
+                </a>
+            <?php } else { ?>
+                <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
+                    Toets starten
+                </a>
+            <?php } ?>
         <?php
         }
         if($newPlayerAccess) {
@@ -53,6 +59,9 @@
         </center>
     </div>
 </div>
+<?php if( $take['test_participant']['intense']) { ?>
+<script src="https://education.intense.solutions/collector/latest.uncompressed.js"></script>
+<?php } ?>
 
 <script>
     TestTake.startHeartBeat('planned');

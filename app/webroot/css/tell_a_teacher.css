@@ -563,3 +563,7 @@
 .black{
     color:black!important;
 }
+.divider {
+    height: 3px;
+    background: var(--system-base);
+}
