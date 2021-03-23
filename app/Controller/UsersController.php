@@ -61,9 +61,6 @@ class UsersController extends AppController
         $user->name = $response['eduProfile']['sn'];
         $user->username = $response['eduProfile']['personRealID'];
 
-
-//        var_dump($response);die;
-
         $this->set('user', $user);
     }
 
@@ -315,9 +312,6 @@ class UsersController extends AppController
 
     public function marketing_report()
     {
-        $this->log('marketing test','debug');
-        
-        //$this->ifNotAllowedExit(['Account manager'], true);
 
         $result = $this->UsersService->createMarketingReport($this->request->data);
 

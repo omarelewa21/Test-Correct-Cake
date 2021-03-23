@@ -490,6 +490,7 @@ class UsersService extends BaseService
     public function createMarketingReport($data)
     {
         $response = $this->Connector->postRequest('/marketing_report', [], $data);
+        
         if ($response) {
             return $this->Connector->getDownloadRequest('/marketing_report', [], $data);
         }
@@ -498,6 +499,7 @@ class UsersService extends BaseService
     public function createLocationReport($data)
     {
         $response = $this->Connector->postRequest('/location_report', [], $data);
+        
         if ($response) {
             return $this->Connector->getDownloadRequest('/location_report', [], $data);
         }
