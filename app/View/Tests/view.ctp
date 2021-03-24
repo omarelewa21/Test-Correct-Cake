@@ -21,10 +21,18 @@
         Inplannen
     </a>
     <? } ?>
-    <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
-        <span class="fa fa-search mr5"></span>
-        Voorbeeld
-    </a>
+    <?php if($oldPlayerAccess) { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
+            <span class="fa fa-search mr5"></span>
+            Voorbeeld
+        </a>
+    <?php } ?>
+    <?php if($newPlayerAccess) { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.showPreviewTest('<?=$test_id?>');">
+            <span class="fa fa-search mr5"></span>
+            <?= !$oldPlayerAccess ? 'Voorbeeld' : 'Voorbeeld nieuwe speler' ?>
+        </a>
+    <?php } ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
