@@ -31,6 +31,11 @@ class UsersService extends BaseService
         return $roleExists;
     }
 
+    public function doWeNeedCaptcha($username)
+    {
+        return $this->Connector->postRequest('/do_we_need_captcha',[],['username' => $username]);
+    }
+
     public function storeAppVersionInfo($data,$userId = false)
     {
         // could be needed as we are early in the process

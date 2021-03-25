@@ -11,7 +11,7 @@
     <?= $this->Form->create('User') ?>
     <table width="100%" class="table table-striped form">
         <tr id="SeleniumWarning" style="background-color:yellow;display:none;">
-            <th>
+            <th colspan="2">
                 Selenium Test is actief
             </th>
         </tr>
@@ -42,6 +42,24 @@
                         'label' => false,
                         'placeholder' => 'Wachtwoord',
                         'verify' => 'notempty'
+                    )
+                );
+                ?>
+            </td>
+        </tr>
+
+        <tr id="captcha_container" style="display:none">
+            <th>Beveiligingscode</th>
+            <td>
+                <img src="" id="captcha"/><br/>
+                <?php
+                echo $this->Form->input(
+                    'captcha_string',
+                    array(
+                        'type' => 'text',
+                        'label' => false,
+                        'placeholder' => 'Beveiligingscode',
+                        'verify' => ''
                     )
                 );
                 ?>
@@ -171,12 +189,27 @@
             onfailure : function(result) {
                 if( typeof result.message !== typeof undefined && result.message != '') {
                     Notify.notify(result.message, 'error');
+                    if(typeof result.refreshCaptcha !== typeof undefined){
+                        // refresh captcha
+                        refreshCaptcha();
+                    }
                 }else{
-                    Notify.notify("Inloggegevens incorrect", "error");
+                    console.log('fout zonder message');
+                    if(typeof result.needsCaptcha !== typeof undefined && result.needsCaptcha == true){
+                        Notify.notify('Voer de beveiligingscode in','error');
+                        refreshCaptcha();
+                    } else {
+                        Notify.notify("Inloggegevens incorrect", "error");
+                    }
                 }
             }
         }
     );
+
+    function refreshCaptcha(){
+        document.getElementById('captcha_container').style = '';
+        document.getElementById('captcha').src = '/img/securimage_show.php?' + Math.random();
+    }
 
     setTimeout(function() {
         $('#UserEmail').focus();
