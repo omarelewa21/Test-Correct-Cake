@@ -1571,7 +1571,27 @@ class UsersController extends AppController
     public
     function import($type)
     {
-
+        if($type=='students'){
+            $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+            $school_location = AuthComponent::user('school_location');
+            $this->set('school_location_id', $school_location['id']);
+            $this->set('school_location', $school_location);
+            $this->render('import_students');
+            return;
+        }
+    }
+    public function doImportStudentsWithClasses()
+    {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $school_location = AuthComponent::user('school_location');
+        $data['data'] = $this->request->data;
+        $result = $this->SchoolClassesService->doImportStudentsWithClasses($school_location['uuid'], $data);
+        if (!$result) {
+            $response = $this->translateError($this->SchoolClassesService);
+            $this->formResponse(false, $response);
+            return false;
+        }
+        $this->formResponse(true, []);
     }
 
     public
@@ -1745,5 +1765,17 @@ class UsersController extends AppController
         $response = $this->UsersService->toggleAccountVerified($uuid);
         echo json_encode($response);
         exit;
+    }
+
+    private function translateError($service)
+    {
+        if(!array_key_exists('error', $service->getErrors())){
+            return $service->getErrors();
+        }
+        if(stristr($service->getErrors()['error'], 'School class id not found for class')){
+            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']).' niet gevonden!');
+        }
+
+        return $service->getErrors()['error'];
     }
 }
