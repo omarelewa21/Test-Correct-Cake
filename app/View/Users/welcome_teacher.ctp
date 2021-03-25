@@ -44,8 +44,7 @@ if ($wizard_steps) {
                     <p><?= __("Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw")?>
                     <?= __("opgegeven")?>
                     <?= __("data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in")?>
-                    <?= __("Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel
-                        ons")?>
+                    <?= __("Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons")?>
                         <?= __("dan op")?> <a href="tel:010 7 171 171">010 7 171 171</a> <?= __("om dit te versnellen.")?></p>
                 </div>
             </div>

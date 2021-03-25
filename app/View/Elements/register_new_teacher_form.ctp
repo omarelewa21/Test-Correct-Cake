@@ -12,7 +12,7 @@
                 </tr>
             <?php } ?>
             <tr>
-                <th colspan="2"><h2 style="margin-top: 0px; margin-bottom: 0px;">School gegevens</h2></th>
+                <th colspan="2"><h2 style="margin-top: 0px; margin-bottom: 0px;"><?= __("School gegevens")?></h2></th>
             </tr>
             <tr>
                 <th width="170">

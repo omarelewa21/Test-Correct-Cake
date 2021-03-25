@@ -395,7 +395,7 @@ msgid "Toets"
 msgstr "Test"
 
 msgid "Vak"
-msgstr "Field"
+msgstr "Subject"
 
 msgid "Afname"
 msgstr "Date"
@@ -1163,7 +1163,10 @@ msgid "Schoolbeheerders"
 msgstr "School administrators"
 
 msgid "Tussenv"
-msgstr "Interv"
+msgstr "Suffix"
+
+msgid "School gegevens"
+msgstr "School data"
 
 msgid "De status is aangepast"
 msgstr "The status has been adjusted"
@@ -1634,7 +1637,7 @@ msgid "Cijfermodel"
 msgstr "Numerical model"
 
 msgid "Contact actief"
-msgstr "Contact active"
+msgstr "Contract active"
 
 msgid "Contract is actief"
 msgstr "Contract is active"
@@ -1656,6 +1659,18 @@ msgstr "Is rtti school location"
 
 msgid "Is RTTI school"
 msgstr "Is RTTI school"
+
+msgid "Toetsen in nieuwe speler"
+msgstr "Tests in new player available"
+
+msgid "Niet toestaan"
+msgstr "Not allowed"
+
+msgid "Beide spelers aanbieden"
+msgstr "Offer both players"
+
+msgid "Alleen nieuwe speler"
+msgstr "New player only"
 
 msgid "Open source content creator"
 msgstr "Open source content creator"
@@ -2594,10 +2609,13 @@ msgid "Ouder kon niet worden aangemaakt"
 msgstr "Parent could not be created"
 
 msgid "Geslacht"
-msgstr "Sex"
+msgstr "Gender"
 
 msgid "Studentennummer"
 msgstr "Student number"
+
+msgid "Dit is de eindklant"
+msgstr "This is the end customer"
 
 msgid "Dyslexie"
 msgstr "Dyslexia"
@@ -3016,11 +3034,11 @@ msgstr "gave up"
 msgid "data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in"
 msgstr "data before you can upload classes and tests and collaborate with your colleagues in"
 
-msgid "Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel\\n                        ons"
-msgstr "Test-Correct. This can take one to two working days. Don't want to wait that long? Call \\ n us"
+msgid "Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons"
+msgstr "Test-Correct. This can take one to two working days. Don't want to wait that long? Call us"
 
 msgid "dan op"
-msgstr "Then on"
+msgstr "then on"
 
 msgid "om dit te versnellen."
 msgstr "to speed this up."

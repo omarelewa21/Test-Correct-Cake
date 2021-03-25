@@ -11,7 +11,7 @@ foreach($organisations as $organisation) {
     <tr>
         <td><?=$organisation['customer_code']?></td>
         <td><?=$organisation['name']?></td>
-        <td><div class="label" style="background:green">Dit is de eindklant</div></td>
+        <td><div class="label" style="background:green"><?= __("Dit is de eindklant")?></div></td>
         <td><?=$organisation['count_active_licenses']?></td>
         <td><?=$organisation['count_students'] . ' (' . $percentage . '%)'?></td>
         <td><?=$organisation['count_questions']?></td>
