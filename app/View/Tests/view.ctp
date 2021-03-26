@@ -21,6 +21,10 @@
         Inplannen
     </a>
     <? } ?>
+    <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',1000);">
+        <?php echo $this->element('schedule_now') ?>
+        Direct afnemen
+    </a>
     <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
         <span class="fa fa-search mr5"></span>
         Voorbeeld

@@ -138,6 +138,8 @@
             minDate: new Date(),
             dateFormat: 'dd-mm-yy'
         });
-        $('#TestTakeDate0').val('25-03-2021').trigger('change');
+        var date = new Date();
+        var today = date.toLocaleDateString().replaceAll("/", "-");
+        $('#TestTakeDate0').val(today).trigger('change');
     });
 </script>
