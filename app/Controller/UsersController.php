@@ -83,15 +83,16 @@ class UsersController extends AppController
         $message = "";
         ## Einde bericht.
 
+        $captchaSet = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
 
             if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
-
+                $captchaSet = true;
                 if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
                     // error captcha not ok
                     $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','refreshCaptcha' => true]);
-                    exit();
+                    return false;
                 }
             }
 
@@ -144,6 +145,11 @@ class UsersController extends AppController
                 // Check if there's a captcha reason to fail or that the data is just not okay
                 if(!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])){
                     if($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])){
+                        if($captchaSet === true) {
+                            // username/ password was incorrect
+                            $this->formResponse(false,['refreshCaptcha' => true]);
+                            return false;
+                        }
                         $this->formResponse(false,['needsCaptcha' => true]);
                         return false;
                     }
