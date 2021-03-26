@@ -11,7 +11,7 @@ App::uses('CakeLog', 'Log');
 class TestTakesService extends BaseService {
 
     public function getTestTakeUrlForLaravel($take_id) {
-        return $this->Connector->postRequest(sprintf('/test_take/%s/with_short_code', $take_id), [], []);
+        return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), [], []);
     }
 
     public function getAttainmentAnalysis($test_take_id) {

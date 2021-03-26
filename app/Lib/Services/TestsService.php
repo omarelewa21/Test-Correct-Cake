@@ -398,6 +398,6 @@ class TestsService extends BaseService {
     }
 
     public function getTestUrlForLaravel($take_id) {
-        return $this->Connector->postRequest(sprintf('/test/%s/with_short_code', $take_id), [], []);
+        return $this->Connector->postRequest(sprintf('/test/%s/with_temporary_login', $take_id), [], []);
     }
 }
