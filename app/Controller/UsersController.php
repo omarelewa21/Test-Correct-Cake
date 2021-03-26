@@ -32,7 +32,6 @@ class UsersController extends AppController
         $this->SchoolYearsService = new SchoolYearsService();
         $this->SchoolsService = new SchoolsService();
         $this->UmbrellaOrganisationsService = new UmbrellaOrganisationsService();
-        $this->SecureImage = new Securimage();
 
         parent::beforeFilter();
     }
@@ -71,6 +70,7 @@ class UsersController extends AppController
 
     public function login()
     {
+
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
 //                $view = "windows_update";
@@ -89,9 +89,11 @@ class UsersController extends AppController
 
             if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
                 $captchaSet = true;
+
+                $this->SecureImage = new Securimage();
                 if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
                     // error captcha not ok
-                    $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','refreshCaptcha' => true]);
+                    $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','showCaptcha' => true]);
                     return false;
                 }
             }
@@ -147,10 +149,10 @@ class UsersController extends AppController
                     if($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])){
                         if($captchaSet === true) {
                             // username/ password was incorrect
-                            $this->formResponse(false,['refreshCaptcha' => true]);
+                            $this->formResponse(false,['showCaptcha' => true]);
                             return false;
                         }
-                        $this->formResponse(false,['needsCaptcha' => true]);
+                        $this->formResponse(false,['showCaptcha' => true, 'message' => 'Voer de beveiligingscode in']);
                         return false;
                     }
                 }

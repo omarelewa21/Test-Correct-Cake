@@ -176,7 +176,7 @@
     $('#UserLoginForm').formify(
         {
             confirm : $('.btnLogin'),
-            enterConfirm : $('#UserPassword'),
+            enterConfirm : ['#UserPassword','#UserCaptchaString'],
             onsuccess : function(result) {
                 if(Core.inApp && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
                     Notify.notify(result.message);
@@ -187,20 +187,13 @@
                 Core.afterLogin();
             },
             onfailure : function(result) {
+                if(typeof result.showCaptcha !== typeof undefined && result.showCaptcha == true){
+                    refreshCaptcha();
+                }
                 if( typeof result.message !== typeof undefined && result.message != '') {
                     Notify.notify(result.message, 'error');
-                    if(typeof result.refreshCaptcha !== typeof undefined){
-                        // refresh captcha
-                        refreshCaptcha();
-                    }
                 }else{
-                    console.log('fout zonder message');
-                    if(typeof result.needsCaptcha !== typeof undefined && result.needsCaptcha == true){
-                        Notify.notify('Voer de beveiligingscode in','error');
-                        refreshCaptcha();
-                    } else {
-                        Notify.notify("Inloggegevens incorrect", "error");
-                    }
+                    Notify.notify("Inloggegevens incorrect", "error");
                 }
             }
         }
