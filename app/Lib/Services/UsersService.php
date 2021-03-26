@@ -33,6 +33,11 @@ class UsersService extends BaseService
         return $roleExists;
     }
 
+    public function doWeNeedCaptcha($username)
+    {
+        return $this->Connector->postRequest('/do_we_need_captcha',[],['username' => $username]);
+    }
+
     public function storeAppVersionInfo($data, $userId = false)
     {
         // could be needed as we are early in the process
@@ -65,8 +70,7 @@ class UsersService extends BaseService
 
     public function getConfig($laravel_config_variable)
     {
-        $response = $this->Connector->getRequest('/config', ['laravel_config_variable' => $laravel_config_variable],
-            null);
+        $response = $this->Connector->getRequest('/config', ['laravel_config_variable'=>$laravel_config_variable],NULL);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -74,7 +78,7 @@ class UsersService extends BaseService
 
         return $response;
     }
-
+    
     public function registerNewTeacher($data)
     {
         $response = $this->Connector->postRequest('/demo_account', [], $data);
