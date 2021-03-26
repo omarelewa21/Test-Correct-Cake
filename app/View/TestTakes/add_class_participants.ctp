@@ -7,8 +7,8 @@
                 <tr>
                     <th width="20"></th>
                     <th>Student</th>
-                    <th><a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').attr({'checked' : 'checked'});">Selecteer alle</a>
-                        <a href="#" class="btn highlight pull-right small mr2" onclick="$('.class_student').removeAttr('checked');">De-selecteer alle</a></th>
+                    <th><a href="#" class="btn highlight pull-right small mr2" onclick="selectAllStudents();">Selecteer alle</a>
+                        <a href="#" class="btn highlight pull-right small mr2" onclick="deselectAllStudents();">De-selecteer alle</a></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -42,3 +42,21 @@
         Geselecteerde toevoegen
     </a>
 </div>
+
+<script>
+    function selectAllStudents(){
+        $('.class_student').each(function(i){
+           if(!$(this).is(':checked')){
+               $(this).trigger('click');
+           }
+        });
+    }
+
+    function deselectAllStudents(){
+        $('.class_student').each(function(i){
+            if($(this).is(':checked')){
+                $(this).trigger('click');
+            }
+        });
+    }
+</script>
