@@ -1532,7 +1532,7 @@ msgid "Gebruiker kon niet worden aangemaakt"
 msgstr "User could not be created"
 
 msgid "Wachtwoord"
-msgstr "password"
+msgstr "Password"
 
 msgid "Gebruiker aangemaakt"
 msgstr "User created"

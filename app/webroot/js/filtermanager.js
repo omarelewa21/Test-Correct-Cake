@@ -1,3 +1,5 @@
+var json = require('./Translation.js'); //with path
+
 function FilterManager(settings) {
     this.el = false;
     this.filters = false;
@@ -210,7 +212,7 @@ function FilterManager(settings) {
         .on('click', this.settings.eventScope+' #jquery-add-filter', function (e) {
             $(this.el).val('');
             this.resetSearchForm();
-            this.setSearchFormTitle('Filter aanmaken');
+            this.setSearchFormTitle(json['eng']['filtermanager']['Filter aanmaken']);
             $('#jquery-save-filter-as-from-modal').hide();
             Popup.showSearch();
             this.activeFilter = {
