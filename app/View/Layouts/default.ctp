@@ -46,7 +46,25 @@
 		<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
-
+	
+		<!-- Importing javascript files required for translation -->
+		<script src="/js/jquery_i18n/CLDRPluralRuleParser.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.messagestore.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.fallbacks.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.language.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.parser.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.js"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js"></script>
+		<script src="/js/translation.js"></script>
+		<?php 
+			$current_lang = Configure::read('Config.language');
+			echo "<script>
+			$.i18n().locale = '$current_lang'
+			</script>";
+		 ?>
+		<!-- ----------------------------------- -->
+		
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>

@@ -36,7 +36,7 @@
                 if (verifyAll()) {
                     postForm();
                 } else {
-                    Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                    Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
                 }
                 if(settings.onaftersubmit != false){
                     settings.onaftersubmit();
@@ -48,7 +48,7 @@
                     if (verifyAll()) {
                         postForm();
                     } else {
-                        Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                        Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
                     }
                 }
             });
@@ -59,7 +59,7 @@
                     if (verifyAll()) {
                         postForm();
                     } else {
-                        Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                        Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
                     }
 
                     return;
@@ -67,15 +67,15 @@
 
 
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
+                    btnOk: $.i18n('Ja'),
+                    btnCancel: $.i18n('Annuleer'),
+                    title: $.i18n('Weet u het zeker?'),
                     message: settings.confirmMessage
                 }, function() {
                     if (verifyAll()) {
                         postForm();
                     } else {
-                        Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                        Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
                     }
                 });
             });
@@ -130,7 +130,7 @@
             $.each(checks, function (index, check) {
                 if (check == 'length-6') {
                     if ($(element).val().length < 6) {
-                        Notify.notify('Het nieuwe wachtwoord moet minimaal 6 karakters bevatten.', 'error');
+                        Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 6 karakters bevatten.'), 'error');
                     }
                 }
             });

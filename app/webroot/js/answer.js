@@ -88,9 +88,9 @@ var Answer = {
         if (Answer.partOfCloseableGroup && typeof el !== 'undefined' && Answer.currentGroupId != $(el).attr('group-id')) {
                 Popup.confirm(
                     {
-                        'title' : 'Let op! Vraaggroep sluit',
-                        'text': 'Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.',
-                        'okBtn': 'Ja'
+                        'title' : $.i18n('Let op! Vraaggroep sluit'),
+                        'text': $.i18n('Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.'),
+                        'okBtn': $.i18n('Ja')
                     },function() {
                         return Answer.saveAnswerComplete(url, 'close_group');
                     });
@@ -98,9 +98,9 @@ var Answer = {
         } else if (Answer.closeable) {
             Popup.confirm(
                 {
-                    'title' : 'Let op! Vraag sluit',
-                    'text': 'Door naar deze vraag te gaan, sluit je de vraag af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.',
-                    'okBtn': 'Ja'
+                    'title' : $.i18n('Let op! Vraag sluit'),
+                    'text': $.i18n('Door naar deze vraag te gaan, sluit je de vraag af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.'),
+                    'okBtn': $.i18n('Ja')
                 },function() {
                     return Answer.saveAnswerComplete(url, 'close_question');
                 });
@@ -176,9 +176,9 @@ var Answer = {
     checkMultipleChoice : function(max) {
         if($('.multiple_choice_option:checked').length > max) {
             if(max == 1) {
-                Notify.notify('Selecteer maximaal ' + max + ' optie', 'info');
+                Notify.notify($.i18n('Selecteer maximaal ') + max + $.i18n(' optie'), 'info');
             }else{
-                Notify.notify('Selecteer maximaal ' + max + ' opties', 'info');
+                Notify.notify($.i18n('Selecteer maximaal ') + max + $.i18n(' opties'), 'info');
             }
         }else{
             Answer.saveAnswer();

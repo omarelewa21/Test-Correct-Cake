@@ -233,9 +233,9 @@ var Core = {
 	lostFocus : function(reason) {
 		if(TestTake.active) {
 			if (reason == "printscreen") {
-				Notify.notify('Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd', 'error');
+				Notify.notify($.i18n('Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd'), 'error');
 			} else {
-				Notify.notify('Het is niet toegestaan om uit de app te gaan', 'error');
+				Notify.notify($.i18n('Het is niet toegestaan om uit de app te gaan'), 'error');
 			}
 
 			if (Core.shouldLostFocusBeReported(reason)) {
@@ -276,7 +276,7 @@ var Core = {
 
 	screenshotDetected : function() {
 		if(!Core.screenshotnotify) {
-			Notify.notify('Het is niet toegestaan om een screenshot te maken,  we hebben je docent hierover geïnformeerd', 'info');
+			Notify.notify($.i18n('Het is niet toegestaan om een screenshot te maken,  we hebben je docent hierover geïnformeerd'), 'info');
 			$.get('/test_takes/screenshot_detected');
 		}
 		Core.screenshotnotify = true;
@@ -437,10 +437,10 @@ var Organisation = {
 	delete : function(id) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze koepelorganisatie wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze koepelorganisatie wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/umbrella_organisations/delete/' + id,
@@ -457,16 +457,16 @@ var Organisation = {
 var School = {
 	delete : function(id) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze schoolgemeenschap wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze schoolgemeenschap wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/schools/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('School verwijderd', 'info');
+					Notify.notify($.i18n('School verwijderd'), 'info');
 					Navigation.refresh();
 				}
 			});
@@ -477,16 +477,16 @@ var School = {
 var SchoolYear = {
 	delete : function(id, view) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u dit schooljaar wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u dit schooljaar wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_years/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Schooljaar verwijderd', 'info');
+					Notify.notify($.i18n('Schooljaar verwijderd'), 'info');
 					if (view) {
 						Navigation.load('/school_years');
 					} else {
@@ -501,16 +501,16 @@ var SchoolYear = {
 var Teacher = {
 	delete : function(id) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze gebruiker wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_classes/delete_teacher/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Docent verwijderd', 'info');
+					Notify.notify($.i18n('Docent verwijderd'), 'info');
 					Navigation.refresh();
 				}
 			});
@@ -522,16 +522,16 @@ var SchoolLocation = {
 	delete : function(id, source) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze locatie wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze locatie wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_locations/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Schoollocatie verwijderd', 'info');
+					Notify.notify($.i18n('Schoollocatie verwijderd'), 'info');
 					if(source == 0) {
 						Navigation.refresh();
 					}else{
@@ -544,16 +544,16 @@ var SchoolLocation = {
 
 	deleteLicense : function(location_id, license_id) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u dit licentiepakket wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u dit licentiepakket wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_locations/delete_licence/' + location_id + '/' + license_id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Licentiepakket verwijderd', 'info');
+					Notify.notify($.i18n('Licentiepakket verwijderd'), 'info');
 					Navigation.refresh();
 				}
 			});
@@ -565,16 +565,16 @@ var SchoolClass = {
 	delete : function(id, source) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze klas wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze klas wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_classes/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Klas verwijderd', 'info');
+					Notify.notify($.i18n('Klas verwijderd'), 'info');
 					if(source == 0) {
 						Navigation.refresh();
 					}else{
@@ -587,10 +587,10 @@ var SchoolClass = {
 
 	removeMentor : function(class_id, id) {
 		Popup.message({
-				btnOk: 'Ja',
-				btnCancel: 'Annuleer',
-				title: 'Weet u het zeker?',
-				message: 'Weet u zeker dat u dit persoon wilt verwijderen?'
+				btnOk: $.i18n('Ja'),
+				btnCancel: $.i18n('Annuleer'),
+				title: $.i18n('Weet u het zeker?'),
+				message: $.i18n('Weet u zeker dat u dit persoon wilt verwijderen?')
 			}, function() {
 				$.ajax({
 					url: '/school_classes/remove_mentor/' + class_id + '/' + id,
@@ -605,10 +605,10 @@ var SchoolClass = {
 
 	removeManager : function(class_id, id) {
 		Popup.message({
-				btnOk: 'Ja',
-				btnCancel: 'Annuleer',
-				title: 'Weet u het zeker?',
-				message: 'Weet u zeker dat u dit persoon wilt verwijderen?'
+				btnOk: $.i18n('Ja'),
+				btnCancel: $.i18n('Annuleer'),
+				title: $.i18n('Weet u het zeker?'),
+				message: $.i18n('Weet u zeker dat u dit persoon wilt verwijderen?')
 			}, function() {
 				$.ajax({
 					url: '/school_classes/remove_manager/' + class_id + '/' + id,
@@ -633,10 +633,10 @@ var SchoolClass = {
 
 	removeStudent : function(class_id, id) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze student wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze student wilt verwijderen?')
 		}, function() {
 				$.ajax({
 					url: '/school_classes/remove_student/' + class_id + '/' + id,
@@ -654,16 +654,16 @@ var Section = {
 	delete : function(id, view) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze sectie wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze sectie wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/sections/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Sectie verwijderd', 'info');
+					Notify.notify($.i18n('Sectie verwijderd'), 'info');
 					if (view) {
 						Navigation.load('/sections')
 					} else {
@@ -680,16 +680,16 @@ var Subject = {
 	delete : function(id) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u dit vak wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u dit vak wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/sections/delete_subject/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Vak verwijderd', 'info');
+					Notify.notify($.i18n('Vak verwijderd'), 'info');
 					Navigation.refresh();
 				}
 			});
@@ -702,17 +702,17 @@ var Contact = {
 
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u dit contactpersoon wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u dit contactpersoon wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/contacts/delete/' + owner + '/' + owner_id + '/' + type + '/' + id,
 				type: 'DELETE',
 				success: function(response) {
 					Navigation.refresh();
-					Notify.notify('Contact verwijderd');
+					Notify.notify($.i18n('Contact verwijderd'));
 				}
 			});
 		});
@@ -723,17 +723,17 @@ var Period = {
 	delete : function(id) {
 
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u deze periode wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u deze periode wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_years/delete_period/' + id,
 				type: 'DELETE',
 				success: function(response) {
 					Navigation.refresh();
-					Notify.notify('Periode verwijderd');
+					Notify.notify($.i18n('Periode verwijderd'));
 				}
 			});
 		});
@@ -743,17 +743,17 @@ var Period = {
 var Ip = {
 	delete : function(location_id, ip_id) {
 		Popup.message({
-			btnOk: 'Ja',
-			btnCancel: 'Annuleer',
-			title: 'Weet u het zeker?',
-			message: 'Weet u zeker dat u dit ip-adres wilt verwijderen?'
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer',
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u dit ip-adres wilt verwijderen?')
 		}, function() {
 			$.ajax({
 				url: '/school_locations/delete_ip/' + location_id + '/' + ip_id,
 				type: 'DELETE',
 				success: function(response) {
 					Navigation.refresh();
-					Notify.notify('IP verwijderd');
+					Notify.notify($.i18n('IP verwijderd'));
 				}
 			});
 		});
