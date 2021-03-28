@@ -1534,6 +1534,9 @@ msgstr "User could not be created"
 msgid "Wachtwoord"
 msgstr "Password"
 
+msgid "Geen, locatie is eindklant"
+msgstr "None, location is end customer"
+
 msgid "Gebruiker aangemaakt"
 msgstr "User created"
 

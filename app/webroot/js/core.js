@@ -446,7 +446,7 @@ var Organisation = {
 				url: '/umbrella_organisations/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
-					Notify.notify('Organisatie verwijderd', 'info');
+					Notify.notify($.i18n('Organisatie verwijderd'), 'info');
 					Navigation.load('/school_locations');
 				}
 			});
@@ -744,7 +744,7 @@ var Ip = {
 	delete : function(location_id, ip_id) {
 		Popup.message({
 			btnOk: $.i18n('Ja'),
-			btnCancel: $.i18n('Annuleer',
+			btnCancel: $.i18n('Annuleer'),
 			title: $.i18n('Weet u het zeker?'),
 			message: $.i18n('Weet u zeker dat u dit ip-adres wilt verwijderen?')
 		}, function() {

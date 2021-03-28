@@ -14,7 +14,7 @@ foreach($school_locations as $school_location) {
         <td>
             <?
             if(empty($school_location['school']['name'])) {
-                echo '<div class="label" style="background:green">__("Geen, locatie is eindklant")</div>';
+                echo '<div class="label" style="background:green">' . __("Geen, locatie is eindklant") . '</div>';
             }else{
                 echo $school_location['school']['name'];
             }

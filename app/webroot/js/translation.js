@@ -45,7 +45,7 @@ $.i18n().load({
 
       //filtermanager.js
       'Kies een filter (geen filter)':'Choose a filter (no filter)',
-      'Filter aanmaken':'Filter aanmaken',
+      'Filter aanmaken':'Create filter',
       'Nieuw':'New',
       'Wat is de naam van dit filter?':'What is the name of this filter?',
       'Opslaan als':'Save as',
@@ -133,7 +133,8 @@ $.i18n().load({
       'Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.':'Within a few minutes you will receive an email with instructions to change your password. Do not forget to check your spam folder if you do not receive the mail.',
       'Gewisseld naar school ':'Switched to school ',
       'Docent succesvol toegevoegd':'Teacher added successfully',
-      'Docent succesvol verwijderd':'Teacher successfully removed'
+      'Docent succesvol verwijderd':'Teacher successfully removed',
+      'Organisatie verwijderd':'Organization deleted'
     },
 
     'nl': {
@@ -249,6 +250,7 @@ $.i18n().load({
       'Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.':'Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.',
       'Gewisseld naar school ':'Gewisseld naar school ',
       'Docent succesvol toegevoegd':'Docent succesvol toegevoegd',
-      'Docent succesvol verwijderd':'Docent succesvol verwijderd'
+      'Docent succesvol verwijderd':'Docent succesvol verwijderd',
+      'Organisatie verwijderd':'Organisatie verwijderd'
     }
 });
