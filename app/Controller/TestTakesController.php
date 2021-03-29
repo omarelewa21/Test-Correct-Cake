@@ -2517,6 +2517,12 @@ class TestTakesController extends AppController {
         echo json_encode (['response' => true]);
         exit;
     }
+    public function toggle_inbrowser_testing_for_all_participants($test_take_id) {
+        $this->TestTakesService->toggleInbrowserTestingForAllParticipants($test_take_id);
+
+        echo json_encode (['response' => true]);
+        exit;
+    }
 
     private function validateCarouselQuestionsInTests($tests,&$msgArray):void
     {

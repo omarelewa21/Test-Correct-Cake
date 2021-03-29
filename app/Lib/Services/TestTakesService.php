@@ -839,6 +839,18 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+    public function toggleInbrowserTestingForAllParticipants($test_take_id) {
+        $response = $this->Connector->putRequest(
+            sprintf('/test_take/%s/toggle_inbrowser_testing_for_all_participants', $test_take_id),
+            [],
+            []
+        );
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
     public function getDrawingAnswerUrl($answer_uuid)
     {
         $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);

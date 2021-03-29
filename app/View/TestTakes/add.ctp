@@ -70,6 +70,22 @@
                 </a>
             </td>
         </tr>
+        <?php if ($locations[$i]['allow_inbrowser_testing']) { ?>
+        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+            <td colspan="7">
+                <div style="display: flex;">
+                    <div style="display:flex; width:50%; align-items: center; color: var(--system-base)"">
+                        <span class="fa fa-chrome"></span>
+                        <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browser voor iedereen toestaan</strong></span>
+                        <label class="switch">
+                            <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <?php } ?>
 
         <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
