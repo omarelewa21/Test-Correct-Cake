@@ -125,6 +125,11 @@ class TestTakesController extends AppController {
         $this->set('defaultInviligator', $defaultLoggedInUserId);
     }
 
+    public function start_direct($test_id = '')
+    {
+        $this->add($test_id);
+    }
+
     public function add($test_id = '') {
         $this->isAuthorizedAs(["Teacher"]);
 
