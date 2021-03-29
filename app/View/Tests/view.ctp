@@ -21,7 +21,7 @@
         Inplannen
     </a>
     <? } ?>
-    <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',1000);">
+    <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
         <?php echo $this->element('schedule_now') ?>
         Direct afnemen
     </a>

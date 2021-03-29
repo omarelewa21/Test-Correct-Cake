@@ -3,9 +3,9 @@
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
-            <th width="70">Datum</th>
-            <th width="110">Periode</th>
-            <th>Surveillanten</th>
+            <th style="display: none;" width="70">Datum</th>
+            <th style="display: none;" width="110">Periode</th>
+            <th style="display: none;">Surveillanten</th>
             <th width="110">Klas</th>
             <th width="150">Toets</th>
             <th width="50">Weging</th>
@@ -22,14 +22,14 @@
 
             ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRow">
-                <td>
+                <td style="display: none;">
                     <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][visible]', 'id' => 'TestTakeVisible' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $i == 0 ? 1 : '' )) ?>
                     <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date]', 'id' => 'TestTakeDate' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
                 </td>
-                <td>
+                <td style="display: none;">
                     <?= $this->Form->input('period_id', array('name' => 'data[TestTake][' . $i . '][period_id]', 'id' => 'TestTakePeriodId_' . $i, 'style' => 'width:110px', 'label' => false, 'options' => $periods)) ?>
                 </td>
-                <td>
+                <td style="display: none;">
                     <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
                 </td>
                 <td>
