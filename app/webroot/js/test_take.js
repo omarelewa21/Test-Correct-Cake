@@ -437,24 +437,25 @@ var TestTake = {
                             '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
                             '</div>';
             $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
-                if (data.response == true) {
+                if (data.response.allowed == true) {
                     message = warning+message;
                 }
-            });
-
-            Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Niet alle Studenten zijn aanwezig.'
-            }, function () {
-                $.get('/test_takes/start_test/' + take_id,
+                Popup.message({
+                    btnOk: 'Ja',
+                    btnCancel: 'Annuleer',
+                    title: 'Weet u het zeker?',
+                    message: message
+                }, function () {
+                    $.get('/test_takes/start_test/' + take_id,
                         function (response) {
                             Notify.notify('Toetsafname gestart', 'info');
                             Navigation.load('/test_takes/surveillance');
                         }
-                );
+                    );
+                });
             });
+
+
         } else {
             $.get('/test_takes/start_test/' + take_id,
                     function (response) {

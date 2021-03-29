@@ -50,7 +50,7 @@
                         }
                     }
                 ?>
-                <?= 
+                <?=
                     $this->Form->input('weight',
                 array(
                 'name' => 'data[TestTake][' . $i . '][weight]',
