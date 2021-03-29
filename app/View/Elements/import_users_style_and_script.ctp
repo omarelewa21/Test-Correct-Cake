@@ -76,12 +76,7 @@
 </style>
 
 <script type="text/javascript">
-    <? if($type=='school_classes') { ?>
-        var classId = $('#class_id').val();
-        var url = '/school_classes/doImport/<?= $location_id ?>/' + classId;
-    <? }else{ ?>
-        var url = '/users/doImportStudentsWithClasses';
-    <? } ?>
+    
 
     if (typeof window.importPageHasBeenLoadedBefore == 'undefined') {
         window.importPageHasBeenLoadedBefore = true;
@@ -237,6 +232,14 @@
                 h['fill_classname']=fill_classname;                
                 data.push(h);
             });
+
+            <? if($type=='school_classes') { ?>
+                var classId = $('#class_id').val();
+                var url = '/school_classes/doImport/<?= $location_id ?>/' + classId;
+            <? }else{ ?>
+                var url = '/users/doImportStudentsWithClasses';
+            <? } ?>
+
             
             if(url.search('school_classes')>0){
                 var classId = $('#class_id').val();
@@ -246,7 +249,7 @@
                     return false;
                 }
             }
-
+            console.dir(url);
             $.post(url,
                     {data: data},
                     function (response) {
