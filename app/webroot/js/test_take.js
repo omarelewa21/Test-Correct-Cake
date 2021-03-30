@@ -54,9 +54,9 @@ var TestTake = {
                         }
                         TestTake.markBackground();
 
-                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
+                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {alert('hallo Carlo');
                             $('#waiting').slideUp();
-                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){alert('in chromebook, not fullscreen en in de app');
                                 // $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
@@ -66,7 +66,7 @@ var TestTake = {
                                 //     $('#chromebook-menu-notice-container-notinapp').show();
                                 // }
                                 // $('#chromebook-menu-notice-container').slideDown();
-                            } else {
+                            } else {alert('we zouden de boel moeten laten zien');
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
                                 $('#btnStartTestInLaravel').slideDown();
