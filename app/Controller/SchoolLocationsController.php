@@ -338,7 +338,7 @@ class SchoolLocationsController extends AppController
             );
         }
 
-        $schools[''] = 'Geen';
+        $schools[''] = __('Geen');
         $schools += $this->SchoolsService->getSchoolList();
 
         $params['filter'] = ['role' => [5]];
