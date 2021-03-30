@@ -383,4 +383,17 @@ class TestsService extends BaseService {
 
         return $response;
     }
+
+    public function getTestScore($test_id, $params = []) {
+        $response = $this->Connector->getRequest('/test_max_score/' . $test_id, $params);
+        if($this->Connector->getLastCode() == 403) {
+            return false;
+        }
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }

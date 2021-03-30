@@ -108,6 +108,15 @@
 </div>
 
 <script type="text/javascript">
+    <? if($carouselGroupQuestionNotify){ ?>
+        $(document).ready(function(){
+            Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');
+            Navigation.refresh();
+            Popup.closeLast();
+        })
+
+    <? } ?>
+
 
     var confirmPopup = false;
 

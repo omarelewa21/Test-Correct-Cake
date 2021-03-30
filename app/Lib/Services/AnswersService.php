@@ -297,4 +297,15 @@ class AnswersService extends BaseService {
             []
         );
     }
+
+    public function getDrawingAnswer($answer_id)
+    {
+        $response = $this->Connector->getDownloadRequest('/answers/drawing_answer/'.$answer_id, []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }

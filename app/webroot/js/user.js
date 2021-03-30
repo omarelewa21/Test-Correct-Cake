@@ -50,6 +50,9 @@ var User = {
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
+                    var hubspotScript = document.createElement('script');
+                    hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
+                    document.head.appendChild(hubspotScript);
                 }
             }
         );
@@ -76,16 +79,16 @@ var User = {
         setInterval(function () {
             User.inactive++;
             // Student
-            if (User.info.isStudent && User.inactive == 900 && !User.surpressInactive) {
+            if (User.info.isStudent && User.inactive >= 900 && !User.surpressInactive) {
                 TestTake.lostFocus();
                 setTimeout(function () {
-                    User.logout();
+                    User.logout(false);
                 }, 2000);
             }
 
             // Teacher
-            if (User.info.isTeacher && User.inactive == 300 && !User.surpressInactive) {
-                User.logout();
+            if (User.info.isTeacher && User.inactive >= 300 && !User.surpressInactive) {
+                User.logout(false);
             }
 
         }, 1000);
@@ -121,13 +124,26 @@ var User = {
         }
     },
 
-    logout: function () {
+    logout: function (closeApp) {
+        if(typeof closeapp == 'undefined'){
+            closeApp = false;
+        }
         $.get('/users/logout',
             function () {
                 User.actOnLogout();
                 window.location.href = '/';
                 try {
-                    electron.closeApp();
+                    if (typeof(electron.closeApp) === typeof(Function)) {
+                        if (typeof(electron.reloadApp) === typeof(Function)) {
+                            if (closeApp) {
+                                electron.closeApp();
+                            } else {
+                                electron.reloadApp();
+                            }
+                        } else {
+                            electron.closeApp();
+                        }
+                    }
                 } catch (error) {}
             }
         );

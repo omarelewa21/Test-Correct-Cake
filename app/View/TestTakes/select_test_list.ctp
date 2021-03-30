@@ -18,10 +18,16 @@ foreach($tests as $test) {
     <? if ($test['has_duplicates']) { ?>
         &nbsp;
     <? } else { ?>
-            <a href="#" class="btn white pull-right" onclick="TestTake.setSelectedTest('<?=getUUID($test, 'get');?>', '<?=$test['name']?>', <?=$test['test_kind_id']?>);">
-                <span class="fa fa-plus"></span>
-            </a>
-        <? } ?>
+        <? if(array_key_exists($test['id'],$carouselGroupQuestionNotifyMsgArray)){ ?>
+                <a href="#" class="btn white pull-right" onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsgArray[$test['id']]) ?>', 'error');">
+                    <span class="fa fa-question"></span>
+                </a>
+            <? }else{ ?>
+                <a href="#" class="btn white pull-right" onclick="TestTake.setSelectedTest('<?=getUUID($test, 'get');?>', '<?=$test['name']?>', <?=$test['test_kind_id']?>);">
+                    <span class="fa fa-plus"></span>
+                </a>
+            <? } ?>
+    <? } ?>
         </td>
     </tr>
 <?

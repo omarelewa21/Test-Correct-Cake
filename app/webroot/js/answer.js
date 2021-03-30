@@ -66,9 +66,11 @@ var Answer = {
                 }).html(timeLeft + ' sec resterend');
 
                 if(timeLeft <= 0) {
-                    Answer.saveAnswer();
+                    Answer.postSaveAnswer();
                     clearInterval(Answer.countInterval);
                     $('#question_load').find('input, textarea').attr('disabled', 'disabled');
+                    Answer.timeoutDeadline = null;
+                    Answer.timeoutStart = null;
                 }
             }
 

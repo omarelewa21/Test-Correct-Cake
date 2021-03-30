@@ -30,6 +30,12 @@ class SchoolLocationsService extends BaseService
         return $this->updateSchoolLocation($locationId,$data);
     }
 
+    public function change_allow_new_player_access($locationId, $allow)
+    {
+        $data = ['allow_new_player_access' => $allow];
+        return $this->updateSchoolLocation($locationId,$data);
+    }
+
     public function getIps($location_id) {
         $response = $this->Connector->getRequest('/school_location/' . $location_id . '/school_location_ip', [
             'mode' => 'all'
@@ -208,6 +214,17 @@ class SchoolLocationsService extends BaseService
         ];
         $response = $this->Connector->getRequest('/school_location_education_level/' . $school_location_id, $params);
 
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function getAllowNewPlayerAccess()
+    {
+        $response = $this->Connector->getRequest('/school_location/is_allowed_new_player_access/', []);
         if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;

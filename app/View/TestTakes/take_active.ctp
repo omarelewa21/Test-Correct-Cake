@@ -171,8 +171,9 @@
     function toggleBrowseAloud() {
         if (typeof BrowseAloud == 'undefined') {
             var s = document.createElement('script');
-            s.crossorigin = 'anonymous';
-            s.src = 'https://www.browsealoud.com/plus/scripts/2.6.0/ba.js';
+            s.src = 'https://www.browsealoud.com/plus/scripts/3.1.0/ba.js';
+            s.integrity="sha256-VCrJcQdV3IbbIVjmUyF7DnCqBbWD1BcZ/1sda2KWeFc= sha384-k2OQFn+wNFrKjU9HiaHAcHlEvLbfsVfvOnpmKBGWVBrpmGaIleDNHnnCJO4z2Y2H sha512-gxDfysgvGhVPSHDTieJ/8AlcIEjFbF3MdUgZZL2M5GXXDdIXCcX0CpH7Dh6jsHLOLOjRzTFdXASWZtxO+eMgyQ=="
+            s.crossOrigin = 'anonymous';
             document.getElementsByTagName('BODY')[0].appendChild(s);
             waitForBrowseAloudAndThenRun();
         } else {
@@ -180,7 +181,28 @@
         }
     }
 
+    function hideBrowseAloudButtons() {
+        var shadowRoot = document.querySelector('div#__bs_entryDiv').querySelector('div').shadowRoot;
+        var elementsToHide = ['th_translate','th_mp3Maker', 'ba-toggle-menu'];
+        elementsToHide.forEach(function(id) {
+            var el = shadowRoot.getElementById(id);
+            if (el !== null) {
+                shadowRoot.getElementById(id).setAttribute('style', 'display:none');
+            }
+        });
+
+        var toolbar = shadowRoot.getElementById('th_toolbar');
+        if (toolbar !== null) {
+            toolbar.setAttribute('style', 'background-color: #fff');
+        }
+
+        [... shadowRoot.querySelectorAll('.th-browsealoud-toolbar-button__icon')].forEach(function(item) {
+            item.setAttribute('style', 'fill : #515151');
+        });
+    }
+
     var _baTimer;
+    var tryIterator = 0;
 
     function waitForBrowseAloudAndThenRun() {
         if (typeof BrowseAloud == 'undefined' || BrowseAloud.panel == 'undefined' || typeof BrowseAloud.panel.toggleBar == 'undefined') {
@@ -190,12 +212,25 @@
                 150);
         } else {
             clearTimeout(_baTimer);
-            _toggleBA();
+            try {
+                _toggleBA();
+            } catch(e) {
+                tryIterator ++;
+                if (tryIterator < 10) { // just stop when it still fails after 10 tries;
+                    setTimeout(function () {
+                            waitForBrowseAloudAndThenRun();
+                        },
+                        150);
+                }
+            }
         }
     }
 
     function _toggleBA() {
         BrowseAloud.panel.toggleBar(!0);
+        setTimeout(function() {
+            hideBrowseAloudButtons();
+        }, 1500);
     }
 
     <?php

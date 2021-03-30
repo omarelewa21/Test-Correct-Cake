@@ -28,10 +28,11 @@ var TestTake = {
         var intervalInSeconds = 3 * 60;
         if (callback == 'rating'
                 || callback == 'discussing'
-                || callback == 'planned'
                 || callback == 'waiting_next'
                 ) {
             intervalInSeconds = 5;
+        } else if(callback == 'planned'){
+            intervalInSeconds = 3;
         }
         if (Number.isInteger(interval)) {
             intervalInSeconds = interval;
@@ -53,9 +54,22 @@ var TestTake = {
                         TestTake.markBackground();
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
-                            $('#btnStartTest').slideDown();
-                            $('#waiting').slideUp();
-                            clearInterval(TestTake.heartBeatInterval);
+                            if(Core.isChromebook() && !isFullScreen()){
+                                $('#waiting').slideUp();
+                                if(Core.inApp == true){
+                                    $('#chromebook-menu-notice-container-inapp').show();
+                                    clearInterval(TestTake.heartBeatInterval);
+                                } else {
+                                    $('#chromebook-menu-notice-container-notinapp').show();
+                                }
+                                $('#chromebook-menu-notice-container').slideDown();
+                            } else {
+                                $('#chromebook-menu-notice-container').slideUp();
+                                $('#btnStartTest').slideDown();
+                                $('#btnStartTestInLaravel').slideDown();
+                                $('#waiting').slideUp();
+                                clearInterval(TestTake.heartBeatInterval);
+                            }
                         }
 
                         if (
@@ -206,6 +220,28 @@ var TestTake = {
         );
     },
 
+    startTestInLaravel : function(take_id) {
+        var _take_id = take_id;
+        TestTake.atTestStart();
+        setTimeout(function() {
+            $.ajax({
+                type: 'post',
+                url: '/test_takes/startinlaravel/' + _take_id,
+                dataType: 'json',
+                data: {},
+                success: function (data) {
+                    window.open(data.data.url, '_self');
+                    try {
+                        electron.loadUrl(data.data.url)
+                    } catch(error) {}
+                },
+            });
+        }, 500);
+        // }else{
+        //     Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"http://www.test-correct.nl\">http://www.test-correct.nl</a>", "error");
+        // }
+    },
+
     startTest: function (take_id) {
         TestTake.atTestStart();
 
@@ -215,11 +251,14 @@ var TestTake = {
         }, 500);
     },
 
-    atTestStart: function () {
-        $.get('/test_takes/start_take_participant', function (response) {
-            if (response == 'error') {
+    atTestStart : function() {
+        $.get('/test_takes/start_take_participant', function(response) {
+            if(response == 'error') {
                 alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
             } else {
+                Core.stopCheckUnreadMessagesListener();
+                runCheckFocus();
+                shiftCtrlBtuCrOSAdd();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#header #logo_1').animate({
@@ -227,53 +266,6 @@ var TestTake = {
                 });
                 TestTake.active = true;
                 startfullscreentimer();
-                $('#header #logo_2').animate({
-                    'margin-left': '50px'
-                });
-                $('#btnLogout').hide();
-                $('#btnMenuHandIn').show();
-                $('#container').animate({'margin-top': '30px'});
-
-                $('body').on('contextmenu', function (e) {
-                    e.preventDefault();
-                    return false;
-                });
-            }
-        });
-    },
-
-    atTestStop: function () {
-        $('#header #menu').fadeIn();
-        $('#btnLogout').show();
-        $('#btnMenuHandIn').hide();
-        TestTake.active = false;
-        stopfullscreentimer();
-        $('#header #logo_1').animate({
-            'height': '70px'
-        });
-        $('#header #logo_2').animate({
-            'margin-left': '90px'
-        });
-        $('#container').animate({'margin-top': '92px'},
-                function () {
-                    $('#tiles').show();
-                }
-        );
-    },
-
-    atTestStart: function () {
-        $.get('/test_takes/start_take_participant', function (response) {
-            if (response == 'error') {
-                alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
-            } else {
-                Core.stopCheckUnreadMessagesListener();
-                runCheckFocus();
-                $('#tiles').hide();
-                $('#header #menu').fadeOut();
-                $('#header #logo_1').animate({
-                    'height': '30px'
-                });
-                TestTake.active = true;
 
                 $('#header #logo_2').animate({
                     'margin-left': '50px'
@@ -300,6 +292,9 @@ var TestTake = {
         $('#btnLogout').show();
         $('#btnMenuHandIn').hide();
         TestTake.active = false;
+        stopfullscreentimer();
+        shiftCtrlBtuCrOSRemove();
+
 
         $('#header #logo_1').animate({
             'height': '70px'
@@ -644,7 +639,7 @@ var TestTake = {
             } else {
                 check = '';
             }
-            Navigation.load('/test_takes/take/' + take_id + check);
+            Navigation.load('/test_takes/take/' + take_id + check + '/?show_player_choice=true');
         }
     },
 
@@ -800,12 +795,21 @@ var TestTake = {
     },
 
     normalizationPreview: function (take_id) {
+        $(".groupquestion_child").prop( "disabled", false );
         $.post('/test_takes/normalization_preview/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
                     $('#divPreview').html(response);
+                    $(".groupquestion_child").prop( "disabled", true );
                 }
         );
+    },
+    handleGroupQuestionSkip: function(checkbox,group_question_id,take_id){
+        var checked = $(checkbox).is(':checked');
+        $(".child_"+group_question_id).prop( "checked", checked );
+        $(".groupquestion_child").prop( "disabled", false );
+        this.normalizationPreview(take_id);
+        $(".groupquestion_child").prop( "disabled", true );
     },
 
     loadParticipantResults: function (participant_id) {
@@ -923,15 +927,19 @@ function stopCheckFocus() {
     }
 }
 
+function isFullScreen(){
+    return !!(window.innerWidth === screen.width && window.innerHeight === screen.height);
+}
+
 var fullscreentimer;
 function checkfullscreen() {
-    if (window.innerWidth !== screen.width || window.innerHeight !== screen.height) {
+    if (!isFullScreen()) {
         console.log('hand in from checkfullscreen');
         Core.lostFocus();
     }
 }
 function startfullscreentimer() {
-    if (window.navigator.userAgent.indexOf('CrOS') > 0) {
+    if (Core.isChromebook()) {
         fullscreentimer = setInterval(checkfullscreen, 300);
     }
 }
@@ -966,6 +974,36 @@ function checkPageFocus() {
     }
 }
 
+function shiftCtrlBtuCrOSRemove (){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        document.removeEventListener('copy', copyeventlistener);
+        document.removeEventListener("keydown", ctrlpressaction);
+        window.copyeventlistener = null;
+        window.ctrlpressaction = null;
+    }
+}
+
+function shiftCtrlBtuCrOSAdd (){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        window.copyeventlistener = function(e){
+            e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
+        };
+        window.ctrlpressaction = function(){
+          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
+            if (event.ctrlKey ) {
+                Notify.notify('U hebt een toetsencombinatie gebruikt die niet toegestaan is.', 'error');
+                Core.lostFocus("ctrl-key")
+
+            }
+        }
+        document.removeEventListener('copy', window.copyeventlistener);
+        document.addEventListener('copy', window.copyeventlistener);
+        document.removeEventListener("keydown", window.ctrlpressaction);
+        document.addEventListener("keydown", window.ctrlpressaction );
+    }
+}
 
 
 // set the initial state (but only if browser supports the Page Visibility API)

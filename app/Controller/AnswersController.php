@@ -31,7 +31,6 @@ class AnswersController extends AppController
 
         $question = $response['question'];
         $answer = $response['answer'];
-
         $this->Session->write('answer_id', getUUID($answer, 'get'));
         $this->Session->write('question_id', $question_id);
 
@@ -260,6 +259,7 @@ class AnswersController extends AppController
         if($needsQuestionFromRemote) {
             $question = $this->AnswersService->getParticipantQuestion($question_id);
         }
+
 //        $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
 
         if($this->isCitoQuestion($question) && $question['type'] == 'CompletionQuestion') {

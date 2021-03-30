@@ -95,7 +95,7 @@
 
 				<div id="user_menu">
                     <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout();" id="btnLogout" class="btn white">Uitloggen</a>
+					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
 
 					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
 
@@ -112,7 +112,6 @@
 
 		<div id="container"></div>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
-		<!-- Start of HubSpot Embed Code --><script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/3780499.js"></script><!-- End of HubSpot Embed Code -->
 		<script>
             function onConversationsAPIReady() {
                 window.hsConversationsSettings = {

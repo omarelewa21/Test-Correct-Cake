@@ -1161,7 +1161,7 @@ class QuestionsService extends BaseService
 
     public function setIndex($question_id, $test_id, $index)
     {
-        $response = $this->Connector->putRequest('/test_question/' . $question_id . '/reorder', [], ['order' => $index]);
+        $response = $this->Connector->putRequest('/test_question/' . $question_id . '/reorder', [], ['order' => $index,'closeable' => 0]);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -1391,6 +1391,8 @@ class QuestionsService extends BaseService
             'closeable' => $group['closeable'],
             'discuss' => 0,
             'add_to_database' => (int) $group['add_to_database'],
+            'groupquestion_type' => $group['groupquestion_type'],
+            'number_of_subquestions' => (int) $group['number_of_subquestions'],
         ];
     }
 
