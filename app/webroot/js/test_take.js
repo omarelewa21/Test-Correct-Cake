@@ -59,7 +59,7 @@ var TestTake = {
                                 $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
-                                    TestTake.startScreenSizeListenerForChromebookApp();
+                                    // TestTake.startScreenSizeListenerForChromebookApp();
                                     clearInterval(TestTake.heartBeatInterval);
                                 // } else {
                                 //     $('#chromebook-menu-notice-container-notinapp').show();
