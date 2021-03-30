@@ -940,7 +940,13 @@ function checkfullscreen() {
 }
 function startfullscreentimer() {
     if (Core.isChromebook()) {
-        fullscreentimer = setInterval(checkfullscreen, 300);
+        $.getJSON('/answers/is_taking_inbrowser_test', function(data) {
+            if (data.response != true) {
+                fullscreentimer = setInterval(checkfullscreen, 300);
+                return;
+            }
+        });
+
     }
 }
 
