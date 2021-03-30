@@ -53,11 +53,10 @@ var TestTake = {
                             }
                         }
                         TestTake.markBackground();
-alert('response status '+response.take_status);
-alert('heartbeat callback '+TestTake.heartBeatCallback);
-                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {alert('hallo Carlo');
+
+                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                             $('#waiting').slideUp();
-                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){alert('in chromebook, not fullscreen en in de app');
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
                                 // $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
@@ -66,8 +65,8 @@ alert('heartbeat callback '+TestTake.heartBeatCallback);
                                 // } else {
                                 //     $('#chromebook-menu-notice-container-notinapp').show();
                                 // }
-                                // $('#chromebook-menu-notice-container').slideDown();
-                            } else {alert('we zouden de boel moeten laten zien');
+                                $('#chromebook-menu-notice-container').slideDown();
+                            } else {
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
                                 $('#btnStartTestInLaravel').slideDown();
