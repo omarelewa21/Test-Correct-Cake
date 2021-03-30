@@ -138,6 +138,9 @@ var TestTake = {
         clearInterval(TestTake.screenSizeListenerForChromebookAppInterval);
     },
     screenSizeListenerForChromebookApp: function() {
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        $('#carloInfo').html(time+' innerWidth '+window.innerWidth+' screen width '+screen.width);
         $('#chromebook-menu-notice-container-inapp .fullscreenChromebookAppMessage').hide();
       if(isFullScreen()){
           // show notification that it is okay
