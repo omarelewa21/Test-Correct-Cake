@@ -53,7 +53,8 @@ var TestTake = {
                             }
                         }
                         TestTake.markBackground();
-
+alert('response status '+response.take_status);
+alert('heartbeat callback '+TestTake.heartBeatCallback);
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {alert('hallo Carlo');
                             $('#waiting').slideUp();
                             if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){alert('in chromebook, not fullscreen en in de app');
