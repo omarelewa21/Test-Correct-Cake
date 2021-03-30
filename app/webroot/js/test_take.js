@@ -1110,12 +1110,12 @@ function checkfullscreen() {
 function startfullscreentimer() {
     if (Core.isChromebook()) {
         $.getJSON('/answers/is_taking_inbrowser_test', function(data) {
+            console.dir(data);
             if (data.response != 1) {
                 fullscreentimer = setInterval(checkfullscreen, 300);
                 return;
             }
         });
-
     }
 }
 
