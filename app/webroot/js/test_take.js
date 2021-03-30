@@ -53,11 +53,11 @@ var TestTake = {
                             }
                         }
                         TestTake.markBackground();
-alert('response status '+response.take_status);
-alert('heartbeat callback '+TestTake.heartBeatCallback);
-                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {alert('hallo Carlo');
+Notify.notify('response status '+response.take_status);
+Notify.notify('heartbeat callback '+TestTake.heartBeatCallback);
+                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {Notify.notify('hallo Carlo');
                             $('#waiting').slideUp();
-                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){alert('in chromebook, not fullscreen en in de app');
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){Notify.notify('in chromebook, not fullscreen en in de app');
                                 // $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
