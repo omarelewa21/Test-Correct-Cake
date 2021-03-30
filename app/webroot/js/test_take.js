@@ -877,6 +877,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
+                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -899,6 +900,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify('Browsertoetsing voor alle studenten uitgeschakeld');
+                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
