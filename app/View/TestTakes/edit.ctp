@@ -47,6 +47,22 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'multiple' => true, 'class' => 'takers_select', 'value' => $selectedInvigilator)) ?>
                 </td>
             </tr>
+            <?php if ($school_allows_inbrowser_testing) { ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex; align-items: center; color: var(--system-base)"">
+                            <span class="fa fa-chrome"></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browser voor iedereen toestaan</strong></span>
+                            <label class="switch">
+                                <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'], 'value' => !$take['allow_inbrowser_testing'],'label' => false)); ?>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
             <tr>
                 <th width="140">
                     Instructies
