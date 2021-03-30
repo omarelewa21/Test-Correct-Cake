@@ -55,8 +55,9 @@ var TestTake = {
                         TestTake.markBackground();
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
+                            $('#waiting').slideUp();
                             if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
-                                $('#waiting').slideUp();
+                                // $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
                                     // TestTake.startScreenSizeListenerForChromebookApp();
@@ -69,7 +70,7 @@ var TestTake = {
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
                                 $('#btnStartTestInLaravel').slideDown();
-                                $('#waiting').slideUp();
+                                // $('#waiting').slideUp();
                                 clearInterval(TestTake.heartBeatInterval);
                             }
                         }
