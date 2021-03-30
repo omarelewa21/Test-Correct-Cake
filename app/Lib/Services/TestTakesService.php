@@ -872,4 +872,14 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+     public function is_allowed_inbrowser_testing($test_take_id) {
+         return $response = $this->Connector->getRequest(
+             sprintf(
+                 '/test_take/%s/is_allowed_inbrowser_testing',
+                 $test_take_id
+             ),
+             []
+         );
+    }
 }

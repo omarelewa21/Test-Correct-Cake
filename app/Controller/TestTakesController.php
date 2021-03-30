@@ -2612,4 +2612,9 @@ class TestTakesController extends AppController {
         return $view;
     }
 
+    public function is_allowed_inbrowser_testing($test_take_id) {
+        echo json_encode(['response' => $this->TestTakesService->is_allowed_inbrowser_testing($test_take_id)]);
+        die;
+    }
+
 }
