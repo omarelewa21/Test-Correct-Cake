@@ -1110,9 +1110,6 @@ function checkfullscreen() {
 function startfullscreentimer() {
     if (Core.isChromebook()) {
         $.getJSON('/answers/is_taking_inbrowser_test', function(data) {
-            console.log('@@@@@ start voor carlo')
-            console.dir(data);
-            console.log('@@@@@ end voor carlo')
             if (data.response != 1) {
                 fullscreentimer = setInterval(checkfullscreen, 300);
                 return;
