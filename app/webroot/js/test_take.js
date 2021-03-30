@@ -14,6 +14,7 @@ var TestTake = {
     lastTestSelected:null,
     lastTestTimeDispensedIds:null,
     testCloseMethod:null,
+    screenSizeListenerForChromebookAppInterval: null,
 
     startHeartBeat: function (callback, interval) {
         if (callback == 'active') {
@@ -58,6 +59,7 @@ var TestTake = {
                                 $('#waiting').slideUp();
                                 if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
+                                    TestTake.startScreenSizeListenerForChromebookApp();
                                     clearInterval(TestTake.heartBeatInterval);
                                 } else {
                                     $('#chromebook-menu-notice-container-notinapp').show();
@@ -129,7 +131,30 @@ var TestTake = {
             );
         }, intervalInSeconds * 1000);
     },
-
+    startScreenSizeListenerForChromebookApp: function() {
+        TestTake.screenSizeListenerForChromebookAppInterval = setInterval(TestTake.screenSizeListenerForChromebookApp(),300);
+    },
+    stopScreenSizeListenerForChromebookApp: function() {
+        clearInterval(TestTake.screenSizeListenerForChromebookAppInterval);
+    },
+    screenSizeListenerForChromebookApp: function() {
+        $('#chromebook-menu-notice-container-inapp .fullscreenChromebookAppMessage').hide();
+      if(isFullScreen()){
+          // show notification that it is okay
+          $('#chromebook-menu-notice-container-inapp #fullscreen-okay').show();
+          // stop interval
+          TestTake.stopScreenSizeListenerForChromebookApp();
+      } else {
+          // show notification that it is not okay
+          if(window.innerWidth > screen.width){
+              // show zoom out message
+              $('#chromebook-menu-notice-container-inapp #needs-zoom-out').show();
+          } else {
+              // show zoom in message
+              $('#chromebook-menu-notice-container-inapp #needs-zoom-in').show();
+          }
+      }
+    },
     markBackground: function () {
         console.log('mark background');
         if (!TestTake.alert) {
@@ -941,7 +966,7 @@ function checkfullscreen() {
 function startfullscreentimer() {
     if (Core.isChromebook()) {
         $.getJSON('/answers/is_taking_inbrowser_test', function(data) {
-            if (data.response != true) {
+            if (data.response != 1) {
                 fullscreentimer = setInterval(checkfullscreen, 300);
                 return;
             }
