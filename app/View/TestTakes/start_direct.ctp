@@ -6,9 +6,9 @@
             <th style="display: none;" width="70">Datum</th>
             <th style="display: none;" width="110">Periode</th>
             <th style="display: none;">Surveillanten</th>
-            <th width="110">Klas</th>
-            <th width="150">Toets</th>
-            <th width="50">Weging</th>
+            <th>Klas</th>
+            <th>Toets</th>
+            <th>Weging</th>
         </tr>
 
         <?
@@ -36,7 +36,7 @@
                     <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
                 </td>
                 <td>
-                    <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : 'Selecteer' ?></a>
+                    <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : 'Selecteer' ?></span>
                     <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
                 </td>
                 <td>
@@ -73,7 +73,7 @@
                     </td>
                 </tr>
             <?php endif; ?>
-            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="notes_<?= $i ?>" class="testTakeRowNotes">
+            <tr style="display: none;" class="testTakeRowNotes">
                 <td colspan="7">
                     <strong>Notities voor surveillant</strong><br />
                     <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
