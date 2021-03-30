@@ -53,11 +53,18 @@ var TestTake = {
                             }
                         }
                         TestTake.markBackground();
+<<<<<<< Updated upstream
 alert('response status '+response.take_status);
 alert('heartbeat callback '+TestTake.heartBeatCallback);
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {alert('hallo Carlo');
                             $('#waiting').slideUp();
                             if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){alert('in chromebook, not fullscreen en in de app');
+=======
+
+                        if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
+                            $('#waiting').slideUp();
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
+>>>>>>> Stashed changes
                                 // $('#waiting').slideUp();
                                 // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
@@ -66,7 +73,7 @@ alert('heartbeat callback '+TestTake.heartBeatCallback);
                                 // } else {
                                 //     $('#chromebook-menu-notice-container-notinapp').show();
                                 // }
-                                // $('#chromebook-menu-notice-container').slideDown();
+                                $('#chromebook-menu-notice-container').slideDown();
                             } else {alert('we zouden de boel moeten laten zien');
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
