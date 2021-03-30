@@ -79,6 +79,22 @@
                     <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
                 </td>
             </tr>
+            <?php if ($locations[$i]['allow_inbrowser_testing']) { ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex;align-items: center; color: var(--system-base)"">
+                            <span class="fa fa-chrome"></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browser voor iedereen toestaan</strong></span>
+                            <label class="switch">
+                                <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
             <?
         }
         ?>
