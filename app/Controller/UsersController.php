@@ -90,6 +90,9 @@ class UsersController extends AppController
             if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
                 $captchaSet = true;
 
+                if(!class_exists('Securimage')){
+                    include_once(WWW_ROOT.'img/securimage.php');
+                }
                 $this->SecureImage = new Securimage();
                 if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
                     // error captcha not ok
