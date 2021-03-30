@@ -55,16 +55,16 @@ var TestTake = {
                         TestTake.markBackground();
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
-                            if(Core.isChromebook() && !isFullScreen()){
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
                                 $('#waiting').slideUp();
-                                if(Core.inApp == true){
+                                // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
                                     TestTake.startScreenSizeListenerForChromebookApp();
                                     clearInterval(TestTake.heartBeatInterval);
-                                } else {
-                                    $('#chromebook-menu-notice-container-notinapp').show();
-                                }
-                                $('#chromebook-menu-notice-container').slideDown();
+                                // } else {
+                                //     $('#chromebook-menu-notice-container-notinapp').show();
+                                // }
+                                // $('#chromebook-menu-notice-container').slideDown();
                             } else {
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
