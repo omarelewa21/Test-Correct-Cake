@@ -76,7 +76,15 @@
 </style>
 
 <script type="text/javascript">
-    
+    <? if($type=='school_classes') { ?>
+        var modus = 'school_classes';
+        var classId = $('#class_id').val();
+        var schoollocationId = '<?= $location_id ?>';
+        var url = '/school_classes/doImport/<?= $location_id ?>/' + classId;
+    <? }else{ ?>
+        var modus = 'general';
+        var url = '/users/doImportStudentsWithClasses';
+    <? } ?>
 
     if (typeof window.importPageHasBeenLoadedBefore == 'undefined') {
         window.importPageHasBeenLoadedBefore = true;
@@ -145,6 +153,11 @@
                 })
                 .on('mouseleave', 'table#excelDataTable tr', function (e) {
                     $('.deleteicon').remove();
+                })
+                .on('change', '#class_id', function (e) {
+                    if(modus=='school_classes'){
+                        url = '/school_classes/doImport/'+schoollocationId+'/' + e.target.value;
+                    }
                 });
 
         var script = document.createElement('script');
@@ -233,12 +246,7 @@
                 data.push(h);
             });
 
-            <? if($type=='school_classes') { ?>
-                var classId = $('#class_id').val();
-                var url = '/school_classes/doImport/<?= $location_id ?>/' + classId;
-            <? }else{ ?>
-                var url = '/users/doImportStudentsWithClasses';
-            <? } ?>
+            
 
             
             if(url.search('school_classes')>0){
@@ -249,7 +257,7 @@
                     return false;
                 }
             }
-            console.dir(url);
+
             $.post(url,
                     {data: data},
                     function (response) {
