@@ -40,7 +40,9 @@
                    '<?=$participant['test_take_uuid']?>',
                    '<?= getUUID($participant, 'get'); ?>',
                    '<?= $participant['user']['name_first'] ?> <?= $participant['user']['name_suffix'] ?> <?= $participant['user']['name'] ?>')
-                   ">
+                   "
+           test_take_id="<?= $participant['test_take_uuid'] ?>"
+            >
             <span class="fa fa-chrome"></span>
         </a>
     </td>

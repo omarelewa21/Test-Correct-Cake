@@ -448,18 +448,37 @@ var TestTake = {
 
     startTake: function (take_id) {
         if (!TestTake.studentsPresent) {
-            Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Niet alle Studenten zijn aanwezig.'
-            }, function () {
-                $.get('/test_takes/start_test/' + take_id,
+            var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
+
+            var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
+                            '<p class="title" style="display: block;margin:0;font-weight: bold">' +
+                                '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
+                                '    <g fill="currentColor" fill-rule="evenodd">' +
+                                '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
+                                '        <circle cx="2" cy="12" r="2"/>' +
+                                '    </g>' +
+                                '</svg>' +
+                                '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
+                            '</p>' +
+                            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
+                            '</div>';
+            $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
+                if (data.response.allowed == true) {
+                    message = warning+message;
+                }
+                Popup.message({
+                    btnOk: 'Ja',
+                    btnCancel: 'Annuleer',
+                    title: 'Weet u het zeker?',
+                    message: message
+                }, function () {
+                    $.get('/test_takes/start_test/' + take_id,
                         function (response) {
                             Notify.notify('Toetsafname gestart', 'info');
                             Navigation.load('/test_takes/surveillance');
                         }
-                );
+                    );
+                });
             });
         } else {
             $.get('/test_takes/start_test/' + take_id,
@@ -883,6 +902,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
+                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -893,6 +913,48 @@ var TestTake = {
                 console.dir(response);
                 alert('error');
             },
+        });
+    },
+
+    toggleInbrowserButtonOff :function (el, take_id) {
+        el.classList.remove('cta-button');
+        el.classList.add('grey');
+
+        Notify.notify('Browsertoetsing voor alle studenten uitgeschakeld');
+        Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+        document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
+            el.classList.remove('cta-button');
+            el.classList.add('grey');
+        });
+    },
+    toggleInbrowserButtonOn :function (el, take_id) {
+        el.classList.add('cta-button');
+        el.classList.remove('grey');
+
+        Notify.notify('Browsertoetsing voor alle studenten ingeschakeld' );
+        document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
+            el.classList.add('cta-button');
+            el.classList.remove('grey');
+        });
+    },
+
+    toggleInbrowserTestingForAllParticipants:function(el, take_id) {
+        var that = this;
+        $.ajax({
+            url: '/test_takes/toggle_inbrowser_testing_for_all_participants/' + take_id,
+            type: 'PUT',
+            contentType: 'application/json',
+            success: function (response) {
+                if (el.classList.contains('cta-button')) {
+                    that.toggleInbrowserButtonOff(el, take_id);
+                } else {
+                    that.toggleInbrowserButtonOn(el, take_id);
+                }
+            },
+            error: function(response) {
+                console.dir(response);
+                alert('error');
+            }
         });
     },
 

@@ -76,7 +76,7 @@
                 <div style="display: flex;">
                     <div style="display:flex; width:50%; align-items: center; color: var(--system-base)"">
                         <span class="fa fa-chrome"></span>
-                        <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browser voor iedereen toestaan</strong></span>
+                        <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
                         <?php echo $this->element('questionmark_tooltip') ?>
                         <label class="switch">
                             <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>

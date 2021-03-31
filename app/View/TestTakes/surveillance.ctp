@@ -51,12 +51,14 @@ if(count($takes) == 0) {
                                 ?>
                             </td>
                             <td>
+                                <?php if ($allow_inbrowser_testing) { ?>
                                 <a title="Browsertoetsen voor iedereen aan/uit"
                                    href="#" id=""
                                    class="btn active <?= $take['info']['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
                                    onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?=$take[0]['uuid']?>')">
                                     <span class="fa fa-chrome"></span>
                                 </a>
+                                <?php } ?>
                             </td>
                             <td>
                                 <?php
