@@ -207,7 +207,8 @@ var TestTake = {
     },
 
     doHandIn: function () {
-        $.get('/test_takes/hand_in',
+        var endTest = function () {
+            $.get('/test_takes/hand_in',
                 function () {
                     clearTimeout(TestTake.heartBeatInterval);
                     stopCheckFocus();
@@ -217,7 +218,13 @@ var TestTake = {
                     Notify.notify('De toets is gestopt', 'info');
                     TestTake.active = false;
                 }
-        );
+            );
+        };
+        if (typeof Intense == "undefined") {
+            endTest();
+        } else {
+            setTimeout(TestTake.stopIntenseCalibrationForTest(endTest), 1000);
+        }
     },
 
     startTestInLaravel : function(take_id) {
@@ -870,7 +877,66 @@ var TestTake = {
         });
     },
 
-    startIntenseCalibrationForTest: function(take_id, deviceId, sessionId) {
+    stopIntenseCalibrationForTest: function(callback) {
+        Popup.shouldCloseWithIndex = true;
+        var html = '<div class="tat-content border-radius-bottom-0"> ' +
+            '<div style="display:flex">' +
+            '   <div style="flex-grow:1">' +
+            '       <h2 style="margin-top:0">Typecalibratie test</h2>' +
+            '   </div>' +
+            '    <div class="close" style="flex-shrink: 1">' +
+            '        <a href="#" onclick="Popup.closeLast()">' +
+            '            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">' +
+            '                <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">' +
+            '                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>' +
+            '                </g>' +
+            '            </svg>' +
+            '        </a>' +
+            '    </div>' +
+            '  </div>' +
+            ' <div class="divider mb-5 mt-2.5"></div>' +
+            '</div>' +
+            '<div class="popup-content tat-content body1" style="margin-top:-60px">' +
+            '<p>Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>' +
+            '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>' +
+            '    <div class="input-group ">' +
+            '        <textarea id="callibration-final-text-input" width="200px" height="200px" autofocus style="padding:1rem"></textarea>' +
+            '        <label for="callibration-final-text-input">Type de tekst over</label>' +
+            '    </div>' +
+            '</div>' +
+
+            '<div class="popup-footer tat-footer" style="display:flex">' +
+            '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;flex-grow:1">' +
+            '       Afronden' +
+            '    </button>' +
+            '</div>';
+        console.log(html);
+
+        Popup.show(html, 800);
+
+        Intense.onCallibrated(function () {
+            document.getElementById('typecalibration_complete_button').classList.add('primary-button');
+        });
+
+        document.getElementById('typecalibration_complete_button').addEventListener('click', function (e) {
+            if (this.classList.contains('primary-button')) {
+                Popup.closeLast();
+                callback();
+                stopIntense();
+            }
+        });
+    },
+
+    startIntenseCalibration: function(take_id, deviceId, sessionId, callback) {
+        if (typeof Intense == "undefined") {
+            this.startIntenseCalibrationForTestWaitingRoom(take_id, deviceId, sessionId, callback);
+        } else {
+            if (typeof callback == 'function') {
+                callback();
+            }
+        }
+        },
+    startIntenseCalibrationForTestWaitingRoom: function(take_id, deviceId, sessionId, callback) {
 
     Popup.show(
 '<div class="tat-content border-radius-bottom-0"> '+
@@ -896,8 +962,8 @@ var TestTake = {
         '<p>Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
     '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>'+
     '    <div class="input-group ">'+
-    '        <textarea id="typecalibration_textarea" width="200px" height="200px" autofocus style="padding:1rem"></textarea>'+
-    '        <label for="typecalibration_textarea">Type de tekst over</label>'+
+    '        <textarea id="callibration-init-text-input" width="200px" height="200px" autofocus style="padding:1rem"></textarea>'+
+    '        <label for="callibration-init-text-input">Type de tekst over</label>'+
     '    </div>'+
     '</div>'+
 
@@ -911,7 +977,7 @@ var TestTake = {
 
 
 
-        $(document).ready(function() {
+
             Intense = new IntenseWrapper({
                 api_key: "api_key", // This is a public key which will be provided by Intense.
                 app: "name of the app that implements Intense. example: TC@1.0.0",
@@ -958,11 +1024,13 @@ var TestTake = {
                 console.log('Intense ended recording');
             });
 
-        });
+
         document.getElementById('typecalibration_complete_button').addEventListener('click',function(e) {
             if (this.classList.contains('primary-button')) {
                 Popup.closeLast();
-                TestTake.startTest(take_id);
+                if (callback) {
+                    callback();
+                }
             }
         });
 
@@ -1054,6 +1122,12 @@ function closebtu() {
     //we call this func. from drawing_answer_canvas.ctp when someone press close button
     parent.skip = true;
     window.parent.Popup.closeLast();
+}
+
+function stopIntense() {
+    if (typeof Intense != "undefined") {
+        Intense.stop();
+    }
 }
 
 function checkPageFocus() {
