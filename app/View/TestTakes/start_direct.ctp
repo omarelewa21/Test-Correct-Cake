@@ -117,7 +117,7 @@
     $(document).ready(function(){
         Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');
         Navigation.refresh();
-        Popup.closeLast();
+        setTimeout(function(){Popup.closeLast();},50);
     })
 
     <? } ?>
