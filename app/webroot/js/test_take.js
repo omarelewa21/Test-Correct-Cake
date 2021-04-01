@@ -447,25 +447,27 @@ var TestTake = {
     },
 
     startTake: function (take_id) {
-        if (!TestTake.studentsPresent) {
-            var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
+        var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
 
-            var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
-                            '<p class="title" style="display: block;margin:0;font-weight: bold">' +
-                                '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
-                                '    <g fill="currentColor" fill-rule="evenodd">' +
-                                '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
-                                '        <circle cx="2" cy="12" r="2"/>' +
-                                '    </g>' +
-                                '</svg>' +
-                                '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
-                            '</p>' +
-                            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
-                            '</div>';
-            $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
-                if (data.response.allowed == true) {
-                    message = warning+message;
-                }
+        var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
+            '<p class="title" style="display: block;margin:0;font-weight: bold">' +
+            '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
+            '    <g fill="currentColor" fill-rule="evenodd">' +
+            '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
+            '        <circle cx="2" cy="12" r="2"/>' +
+            '    </g>' +
+            '</svg>' +
+            '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
+            '</p>' +
+            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
+            '</div>';
+
+
+        $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
+            var showWarning = data.response.allowed == true;
+            message = showWarning ? warning+message : message;
+
+            var showPopupMessage = function(message) {
                 Popup.message({
                     btnOk: 'Ja',
                     btnCancel: 'Annuleer',
@@ -479,15 +481,23 @@ var TestTake = {
                         }
                     );
                 });
-            });
-        } else {
-            $.get('/test_takes/start_test/' + take_id,
-                    function (response) {
-                        Notify.notify('Toetsafname gestart', 'info');
-                        Navigation.load('/test_takes/surveillance');
-                    }
-            );
-        }
+            };
+
+            if (!TestTake.studentsPresent) {
+                showPopupMessage(message);
+            } else {
+                if (showWarning) {
+                    showPopupMessage(warning);
+                } else {
+                    $.get('/test_takes/start_test/' + take_id,
+                        function (response) {
+                            Notify.notify('Toetsafname gestart', 'info');
+                            Navigation.load('/test_takes/surveillance');
+                        }
+                    );
+                }
+            }
+        });
     },
 
     startRating: function (take_id, type) {
