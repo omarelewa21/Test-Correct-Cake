@@ -89,6 +89,11 @@
           <td>
               <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
           </td>
+
+          <th width="130"><?= __("School Language")?></th>
+          <td>
+          <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('Dutch','English'))) ?>
+          </td>
         </tr>
 
         <tr>

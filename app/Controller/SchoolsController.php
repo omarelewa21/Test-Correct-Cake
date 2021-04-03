@@ -68,8 +68,6 @@ class SchoolsController extends AppController
             }
 
             if(!empty($data['external_main_code'])) {
-
-
                 $toIgnore = array();
 
                 $schoolFetch = $this->SchoolsService->getSchool($school_id);

@@ -85,6 +85,8 @@ class UsersController extends AppController
 
         $captchaSet = false;
         if ($this->request->is('post') || $this->request->is('put')) {
+            
+
             $appType = $this->request->data['appType'];
 
             if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
@@ -102,8 +104,18 @@ class UsersController extends AppController
             }
 
             if ($this->Auth->login()) {
+                $User = $this->Auth->user();
+                $school_location_id = $User['school_location_id'];
+                $school_location_object = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+                $language = $school_location_object['school_language'];
 
-                // $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
+                if($language == 1){
+                    $this->Session->write('Config.language', 'eng');
+                }
+                else{
+                    $this->Session->write('Config.language', 'nl');
+                }
+                
                 if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
 
@@ -142,6 +154,7 @@ class UsersController extends AppController
                         }
                     }
                 }
+                
 
 
                 // no need to expose user info
