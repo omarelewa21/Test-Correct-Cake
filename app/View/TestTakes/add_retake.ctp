@@ -108,6 +108,9 @@ foreach($test_take['invigilator_users'] as $invigilator) {
         </div>
     </div>
 
+    <!-- spacer for livechat -->
+    <div style="display:block;height:75px;"></div>
+
 <?=$this->Form->end();?>
 
 <script type="text/javascript">

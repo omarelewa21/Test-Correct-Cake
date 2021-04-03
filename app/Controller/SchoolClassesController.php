@@ -127,10 +127,10 @@ class SchoolClassesController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data['data'] = $this->request->data;
-
         $result = $this->SchoolClassesService->doImportStudents($location_id, $class_id, $data);
         if (!$result) {
-            $this->formResponse(false, $this->SchoolClassesService->getErrors());
+            $response = $this->translateError($this->SchoolClassesService);
+            $this->formResponse(false, $response);
             return false;
         }
         $this->formResponse(true, []);
@@ -436,6 +436,18 @@ class SchoolClassesController extends AppController
         }
 
         $this->request->data['User'] = $this->UsersService->getUser($user_id);
+    }
+
+    private function translateError($service)
+    {
+        if(!array_key_exists('error', $service->getErrors())){
+            return $service->getErrors();
+        }
+        if(stristr($service->getErrors()['error'], 'School class id not found for class')){
+            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']).' niet gevonden!');
+        }
+
+        return $service->getErrors()['error'];
     }
 
     private function getInitEducationLevelYears($education_levels, $uuid)

@@ -78,6 +78,7 @@
             <thead>
             <tr>
                 <th></th>
+                <th></th>
                 <th><?= __("Vraag")?></th>
                 <th><?= __("Leerjaar")?></th>
                 <th><?= __("Niveau")?></th>

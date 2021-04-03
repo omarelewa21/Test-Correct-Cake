@@ -29,6 +29,7 @@ if(count($takes) == 0) {
                     <tr>
                         <th><?= __("Toets")?></th>
                         <th><?= __("Klas(sen)")?></th>
+                        <th width="40"></th>
                         <th width="200"><?= __("Voortgang")?></th>
                         <th width="120"></th>
                     </tr>
@@ -37,6 +38,7 @@ if(count($takes) == 0) {
                         foreach ($takes as $take) {
 
                         ?>
+
                         <tr>
                             <td><?= $take[0]['test'] ?></td>
                             <td>
@@ -47,6 +49,16 @@ if(count($takes) == 0) {
                                     }
                                 }
                                 ?>
+                            </td>
+                            <td>
+                                <?php if ($allow_inbrowser_testing) { ?>
+                                <a title="Browsertoetsen voor iedereen aan/uit"
+                                   href="#" id=""
+                                   class="btn active <?= $take['info']['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
+                                   onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?=$take[0]['uuid']?>')">
+                                    <span class="fa fa-chrome"></span>
+                                </a>
+                                <?php } ?>
                             </td>
                             <td>
                                 <?php
@@ -108,9 +120,9 @@ if(count($takes) == 0) {
                             $take['info']['test_participants'][$key]['test_take_uuid'] = getUUID($take['info'], 'get');
                         }
 
-                        $participants = array_merge($participants, $take['info']['test_participants']);
+                        $participantsForThisTake = $take['info']['test_participants'];
+                        $participants = array_merge($participants, $participantsForThisTake);
                     }
-
                 }
 
                 $half = floor(count($participants) / 2);

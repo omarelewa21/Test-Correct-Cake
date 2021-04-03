@@ -22,14 +22,19 @@ class TeacherClassesController extends AppController
 
     public function index()
     {
-        $params = [
+        
+    }
+
+    public function load()
+    {
+        $params = $this->request->data;
+        $params = array_merge([
             'filter' => ['current_school_year' => 1],
-        ];
+        ],$params);
 
         $classes  = $this->SchoolClassesService->getClasses($params);
 
         $this->set('classes', $classes);
-
     }
 
     public function view($class_id) {

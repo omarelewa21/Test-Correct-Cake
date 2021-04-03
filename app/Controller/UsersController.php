@@ -8,6 +8,7 @@ App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('SchoolsService', 'Lib/Services');
 App::uses('UmbrellaOrganisationsService', 'Lib/Services');
 App::uses('HelperFunctions', 'Lib');
+App::uses('Securimage','webroot/img');
 
 /**
  * Users controller
@@ -69,6 +70,7 @@ class UsersController extends AppController
 
     public function login()
     {
+
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
 //                $view = "windows_update";
@@ -81,8 +83,23 @@ class UsersController extends AppController
         $message = "";
         ## Einde bericht.
 
+        $captchaSet = false;
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
+
+            if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
+                $captchaSet = true;
+
+                if(!class_exists('Securimage')){
+                    include_once(WWW_ROOT.'img/securimage.php');
+                }
+                $this->SecureImage = new Securimage();
+                if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
+                    // error captcha not ok
+                    $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','showCaptcha' => true]);
+                    return false;
+                }
+            }
 
             if ($this->Auth->login()) {
 
@@ -130,7 +147,20 @@ class UsersController extends AppController
                 // no need to expose user info
                 $this->formResponse(true, ['message' => $message]);
             } else {
+                // Check if there's a captcha reason to fail or that the data is just not okay
+                if(!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])){
+                    if($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])){
+                        if($captchaSet === true) {
+                            // username/ password was incorrect
+                            $this->formResponse(false,['showCaptcha' => true]);
+                            return false;
+                        }
+                        $this->formResponse(false,['showCaptcha' => true, 'message' => 'Voer de beveiligingscode in']);
+                        return false;
+                    }
+                }
                 $this->formResponse(false);
+                return false;
             }
 
 //            if ($this->Session->check('TLCHeader') && $this->Session->read('TLCHeader') !== 'not secure...') {
@@ -1569,7 +1599,27 @@ class UsersController extends AppController
     public
     function import($type)
     {
-
+        if($type=='students'){
+            $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+            $school_location = AuthComponent::user('school_location');
+            $this->set('school_location_id', $school_location['id']);
+            $this->set('school_location', $school_location);
+            $this->render('import_students');
+            return;
+        }
+    }
+    public function doImportStudentsWithClasses()
+    {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $school_location = AuthComponent::user('school_location');
+        $data['data'] = $this->request->data;
+        $result = $this->SchoolClassesService->doImportStudentsWithClasses($school_location['uuid'], $data);
+        if (!$result) {
+            $response = $this->translateError($this->SchoolClassesService);
+            $this->formResponse(false, $response);
+            return false;
+        }
+        $this->formResponse(true, []);
     }
 
     public
@@ -1736,5 +1786,24 @@ class UsersController extends AppController
               ';
             exit();
         }
+    }
+
+    public function toggle_verified($uuid) {
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $response = $this->UsersService->toggleAccountVerified($uuid);
+        echo json_encode($response);
+        exit;
+    }
+
+    private function translateError($service)
+    {
+        if(!array_key_exists('error', $service->getErrors())){
+            return $service->getErrors();
+        }
+        if(stristr($service->getErrors()['error'], 'School class id not found for class')){
+            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']).' niet gevonden!');
+        }
+
+        return $service->getErrors()['error'];
     }
 }

@@ -10,7 +10,7 @@
         <?= __("Inplannen")?>
     </a>
     <? } else { ?>
-    <a href="#" class="btn white mr2" 
+    <a href="#" class="btn white mr2"
             <? if($carouselGroupQuestionNotify){ ?>
             onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');"
             <? }else{ ?>
@@ -21,10 +21,28 @@
         <?= __("Inplannen")?>
     </a>
     <? } ?>
+<<<<<<< HEAD
     <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
         <span class="fa fa-search mr5"></span>
         <?= __("Voorbeeld")?>
+=======
+    <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
+        <?php echo $this->element('schedule_now') ?>
+        Direct afnemen
+>>>>>>> 7b756a77bd9b5ec4f7ed50fde67e07271f355ddf
     </a>
+    <?php if($oldPlayerAccess) { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
+            <span class="fa fa-search mr5"></span>
+            Voorbeeld
+        </a>
+    <?php } ?>
+    <?php if($newPlayerAccess) { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.showPreviewTest('<?=$test_id?>');">
+            <span class="fa fa-search mr5"></span>
+            <?= !$oldPlayerAccess ? 'Voorbeeld' : 'Voorbeeld nieuwe speler' ?>
+        </a>
+    <?php } ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         <?= __("PDF")?>
@@ -191,7 +209,13 @@
                                     $a ++;
                                     ?>
                                     <div class="cell_autowidth">
-                                        <?= $a . '. '. $subquestion['question']['question']; ?>
+                            <?php
+                            $closableIcon = '';
+                            if($subquestion['question']['closeable'] == 1) {
+                                $closableIcon ='<i title="Deze vraag afsluiten" style="cursor:pointer" class="fa fa-lock"></i>';
+                            }
+                            echo $a . '. '. $subquestion['question']['question']. $closableIcon;
+                            ?>
                                     </div>
                                     <?
                                 }

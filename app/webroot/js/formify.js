@@ -1,3 +1,8 @@
+if (!Array.isArray) {
+    Array.isArray = function(arg) {
+        return Object.prototype.toString.call(arg) === '[object Array]';
+    };
+}
 (function ($) {
 
     var settings = [];
@@ -18,6 +23,18 @@
 
         initialise();
     };
+
+    function setEnterConfirm(elm){
+        $(elm).keydown(function (e) {
+            if (e.which == 13) {
+                if (verifyAll()) {
+                    postForm();
+                } else {
+                    Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                }
+            }
+        });
+    }
 
     function initialise() {
         $(element).find('input, select').bind('change keyup', function () {
@@ -43,15 +60,11 @@
                 }
             });
 
-            $(settings.enterConfirm).keydown(function (e) {
-                if (e.which == 13) {
-                    if (verifyAll()) {
-                        postForm();
-                    } else {
-                        Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
-                    }
-                }
-            });
+            if(Array.isArray(settings.enterConfirm)){
+                settings.enterConfirm.forEach(setEnterConfirm);
+            } else {
+                setEnterConfirm(settings.enterConfirm);
+            }
         }else {
             $(settings.confirm).click(function () {
 

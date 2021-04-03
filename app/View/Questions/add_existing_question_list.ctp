@@ -8,6 +8,20 @@ foreach($questions as $question) {
             </i>
           <? endif;?>
         </td>
+        <td style="text-align:center">
+            <?php
+
+            if($question['closeable'] == 1) {
+                $title = 'Deze vraag afsluiten';
+                if ($question['type'] == 'GroupQuestion') {
+                    $title = 'Deze vraaggroep afsluiten';
+                }
+                printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
+            } else {
+                echo '&nbsp;';
+            }
+            ?>
+        </td>
         <td>
             <div style="width:475px; overflow: hidden;white-space: nowrap; ">
                 <? if($question['type'] == 'GroupQuestion') {
@@ -32,7 +46,7 @@ foreach($questions as $question) {
 
                 case 'OpenQuestion':
                     switch($question['subtype']){
-                        
+
                         case 'short':
                             echo __("Open vraag - kort<br />");
                             break;

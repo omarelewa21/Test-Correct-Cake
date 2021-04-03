@@ -22,6 +22,17 @@
             <?= $params['add_title'] ?>
         </a>
     <? } ?>
+
+    <? if (in_array($role, ['School manager']) && $type === 'students') {
+        ?>
+        <a href="#" class="btn white" onclick="Navigation.load('/users/import/students');">
+            <span class="fa fa-cloud-upload mr5"></span>
+            Studenten importeren
+        </a>
+        <?
+    }
+    ?>
+
     <? if (in_array($role, ['School manager']) && $type === 'teachers') {
         ?>
         <a href="#" class="btn white" onclick="Navigation.load('/users/import/teachers');">

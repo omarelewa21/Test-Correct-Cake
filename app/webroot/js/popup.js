@@ -456,7 +456,24 @@ var Popup = {
             schoolLocationsTemplate += '<a href="#" onclick="User.switchLocation(this, \'' + schoolLocation.uuid + '\');" class="btn hover-blue ' + activeClass + ' mb5">' + schoolLocation.name + '</a>';
         });
 
-        this.message({btnOk: $.i18n('Annuleren'), title: $.i18n('Wissel van school'), message: schoolLocationsTemplate});
+        this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});
+    },
+
+    showPreviewTest: function (testId) {
+        var url;
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                url = data.data.url;
+                Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
+                    '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
+                    'onclick="Popup.closeLast()">Voorbeeldweergave sluiten</a>', 1200);
+            }
+        });
+
     }
 };
 // // overload of window.prompt to always show a descently formatted prompt box.

@@ -61,10 +61,10 @@ class CoreConnector {
         return (bool) $this->sessionHash;
     }
 
-    public function fetchKeys($email, $password)
+    public function fetchKeys($email, $password, $captcha = false, $ip = false)
     {
         $handle = $this->_getHandle('/auth', "POST");
-        $body = array('user' => $email, 'password' => $password);
+        $body = array('user' => $email, 'password' => $password, 'captcha' => $captcha,'ip' => $ip);
         curl_setopt($handle, CURLOPT_POSTFIELDS, http_build_query($body));
 
         return $this->_execute($handle);

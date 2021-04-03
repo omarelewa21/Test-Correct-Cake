@@ -133,3 +133,7 @@
         margin-right: 0;
     }
 }
+
+.overflow-visible {
+    overflow: visible!important;
+}

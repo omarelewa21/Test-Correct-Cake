@@ -323,6 +323,11 @@ class TestsController extends AppController
         $this->set('canEdit', $test['author']['id'] == AuthComponent::user()['id'] && $test['status'] != 1);
         $this->set('questions', $questionsArray);
         $this->set('test_id', $test_id);
+
+        $newPlayerAccess = in_array($test['owner']['allow_new_player_access'], [1,2]);
+        $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
+        $this->set('newPlayerAccess', $newPlayerAccess);
+        $this->set('oldPlayerAccess', $oldPlayerAccess);
     }
 
     /**
@@ -671,6 +676,9 @@ class TestsController extends AppController
         $this->render('preview', 'preview');
     }
 
-    
+    public function get_preview_url($testId)
+    {
+        return $this->formResponse(true,  $this->TestsService->getTestUrlForLaravel($testId));
+    }
 
 }
