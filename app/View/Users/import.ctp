@@ -106,7 +106,7 @@
         background-color: dodgerblue;
     }
 
-    .error {
+    .error , .email-dns {
         background: indianred;
     }
 </style>
@@ -278,18 +278,22 @@
                         var missingHeaders = [];
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
+                        var emailDns = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
 
-                            var d, row_nr, header;
+                            var d, row_nr, header, errorMsg;
                             [d, row_nr, header] = key.split('.');
+                            errorMsg = response.data[key];
                             var column_nr = headers.indexOf(header)
                             var placeholder = parseInt(row_nr) + 1;
                             var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
                             if (column_nr > -1) {
                                 var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
                                 $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error')
-                                if (!dataMissingHeaders.includes(header)) {
+                                if (errorMsg.indexOf('email failed on dns') !== -1){
+                                    emailDns = true;
+                                }else if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
 
@@ -333,6 +337,9 @@
                                 return 'De kolom ' + field.name + ' is verplicht.';
                             })
                             $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                        }
+                        if(emailDns){
+                            $('#column-errors').html('<ul><li>Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)</li></ul>');
                         }
                         //Notify.notify(response.data.join('<br />'), 'error');
                     }
