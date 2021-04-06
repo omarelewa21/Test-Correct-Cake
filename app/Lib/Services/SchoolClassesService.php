@@ -39,10 +39,20 @@ class SchoolClassesService extends BaseService {
         $response = $this->Connector->postRequest('/school_class/importStudents/'.$location_id.'/'.$class_id, [], $data);
 
         if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
+        }
+        return $response;
+    }
+
+    public function doImportStudentsWithClasses($location_id,$data)
+    {
+        $response = $this->Connector->postRequest('/school_class/importStudentsWithClasses/'.$location_id, [], $data);
+
+        if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
                 $err = json_decode($error);
-
                 foreach ($err->errors as $k => $e) {
                     if (is_array($e)) {
                         foreach ($e as $b => $a) {
@@ -55,10 +65,8 @@ class SchoolClassesService extends BaseService {
             } else {
                 $this->addError($response);
             }
-
             return false;
         }
-
         return $response;
     }
 
@@ -200,5 +208,24 @@ class SchoolClassesService extends BaseService {
         }
 
         return $response;
+    }
+
+    protected function handleFalseResponse($response)
+    {
+        $error = $this->Connector->getLastResponse();
+        if ($this->isValidJson($error)) {
+            $err = json_decode($error);
+            foreach ($err->errors as $k => $e) {
+                if (is_array($e)) {
+                    foreach ($e as $b => $a) {
+                        $this->addAssocError($k, $a);
+                    }
+                } else {
+                    $this->addAssocError($k, $e);
+                }
+            }
+        } else {
+            $this->addError($response);
+        }
     }
 }

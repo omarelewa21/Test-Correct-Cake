@@ -396,4 +396,8 @@ class TestsService extends BaseService {
 
         return $response;
     }
+
+    public function getTestUrlForLaravel($take_id) {
+        return $this->Connector->postRequest(sprintf('/test/%s/with_temporary_login', $take_id), [], []);
+    }
 }

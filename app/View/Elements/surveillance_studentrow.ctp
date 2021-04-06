@@ -32,7 +32,17 @@
 
     <?php if ($allow_inbrowser_testing) {  ?>
     <td align="center" width="40" class="nopadding">
-        <a title="Browser toetsen aan/uit" href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>" class="btn active <?= $participant['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2" onclick="TestTake.toggleInbrowserTestingForParticipant(this, '<?=$participant['test_take_uuid']?>','<?= getUUID($participant, 'get'); ?>','<?= $participant['user']['name_first'] ?> <?= $participant['user']['name_suffix'] ?> <?= $participant['user']['name'] ?>')">
+        <a title="Browsertoetsen aan/uit"
+           href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>"
+           class="btn active <?= $participant['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
+           onclick="TestTake.toggleInbrowserTestingForParticipant(
+                    this,
+                   '<?=$participant['test_take_uuid']?>',
+                   '<?= getUUID($participant, 'get'); ?>',
+                   '<?= $participant['user']['name_first'] ?> <?= $participant['user']['name_suffix'] ?> <?= $participant['user']['name'] ?>')
+                   "
+           test_take_id="<?= $participant['test_take_uuid'] ?>"
+            >
             <span class="fa fa-chrome"></span>
         </a>
     </td>

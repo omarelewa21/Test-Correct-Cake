@@ -141,7 +141,7 @@ class AppController extends Controller
             $this->Session->write('TLCHeader', 'not secure...');
         }
 
-        $currentVersion = 'x';
+        $currentVersion = 'x'; // REMARK:: also used in AnswersController::is_taking_inbrowser_test
         $currentOS = 'unknown-';
 
         // as discussed with Mohamed on 20200703

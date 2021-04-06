@@ -530,4 +530,15 @@ class AnswersController extends AppController
         echo json_encode(['response' => $this->AnswersService->is_allowed_inbrowser_testing($test_take_id)]);
         die;
     }
+
+    public function is_taking_inbrowser_test() {
+        // we assume for now that the test is being taken so all we need to check is if there's a header available
+        // if the TLCVersion session variable === 'x' then we are in the browser
+        $inBrowserTesting = false;
+        if($this->Session->check('TLCVersion') && $this->Session->read('TLCVersion') === 'x'){
+            $inBrowserTesting = true;
+        }
+        echo json_encode(['response' => $inBrowserTesting]);
+        die;
+    }
 }

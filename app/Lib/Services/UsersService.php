@@ -17,7 +17,9 @@ class UsersService extends BaseService
 
     public function hasRole($rolesToCheck)
     {
-        if (is_string($rolesToCheck)) $rolesToCheck = [$rolesToCheck];
+        if (is_string($rolesToCheck)) {
+            $rolesToCheck = [$rolesToCheck];
+        }
 
         $roleExists = false;
         foreach ($this->getRoles() as $role) {
@@ -31,14 +33,19 @@ class UsersService extends BaseService
         return $roleExists;
     }
 
-    public function storeAppVersionInfo($data,$userId = false)
+    public function doWeNeedCaptcha($username)
+    {
+        return $this->Connector->postRequest('/do_we_need_captcha',[],['username' => $username]);
+    }
+
+    public function storeAppVersionInfo($data, $userId = false)
     {
         // could be needed as we are early in the process
-        if(!$this->Connector->hasUser()){
+        if (!$this->Connector->hasUser()) {
             $this->Connector->setUser(AuthComponent::user('username'));
         }
 
-        if(!$this->Connector->hasSessionHash()){
+        if (!$this->Connector->hasSessionHash()) {
             $this->Connector->setSessionHash(AuthComponent::user('session_hash'));
         }
 
@@ -96,7 +103,7 @@ class UsersService extends BaseService
 
     public function updateRegisteredNewTeacher($data, $userId)
     {
-        $response = $this->Connector->putRequest('/demo_account/' . $userId, [], $data);
+        $response = $this->Connector->putRequest('/demo_account/'.$userId, [], $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -107,7 +114,7 @@ class UsersService extends BaseService
 
     public function getRegisteredNewTeacherByUserId($userId)
     {
-        $response = $this->Connector->getRequest('/demo_account/' . $userId, []);
+        $response = $this->Connector->getRequest('/demo_account/'.$userId, []);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -118,7 +125,8 @@ class UsersService extends BaseService
 
     public function notifySupportTeacherInDemoSchoolTriesToUpload($userId)
     {
-        $response = $this->Connector->postRequest('/demo_account/notify_support_teacher_tries_to_upload', [], ['userId' => $userId]);
+        $response = $this->Connector->postRequest('/demo_account/notify_support_teacher_tries_to_upload', [],
+            ['userId' => $userId]);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -196,7 +204,7 @@ class UsersService extends BaseService
             'old_password' => $data['password_old']
         ];
 
-        $response = $this->Connector->putRequest('/user/' . $user_id, [], $data);
+        $response = $this->Connector->putRequest('/user/'.$user_id, [], $data);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -218,7 +226,7 @@ class UsersService extends BaseService
             $results = [];
 
             foreach ($response as $uuid => $user) {
-                $results[$uuid] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
+                $results[$uuid] = $user['name_first'].' '.$user['name_suffix'].' '.$user['name'];
             }
             return $results;
         } else {
@@ -228,7 +236,7 @@ class UsersService extends BaseService
 
     public function move_school_location($userId, $params)
     {
-        $response = $this->Connector->putRequest('/user/move_school_location/' . $userId, [], $params);
+        $response = $this->Connector->putRequest('/user/move_school_location/'.$userId, [], $params);
 
         if ($response === false) {
             $this->addError($this->Connector->getLastResponse());
@@ -241,7 +249,7 @@ class UsersService extends BaseService
 
     public function move($user_id, $params)
     {
-        $response = $this->Connector->putRequest('/user/' . $user_id, [], $params);
+        $response = $this->Connector->putRequest('/user/'.$user_id, [], $params);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -273,7 +281,7 @@ class UsersService extends BaseService
 
         $data = [
             'username' => $email,
-            'url'      => Router::fullbaseUrl() . '/users/reset_password/%s'
+            'url'      => Router::fullbaseUrl().'/users/reset_password/%s'
         ];
 
 
@@ -319,7 +327,8 @@ class UsersService extends BaseService
         return $this->Connector->getLastCode();
     }
 
-    public function addUserWithTellATeacher($type, $data) {
+    public function addUserWithTellATeacher($type, $data)
+    {
         switch ($type) {
             case 'managers':
                 $data['user_roles'] = [6];
@@ -341,10 +350,14 @@ class UsersService extends BaseService
                 } elseif (strstr($response, 'username')) {
                     $this->addError(json_decode($response)->errors->username[0]);
                     return false;
-                } else if (strstr($response, 'user_roles')) {
-                    return 'user_roles';
-                } else if (strstr($response, 'demo')) {
-                    return 'demo';
+                } else {
+                    if (strstr($response, 'user_roles')) {
+                        return 'user_roles';
+                    } else {
+                        if (strstr($response, 'demo')) {
+                            return 'demo';
+                        }
+                    }
                 }
             }
             return $this->Connector->getLastResponse();
@@ -380,10 +393,14 @@ class UsersService extends BaseService
                     return 'external_code';
                 } elseif (strstr($response, 'username')) {
                     return 'username';
-                } else if (strstr($response, 'user_roles')) {
-                    return 'user_roles';
-                } else if (strstr($response, 'demo')) {
-                    return 'demo';
+                } else {
+                    if (strstr($response, 'user_roles')) {
+                        return 'user_roles';
+                    } else {
+                        if (strstr($response, 'demo')) {
+                            return 'demo';
+                        }
+                    }
                 }
             }
             return $this->Connector->getLastResponse();
@@ -395,7 +412,7 @@ class UsersService extends BaseService
     public function updatePasswordForUser($user_id, $data)
     {
 
-        $response = $this->Connector->putRequest('/user/update_password_for_user/' . $user_id, [], $data);
+        $response = $this->Connector->putRequest('/user/update_password_for_user/'.$user_id, [], $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -411,7 +428,7 @@ class UsersService extends BaseService
             unset($data['password']);
         }
 
-        $response = $this->Connector->putRequest('/user/' . $user_id, [], $data);
+        $response = $this->Connector->putRequest('/user/'.$user_id, [], $data);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -426,12 +443,12 @@ class UsersService extends BaseService
             'profile_image' => new CURLFile($file)
         ];
 
-        return $this->Connector->putRequestFile('/user/' . $user_id, [], $data);
+        return $this->Connector->putRequestFile('/user/'.$user_id, [], $data);
     }
 
     public function getProfilePicture($user_id)
     {
-        $response = $this->Connector->getDownloadRequest('/user/' . $user_id . '/profile_image', []);
+        $response = $this->Connector->getDownloadRequest('/user/'.$user_id.'/profile_image', []);
 
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -442,7 +459,7 @@ class UsersService extends BaseService
 
     public function deleteUser($user_id)
     {
-        $response = $this->Connector->deleteRequest('/user/' . $user_id, []);
+        $response = $this->Connector->deleteRequest('/user/'.$user_id, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -452,7 +469,7 @@ class UsersService extends BaseService
 
     public function getUser($user_id, $params = [])
     {
-        $response = $this->Connector->getRequest('/user/' . $user_id, $params);
+        $response = $this->Connector->getRequest('/user/'.$user_id, $params);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -576,7 +593,7 @@ class UsersService extends BaseService
 
     public function switchSchool($uuid)
     {
-        $response = $this->Connector->putRequest('/school_location_user', [],['school_location' => $uuid]);
+        $response = $this->Connector->putRequest('/school_location_user', [], ['school_location' => $uuid]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -596,15 +613,17 @@ class UsersService extends BaseService
 
     }
 
-    public function addExistingTeacherToSchoolLocation($user_uuid) {
-        $response = $this->Connector->postRequest('/school_location_user', [],['user_uuid' => $user_uuid]);
+    public function addExistingTeacherToSchoolLocation($user_uuid)
+    {
+        $response = $this->Connector->postRequest('/school_location_user', [], ['user_uuid' => $user_uuid]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
     }
 
-    public function removeExistingTeacherToSchoolLocation($user_uuid) {
-        $response = $this->Connector->deleteRequest('/school_location_user',['user_uuid' => $user_uuid]);
+    public function removeExistingTeacherToSchoolLocation($user_uuid)
+    {
+        $response = $this->Connector->deleteRequest('/school_location_user', ['user_uuid' => $user_uuid]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -614,7 +633,7 @@ class UsersService extends BaseService
 
     public function resendEmailVerificationMail()
     {
-        $response = $this->Connector->putRequest('/user/resend_onboarding_welcome_email',[], '');
+        $response = $this->Connector->putRequest('/user/resend_onboarding_welcome_email', [], '');
 
 
         if ($response === false) {
@@ -643,7 +662,7 @@ class UsersService extends BaseService
 
     public function getUserWithTlid($tlid)
     {
-        $response = $this->Connector->getRequest('/temporary_login/' . $tlid, []);
+        $response = $this->Connector->getRequest('/temporary_login/'.$tlid, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -651,7 +670,8 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function getShortcode($userId) {
+    public function getShortcode($userId)
+    {
         $response = $this->Connector->getRequest('/shortcode', ['user_id' => $userId]);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -662,6 +682,15 @@ class UsersService extends BaseService
     public function getAccountVerifiedValue()
     {
         $response = $this->Connector->getRequest('/user/is_account_verified', ['user_id' => AuthComponent::user('id')]);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function toggleAccountVerified($uuid)
+    {
+        $response = $this->Connector->postRequest(sprintf('/user/toggle_account_verified/%s', $uuid), [], []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

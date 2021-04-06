@@ -80,7 +80,7 @@ var User = {
             User.inactive++;
             // Student
             if (User.info.isStudent && User.inactive >= 900 && !User.surpressInactive) {
-                TestTake.lostFocus();
+                Core.lostFocus();
                 setTimeout(function () {
                     User.logout(false);
                 }, 2000);

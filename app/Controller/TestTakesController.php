@@ -125,6 +125,11 @@ class TestTakesController extends AppController {
         $this->set('defaultInviligator', $defaultLoggedInUserId);
     }
 
+    public function start_direct($test_id = '')
+    {
+        $this->add($test_id);
+    }
+
     public function add($test_id = '') {
         $this->isAuthorizedAs(["Teacher"]);
 
@@ -336,6 +341,7 @@ class TestTakesController extends AppController {
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
+        $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
         $this->set('is_rtti_school_location', $school_location['is_rtti_school_location']);
     }
 
@@ -781,7 +787,8 @@ class TestTakesController extends AppController {
 
             $answer_id = $data['answer_id'];
             $score = $data['score'];
-            $take_id = $this->Session->read('take_id');
+            $take_id = $this->AnswersService->getTestTakeUuid($answer_id);
+            //$take_id = $this->Session->read('take_id');
             $user_id = AuthComponent::user('uuid');
 
             $rating_id = $data['rating_id'];
@@ -2511,6 +2518,12 @@ class TestTakesController extends AppController {
         echo json_encode (['response' => true]);
         exit;
     }
+    public function toggle_inbrowser_testing_for_all_participants($test_take_id) {
+        $this->TestTakesService->toggleInbrowserTestingForAllParticipants($test_take_id);
+
+        echo json_encode (['response' => true]);
+        exit;
+    }
 
     private function validateCarouselQuestionsInTests($tests,&$msgArray):void
     {
@@ -2597,6 +2610,11 @@ class TestTakesController extends AppController {
 
         $view = 'take_active';
         return $view;
+    }
+
+    public function is_allowed_inbrowser_testing($test_take_id) {
+        echo json_encode(['response' => $this->TestTakesService->is_allowed_inbrowser_testing($test_take_id)]);
+        die;
     }
 
 }

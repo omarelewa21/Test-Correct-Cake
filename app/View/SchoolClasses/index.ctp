@@ -3,7 +3,12 @@
         <span class="fa fa-plus mr5"></span>
         Nieuwe Klas
     </a>
-
+    
+    <a href="#" class="btn white" onclick="Navigation.load('/users/import/students');">
+        <span class="fa fa-cloud-upload mr5"></span>
+        Studenten importeren
+    </a>
+        
     <a href="#" class="btn white dropblock-owner dropblock-left mr2 <?php if($currentYearId !== ''){?>highlight <?php } ?>" id="filters">
         <span class="fa fa-filter mr5"></span>
         Filteren

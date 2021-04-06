@@ -51,6 +51,12 @@ foreach($tests as $test) {
                 </a>
                 <? } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
+                <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
+                    <?php echo $this->element('schedule_now') ?>
+                    Direct afnemen
+                </a>
+                <?php } ?>
+                <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
                     Dupliceren

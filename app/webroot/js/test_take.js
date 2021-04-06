@@ -14,6 +14,7 @@ var TestTake = {
     lastTestSelected:null,
     lastTestTimeDispensedIds:null,
     testCloseMethod:null,
+    screenSizeListenerForChromebookAppInterval: null,
 
     startHeartBeat: function (callback, interval) {
         if (callback == 'active') {
@@ -54,20 +55,22 @@ var TestTake = {
                         TestTake.markBackground();
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
-                            if(Core.isChromebook() && !isFullScreen()){
-                                $('#waiting').slideUp();
-                                if(Core.inApp == true){
+                            $('#waiting').slideUp();
+                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
+                                // $('#waiting').slideUp();
+                                // if(Core.inApp == true){
                                     $('#chromebook-menu-notice-container-inapp').show();
+                                    // TestTake.startScreenSizeListenerForChromebookApp();
                                     clearInterval(TestTake.heartBeatInterval);
-                                } else {
-                                    $('#chromebook-menu-notice-container-notinapp').show();
-                                }
+                                // } else {
+                                //     $('#chromebook-menu-notice-container-notinapp').show();
+                                // }
                                 $('#chromebook-menu-notice-container').slideDown();
                             } else {
                                 $('#chromebook-menu-notice-container').slideUp();
                                 $('#btnStartTest').slideDown();
                                 $('#btnStartTestInLaravel').slideDown();
-                                $('#waiting').slideUp();
+                                // $('#waiting').slideUp();
                                 clearInterval(TestTake.heartBeatInterval);
                             }
                         }
@@ -129,7 +132,30 @@ var TestTake = {
             );
         }, intervalInSeconds * 1000);
     },
-
+    startScreenSizeListenerForChromebookApp: function() {
+        TestTake.screenSizeListenerForChromebookAppInterval = setInterval(TestTake.screenSizeListenerForChromebookApp(),300);
+    },
+    stopScreenSizeListenerForChromebookApp: function() {
+        clearInterval(TestTake.screenSizeListenerForChromebookAppInterval);
+    },
+    screenSizeListenerForChromebookApp: function() {
+        $('#chromebook-menu-notice-container-inapp .fullscreenChromebookAppMessage').hide();
+      if(isFullScreen()){
+          // show notification that it is okay
+          $('#chromebook-menu-notice-container-inapp #fullscreen-okay').show();
+          // stop interval
+          TestTake.stopScreenSizeListenerForChromebookApp();
+      } else {
+          // show notification that it is not okay
+          if(window.innerWidth > screen.width){
+              // show zoom out message
+              $('#chromebook-menu-notice-container-inapp #needs-zoom-out').show();
+          } else {
+              // show zoom in message
+              $('#chromebook-menu-notice-container-inapp #needs-zoom-in').show();
+          }
+      }
+    },
     markBackground: function () {
         console.log('mark background');
         if (!TestTake.alert) {
@@ -421,28 +447,57 @@ var TestTake = {
     },
 
     startTake: function (take_id) {
-        if (!TestTake.studentsPresent) {
-            Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Niet alle Studenten zijn aanwezig.'
-            }, function () {
-                $.get('/test_takes/start_test/' + take_id,
+        var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
+
+        var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
+            '<p class="title" style="display: block;margin:0;font-weight: bold">' +
+            '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
+            '    <g fill="currentColor" fill-rule="evenodd">' +
+            '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
+            '        <circle cx="2" cy="12" r="2"/>' +
+            '    </g>' +
+            '</svg>' +
+            '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
+            '</p>' +
+            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
+            '</div>';
+
+
+        $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
+            var showWarning = data.response.allowed == true;
+            message = showWarning ? warning+message : message;
+
+            var showPopupMessage = function(message) {
+                Popup.message({
+                    btnOk: 'Ja',
+                    btnCancel: 'Annuleer',
+                    title: 'Weet u het zeker?',
+                    message: message
+                }, function () {
+                    $.get('/test_takes/start_test/' + take_id,
                         function (response) {
                             Notify.notify('Toetsafname gestart', 'info');
                             Navigation.load('/test_takes/surveillance');
                         }
-                );
-            });
-        } else {
-            $.get('/test_takes/start_test/' + take_id,
-                    function (response) {
-                        Notify.notify('Toetsafname gestart', 'info');
-                        Navigation.load('/test_takes/surveillance');
-                    }
-            );
-        }
+                    );
+                });
+            };
+
+            if (!TestTake.studentsPresent) {
+                showPopupMessage(message);
+            } else {
+                if (showWarning) {
+                    showPopupMessage(warning);
+                } else {
+                    $.get('/test_takes/start_test/' + take_id,
+                        function (response) {
+                            Notify.notify('Toetsafname gestart', 'info');
+                            Navigation.load('/test_takes/surveillance');
+                        }
+                    );
+                }
+            }
+        });
     },
 
     startRating: function (take_id, type) {
@@ -857,6 +912,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
+                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -868,6 +924,147 @@ var TestTake = {
                 alert('error');
             },
         });
+    },
+
+    toggleInbrowserButtonOff :function (el, take_id) {
+        el.classList.remove('cta-button');
+        el.classList.add('grey');
+
+        Notify.notify('Browsertoetsing voor alle studenten uitgeschakeld');
+        Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+        document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
+            el.classList.remove('cta-button');
+            el.classList.add('grey');
+        });
+    },
+    toggleInbrowserButtonOn :function (el, take_id) {
+        el.classList.add('cta-button');
+        el.classList.remove('grey');
+
+        Notify.notify('Browsertoetsing voor alle studenten ingeschakeld' );
+        document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
+            el.classList.add('cta-button');
+            el.classList.remove('grey');
+        });
+    },
+
+    toggleInbrowserTestingForAllParticipants:function(el, take_id) {
+        var that = this;
+        $.ajax({
+            url: '/test_takes/toggle_inbrowser_testing_for_all_participants/' + take_id,
+            type: 'PUT',
+            contentType: 'application/json',
+            success: function (response) {
+                if (el.classList.contains('cta-button')) {
+                    that.toggleInbrowserButtonOff(el, take_id);
+                } else {
+                    that.toggleInbrowserButtonOn(el, take_id);
+                }
+            },
+            error: function(response) {
+                console.dir(response);
+                alert('error');
+            }
+        });
+    },
+
+    startIntenseCalibrationForTest: function(take_id, deviceId, sessionId) {
+
+        Popup.show(
+            '<div class="tat-content border-radius-bottom-0"> '+
+            '<div style="display:flex">'+
+            '   <div style="flex-grow:1">'+
+            '       <h2 style="margin-top:0">Typecalibratie test</h2>'+
+            '   </div>'+
+            '    <div class="close" style="flex-shrink: 1">'+
+            '        <a href="#" onclick="Popup.closeLast()">'+
+            '            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">'+
+            '                <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">'+
+            '                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>'+
+            '                </g>'+
+            '            </svg>'+
+            '        </a>'+
+            '    </div>'+
+            '  </div>'+
+            ' <div class="divider mb-5 mt-2.5"></div>'+
+            '</div>'+
+
+
+            '<div class="popup-content tat-content body1" style="margin-top:-60px">'+
+            '<p>Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
+            '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>'+
+            '    <div class="input-group ">'+
+            '        <textarea id="typecalibration_textarea" width="200px" height="200px" autofocus style="padding:1rem"></textarea>'+
+            '        <label for="typecalibration_textarea">Type de tekst over</label>'+
+            '    </div>'+
+            '</div>'+
+
+            '<div class="popup-footer tat-footer" style="display:flex">'+
+            '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;flex-grow:1">'+
+            '       Afronden'+
+            '    </button>'+
+            '</div>', 800);
+
+
+
+
+
+        $(document).ready(function() {
+            Intense = new IntenseWrapper({
+                api_key: "api_key", // This is a public key which will be provided by Intense.
+                app: "name of the app that implements Intense. example: TC@1.0.0",
+                debug: true // If true, all debug data will be written to console.log().
+            }).onCallibrated(function() {
+                document.getElementById('typecalibration_complete_button').classList.add('primary-button');
+
+                // Callibration completed!
+            }).onError(function(e, msg) {
+
+                // So far, the only available value for 'msg' is 'unavailable', meaning that the given interface/method cannot be used.
+                // If no error handler is registered, all errors will be written to console.log.
+
+                switch(e) {
+                    case 'start':
+                        console.log('Intense: Could not start recording because it was '+msg);
+                        break;
+                    case 'pause':
+                        console.log('Intense: Could not pause recording because it was '+msg);
+                        break;
+                    case 'resume':
+                        console.log('Intense: Could not resume recording because it was '+msg);
+                        break;
+                    case 'end':
+                        console.log('Intense: Could not end recording because it was '+msg);
+                        break;
+                    case 'network':
+                        console.log('Intense: Could not send data over network because it was '+msg);
+                        break;
+                    default:
+                        console.log('Intense: Unknown error occured!');
+                }
+
+            }).onData(function(data) {
+                // This function is called when data is sent to the Intense server. data contains the data that is being sent.
+                console.log('Data sent to Intense', data);
+            }).onStart(function() {
+                console.log('Intense started recording');
+            }).onPause(function() {
+                console.log('Intense paused recording');
+            }).onResume(function() {
+                console.log('Intense resumed recording');
+            }).onEnd(function() {
+                console.log('Intense ended recording');
+            });
+
+        });
+        document.getElementById('typecalibration_complete_button').addEventListener('click',function(e) {
+            if (this.classList.contains('primary-button')) {
+                Popup.closeLast();
+                TestTake.startTest(take_id);
+            }
+        });
+
+        Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
     }
 
 };
@@ -940,7 +1137,13 @@ function checkfullscreen() {
 }
 function startfullscreentimer() {
     if (Core.isChromebook()) {
-        fullscreentimer = setInterval(checkfullscreen, 300);
+        $.getJSON('/answers/is_taking_inbrowser_test', function(data) {
+            if (data.response != 1) {
+                fullscreentimer = setInterval(checkfullscreen, 300);
+                return;
+            }
+        });
+
     }
 }
 

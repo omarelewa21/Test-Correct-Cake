@@ -111,9 +111,10 @@
     if ($this->Session->read('Auth.User.has_text2speech') == 1) {
         ?>
         <div id="__ba_launchpad">
-            <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
-                 onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
-            </div>
+
+        </div>
+        <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
+             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
         </div>
         <?
     }
@@ -175,7 +176,7 @@
             s.integrity="sha256-VCrJcQdV3IbbIVjmUyF7DnCqBbWD1BcZ/1sda2KWeFc= sha384-k2OQFn+wNFrKjU9HiaHAcHlEvLbfsVfvOnpmKBGWVBrpmGaIleDNHnnCJO4z2Y2H sha512-gxDfysgvGhVPSHDTieJ/8AlcIEjFbF3MdUgZZL2M5GXXDdIXCcX0CpH7Dh6jsHLOLOjRzTFdXASWZtxO+eMgyQ=="
             s.crossOrigin = 'anonymous';
             document.getElementsByTagName('BODY')[0].appendChild(s);
-            waitForBrowseAloudAndThenRun();
+                waitForBrowseAloudAndThenRun();
         } else {
             _toggleBA();
         }
@@ -193,7 +194,7 @@
 
         var toolbar = shadowRoot.getElementById('th_toolbar');
         if (toolbar !== null) {
-            toolbar.setAttribute('style', 'background-color: #fff');
+           toolbar.setAttribute('style', 'background-color: #fff');
         }
 
         [... shadowRoot.querySelectorAll('.th-browsealoud-toolbar-button__icon')].forEach(function(item) {
