@@ -26,15 +26,38 @@ class BugsnagLogger
         
         $this->bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
+        $headers = AppVersionDetector::getAllHeaders();
+
         $this->addFilter($this->defaultFilters)->configureAppversion()->setMetaData([
-            'app' => AppVersionDetector::detect()
-        ]);
+            'app' => array_merge(AppVersionDetector::detect($headers), ["allowed" => AppVersionDetector::isVersionAllowed($headers)])
+        ])->configureUser();
 
         $this->bugsnag->setErrorReportingLevel(E_ERROR);
 
         if ($register) {
             Bugsnag\Handler::register($this->bugsnag);
+
+            $this->bugsnag->leaveBreadcrumb("Bugsnag loaded");
         }
+    }
+    
+    private function configureUser() {
+
+        $this->bugsnag->registerCallback(function($report) {
+            if (AuthComponent::user('id') == null) {
+                return;
+            }
+
+            $report->setUser([
+                'id' => AuthComponent::user('id'),
+                'uuid' => AuthComponent::user('uuid'),
+                'roles' => AuthComponent::user('roles'),
+                'isToetsenbakker' => AuthComponent::user('isToetsenbakker'),
+                'is_temp_teacher' => AuthComponent::user('is_temp_teacher')
+            ]);
+        });
+
+        return $this;
     }
 
     private function configureAppversion() {
@@ -49,6 +72,10 @@ class BugsnagLogger
         }
 
         $this->bugsnag->setAppVersion(explode(",", $version)[1]);
+
+        if (Configure::read('bugsnag-release-stage') != null) {
+            $this->bugsnag->setReleaseStage(Configure::read('bugsnag-release-stage'));
+        }
 
         return $this;
     }
