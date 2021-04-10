@@ -48,19 +48,19 @@
 		<script src="/ckeditor/adapters/jquery.js"></script>
 	
 		<!-- Importing javascript files required for translation -->
-		<script src="/js/jquery_i18n/CLDRPluralRuleParser.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.messagestore.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.fallbacks.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.language.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.parser.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.emitter.js"></script>
-        <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js"></script>
-		<script src="/js/translation.js"></script>
+		<script src="/js/jquery_i18n/CLDRPluralRuleParser.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.messagestore.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.fallbacks.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.language.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.parser.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js?<?= time() ?>"></script>
+		<script src="/js/translation.js?<?= time() ?>"></script>
 		<?php 
 			$current_lang = Configure::read('Config.language');
 			echo "<script>
-			$.i18n().locale = '$current_lang'
+			$.i18n().locale = 'eng'
 			</script>";
 		 ?>
 		<!-- ----------------------------------- -->

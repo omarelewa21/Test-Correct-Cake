@@ -34,6 +34,8 @@ class UsersController extends AppController
         $this->UmbrellaOrganisationsService = new UmbrellaOrganisationsService();
 
         parent::beforeFilter();
+
+
     }
 
     public function registereduix()
@@ -104,18 +106,7 @@ class UsersController extends AppController
             }
 
             if ($this->Auth->login()) {
-                $User = $this->Auth->user();
-                $school_location_id = $User['school_location_id'];
-                $school_location_object = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
-                $language = $school_location_object['school_language'];
 
-                if($language == 1){
-                    $this->Session->write('Config.language', 'eng');
-                }
-                else{
-                    $this->Session->write('Config.language', 'nl');
-                }
-                
                 if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
 
@@ -375,6 +366,17 @@ class UsersController extends AppController
     {
         $roles = AuthComponent::user('roles');
 
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
+        $language = $school_location['school_language'];
+
+        if($language == 1){
+            $this->Session->write('Config.language', 'eng');
+        }
+        else{
+            $this->Session->write('Config.language', 'nl');
+        }
+        
+
         $menus = array();
 
         $view = "welcome";
@@ -411,7 +413,6 @@ class UsersController extends AppController
     public function index($type)
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
-
         switch ($type) {
             case 'accountmanagers':
                 $params = [

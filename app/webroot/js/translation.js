@@ -120,7 +120,7 @@ $.i18n().load({
       'U hebt een toetsencombinatie gebruikt die niet toegestaan is.':'You have used a key combination that is not allowed.',
 
       //test.js
-      'Weet u zeker dat u deze toets wilt verwijderen?':'Are you sure you want to delete this key?',
+      'Weet u zeker dat u deze toets wilt verwijderen?':'Are you sure you want to delete this Test?',
       'Toets verwijderd':'Test removed',
       'Toets kon niet worden verwijderd':'Test could not be removed',
       'Toets kon niet worden gedupliceerd':'Test could not be duplicated',
