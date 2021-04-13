@@ -397,6 +397,7 @@ var TestTake = {
         $('.testTakeRow:hidden').first().find('.testIsVisible:first').val(1);
         $('.testTakeRow:hidden').first().fadeIn();
         $('.testTakeRowNotes:hidden').first().fadeIn();
+        $('.testTakeRowInbrowserToggle:hidden').first().fadeIn();
     },
 
     removeTestRow: function (e, i) {
@@ -405,6 +406,8 @@ var TestTake = {
         $('#tableTestTakes #' + i).find('.btnSelectTest').html('Selecteer');
 
         $('#tableTestTakes #notes_' + i).fadeOut().find('input').val('');
+        $('input:checkbox[name="data[TestTake]['+i+'][allow_inbrowser_testing]"]').prop('checked', false);
+        $('#tableTestTakes #inbrowser_toggle_'+ i).fadeOut();
     },
 
     loadParticipants: function (take_id) {
