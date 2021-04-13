@@ -279,6 +279,8 @@
                         var dataMissingHeaders = [];
                         var hasDuplicates = false;
                         var emailDns = false;
+                        var externalIdDuplicates = false;
+                        var schoolLocationDuplicates = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
 
@@ -296,7 +298,12 @@
                                 }else if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
-
+                                if (errorMsg.indexOf('failed on double entry') !== -1){
+                                    externalIdDuplicates = true;
+                                }
+                                if (errorMsg.indexOf('failed on double user entry') !== -1){
+                                    schoolLocationDuplicates = true;
+                                }
                             } else if (header === 'duplicate') {
                                 hasDuplicates = true;
                                 $('table#excelDataTable').find(row_selector).addClass('duplicate')
@@ -319,11 +326,17 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
-
+                                console.dir('hier');
                                 if (field.name === 'E-mailadres') {
                                     return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
                                 }
-                                return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood).';
+                                if (field.name === 'Externe code' && externalIdDuplicates) {
+                                    return 'De gemarkeerde Externe code komt al in deze schoollocatie voor';
+                                }
+                                if (field.name === 'Externe code' && schoolLocationDuplicates) {
+                                    return 'Het gemarkeerde account komt al in deze schoollocatie voor';
+                                }
+                                return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).';
                             })
                             $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                         }
