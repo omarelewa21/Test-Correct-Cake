@@ -192,6 +192,57 @@ var Popup = {
         });
 
     },
+    promptChooseImportTeachersType: function(options, callback){
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+            '<div class="popup-head">Docent import type kiezen</div>' +
+            '<div class="popup-content">' +
+            'Wat wilt u importeren?' +
+            '</div>' +
+            '<div class="popup-footer">' +
+            '<div id="teacher_import_type_standard" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
+            '<h4 class="mt1 mb2">Docentaccounts met klaskoppeling</h4>' +
+            '<div>'+
+            'Bij deze keuze dienen er ook klasnamen in de import te staan'+
+            '</div>'+
+            '</div>' +
+            '<div id="teacher_import_type_bare" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
+            '<h4 class="mt1 mb2">Docentaccounts</h4>' +
+            '<div>'+
+            'Deze import dient ter voorbereiding op een RTTI import'+
+            '</div>'+
+            ' </div>' +
+            '<a href="#" id="teacher_import_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+            '</div>' +
+            '</div>'
+        ;
+
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 300 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
+        });
+    },
     confirmCallBack: function (value) {
         Popup.closeLast();
         return Popup.callbackFromConfirm(value);
