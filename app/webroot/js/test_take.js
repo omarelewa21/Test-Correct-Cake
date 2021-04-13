@@ -285,6 +285,7 @@ var TestTake = {
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
                 shiftCtrlBtuCrOSAdd();
+                zoomsetupcrOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#header #logo_1').animate({
@@ -1208,6 +1209,21 @@ function shiftCtrlBtuCrOSAdd (){
     }
 }
 
+function zoomsetupcrOS(){
+    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.zoom = "100%";
+            }, false);
+            $(document).keydown(function(e){
+                  if( e.which === 189 && e.ctrlKey ){
+                      e.preventDefault();       
+                  }
+                  else if( e.which === 187 && e.ctrlKey ){
+                     e.preventDefault();       
+                  }          
+            }); 
+    }
+}
 
 // set the initial state (but only if browser supports the Page Visibility API)
 $(document).ready(function () {
