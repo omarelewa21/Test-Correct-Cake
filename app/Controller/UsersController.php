@@ -9,6 +9,8 @@ App::uses('SchoolsService', 'Lib/Services');
 App::uses('UmbrellaOrganisationsService', 'Lib/Services');
 App::uses('HelperFunctions', 'Lib');
 App::uses('Securimage','webroot/img');
+App::uses('DeploymentService', 'Lib/Services');
+App::uses('WhitelistIpService', 'Lib/Services');
 
 /**
  * Users controller
@@ -32,6 +34,8 @@ class UsersController extends AppController
         $this->SchoolYearsService = new SchoolYearsService();
         $this->SchoolsService = new SchoolsService();
         $this->UmbrellaOrganisationsService = new UmbrellaOrganisationsService();
+        $this->DeploymentService = new DeploymentService();
+        $this->WhitelistIpService = new WhitelistIpService();
 
         parent::beforeFilter();
     }
@@ -389,6 +393,12 @@ class UsersController extends AppController
 //                        $view = "welcome_student_update";
 //                    }
 //                }
+            }
+            if(strtolower($role['name']) === 'tech administrator') {
+                $view = "welcome_tech_administrator";
+                $this->set('deployments', $this->DeploymentService->index());
+                $this->set('deploymentStatuses',$this->DeploymentService->getStatuses());
+                $this->set('whitelistIps',$this->WhitelistIpService->index());
             }
         }
 
@@ -1014,6 +1024,9 @@ class UsersController extends AppController
         $menus = array();
 
         foreach ($roles as $role) {
+            if(strtolower($role['name']) === 'tech administrator') {
+                $menus['index'] = "";
+            }
             if ($role['name'] == 'Administrator') {
                 $menus['accountmanagers'] = "Accountmanagers";
                 $menus['lists'] = "Database";
