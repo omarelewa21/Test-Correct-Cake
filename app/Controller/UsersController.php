@@ -384,6 +384,9 @@ class UsersController extends AppController
                 $this->set('account_verified', $verified);
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
+
+                App::uses('MaintenanceHelper','Lib');
+                $this->set('maintenanceNotification',MaintenanceHelper::getInstance()->getMaintenanceNotification());
             }
 
             if ($role['name'] == 'Student') {
