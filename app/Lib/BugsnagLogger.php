@@ -80,17 +80,21 @@ class BugsnagLogger
     }
 
     private function configureAppversion() {
-        if (!file_exists(self::$releasesPath)) {
+        $realPath = realpath(ROOT);
+        if(!$realPath){
             return $this;
         }
-
-        $version = $this->tailCustom(self::$releasesPath);
+        $ar = explode(DS,$realPath);
+        if(count($ar) === 0){
+            return $this;
+        }
+        $version = end($ar);
 
         if (!$version) {
             return $this;
         }
 
-        $this->bugsnag->setAppVersion(explode(",", $version)[1]);
+        $this->bugsnag->setAppVersion($version);
 
         if (Configure::read('bugsnag-release-stage') != null) {
             $this->bugsnag->setReleaseStage(Configure::read('bugsnag-release-stage'));
