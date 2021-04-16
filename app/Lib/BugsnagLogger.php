@@ -30,7 +30,7 @@ class BugsnagLogger
 
         $this->addFilter($this->defaultFilters)->configureAppversion()->setMetaData([
             'app' => array_merge(AppVersionDetector::detect($headers), ["allowed" => AppVersionDetector::isVersionAllowed($headers)])
-        ])->configureUser();
+        ]);
 
         $this->bugsnag->setErrorReportingLevel(E_ERROR);
 
