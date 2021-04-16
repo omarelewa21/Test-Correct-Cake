@@ -56,13 +56,13 @@ class AnswersController extends AppController
             }
         }
         if(!empty($timeout) && $answer['time'] > 0) {
-            die('Het is niet meer mogelijk deze vraag te beantwoorden');
+            die(__("Het is niet meer mogelijk deze vraag te beantwoorden"));
         }
         if($answer['closed'] == 1) {
-            die('Het is niet meer mogelijk deze vraag te beantwoorden.');
+            die(__("Het is niet meer mogelijk deze vraag te beantwoorden."));
         }
         if($answer['closed_group'] == 1) {
-            die('Het is niet meer mogelijk deze vraag te beantwoorden.');
+            die(__("Het is niet meer mogelijk deze vraag te beantwoorden."));
         }
 
         switch($question['type']) {

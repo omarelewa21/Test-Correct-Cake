@@ -87,7 +87,6 @@ class UsersController extends AppController
 
         $captchaSet = false;
         if ($this->request->is('post') || $this->request->is('put')) {
-            
 
             $appType = $this->request->data['appType'];
 
@@ -498,7 +497,7 @@ class UsersController extends AppController
             if (strlen(trim($data['password'])) < 1) {
                 $this->formResponse(false, ['error' => __("Er dient een wachtwoord opgegven te worden")]);
             } elseif ($data['password'] !== $data['password_confirmation']) {
-                $this->formResponse(false, ['error' => 'De wachtwoorden komen niet overeen']);
+                $this->formResponse(false, ['error' => __("De wachtwoorden komen niet overeen")]);
             } else {
                 $result = $this->UsersService->updatePasswordForUser($user_id, $data);
 
@@ -847,7 +846,7 @@ class UsersController extends AppController
         if ($this->request->data['message']) {
             $message = $this->request->data['message'];
         } else {
-            $message = 'Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!';
+            $message = __("Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!");
         }
         $this->set('message', $message);
         $errors = json_decode($result)->errors;
@@ -1416,7 +1415,7 @@ class UsersController extends AppController
                 $tiles['webinar'] = [
                     'menu' => 'support',
                     'icon' => 'webinar',
-                    'title' => 'Inschrijven webinar',
+                    'title' => __("Inschrijven webinar"),
                     'type' => 'externalpopup',
                     'path' => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
                 ];
@@ -1424,7 +1423,7 @@ class UsersController extends AppController
                 $tiles['supportmail'] = [
                     'menu' => 'support',
                     'icon' => 'send-email',
-                    'title' => 'Support mailen',
+                    'title' => __("Support mailen"),
                     'type' => 'externallink',
                     'path' => 'mailto:support@test-correct.nl',
                 ];
@@ -1714,7 +1713,6 @@ class UsersController extends AppController
             $params['filter']['name_first'] = $filters['name_first'];
         }
 
-
         if (!empty($filters['username'])) {
             $params['filter']['username'] = $filters['username'];
         }
@@ -1809,7 +1807,7 @@ class UsersController extends AppController
             return $service->getErrors();
         }
         if(stristr($service->getErrors()['error'], 'School class id not found for class')){
-            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']).' niet gevonden!');
+            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']). __(" niet gevonden!"));
         }
 
         return $service->getErrors()['error'];

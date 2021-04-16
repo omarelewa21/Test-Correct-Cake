@@ -1466,15 +1466,15 @@ class QuestionsController extends AppController
         $this->Session->write('attachments_editable', true);
     }
 
-    private function handleGroupQuestionType($groupquestion_type,$mode = 'aanmaken'){
+    private function handleGroupQuestionType($groupquestion_type,$mode = '__("aanmaken")'){
         $this->set('groupquestion_type', $groupquestion_type);
-        $this->set('title','Vraaggroep '.$mode);
+        $this->set('title',__("Vraaggroep ").$mode);
         switch ($groupquestion_type) {
             case 'standard':
-                $this->set('title','Standaard vraaggroep '.$mode);
+                $this->set('title',__("Standaard vraaggroep ").$mode);
                 break;
             case 'carousel':
-                $this->set('title','Carrousel vraaggroep '.$mode);
+                $this->set('title',__("Carrousel vraaggroep ").$mode);
                 break;
         }
     }

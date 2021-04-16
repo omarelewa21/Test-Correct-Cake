@@ -34,7 +34,7 @@ class AttainmentsCitoController extends AppController
         $data = $this->request->data['Attainments'];
 
         if(!$data['file']['tmp_name']){
-            $response = 'File niet gevonden om te importeren, probeer het nogmaals';
+            $response = __("File niet gevonden om te importeren, probeer het nogmaals");
         }else{
             $r = $this->AttainmentsService->uploadCitoData($data);
 

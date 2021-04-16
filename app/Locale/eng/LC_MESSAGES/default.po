@@ -1,6 +1,9 @@
 msgid "Het is niet meer mogelijk deze vraag te beantwoorden"
 msgstr "It is no longer possible to answer this question"
 
+msgid "Het is niet meer mogelijk deze vraag te beantwoorden."
+msgstr "It is no longer possible to answer this question."
+
 msgid "Het gegeven antwoord is niet valide"
 msgstr "The answer given is not valid"
 
@@ -841,6 +844,9 @@ msgstr "Cancel"
 msgid "Aanmaken"
 msgstr "Create"
 
+msgid "aanmaken"
+msgstr "create"
+
 msgid "Contactpersoon aangemaakt"
 msgstr "Contact person created"
 
@@ -1344,6 +1350,36 @@ msgstr "Description"
 
 msgid "Deze vraaggroep vastzetten"
 msgstr "Pin this question group"
+
+msgid "Vraaggroep "
+msgstr "Question group "
+
+msgid "Inschrijven webinar"
+msgstr "Register webinar"
+
+msgid "Support mailen"
+msgstr "Email support"
+
+msgid " niet gevonden!"
+msgstr " not found!"
+
+msgid "SchoolKlas"
+msgstr "School Class"
+
+msgid "Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!"
+msgstr "I would like to invite you to the Test-Correct platform. I already use it and can definitely recommend it. With Test-Correct you can test digitally and work well together. Create your free account and get started!"
+
+msgid "Voer de beveiligingscode in"
+msgstr "Enter the security code"
+
+msgid "De wachtwoorden komen niet overeen"
+msgstr "Passwords do not match"
+
+msgid "Standaard vraaggroep "
+msgstr "Standard question group "
+
+msgid "Carrousel vraaggroep "
+msgstr "Carousel question group "
 
 msgid "Vragen in deze groep shuffelen"
 msgstr "Shuffle questions in this group"
