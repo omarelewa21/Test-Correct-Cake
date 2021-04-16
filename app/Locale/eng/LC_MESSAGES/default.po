@@ -871,6 +871,84 @@ msgstr "Select maximum"
 msgid "antwoord"
 msgstr "answer"
 
+msgid "Streep de verkeerde antwoorden door"
+msgstr "Line through the incorrect answers"
+
+msgid "Noteer welke woorden op de plekken horen"
+msgstr "Write down which words belong in the places"
+
+msgid "Geen vraag ingevuld"
+msgstr "No question completed"
+
+msgid "Geen antwoord ingevuld"
+msgstr "No answer entered"
+
+msgid "U dient minimaal 2 antwoorden op te geven"
+msgstr "You must provide at least 2 answers"
+
+msgid "U heeft nog geen antwoord getekend"
+msgstr "You have not signed an answer yet"
+
+msgid "U kunt geen opmaak gebruiken tussen de vierkante haakjes"
+msgstr "You cannot use formatting within the square brackets"
+
+msgid "U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen"
+msgstr "You must enclose at least one answer in square brackets"
+
+msgid "U dient minimaal &eacute;&eacute;n keuze toe te voegen aan de vraag. "
+msgstr "You must add at least one choice to the question. "
+
+msgid "De score dient numeriek te zijn"
+msgstr "The score must be numeric"
+
+msgid "De score is verplicht"
+msgstr "The score is mandatory"
+
+msgid "De score dient in hele getallen te worden opgegeven"
+msgstr "The score must be given in whole numbers"
+
+msgid "De score dient groter dan nul te zijn"
+msgstr "The score must be greater than zero"
+
+msgid "Geen datum ingevuld"
+msgstr "No date entered"
+
+msgid "Geen periode geselecteerd"
+msgstr "No period selected"
+
+msgid "Geen surveillanten geselecteerd"
+msgstr "No invigilators selected"
+
+msgid "Geen klas geselecteerd"
+msgstr "No class selected"
+
+msgid "Geen correcte weging ingevoerd"
+msgstr "Correct weighting not entered"
+
+msgid "Voor een summatieve toets mag de weging niet 0 zijn."
+msgstr "The weighting may not be 0 for a summative test."
+
+msgid "Voor een RTTI toets mag de weging niet 0 zijn."
+msgstr "The weighting may not be 0 for an RTTI test."
+
+msgid "Voor een summatieve RTTI toets mag de weging niet meer dan 15 zijn."
+msgstr "For a summative RTTI test, the weighting may not be more than 15."
+
+msgid "Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn."
+msgstr "Each answer must have a (numerical) number of points."
+
+msgid "U dient minimaal 1 optie een score te geven."
+msgstr "You must give at least 1 option a score."
+
+msgid "U dient minimaal 2 items op te geven"
+msgstr "You must provide at least 2 items"
+
+msgid "Niet elk item heeft een antwoord"
+msgstr "Not every item has an answer"
+
+msgid "U dient minimaal 1 antwoord van een score te voorzien."
+msgstr "You must provide at least 1 answer with a score."
+
 msgid "Volgende vraag"
 msgstr "Next question"
 
