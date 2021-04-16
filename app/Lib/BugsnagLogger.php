@@ -35,10 +35,15 @@ class BugsnagLogger
         $this->bugsnag->setErrorReportingLevel(E_ERROR);
 
         if ($register) {
-            Bugsnag\Handler::register($this->bugsnag);
+            $this->register();
 
             $this->bugsnag->leaveBreadcrumb("Bugsnag loaded");
         }
+    }
+
+    protected function register()
+    {
+        Bugsnag\Handler::register($this->bugsnag);
     }
 
     public function unsetUser()
@@ -46,6 +51,8 @@ class BugsnagLogger
         $this->bugsnag->registerCallback(function($report){
 
             $report->setUser([]);
+
+            $this->register();
         });
 
         return $this;
@@ -65,6 +72,8 @@ class BugsnagLogger
                 'isToetsenbakker' => $user['isToetsenbakker'],
                 'is_temp_teacher' => $user['is_temp_teacher']
             ]);
+
+            $this->register();
         });
 
         return $this;
