@@ -55,18 +55,20 @@ class BugsnagLogger
             $this->register();
         });
 
+        $this->configureUser([]);
+
         return $this;
     }
 
     public function configureUser($user = null) {
         $userData = [];
-        if(null == $user){
+        if(null == $user && count($user)){
             $userData = [
-                'id' => $user['id'],
-                'uuid' => $user['uuid'],
-                'roles' => $user['roles'],
-                'isToetsenbakker' => $user['isToetsenbakker'],
-                'is_temp_teacher' => $user['is_temp_teacher']
+                'id' => isset($user['id']) ? $user['id'] : '-',
+                'uuid' => isset($user['uuid']) ? $user['uuid'] : '-',
+                'roles' => isset($user['roles']) ? $user['roles'] : '-',
+                'isToetsenbakker' => isset($user['isToetsenbakker']) ? $user['isToetsenbakker'] : false,
+                'is_temp_teacher' => isset($user['is_temp_teacher']) ? $user['is_temp_teacher'] : false
             ];
         }
 
