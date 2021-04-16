@@ -2588,12 +2588,13 @@ class TestTakesController extends AppController {
 //                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             $questions = $response['answers'];
-            if (Configure::read('bugsnag-key-cake') !== null) {
-                $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-                $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
-            } else {
-//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
-            }
+
+            App::uses('BugsnagLogger','Lib');
+            BugsnagLogger::getInstance()->setMetaData([
+                'response' => $response,
+            ])->notifyException(
+                new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
+            );
         }
 
         $this->set('questions', $questions);

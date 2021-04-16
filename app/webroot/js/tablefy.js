@@ -108,7 +108,7 @@
             },
             function(results) {
                 loading = false;
-                if(results == "") {
+                if(results == "" || results == "\n") {
                     endResults = true;
                 }else{
                     $(element).find('tbody').append(results);
