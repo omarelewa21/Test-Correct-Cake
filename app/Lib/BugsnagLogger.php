@@ -30,7 +30,7 @@ class BugsnagLogger
 
         $this->addFilter($this->defaultFilters)->configureAppversion()->setMetaData([
             'app' => array_merge(AppVersionDetector::detect($headers), ["allowed" => AppVersionDetector::isVersionAllowed($headers)])
-        ])->configureUser();
+        ]);
 
         $this->bugsnag->setErrorReportingLevel(E_ERROR);
 
@@ -41,19 +41,29 @@ class BugsnagLogger
         }
     }
 
-    private function configureUser() {
+    public function unsetUser()
+    {
+        $this->bugsnag->registerCallback(function($report){
 
-        $this->bugsnag->registerCallback(function($report) {
-            if (AuthComponent::user('id') == null) {
+            $report->setUser([]);
+        });
+
+        return $this;
+    }
+
+    public function configureUser($user = null) {
+
+        $this->bugsnag->registerCallback(function($report) use ($user){
+            if ($user == null) {
                 return;
             }
 
             $report->setUser([
-                'id' => AuthComponent::user('id'),
-                'uuid' => AuthComponent::user('uuid'),
-                'roles' => AuthComponent::user('roles'),
-                'isToetsenbakker' => AuthComponent::user('isToetsenbakker'),
-                'is_temp_teacher' => AuthComponent::user('is_temp_teacher')
+                'id' => $user['id'],
+                'uuid' => $user['uuid'],
+                'roles' => $user['roles'],
+                'isToetsenbakker' => $user['isToetsenbakker'],
+                'is_temp_teacher' => $user['is_temp_teacher']
             ]);
         });
 

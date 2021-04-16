@@ -106,7 +106,8 @@ class UsersController extends AppController
             }
 
             if ($this->Auth->login()) {
-
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->configureUser(AuthComponent::user());
                 //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
                 if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
@@ -285,6 +286,8 @@ class UsersController extends AppController
             $this->Session->renew();
             $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
         }
+        App::uses('BugsnagLogger', 'Lib');
+        BugsnagLogger::getInstance()->unsetUser();
     }
 
     public function forgot_password()
