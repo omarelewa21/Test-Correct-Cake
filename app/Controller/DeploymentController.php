@@ -31,7 +31,10 @@ class DeploymentController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Deployment'];
 
-            $this->DeploymentService->update($uuid, $data);
+            if(!$this->DeploymentService->update($uuid, $data)){
+                $this->formResponse(false, $this->DeploymentService->getErrors());
+                die;
+            }
 
             $this->formResponse(true, []);
             die;
@@ -49,7 +52,10 @@ class DeploymentController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Deployment'];
 
-            $this->DeploymentService->create($data);
+            if(!$this->DeploymentService->create($data)){
+                $this->formResponse(false, $this->DeploymentService->getErrors());
+                die;
+            }
 
             $this->formResponse(true, []);
             die;

@@ -24,7 +24,10 @@ class WhitelistIpController extends AppController {
 
     public function delete($uuid) {
         if($this->request->is('post') || $this->request->is('put')) {
-            $this->Service->delete($uuid);
+            if(!$this->Service->delete($uuid)){
+                $this->formResponse(false, $this->Service->getErrors());
+                die;
+            }
             $this->formResponse(true, []);
             die;
         }
@@ -40,7 +43,10 @@ class WhitelistIpController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['WhitelistIp'];
 
-            $this->Service->update($uuid, $data);
+            if(!$this->Service->update($uuid, $data)){
+                $this->formResponse(false, $this->Service->getErrors());
+                die;
+            }
 
             $this->formResponse(true, []);
             die;
@@ -57,7 +63,10 @@ class WhitelistIpController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['WhitelistIp'];
 
-            $this->Service->create($data);
+            if(!$this->Service->create($data)){
+                $this->formResponse(false, $this->Service->getErrors());
+                die;
+            };
 
             $this->formResponse(true, []);
             die;
