@@ -78,8 +78,6 @@ class BugsnagLogger
             }
 
             $report->setUser($userData);
-
-            $this->register();
         });
 
         if(null !== $user){
@@ -87,6 +85,8 @@ class BugsnagLogger
                 'user' => $userData
             ]);
         }
+
+        $this->register();
 
         return $this;
     }
