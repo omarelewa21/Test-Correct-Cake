@@ -59,22 +59,32 @@ class BugsnagLogger
     }
 
     public function configureUser($user = null) {
-
-        $this->bugsnag->registerCallback(function($report) use ($user){
-            if ($user == null) {
-                return;
-            }
-
-            $report->setUser([
+        $userData = [];
+        if(null == $user){
+            $userData = [
                 'id' => $user['id'],
                 'uuid' => $user['uuid'],
                 'roles' => $user['roles'],
                 'isToetsenbakker' => $user['isToetsenbakker'],
                 'is_temp_teacher' => $user['is_temp_teacher']
-            ]);
+            ];
+        }
+
+        $this->bugsnag->registerCallback(function($report) use ($userData){
+            if ($userData == null) {
+                return;
+            }
+
+            $report->setUser($userData);
 
             $this->register();
         });
+
+        if(null !== $user){
+            $this->setMetaData([
+                'user' => $userData
+            ]);
+        }
 
         return $this;
     }
