@@ -11,20 +11,12 @@ class WhitelistIpService extends BaseService {
 
     public function index()
     {
-        if(!$this->Connector->getRequest('/maintenance_whitelist_ip',[])){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-        return true;
+        return $this->Connector->getRequest('/maintenance_whitelist_ip',[]);
     }
 
     public function show($uuid)
     {
-        if(!$this->Connector->getRequest('/maintenance_whitelist_ip/'.$uuid,[])){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-        return true;
+        return $this->Connector->getRequest('/maintenance_whitelist_ip/'.$uuid,[]);
     }
 
     public function create($data)
