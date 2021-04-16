@@ -11,20 +11,12 @@ class DeploymentService extends BaseService {
 
     public function index()
     {
-        if(!$this->Connector->getRequest('/deployment',[])){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-        return true;
+        return $this->Connector->getRequest('/deployment',[]);
     }
 
     public function show($uuid)
     {
-        if(!$this->Connector->getRequest('/deployment/'.$uuid,[])){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-        return true;
+        return $this->Connector->getRequest('/deployment/'.$uuid,[]);
     }
 
     public function create($data)
