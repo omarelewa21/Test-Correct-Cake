@@ -92,7 +92,7 @@
 
           <th width="130"><?= __("School Language")?></th>
           <td>
-          <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('Dutch','English'))) ?>
+          <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('eng'=>'English', 'nl' => 'Dutch'))) ?>
           </td>
         </tr>
 

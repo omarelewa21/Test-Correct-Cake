@@ -58,9 +58,9 @@
         <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js?<?= time() ?>"></script>
 		<script src="/js/translation.js?<?= time() ?>"></script>
 		<?php 
-			$current_lang = Configure::read('Config.language');
+			$current_lang = CakeSession::read('Config.language');
 			echo "<script>
-			$.i18n().locale = 'eng'
+			$.i18n().locale = '$current_lang'
 			</script>";
 		 ?>
 		<!-- ----------------------------------- -->

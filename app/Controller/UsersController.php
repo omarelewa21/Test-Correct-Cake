@@ -367,14 +367,14 @@ class UsersController extends AppController
         $roles = AuthComponent::user('roles');
 
         $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
-        $language = $school_location['school_language'];
+        
 
-        if($language == 1){
-            $this->Session->write('Config.language', 'eng');
-        }
-        else{
+      //  if($language == 1){
+            $this->Session->write('Config.language', $school_location['school_language']);
+        //}
+       /* else{
             $this->Session->write('Config.language', 'nl');
-        }
+        }*/
         
 
         $menus = array();
