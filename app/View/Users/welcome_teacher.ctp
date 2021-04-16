@@ -55,10 +55,7 @@ if ($wizard_steps) {
                 <h5>Welkom op het Test-Correct platform!</h5>
             </div>
             <div class="body">
-                <h6></h6>
-                <p>
-
-                </p>
+                <?= $maintenanceNotification ?>
             </div>
         </div>
     </div>

@@ -69,6 +69,13 @@ class MaintenanceHelper
         return $maintenanceMessage;
     }
 
+    public function getMaintenanceNotification() {
+        if(file_exists($this->notificationFile)) {
+            return file_get_contents($this->notificationFile);
+        }
+        return '';
+    }
+
     public function isInMaintenanceMode(){
         if($this->_isInMaintenanceMode === null){
             $this->_isInMaintenanceMode = (bool) file_exists($this->maintenanceFile);
