@@ -11,22 +11,38 @@ class DeploymentService extends BaseService {
 
     public function index()
     {
-        return $this->Connector->getRequest('/deployment',[]);
+        if(!$this->Connector->getRequest('/deployment',[])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+        return true;
     }
 
     public function show($uuid)
     {
-        return $this->Connector->getRequest('/deployment/'.$uuid,[]);
+        if(!$this->Connector->getRequest('/deployment/'.$uuid,[])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+        return true;
     }
 
     public function create($data)
     {
-        return $this->Connector->postRequest('/deployment',[],$data);
+        if(!$this->Connector->postRequest('/deployment',[],$data)){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+        return true;
     }
 
     public function update($uuid,$data)
     {
-        return $this->Connector->putRequest('/deployment/'.$uuid,[],$data);
+        if(!$this->Connector->putRequest('/deployment/'.$uuid,[],$data)){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+        return true;
     }
 
     public function getStatuses()
