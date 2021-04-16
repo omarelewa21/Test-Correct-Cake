@@ -18,6 +18,15 @@ class BugsnagLogger
 
     private static $releasesPath  = "../../../.dep/releases";
 
+    protected $serverList = [
+        '10.233.253.122' => 'web02',
+        '10.233.253.124' => 'web03',
+        '10.233.169.175' => 'web04',
+        '10.233.169.176' => 'web05',
+        '10.233.169.177' => 'web06',
+        '10.233.169.178' => 'web07',
+    ];
+
     public function __construct($register = false)
     {
         if (Configure::read('bugsnag-key-cake') == null) {
@@ -29,7 +38,7 @@ class BugsnagLogger
         $headers = AppVersionDetector::getAllHeaders();
 
         $this->addFilter($this->defaultFilters)->configureAppversion()->setMetaData([
-            'app' => array_merge(AppVersionDetector::detect($headers), ["allowed" => AppVersionDetector::isVersionAllowed($headers)])
+            'app' => array_merge(AppVersionDetector::detect($headers), ["allowed" => AppVersionDetector::isVersionAllowed($headers), "server" => $this->getServer()])
         ])->configureUser();
 
         $this->bugsnag->setErrorReportingLevel(E_ERROR);
@@ -40,7 +49,16 @@ class BugsnagLogger
             $this->bugsnag->leaveBreadcrumb("Bugsnag loaded");
         }
     }
-    
+
+    protected function getServer()
+    {
+        $ip = $_SERVER["SERVER_ADDR"];
+        if(in_array($ip,$this->serverList)){
+            return $this->serverList[$ip];
+        }
+        return $ip;
+    }
+
     private function configureUser() {
 
         $this->bugsnag->registerCallback(function($report) {
