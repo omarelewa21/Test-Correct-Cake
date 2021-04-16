@@ -369,14 +369,8 @@ class UsersController extends AppController
         $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
         
 
-      //  if($language == 1){
-            $this->Session->write('Config.language', $school_location['school_language']);
-        //}
-       /* else{
-            $this->Session->write('Config.language', 'nl');
-        }*/
-        
-
+        $this->Session->write('Config.language', $school_location['school_language']);
+    
         $menus = array();
 
         $view = "welcome";
