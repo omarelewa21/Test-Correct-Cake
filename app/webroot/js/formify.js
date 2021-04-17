@@ -30,7 +30,7 @@ if (!Array.isArray) {
                 if (verifyAll()) {
                     postForm();
                 } else {
-                    Notify.notify('Niet alle velden zijn correct ingevuld', 'error');
+                    Notify.notify($.i18n('Niet alle velden zijn correct ingevuld'), 'error');
                 }
             }
         });
