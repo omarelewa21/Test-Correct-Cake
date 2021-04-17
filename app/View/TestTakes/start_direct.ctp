@@ -1,14 +1,14 @@
-<div class="popup-head">Toets direct starten</div>
+<div class="popup-head"><?= __("Toets direct starten")?></div>
 <div class="popup-content overflow-visible">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
-            <th style="display: none;" width="70">Datum</th>
-            <th style="display: none;" width="110">Periode</th>
-            <th style="display: none;">Surveillanten</th>
-            <th>Klas</th>
-            <th>Toets</th>
-            <th>Weging</th>
+            <th style="display: none;" width="70"><?= __("Datum")?></th>
+            <th style="display: none;" width="110"><?= __("Periode")?></th>
+            <th style="display: none;"><?= __("Surveillanten")?></th>
+            <th><?= __("Klas")?></th>
+            <th><?= __("Toets")?></th>
+            <th><?= __("Weging")?></th>
         </tr>
 
         <?
@@ -67,7 +67,7 @@
 
             <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
                 <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
-                    <th>Is RTTI</th>
+                    <th><?= __("Is RTTI")?></th>
                     <td>
                         <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'name' => 'data[TestTake][' . $i . '][is_rtti_test_take]', 'value' => '1', 'checked' => true)) ?>
                     </td>
@@ -75,7 +75,7 @@
             <?php endif; ?>
             <tr style="display: none;" class="testTakeRowNotes">
                 <td colspan="7">
-                    <strong>Notities voor surveillant</strong><br />
+                    <strong><?= __("Notities voor surveillant")?></strong><br />
                     <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
                 </td>
             </tr>
@@ -85,7 +85,7 @@
                     <div style="display: flex;">
                         <div style="display:flex;align-items: center; color: var(--system-base)"">
                             <span class="fa fa-chrome"></span>
-                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Browsertoetsen voor iedereen toestaan")?></strong></span>
                             <?php echo $this->element('questionmark_tooltip') ?>
                             <label class="switch">
                                 <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
@@ -104,10 +104,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-        Direct afnemen
+    <?= __("Direct afnemen")?>
     </a>
 </div>
 
@@ -132,7 +132,7 @@
     $('#TestTakeStartDirectForm').formify({
         confirm: $('#btnAddTestTakes'),
         confirmPopup: confirmPopup,
-        confirmMessage: 'Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?',
+        confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
             Notify.notify("Toetsen zijn ingepland", "info");

@@ -21,7 +21,7 @@
             <?
             foreach($analysis as $analyse) {
             ?>
-            <tr style="cursor:pointer" title="Klik om de details te zien/ te verbergen" onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analyse['uuid']?>');">
+            <tr style="cursor:pointer" title='<?= __("Klik om de details te zien/ te verbergen")?>' onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analyse['uuid']?>');">
                 <td><i class="fa fa-caret-right"></i></td>
                 <td colspan="2">
                     <?= $analyse['code'] ?><?= $analyse['subcode']?>

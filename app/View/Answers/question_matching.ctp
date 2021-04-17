@@ -127,9 +127,9 @@ $citoClass = 'cito';
 
                 if (val == '') {
                     Popup.message({
-                        btnOk : 'Oke',
-                        title : 'Onvolledig',
-                        message : 'Niet alle items geplaatst'
+                        btnOk : '<?= __("Oke")?>',
+                        title : '<?= __("Onvolledig")?>',
+                        message : '<?= __("Niet alle items geplaatst")?>'
                     });
                     error = true;
                     return false;
@@ -139,9 +139,9 @@ $citoClass = 'cito';
                 if ($.inArray(val, answers) != -1) {
 
                     Popup.message({
-                        btnOk : 'Oke',
-                        title : 'Incorrect',
-                        message : 'Maar 1 item per blok plaatsen'
+                        btnOk : '<?= __("Oke")?>',
+                        title : '<?= __("Incorrect")?>',
+                        message : '<?= __("Maar 1 item per blok plaatsen")?>'
                     });
 
                     error = true;

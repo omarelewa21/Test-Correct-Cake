@@ -80,19 +80,19 @@
         </tr>
 
         <tr>
-          <th><?= __("Open source content creator")?></th>
-          <td>
-              <?=$this->Form->input('is_open_source_content_creator',array('type'=>'checkbox','label'=>false)); ?>
-          </td>
-          <th><?= __("Mag open source content bekijken")?></th>
-          <td>
-              <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
-          </td>
+        <th><?= __("Open source content creator")?></th>
+        <td>
+            <?=$this->Form->input('is_open_source_content_creator',array('type'=>'checkbox','label'=>false)); ?>
+        </td>
+        <th><?= __("Mag open source content bekijken")?></th>
+        <td>
+            <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
+        </td>
 
-          <th width="130"><?= __("School Language")?></th>
-          <td>
-              <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('ENG'=>'English', 'NL' => 'Dutch'))) ?>
-          </td>
+        <th width="130"><?= __("School Language")?></th>
+        <td>
+            <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('ENG'=>'English', 'NL' => 'Dutch'))) ?>
+        </td>
         </tr>
         
 

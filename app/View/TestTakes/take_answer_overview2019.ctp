@@ -48,7 +48,7 @@ foreach($questions as $questionAr) {
         <div class="block-content" id="question_preview_<?=getUUID($question, 'get')?>">
             <?php
             if($answer['closed'] == 1 || $answer['closed_group'] == 1){
-                echo "<div>Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten</div>";
+                echo "<div>__(\"Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten\")</div>";
             } else {
 
              echo $this->element('take_overview_question2019',['question' => $question]);

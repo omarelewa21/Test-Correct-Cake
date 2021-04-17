@@ -61,7 +61,7 @@ if(!empty($attachments)) {
                     </td>
                     <td>
                         <a href="#" class="btn red small"
-                           onclick="Attachments.removeAddAttachment(<?= $key ?>);">
+                        onclick="Attachments.removeAddAttachment(<?= $key ?>);">
                             <span class="fa fa-remove"></span>
                         </a>
                     </td>
@@ -135,7 +135,7 @@ if(!empty($attachments)) {
                     <td>
                         <? if($editable) { ?>
                             <a href="#" class="btn red small"
-                               onclick="Attachments.removeEditAttachment('<?=$owner?>', '<?=$id?>', '<?=getUUID($attachment, 'get');?>');">
+                            onclick="Attachments.removeEditAttachment('<?=$owner?>', '<?=$id?>', '<?=getUUID($attachment, 'get');?>');">
                                 <span class="fa fa-remove"></span>
                             </a>
                         <? } ?>

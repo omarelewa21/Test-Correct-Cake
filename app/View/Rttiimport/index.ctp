@@ -18,7 +18,7 @@
             <tr>
                 <td><label><?= __("Email domein")?></label></td>
                 <td>
-                    <?= $this->Form->input('email_domain', array('style' => 'width:150px;', 'type' => 'email', 'placeholder' => 'Domein.nl', 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
+                    <?= $this->Form->input('email_domain', array('style' => 'width:150px;', 'type' => 'email', 'placeholder' => __("Domein.nl"), 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
                 </td>
             </tr>
             <tr>

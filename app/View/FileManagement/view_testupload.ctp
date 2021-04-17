@@ -95,7 +95,7 @@
             <tr>
                 <th width="12%" valign="top"><?= __("Kleurcode")?></th>
                 <td width="38%" valign="top" class="editable" onClick="makeEditable();">
-                    <div id="colorcode_div" class='editable_view' title="Klik om te wijzigen" style="max-height:60px;overflow:scroll"><?
+                    <div id="colorcode_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
                         echo (strlen($file['typedetails']['colorcode']) > 0) ? sprintf("<span class='mr5 color-indicator %s'></span>",$file['typedetails']['colorcode']) : __("Klik om een kleurcode te plaatsen");
                     ?></div>
                     <div id="colorcodes_edit" class='editable_elements colorcode-selector'>
@@ -116,7 +116,7 @@
             <tr>
                 <th width="12%" rowspan="2" valign="top"><?= __("Notitie")?></th>
                 <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
-                    <div id="notes_div" class='editable_view' title="Klik om te wijzigen" style="max-height:60px;overflow:scroll"><?
+                    <div id="notes_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
                         echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : __("Klik om een notitie toe te toevoegen");
                         ?></div>
                     <div id="notes_edit" class='editable_elements'>

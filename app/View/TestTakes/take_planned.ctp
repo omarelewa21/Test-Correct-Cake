@@ -44,7 +44,7 @@
         <?php if($oldPlayerAccess) {
             if( $take['test_participant']['intense']) { ?>
                 <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibrationForTest('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?= AuthComponent::user('id'); ?>');">
-                    Toets starten Intense
+                    <?= __("Toets starten Intense")?>
                 </a>
             <?php } else { ?>
                 <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
@@ -56,7 +56,7 @@
         if($newPlayerAccess) {
             ?>
         <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');">
-            <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
+            <?= !$oldPlayerAccess? __("Toets starten") : __("Start in nieuwe speler") ?>
         </a>
         <?php } ?>
         </center>

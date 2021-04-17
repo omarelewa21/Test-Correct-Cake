@@ -42,7 +42,7 @@
 
         <div >
             <div>
-                <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
+                <textarea rows="1" id="excelPasteBox" placeholder='<?= __("Plak je excel data hier...")?>'></textarea>
             </div>
             <hr class="showAfterProcess"/>
             <div id="output">

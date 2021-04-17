@@ -59,7 +59,6 @@
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px; margin-bottom:0px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
-
         <div page="attainments" class="page" tabs="add_question">
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>

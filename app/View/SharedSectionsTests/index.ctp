@@ -41,12 +41,12 @@
 
                 <?php if(true): ?>
                 <div class="row">
-                  <div class="col-md-5">
+                <div class="col-md-5">
                         <label><?= __("Bron")?></label>
                         <?=$this->Form->input('is_open_sourced_content',array(
-                      'options'=>[ __("Alles"), __("Eigen content"), __("Gratis content") ],'label'=>false
+                    'options'=>[ __("Alles"), __("Eigen content"), __("Gratis content") ],'label'=>false
                     )) ?>
-                  </div>
+                </div>
                 </div>
                 <?php endif; ?>
                 <?= $this->Form->end(); ?>
@@ -54,8 +54,8 @@
         </div>
         <div class="popup-footer">
             <a href="#" style="float:right"
-               id="jquery-save-filter-from-modal"
-               class="btn blue pull-right mr5 mt5 inline-block"><?= __("Opslaan")?></a>
+                id="jquery-save-filter-from-modal"
+                class="btn blue pull-right mr5 mt5 inline-block"><?= __("Opslaan")?></a>
             <a href="#" style="float:right"
                id="jquery-save-filter-as-from-modal"
                class="btn grey pull-right mr5 mt5 inline-block"><?= __("Opslaan als")?></a>
@@ -75,7 +75,7 @@
             <tr>
                 <th width="150"><?= __("Kies filter")?></th>
                 <td colspan="2">
-                    <select name="opgelagen filters" id="jquery-saved-filters">
+                    <select name='<?= __("opgelagen filters")?>' id="jquery-saved-filters">
                     </select>
                 </td>
                 <td width="380">

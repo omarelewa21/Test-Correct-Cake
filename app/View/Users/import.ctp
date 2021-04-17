@@ -210,7 +210,7 @@
                     '<option value="' + obj['column'] + '">' + obj['name'] + '</option>'
                 );
             });
-            options.push('<option value="' + value + '" selected="selected">negeren</option>');
+            options.push('<option value="' + value + '" selected="selected">\'<?= __("negeren")?>\'</option>');
             return '<select class="selectbox-update" data-nr="' + index + '">' + options.join('') + '</option>';
         }
 

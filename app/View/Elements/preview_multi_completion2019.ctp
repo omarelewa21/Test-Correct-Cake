@@ -27,7 +27,7 @@ $citoClass = 'cito';
         '/\[([0-9]+)\]/i',
         function ($matches) use ($count) {
             $tag_id = $matches[1];
-            return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => ['Selecteer'], 'disabled' => true]);
+            return $this->Form->input('Answer.'.$tag_id ,['id' => 'answer_' . $tag_id, 'type' => 'select', 'label' => false, 'div' => false, 'style' => 'display:inline-block; width:130px', 'options' => [__("Selecteer")], 'disabled' => true]);
         },
         $question_text
     );

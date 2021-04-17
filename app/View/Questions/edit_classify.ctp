@@ -56,7 +56,6 @@
             <?= __("Taxonomie")?>
             </a>
 
-
             <a href="#" class="btn grey" page="owners" tabs="edit_question">
             <?= __("Info")?>
             </a>

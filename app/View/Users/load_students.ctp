@@ -30,7 +30,7 @@ foreach($users as $user) {
         </td>
         <td class="nopadding">
             <?php if((bool) $user['demo'] === true){?>
-            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('Je kunt een demo gebruiker niet verwijderen','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="test_<?=getUUID($user, 'get');?>" onClick="Notify.notify('<?= __("Je kunt een demo gebruiker niet verwijderen")?>','error');">
                 <span class="fa fa-list-ul"></span>
             </a>
             <?php } else {?>

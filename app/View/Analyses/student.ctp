@@ -108,7 +108,7 @@ if(!$isStudent) {
     <div class="block-content" style="max-height: 400px;">
         <?
         if(empty($student['test_participants'])) {
-            echo '<center>Geen notities</center>';
+            echo '<center><?= __("Geen notities")?></center>';
         }else{
             ?>
             <table class="table table-striped" width="100%">

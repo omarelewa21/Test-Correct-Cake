@@ -19,7 +19,7 @@
         ?>
 
         <? if($question['subtype'] != 'TrueFalse') { ?>
-            <br /><?= __("Selecteer maximaal")?> <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : __("antwoord")?><br /><br />
+            <br /><?= __("Selecteer maximaal")?> <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? __("antwoorden") : __("antwoord")?><br /><br />
         <? } ?>
 
         <table class="table" id="tableMultiChoiceOptions">

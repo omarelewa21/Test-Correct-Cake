@@ -52,7 +52,7 @@ if(count($takes) == 0) {
                             </td>
                             <td>
                                 <?php if ($allow_inbrowser_testing) { ?>
-                                <a title="Browsertoetsen voor iedereen aan/uit"
+                                <a title='<?= __("Browsertoetsen voor iedereen aan/uit")?>'
                                    href="#" id=""
                                    class="btn active <?= $take['info']['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
                                    onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?=$take[0]['uuid']?>')">
@@ -187,7 +187,7 @@ if(count($takes) == 0) {
 
     function stopPolling(message, title) {
         if (title === undefined) {
-            title = '<span class="label-danger" style="display:block">Hoge server belasting</span>';
+            title = '<span class="label-danger" style="display:block">\'<?= __("Hoge server belasting")?>\'</span>';
         }
 
         if (message === undefined) {

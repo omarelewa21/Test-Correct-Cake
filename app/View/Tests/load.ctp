@@ -53,7 +53,7 @@ foreach($tests as $test) {
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
                     <?php echo $this->element('schedule_now') ?>
-                    Direct afnemen
+                    <?= __("Direct afnemen")?>
                 </a>
                 <?php } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>

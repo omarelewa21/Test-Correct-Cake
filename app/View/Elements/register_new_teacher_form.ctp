@@ -123,7 +123,7 @@
                 <?= __("E-mailadres")?>
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->input('username', array('placeholder' => 'uw schoolmail', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
+                    <?= $this->Form->input('username', array('placeholder' => __("uw schoolmail"), 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->username)) ?>
                 </td>
             </tr>
             <tr>
@@ -131,7 +131,7 @@
                 <?= __("Afkorting")?>
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->input('abbreviation', array('placeholder' => 'Welke afkorting wordt voor u gebruikt binnen uw school?', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->abbreviation)) ?>
+                    <?= $this->Form->input('abbreviation', array('placeholder' => __("Welke afkorting wordt voor u gebruikt binnen uw school?"), 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->abbreviation)) ?>
                 </td>
             </tr>
             <tr>

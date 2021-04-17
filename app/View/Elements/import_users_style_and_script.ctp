@@ -114,7 +114,7 @@
                     try {
                         parsePastedData(e);
                     } catch (e) {
-                        Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
+                        Notify.notify('<?= __("Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.")?>', 'error');
                     }
                 })
                 .on('change', '.selectbox-update', function () {
@@ -136,10 +136,10 @@
                 .on('click', '.deleteicon', function () {
                     $(this).parents('tr:first').addClass('rowToDelete');
                     Popup.message({
-                        btnOk: 'Ja',
-                        btnCancel: 'Annuleer',
-                        title: 'Weet u het zeker?',
-                        message: 'Weet u zeker dat u deze rij wil verwijderen?'
+                        btnOk: '<?= __("Ja")?>',
+                        btnCancel: '<?= __("Annuleer")?>',
+                        title: '<?= __("Weet u het zeker?")?>',
+                        message: '<?= __("Weet u zeker dat u deze rij wil verwijderen?")?>'
                     }, function () {
                         $('.rowToDelete').remove();
                         var studentCount = $('table#excelDataTable tbody tr').length;
@@ -171,12 +171,12 @@
         }
 
         var dbFields = [
-            {'column': 'external_id', 'name': 'stamnummer'},
-            {'column': 'name_first', 'name': 'voornaam'},
-            {'column': 'name_suffix', 'name': 'tussenvoegsel'},
-            {'column': 'name', 'name': 'achternaam'},
-            {'column': 'username', 'name': 'email'},
-            {'column': 'school_class_name', 'name': 'klasnaam'}
+            {'column': 'external_id', 'name': '<?= __("stamnummer")?>'},
+            {'column': 'name_first', 'name': '<?= __("voornaam")?>'},
+            {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
+            {'column': 'name', 'name': '<?= __("achternaam")?>'},
+            {'column': 'username', 'name': '<?= __("email")?>'},
+            {'column': 'school_class_name', 'name': '<?= __("klasnaam")?>'}
         ];
 
 
@@ -253,7 +253,7 @@
                 var classId = $('#class_id').val();
                 if (classId.length < 10) {
                     Loading.hide();
-                    Notify.notify('Er dient een klas gekozen te worden', 'error');
+                    Notify.notify('<?= __("Er dient een klas gekozen te worden")?>', 'error');
                     return false;
                 }
             }
@@ -266,7 +266,7 @@
                         if (response['status'] == true) {
                             jQuery('#output').html('');
                             jQuery('.showAfterProcess').hide();
-                            Notify.notify('De studenten zijn succesvol geimporteerd', 'success');
+                            Notify.notify('<?= __("De studenten zijn succesvol geimporteerd")?>', 'success');
                             Navigation.back();
                         } else {
                             var missingHeaders = [];
@@ -314,10 +314,10 @@
 
                             $('#duplicates-data-errors, #missing-data-errors, #column-errors').html('');
                             if (hasDuplicates) {
-                                $('#duplicates-data-errors').html('<ul><li>De import bevat duplicaten in de import file zelf (blauw)</li></ul>');
+                                $('#duplicates-data-errors').html('<ul><li><?= __("De import bevat duplicaten in de import file zelf (blauw)")?></li></ul>');
                             }
                             if (hasDuplicatesInDatabase) {
-                                $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje)</li></ul>');
+                                $('#duplicates-in-database-data-errors').html('<ul><li><?= __("De import duplicaten reeds in de database (oranje)")?></li></ul>');
                             }
 
                             if (missingHeaders.length) {
@@ -325,13 +325,13 @@
                                     var field = dbFields.find(field => {
                                         return field.column == header
                                     })
-                                    return 'De kolom ' + field.name + ' is verplicht.';
+                                    return __("De kolom ") + field.name + __(" is verplicht.");
                                 })
                                 $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                             }
                             if(nonExistingClass){
                                 var errorMsg = nonExistingClasses.map(classname => {
-                                    return 'klas '+classname+' is onbekend.';
+                                    return __("klas ")+classname+__(" is onbekend.");
                                 })
                                 $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                             }

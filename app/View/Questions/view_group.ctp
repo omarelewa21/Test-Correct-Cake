@@ -73,9 +73,9 @@ if(!empty($group['question']['question'])) {
                             <?php
 
                             if($question['question']['closeable'] == 1) {
-                                $title = 'Deze vraag afsluiten';
+                                $title = __("Deze vraag afsluiten");
                                 if ($question['question']['type'] == 'GroupQuestion') {
-                                    $title = 'Deze vraaggroep afsluiten';
+                                    $title = __("Deze vraaggroep afsluiten");
                                 }
                                 printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
                             } else {

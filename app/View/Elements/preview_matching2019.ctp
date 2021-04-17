@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?><?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == __("Matching") ? __("Combineervraag") : __("Rubriceer-vraag")?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?

@@ -26,7 +26,7 @@ foreach($users as $user) {
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
                         <?php } else {?>
-                            <a href="#" onClick="Notify.notify('Je kunt deze gebruiker niet wijzigen','error');"  class="btn white pull-right">
+                            <a href="#" onClick="Notify.notify('<?= __("Je kunt deze gebruiker niet wijzigen")?>','error');"  class="btn white pull-right">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
                         <?php } ?>

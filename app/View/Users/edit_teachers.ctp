@@ -127,7 +127,7 @@
                 if (data.account_verified) {
                     $('#updateVerified').text(data.account_verified).addClass('blue').removeClass('grey');
                 } else {
-                    $('#updateVerified').text('Niet geverifieerd').addClass('grey').removeClass('blue');
+                    $('#updateVerified').text('<?= __("Niet geverifieerd")?>').addClass('grey').removeClass('blue');
                 }
             },
             failure: function(data) {

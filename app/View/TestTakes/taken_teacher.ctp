@@ -81,7 +81,7 @@
             <tr>
                 <th width="150"><?= __("Kies filter")?></th>
                 <td colspan="2">
-                    <select name="opgelagen filters" id="jquery-saved-filters">
+                    <select name='<?= __("opgelagen filters")?>' id="jquery-saved-filters">
                     </select>
                 </td>
                 <td width="380">

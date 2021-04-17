@@ -14,9 +14,9 @@ foreach($questions as $question) {
             <?php
             if($question['closeable'] == 1) {
 
-                $title = 'Deze vraag afsluiten';
+                $title = __("Deze vraag afsluiten");
                 if ($question['type'] == 'GroupQuestion') {
-                    $title = 'Deze vraaggroep afsluiten';
+                    $title = __("Deze vraaggroep afsluiten");
                 }
                 printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
             } else {
@@ -89,7 +89,7 @@ foreach($questions as $question) {
 
                 case 'GroupQuestion':
                     if($question['groupquestion_type'] == 'carousel') {
-                        echo 'Groepvraag - carrousel ('.$question['number_of_subquestions'].')';
+                        echo __("Groepvraag - carrousel ") . '('.$question['number_of_subquestions'].')';
                     }else{
                         echo __("Groepvraag");
                     }

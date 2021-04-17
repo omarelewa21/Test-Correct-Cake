@@ -116,9 +116,9 @@
                 useHTML: true,
                 headerFormat: '<table>',
                 pointFormat: '<tr><th colspan="2"><h3>{point.country}</h3></th></tr>' +
-                '<tr><th>P-waarde:</th><td>{point.x}</td></tr>' +
-                '<tr><th>Getoetst dit jaar:</th><td>{point.y}</td></tr>' +
-                '<tr><th>Getoetst totaal:</th><td>{point.z}</td></tr>',
+                '<tr><th><?= __("P-waarde")?>:</th><td>{point.x}</td></tr>' +
+                '<tr><th><?= __("Getoetst dit jaar")?>:</th><td>{point.y}</td></tr>' +
+                '<tr><th><?= __("Getoetst totaal")?>:</th><td>{point.z}</td></tr>',
                 footerFormat: '</table>',
                 followPointer: true
             },

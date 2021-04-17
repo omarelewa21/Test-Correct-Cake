@@ -21,26 +21,20 @@
         <?= __("Inplannen")?>
     </a>
     <? } ?>
-<<<<<<< HEAD
-    <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
-        <span class="fa fa-search mr5"></span>
-        <?= __("Voorbeeld")?>
-=======
     <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
         <?php echo $this->element('schedule_now') ?>
-        Direct afnemen
->>>>>>> 7b756a77bd9b5ec4f7ed50fde67e07271f355ddf
+        <?= __("Direct afnemen")?>
     </a>
     <?php if($oldPlayerAccess) { ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
             <span class="fa fa-search mr5"></span>
-            Voorbeeld
+            <?= __("Voorbeeld")?>
         </a>
     <?php } ?>
     <?php if($newPlayerAccess) { ?>
         <a href="#" class="btn white mr2" onclick="Popup.showPreviewTest('<?=$test_id?>');">
             <span class="fa fa-search mr5"></span>
-            <?= !$oldPlayerAccess ? 'Voorbeeld' : 'Voorbeeld nieuwe speler' ?>
+            <?= !$oldPlayerAccess ? __("Voorbeeld") : __("Voorbeeld nieuwe speler") ?>
         </a>
     <?php } ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
@@ -186,9 +180,9 @@
                             <?php
                             if($question['question']['closeable'] == 1) {
 
-                                $title = 'Deze vraag afsluiten';
+                                $title = __("Deze vraag afsluiten");
                                 if ($question['question']['type'] == 'GroupQuestion') {
-                                    $title = 'Deze vraaggroep afsluiten';
+                                    $title = __("Deze vraaggroep afsluiten");
                                 }
                                 printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
                             } else {
@@ -212,7 +206,7 @@
                             <?php
                             $closableIcon = '';
                             if($subquestion['question']['closeable'] == 1) {
-                                $closableIcon ='<i title="Deze vraag afsluiten" style="cursor:pointer" class="fa fa-lock"></i>';
+                                $closableIcon ='<i title=\'<?= __("Deze vraag afsluiten")?>\' style="cursor:pointer" class="fa fa-lock"></i>';
                             }
                             echo $a . '. '. $subquestion['question']['question']. $closableIcon;
                             ?>
@@ -265,7 +259,7 @@
                                             if($subquestion['question']['subtype'] == 'multi') {
                                                 echo __("Selectie<br />");
                                             }else{
-                                                echo __("Gatentekst<br />")س;
+                                                echo __("Gatentekst<br />");
                                             }
                                             break;
 
@@ -283,8 +277,7 @@
 
                                         case 'MatrixQuestion':
                                             if($subquestion['question']['subtype'] == 'SingleChoice'){
-                                                echo __("MatrixQuestion")__("                                                echo __("MatrixQuestion");
-                                                ");
+                                                echo __("MatrixQuestion");
                                             } else {
                                                 echo __("MatrixQuestion ONBEKEND");
                                             }
@@ -306,7 +299,7 @@
                                         if($question['question']['subtype'] == 'TrueFalse') {
                                             echo __("Juist / Onjuist");
                                         }elseif($question['question']['subtype'] == 'ARQ') {
-                                            echo __("ARQ")س;
+                                            echo __("ARQ");
                                         }else{
                                             echo __("Meerkeuze");
                                         }
@@ -320,7 +313,7 @@
                                                 break;
                                             case 'long':
                                             case 'medium':
-                                                echo __("Open vraag - lang<br />")س;
+                                                echo __("Open vraag - lang<br />");
                                                 break;
                                             default:
                                                 echo __("Open vraag<br />");

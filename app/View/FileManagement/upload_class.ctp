@@ -103,10 +103,10 @@
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
     var wistjedatjes = [
-        'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-        'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-        'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-        'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+        '<?= __("Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+        '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..")?>',
+        '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+        '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
     ];
     var wistjedatjesEl = jQuery('#wistjedatjes');
 
@@ -125,7 +125,7 @@
             }
         });
         if(hasErrors){
-            Notify.notify('Niet alle velden zijn correct ingevuld','error');
+            Notify.notify('<?= __("Niet alle velden zijn correct ingevuld")?>','error');
             return false;
         }
 

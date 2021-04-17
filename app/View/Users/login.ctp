@@ -49,7 +49,7 @@
         </tr>
 
         <tr id="captcha_container" style="display:none">
-            <th>Beveiligingscode</th>
+            <th><?= __("Beveiligingscode")?></th>
             <td>
                 <img src="" id="captcha"/><br/>
                 <?php
@@ -58,7 +58,7 @@
                     array(
                         'type' => 'text',
                         'label' => false,
-                        'placeholder' => 'Beveiligingscode',
+                        'placeholder' => __("Beveiligingscode"),
                         'verify' => ''
                     )
                 );

@@ -243,7 +243,7 @@
 
                                     case 'CompletionQuestion':
                                         if($question['question']['subtype'] == 'multi') {
-                                            echo 'Selectie';
+                                            echo __("Selectie");
                                         }else{
                                             echo __("Gatentekst");
                                         }

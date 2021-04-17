@@ -32,7 +32,7 @@
                 <th width="12%"><?= __("Gepland")?></th>
                 <td width="21%"><?=date('d-m-Y', strtotime($take['time_start']))?></td>
                 <th width="12%"><?= __("Type")?></th>
-                <td width="21%"><?=$take['retake'] == 0 ? 'Normale toets' : 'Inhaal toets'?></td>
+                <td width="21%"><?=$take['retake'] == 0 ? __("Normale toets") : __("Inhaal toets")?></td>
             </tr>
             <tr>
 

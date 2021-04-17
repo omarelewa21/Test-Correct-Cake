@@ -27,7 +27,7 @@
         ?>
         <a href="#" class="btn white" onclick="Navigation.load('/users/import/students');">
             <span class="fa fa-cloud-upload mr5"></span>
-            Studenten importeren
+            <?= __("Studenten importeren")?>
         </a>
         <?
     }

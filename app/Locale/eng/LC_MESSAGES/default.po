@@ -421,6 +421,12 @@ msgstr "Class overview"
 msgid "Klas"
 msgstr "Class"
 
+msgid "klas "
+msgstr "class "
+
+msgid " is onbekend."
+msgstr " is unknown."
+
 msgid "Mentor"
 msgstr "Mentor"
 
@@ -447,6 +453,9 @@ msgstr "convert to speech."
 
 msgid "Deze student heeft tijdsdispensatie"
 msgstr "This student has time dispensation"
+
+msgid "Klik om de details te zien/ te verbergen"
+msgstr "Click to show / hide details"
 
 msgid "Deze student heeft"
 msgstr "This student has"
@@ -492,6 +501,15 @@ msgstr "Notes"
 
 msgid "Cijfer"
 msgstr "Figure"
+
+msgid "Studentgemiddelde"
+msgstr "Student average"
+
+msgid "Klassengemiddelde"
+msgstr "Class mean"
+
+msgid "Behaalde resultaten"
+msgstr "Achieved results"
 
 msgid "Moment"
 msgstr "Moment"
@@ -670,6 +688,12 @@ msgstr "Classify question"
 msgid "Matrix ONBEKEND"
 msgstr "Matrix UNKNOWN"
 
+msgid "Onthouden"
+msgstr "Remember"
+
+msgid "Begrijpen"
+msgstr "Understand"
+
 msgid "Selectievraag"
 msgstr "Selection question"
 
@@ -714,6 +738,9 @@ msgstr "Did you know that we have a reading function that allows students to rea
 
 msgid "Leerdoelen aan CITO vragen koppelen"
 msgstr "Link learning objectives to CITO questions"
+
+msgid "Niet alle velden zijn correct ingevuld"
+msgstr "Not all fields are filled in correctly"
 
 msgid "Toetsen inplannen"
 msgstr "Schedule tests"
@@ -970,6 +997,12 @@ msgstr "Multiple choice"
 msgid "P-waarde"
 msgstr "P-value"
 
+msgid "Getoetst dit jaar"
+msgstr "Tested this year"
+
+msgid "Getoetst totaal"
+msgstr "Tested totally"
+
 msgid "keer afgenomen"
 msgstr "times"
 
@@ -1063,6 +1096,12 @@ msgstr "Learning objective"
 msgid "Aantal vragen"
 msgstr "Number of questions"
 
+msgid "Deze vraaggroep afsluiten"
+msgstr "Close this question group"
+
+msgid "Groepvraag - carrousel "
+msgstr "Group question - carousel "
+
 msgid "Legenda:"
 msgstr "Legend:"
 
@@ -1080,6 +1119,9 @@ msgstr "<tr> <td colspan = \\ "9 \\"> One moment the relevant data is looked up 
 
 msgid "Voorlees"
 msgstr "Read aloud"
+
+msgid "Oke"
+msgstr "Okay"
 
 msgid "functionaliteit"
 msgstr "functionality"
@@ -1239,6 +1281,15 @@ msgstr "School location"
 
 msgid "Klik om te wijzigen"
 msgstr "Click to change"
+
+msgid "Deze vraag afsluiten"
+msgstr "Close this question"
+
+msgid "Toets direct starten"
+msgstr "Start test immediately"
+
+msgid "Domein.nl"
+msgstr "Domain.nl"
 
 msgid "File"
 msgstr "File"
@@ -1450,6 +1501,9 @@ msgstr "I would like to invite you to the Test-Correct platform. I already use i
 msgid "Voer de beveiligingscode in"
 msgstr "Enter the security code"
 
+msgid "Beveiligingscode"
+msgstr "Security code"
+
 msgid "De wachtwoorden komen niet overeen"
 msgstr "Passwords do not match"
 
@@ -1534,11 +1588,44 @@ msgstr "Add video"
 msgid "Geluidsfragment"
 msgstr "Sound clip"
 
+msgid "Dit geluidsfragment was éénmalig afspeelbaar en is al beluisterd."
+msgstr "This sound fragment was playable once and has already been listened to."
+
+msgid "Dit apparaat ondersteunt geen geluidsfragmenten."
+msgstr "This device does not support audio clips."
+
+msgid "Dit geluidsfragment is niet te pauzeren en slechts éénmaal te beluisteren."
+msgstr "This sound fragment cannot be paused and can only be played once."
+
+msgid "Dit geluidsfragment is niet te pauzeren."
+msgstr "This sound clip cannot be paused."
+
+msgid "Dit geluidsfragment is slechts éénmaal te beluisteren."
+msgstr "This sound fragment can only be heard once."
+
+msgid " Na sluiten van dit geluidsfragment heb je slechts "
+msgstr " After closing this sound clip you only have "
+
+msgid " seconden om de vraag te beantwoorden"
+msgstr " seconds to answer the question"
+
+msgid "Speelt af.. (pauzeer)"
+msgstr "Plays .. (pause)"
+
 msgid "Pauzeerbaar"
 msgstr "Can be paused"
 
 msgid "Eenmalig afspelen"
 msgstr "Play once"
+
+msgid "Afspelen"
+msgstr "Play"
+
+msgid "Er is een fout opgetreden bij het laden van dit geluidsfragment."
+msgstr "There was an error loading this audio clip."
+
+msgid "Afgespeeld"
+msgstr "Played"
 
 msgid "Seconden voor antwoord"
 msgstr "Seconds to reply"
@@ -1672,6 +1759,9 @@ msgstr "Set default column headers !!"
 msgid "Studenten importeren"
 msgstr "Import students"
 
+msgid "negeren"
+msgstr "ignore"
+
 msgid "Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op."
 msgstr "Something went wrong while converting, <br /> Please try again and if the problem persists please contact us."
 
@@ -1701,6 +1791,12 @@ msgstr "A class must be chosen"
 
 msgid "De studenten zijn succesvol geimporteerd"
 msgstr "The students have been successfully imported"
+
+msgid "De import bevat duplicaten in de import file zelf (blauw)"
+msgstr "The import contains duplicates in the import file itself (blue)"
+
+msgid "De import duplicaten reeds in de database (oranje)"
+msgstr "The import duplicates already in the database (orange)"
 
 msgid "De kolom "
 msgstr "The column"
@@ -1776,6 +1872,9 @@ msgstr "Is rtti school location"
 
 msgid "Is RTTI school"
 msgstr "Is RTTI school"
+
+msgid "Is RTTI"
+msgstr "Is RTTI"
 
 msgid "Toetsen in nieuwe speler"
 msgstr "Tests in new player available"
@@ -2077,6 +2176,9 @@ msgstr "Is RTTI"
 msgid "Notities voor surveillant"
 msgstr "Notes for invigilator"
 
+msgid "Browsertoetsen voor iedereen toestaan"
+msgstr "Allow browser tests for everyone"
+
 msgid "Extra toets plannen"
 msgstr "Schedule an additional test"
 
@@ -2085,6 +2187,27 @@ msgstr "Schedule Tests"
 
 msgid "Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?"
 msgstr "Are you sure you don't want to export this test to RTTI Online?"
+
+msgid "Vragencarrousel wordt automatisch overgeslagen!"
+msgstr "Question carousel is automatically skipped!"
+
+msgid "Browsertoetsen voor iedereen aan/uit"
+msgstr "Browser tests for everyone on / off"
+
+msgid "Hoge server belasting"
+msgstr "High server load"
+
+msgid "Toets starten Intense"
+msgstr "Start button Intense"
+
+msgid "Start in nieuwe speler"
+msgstr "Start in new player"
+
+msgid "Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten"
+msgstr "It is not possible to view the answer because this question has been closed"
+
+msgid "Lees voor"
+msgstr "read for"
 
 msgid "Toetsen zijn ingepland"
 msgstr "Tests are scheduled"
@@ -2308,6 +2431,9 @@ msgstr "Show all answers"
 msgid "voorbeeld"
 msgstr "example"
 
+msgid "Voorbeeld nieuwe speler"
+msgstr "Example new player"
+
 msgid "Laden.."
 msgstr "Load.."
 
@@ -2352,6 +2478,9 @@ msgstr "Took the longest"
 
 msgid "Geen notities"
 msgstr "No notes"
+
+msgid "Een ogenblik geduld"
+msgstr "Please wait"
 
 msgid "Toets bekijken"
 msgstr "View test"
@@ -2519,7 +2648,16 @@ msgid "Niet laten inzien"
 msgstr "Do not show"
 
 msgid "Toepassen"
-msgstr "To apply"
+msgstr "Apply"
+
+msgid "Analyseren"
+msgstr "Analyze"
+
+msgid "Evalueren"
+msgstr "Evaluate"
+
+msgid "Creëren"
+msgstr "Create"
 
 msgid "Dichtzetten"
 msgstr "Close"
@@ -2580,6 +2718,24 @@ msgstr "Box plot"
 
 msgid "Niet voldoende gegevens"
 msgstr "Not enough data"
+
+msgid "Doen"
+msgstr "Do"
+
+msgid "uw schoolmail"
+msgstr "your school mail"
+
+msgid "Browsertoetsen aan/uit"
+msgstr "Browsertoetsen aan/uit"
+
+msgid "Welke afkorting wordt voor u gebruikt binnen uw school?"
+msgstr "Which abbreviation is used for you within your school?"
+
+msgid "Let op! Als browsertoetsen aanstaat, dan kan de student de toets maken zonder de beveiligde studenten app. In de browser kunnen wij het gebruik van andere apps niet blokkeren."
+msgstr "Pay attention! If browser tests are enabled, the student can take the test without the secure student app. We cannot block the use of other apps in the browser."
+
+msgid "Lees meer op de Kennisbank"
+msgstr "Read more on the Knowledge Base"
 
 msgid "Toets resultaten"
 msgstr "Test results"
@@ -2743,6 +2899,15 @@ msgstr "Student number is already in use"
 msgid "Het opgegeven e-mailadres is al in gebruik of onvolledig"
 msgstr "The specified e-mail address is already in use or incomplete"
 
+msgid "Onvolledig"
+msgstr "Incomplete"
+
+msgid "Niet alle items geplaatst"
+msgstr "Not all items posted"
+
+msgid "Maar 1 item per blok plaatsen"
+msgstr "Only place 1 item per block"
+
 msgid "Externe code"
 msgstr "External code"
 
@@ -2791,6 +2956,12 @@ msgstr "Teacher import"
 msgid "Plak je excel data hier..."
 msgstr "Paste your excel data here ..."
 
+msgid "opgelagen filters"
+msgstr "saved filters"
+
+msgid "Direct afnemen"
+msgstr "Purchase immediately"
+
 msgid "importeren"
 msgstr "import"
 
@@ -2799,6 +2970,9 @@ msgstr "import teachers?"
 
 msgid "Koppeling klasnaam"
 msgstr "Class name association"
+
+msgid "klasnaam"
+msgstr "class name"
 
 msgid "Koppeling welk vak"
 msgstr "Link which course"
@@ -2814,6 +2988,12 @@ msgstr "The column [E-mail address] is empty (but mandatory) or contains values 
 
 msgid "De kolom ["
 msgstr "The column ["
+
+msgid "De kolom "
+msgstr "The column "
+
+msgid " is verplicht."
+msgstr " is mandatory."
 
 msgid "] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood)."
 msgstr "] contains values \u200b\u200bthat are not in the database (conflicts marked in red)."
@@ -2841,6 +3021,9 @@ msgstr "Transfer"
 
 msgid "Je kunt een demo gebruiker niet verwijderen"
 msgstr "You cannot delete a demo user"
+
+msgid "Je kunt deze gebruiker niet wijzigen"
+msgstr "You cannot change this user"
 
 msgid "Je kunt een demo gebruiker niet verplaatsen"
 msgstr "You cannot move a demo user"
@@ -3126,6 +3309,15 @@ msgstr "Pay attention:"
 
 msgid "Lukt het niet of loop je tegen problemen aan, laat het ons dan weten via mail: support@test-correct.nl of telefonisch via: 0107 171 171, we helpen je graag verder."
 msgstr "If it is not possible or if you run into problems, please let us know by mail: support@test-correct.nl or by telephone on: 0107 171 171, we are happy to help you."
+
+msgid "Weten"
+msgstr "Know"
+
+msgid "Weten hoe"
+msgstr "know how to"
+
+msgid "Laten zien"
+msgstr "Show"
 
 msgid "Verberg demo tour"
 msgstr "Hide demo tour"

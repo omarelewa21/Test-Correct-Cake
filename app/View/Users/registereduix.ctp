@@ -97,7 +97,7 @@
             confirm: $('#btnAddUser'),
             onsuccess: function (result) {
                 Popup.closeLast();
-                Popup.message({title: 'Account aangemaakt', message: 'Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan'}, ()=>window.location.href='/');
+                Popup.message({title: 'Account aangemaakt', message: '<?= __("Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan")?>'}, ()=>window.location.href='/');
                 Notify.notify('<?= __("Account aangemaakt")?>', "info");
 
             },

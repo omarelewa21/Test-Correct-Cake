@@ -144,7 +144,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 </td>
                 <td><?= $normalization ? $participant['abnormalities'] : '-' ?></td>
                 <td>
-                    <?= empty($participant['invigilator_note']) ? 'Nee' : 'Ja' ?>
+                    <?= empty($participant['invigilator_note']) ? __("Nee") : __("Ja") ?>
                 </td>
                 <td class="nopadding" width="100">
                     <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?= getUUID($take, 'get'); ?>/<?= getUUID($participant, 'get'); ?>');">
