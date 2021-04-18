@@ -262,7 +262,7 @@ class TestTakesController extends AppController {
                 $this->set('test', $test);
                 $this->validateCarouselQuestionsInTest($test_id);
             } else {
-                $test_name = 'Selecteer';
+                $test_name = __("Selecteer");
             }
 
             $this->set('classes', $classes);
@@ -328,7 +328,7 @@ class TestTakesController extends AppController {
             $test = $this->TestsService->getTest($test_id);
             $test_name = $test['name'];
         } else {
-            $test_name = 'Selecteer';
+            $test_name = __("Selecteer");
         }
 
         $this->set('classes', $classes);

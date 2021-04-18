@@ -49,7 +49,7 @@
                 <tr>
                     <td><label><?= __("Stamklas")?></label></td>
                     <td>
-                        <?=$this->Form->input('is_main_school_class', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [0 => 'Nee', 1 => 'Ja']))?>
+                        <?=$this->Form->input('is_main_school_class', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [0 => __("Nee"), 1 => __("Ja")]))?>
                     </td>
                 </tr>
                 <tr>

@@ -447,7 +447,7 @@ var TestTake = {
     },
 
     startTake: function (take_id) {
-        var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
+        var message = '<div>' + $.i18n('Niet alle Studenten zijn aanwezig.')+ '</div>';
 
         var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
             '<p class="title" style="display: block;margin:0;font-weight: bold">' +
@@ -469,9 +469,9 @@ var TestTake = {
 
             var showPopupMessage = function(message) {
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
+                    btnOk: $.i18n('Ja'),
+                    btnCancel: $.i18n('Annuleer'),
+                    title: $.i18n('Weet u het zeker?'),
                     message: message
                 }, function () {
                     $.get('/test_takes/start_test/' + take_id,
@@ -556,7 +556,7 @@ var TestTake = {
                 btnOk: $.i18n('ja'),
                 btnCancel: $.i18n('Annuleer'),
                 title: $.i18n('Weet u het zeker?'),
-                message: 'Niet iedereen is klaar met bespreken.'
+                message: $.i18n('Niet iedereen is klaar met bespreken.')
             }, function () {
                 $.get('/test_takes/next_discussion_question/' + take_id,
                         function () {

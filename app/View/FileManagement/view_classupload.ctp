@@ -130,7 +130,7 @@
                 <th>
                 <?= __("Stamklas")?>
                 </th>
-                <td><?= $file['typedetails']['is_main_school_class'] ? 'Ja' : 'Nee' ?></td>
+                <td><?= $file['typedetails']['is_main_school_class'] ? __("Ja") : __("Nee") ?></td>
             </tr>
         </table>
     </div>

@@ -36,7 +36,7 @@
                     <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
                 </td>
                 <td>
-                    <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : 'Selecteer' ?></span>
+                    <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : __("Selecteer") ?></span>
                     <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
                 </td>
                 <td>

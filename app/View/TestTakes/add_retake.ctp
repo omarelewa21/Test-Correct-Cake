@@ -95,7 +95,7 @@ foreach($test_take['invigilator_users'] as $invigilator) {
                             <?=$participant['user']['name']?>
                         </td>
                         <td>
-                            <?=$participant['test_take_status_id'] > 2 ? 'Ja' : 'Nee' ?>
+                            <?=$participant['test_take_status_id'] > 2 ? __("Ja") : __("Nee") ?>
                         </td>
                         <td>
                             <?=empty($participant['rating']) ? '-' : $participant['rating']?>

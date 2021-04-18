@@ -73,6 +73,9 @@ msgstr "Selection"
 msgid "Gatentekst"
 msgstr "Missing Word"
 
+msgid "Er is geen voorbeeld weergave voor een vraaggroep."
+msgstr "There is no preview for a question group."
+
 msgid "Rangschik"
 msgstr "Arrange"
 
@@ -948,6 +951,9 @@ msgstr "No period selected"
 
 msgid "Geen surveillanten geselecteerd"
 msgstr "No invigilators selected"
+
+msgid "Selecteer"
+msgstr "Select"
 
 msgid "Geen klas geselecteerd"
 msgstr "No class selected"
@@ -2189,7 +2195,7 @@ msgid "Toetsen plannen"
 msgstr "Schedule Tests"
 
 msgid "Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?"
-msgstr "Are you sure you don't want to export this test to RTTI Online?"
+msgstr "Are you sure you do not want to export this test to RTTI Online?"
 
 msgid "Vragencarrousel wordt automatisch overgeslagen!"
 msgstr "Question carousel is automatically skipped!"
@@ -2243,10 +2249,10 @@ msgid "Inhaal-toets maken"
 msgstr "Make an overtaking test"
 
 msgid "Inhaaltoets van"
-msgstr "Catch-up test from"
+msgstr "Make-up test from"
 
 msgid "Inhaal toets"
-msgstr "Overtake test"
+msgstr "Pop quiz"
 
 msgid "Surveillant notities"
 msgstr "Invigilator notes"
@@ -2333,10 +2339,10 @@ msgid "Exporteren / Printen"
 msgstr "Export / Print"
 
 msgid "Openen"
-msgstr "To open"
+msgstr "Open"
 
 msgid "Archiveren"
-msgstr "To archive"
+msgstr "Archive"
 
 msgid "Dearchiveer"
 msgstr "Dearchive"
@@ -2393,7 +2399,7 @@ msgid "Max score"
 msgstr "Max score"
 
 msgid "Overslaan"
-msgstr "To skip"
+msgstr "Skip"
 
 msgid "Gemiddelde"
 msgstr "Average"
@@ -2540,7 +2546,7 @@ msgid "Normaal"
 msgstr "Normal"
 
 msgid "Inhalen"
-msgstr "To catch up"
+msgstr "Catch up"
 
 msgid "Toetsen nu afnemen"
 msgstr "Take tests now"
@@ -2585,10 +2591,10 @@ msgid "U bent aan het surveilleren, weet u het zeker?"
 msgstr "You're patrolling, are you sure?"
 
 msgid "Naar smartboard weergave"
-msgstr "To smartboard view"
+msgstr "Smartboard view"
 
 msgid "Naar surveillant weergave"
-msgstr "To watchman view"
+msgstr "Invigilator view"
 
 msgid "Klas ABC - Geschiedenis Toets 1"
 msgstr "Class ABC - History Test 1"
@@ -2639,7 +2645,7 @@ msgid "Inzien door Studenten"
 msgstr "View by Students"
 
 msgid "Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien."
-msgstr "Possibility for Students to view the result of their own test."
+msgstr "Enable students to view the result of their own test."
 
 msgid " Mogelijkheid tot inzien activeren"
 msgstr "Activate the option to view"
@@ -2672,7 +2678,7 @@ msgid "RTTI-Export"
 msgstr "RTTI-Export"
 
 msgid "Inhaal-toets plannen"
-msgstr "Schedule catch-up test"
+msgstr "Schedule make-up test"
 
 msgid "Na te kijken toets"
 msgstr "Review test"
@@ -2702,7 +2708,7 @@ msgid "Toets met succes naar RTTI verzonden."
 msgstr "Test sent to RTTI successfully."
 
 msgid "Toets afnemen"
-msgstr "To take a test"
+msgstr "Take a test"
 
 msgid "Surveillanten wijzigen"
 msgstr "Security guards change"
