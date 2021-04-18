@@ -59,7 +59,7 @@
 </script>
 
 
-<script type='text/javascript'>
+<!-- <script type='text/javascript'>
 
     (function()
     {
@@ -75,4 +75,4 @@
     }
     })();
 
-</script>
+</script> -->

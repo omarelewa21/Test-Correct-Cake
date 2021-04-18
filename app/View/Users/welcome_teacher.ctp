@@ -652,7 +652,7 @@ if ($wizard_steps) {
     }
 </style>
 
-<script type='text/javascript'>
+<!-- <script type='text/javascript'>
 
     (function()
     {
@@ -668,4 +668,4 @@ if ($wizard_steps) {
     }
     })();
 
-</script>
+</script> -->
