@@ -19,6 +19,9 @@ msgstr "All"
 msgid "De klas is klaargezet voor verwerking"
 msgstr "The class is set up for processing"
 
+msgid "Nieuwe vraaggroep"
+msgstr "New question group"
+
 msgid "Het is niet duidelijk om welk niveau het gaat"
 msgstr "It is not clear what level it concerns"
 
