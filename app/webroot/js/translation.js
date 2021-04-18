@@ -170,7 +170,7 @@ $.i18n().load({
       'Sectie verwijderd':'Sectie verwijderd',
       'Weet u zeker dat u dit vak wilt verwijderen?':'Weet u zeker dat u dit vak wilt verwijderen?',
       'Vak verwijderd':'Vak verwijderd',
-      'Niet iedereen is klaar met bespreken.':'Niet iedereen is klaar met bespreken.':,
+      'Niet iedereen is klaar met bespreken.':'Niet iedereen is klaar met bespreken.',
       'Weet u zeker dat u deze periode wilt verwijderen?':'Weet u zeker dat u deze periode wilt verwijderen?',
       'Weet u zeker dat u dit contactpersoon wilt verwijderen?':'Weet u zeker dat u dit contactpersoon wilt verwijderen?',
       'Contact verwijderd':'Contact verwijderd',
