@@ -90,10 +90,12 @@ class AppController extends Controller
 
         $this->Auth->allow('get_header_session');
 
+        if (!($this->Auth->loggedIn())) {
         $language =substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
 
-        if($language == 'en'){
+        if($language !=	 'nl'){
             $this->Session->write('Config.language', 'eng');
+        } 
         }
     }
 
