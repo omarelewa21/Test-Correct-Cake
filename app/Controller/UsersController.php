@@ -1628,6 +1628,14 @@ class UsersController extends AppController
             $this->render('import_students');
             return;
         }
+        if($type=='teachers_bare'){
+            $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+            $school_location = AuthComponent::user('school_location');
+            $this->set('school_location_id', $school_location['id']);
+            $this->set('school_location', $school_location);
+            $this->render('import_teachers_bare');
+            return;
+        }
     }
     public function doImportStudentsWithClasses()
     {
@@ -1662,6 +1670,20 @@ class UsersController extends AppController
         $data['data'] = $this->request->data;
 
         $result = $this->UsersService->doImportTeacher($data);
+
+        if (!$result) {
+            $this->formResponse(false, $this->UsersService->getErrors());
+            return false;
+        }
+        $this->formResponse(true, []);
+    }
+
+    public
+    function doImportTeachersBare()
+    {
+        $data['data'] = $this->request->data;
+
+        $result = $this->UsersService->doImportTeacherBare($data);
 
         if (!$result) {
             $this->formResponse(false, $this->UsersService->getErrors());

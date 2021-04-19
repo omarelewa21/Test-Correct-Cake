@@ -33,12 +33,8 @@
         </div>
     </div>
 </div>
-
-
-
 <script>
-    var url = '/users/doImportTeachers';
-
+    var url = '/users/doImportTeachersBare';
     var dbFields = [
         {'column': 'name_first', 'name': 'Voornaam'},
         {'column': 'name_suffix', 'name': 'tussenvoegsel'},
@@ -47,9 +43,6 @@
         {'column': 'username', 'name': 'E-mailadres'},
         {'column': 'external_id', 'name': 'Externe code'},
         {'column': 'notes', 'name': 'Notities'},
-        {'column': 'school_class', 'name': 'Koppeling klasnaam'},
-        {'column': 'subject', 'name': 'Koppeling welk vak'},
     ];
 </script>
 <?= $this->element('import_users_as_teachers_style_and_script',['type'=>'students']) ?>
-
