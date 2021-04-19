@@ -35,7 +35,7 @@
 
     <? if (in_array($role, ['School manager']) && $type === 'teachers') {
         ?>
-        <a href="#" class="btn white" onclick="Navigation.load('/users/import/teachers');">
+        <a href="#" class="btn white" onclick="User.importTeachersChooseTypePopup()">
             <span class="fa fa-cloud-upload mr5"></span>
             Importeren
         </a>

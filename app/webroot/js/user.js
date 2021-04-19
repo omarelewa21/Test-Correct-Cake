@@ -251,5 +251,54 @@ var User = {
         } else {
             this.addExistingTeacherToSchoolLocation(uuid);
         }
+    },
+
+    importTeachersChooseTypePopup : function(){
+        Popup.promptChooseImportTeachersType();
+        this.importTeachersChooseTypeEvents();
+    },
+
+    importTeachersChooseTypeEvents : function(){
+        var userObj = this;
+        if(!this.teacherImportTypeEvents) {
+            $(document).on("click", "#teacher_import_type_confirm", function () {
+                if ($('#teacher_import_type_confirm').hasClass("disabled")) {
+                    return false;
+                }
+                if(userObj.teacherImportType=='standard'){
+                    Popup.closeLast();
+                    Navigation.load('/users/import/teachers');
+                }
+                if(userObj.teacherImportType=='bare'){
+                    Popup.closeLast();
+                    Navigation.load('/users/import/teachers_bare');
+                }
+            });
+
+            $(document).on("click", "#teacher_import_type_standard", function () {
+                $('#teacher_import_type_standard').addClass("highlight");
+                userObj.teacherImportTypeConfirmButtonActive();
+                userObj.teacherImportChooseTypeInActive('teacher_import_type_bare');
+                userObj.teacherImportType = 'standard';
+            });
+
+            $(document).on("click", "#teacher_import_type_bare", function () {
+                $('#teacher_import_type_bare').addClass("highlight");
+                userObj.teacherImportTypeConfirmButtonActive();
+                userObj.teacherImportChooseTypeInActive('teacher_import_type_standard');
+                userObj.teacherImportType = 'bare';
+            });
+            this.teacherImportTypeEvents = true;
+        }
+    },
+    teacherImportTypeConfirmButtonActive : function(){
+        $('#teacher_import_type_confirm').removeClass("disabled");
+        $('#teacher_import_type_confirm').removeClass("grey");
+        $('#teacher_import_type_confirm').addClass("blue");
+    },
+
+    teacherImportChooseTypeInActive : function(id){
+        $('#'+id).addClass("grey");
+        $('#'+id).removeClass("highlight");
     }
 };
