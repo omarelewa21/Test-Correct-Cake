@@ -248,6 +248,10 @@
                         var hasDuplicateSchoolLocation = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
+                            //$('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
+                        });
+
+                        Object.keys(response.data).forEach(key => {
 
                             var d, row_nr, header;
                             [d, row_nr, header] = key.split('.');
@@ -259,7 +263,7 @@
                                 errorMsg = response.data[key];
                                 var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
 
-                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error')
+                                $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
                                 if (!dataMissingHeaders.includes(header)) {
                                     dataMissingHeaders.push(header);
                                 }
@@ -325,7 +329,10 @@
                                 }
                                 return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).';
                             })
-                            $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                            var joinedErrorMsg = errorMsg.join('');
+                            if(joinedErrorMsg!='') {
+                                $('#missing-data-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
+                            }
                         }
 
 
@@ -346,6 +353,7 @@
 
             $('textarea#jsonDataDump').val(jsonString);
         }
+
 
         function classifyError(error) {
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
