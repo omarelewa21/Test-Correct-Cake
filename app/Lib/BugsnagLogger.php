@@ -1,4 +1,3 @@
-
 <?php
 
 App::uses("AppVersionDetector", "Lib");
@@ -9,8 +8,8 @@ class BugsnagLogger
     private $bugsnag;
 
     private $defaultFilters = [
-        'api_key', 'session_hash', 'main_address', 'main_city', 'main_country', 'main_postal', 
-        'invoice_address', 'visit_address', 'visit_postal', 'visit_city', 'visit_country', 
+        'api_key', 'session_hash', 'main_address', 'main_city', 'main_country', 'main_postal',
+        'invoice_address', 'visit_address', 'visit_postal', 'visit_city', 'visit_country',
         'username', 'name_first', 'name_suffix', 'abbreviation', 'password', 'wachtwoord'
     ];
 
@@ -23,7 +22,7 @@ class BugsnagLogger
         if (Configure::read('bugsnag-key-cake') == null) {
             return;
         }
-        
+
         $this->bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
         $headers = AppVersionDetector::getAllHeaders();
@@ -140,7 +139,7 @@ class BugsnagLogger
         if ($this->bugsnag == null) {
             return $this;
         }
-    
+
         //setFilters is deprecated and followed up by setRedactedKeys
         if (method_exists($this->bugsnag, 'setRedactedKeys')) {
             $this->bugsnag->setRedactedKeys(array_merge($this->bugsnag->getRedactedKeys(), $array));
@@ -153,7 +152,7 @@ class BugsnagLogger
 
     /**
      * @param exception: exception extending Exception
-     * 
+     *
      * Reporting an exception will report stracktraces etc.
      */
     public function notifyException($exception)
@@ -170,7 +169,7 @@ class BugsnagLogger
     /**
      * @param type string: Type of exception
      * @param string string: Name of error
-     * 
+     *
      * Reporting an exception will report stracktraces etc.
      */
     public function notifyError($type, $string)
@@ -208,7 +207,7 @@ class BugsnagLogger
 		// Read it and adjust line number if necessary
 		// (Otherwise the result would be wrong if file doesn't end with a blank line)
 		if (fread($f, 1) != "\n") $lines -= 1;
-		
+
 		// Start reading
 		$output = '';
 		$chunk = '';
