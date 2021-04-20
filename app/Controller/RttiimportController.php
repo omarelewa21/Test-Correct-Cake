@@ -23,11 +23,10 @@ class RttiimportController extends AppController {
     }
 
     public function import() {
-
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);     
         
         $data = $this->request->data['Rtti'];
-
+        $response = '';
         if (!$data['file']['tmp_name']) {
 
             $response = 'File niet gevonden om te importeren, probeer het nogmaals';
@@ -35,8 +34,13 @@ class RttiimportController extends AppController {
         } else {  
             
             $r = $this->RttiImportService->uploadData($data);
-            
-            if (array_key_exists('error', $r)) {
+            if (array_key_exists('errors', $r)) {
+                foreach($r['errors'] as $key => $msgArray){
+                    foreach ($msgArray as $msg){
+                        $response .= sprintf('<p>%s</p>',$msg);
+                    }
+                }
+            }elseif (array_key_exists('error', $r)) {
                 $response = $r['error'];
             } else {
                 $response = $r['data']['data'];
