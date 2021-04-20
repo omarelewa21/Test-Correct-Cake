@@ -47,12 +47,12 @@ class BugsnagLogger
 
     public function unsetUser()
     {
-        $this->bugsnag->registerCallback(function($report){
-
-            $report->setUser([]);
-
-            $this->register();
-        });
+//        $this->bugsnag->registerCallback(function($report){
+//
+//            $report->setUser([]);
+//
+//            $this->register();
+//        });
 
         $this->configureUser([]);
 
@@ -71,17 +71,17 @@ class BugsnagLogger
             ];
         }
 
-        $this->bugsnag->registerCallback(function($report) use ($userData){
-            if ($userData == null) {
-                return;
-            }
-
-            $report->setUser($userData);
-        });
+//        $this->bugsnag->registerCallback(function($report) use ($userData){
+//            if ($userData == null) {
+//                return;
+//            }
+//
+//            $report->setUser($userData);
+//        });
 
         if(null !== $user){
             $this->setMetaData([
-                'user' => $userData
+                'userData' => $userData
             ]);
         }
 
