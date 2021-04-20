@@ -927,16 +927,16 @@ var TestTake = {
         });
     },
 
-    startIntenseCalibration: function(take_id, deviceId, sessionId, callback) {
+    startIntenseCalibration: function(take_id, deviceId, sessionId, callback, width) {
         if (typeof Intense == "undefined") {
-            this.startIntenseCalibrationForTestWaitingRoom(take_id, deviceId, sessionId, callback);
+            this.startIntenseCalibrationForTestWaitingRoom(take_id, deviceId, sessionId, callback, width);
         } else {
             if (typeof callback == 'function') {
                 callback();
             }
         }
         },
-    startIntenseCalibrationForTestWaitingRoom: function(take_id, deviceId, sessionId, callback) {
+    startIntenseCalibrationForTestWaitingRoom: function(take_id, deviceId, sessionId, callback, width) {
 
     Popup.show(
 '<div class="tat-content border-radius-bottom-0"> '+
@@ -958,20 +958,21 @@ var TestTake = {
     '</div>'+
 
 
-    '<div class="popup-content tat-content body1" style="margin-top:-60px">'+
-        '<p>Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
-    '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>'+
-    '    <div class="input-group ">'+
-    '        <textarea id="callibration-init-text-input" width="200px" height="200px" autofocus style="padding:1rem"></textarea>'+
-    '        <label for="callibration-init-text-input">Type de tekst over</label>'+
-    '    </div>'+
-    '</div>'+
-
-    '<div class="popup-footer tat-footer" style="display:flex">'+
-    '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;flex-grow:1">'+
-    '       Afronden'+
-    '    </button>'+
-    '</div>', 800);
+    '<div class="popup-content tat-content body1" style="margin-top:-60px; display:flex">' +
+        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px">'+
+            '<p style="margin:0">Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
+            '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem; margin-bottom: 0;">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>' +
+        '</div>' +
+        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-left: 10px">'+
+        '    <div class="input-group" style="justify-content: flex-end; flex-grow: 1">'+
+        '        <textarea id="callibration-init-text-input" autofocus style="padding:1rem; margin: 1rem 0; height: 100%"></textarea>'+
+        '        <label for="callibration-init-text-input" style="font-size: 18px">Type de tekst over</label>'+
+        '    </div>' +
+        '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;">'+
+        '       Afronden'+
+        '    </button>'+
+        '</div>'+
+    '</div>', width);
 
 
 
