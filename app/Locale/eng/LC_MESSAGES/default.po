@@ -104,7 +104,7 @@ msgid "Scholengemeenschap"
 msgstr "School Community"
 
 msgid "Klas kon niet worden aangemaakt"
-msgstr "Class could not be created"
+msgstr "School class could not be created"
 
 msgid "Combinatie brin/locatie code bestaat reeds op andere school"
 msgstr "Combination brin / location code already exists at another school"
@@ -221,7 +221,7 @@ msgid "Directieleden"
 msgstr "Directors"
 
 msgid "Nieuw Directielid"
-msgstr "New Board Member"
+msgstr "New Director"
 
 msgid "Er dient een wachtwoord opgegven te worden"
 msgstr "A password must be entered"
@@ -314,7 +314,7 @@ msgid "Secties"
 msgstr "Sections"
 
 msgid "Klassen"
-msgstr "Classes"
+msgstr "School classes"
 
 msgid "Vragenbank"
 msgstr "Question Bank"
@@ -341,7 +341,7 @@ msgid "Uw analyse"
 msgstr "Your analysis"
 
 msgid "Mijn klassen"
-msgstr "My classes"
+msgstr "My school classes"
 
 msgid "Aangeboden toetsen"
 msgstr "Tests offered"
@@ -419,16 +419,16 @@ msgid "Student"
 msgstr "Student"
 
 msgid "Klassen analyse"
-msgstr "Class analysis"
+msgstr "School class analysis"
 
 msgid "Klassen overzicht"
-msgstr "Class overview"
+msgstr "School class overview"
 
 msgid "Klas"
-msgstr "Class"
+msgstr "School class"
 
 msgid "klas "
-msgstr "class "
+msgstr "school class "
 
 msgid " is onbekend."
 msgstr " is unknown."
@@ -443,7 +443,7 @@ msgid "Bericht sturen"
 msgstr "Send a message"
 
 msgid "Deze student mag tekst naar spraak omzetten."
-msgstr "This student is allowed to convert text to speech."
+msgstr "This student is not allowed to use the text to speech converter"
 
 msgid "Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student"
 msgstr "Note: This functionality is temporarily disabled for this student"
@@ -1208,7 +1208,7 @@ msgid ": het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: 
 msgstr ": it is important that the file meets the following conditions: (the data each in its own column)."
 
 msgid "Stamnummer"
-msgstr "Stock number"
+msgstr "Teacher number"
 
 msgid "Optioneel maar niet verplicht:"
 msgstr "Optional but not required:"
@@ -1223,7 +1223,7 @@ msgid "Jaar"
 msgstr "Year"
 
 msgid "Stamklas"
-msgstr "Stock class"
+msgstr "Main school class"
 
 msgid "Type toets"
 msgstr "Type of test"
@@ -1721,7 +1721,7 @@ msgid "Schooljaar"
 msgstr "School year"
 
 msgid "LVS"
-msgstr "LVS"
+msgstr "Student administration system"
 
 msgid "Klas niet overschrijven"
 msgstr "Do not overwrite class"
@@ -1730,7 +1730,7 @@ msgid "Klas aangemaakt"
 msgstr "Class created"
 
 msgid "Koppelen"
-msgstr "To link"
+msgstr "Share"
 
 msgid "Gebruiker"
 msgstr "User"
@@ -2126,10 +2126,10 @@ msgid "Vakken"
 msgstr "Subjects"
 
 msgid "Nieuw vak"
-msgstr "New box"
+msgstr "New subject"
 
 msgid "Docenten gekoppeld"
-msgstr "Teachers linked"
+msgstr "Teachers linked to"
 
 msgid "Sectie gedeeld met"
 msgstr "Section shared with"
@@ -2981,7 +2981,7 @@ msgid "Koppeling klasnaam"
 msgstr "Class name association"
 
 msgid "klasnaam"
-msgstr "class name"
+msgstr "school class name"
 
 msgid "Koppeling welk vak"
 msgstr "Link which course"
@@ -3245,7 +3245,7 @@ msgid "Gebruikte licenties"
 msgstr "Licenses used"
 
 msgid "Voorlees functionaliteit"
-msgstr "Reading functionality"
+msgstr "Allowed to use the text to speech converter"
 
 msgid "Is toegekend"
 msgstr "Has been awarded"
