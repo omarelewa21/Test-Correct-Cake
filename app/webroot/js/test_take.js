@@ -877,44 +877,48 @@ var TestTake = {
         });
     },
 
+    getCalibrationPopupHtml:function(text) {
+        return '<div class="tat-content border-radius-bottom-0"> '+
+        '<div style="display:flex">'+
+        '   <div style="flex-grow:1">'+
+        '       <h2 style="margin-top:0">Typecalibratie test</h2>'+
+        '   </div>'+
+        // '    <div class="close" style="flex-shrink: 1">'+
+        // '        <a href="#" onclick="Popup.closeLast()">'+
+        // '            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">'+
+        // '                <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">'+
+        // '                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>'+
+        // '                </g>'+
+        // '            </svg>'+
+        // '        </a>'+
+        // '    </div>'+
+        '  </div>'+
+        ' <div class="divider mb-5 mt-2.5"></div>'+
+        '</div>'+
+        '<div class="popup-content tat-content body1" style="margin-top:-60px; display:flex">' +
+        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px">'+
+        '<p style="margin:0">Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
+        '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem; margin-bottom: 0;">'+ text +'</p>' +
+        '</div>' +
+        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-left: 10px">'+
+        '    <div class="input-group" style="justify-content: flex-end; flex-grow: 1">'+
+        '        <textarea id="callibration-init-text-input" autofocus style="padding:1rem; margin: 1rem 0; height: 100%"></textarea>'+
+        '        <label for="callibration-init-text-input" style="font-size: 18px">Type de tekst over</label>'+
+        '    </div>' +
+        '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;">'+
+        '       Afronden'+
+        '    </button>'+
+        '</div>'+
+        '</div>';
+    },
+
     stopIntenseCalibrationForTest: function(callback) {
+        var widthForPopup = $(window).width() < 1400 ? $(window).width() : 1400;
+
         Popup.shouldCloseWithIndex = true;
-        var html = '<div class="tat-content border-radius-bottom-0"> ' +
-            '<div style="display:flex">' +
-            '   <div style="flex-grow:1">' +
-            '       <h2 style="margin-top:0">Typecalibratie test</h2>' +
-            '   </div>' +
-            '    <div class="close" style="flex-shrink: 1">' +
-            '        <a href="#" onclick="Popup.closeLast()">' +
-            '            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">' +
-            '                <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">' +
-            '                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>' +
-            '                </g>' +
-            '            </svg>' +
-            '        </a>' +
-            '    </div>' +
-            '  </div>' +
-            ' <div class="divider mb-5 mt-2.5"></div>' +
-            '</div>' +
-            '<div class="popup-content tat-content body1" style="margin-top:-60px">' +
-            '<p>Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>' +
-            '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>' +
-            '    <div class="input-group ">' +
-            '        <textarea id="callibration-final-text-input" width="200px" height="200px" autofocus style="padding:1rem"></textarea>' +
-            '        <label for="callibration-final-text-input">Type de tekst over</label>' +
-            '    </div>' +
-            '</div>' +
+        Popup.show(this.getCalibrationPopupHtml(Intense.callibrate('onTestFinish').text), widthForPopup);
 
-            '<div class="popup-footer tat-footer" style="display:flex">' +
-            '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;flex-grow:1">' +
-            '       Afronden' +
-            '    </button>' +
-            '</div>';
-        console.log(html);
-
-        Popup.show(html, 800);
-
-        Intense.onCallibrated(function () {
+        Intense.onCallibrated(function (type) {
             document.getElementById('typecalibration_complete_button').classList.add('primary-button');
         });
 
@@ -927,104 +931,62 @@ var TestTake = {
         });
     },
 
-    startIntenseCalibration: function(take_id, deviceId, sessionId, callback, width) {
+    startIntenseCalibration: function(take_id, deviceId, sessionId, callback) {
         if (typeof Intense == "undefined") {
-            this.startIntenseCalibrationForTestWaitingRoom(take_id, deviceId, sessionId, callback, width);
+            this.startIntenseCalibrationForTestWaitingRoom(take_id, deviceId, sessionId, callback);
         } else {
             if (typeof callback == 'function') {
                 callback();
             }
         }
-        },
-    startIntenseCalibrationForTestWaitingRoom: function(take_id, deviceId, sessionId, callback, width) {
+    },
+    startIntenseCalibrationForTestWaitingRoom: function(take_id, deviceId, sessionId, callback) {
+        Intense = new IntenseWrapper({
+            api_key: "api_key", // This is a public key which will be provided by Intense.
+            app: "name of the app that implements Intense. example: TC@1.0.0",
+            debug: true // If true, all debug data will be written to console.log().
+        }).onCallibrated(function(type) {
+            document.getElementById('typecalibration_complete_button').classList.add('primary-button');
+        }).onError(function(e, msg) {
 
-    Popup.show(
-'<div class="tat-content border-radius-bottom-0"> '+
-        '<div style="display:flex">'+
-        '   <div style="flex-grow:1">'+
-        '       <h2 style="margin-top:0">Typecalibratie test</h2>'+
-        '   </div>'+
-        '    <div class="close" style="flex-shrink: 1">'+
-        '        <a href="#" onclick="Popup.closeLast()">'+
-        '            <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">'+
-        '                <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">'+
-        '                    <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>'+
-        '                </g>'+
-        '            </svg>'+
-        '        </a>'+
-        '    </div>'+
-        '  </div>'+
-        ' <div class="divider mb-5 mt-2.5"></div>'+
-    '</div>'+
+            // So far, the only available value for 'msg' is 'unavailable', meaning that the given interface/method cannot be used.
+            // If no error handler is registered, all errors will be written to console.log.
 
+            switch(e) {
+                case 'start':
+                    console.log('Intense: Could not start recording because it was '+msg);
+                    break;
+                case 'pause':
+                    console.log('Intense: Could not pause recording because it was '+msg);
+                    break;
+                case 'resume':
+                    console.log('Intense: Could not resume recording because it was '+msg);
+                    break;
+                case 'end':
+                    console.log('Intense: Could not end recording because it was '+msg);
+                    break;
+                case 'network':
+                    console.log('Intense: Could not send data over network because it was '+msg);
+                    break;
+                default:
+                    console.log('Intense: Unknown error occured!');
+            }
 
-    '<div class="popup-content tat-content body1" style="margin-top:-60px; display:flex">' +
-        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px">'+
-            '<p style="margin:0">Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
-            '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem; margin-bottom: 0;">Dit is een tekst die de student over gaat typen ter controle van het typgedrag van de student. Dit gebeurt met deze test op twee eikmomenten. Deze test wordt uitgevoerd aan het begin van de toets als men zich in de wachtkamer bevindt, en aan het einde van de toets als de student of docent de toets heeft ingeleverd. De student zal deze test te zien krijgen indien dit nog niet is gedaan voor het device dat de student nu gebruikt. Als de student dit al heeft gedaan kan de student meteen met de toets beginnen zodra deze is gestart door de docent. De student kan al eerder de test doen wanneer hij/zij in de wachtkamer van de toets komt.</p>' +
-        '</div>' +
-        '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-left: 10px">'+
-        '    <div class="input-group" style="justify-content: flex-end; flex-grow: 1">'+
-        '        <textarea id="callibration-init-text-input" autofocus style="padding:1rem; margin: 1rem 0; height: 100%"></textarea>'+
-        '        <label for="callibration-init-text-input" style="font-size: 18px">Type de tekst over</label>'+
-        '    </div>' +
-        '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;">'+
-        '       Afronden'+
-        '    </button>'+
-        '</div>'+
-    '</div>', width);
+        }).onData(function(data) {
+            // This function is called when data is sent to the Intense server. data contains the data that is being sent.
+            console.log('Data sent to Intense', data);
+        }).onStart(function() {
+            console.log('Intense started recording');
+        }).onPause(function() {
+            console.log('Intense paused recording');
+        }).onResume(function() {
+            console.log('Intense resumed recording');
+        }).onEnd(function() {
+            console.log('Intense ended recording');
+        });
 
-
-
-
-
-
-            Intense = new IntenseWrapper({
-                api_key: "api_key", // This is a public key which will be provided by Intense.
-                app: "name of the app that implements Intense. example: TC@1.0.0",
-                debug: true // If true, all debug data will be written to console.log().
-            }).onCallibrated(function() {
-                document.getElementById('typecalibration_complete_button').classList.add('primary-button');
-
-                // Callibration completed!
-            }).onError(function(e, msg) {
-
-                // So far, the only available value for 'msg' is 'unavailable', meaning that the given interface/method cannot be used.
-                // If no error handler is registered, all errors will be written to console.log.
-
-                switch(e) {
-                    case 'start':
-                        console.log('Intense: Could not start recording because it was '+msg);
-                        break;
-                    case 'pause':
-                        console.log('Intense: Could not pause recording because it was '+msg);
-                        break;
-                    case 'resume':
-                        console.log('Intense: Could not resume recording because it was '+msg);
-                        break;
-                    case 'end':
-                        console.log('Intense: Could not end recording because it was '+msg);
-                        break;
-                    case 'network':
-                        console.log('Intense: Could not send data over network because it was '+msg);
-                        break;
-                    default:
-                        console.log('Intense: Unknown error occured!');
-                }
-
-            }).onData(function(data) {
-                // This function is called when data is sent to the Intense server. data contains the data that is being sent.
-                console.log('Data sent to Intense', data);
-            }).onStart(function() {
-                console.log('Intense started recording');
-            }).onPause(function() {
-                console.log('Intense paused recording');
-            }).onResume(function() {
-                console.log('Intense resumed recording');
-            }).onEnd(function() {
-                console.log('Intense ended recording');
-            });
-
+        var widthForPopup =  $(window).width() < 1400 ? $(window).width() : 1400;
+        Popup.show(this.getCalibrationPopupHtml(Intense.callibrate('onTestStart').text), widthForPopup);
 
         document.getElementById('typecalibration_complete_button').addEventListener('click',function(e) {
             if (this.classList.contains('primary-button')) {
@@ -1037,7 +999,6 @@ var TestTake = {
 
         Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
     }
-
 };
 
 
@@ -1127,7 +1088,7 @@ function closebtu() {
 
 function stopIntense() {
     if (typeof Intense != "undefined") {
-        Intense.stop();
+        Intense.end();
     }
 }
 

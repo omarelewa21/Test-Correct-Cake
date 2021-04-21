@@ -22,7 +22,7 @@
             </center>
             <div class="alert alert-info" style="text-align: center; margin:20px 0px 0px 0px;">
                 <?php if( $take['test_participant']['intense'] && $take['test_take_status_id'] != 3) { ?>
-                    <a href="#" class="btn highlight large" id="btnIntenseCalibration" onclick="TestTake.startIntenseCalibrationForTestWaitingRoom('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(e){ document.getElementById('btnIntenseCalibration').style.display = 'none'; }, getWidthForPopup());">
+                    <a href="#" class="btn highlight large" id="btnIntenseCalibration" onclick="TestTake.startIntenseCalibrationForTestWaitingRoom('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(e){ document.getElementById('btnIntenseCalibration').style.display = 'none'; });">
                         Calibratie starten
                     </a>
                 <?php } ?>
@@ -47,7 +47,7 @@
         <?php if($oldPlayerAccess) { ?>
             <?php if( $take['test_participant']['intense']) { ?>
 
-            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTest('<?=getUUID($take, 'get');?>');},  getWidthForPopup());">
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTest('<?=getUUID($take, 'get');?>');});">
                 Toets starten
             </a>
                 <?php } else { ?>
@@ -72,8 +72,4 @@
 
 <script>
     TestTake.startHeartBeat('planned');
-
-    function getWidthForPopup() {
-        return $(window).width() < 1400 ? $(window).width() : 1400;
-    }
 </script>
