@@ -5,6 +5,7 @@ var Popup = {
     timeout: null,
     cancelCallback: null,
     debounceTime: 0,
+    shouldCloseWithIndex: false,
 
     debounce: function () {
 
@@ -385,6 +386,15 @@ var Popup = {
         }
     },
 
+    closeWithIndex: function (index) {
+        $('#fade').fadeOut();
+        $('#popup_' + index).stop().removeClass('center').fadeOut(function () {
+                $(this).remove();
+        });
+
+        $('#container, #background, #header').removeClass('blurred');
+    },
+
     closeWithNewPopup: function (url) {
 
         $('#fade').hide();
@@ -400,7 +410,7 @@ var Popup = {
         $('#fade').css({
             'zIndex': (Popup.zIndex - 1)
         });
-        Popup.load(url, 600); 
+        Popup.load(url, 600);
         return false;
     },
 
@@ -414,13 +424,18 @@ var Popup = {
     },
 
     messageOk: function () {
+        var index = Popup.index;
 
         if (Popup.callback != null) {
             Popup.callback();
             Popup.callback = null;
         }
-
-        Popup.closeLast();
+        if (Popup.shouldCloseWithIndex) {
+            Popup.closeWithIndex(index);
+            Popup.shouldCloseWithIndex = false;
+        } else {
+            Popup.closeLast();
+        }
     },
 
     message: function (settings, callback, cancelCallback) {
