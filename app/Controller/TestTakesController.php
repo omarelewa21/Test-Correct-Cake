@@ -2341,7 +2341,6 @@ class TestTakesController extends AppController {
             $yearInfo = '';
 
             foreach($schoolYears as $schoolYear){
-                echo 'ref '.$refSchoolYearId.' => id '.$schoolYear['id'].PHP_EOL;
                 if($schoolYear['id'] == $refSchoolYearId){
                     $yearinfo = $schoolYear['year'];
                 }
