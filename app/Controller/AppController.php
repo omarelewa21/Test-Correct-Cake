@@ -69,12 +69,14 @@ class AppController extends Controller
         $this->AuthService = new AuthService();
         $this->UsersService = new UsersService();
 
+        $headers = AppVersionDetector::getAllHeaders();
+
         if(!$this->Session->check('TLCHeader')) {
-            $this->handleHeaderCheck();
+            $this->handleHeaderCheck($headers);
         } else {
             // set the details always when there is a tlctestcorrectversion header
             if(isset($headers['tlctestcorrectversion'])){
-                $this->handleHeaderCheck();
+                $this->handleHeaderCheck($headers);
             }
         }
 
@@ -91,14 +93,12 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
-    protected function handleHeaderCheck()
+    protected function handleHeaderCheck($headers)
     {
         $this->Session->write('headers', 'unset headers');
 
         $this->Session->write('TLCVersion', 'unset version');
         $this->Session->write('TLCOs', 'unset os');
-
-        $headers = AppVersionDetector::getAllHeaders();
 
         if (isset($headers['tlc'])) {
             $this->Session->write('TLCHeader', $headers['tlc']);
