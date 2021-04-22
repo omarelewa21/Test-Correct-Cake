@@ -315,6 +315,9 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
+                                if (field.name === 'E-mailadres' && hasDuplicateSchoolLocation) {
+                                    return;
+                                }
                                 if (field.name === 'E-mailadres'&&!emailDns&&!hasDuplicatesInDatabase) {
                                     return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
                                 }
@@ -324,9 +327,7 @@
                                 if (field.name === 'Externe code' && hasDuplicateExternalId) {
                                     return;
                                 }
-                                if (field.name === 'Externe code' && hasDuplicateSchoolLocation) {
-                                    return;
-                                }
+
                                 return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).';
                             })
                             var joinedErrorMsg = errorMsg.join('');
