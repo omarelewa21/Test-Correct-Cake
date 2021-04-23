@@ -8,13 +8,12 @@
     <meta name="viewport" content="width=1280, user-scalable = no">
 
     <link href="/css/test_preview.css?v20200829143300" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet"
-          href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.3/themes/smoothness/jquery-ui.css"/>
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/jquery-ui.css"/>
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0-beta.3/js/select2.min.js"></script>
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery-ui.min.js"></script>
+    <script src="/js/select2.min.js"></script>
     <script type="text/javascript" src="/js/jquery.touch.js"></script>
     <script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
     <script src="/ckeditor/adapters/jquery.js"></script>
