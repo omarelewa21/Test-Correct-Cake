@@ -468,9 +468,10 @@ var Popup = {
             data: {},
             success: function (data) {
                 url = data.data.url;
-                Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
-                    '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
-                    'onclick="Popup.closeLast()">Voorbeeldweergave sluiten</a>', 1200);
+                window.open(url, '_blank').focus();
+                // Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
+                //     '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
+                //     'onclick="Popup.closeLast()">Voorbeeldweergave sluiten</a>', 1200);
             }
         });
 
