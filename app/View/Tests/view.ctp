@@ -57,7 +57,7 @@
 <h1><?=$test['name']?></h1>
 
 <div class="block">
-    <div class="block-head"><?= __("Toets informatie")?></div>
+    <div class="block-head"><?= __("Toetsinformatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>

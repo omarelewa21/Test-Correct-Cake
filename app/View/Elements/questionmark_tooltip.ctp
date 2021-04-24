@@ -1,5 +1,5 @@
-<div id="questionmark_tooltip" onclick="showTooltip()"
-     style="position:relative;cursor:pointer;margin-right: 10px;width: 22px; height: 22px; background: var(--off-white); border-radius: 22px; display:flex; align-items: center; justify-content: center">
+<div id="questionmark_tooltip" onclick="showTooltip(<?=$id?>)"
+     style="position:relative;cursor:pointer;margin-right: 10px;width: 22px; height: 22px; background: var(--off-white); border-radius: 22px; display:flex; align-items: center; justify-content: center; z-index:10">
     <svg xmlns="http://www.w3.org/2000/svg" width="6" height="10" viewBox="0 0 6 10">
         <g fill="none" fill-rule="evenodd">
             <g>
@@ -18,7 +18,7 @@
         </g>
     </svg>
     <style>
-        #tooltip_div:before {
+        #tooltip_div<?=$id?>:before {
             content: '';
             display: inline-block;
             width: 1rem;
@@ -31,7 +31,7 @@
         }
     </style>
 
-    <div id="tooltip_div" style="   display: none;
+    <div id="tooltip_div<?=$id?>" style="   display: none;
                                     position: absolute;
                                     top: 2.5rem;
                                     border-radius: 10px;
@@ -47,13 +47,9 @@
         <a href="https://support.test-correct.nl/knowledge/inbrowser-toetsen" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px"><?= __("Lees meer op de Kennisbank")?></span><?php echo $this->element('arrow') ?></a>
     </div>
     <script>
-        function showTooltip() {
-            var tip = document.getElementById('tooltip_div');
-            if (tip.style.display === 'none') {
-                tip.style.display = 'block';
-            } else {
-                tip.style.display = 'none'
-            }
+        function showTooltip(id) {
+            var tip = document.getElementById('tooltip_div'+id);
+            tip.style.display === 'none' ? tip.style.display = 'block' : tip.style.display = 'none';
         }
     </script>
 </div>

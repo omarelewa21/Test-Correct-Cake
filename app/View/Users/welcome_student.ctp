@@ -8,7 +8,10 @@
                     style="margin-left: 20px;"><?= __("Let op!")?></h5>
             </div>
             <div class="body">
-                <p><?= __("Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei.")?></p>
+                <p>
+                    <?= __("Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund.")?><br/>
+                    <?= __("Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei. Werk je in de browser, dan is dit niet van toepassing.")?>
+                </p>
             </div>
         </div>
     </div>

@@ -26,19 +26,16 @@
             <div id="output">
             </div>
             <hr class="showAfterProcess"/>
-            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess"><?= __("Docenten")?>
-            <?= __("importeren")?></a>
+            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess">
+                <?= __("Docenten importeren")?>
+            </a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump"
-                      placeholder="JSON Data will appear here..."></textarea>
+                      placeholder='<?= __("JSON Data will appear here...")?>'></textarea>
         </div>
     </div>
 </div>
-
-
-
 <script>
-    var url = '/users/doImportTeachers';
-
+    var url = '/users/doImportTeachersBare';
     var dbFields = [
         {'column': 'name_first', 'name': '<?= __("Voornaam")?>'},
         {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
@@ -47,9 +44,6 @@
         {'column': 'username', 'name': '<?= __("E-mailadres")?>'},
         {'column': 'external_id', 'name': '<?= __("Externe code")?>'},
         {'column': 'notes', 'name': '<?= __("Notities")?>'},
-        {'column': 'school_class', 'name': '<?= __("Koppeling klasnaam")?>'},
-        {'column': 'subject', 'name': '<?= __("Koppeling welk vak")?>'},
     ];
 </script>
 <?= $this->element('import_users_as_teachers_style_and_script',['type'=>'students']) ?>
-

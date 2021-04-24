@@ -54,10 +54,7 @@ if ($wizard_steps) {
                 <h5><?= __("Welkom op het Test-Correct platform!")?></h5>
             </div>
             <div class="body">
-                <h6></h6>
-                <p>
-
-                </p>
+                <?= $maintenanceNotification ?>
             </div>
         </div>
     </div>
@@ -305,7 +302,8 @@ if ($wizard_steps) {
     </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+
+<script src="/js/confetti.min.js"></script>
 <script>
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
@@ -651,21 +649,3 @@ if ($wizard_steps) {
         margin-left: -9px;
     }
 </style>
-
-<!-- <script type='text/javascript'>
-
-    (function()
-    {
-    if( window.localStorage )
-    {
-        if( !localStorage.getItem('firstLoad') )
-        {
-        localStorage['firstLoad'] = true;
-        window.location.reload();
-        }  
-        else
-        localStorage.removeItem('firstLoad');
-    }
-    })();
-
-</script> -->

@@ -9,6 +9,8 @@ App::uses('SchoolsService', 'Lib/Services');
 App::uses('UmbrellaOrganisationsService', 'Lib/Services');
 App::uses('HelperFunctions', 'Lib');
 App::uses('Securimage','webroot/img');
+App::uses('DeploymentService', 'Lib/Services');
+App::uses('WhitelistIpService', 'Lib/Services');
 
 /**
  * Users controller
@@ -32,6 +34,8 @@ class UsersController extends AppController
         $this->SchoolYearsService = new SchoolYearsService();
         $this->SchoolsService = new SchoolsService();
         $this->UmbrellaOrganisationsService = new UmbrellaOrganisationsService();
+        $this->DeploymentService = new DeploymentService();
+        $this->WhitelistIpService = new WhitelistIpService();
 
         parent::beforeFilter();
 
@@ -105,7 +109,9 @@ class UsersController extends AppController
             }
 
             if ($this->Auth->login()) {
-
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->configureUser(AuthComponent::user());
+                //              $this->formResponse(true, array('data' => AuthComponent::user(), 'message' => $message));
                 if ($this->Session->check('TLCHeader')) {// && $this->Session->read('TLCHeader') !== 'not secure...') {
                     if ($this->UsersService->hasRole('student')) {
 
@@ -284,6 +290,8 @@ class UsersController extends AppController
             $this->Session->renew();
             $this->reinitFromSessionHeaderData($tlcSessionHeaderData);
         }
+        App::uses('BugsnagLogger', 'Lib');
+        BugsnagLogger::getInstance()->unsetUser();
     }
 
     public function forgot_password()
@@ -388,6 +396,9 @@ class UsersController extends AppController
                 $this->set('account_verified', $verified);
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
+
+                App::uses('MaintenanceHelper','Lib');
+                $this->set('maintenanceNotification',MaintenanceHelper::getInstance()->getMaintenanceNotification());
             }
 
             if ($role['name'] == 'Student') {
@@ -397,6 +408,12 @@ class UsersController extends AppController
 //                        $view = "welcome_student_update";
 //                    }
 //                }
+            }
+            if(strtolower($role['name']) === 'tech administrator') {
+                $view = "welcome_tech_administrator";
+                $this->set('deployments', $this->DeploymentService->index());
+                $this->set('deploymentStatuses',$this->DeploymentService->getStatuses());
+                $this->set('whitelistIps',$this->WhitelistIpService->index());
             }
         }
 
@@ -1021,6 +1038,9 @@ class UsersController extends AppController
         $menus = array();
 
         foreach ($roles as $role) {
+            if(strtolower($role['name']) === 'tech administrator') {
+                $menus['index'] = "";
+            }
             if ($role['name'] == 'Administrator') {
                 $menus['accountmanagers'] = __("Accountmanagers");
                 $menus['lists'] = __("Database");
@@ -1614,6 +1634,14 @@ class UsersController extends AppController
             $this->render('import_students');
             return;
         }
+        if($type=='teachers_bare'){
+            $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+            $school_location = AuthComponent::user('school_location');
+            $this->set('school_location_id', $school_location['id']);
+            $this->set('school_location', $school_location);
+            $this->render('import_teachers_bare');
+            return;
+        }
     }
     public function doImportStudentsWithClasses()
     {
@@ -1648,6 +1676,20 @@ class UsersController extends AppController
         $data['data'] = $this->request->data;
 
         $result = $this->UsersService->doImportTeacher($data);
+
+        if (!$result) {
+            $this->formResponse(false, $this->UsersService->getErrors());
+            return false;
+        }
+        $this->formResponse(true, []);
+    }
+
+    public
+    function doImportTeachersBare()
+    {
+        $data['data'] = $this->request->data;
+
+        $result = $this->UsersService->doImportTeacherBare($data);
 
         if (!$result) {
             $this->formResponse(false, $this->UsersService->getErrors());

@@ -2336,26 +2336,26 @@ class TestTakesController extends AppController {
             $ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
             $ctpSchool->setBrincode($external_main_code);
 
+            $schoolYears = $this->SchoolYearsService->getSchoolYears(['mode' => 'all']);
+            $refSchoolYearId = $testTakeInfo['school_classes'][0]['school_year_id'];
+            $yearInfo = '';
 
-            $yearinfo = $this->SchoolYearsService->getSchoolYear($testTakeInfo['school_classes'][0]['school_year_id'])['year'];
-
+            foreach($schoolYears as $schoolYear){
+                if($schoolYear['id'] == $refSchoolYearId){
+                    $yearinfo = $schoolYear['year'];
+                }
+            }
 
             if (substr_count($yearinfo, '-') > 0) {
                 $year = $yearinfo;
             } else {
-                $baseYear = (int) $yearinfo['year'];
+                $baseYear = (int) $yearinfo;
                 if ($baseYear < 1995) {
                     $baseYear = date("Y");
                 }
                 $nextYear = (int) $baseYear + 1;
                 $year = sprintf('%d-%d', $baseYear, $nextYear);
             }
-//
-//			$debug = $yearinfo;
-//
-//
-//			$year = "2018-2019";
-//			$this->log("MARKO: Verwijder deze hack!".$year, 'error');
 
             $date = new DateTime('now');
 
@@ -2588,12 +2588,13 @@ class TestTakesController extends AppController {
 //                    $questions = $this->TestTakesService->getParticipantQuestions($participant_id);
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             $questions = $response['answers'];
-            if (Configure::read('bugsnag-key-cake') !== null) {
-                $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-                $bugsnag->notifyException(new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!'));
-            } else {
-//                        die('this should never happen this is a test trap for Carlo if you see this inform Martin please!');
-            }
+
+            App::uses('BugsnagLogger','Lib');
+            BugsnagLogger::getInstance()->setMetaData([
+                'response' => $response,
+            ])->notifyException(
+                new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
+            );
         }
 
         $this->set('questions', $questions);

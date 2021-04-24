@@ -1844,7 +1844,7 @@ msgstr ""
 #: View/TestTakes/view_rated.ctp:61
 #: View/TestTakes/view_taken.ctp:26
 #: View/Tests/view.ctp:42
-msgid "Toets informatie"
+msgid "Toetsinformatie"
 msgstr ""
 
 #: View/CitoTests/view.ctp:48

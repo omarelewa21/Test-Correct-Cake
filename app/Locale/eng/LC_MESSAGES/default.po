@@ -553,6 +553,15 @@ msgstr "Read"
 msgid "van"
 msgstr "from"
 
+msgid "Whitelisted ip adres aangemaakt"
+msgstr "Whitelisted ip address created"
+
+msgid "Whitelisted ip adres gewijzigd"
+msgstr "Whitelisted ip address changed"
+
+msgid "Ip adres kon niet worden toegevoegd"
+msgstr "Ip address could not be added"
+
 msgid "'Minimaal gewenste p-waarde'"
 msgstr "Minimum desired p-value '"
 
@@ -615,6 +624,9 @@ msgstr "Reset Filter"
 
 msgid "Studenten overzicht"
 msgstr "Student overview"
+
+msgid "Overzicht"
+msgstr "Overview"
 
 msgid "Nummer"
 msgstr "Number"
@@ -808,7 +820,7 @@ msgstr "PDF"
 msgid "Gegevens wijzigen"
 msgstr "Changing data"
 
-msgid "Toets informatie"
+msgid "Toetsinformatie"
 msgstr "Test information"
 
 msgid "Eigenaar"
@@ -1714,6 +1726,9 @@ msgstr "Import data"
 msgid "U heeft nog geen schooljaren"
 msgstr "You have no school years yet"
 
+msgid "Calibratie starten"
+msgstr "Start calibration"
+
 msgid "Niveau-jaar"
 msgstr "Level year"
 
@@ -1765,6 +1780,9 @@ msgstr "Data"
 msgid "Zet default kolom headers!!"
 msgstr "Set default column headers !!"
 
+msgid "Onderhoudsvensters"
+msgstr "Maintenance windows"
+
 msgid "Studenten importeren"
 msgstr "Import students"
 
@@ -1806,6 +1824,18 @@ msgstr "The import contains duplicates in the import file itself (blue)"
 
 msgid "De import duplicaten reeds in de database (oranje)"
 msgstr "The import duplicates already in the database (orange)"
+
+msgid "Duplicaten reeds in de database (oranje)"
+msgstr "Duplicates already in the database (orange)"
+
+msgid "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)"
+msgstr "The domain of the specified email address is not configured for email addresses (red)"
+
+msgid "De externe code bestaat al voor deze schoollocatie(rood)"
+msgstr "The external code already exists for this school location (red)"
+
+msgid "Deze docent zit al in deze schoollocatie (rood)"
+msgstr "This teacher is already in this school location (red)"
 
 msgid "De kolom "
 msgstr "The column"
@@ -1980,6 +2010,15 @@ msgstr "None, this is the end customer"
 
 msgid "Voorlees licenties"
 msgstr "Read licenses"
+
+msgid "Technisch"
+msgstr "Technical"
+
+msgid "Financieel"
+msgstr "Financial"
+
+msgid "Implementatie"
+msgstr "Implementation"
 
 msgid "InBrowser toetsen toestaan"
 msgstr "Allow InBrowser buttons"
@@ -2998,6 +3037,12 @@ msgstr "The column [E-mail address] is empty (but mandatory) or contains values 
 msgid "De kolom ["
 msgstr "The column ["
 
+msgid "] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood)."
+msgstr "] contains values that are not in the database !, (conflicts marked in red)."
+
+msgid "De kolom ["
+msgstr "The column ["
+
 msgid "De kolom "
 msgstr "The column "
 
@@ -3432,3 +3477,45 @@ msgstr "Pay attention!"
 
 msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei."
 msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021. If the version number at the top right of yours turns red, please update the app before May 1."
+
+msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund."
+msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021."
+
+msgid "Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei. Werk je in de browser, dan is dit niet van toepassing."
+msgstr "If the version number on your top right turns red, update the app before May 1. If you work in the browser, this does not apply."
+
+msgid "Deployment"
+msgstr "Deployment"
+
+msgid "Onderhouds bericht"
+msgstr "Maintenance notice"
+
+msgid "Vooraankondiging"
+msgstr "Advance notice"
+
+msgid "Deployment aangemaakt"
+msgstr "Deployment created"
+
+msgid "Deployment kon niet worden aangemaakt"
+msgstr "Deployment could not be created"
+
+msgid "Deployment gewijzigd"
+msgstr "Deployment changed"
+
+msgid "Nieuwe deployment"
+msgstr "New deployment"
+
+msgid "Whitelisted ip adressen"
+msgstr "Whitelisted ip addresses"
+
+msgid "Nieuw ip adres"
+msgstr "New ip address"
+
+msgid "Weet je zeker dat je het ip adres "
+msgstr "Are you sure you have the ip address "
+
+msgid " wil verwijderen?"
+msgstr " want to delete?"
+
+msgid "Deployments"
+msgstr "Deployments"

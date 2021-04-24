@@ -16,9 +16,10 @@ class SchoolYearsService extends BaseService
             return $this->Connector->getLastResponse();
         }
 
-
         if (isset($response['data']) && !empty($response['data'])) {
             return $response['data'];
+        } else if(isset($params['mode']) && $params['mode'] === 'all'){
+            return $response;
         } else {
             return [];
         }

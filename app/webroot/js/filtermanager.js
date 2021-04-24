@@ -91,9 +91,11 @@ function FilterManager(settings) {
             this.resetSearchForm();
             this.disableDeleteButton();
             if (!this.isDeleting) {
-                $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
-                    this.setActiveFilterToEmpty();
-                }.bind(this));
+                if (typeof this.activeFilter.uuid !== 'undefined') {
+                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                        this.setActiveFilterToEmpty();
+                    }.bind(this));
+                }
                 this.activeFilter = false;
             }
 
@@ -167,17 +169,20 @@ function FilterManager(settings) {
                         this.disableDeleteButton();
                         this.resetSearchForm();
                         if (!this.isDeleting) {
-                        $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
-                            this.setActiveFilterToEmpty();
-                        }.bind(this));
-
+                            if (typeof this.activeFilter.uuid !== 'undefined' ) {
+                                $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                                    this.setActiveFilterToEmpty();
+                                }.bind(this));
+                            }
                         }
                         this.activeFilter = false;
                     } else {
                         this.enableDeleteButton();
                         $('#jquery-applied-filters').show();
-                        $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
-                        });
+                        if (typeof this.activeFilter.uuid !== 'undefined' ) {
+                            $.getJSON('/search_filter/activate/' + this.activeFilter.uuid, function (response) {
+                            });
+                        }
                     }
                 this.reloadData();
 
@@ -407,24 +412,26 @@ function FilterManager(settings) {
             text: $.i18n('Weet je zeker dat je dit filter wilt verwijderen?')
         }, function (confirmValue) {
             if (confirmValue) {
-                $.ajax({
-                    url: '/search_filter/delete/' + this.activeFilter.uuid,
-                    type: 'DELETE',
-                    context: this,
-                    success: function (response) {
-                        this.filters = this.filters.filter(function (filter) {
-                            return filter.id !== this.activeFilter.id;
-                        }.bind(this));
+                if (typeof this.activeFilter.uuid !== 'undefined' ) {
+                    $.ajax({
+                        url: '/search_filter/delete/' + this.activeFilter.uuid,
+                        type: 'DELETE',
+                        context: this,
+                        success: function (response) {
+                            this.filters = this.filters.filter(function (filter) {
+                                return filter.id !== this.activeFilter.id;
+                            }.bind(this));
 
-                        this.isDeleting = true;
-                        this.renderSelectFilterBox('');
-                        this.isDeleting = false;
-                        this.activeFilter = false;
-                        this.renderActiveFilter();
-                        Notify.notify($.i18n('Het filter is succesvol verwijderd.'));
-                        this.disableDeleteButton();
-                    },
-                });
+                            this.isDeleting = true;
+                            this.renderSelectFilterBox('');
+                            this.isDeleting = false;
+                            this.activeFilter = false;
+                            this.renderActiveFilter();
+                            Notify.notify($.i18n('Het filter is succesvol verwijderd.'));
+                            this.disableDeleteButton();
+                        },
+                    });
+                }
             }
         }.bind(this));
     };
