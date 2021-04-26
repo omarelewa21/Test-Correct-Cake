@@ -1250,9 +1250,6 @@ function shiftCtrlBtuCrOSAdd (){
 
 function zoomsetupcrOS(){
     if(window.navigator.userAgent.indexOf('CrOS') > 0) {
-        document.addEventListener('DOMContentLoaded', function() {
-            document.body.style.zoom = "100%";
-            }, false);
             $(document).keydown(function(e){
                   if( e.which === 189 && e.ctrlKey ){
                       e.preventDefault();
