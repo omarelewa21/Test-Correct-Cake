@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tr>
-<th>Naam</th>
-<th>Emailadres</th>
+<th><?= __("Naam")?></th>
+<th><?= __("Emailadres")?></th>
 <th></th>
 </tr>
 <?

@@ -6,7 +6,7 @@ foreach($classes as $class) {
         <td>
             <?
             if(empty($class['mentor_users'])) {
-                echo 'Geen';
+                echo __('Geen');
             }else{
                 $name = substr(strtoupper($class['mentor_users'][0]['name_first']), 0, 1) . '. ';
                 $name .= !empty($class['mentor_users'][0]['name_suffix']) ? $class['mentor_users'][0]['name_suffix'] : '';

@@ -79,7 +79,7 @@ function FilterManager(settings) {
             .append(
                 $('<option></option>')
                     .attr('value', '')
-                    .text('Kies een filter (geen filter)')
+                    .text($.i18n('Kies een filter (geen filter)'))
             );
         this.enableDeleteButton();
         $(this.filters).each(function (key, filter) {
@@ -124,7 +124,7 @@ function FilterManager(settings) {
             .append(
                 $('<option></option>')
                     .attr('value', '')
-                    .text('Kies een filter (geen filter)')
+                    .text($.i18n('Kies een filter (geen filter)'))
             );
         this.enableDeleteButton();
         $(this.filters).each(function (key, filter) {
@@ -215,12 +215,12 @@ function FilterManager(settings) {
         .on('click', this.settings.eventScope+' #jquery-add-filter', function (e) {
             $(this.el).val('');
             this.resetSearchForm();
-            this.setSearchFormTitle('Filter aanmaken');
+            this.setSearchFormTitle($.i18n('Filter aanmaken'));
             $('#jquery-save-filter-as-from-modal').hide();
             Popup.showSearch();
             this.activeFilter = {
                 id: '',
-                name: 'Nieuw',
+                name: $.i18n('Nieuw'),
                 filters: this.newFilter
             }
             this.renderActiveFilter(e);
@@ -284,10 +284,10 @@ function FilterManager(settings) {
         if (!$(e.target).hasClass('disabled')) {
             const isNewFilter = (this.activeFilter.id === '');
             Popup.prompt({
-                    text: 'Wat is de naam van dit filter?',
-                    title: saveAs ? 'Opslaan als' : 'Opslaan',
+                    text: $.i18n('Wat is de naam van dit filter?'),
+                    title: saveAs ? $.i18n('Opslaan als') : $.i18n('Opslaan'),
                     inputValue: isNewFilter
-                        ? 'Nieuw Filter'
+                        ? $.i18n('Nieuw Filter')
                         : saveAs ? this.activeFilter.name + ' copy' : this.activeFilter.name,
                 },
                 function (filterName) {
@@ -295,7 +295,7 @@ function FilterManager(settings) {
                         return;
                     }
                     if (filterName === "") {
-                        Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
+                        Notify.notify($.i18n('Geen geldige naam opgegeven filter niet opgeslagen!'), 'error');
                     } else {
                         if (isNewFilter) {
                             this.saveNewFilter(filterName);
@@ -331,7 +331,7 @@ function FilterManager(settings) {
                 this.initNewFilter();
                 this.activeFilter.changed = false;
 
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
                 this.enableDeleteButton();
                 this.disableSaveButton();
             },
@@ -367,7 +367,7 @@ function FilterManager(settings) {
                 this.initNewFilter()
                 this.activeFilter.changed = false;
                 this.disableSaveButton();
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
             },
         });
     };
@@ -383,7 +383,7 @@ function FilterManager(settings) {
             },
             context: this,
             success: function (response) {
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
                 this.renderSelectFilterBox(this.activeFilter.id);
                 //TODO splice the current filter from the array and replace with the new one;
                 this.filters = this.filters.map(function (filter) {
@@ -404,12 +404,12 @@ function FilterManager(settings) {
 
     this.deleteFilter = function () {
         if (this.activeFilter === false) {
-            Notify.notify('Selecteer het filter dat u wilt verwijderen.', 'error')
+            Notify.notify($.i18n('Selecteer het filter dat u wilt verwijderen.'), 'error')
             return;
         }
         Popup.confirm({
             title: '',
-            text: 'Weet je zeker dat je dit filter wilt verwijderen?'
+            text: $.i18n('Weet je zeker dat je dit filter wilt verwijderen?')
         }, function (confirmValue) {
             if (confirmValue) {
                 if (typeof this.activeFilter.uuid !== 'undefined' ) {
@@ -427,7 +427,7 @@ function FilterManager(settings) {
                             this.isDeleting = false;
                             this.activeFilter = false;
                             this.renderActiveFilter();
-                            Notify.notify('Het filter is succesvol verwijderd.');
+                            Notify.notify($.i18n('Het filter is succesvol verwijderd.'));
                             this.disableDeleteButton();
                         },
                     });

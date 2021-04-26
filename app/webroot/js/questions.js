@@ -117,10 +117,10 @@ var Questions = {
         if(subquestion) {
 
             Popup.message({
-                btnOk: 'Importeren',
-                btnCancel: 'Annuleren',
-                title: 'Onderdeel van groepvraag',
-                message: 'Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.'
+                btnOk: $.i18n('Importeren'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Onderdeel van groepvraag'),
+                message: $.i18n('Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.')
             }, function() {
                 $.get('/questions/add_existing_question/' + question_id,
                     function(response) {
@@ -239,10 +239,10 @@ var Questions = {
 
     delete : function(owner, owner_id, question_id) {
         Popup.message({
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze vraag wilt verwijderen?',
-                btnCancel: 'Annuleren',
-                btnOk : 'Ja'
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet u zeker dat u deze vraag wilt verwijderen?'),
+                btnCancel: $.i18n('Annuleren'),
+                btnOk : $.i18n('Ja')
 
             },
             function() {
@@ -253,9 +253,9 @@ var Questions = {
                     success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
-                            Notify.notify('Vraag verwijderd', 'info', 3000);
+                            Notify.notify($.i18n('Vraag verwijderd'), 'info', 3000);
                         }else{
-                            Notify.notify('Vraag kon niet worden verwijderd', 'error', 3000);
+                            Notify.notify($.i18n('Vraag kon niet worden verwijderd'), 'error', 3000);
                         }
                     }
                 });
@@ -266,10 +266,10 @@ var Questions = {
     deleteGroup : function(test_id, group_id) {
 
         Popup.message({
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze vraaggroep wilt verwijderen?',
-                btnCancel: 'Annuleren',
-                btnOk : 'Ja'
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet u zeker dat u deze vraaggroep wilt verwijderen?'),
+                btnCancel: $.i18n('Annuleren'),
+                btnOk : $.i18n('Ja')
 
             },
             function() {
@@ -280,9 +280,9 @@ var Questions = {
                     success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
-                            Notify.notify('Groep verwijderd', 'info', 3000);
+                            Notify.notify($.i18n('Groep verwijderd'), 'info', 3000);
                         }else{
-                            Notify.notify('Groep kon niet worden verwijderd', 'error', 3000);
+                            Notify.notify($.i18n('Groep kon niet worden verwijderd'), 'error', 3000);
                         }
                     }
                 });
@@ -346,7 +346,7 @@ var Attachments = {
                         Questions.loadAddAttachments();
                         Popup.closeLast();
                     }else{
-                        Notify.notify('Geen goedgekeurde link', 'error');
+                        Notify.notify($.i18n('Geen goedgekeurde link'), 'error');
                     }
                 }
             );
@@ -366,7 +366,7 @@ var Attachments = {
                         Questions.loadEditAttachments(owner, owner_id, id);
                         Popup.closeLast();
                     }else{
-                        Notify.notify('Geen goedgekeurde link', 'error');
+                        Notify.notify($.i18n('Geen goedgekeurde link'), 'error');
                     }
                 }
             );
@@ -375,11 +375,11 @@ var Attachments = {
 
     uploadError : function(error) {
         if(error == 'file_type') {
-            Notify.notify("Dit bestandstype wordt niet ondersteund", "error");
+            Notify.notify($.i18n("Dit bestandstype wordt niet ondersteund"), "error");
         }else if(error == 'file_size') {
-            Notify.notify("Dit bestand is te groot", "error");
+            Notify.notify($.i18n("Dit bestand is te groot"), "error");
         }else if(error == 'no_file') {
-            Notify.notify("Geen bestand geselecteerd", "error");
+            Notify.notify($.i18n("Geen bestand geselecteerd"), "error");
         }
     }
 };

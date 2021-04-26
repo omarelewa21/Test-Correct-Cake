@@ -1,30 +1,30 @@
-<div class="popup-head">Selectievraag</div>
+<div class="popup-head"><?= __("Selectievraag")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Question')?>
 
     <table class="table mb15">
         <tr>
             <th width="10%">
-                Punten
+            <?= __("Punten")?>
             </th>
             <td width="110">
                 <?=$this->Form->input('score', array('style' => 'width:50px;', 'value' => 5, 'label' => false, 'verify' => 'notempty'))?>
             </td>
             <td>
-                <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-                <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  Bespreken in de klas <br />
-                <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag vastzetten<br /><? } ?>
-                <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Halve punten mogelijk<br />
+                <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+                <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  <?= __("Bespreken in de klas")?> <br />
+                <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag vastzetten")?><br /><? } ?>
+                <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Halve punten mogelijk")?><br />
                 <?php if(!$is_open_source_content_creator): ?>
-                    <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
                 <?php endif; ?>
             </td>
 
             <td width="230">
                 <?=$this->Form->input('note_type', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [
-                    'NONE' => 'Geen kladblok',
-                    'TEXT' => 'Tekstvlak',
-                    'DRAWING' => 'Tekenvlak'
+                    'NONE' => __("Geen kladblok"),
+                    'TEXT' => __("Tekstvlak"),
+                    'DRAWING' => __("Tekenvlak")
                 ]))?>
             </td>
         </tr>
@@ -32,25 +32,25 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-                Tekst
+            <?= __("Tekst")?>
             </a>
 
             <? if($owner != 'group') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="add_question">
-                    Bronnen
+                <?= __("Bronnen")?>
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="add_question">
-                Eindtermen
+            <?= __("Eindtermen")?>
             </a>
 
             <a href="#" class="btn grey" page="tags" tabs="add_question">
-                Tags
+            <?= __("Tags")?>
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="add_question">
-                Taxonomie
+            <?= __("Taxonomie")?>
             </a>
             <br clear="all" />
         </div>
@@ -58,7 +58,6 @@
         <div page="question" class="page active" tabs="add_question">
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px; margin-bottom:0px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
-
 
         <div page="attainments" class="page" tabs="add_question">
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
@@ -76,10 +75,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-        Vraag opslaan
+    <?= __("Vraag opslaan")?>
     </a>
 </div>
 
@@ -110,9 +109,9 @@
 
                 if(selection == "") {
                     Popup.message({
-                        'title' : 'Selecteer juiste antwoord',
-                        'message' : 'Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen.',
-                        'btnOk' : 'Oke'
+                        'title' : __("Selecteer juiste antwoord"),
+                        'message' : __("Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen."),
+                        'btnOk' : __("Oke")
                     });
                 }else {
                     Popup.load('/questions/add_multi_completion_item', 500);

@@ -3,17 +3,17 @@ if(count($test_takes) == 0) {
     ?>
     <br /><br />
     <center>
-        Vandaag geen geplande toetsen
+    <?= __("Vandaag geen geplande toetsen")?>
     </center>
     <?
 }else{
     ?>
     <table class="table table-striped">
         <tr>
-            <th>Toets</th>
-            <th>Datum</th>
-            <th width="130">Vak</th>
-            <th width="90">Type</th>
+            <th><?= __("Toets")?></th>
+            <th><?= __("Datum")?></th>
+            <th width="130"><?= __("Vak")?></th>
+            <th width="90"><?= __("Type")?></th>
             <th width="90"></th>
         </tr>
         <?
@@ -28,11 +28,11 @@ if(count($test_takes) == 0) {
                         <?
                         if ($test_take['retake'] == 0) {
                             ?>
-                            <div class="label label-info">Standaard</div>
+                            <div class="label label-info"><?= __("Standaard")?></div>
                         <?
                         } else {
                             ?>
-                            <div class="label label-warning">Inhaaltoets</div>
+                            <div class="label label-warning"><?= __("Inhaaltoets")?></div>
                         <?
                         }
                         ?>
@@ -41,11 +41,11 @@ if(count($test_takes) == 0) {
                         <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
                             <a href="#" class="btn highlight mb1"
                                onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
-                                Nu maken
+                               <?= __("Nu maken")?>
                             </a>
                         <? }else{ ?>
                             <a href="#" class="btn white mb1">
-                                Nu maken
+                            <?= __("Nu maken")?>
                             </a>
                         <? } ?>
                     </td>

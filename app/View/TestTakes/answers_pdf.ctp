@@ -11,7 +11,7 @@ foreach($participants as $participant) {
     if(count($participant['answers']) > 0) {
         ?>
         <h1>
-            Antwoorden
+        <?= __("Antwoorden")?>
             <?= $participant['user']['name_first'] ?>
             <?= $participant['user']['name_suffix'] ?>
             <?= $participant['user']['name'] ?>
@@ -24,7 +24,7 @@ foreach($participants as $participant) {
 
             $q++;
             ?>
-            <h2>Vraag #<?=$q?></h2>
+            <h2><?= __("Vraag")?> #<?=$q?></h2>
             <?
             foreach ($participant['answers'] as $answer) {
 

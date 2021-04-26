@@ -1,16 +1,16 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Docenten import</h1>
+<h1><?= __("Docenten import")?></h1>
 
 
 <div class="block">
-    <div class="block-head">Data
-        <button id="setDefaultHeadingTeacher">Zet default kolom headers!!</button>
+    <div class="block-head"><?= __("Data")?>
+        <button id="setDefaultHeadingTeacher"><?= __("Zet default kolom headers!!")?></button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="duplicates-in-database-data-errors" id="duplicates-in-database-data-errors"></div>
@@ -20,14 +20,14 @@
 
         <div>
             <div>
-                <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
+                <textarea rows="1" id="excelPasteBox" placeholder='<?= __("Plak je excel data hier...")?>'></textarea>
             </div>
             <hr class="showAfterProcess"/>
             <div id="output">
             </div>
             <hr class="showAfterProcess"/>
-            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess">Docenten
-                importeren</a>
+            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess"><?= __("Docenten")?>
+            <?= __("importeren")?></a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump"
                       placeholder="JSON Data will appear here..."></textarea>
         </div>
@@ -40,15 +40,15 @@
     var url = '/users/doImportTeachers';
 
     var dbFields = [
-        {'column': 'name_first', 'name': 'Voornaam'},
-        {'column': 'name_suffix', 'name': 'tussenvoegsel'},
-        {'column': 'name', 'name': 'Achternaam'},
-        {'column': 'abbrviation', 'name': 'Afkorting'},
-        {'column': 'username', 'name': 'E-mailadres'},
-        {'column': 'external_id', 'name': 'Externe code'},
-        {'column': 'notes', 'name': 'Notities'},
-        {'column': 'school_class', 'name': 'Koppeling klasnaam'},
-        {'column': 'subject', 'name': 'Koppeling welk vak'},
+        {'column': 'name_first', 'name': '<?= __("Voornaam")?>'},
+        {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
+        {'column': 'name', 'name': '<?= __("Achternaam")?>'},
+        {'column': 'abbrviation', 'name': '<?= __("Afkorting")?>'},
+        {'column': 'username', 'name': '<?= __("E-mailadres")?>'},
+        {'column': 'external_id', 'name': '<?= __("Externe code")?>'},
+        {'column': 'notes', 'name': '<?= __("Notities")?>'},
+        {'column': 'school_class', 'name': '<?= __("Koppeling klasnaam")?>'},
+        {'column': 'subject', 'name': '<?= __("Koppeling welk vak")?>'},
     ];
 </script>
 <?= $this->element('import_users_as_teachers_style_and_script',['type'=>'students']) ?>

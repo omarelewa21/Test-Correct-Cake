@@ -1,0 +1,3524 @@
+msgid "Het is niet meer mogelijk deze vraag te beantwoorden"
+msgstr "It is no longer possible to answer this question"
+
+msgid "Het is niet meer mogelijk deze vraag te beantwoorden."
+msgstr "It is no longer possible to answer this question."
+
+msgid "Het gegeven antwoord is niet valide"
+msgstr "The answer given is not valid"
+
+msgid "Iets ging er mis "
+msgstr "Something went wrong"
+
+msgid "File niet gevonden om te importeren, probeer het nogmaals"
+msgstr "File not found for import, please try again"
+
+msgid "De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals"
+msgstr "The entered security code is incorrect, please try again"
+
+msgid "Alle"
+msgstr "All"
+
+msgid "De klas is klaargezet voor verwerking"
+msgstr "The class is set up for processing"
+
+msgid "Nieuwe vraaggroep"
+msgstr "New question group"
+
+msgid "Het is niet duidelijk om welk niveau het gaat"
+msgstr "It is not clear what level it concerns"
+
+msgid "Het is niet duidelijk om welk leerjaar het gaat"
+msgstr "It is not clear which grade is involved"
+
+msgid "het is niet duidelijk om wat voor type toets het gaat"
+msgstr "it is not clear what type of test is involved"
+
+msgid "het is niet duidelijk om wat de naam van de toets is"
+msgstr "it is not clear what the name of the test is"
+
+msgid "Er dient een correctiemodel mee gestuurd te worden"
+msgstr "A correction model must be sent with it"
+
+msgid "Er kan maximaal 1 toets per keer geupload worden"
+msgstr "A maximum of 1 Test can be uploaded at a time"
+
+msgid "Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals"
+msgstr "Unfortunately it was not possible to process the upload please try again"
+
+msgid "De toets is klaargezet voor verwerking"
+msgstr "The test is ready for processing"
+
+msgid "Het is niet duidelijk om welke klas deze upload gaat."
+msgstr "It is not clear which class this upload is about."
+
+msgid "File niet gevonden om te uploaden, probeer het nogmaals"
+msgstr "File not found to upload, please try again"
+
+msgid "Juist / Onjuist"
+msgstr "Correct / Incorrect"
+
+msgid "ARQ"
+msgstr "ARQ"
+
+msgid "Meerkeuze"
+msgstr "Multiple choice"
+
+msgid "Korte open vraag"
+msgstr "Short open question"
+
+msgid "Lange open vraag"
+msgstr "Long open question"
+
+msgid "Selectie"
+msgstr "Selection"
+
+msgid "Gatentekst"
+msgstr "Missing Word"
+
+msgid "Er is geen voorbeeld weergave voor een vraaggroep."
+msgstr "There is no preview for a question group."
+
+msgid "Rangschik"
+msgstr "Arrange"
+
+msgid "Combineer"
+msgstr "Combine"
+
+msgid "Rubriceer"
+msgstr "Classify"
+
+msgid "Teken"
+msgstr "Sign"
+
+msgid "Groepvraag"
+msgstr "Group question"
+
+msgid "Alles"
+msgstr "All"
+
+msgid "Eigen content"
+msgstr "Content"
+
+msgid "Schoollocatie"
+msgstr "School Location"
+
+msgid "Scholengemeenschap"
+msgstr "School Community"
+
+msgid "Klas kon niet worden aangemaakt"
+msgstr "School class could not be created"
+
+msgid "Combinatie brin/locatie code bestaat reeds op andere school"
+msgstr "Combination brin / location code already exists at another school"
+
+msgid "School kon niet worden aangepast"
+msgstr "School could not be adapted"
+
+msgid "Aantal niet numeriek"
+msgstr "Number not numeric"
+
+msgid "School kon niet worden aangemaakt"
+msgstr "School could not be created"
+
+msgid "Deze naam heb je inmiddels in gebruik voor een van je toetsen."
+msgstr "You have now used this name for one of your tests."
+
+msgid "Er is iets fout gegaan, probeer het nogmaals."
+msgstr "Something went wrong, try again."
+
+msgid "Er dient tenminste één toets gekozen te worden"
+msgstr "At least one Test must be selected"
+
+msgid "Er dient een toets gekozen te worden."
+msgstr "A test must be selected."
+
+msgid "Datum is incorrect"
+msgstr "Date is incorrect"
+
+msgid "Niet te bespreken"
+msgstr "Not to be discussed"
+
+msgid "Vraag niet gemaakt"
+msgstr "Question not made"
+
+msgid "Geen antwoord om weer te geven"
+msgstr "No answer to display"
+
+msgid "Deze toets is niet meer in te zien"
+msgstr "This test can no longer be viewed"
+
+msgid "Ingepland"
+msgstr "Planned"
+
+msgid "Niet gemaakt"
+msgstr "Not made"
+
+msgid "Maakt toets"
+msgstr "Create test"
+
+msgid "Ingeleverd"
+msgstr "Turned in"
+
+msgid "Ingeleverd (geforceerd)"
+msgstr "Handed in (forced)"
+
+msgid "Ingenomen"
+msgstr "Taken"
+
+msgid "Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar."
+msgstr "This school location has no umbrella school, no source code, not exportable."
+
+msgid "Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar."
+msgstr "This school has no source code, and no umbrella organization, not exportable."
+
+msgid "Geen brincode gevonden voor deze setup, neem contact op met administrators."
+msgstr "No brincode found for this setup, please contact administrators."
+
+msgid "Multiple Choice"
+msgstr "Multiple Choice"
+
+msgid "Open vraag"
+msgstr "Open question"
+
+msgid "Gatentekstvraag"
+msgstr "Missing Word Question"
+
+msgid "Rangschik-vraag"
+msgstr "Rank question"
+
+msgid "Matching"
+msgstr "Matching"
+
+msgid "Matrix"
+msgstr "Matrix"
+
+msgid "U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is."
+msgstr "You cannot log in because your school's contract is not active. Please contact us if you think this is a mistake."
+
+msgid "Accountmanagers"
+msgstr "Account managers"
+
+msgid "Nieuwe Accountmanager"
+msgstr "New Account Manager"
+
+msgid "Schoolbeheerder"
+msgstr "School administrator"
+
+msgid "Nieuwe Schoolbeheerder"
+msgstr "New School Administrator"
+
+msgid "Studenten"
+msgstr "Students"
+
+msgid "Nieuwe student"
+msgstr "New student"
+
+msgid "Docenten"
+msgstr "Teachers"
+
+msgid "Nieuwe Docent"
+msgstr "New Teacher"
+
+msgid "Directieleden"
+msgstr "Directors"
+
+msgid "Nieuw Directielid"
+msgstr "New Director"
+
+msgid "Er dient een wachtwoord opgegven te worden"
+msgstr "A password must be entered"
+
+msgid "De gebruiker kon niet worden bijgewerkt"
+msgstr "The user could not be updated"
+
+msgid "Dit e-mailadres is al in gebruik"
+msgstr "This email address is already in use"
+
+msgid "Studentennummer is al in gebruik"
+msgstr "Student number is already in use"
+
+msgid "Database"
+msgstr "Database"
+
+msgid "Bestanden"
+msgstr "Files"
+
+msgid "QTI"
+msgstr "QTI"
+
+msgid "Gebruikers"
+msgstr "Users"
+
+msgid "Analyses"
+msgstr "Analysis"
+
+msgid "Itembank"
+msgstr "Item Bank"
+
+msgid "Toetsing"
+msgstr "Review"
+
+msgid "Overig"
+msgstr "Other"
+
+msgid "Analyse"
+msgstr "Analysis"
+
+msgid "Berichten"
+msgstr "Messages"
+
+msgid "Kennisbank"
+msgstr "Knowledgebase"
+
+msgid "Bezoek de kennisbank"
+msgstr "Visit the knowledge base"
+
+msgid "Koepelorganisaties"
+msgstr "Umbrella organizations"
+
+msgid "Schoollocaties"
+msgstr "School locations"
+
+msgid "Docent statistieken"
+msgstr "Teacher statistics"
+
+msgid "RTTI Import"
+msgstr "RTTI Import"
+
+msgid "Qti Import"
+msgstr "Qti Import"
+
+msgid "Cito"
+msgstr "Cito"
+
+msgid "Batch Cito"
+msgstr "Batch Cito"
+
+msgid "Attainments Import"
+msgstr "Attainments Import"
+
+msgid "Attainments CITO koppeling"
+msgstr "Attainments CITO clutch"
+
+msgid "Klassen bestanden"
+msgstr "Classes of files"
+
+msgid "Toetsbestanden"
+msgstr "Test files"
+
+msgid "Demo tour rapport"
+msgstr "Demo tour report"
+
+msgid "Schooljaren"
+msgstr "School years"
+
+msgid "Secties"
+msgstr "Sections"
+
+msgid "Klassen"
+msgstr "School classes"
+
+msgid "Vragenbank"
+msgstr "Question Bank"
+
+msgid "CITO Toetsen op maat"
+msgstr "CITO Customized tests"
+
+msgid "Geplande toetsen"
+msgstr "Scheduled Tests"
+
+msgid "Surveilleren"
+msgstr "Surveillance"
+
+msgid "Afgenomen"
+msgstr "Review"
+
+msgid "Nakijken"
+msgstr "Check"
+
+msgid "Becijferd"
+msgstr "Grades"
+
+msgid "Uw analyse"
+msgstr "Your analysis"
+
+msgid "Mijn klassen"
+msgstr "My school classes"
+
+msgid "Aangeboden toetsen"
+msgstr "Tests offered"
+
+msgid "Te bespreken"
+msgstr "Under-Review"
+
+msgid "Inzien"
+msgstr "View"
+
+msgid "Jouw analyse"
+msgstr "Your analysis"
+
+msgid "Wachtwoorden komen niet overeen"
+msgstr "Passwords do not match"
+
+msgid "Statistieken"
+msgstr "Statistics"
+
+msgid "Nog geen toets aangemaak"
+msgstr "No test created yet"
+
+msgid "Non users"
+msgstr "Non users"
+
+msgid "E-mail"
+msgstr "E-mail"
+
+msgid "School"
+msgstr "School"
+
+msgid "Aantal afgenomen toetsen"
+msgstr "Number of tests taken"
+
+msgid "afgelopen 6 maanden een toets afgenomen maar laatste 2 maanden niet"
+msgstr "I took a test in the past 6 months, but not in the last 2 months"
+
+msgid "Small users"
+msgstr "Small users"
+
+msgid "Afgelopen 2 maanden 1 toets afgenomen"
+msgstr "1 test in the last 2 months"
+
+msgid "Medium users"
+msgstr "Medium users"
+
+msgid "Afgelopen maand tenminste 1 test afgenomen"
+msgstr "I took at least 1 test last month"
+
+msgid "Heavy users"
+msgstr "Heavy users"
+
+msgid "Terug"
+msgstr "Back"
+
+msgid "Afgenomen toetsen"
+msgstr "Review Tests"
+
+msgid "Toets"
+msgstr "Test"
+
+msgid "Vak"
+msgstr "Subject"
+
+msgid "Afname"
+msgstr "Date"
+
+msgid "Weging"
+msgstr "Weight"
+
+msgid "Cijferlijst"
+msgstr "Grade list"
+
+msgid "Student"
+msgstr "Student"
+
+msgid "Klassen analyse"
+msgstr "School class analysis"
+
+msgid "Klassen overzicht"
+msgstr "School class overview"
+
+msgid "Klas"
+msgstr "School class"
+
+msgid "klas "
+msgstr "school class "
+
+msgid " is onbekend."
+msgstr " is unknown."
+
+msgid "Mentor"
+msgstr "Mentor"
+
+msgid "Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school"
+msgstr "You cannot view analyzes yet because you are in a temporary school. As soon as we have moved you to your school, you can view analyzes. We will send you a message as soon as we have linked you to your school"
+
+msgid "Bericht sturen"
+msgstr "Send a message"
+
+msgid "Deze student mag tekst naar spraak omzetten."
+msgstr "This student is not allowed to use the text to speech converter"
+
+msgid "Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student"
+msgstr "Note: This functionality is temporarily disabled for this student"
+
+msgid "Deze student mag tekst"
+msgstr "This student is allowed to text"
+
+msgid "niet"
+msgstr "not"
+
+msgid "naar spraak omzetten."
+msgstr "convert to speech."
+
+msgid "Deze student heeft tijdsdispensatie"
+msgstr "This student has time dispensation"
+
+msgid "Klik om de details te zien/ te verbergen"
+msgstr "Click to show / hide details"
+
+msgid "Deze student heeft"
+msgstr "This student has"
+
+msgid "geen"
+msgstr "no"
+
+msgid "tijdsdispensatie"
+msgstr "time dispensation"
+
+msgid "Profielfoto"
+msgstr "Profile picture"
+
+msgid "Prestaties per vak"
+msgstr "Performance per subject"
+
+msgid "Geen gegevens"
+msgstr "No data"
+
+msgid "Jouw cijfe"
+msgstr "Your number"
+
+msgid "Student cijfe"
+msgstr "Student figure"
+
+msgid "Gemiddeld klassecijfer"
+msgstr "Average class grade"
+
+msgid "Gemiddelde cijfer zelfde"
+msgstr "Average grade same"
+
+msgid "niveau / leerjaar"
+msgstr "level / grade"
+
+msgid "Toetsafnames"
+msgstr "Tests"
+
+msgid "Toetsnaam"
+msgstr "Test name"
+
+msgid "Notities"
+msgstr "Notes"
+
+msgid "Cijfer"
+msgstr "Figure"
+
+msgid "Studentgemiddelde"
+msgstr "Student average"
+
+msgid "Klassengemiddelde"
+msgstr "Class mean"
+
+msgid "Behaalde resultaten"
+msgstr "Achieved results"
+
+msgid "Moment"
+msgstr "Moment"
+
+msgid "Eindtermen"
+msgstr "Learning outcomes"
+
+msgid "Analyse laden"
+msgstr "Load analysis"
+
+msgid "Cijfers"
+msgstr "Numbers"
+
+msgid "Examenvak"
+msgstr "Exam course"
+
+msgid "Score in"
+msgstr "Score in"
+
+msgid "Percentage"
+msgstr "Percentage"
+
+msgid "Onderwerp"
+msgstr "Topic"
+
+msgid "Datum/tijd"
+msgstr "Date Time"
+
+msgid "Ongelezen"
+msgstr "Unread"
+
+msgid "Gelezen"
+msgstr "Read"
+
+msgid "van"
+msgstr "from"
+
+msgid "Whitelisted ip adres aangemaakt"
+msgstr "Whitelisted ip address created"
+
+msgid "Whitelisted ip adres gewijzigd"
+msgstr "Whitelisted ip address changed"
+
+msgid "Ip adres kon niet worden toegevoegd"
+msgstr "Ip address could not be added"
+
+msgid "'Minimaal gewenste p-waarde'"
+msgstr "Minimum desired p-value '"
+
+msgid "'Minimaal gewenste hoeveelheid vraagitems'"
+msgstr "Minimum desired amount of question items'"
+
+msgid "B1 - Eiwitsynthese (Dit schooljaar)"
+msgstr "B1 - Protein synthesis (This school year)"
+
+msgid "'B1 - Eiwitsynthese (Totaal)'"
+msgstr "B1 - Protein Synthesis (Total) '"
+
+msgid "Zoeken"
+msgstr "Search"
+
+msgid "Voornaam"
+msgstr "First Name"
+
+msgid "Achternaam"
+msgstr "Last name"
+
+msgid "Studentnummer"
+msgstr "Student number"
+
+msgid "Locatie"
+msgstr "Location"
+
+msgid "Opslaan"
+msgstr "Save"
+
+msgid "Opslaan als"
+msgstr "Save as"
+
+msgid "Bevestigen"
+msgstr "Confirm"
+
+msgid "Studenten analyse"
+msgstr "Student analysis"
+
+msgid "Filteren"
+msgstr "Filter"
+
+msgid "Kies filter"
+msgstr "Choose filter"
+
+msgid "Verwijderen"
+msgstr "Remove"
+
+msgid "Nieuw filter maken"
+msgstr "Create new filter"
+
+msgid "Toegepast filter"
+msgstr "Applied filter"
+
+msgid "Filter aanpassen"
+msgstr "Adjust filter"
+
+msgid "Reset Filter"
+msgstr "Reset Filter"
+
+msgid "Studenten overzicht"
+msgstr "Student overview"
+
+msgid "Overzicht"
+msgstr "Overview"
+
+msgid "Nummer"
+msgstr "Number"
+
+msgid "Informatie"
+msgstr "Information"
+
+msgid "Vraag-items"
+msgstr "Question items"
+
+msgid "Toets-items"
+msgstr "Test items"
+
+msgid "Besproken toetsen"
+msgstr "Discussed tests"
+
+msgid "Vergelijking met collega's"
+msgstr "Comparison with colleagues"
+
+msgid "Geen rapportage"
+msgstr "No reporting"
+
+msgid "Gemiddeld"
+msgstr "Average"
+
+msgid "Vergelijkende docen"
+msgstr "Comparative teachers"
+
+msgid "Afkorting"
+msgstr "Abbreviation"
+
+msgid "Antwoord tekenen"
+msgstr "Answer signs"
+
+msgid "Tekening wijzigen"
+msgstr "Change drawing"
+
+msgid "Ja"
+msgstr "Yes"
+
+msgid "Annuleren"
+msgstr "Cancel"
+
+msgid "Weet u het zeker?"
+msgstr "Are you sure?"
+
+msgid "De huidige tekening gaat verloren."
+msgstr "The current drawing will be lost."
+
+msgid "Klaar"
+msgstr "Ready"
+
+msgid "Reden"
+msgstr "Reason"
+
+msgid "Juiste reden"
+msgstr "Right reason"
+
+msgid "Onjuiste reden"
+msgstr "Incorrect reason"
+
+msgid "Tekenvraag"
+msgstr "Drawing question"
+
+msgid "Infoscherm"
+msgstr "Info screen"
+
+msgid "Dit is een informatiescherm, een antwoord is niet nodig."
+msgstr "This is an information screen, no answer is required."
+
+msgid "Combineervraag"
+msgstr "Combination question"
+
+msgid "Rubriceer-vraag"
+msgstr "Classify question"
+
+msgid "Matrix ONBEKEND"
+msgstr "Matrix UNKNOWN"
+
+msgid "Onthouden"
+msgstr "Remember"
+
+msgid "Begrijpen"
+msgstr "Understand"
+
+msgid "Selectievraag"
+msgstr "Selection question"
+
+msgid "Niet alle opties geselecteerd"
+msgstr "Not all options selected"
+
+msgid "0/140 tekens"
+msgstr "0/140 characters"
+
+msgid "Rangschikvraag"
+msgstr "Rank question"
+
+msgid "Aantekening"
+msgstr "Note"
+
+msgid "Sluiten"
+msgstr "Close"
+
+msgid "Tijd over, baluh"
+msgstr "Time left, baluh"
+
+msgid "Leerdoelen import"
+msgstr "Learning objectives import"
+
+msgid "Een moment dit kan enige tijd duren (als in een paar minuten);"
+msgstr "For a moment this may take time (as in a few minutes);"
+
+msgid "Import verwerken"
+msgstr "Process import"
+
+msgid "Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken.."
+msgstr "Did you know that with the co-learning module you can have the students mark the tests themselves ..."
+
+msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z'n device.."
+msgstr "Did you know that we also offer drawing questions that allow students to draw on their device."
+
+msgid "Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets..."
+msgstr "Did you know that we now also have information screens with which you can provide the student with information about the upcoming questions in the test ..."
+
+msgid "Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen..."
+msgstr "Did you know that we have a reading function that allows students to read the text of the test ..."
+
+msgid "Leerdoelen aan CITO vragen koppelen"
+msgstr "Link learning objectives to CITO questions"
+
+msgid "Niet alle velden zijn correct ingevuld"
+msgstr "Not all fields are filled in correctly"
+
+msgid "Toetsen inplannen"
+msgstr "Schedule tests"
+
+msgid "Type"
+msgstr "Type"
+
+msgid "Periode"
+msgstr "Period"
+
+msgid "Niveau"
+msgstr "Level"
+
+msgid "Niveau jaar"
+msgstr "Year Level"
+
+msgid "Aangemaakt van"
+msgstr "Start from"
+
+msgid "Aangemaakt tot"
+msgstr "End at"
+
+msgid "Bron"
+msgstr "Source"
+
+msgid "Gratis content"
+msgstr "Free content"
+
+msgid "Afk."
+msgstr "Abbr."
+
+msgid "Titel"
+msgstr "Title"
+
+msgid "Vragen"
+msgstr "Questions"
+
+msgid "Auteur"
+msgstr "Author"
+
+msgid "Leerjaar"
+msgstr "Grade"
+
+msgid "Aanmaakdatum van"
+msgstr "Start date from"
+
+msgid "Aanmaakdatum tot"
+msgstr "End date at"
+
+msgid "Inplannen"
+msgstr "Schedule"
+
+msgid "Voorbeeld"
+msgstr "Example"
+
+msgid "PDF"
+msgstr "PDF"
+
+msgid "Gegevens wijzigen"
+msgstr "Changing data"
+
+msgid "Toetsinformatie"
+msgstr "Test information"
+
+msgid "Eigenaar"
+msgstr "Owner"
+
+msgid "Soort"
+msgstr "Sort"
+
+msgid "Maximale score"
+msgstr "Maximum score"
+
+msgid "Toetsvragen"
+msgstr "Test questions"
+
+msgid "Vraag"
+msgstr "Question"
+
+msgid "Score"
+msgstr "Score"
+
+msgid "Besprk."
+msgstr "Discuss."
+
+msgid "Wijzigen"
+msgstr "Modify"
+
+msgid "Bestaande vraag toevoegen"
+msgstr "Add existing question"
+
+msgid "Nieuwe vraag toevoegen"
+msgstr "Add new question"
+
+msgid "Nieuwe vraag-groep"
+msgstr "New question group"
+
+msgid "Contactpersoon"
+msgstr "Contact Person"
+
+msgid "Naam"
+msgstr "Name"
+
+msgid "Telefoon nr"
+msgstr "Phone no"
+
+msgid "Mobiel nr"
+msgstr "Mobile no"
+
+msgid "Adres"
+msgstr "Address"
+
+msgid "Postcode"
+msgstr "Postal Code"
+
+msgid "Stad"
+msgstr "City"
+
+msgid "Land"
+msgstr "Country"
+
+msgid "Notitie"
+msgstr "Note"
+
+msgid "Annuleer"
+msgstr "Cancel"
+
+msgid "Aanmaken"
+msgstr "Create"
+
+msgid "aanmaken"
+msgstr "create"
+
+msgid "Contactpersoon aangemaakt"
+msgstr "Contact person created"
+
+msgid "Contactpersoon kon niet worden aangemaakt"
+msgstr "Contact person could not be created"
+
+msgid "Contactpersoon gewijzigd"
+msgstr "Contact person changed"
+
+msgid "Contactpersoon kon niet worden gewijzigd"
+msgstr "Contact person could not be changed"
+
+msgid "Domein"
+msgstr "Domain"
+
+msgid "Subdomein"
+msgstr "Subdomain"
+
+msgid "Selecteer maximaal"
+msgstr "Select maximum"
+
+msgid "antwoord"
+msgstr "answer"
+
+msgid "Streep de verkeerde antwoorden door"
+msgstr "Line through the incorrect answers"
+
+msgid "Noteer welke woorden op de plekken horen"
+msgstr "Write down which words belong in the places"
+
+msgid "Geen vraag ingevuld"
+msgstr "No question completed"
+
+msgid "Geen antwoord ingevuld"
+msgstr "No answer entered"
+
+msgid "U dient minimaal 2 antwoorden op te geven"
+msgstr "You must provide at least 2 answers"
+
+msgid "U heeft nog geen antwoord getekend"
+msgstr "You have not signed an answer yet"
+
+msgid "U kunt geen opmaak gebruiken tussen de vierkante haakjes"
+msgstr "You cannot use formatting within the square brackets"
+
+msgid "U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen"
+msgstr "You must enclose at least one answer in square brackets"
+
+msgid "U dient minimaal &eacute;&eacute;n keuze toe te voegen aan de vraag. "
+msgstr "You must add at least one choice to the question. "
+
+msgid "De score dient numeriek te zijn"
+msgstr "The score must be numeric"
+
+msgid "De score is verplicht"
+msgstr "The score is mandatory"
+
+msgid "De score dient in hele getallen te worden opgegeven"
+msgstr "The score must be given in whole numbers"
+
+msgid "De score dient groter dan nul te zijn"
+msgstr "The score must be greater than zero"
+
+msgid "Geen datum ingevuld"
+msgstr "No date entered"
+
+msgid "Geen periode geselecteerd"
+msgstr "No period selected"
+
+msgid "Geen surveillanten geselecteerd"
+msgstr "No invigilators selected"
+
+msgid "Selecteer"
+msgstr "Select"
+
+msgid "Geen klas geselecteerd"
+msgstr "No class selected"
+
+msgid "Geen correcte weging ingevoerd"
+msgstr "Correct weighting not entered"
+
+msgid "Voor een summatieve toets mag de weging niet 0 zijn."
+msgstr "The weighting may not be 0 for a summative test."
+
+msgid "Voor een RTTI toets mag de weging niet 0 zijn."
+msgstr "The weighting may not be 0 for an RTTI test."
+
+msgid "Voor een summatieve RTTI toets mag de weging niet meer dan 15 zijn."
+msgstr "For a summative RTTI test, the weighting may not be more than 15."
+
+msgid "Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn."
+msgstr "Each answer must have a (numerical) number of points."
+
+msgid "U dient minimaal 1 optie een score te geven."
+msgstr "You must give at least 1 option a score."
+
+msgid "U dient minimaal 2 items op te geven"
+msgstr "You must provide at least 2 items"
+
+msgid "Niet elk item heeft een antwoord"
+msgstr "Not every item has an answer"
+
+msgid "U dient minimaal 1 antwoord van een score te voorzien."
+msgstr "You must provide at least 1 answer with a score."
+
+msgid "Volgende vraag"
+msgstr "Next question"
+
+msgid "Bronnen"
+msgstr "Sources"
+
+msgid "Bijlage"
+msgstr "Appendix"
+
+msgid "Teken-vraag"
+msgstr "Draw-question"
+
+msgid "Vraag voorbeeld"
+msgstr "Ask example"
+
+msgid "Multiple choice"
+msgstr "Multiple choice"
+
+msgid "P-waarde"
+msgstr "P-value"
+
+msgid "Getoetst dit jaar"
+msgstr "Tested this year"
+
+msgid "Getoetst totaal"
+msgstr "Tested totally"
+
+msgid "keer afgenomen"
+msgstr "times"
+
+msgid "Uniek ID"
+msgstr "Unique ID"
+
+msgid "Auteurs"
+msgstr "Authors"
+
+msgid "Selecteer tot welke categorie deze vraag hoort binnen de RTTI-methode"
+msgstr "Select which category this question belongs to within the RTTI method"
+
+msgid "Bloom"
+msgstr "Bloom"
+
+msgid "Miller"
+msgstr "Miller"
+
+msgid "Er is geen antwoord opgegeven"
+msgstr "No answer was given"
+
+msgid "We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in\\n                            Test-Correct:"
+msgstr "We need some more information from you before we can create your classes and tests in \\ n Test-Correct:"
+
+msgid "Website"
+msgstr "Website"
+
+msgid "Plaats"
+msgstr "Place"
+
+msgid "Uw gegevens"
+msgstr "Your data"
+
+msgid "Aanhef"
+msgstr "Salutation"
+
+msgid "Meneer"
+msgstr "Sir"
+
+msgid "Mevrouw"
+msgstr "Mrs"
+
+msgid "Anders"
+msgstr "Different"
+
+msgid "Aanhef anders"
+msgstr "Salutation different"
+
+msgid "Tussenvoegsel"
+msgstr "Suffix"
+
+msgid "E-mailadres"
+msgstr "E-mail address"
+
+msgid "Mobiel nummer"
+msgstr "Mobile number"
+
+msgid "(nodig ter verificatie)"
+msgstr "(necessary for verification)"
+
+msgid "Vakken/niveaus"
+msgstr "Subjects / levels"
+
+msgid "Hoe ben je bij ons terecht gekomen?"
+msgstr "How did you find us?"
+
+msgid "Eventuele opmerkingen"
+msgstr "Any comments"
+
+msgid "Inleveren"
+msgstr "Hand in"
+
+msgid "Heropen"
+msgstr "Re-open"
+
+msgid "Tekstblok"
+msgstr "Text block"
+
+msgid "Tekenblok"
+msgstr "Drawing pad"
+
+msgid "Gereed"
+msgstr "Ready"
+
+msgid "Leerdoel analyse"
+msgstr "Learning objective analysis"
+
+msgid "Leerdoel"
+msgstr "Learning objective"
+
+msgid "Aantal vragen"
+msgstr "Number of questions"
+
+msgid "Deze vraaggroep afsluiten"
+msgstr "Close this question group"
+
+msgid "Groepvraag - carrousel "
+msgstr "Group question - carousel "
+
+msgid "Legenda:"
+msgstr "Legend:"
+
+msgid "P-waarde kleiner dan 55"
+msgstr "P value less than 55"
+
+msgid "P-waarde tussen 55 en en 65"
+msgstr "P value between 55 and 65"
+
+msgid "P-waarde groter dan 65"
+msgstr "P value greater than 65"
+
+msgid "<tr><td colspan=\\"9\\">Een moment de relevante data wordt opgezocht...</td></tr>"
+msgstr "<tr> <td colspan = \\ "9 \\"> One moment the relevant data is looked up ... </td> </tr>"
+
+msgid "Voorlees"
+msgstr "Read aloud"
+
+msgid "Oke"
+msgstr "Okay"
+
+msgid "functionaliteit"
+msgstr "functionality"
+
+msgid "Is toegekend én"
+msgstr "Has been awarded one"
+
+msgid "mag hier"
+msgstr "may here"
+
+msgid "momenteel"
+msgstr "currently"
+
+msgid "gebruik van maken"
+msgstr "make use of"
+
+msgid "Toekennen"
+msgstr "Assign"
+
+msgid "Let op, de voorleesfunctionaliteit brengt extra kosten met zich mee, hier wordt jaarlijks"
+msgstr "Please note, the reading functionality entails additional costs, here it is annually"
+
+msgid "euro (excl btw) voor in rekening gebracht."
+msgstr "euros (excluding VAT) will be charged."
+
+msgid "Nieuwe Klas"
+msgstr "New Class"
+
+msgid "Aangeboden klassen bestanden"
+msgstr "Classes of files offered"
+
+msgid "Datum"
+msgstr "Date"
+
+msgid "Docent"
+msgstr "Teacher"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Toetsen"
+msgstr "Tests"
+
+msgid "Code"
+msgstr "Code"
+
+msgid "Behandelaar"
+msgstr "Practitioner"
+
+msgid "Toets uploaden"
+msgstr "Upload Test"
+
+msgid "Aangeboden toets bestanden"
+msgstr "Offered test files"
+
+msgid "Hier kunt u uw toetsmateriaal aanleveren."
+msgstr "Here you can submit your test material."
+
+msgid "Onze toetsenbakkers zorgen ervoor dat deze toetsen z.s.m. klaar staan in uw itembank."
+msgstr "Our Testboardists ensure that these tests are ready in your item bank as soon as possible."
+
+msgid "Klas uploaden"
+msgstr "Upload class"
+
+msgid "Een moment dit kan even duren..."
+msgstr "A moment this may take a while ..."
+
+msgid "Hier kunt u de klassen in een Excel-format uploaden (of een ander spreadsheet format)."
+msgstr "Here you can upload the classes in an Excel format (or another spreadsheet format)."
+
+msgid "Let op"
+msgstr "pay attention"
+
+msgid ": het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: (de gegevens ieder in een eigen kolom)."
+msgstr ": it is important that the file meets the following conditions: (the data each in its own column)."
+
+msgid "Stamnummer"
+msgstr "Teacher number"
+
+msgid "Optioneel maar niet verplicht:"
+msgstr "Optional but not required:"
+
+msgid "Recht op tijdsdispensatie ja of nee"
+msgstr "Right to time dispensation yes or no"
+
+msgid "Tekst2speech-functie aan of uit (er zijn hier additionele kosten aan verbonden)"
+msgstr "Text2speech function on or off (there are additional costs involved)"
+
+msgid "Jaar"
+msgstr "Year"
+
+msgid "Stamklas"
+msgstr "Main school class"
+
+msgid "Type toets"
+msgstr "Type of test"
+
+msgid "Toets naam"
+msgstr "Test name"
+
+msgid "Kies één of meerdere bestanden. (Max."
+msgstr "Select one or more files. (Max."
+
+msgid "Correctiemodel toegevoegd?"
+msgstr "Added correction model?"
+
+msgid "Maak een keuze"
+msgstr "make a choice"
+
+msgid "Nee, dat heb ik nog niet gedaan"
+msgstr "No, I haven't yet"
+
+msgid "Ja, die zit erbij"
+msgstr "Yes, it is included"
+
+msgid "Een enkele of meerdere toetsen?"
+msgstr "Single or multiple Tests?"
+
+msgid "Eén enkele toets "
+msgstr "One single Test"
+
+msgid "Meerdere toetsen"
+msgstr "Multiple Tests"
+
+msgid "U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden."
+msgstr "You have not selected a test and / or correction model. Select one or more files."
+
+msgid "U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width=\\"26\\" height=\\"26\\" viewBox=\\"0 -8 26 26\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>) rechts naast de file(s) om deze te uploaden."
+msgstr "You have chosen files but not yet uploaded them. Click the upload arrow (<svg width = \\ "26 \\" height = \\ "26 \\" viewBox = \\ "0 -8 26 26 \\" xmlns = \\ "http://www.w3.org/2000/svg \\ "> <path d = \\" M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1 -1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z \\ "fill = \\" currentColor \\ "fill-rule = \\" evenodd \\ "/> </svg>) to the right of the file ( s) to upload it."
+
+msgid "Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)"
+msgstr "A correction model must be sent along (see selection menu)"
+
+msgid "Er kan maximaal 1 toets per keer geupload worden (onderste keuzemenu)"
+msgstr "A maximum of 1 Test can be uploaded at a time (bottom selection menu)"
+
+msgid "U heeft geen vaknaam ingevuld"
+msgstr "You have not entered a course name"
+
+msgid "U heeft geen toetsnaam ingevuld"
+msgstr "You have not entered a test name"
+
+msgid "In beheer nemen"
+msgstr "Take control"
+
+msgid "Overnemen"
+msgstr "Taking over"
+
+msgid "Bestand"
+msgstr "File"
+
+msgid "informatie"
+msgstr "information"
+
+msgid "School locatie"
+msgstr "School location"
+
+msgid "Klik om te wijzigen"
+msgstr "Click to change"
+
+msgid "Deze vraag afsluiten"
+msgstr "Close this question"
+
+msgid "Toets direct starten"
+msgstr "Start test immediately"
+
+msgid "Domein.nl"
+msgstr "Domain.nl"
+
+msgid "File"
+msgstr "File"
+
+msgid "Schoolbeheerders"
+msgstr "School administrators"
+
+msgid "Tussenv"
+msgstr "Suffix"
+
+msgid "School gegevens"
+msgstr "School data"
+
+msgid "De status is aangepast"
+msgstr "The status has been adjusted"
+
+msgid "Er is iets fout gegaan bij het aanpassen van de status"
+msgstr "Something went wrong while changing the status"
+
+msgid "De gegevens zijn aangepast"
+msgstr "The data has been adjusted"
+
+msgid "Er is iets fout gegaan bij het aanpassen van de gegevens"
+msgstr "Something went wrong while adjusting the data"
+
+msgid "Toetsbestand"
+msgstr "Test file"
+
+msgid "Kleurcode"
+msgstr "Color code"
+
+msgid "Uitnodiging"
+msgstr "Invitation"
+
+msgid "Originele naam"
+msgstr "Original name"
+
+msgid "Klantcode"
+msgstr "Customer code"
+
+msgid "Uitloggen"
+msgstr "Log out"
+
+msgid "Wachtwoord wijzigen"
+msgstr "Change Password"
+
+msgid "Bericht versturen"
+msgstr "To send a message"
+
+msgid "Bericht"
+msgstr "Message"
+
+msgid "Bericht verstuurd"
+msgstr "Message sent"
+
+msgid "Reageren"
+msgstr "Comment"
+
+msgid "QTI import"
+msgstr "QTI import"
+
+msgid "Vakgebied"
+msgstr "Discipline"
+
+msgid "Type toetsen"
+msgstr "Type of Tests"
+
+msgid "Voorloop afkorting voor de toets namen (max 3 karakters)"
+msgstr "Leading abbreviation for the Test names (max 3 characters)"
+
+msgid "Vraag opslaan"
+msgstr "Save question"
+
+msgid "QTI import Batch Cito"
+msgstr "QTI import Batch Cito"
+
+msgid "QTI import Cito"
+msgstr "QTI import Cito"
+
+msgid "ARQ Choice"
+msgstr "ARQ Choice"
+
+msgid "Bespreken in de klas"
+msgstr "Discuss in class"
+
+msgid " Deze vraag vastzetten"
+msgstr "Pin this question"
+
+msgid "Halve punten mogelijk"
+msgstr "Half points possible"
+
+msgid "Openbaar maken"
+msgstr "Disclose"
+
+msgid "Geen kladblok"
+msgstr "No notepad"
+
+msgid "Tekstvlak"
+msgstr "Text area"
+
+msgid "Tekenvlak"
+msgstr "Drawing area"
+
+msgid "Antwoorden"
+msgstr "Answers"
+
+msgid "Tags"
+msgstr "Tags"
+
+msgid "Taxonomie"
+msgstr "Taxonomy"
+
+msgid "Rubriceervraag"
+msgstr "Classification question"
+
+msgid "Punten"
+msgstr "Points"
+
+msgid "Deze vraag vastzetten"
+msgstr "Pin this question"
+
+msgid "Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \\"Mogelijkheden\\"."
+msgstr "There are several options per item on the left, enter one option per line under \\ "Options \\"."
+
+msgid "Mogelijkheden"
+msgstr "Opportunities"
+
+msgid "Optie toevoegen"
+msgstr "Add option"
+
+msgid "Tekst"
+msgstr "Text"
+
+msgid "Geen verticale streepjes (|) toegestaan in gatentekst"
+msgstr "No vertical dashes (|) allowed in hole text"
+
+msgid "Antwoord"
+msgstr "Answer"
+
+msgid "Toevoegen"
+msgstr "Add"
+
+msgid "Vraag toevoegen"
+msgstr "Add question"
+
+msgid "Gesloten vraagtypes"
+msgstr "Closed question types"
+
+msgid "Gesloten gatentekst"
+msgstr "Closed hole text"
+
+msgid "Open vraagtypes"
+msgstr "Open question types"
+
+msgid "Leg uit kort"
+msgstr "Explain briefly"
+
+msgid "Leg uit lang"
+msgstr "Explain long"
+
+msgid "Open gatentekst"
+msgstr "Open hole text"
+
+msgid "Tekenen"
+msgstr "To draw"
+
+msgid "Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1)."
+msgstr "A background image can be stretched if it is not in the correct proportions. The optimal dimensions of an image are 970 x 475 pixels. Try to use the same ratio for different sizes (2: 1)."
+
+msgid "Geen"
+msgstr "No"
+
+msgid "Toetsvraag importeren"
+msgstr "Import test question"
+
+msgid "Id"
+msgstr "Id"
+
+msgid "Termen"
+msgstr "Terms"
+
+msgid "Vraag-groep aanmaken"
+msgstr "Create question group"
+
+msgid "Omschrijving"
+msgstr "Description"
+
+msgid "Deze vraaggroep vastzetten"
+msgstr "Pin this question group"
+
+msgid "Vraaggroep "
+msgstr "Question group "
+
+msgid "Inschrijven webinar"
+msgstr "Register webinar"
+
+msgid "Support mailen"
+msgstr "Email support"
+
+msgid " niet gevonden!"
+msgstr " not found!"
+
+msgid "SchoolKlas"
+msgstr "School Class"
+
+msgid "Ik wil je graag uitnodigen voor het platform Test-Correct. Ik gebruik het al en kan het zeker aanraden. Met Test-Correct kun je digitaal Toetsen en goed samenwerken. Maak jouw gratis account aan en ga aan de slag!"
+msgstr "I would like to invite you to the Test-Correct platform. I already use it and can definitely recommend it. With Test-Correct you can test digitally and work well together. Create your free account and get started!"
+
+msgid "Voer de beveiligingscode in"
+msgstr "Enter the security code"
+
+msgid "Beveiligingscode"
+msgstr "Security code"
+
+msgid "De wachtwoorden komen niet overeen"
+msgstr "Passwords do not match"
+
+msgid "Standaard vraaggroep "
+msgstr "Standard question group "
+
+msgid "Carrousel vraaggroep "
+msgstr "Carousel question group "
+
+msgid "Vragen in deze groep shuffelen"
+msgstr "Shuffle questions in this group"
+
+msgid "Vraag-groep opslaan"
+msgstr "Save question group"
+
+msgid "Vraag-groep aangemaakt"
+msgstr "Question group created"
+
+msgid "Inloggegevens incorrect"
+msgstr "Login details incorrect"
+
+msgid "Info"
+msgstr "Info"
+
+msgid "niet van toepassing"
+msgstr "does not apply"
+
+msgid "Niet van toepassing"
+msgstr "Does not apply"
+
+msgid "Links"
+msgstr "Left"
+
+msgid "Rechts"
+msgstr "Right"
+
+msgid "Juiste antwoord"
+msgstr "Right answer"
+
+msgid "Foutief antwoord"
+msgstr "Wrong answer"
+
+msgid "Open-vraag toevoegen"
+msgstr "Add Essay question"
+
+msgid "Kort"
+msgstr "Short"
+
+msgid "Lang"
+msgstr "Long"
+
+msgid "Rangschik vraag"
+msgstr "Order question"
+
+msgid "Antwoord is:"
+msgstr "The answer is:"
+
+msgid "Juist"
+msgstr "Right"
+
+msgid "Onjuist"
+msgstr "Incorrect"
+
+msgid "Omschrijving / Pad"
+msgstr "Description / Path"
+
+msgid "Instellingen"
+msgstr "Settings"
+
+msgid "Afbeelding uploaden"
+msgstr "Upload image"
+
+msgid "PDF uploaden"
+msgstr "Upload PDF"
+
+msgid "Geluidsfragment uploaden"
+msgstr "Upload sound clip"
+
+msgid "Video toevoegen"
+msgstr "Add video"
+
+msgid "Geluidsfragment"
+msgstr "Sound clip"
+
+msgid "Dit geluidsfragment was éénmalig afspeelbaar en is al beluisterd."
+msgstr "This sound fragment was playable once and has already been listened to."
+
+msgid "Dit apparaat ondersteunt geen geluidsfragmenten."
+msgstr "This device does not support audio clips."
+
+msgid "Dit geluidsfragment is niet te pauzeren en slechts éénmaal te beluisteren."
+msgstr "This sound fragment cannot be paused and can only be played once."
+
+msgid "Dit geluidsfragment is niet te pauzeren."
+msgstr "This sound clip cannot be paused."
+
+msgid "Dit geluidsfragment is slechts éénmaal te beluisteren."
+msgstr "This sound fragment can only be heard once."
+
+msgid " Na sluiten van dit geluidsfragment heb je slechts "
+msgstr " After closing this sound clip you only have "
+
+msgid " seconden om de vraag te beantwoorden"
+msgstr " seconds to answer the question"
+
+msgid "Speelt af.. (pauzeer)"
+msgstr "Plays .. (pause)"
+
+msgid "Pauzeerbaar"
+msgstr "Can be paused"
+
+msgid "Eenmalig afspelen"
+msgstr "Play once"
+
+msgid "Afspelen"
+msgstr "Play"
+
+msgid "Er is een fout opgetreden bij het laden van dit geluidsfragment."
+msgstr "There was an error loading this audio clip."
+
+msgid "Afgespeeld"
+msgstr "Played"
+
+msgid "Seconden voor antwoord"
+msgstr "Seconds to reply"
+
+msgid "Videofragment"
+msgstr "Video fragment"
+
+msgid "URL"
+msgstr "URL"
+
+msgid "Antwoord wijzigen"
+msgstr "Change answer"
+
+msgid "Delen Openbaar maken"
+msgstr "Share Make Public"
+
+msgid "Vraag-groep opgeslagen"
+msgstr "Question group saved"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Auteur(s)"
+msgstr "Author (s)"
+
+msgid "Verplaats naar groep"
+msgstr "Move to group"
+
+msgid "Groep"
+msgstr "Group"
+
+msgid "Geen voorbeeld"
+msgstr "No preview"
+
+msgid "Er is geen voorbeeld weergave voor een vraag-groep."
+msgstr "There is no preview for a question group."
+
+msgid "antwoorden"
+msgstr "answers"
+
+msgid "Matrix subtype ONBEKEND"
+msgstr "Matrix subtype UNKNOWN"
+
+msgid "kort"
+msgstr "short"
+
+msgid "lang"
+msgstr "long"
+
+msgid "In de nabije toekomst zullen wij Test-Correct uitbreiden met de Nationale Itembank. U krijgt dan de mogelijkheid om items van uw vakcollega’s uit het hele land te gebruiken."
+msgstr "In the near future we will expand Test-Correct with the National Item Bank. You will then be able to use items from your colleagues from all over the country."
+
+msgid "Als deze optie is aangevinkt geeft u uw vakcollega’s (buiten uw school) de mogelijkheid om dit item te vinden in de Nationale Itembank en te gebruiken binnen hun eigen toets."
+msgstr "If this option is checked, you give your subject colleagues (outside your school) the opportunity to find this item in the National Item Bank and use it within their own test."
+
+msgid "U blijft overigens auteur van dit item. U blijft de zeggenschap houden, ook als u wenst te delen met uw collega’s."
+msgstr "You remain the author of this item. You remain in control, even if you wish to share with your colleagues."
+
+msgid "Bijlages"
+msgstr "Attachments"
+
+msgid "Groep vragen"
+msgstr "Group questions"
+
+msgid "RTTI import"
+msgstr "RTTI import"
+
+msgid "Email domein"
+msgstr "Email domain"
+
+msgid "Scheidingsteken"
+msgstr "Separator"
+
+msgid "Gegevens importeren"
+msgstr "Import data"
+
+msgid "U heeft nog geen schooljaren"
+msgstr "You have no school years yet"
+
+msgid "Calibratie starten"
+msgstr "Start calibration"
+
+msgid "Niveau-jaar"
+msgstr "Level year"
+
+msgid "Schooljaar"
+msgstr "School year"
+
+msgid "LVS"
+msgstr "Student administration system"
+
+msgid "Klas niet overschrijven"
+msgstr "Do not overwrite class"
+
+msgid "Klas aangemaakt"
+msgstr "Class created"
+
+msgid "Koppelen"
+msgstr "Share"
+
+msgid "Gebruiker"
+msgstr "User"
+
+msgid "Gebruiker gekoppeld"
+msgstr "User linked"
+
+msgid "Gebruiker kon niet worden aangemaakt"
+msgstr "User could not be created"
+
+msgid "Wachtwoord"
+msgstr "Password"
+
+msgid "Geen, locatie is eindklant"
+msgstr "None, location is end customer"
+
+msgid "Gebruiker aangemaakt"
+msgstr "User created"
+
+msgid "Klas is gewijzigd"
+msgstr "Class has changed"
+
+msgid "Nieuw wachtwoord"
+msgstr "New password"
+
+msgid "Studenten import"
+msgstr "Student import"
+
+msgid "Data"
+msgstr "Data"
+
+msgid "Zet default kolom headers!!"
+msgstr "Set default column headers !!"
+
+msgid "Onderhoudsvensters"
+msgstr "Maintenance windows"
+
+msgid "Studenten importeren"
+msgstr "Import students"
+
+msgid "negeren"
+msgstr "ignore"
+
+msgid "Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op."
+msgstr "Something went wrong while converting, <br /> Please try again and if the problem persists please contact us."
+
+msgid "Weet u het zeker?',"
+msgstr "Are you sure?',"
+
+msgid "Weet u zeker dat u deze rij wil verwijderen?"
+msgstr "Are you sure you want to delete this row?"
+
+msgid "stamnummer"
+msgstr "base number"
+
+msgid "voornaam"
+msgstr "First Name"
+
+msgid "tussenvoegsel"
+msgstr "insertion"
+
+msgid "achternaam"
+msgstr "last name"
+
+msgid "email"
+msgstr "e-mail"
+
+msgid "Er dient een klas gekozen te worden"
+msgstr "A class must be chosen"
+
+msgid "De studenten zijn succesvol geimporteerd"
+msgstr "The students have been successfully imported"
+
+msgid "De import bevat duplicaten in de import file zelf (blauw)"
+msgstr "The import contains duplicates in the import file itself (blue)"
+
+msgid "De import duplicaten reeds in de database (oranje)"
+msgstr "The import duplicates already in the database (orange)"
+
+msgid "Duplicaten reeds in de database (oranje)"
+msgstr "Duplicates already in the database (orange)"
+
+msgid "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)"
+msgstr "The domain of the specified email address is not configured for email addresses (red)"
+
+msgid "De externe code bestaat al voor deze schoollocatie(rood)"
+msgstr "The external code already exists for this school location (red)"
+
+msgid "Deze docent zit al in deze schoollocatie (rood)"
+msgstr "This teacher is already in this school location (red)"
+
+msgid "De kolom "
+msgstr "The column"
+
+msgid " is verplicht."
+msgstr "is mandatory."
+
+msgid "Deze import bevat dubbele"
+msgstr "This import contains duplicates"
+
+msgid "duplicate"
+msgstr "duplicate"
+
+msgid "amparsand"
+msgstr "amparsand"
+
+msgid "De demoklas kan niet aangepast of verwijderd worden"
+msgstr "The demo class cannot be edited or deleted"
+
+msgid "Emailadres"
+msgstr "E-mail address"
+
+msgid "Nieuwe toevoegen"
+msgstr "Add new"
+
+msgid "Bestaande koppelen"
+msgstr "Linking existing"
+
+msgid "Student toevoegen"
+msgstr "Add student"
+
+msgid "Docent toevoegen"
+msgstr "Add teacher"
+
+msgid "Nee"
+msgstr "No"
+
+msgid "Gerelateerd"
+msgstr "Related"
+
+msgid "Mentor(en)"
+msgstr "Mentor (s)"
+
+msgid "Teamleiders / coördinators"
+msgstr "Team leaders / coordinators"
+
+msgid "Accountmanager"
+msgstr "Account manager"
+
+msgid "Cijfermodel"
+msgstr "Numerical model"
+
+msgid "Contact actief"
+msgstr "Contract active"
+
+msgid "Contract is actief"
+msgstr "Contract is active"
+
+msgid "Aantal Studenten"
+msgstr "Number of students"
+
+msgid "Aantal docenten"
+msgstr "Number of teachers"
+
+msgid "Brin code"
+msgstr "Brin code"
+
+msgid "Locatie brin code"
+msgstr "Location brin code"
+
+msgid "Is rtti school location"
+msgstr "Is rtti school location"
+
+msgid "Is RTTI school"
+msgstr "Is RTTI school"
+
+msgid "Is RTTI"
+msgstr "Is RTTI"
+
+msgid "Toetsen in nieuwe speler"
+msgstr "Tests in new player available"
+
+msgid "Niet toestaan"
+msgstr "Not allowed"
+
+msgid "Beide spelers aanbieden"
+msgstr "Offer both players"
+
+msgid "Alleen nieuwe speler"
+msgstr "New player only"
+
+msgid "Open source content creator"
+msgstr "Open source content creator"
+
+msgid "Mag open source content bekijken"
+msgstr "May view open source content"
+
+msgid "Vestigingsadres"
+msgstr "Business address"
+
+msgid "Factuuradres"
+msgstr "Billing address"
+
+msgid "Bezoekadres"
+msgstr "visiting address"
+
+msgid "School aangemaakt"
+msgstr "School created"
+
+msgid "IP toevoegen"
+msgstr "Add IP"
+
+msgid "Ip"
+msgstr "Ip"
+
+msgid "Netmask"
+msgstr "Netmask"
+
+msgid "IP toegevoegd"
+msgstr "IP added"
+
+msgid "IP kon niet worden aangemaakt"
+msgstr "IP could not be created"
+
+msgid "Licentiepakket"
+msgstr "License package"
+
+msgid "Licenties"
+msgstr "Licenses"
+
+msgid "Startdatum"
+msgstr "Start date"
+
+msgid "Einddatum"
+msgstr "End date"
+
+msgid "Licentiepakket aangemaakt"
+msgstr "License package created"
+
+msgid "Licentiepakket kon niet worden aangemaakt. Controleer of u alle velden correct heeft ingevuld."
+msgstr "License package could not be created. Check if you have filled in all fields correctly."
+
+msgid "School gemeenschap aanpassen verwijderd de RTTI code"
+msgstr "School community customization removed the RTTI code"
+
+msgid "School gewijzigd"
+msgstr "School changed"
+
+msgid "Licentiepakket kon niet worden aangemaakt"
+msgstr "License package could not be created"
+
+msgid "Nieuwe schoollocatie"
+msgstr "New school location"
+
+msgid "Gemeenschap"
+msgstr "Community"
+
+msgid "Geactiveerd"
+msgstr "Activated"
+
+msgid "Vraagitems"
+msgstr "Question items"
+
+msgid "Actieve docenten"
+msgstr "Active teachers"
+
+msgid "Actieve licenties"
+msgstr "Active Licenses"
+
+msgid "Geen, dit is de eindklant"
+msgstr "None, this is the end customer"
+
+msgid "Voorlees licenties"
+msgstr "Read licenses"
+
+msgid "Technisch"
+msgstr "Technical"
+
+msgid "Financieel"
+msgstr "Financial"
+
+msgid "Implementatie"
+msgstr "Implementation"
+
+msgid "InBrowser toetsen toestaan"
+msgstr "Allow InBrowser buttons"
+
+msgid "ja"
+msgstr "Yes"
+
+msgid "nee"
+msgstr "No"
+
+msgid "Ontnemen"
+msgstr "Take away"
+
+msgid "Toestaan"
+msgstr "Allow"
+
+msgid "Schoolbeheerder toevoegen"
+msgstr "Add school administrator"
+
+msgid "Licentiepakketten"
+msgstr "License packages"
+
+msgid "Aantal"
+msgstr "Number"
+
+msgid "Licentiepakket toevoegen"
+msgstr "Add license package"
+
+msgid "Contactpersonen"
+msgstr "Contacts"
+
+msgid "Telefoon"
+msgstr "Phone"
+
+msgid "Mobiel"
+msgstr "Mobile"
+
+msgid "Contactpersoon toevoegen"
+msgstr "Add contact person"
+
+msgid "IP-adressen"
+msgstr "IP addresses"
+
+msgid "Ip toevoegen"
+msgstr "Add ip"
+
+msgid "Locaties"
+msgstr "Locations"
+
+msgid "Schooljaar aangemaakt"
+msgstr "School year created"
+
+msgid "SchoolYear kon niet worden aangemaakt"
+msgstr "SchoolYear could not be created"
+
+msgid "Datum van"
+msgstr "Date of"
+
+msgid "Datum tot"
+msgstr "Date to"
+
+msgid "Periode aangemaakt"
+msgstr "Period created"
+
+msgid "\\"Datum van\\" moet een datum voor \\"Datum tot\\" zijn."
+msgstr "\\ "Date from \\" must be a date for \\ "Date to \\"."
+
+msgid "Deze data overlapt met andere periode's"
+msgstr "This data overlaps with other periods"
+
+msgid "SchoolYear gewijzigd"
+msgstr "SchoolYear changed"
+
+msgid "Periode gewijzigd"
+msgstr "Period changed"
+
+msgid "Periode kon niet worden gewijzigd"
+msgstr "Period could not be changed"
+
+msgid "Nieuwe Schooljaar"
+msgstr "New School Year"
+
+msgid "Periodes"
+msgstr "Periods"
+
+msgid "Nieuwe periode"
+msgstr "New period"
+
+msgid "Organisatie"
+msgstr "Organization"
+
+msgid "Schoolgemeenschap"
+msgstr "School community"
+
+msgid "Nieuwe school"
+msgstr "New school"
+
+msgid "Scholengemeenschappen"
+msgstr "School communities"
+
+msgid "Klantnummer"
+msgstr "Clientnumber"
+
+msgid "Koepelorganisatie"
+msgstr "Umbrella organization"
+
+msgid "Sectie"
+msgstr "Section"
+
+msgid "Sectie aangemaakt"
+msgstr "Section created"
+
+msgid "Sectie kon niet worden aangemaakt"
+msgstr "Section could not be created"
+
+msgid "School locatie gekoppeld"
+msgstr "School location linked"
+
+msgid "Het koppelen is mislukt, probeer het nogmaals"
+msgstr "Pairing failed, please try again"
+
+msgid "Categorie"
+msgstr "Category"
+
+msgid "Vak aangemaakt"
+msgstr "Box created"
+
+msgid "Vak kon niet worden aangemaakt"
+msgstr "Box could not be created"
+
+msgid "Sectie gewijzigd"
+msgstr "Section changed"
+
+msgid "Vak gewijzigd"
+msgstr "Box changed"
+
+msgid "Vak kon niet worden gewijzigd"
+msgstr "Box could not be changed"
+
+msgid "Nieuwe Sectie"
+msgstr "New Section"
+
+msgid "Vakken"
+msgstr "Subjects"
+
+msgid "Nieuw vak"
+msgstr "New subject"
+
+msgid "Docenten gekoppeld"
+msgstr "Teachers linked to"
+
+msgid "Sectie gedeeld met"
+msgstr "Section shared with"
+
+msgid "School locatie naam"
+msgstr "School location name"
+
+msgid "Nieuwe schoollocatie toevoegen"
+msgstr "Add new school location"
+
+msgid "Weet u zeker dat u deze school locatie wilt ontkoppelen?"
+msgstr "Are you sure you want to disconnect this school location?"
+
+msgid "De school locatie is ontkoppeld"
+msgstr "The school location is unlinked"
+
+msgid "Toets dupliceren"
+msgstr "Duplicate Test"
+
+msgid "Huidige naam"
+msgstr "Current name"
+
+msgid "Nieuwe naam"
+msgstr "New name"
+
+msgid "Dupliceren"
+msgstr "Duplicate"
+
+msgid "De toets is gedupliceerd"
+msgstr "The test is duplicated"
+
+msgid "Toetsitems andere schoollocaties binnen uw scholengemeenschap"
+msgstr "Test items other school locations within your school community"
+
+msgid "Afk"
+msgstr "Abbr"
+
+msgid "Aangeboden bestanden"
+msgstr "Files offered"
+
+msgid "Vak(ken)"
+msgstr "Box (s)"
+
+msgid "Toets plannen"
+msgstr "Schedule Test"
+
+msgid "Surveillanten"
+msgstr "Invigilators"
+
+msgid "Is RTTI"
+msgstr "Is RTTI"
+
+msgid "Notities voor surveillant"
+msgstr "Notes for invigilator"
+
+msgid "Browsertoetsen voor iedereen toestaan"
+msgstr "Allow browser tests for everyone"
+
+msgid "Extra toets plannen"
+msgstr "Schedule an additional test"
+
+msgid "Toetsen plannen"
+msgstr "Schedule Tests"
+
+msgid "Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?"
+msgstr "Are you sure you do not want to export this test to RTTI Online?"
+
+msgid "Vragencarrousel wordt automatisch overgeslagen!"
+msgstr "Question carousel is automatically skipped!"
+
+msgid "Browsertoetsen voor iedereen aan/uit"
+msgstr "Browser tests for everyone on / off"
+
+msgid "Hoge server belasting"
+msgstr "High server load"
+
+msgid "Toets starten Intense"
+msgstr "Start button Intense"
+
+msgid "Start in nieuwe speler"
+msgstr "Start in new player"
+
+msgid "Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten"
+msgstr "It is not possible to view the answer because this question has been closed"
+
+msgid "Lees voor"
+msgstr "read for"
+
+msgid "Toetsen zijn ingepland"
+msgstr "Tests are scheduled"
+
+msgid "Studenten toevoegen"
+msgstr "Add students"
+
+msgid "Selecteer alle"
+msgstr "Select all"
+
+msgid "De-selecteer alle"
+msgstr "De-select all"
+
+msgid "Geselecteerde toevoegen"
+msgstr "Add selected"
+
+msgid "Voeg klas toe"
+msgstr "Add class"
+
+msgid "Selecteer Studenten"
+msgstr "Select Students"
+
+msgid "Plannen"
+msgstr "Plan"
+
+msgid "Inhaaltoets plannen"
+msgstr "Schedule catch-up test"
+
+msgid "Inhaal-toets maken"
+msgstr "Make an overtaking test"
+
+msgid "Inhaaltoets van"
+msgstr "Make-up test from"
+
+msgid "Inhaal toets"
+msgstr "Pop quiz"
+
+msgid "Surveillant notities"
+msgstr "Invigilator notes"
+
+msgid "Gemaakt"
+msgstr "Made"
+
+msgid "Inhaaltoets gepland"
+msgstr "Catch-up test planned"
+
+msgid "Selecteer minimaal 1 surveillant"
+msgstr "Select at least 1 security guard"
+
+msgid "Er ging iets mis"
+msgstr "Something went wrong"
+
+msgid "Toets in PDF"
+msgstr "Test in PDF"
+
+msgid "Toetsen inzien"
+msgstr "View tests"
+
+msgid "Notities surveillant"
+msgstr "Invigilator notes"
+
+msgid "Afname-datum"
+msgstr "Collection date"
+
+msgid "Inzien tot"
+msgstr "View up to"
+
+msgid "Toets bespreken"
+msgstr "Discuss test"
+
+msgid "Er is geen toets om te bespreken."
+msgstr "There is no test to discuss."
+
+msgid "Bespreking beéindigen"
+msgstr "End discussion"
+
+msgid "Bespreken"
+msgstr "Discuss"
+
+msgid "Antwoordmodel"
+msgstr "Answer model"
+
+msgid "Reset antwoordmodel"
+msgstr "Reset answer model"
+
+msgid "Geplande toets wijzigen"
+msgstr "Change scheduled test"
+
+msgid "Instructies"
+msgstr "Instructions"
+
+msgid "Gebeurtenissen"
+msgstr "Events"
+
+msgid "Gebeurtenis"
+msgstr "Event"
+
+msgid "Tijd"
+msgstr "Time"
+
+msgid "SCORE"
+msgstr "SCORE"
+
+msgid "Jouw antwoord"
+msgstr "Your answer"
+
+msgid "Standaard"
+msgstr "Standard"
+
+msgid "Inhaaltoets"
+msgstr "Overtaking Test"
+
+msgid "Toets maken"
+msgstr "Take a test"
+
+msgid "Nu afnemen"
+msgstr "Now decline"
+
+msgid "Exporteren / Printen"
+msgstr "Export / Print"
+
+msgid "Openen"
+msgstr "Open"
+
+msgid "Archiveren"
+msgstr "Archive"
+
+msgid "Dearchiveer"
+msgstr "Dearchive"
+
+msgid "Antwoorden PDF"
+msgstr "Reply PDF"
+
+msgid "Meteen naar nakijken"
+msgstr "Check it immediately"
+
+msgid "Normering opslaan"
+msgstr "Save standards"
+
+msgid "Normeren"
+msgstr "Standardize"
+
+msgid "Normering"
+msgstr "Standardization"
+
+msgid "Er zijn geen punten om mee te rekenen. Daarom is het niet mogelijk een normering te kiezen."
+msgstr "There are no points to count. It is therefore not possible to choose a standard."
+
+msgid "Goed per punt"
+msgstr "Good per point"
+
+msgid "Fouten per punt"
+msgstr "Errors per point"
+
+msgid "Normeren o.b.v. gemiddeld cijfer"
+msgstr "Standardization based on average grade"
+
+msgid "Gemiddeld cijfer"
+msgstr "Average grade"
+
+msgid "Normeren o.b.v. n-term"
+msgstr "Standardization based on n term"
+
+msgid "N-term:"
+msgstr "N term:"
+
+msgid "Normeren o.b.v. cesuur"
+msgstr "Standardization based on caesura"
+
+msgid "Cesuur:"
+msgstr "Cesuur:"
+
+msgid "Beoordelingen"
+msgstr "Reviews"
+
+msgid "Gem. score"
+msgstr "Avg. score"
+
+msgid "Max score"
+msgstr "Max score"
+
+msgid "Overslaan"
+msgstr "Skip"
+
+msgid "Gemiddelde"
+msgstr "Average"
+
+msgid "Tijdsdispensatie"
+msgstr "Time dispensation"
+
+msgid "Tekst-naar-spraak"
+msgstr "Text-to-speech"
+
+msgid "Vragen beantwoord"
+msgstr "Questions answered"
+
+msgid "Tijd per vraag"
+msgstr "Time per question"
+
+msgid "Huidige vraag"
+msgstr "Current question"
+
+msgid "Notities opslaan"
+msgstr "Save notes"
+
+msgid "Ingepland door"
+msgstr "Scheduled by"
+
+msgid "Toetsen afnemen"
+msgstr "Administer tests"
+
+msgid "Gepland van"
+msgstr "Scheduled from"
+
+msgid "Gepland tot"
+msgstr "Scheduled until"
+
+msgid "Alle antwoorden weergeven"
+msgstr "Show all answers"
+
+msgid "voorbeeld"
+msgstr "example"
+
+msgid "Voorbeeld nieuwe speler"
+msgstr "Example new player"
+
+msgid "Laden.."
+msgstr "Load.."
+
+msgid "antwoordmodel"
+msgstr "answer model"
+
+msgid "Volgende"
+msgstr "Next one"
+
+msgid "Student antwoord"
+msgstr "Student answer"
+
+msgid "Notitie inzien"
+msgstr "View note"
+
+msgid "Gearchiveerd"
+msgstr "Archived"
+
+msgid "Vakdocent"
+msgstr "Subject teacher"
+
+msgid "Aanwezig"
+msgstr "Present"
+
+msgid "Afwezig"
+msgstr "Absent"
+
+msgid "Geen informatie voor deze Student"
+msgstr "No information for this Student"
+
+msgid "Cijfer voor deze toets"
+msgstr "Grade for this test"
+
+msgid "Cijfer voor dit vak"
+msgstr "Grade for this course"
+
+msgid "Tijd totaal"
+msgstr "Time total"
+
+msgid "Duurde het langst"
+msgstr "Took the longest"
+
+msgid "Geen notities"
+msgstr "No notes"
+
+msgid "Een ogenblik geduld"
+msgstr "Please wait"
+
+msgid "Toets bekijken"
+msgstr "View test"
+
+msgid "Becijferde toetsen"
+msgstr "Graded Tests"
+
+msgid "RTTI is verstuurd. U kunt dit venster sluiten."
+msgstr "RTTI has been sent. You can close this window."
+
+msgid "Los eerst bovenstaande fouten op voor dat de toets geexporteerd kan worden naar RTTI"
+msgstr "First solve the above errors before the test can be exported to RTTI"
+
+msgid "Selecteer toets"
+msgstr "Select Test"
+
+msgid "Selecteer geplande toets"
+msgstr "Select scheduled test"
+
+msgid "Becijferd markeren"
+msgstr "Mark graded"
+
+msgid "Becijferen"
+msgstr "Grading"
+
+msgid "Gepland"
+msgstr "Scheduled"
+
+msgid "Geplande toets"
+msgstr "Scheduled test"
+
+msgid "Klas(sen)"
+msgstr "Class (es)"
+
+msgid "Vorige beoordeling"
+msgstr "Previous review"
+
+msgid "Beoordeling"
+msgstr "Review"
+
+msgid "Aangepaste beoordeling"
+msgstr "Custom rating"
+
+msgid "Bespreking starten"
+msgstr "Start meeting"
+
+msgid "Wilt u de gesloten vragen overslaan of bespreken?"
+msgstr "Would you like to skip or discuss the closed questions?"
+
+msgid "Meerdere toets-afnames starten"
+msgstr "Start multiple tests"
+
+msgid "Normaal"
+msgstr "Normal"
+
+msgid "Inhalen"
+msgstr "Catch up"
+
+msgid "Toetsen nu afnemen"
+msgstr "Take tests now"
+
+msgid "Nakijken starten"
+msgstr "Start checking"
+
+msgid "Alles per vraag"
+msgstr "Everything per question"
+
+msgid "Alles per Student"
+msgstr "Everything per Student"
+
+msgid "Steekproef"
+msgstr "Sample"
+
+msgid "Starten"
+msgstr "Starting"
+
+msgid "Surveillance"
+msgstr "Surveillance"
+
+msgid "Er zijn geen toetsen om te surveilleren"
+msgstr "There are no tests to supervise"
+
+msgid "Voortgang"
+msgstr "Progress"
+
+msgid "Innemen"
+msgstr "Ingest"
+
+msgid "Huidige tijd"
+msgstr "Present time"
+
+msgid "Voortgang Studenten"
+msgstr "Progress Students"
+
+msgid "Door de hoge serverbelasting wordt het surveillance scherm tijdelijk niet geupdate."
+msgstr "Due to the high server load, the surveillance screen is temporarily not updated."
+
+msgid "U bent aan het surveilleren, weet u het zeker?"
+msgstr "You're patrolling, are you sure?"
+
+msgid "Naar smartboard weergave"
+msgstr "Smartboard view"
+
+msgid "Naar surveillant weergave"
+msgstr "Invigilator view"
+
+msgid "Klas ABC - Geschiedenis Toets 1"
+msgstr "Class ABC - History Test 1"
+
+msgid "Vraag beoordelen"
+msgstr "Assess question"
+
+msgid "Beoordeling opslaan"
+msgstr "Save assessment"
+
+msgid "Je dient eerst een beoordeling te geven"
+msgstr "You must first rate"
+
+msgid "Bespreken is nog niet gestart, wacht op de docent.."
+msgstr "Discussion has not started yet, please wait for the teacher ..."
+
+msgid "Moment geduld.."
+msgstr "Please wait ..."
+
+msgid "Wacht tot de docent de volgende vraag toont."
+msgstr "Wait for the teacher to display the next question."
+
+msgid "Bespreking is afgerond"
+msgstr "Discussion has been concluded"
+
+msgid "De bespreking is afgerond."
+msgstr "The discussion has been completed."
+
+msgid "Deze toets is nog niet gestart, wacht op de surveillant.."
+msgstr "This test has not yet started, please wait for the invigilator."
+
+msgid "Toets starten"
+msgstr "Start test"
+
+msgid "Toets is afgerond"
+msgstr "Test has been completed"
+
+msgid "Deze toets is afgerond en kan niet meer worden geopend."
+msgstr "This test has been completed and can no longer be opened."
+
+msgid "Te bespreken toetsen"
+msgstr "Tests Under-Review"
+
+msgid "Na te kijken"
+msgstr "Check"
+
+msgid "Inzien door Studenten"
+msgstr "View by Students"
+
+msgid "Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien."
+msgstr "Enable students to view the result of their own test."
+
+msgid " Mogelijkheid tot inzien activeren"
+msgstr "Activate the option to view"
+
+msgid "Inzien mogelijk tot"
+msgstr "Viewing possible until"
+
+msgid "Niet laten inzien"
+msgstr "Do not show"
+
+msgid "Toepassen"
+msgstr "Apply"
+
+msgid "Analyseren"
+msgstr "Analyze"
+
+msgid "Evalueren"
+msgstr "Evaluate"
+
+msgid "Creëren"
+msgstr "Create"
+
+msgid "Dichtzetten"
+msgstr "Close"
+
+msgid "Openzetten"
+msgstr "Open it up"
+
+msgid "RTTI-Export"
+msgstr "RTTI-Export"
+
+msgid "Inhaal-toets plannen"
+msgstr "Schedule make-up test"
+
+msgid "Na te kijken toets"
+msgstr "Review test"
+
+msgid "Normale toets"
+msgstr "Normal Test"
+
+msgid "Gepland door"
+msgstr "Scheduled by"
+
+msgid "Laatste RTTI export"
+msgstr "Latest RTTI export"
+
+msgid "Nog niet geëxporteerd"
+msgstr "Not yet exported"
+
+msgid "Vragen na te kijken"
+msgstr "Questions to check"
+
+msgid "Score / Max"
+msgstr "Score / Max"
+
+msgid "Veroorzaakte discrepanties"
+msgstr "Caused discrepancies"
+
+msgid "Toets met succes naar RTTI verzonden."
+msgstr "Test sent to RTTI successfully."
+
+msgid "Toets afnemen"
+msgstr "Take a test"
+
+msgid "Surveillanten wijzigen"
+msgstr "Security guards change"
+
+msgid "Becijferde toets"
+msgstr "Graded test"
+
+msgid "Hoogste:"
+msgstr "Highest:"
+
+msgid "Laagste:"
+msgstr "Lowest:"
+
+msgid "Boxplot"
+msgstr "Box plot"
+
+msgid "Niet voldoende gegevens"
+msgstr "Not enough data"
+
+msgid "Doen"
+msgstr "Do"
+
+msgid "uw schoolmail"
+msgstr "your school mail"
+
+msgid "Browsertoetsen aan/uit"
+msgstr "Browsertoetsen aan/uit"
+
+msgid "Welke afkorting wordt voor u gebruikt binnen uw school?"
+msgstr "Which abbreviation is used for you within your school?"
+
+msgid "Let op! Als browsertoetsen aanstaat, dan kan de student de toets maken zonder de beveiligde studenten app. In de browser kunnen wij het gebruik van andere apps niet blokkeren."
+msgstr "Pay attention! If browser tests are enabled, the student can take the test without the secure student app. We cannot block the use of other apps in the browser."
+
+msgid "Lees meer op de Kennisbank"
+msgstr "Read more on the Knowledge Base"
+
+msgid "Toets resultaten"
+msgstr "Test results"
+
+msgid "Afgenomen toets"
+msgstr "Test taken"
+
+msgid "Vandaag geen geplande toetsen"
+msgstr "No scheduled tests today"
+
+msgid "Nu maken"
+msgstr "Create now"
+
+msgid "Er zijn nog geen cijfers bekend."
+msgstr "No figures are available yet."
+
+msgid "Toets aanmaken"
+msgstr "Create Test"
+
+msgid "Er zijn nog geen vakken aan uw account gekoppeld, hierdoor kunt u geen toets aanmaken."
+msgstr "There are no courses linked to your account yet, so you cannot create a test."
+
+msgid "(max 5 karakters)"
+msgstr "(max 5 characters)"
+
+msgid "Vragen shuffelen"
+msgstr "Shuffle questions"
+
+msgid "Shuffle vragen tijdens afname"
+msgstr "Shuffle questions during administration"
+
+msgid "Open source toets"
+msgstr "Open source Test"
+
+msgid "Introductie-tekst"
+msgstr "Introduction"
+
+msgid "Toets aangemaakt"
+msgstr "Test created"
+
+msgid "De gekozen titel is al in gebruik. Gebruik een unieke titel."
+msgstr "The chosen title is already in use. Use a unique title."
+
+msgid "Toets kon niet worden aangemaakt"
+msgstr "Test could not be created"
+
+msgid "Toets wijzigen"
+msgstr "Change Test"
+
+msgid "Toets gewijzigd"
+msgstr "Test changed"
+
+msgid "Fout bij het wijzigen van de toets"
+msgstr "Error changing the Test"
+
+msgid "Toets construeren"
+msgstr "Create Test"
+
+msgid "Titel (trefwoord)"
+msgstr "Title (keyword)"
+
+msgid "Toetsitems binnen uw schoollocatie"
+msgstr "Test items within your school location"
+
+msgid "Inplannen niet mogelijk"
+msgstr "Scheduling not possible"
+
+msgid "Belangrijk"
+msgstr "Important"
+
+msgid "Bijlages vraag"
+msgstr "Attachments question"
+
+msgid "Selecteer de bijlages die u mee wilt printen."
+msgstr "Select the attachments you want to print."
+
+msgid "Print PDF"
+msgstr "Print PDF"
+
+msgid "Toets voorbeeld"
+msgstr "Test example"
+
+msgid "Beoordelen"
+msgstr "Judge"
+
+msgid "Bij het destileren van wijn scheidt je de alcohol van het water. Geef met een cirkel aan waar de alcohol uitkomt."
+msgstr "When distilling wine, you separate the alcohol from the water. Indicate with a circle where the alcohol comes out."
+
+msgid "én of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken."
+msgstr "One or more questions are duplicated in this test. Adjust the Test to enable scheduling."
+
+msgid "Let op: alle vragen hebben een score 0, na de toetsafname kan hierdoor geen score/cijfer berekend worden."
+msgstr "Please note: all questions have a score of 0, so no score / grade can be calculated after the test."
+
+msgid "Besprk"
+msgstr "Discuss"
+
+msgid "Organisatie aangemaakt"
+msgstr "Organization created"
+
+msgid "Organisatie kon niet worden aangemaakt"
+msgstr "Organization could not be created"
+
+msgid "Organisatie gewijzigd"
+msgstr "Organization changed"
+
+msgid "Nieuwe koepelorganisatie"
+msgstr "New umbrella organization"
+
+msgid "Eindklant"
+msgstr "End customer"
+
+msgid "Aantal licenties"
+msgstr "Number of licenses"
+
+msgid "Vraagitems gecreëerd"
+msgstr "Question items created"
+
+msgid "In dienst van"
+msgstr "Employed by"
+
+msgid "Controleer of alle gegevens correct zijn."
+msgstr "Make sure all information is correct."
+
+msgid "Docenten van andere locaties toevoegen"
+msgstr "Add teachers from other locations"
+
+msgid "Stammnummer"
+msgstr "Root number"
+
+msgid "Directielid"
+msgstr "Board member"
+
+msgid "Scholengemeens"
+msgstr "School-Common"
+
+msgid "Ouder"
+msgstr "Older"
+
+msgid "Ouder aangemaakt"
+msgstr "Created older"
+
+msgid "Ouder kon niet worden aangemaakt"
+msgstr "Parent could not be created"
+
+msgid "Geslacht"
+msgstr "Gender"
+
+msgid "Studentennummer"
+msgstr "Student number"
+
+msgid "Dit is de eindklant"
+msgstr "This is the end customer"
+
+msgid "Dyslexie"
+msgstr "Dyslexia"
+
+msgid "Studentnummer is al in gebruik"
+msgstr "Student number is already in use"
+
+msgid "Het opgegeven e-mailadres is al in gebruik of onvolledig"
+msgstr "The specified e-mail address is already in use or incomplete"
+
+msgid "Onvolledig"
+msgstr "Incomplete"
+
+msgid "Niet alle items geplaatst"
+msgstr "Not all items posted"
+
+msgid "Maar 1 item per blok plaatsen"
+msgstr "Only place 1 item per block"
+
+msgid "Externe code"
+msgstr "External code"
+
+msgid "E-mailadres al in gebruik"
+msgstr "Email address already in use"
+
+msgid "U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt."
+msgstr "You can only create a teacher after you have created a current period. You do this by creating a school year with a period that falls within the current period in the menu Database -> School years."
+
+msgid "Mededeling"
+msgstr "Statement"
+
+msgid "Je kunt nog geen klassen en toetsen uploaden omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je je klassen en toetsen wel uploaden. We sturen je een bericht zodra we je gekoppeld hebben aan je school."
+msgstr "You cannot upload classes and tests yet because you are in a temporary school. Once we have moved you to your school, you can upload your classes and tests. We will send you a message as soon as we have linked you to your school."
+
+msgid "Ok"
+msgstr "OK"
+
+msgid "Wijzig het wachtwoord van de gebruiker"
+msgstr "Change the user's password"
+
+msgid "Herhaal wachtwoord"
+msgstr "repeat password"
+
+msgid "Gebruiker gewijzigd"
+msgstr "User changed"
+
+msgid "Er is iets niet goed gegaan bij het wijzigen van de gegevens"
+msgstr "Something went wrong when changing the data"
+
+msgid "Schoolgem"
+msgstr "Schoolgem"
+
+msgid "Registratie voor Test-Correct.nl"
+msgstr "Registration for Test-Correct.nl"
+
+msgid "Account gewijzigd"
+msgstr "Account changed"
+
+msgid "Gebruiker a kon niet worden Gewijzigd"
+msgstr "User a could not be Modified"
+
+msgid "Docenten import"
+msgstr "Teacher import"
+
+msgid "Plak je excel data hier..."
+msgstr "Paste your excel data here ..."
+
+msgid "opgelagen filters"
+msgstr "saved filters"
+
+msgid "Direct afnemen"
+msgstr "Purchase immediately"
+
+msgid "importeren"
+msgstr "import"
+
+msgid " docenten importeren?"
+msgstr "import teachers?"
+
+msgid "Koppeling klasnaam"
+msgstr "Class name association"
+
+msgid "klasnaam"
+msgstr "school class name"
+
+msgid "Koppeling welk vak"
+msgstr "Link which course"
+
+msgid "De docenten zijn succesvol geimporteerd"
+msgstr "The teachers have been imported successfully"
+
+msgid "<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>"
+msgstr "<ul> <li> The import contains duplicates (conflicts marked as blue) </li> </ul>"
+
+msgid "De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)"
+msgstr "The column [E-mail address] is empty (but mandatory) or contains values \u200b\u200bwith international characters (marked with red)"
+
+msgid "De kolom ["
+msgstr "The column ["
+
+msgid "] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood)."
+msgstr "] contains values that are not in the database !, (conflicts marked in red)."
+
+msgid "De kolom ["
+msgstr "The column ["
+
+msgid "De kolom "
+msgstr "The column "
+
+msgid " is verplicht."
+msgstr " is mandatory."
+
+msgid "] bevat waarden die niet in de database voorkomen, (conflicten gemarkeerd in rood)."
+msgstr "] contains values \u200b\u200bthat are not in the database (conflicts marked in red)."
+
+msgid "Verstuur welkomstmail"
+msgstr "Send welcome email"
+
+msgid "Bestaande docent koppelen"
+msgstr "Link existing teacher"
+
+msgid "Importeren"
+msgstr "Import"
+
+msgid "Accounts"
+msgstr "Accounts"
+
+msgid "Licenties totaal"
+msgstr "Licenses total"
+
+msgid "Licenties actief"
+msgstr "Licenses active"
+
+msgid "Overplaatsen"
+msgstr "Transfer"
+
+msgid "Je kunt een demo gebruiker niet verwijderen"
+msgstr "You cannot delete a demo user"
+
+msgid "Je kunt deze gebruiker niet wijzigen"
+msgstr "You cannot change this user"
+
+msgid "Je kunt een demo gebruiker niet verplaatsen"
+msgstr "You cannot move a demo user"
+
+msgid "Niet geverifieerd"
+msgstr "Not verified"
+
+msgid "Geverifieerd"
+msgstr "Verified"
+
+msgid "Inloggen op Test-Correct"
+msgstr "Log in to Test-Correct"
+
+msgid "Selenium Test is actief"
+msgstr "Selenium Test is active"
+
+msgid "Gebruikersnaam"
+msgstr "User name"
+
+msgid "Test login"
+msgstr "Test login"
+
+msgid "Inloggen"
+msgstr "login"
+
+msgid "Wachtwoord vergeten"
+msgstr "Forgot your password"
+
+msgid "Selenium test is actief"
+msgstr "Selenium test is active"
+
+msgid "Je bent ingelogd"
+msgstr "You are logged in"
+
+msgid "Wegens werkzaamheden op onze servers, is Test-Correct niet beschikbaar tot 25 augustus. Onze excuses voor het ongemak."
+msgstr "Due to work on our servers, Test-Correct is not available until August 25th. We apologize for the inconvenience."
+
+msgid "Gebruiker overgeplaatst"
+msgstr "User transferred"
+
+msgid "Verplaats"
+msgstr "Move"
+
+msgid "Huidige schoollocatie"
+msgstr "Current school location"
+
+msgid "Gebruiker kon niet worden verplaatst, bevat de target school al een valide docentenaccount?"
+msgstr "User could not be moved, does the target school already have a valid teacher account?"
+
+msgid "Voormalig wachtwoord"
+msgstr "Old password"
+
+msgid "Herhaal nieuw wachtwoord"
+msgstr "Repeat new password"
+
+msgid "Supportpagina"
+msgstr "Support page"
+
+msgid "Te verwerken toetsen"
+msgstr "Test process"
+
+msgid "Uploaden toets"
+msgstr "Upload Test"
+
+msgid "Wachtwoord gewijzigd"
+msgstr "Password changed"
+
+msgid "We hebben nog wat gegevens van je nodig"
+msgstr "We need some more information from you"
+
+msgid "Registreer voor Test-Correct"
+msgstr "Register for Test-Correct"
+
+msgid "Je gegevens zijn opgeslagen"
+msgstr "Your data has been saved"
+
+msgid "Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan"
+msgstr "Your account has been created, click OK to go to the login screen"
+
+msgid "Registreer voor Test-Correct.nl"
+msgstr "Register for Test-Correct.nl"
+
+msgid "Dank je wel voor je aanmelding!"
+msgstr "Thank you for registering!"
+
+msgid "We hebben jouw aanvraag ontvangen. Je ontvangt binnen enkele minuten een e-mail met inloggegevens voor Test-Correct. Hiermee kun je direct aan de slag in de demo-omgeving."
+msgstr "We have received your request. You will receive an e-mail with login details for Test-Correct within a few minutes. With this you can get started right away in the demo environment."
+
+msgid "Een welgemeend advies: begin bij de demo tour!"
+msgstr "A sincere advice: start with the demo tour!"
+
+msgid "Wij gaan dan intussen je gegevens verifiëren. Dit is een noodzakelijke controle, voordat we je toegang geven tot de itembank van je school, waar je samen kunt werken met je vakcollega’s. We gaan na of je daadwerkelijk les geeft op de genoemde schoollocatie. Mocht het voor je gevoel te lang duren voordat je de welkomstmail met je inloggegevens ontvangt, neem dan contact op met ons via: support@test-correct.nl"
+msgstr "We will then verify your data in the meantime. This is a necessary check before we give you access to the item bank of your school, where you can work together with your subject colleagues. We will check whether you actually teach at the school location mentioned. If you feel it takes too long before you receive the welcome email with your login details, please contact us at: support@test-correct.nl"
+
+msgid "Heel veel plezier en succes met het gebruik van Test-Correct!"
+msgstr "Have fun and good luck using Test-Correct!"
+
+msgid "Leerlingnummer"
+msgstr "Student number"
+
+msgid "Man"
+msgstr "man"
+
+msgid "Vrouw"
+msgstr "Woman"
+
+msgid "Wachtwoord herhaal"
+msgstr "Repeat password"
+
+msgid "Account aangemaakt"
+msgstr "Account created"
+
+msgid "Je wachtwoord kon niet worden gereset. Zorg ervoor dat het wachtwoord minimaal 6 karakters bevat."
+msgstr "Your password could not be reset. Make sure the password contains at least 6 characters."
+
+msgid "Nieuw wachtwoord:"
+msgstr "New password:"
+
+msgid "Minimaal 6 karakters"
+msgstr "Minimum 6 characters"
+
+msgid "Wachtwoord resetten"
+msgstr "Reset password"
+
+msgid "Nodig een collega uit!"
+msgstr "Invite a colleague!"
+
+msgid "Samen met je collega's kun je:"
+msgstr "Together with your colleagues you can:"
+
+msgid "Overleggen over de voortgang van jouw studenten en ervaringen delen."
+msgstr "Discuss the progress of your students and share experiences."
+
+msgid "Gebruikmaken van elkaars toetsen en toetsvragen."
+msgstr "Using each other's tests and test questions."
+
+msgid "Wij sturen jouw collega('s) een e-mail uitnodiging om een account aan te maken."
+msgstr "We will send your colleague (s) an e-mail invitation to create an account."
+
+msgid "School e-mailadressen van jouw collega's"
+msgstr "School e-mail addresses of your colleagues"
+
+msgid "Separeer meerdere e-mailadressen met komma's of puntkomma's."
+msgstr "Separate multiple email addresses with commas or semicolons."
+
+msgid "Geen e-mailadressen ingevuld."
+msgstr "No email addresses entered."
+
+msgid "Stuur je liever zelf een e-mail? Deel een link:"
+msgstr "Would you rather send an email yourself? Share a link:"
+
+msgid "Bekijk"
+msgstr "View"
+
+msgid "e-mailvoorbeeld"
+msgstr "email preview"
+
+msgid "Link gekopieerd"
+msgstr "Link copied"
+
+msgid "We hebben een uitnodiging gestuurd naar jouw collega's!"
+msgstr "We have sent an invitation to your colleagues!"
+
+msgid "Jouw collega's kunnen gratis een account aanmaken. Je ontvangt een bericht als een van hen zich heeft aangemeld."
+msgstr "Your colleagues can create an account for free. You will receive a message when one of them has signed up."
+
+msgid "Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan"
+msgstr "Example of the email to your colleagues. Adjust the message if necessary"
+
+msgid "Je collega"
+msgstr "Your colleague"
+
+msgid "heeft"
+msgstr "has"
+
+msgid "je uitgenodigd voor Test-Correct"
+msgstr "invited you to Test-Correct"
+
+msgid "Gebruikmaken van elkaars toetsen en toetsvragen"
+msgstr "Using each other's tests and test questions"
+
+msgid "Het bericht aan jouw collega's"
+msgstr "The message to your colleagues"
+
+msgid "Maak"
+msgstr "Make"
+
+msgid "jouw gratis account"
+msgstr "your free account"
+
+msgid "Terug naar"
+msgstr "Back to"
+
+msgid "e-mailadressen invullen"
+msgstr "enter email addresses"
+
+msgid "Stuur"
+msgstr "Send"
+
+msgid "uitnodiging"
+msgstr "invitation"
+
+msgid "Hoeveelheid licenties"
+msgstr "Amount of Licenses"
+
+msgid "Verlopen licenties"
+msgstr "Expired licenses"
+
+msgid "Gebruikte licenties"
+msgstr "Licenses used"
+
+msgid "Voorlees functionaliteit"
+msgstr "Allowed to use the text to speech converter"
+
+msgid "Is toegekend"
+msgstr "Has been awarded"
+
+msgid "<br />maar is (tijdelijk) gedeactiveerd"
+msgstr "<br /> but is (temporarily) deactivated"
+
+msgid "Ouders"
+msgstr "Parents"
+
+msgid "Ouder toevoegen"
+msgstr "Add parent"
+
+msgid "Vraag items"
+msgstr "Request items"
+
+msgid "Toets items"
+msgstr "Test items"
+
+msgid "Klassen en vakken"
+msgstr "Classes and subjects"
+
+msgid "Welkom in Test-Correct"
+msgstr "Welcome to Test-Correct"
+
+msgid "Laatste cijfers"
+msgstr "Latest figures"
+
+msgid "Let op! Je gebruikt een oude versie van Test-Correct."
+msgstr "Pay attention! You are using an old version of Test-Correct."
+
+msgid "Volg onderstaande stappen om je toets te kunnen maken. Schrijf deze stappen op of maak een foto zodat je ze dadelijk nog weet;"
+msgstr "Follow the steps below to take your test. Write down these steps or take a picture so that you will remember them immediately;"
+
+msgid "Verwijder de huidige Windows App van Test-Correct"
+msgstr "Remove the current Windows App from Test-Correct"
+
+msgid "Om er voor te zorgen dat de nieuwe app goed werkt moet de oude versie helemaal verwijderd zijn voordat je de nieuwe installatie uitvoert."
+msgstr "In order for the new app to work properly, the old version must be completely removed before performing the new installation."
+
+msgid "Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jouw apparaat."
+msgstr "Go to the download page of Test-Correct (https://www.test-correct.nl/downloads/) and download the most recent version for your device."
+
+msgid "Installeer de nieuwe app"
+msgstr "Install the new app"
+
+msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
+msgstr "If you run into problems during (un-) installing the application, visit our knowledge base at https://support.test-correct.nl and search for 'uninstall' for a detailed explanation. If you still cannot find a solution, send your question to support@test-correct.nl or contact us."
+
+msgid "Veel succes met je toets!"
+msgstr "Good luck with your test!"
+
+msgid "Belangrijk: Nieuwe Windows app beschikbaar!"
+msgstr "Important: New Windows app available!"
+
+msgid "Om toetsen te kunnen maken dien je de nieuwe versie van de app te installeren in een drietal stappen:"
+msgstr "To be able to take tests, you need to install the new version of the app in three steps:"
+
+msgid "Deinstalleer de huidige Windows App van Test-Correct"
+msgstr "Uninstall the current Windows App from Test-Correct"
+
+msgid "Zonder het verwijderen van de oude app, kan de nieuwe app problemen geven bij het maken van de toetsen"
+msgstr "Without deleting the old app, the new app may have problems creating the Tests"
+
+msgid "Download the nieuwe app"
+msgstr "Download the new app"
+
+msgid "Let op:"
+msgstr "Pay attention:"
+
+msgid "Lukt het niet of loop je tegen problemen aan, laat het ons dan weten via mail: support@test-correct.nl of telefonisch via: 0107 171 171, we helpen je graag verder."
+msgstr "If it is not possible or if you run into problems, please let us know by mail: support@test-correct.nl or by telephone on: 0107 171 171, we are happy to help you."
+
+msgid "Weten"
+msgstr "Know"
+
+msgid "Weten hoe"
+msgstr "know how to"
+
+msgid "Laten zien"
+msgstr "Show"
+
+msgid "Verberg demo tour"
+msgstr "Hide demo tour"
+
+msgid "Let op! Je account is nog niet geverifieerd."
+msgstr "Pay attention! Your account has not yet been verified."
+
+msgid "Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?"
+msgstr "Your account has not yet been verified in our system. Have you not received an email?"
+
+msgid "Stuur verificatiemail opnieuw"
+msgstr "Send verification email again"
+
+msgid "Let op: je account is nog niet geactiveerd."
+msgstr "Please note: your account has not yet been activated."
+
+msgid "Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw"
+msgstr "From the point of view of information security, we perform a double check on your"
+
+msgid "opgegeven"
+msgstr "gave up"
+
+msgid "data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in"
+msgstr "data before you can upload classes and tests and collaborate with your colleagues in"
+
+msgid "Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons"
+msgstr "Test-Correct. This can take one to two working days. Don't want to wait that long? Call us"
+
+msgid "dan op"
+msgstr "then on"
+
+msgid "om dit te versnellen."
+msgstr "to speed this up."
+
+msgid "Welkom op het Test-Correct platform!"
+msgstr "Welcome to the Test-Correct platform!"
+
+msgid "Februari update"
+msgstr "February update"
+
+msgid "Vanaf donderdag 11 februari is onze nieuwe en verbeterde applicatie voor studenten beschikbaar in de Microsoft Store. Installatie vanuit de Microsoft Store maakt het voor leerlingen en studenten gemakkelijker om de app te installeren. Automatische updates zorgen er voor dat wij sneller verbeteringen kunnen doorvoeren. Dit maakt toetsen op afstand een stuk prettiger."
+msgstr "Our new and improved application for students will be available in the Microsoft Store from Thursday 11 February. Installing from the Microsoft Store makes it easier for students and students to install the app. Automatic updates ensure that we can implement improvements faster. This makes remote testing a lot more pleasant."
+
+msgid "Zoals gewoonlijk staat ons support team tot die tijd klaar om ondersteuning te bieden tijdens de installatie van de huidige versie. Loopt een student tegen problemen aan? Neem gerust contact met ons op."
+msgstr "As usual, our support team is available until then to provide support during the installation of the current version. Does a student run into problems? Please do not hesitate to contact us."
+
+msgid "Nodig een collega uit"
+msgstr "Invite a colleague"
+
+msgid "Welkom"
+msgstr "Welcome"
+
+msgid "we willen je graag snel op weg helpen binnen Test-Correct!"
+msgstr "we would like to help you quickly on your way within Test-Correct!"
+
+msgid "gefeliciteerd je hebt de demo tour afgerond!"
+msgstr "congratulations you have completed the demo tour!"
+
+msgid "Welkom terug"
+msgstr "Welcome back"
+
+msgid "Je bent goed bezig!"
+msgstr "You're doing well!"
+
+msgid "Voortgang..."
+msgstr "Progress..."
+
+msgid "Klik hier als je alle stappen hebt gedaan"
+msgstr "Click here when you have done all the steps"
+
+msgid "Lees in kennisbank"
+msgstr "Read in knowledge base"
+
+msgid "Bekijk de video"
+msgstr "watch the video"
+
+msgid "Meteen naar:"
+msgstr "Skip to:"
+
+msgid "Te verwerken toetsen"
+msgstr "Tests to process"
+
+msgid "Waarschuwing"
+msgstr "Warning"
+
+msgid "U kunt deze stap pas afronden als de voorgaande stap is afgerond"
+msgstr "You cannot complete this step until the previous step has been completed"
+
+msgid "Doorloop eerst alle sub stappen"
+msgstr "First go through all sub steps"
+
+msgid "De verificatiemail is nogmaals naar je verstuurd"
+msgstr "The verification email has been sent to you again"
+
+msgid "Ga naar de downloadpagina van Test-Correct (https://www.test-correct.nl/downloads/) en download de meest recente versie voor jou apparaat."
+msgstr "Go to the download page of Test-Correct (https://www.test-correct.nl/downloads/) and download the most recent version for your device."
+
+msgid "Video popup"
+msgstr "Video popup"
+
+msgid "Let op!"
+msgstr "Pay attention!"
+
+msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei."
+msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021. If the version number at the top right of yours turns red, please update the app before May 1."
+
+msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund."
+msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021."
+
+msgid "Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei. Werk je in de browser, dan is dit niet van toepassing."
+msgstr "If the version number on your top right turns red, update the app before May 1. If you work in the browser, this does not apply."
+
+msgid "Deployment"
+msgstr "Deployment"
+
+msgid "Onderhouds bericht"
+msgstr "Maintenance notice"
+
+msgid "Vooraankondiging"
+msgstr "Advance notice"
+
+msgid "Deployment aangemaakt"
+msgstr "Deployment created"
+
+msgid "Deployment kon niet worden aangemaakt"
+msgstr "Deployment could not be created"
+
+msgid "Deployment gewijzigd"
+msgstr "Deployment changed"
+
+msgid "Nieuwe deployment"
+msgstr "New deployment"
+
+msgid "Whitelisted ip adressen"
+msgstr "Whitelisted ip addresses"
+
+msgid "Nieuw ip adres"
+msgstr "New ip address"
+
+msgid "Weet je zeker dat je het ip adres "
+msgstr "Are you sure you have the ip address "
+
+msgid " wil verwijderen?"
+msgstr " want to delete?"
+
+msgid "Deployments"
+msgstr "Deployments"

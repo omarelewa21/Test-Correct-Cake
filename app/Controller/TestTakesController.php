@@ -145,7 +145,7 @@ class TestTakesController extends AppController {
             if (!is_array($test_takes) || count($test_takes) < 1) {
                 $this->formResponse(false, [
                     'errors' => [
-                        'Er dient tenminste één toets gekozen te worden'
+                        __("Er dient tenminste één toets gekozen te worden")
                     ]
                 ]);
 
@@ -158,7 +158,7 @@ class TestTakesController extends AppController {
                     if ($test_take['test_id'] == '' || empty($test_take['test_id'])) {
                         $this->formResponse(false, [
                             'errors' => [
-                                'Er dient een toets gekozen te worden.'
+                                __("Er dient een toets gekozen te worden.")
                             ]
                         ]);
                         exit;
@@ -172,7 +172,7 @@ class TestTakesController extends AppController {
                     if (strtotime($test_take['date']) == 0) {
                         $this->formResponse(false, [
                             'errors' => [
-                                'Datum is incorrect'
+                                __("Datum is incorrect")
                             ]
                         ]);
 
@@ -262,7 +262,7 @@ class TestTakesController extends AppController {
                 $this->set('test', $test);
                 $this->validateCarouselQuestionsInTest($test_id);
             } else {
-                $test_name = 'Selecteer';
+                $test_name = __("Selecteer");
             }
 
             $this->set('classes', $classes);
@@ -328,7 +328,7 @@ class TestTakesController extends AppController {
             $test = $this->TestsService->getTest($test_id);
             $test_name = $test['name'];
         } else {
-            $test_name = 'Selecteer';
+            $test_name = __("Selecteer");
         }
 
         $this->set('classes', $classes);
@@ -417,7 +417,7 @@ class TestTakesController extends AppController {
         if (!$take) {
             echo "<script>
             Navigation.back();
-            Notify.notify('Je hebt helaas geen toegang tot deze toets','error');
+            Notify.notify('<?= __(\"Je hebt helaas geen toegang tot deze toets\")?>','error');
 </script>";
             exit;
         }
@@ -608,7 +608,7 @@ class TestTakesController extends AppController {
                 break;
 
             default:
-                die('Niet te bespreken');
+                die(__("Niet te bespreken"));
                 break;
         }
 
@@ -840,7 +840,7 @@ class TestTakesController extends AppController {
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
 
         if (!$answer) {
-            echo 'Vraag niet gemaakt';
+            echo __("Vraag niet gemaakt");
             die;
         }
 
@@ -918,7 +918,7 @@ class TestTakesController extends AppController {
         $rating = $this->TestTakesService->getRating($take_id, $user_id);
 
         if (!isset($rating['id'])) {
-            echo 'Geen antwoord om weer te geven';
+            echo __("Geen antwoord om weer te geven");
             die;
         }
 
@@ -1358,7 +1358,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $periods = $this->TestsService->getPeriods();
-        $periods = [0 => 'Alle'] + $periods;
+        $periods = [0 => __("Alle")] + $periods;
         $this->set('periods', $periods);
     }
 
@@ -1384,7 +1384,7 @@ class TestTakesController extends AppController {
         $take = $this->TestTakesService->getTestTake($take_id);
 
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {
-            die('Deze toets is niet meer in te zien');
+            die(__("Deze toets is niet meer in te zien"));
         }
 
         $questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
@@ -1501,13 +1501,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -1944,32 +1944,32 @@ class TestTakesController extends AppController {
                 switch ($participant['test_take_status']['id']) {
                     case 1:
                         $label = 'info';
-                        $text = 'Ingepland';
+                        $text = __("Ingepland");
                         break;
 
                     case 2:
                         $label = 'danger';
-                        $text = 'Niet gemaakt';
+                        $text = __("Niet gemaakt");
                         break;
 
                     case 3:
                         $label = 'success';
-                        $text = 'Maakt toets';
+                        $text = __("Maakt toets");
                         break;
 
                     case 4:
                         $label = 'info';
-                        $text = 'Ingeleverd';
+                        $text = __("Ingeleverd");
                         break;
 
                     case 5:
                         $label = 'warning';
-                        $text = 'Ingeleverd (geforceerd)';
+                        $text = __("Ingeleverd (geforceerd)");
                         break;
 
                     case 6:
                         $label = 'success';
-                        $text = 'Ingenomen';
+                        $text = __("Ingenomen");
                         break;
                 }
 
@@ -1994,13 +1994,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] +$this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] +$this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2008,13 +2008,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2315,7 +2315,7 @@ class TestTakesController extends AppController {
         try {
             // START SETTING DATA FOR SCHOOL SECTION
             if ($schoolLocation['data'][0]['school_id'] == NULL && $schoolLocation['data'][0]['external_main_code'] == NULL)
-                $errors[] = 'Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.';
+                $errors[] = __("Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.");
 
             if ($schoolLocation['data'][0]['external_main_code'] == NULL) {
                 $external_main_code = $schoolLocation['data'][0]['school']['external_main_code'];
@@ -2324,13 +2324,13 @@ class TestTakesController extends AppController {
             }
 
             if ($external_main_code == NULL && $schoolLocation['data'][0]['school']['umbrella_organisation_id'] == NULL)
-                $errors[] = 'Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.';
+                $errors[] = __("Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.");
 
             if ($external_main_code == NULL)
                 $external_main_code = $schoolLocation['data'][0]['school']['umbrella_organisation']['external_main_code'];
 
             if ($external_main_code == NULL)
-                $errors[] = 'Geen brincode gevonden voor deze setup, neem contact op met administrators.';
+                $errors[] = __("Geen brincode gevonden voor deze setup, neem contact op met administrators.");
 
             $ctpSchool = new ctpSchool(new DateTime('now'));
             $ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);

@@ -1,10 +1,10 @@
-<div class="popup-head">Deployment</div>
+<div class="popup-head"><?= __("Deployment")?></div>
 <div class="popup-content">
     <?=$this->Form->create('WhitelistIp') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Ip
+            <?= __("Ip")?>
             </th>
             <td>
                 <?=$this->Form->input('ip', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'ip4 of ip6')) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th width="130">
-                Van
+            <?= __("Van")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => '')) ?>
@@ -23,10 +23,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -37,11 +37,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Whitelisted ip adres aangemaakt", "info");
+                Notify.notify('<?= __("Whitelisted ip adres aangemaakt")?>', "info");
                 Navigation.refresh()
             },
             onfailure : function(result) {
-                Notify.notify("Ip adres kon niet worden toegevoegd", "error");
+                Notify.notify('<?= __("Ip adres kon niet worden toegevoegd")?>', "error");
             }
         }
     );

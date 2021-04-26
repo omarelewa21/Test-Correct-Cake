@@ -27,11 +27,11 @@ foreach($sections as $section) {
             <div class="dropblock blur-close" for="section_<?=getUUID($section, 'get');?>">
                 <a href="#" class="btn highlight white" onclick="Popup.load('/sections/edit/<?=getUUID($section, 'get');?>', 400);">
                     <span class="fa fa-edit mr5"></span>
-                    Wijzigen
+                    <?= __("Wijzigen")?>
                 </a>
                 <a href="#" class="btn highlight white" onclick="Section.delete(<?=getUUID($section, 'getQuoted');?>);">
                     <span class="fa fa-remove mr5"></span>
-                    Verwijderen
+                    <?= __("Verwijderen")?>
                 </a>
             </div>
         </td>

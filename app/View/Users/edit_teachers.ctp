@@ -1,4 +1,4 @@
-<div class="popup-head">Docent</div>
+<div class="popup-head"><?= __("Docent")?></div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">
@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <th width="130">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <th width="130">
-                Afkorting
+            <?= __("Afkorting")?>
             </th>
             <td>
                 <?=$this->Form->input('abbreviation', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -48,7 +48,7 @@
         </tr>
         <tr>
             <th width="130">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <th width="130">
-                Stamnummer
+            <?= __("Stamnummer")?>
             </th>
             <td>
                 <?=$this->Form->input('external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
@@ -64,14 +64,14 @@
         </tr>
         <tr>
             <th width="130">
-                Nieuw wachtwoord
+            <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>
-            <th colspan="2">Notities</th>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -87,10 +87,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Opslaan
+    <?= __("Opslaan")?>
     </a>
 </div>
 
@@ -100,14 +100,14 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify('<?= __("Gebruiker aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if (result.length != 0)  {
                     Notify.notify(result[0], "error");
                 } else {
-                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                    Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
                 }
 
             }
@@ -127,7 +127,7 @@
                 if (data.account_verified) {
                     $('#updateVerified').text(data.account_verified).addClass('blue').removeClass('grey');
                 } else {
-                    $('#updateVerified').text('Niet geverifieerd').addClass('grey').removeClass('blue');
+                    $('#updateVerified').text('<?= __("Niet geverifieerd")?>').addClass('grey').removeClass('blue');
                 }
             },
             failure: function(data) {

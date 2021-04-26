@@ -1,11 +1,11 @@
 
-<div class="popup-head">Toets dupliceren</div>
+<div class="popup-head"><?= __("Toets dupliceren")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Test') ?>
         <table class="table mb15">
             <tr>
                 <th width="140">
-                    Huidige naam
+                <?= __("Huidige naam")?>
                 </th>
                 <td>
                     <?= $test['name']?>
@@ -14,7 +14,7 @@
 
             <tr>
                 <th width="140">
-                    Nieuwe naam
+                <?= __("Nieuwe naam")?>
                 </th>
                 <td>
                     <?=$this->Form->input('name', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty', 'value' => '')) ?>
@@ -23,7 +23,7 @@
 
             <tr>
                 <th width="140">
-                    Vak
+                <?= __("Vak")?>
                 </th>
                 <td>
                     <?= $this->Form->input('subject_id', array('style' => 'width:280px', 'label' => false, 'options' => $subjects, 'multiple' => false, 'class' => 'takers_select')) ?>
@@ -34,10 +34,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnDuplicateTest">
-        Dupliceren
+    <?= __("Dupliceren")?>
     </a>
 </div>
 
@@ -47,7 +47,7 @@
         confirm: $('#btnDuplicateTest'),
         confirmPopup: false,
         onsuccess: function (result) {
-            Notify.notify("De toets is gedupliceerd", "info");
+            Notify.notify('<?= __("De toets is gedupliceerd")?>', "info");
             Navigation.load('/tests/view/'+result.test_id);
             Popup.closeLast();
         },

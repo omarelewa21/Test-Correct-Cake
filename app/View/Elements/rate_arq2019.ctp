@@ -16,7 +16,7 @@ foreach($answers as $id => $answer) {
         <th width="40">&nbsp;</th>
         <th width="40">St. 1</th>
         <th width="40">St. 2</th>
-        <th>Reden</th>
+        <th><?= __("Reden")?></th>
     </tr>
     </thead>
     <tbody>
@@ -25,14 +25,14 @@ foreach($answers as $id => $answer) {
         <td>A</td>
         <td>J</td>
         <td>J</td>
-        <td>Juiste reden</td>
+        <td><?= __("Juiste reden")?></td>
     </tr>
     <tr>
         <td><span class="fa fa-<?=$options[1] == 1 ? 'check-' : ''?>square-o"></span></td>
         <td>B</td>
         <td>J</td>
         <td>J</td>
-        <td>Onjuiste reden</td>
+        <td><?= __("Onjuiste reden")?></td>
     </tr>
     <tr>
         <td><span class="fa fa-<?=$options[2] == 1 ? 'check-' : ''?>square-o"></span></td>

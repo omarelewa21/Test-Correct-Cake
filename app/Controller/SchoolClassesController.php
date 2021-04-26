@@ -173,7 +173,7 @@ class SchoolClassesController extends AppController
             } elseif ($result == 'Failed to create school class') {
                 $this->formResponse(
                     false,
-                    'Klas kon niet worden aangemaakt'
+                    __("Klas kon niet worden aangemaakt")
                 );
             } else {
                 $this->formResponse(

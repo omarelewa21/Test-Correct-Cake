@@ -193,7 +193,7 @@ Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
 	'CacheDispatcher'
 ));
-
+Configure::write('Config.language', 'nl');
 /**
  * Configures default file logging options
  */

@@ -16,11 +16,11 @@
         $options = [];
         switch($file['file_management_status_id']){
             case 1:
-                $options[] = ['action' => 'claim', 'text' => 'In beheer nemen','class' => 'highlight'];
+                $options[] = ['action' => 'claim', 'text' => __("In beheer nemen"),'class' => 'highlight'];
             break;
             case 2:
-                $options[] = ['action' => 'claim', 'text' => 'Overnemen', 'class' => 'fa-heart-o'];
-                $options[] = ['action' => 'close', 'text' => 'Sluiten', 'class' => 'fa-sign-out'];
+                $options[] = ['action' => 'claim', 'text' => __("Overnemen"), 'class' => 'fa-heart-o'];
+                $options[] = ['action' => 'close', 'text' => __("Sluiten"), 'class' => 'fa-sign-out'];
             break;
             default: // 'closed' or 'declined'
                 $options[] = ['action' => 'claim', 'text' => 'Heropenen', 'class' => 'fa-heart-o'];
@@ -37,14 +37,14 @@
         ?>
 </div>
 
-<h1>Bestand</h1>
+<h1><?= __("Bestand")?></h1>
 
 <div class="block">
-    <div class="block-head">informatie</div>
+    <div class="block-head"><?= __("informatie")?></div>
     <div class="block-content">
         <table class="table table-striped form">
             <tr>
-                <th width="12%">Status</th>
+                <th width="12%"><?= __("Status")?></th>
                 <td width="38%" class="editable" onClick="makeEditable();">
                     <div class="editable_view">
                         <?=$file['status']['name']?>
@@ -62,13 +62,13 @@
                         </select>
                     </div>
                 </td>
-                <th width="12%">School locatie</th>
+                <th width="12%"><?= __("School locatie")?></th>
                 <td width="38%">
                     <?= $file['school_location']['name']?>
                 </td>
             </tr>
             <tr>
-                <th width="12%">Behandelaar</th>
+                <th width="12%"><?= __("Behandelaar")?></th>
                 <td width="38%">
                     <?php
                     if(isset($file['handler']) && $file['handler']){
@@ -81,29 +81,29 @@
                     }
                     ?>
                 </td>
-                <th width="12%">Code</th>
+                <th width="12%"><?= __("Code")?></th>
                 <td width="38%">
                     <?= $file['school_location']['customer_code']?>
                 </td>
             </tr>
             <tr>
-                <th width="12%" rowspan="2" valign="top">Notitie</th>
+                <th width="12%" rowspan="2" valign="top"><?= __("Notitie")?></th>
                 <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
-                    <div id="notes_div" class='editable_view' title="Klik om te wijzigen" style="max-height:60px;overflow:scroll"><?
-                        echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : 'Klik om een notitie toe te toevoegen';
+                    <div id="notes_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
+                        echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : __("Klik om een notitie toe te toevoegen");
                     ?></div>
                     <div id="notes_edit" class='editable_elements'>
                         <textarea name="notes" class='editable_input' style="height:60px;"><?=$file['notes']?></textarea>
-                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
+                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> <?= __("Opslaan")?></a>
                     </div>
                     </td>
-                <th width="12%">Vak</th>
+                <th width="12%"><?= __("Vak")?></th>
                 <td width="38%">
                     <?=$file['typedetails']['subject'] ?>
                 </td>
             </tr>
             <tr>
-                <th width="12%">Docent</th>
+                <th width="12%"><?= __("Docent")?></th>
                 <td width="38%">
                     <?=$file['user']['name_first']?>
                     <?=$file['user']['name_suffix']?>
@@ -115,38 +115,38 @@
                 <td width="38%">
 
                 </td>
-                <th width="12%">Klas</th>
+                <th width="12%"><?= __("Klas")?></th>
                 <td width="38%">
                     <?=$file['typedetails']['class'] ?> (<?=$educationLevel?> <?=$file['typedetails']['education_level_year']?>)
                 </td>
             </tr>
             <tr>
                 <th>
-                   File
+                <?= __("File")?>
                 </th>
                 <td>
                     <a href="file_management/download/<?=getUUID($file, 'get');?>" target="_blank"><?=$file['name']?> (<?=$file['origname']?>)</a>
                 </td>
                 <th>
-                    Stamklas
+                <?= __("Stamklas")?>
                 </th>
-                <td><?= $file['typedetails']['is_main_school_class'] ? 'Ja' : 'Nee' ?></td>
+                <td><?= $file['typedetails']['is_main_school_class'] ? __("Ja") : __("Nee") ?></td>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Schoolbeheerders</div>
+    <div class="block-head"><?= __("Schoolbeheerders")?></div>
     <div class="block-content">
 
 
         <table class="table table-stiped">
             <tr>
-                <th>Voornaam</th>
-                <th>Tussenv.</th>
-                <th>Achternaam</th>
-                <th>E-mailadres</th>
+                <th><?= __("Voornaam")?></th>
+                <th><?= __("Tussenv")?>.</th>
+                <th><?= __("Achternaam")?></th>
+                <th><?= __("E-mailadres")?></th>
             </tr>
             <?
             foreach($schoolbeheerders as $manager) {
@@ -177,13 +177,13 @@
                 {data: {'action' : action}},
                 function(response) {
                     Loading.hide();
-                    Notify.notify('De status is aangepast', 'success');
+                    Notify.notify('<?= __("De status is aangepast")?>', 'success');
                     Navigation.refresh();
                 }
             )
             .fail(function(){
                 Loading.hide();
-                Notify.notify('Er is iets fout gegaan bij het aanpassen van de status', 'error');
+                Notify.notify('<?= __("Er is iets fout gegaan bij het aanpassen van de status")?>', 'error');
             });
     }
 
@@ -196,13 +196,13 @@
                 data,
                 function(response) {
                     Loading.hide();
-                    Notify.notify('De gegevens zijn aangepast', 'success');
+                    Notify.notify('<?= __("De gegevens zijn aangepast")?>', 'success');
                     Navigation.refresh();
                 }
             )
             .fail(function(){
                     Loading.hide();
-                    Notify.notify('Er is iets fout gegaan bij het aanpassen van de gegevens', 'error');
+                    Notify.notify('<?= __("Er is iets fout gegaan bij het aanpassen van de gegevens")?>', 'error');
                 });
             }
 

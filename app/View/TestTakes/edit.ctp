@@ -9,13 +9,13 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
 
 ?>
 
-<div class="popup-head">Geplande toets wijzigen</div>
+<div class="popup-head"><?= __("Geplande toets wijzigen")?></div>
 <div class="popup-content overflow-visible">
     <?=$this->Form->create('TestTake') ?>
         <table class="table mb15">
             <tr>
                 <th width="140">
-                    Datum
+                <?= __("Datum")?>
                 </th>
                 <td>
                     <?=$this->Form->input('time_start', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
@@ -24,7 +24,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
             <? if($take['retake'] == 0) { ?>
                 <tr>
                     <th width="140">
-                        Periode
+                    <?= __("Periode")?>
                     </th>
                     <td>
                         <?=$this->Form->input('period_id', array('style' => 'width: 280px', 'id' => 'TestTakePeriodId_'.$take_id, 'label' => false, 'verify' => 'notempty max-length-5', 'value' => $take['period_id'])) ?>
@@ -32,7 +32,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 </tr>
                 <tr>
                     <th width="140">
-                        Weging
+                    <?= __("Weging")?>
                     </th>
                     <td>
                         <?=$this->Form->input('weight', array('style' => 'width: 50px', 'label' => false, 'value' => $take['weight'], "disabled" => $practice)) ?>
@@ -41,7 +41,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
             <? } ?>
             <tr>
                 <th width="140">
-                    Surveillanten
+                <?= __("Surveillanten")?>
                 </th>
                 <td>
                     <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'multiple' => true, 'class' => 'takers_select', 'value' => $selectedInvigilator)) ?>
@@ -66,7 +66,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
             <?php } ?>
             <tr>
                 <th width="140">
-                    Instructies
+                <?= __("Instructies")?>
                 </th>
                 <td>
                     <?=$this->Form->input('invigilator_note', array('style' => 'width: 98%; height: 100px;', 'label' => false, 'value' => $take['invigilator_note'], 'type' => 'textarea')) ?>
@@ -75,7 +75,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
 
             <?php if($is_rtti_school_location == '1'): ?>
                 <tr class="testTakeRow">
-                    <th>Is RTTI</th>
+                    <th><?= __("Is RTTI")?></th>
                     <td>
                         <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'checked' => (bool) $take['is_rtti_test_take'])) ?>
                     </td>
@@ -86,10 +86,10 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnEditTestTake">
-        Geplande toets wijzigen
+    <?= __("Geplande toets wijzigen")?>
     </a>
 </div>
 
@@ -104,10 +104,10 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
     $('#TestTakeEditForm').formify({
         confirm: $('#btnEditTestTake'),
         confirmPopup: confirmPopup,
-        confirmMessage: 'Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?',
+        confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify("Toetsen zijn ingepland", "info");
+            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
             Navigation.refresh();
             Popup.closeLast();
         },

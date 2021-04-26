@@ -8,7 +8,7 @@ foreach($subjects as $subject) {
 }
 
 if(!isset($data['school_years'][0])) {
-    die('Deze grafiek kon niet worden gegegereerd');
+    die(__("Deze grafiek kon niet worden gegegereer"));
 }
 
 $data = $data['school_years'][0];
@@ -71,12 +71,12 @@ $data = $data['school_years'][0];
                         },
                         tooltip: {
                             headerFormat: '<b>{series.name}</b><br>',
-                            pointFormat: '<br>Cijfer {point.y}'
+                            pointFormat: '<br><?= __("Cijfer")?> {point.y}'
                         }
                     }
             },
             series: [{
-                name: 'Studentgemiddelde',
+                name: '<?= __("Studentgemiddelde")?>',
                 data: [
                     <?php
                     foreach($data['studentAverages'] as $date => $rating) {
@@ -95,7 +95,7 @@ $data = $data['school_years'][0];
                     ?>
                 ]
             }, {
-                name: 'Klassengemiddelde',
+                name: '<?= __("Klassengemiddelde")?>',
                 data: [
                     <?php
                     foreach($data['classAverages'] as $date => $rating) {
@@ -114,7 +114,7 @@ $data = $data['school_years'][0];
                     ?>
                 ]
             }, {
-                name: 'Behaalde resultaten',     
+                name: '<?= __("Behaalde resultaten")?>',     
                 type : 'scatter',
                 data: [
                     <?php

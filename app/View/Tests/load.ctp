@@ -36,36 +36,36 @@ foreach($tests as $test) {
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                 <? } ?>
                 <? if ($test['has_duplicates']) { ?>
                     <a href="#" class="btn highlight grey" >
                         <span class="fa fa-calendar mr5"></span>
-                        Inplannen niet mogelijk
+                        <?= __("Inplannen niet mogelijk")?>
                     </a>
                 <? } else { ?>
                 <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
                     <span class="fa fa-calendar mr5"></span>
-                    Inplannen
+                    <?= __("Inplannen")?>
                 </a>
                 <? } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
                     <?php echo $this->element('schedule_now') ?>
-                    Direct afnemen
+                    <?= __("Direct afnemen")?>
                 </a>
                 <?php } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
-                    Dupliceren
+                    <?= __("Dupliceren")?>
                 </a>
                 <?php } ?>
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Test.delete('<?=getUUID($test, 'get')?>', false);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 <? } ?>
             </div>

@@ -1,4 +1,4 @@
-Er is geen antwoord opgegeven
+<?= __("Er is geen antwoord opgegeven")?>
 
 <script type="text/javascript">
     $('#divRate').hide();

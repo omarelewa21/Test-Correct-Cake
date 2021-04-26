@@ -1,12 +1,12 @@
-<h1>Klassen analyse</h1>
+<h1><?= __("Klassen analyse")?></h1>
 <div class="block autoheight">
-    <div class="block-head">Klassen overzicht</div>
+    <div class="block-head"><?= __("Klassen overzicht")?></div>
     <div class="block-content" id="classesContainer">
         <table class="table" id="classesTable" cellpadding="1">
             <tr>
-                <th>Klas</th>
-                <th>Mentor</th>
-                <th>Studenten</th>
+                <th><?= __("Klas")?></th>
+                <th><?= __("Mentor")?></th>
+                <th><?= __("Studenten")?></th>
                 <?
                 foreach($subjects as $subject) {
                     echo '<th>' . $subject['abbreviation'] . '</th>';
@@ -21,7 +21,7 @@
 <?
 if ($is_temp_teacher) {
 ?>
-    <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
+    <script>Notify.notify('<?= __("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school")?>', "info", 15000);</script>
 <?
 } else {
 ?>

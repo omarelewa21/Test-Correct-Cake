@@ -37,11 +37,11 @@ foreach($schools as $school) {
                 <a href="#" class="btn highlight white" onclick="Popup.load('/schools/edit/<?=getUUID($school, 'get');?>', 800);">
                     
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif;?>

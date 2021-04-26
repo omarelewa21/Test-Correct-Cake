@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tr>
-<th>Naam</th>
-<th>Emailadres</th>
+<th><?= __("Naam")?></th>
+<th><?= __("Emailadres")?></th>
 <th></th>
 </tr>
 <?
@@ -36,13 +36,13 @@ foreach($students as $student) {
 <center>
     <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Navigation.load('/school_classes/import/<?=$location_id?>/<?=$class_id?>', 400);">
-        Studenten importeren
+    <?= __("Studenten importeren")?>
     </a>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/students/<?=$class_id?>', 400);">
-        Student toevoegen
+    <?= __("Student toevoegen")?>
     </a>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_student/<?=$class_id?>', 400);">
-        Bestaande koppelen
+    <?= __("Bestaande koppelen")?>
     </a>
     <?php } ?>
 </center>

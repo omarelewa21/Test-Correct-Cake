@@ -26,7 +26,7 @@ foreach($tests as $test) {
             <div class="dropblock blur-close" for="test_<?=getUUID($test, 'get')?>">
                 <a href="#" class="btn highlight white" onclick="Popup.load('/shared_sections_tests/duplicate/<?=getUUID($test, 'get')?>',600);">
                     <span class="fa fa-calendar mr5"></span>
-                    Dupliceren
+                    <?= __("Dupliceren")?>
                 </a>
             </div>
         </td>
