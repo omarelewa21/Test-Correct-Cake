@@ -1525,6 +1525,9 @@ msgstr "I would like to invite you to the Test-Correct platform. I already use i
 msgid "Voer de beveiligingscode in"
 msgstr "Enter the security code"
 
+msgid "Foutief bestandsformaat"
+msgstr "Incorrect file format"
+
 msgid "Beveiligingscode"
 msgstr "Security code"
 
