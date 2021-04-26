@@ -47,6 +47,10 @@ class BugsnagLogger
 
     public function unsetUser()
     {
+
+        if ($this->bugsnag == null) {
+            return $this;
+        }
 //        $this->bugsnag->registerCallback(function($report){
 //
 //            $report->setUser([]);
@@ -60,6 +64,11 @@ class BugsnagLogger
     }
 
     public function configureUser($user = null) {
+
+        if ($this->bugsnag == null) {
+            return $this;
+        }
+
         $userData = [];
         if(null == $user && count($user)){
             $userData = [
