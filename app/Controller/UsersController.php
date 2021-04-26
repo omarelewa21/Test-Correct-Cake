@@ -1100,6 +1100,9 @@ class UsersController extends AppController
     {
         $roles = AuthComponent::user('roles');
 
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
+        $this->Session->write('Config.language', $school_location['school_language']);
+
         $tiles = array();
 
 
