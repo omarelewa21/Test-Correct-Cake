@@ -528,8 +528,10 @@ class UsersController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
+            if(array_key_exists('teacher_external_id',$this->request->data['User'])){
+                $this->request->data['User']['external_id'] = $this->request->data['User']['teacher_external_id'];
+            }
             $data = $this->request->data['User'];
-
             $result = $this->UsersService->updateUser($user_id, $data);
 
             if ($this->Session->check('user_profile_picture')) {
@@ -549,9 +551,13 @@ class UsersController extends AppController
                 //or fail and show a general error
                 try {
                     $error = json_decode($result, true);
-
                     if (isset($error['errors']['username'])) {
-                        $response = "Dit e-mailadres is al in gebruik";
+                        if(stristr($error['errors']['username'][0],'failed on dns')){
+                            $response = "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen";
+                        }else{
+                            $response = "Dit e-mailadres is al in gebruik";
+                        }
+
                     }
                     if (isset($error['errors']['external_id'])) {
                         $response = "Studentennummer is al in gebruik";
@@ -592,7 +598,7 @@ class UsersController extends AppController
                 $this->render('edit_accountmanagers', 'ajax');
                 break;
 
-            case 1: //Teachter
+            case 1: //Teacher
                 $this->render('edit_teachers', 'ajax');
                 break;
 
@@ -965,6 +971,18 @@ class UsersController extends AppController
                 $this->formResponse(
                     false, [
                         'error' => 'username'
+                    ]
+                );
+            }elseif ($result == 'dns') {
+                $this->formResponse(
+                    false, [
+                        'error' => 'dns'
+                    ]
+                );
+            }elseif ($result == 'external_id') {
+                $this->formResponse(
+                    false, [
+                        'error' => 'external_id'
                     ]
                 );
             } else {
