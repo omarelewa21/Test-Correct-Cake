@@ -54,7 +54,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                         <div style="display:flex; align-items: center; color: var(--system-base)"">
                             <span class="fa fa-chrome"></span>
                             <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
-                            <?php echo $this->element('questionmark_tooltip') ?>
+                            <?php echo $this->element('questionmark_tooltip', array('id' => 1)) ?>
                             <label class="switch">
                                 <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'], 'value' => !$take['allow_inbrowser_testing'],'label' => false)); ?>
                                 <span class="slider round"></span>

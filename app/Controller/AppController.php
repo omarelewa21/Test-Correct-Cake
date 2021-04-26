@@ -26,6 +26,7 @@ App::uses('AuthService', 'Lib/Services');
 App::uses('HtmlConverter', 'Lib');
 App::uses('UsersService', 'Lib/Services');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('UnauthorizedException', 'Lib/Exceptions');
 
 /**
  * Application Controller
@@ -68,7 +69,8 @@ class AppController extends Controller
         $this->AuthService = new AuthService();
         $this->UsersService = new UsersService();
 
-        $headers = $this->getallheaders();
+        $headers = AppVersionDetector::getAllHeaders();
+
         if(!$this->Session->check('TLCHeader')) {
             $this->handleHeaderCheck($headers);
         } else {
@@ -91,8 +93,6 @@ class AppController extends Controller
         $this->Auth->allow('get_header_session');
     }
 
-
-
     protected function handleHeaderCheck($headers)
     {
         $this->Session->write('headers', 'unset headers');
@@ -100,91 +100,22 @@ class AppController extends Controller
         $this->Session->write('TLCVersion', 'unset version');
         $this->Session->write('TLCOs', 'unset os');
 
-        $osConversion = [
-            'windows10' => 'windows10OS',
-            'windows' => 'windowsOS',
-            'macbook' => 'macOS',
-            'ipad' => 'iOS',
-            'chromebook' => 'ChromeOS',
-            'win32' => 'windowsElectron',
-        ];
-        $allowedVersions = [
-            'windows10OS' => [
-                'ok' => [],
-                'needsUpdate' => ['2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
-            ],
-            'windowsOS' => [
-                'ok' => [],
-                'needsUpdate' => ['2.0', '2.1', '2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
-            ],
-            'macOS' => [
-                'ok' => ['2.4', '2.5', '2.6', '2.8', '2.9'],
-                'needsUpdate' => ['2.0', '2.1', '2.2', '2.3'],
-            ],
-            'iOS' => [
-                'ok' => ['2.2', '2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
-                'needsUpdate' => ['2.0', '2.1'],
-            ],
-            'ChromeOS' => [
-                'ok' => ['2.3', '2.4', '2.5', '2.6', '2.8', '2.9'],
-                'needsUpdate' => [],
-            ],
-            'windowsElectron' => [
-                'ok' => ['3.0.1','3.0.2','3.0.3','3.1.0', '3.0.2-beta.1', '3.0.2-beta.2', '3.0.2-beta.3' , '3.0.2-beta.4' , '3.0.4' , '3.0.5',],
-                'needsUpdate' => ['2.300.2-beta.2', '3.0.0-beta.5', '3.0.0'],
-            ],
-        ];
-
         if (isset($headers['tlc'])) {
             $this->Session->write('TLCHeader', $headers['tlc']);
         } else {
             $this->Session->write('TLCHeader', 'not secure...');
         }
 
-        $currentVersion = 'x'; // REMARK:: also used in AnswersController::is_taking_inbrowser_test
-        $currentOS = 'unknown-';
-
-        // as discussed with Mohamed on 20200703
-        // headers: "TLC" ---> "TLC Test-Correct secure app"
-        // so we need to lowercase all the headers to make sure we can compare them as older version might have lowercase headers
-        // Windows10 header "TLCTestCorrectVersion"--> "Windows10|{versionnumber"
-        // Windows header "TLCTestCorrectVersion"--> "Windows|{versionnumber"
-        // Mac header "TLCTestCorrectVersion"--> "Macbook|{versionnumber}"
-        // Ipad header "TLCTestCorrectVersion"--> "Ipad|{versionnumber}"
-        // Chromebook header "TLCTestCorrectVersion"--> "Chromebook|{versionnumber}"
-
-//        if (!$this->Session->check('TLCVersion')) {
-        if (isset($headers['tlctestcorrectversion'])) {
-            $data = explode('|', strtolower($headers['tlctestcorrectversion']));
-            $currentOS = isset($osConversion[$data[0]]) ? $osConversion[$data[0]] : $currentOS.'|'.$data[0].'|';
-            $currentVersion = isset($data[1]) ? $data[1] : $currentVersion;
-        } else {
-            // only for windows 2.0 and 2.1
-            if (array_key_exists('user-agent', $headers)) {
-                $parts = explode('|', $headers['user-agent']);
-                $lowerPart0 = strtolower($parts[0]);
-                if ($lowerPart0 == 'windows' || $lowerPart0 == 'chromebook') {
-                    $currentOS = $osConversion[$lowerPart0];
-                    $currentVersion = $parts[1];
-                }
-            }
-        }
+        $version = AppVersionDetector::detect($headers);
 
         $this->Session->write('headers', $headers);
 
-        $this->Session->write('TLCVersion', $currentVersion);
-        $this->Session->write('TLCOs', $currentOS);
+        $this->Session->write('TLCVersion', $version['app_version']);
+        $this->Session->write('TLCOs', $version['os']);
 
-        $versionCheckResult = null;
-        if (isset($allowedVersions[$currentOS]['ok']) && in_array($currentVersion, $allowedVersions[$currentOS]['ok'])) {
-            $versionCheckResult = 'OK';
-        } else if (isset($allowedVersions[$currentOS]['needsUpdate']) && in_array($currentVersion, $allowedVersions[$currentOS]['needsUpdate'])) {
-            $versionCheckResult = 'NEEDSUPDATE';
-        } else {
-            $versionCheckResult = 'NOTALLOWED';
-        }
+        $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+
         $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
-//        }
     }
 
     //todo: Deze methode echo'd in de response, dat verpest aanroepende methodes die zelf nog schrijven in de response
@@ -235,11 +166,10 @@ class AppController extends Controller
         //just try to send email and otherwise not
         if (strpos($server, 'portal.test-correct.nl') !== false) {
             try {
-                $Email = new CakeEmail();
-                $Email->config('smtp');
-                $Email->to(array('tlc@sobit.nl', 'jonathanjagt@teachandlearncompany.com'));
-                $Email->subject($subject);
-                $Email->send($message);
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->setMetaData([
+                    'message' => $message
+                ])->notifyException(new UnauthorizedException($subject));
             } catch (\Throwable $error) {
             }
         }

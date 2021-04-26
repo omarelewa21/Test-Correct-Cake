@@ -55,10 +55,7 @@ if ($wizard_steps) {
                 <h5>Welkom op het Test-Correct platform!</h5>
             </div>
             <div class="body">
-                <h6></h6>
-                <p>
-
-                </p>
+                <?= $maintenanceNotification ?>
             </div>
         </div>
     </div>
@@ -306,7 +303,8 @@ if ($wizard_steps) {
     </div>
 
 </div>
-<script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
+
+<script src="/js/confetti.min.js"></script>
 <script>
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];

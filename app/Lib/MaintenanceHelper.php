@@ -10,6 +10,8 @@ class MaintenanceHelper
 {
 
     protected $maintenanceFile = '../tmp/maintenance.txt';
+    protected $notificationFile = '../tmp/maintenance_notification.txt';
+    protected $whitelistIpFile = '../tmp/whitelisted_ips.txt';
     protected $_isInMaintenanceMode = null;
 
     // Hold the class instance.
@@ -34,13 +36,24 @@ class MaintenanceHelper
         return self::$instance;
     }
 
+    public function doWeNeedToShowMaintenance()
+    {
+        return ($this->isInMaintenanceMode() && $this->isInMaintenanceModeForCurrentIp() && $this->isUrlLockedWhileInMaintenance());
+    }
+
+    public function isUrlLockedWhileInMaintenance(){
+        return $_SERVER['REQUEST_URI'] !== '/deployment_maintenance/check_for_maintenance';
+    }
 
     public function isInMaintenanceModeForCurrentIp(){
         $hasMaintenance = false;
         if($this->isInMaintenanceMode()){
             $hasMaintenance = true;
-            $whitelistIps = Configure::read('maintenance-whitelist-ips');
-            if(is_array($whitelistIps) && in_array($_SERVER['REMOTE_ADDR'],$whitelistIps)){
+            $whitelistedIpContent = file_get_contents($this->whitelistIpFile);
+            if(strlen($whitelistedIpContent) > 3){
+                $whitelistedIps = unserialize($whitelistedIpContent);
+            }
+            if(is_array($whitelistedIps) && in_array($_SERVER['REMOTE_ADDR'],$whitelistedIps)){
                 $hasMaintenance = false;
             }
         }
@@ -56,6 +69,13 @@ class MaintenanceHelper
         return $maintenanceMessage;
     }
 
+    public function getMaintenanceNotification() {
+        if(file_exists($this->notificationFile)) {
+            return file_get_contents($this->notificationFile);
+        }
+        return '';
+    }
+
     public function isInMaintenanceMode(){
         if($this->_isInMaintenanceMode === null){
             $this->_isInMaintenanceMode = (bool) file_exists($this->maintenanceFile);
@@ -63,5 +83,27 @@ class MaintenanceHelper
         return $this->_isInMaintenanceMode;
     }
 
+    public function setInMaintenanceMode($message,$ips = [])
+    {
+        file_put_contents($this->maintenanceFile,$message);
+        file_put_contents($this->whitelistIpFile,serialize($ips));
+        $this->unsetNotificationForMaintenance();
+    }
 
+    public function unsetMaintenanceMode()
+    {
+        unlink($this->maintenanceFile);
+        unlink($this->whitelistIpFile);
+        $this->unsetNotificationForMaintenance();;
+    }
+
+    public function setNotificationForMaintenance($notification)
+    {
+        file_put_contents($this->notificationFile,$notification);
+    }
+
+    public function unsetNotificationForMaintenance()
+    {
+        unlink($this->notificationFile);
+    }
 }

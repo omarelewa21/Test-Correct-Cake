@@ -1,15 +1,15 @@
-        <?
-        foreach($classes as $class) {
-            ?>
-                    <tr>
-                        <td><?=$class['name']?></td>
-                        <td class="nopadding">
-                            <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/teacher_classes/view/<?=getUUID($class, 'get');?>');">
-                                <span class="fa fa-folder-open-o"></span>
-                            </a>
+<?
+foreach($classes as $class) {
+    ?>
+            <tr>
+                <td><?=$class['name']?></td>
+                <td class="nopadding">
+                    <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/teacher_classes/view/<?=getUUID($class, 'get');?>');">
+                        <span class="fa fa-folder-open-o"></span>
+                    </a>
 
-                        </td>
-                    </tr>
-                    <?
-        }
-        ?>
+                </td>
+            </tr>
+            <?
+}
+?>

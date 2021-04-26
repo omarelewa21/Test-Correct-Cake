@@ -56,7 +56,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
 
 <h1>Becijferde toets</h1>
 <div class="block">
-    <div class="block-head">Toets informatie</div>
+    <div class="block-head">Toetsinformatie</div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>

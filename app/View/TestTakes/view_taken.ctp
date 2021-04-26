@@ -23,7 +23,7 @@
 <h1>Afgenomen toets</h1>
 
 <div class="block">
-    <div class="block-head">Toets informatie</div>
+    <div class="block-head">Toetsinformatie</div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
