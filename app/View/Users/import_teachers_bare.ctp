@@ -39,10 +39,10 @@
         {'column': 'name_first', 'name': 'Voornaam'},
         {'column': 'name_suffix', 'name': 'tussenvoegsel'},
         {'column': 'name', 'name': 'Achternaam'},
-        {'column': 'abbrviation', 'name': 'Afkorting'},
+        {'column': 'abbreviation', 'name': 'Afkorting'},
         {'column': 'username', 'name': 'E-mailadres'},
         {'column': 'external_id', 'name': 'Externe code'},
-        {'column': 'notes', 'name': 'Notities'},
+        {'column': 'note', 'name': 'Notities'},
     ];
 </script>
-<?= $this->element('import_users_as_teachers_style_and_script',['type'=>'students']) ?>
+<?= $this->element('import_users_as_teachers_style_and_script',['type'=>'teachers']) ?>
