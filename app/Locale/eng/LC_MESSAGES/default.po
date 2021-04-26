@@ -13,6 +13,9 @@ msgstr "Something went wrong"
 msgid "File niet gevonden om te importeren, probeer het nogmaals"
 msgstr "File not found for import, please try again"
 
+msgid "De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals"
+msgstr "The entered security code is incorrect, please try again"
+
 msgid "Alle"
 msgstr "All"
 

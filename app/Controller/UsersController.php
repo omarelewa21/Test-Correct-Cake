@@ -103,7 +103,7 @@ class UsersController extends AppController
                 $this->SecureImage = new Securimage();
                 if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
                     // error captcha not ok
-                    $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','showCaptcha' => true]);
+                    $this->formResponse(false, ['message' => __('De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals'),'showCaptcha' => true]);
                     return false;
                 }
             }
