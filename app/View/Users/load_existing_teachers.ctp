@@ -6,7 +6,7 @@ foreach($users as $user) {
         <td><?=$user['name_suffix']?></td>
         <td><?=$user['name']?></td>
         <td><?=$user['username']?></td>
-        <td><?=$user['external_id']?></td>
+        <td><?=$user['teacher_external_id']?></td>
 
         <td class="nopadding">
             <?php if ($user['active']){ ?>
