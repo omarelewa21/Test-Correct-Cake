@@ -59,7 +59,7 @@
                 Stamnummer
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('teacher_external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>
@@ -100,14 +100,14 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify("Gebruiker bijgewerkt", "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if (result.length != 0)  {
                     Notify.notify(result[0], "error");
                 } else {
-                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                    Notify.notify("Gebruiker kon niet worden bijgewerkt", "error");
                 }
 
             }

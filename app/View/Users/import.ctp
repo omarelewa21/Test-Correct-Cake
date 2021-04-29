@@ -43,10 +43,10 @@
         {'column': 'name_first', 'name': 'Voornaam'},
         {'column': 'name_suffix', 'name': 'tussenvoegsel'},
         {'column': 'name', 'name': 'Achternaam'},
-        {'column': 'abbrviation', 'name': 'Afkorting'},
+        {'column': 'abbreviation', 'name': 'Afkorting'},
         {'column': 'username', 'name': 'E-mailadres'},
         {'column': 'external_id', 'name': 'Externe code'},
-        {'column': 'notes', 'name': 'Notities'},
+        {'column': 'note', 'name': 'Notities'},
         {'column': 'school_class', 'name': 'Koppeling klasnaam'},
         {'column': 'subject', 'name': 'Koppeling welk vak'},
     ];

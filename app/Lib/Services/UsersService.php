@@ -391,6 +391,10 @@ class UsersService extends BaseService
 
                 if (strstr($response, 'external_id')) {
                     return 'external_code';
+                }elseif(strstr($response, 'dns')){
+                    return 'dns';
+                }elseif(strstr($response,'external_id failed on double entry')){
+                    return 'external_id';
                 } elseif (strstr($response, 'username')) {
                     return 'username';
                 } else {
