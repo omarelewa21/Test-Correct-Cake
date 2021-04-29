@@ -1240,8 +1240,8 @@ function shiftCtrlBtuCrOSRemove (){
 function shiftCtrlBtuCrOSAdd (){
     if(Core.isChromebook()) {
         window.copyeventlistener = function(e){
-            e.clipboardData.setData('text/plain', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
-            e.clipboardData.setData('text/html', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
+            e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
             e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
         };
         window.ctrlpressaction = function(){
