@@ -1217,8 +1217,19 @@ function checkPageFocus() {
     }
 }
 
+var zeroshift = false;
+
+function ctrlactive (){
+    if (zeroshift){
+        zeroshift = false;
+    } else{
+        Notify.notify($.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'), 'error');
+        Core.lostFocus("ctrl-key");
+    
+    }
+}
 function shiftCtrlBtuCrOSRemove (){
-    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+    if(Core.isChromebook()) {
         document.removeEventListener('copy', copyeventlistener);
         document.removeEventListener("keydown", ctrlpressaction);
         window.copyeventlistener = null;
@@ -1227,18 +1238,22 @@ function shiftCtrlBtuCrOSRemove (){
 }
 
 function shiftCtrlBtuCrOSAdd (){
-    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+    if(Core.isChromebook()) {
         window.copyeventlistener = function(e){
-            e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
-            e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.clipboardData.setData('text/plain', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
+            e.clipboardData.setData('text/html', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
             e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
         };
         window.ctrlpressaction = function(){
-          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
+          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;    
             if (event.ctrlKey ) {
-                Notify.notify('U hebt een toetsencombinatie gebruikt die niet toegestaan is.', 'error');
-                Core.lostFocus("ctrl-key")
-
+                document.addEventListener("keyup", function (event) {
+                if(event.shiftKey && event.keyCode == 48) {
+                  zeroshift =true;
+                  ctrlactive();
+                } else {ctrlactive();
+                } 
+                });
             }
         }
         document.removeEventListener('copy', window.copyeventlistener);
@@ -1249,7 +1264,7 @@ function shiftCtrlBtuCrOSAdd (){
 }
 
 function zoomsetupcrOS(){
-    if(window.navigator.userAgent.indexOf('CrOS') > 0) {
+    if(Core.isChromebook()) {
             $(document).keydown(function(e){
                   if( e.which === 189 && e.ctrlKey ){
                       e.preventDefault();
