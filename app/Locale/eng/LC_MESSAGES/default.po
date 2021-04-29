@@ -19,6 +19,9 @@ msgstr "The entered security code is incorrect, please try again"
 msgid "Alle"
 msgstr "All"
 
+msgid "Taal Test-Correct"
+msgstr "Test-Correct Language"
+
 msgid "De klas is klaargezet voor verwerking"
 msgstr "The class is set up for processing"
 
