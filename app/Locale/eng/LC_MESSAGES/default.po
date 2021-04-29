@@ -19,6 +19,9 @@ msgstr "The entered security code is incorrect, please try again"
 msgid "Alle"
 msgstr "All"
 
+msgid "Toon demo tour"
+msgstr "Show demo tour"
+
 msgid "Taal Test-Correct"
 msgstr "Test-Correct Language"
 
@@ -107,7 +110,7 @@ msgid "Schoollocatie"
 msgstr "School Location"
 
 msgid "Scholengemeenschap"
-msgstr "School Community"
+msgstr "School community"
 
 msgid "Klas kon niet worden aangemaakt"
 msgstr "School class could not be created"
@@ -200,7 +203,7 @@ msgid "U kunt niet inloggen omdat het contract van uw school niet actief is. Nee
 msgstr "You cannot log in because your school's contract is not active. Please contact us if you think this is a mistake."
 
 msgid "Accountmanagers"
-msgstr "Account managers"
+msgstr "Account Managers"
 
 msgid "Nieuwe Accountmanager"
 msgstr "New Account Manager"

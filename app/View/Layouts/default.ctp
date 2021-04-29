@@ -91,7 +91,7 @@
 	</head>
 
 	<body>
-
+		
 		<div id="loading">
 			<img src="/img/loading.gif" />
 		</div>

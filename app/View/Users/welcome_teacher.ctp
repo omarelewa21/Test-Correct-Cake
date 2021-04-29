@@ -410,11 +410,11 @@ if ($wizard_steps) {
             var completed = $("wizard-completed").length;
 
             if (el.hasClass('fa-minus')) {
-                el.parent().html('<i class="fa fa-plus mr5"></i> Toon demo tour');
+                el.parent().html('<i class="fa fa-plus mr5"></i> <?= __("Toon demo tour")?>');
                 $('#ob-wizard').hide();
                 show = false;
             } else {
-                el.parent().html('<i class="fa fa-minus mr5"></i> Verberg demo tour');
+                el.parent().html('<i class="fa fa-minus mr5"></i> <?= __("Verberg demo tour")?>');
                 $('#ob-wizard').show();
             }
 

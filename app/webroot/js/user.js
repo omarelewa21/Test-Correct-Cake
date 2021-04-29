@@ -81,7 +81,7 @@ var User = {
                 Core.lostFocus();
                 setTimeout(function () {
                     User.logout(false);
-                }, 5000);
+                }, 4000);
             }
 
             // Teacher
@@ -89,7 +89,7 @@ var User = {
                 User.logout(false);
             }
 
-        }, 3000);
+        }, 4000);
     },
 
     actOnLogout: function () {
