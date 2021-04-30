@@ -16,6 +16,7 @@
             'sort' : '',
             'direction' : 'down',
             'hideEmpty' : false,
+            'fixedHeadersInitialized':false,
         }, options );
 
         initialise();
@@ -94,6 +95,36 @@
         loadResults();
     }
 
+    function hasComputedStyle(){
+        return typeof(window.getComputedStyle) == 'function';
+    }
+
+    function makeHeadersFixed(){
+        if(!hasComputedStyle()) {
+            return false;
+        }
+        var containerEl = $(settings.container).get(0);
+        var containerHeight = parseInt($(settings.container).height());
+        var theadHeight = parseInt($(settings.container).find('table:first thead').height());
+        var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
+        var tbodyHeight = containerHeight - paddingTop - theadHeight;
+
+        $(settings.container).find(' table:first thead tr th').each(function(index){
+            $(this).width($(this).width());
+        });
+        $(settings.container).css('overflow','initial');
+        $(settings.container).find(' table:first thead').css('display','block');
+        $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
+        makeTdsFixedWidth();
+    }
+
+    function makeTdsFixedWidth(){
+        var tbodyRow = $(settings.container).find(' table:first tbody tr:first');
+        $(settings.container).find(' table:first thead tr:first').find('td,th').each(function(index){
+            tbodyRow.find('td').eq(index).width($(this).width());
+        });
+    }
+
     function loadResults() {
         if(endResults || loading) {
             return;
@@ -119,6 +150,14 @@
                     settings.page++;
                     loadResults();
                 }
+
+                if(settings.fixedHeadersInitialized === false){
+                    makeHeadersFixed();
+                    settings.fixedHeadersInitialized = true;
+                } else if(settings.page == 1){ // after filter click
+                    makeTdsFixedWidth();
+                }
+
 
                 if(settings.hideEmpty == true) {
 
