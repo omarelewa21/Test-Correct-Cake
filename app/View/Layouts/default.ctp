@@ -117,7 +117,6 @@
 
 					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
 
-
 				</div>
 
 			</div>
