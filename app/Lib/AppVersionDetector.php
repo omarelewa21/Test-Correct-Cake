@@ -16,6 +16,7 @@ class AppVersionDetector
         "ipad" => "iOS",
         "chromebook" => "ChromeOS",
         "win32" => "windowsElectron",
+        "darwin" => "macosElectron"
     ];
 
     private static $allowedVersions = [
@@ -63,6 +64,31 @@ class AppVersionDetector
             ],
             "needsUpdate" => ["2.300.2-beta.2", "3.0.0-beta.5", "3.0.0", "3.0.1"],
         ],
+        "macosElectron" => [
+            "ok" => [
+                "3.0.3",
+                "3.1.0",
+                "3.0.3-beta.1",
+                "3.0.3-beta.2",
+                "3.0.3-beta.3",
+                "3.0.3-beta.4",
+                "3.0.4-beta.1",
+                "3.0.4-beta.2",
+                "3.0.4-beta.3",
+                "3.0.4-beta.4",
+                "3.0.4",
+                "3.0.5",
+                "3.0.5-beta.1",
+                "3.0.5-beta.2",
+                "3.0.5-beta.3",
+                "3.0.5-beta.4",
+                "3.1.0-beta.1",
+                "3.1.0-beta.2",
+                "3.1.0-beta.3",
+                "3.1.0-beta.4"
+            ],
+            "needsUpdate" => [],
+        ]
     ];
 
     public static function detect($headers = false)
