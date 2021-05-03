@@ -61,38 +61,97 @@ if ($wizard_steps) {
     </div>
 
     <div class="cta">
-        <div class="tat-top-text">
-            <?php echo $this->element('send_big_blue'); ?>
-            <h1 class="inline-block">Nodig een collega uit!</h1>
-            <div class="ml60">
-                <h6 class="">Samen met je collega's kun je:</h6>
-                <div class="flex">
-                    <div class="mr10">
-                        <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
-                    </div>
-                    <div class="flex-grow">
-                        <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
-                    </div>
+        <div class="svg">
+            <?php echo $this->element('sticker_invite_colleague'); ?>
+        </div>
+        <div class="cta-content">
+            <h4>Nodig een collega uit</h4>
+            <p>Samen met collega’s kun je gebruikmaken van elkaars toetsen en vragen, voor elkaar surveilleren en
+                analyses delen.</p>
+        </div>
+        <button type="button"
+                onClick="Popup.load('/users/tell_a_teacher', 800);"
+                class="button cta-button button-md"
+                style="width: max-content; padding: 0 1.5rem"
+        >
+            <span>Nodig een collega uit</span>
+        </button>
+    </div>
+    <div class="cta-blocks">
+        <div class="block-container">
+            <div class="cta-block">
+                <div class="svg">
+                    <?php echo $this->element('sticker_upload_classlist'); ?>
                 </div>
-                <div class="flex">
-                    <div class="mr10">
-                        <?php echo $this->element('checkmark', array('color' => 'var(--system-base)')) ?>
-                    </div>
-                    <div>
-                        <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen.</span>
-                    </div>
+                <h4>Klassen toevoegen</h4>
+                <span class="subtitle">Lever een klasbestand aan om klassen toe te voegen</span>
+                <span class="body">Gelieve aan te leveren als: Excel, CSV</span>
+
+                <button type="button"
+                        onclick="Popup.load('/tests/add', 1000);"
+                        class="button cta-button button-md"
+                        style="width: max-content; padding: 0 1.5rem"
+                >
+                    <span>Upload klasbestand</span>
+                </button>
+            </div>
+            <div class="cta-block">
+                <div class="svg">
+                    <?php echo $this->element('sticker_create_test'); ?>
                 </div>
-                <div style="margin-top: 8px">
-                    <button type="button"
-                            onClick="Popup.load('/users/tell_a_teacher', 800);"
-                            class="inline-block button cta-button button-md"
-                    >
-                        <span style="margin-right: 10px; display: inline">Nodig een collega uit</span><?php echo $this->element('chevron', array('color' => 'white')) ?>
-                    </button>
+                <h4>Construeer toets</h4>
+                <span class="subtitle">Ga zelf aan de slag met het maken van een toets</span>
+                <span class="body">Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen</span>
+
+                <button type="button"
+                        onclick="Popup.load('/test_takes/add',1000);"
+                        class="button cta-button button-md"
+                        style="width: max-content; padding: 0 1.5rem"
+                >
+                    <span>Construeer toets</span>
+                </button>
+            </div>
+            <div class="cta-block">
+                <div class="svg">
+                    <?php echo $this->element('sticker_upload_test'); ?>
                 </div>
+                <h4>Upload toets</h4>
+                <span class="subtitle">Laat een bestaande toets digitaliseren</span>
+                <span class="body">Gelieve aan te leveren als: PDF, Word, Wintoets</span>
+
+                <button type="button"
+                        onclick="Popup.load('/file_management/upload_class', 800);"
+                        class="button cta-button button-md"
+                        style="width: max-content; padding: 0 1.5rem"
+                >
+                    <span>Upload toets</span>
+                </button>
+            </div>
+            <div class="cta-block">
+                <div class="svg">
+                    <?php echo $this->element('sticker_plan_test'); ?>
+                </div>
+                <h4>Toets inplannen</h4>
+                <span class="subtitle">Plan een toets in om deze af te kunnen nemen</span>
+                <span class="body">Kies de toets die je wilt afnemen en kies de gewenste datum en tijd</span>
+
+                <button type="button"
+                        onclick="Popup.load('/file_management/upload_test',800);"
+                        class="button cta-button button-md"
+                        style="width: max-content; padding: 0 1.5rem;"
+                >
+                    <span>Plan een toets in</span>
+                </button>
             </div>
         </div>
+        <div class="slider-button left hidden" onclick="scrollToLeft()">
+            <?php echo $this->element('chevron'); ?>
+        </div>
+        <div class="slider-button right hidden" onclick="scrollToRight()">
+            <?php echo $this->element('chevron'); ?>
+        </div>
     </div>
+
 </div>
 
 
@@ -577,6 +636,44 @@ if ($wizard_steps) {
         });
     }
 
+    let width = 0;
+    let rightButton = document.querySelector('.slider-button.right');
+    let leftButton = document.querySelector('.slider-button.left');
+    let dashboard = document.querySelector('.dashboard');
+    let ctaBlockContainer = document.querySelector('.block-container');
+
+    document.querySelectorAll('.cta-block').forEach(function (block) {
+        width += block.offsetWidth;
+    });
+
+    function checkForSlider() {
+        if (width > dashboard.offsetWidth) {
+            if (ctaBlockContainer.scrollLeft === 0) {
+                rightButton.classList.remove('hidden');
+            } else {
+                leftButton.classList.remove('hidden');
+            }
+        } else {
+            rightButton.classList.add('hidden');
+            leftButton.classList.add('hidden');
+        }
+    }
+
+    checkForSlider();
+
+    function scrollToLeft() {
+        ctaBlockContainer.scrollTo({left: 0, behavior: 'smooth'})
+        leftButton.classList.add('hidden');
+        rightButton.classList.remove('hidden');
+    }
+
+    function scrollToRight() {
+        ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
+        leftButton.classList.add('hidden');
+        rightButton.classList.remove('hidden');
+    }
+
+    window.addEventListener('resize', checkForSlider);
 </script>
 <style>
     .block .block-content {
