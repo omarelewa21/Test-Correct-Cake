@@ -5,8 +5,7 @@
                 <tr>
                     <th colspan="4">
                         <p style="background-color: #d9edf7; padding:15px; margin-top:0">
-                        <?= __("We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in
-                            Test-Correct:")?>
+                        <?= __("We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in Test-Correct:")?>
                         </p>
                     </th>
                 </tr>
@@ -35,7 +34,7 @@
                 <?= __("Adres")?>
                 </th>
                 <td colspan="3">
-                    <?= $this->Form->input('address', array('placeholder' => 'Straatnaam en huisnummer', 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
+                    <?= $this->Form->input('address', array('placeholder' => __('Straatnaam en huisnummer'), 'style' => 'width: 580px', 'label' => false, 'verify' => 'notempty', 'value' => $user->address)) ?>
                 </td>
             </tr>
 

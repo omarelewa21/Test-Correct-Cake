@@ -1054,8 +1054,8 @@ msgstr "Miller"
 msgid "Er is geen antwoord opgegeven"
 msgstr "No answer was given"
 
-msgid "We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in\\n                            Test-Correct:"
-msgstr "We need some more information from you before we can create your classes and tests in \\ n Test-Correct:"
+msgid "We hebben nog wat gegevens van je nodig voordat we je klassen en toetsen kunnen aanmaken in Test-Correct:"
+msgstr "We need some more information from you before we can create your classes and tests in Test-Correct:"
 
 msgid "Website"
 msgstr "Website"
@@ -1067,7 +1067,7 @@ msgid "Uw gegevens"
 msgstr "Your data"
 
 msgid "Aanhef"
-msgstr "Salutation"
+msgstr "Title"
 
 msgid "Meneer"
 msgstr "Sir"
@@ -1079,10 +1079,13 @@ msgid "Anders"
 msgstr "Different"
 
 msgid "Aanhef anders"
-msgstr "Salutation different"
+msgstr "Different title"
 
 msgid "Tussenvoegsel"
 msgstr "Suffix"
+
+msgid "Straatnaam en huisnummer"
+msgstr "Street name and house number"
 
 msgid "E-mailadres"
 msgstr "E-mail address"
