@@ -17,6 +17,7 @@
             'direction' : 'down',
             'hideEmpty' : false,
             'fixedHeadersInitialized':false,
+            'scrollInitialized': false,
         }, options );
 
         initialise();
@@ -44,17 +45,8 @@
             $(settings.filters).find('input, select').first().change();
         });
 
-        // INIT AUTOSCROLL
-        $(settings.container).scroll(function() {
-            var scrollT = $(this).scrollTop();
-            var conH = $(settings.container).height();
-            var tableH = $(element).height();
-            var difference = (scrollT + conH) - tableH;
-
-            if(difference > -100 && !loading && !endResults) {
-                settings.page++;
-                loadResults();
-            }
+        $(window).scroll(function(){
+           console.log('windows scroll');
         });
 
         // INIT FILTERS
@@ -88,6 +80,22 @@
          loadResults();
     }
 
+    function scrollInitialize(){
+        // INIT AUTOSCROLL
+        $(settings.scrollContainer).scroll(function() {
+            var scrollT = $(this).scrollTop();
+            var conH = $(settings.scrollContainer).height();
+            var tableH = $(element).height();
+            var difference = (scrollT + conH) - tableH;
+
+            if(difference > -100 && !loading && !endResults) {
+                settings.page++;
+                loadResults();
+            }
+        });
+        settings.scrollInitialized = true;
+    }
+
     function afterSortOrFilter() {
         settings.page = 1;
         $(element).find('tbody').html("");
@@ -115,6 +123,10 @@
         $(settings.container).css('overflow','initial');
         $(settings.container).find(' table:first thead').css('display','block');
         $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
+        settings.scrollContainer = $(settings.container).find(' table:first tbody').get(0);
+        if(settings.scrollInitialized == false){
+            scrollInitialize();
+        }
         makeTdsFixedWidth();
     }
 
