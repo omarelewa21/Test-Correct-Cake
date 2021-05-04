@@ -34,7 +34,7 @@
                 <td>
                     <?=$rating ?>
                 </td>
-                <td>Type</td>
+                <th>Type</th>
                 <td><?=$take['retake'] == 0 ? 'Reguliere toets' : 'Inhaal toets'?></td>
             </tr>
         </table>
