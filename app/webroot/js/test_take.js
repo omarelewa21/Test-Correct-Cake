@@ -1228,13 +1228,32 @@ function ctrlactive (){
     
     }
 }
+
 function shiftCtrlBtuCrOSRemove (){
     if(Core.isChromebook()) {
         document.removeEventListener('copy', copyeventlistener);
         document.removeEventListener("keydown", ctrlpressaction);
+        document.removeEventListener("keyup", window.shiftzeropressed );
         window.copyeventlistener = null;
         window.ctrlpressaction = null;
+        window.shiftzeropressed = null;
     }
+}
+
+function ShiftZero (){
+    if(Core.isChromebook()) {
+
+     document.removeEventListener("keyup", window.shiftzeropressed );
+     document.addEventListener("keyup", window.shiftzeropressed );
+     window.shiftzeropressed = function(){  
+        var keyCode = shiftzeropressed.keyCode ? shiftzeropressed.keyCode : shiftzeropressed.which;    
+        if(event.shiftKey && event.keyCode == 48) {
+        zeroshift =true;
+        ctrlactive();
+        } else {ctrlactive();
+          } 
+    }
+}
 }
 
 function shiftCtrlBtuCrOSAdd (){
@@ -1247,14 +1266,8 @@ function shiftCtrlBtuCrOSAdd (){
         window.ctrlpressaction = function(){
           var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;    
             if (event.ctrlKey ) {
-                document.addEventListener("keyup", function (event) {
-                if(event.shiftKey && event.keyCode == 48) {
-                  zeroshift =true;
-                  ctrlactive();
-                } else {ctrlactive();
-                } 
-                });
-            }
+                ShiftZero ();
+            }        
         }
         document.removeEventListener('copy', window.copyeventlistener);
         document.addEventListener('copy', window.copyeventlistener);
