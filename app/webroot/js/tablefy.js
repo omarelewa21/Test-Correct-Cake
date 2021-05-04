@@ -154,11 +154,6 @@
                     Core.afterHTMLload();
                 }
 
-                if($(settings.container).height() > $(element).height() && !endResults) {
-                    settings.page++;
-                    loadResults();
-                }
-
                 if(settings.fixedHeadersInitialized === false){
                     makeHeadersFixed();
                     settings.fixedHeadersInitialized = true;
@@ -166,6 +161,10 @@
                     makeTdsFixedWidth();
                 }
 
+                if(!checkOverflow(settings.scrollContainer) && !endResults) {
+                    settings.page++;
+                    loadResults();
+                }
 
                 if(settings.hideEmpty == true) {
 
@@ -193,6 +192,20 @@
                 }
             }
         )
+    }
+
+    function checkOverflow(el)
+    {
+        var curOverflow = el.style.overflow;
+
+        if ( !curOverflow || curOverflow === "visible" )
+            el.style.overflow = "hidden";
+
+        var isOverflowing = el.clientHeight < el.scrollHeight;
+
+        el.style.overflow = curOverflow;
+
+        return isOverflowing;
     }
 
     function getFilters() {
