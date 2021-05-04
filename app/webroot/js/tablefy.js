@@ -45,10 +45,6 @@
             $(settings.filters).find('input, select').first().change();
         });
 
-        $(window).scroll(function(){
-           console.log('windows scroll');
-        });
-
         // INIT FILTERS
         if(settings.filters != undefined) {
 
@@ -88,7 +84,7 @@
             var tableH = $(element).height();
             var difference = (scrollT + conH) - tableH;
 
-            if(difference > -100 && !loading && !endResults) {
+            if(difference > -50 && !loading && !endResults) {
                 settings.page++;
                 loadResults();
             }
