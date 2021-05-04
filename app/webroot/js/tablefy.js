@@ -103,7 +103,7 @@
         return typeof(window.getComputedStyle) == 'function';
     }
 
-    function makeHeadersFixed(){
+    function prepareHeadersFixed(){
         if(!hasComputedStyle()) {
             return false;
         }
@@ -113,24 +113,39 @@
         var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
         var tbodyHeight = containerHeight - paddingTop - theadHeight;
 
-        $(settings.container).find(' table:first thead tr th').each(function(index){
-            $(this).width($(this).width());
-        });
+        settings.scrollContainer = $(settings.container).find('table:first tbody').get(0);
+
+        jQuery('#shadowFixedHeaderContainer').remove();
+        var shadowFixedHeaderContainer = jQuery('<div id="shadowFixedHeaderContainer" style="position:absolute;right:10000px;bottom:5000px;"></div>');
+            shadowFixedHeaderContainer.width($(settings.scrollContainer).width()).height(tbodyHeight);
+            shadowFixedHeaderContainer.html($(settings.container).find('table:first').parent().html());
+            jQuery('body').append(shadowFixedHeaderContainer);
+        settings.shadowFixedHeaderContainer = shadowFixedHeaderContainer;
+
+        makeElementsFixed();
         $(settings.container).css('overflow','initial');
         $(settings.container).find(' table:first thead').css('display','block');
         $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
-        settings.scrollContainer = $(settings.container).find(' table:first tbody').get(0);
+
         if(settings.scrollInitialized == false){
             scrollInitialize();
         }
-        makeTdsFixedWidth();
     }
 
-    function makeTdsFixedWidth(){
-        var tbodyRow = $(settings.container).find(' table:first tbody tr:first');
-        $(settings.container).find(' table:first thead tr:first').find('td,th').each(function(index){
-            tbodyRow.find('td').eq(index).width($(this).width());
+    function makeElementsFixed(){
+        var theadRow = $(settings.container).find('table:first thead tr:first');
+        var tbodyRow = $(settings.container).find('table:first tbody tr:first');
+        $(settings.shadowFixedHeaderContainer).find('table:first thead tr:first').find('td,th').each(function(index){
+            console.log('nr '+index);
+            theadRow.find('td,th').eq(index).width($(this).width());
+            tbodyRow.find('td,th').eq(index).width($(this).width());
         });
+    }
+
+    function loadResultsIntoShadow(data){
+        if(typeof settings.shadowFixedHeaderContainer != 'undefined'){
+            $(settings.shadowFixedHeaderContainer).find('tbody').append(results);
+        }
     }
 
     function loadResults() {
@@ -152,13 +167,14 @@
                 }else{
                     $(element).find('tbody').append(results);
                     Core.afterHTMLload();
+                    loadResultsIntoShadow(results);
                 }
 
                 if(settings.fixedHeadersInitialized === false){
-                    makeHeadersFixed();
+                    prepareHeadersFixed();
                     settings.fixedHeadersInitialized = true;
-                } else if(settings.page == 1){ // after filter click
-                    makeTdsFixedWidth();
+                } else { // after filter click
+                    makeElementsFixed();
                 }
 
                 if(!checkOverflow(settings.scrollContainer) && !endResults) {
