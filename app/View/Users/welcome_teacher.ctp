@@ -90,7 +90,7 @@ if ($wizard_steps) {
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_class', 800);"
                         class="button cta-button button-md">
-                    <span>Upload klasbestand</span>
+                    <span>Klassen toevoegen</span>
                 </button>
 <!--                <div class="task-completed">-->
 <!--                    --><?php //echo $this->element('checkmark'); ?>
@@ -135,7 +135,7 @@ if ($wizard_steps) {
                 <button type="button"
                         onclick="Popup.load('/test_takes/add',1000);"
                         class="button cta-button button-md">
-                    <span>Plan een toets in</span>
+                    <span>Toets inplannen</span>
                 </button>
             </div>
         </div>
