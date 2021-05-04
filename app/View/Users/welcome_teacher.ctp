@@ -88,7 +88,7 @@ if ($wizard_steps) {
                 <span class="body">Gelieve aan te leveren als: Excel, CSV</span>
 
                 <button type="button"
-                        onclick="Popup.load('/tests/add', 1000);"
+                        onclick="Popup.load('/file_management/upload_class', 800);"
                         class="button cta-button button-md"
                         style="width: max-content; padding: 0 1.5rem"
                 >
@@ -104,7 +104,7 @@ if ($wizard_steps) {
                 <span class="body">Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen</span>
 
                 <button type="button"
-                        onclick="Popup.load('/test_takes/add',1000);"
+                        onclick="Popup.load('/tests/add', 1000);"
                         class="button cta-button button-md"
                         style="width: max-content; padding: 0 1.5rem"
                 >
@@ -120,7 +120,7 @@ if ($wizard_steps) {
                 <span class="body">Gelieve aan te leveren als: PDF, Word, Wintoets</span>
 
                 <button type="button"
-                        onclick="Popup.load('/file_management/upload_class', 800);"
+                        onclick="Popup.load('/file_management/upload_test',800);"
                         class="button cta-button button-md"
                         style="width: max-content; padding: 0 1.5rem"
                 >
@@ -136,7 +136,7 @@ if ($wizard_steps) {
                 <span class="body">Kies de toets die je wilt afnemen en kies de gewenste datum en tijd</span>
 
                 <button type="button"
-                        onclick="Popup.load('/file_management/upload_test',800);"
+                        onclick="Popup.load('/test_takes/add',1000);"
                         class="button cta-button button-md"
                         style="width: max-content; padding: 0 1.5rem;"
                 >
