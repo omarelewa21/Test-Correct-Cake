@@ -148,6 +148,7 @@ class UsersController extends AppController
                     }
                 }
 
+                $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language']);
 
                 // no need to expose user info
                 $this->formResponse(true, ['message' => $message]);
@@ -1027,9 +1028,6 @@ class UsersController extends AppController
     {
         $roles = AuthComponent::user('roles');
 
-        $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
-        $this->Session->write('Config.language', $school_location['school_language']);
-
         $menus = array();
 
         foreach ($roles as $role) {
@@ -1065,7 +1063,7 @@ class UsersController extends AppController
                 $menus['tests'] = __("Toetsing");
                 $menus['analyses'] = __("Analyse");
                 $menus['messages'] = __("Berichten");
-                $menus['support'] = "Support";
+                $menus['support'] = __("Support");
             }
 
             if ($role['name'] == 'School management') {
@@ -1098,11 +1096,7 @@ class UsersController extends AppController
     {
         $roles = AuthComponent::user('roles');
 
-        $school_location = $this->SchoolLocationsService->getSchoolLocation($this->Session->read('Auth.User.school_location.uuid'));
-        $this->Session->write('Config.language', $school_location['school_language']);
-
         $tiles = array();
-
 
         $tiles['kennisbank'] = [
             'menu'  => 'support',
