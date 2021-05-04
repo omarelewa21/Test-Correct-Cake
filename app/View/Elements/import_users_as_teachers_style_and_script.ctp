@@ -244,8 +244,9 @@
                         var hasDuplicates = false;
                         var hasDuplicatesInDatabase = false;
                         var emailDns = false;
-                        var hasDuplicateExternalId = false;
+                        var hasSameUserNameDifferentExternalIdSameSchoollocation = false;
                         var hasDuplicateSchoolLocation = false;
+                        var hasDuplicateSchoolLocationBare = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
                             //$('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
@@ -269,16 +270,25 @@
                                 }
                                 if (cssClass === 'duplicate-in-database') {
                                     hasDuplicatesInDatabase = true;
-                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database')
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
                                 }
                                 if (cssClass === 'email-dns') {
                                     emailDns = true;
                                 }
-                                if (cssClass === 'duplicate-external_id-in-database') {
-                                    hasDuplicateExternalId = true;
+                                if (cssClass === 'same-username-different-external_id-same-schoollocation') {
+                                    hasSameUserNameDifferentExternalIdSameSchoollocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
                                 }
                                 if (cssClass === 'duplicate-in-school_location') {
                                     hasDuplicateSchoolLocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
+                                }
+                                if (cssClass === 'duplicate-in-school_location-bare') {
+                                    hasDuplicateSchoolLocationBare = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
                                 }
 
                             } else if (header === 'duplicate') {
@@ -303,11 +313,14 @@
                         if(emailDns){
                             $('#column-errors').append($('<ul><li>Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)</li></ul>'));
                         }
-                        if(hasDuplicateExternalId){
-                            $('#column-errors').append($('<ul><li>De externe code bestaat al voor deze schoollocatie(rood)</li></ul>'));
+                        if(hasSameUserNameDifferentExternalIdSameSchoollocation){
+                            $('#duplicates-data-errors').append($('<ul><li>Deze docent bestaat al voor deze schoollocatie met een andere externe code (blauw)</li></ul>'));
                         }
                         if(hasDuplicateSchoolLocation){
-                            $('#column-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie (rood)</li></ul>'));
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie met deze klas en dit vak (oranje)</li></ul>'));
+                        }
+                        if(hasDuplicateSchoolLocationBare){
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie (oranje)</li></ul>'));
                         }
 
                         if (dataMissingHeaders.length) {
@@ -318,13 +331,22 @@
                                 if (field.name === 'E-mailadres' && hasDuplicateSchoolLocation) {
                                     return;
                                 }
+                                if (field.name === 'E-mailadres' && hasDuplicateSchoolLocationBare) {
+                                    return;
+                                }
+                                if (field.name === 'Externe code' && hasDuplicateSchoolLocationBare) {
+                                    return;
+                                }
                                 if (field.name === 'E-mailadres'&&!emailDns&&!hasDuplicatesInDatabase) {
                                     return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
                                 }
                                 if(field.name === 'E-mailadres'){
                                      return;
                                 }
-                                if (field.name === 'Externe code' && hasDuplicateExternalId) {
+                                if (field.name === 'Koppeling welk vak' && hasDuplicateSchoolLocation) {
+                                    return;
+                                }
+                                if (field.name === 'Externe code' && hasSameUserNameDifferentExternalIdSameSchoollocation) {
                                     return;
                                 }
 
@@ -370,14 +392,20 @@
                 return 'duplicate-external_id-in-database';
             }
             if (error.indexOf('failed on double user entry') !== -1) {
-                return 'duplicate-in-school_location';
+                return 'duplicate-in-school_location-bare';
             }
             if (error.indexOf('email failed on dns') !== -1) {
                 return 'email-dns';
             }
-
+            if (error.indexOf('failed on same username same schoollocation different external_id') !== -1) {
+                return 'same-username-different-external_id-same-schoollocation';
+            }
+            if (error.indexOf('double schoolclass subject entry') !== -1) {
+                return 'duplicate-in-school_location';
+            }
             return false;
         }
+
 
         var parsePastedData = function (e) {
             var cb;
