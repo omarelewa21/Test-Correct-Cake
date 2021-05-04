@@ -159,14 +159,12 @@
     justify-content: center;
     align-items: center;
     border-radius: 2rem;
-    z-index: 100;
     cursor: pointer;
     transition: 150s ease-in-out;
 }
 
 .dashboard .cta-blocks .slider-button:hover {
     color: var(--primary);
-    background: red;
     box-shadow: 0 1px 8px 0 rgba(77, 87, 143, 0.5);
 }
 
@@ -175,12 +173,12 @@
 }
 
 .dashboard .cta-blocks .slider-button.left {
-    left: 2.5rem;
+    left: 1rem;
     transform: rotate(180deg);
 }
 
 .dashboard .cta-blocks .slider-button.right {
-    right: 2.5rem;
+    right: 1rem;
 }
 
 .hidden {

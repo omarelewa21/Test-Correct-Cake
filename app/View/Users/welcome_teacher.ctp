@@ -669,8 +669,8 @@ if ($wizard_steps) {
 
     function scrollToRight() {
         ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
-        leftButton.classList.add('hidden');
-        rightButton.classList.remove('hidden');
+        rightButton.classList.add('hidden');
+        leftButton.classList.remove('hidden');
     }
 
     window.addEventListener('resize', checkForSlider);
