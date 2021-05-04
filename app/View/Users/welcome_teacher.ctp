@@ -147,10 +147,10 @@ if ($wizard_steps) {
                 </button>
             </div>
         </div>
-        <div class="slider-button left displayNone" onclick="scrollToLeft()">
+        <div class="slider-button left display-none" onclick="scrollToLeft()">
             <?php echo $this->element('chevron'); ?>
         </div>
-        <div class="slider-button right displayNone" onclick="scrollToRight()">
+        <div class="slider-button right display-none" onclick="scrollToRight()">
             <?php echo $this->element('chevron'); ?>
         </div>
     </div>
@@ -652,13 +652,13 @@ if ($wizard_steps) {
     function checkForSlider() {
         if (width > dashboard.offsetWidth) {
             if (ctaBlockContainer.scrollLeft === 0) {
-                rightButton.classList.remove('displayNone');
+                rightButton.classList.remove('display-none');
             } else {
-                leftButton.classList.remove('displayNone');
+                leftButton.classList.remove('display-none');
             }
         } else {
-            rightButton.classList.add('displayNone');
-            leftButton.classList.add('displayNone');
+            rightButton.classList.add('display-none');
+            leftButton.classList.add('display-none');
         }
     }
 
@@ -666,14 +666,14 @@ if ($wizard_steps) {
 
     function scrollToLeft() {
         ctaBlockContainer.scrollTo({left: 0, behavior: 'smooth'})
-        leftButton.classList.add('displayNone');
-        rightButton.classList.remove('displayNone');
+        leftButton.classList.add('display-none');
+        rightButton.classList.remove('display-none');
     }
 
     function scrollToRight() {
         ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
-        rightButton.classList.add('displayNone');
-        leftButton.classList.remove('displayNone');
+        rightButton.classList.add('display-none');
+        leftButton.classList.remove('display-none');
     }
 
     window.addEventListener('resize', checkForSlider);
