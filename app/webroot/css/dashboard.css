@@ -181,7 +181,7 @@
     box-shadow: 0 1px 8px 0 rgba(77, 87, 143, 0.5);
 }
 
-.dashboard .cta-blocks .slider-button.hidden {
+.dashboard .cta-blocks .slider-button.displayNone {
     display: none;
 }
 
@@ -194,7 +194,7 @@
     right: 1rem;
 }
 
-.hidden {
+.displayNone {
     display: none;
 }
 
