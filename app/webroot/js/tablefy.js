@@ -5,6 +5,7 @@
     var element;
     var filterTimeout = null;
     var endResults = false;
+    var scrollContainer = null;
 
     $.fn.tablefy = function( options ) {
 
@@ -17,7 +18,7 @@
             'direction' : 'down',
             'hideEmpty' : false,
             'fixedHeadersInitialized':false,
-            'scrollInitialized': false,
+            'scrollInitialized': false
         }, options );
 
         initialise();
@@ -73,14 +74,14 @@
             });
         }
 
-         loadResults();
+        loadResults();
     }
 
     function scrollInitialize(){
         // INIT AUTOSCROLL
-        $(settings.scrollContainer).scroll(function() {
+        $(scrollContainer).scroll(function() {
             var scrollT = $(this).scrollTop();
-            var conH = $(settings.scrollContainer).height();
+            var conH = $(scrollContainer).height();
             var tableH = $(element).height();
             var difference = (scrollT + conH) - tableH;
 
@@ -103,7 +104,7 @@
         return typeof(window.getComputedStyle) == 'function';
     }
 
-    function makeHeadersFixed(){
+    function prepareHeadersFixed(){
         if(!hasComputedStyle()) {
             return false;
         }
@@ -113,24 +114,41 @@
         var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
         var tbodyHeight = containerHeight - paddingTop - theadHeight;
 
-        $(settings.container).find(' table:first thead tr th').each(function(index){
-            $(this).width($(this).width());
-        });
+        scrollContainer = $(settings.container).find('table:first tbody').get(0);
+
+        jQuery('#shadowFixedHeaderContainer').remove();
+        var shadowFixedHeaderContainer = jQuery('<div id="shadowFixedHeaderContainer" style="position:absolute;right:10000px;bottom:5000px;"></div>');
+        shadowFixedHeaderContainer.width($(scrollContainer).width()).height(tbodyHeight);
+        shadowFixedHeaderContainer.html($(settings.container).find('table:first').parent().html());
+        jQuery('body').append(shadowFixedHeaderContainer);
+        settings.shadowFixedHeaderContainer = shadowFixedHeaderContainer;
+
+        makeElementsFixed();
         $(settings.container).css('overflow','initial');
         $(settings.container).find(' table:first thead').css('display','block');
         $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
-        settings.scrollContainer = $(settings.container).find(' table:first tbody').get(0);
+
         if(settings.scrollInitialized == false){
             scrollInitialize();
         }
-        makeTdsFixedWidth();
     }
 
-    function makeTdsFixedWidth(){
-        var tbodyRow = $(settings.container).find(' table:first tbody tr:first');
-        $(settings.container).find(' table:first thead tr:first').find('td,th').each(function(index){
-            tbodyRow.find('td').eq(index).width($(this).width());
+    function makeElementsFixed(){
+        var theadRow = $(settings.container).find('table:first thead tr:first');
+        var tbodyRow = $(settings.container).find('table:first tbody tr:first');
+        $(settings.shadowFixedHeaderContainer).find('table:first tbody tr:first').find('td,th').each(function(index){
+            theadRow.find('td,th').eq(index).width($(this).width());
+            tbodyRow.find('td,th').eq(index).width($(this).width());
+            if($(this).hasClass('nopadding')){
+                theadRow.find('td,th').eq(index).addClass('nopadding');
+            }
         });
+    }
+
+    function loadResultsIntoShadow(data){
+        if(typeof settings.shadowFixedHeaderContainer != 'undefined'){
+            $(settings.shadowFixedHeaderContainer).find('tbody').append(data);
+        }
     }
 
     function loadResults() {
@@ -147,21 +165,24 @@
             },
             function(results) {
                 loading = false;
+                needsToLoadIntoShadow = false;
                 if(results == "" || results == "\n") {
                     endResults = true;
                 }else{
                     $(element).find('tbody').append(results);
                     Core.afterHTMLload();
+                    needsToLoadIntoShadow = true;
                 }
 
                 if(settings.fixedHeadersInitialized === false){
-                    makeHeadersFixed();
+                    prepareHeadersFixed();
                     settings.fixedHeadersInitialized = true;
-                } else if(settings.page == 1){ // after filter click
-                    makeTdsFixedWidth();
+                } else if(needsToLoadIntoShadow === true) { // after filter click
+                    loadResultsIntoShadow(results);
+                    makeElementsFixed();
                 }
 
-                if(!checkOverflow(settings.scrollContainer) && !endResults) {
+                if(!checkOverflow(scrollContainer) && !endResults) {
                     settings.page++;
                     loadResults();
                 }
