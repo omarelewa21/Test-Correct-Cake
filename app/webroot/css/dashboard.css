@@ -99,12 +99,13 @@
 }
 .dashboard .cta-blocks .block-container {
     display: flex;
-    padding-top: 2.5rem;
+    padding: 2.5rem 0;
     overflow-x: hidden;
 }
 
 
 .dashboard .cta-blocks .cta-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 290px;
@@ -150,6 +151,18 @@
     margin-top: auto;
 }
 
+.dashboard .cta-blocks .cta-block .task-completed {
+    position: absolute;
+    bottom: -1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+    background: var(--cta-primary);
+    color: white;
+}
+
 .dashboard .cta-blocks .slider-button {
     position: absolute;
     height: 2rem;
@@ -168,7 +181,7 @@
     box-shadow: 0 1px 8px 0 rgba(77, 87, 143, 0.5);
 }
 
-.dashboard .cta-blocks .slider-button.hidden {
+.dashboard .cta-blocks .slider-button.displayNone {
     display: none;
 }
 
@@ -181,7 +194,7 @@
     right: 1rem;
 }
 
-.hidden {
+.displayNone {
     display: none;
 }
 

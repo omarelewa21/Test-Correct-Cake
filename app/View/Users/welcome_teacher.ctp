@@ -94,6 +94,9 @@ if ($wizard_steps) {
                 >
                     <span>Upload klasbestand</span>
                 </button>
+<!--                <div class="task-completed">-->
+<!--                    --><?php //echo $this->element('checkmark'); ?>
+<!--                </div>-->
             </div>
             <div class="cta-block">
                 <div class="svg">
@@ -144,10 +147,10 @@ if ($wizard_steps) {
                 </button>
             </div>
         </div>
-        <div class="slider-button left hidden" onclick="scrollToLeft()">
+        <div class="slider-button left displayNone" onclick="scrollToLeft()">
             <?php echo $this->element('chevron'); ?>
         </div>
-        <div class="slider-button right hidden" onclick="scrollToRight()">
+        <div class="slider-button right displayNone" onclick="scrollToRight()">
             <?php echo $this->element('chevron'); ?>
         </div>
     </div>
@@ -649,13 +652,13 @@ if ($wizard_steps) {
     function checkForSlider() {
         if (width > dashboard.offsetWidth) {
             if (ctaBlockContainer.scrollLeft === 0) {
-                rightButton.classList.remove('hidden');
+                rightButton.classList.remove('displayNone');
             } else {
-                leftButton.classList.remove('hidden');
+                leftButton.classList.remove('displayNone');
             }
         } else {
-            rightButton.classList.add('hidden');
-            leftButton.classList.add('hidden');
+            rightButton.classList.add('displayNone');
+            leftButton.classList.add('displayNone');
         }
     }
 
@@ -663,14 +666,14 @@ if ($wizard_steps) {
 
     function scrollToLeft() {
         ctaBlockContainer.scrollTo({left: 0, behavior: 'smooth'})
-        leftButton.classList.add('hidden');
-        rightButton.classList.remove('hidden');
+        leftButton.classList.add('displayNone');
+        rightButton.classList.remove('displayNone');
     }
 
     function scrollToRight() {
         ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
-        rightButton.classList.add('hidden');
-        leftButton.classList.remove('hidden');
+        rightButton.classList.add('displayNone');
+        leftButton.classList.remove('displayNone');
     }
 
     window.addEventListener('resize', checkForSlider);
