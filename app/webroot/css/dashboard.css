@@ -99,12 +99,13 @@
 }
 .dashboard .cta-blocks .block-container {
     display: flex;
-    padding-top: 2.5rem;
+    padding: 2.5rem 0;
     overflow-x: hidden;
 }
 
 
 .dashboard .cta-blocks .cta-block {
+    position: relative;
     display: flex;
     flex-direction: column;
     min-width: 290px;
@@ -148,6 +149,18 @@
 .dashboard .cta-blocks .cta-block button {
     align-self: center;
     margin-top: auto;
+}
+
+.dashboard .cta-blocks .cta-block .task-completed {
+    position: absolute;
+    bottom: -1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+    background: var(--cta-primary);
+    color: white;
 }
 
 .dashboard .cta-blocks .slider-button {

@@ -94,6 +94,9 @@ if ($wizard_steps) {
                 >
                     <span>Upload klasbestand</span>
                 </button>
+<!--                <div class="task-completed">-->
+<!--                    --><?php //echo $this->element('checkmark'); ?>
+<!--                </div>-->
             </div>
             <div class="cta-block">
                 <div class="svg">
