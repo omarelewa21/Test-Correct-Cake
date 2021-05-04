@@ -85,13 +85,11 @@ if ($wizard_steps) {
                 </div>
                 <h4>Klassen toevoegen</h4>
                 <span class="subtitle">Lever een klasbestand aan om klassen toe te voegen</span>
-                <span class="body">Gelieve aan te leveren als: Excel, CSV</span>
+                <span class="body">Gelieve aan te leveren als:<br> Excel, CSV</span>
 
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_class', 800);"
-                        class="button cta-button button-md"
-                        style="width: max-content; padding: 0 1.5rem"
-                >
+                        class="button cta-button button-md">
                     <span>Upload klasbestand</span>
                 </button>
 <!--                <div class="task-completed">-->
@@ -108,9 +106,7 @@ if ($wizard_steps) {
 
                 <button type="button"
                         onclick="Popup.load('/tests/add', 1000);"
-                        class="button cta-button button-md"
-                        style="width: max-content; padding: 0 1.5rem"
-                >
+                        class="button cta-button button-md">
                     <span>Construeer toets</span>
                 </button>
             </div>
@@ -120,13 +116,11 @@ if ($wizard_steps) {
                 </div>
                 <h4>Upload toets</h4>
                 <span class="subtitle">Laat een bestaande toets digitaliseren</span>
-                <span class="body">Gelieve aan te leveren als: PDF, Word, Wintoets</span>
+                <span class="body">Gelieve aan te leveren als: <br> PDF, Word, Wintoets</span>
 
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_test',800);"
-                        class="button cta-button button-md"
-                        style="width: max-content; padding: 0 1.5rem"
-                >
+                        class="button cta-button button-md">
                     <span>Upload toets</span>
                 </button>
             </div>
@@ -140,9 +134,7 @@ if ($wizard_steps) {
 
                 <button type="button"
                         onclick="Popup.load('/test_takes/add',1000);"
-                        class="button cta-button button-md"
-                        style="width: max-content; padding: 0 1.5rem;"
-                >
+                        class="button cta-button button-md">
                     <span>Plan een toets in</span>
                 </button>
             </div>
