@@ -173,7 +173,7 @@
     align-items: center;
     border-radius: 2rem;
     cursor: pointer;
-    transition: 150s ease-in-out;
+    transition: 150ms ease-in-out;
 }
 
 .dashboard .cta-blocks .slider-button:hover {
@@ -181,7 +181,7 @@
     box-shadow: 0 1px 8px 0 rgba(77, 87, 143, 0.5);
 }
 
-.dashboard .cta-blocks .slider-button.displayNone {
+.dashboard .cta-blocks .slider-button.display-none {
     display: none;
 }
 
@@ -194,7 +194,7 @@
     right: 1rem;
 }
 
-.displayNone {
+.display-none {
     display: none;
 }
 
