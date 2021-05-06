@@ -6,6 +6,7 @@
     var filterTimeout = null;
     var endResults = false;
     var scrollContainer = null;
+    var fixedHeadersInitialized = false;
 
     $.fn.tablefy = function( options ) {
 
@@ -16,9 +17,7 @@
             'page' : 1,
             'sort' : '',
             'direction' : 'down',
-            'hideEmpty' : false,
-            'fixedHeadersInitialized':false,
-            'scrollInitialized': false
+            'hideEmpty' : false
         }, options );
 
         initialise();
@@ -73,7 +72,7 @@
                 }*/
             });
         }
-
+        clearTbodyData();
         loadResults();
     }
 
@@ -90,18 +89,21 @@
                 loadResults();
             }
         });
-        settings.scrollInitialized = true;
     }
 
     function afterSortOrFilter() {
         settings.page = 1;
-        $(element).find('tbody').html("");
+        clearTbodyData();
         endResults = false;
         loadResults();
     }
 
     function hasComputedStyle(){
         return typeof(window.getComputedStyle) == 'function';
+    }
+
+    function clearTbodyData(){
+        $(element).find('tbody').html("");
     }
 
     function prepareHeadersFixed(){
@@ -128,9 +130,7 @@
         $(settings.container).find(' table:first thead').css('display','block');
         $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
 
-        if(settings.scrollInitialized == false){
-            scrollInitialize();
-        }
+        scrollInitialize();
     }
 
     function makeElementsFixed(){
@@ -169,17 +169,17 @@
                 if(results == "" || results == "\n") {
                     endResults = true;
                 }else{
-                    if(settings.page === 1){
-                        $(element).find('tbody').html("");
+                    if(settings.page ===1 ){
+                        clearTbodyData();
                     }
                     $(element).find('tbody').append(results);
                     Core.afterHTMLload();
                     needsToLoadIntoShadow = true;
                 }
 
-                if(settings.fixedHeadersInitialized === false){
+                if(fixedHeadersInitialized === false){
                     prepareHeadersFixed();
-                    settings.fixedHeadersInitialized = true;
+                    fixedHeadersInitialized = true;
                 } else if(needsToLoadIntoShadow === true) { // after filter click
                     loadResultsIntoShadow(results);
                     makeElementsFixed();
