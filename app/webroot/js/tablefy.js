@@ -169,6 +169,9 @@
                 if(results == "" || results == "\n") {
                     endResults = true;
                 }else{
+                    if(settings.page === 1){
+                        $(element).find('tbody').html("");
+                    }
                     $(element).find('tbody').append(results);
                     Core.afterHTMLload();
                     needsToLoadIntoShadow = true;
