@@ -76,7 +76,8 @@
 
     function scrollInitialize(){
         // INIT AUTOSCROLL
-        getScrollContainer().scroll(function() {
+
+        getScrollContainer().off("scroll").on("scroll",function() {
             var scrollT = $(this).scrollTop();
             var conH = getScrollContainer().height();
             var tableH = $(element).height();
