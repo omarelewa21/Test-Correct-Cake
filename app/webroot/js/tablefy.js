@@ -74,21 +74,23 @@
         loadResults();
     }
 
-    function scrollInitialize(){
-        // INIT AUTOSCROLL
-
-        getScrollContainer().off("scroll").on("scroll",function() {
+    var lastScrollTop = 0;
+    function scrollInitialize() {
+        getScrollContainer().off("scroll").on("scroll", function () {
             var scrollT = $(this).scrollTop();
-            var conH = getScrollContainer().height();
-            var tableH = $(element).height();
-            var difference = (scrollT + conH) - tableH;
+            if (scrollT > lastScrollTop) {
+                var tableH = getScrollContainer().prop('scrollHeight');
+                var difference = scrollT + getScrollContainer().height() - tableH;
 
-            if(difference > -50 && !loading && !endResults) {
-                settings.page++;
-                loadResults();
+                if (difference > -100 && !loading && !endResults) {
+                    settings.page++;
+                    loadResults();
+                }
             }
+            lastScrollTop = scrollT;
         });
     }
+
 
     function afterSortOrFilter() {
         settings.page = 1;
