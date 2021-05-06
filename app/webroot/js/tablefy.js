@@ -5,8 +5,6 @@
     var element;
     var filterTimeout = null;
     var endResults = false;
-    var scrollContainer = null;
-    var fixedHeadersInitialized = false;
 
     $.fn.tablefy = function( options ) {
 
@@ -78,9 +76,9 @@
 
     function scrollInitialize(){
         // INIT AUTOSCROLL
-        $(scrollContainer).scroll(function() {
+        getScrollContainer().scroll(function() {
             var scrollT = $(this).scrollTop();
-            var conH = $(scrollContainer).height();
+            var conH = getScrollContainer().height();
             var tableH = $(element).height();
             var difference = (scrollT + conH) - tableH;
 
@@ -98,57 +96,79 @@
         loadResults();
     }
 
-    function hasComputedStyle(){
-        return typeof(window.getComputedStyle) == 'function';
-    }
-
     function clearTbodyData(){
         $(element).find('tbody').html("");
     }
 
+    function doWeUseFixedHeaders(){
+        return (typeof(window.getComputedStyle) == 'function');
+    }
+    function areHeadersPrepared() {
+        return ($(settings.container).attr('fixedHeaderInitialized') == 1)
+    }
+
+    function setHeadersPrepared() {
+        $(settings.container).attr('fixedHeaderInitialized',1);
+    }
+
+    function getScrollContainer(){
+        return $(settings.container).find('table:first tbody');
+    }
+
+    function setScrollContainerHeight(tbodyHeight) {
+        if(typeof tbodyHeight !== 'undefined') {
+            getScrollContainer().height(tbodyHeight);
+        }
+    }
+
+    function resetStyling(tbodyHeight){
+        $(settings.container).css('overflow','initial');
+        $(settings.container).find(' table:first thead').css('display','table-header-group');
+        $(settings.container).find(' table:first tbody').css({display:'table-row-group'});
+        setScrollContainerHeight(tbodyHeight);
+    }
+
+    function applyFixStyling(tbodyHeight){
+        $(settings.container).css('overflow','initial');
+        $(settings.container).find(' table:first thead').css('display','block');
+        $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'});
+        setScrollContainerHeight(tbodyHeight);
+    }
+
     function prepareHeadersFixed(){
-        if(!hasComputedStyle()) {
+        if(!doWeUseFixedHeaders()) {
             return false;
         }
+
+        if(areHeadersPrepared()){
+            return false;
+        }
+
         var containerEl = $(settings.container).get(0);
         var containerHeight = parseInt($(settings.container).height());
         var theadHeight = parseInt($(settings.container).find('table:first thead').height());
         var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
         var tbodyHeight = containerHeight - paddingTop - theadHeight;
 
-        scrollContainer = $(settings.container).find('table:first tbody').get(0);
-
-        jQuery('#shadowFixedHeaderContainer').remove();
-        var shadowFixedHeaderContainer = jQuery('<div id="shadowFixedHeaderContainer" style="position:absolute;right:10000px;bottom:5000px;"></div>');
-        shadowFixedHeaderContainer.width($(scrollContainer).width()).height(tbodyHeight);
-        shadowFixedHeaderContainer.html($(settings.container).find('table:first').parent().html());
-        jQuery('body').append(shadowFixedHeaderContainer);
-        settings.shadowFixedHeaderContainer = shadowFixedHeaderContainer;
-
-        makeElementsFixed();
-        $(settings.container).css('overflow','initial');
-        $(settings.container).find(' table:first thead').css('display','block');
-        $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'}).height(tbodyHeight);
+        makeElementsFixed(tbodyHeight);
 
         scrollInitialize();
+
+        setHeadersPrepared();
     }
 
-    function makeElementsFixed(){
+    function makeElementsFixed(tbodyHeight){
+        resetStyling(tbodyHeight);
         var theadRow = $(settings.container).find('table:first thead tr:first');
         var tbodyRow = $(settings.container).find('table:first tbody tr:first');
-        $(settings.shadowFixedHeaderContainer).find('table:first tbody tr:first').find('td,th').each(function(index){
+        tbodyRow.find('td,th').each(function(index){
             theadRow.find('td,th').eq(index).width($(this).width());
             tbodyRow.find('td,th').eq(index).width($(this).width());
             if($(this).hasClass('nopadding')){
                 theadRow.find('td,th').eq(index).addClass('nopadding');
             }
         });
-    }
-
-    function loadResultsIntoShadow(data){
-        if(typeof settings.shadowFixedHeaderContainer != 'undefined'){
-            $(settings.shadowFixedHeaderContainer).find('tbody').append(data);
-        }
+        applyFixStyling(tbodyHeight);
     }
 
     function loadResults() {
@@ -177,17 +197,17 @@
                     needsToLoadIntoShadow = true;
                 }
 
-                if(fixedHeadersInitialized === false){
-                    prepareHeadersFixed();
-                    fixedHeadersInitialized = true;
-                } else if(needsToLoadIntoShadow === true) { // after filter click
-                    loadResultsIntoShadow(results);
-                    makeElementsFixed();
-                }
+                if(!endResults) {
+                    if (!areHeadersPrepared()) {
+                        prepareHeadersFixed();
+                    } else { // after filter click
+                        makeElementsFixed();
+                    }
 
-                if(!checkOverflow(scrollContainer) && !endResults) {
-                    settings.page++;
-                    loadResults();
+                    if (!checkOverflow(getScrollContainer().get(0))) {
+                        settings.page++;
+                        loadResults();
+                    }
                 }
 
                 if(settings.hideEmpty == true) {
