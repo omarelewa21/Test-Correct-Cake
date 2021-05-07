@@ -259,3 +259,8 @@ div.block-content img {
 .colorcode-45 {color:#FA0303;background-color:#FA0303;}
 .colorcode-46 {color:#03FA25;background-color:#03FA25;}
 .colorcode-47 {color:#E2E3E2;background-color:#E2E3E2;}
+
+.tablefie td,
+.tablefied th {
+    word-break: break-all;
+}
