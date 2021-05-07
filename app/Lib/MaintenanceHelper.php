@@ -12,7 +12,6 @@ class MaintenanceHelper
     protected $maintenanceFile = '../tmp/maintenance.txt';
     protected $notificationFile = '../tmp/maintenance_notification.txt';
     protected $whitelistIpFile = '../tmp/whitelisted_ips.txt';
-    protected $_isInMaintenanceMode = null;
 
     // Hold the class instance.
     private static $instance = null;
@@ -42,7 +41,8 @@ class MaintenanceHelper
     }
 
     public function isUrlLockedWhileInMaintenance(){
-        return $_SERVER['REQUEST_URI'] !== '/deployment_maintenance/check_for_maintenance';
+        $uri = explode('?',$_SERVER['REQUEST_URI'])[0];
+        return $uri !== '/deployment_maintenance/check_for_maintenance';
     }
 
     public function isInMaintenanceModeForCurrentIp(){
@@ -77,10 +77,7 @@ class MaintenanceHelper
     }
 
     public function isInMaintenanceMode(){
-        if($this->_isInMaintenanceMode === null){
-            $this->_isInMaintenanceMode = (bool) file_exists($this->maintenanceFile);
-        }
-        return $this->_isInMaintenanceMode;
+            return (bool) file_exists($this->maintenanceFile);
     }
 
     public function setInMaintenanceMode($message,$ips = [])
