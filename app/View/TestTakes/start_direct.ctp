@@ -156,7 +156,7 @@
             dateFormat: 'dd-mm-yy'
         });
         var date = new Date();
-        var today = date.toLocaleDateString().replaceAll("/", "-");
+        var today = date.toLocaleDateString('nl-NL');
         $('#TestTakeDate0').val(today).trigger('change');
     });
 </script>
