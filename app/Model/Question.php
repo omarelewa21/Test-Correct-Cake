@@ -270,7 +270,7 @@ class Question extends AppModel
             }
         }
 
-        $questionsWithAnswerScore = ['TrueFalseQuestion','MultiChoiceQuestion','MultipleChoiceQuestion','ARQQuestion'];
+        $questionsWithAnswerScore = ['MultiChoiceQuestion','MultipleChoiceQuestion','ARQQuestion'];
 
 
         if(!in_array($type,$questionsWithAnswerScore)){
