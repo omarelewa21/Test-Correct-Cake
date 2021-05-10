@@ -262,5 +262,5 @@ div.block-content img {
 
 .tablefie td,
 .tablefied th {
-    word-break: break-all;
+    box-sizing:border-box;
 }

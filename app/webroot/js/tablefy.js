@@ -125,7 +125,8 @@
     }
 
     function resetStyling(tbodyHeight){
-        $(settings.container).find('table:first').removeClass('tablefied');
+        $(settings.container).find('table:first').addClass('tablefied');
+        // $(settings.container).find('table:first').removeClass('tablefied');
         $(settings.container).css('overflow','initial');
         $(settings.container).find(' table:first thead').css('display','table-header-group');
         $(settings.container).find(' table:first tbody').css({display:'table-row-group'});
@@ -133,7 +134,7 @@
     }
 
     function applyFixStyling(tbodyHeight){
-        $(settings.container).find('table:first').addClass('tablefied');
+        // $(settings.container).find('table:first').addClass('tablefied');
         $(settings.container).css('overflow','initial');
         $(settings.container).find(' table:first thead').css('display','block');
         $(settings.container).find(' table:first tbody').css({display:'block',overflow:'auto'});
