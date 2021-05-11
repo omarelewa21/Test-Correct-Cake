@@ -506,19 +506,19 @@ class UsersService extends BaseService
 
     public function createMarketingReport($data)
     {
-        $response = $this->Connector->postRequest('/onboardingwizard_report', [], $data);
+        $response = $this->Connector->postRequest('/marketing_report', [], $data);
         
         if ($response) {
-            return $this->Connector->getDownloadRequest('/onboardingwizard_report', [], $data);
+            return $this->Connector->getDownloadRequest('/marketing_report', [], $data);
         }
     }
     
-    public function createLocationReport($data)
+    public function createSchoolLocationReport($data)
     {
-        $response = $this->Connector->postRequest('/location_report', [], $data);
+        $response = $this->Connector->postRequest('/school_location_report', [], $data);
         
         if ($response) {
-            return $this->Connector->getDownloadRequest('/location_report', [], $data);
+            return $this->Connector->getDownloadRequest('/school_location_report', [], $data);
         }
     }
 

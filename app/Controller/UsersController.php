@@ -343,6 +343,8 @@ class UsersController extends AppController
     public function marketing_report()
     {
 
+        $this->ifNotAllowedExit(['Account manager']);
+
         $result = $this->UsersService->createMarketingReport($this->request->data);
 
         if (!$result) {
@@ -356,21 +358,19 @@ class UsersController extends AppController
         
     }
     
-    public function location_report()
+    public function school_location_report()
     {
 
-        $this->log('location test','debug');
-        
-        //$this->ifNotAllowedExit(['Account manager'], true);
+        $this->ifNotAllowedExit(['Account manager']);
 
-        $result = $this->UsersService->createLocationReport($this->request->data);
+        $result = $this->UsersService->createSchoolLocationReport($this->request->data);
 
         if (!$result) {
             exit;
         }
 
         $this->response->body($result);
-        $this->response->header('Content-Disposition', 'attachment; filename=location_report_' . date('YmdHi') . '.xls');
+        $this->response->header('Content-Disposition', 'attachment; filename=school_location_report_' . date('YmdHi') . '.xls');
         
         return $this->response;
         
@@ -1249,12 +1249,12 @@ class UsersController extends AppController
                     'path'  => '/users/marketing_report'
                 );
                 
-                 $tiles['location_report'] = array(
+                 $tiles['school_location_report'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
-                    'title' => 'Locatie Rapport',
+                    'title' => 'School locatie Rapport',
                     'type'  => 'download',
-                    'path'  => '/users/location_report'
+                    'path'  => '/users/school_location_report'
                 );
             }
 
