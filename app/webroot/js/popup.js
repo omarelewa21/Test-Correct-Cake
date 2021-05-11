@@ -395,8 +395,10 @@ var Popup = {
         $('#container, #background, #header').removeClass('blurred');
     },
 
-    closeWithNewPopup: function (url) {
-
+    closeWithNewPopup: function (url,width) {
+        if(typeof width == "undefined"){
+            width = 600;
+        }
         $('#fade').hide();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
@@ -410,7 +412,7 @@ var Popup = {
         $('#fade').css({
             'zIndex': (Popup.zIndex - 1)
         });
-        Popup.load(url, 600);
+        Popup.load(url, width);
         return false;
     },
 
@@ -538,6 +540,59 @@ var Popup = {
                     '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
                     'onclick="Popup.closeLast()">Voorbeeldweergave sluiten</a>', 1200);
             }
+        });
+
+    },
+
+    promptChooseEditTestType: function (options, callback) {
+        $('#container, #background, #header').addClass('blurred');
+
+        Popup.index++;
+        Popup.zIndex += 2;
+        Popup.callbackFromPrompt = callback;
+
+        var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
+            '<div class="popup-head">Type aanpassing kiezen</div>' +
+            '<div class="popup-content">' +
+            'Wil je de huidige toets verbeteren, of een nieuwe toets maken?' +
+            '</div>' +
+            '<div class="popup-footer">' +
+            '<div id="edit_test_type_update" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 150px;;cursor:pointer">' +
+            '<h4 class="mt1 mb2">Ik verbeter de huidige toets</h4>' +
+            '<div>'+
+            'De toets wordt aangepast. Er worden duplicaten aangemaakt van deze toets en alle vragen die eronder vallen'+
+            '</div>'+
+            '</div>' +
+            '<div id="edit_test_type_copy" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 150px;;cursor:pointer">' +
+            '<h4 class="mt1 mb2">Ik ben met een nieuwe toets bezig</h4>' +
+            '<div>'+
+            'De toets wordt gedupliceer en de aanpassingen worden in het duplicaat doorgevoerd. Let op! Het vak en/of het niveau van alle vragen die aan deze toets zijn gekoppeld wordt ook aangepast.'+
+            '</div>'+
+            ' </div>' +
+            '<a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+            '</div>' +
+            '</div>'
+        ;
+
+
+        $('body').append(htmlBlock);
+
+        $('#fade').css({
+            'zIndex': (Popup.zIndex - 1)
+        }).fadeIn();
+
+        var width = 550;
+
+        var height = $('#popup_' + Popup.index).height();
+
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (width / 2)) + 'px',
+            'margin-top': (0 - (height / 2)) + 'px',
+            'width': width + 'px',
+            'height': 350 + 'px',
+            'zIndex': Popup.zIndex
+        }).fadeIn(function () {
+            $(this).addClass('center');
         });
 
     }

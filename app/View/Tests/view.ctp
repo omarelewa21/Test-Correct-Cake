@@ -46,8 +46,8 @@
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
-
-        <a href="#" class="btn white" onclick="Popup.load('/tests/edit/<?=$test_id?>', 1000);">
+        
+        <a href="#" class="btn white" onclick="Test.editTestChooseTypePopup('<?=$test_id?>')">
             <span class="fa fa-edit mr5"></span>
             Gegevens wijzigen
         </a>
@@ -460,6 +460,10 @@
                 Questions.updateIndex(ui.item[0].id, '<?=$test_id?>');
             }
         }).disableSelection();
+        <?php } ?>
+
+        <?php if($startWithEdit){?>
+            Popup.load('/tests/edit/<?=$test_id?>', 1000);
         <?php } ?>
 
         var winW = $(window).width();

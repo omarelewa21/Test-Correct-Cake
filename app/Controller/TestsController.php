@@ -201,6 +201,14 @@ class TestsController extends AppController
         $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
     }
 
+    public function create_copy($test_id)
+    {
+        $response = $this->TestsService->duplicate($test_id);
+        $this->view($response['uuid']);
+        $this->set('startWithEdit',true);
+        $this->render('view');
+    }
+
     public function load()
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
@@ -328,6 +336,7 @@ class TestsController extends AppController
         $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
         $this->set('newPlayerAccess', $newPlayerAccess);
         $this->set('oldPlayerAccess', $oldPlayerAccess);
+        $this->set('startWithEdit',false);
     }
 
     /**

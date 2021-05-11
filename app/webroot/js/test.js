@@ -98,7 +98,59 @@ var Test = {
     groupQuestionChooseTypeInActive : function(id){
         $('#'+id).addClass("grey");
         $('#'+id).removeClass("highlight");
+    },
+
+    editTestChooseTypePopup : function(test_id){
+        this.test_id = test_id;
+        Popup.promptChooseEditTestType();
+        this.editTestChooseTypeEvents();
+    },
+
+    editTestChooseTypeEvents : function(){
+        var testObj = this;
+        testObj.editTestType = '';
+        if(!this.editTestTypeEvents) {
+            $(document).on("click", "#edit_test_type_confirm", function () {
+                if ($('#edit_test_type_confirm').hasClass("disabled")) {
+                    return false;
+                }
+                if(testObj.editTestType == ''){
+                    return false;
+                }
+                if(testObj.editTestType=='update'){
+                    Popup.closeWithNewPopup('tests/edit/'+testObj.test_id,1000);
+                }
+                if(testObj.editTestType=='copy'){
+                    Popup.closeLast();
+                    Navigation.load('tests/create_copy/'+testObj.test_id);
+                }
+            });
+
+            $(document).on("click", "#edit_test_type_update", function () {
+                $('#edit_test_type_update').addClass("highlight");
+                testObj.editTestTypeConfirmButtonActive();
+                testObj.editTestChooseTypeInActive('edit_test_type_copy');
+                testObj.editTestType = 'update';
+            });
+
+            $(document).on("click", "#edit_test_type_copy", function () {
+                $('#edit_test_type_copy').addClass("highlight");
+                testObj.editTestTypeConfirmButtonActive();
+                testObj.editTestChooseTypeInActive('edit_test_type_update');
+                testObj.editTestType = 'copy';
+            });
+            this.editTestTypeEvents = true;
+        }
+    },
+
+    editTestTypeConfirmButtonActive : function(){
+        $('#edit_test_type_confirm').removeClass("disabled");
+        $('#edit_test_type_confirm').removeClass("grey");
+        $('#edit_test_type_confirm').addClass("blue");
+    },
+
+    editTestChooseTypeInActive : function(id){
+        $('#'+id).addClass("grey");
+        $('#'+id).removeClass("highlight");
     }
-
-
 };
