@@ -21,7 +21,7 @@
  */
 
 App::uses('MaintenanceHelper','Lib');
-if(MaintenanceHelper::getInstance()->isInMaintenanceModeForCurrentIp()){
+if(MaintenanceHelper::getInstance()->doWeNeedToShowMaintenance()){
     Router::connect('/*', array('controller' => 'pages', 'action' => 'maintenance'));
 } else {
     /**

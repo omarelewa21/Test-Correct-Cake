@@ -1,5 +1,5 @@
 <div class="popup-head">Toets plannen</div>
-<div class="popup-content overflow-visible">
+<div class="popup-content">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
@@ -70,14 +70,14 @@
                 </a>
             </td>
         </tr>
-        <?php if ($locations[$i]['allow_inbrowser_testing']) { ?>
-        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+        <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
+        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="inbrowser_toggle_<?= $i ?>" class="testTakeRowInbrowserToggle">
             <td colspan="7">
                 <div style="display: flex;">
                     <div style="display:flex; width:50%; align-items: center; color: var(--system-base)"">
                         <span class="fa fa-chrome"></span>
                         <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
-                        <?php echo $this->element('questionmark_tooltip') ?>
+                        <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
                         <label class="switch">
                             <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
                             <span class="slider round"></span>
@@ -148,7 +148,7 @@
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
             Notify.notify("Toetsen zijn ingepland", "info");
-            Navigation.refresh();
+            Navigation.load('/test_takes/planned_teacher');
             Popup.closeLast();
         },
         onfailure: function (result) {

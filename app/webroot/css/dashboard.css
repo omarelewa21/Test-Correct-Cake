@@ -1,3 +1,4 @@
+/*Na aanpassingen cache string op default.css wijzigen!*/
 .item#tell_a_teacher {
     padding: 5px 10px !important;
 }
@@ -8,9 +9,10 @@
 
 .dashboard {
     display: flex;
+    flex-direction: column;
     font-family: "Nunito", sans-serif;
     color: var(--system-base);
-    margin: 50px 95px 0 95px;
+    margin: 50px 82px 0 82px;
 }
 
 .dashboard h1 {
@@ -54,26 +56,155 @@
 }
 
 .dashboard .cta {
-    min-width: 420px;
-    margin-left: 15px;
-    font-weight: bold;
+    display: flex;
+    align-items: center;
+    background: linear-gradient(90deg, rgba(0, 77, 245, 1) 0%, rgba(71, 129, 255, 1) 100%);
+    border-radius: 10px;
+    color: white;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.dashboard .cta .send-icon, .dashboard .cta .checkmark-icon {
-    stroke: var(--system-base);
+.dashboard .cta .cta-content {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 0 1rem;
 }
 
-.dashboard .cta svg {
-    vertical-align: top;
-    margin-top: 8px;
+.dashboard .cta .cta-content p {
+    margin: 0 !important;
+    font-size: 1.125rem;
+}
+
+.dashboard .cta .svg {
+    align-self: start;
+    margin-top: -2.5rem;
+}
+
+.dashboard .cta .button span {
+    display: inline-flex;
+    width: max-content;
 }
 
 .dashboard .notes {
-    margin-right: 15px;
-    flex-grow: 1;
+    display: flex;
+    width: 100%;
+}
+
+.dashboard .cta-blocks {
+    display: flex;
+    position: relative;
+    align-items: center;
+}
+.dashboard .cta-blocks .block-container {
+    display: flex;
+    padding: 2.5rem 0;
+    overflow-x: hidden;
+}
+
+
+.dashboard .cta-blocks .cta-block {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 288px;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 10px;
+    border: solid 3px var(--blue-grey);
+    padding: 0 1.5rem 2rem 1.5rem;
+}
+
+.dashboard .cta-blocks .cta-block + .cta-block {
+    margin-left: 1rem;
+}
+
+.dashboard .cta-blocks .cta-block * {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.dashboard .cta-blocks .cta-block .svg {
+    margin-top: -1rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard .cta-blocks .cta-block .subtitle {
+    font-size: 1.125rem;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+}
+
+.dashboard .cta-blocks .cta-block .body {
+    font-size: 0.875rem;
+    margin-top: .625rem;
+    margin-bottom: 1rem;
+}
+
+.dashboard .cta-blocks .cta-block button {
+    box-sizing: border-box;
+    align-self: center;
+    margin-top: auto;
+    width: max-content; padding: 0 1.5rem;
+}
+
+.dashboard .cta-blocks .cta-block .task-completed {
+    position: absolute;
+    bottom: -1.1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 2rem;
+    background: var(--cta-primary);
+    color: white;
+}
+
+.dashboard .cta-blocks .slider-button {
+    position: absolute;
+    height: 2rem;
+    width: 2rem;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2rem;
+    cursor: pointer;
+    transition: 150ms ease-in-out;
+    box-shadow: 0 1px 4px 0 rgba(77, 87, 143, 0.2);
+}
+
+.dashboard .cta-blocks .slider-button:hover {
+    color: var(--primary);
+    box-shadow: 0 1px 8px 0 rgba(77, 87, 143, 0.5);
+}
+
+.dashboard .cta-blocks .slider-button.display-none {
+    display: none;
+}
+
+.dashboard .cta-blocks .slider-button.left {
+    left: -2.5rem;
+    transform: rotate(180deg);
+}
+
+.dashboard .cta-blocks .slider-button.right {
+    right: -2.5rem;
+}
+
+.display-none {
+    display: none;
 }
 
 .dashboard .notification {
+    width: 100%;
     padding: 20px 30px;
     border-radius: 10px;
     margin-bottom: 16px;
@@ -115,9 +246,10 @@
     margin-top: 8px;
 }
 
-.dashboard .notification .body a svg{
+.dashboard .notification .body a svg {
     margin-left: 10px;
 }
+
 .dashboard .notification .body a {
     color: inherit;
 }
@@ -132,8 +264,14 @@
         margin-left: 0;
         margin-right: 0;
     }
+    .dashboard .cta-blocks .slider-button.left {
+        left: 1rem;
+    }
+    .dashboard .cta-blocks .slider-button.right {
+        right: 1rem;
+    }
 }
 
 .overflow-visible {
-    overflow: visible!important;
+    overflow: visible !important;
 }

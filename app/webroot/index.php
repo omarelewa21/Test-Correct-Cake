@@ -101,11 +101,8 @@ if (!include CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php') {
 	$failed = true;
 }
 
-if (Configure::read('bugsnag-key-cake')) {
-    $bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
-	$bugsnag->setErrorReportingLevel(E_ERROR);
-    Bugsnag\Handler::register($bugsnag);
-}
+App::uses('BugsnagLogger', 'Lib');
+BugsnagLogger::getInstance(true);
 
 App::uses('SobitLogger','Lib');
 $logger = SobitLogger::getInstance( $_SERVER['HTTP_HOST'])->startMain($_SERVER['REQUEST_URI'], $_SERVER['REQUEST_METHOD']);

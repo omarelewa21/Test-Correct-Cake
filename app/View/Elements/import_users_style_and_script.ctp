@@ -69,9 +69,10 @@
         background-color:orange;
     }
 
-    .error {
+    .error , .email-dns{
         background: indianred;
     }
+
 
 </style>
 
@@ -275,6 +276,7 @@
                             var hasDuplicatesInDatabase = false;
                             var nonExistingClass = false;
                             var nonExistingClasses = [];
+                            var emailDns = false;
                             // vul de cellen waarvan ik een foutmelding kan vinden met een kleur.
                             Object.keys(response.data).forEach((key, value) => {
                                 var d, row_nr, header, errorMsg;
@@ -300,6 +302,9 @@
                                     if (cssClass === 'duplicate-in-database') {
                                         hasDuplicatesInDatabase = true;
                                     }
+                                    if (cssClass === 'email-dns') {
+                                        emailDns = true;
+                                    }
                                     if(header=='school_class_name'){
                                         nonExistingClass = true;
                                         nonExistingClasses.push($('table#excelDataTable').find(row_selector).find(columns_selector).text());
@@ -318,6 +323,9 @@
                             }
                             if (hasDuplicatesInDatabase) {
                                 $('#duplicates-in-database-data-errors').html('<ul><li>De import duplicaten reeds in de database (oranje)</li></ul>');
+                            }
+                            if(emailDns){
+                                $('#column-errors').html('<ul><li>Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)</li></ul>');
                             }
 
                             if (missingHeaders.length) {
@@ -353,6 +361,9 @@
             }
             if (error.indexOf('external id has already been taken.') !== -1) {
                 return 'duplicate-in-database';
+            }
+            if (error.indexOf('email failed on dns') !== -1) {
+                return 'email-dns';
             }
 
             return false;

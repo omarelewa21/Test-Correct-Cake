@@ -527,7 +527,6 @@ class UsersService extends BaseService
     {
         $response = $this->Connector->postRequest('/teacher/import/schoollocation', [], $data);
 
-
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
@@ -546,6 +545,33 @@ class UsersService extends BaseService
                 $this->addError($response);
             }
 
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function doImportTeacherBare($data)
+    {
+        $response = $this->Connector->postRequest('/user/import/teacher', [], $data);
+
+        if ($response === false) {
+            $error = $this->Connector->getLastResponse();
+            if ($this->isValidJson($error)) {
+                $err = json_decode($error);
+
+                foreach ($err->errors as $k => $e) {
+                    if (is_array($e)) {
+                        foreach ($e as $b => $a) {
+                            $this->addAssocError($k, $a);
+                        }
+                    } else {
+                        $this->addAssocError($k, $e);
+                    }
+                }
+            } else {
+                $this->addError($response);
+            }
             return false;
         }
 
