@@ -247,6 +247,9 @@
                         var hasSameUserNameDifferentExternalIdSameSchoollocation = false;
                         var hasDuplicateSchoolLocation = false;
                         var hasDuplicateSchoolLocationBare = false;
+                        var hasSameExternalIdDifferentUsernameSameSchoollocation = false;
+                        var hasDuplicateExternalIdInImport = false;
+                        var hasDuplicateUsernameInImport = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
                             //$('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
@@ -259,10 +262,10 @@
                             var column_nr = headers.indexOf(header)
                             var placeholder = parseInt(row_nr) + 1;
                             var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
+                            errorMsg = response.data[key];
+                            var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
                             if (column_nr > -1) {
                                 var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
-                                errorMsg = response.data[key];
-                                var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
 
                                 $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
                                 if (!dataMissingHeaders.includes(header)) {
@@ -290,11 +293,22 @@
                                     $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
                                     $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
                                 }
+                                if(cssClass === 'duplicate-external_id-in-database'){
+                                    hasSameExternalIdDifferentUsernameSameSchoollocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
+                                }
+
 
                             } else if (header === 'duplicate') {
-                                hasDuplicates = true;
+                                if(cssClass === 'duplicate-username-in-import'){
+                                    hasDuplicateUsernameInImport = true;
+                                }else if(cssClass === 'duplicate-external_id-in-import'){
+                                    hasDuplicateExternalIdInImport = true;
+                                }else{
+                                    hasDuplicates = true;
+                                }
                                 $('table#excelDataTable').find(row_selector).addClass('duplicate')
-
                             } else {
                                 if (!missingHeaders.includes(header)) {
                                     missingHeaders.push(header);
@@ -322,6 +336,15 @@
                         if(hasDuplicateSchoolLocationBare){
                             $('#duplicates-in-database-data-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie (oranje)</li></ul>'));
                         }
+                        if(hasSameExternalIdDifferentUsernameSameSchoollocation){
+                            $('#duplicates-data-errors').append($('<ul><li>Deze docent bestaat al voor deze schoollocatie met een ander e-mailadres (blauw)</li></ul>'));
+                        }
+                        if(hasDuplicateExternalIdInImport){
+                            $('#duplicates-data-errors').append($('<ul><li>Dezelfde docent staat met 2 verschillende externe codes in de gegevens die u wilt uploaden (blauw)</li></ul>'));
+                        }
+                        if(hasDuplicateUsernameInImport){
+                            $('#duplicates-data-errors').append($('<ul><li>Dezelfde docent staat met 2 verschillende e-mailadressen in de gegevens die u wilt uploaden (blauw)</li></ul>'));
+                        }
 
                         if (dataMissingHeaders.length) {
                             var errorMsg = dataMissingHeaders.map(header => {
@@ -334,14 +357,20 @@
                                 if (field.name === 'E-mailadres' && hasDuplicateSchoolLocationBare) {
                                     return;
                                 }
+                                if (field.name === 'E-mailadres' && emailDns) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && hasDuplicatesInDatabase) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && hasSameExternalIdDifferentUsernameSameSchoollocation) {
+                                    return;
+                                }
                                 if (field.name === 'Externe code' && hasDuplicateSchoolLocationBare) {
                                     return;
                                 }
-                                if (field.name === 'E-mailadres'&&!emailDns&&!hasDuplicatesInDatabase) {
+                                if (field.name === 'E-mailadres') {
                                     return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
-                                }
-                                if(field.name === 'E-mailadres'){
-                                     return;
                                 }
                                 if (field.name === 'Koppeling welk vak' && hasDuplicateSchoolLocation) {
                                     return;
@@ -381,6 +410,12 @@
         function classifyError(error) {
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
+            }
+            if (error.indexOf('this record occurs multiple times with username combination') !== -1) {
+                return 'duplicate-username-in-import';
+            }
+            if (error.indexOf('this record occurs multiple times with external_id combination') !== -1) {
+                return 'duplicate-external_id-in-import';
             }
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';

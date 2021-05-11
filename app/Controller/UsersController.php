@@ -667,7 +667,6 @@ class UsersController extends AppController
     public function view($user_id)
     {
         $user = $this->UsersService->getUser($user_id);
-
         $this->set('user', $user);
 
         switch ($user['roles'][0]['id']) {
