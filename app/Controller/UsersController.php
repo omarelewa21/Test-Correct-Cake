@@ -343,7 +343,7 @@ class UsersController extends AppController
     public function marketing_report()
     {
 
-        $this->ifNotAllowedExit(['Account manager']);
+        $this->isAuthorizedAs(['Account manager']);
 
         $result = $this->UsersService->createMarketingReport($this->request->data);
 
@@ -361,7 +361,7 @@ class UsersController extends AppController
     public function school_location_report()
     {
 
-        $this->ifNotAllowedExit(['Account manager']);
+        $this->isAuthorizedAs(['Account manager']);
 
         $result = $this->UsersService->createSchoolLocationReport($this->request->data);
 
