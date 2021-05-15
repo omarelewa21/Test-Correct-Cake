@@ -13,7 +13,7 @@ foreach($schools as $school) {
         <td>
             <?
             if(empty($school['umbrella_organization']['name'])) {
-                echo '<div class="label" style="background:green">Geen, gemeenschap is eindklant</div>';
+                echo '<div class="label" style="background:green"><?= __("Geen, gemeenschap is eindklant")?></div>';
             }else{
                 echo $school['umbrella_organization']['name'];
             }

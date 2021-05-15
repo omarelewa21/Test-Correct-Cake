@@ -64,7 +64,7 @@
                     <tr>
                         <th>&nbsp;</th>
                         <th><?= __("Antwoord")?></th>
-                        <th><?= __("Score")?></th>
+                        <th><?= __("Score ")?></th>
                         <th>&nbsp;</th>
                     </tr>
                 </thead>

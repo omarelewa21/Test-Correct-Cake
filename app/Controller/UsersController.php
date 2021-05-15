@@ -438,7 +438,7 @@ class UsersController extends AppController
                     'add_title' => __("Nieuwe student")
                 ];
 
-                $school_locations[0] = 'Alle';
+                $school_locations[0] = __('Alle');
                 $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
 
                 $this->set('school_location', $school_locations);
@@ -449,7 +449,7 @@ class UsersController extends AppController
                     'title'     => __("Docenten"),
                     'add_title' => __("Nieuwe Docent")
                 ];
-                $school_locations = [0 => 'Alle'];
+                $school_locations = [0 => __('Alle')];
                 $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
 
                 $this->set('school_location', $school_locations);

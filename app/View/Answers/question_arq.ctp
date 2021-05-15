@@ -52,8 +52,8 @@ $citoClass = 'cito';
     ]);?>
     </td>
     <td>A</td>
-    <td>J</td>
-    <td>J</td>
+    <td><?= __('J') ?></td>
+    <td><?= __('J') ?></td>
     <td><?= __("Juiste reden")?></td>
     </tr>
     <tr>
@@ -68,8 +68,8 @@ $citoClass = 'cito';
             ]);?>
         </td>
         <td>B</td>
-        <td>J</td>
-        <td>J</td>
+        <td><?= __('J') ?></td>
+        <td><?= __('J') ?></td>
         <td><?= __("Onjuiste reden")?></td>
     </tr>
     <tr>
@@ -84,8 +84,8 @@ $citoClass = 'cito';
             ]);?>
         </td>
         <td>C</td>
-        <td>J</td>
-        <td>O</td>
+        <td><?= __('J') ?></td>
+        <td><?= __('O') ?></td>
         <td>-</td>
     </tr>
     <tr>
@@ -100,8 +100,8 @@ $citoClass = 'cito';
             ]);?>
         </td>
         <td>D</td>
-        <td>O</td>
-        <td>J</td>
+        <td><?= __('O') ?></td>
+        <td><?= __('J') ?></td>
         <td>-</td>
     </tr>
     <tr>
@@ -116,8 +116,8 @@ $citoClass = 'cito';
             ]);?>
         </td>
         <td>E</td>
-        <td>O</td>
-        <td>O</td>
+        <td><?= __('O') ?></td>
+        <td><?= __('O') ?></td>
         <td>-</td>
     </tr>
     </tbody>

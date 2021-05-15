@@ -10,7 +10,7 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/classuploads');">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
     <?php
         $options = [];
@@ -23,7 +23,7 @@
                 $options[] = ['action' => 'close', 'text' => __("Sluiten"), 'class' => 'fa-sign-out'];
             break;
             default: // 'closed' or 'declined'
-                $options[] = ['action' => 'claim', 'text' => 'Heropenen', 'class' => 'fa-heart-o'];
+                $options[] = ['action' => 'claim', 'text' => __("Heropenen"), 'class' => 'fa-heart-o'];
             break;
         }
         foreach($options as $option){

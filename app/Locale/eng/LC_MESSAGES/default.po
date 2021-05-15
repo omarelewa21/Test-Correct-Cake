@@ -95,7 +95,7 @@ msgid "Rubriceer"
 msgstr "Classify"
 
 msgid "Teken"
-msgstr "Sign"
+msgstr "Drawing"
 
 msgid "Groepvraag"
 msgstr "Group question"
@@ -107,7 +107,7 @@ msgid "Eigen content"
 msgstr "Content"
 
 msgid "Schoollocatie"
-msgstr "School Location"
+msgstr "School location"
 
 msgid "Scholengemeenschap"
 msgstr "School community"
@@ -184,8 +184,29 @@ msgstr "No brincode found for this setup, please contact administrators."
 msgid "Multiple Choice"
 msgstr "Multiple Choice"
 
+msgid "Score "
+msgstr "Points "
+
 msgid "Open vraag"
 msgstr "Open question"
+
+msgid "Korte open-antwoordvraag"
+msgstr "Short open answer question"
+
+msgid "Lange open-antwoordvraag"
+msgstr "Long open answer question"
+
+msgid "Opstel- / betoogvraag"
+msgstr "Essay / argument question"
+
+msgid "Open vraag - kort<br />"
+msgstr "Open question - short <br />"
+
+msgid "Open vraag - lang<br />"
+msgstr "Open question - long <br />"
+
+msgid "Open vraag<br />"
+msgstr "Open question <br />"
 
 msgid "Gatentekstvraag"
 msgstr "Missing Word Question"
@@ -260,10 +281,10 @@ msgid "Analyses"
 msgstr "Analysis"
 
 msgid "Itembank"
-msgstr "Item Bank"
+msgstr "Item bank"
 
 msgid "Toetsing"
-msgstr "Review"
+msgstr "Testing"
 
 msgid "Overig"
 msgstr "Other"
@@ -308,7 +329,7 @@ msgid "Attainments CITO koppeling"
 msgstr "Attainments CITO clutch"
 
 msgid "Klassen bestanden"
-msgstr "Classes of files"
+msgstr "Class files"
 
 msgid "Toetsbestanden"
 msgstr "Test files"
@@ -326,25 +347,25 @@ msgid "Klassen"
 msgstr "School classes"
 
 msgid "Vragenbank"
-msgstr "Question Bank"
+msgstr "Questions"
 
 msgid "CITO Toetsen op maat"
 msgstr "CITO Customized tests"
 
 msgid "Geplande toetsen"
-msgstr "Scheduled Tests"
+msgstr "Scheduled tests"
 
 msgid "Surveilleren"
 msgstr "Surveillance"
 
 msgid "Afgenomen"
-msgstr "Review"
+msgstr "Taken tests"
 
 msgid "Nakijken"
 msgstr "Check"
 
 msgid "Becijferd"
-msgstr "Grades"
+msgstr "Graded"
 
 msgid "Uw analyse"
 msgstr "Your analysis"
@@ -494,7 +515,7 @@ msgid "Jouw cijfe"
 msgstr "Your number"
 
 msgid "Student cijfe"
-msgstr "Student figure"
+msgstr "Student grade"
 
 msgid "Gemiddeld klassecijfer"
 msgstr "Average class grade"
@@ -503,7 +524,7 @@ msgid "Gemiddelde cijfer zelfde"
 msgstr "Average grade same"
 
 msgid "niveau / leerjaar"
-msgstr "level / grade"
+msgstr "level / Level year"
 
 msgid "Toetsafnames"
 msgstr "Tests"
@@ -515,7 +536,7 @@ msgid "Notities"
 msgstr "Notes"
 
 msgid "Cijfer"
-msgstr "Figure"
+msgstr "Grade"
 
 msgid "Studentgemiddelde"
 msgstr "Student average"
@@ -530,7 +551,7 @@ msgid "Moment"
 msgstr "Moment"
 
 msgid "Eindtermen"
-msgstr "Learning outcomes"
+msgstr "Exam categories"
 
 msgid "Analyse laden"
 msgstr "Load analysis"
@@ -673,6 +694,12 @@ msgstr "Answer signs"
 msgid "Tekening wijzigen"
 msgstr "Change drawing"
 
+msgid "Vraaggroep opslaan"
+msgstr "Save question group"
+
+msgid "Als u kiest om de vraaggroup af te sluiten zal de student bij het maken van de toets niet meer terug kunnen keren naar deze vraaggroup als de vraaggroup is verlaten. Deze functie is bijvoorbeeld handig als u niet wilt dat studenten informatie die u in deze vraaggroup geeft nogmaals kunnen bekijken. De student wordt gevraagd of hij/zij het zeker weet bij het verlaten van de vraaggroep."
+msgstr "If you choose to close the question group, the student will not be able to return to this question group when taking the test once the question group has been left. This function is useful, for example, if you do not want students to be able to review information you provide in this question group. The student is asked if he / she is sure when leaving the question group."
+
 msgid "Ja"
 msgstr "Yes"
 
@@ -809,13 +836,13 @@ msgid "Auteur"
 msgstr "Author"
 
 msgid "Leerjaar"
-msgstr "Grade"
+msgstr "Level year"
 
 msgid "Aanmaakdatum van"
-msgstr "Start date from"
+msgstr "Created at from"
 
 msgid "Aanmaakdatum tot"
-msgstr "End date at"
+msgstr "Created at to"
 
 msgid "Inplannen"
 msgstr "Schedule"
@@ -827,7 +854,13 @@ msgid "PDF"
 msgstr "PDF"
 
 msgid "Gegevens wijzigen"
-msgstr "Changing data"
+msgstr "Edit"
+
+msgid "bewerken"
+msgstr "edit"
+
+msgid "Selecteer maximaal "
+msgstr "Select maximum "
 
 msgid "Toetsinformatie"
 msgstr "Test information"
@@ -836,7 +869,7 @@ msgid "Eigenaar"
 msgstr "Owner"
 
 msgid "Soort"
-msgstr "Sort"
+msgstr "Type"
 
 msgid "Maximale score"
 msgstr "Maximum score"
@@ -945,6 +978,24 @@ msgstr "You have not signed an answer yet"
 
 msgid "U kunt geen opmaak gebruiken tussen de vierkante haakjes"
 msgstr "You cannot use formatting within the square brackets"
+
+msgid "Vierkant"
+msgstr "Square"
+
+msgid "lijndikte 1"
+msgstr "line width 1"
+
+msgid "Raster"
+msgstr "Grid"
+
+msgid "lijndikte 2"
+msgstr "line width 2"
+
+msgid "lijndikte 3"
+msgstr "line width 3"
+
+msgid "Begeleidende tekst"
+msgstr "Explanatory notes"
 
 msgid "U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen"
 msgstr "You must enclose at least one answer in square brackets"
@@ -1184,7 +1235,7 @@ msgid "Nieuwe Klas"
 msgstr "New Class"
 
 msgid "Aangeboden klassen bestanden"
-msgstr "Classes of files offered"
+msgstr "Class files offered"
 
 msgid "Datum"
 msgstr "Date"
@@ -1204,6 +1255,9 @@ msgstr "Code"
 msgid "Behandelaar"
 msgstr "Practitioner"
 
+msgid "Klik om uit te nodigen"
+msgstr "Click to invite"
+
 msgid "Toets uploaden"
 msgstr "Upload Test"
 
@@ -1214,7 +1268,7 @@ msgid "Hier kunt u uw toetsmateriaal aanleveren."
 msgstr "Here you can submit your test material."
 
 msgid "Onze toetsenbakkers zorgen ervoor dat deze toetsen z.s.m. klaar staan in uw itembank."
-msgstr "Our Testboardists ensure that these tests are ready in your item bank as soon as possible."
+msgstr "Our test administrators ensure that these tests are ready in your item bank as soon as possible."
 
 msgid "Klas uploaden"
 msgstr "Upload class"
@@ -1232,7 +1286,7 @@ msgid ": het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: 
 msgstr ": it is important that the file meets the following conditions: (the data each in its own column)."
 
 msgid "Stamnummer"
-msgstr "Teacher number"
+msgstr "Student number"
 
 msgid "Optioneel maar niet verplicht:"
 msgstr "Optional but not required:"
@@ -1282,9 +1336,6 @@ msgstr "Multiple Tests"
 msgid "U hebt geen toets en/of correctiemodel gekozen. Kies één of meerdere bestanden."
 msgstr "You have not selected a test and / or correction model. Select one or more files."
 
-msgid "U hebt bestanden gekozen, maar nog niet geupload. Klik op het upload pijltje (<svg width=\\"26\\" height=\\"26\\" viewBox=\\"0 -8 26 26\\" xmlns=\\"http://www.w3.org/2000/svg\\"><path d=\\"M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1-1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z\\" fill=\\"currentColor\\" fill-rule=\\"evenodd\\"/></svg>) rechts naast de file(s) om deze te uploaden."
-msgstr "You have chosen files but not yet uploaded them. Click the upload arrow (<svg width = \\ "26 \\" height = \\ "26 \\" viewBox = \\ "0 -8 26 26 \\" xmlns = \\ "http://www.w3.org/2000/svg \\ "> <path d = \\" M14 10.414v3.585a1 1 0 0 1-2 0v-3.585l-1.293 1.293a1 1 0 0 1-1.414-1.415l3-3a1 1 0 0 1 1.414 0l3 3a1 1 0 0 1 -1.414 1.415L14 10.414zM9 18a1 1 0 0 1 0-2h8a1 1 0 0 1 0 2H9z \\ "fill = \\" currentColor \\ "fill-rule = \\" evenodd \\ "/> </svg>) to the right of the file ( s) to upload it."
-
 msgid "Er dient een correctiemodel mee gestuurd te worden (zie keuze menu)"
 msgstr "A correction model must be sent along (see selection menu)"
 
@@ -1294,11 +1345,17 @@ msgstr "A maximum of 1 Test can be uploaded at a time (bottom selection menu)"
 msgid "U heeft geen vaknaam ingevuld"
 msgstr "You have not entered a course name"
 
+msgid "Pijl"
+msgstr "Arrow"
+
 msgid "U heeft geen toetsnaam ingevuld"
 msgstr "You have not entered a test name"
 
 msgid "In beheer nemen"
 msgstr "Take control"
+
+msgid "Heropenen"
+msgstr "Reopen"
 
 msgid "Overnemen"
 msgstr "Taking over"
@@ -1370,7 +1427,7 @@ msgid "Wachtwoord wijzigen"
 msgstr "Change Password"
 
 msgid "Bericht versturen"
-msgstr "To send a message"
+msgstr "Send a message"
 
 msgid "Bericht"
 msgstr "Message"
@@ -1379,7 +1436,7 @@ msgid "Bericht verstuurd"
 msgstr "Message sent"
 
 msgid "Reageren"
-msgstr "Comment"
+msgstr "Reply"
 
 msgid "QTI import"
 msgstr "QTI import"
@@ -1405,6 +1462,12 @@ msgstr "QTI import Cito"
 msgid "ARQ Choice"
 msgstr "ARQ Choice"
 
+msgid "J"
+msgstr "T"
+
+msgid "O"
+msgstr "F"
+
 msgid "Bespreken in de klas"
 msgstr "Discuss in class"
 
@@ -1415,7 +1478,7 @@ msgid "Halve punten mogelijk"
 msgstr "Half points possible"
 
 msgid "Openbaar maken"
-msgstr "Disclose"
+msgstr "Make public"
 
 msgid "Geen kladblok"
 msgstr "No notepad"
@@ -1487,10 +1550,19 @@ msgid "Open gatentekst"
 msgstr "Open hole text"
 
 msgid "Tekenen"
-msgstr "To draw"
+msgstr "Drawing"
+
+msgid "Lijn"
+msgstr "Line"
+
+msgid "Cirkel"
+msgstr "Circle"
 
 msgid "Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1)."
 msgstr "A background image can be stretched if it is not in the correct proportions. The optimal dimensions of an image are 970 x 475 pixels. Try to use the same ratio for different sizes (2: 1)."
+
+msgid "Achtergrond"
+msgstr "Background"
 
 msgid "Geen"
 msgstr "No"
@@ -1676,7 +1748,10 @@ msgid "Antwoord wijzigen"
 msgstr "Change answer"
 
 msgid "Delen Openbaar maken"
-msgstr "Share Make Public"
+msgstr "Make Public"
+
+msgid "Als u kiest om de vraag af te sluiten zal de student bij het maken van de toets niet meer terug kunnen keren naar deze vraag als de vraag is verlaten. Deze functie is bijvoorbeeld handig als u niet wilt dat studenten informatie die u in deze vraag geeft nogmaals kunnen bekijken. De student wordt gevraagd of hij/zij het zeker weet bij het verlaten van de vraag."
+msgstr "If you choose to close the question, the student will not be able to return to this question when taking the test once the question has been left. This feature is useful, for example, if you do not want students to be able to review information you provide in this question. The student is asked if he / she is sure when leaving the question."
 
 msgid "Vraag-groep opgeslagen"
 msgstr "Question group saved"
@@ -1845,6 +1920,15 @@ msgstr "Duplicates already in the database (orange)"
 
 msgid "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)"
 msgstr "The domain of the specified email address is not configured for email addresses (red)"
+
+msgid "Het kan ook zijn dat je scherm nog ingezoomd is, in dat geval dien je eerst uit te zoomen"
+msgstr "It is also possible that your screen is still zoomed in, in which case you need to zoom out first"
+
+msgid "Het kan ook zijn dat je scherm nog uitgezoomd is, in dat geval dien je eerst in te zoomen"
+msgstr "It is also possible that your screen is still zoomed out, in that case you need to zoom in first"
+
+msgid "Het scherm lijkt nu ok, sluit de Test-Correct app af en start de app opnieuw op om de toets te maken."
+msgstr "The screen now seems ok, close the Test-Correct app and restart the app to take the test."
 
 msgid "De externe code bestaat al voor deze schoollocatie(rood)"
 msgstr "The external code already exists for this school location (red)"
@@ -2222,10 +2306,10 @@ msgid "Afk"
 msgstr "Abbr"
 
 msgid "Aangeboden bestanden"
-msgstr "Files offered"
+msgstr "Uploaded classes"
 
 msgid "Vak(ken)"
-msgstr "Box (s)"
+msgstr "Subject(s)"
 
 msgid "Toets plannen"
 msgstr "Schedule Test"
@@ -2318,7 +2402,7 @@ msgid "Inhaaltoets gepland"
 msgstr "Catch-up test planned"
 
 msgid "Selecteer minimaal 1 surveillant"
-msgstr "Select at least 1 security guard"
+msgstr "Select at least 1 invigilator"
 
 msgid "Er ging iets mis"
 msgstr "Something went wrong"
@@ -2378,16 +2462,22 @@ msgid "Jouw antwoord"
 msgstr "Your answer"
 
 msgid "Standaard"
-msgstr "Standard"
+msgstr "Standard tests"
+
+msgid "Niet tonen"
+msgstr "Do not show"
+
+msgid "Tonen"
+msgstr "Show"
 
 msgid "Inhaaltoets"
 msgstr "Overtaking Test"
 
 msgid "Toets maken"
-msgstr "Take a test"
+msgstr "make test"
 
 msgid "Nu afnemen"
-msgstr "Now decline"
+msgstr "Take test now"
 
 msgid "Exporteren / Printen"
 msgstr "Export / Print"
@@ -2416,11 +2506,29 @@ msgstr "Standardize"
 msgid "Normering"
 msgstr "Standardization"
 
+msgid "Student heeft geen antwoorden om te beoordelen"
+msgstr "Student has no answers to grade"
+
 msgid "Er zijn geen punten om mee te rekenen. Daarom is het niet mogelijk een normering te kiezen."
 msgstr "There are no points to count. It is therefore not possible to choose a standard."
 
 msgid "Goed per punt"
 msgstr "Good per point"
+
+msgid "Goed per punt: "
+msgstr "Good per point: "
+
+msgid "Fouten per punt: "
+msgstr "Errors per point: "
+
+msgid "Gemiddeld cijfer: "
+msgstr "Average grade: "
+
+msgid "Cesuur: "
+msgstr "Cesuur: "
+
+msgid "N-term: "
+msgstr "N-term: "
 
 msgid "Fouten per punt"
 msgstr "Errors per point"
@@ -2480,7 +2588,10 @@ msgid "Ingepland door"
 msgstr "Scheduled by"
 
 msgid "Toetsen afnemen"
-msgstr "Administer tests"
+msgstr "Take tests"
+
+msgid "Inhaaltoetsen"
+msgstr "Catch up tests"
 
 msgid "Gepland van"
 msgstr "Scheduled from"
@@ -2588,7 +2699,7 @@ msgid "Aangepaste beoordeling"
 msgstr "Custom rating"
 
 msgid "Bespreking starten"
-msgstr "Start meeting"
+msgstr "Discuss test"
 
 msgid "Wilt u de gesloten vragen overslaan of bespreken?"
 msgstr "Would you like to skip or discuss the closed questions?"
@@ -2630,7 +2741,7 @@ msgid "Voortgang"
 msgstr "Progress"
 
 msgid "Innemen"
-msgstr "Ingest"
+msgstr "Hand in test"
 
 msgid "Huidige tijd"
 msgstr "Present time"
@@ -2762,10 +2873,10 @@ msgid "Toets met succes naar RTTI verzonden."
 msgstr "Test sent to RTTI successfully."
 
 msgid "Toets afnemen"
-msgstr "Take a test"
+msgstr "Take test"
 
 msgid "Surveillanten wijzigen"
-msgstr "Security guards change"
+msgstr "Change invigilators"
 
 msgid "Becijferde toets"
 msgstr "Graded test"
@@ -2813,7 +2924,7 @@ msgid "Nu maken"
 msgstr "Create now"
 
 msgid "Er zijn nog geen cijfers bekend."
-msgstr "No figures are available yet."
+msgstr "No grades are available yet."
 
 msgid "Toets aanmaken"
 msgstr "Create Test"
@@ -2828,7 +2939,7 @@ msgid "Vragen shuffelen"
 msgstr "Shuffle questions"
 
 msgid "Shuffle vragen tijdens afname"
-msgstr "Shuffle questions during administration"
+msgstr "Shuffle questions when taking this test"
 
 msgid "Open source toets"
 msgstr "Open source Test"
@@ -2951,7 +3062,13 @@ msgid "Studentennummer"
 msgstr "Student number"
 
 msgid "Dit is de eindklant"
-msgstr "This is the end customer"
+msgstr "This is an end customer"
+
+msgid "Grafiek kon niet worden gegenereerd"
+msgstr "Graph could not be generated"
+
+msgid "Doe de tour"
+msgstr "Do the tour"
 
 msgid "Dyslexie"
 msgstr "Dyslexia"
@@ -3023,7 +3140,7 @@ msgid "opgelagen filters"
 msgstr "saved filters"
 
 msgid "Direct afnemen"
-msgstr "Purchase immediately"
+msgstr "Take test immediately"
 
 msgid "importeren"
 msgstr "import"
@@ -3332,7 +3449,7 @@ msgid "Welkom in Test-Correct"
 msgstr "Welcome to Test-Correct"
 
 msgid "Laatste cijfers"
-msgstr "Latest figures"
+msgstr "Latest grades"
 
 msgid "Let op! Je gebruikt een oude versie van Test-Correct."
 msgstr "Pay attention! You are using an old version of Test-Correct."

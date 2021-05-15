@@ -31,15 +31,15 @@ class Question extends AppModel
 
                     if($question['subtype'] == 'ARQ') {
                         $html .= "<table width=100% cellpadding=10 cellspacing=0><tr><td></td><td>St.1</td><td>St.2</td><td>Reden</td></tr>";
-                        $html .= "<tr><td width=40>A</td><td width=40>J</td><td width=40>J</td><td>Juiste reden</td></tr>";
-                        $html .= "<tr><td>B</td><td>J</td><td>J</td><td>Onjuiste reden</td></tr>";
-                        $html .= "<tr><td>C</td><td>J</td><td>O</td><td></td></tr>";
-                        $html .= "<tr><td>D</td><td>O</td><td>J</td><td></td></tr>";
-                        $html .= "<tr><td>E</td><td>O</td><td>O</td><td></td></tr>";
+                        $html .= "<tr><td width=40>A</td><td width=40><?= __('J') ?></td><td width=40><?= __('J') ?></td><td>Juiste reden</td></tr>";
+                        $html .= "<tr><td>B</td><td><?= __('J') ?></td><td><?= __('J') ?></td><td>Onjuiste reden</td></tr>";
+                        $html .= "<tr><td>C</td><td><?= __('J') ?></td><td><?= __('O') ?></td><td></td></tr>";
+                        $html .= "<tr><td>D</td><td><?= __('O') ?></td><td><?= __('J') ?></td><td></td></tr>";
+                        $html .= "<tr><td>E</td><td><?= __('O') ?></td><td><?= __('O') ?></td><td></td></tr>";
                         $html .= "</table>";
                     }else {
 
-                        $html .= 'Selecteer maximaal ' . $question['selectable_answers'] . ' ';
+                        $html .= __('Selecteer maximaal ') . $question['selectable_answers'] . ' ';
                         $html .= $question['selectable_answers'] > 1 ? __("antwoorden") : __("antwoord");
 
                         $answers = [];

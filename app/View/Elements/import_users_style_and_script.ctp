@@ -325,7 +325,7 @@
                                 $('#duplicates-in-database-data-errors').html('<ul><li><?= __("De import duplicaten reeds in de database (oranje)")?></li></ul>');
                             }
                             if(emailDns){
-                                $('#column-errors').html('<ul><li>Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)</li></ul>');
+                                $('#column-errors').html('<ul><li><?= __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)")?></li></ul>');
                             }
 
                             if (missingHeaders.length) {

@@ -66,14 +66,14 @@
                         <th width="40">St. 1</th>
                         <th width="40">St. 2</th>
                         <th><?= __("Reden")?></th>
-                        <th width="40"><?= __("Score")?></th>
+                        <th width="40"><?= __("Score ")?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>A</td>
-                        <td>J</td>
-                        <td>J</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('J') ?></td>
                         <td><?= __("Juiste reden")?></td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0))?>
@@ -81,8 +81,8 @@
                     </tr>
                     <tr>
                         <td>B</td>
-                        <td>J</td>
-                        <td>J</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('J') ?></td>
                         <td><?= __("Onjuiste reden")?></td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0))?>
@@ -90,8 +90,8 @@
                     </tr>
                     <tr>
                         <td>C</td>
-                        <td>J</td>
-                        <td>O</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0))?>
@@ -99,8 +99,8 @@
                     </tr>
                     <tr>
                         <td>D</td>
-                        <td>O</td>
-                        <td>J</td>
+                        <td><?= __('O') ?></td>
+                        <td><?= __('J') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0))?>
@@ -108,8 +108,8 @@
                     </tr>
                     <tr>
                         <td>E</td>
-                        <td>O</td>
-                        <td>O</td>
+                        <td><?= __('O') ?></td>
+                        <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0))?>

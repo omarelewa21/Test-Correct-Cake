@@ -124,5 +124,5 @@
 
     $('#QuestionQuestion, #QuestionAnswer').ckeditor({});
 
-    $('.popup-head').html('Open vraag');
+    $('.popup-head').html('<?= __("Open vraag")?>');
 </script>

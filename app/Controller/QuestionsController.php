@@ -437,7 +437,7 @@ class QuestionsController extends AppController
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
         $this->set('test_id', $test_id);
-        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');     
+        $this->handleGroupQuestionType($groupquestion_type, __("aanmaken"));     
 
 
     }
@@ -473,7 +473,7 @@ class QuestionsController extends AppController
         $this->set('selectedAttainments', $selectedAttainments);
         $this->request->data = $group;
         $this->set('test_id', $test_id);
-        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],'bewerken');
+        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],__('bewerken'));
         $this->set('carouselGroupQuestionNotify', false);
         $this->setNotificationsForViewGroup($group['QuestionGroup']);
     }

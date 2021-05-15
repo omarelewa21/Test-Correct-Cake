@@ -55,7 +55,7 @@
                 <tr>
                     <td width="13">
                         <?php if ($color == 'grey') { ?>
-                            <div title="Student heeft geen antwoorden om te beoordelen" style="width:13px; height:13px; border: 2px solid #808080; border-radius: 15px;">
+                            <div title='<?= __("Student heeft geen antwoorden om te beoordelen")?>' style="width:13px; height:13px; border: 2px solid #808080; border-radius: 15px;">
                                 <svg style="position:relative; top:-1px; left:0px;" width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title>icons/diagonal-line</title>
                                     <g id="icons/diagonal-line" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">

@@ -82,8 +82,8 @@
                 <tbody>
                 <tr>
                     <td>A</td>
-                    <td>J</td>
-                    <td>J</td>
+                    <td><?= __('J') ?></td>
+                    <td><?= __('J') ?></td>
                     <td><?= __("Juiste reden")?></td>
                     <td>
                         <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => $question['question']['multiple_choice_question_answers'][0]['score']))?>
@@ -91,8 +91,8 @@
                 </tr>
                 <tr>
                     <td>B</td>
-                    <td>J</td>
-                    <td>J</td>
+                    <td><?= __('J') ?></td>
+                    <td><?= __('J') ?></td>
                     <td><?= __("Onjuiste reden")?></td>
                     <td>
                         <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => $question['question']['multiple_choice_question_answers'][1]['score']))?>
@@ -100,8 +100,8 @@
                 </tr>
                 <tr>
                     <td>C</td>
-                    <td>J</td>
-                    <td>O</td>
+                    <td><?= __('J') ?></td>
+                    <td><?= __('O') ?></td>
                     <td>-</td>
                     <td>
                         <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => $question['question']['multiple_choice_question_answers'][2]['score']))?>
@@ -109,8 +109,8 @@
                 </tr>
                 <tr>
                     <td>D</td>
-                    <td>O</td>
-                    <td>J</td>
+                    <td><?= __('O') ?></td>
+                    <td><?= __('J') ?></td>
                     <td>-</td>
                     <td>
                         <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => $question['question']['multiple_choice_question_answers'][3]['score']))?>
@@ -118,8 +118,8 @@
                 </tr>
                 <tr>
                     <td>E</td>
-                    <td>O</td>
-                    <td>O</td>
+                    <td><?= __('O') ?></td>
+                    <td><?= __('O') ?></td>
                     <td>-</td>
                     <td>
                         <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => $question['question']['multiple_choice_question_answers'][4]['score']))?>
