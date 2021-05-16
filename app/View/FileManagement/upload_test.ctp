@@ -122,7 +122,7 @@
                 function handleUploadResponse(data) {
                     clearTimeout(wistjedatjeTimer);
                     Notify.notify(data, 'info');
-                    Navigation.refresh();
+                    Navigation.load('/file_management/testuploads');
                     Popup.closeLast();
                 }
                 ;

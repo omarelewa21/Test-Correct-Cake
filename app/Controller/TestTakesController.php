@@ -467,7 +467,19 @@ class TestTakesController extends AppController {
             $this->set('isTeacher', $isTeacher);
 
             // $this->set('is_rtti_test', $take);
-            $this->render('view_rated', 'ajax');
+            if((bool) $this->hasRole('Student')){
+                $rating = '-';
+                foreach($participants as $participant){
+                    if(getUUID($participant['user'],'get') === AuthComponent::user('uuid')){
+                        $rating = !empty($participant['rating']) ? str_replace('.', ',', round($participant['rating'], 1)) : '-';
+                        break;
+                    }
+                }
+                $this->set('rating',$rating);
+                $this->render('view_rated_student', 'ajax');
+            } else {
+                $this->render('view_rated', 'ajax');
+            }
         } else {
             $this->render('view_taken', 'ajax');
         }

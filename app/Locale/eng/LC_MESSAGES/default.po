@@ -16,6 +16,18 @@ msgstr "File not found for import, please try again"
 msgid "De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals"
 msgstr "The entered security code is incorrect, please try again"
 
+msgid "Klassen toevoegen"
+msgstr "Add classes"
+
+msgid "Lever een klasbestand aan om klassen toe te voegen"
+msgstr "Provide a class file to add classes"
+
+msgid "Gelieve aan te leveren als:"
+msgstr "Please deliver as:"
+
+msgid "Samen met collega’s kun je gebruikmaken van elkaars toetsen en vragen, voor elkaar surveilleren en analyses delen."
+msgstr "Together with colleagues you can use each other's tests and questions, supervise each other and share analyzes."
+
 msgid "Alle"
 msgstr "All"
 
@@ -1260,6 +1272,21 @@ msgstr "Click to invite"
 
 msgid "Toets uploaden"
 msgstr "Upload Test"
+
+msgid "Toets inplannen"
+msgstr "Schedule a test"
+
+msgid "Plan een toets in om deze af te kunnen nemen"
+msgstr "Schedule a test to be able to take it"
+
+msgid "Kies de toets die je wilt afnemen en kies de gewenste datum en tijd"
+msgstr "Choose the test you want to take and choose the desired date and time"
+
+msgid "Laat een bestaande toets digitaliseren"
+msgstr "Have an existing test digitized"
+
+msgid "Gelieve aan te leveren als: <br> PDF, Word, Wintoets"
+msgstr "Please deliver as: <br> PDF, Word, Wintoets"
 
 msgid "Aangeboden toets bestanden"
 msgstr "Offered test files"
@@ -2967,6 +2994,12 @@ msgstr "Error changing the Test"
 
 msgid "Toets construeren"
 msgstr "Create Test"
+
+msgid "Ga zelf aan de slag met het maken van een toets"
+msgstr "Get started with taking a test yourself"
+
+msgid "Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen"
+msgstr "Set up your test and set up your test with question groups and questions"
 
 msgid "Titel (trefwoord)"
 msgstr "Title (keyword)"

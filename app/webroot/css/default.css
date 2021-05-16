@@ -13,7 +13,7 @@
 @import url('bootstrap.css?v20201110');
 @import url('questions.css');
 @import url('tell_a_teacher.css');
-@import url('dashboard.css');
+@import url('dashboard.css?v20210506-0830');
 /* GENERAL */
 body {
     margin:         0px;

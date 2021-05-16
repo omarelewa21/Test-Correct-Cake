@@ -148,7 +148,7 @@
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
             Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
-            Navigation.refresh();
+            Navigation.load('/test_takes/planned_teacher');
             Popup.closeLast();
         },
         onfailure: function (result) {
