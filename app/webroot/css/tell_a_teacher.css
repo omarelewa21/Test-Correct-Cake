@@ -26,7 +26,9 @@
     /*Error colors*/
     --error-bg: #FFEDEB;
     --error-border: #EBCCC8;
-    --error-text: #cf1b04
+    --error-text: #cf1b04;
+
+    --orange: #ff9d23;
 
 }
 
