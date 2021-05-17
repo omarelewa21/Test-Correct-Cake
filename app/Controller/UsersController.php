@@ -360,11 +360,11 @@ class UsersController extends AppController
 
         $this->response->body($result);
         $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_' . date('YmdHi') . '.xls');
-        
+
         return $this->response;
-        
+
     }
-    
+
     public function school_location_report()
     {
 
@@ -378,9 +378,9 @@ class UsersController extends AppController
 
         $this->response->body($result);
         $this->response->header('Content-Disposition', 'attachment; filename=school_location_report_' . date('YmdHi') . '.xls');
-        
+
         return $this->response;
-        
+
     }
 
     public function welcome()
@@ -1284,7 +1284,7 @@ class UsersController extends AppController
                     'type'  => 'download',
                     'path'  => '/users/marketing_report'
                 );
-                
+
                  $tiles['school_location_report'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
@@ -1891,5 +1891,10 @@ class UsersController extends AppController
         }
 
         return $service->getErrors()['error'];
+    }
+
+    public function teacher_complete_user_import()
+    {
+
     }
 }

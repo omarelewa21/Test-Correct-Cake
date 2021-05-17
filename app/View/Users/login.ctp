@@ -198,9 +198,9 @@
             }
         }
     );
-  
+
     function ChromeOSdopost(){
-        $.post("/users/logout", function (){window.location.href = '/';});  
+        $.post("/users/logout", function (){window.location.href = '/';});
     }
 
     function refreshCaptcha(){
