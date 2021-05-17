@@ -159,7 +159,7 @@
         $('body').on('click','#btnChooseEditTest',function(){
             sendFormOrChooseType();
         })
-        Test.editTestChooseTypeEvents('TestEditForm',$('#btnEditTest'),'<?=$test_id?>');
+        Test.editTestChooseTypeEvents('TestEditForm','btnEditTest','<?=$test_id?>');
         fillParamBag();
     });
 

@@ -103,7 +103,7 @@ var Test = {
 
 
 
-    editTestChooseTypeEvents : function(formId,button,test_id){
+    editTestChooseTypeEvents : function(formId,buttonId,test_id){
         var testObj = this;
         this.test_id = test_id;
         testObj.editTestType = '';
@@ -116,7 +116,7 @@ var Test = {
                     return false;
                 }
                 if(testObj.editTestType=='update'){
-                    button.click();
+                    $('#'+buttonId).click();
                 }
                 if(testObj.editTestType=='copy'){
                     FormHandler.init(formId,{ action:'tests/create_copy_and_update/'+testObj.test_id,
