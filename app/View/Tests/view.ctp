@@ -46,8 +46,8 @@
             <span class="fa fa-remove mr5"></span>
             Verwijderen
         </a>
-        
-        <a href="#" class="btn white" onclick="Test.editTestChooseTypePopup('<?=$test_id?>')">
+
+        <a href="#" class="btn white" onclick="Popup.load('/tests/edit/<?=$test_id?>', 1000);">
             <span class="fa fa-edit mr5"></span>
             Gegevens wijzigen
         </a>

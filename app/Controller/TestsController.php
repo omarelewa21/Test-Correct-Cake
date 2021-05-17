@@ -192,7 +192,7 @@ class TestsController extends AppController
                 $currentEducationlevelUuid = $level['uuid'];
             }
         }
-
+        $this->set('test_id',$test_id);
         $this->set('current_education_level_uuid', $currentEducationlevelUuid);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
@@ -201,12 +201,26 @@ class TestsController extends AppController
         $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
     }
 
-    public function create_copy($test_id)
+    public function create_copy_and_update($test_id)
     {
         $response = $this->TestsService->duplicate($test_id);
-        $this->view($response['uuid']);
-        $this->set('startWithEdit',true);
-        $this->render('view');
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            $test = $this->request->data['Test'];
+            if(stristr($response['name'],$test['name'])){
+                $test['name'] = $response['name'];
+            }
+
+            $questions = $this->TestsService->getQuestions($response['uuid']);
+
+            $result = $this->TestsService->edit($response['uuid'], $test);
+
+            if ($result == 'unique_name') {
+                $this->formResponse(false, 'unique_name');
+            } else {
+                $this->formResponse(!empty($result), $result);
+            }
+        }
     }
 
     public function load()

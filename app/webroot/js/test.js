@@ -2,6 +2,7 @@ var Test = {
     groupQuestionType : 'standard',
     test_id : null,
     groupQuestionTypeEvents : false,
+    paramBag : {},
     delete : function(test_id, view) {
 
         Popup.message({
@@ -100,14 +101,11 @@ var Test = {
         $('#'+id).removeClass("highlight");
     },
 
-    editTestChooseTypePopup : function(test_id){
-        this.test_id = test_id;
-        Popup.promptChooseEditTestType();
-        this.editTestChooseTypeEvents();
-    },
 
-    editTestChooseTypeEvents : function(){
+
+    editTestChooseTypeEvents : function(formId,button,test_id){
         var testObj = this;
+        this.test_id = test_id;
         testObj.editTestType = '';
         if(!this.editTestTypeEvents) {
             $(document).on("click", "#edit_test_type_confirm", function () {
@@ -118,11 +116,25 @@ var Test = {
                     return false;
                 }
                 if(testObj.editTestType=='update'){
-                    Popup.closeWithNewPopup('tests/edit/'+testObj.test_id,1000);
+                    button.click();
                 }
                 if(testObj.editTestType=='copy'){
-                    Popup.closeLast();
-                    Navigation.load('tests/create_copy/'+testObj.test_id);
+                    FormHandler.init(formId,{ action:'tests/create_copy_and_update/'+testObj.test_id,
+                                                    onsuccess: function (result) {
+                                                        Popup.closeLast();
+                                                        Navigation.load('tests/view/'+result.uuid);
+                                                        Notify.notify("Toets gewijzigd", "info");
+                                                    },
+                                                    onfailure: function (result) {
+                                                        if (result == 'unique_name') {
+                                                            Notify.notify("De gekozen titel is al in gebruik. Gebruik een unieke titel.", "error");
+                                                        } else {
+                                                            Notify.notify("Fout bij het wijzigen van de toets", "error");
+                                                        }
+                                                    }
+                    });
+                    FormHandler.submit();
+
                 }
             });
 
