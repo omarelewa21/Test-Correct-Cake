@@ -126,14 +126,14 @@ if ($wizard_steps) {
                 <div class="svg">
                     <?php echo $this->element('sticker_plan_test'); ?>
                 </div>
-                <h4>Toets inplannen</h4>
-                <span class="subtitle">Plan een toets in om deze af te kunnen nemen</span>
-                <span class="body">Kies de toets die je wilt afnemen en kies de gewenste datum en tijd</span>
+                <h4><?= __("Toets inplannen")?></h4>
+                <span class="subtitle"><?= __("Plan een toets in om deze af te kunnen nemen")?></span>
+                <span class="body"><?= __("Kies de toets die je wilt afnemen en kies de gewenste datum en tijd")?></span>
 
                 <button type="button"
                         onclick="Popup.load('/test_takes/add',1000);"
                         class="button cta-button button-md">
-                    <span>Toets inplannen</span>
+                    <span><?= __("Toets inplannen")?></span>
                 </button>
             </div>
         </div>

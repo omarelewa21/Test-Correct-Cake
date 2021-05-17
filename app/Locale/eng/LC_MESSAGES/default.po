@@ -1271,7 +1271,7 @@ msgid "Klik om uit te nodigen"
 msgstr "Click to invite"
 
 msgid "Toets uploaden"
-msgstr "Upload Test"
+msgstr "Upload test"
 
 msgid "Toets inplannen"
 msgstr "Schedule a test"
@@ -1283,7 +1283,7 @@ msgid "Kies de toets die je wilt afnemen en kies de gewenste datum en tijd"
 msgstr "Choose the test you want to take and choose the desired date and time"
 
 msgid "Laat een bestaande toets digitaliseren"
-msgstr "Have an existing test digitized"
+msgstr "Have an existing digital test"
 
 msgid "Gelieve aan te leveren als: <br> PDF, Word, Wintoets"
 msgstr "Please deliver as: <br> PDF, Word, Wintoets"
@@ -2209,9 +2209,6 @@ msgstr "Date to"
 msgid "Periode aangemaakt"
 msgstr "Period created"
 
-msgid "\\"Datum van\\" moet een datum voor \\"Datum tot\\" zijn."
-msgstr "\\ "Date from \\" must be a date for \\ "Date to \\"."
-
 msgid "Deze data overlapt met andere periode's"
 msgstr "This data overlaps with other periods"
 
@@ -2954,7 +2951,7 @@ msgid "Er zijn nog geen cijfers bekend."
 msgstr "No grades are available yet."
 
 msgid "Toets aanmaken"
-msgstr "Create Test"
+msgstr "Create test"
 
 msgid "Er zijn nog geen vakken aan uw account gekoppeld, hierdoor kunt u geen toets aanmaken."
 msgstr "There are no courses linked to your account yet, so you cannot create a test."
@@ -2994,6 +2991,9 @@ msgstr "Error changing the Test"
 
 msgid "Toets construeren"
 msgstr "Create Test"
+
+msgid "Toets Construeren"
+msgstr "Create test"
 
 msgid "Ga zelf aan de slag met het maken van een toets"
 msgstr "Get started with taking a test yourself"
