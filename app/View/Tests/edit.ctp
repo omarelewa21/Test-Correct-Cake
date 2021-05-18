@@ -189,6 +189,7 @@
     function fillParamBag(){
         Test.paramBag.subjectId = $('#TestSubjectId').val();
         Test.paramBag.educationLevelId = $('#TestEducationLevelId').val();
+        Test.paramBag.educationLevelYear = $('#TestEducationLevelYear').val();
     }
 
     function sendFormOrChooseType(){
@@ -197,6 +198,10 @@
             return;
         }
         if(Test.paramBag.educationLevelId != $('#TestEducationLevelId').val()){
+            showChooseView();
+            return;
+        }
+        if(Test.paramBag.educationLevelYear && Test.paramBag.educationLevelYear != $('#TestEducationLevelYear').val()){
             showChooseView();
             return;
         }
