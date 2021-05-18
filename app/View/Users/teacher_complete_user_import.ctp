@@ -2,7 +2,7 @@
     .tableFixHead {
         display: block;
         max-height: 400px;
-        overflow-y: scroll;
+        overflow: auto;
     }
 
     .tableFixHead thead, .tableFixHead tbody {
@@ -143,40 +143,75 @@
         <?php echo $this->element('teacher_complete_user_import_steps', array('step' => 3)) ?>
     </div>
 </div>
-<div class="popup-content tat-content body1" style="display:flex; position:relative;">
-    <div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
-        <table class="tableFixHead">
-            <thead style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base)">
+<form method="put" id="teacher-complete-user-import">
+    <div class="popup-content tat-content body1" style="display:flex; position:relative;overflow:hidden">
+        <div
+            style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
+            <table class="tableFixHead">
+                <thead
+                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
-            <tr>
-                <th>Klas</th>
-                <?php foreach($education_levels as $level) { ?>
-                <th><?= $level['education_level']['name'] ?></th>
+                <tr>
+                    <th width="200px">Klas</th>
+                    <?php foreach ($education_levels as $level) { ?>
+                        <th width="80px"><?= $level['education_level']['name'] ?></th>
 
+                    <?php } ?>
+                    <th width="80px">Status</th>
+                    <th width="150px">Leerjaar</th>
+                    <th width="150px">Gecontrolleerd</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($classes_list as $className) { ?>
+                    <tr>
+                        <td width="200px"><?= $className ?></td>
+                        <?php foreach ($education_levels as $eductionLevel) { ?>
+                            <td width="80px" style="position:relative; align-content: center"><input
+                                    id="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    name="class[<?= $className ?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                                    value="<?= $eductionLevel['education_level']['id'] ?>">
+                                <label
+                                    for="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    class="radio-custom-label">
+                                    <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                              fill-rule="evenodd"
+                                              stroke-linecap="round"/>
+                                    </svg>
+                                </label></td>
+                        <?php } ?>
+                        <td width="80px"><span class="import-label label-blue">bekend</span></td>
+                        <td width="150px">
+                            <div style="display: flex;">
+                                <?php foreach (range(1, 6) as $count) { ?>
+                                    <div>
+                                        <input id="<?= sprintf('number-%s-%s', $count, $className) ?>"
+                                               value="<?= $count ?>" name="class[<?= $className ?>][education_level_year]"
+                                               type="radio" class="number-radio">
+                                        <label for="<?= sprintf('number-%s-%s', $count, $className) ?>"
+                                               class="number-radio-label"><span> <?= $count ?></span></label>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </td>
+                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $className) ?>" class="checkbox-custom"
+                                                 name="class[<?=$className ?>][checked]" type="checkbox">
+                            <label for="<?= sprintf('checkbox-%s', $className) ?>"
+                                   class="checkbox-custom-label checkbox-green">
+                                <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                          fill-rule="evenodd"
+                                          stroke-linecap="round"/>
+                                </svg>
+                            </label></td>
+                    </tr>
                 <?php } ?>
-            </tr>
-            </thead>
-            <tbody>
-            <?php foreach($classes_list as $className) { ?>
-            <tr>
-                <td><?= $className ?></td>
-                <?php foreach ($education_levels as $eductionLevel) { ?>
-                <td style="position:relative; align-content: center"> <input id="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>" name="class_<?= $className ?>" type="radio" class="radio-custom" value="<?= $eductionLevel['education_level']['id'] ?>">
-                    <label for="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>" class="radio-custom-label">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label></td>
-                <?php } ?>
-            </tr>
-            <?php } ?>
 
-            </tbody>
-        </table>
-    </div>
-    <div style="background-color:white;
+                </tbody>
+            </table>
+        </div>
+        <div style="background-color:white;
                 box-shadow: 0 -3px 18px 0 rgba(77, 87, 143, 0.2);
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
@@ -185,102 +220,64 @@
                 height:90px;
                 width:100%;
                 margin-left:-40px; display:flex"
-    >
-        <div style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
-            <div style="display:flex; position:relative; align-items:center">
-                <div style="display:flex; position:relative;">
-                    <input id="radio-1" name="radio" type="radio" class="radio-custom">
-                    <label for="radio-1" class="radio-custom-label">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label>
+        >
+            <div
+                style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
+                <div style="display:flex; position:relative; align-items:center">
+                    <div style="display:flex; position:relative;">
+                        <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>
+                        <label for="checkbox-1" class="checkbox-custom-label">
+                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                      fill-rule="evenodd"
+                                      stroke-linecap="round"/>
+                            </svg>
+                        </label>
 
-                    <input id="radio-2" name="radio" type="radio" class="radio-custom">
-                    <label for="radio-2" class="radio-custom-label">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label>
-                    <input id="radio-3" name="radio" type="radio" class="radio-custom">
-                    <label for="radio-3" class="radio-custom-label">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label>
+
+                    </div>
+
+                    <div style="display: flex;">
+                        <span class="import-label label-blue">bekend</span>
+                        <span class="import-label label-orange">onbekend</span>
+                        <span class="import-label label-green">ingesteld</span>
+                    </div>
+
+
+                    <div>
+                        <button class="button primary-button" style="height: 40px; width: 40px;padding:0!important;">
+                            <?php echo $this->element('plus') ?>
+                        </button>
+                    </div>
 
                 </div>
-                <div style="display:flex; position:relative;">
-                    <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>
-                    <label for="checkbox-1" class="checkbox-custom-label">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label>
-
-                    <input id="checkbox-2" class="checkbox-custom" name="checkbox" type="checkbox">
-                    <label for="checkbox-2" class="checkbox-custom-label checkbox-green">
-                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                  fill-rule="evenodd"
-                                  stroke-linecap="round"/>
-                        </svg>
-                    </label>
-                </div>
-
-                <div style="display: flex;">
-                    <span class="import-label label-blue">bekend</span>
-                    <span class="import-label label-orange">onbekend</span>
-                    <span class="import-label label-green">ingesteld</span>
-                </div>
-
-                <div style="display: flex;">
-                    <div>
-                        <input id="number-1" name="numbers" type="radio" class="number-radio">
-                        <label for="number-1" class="number-radio-label"><span>1</span></label>
-                    </div>
-                    <div>
-                        <input id="number-2" name="numbers" type="radio" class="number-radio">
-                        <label for="number-2" class="number-radio-label"><span>2</span></label>
-                    </div>
-                    <div>
-                        <input id="number-3" name="numbers" type="radio" class="number-radio">
-                        <label for="number-3" class="number-radio-label"><span>3</span></label>
-                    </div>
-                    <div>
-                        <input id="number-4" name="numbers" type="radio" class="number-radio">
-                        <label for="number-4" class="number-radio-label"><span>4</span></label>
-                    </div>
-                    <div>
-                        <input id="number-5" name="numbers" type="radio" class="number-radio">
-                        <label for="number-5" class="number-radio-label"><span>5</span></label>
-                    </div>
-                </div>
-
-                <div>
-                    <button class="button primary-button" style="height: 40px; width: 40px;padding:0!important;">
-                        <?php echo $this->element('plus') ?>
+                <div style="display:flex;">
+                    <button style="height: 50px" class="button cta-button button-md">
+                        Opslaan
                     </button>
                 </div>
+            </div>
 
-            </div>
-            <div style="display:flex;">
-                <button style="height: 50px" class="button cta-button button-md">
-                    Opslaan
-                </button>
-            </div>
         </div>
-
     </div>
-</div>
-<script>
-
-</script>
+    <script>
+        $(document).ready(function () {
+            $('#teacher-complete-user-import').on('submit', function (e) {
+                e.preventDefault();
+                $.ajax({
+                    method: 'PUT',
+                    data: $(this).serialize(),
+                    url: 'users/teacher_complete_user_import',
+                    success: function (data) {
+                        Popup.closeLast();
+                        window.setTimeout(function() {
+                            Popup.show(data, 1080);
+                        }, 500);
+                    },
+                });
+            });
+            $('.jquery-radio-set-eduction-level').click(function(e) {
+                $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
+            })
+        });
+    </script>

@@ -1897,6 +1897,10 @@ class UsersController extends AppController
     {
         $this->isAuthorizedAs('Teacher');
 
+        if ($this->request->is('put')) {
+            var_dump($this->request->data); die;
+        }
+
         $classesList = $this->SchoolClassesService->getClassesList();
 
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
