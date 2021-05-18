@@ -462,6 +462,11 @@ var Popup = {
     },
 
     messageOk: function () {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         var index = Popup.index;
 
         if (Popup.callback != null) {
