@@ -161,8 +161,8 @@
             <tr>
                 <td><?= $className ?></td>
                 <?php foreach ($education_levels as $eductionLevel) { ?>
-                <td style="position:relative; align-content: center"> <input id="radio-class-<?= className ?>-<?= $eductionLevel['education_level']['id'] ?>" name="class_<?= $className ?>" type="radio" class="radio-custom" value="<?= $eductionLevel['education_level']['id'] ?>">
-                    <label for="radio-class-<?= className ?>-<?= $eductionLevel['education_level']['id'] ?>" class="radio-custom-label">
+                <td style="position:relative; align-content: center"> <input id="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>" name="class_<?= $className ?>" type="radio" class="radio-custom" value="<?= $eductionLevel['education_level']['id'] ?>">
+                    <label for="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>" class="radio-custom-label">
                         <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                             <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
                                   fill-rule="evenodd"
