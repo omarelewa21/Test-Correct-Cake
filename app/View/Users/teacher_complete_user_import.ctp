@@ -147,190 +147,32 @@
     <div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
         <table class="tableFixHead">
             <thead style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base)">
+
             <tr>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
-                <th>au</th>
+                <th>Klas</th>
+                <?php foreach($education_levels as $level) { ?>
+                <th><?= $level['education_level']['name'] ?></th>
+
+                <?php } ?>
             </tr>
             </thead>
             <tbody>
+            <?php foreach($classes_list as $className) { ?>
             <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
+                <td><?= $className ?></td>
+                <?php foreach ($education_levels as $eductionLevel) { ?>
+                <td style="position:relative; align-content: center"> <input id="radio-class-<?= className ?>-<?= $eductionLevel['education_level']['id'] ?>" name="class_<?= $className ?>" type="radio" class="radio-custom" value="<?= $eductionLevel['education_level']['id'] ?>">
+                    <label for="radio-class-<?= className ?>-<?= $eductionLevel['education_level']['id'] ?>" class="radio-custom-label">
+                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                  fill-rule="evenodd"
+                                  stroke-linecap="round"/>
+                        </svg>
+                    </label></td>
+                <?php } ?>
             </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-                <td>b</td>
-            </tr>
-            <tr>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-                <td>c</td>
-            </tr>
+            <?php } ?>
+
             </tbody>
         </table>
     </div>

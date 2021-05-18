@@ -1895,6 +1895,17 @@ class UsersController extends AppController
 
     public function teacher_complete_user_import()
     {
+        $this->isAuthorizedAs('Teacher');
+
+        $classesList = $this->SchoolClassesService->getClassesList();
+
+        $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
+            getUUID(AuthComponent::user('school_location'), 'get')
+        );
+        $this->set('classes_list', $classesList);
+        $this->set('education_levels', $eductionLevels);
+
+
 
     }
 }
