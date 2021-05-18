@@ -168,8 +168,17 @@
         var theadRow = $(settings.container).find('table:first thead tr:first');
         var tbodyRow = $(settings.container).find('table:first tbody tr:first');
         tbodyRow.find('td,th').each(function(index){
-            theadRow.find('td,th').eq(index).width($(this).width());
-            tbodyRow.find('td,th').eq(index).width($(this).width());
+            theadRow.find('td,th').eq(index).css({
+                minWidth: $(this)[0].offsetWidth+'px',
+                width: $(this)[0].offsetWidth+'px'
+            });
+
+            tbodyRow.find('td,th').eq(index).css({
+                minWidth: $(this)[0].offsetWidth+'px',
+                width: $(this)[0].offsetWidth+'px'
+            });
+
+
             if($(this).hasClass('nopadding')){
                 theadRow.find('td,th').eq(index).addClass('nopadding');
             }
