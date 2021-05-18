@@ -192,6 +192,7 @@ class TestsController extends AppController
                 $currentEducationlevelUuid = $level['uuid'];
             }
         }
+        $this->set('education_level_year',$this->request->data['Test']['education_level_year']);
         $this->set('test_id',$test_id);
         $this->set('current_education_level_uuid', $currentEducationlevelUuid);
         $this->set('kinds', $kinds);
