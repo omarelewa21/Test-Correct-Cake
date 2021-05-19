@@ -156,7 +156,7 @@ if ($wizard_steps) {
     <div id="ob-wizard">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
-        <div class="block">
+        <div class="block" id="demo">
             <div class="block-head m56" style="padding-top:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
@@ -358,6 +358,11 @@ if ($wizard_steps) {
 
 <script src="/js/confetti.min.js"></script>
 <script>
+    if('<?= $language?>' == 'eng'){
+        document.getElementById("demo").style.display = 'none';
+        document.getElementById("buttons").style.display = 'none';
+    }
+    
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);

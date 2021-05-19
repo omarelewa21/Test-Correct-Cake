@@ -386,6 +386,7 @@ class UsersController extends AppController
                 }
                 $this->set('wizard_steps', $wizardSteps);
                 $this->set('account_verified', $verified);
+                $this->set('language', $this->Session->read('Config.language'));
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
 
@@ -544,7 +545,7 @@ class UsersController extends AppController
             //TCP-125
             //if it is not an array, it is an error
             if (!is_array($result)) {
-                $response = "De gebruiker kon niet worden bijgewerkt";
+                $response = __("De gebruiker kon niet worden bijgewerkt");
 
                 //try to decode the error (JSON to array)
                 //or fail and show a general error
