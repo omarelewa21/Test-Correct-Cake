@@ -147,44 +147,60 @@
 
                 <tr>
                     <th width="200px">Klas</th>
-                    <?php foreach ($education_levels as $level) { ?>
-                        <th width="80px"><?= $level['education_level']['name'] ?></th>
+                    <?php foreach ($subjects as $subjectId => $subjectName) { ?>
+                        <th width="80px"><?= $subjectName ?></th>
 
                     <?php } ?>
                     <th><button class="button text-button" style="height: 40px; width: 40px;padding:0!important;">
                             <?php echo $this->element('plus') ?>
                         </button></th>
                     <th width="80px">Status</th>
-                    <th width="150px">Leerjaar</th>
+
                     <th width="150px">Gecontrolleerd</th>
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($classes_list as $className) { ?>
+                <?php foreach ($classes_list as $schoolClass) { ?>
                     <tr>
-                        <td width="200px"><?= $className ?></td>
-                        <?php foreach ($education_levels as $eductionLevel) { ?>
-                            <td width="80px" style="position:relative; align-content: center"><input
-                                    id="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>"
-                                    name="class[<?= $className ?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
-                                    value="<?= $eductionLevel['education_level']['id'] ?>">
+                        <td width="200px"><?= $schoolClass['name'] ?></td>
+
+                        <?php foreach ($subjects as $subjectId => $subjectName) { ?>
+                            <td width="80px" style="position:relative; align-content: center">
+                                <?php if($schoolClass['is_main_school_class'] != 1) { ?>
+                                    <div style="display:flex; position:relative;">
+                                        <input id="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>" class="checkbox-custom jquery-radio-set-eduction-level" name="checkbox" type="checkbox">
+                                        <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>" class="checkbox-custom-label">
+                                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                                      fill-rule="evenodd"
+                                                      stroke-linecap="round"/>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                <?php } else { ?>
+                                <input
+                                    id="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
+                                    name="class[<?= $schoolClass['id']?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                                    value="<?= $subjectId ?>">
                                 <label
-                                    for="radio-class-<?= $className ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                     class="radio-custom-label">
                                     <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
                                               fill-rule="evenodd"
                                               stroke-linecap="round"/>
                                     </svg>
-                                </label></td>
+                                </label>
+                                <?php } ?>
+                            </td>
                         <?php } ?>
                         <td>&nbsp;</td>
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $className) ?>" class="checkbox-custom"
-                                                 name="class[<?=$className ?>][checked]" type="checkbox">
-                            <label for="<?= sprintf('checkbox-%s', $className) ?>"
+                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>" class="checkbox-custom jquery-controle"
+                                                 name="class[<?=$schoolClass['id'] ?>][checked]" type="checkbox">
+                            <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -272,7 +288,7 @@
             })
 
             $('.jquery-radio-set-eduction-level').click(function(e) {
-                $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
+                $(this).closest('tr').find('input[type=checkbox].jquery-controle').attr('checked', true);
             })
         });
     </script>

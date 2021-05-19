@@ -11,6 +11,7 @@ App::uses('HelperFunctions', 'Lib');
 App::uses('Securimage','webroot/img');
 App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
+App::uses('TestsService', 'Lib/Services');
 
 /**
  * Users controller
@@ -36,6 +37,7 @@ class UsersController extends AppController
         $this->UmbrellaOrganisationsService = new UmbrellaOrganisationsService();
         $this->DeploymentService = new DeploymentService();
         $this->WhitelistIpService = new WhitelistIpService();
+        $this->TestsService = new TestsService();
 
         parent::beforeFilter();
     }
@@ -1943,13 +1945,11 @@ class UsersController extends AppController
             var_dump($this->request->data); die;
         }
 
-        $classesList = $this->SchoolClassesService->getClassesList();
+        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1]]);//, 'mode' => 'all']);
+        $subjects = $this->TestsService->getSubjects();
 
-        $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
-            getUUID(AuthComponent::user('school_location'), 'get')
-        );
         $this->set('classes_list', $classesList);
-        $this->set('education_levels', $eductionLevels);
+        $this->set('subjects', $subjects);
     }
 
     public function school_manager_complete_user_import_main_school_class()
