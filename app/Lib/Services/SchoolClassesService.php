@@ -89,7 +89,6 @@ class SchoolClassesService extends BaseService {
             return $this->Connector->getLastResponse();
         }
 
-
         return $response;
     }
 
@@ -202,6 +201,16 @@ class SchoolClassesService extends BaseService {
     public function deleteClass($class_id) {
         $response = $this->Connector->deleteRequest('/school_class/' . $class_id, []);
 
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function updateWithEductionLevelsForMainClasses($data) {
+
+        $response = $this->Connector->putRequest('/school_class/update_with_education_levels_for_main_classes',[], $data);
 
         if($response === false){
             return $this->Connector->getLastResponse();
@@ -209,6 +218,17 @@ class SchoolClassesService extends BaseService {
 
         return $response;
     }
+    public function updateWithEductionLevelsForClusterClasses($data) {
+        $response = $this->Connector->putRequest('/school_class/update_with_education_levels_for_cluster_classes',[], $data);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+
 
     protected function handleFalseResponse($response)
     {

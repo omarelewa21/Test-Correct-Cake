@@ -119,7 +119,7 @@
         <div style="flex-grow:1">
             <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
         </div>
-        <div>
+        <div style="margin-top:-2px">
             <?php echo $this->element('teacher_complete_user_import_tooltip') ?>
         </div>
         <div class="close" style="flex-shrink: 1">
@@ -134,17 +134,11 @@
     </div>
     <div class="divider mb24 mt10"></div>
     <div style="display: flex; align-items: center; justify-content: center; font-size: 16px">
-        <?php echo $this->element('teacher_complete_user_import_steps', array('step' => 1)) ?>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px">
-        <?php echo $this->element('teacher_complete_user_import_steps', array('step' => 2)) ?>
-    </div>
-    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px">
         <?php echo $this->element('teacher_complete_user_import_steps', array('step' => 3)) ?>
     </div>
 </div>
-<form method="put" id="teacher-complete-user-import">
-    <div class="popup-content tat-content body1" style="display:flex; position:relative;overflow:hidden">
+<form method="put" id="teacher-complete-user-import-subject-cluster-class-form">
+    <div class="popup-content tat-content body1" style="display:flex; overflow:hidden">
         <div
             style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
             <table class="tableFixHead">
@@ -157,6 +151,9 @@
                         <th width="80px"><?= $level['education_level']['name'] ?></th>
 
                     <?php } ?>
+                    <th><button class="button text-button" style="height: 40px; width: 40px;padding:0!important;">
+                            <?php echo $this->element('plus') ?>
+                        </button></th>
                     <th width="80px">Status</th>
                     <th width="150px">Leerjaar</th>
                     <th width="150px">Gecontrolleerd</th>
@@ -181,20 +178,10 @@
                                     </svg>
                                 </label></td>
                         <?php } ?>
+                        <td>&nbsp;</td>
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
-                        <td width="150px">
-                            <div style="display: flex;">
-                                <?php foreach (range(1, 6) as $count) { ?>
-                                    <div>
-                                        <input id="<?= sprintf('number-%s-%s', $count, $className) ?>"
-                                               value="<?= $count ?>" name="class[<?= $className ?>][education_level_year]"
-                                               type="radio" class="number-radio">
-                                        <label for="<?= sprintf('number-%s-%s', $count, $className) ?>"
-                                               class="number-radio-label"><span> <?= $count ?></span></label>
-                                    </div>
-                                <?php } ?>
-                            </div>
-                        </td>
+
+
                         <td width="150px"><input id="<?= sprintf('checkbox-%s', $className) ?>" class="checkbox-custom"
                                                  name="class[<?=$className ?>][checked]" type="checkbox">
                             <label for="<?= sprintf('checkbox-%s', $className) ?>"
@@ -224,35 +211,35 @@
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
-                    <div style="display:flex; position:relative;">
-                        <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>
-                        <label for="checkbox-1" class="checkbox-custom-label">
-                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                      fill-rule="evenodd"
-                                      stroke-linecap="round"/>
-                            </svg>
-                        </label>
+<!--                    <div style="display:flex; position:relative;">-->
+<!--                        <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>-->
+<!--                        <label for="checkbox-1" class="checkbox-custom-label">-->
+<!--                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"-->
+<!--                                      fill-rule="evenodd"-->
+<!--                                      stroke-linecap="round"/>-->
+<!--                            </svg>-->
+<!--                        </label>-->
+<!---->
+<!---->
+<!--                    </div>-->
+<!---->
+<!--                    <div style="display: flex;">-->
+<!--                        <span class="import-label label-blue">bekend</span>-->
+<!--                        <span class="import-label label-orange">onbekend</span>-->
+<!--                        <span class="import-label label-green">ingesteld</span>-->
+<!--                    </div>-->
 
 
-                    </div>
 
-                    <div style="display: flex;">
-                        <span class="import-label label-blue">bekend</span>
-                        <span class="import-label label-orange">onbekend</span>
-                        <span class="import-label label-green">ingesteld</span>
-                    </div>
-
-
-                    <div>
-                        <button class="button primary-button" style="height: 40px; width: 40px;padding:0!important;">
-                            <?php echo $this->element('plus') ?>
+                        <button id="button-eduction-level" class="button text-button" style="font-size:18px; font-weight:bold;">
+                            <?php echo $this->element('chevron-left') ?> Terug naar niveau &amp; leerjaar
                         </button>
-                    </div>
+
 
                 </div>
                 <div style="display:flex;">
-                    <button style="height: 50px" class="button cta-button button-md">
+                    <button id="button-save-subject-cluster-class" style="height: 50px" class="button cta-button button-md">
                         Opslaan
                     </button>
                 </div>
@@ -262,12 +249,12 @@
     </div>
     <script>
         $(document).ready(function () {
-            $('#teacher-complete-user-import').on('submit', function (e) {
+            $('#button-save-subject-cluster-class').click(function (e) {
                 e.preventDefault();
                 $.ajax({
                     method: 'PUT',
-                    data: $(this).serialize(),
-                    url: 'users/teacher_complete_user_import',
+                    data: $('#teacher-complete-user-import-subject-cluster-class-form').serialize(),
+                    url: 'users/teacher_complete_user_import_subject_cluster_class',
                     success: function (data) {
                         Popup.closeLast();
                         window.setTimeout(function() {
@@ -276,6 +263,14 @@
                     },
                 });
             });
+            $('#button-eduction-level').click(function(e){
+                e.preventDefault();
+                Popup.closeLast();
+                window.setTimeout(function() {
+                    Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
+                }, 500);
+            })
+
             $('.jquery-radio-set-eduction-level').click(function(e) {
                 $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
             })

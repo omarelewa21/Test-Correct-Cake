@@ -390,7 +390,7 @@ class UsersController extends AppController
         $menus = array();
 
         $view = "welcome";
-
+        $hasSchoolManagerRole = false;
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
                 $view = "welcome_teacher";
@@ -424,7 +424,12 @@ class UsersController extends AppController
                 $this->set('deploymentStatuses',$this->DeploymentService->getStatuses());
                 $this->set('whitelistIps',$this->WhitelistIpService->index());
             }
+
+            if (strtolower($role['name']) === 'school manager') {
+                $hasSchoolManagerRole = true;
+            }
         }
+        $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
 
         $this->render($view, 'ajax');
     }
@@ -1893,7 +1898,44 @@ class UsersController extends AppController
         return $service->getErrors()['error'];
     }
 
-    public function teacher_complete_user_import()
+    public function teacher_complete_user_import_main_school_class()
+    {
+        $this->isAuthorizedAs('Teacher');
+
+        if ($this->request->is('put')) {
+            $response = $this->SchoolClassesService->updateWithEductionLevelsForMainClasses($this->request->data);
+            echo json_encode(['result' => $response['data']]);
+            exit;
+        }
+
+        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 1]]);
+        $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
+            getUUID(AuthComponent::user('school_location'), 'get')
+        );
+        $this->set('classes_list', $classesList);
+        $this->set('education_levels', $eductionLevels);
+    }
+
+    public function teacher_complete_user_import_education_level_cluster_class()
+    {
+        $this->isAuthorizedAs('Teacher');
+
+        if ($this->request->is('put')) {
+            $response = $this->SchoolClassesService->updateWithEductionLevelsForClusterClasses($this->request->data);
+            echo json_encode(['result' => $response['data']]);
+            exit;
+        }
+
+        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 0]]);
+
+        $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
+            getUUID(AuthComponent::user('school_location'), 'get')
+        );
+        $this->set('classes_list', $classesList);
+        $this->set('education_levels', $eductionLevels);
+    }
+
+    public function teacher_complete_user_import_subject_cluster_class()
     {
         $this->isAuthorizedAs('Teacher');
 
@@ -1908,8 +1950,23 @@ class UsersController extends AppController
         );
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
+    }
 
+    public function school_manager_complete_user_import_main_school_class()
+    {
+        $this->isAuthorizedAs('School manager');
 
+        if ($this->request->is('put')) {
+            $response = $this->SchoolClassesService->updateWithEductionLevelsForMainClasses($this->request->data);
+            echo json_encode(['result' => $response['data']]);
+            exit;
+        }
 
+        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 1]]);
+        $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
+            getUUID(AuthComponent::user('school_location'), 'get')
+        );
+        $this->set('classes_list', $classesList);
+        $this->set('education_levels', $eductionLevels);
     }
 }

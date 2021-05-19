@@ -681,7 +681,7 @@ if ($wizard_steps) {
     window.addEventListener('resize', checkForSlider);
 
     function displayCompleteUserImport() {
-        Popup.load('users/teacher_complete_user_import', 1080);
+        Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
     }
 </script>
 <style>
