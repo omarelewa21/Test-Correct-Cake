@@ -192,13 +192,36 @@ class TestsController extends AppController
                 $currentEducationlevelUuid = $level['uuid'];
             }
         }
-
+        $this->set('education_level_year',$this->request->data['Test']['education_level_year']);
+        $this->set('test_id',$test_id);
         $this->set('current_education_level_uuid', $currentEducationlevelUuid);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
         $this->set('education_levels', $education_levels);
         $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+    }
+
+    public function create_copy_and_update($test_id)
+    {
+        $response = $this->TestsService->duplicate($test_id);
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            $test = $this->request->data['Test'];
+            if(stristr($response['name'],$test['name'])){
+                $test['name'] = $response['name'];
+            }
+
+            $questions = $this->TestsService->getQuestions($response['uuid']);
+
+            $result = $this->TestsService->edit($response['uuid'], $test);
+
+            if ($result == 'unique_name') {
+                $this->formResponse(false, 'unique_name');
+            } else {
+                $this->formResponse(!empty($result), $result);
+            }
+        }
     }
 
     public function load()
@@ -328,6 +351,7 @@ class TestsController extends AppController
         $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
         $this->set('newPlayerAccess', $newPlayerAccess);
         $this->set('oldPlayerAccess', $oldPlayerAccess);
+        $this->set('startWithEdit',false);
     }
 
     /**
