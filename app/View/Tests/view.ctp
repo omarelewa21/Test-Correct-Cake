@@ -462,10 +462,6 @@
         }).disableSelection();
         <?php } ?>
 
-        <?php if($startWithEdit){?>
-            Popup.load('/tests/edit/<?=$test_id?>', 1000);
-        <?php } ?>
-
         var winW = $(window).width();
         $('.cell_autowidth').css({
             'display': 'block',
