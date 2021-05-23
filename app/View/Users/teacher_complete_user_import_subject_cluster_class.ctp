@@ -168,7 +168,12 @@
                             <td width="80px" style="position:relative; align-content: center">
                                 <?php if($schoolClass['is_main_school_class'] != 1) { ?>
                                     <div style="display:flex; position:relative;">
-                                        <input id="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>" class="checkbox-custom jquery-radio-set-eduction-level" name="checkbox" type="checkbox">
+                                        <input
+                                            id="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
+                                            class="checkbox-custom jquery-radio-set-eduction-level"
+                                            name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
+                                            type="checkbox"
+                                        >
                                         <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>" class="checkbox-custom-label">
                                             <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                                 <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -180,7 +185,7 @@
                                 <?php } else { ?>
                                 <input
                                     id="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
-                                    name="class[<?= $schoolClass['id']?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                                    name="teacher[<?= $schoolClass['id']?>" type="radio" class="radio-custom jquery-radio-set-eduction-level"
                                     value="<?= $subjectId ?>">
                                 <label
                                     for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"

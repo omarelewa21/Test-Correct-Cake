@@ -229,6 +229,17 @@ class SchoolClassesService extends BaseService {
     }
 
 
+    public function updateTeachersWithSubjectsForClusterClasses($data) {
+        $response = $this->Connector->putRequest('/teacher/update_with_subjects_for_cluster_classes',[], $data);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+
 
     protected function handleFalseResponse($response)
     {

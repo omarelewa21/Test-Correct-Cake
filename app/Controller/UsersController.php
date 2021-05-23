@@ -1942,6 +1942,9 @@ class UsersController extends AppController
         $this->isAuthorizedAs('Teacher');
 
         if ($this->request->is('put')) {
+            $response = $this->SchoolClassesService->updateTeachersWithSubjectsForClusterClasses($this->request->data);
+            echo json_encode(['result' => $response['data']]);
+            exit;
             var_dump($this->request->data); die;
         }
 
