@@ -212,7 +212,7 @@
 
                         <td width="150px"><input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                                  class="checkbox-custom jquery-controle"
-                                                 name="class[<?= $schoolClass['id'] ?>][<?=$subjctId?>]" type="checkbox">
+                                                 name="class[<?= $schoolClass['id'] ?>][<?=$subjectId?>]" type="checkbox">
                             <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -287,11 +287,15 @@
                             method: 'PUT',
                             data: $('#teacher-complete-user-import-subject-cluster-class-form').serialize(),
                             url: 'users/teacher_complete_user_import_subject_cluster_class',
+                            dataType: 'json',
                             success: function (data) {
-                                Popup.closeLast();
-                                window.setTimeout(function () {
-                                    Popup.show(data, 1080);
-                                }, 500);
+                                var msg = 'Gegevens voor 1 koppeling opgeslagen.';
+                                if (data.result.count !== 1) {
+                                    msg = 'Gegevens voor ' + data.result.count + ' koppelingen opgeslagen.';
+                                }
+
+                                Notify.notify(msg)
+                                // Popup.closeLast();
                             },
                         });
                     })

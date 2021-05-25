@@ -183,9 +183,14 @@
                         <?php } ?>
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
-                                                 class="checkbox-custom jquery-controle"
-                                                 name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox">
+                        <td width="150px">
+                            <input
+                                id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                class="checkbox-custom jquery-controle"
+                                name="class[<?= $schoolClass['id'] ?>][checked]"
+                                type="checkbox"
+                                <?= $schoolClass['checked_by_teacher'] ? 'checked': '' ?>
+                            >
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -232,7 +237,6 @@
             if (window.teacherCompleteUserImportMainSchoolClass !== true) {
                 $(document)
                     .on('click', '#btn-save-teacher-complete-user-import-main-school-class', function (e) {
-
                         e.preventDefault();
 
                         $.ajax({
@@ -245,30 +249,37 @@
                                 if (data.result.count !== 1) {
                                     msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
                                 }
-
                                 Notify.notify(msg)
-                                $.get('users/teacher_complete_user_import_education_level_cluster_class', function (data) {
-                                    Popup.closeLast();
-                                    window.setTimeout(function () {
-                                        Popup.show(data, 1080);
-                                    }, 500);
-                                })
-
                             },
                         });
                     })
                     .on('click', '#btn-go-to-teacher-complete-user-import-education-level-cluster-class', function (e) {
-                        e.preventDefault();
-                        Popup.closeLast();
-                        window.setTimeout(function () {
-                            Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
-                        }, 500);
-                    })
+                            e.preventDefault();
+                            $.ajax({
+                                method: 'PUT',
+                                data: $('#teacher-complete-user-import-main-school-class').serialize(),
+                                url: 'users/teacher_complete_user_import_main_school_class',
+                                dataType: 'json',
+                                success: function (data) {
+                                    var msg = 'Gegevens voor 1 klas opgeslagen.';
+                                    if (data.result.count !== 1) {
+                                        msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                                    }
+                                    Notify.notify(msg)
+                                    Popup.closeLast();
+                                    window.setTimeout(function () {
+                                        Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
+                                    }, 500);
+                                }
+                            });
+                        }
+                    )
                     .on('click', '.jquery-radio-set-eduction-level', function (e) {
                         $(this).closest('tr').find('.jquery-controle').attr('checked', true);
                     });
 
                 window.teacherCompleteUserImportMainSchoolClass = true;
             }
-        });
+        })
+        ;
     </script>

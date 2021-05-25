@@ -114,7 +114,8 @@
 
 </style>
 
-<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;box-shadow: 0 3px 18px 0 rgba(77, 87, 143, 0.2); ">
+<div class="tat-content border-radius-bottom-0"
+     style="padding-bottom: 0!important;box-shadow: 0 3px 18px 0 rgba(77, 87, 143, 0.2); ">
     <div style="display:flex">
         <div style="flex-grow:1">
             <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
@@ -133,8 +134,9 @@
         </div>
     </div>
     <div class="divider mb24 mt10"></div>
-    <div class="pb24" style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
-       Stel het niveau in voor de stamklassen
+    <div class="pb24"
+         style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
+        Stel het niveau in voor de stamklassen
     </div>
 
 </div>
@@ -158,19 +160,22 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($classes_list as $schoolClass) {  ?>
+                <?php foreach ($classes_list as $schoolClass) { ?>
 
                     <tr>
                         <td width="200px"><?= $schoolClass['name'] ?> </td>
                         <?php foreach ($education_levels as $eductionLevel) { ?>
-                            <td width="80px" style="position:relative; align-content: center"><input
-                                    id="radio-class-<?= $schoolClass['id']  ?>-<?= $eductionLevel['education_level']['id'] ?>"
-                                    name="class[<?= $schoolClass['id']  ?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                            <td width="80px" style="position:relative; align-content: center">
+                                <input
+                                    id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    name="class[<?= $schoolClass['id'] ?>][education_level]"
+                                    type="radio"
+                                    class="radio-custom jquery-radio-set-eduction-level"
                                     value="<?= $eductionLevel['education_level']['id'] ?>"
-                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked': '' ?>
+                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked' : '' ?>
                                 >
                                 <label
-                                    for="radio-class-<?= $schoolClass['id']  ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    for="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                     class="radio-custom-label">
                                     <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -182,8 +187,14 @@
                         <?php } ?>
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>" class="checkbox-custom"
-                                                 name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox">
+                        <td width="150px">
+                            <input
+                                id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                class="checkbox-custom jquery-complete-counter"
+                                name="class[<?= $schoolClass['id'] ?>][checked]"
+                                type="checkbox"
+                                <?= $schoolClass['checked_by_admin'] ? 'checked' : '' ?>
+                            >
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -212,8 +223,10 @@
 
 
                 <div style="display:flex;">
-                    <span id="school-manager-complete-counter" style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
-                    <button id="button-save-school-manager-complete-user-import" style="height: 50px" class="button cta-button button-md mr10">
+                    <span id="school-manager-complete-counter"
+                          style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
+                    <button id="button-save-school-manager-complete-user-import" style="height: 50px"
+                            class="button cta-button button-md mr10">
                         Opslaan
                     </button>
                 </div>
@@ -223,44 +236,43 @@
     </div>
     <script>
         $(document).ready(function () {
-            if (window.schoolManagerCompleteUserImportMainSchoolClass !== true) {
-                $('#button-save-school-manager-complete-user-import').click(function (e) {
+            $('#button-save-school-manager-complete-user-import').click(function (e) {
 
-                    e.preventDefault();
+                e.preventDefault();
 
-                    $.ajax({
-                        method: 'PUT',
-                        data: $('#school-manager-complete-user-import-main-school-class').serialize(),
-                        url: 'users/school_manager_complete_user_import_main_school_class',
-                        success: function (data) {
-                            Popup.closeLast();
-                            window.setTimeout(function () {
-                                Popup.show(data, 1080);
-                            }, 500);
-                        },
-                    });
+                $.ajax({
+                    method: 'PUT',
+                    data: $('#school-manager-complete-user-import-main-school-class').serialize(),
+                    url: 'users/school_manager_complete_user_import_main_school_class',
+                    dataType: 'json',
+                    success: function (data) {
+                        var msg = 'Gegevens voor 1 klas opgeslagen.';
+                        if (data.result.count !== 1) {
+                            msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                        }
+                        Notify.notify(msg)
+                        // Popup.closeLast();
+
+                    },
                 });
+            });
 
-                $('.jquery-radio-set-eduction-level').click(function (e) {
-                    $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
-                })
+            $('.jquery-radio-set-eduction-level').click(function (e) {
+                $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
+            })
 
-                $('.jquery-complete-counter').change(function (e) {
-                    updateManagerCompleteCounter();
-                });
+            $('.jquery-complete-counter').change(function (e) {
+                updateManagerCompleteCounter();
+            });
 
-                function updateManagerCompleteCounter() {
-                    var aantal = $('.jquery-complete-counter').length;
-                    var gevinked = $('.jquery-complete-counter:checked').length;
-                    $('#school-manager-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>stamklassen compleet');
-                }
+            function updateManagerCompleteCounter() {
+                var aantal = $('.jquery-complete-counter').length;
+                var gevinked = $('.jquery-complete-counter:checked').length;
+                $('#school-manager-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>stamklassen compleet');
             }
 
-            updateManagerCompleteCounter()
+            updateManagerCompleteCounter();
         });
-
-
-
 
 
     </script>

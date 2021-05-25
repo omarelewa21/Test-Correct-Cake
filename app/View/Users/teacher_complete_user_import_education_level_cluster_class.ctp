@@ -198,9 +198,12 @@
                                 <?php } ?>
                             </div>
                         </td>
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
-                                                 class="checkbox-custom jquery-controle"
-                                                 name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox">
+                        <td width="150px">
+                            <input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                   class="checkbox-custom jquery-controle"
+                                   name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox"
+                                <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
+                            >
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -265,19 +268,29 @@
                                 }
 
                                 Notify.notify(msg)
+                            },
+                        });
+                    })
+                    .on('click', '#btn-subject-cluster-class', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            method: 'PUT',
+                            data: $('#teacher-complete-user-import-education-level-cluster-class-form').serialize(),
+                            url: 'users/teacher_complete_user_import_education_level_cluster_class',
+                            dataType: 'json',
+                            success: function (data) {
+                                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                                if (data.result.count !== 1) {
+                                    msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                                }
+
+                                Notify.notify(msg)
                                 Popup.closeLast();
                                 window.setTimeout(function () {
                                     Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
                                 }, 500);
                             },
                         });
-                    })
-                    .on('click', '#btn-subject-cluster-class', function (e) {
-                        e.preventDefault();
-                        Popup.closeLast();
-                        window.setTimeout(function () {
-                            Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
-                        }, 500);
                     })
                     .on('click', '#btn-back-to-main-school-class', function (e) {
                         e.preventDefault();

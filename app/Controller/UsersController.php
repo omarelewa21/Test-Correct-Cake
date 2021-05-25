@@ -8,7 +8,7 @@ App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('SchoolsService', 'Lib/Services');
 App::uses('UmbrellaOrganisationsService', 'Lib/Services');
 App::uses('HelperFunctions', 'Lib');
-App::uses('Securimage','webroot/img');
+App::uses('Securimage', 'webroot/img');
 App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
@@ -27,7 +27,10 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array(
+            'login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher',
+            'register_new_teacher_successful', 'registereduix', 'temporary_login'
+        );
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -46,10 +49,11 @@ class UsersController extends AppController
     {
         if ($this->request->is('post')) {
             $result = $this->UsersService->addUserEduIx(
-                $this->params['url']['ean'], $this->params['url']['edurouteSessieID'], $this->params['url']['signature'], $this->request->data['User']
+                $this->params['url']['ean'], $this->params['url']['edurouteSessieID'],
+                $this->params['url']['signature'], $this->request->data['User']
             );
             $response = json_decode($result);
-            if (property_exists($response, 'errors') && count((array)$response->errors) > 0) {
+            if (property_exists($response, 'errors') && count((array) $response->errors) > 0) {
                 $this->formResponse(false, ['message' => $response->message]);
             } else {
                 $this->formResponse(true, ['data' => $response]);
@@ -90,16 +94,19 @@ class UsersController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             $appType = $this->request->data['appType'];
 
-            if(isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])){
+            if (isset($this->request->data['User']['captcha_string']) && !empty($this->request->data['User']['captcha_string'])) {
                 $captchaSet = true;
 
-                if(!class_exists('Securimage')){
+                if (!class_exists('Securimage')) {
                     include_once(WWW_ROOT.'img/securimage.php');
                 }
                 $this->SecureImage = new Securimage();
-                if($this->SecureImage->check($this->request->data['User']['captcha_string']) == false){
+                if ($this->SecureImage->check($this->request->data['User']['captcha_string']) == false) {
                     // error captcha not ok
-                    $this->formResponse(false, ['message' => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals','showCaptcha' => true]);
+                    $this->formResponse(false, [
+                        'message'     => 'De ingevoerde beveiligingscode wat niet correct, probeer het nogmaals',
+                        'showCaptcha' => true
+                    ]);
                     return false;
                 }
             }
@@ -140,7 +147,8 @@ class UsersController extends AppController
 
                             $this->logout();
 
-                            $this->formResponse(false, ['message' => 'U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is.']);
+                            $this->formResponse(false,
+                                ['message' => 'U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is.']);
 
                             return false;
                         }
@@ -152,14 +160,14 @@ class UsersController extends AppController
                 $this->formResponse(true, ['message' => $message]);
             } else {
                 // Check if there's a captcha reason to fail or that the data is just not okay
-                if(!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])){
-                    if($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])){
-                        if($captchaSet === true) {
+                if (!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])) {
+                    if ($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])) {
+                        if ($captchaSet === true) {
                             // username/ password was incorrect
-                            $this->formResponse(false,['showCaptcha' => true]);
+                            $this->formResponse(false, ['showCaptcha' => true]);
                             return false;
                         }
-                        $this->formResponse(false,['showCaptcha' => true, 'message' => 'Voer de beveiligingscode in']);
+                        $this->formResponse(false, ['showCaptcha' => true, 'message' => 'Voer de beveiligingscode in']);
                         return false;
                     }
                 }
@@ -198,7 +206,7 @@ class UsersController extends AppController
             );
             $result = (json_decode($response));
 
-            if (property_exists($result, 'errors') && count((array)$result->errors) > 0) {
+            if (property_exists($result, 'errors') && count((array) $result->errors) > 0) {
                 $this->formResponse(false, $result);
             } else {
                 $this->formResponse(true, ['data' => $response]);
@@ -206,7 +214,7 @@ class UsersController extends AppController
             exit();
         }
         $data = $this->UsersService->getRegisteredNewTeacherByUserId($userId);
-        $this->set('user', (object)$data);
+        $this->set('user', (object) $data);
     }
 
     public function register_new_teacher()
@@ -214,7 +222,7 @@ class UsersController extends AppController
 
         $onboarding_url_config_variable = 'shortcode.shortcode.redirect';
         $onboarding_url = $this->get_config($onboarding_url_config_variable);
-        $location_string = 'location:' . $onboarding_url;
+        $location_string = 'location:'.$onboarding_url;
 
         header($location_string);
 
@@ -226,7 +234,7 @@ class UsersController extends AppController
             );
             $result = (json_decode($response));
 
-            if (property_exists($result, 'errors') && count((array)$result->errors) > 0) {
+            if (property_exists($result, 'errors') && count((array) $result->errors) > 0) {
                 $this->formResponse(false, $result);
             } else {
                 $this->formResponse(true, ['data' => $response]);
@@ -236,7 +244,8 @@ class UsersController extends AppController
 
     }
 
-    public function get_config($laravel_config_variable) {
+    public function get_config($laravel_config_variable)
+    {
 
         $response = $this->UsersService->getConfig($laravel_config_variable);
 
@@ -361,7 +370,7 @@ class UsersController extends AppController
         }
 
         $this->response->body($result);
-        $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_' . date('YmdHi') . '.xls');
+        $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_'.date('YmdHi').'.xls');
 
         return $this->response;
 
@@ -379,7 +388,8 @@ class UsersController extends AppController
         }
 
         $this->response->body($result);
-        $this->response->header('Content-Disposition', 'attachment; filename=school_location_report_' . date('YmdHi') . '.xls');
+        $this->response->header('Content-Disposition',
+            'attachment; filename=school_location_report_'.date('YmdHi').'.xls');
 
         return $this->response;
 
@@ -399,7 +409,7 @@ class UsersController extends AppController
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
                 $verified = CakeSession::read('Auth.User.account_verified');
-                if($verified == null) {
+                if ($verified == null) {
                     $verified = $this->UsersService->getAccountVerifiedValue();
                     CakeSession::write('Auth.User.account_verified', $verified);
                 }
@@ -408,8 +418,8 @@ class UsersController extends AppController
                 $this->set('progress',
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
 
-                App::uses('MaintenanceHelper','Lib');
-                $this->set('maintenanceNotification',MaintenanceHelper::getInstance()->getMaintenanceNotification());
+                App::uses('MaintenanceHelper', 'Lib');
+                $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
             }
 
             if ($role['name'] == 'Student') {
@@ -420,11 +430,11 @@ class UsersController extends AppController
 //                    }
 //                }
             }
-            if(strtolower($role['name']) === 'tech administrator') {
+            if (strtolower($role['name']) === 'tech administrator') {
                 $view = "welcome_tech_administrator";
                 $this->set('deployments', $this->DeploymentService->index());
-                $this->set('deploymentStatuses',$this->DeploymentService->getStatuses());
-                $this->set('whitelistIps',$this->WhitelistIpService->index());
+                $this->set('deploymentStatuses', $this->DeploymentService->getStatuses());
+                $this->set('whitelistIps', $this->WhitelistIpService->index());
             }
 
             if (strtolower($role['name']) === 'school manager') {
@@ -500,7 +510,7 @@ class UsersController extends AppController
 
         // if in local test mode, don't do a user call, but just show the default icon
         if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
-            $result = file_get_contents(APP . WEBROOT_DIR . '/img/ico/user.png');
+            $result = file_get_contents(APP.WEBROOT_DIR.'/img/ico/user.png');
             $this->response->type('image/png');
             $this->response->body($result);
             return $this->response;
@@ -509,7 +519,7 @@ class UsersController extends AppController
         $user = $this->UsersService->getUser($user_id);
 
         if (empty($user['profile_image_size'])) {
-            $result = file_get_contents(APP . WEBROOT_DIR . '/img/ico/user.png');
+            $result = file_get_contents(APP.WEBROOT_DIR.'/img/ico/user.png');
             $this->response->type('image/png');
         } else {
             $result = $this->UsersService->getProfilePicture($user_id);
@@ -553,7 +563,7 @@ class UsersController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            if(array_key_exists('teacher_external_id',$this->request->data['User'])){
+            if (array_key_exists('teacher_external_id', $this->request->data['User'])) {
                 $this->request->data['User']['external_id'] = $this->request->data['User']['teacher_external_id'];
             }
             $data = $this->request->data['User'];
@@ -577,9 +587,9 @@ class UsersController extends AppController
                 try {
                     $error = json_decode($result, true);
                     if (isset($error['errors']['username'])) {
-                        if(stristr($error['errors']['username'][0],'failed on dns')){
+                        if (stristr($error['errors']['username'][0], 'failed on dns')) {
                             $response = "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen";
-                        }else{
+                        } else {
                             $response = "Dit e-mailadres is al in gebruik";
                         }
 
@@ -645,7 +655,8 @@ class UsersController extends AppController
 
                 $this->set('active_classes', $activeClasses);
 
-                $this->set('school_classes', HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
+                $this->set('school_classes',
+                    HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
                 $this->render('edit_students', 'ajax');
                 break;
         }
@@ -830,7 +841,7 @@ class UsersController extends AppController
         if (in_array($roles['0']['name'], ['Administrator']) && $type == 'teachers') {
             $this->render('load_teachers_for_school_location_switch', 'ajax');
         } else {
-            $this->render('load_' . $type, 'ajax');
+            $this->render('load_'.$type, 'ajax');
         }
     }
 
@@ -847,7 +858,7 @@ class UsersController extends AppController
 
         if (isset($data['User']['file']['name']) && !empty($data['User']['file']['name'])) {
             $file = new File($data['User']['file']['tmp_name']);
-            $tmpFile = TMP . time();
+            $tmpFile = TMP.time();
             $file->copy($tmpFile);
 
             $this->Session->write('user_profile_picture', $tmpFile);
@@ -917,8 +928,11 @@ class UsersController extends AppController
     }
 
     public
-    function add($type, $parameter1 = null, $parameter2 = null)
-    {
+    function add(
+        $type,
+        $parameter1 = null,
+        $parameter2 = null
+    ) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
@@ -997,13 +1011,13 @@ class UsersController extends AppController
                         'error' => 'username'
                     ]
                 );
-            }elseif ($result == 'dns') {
+            } elseif ($result == 'dns') {
                 $this->formResponse(
                     false, [
                         'error' => 'dns'
                     ]
                 );
-            }elseif ($result == 'external_id') {
+            } elseif ($result == 'external_id') {
                 $this->formResponse(
                     false, [
                         'error' => 'external_id'
@@ -1029,7 +1043,8 @@ class UsersController extends AppController
         }
 
         if ($type == 'students') {
-            $this->set('school_classes', HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
+            $this->set('school_classes',
+                HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
             $this->set('class_id', $this->SchoolClassesService->getClass($parameter1)['id']);
         }
@@ -1047,12 +1062,13 @@ class UsersController extends AppController
         $this->set('parameter1', $parameter1);
         $this->set('parameter2', $parameter2);
 
-        $this->render('add_' . $type, 'ajax');
+        $this->render('add_'.$type, 'ajax');
     }
 
     public
-    function delete($user_id)
-    {
+    function delete(
+        $user_id
+    ) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('delete')) {
@@ -1072,7 +1088,7 @@ class UsersController extends AppController
         $menus = array();
 
         foreach ($roles as $role) {
-            if(strtolower($role['name']) === 'tech administrator') {
+            if (strtolower($role['name']) === 'tech administrator') {
                 $menus['index'] = "";
             }
             if ($role['name'] == 'Administrator') {
@@ -1292,7 +1308,7 @@ class UsersController extends AppController
                     'path'  => '/users/marketing_report'
                 );
 
-                 $tiles['school_location_report'] = array(
+                $tiles['school_location_report'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
                     'title' => 'School locatie Rapport',
@@ -1438,7 +1454,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
                     'title' => 'Uw analyse',
-                    'path'  => '/analyses/teacher/' . AuthComponent::user('uuid')
+                    'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
@@ -1477,19 +1493,19 @@ class UsersController extends AppController
                 ];
 
                 $tiles['webinar'] = [
-                    'menu' => 'support',
-                    'icon' => 'webinar',
+                    'menu'  => 'support',
+                    'icon'  => 'webinar',
                     'title' => 'Inschrijven webinar',
-                    'type' => 'externalpopup',
-                    'path' => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
+                    'type'  => 'externalpopup',
+                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
                 ];
 
                 $tiles['supportmail'] = [
-                    'menu' => 'support',
-                    'icon' => 'send-email',
+                    'menu'  => 'support',
+                    'icon'  => 'send-email',
                     'title' => 'Support mailen',
-                    'type' => 'externallink',
-                    'path' => 'mailto:support@test-correct.nl',
+                    'type'  => 'externallink',
+                    'path'  => 'mailto:support@test-correct.nl',
                 ];
 
                 /*
@@ -1537,7 +1553,7 @@ class UsersController extends AppController
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerling',
                     'title' => 'Jouw analyse',
-                    'path'  => '/analyses/student/' . AuthComponent::user('uuid')
+                    'path'  => '/analyses/student/'.AuthComponent::user('uuid')
                 );
 
                 $tiles['messages'] = array(
@@ -1634,10 +1650,10 @@ class UsersController extends AppController
         }
 
         if (!$student) {
-            $info['name_first'] = substr($info['name_first'], 0, 1) . '.';
+            $info['name_first'] = substr($info['name_first'], 0, 1).'.';
 
             $info['school_location_list'] = array_map(function ($location) use ($info) {
-                return (object)[
+                return (object) [
                     'uuid'   => $location['uuid'],
                     'name'   => $location['name'],
                     'active' => $location['active'],
@@ -1668,9 +1684,10 @@ class UsersController extends AppController
     }
 
     public
-    function import($type)
-    {
-        if($type=='students'){
+    function import(
+        $type
+    ) {
+        if ($type == 'students') {
             $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
             $school_location = AuthComponent::user('school_location');
             $this->set('school_location_id', $school_location['id']);
@@ -1678,7 +1695,7 @@ class UsersController extends AppController
             $this->render('import_students');
             return;
         }
-        if($type=='teachers_bare'){
+        if ($type == 'teachers_bare') {
             $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
             $school_location = AuthComponent::user('school_location');
             $this->set('school_location_id', $school_location['id']);
@@ -1687,6 +1704,7 @@ class UsersController extends AppController
             return;
         }
     }
+
     public function doImportStudentsWithClasses()
     {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
@@ -1702,8 +1720,9 @@ class UsersController extends AppController
     }
 
     public
-    function doImport($type)
-    {
+    function doImport(
+        $type
+    ) {
         $data['data'] = $this->request->data;
 
         $result = $this->UsersService->doImport($data);
@@ -1743,8 +1762,9 @@ class UsersController extends AppController
     }
 
     public
-    function setActiveSchoolLocation($uuid)
-    {
+    function setActiveSchoolLocation(
+        $uuid
+    ) {
 //        if (! $this->isAuthorizedAs(['Teacher']) ) {
 //            $this->formResponse(false, '');
 //            return;
@@ -1858,8 +1878,9 @@ class UsersController extends AppController
     }
 
     public
-    function temporary_login($tlid)
-    {
+    function temporary_login(
+        $tlid
+    ) {
         $result = $this->UsersService->getUserWithTlid($tlid);
         $this->Auth->login($result);
 
@@ -1881,7 +1902,8 @@ class UsersController extends AppController
         }
     }
 
-    public function toggle_verified($uuid) {
+    public function toggle_verified($uuid)
+    {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
         $response = $this->UsersService->toggleAccountVerified($uuid);
         echo json_encode($response);
@@ -1890,11 +1912,12 @@ class UsersController extends AppController
 
     private function translateError($service)
     {
-        if(!array_key_exists('error', $service->getErrors())){
+        if (!array_key_exists('error', $service->getErrors())) {
             return $service->getErrors();
         }
-        if(stristr($service->getErrors()['error'], 'School class id not found for class')){
-            return (str_replace('School class id not found for class', 'SchoolKlas', $service->getErrors()['error']).' niet gevonden!');
+        if (stristr($service->getErrors()['error'], 'School class id not found for class')) {
+            return (str_replace('School class id not found for class', 'SchoolKlas',
+                    $service->getErrors()['error']).' niet gevonden!');
         }
 
         return $service->getErrors()['error'];
@@ -1910,7 +1933,13 @@ class UsersController extends AppController
             exit;
         }
 
-        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 1]]);
+        $classesList = $this->SchoolClassesService->getClasses([
+            'filter' => [
+                'current' => 1,
+                'is_main_school_class' => 1,
+            ],
+            'mode' => 'import_data',
+        ]);
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get')
         );
@@ -1928,7 +1957,13 @@ class UsersController extends AppController
             exit;
         }
 
-        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 0]]);
+        $classesList = $this->SchoolClassesService->getClasses([
+            'filter' => [
+                'current'              => 1,
+                'is_main_school_class' => 0,
+            ],
+            'mode'   => 'import_data',
+        ]);
 
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get')
@@ -1945,10 +1980,14 @@ class UsersController extends AppController
             $response = $this->SchoolClassesService->updateTeachersWithSubjectsForClusterClasses($this->request->data);
             echo json_encode(['result' => $response['data']]);
             exit;
-            var_dump($this->request->data); die;
         }
 
-        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1], 'mode' => 'all_in_data']);
+        $classesList = $this->SchoolClassesService->getClasses([
+            'filter' => [
+                'current' => 1
+            ],
+            'mode'   => 'import_data',
+        ]);
         $subjects = $this->TestsService->getSubjects();
 
         $this->set('classes_list', $classesList);
@@ -1965,7 +2004,13 @@ class UsersController extends AppController
             exit;
         }
 
-        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1, 'is_main_school_class' => 1]]);
+        $classesList = $this->SchoolClassesService->getClasses([
+            'filter' => [
+                'current'              => 1,
+                'is_main_school_class' => 1,
+            ],
+            'mode'   => 'import_data',
+        ]);
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get')
         );
