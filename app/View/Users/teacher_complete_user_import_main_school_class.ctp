@@ -158,19 +158,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($classes_list as $schoolClass) {  ?>
+                <?php foreach ($classes_list as $schoolClass) { ?>
 
                     <tr>
                         <td width="200px"><?= $schoolClass['name'] ?> </td>
                         <?php foreach ($education_levels as $eductionLevel) { ?>
                             <td width="80px" style="position:relative; align-content: center"><input
-                                    id="radio-class-<?= $schoolClass['id']  ?>-<?= $eductionLevel['education_level']['id'] ?>"
-                                    name="class[<?= $schoolClass['id']  ?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                                    id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio"
+                                    class="radio-custom jquery-radio-set-eduction-level"
                                     value="<?= $eductionLevel['education_level']['id'] ?>"
-                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked': '' ?>
+                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked' : '' ?>
                                 >
                                 <label
-                                    for="radio-class-<?= $schoolClass['id']  ?>-<?= $eductionLevel['education_level']['id'] ?>"
+                                    for="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                     class="radio-custom-label">
                                     <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -182,7 +183,8 @@
                         <?php } ?>
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>" class="checkbox-custom"
+                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                                 class="checkbox-custom jquery-controle"
                                                  name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox">
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
@@ -212,11 +214,13 @@
                 style="display:flex; width: 100%; align-items: center; justify-content: flex-end; padding: 0 40px;">
 
                 <div style="display:flex;">
-                    <button id="save" style="height: 50px" class="button primary-button button-md mr10">
+                    <button id="btn-save-teacher-complete-user-import-main-school-class" style="height: 50px"
+                            class="button primary-button button-md mr10">
                         Opslaan
                     </button>
-                    <button id="save-and-go-to" style="height: 50px" class="button cta-button button-md">
-                       Clusterklassen instellen <?= $this->element('chevron') ?>
+                    <button id="btn-go-to-teacher-complete-user-import-education-level-cluster-class"
+                            style="height: 50px" class="button cta-button button-md">
+                        Clusterklassen instellen <?= $this->element('chevron') ?>
                     </button>
                 </div>
             </div>
@@ -225,43 +229,44 @@
     </div>
     <script>
         $(document).ready(function () {
-            if (window.teacherCompleteUserImportMainSchoolClass !== true)
-            {
-                $('#save').click(function (e) {
+            if (window.teacherCompleteUserImportMainSchoolClass !== true) {
+                $(document)
+                    .on('click', '#btn-save-teacher-complete-user-import-main-school-class', function (e) {
 
-                    e.preventDefault();
+                        e.preventDefault();
 
-                    $.ajax({
-                        method: 'PUT',
-                        data: $('#teacher-complete-user-import-main-school-class').serialize(),
-                        url: 'users/teacher_complete_user_import_main_school_class',
-                        dataType: 'json',
-                        success: function (data) {
-                            var msg = 'Gegevens voor 1 klas opgeslagen.';
-                            if (data.result.count !== 1) {
-                                msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                            }
+                        $.ajax({
+                            method: 'PUT',
+                            data: $('#teacher-complete-user-import-main-school-class').serialize(),
+                            url: 'users/teacher_complete_user_import_main_school_class',
+                            dataType: 'json',
+                            success: function (data) {
+                                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                                if (data.result.count !== 1) {
+                                    msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                                }
 
-                            Notify.notify(msg)
-                            Popup.closeLast();
-                            window.setTimeout(function () {
-                                Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
-                            }, 500);
-                        },
+                                Notify.notify(msg)
+                                $.get('users/teacher_complete_user_import_education_level_cluster_class', function (data) {
+                                    Popup.closeLast();
+                                    window.setTimeout(function () {
+                                        Popup.show(data, 1080);
+                                    }, 500);
+                                })
+
+                            },
+                        });
+                    })
+                    .on('click', '#btn-go-to-teacher-complete-user-import-education-level-cluster-class', function (e) {
+                        e.preventDefault();
+                        Popup.closeLast();
+                        window.setTimeout(function () {
+                            Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
+                        }, 500);
+                    })
+                    .on('click', '.jquery-radio-set-eduction-level', function (e) {
+                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
                     });
-                });
-
-                $('#save-and-go-to').click(function (e) {
-                    e.preventDefault();
-                    Popup.closeLast();
-                    window.setTimeout(function () {
-                        Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
-                    }, 500);
-                });
-
-                $('.jquery-radio-set-eduction-level').click(function (e) {
-                    $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
-                });
 
                 window.teacherCompleteUserImportMainSchoolClass = true;
             }

@@ -1948,7 +1948,7 @@ class UsersController extends AppController
             var_dump($this->request->data); die;
         }
 
-        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1]]);//, 'mode' => 'all']);
+        $classesList = $this->SchoolClassesService->getClasses(['filter' => ['current' => 1], 'mode' => 'all_in_data']);
         $subjects = $this->TestsService->getSubjects();
 
         $this->set('classes_list', $classesList);

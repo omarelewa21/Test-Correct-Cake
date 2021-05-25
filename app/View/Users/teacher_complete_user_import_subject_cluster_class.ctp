@@ -151,9 +151,11 @@
                         <th width="80px"><?= $subjectName ?></th>
 
                     <?php } ?>
-                    <th><button class="button text-button" style="height: 40px; width: 40px;padding:0!important;">
+                    <th>
+                        <button class="button text-button" style="height: 40px; width: 40px;padding:0!important;">
                             <?php echo $this->element('plus') ?>
-                        </button></th>
+                        </button>
+                    </th>
                     <th width="80px">Status</th>
 
                     <th width="150px">Gecontrolleerd</th>
@@ -166,7 +168,7 @@
 
                         <?php foreach ($subjects as $subjectId => $subjectName) { ?>
                             <td width="80px" style="position:relative; align-content: center">
-                                <?php if($schoolClass['is_main_school_class'] != 1) { ?>
+                                <?php if ($schoolClass['is_main_school_class'] == 1) { ?>
                                     <div style="display:flex; position:relative;">
                                         <input
                                             id="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
@@ -174,28 +176,33 @@
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
                                         >
-                                        <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>" class="checkbox-custom-label">
+                                        <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
+                                               class="checkbox-custom-label">
                                             <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
+                                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8"
+                                                      fill="none"
                                                       fill-rule="evenodd"
                                                       stroke-linecap="round"/>
                                             </svg>
                                         </label>
                                     </div>
                                 <?php } else { ?>
-                                <input
-                                    id="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
-                                    name="teacher[<?= $schoolClass['id']?>" type="radio" class="radio-custom jquery-radio-set-eduction-level"
-                                    value="<?= $subjectId ?>">
-                                <label
-                                    for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
-                                    class="radio-custom-label">
-                                    <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                                        <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                                              fill-rule="evenodd"
-                                              stroke-linecap="round"/>
-                                    </svg>
-                                </label>
+                                    <input
+                                        id="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
+                                        name="teacher[<?= $schoolClass['id'] ?>]"
+                                        type="radio"
+                                        class="radio-custom jquery-radio-set-eduction-level"
+                                        value="<?= $subjectId ?>">
+                                    <label
+                                        for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
+                                        class="radio-custom-label">
+                                        <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
+                                            <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8"
+                                                  fill="none"
+                                                  fill-rule="evenodd"
+                                                  stroke-linecap="round"/>
+                                        </svg>
+                                    </label>
                                 <?php } ?>
                             </td>
                         <?php } ?>
@@ -203,9 +210,10 @@
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>" class="checkbox-custom jquery-controle"
-                                                 name="class[<?=$schoolClass['id'] ?>][checked]" type="checkbox">
-                            <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                        <td width="150px"><input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
+                                                 class="checkbox-custom jquery-controle"
+                                                 name="class[<?= $schoolClass['id'] ?>][<?=$subjctId?>]" type="checkbox">
+                            <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -232,35 +240,36 @@
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
-<!--                    <div style="display:flex; position:relative;">-->
-<!--                        <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>-->
-<!--                        <label for="checkbox-1" class="checkbox-custom-label">-->
-<!--                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">-->
-<!--                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"-->
-<!--                                      fill-rule="evenodd"-->
-<!--                                      stroke-linecap="round"/>-->
-<!--                            </svg>-->
-<!--                        </label>-->
-<!---->
-<!---->
-<!--                    </div>-->
-<!---->
-<!--                    <div style="display: flex;">-->
-<!--                        <span class="import-label label-blue">bekend</span>-->
-<!--                        <span class="import-label label-orange">onbekend</span>-->
-<!--                        <span class="import-label label-green">ingesteld</span>-->
-<!--                    </div>-->
+                    <!--                    <div style="display:flex; position:relative;">-->
+                    <!--                        <input id="checkbox-1" class="checkbox-custom" name="checkbox" type="checkbox" checked>-->
+                    <!--                        <label for="checkbox-1" class="checkbox-custom-label">-->
+                    <!--                            <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">-->
+                    <!--                                <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"-->
+                    <!--                                      fill-rule="evenodd"-->
+                    <!--                                      stroke-linecap="round"/>-->
+                    <!--                            </svg>-->
+                    <!--                        </label>-->
+                    <!---->
+                    <!---->
+                    <!--                    </div>-->
+                    <!---->
+                    <!--                    <div style="display: flex;">-->
+                    <!--                        <span class="import-label label-blue">bekend</span>-->
+                    <!--                        <span class="import-label label-orange">onbekend</span>-->
+                    <!--                        <span class="import-label label-green">ingesteld</span>-->
+                    <!--                    </div>-->
 
 
-
-                        <button id="button-eduction-level" class="button text-button" style="font-size:18px; font-weight:bold;">
-                            <?php echo $this->element('chevron-left') ?> Terug naar niveau &amp; leerjaar
-                        </button>
+                    <button id="btn-back-to-eduction-level" class="button text-button"
+                            style="font-size:18px; font-weight:bold;">
+                        <?php echo $this->element('chevron-left') ?> Terug naar niveau &amp; leerjaar
+                    </button>
 
 
                 </div>
                 <div style="display:flex;">
-                    <button id="button-save-subject-cluster-class" style="height: 50px" class="button cta-button button-md">
+                    <button id="btn-save-subject-cluster-class" style="height: 50px"
+                            class="button cta-button button-md">
                         Opslaan
                     </button>
                 </div>
@@ -270,30 +279,34 @@
     </div>
     <script>
         $(document).ready(function () {
-            $('#button-save-subject-cluster-class').click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    method: 'PUT',
-                    data: $('#teacher-complete-user-import-subject-cluster-class-form').serialize(),
-                    url: 'users/teacher_complete_user_import_subject_cluster_class',
-                    success: function (data) {
+            if (window.teacherCompleteUserImportSubjectClusterClass !== true) {
+                $(document)
+                    .on('click', '#btn-save-subject-cluster-class', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            method: 'PUT',
+                            data: $('#teacher-complete-user-import-subject-cluster-class-form').serialize(),
+                            url: 'users/teacher_complete_user_import_subject_cluster_class',
+                            success: function (data) {
+                                Popup.closeLast();
+                                window.setTimeout(function () {
+                                    Popup.show(data, 1080);
+                                }, 500);
+                            },
+                        });
+                    })
+                    .on('click', '#btn-back-to-eduction-level', function (e) {
+                        e.preventDefault();
                         Popup.closeLast();
-                        window.setTimeout(function() {
-                            Popup.show(data, 1080);
+                        window.setTimeout(function () {
+                            Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
                         }, 500);
-                    },
-                });
-            });
-            $('#button-eduction-level').click(function(e){
-                e.preventDefault();
-                Popup.closeLast();
-                window.setTimeout(function() {
-                    Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
-                }, 500);
-            })
+                    })
 
-            $('.jquery-radio-set-eduction-level').click(function(e) {
-                $(this).closest('tr').find('input[type=checkbox].jquery-controle').attr('checked', true);
-            })
+                    .on('click', '.jquery-radio-set-eduction-level', function (e) {
+                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
+                    });
+                window.teacherCompleteUserImportSubjectClusterClass = true;
+            }
         });
     </script>

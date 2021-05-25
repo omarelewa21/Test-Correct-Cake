@@ -164,9 +164,10 @@
                         <?php foreach ($education_levels as $eductionLevel) { ?>
                             <td width="80px" style="position:relative; align-content: center"><input
                                     id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
-                                    name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio" class="radio-custom jquery-radio-set-eduction-level"
+                                    name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio"
+                                    class="radio-custom jquery-radio-set-eduction-level"
                                     value="<?= $eductionLevel['education_level']['id'] ?>"
-                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked': '' ?>
+                                    <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked' : '' ?>
                                 >
                                 <label
                                     for="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
@@ -184,19 +185,22 @@
                                 <?php foreach (range(1, 6) as $count) { ?>
                                     <div>
                                         <input id="<?= sprintf('number-%s-%s', $count, $schoolClass['id']) ?>"
-                                               value="<?= $count ?>" name="class[<?= $schoolClass['id'] ?>][education_level_year]"
-                                               type="radio" class="number-radio"
-                                               <?= $schoolClass['education_level_year'] == $count ? 'checked' : '' ?>
+                                               value="<?= $count ?>"
+                                               name="class[<?= $schoolClass['id'] ?>][education_level_year]"
+                                               type="radio"
+                                               class="number-radio jquery-radio-set_school-year"
+                                            <?= $schoolClass['education_level_year'] == $count ? 'checked' : '' ?>
 
                                         >
                                         <label for="<?= sprintf('number-%s-%s', $count, $schoolClass['id']) ?>"
-                                               class="number-radio-label"><span> <?= $count ?></span></label>
+                                               class="number-radio-label "><span> <?= $count ?></span></label>
                                     </div>
                                 <?php } ?>
                             </div>
                         </td>
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>" class="checkbox-custom"
-                                                 name="class[<?=$schoolClass['id'] ?>][checked]" type="checkbox">
+                        <td width="150px"><input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                                 class="checkbox-custom jquery-controle"
+                                                 name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox">
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
@@ -224,16 +228,19 @@
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
-                    <button id="button-back-to-main-school-class" style="height: 50px ; font-size:18px; font-weight: bold;" class="button text-button button-md">
-                        <?= $this->element('chevron-left') ?>  Terug naar stamklassen
+                    <button id="btn-back-to-main-school-class"
+                            style="height: 50px ; font-size:18px; font-weight: bold;"
+                            class="button text-button button-md">
+                        <?= $this->element('chevron-left') ?> Terug naar stamklassen
                     </button>
                 </div>
                 <div style="display:flex;">
-                    <button id="save-education-level-cluster-class" style="height: 50px" class="button primary-button button-md mr10">
+                    <button id="btn-save-education-level-cluster-class" style="height: 50px"
+                            class="button primary-button button-md mr10">
                         Opslaan
                     </button>
-                    <button id="button-subject-cluster-class" style="height: 50px" class="button cta-button button-md">
-                      Vakken instellen  <?= $this->element('chevron') ?>
+                    <button id="btn-subject-cluster-class" style="height: 50px" class="button cta-button button-md">
+                        Vakken instellen <?= $this->element('chevron') ?>
                     </button>
                 </div>
             </div>
@@ -243,46 +250,45 @@
     <script>
         $(document).ready(function () {
             if (window.teacherCompleteUserImportClusterSchoolClass !== true) {
-                $('#save-education-level-cluster-class').click('submit', function (e) {
-                    e.preventDefault();
-                    $.ajax({
-                        method: 'PUT',
-                        data: $('#teacher-complete-user-import-education-level-cluster-class-form').serialize(),
-                        url: 'users/teacher_complete_user_import_education_level_cluster_class',
-                        dataType: 'json',
-                        success: function (data) {
-                            var msg = 'Gegevens voor 1 klas opgeslagen.';
-                            if (data.result.count !== 1) {
-                                msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                            }
+                $(document)
+                    .on('click', '#btn-save-education-level-cluster-class', function (e) {
+                        e.preventDefault();
+                        $.ajax({
+                            method: 'PUT',
+                            data: $('#teacher-complete-user-import-education-level-cluster-class-form').serialize(),
+                            url: 'users/teacher_complete_user_import_education_level_cluster_class',
+                            dataType: 'json',
+                            success: function (data) {
+                                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                                if (data.result.count !== 1) {
+                                    msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                                }
 
-                            Notify.notify(msg)
-                            Popup.closeLast();
-                            window.setTimeout(function () {
-                                Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
-                            }, 500);
-                        },
+                                Notify.notify(msg)
+                                Popup.closeLast();
+                                window.setTimeout(function () {
+                                    Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
+                                }, 500);
+                            },
+                        });
+                    })
+                    .on('click', '#btn-subject-cluster-class', function (e) {
+                        e.preventDefault();
+                        Popup.closeLast();
+                        window.setTimeout(function () {
+                            Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
+                        }, 500);
+                    })
+                    .on('click', '#btn-back-to-main-school-class', function (e) {
+                        e.preventDefault();
+                        Popup.closeLast();
+                        window.setTimeout(function () {
+                            Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
+                        }, 500);
+                    })
+                    .on('click', '.jquery-radio-set-eduction-level, .jquery-radio-set_school-year', function (e) {
+                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
                     });
-                });
-
-                $('#button-subject-cluster-class').click(function (e) {
-                    e.preventDefault();
-                    Popup.closeLast();
-                    window.setTimeout(function () {
-                        Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
-                    }, 500);
-                });
-
-                $('#button-back-to-main-school-class').click(function (e) {
-                    e.preventDefault();
-                    Popup.closeLast();
-                    window.setTimeout(function () {
-                        Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
-                    }, 500);
-                });
-                $('.jquery-radio-set-eduction-level').click(function (e) {
-                    $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
-                })
                 window.teacherCompleteUserImportClusterSchoolClass = true;
             }
         });
