@@ -1,5 +1,5 @@
 <div id="buttons">
-    <? if($isAdministrator): ?>
+    <? if($isAdministrator && strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'): ?>
         <a href="#" class="btn white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
             <span class="fa fa-edit mr5"></span>
             Wijzigen

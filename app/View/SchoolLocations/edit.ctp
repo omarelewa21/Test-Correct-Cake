@@ -135,9 +135,11 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Wijzigen
-    </a>
+    <?php if(strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
+            Wijzigen
+        </a>
+    <?php } ?>
 </div>
 
 <script type="text/javascript">
