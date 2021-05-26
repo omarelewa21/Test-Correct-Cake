@@ -1982,6 +1982,13 @@ class UsersController extends AppController
             exit;
         }
 
+        $teachersList = $this->UsersService->getTeachersList();
+        $teacherEntries = [];
+        foreach($teachersList as $teacherRecord) {
+            $teacherEntries[$teacherRecord['class_id']] = $teacherRecord['subject_id'];
+        }
+
+
         $classesList = $this->SchoolClassesService->getClasses([
             'filter' => [
                 'current' => 1
@@ -1992,6 +1999,7 @@ class UsersController extends AppController
 
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
+        $this->set('teacher_entries', $teacherEntries);
     }
 
     public function school_manager_complete_user_import_main_school_class()
@@ -2017,4 +2025,5 @@ class UsersController extends AppController
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
+
 }

@@ -175,6 +175,8 @@
                                             class="checkbox-custom jquery-radio-set-eduction-level"
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
+                                            <?php array_key_exists($schoolClass['id'],
+                                                $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
                                         >
                                         <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                                class="checkbox-custom-label">
@@ -192,7 +194,10 @@
                                         name="teacher[<?= $schoolClass['id'] ?>]"
                                         type="radio"
                                         class="radio-custom jquery-radio-set-eduction-level"
-                                        value="<?= $subjectId ?>">
+                                        value="<?= $subjectId ?>"
+                                        <?php array_key_exists($schoolClass['id'],
+                                            $teacher_entries) && $teacherEntries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                    >
                                     <label
                                         for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                         class="radio-custom-label">
@@ -210,9 +215,13 @@
                         <td width="80px"><span class="import-label label-blue">bekend</span></td>
 
 
-                        <td width="150px"><input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
+                        <td width="150px">
+                            <input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                                  class="checkbox-custom jquery-controle"
-                                                 name="class[<?= $schoolClass['id'] ?>][<?=$subjectId?>]" type="checkbox">
+                                                 name="class[<?= $schoolClass['id'] ?>][checked]"
+                                                 type="checkbox"
+                                                 <?= $schoolClass['checked_by_admin'] ? 'checked' : '' ?>
+                            >
                             <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
