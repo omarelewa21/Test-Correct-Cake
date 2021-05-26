@@ -74,6 +74,9 @@
 
 <div class="popup-footer">
     <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
+            <i class="fa fa-check mr5"></i> Entree
+        </a>
         <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
             <i class="fa fa-check mr5"></i> Test login
         </a>
@@ -81,6 +84,8 @@
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="" style="display:none;">
             <i class="fa fa-check mr5"></i> Inloggen
         </a>
+
+
     <? } else { ?>
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
             <i class="fa fa-check mr5"></i> Inloggen
@@ -198,9 +203,9 @@
             }
         }
     );
-  
+
     function ChromeOSdopost(){
-        $.post("/users/logout", function (){window.location.href = '/';});  
+        $.post("/users/logout", function (){window.location.href = '/';});
     }
 
     function refreshCaptcha(){
