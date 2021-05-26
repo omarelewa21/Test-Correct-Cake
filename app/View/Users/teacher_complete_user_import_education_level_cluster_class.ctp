@@ -238,6 +238,8 @@
                     </button>
                 </div>
                 <div style="display:flex;">
+                     <span id="teacher-complete-counter"
+                           style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
                     <button id="btn-save-education-level-cluster-class" style="height: 50px"
                             class="button primary-button button-md mr10">
                         Opslaan
@@ -300,9 +302,21 @@
                         }, 500);
                     })
                     .on('click', '.jquery-radio-set-eduction-level, .jquery-radio-set_school-year', function (e) {
-                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
+                        $(this).closest('tr').find('.jquery-controle').attr('checked', true).trigger('change');
                     });
+
                 window.teacherCompleteUserImportClusterSchoolClass = true;
+
             }
+            $('.jquery-controle').change(function (e) {
+                updateTeacherCompleteClusterClassCounter();
+            });
+
+            function updateTeacherCompleteClusterClassCounter() {
+                var aantal = $('.jquery-controle').length;
+                var gevinked = $('.jquery-controle:checked').length;
+                $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>clusterklassen compleet');
+            }
+            updateTeacherCompleteClusterClassCounter();
         });
     </script>

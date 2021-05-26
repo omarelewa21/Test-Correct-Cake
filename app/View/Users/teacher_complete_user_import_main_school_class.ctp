@@ -189,7 +189,7 @@
                                 class="checkbox-custom jquery-controle"
                                 name="class[<?= $schoolClass['id'] ?>][checked]"
                                 type="checkbox"
-                                <?= $schoolClass['checked_by_teacher'] ? 'checked': '' ?>
+                                <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
                             >
                             <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
@@ -219,6 +219,8 @@
                 style="display:flex; width: 100%; align-items: center; justify-content: flex-end; padding: 0 40px;">
 
                 <div style="display:flex;">
+                     <span id="teacher-complete-counter"
+                           style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
                     <button id="btn-save-teacher-complete-user-import-main-school-class" style="height: 50px"
                             class="button primary-button button-md mr10">
                         Opslaan
@@ -275,11 +277,25 @@
                         }
                     )
                     .on('click', '.jquery-radio-set-eduction-level', function (e) {
-                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
+                        $(this).closest('tr').find('.jquery-controle').attr('checked', true).trigger('change');
                     });
 
+
+
                 window.teacherCompleteUserImportMainSchoolClass = true;
+
+
             }
-        })
-        ;
+            function updateTeacherCompleteCounter() {
+                var aantal = $('.jquery-controle').length;
+                var gevinked = $('.jquery-controle:checked').length;
+                $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>stamklassen compleet');
+            }
+            $('.jquery-controle').change(function (e) {
+                updateTeacherCompleteCounter();
+            });
+
+
+            updateTeacherCompleteCounter();
+        });
     </script>
