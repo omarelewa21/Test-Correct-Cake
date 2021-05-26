@@ -47,6 +47,7 @@ class TestsController extends AppController
         ];
 
         $education_levels = $this->TestsService->getEducationLevels();
+        $authors = $this->TestsService->getAuthors();
 
 
         $periods = $this->TestsService->getPeriods();
@@ -59,6 +60,7 @@ class TestsController extends AppController
         //$subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
+        $this->set('authors',$authors);
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
         $this->set('kinds', $kinds);
@@ -256,6 +258,10 @@ class TestsController extends AppController
 
         if (!empty($filters['created_at_end'])) {
             $params['filter']['created_at_end'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_end']));
+        }
+
+        if (!empty($filters['author_id'])) {
+            $params['filter']['author_id'] = $filters['author_id'];
         }
 
         if (!empty($filters['is_open_sourced_content']) && $filters['is_open_sourced_content'] != 0) {
