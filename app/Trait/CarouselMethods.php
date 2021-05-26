@@ -31,7 +31,7 @@ trait CarouselMethods
             return;
         }
         $this->set('carouselGroupQuestionNotify', true);
-        $msg = sprintf('<p>Let op: Er zijn te weinig vragen in vraagcarrousel `%s` om deze toets te gebruiken. Vul het aantal vragen aan of pas het aantal te vragen toetsvragen aan.</p>',$groupQuestion['name']);
+        $msg = sprintf(__('<p>Let op: Er zijn te weinig vragen in vraagcarrousel `%s` om deze toets te gebruiken. Vul het aantal vragen aan of pas het aantal te vragen toetsvragen aan.</p>'),$groupQuestion['name']);
         $this->setCarouselGroupQuestionNotifyMsg($msg);
     }
 

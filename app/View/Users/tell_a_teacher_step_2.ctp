@@ -106,7 +106,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         var max = $('#message').attr('maxlength');
         var chars = $('#message').val().length
 
-        $('#maxCharacters').html( chars + ' van '+ max + ' karakters');
+        $('#maxCharacters').html( chars + '<?= __(" van ")?>'+ max + '<?= __(" karakters")?>');
 
         if (chars >= max) {
             $('#maxCharacters').parent().addClass('notification error ');

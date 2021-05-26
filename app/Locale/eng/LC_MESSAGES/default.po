@@ -100,6 +100,18 @@ msgstr "There is no preview for a question group."
 msgid "Rangschik"
 msgstr "Arrange"
 
+msgid "Vraaggroep aangemaakt"
+msgstr "Question group created"
+
+msgid "Aantal te beantwoorden vragen:"
+msgstr "Number of questions to be answered:"
+
+msgid "Geen domein"
+msgstr "No domain"
+
+msgid "<p>Let op: Er zijn te weinig vragen in vraagcarrousel `%s` om deze toets te gebruiken. Vul het aantal vragen aan of pas het aantal te vragen toetsvragen aan.</p>"
+msgstr "<p> Note: There are too few questions in question carousel `% s` to use this test. Enter the number of questions or adjust the number of test questions to be asked. </p>"
+
 msgid "Combineer"
 msgstr "Combine"
 
@@ -214,11 +226,29 @@ msgstr "Essay / argument question"
 msgid "Open vraag - kort<br />"
 msgstr "Open question - short <br />"
 
+msgid "Gatentekst<br />"
+msgstr "Missing Word<br />"
+
+msgid "Juist / Onjuist<br />"
+msgstr "Correct / Incorrect <br />"
+
+msgid "Combineer<br />"
+msgstr "Combine <br />"
+
+msgid "Rubriceer<br />"
+msgstr "Classify <br />"
+
 msgid "Open vraag - lang<br />"
 msgstr "Open question - long <br />"
 
 msgid "Open vraag<br />"
 msgstr "Open question <br />"
+
+msgid "Meerkeuze<br />"
+msgstr "Multiple choice <br />"
+
+msgid "Selectie<br />"
+msgstr "Selection <br />"
 
 msgid "Gatentekstvraag"
 msgstr "Missing Word Question"
@@ -751,6 +781,15 @@ msgstr "Combination question"
 msgid "Rubriceer-vraag"
 msgstr "Classify question"
 
+msgid "MatrixQuestion"
+msgstr "MatrixQuestion"
+
+msgid "MatrixQuestion ONBEKEND"
+msgstr "MatrixQuestion UNKNOWN"
+
+msgid "Teken<br />"
+msgstr "Sign <br />"
+
 msgid "Matrix ONBEKEND"
 msgstr "Matrix UNKNOWN"
 
@@ -880,6 +919,9 @@ msgstr "Test information"
 msgid "Eigenaar"
 msgstr "Owner"
 
+msgid "Rangschik<br />"
+msgstr "Arrange <br />"
+
 msgid "Soort"
 msgstr "Type"
 
@@ -912,6 +954,12 @@ msgstr "New question group"
 
 msgid "Contactpersoon"
 msgstr "Contact Person"
+
+msgid " van "
+msgstr " from "
+
+msgid " karakters"
+msgstr " characters"
 
 msgid "Naam"
 msgstr "Name"
@@ -963,6 +1011,9 @@ msgstr "Domain"
 
 msgid "Subdomein"
 msgstr "Subdomain"
+
+msgid "Vraaggroep opgeslagen"
+msgstr "Question group saved"
 
 msgid "Selecteer maximaal"
 msgstr "Select maximum"

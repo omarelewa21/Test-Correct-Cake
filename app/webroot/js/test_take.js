@@ -102,7 +102,7 @@ var TestTake = {
                                 ) {
                             TestTake.atTestStop();
                             Navigation.refresh();
-                            Notify.notify('Toets gedwongen ingeleverd', 'error');
+                            Notify.notify($.i18n('Toets gedwongen ingeleverd'), 'error');
                         }
 
                         if (
@@ -111,7 +111,7 @@ var TestTake = {
                                 ) {
                             TestTake.atTestStop();
                             Navigation.refresh();
-                            Notify.notify('Toets gedwongen ingeleverd', 'error');
+                            Notify.notify($.i18n('Toets gedwongen ingeleverd'), 'error');
                         }
 
                         if (
@@ -468,9 +468,9 @@ var TestTake = {
             '        <circle cx="2" cy="12" r="2"/>' +
             '    </g>' +
             '</svg>' +
-            '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
+            '<span style="margin-left:10px;font-size:16px">' + $.i18n('Beveiligde student app niet verplicht') + '</span>' +
             '</p>' +
-            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
+            '<span class="body" style="font-size: 14px">' +  $.i18n('De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.') + '</span>' +
             '</div>';
 
 
@@ -502,7 +502,7 @@ var TestTake = {
                 } else {
                     $.get('/test_takes/start_test/' + take_id,
                         function (response) {
-                            Notify.notify('Toetsafname gestart', 'info');
+                            Notify.notify($.i18n('Toetsafname gestart'), 'info');
                             Navigation.load('/test_takes/surveillance');
                         }
                     );
@@ -922,8 +922,8 @@ var TestTake = {
                 if (el.classList.contains('cta-button')) {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
-                    Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
-                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+                    Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld'));
+                    Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -941,8 +941,8 @@ var TestTake = {
         el.classList.remove('cta-button');
         el.classList.add('grey');
 
-        Notify.notify('Browsertoetsing voor alle studenten uitgeschakeld');
-        Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+        Notify.notify($.i18n('Browsertoetsing voor alle studenten uitgeschakeld'));
+        Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.remove('cta-button');
             el.classList.add('grey');
@@ -952,7 +952,7 @@ var TestTake = {
         el.classList.add('cta-button');
         el.classList.remove('grey');
 
-        Notify.notify('Browsertoetsing voor alle studenten ingeschakeld' );
+        Notify.notify($.i18n('Browsertoetsing voor alle studenten ingeschakeld') );
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.add('cta-button');
             el.classList.remove('grey');
@@ -983,7 +983,7 @@ var TestTake = {
         return '<div class="tat-content border-radius-bottom-0"> '+
         '<div style="display:flex">'+
         '   <div style="flex-grow:1">'+
-        '       <h2 style="margin-top:0">Typecalibratie test</h2>'+
+        '       <h2 style="margin-top:0">' + $.i18n('Typecalibratie test') + '</h2>'+
         '   </div>'+
         // '    <div class="close" style="flex-shrink: 1">'+
         // '        <a href="#" onclick="Popup.closeLast()">'+
@@ -999,7 +999,7 @@ var TestTake = {
         '</div>'+
         '<div class="popup-content tat-content body1" style="margin-top:-60px; display:flex">' +
         '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px">'+
-        '<p style="margin:0">Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
+        '<p style="margin:0">' + $.i18n('Lees de onderstaande tekst en type deze over in het tekstvak eronder.') + '</p>'+
         '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem; margin-bottom: 0;">'+ text +'</p>' +
         '</div>' +
         '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-left: 10px">'+
@@ -1008,7 +1008,7 @@ var TestTake = {
         '        <label for="callibration-init-text-input" style="font-size: 18px">Type de tekst over</label>'+
         '    </div>' +
         '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;">'+
-        '       Afronden'+
+        $.i18n('Afronden')+
         '    </button>'+
         '</div>'+
         '</div>';
