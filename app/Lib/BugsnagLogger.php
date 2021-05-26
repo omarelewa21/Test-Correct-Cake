@@ -51,7 +51,6 @@ class BugsnagLogger
         if ($this->bugsnag == null) {
             return $this;
         }
-
 //        $this->bugsnag->registerCallback(function($report){
 //
 //            $report->setUser([]);

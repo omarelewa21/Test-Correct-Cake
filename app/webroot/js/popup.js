@@ -5,22 +5,30 @@ var Popup = {
     timeout: null,
     cancelCallback: null,
     debounceTime: 0,
+    debounceLocktimeInMiliseconds: 750,
     shouldCloseWithIndex: false,
 
-    debounce: function () {
+    setDebounceLock: function () {
 
+        this.debounceTime = new Date().getTime();
+
+    },
+
+    hasDebounceLock: function(){
         var now = new Date().getTime();
 
-        if (this.debounceTime > now - 2000) {
-            return false;
+        if (this.debounceTime > now - this.debounceLocktimeInMiliseconds) {
+            return true;
         }
-
-        this.debounceTime = now;
-
-        return true;
+        return false;
     },
 
     load: function (url, width) {
+
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
 
         $('.dropblock').slideUp();
         $('.dropblock-owner').removeClass('active');
@@ -30,9 +38,15 @@ var Popup = {
                     Popup.show(html, width);
                 }
         );
+
     },
 
     showCongrats: function (action) {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         this.messageWithPreventDefault({
             'btnOk': 'Ok',
             'title': action ? action : $.i18n('gefeliciteerd'),
@@ -49,7 +63,10 @@ var Popup = {
 
     prompt: function (options, callback) {
 
-        this.debounce();
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
 
         $('#container, #background, #header').addClass('blurred');
 
@@ -96,6 +113,11 @@ var Popup = {
     },
 
     promptDispensation: function (options, callback) {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
@@ -142,6 +164,11 @@ var Popup = {
 
     },
     promptChooseGroupQuestionType: function (options, callback) {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
@@ -194,6 +221,11 @@ var Popup = {
 
     },
     promptChooseImportTeachersType: function(options, callback){
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         $('#container, #background, #header').addClass('blurred');
 
         Popup.index++;
@@ -250,7 +282,10 @@ var Popup = {
     },
     confirm: function (options, callback) {
 
-        this.debounce();
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
 
         $('#container, #background, #header').addClass('blurred');
 
@@ -307,7 +342,10 @@ var Popup = {
 
     showSearch: function () {
 
-        this.debounce();
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
 
         $('#container, #background, #header').addClass('blurred');
 
@@ -332,8 +370,6 @@ var Popup = {
     },
 
     show: function (html, width) {
-
-        this.debounce();
 
         $('#container, #background, #header').addClass('blurred');
 
@@ -395,8 +431,10 @@ var Popup = {
         $('#container, #background, #header').removeClass('blurred');
     },
 
-    closeWithNewPopup: function (url) {
-
+    closeWithNewPopup: function (url,width) {
+        if(typeof width == "undefined"){
+            width = 600;
+        }
         $('#fade').hide();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
@@ -410,7 +448,7 @@ var Popup = {
         $('#fade').css({
             'zIndex': (Popup.zIndex - 1)
         });
-        Popup.load(url, 600);
+        Popup.load(url, width);
         return false;
     },
 
@@ -424,6 +462,11 @@ var Popup = {
     },
 
     messageOk: function () {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         var index = Popup.index;
 
         if (Popup.callback != null) {
@@ -534,13 +577,16 @@ var Popup = {
             data: {},
             success: function (data) {
                 url = data.data.url;
-                Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
-                    '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
-                    'onclick="Popup.closeLast()">' + $.i18n('Voorbeeldweergave sluiten') + '</a>', 1200);
+                window.open(url, '_blank').focus();
+                // Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
+                //     '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
+                //     'onclick="Popup.closeLast()">' + $.i18n('Voorbeeldweergave sluiten') + '</a>', 1200);
             }
         });
 
     }
+
+
 };
 // // overload of window.prompt to always show a descently formatted prompt box.
 // function prompt(message, value, callback)

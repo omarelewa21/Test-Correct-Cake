@@ -391,6 +391,10 @@ class UsersService extends BaseService
 
                 if (strstr($response, 'external_id')) {
                     return 'external_code';
+                }elseif(strstr($response, 'dns')){
+                    return 'dns';
+                }elseif(strstr($response,'external_id failed on double entry')){
+                    return 'external_id';
                 } elseif (strstr($response, 'username')) {
                     return 'username';
                 } else {
@@ -504,11 +508,21 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function createOnboardingWizardReport($data)
+    public function createMarketingReport($data)
     {
-        $response = $this->Connector->postRequest('/onboarding_wizard_report', [], $data);
+        $response = $this->Connector->postRequest('/marketing_report', [], $data);
+        
         if ($response) {
-            return $this->Connector->getDownloadRequest('/onboarding_wizard_report', [], $data);
+            return $this->Connector->getDownloadRequest('/marketing_report', [], $data);
+        }
+    }
+    
+    public function createSchoolLocationReport($data)
+    {
+        $response = $this->Connector->postRequest('/school_location_report', [], $data);
+        
+        if ($response) {
+            return $this->Connector->getDownloadRequest('/school_location_report', [], $data);
         }
     }
 

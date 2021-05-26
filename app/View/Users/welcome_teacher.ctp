@@ -124,7 +124,7 @@ if ($wizard_steps) {
             </div>
             <div class="cta-block">
                 <div class="svg">
-                    <?php echo $this->element('sticker_plan_test'); ?>
+                    <?php echo $this->element('sticker_plan_test_take'); ?>
                 </div>
                 <h4><?= __("Toets inplannen")?></h4>
                 <span class="subtitle"><?= __("Plan een toets in om deze af te kunnen nemen")?></span>

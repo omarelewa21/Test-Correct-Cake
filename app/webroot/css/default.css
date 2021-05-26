@@ -13,7 +13,7 @@
 @import url('bootstrap.css?v20201110');
 @import url('questions.css');
 @import url('tell_a_teacher.css');
-@import url('dashboard.css?v20210506-0830');
+@import url('dashboard.css?v20210520-0830');
 /* GENERAL */
 body {
     margin:         0px;
@@ -259,3 +259,8 @@ div.block-content img {
 .colorcode-45 {color:#FA0303;background-color:#FA0303;}
 .colorcode-46 {color:#03FA25;background-color:#03FA25;}
 .colorcode-47 {color:#E2E3E2;background-color:#E2E3E2;}
+
+.tablefied td,
+.tablefied th {
+    box-sizing:border-box;
+}

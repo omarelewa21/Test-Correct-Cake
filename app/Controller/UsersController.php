@@ -66,9 +66,6 @@ class UsersController extends AppController
         $user->name = $response['eduProfile']['sn'];
         $user->username = $response['eduProfile']['personRealID'];
 
-
-//        var_dump($response);die;
-
         $this->set('user', $user);
     }
 
@@ -351,11 +348,12 @@ class UsersController extends AppController
         );
     }
 
-    public function onboarding_wizard_report()
+    public function marketing_report()
     {
-//            $this->ifNotAllowedExit(['Account manager'], true);
 
-        $result = $this->UsersService->createOnboardingWizardReport($this->request->data);
+        $this->isAuthorizedAs(['Account manager']);
+
+        $result = $this->UsersService->createMarketingReport($this->request->data);
 
         if (!$result) {
             exit;
@@ -363,7 +361,27 @@ class UsersController extends AppController
 
         $this->response->body($result);
         $this->response->header('Content-Disposition', 'attachment; filename=marketing_report_' . date('YmdHi') . '.xls');
+        
         return $this->response;
+        
+    }
+    
+    public function school_location_report()
+    {
+
+        $this->isAuthorizedAs(['Account manager']);
+
+        $result = $this->UsersService->createSchoolLocationReport($this->request->data);
+
+        if (!$result) {
+            exit;
+        }
+
+        $this->response->body($result);
+        $this->response->header('Content-Disposition', 'attachment; filename=school_location_report_' . date('YmdHi') . '.xls');
+        
+        return $this->response;
+        
     }
 
     public function welcome()
@@ -530,8 +548,10 @@ class UsersController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
+            if(array_key_exists('teacher_external_id',$this->request->data['User'])){
+                $this->request->data['User']['external_id'] = $this->request->data['User']['teacher_external_id'];
+            }
             $data = $this->request->data['User'];
-
             $result = $this->UsersService->updateUser($user_id, $data);
 
             if ($this->Session->check('user_profile_picture')) {
@@ -551,9 +571,13 @@ class UsersController extends AppController
                 //or fail and show a general error
                 try {
                     $error = json_decode($result, true);
-
                     if (isset($error['errors']['username'])) {
-                        $response = __("Dit e-mailadres is al in gebruik");
+                        if(stristr($error['errors']['username'][0],'failed on dns')){
+                            $response = __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen");
+                        }else{
+                            $response = __("Dit e-mailadres is al in gebruik");
+                        }
+
                     }
                     if (isset($error['errors']['external_id'])) {
                         $response = __("Studentennummer is al in gebruik");
@@ -594,7 +618,7 @@ class UsersController extends AppController
                 $this->render('edit_accountmanagers', 'ajax');
                 break;
 
-            case 1: //Teachter
+            case 1: //Teacher
                 $this->render('edit_teachers', 'ajax');
                 break;
 
@@ -645,7 +669,6 @@ class UsersController extends AppController
     public function view($user_id)
     {
         $user = $this->UsersService->getUser($user_id);
-
         $this->set('user', $user);
 
         switch ($user['roles'][0]['id']) {
@@ -969,6 +992,18 @@ class UsersController extends AppController
                         'error' => 'username'
                     ]
                 );
+            }elseif ($result == 'dns') {
+                $this->formResponse(
+                    false, [
+                        'error' => 'dns'
+                    ]
+                );
+            }elseif ($result == 'external_id') {
+                $this->formResponse(
+                    false, [
+                        'error' => 'external_id'
+                    ]
+                );
             } else {
                 $this->formResponse(
                     false, ['error' => $result]
@@ -1243,12 +1278,20 @@ class UsersController extends AppController
                     'path'  => '/file_management/testuploads'
                 );
 
-                $tiles['onboarding_wizard_report'] = array(
+                $tiles['marketing_report'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
-                    'title' => __("Demo tour rapport"),
+                    'title' => __("Marketing Rapport"),
                     'type'  => 'download',
-                    'path'  => '/users/onboarding_wizard_report'
+                    'path'  => '/users/marketing_report'
+                );
+                
+                 $tiles['school_location_report'] = array(
+                    'menu'  => 'files',
+                    'icon'  => 'testlist',
+                    'title' => __("School locatie Rapport"),
+                    'type'  => 'download',
+                    'path'  => '/users/school_location_report'
                 );
             }
 

@@ -59,7 +59,7 @@
             <?= __("Stamnummer")?>
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('teacher_external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>

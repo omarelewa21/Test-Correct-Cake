@@ -33,18 +33,14 @@ class DeploymentMaintenanceController extends AppController {
         App::uses('MaintenanceHelper','Lib');
         $helper = MaintenanceHelper::getInstance();
         $data = $this->DeploymentMaintenanceService->checkForDeploymentMaintenance();
+        $helper->unsetNotificationForMaintenance();
+        $helper->unsetMaintenanceMode();
         if($data){
             if($data['status'] === 'ACTIVE'){
                 $helper->setInMaintenanceMode($data['message'], $data['whitelisted_ips']);
             } else if ($data['status'] === 'NOTIFY'){
                 $helper->setNotificationForMaintenance($data['notification']);
-            } else {
-                $helper->unsetNotificationForMaintenance();
-                $helper->unsetMaintenanceMode();
             }
-        } else {
-            $helper->unsetNotificationForMaintenance();
-            $helper->unsetMaintenanceMode();
         }
         die();
     }

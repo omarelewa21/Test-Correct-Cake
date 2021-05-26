@@ -1996,8 +1996,38 @@ msgstr "The import duplicates already in the database (orange)"
 msgid "Duplicaten reeds in de database (oranje)"
 msgstr "Duplicates already in the database (orange)"
 
+msgid "Deze externe code is al in gebruik"
+msgstr "This external code is already in use"
+
+msgid "Deze docent bestaat al voor deze schoollocatie met een andere externe code (blauw)"
+msgstr "This teacher already exists for this school location with a different external code (blue)"
+
+msgid "Deze docent zit al in deze schoollocatie met deze klas en dit vak (oranje)"
+msgstr "This teacher is already in this school location with this class and subject (orange)"
+
+msgid "Deze docent zit al in deze schoollocatie (oranje)"
+msgstr "This teacher is already in this school location (orange)"
+
+msgid "Deze docent bestaat al voor deze schoollocatie met een ander e-mailadres (blauw)"
+msgstr "This teacher already exists for this school location with a different email address (blue)"
+
+msgid "Dezelfde docent staat met 2 verschillende externe codes in de gegevens die u wilt uploaden (blauw)"
+msgstr "The same teacher is in the data you want to upload with 2 different external codes (blue)"
+
+msgid "Dezelfde docent staat met 2 verschillende e-mailadressen in de gegevens die u wilt uploaden (blauw)"
+msgstr "The same teacher is in the data you want to upload with 2 different e-mail addresses (blue)"
+
 msgid "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)"
 msgstr "The domain of the specified email address is not configured for email addresses (red)"
+
+msgid "Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen"
+msgstr "The domain of the specified email address is not configured for email addresses"
+
+msgid "School locatie Rapport"
+msgstr "School location Report"
+
+msgid "Marketing Rapport"
+msgstr "Marketing Report"
 
 msgid "Het kan ook zijn dat je scherm nog ingezoomd is, in dat geval dien je eerst uit te zoomen"
 msgstr "It is also possible that your screen is still zoomed in, in which case you need to zoom out first"

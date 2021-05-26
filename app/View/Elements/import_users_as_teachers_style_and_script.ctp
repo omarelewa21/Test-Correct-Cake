@@ -244,8 +244,12 @@
                         var hasDuplicates = false;
                         var hasDuplicatesInDatabase = false;
                         var emailDns = false;
-                        var hasDuplicateExternalId = false;
+                        var hasSameUserNameDifferentExternalIdSameSchoollocation = false;
                         var hasDuplicateSchoolLocation = false;
+                        var hasDuplicateSchoolLocationBare = false;
+                        var hasSameExternalIdDifferentUsernameSameSchoollocation = false;
+                        var hasDuplicateExternalIdInImport = false;
+                        var hasDuplicateUsernameInImport = false;
                         // vul de cellen waarvan ik een foutmelding kan vinden met een rode kleur.
                         Object.keys(response.data).forEach(key => {
                             //$('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
@@ -258,10 +262,10 @@
                             var column_nr = headers.indexOf(header)
                             var placeholder = parseInt(row_nr) + 1;
                             var row_selector = 'tr:not(:hidden):eq(' + placeholder + ')';
+                            errorMsg = response.data[key];
+                            var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
                             if (column_nr > -1) {
                                 var columns_selector = 'td:eq(' + (parseInt(column_nr)) + ')';
-                                errorMsg = response.data[key];
-                                var cssClass = classifyError(errorMsg) ? classifyError(errorMsg) : 'error';
 
                                 $('table#excelDataTable').find(row_selector).find(columns_selector).addClass('error');
                                 if (!dataMissingHeaders.includes(header)) {
@@ -269,22 +273,42 @@
                                 }
                                 if (cssClass === 'duplicate-in-database') {
                                     hasDuplicatesInDatabase = true;
-                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database')
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
                                 }
                                 if (cssClass === 'email-dns') {
                                     emailDns = true;
                                 }
-                                if (cssClass === 'duplicate-external_id-in-database') {
-                                    hasDuplicateExternalId = true;
+                                if (cssClass === 'same-username-different-external_id-same-schoollocation') {
+                                    hasSameUserNameDifferentExternalIdSameSchoollocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
                                 }
                                 if (cssClass === 'duplicate-in-school_location') {
                                     hasDuplicateSchoolLocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
+                                }
+                                if (cssClass === 'duplicate-in-school_location-bare') {
+                                    hasDuplicateSchoolLocationBare = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate-in-database');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
+                                }
+                                if(cssClass === 'duplicate-external_id-in-database'){
+                                    hasSameExternalIdDifferentUsernameSameSchoollocation = true;
+                                    $('table#excelDataTable').find(row_selector).addClass('duplicate');
+                                    $('table#excelDataTable').find(row_selector).find(columns_selector).removeClass('error');
                                 }
 
-                            } else if (header === 'duplicate') {
-                                hasDuplicates = true;
-                                $('table#excelDataTable').find(row_selector).addClass('duplicate')
 
+                            } else if (header === 'duplicate') {
+                                if(cssClass === 'duplicate-username-in-import'){
+                                    hasDuplicateUsernameInImport = true;
+                                }else if(cssClass === 'duplicate-external_id-in-import'){
+                                    hasDuplicateExternalIdInImport = true;
+                                }else{
+                                    hasDuplicates = true;
+                                }
+                                $('table#excelDataTable').find(row_selector).addClass('duplicate')
                             } else {
                                 if (!missingHeaders.includes(header)) {
                                     missingHeaders.push(header);
@@ -303,11 +327,23 @@
                         if(emailDns){
                             $('#column-errors').append($('<ul><li>' + '<?= __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)")?>' + '</li></ul>'));
                         }
-                        if(hasDuplicateExternalId){
-                            $('#column-errors').append($('<ul><li>' + '<?= __("De externe code bestaat al voor deze schoollocatie(rood)")?>' + '</li></ul>'));
+                        if(hasSameUserNameDifferentExternalIdSameSchoollocation){
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Deze docent bestaat al voor deze schoollocatie met een andere externe code (blauw)")?>' + '</li></ul>'));
                         }
                         if(hasDuplicateSchoolLocation){
-                            $('#column-errors').append($('<ul><li>' + '<?= __("Deze docent zit al in deze schoollocatie (rood)")?>' + '</li></ul>'));
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>' + '<?= __("Deze docent zit al in deze schoollocatie met deze klas en dit vak (oranje)")?>' + '</li></ul>'));
+                        }
+                        if(hasDuplicateSchoolLocationBare){
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>' + '<?= __("Deze docent zit al in deze schoollocatie (oranje)")?>' + '</li></ul>'));
+                        }
+                        if(hasSameExternalIdDifferentUsernameSameSchoollocation){
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Deze docent bestaat al voor deze schoollocatie met een ander e-mailadres (blauw)")?>' + '</li></ul>'));
+                        }
+                        if(hasDuplicateExternalIdInImport){
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Dezelfde docent staat met 2 verschillende externe codes in de gegevens die u wilt uploaden (blauw)")?>' + '</li></ul>'));
+                        }
+                        if(hasDuplicateUsernameInImport){
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Dezelfde docent staat met 2 verschillende e-mailadressen in de gegevens die u wilt uploaden (blauw)")?>' + '</li></ul>'));
                         }
 
                         if (dataMissingHeaders.length) {
@@ -315,18 +351,34 @@
                                 var field = dbFields.find(field => {
                                     return field.column == header
                                 })
-                                if (field.name === 'E-mailadres'&&!emailDns&&!hasDuplicatesInDatabase) {
+                                if (field.name === 'E-mailadres' && hasDuplicateSchoolLocation) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && hasDuplicateSchoolLocationBare) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && emailDns) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && hasDuplicatesInDatabase) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres' && hasSameExternalIdDifferentUsernameSameSchoollocation) {
+                                    return;
+                                }
+                                if (field.name === 'Externe code' && hasDuplicateSchoolLocationBare) {
+                                    return;
+                                }
+                                if (field.name === 'E-mailadres') {
                                     return '<?= __("De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)")?>';
                                 }
-                                if(field.name === 'E-mailadres'){
-                                     return;
-                                }
-                                if (field.name === 'Externe code' && hasDuplicateExternalId) {
+                                if (field.name === 'Koppeling welk vak' && hasDuplicateSchoolLocation) {
                                     return;
                                 }
-                                if (field.name === 'Externe code' && hasDuplicateSchoolLocation) {
+                                if (field.name === 'Externe code' && hasSameUserNameDifferentExternalIdSameSchoollocation) {
                                     return;
                                 }
+
                                 return '<?= __("De kolom [")?>' + field.name + '<?= __("] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).")?>';
                             })
                             var joinedErrorMsg = errorMsg.join('');
@@ -359,6 +411,12 @@
             if (error.indexOf('Deze import bevat dubbele') !== -1) {
                 return 'duplicate';
             }
+            if (error.indexOf('this record occurs multiple times with username combination') !== -1) {
+                return 'duplicate-username-in-import';
+            }
+            if (error.indexOf('this record occurs multiple times with external_id combination') !== -1) {
+                return 'duplicate-external_id-in-import';
+            }
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';
             }
@@ -369,14 +427,20 @@
                 return 'duplicate-external_id-in-database';
             }
             if (error.indexOf('failed on double user entry') !== -1) {
-                return 'duplicate-in-school_location';
+                return 'duplicate-in-school_location-bare';
             }
             if (error.indexOf('email failed on dns') !== -1) {
                 return 'email-dns';
             }
-
+            if (error.indexOf('failed on same username same schoollocation different external_id') !== -1) {
+                return 'same-username-different-external_id-same-schoollocation';
+            }
+            if (error.indexOf('double schoolclass subject entry') !== -1) {
+                return 'duplicate-in-school_location';
+            }
             return false;
         }
+
 
         var parsePastedData = function (e) {
             var cb;

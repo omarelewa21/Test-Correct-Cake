@@ -46,4 +46,4 @@
         {'column': 'notes', 'name': '<?= __("Notities")?>'},
     ];
 </script>
-<?= $this->element('import_users_as_teachers_style_and_script',['type'=>'students']) ?>
+<?= $this->element('import_users_as_teachers_style_and_script',['type'=>'teachers']) ?>

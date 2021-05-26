@@ -102,9 +102,13 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                if(result.error == 'username') {
+                if (result.error == 'username') {
                     Notify.notify('<?= __("E-mailadres al in gebruik")?>', "error");
-                } else if (result.error == 'user_roles'){
+                }else if(result.error== 'dns'){
+                    Notify.notify('<?= __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen")?>', "error");
+                }else if(result.error== 'external_code'){
+                    Notify.notify('<?= __("Deze externe code is al in gebruik")?>', "error");
+                }else if (result.error == 'user_roles'){
                     Notify.notify('<?= __("U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt.")?>','error')
                 }
                 else{

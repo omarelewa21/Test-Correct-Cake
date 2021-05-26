@@ -1,6 +1,6 @@
 <div class="popup-head"><?= __("Selecteer toets")?></div>
 <div class="popup-content">
-    <div id="testsContainter" style="height:300px; overflow: auto;">
+    <div id="selectableTestsContainter" style="height:300px; overflow: auto;">
         <table class="table table-striped" id="TestTakeTestTable">
             <thead>
             <tr>
@@ -19,7 +19,7 @@
             $('#TestTakeTestTable').tablefy({
                 'source' : '/test_takes/select_test_list',
                 'filters' : $('#testsFilter'),
-                'container' : $('#testsContainter')
+                'container' : $('#selectableTestsContainter')
             });
         </script>
     </div>

@@ -51,7 +51,7 @@
                 <th><?= __("Leerjaar")?></th>
             </tr>
             <?
-            foreach($user['teacher'] as $teacher) {
+            foreach($user['own_teachers'] as $teacher) {
                 ?>
                 <tr>
                     <td><?=$teacher['subject']['name']?></td>
