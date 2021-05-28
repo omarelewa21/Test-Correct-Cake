@@ -175,8 +175,7 @@
                                             class="checkbox-custom jquery-radio-set-eduction-level"
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
-                                            <?php array_key_exists($schoolClass['id'],
-                                                $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                            <?php array_key_exists($schoolClass['id'], $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
                                         >
                                         <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                                class="checkbox-custom-label">
@@ -216,10 +215,10 @@
 
                         <td width="150px">
                             <input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
-                                                 class="checkbox-custom jquery-controle"
+                                                 class="checkbox-custom jquery-subject-complete-counter"
                                                  name="class[<?= $schoolClass['id'] ?>][checked]"
                                                  type="checkbox"
-                                                 <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
+                                                 <?= $teacher_entries[$schoolClass['id']]['checked_by_teacher'] ? 'checked' : '' ?>
                             >
                             <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
@@ -276,6 +275,8 @@
 
                 </div>
                 <div style="display:flex;">
+                    <span id="teacher-subject-complete-counter"
+                          style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
                     <button id="btn-save-subject-cluster-class" style="height: 50px"
                             class="button cta-button button-md">
                         Opslaan
@@ -318,7 +319,18 @@
                     .on('click', '.jquery-radio-set-eduction-level', function (e) {
                         $(this).closest('tr').find('.jquery-controle').attr('checked', true);
                     });
+
+
+
                 window.teacherCompleteUserImportSubjectClusterClass = true;
+
+                function updateTeacherSubjectCompleteCounter() {
+                    var aantal = $('.jquery-subject-complete-counter').length;
+                    var gevinked = $('.jquery-subject-complete-counter:checked').length;
+                    $('#teacher-subject-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>vakken compleet');
+                }
+
+                updateTeacherSubjectCompleteCounter();
             }
         });
     </script>
