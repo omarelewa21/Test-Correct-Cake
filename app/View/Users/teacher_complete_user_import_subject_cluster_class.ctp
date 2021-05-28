@@ -195,8 +195,7 @@
                                         type="radio"
                                         class="radio-custom jquery-radio-set-eduction-level"
                                         value="<?= $subjectId ?>"
-                                        <?php array_key_exists($schoolClass['id'],
-                                            $teacher_entries) && $teacherEntries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                        <?= array_key_exists($schoolClass['id'], $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
                                     >
                                     <label
                                         for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
@@ -220,7 +219,7 @@
                                                  class="checkbox-custom jquery-controle"
                                                  name="class[<?= $schoolClass['id'] ?>][checked]"
                                                  type="checkbox"
-                                                 <?= $schoolClass['checked_by_admin'] ? 'checked' : '' ?>
+                                                 <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
                             >
                             <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
