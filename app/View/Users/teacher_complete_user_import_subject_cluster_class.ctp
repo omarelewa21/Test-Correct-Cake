@@ -147,14 +147,37 @@
 
                 <tr>
                     <th width="200px">Klas</th>
-                    <?php foreach ($subjects as $subjectId => $subjectName) { ?>
-                        <th width="80px"><?= $subjectName ?></th>
+                    <?php foreach ($subjects as $subject) {
+                        $subjectId = $subject['id'];
+                        $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
+                        ?>
+
+                        <th
+                            class="subject-column-<?= $subjectId ?>"
+                            width="80px"
+                            <?= in_array($subjectId, $teacher_entries) ? '' : 'style="display:none"'; ?>
+                        ><?= $subjectName ?></th>
 
                     <?php } ?>
                     <th>
-                        <button class="button text-button" style="height: 40px; width: 40px;padding:0!important;">
-                            <?php echo $this->element('plus') ?>
-                        </button>
+
+                        <div style="display:inline-flex; justify-content: space-between">
+                            <select id="add-subject-list" class="primary-select-box mr8">
+                                <?php foreach ($subjects as $subject) {
+                                    $subjectId = $subject['id'];
+                                    $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
+                                    ?>
+                                    <?= (!in_array($subjectId, $teacher_entries)) ? sprintf('<option value="%s">%s</option>', $subjectId, $subjectName) : ''; ?>
+
+                                <?php } ?>
+
+                            </select>
+
+                            <button id="btn-add-subject" class="button secondary-button"
+                                    style="height: 40px; min-width: 40px;padding:0!important;">
+                                <?php echo $this->element('plus') ?>
+                            </button>
+                        </div>
                     </th>
                     <th width="80px">Status</th>
 
@@ -166,8 +189,16 @@
                     <tr>
                         <td width="200px"><?= $schoolClass['name'] ?></td>
 
-                        <?php foreach ($subjects as $subjectId => $subjectName) { ?>
-                            <td width="80px" style="position:relative; align-content: center">
+                        <?php foreach ($subjects as $subject) {
+                            $subjectId = $subject['id'];
+                            $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
+                            ?>
+                            <td
+                                width="80px"
+                                class="subject-column-<?= $subjectId ?>"
+                                style="position:relative; align-content: center; <?= in_array($subjectId,
+                                    $teacher_entries) ? '' : 'display:none'; ?>"
+                            >
                                 <?php if ($schoolClass['is_main_school_class'] == 1) { ?>
                                     <div style="display:flex; position:relative;">
                                         <input
@@ -175,7 +206,8 @@
                                             class="checkbox-custom jquery-radio-set-eduction-level"
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
-                                            <?php array_key_exists($schoolClass['id'], $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                            <?php array_key_exists($schoolClass['id'],
+                                                $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
                                         >
                                         <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                                class="checkbox-custom-label">
@@ -194,7 +226,8 @@
                                         type="radio"
                                         class="radio-custom jquery-radio-set-eduction-level"
                                         value="<?= $subjectId ?>"
-                                        <?= array_key_exists($schoolClass['id'], $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                        <?= array_key_exists($schoolClass['id'],
+                                            $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
                                     >
                                     <label
                                         for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
@@ -215,10 +248,10 @@
 
                         <td width="150px">
                             <input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
-                                                 class="checkbox-custom jquery-subject-complete-counter"
-                                                 name="class[<?= $schoolClass['id'] ?>][checked]"
-                                                 type="checkbox"
-                                                 <?= $teacher_entries[$schoolClass['id']]['checked_by_teacher'] ? 'checked' : '' ?>
+                                   class="checkbox-custom jquery-subject-complete-counter"
+                                   name="class[<?= $schoolClass['id'] ?>][checked]"
+                                   type="checkbox"
+                                <?= $checked_by_teacher[$schoolClass['id']] ? 'checked' : '' ?>
                             >
                             <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
@@ -317,20 +350,31 @@
                     })
 
                     .on('click', '.jquery-radio-set-eduction-level', function (e) {
-                        $(this).closest('tr').find('.jquery-controle').attr('checked', true);
-                    });
+                        $(this).closest('tr').find('.jquery-subject-complete-counter').attr('checked', true).trigger('change');
 
+                    })
+                    .on('click', '#btn-add-subject', function (e) {
+                        e.preventDefault();
+                        var subjectIdToShow = $('#add-subject-list').val();
+                        var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'table-cell');
+                        $("#add-subject-list option[value='" + subjectIdToShow + "']").remove();
+                    });
 
 
                 window.teacherCompleteUserImportSubjectClusterClass = true;
 
-                function updateTeacherSubjectCompleteCounter() {
-                    var aantal = $('.jquery-subject-complete-counter').length;
-                    var gevinked = $('.jquery-subject-complete-counter:checked').length;
-                    $('#teacher-subject-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>vakken compleet');
-                }
 
-                updateTeacherSubjectCompleteCounter();
             }
+            function updateTeacherSubjectCompleteCounter() {
+                var aantal = $('.jquery-subject-complete-counter').length;
+                var gevinked = $('.jquery-subject-complete-counter:checked').length;
+                $('#teacher-subject-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>vakken compleet');
+            }
+
+            $('.jquery-subject-complete-counter').change(function (e) {
+                updateTeacherSubjectCompleteCounter();
+            });
+
+            updateTeacherSubjectCompleteCounter();
         });
     </script>

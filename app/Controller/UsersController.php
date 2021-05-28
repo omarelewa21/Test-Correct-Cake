@@ -1984,8 +1984,13 @@ class UsersController extends AppController
 
         $teachersList = $this->UsersService->getTeachersList();
         $teacherEntries = [];
+        $checkedByTeacher = [];
         foreach($teachersList as $teacherRecord) {
             $teacherEntries[$teacherRecord['class_id']] = $teacherRecord['subject_id'];
+            if ($teacherRecord['checked_by_teacher']) {
+                $checkedByTeacher[$teacherRecord['class_id']] = $teacherRecord['checked_by_teacher'];
+            }
+
         }
 
 
@@ -1995,11 +2000,12 @@ class UsersController extends AppController
             ],
             'mode'   => 'import_data',
         ]);
-        $subjects = $this->TestsService->getSubjects();
+        $subjects = $this->TestsService->getSubjects(false, 'all');
 
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
         $this->set('teacher_entries', $teacherEntries);
+        $this->set('checked_by_teacher', $checkedByTeacher);
     }
 
     public function school_manager_complete_user_import_main_school_class()
