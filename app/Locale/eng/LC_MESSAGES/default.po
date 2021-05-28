@@ -2486,7 +2486,7 @@ msgid "Plannen"
 msgstr "Plan"
 
 msgid "Inhaaltoets plannen"
-msgstr "Schedule catch-up test"
+msgstr "Schedule make-up test"
 
 msgid "Inhaal-toets maken"
 msgstr "Make an overtaking test"
@@ -2504,7 +2504,7 @@ msgid "Gemaakt"
 msgstr "Made"
 
 msgid "Inhaaltoets gepland"
-msgstr "Catch-up test planned"
+msgstr "make-up test planned"
 
 msgid "Selecteer minimaal 1 surveillant"
 msgstr "Select at least 1 invigilator"
@@ -2696,7 +2696,7 @@ msgid "Toetsen afnemen"
 msgstr "Take tests"
 
 msgid "Inhaaltoetsen"
-msgstr "Catch up tests"
+msgstr "make up tests"
 
 msgid "Gepland van"
 msgstr "Scheduled from"
@@ -2739,6 +2739,9 @@ msgstr "Present"
 
 msgid "Afwezig"
 msgstr "Absent"
+
+msgid "Formatief"
+msgstr "Formative"
 
 msgid "Geen informatie voor deze Student"
 msgstr "No information for this Student"
@@ -2816,7 +2819,7 @@ msgid "Normaal"
 msgstr "Normal"
 
 msgid "Inhalen"
-msgstr "Catch up"
+msgstr "make up"
 
 msgid "Toetsen nu afnemen"
 msgstr "Take tests now"

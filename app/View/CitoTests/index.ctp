@@ -152,7 +152,7 @@
                             {field: 'period', label: '<?= __("Periode")?>', type: 'select'},
                             {field: 'educationLevels', label: '<?= __("Niveau")?>', type: 'multiSelect'},
                             {field: 'educationLevelYears', label: '<?= __("Leerjaar")?>', type: 'multiSelect'},
-                            {field: 'isOpenSourcedContent', label: '<?= __("Bron")?>'s},
+                            {field: 'isOpenSourcedContent', label: '<?= __("Bron")?>'},
                             {field: 'createdAtStart', label: '<?= __("Aanmaakdatum van")?>', type: 'datePicker'},
                             {field: 'createdAtEnd', label: '<?= __("Aanmaakdatum tot")?>', type: 'datePicker' },
                         ],
