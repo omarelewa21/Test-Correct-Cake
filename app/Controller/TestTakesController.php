@@ -2630,4 +2630,8 @@ class TestTakesController extends AppController {
         die;
     }
 
+    public function skip_discussion_popup($take_id)
+    {
+        $this->set('take_id', $take_id);
+    }
 }
