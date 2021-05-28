@@ -342,7 +342,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
-        $this->set('is_rtti_school_location', $school_location['is_rtti_school_location']);
+        $this->set('is_rtti_school_location', $school_location['data'][0]['is_rtti_school_location']);
     }
 
     public function csv_export($take_id) {
