@@ -55,6 +55,13 @@
                             <?= $this->Form->input('created_at_end', array('label' => false)) ?>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="">Auteur</label>
+                            <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $authors, 'multiple' => true)) ?>
+                        </div>
+
+                    </div>
 
                     <?php if (false): ?>
                         <div class="row">
@@ -164,6 +171,7 @@
                             // // {field: 'isOpenSourcedContent', label: 'Bron'},
                             {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
                             {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker'},
+                            {field: 'authorId', label: 'Auteur', type: 'multiSelect'},
                         ],
                         eventScope: '#ItemBank',
                         formPrefix: '#Test',

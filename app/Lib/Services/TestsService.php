@@ -209,6 +209,20 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getAuthors()
+    {
+        $params = [];
+        $response = $this->Connector->getRequest('/authors', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        $newArray = [];
+        foreach($response as $item) {
+            $newArray[$item['id']] = $item['name_first'].' '.$item['name_suffix'].' '.$item['name'];
+        }
+        return $newArray;
+    }
+
     public function getPeriods($full = false, $params = null) {
 
         if(empty($params)) {
