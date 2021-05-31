@@ -101,7 +101,6 @@ if (!Array.isArray) {
         if (posting == false) {
             posting = true;
             Loading.show();
-
             $.post(settings.action,
                     $(element).serialize(),
                     function (response) {

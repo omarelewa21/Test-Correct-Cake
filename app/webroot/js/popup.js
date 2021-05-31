@@ -431,8 +431,10 @@ var Popup = {
         $('#container, #background, #header').removeClass('blurred');
     },
 
-    closeWithNewPopup: function (url) {
-
+    closeWithNewPopup: function (url,width) {
+        if(typeof width == "undefined"){
+            width = 600;
+        }
         $('#fade').hide();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
@@ -446,7 +448,7 @@ var Popup = {
         $('#fade').css({
             'zIndex': (Popup.zIndex - 1)
         });
-        Popup.load(url, 600);
+        Popup.load(url, width);
         return false;
     },
 
@@ -460,6 +462,11 @@ var Popup = {
     },
 
     messageOk: function () {
+        if(this.hasDebounceLock()){
+            return;
+        }
+        this.setDebounceLock();
+
         var index = Popup.index;
 
         if (Popup.callback != null) {
@@ -578,6 +585,8 @@ var Popup = {
         });
 
     }
+
+
 };
 // // overload of window.prompt to always show a descently formatted prompt box.
 // function prompt(message, value, callback)

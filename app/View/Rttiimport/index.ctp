@@ -24,7 +24,7 @@
             <tr>
                 <td><label>Scheidingsteken</label></td>
                 <td>
-                    <?= $this->Form->input('separator', array('label' => false, 'type' => 'select', 'onchange' => '', 'options' => [';'=>'; puntkomma',','=>', komma'], 'style' => 'width:150px;', 'value' => ',')) ?>       </td>
+                    <?= $this->Form->input('separator', array('label' => false, 'type' => 'select', 'onchange' => '', 'options' => [';'=>'; puntkomma',','=>', komma'], 'style' => 'width:150px;', 'value' => ';')) ?>       </td>
             </tr>
             <tr>
                 <td></td>

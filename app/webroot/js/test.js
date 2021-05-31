@@ -99,6 +99,4 @@ var Test = {
         $('#'+id).addClass("grey");
         $('#'+id).removeClass("highlight");
     }
-
-
 };
