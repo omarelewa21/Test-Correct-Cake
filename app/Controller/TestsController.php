@@ -47,7 +47,6 @@ class TestsController extends AppController
         ];
 
         $education_levels = $this->TestsService->getEducationLevels();
-        $authors = $this->TestsService->getAuthors();
 
 
         $periods = $this->TestsService->getPeriods();
@@ -60,12 +59,19 @@ class TestsController extends AppController
         //$subjects = [0 => 'Alle'] + $subjects;
         $kinds = [0 => 'Alle'] + $kinds;
 
-        $this->set('authors',$authors);
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
+    }
+
+    public function get_authors()
+    {
+        $authors = $this->TestsService->getAuthors();
+        $this->formResponse(
+            !empty($authors), $authors
+        );
     }
 
     public function delete($test_id)
