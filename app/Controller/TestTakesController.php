@@ -218,6 +218,7 @@ class TestTakesController extends AppController {
                     $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date']));
                     $test_take['retake'] = 0;
                     $test_take['test_take_status_id'] = 1;
+                    $test_take['exported_to_rtti'] = null;
 
                     if (!isset($test_take['weight']))
                         $test_take['weight'] = 0;
