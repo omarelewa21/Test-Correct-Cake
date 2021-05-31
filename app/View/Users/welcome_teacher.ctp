@@ -16,6 +16,16 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <div class="notification error">
+            <div class="title">
+                <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
+                    style="margin-left: 20px;">Import gegevens van klassen zijn incompleet</h5>
+            </div>
+            <div class="body">
+                <p>Van de geïmporteerde klassen gegevens uit Magister zijn incompleet. Er missen gegevens van één of meerdere klassen. Deze kunnen niet ingepland worden voor toetsen. Maak deze eerst compleet door op onderstaande link te klikken.</p>
+                <a class="text-button" onclick="displayCompleteUserImport()">Inloggegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
+            </div>
+        </div>
         <?php
 
         if (!$account_verified) {
@@ -89,7 +99,6 @@ if ($wizard_steps) {
 
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_class', 800);"
-
                         class="button cta-button button-md">
                     <span>Klassen toevoegen</span>
                 </button>
@@ -680,6 +689,10 @@ if ($wizard_steps) {
         <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
     }
 
+
+    function displayCompleteUserImport() {
+        Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
+    }
 </script>
 <style>
     .block .block-content {
