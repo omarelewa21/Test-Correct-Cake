@@ -119,7 +119,6 @@ class SchoolLocationsController extends AppController
 
             if($data['school_id'] != 0) {
                 $school = $this->SchoolsService->getSchool($data['school_id']);
-//                $data['external_main_code'] = $school['external_main_code'];
             }
 
             if(!empty($data['external_main_code'])){

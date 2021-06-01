@@ -145,9 +145,6 @@
     $(document).ready(function(){
 
         var revert = true;
-        // if($("#SchoolLocationSchoolId").val() != '0') {
-        //     $("#SchoolLocationExternalMainCode").attr('disabled','disabled');
-        // }
 
         $("#SchoolLocationExternalMainCode").on('change', function() {
             if ($("#SchoolLocationExternalMainCode").val().length > 0 && $("#SchoolLocationExternalMainCode").val().length < 4) {
