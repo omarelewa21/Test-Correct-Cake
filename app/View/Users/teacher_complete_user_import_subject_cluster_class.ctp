@@ -110,6 +110,9 @@
         color: white;
         background-color: var(--cta-primary);
     }
+    #add-subject-list{
+        min-width:70px;
+    }
 
 
 </style>
@@ -155,7 +158,7 @@
                         <th
                             class="subject-column-<?= $subjectId ?>"
                             width="80px"
-                            <?= in_array($subjectId, $teacher_entries) ? '' : 'style="display:none"'; ?>
+                            <?= in_array($subjectId, $taught_subjects) ? '' : 'style="display:none"'; ?>
                         ><?= $subjectName ?></th>
 
                     <?php } ?>
@@ -167,7 +170,7 @@
                                     $subjectId = $subject['id'];
                                     $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
                                     ?>
-                                    <?= (!in_array($subjectId, $teacher_entries)) ? sprintf('<option value="%s">%s</option>', $subjectId, $subjectName) : ''; ?>
+                                    <?= (!in_array($subjectId, $taught_subjects)) ? sprintf('<option value="%s">%s</option>', $subjectId, $subjectName) : ''; ?>
 
                                 <?php } ?>
 
@@ -197,7 +200,7 @@
                                 width="80px"
                                 class="subject-column-<?= $subjectId ?>"
                                 style="position:relative; align-content: center; <?= in_array($subjectId,
-                                    $teacher_entries) ? '' : 'display:none'; ?>"
+                                    $taught_subjects) ? '' : 'display:none'; ?>"
                             >
                                 <?php if ($schoolClass['is_main_school_class'] == 1) { ?>
                                     <div style="display:flex; position:relative;">
@@ -206,8 +209,8 @@
                                             class="checkbox-custom jquery-radio-set-eduction-level"
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
-                                            <?php array_key_exists($schoolClass['id'],
-                                                $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                            <?= array_key_exists($schoolClass['id'],
+                                                $teacher_entries) && in_array($subjectId, $teacher_entries[$schoolClass['id']]) ? 'checked' : ''; ?>
                                         >
                                         <label for="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                                class="checkbox-custom-label">
@@ -227,7 +230,7 @@
                                         class="radio-custom jquery-radio-set-eduction-level"
                                         value="<?= $subjectId ?>"
                                         <?= array_key_exists($schoolClass['id'],
-                                            $teacher_entries) && $teacher_entries[$schoolClass['id']] == $subjectId ? 'checked' : ''; ?>
+                                            $teacher_entries) && in_array($subjectId,$teacher_entries[$schoolClass['id']])  ? 'checked' : ''; ?>
                                     >
                                     <label
                                         for="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
@@ -358,7 +361,10 @@
                         var subjectIdToShow = $('#add-subject-list').val();
                         var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'table-cell');
                         $("#add-subject-list option[value='" + subjectIdToShow + "']").remove();
+                        checkDisplaySelectBox();
                     });
+
+
 
 
                 window.teacherCompleteUserImportSubjectClusterClass = true;
@@ -374,6 +380,14 @@
             $('.jquery-subject-complete-counter').change(function (e) {
                 updateTeacherSubjectCompleteCounter();
             });
+            function checkDisplaySelectBox(){
+                if (document.getElementById('add-subject-list').options.length == 0){
+                    $('#add-subject-list').hide();
+                    $('#btn-add-subject').hide();
+                }
+            }
+
+            checkDisplaySelectBox();
 
             updateTeacherSubjectCompleteCounter();
         });
