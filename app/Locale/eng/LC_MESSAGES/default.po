@@ -3008,7 +3008,7 @@ msgid "uw schoolmail"
 msgstr "your school mail"
 
 msgid "Browsertoetsen aan/uit"
-msgstr "Browsertoetsen aan/uit"
+msgstr "Browser tests on / off"
 
 msgid "Welke afkorting wordt voor u gebruikt binnen uw school?"
 msgstr "Which abbreviation is used for you within your school?"
