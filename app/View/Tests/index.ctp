@@ -158,6 +158,10 @@
 
             $(document).ready(function () {
                 var itemBankFirstTimeRun = false;
+                if (typeof (Window.authors) === 'undefined') {
+                    Window.authors = {};
+                }
+
                 if (typeof (itembankFiltermanager) === 'undefined') {
                     itemBankFirstTimeRun = true;
                     itembankFiltermanager = new FilterManager({
@@ -184,25 +188,51 @@
                         filterKey: 'item_bank',
                     });
                 }
-                
+                if(!authorsIsEmpty()){
+                    setAuthors();
+                }else{
+                    itembankFiltermanager.prepareForAuthors();
+                }
 
-                $.ajax({
-                    url: '/tests/get_authors',
-                    type: 'GET',
-                    success: function (data) {
-                        var json = $.parseJSON(data);
-                        var author_select = $('#TestAuthorId');
-                        $.each( json.data, function( key, value ) {
-                            var option = $('<option value="'+key+'">'+value+'</option>');
-                            author_select.append(option);
-                        });
-                        itembankFiltermanager.init(itemBankFirstTimeRun);
-                    },
-                    fail: function (data) {
-                        itembankFiltermanager.init(itemBankFirstTimeRun);
+                itembankFiltermanager.init(itemBankFirstTimeRun);
+                var authorInterval = setInterval(function(){
+                    if(!authorsIsEmpty()){
+                        clearInterval(authorInterval);
+                        return;
                     }
-                });
+                    if($('table#testsTable tbody').html()!=''){
+                        $.ajax({
+                            url: '/tests/get_authors',
+                            type: 'GET',
+                            success: function (data) {
+                                var json = $.parseJSON(data);
+                                Window.authors = json.data;
+                                setAuthors();
+                                itembankFiltermanager.initCustom();
+                            }
+                        });
+                        clearInterval(authorInterval);
+                    }
+                }, 1000);
             });
+
+            function setAuthors(){
+                var author_select = $('#TestAuthorId');
+                author_select.html('');
+                $.each(Window.authors, function (key, value) {
+                    var option = $('<option value="' + key + '">' + value + '</option>');
+                    author_select.append(option);
+                });
+            }
+
+            function authorsIsEmpty(){
+                if(Window.authors && Object.keys(Window.authors).length === 0 && Window.authors.constructor === Object){
+                    return true;
+                }
+                return false;
+            }
+
+
 
         </script>
     </div>
