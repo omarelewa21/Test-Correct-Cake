@@ -58,7 +58,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             <label for="">Auteur</label>
-                            <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $authors, 'multiple' => true)) ?>
+                            <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                         </div>
 
                     </div>
@@ -185,7 +185,23 @@
                     });
                 }
                 
-                itembankFiltermanager.init(itemBankFirstTimeRun);
+
+                $.ajax({
+                    url: '/tests/get_authors',
+                    type: 'GET',
+                    success: function (data) {
+                        var json = $.parseJSON(data);
+                        var author_select = $('#TestAuthorId');
+                        $.each( json.data, function( key, value ) {
+                            var option = $('<option value="'+key+'">'+value+'</option>');
+                            author_select.append(option);
+                        });
+                        itembankFiltermanager.init(itemBankFirstTimeRun);
+                    },
+                    fail: function (data) {
+                        itembankFiltermanager.init(itemBankFirstTimeRun);
+                    }
+                });
             });
 
         </script>

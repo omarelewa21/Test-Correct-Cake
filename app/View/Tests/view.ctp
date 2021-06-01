@@ -4,27 +4,31 @@
         Terug
     </a>
     <? if ($test['has_duplicates']) { ?>
-
-    <a href="#" class="btn grey mr2" >
-        <span class="fa fa-calendar mr5"></span>
-        Inplannen
-    </a>
+        <a href="#" class="btn grey mr2" >
+            <span class="fa fa-calendar mr5"></span>
+            Inplannen
+        </a>
+        <a href="#" class="btn grey mr2" onclick="Notify.notify('Eén of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.', 'error')">
+            <?php echo $this->element('schedule_now') ?>
+            Direct afnemen
+        </a>
     <? } else { ?>
-    <a href="#" class="btn white mr2"
-            <? if($carouselGroupQuestionNotify){ ?>
-            onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');"
-            <? }else{ ?>
-            onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);"
-            <? } ?>
-            >
-        <span class="fa fa-calendar mr5"></span>
-        Inplannen
-    </a>
+        <a href="#" class="btn white mr2"
+                <? if($carouselGroupQuestionNotify){ ?>
+                onclick="Notify.notify('<? echo($carouselGroupQuestionNotifyMsg) ?>', 'error');"
+                <? }else{ ?>
+                onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);"
+                <? } ?>
+                >
+            <span class="fa fa-calendar mr5"></span>
+            Inplannen
+        </a>
+        <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
+            <?php echo $this->element('schedule_now') ?>
+            Direct afnemen
+        </a>
     <? } ?>
-    <a href="#" class="btn blue mr2" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
-        <?php echo $this->element('schedule_now') ?>
-        Direct afnemen
-    </a>
+
     <?php if($oldPlayerAccess) { ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
             <span class="fa fa-search mr5"></span>

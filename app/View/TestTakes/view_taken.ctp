@@ -8,7 +8,7 @@
         <span class="fa fa-users mr5"></span>
         Toets bespreken
     </a>
-    <a href="#" class="btn white mr2" onclick="$.get('/test_takes/skip_discussion/<?=$take_id?>',[], function(){ Navigation.load('/test_takes/to_rate');})">
+    <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/skip_discussion_popup/<?=$take_id?>',500);">
         <span class="fa fa-forward mr5"></span>
         Meteen naar nakijken
     </a>
