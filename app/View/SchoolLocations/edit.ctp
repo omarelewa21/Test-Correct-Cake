@@ -69,7 +69,7 @@
             </td>
             <th>Locatie brin code (Max. 2 karakters)</th>
             <td>
-                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2, 'verify' => 'max-length-2'));?>
+                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2));?>
             </td>
 
 
@@ -155,7 +155,6 @@
         });
 
         $("#SchoolLocationSchoolId").on('change',function(){
-
             var currentVal = $("#SchoolLocationSchoolId").val();
 
             if(currentVal == "0") {
@@ -186,8 +185,10 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                // console.log(result);
                 // Notify.notify("School kon niet worden aangemaakt", "error");
+                if (result[0].toLowerCase().includes('locatie brin code')) {
+                    $("#SchoolLocationExternalSubCode").removeClass('verify-ok').addClass('verify-error');
+                }
                 Notify.notify(result.join('<br />'), 'error');
             }
         }
