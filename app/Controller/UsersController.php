@@ -1982,13 +1982,18 @@ class UsersController extends AppController
         $teachersList = $this->UsersService->getTeachersList();
         $teacherEntries = [];
         $checkedByTeacher = [];
+        $taughtSubjects = [];
         foreach($teachersList as $teacherRecord) {
-            $teacherEntries[$teacherRecord['class_id']] = $teacherRecord['subject_id'];
+            if (! is_array($teacherEntries[$teacherRecord['class_id']])){
+                $teacherEntries[$teacherRecord['class_id']] = [];
+            }
+            $teacherEntries[$teacherRecord['class_id']][] = $teacherRecord['subject_id'];
+            $taughtSubjects[] = $teacherRecord['subject_id'];
             if ($teacherRecord['checked_by_teacher']) {
                 $checkedByTeacher[$teacherRecord['class_id']] = $teacherRecord['checked_by_teacher'];
             }
-
         }
+
 
 
         $classesList = $this->SchoolClassesService->getClasses([
@@ -2001,6 +2006,7 @@ class UsersController extends AppController
 
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
+        $this->set('taught_subjects', $taughtSubjects);
         $this->set('teacher_entries', $teacherEntries);
         $this->set('checked_by_teacher', $checkedByTeacher);
     }
