@@ -370,6 +370,15 @@ if ($wizard_steps) {
 
 <script src="/js/confetti.min.js"></script>
 <script>
+    if(typeof(window.oneTrustInjected) === 'undefined') {
+        <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
+        $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').appendTo(document.head);
+        $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').appendTo(document.head)
+        function OptanonWrapper() { }
+        window.oneTrustInjected = true;
+        <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
+    }
+
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
