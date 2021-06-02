@@ -735,6 +735,21 @@ class UsersService extends BaseService
         }
         return $response;
     }
+    public function shouldDisplayImportIncompletePanel() {
+        $response = $this->Connector->getRequest('/teacher/has_incomplete_import', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function shouldDisplayImportIncompletePanelAccountManager() {
+        $response = $this->Connector->getRequest('/account_manager/has_incomplete_import', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 
 }
 
