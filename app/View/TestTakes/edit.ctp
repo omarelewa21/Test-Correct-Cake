@@ -57,7 +57,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                                 <div style="display: flex; align-items: center; margin-left: auto">
                                     <?php echo $this->element('questionmark_tooltip_rtti', array('id' => 1)) ?>
                                     <label class="switch">
-                                        <?php echo $this->Form->checkbox('is_rtti_test_take', array('checked' => $take['is_rtti_test_take'], 'value' => !$take['is_rtti_test_take'],'label' => false)); ?>
+                                        <?php echo $this->Form->checkbox('is_rtti_test_take', array('checked' => $take['is_rtti_test_take'], 'value' => 1, 'label' => false)); ?>
                                         <span class="slider round"></span>
                                     </label>
                                 </div>
@@ -76,7 +76,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                             <div style="display: flex; align-items: center; margin-left: auto">
                                 <?php echo $this->element('questionmark_tooltip', array('id' => 1)) ?>
                                 <label class="switch">
-                                    <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'], 'value' => !$take['allow_inbrowser_testing'],'label' => false)); ?>
+                                    <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'],'value' => 1,'label' => false)); ?>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
