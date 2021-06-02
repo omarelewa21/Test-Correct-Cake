@@ -403,8 +403,11 @@ class UsersController extends AppController
 
         $view = "welcome";
         $hasSchoolManagerRole = false;
+        $should_display_import_incomplete_panel = false;
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
+
+
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
@@ -419,6 +422,8 @@ class UsersController extends AppController
                     floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
 
                 App::uses('MaintenanceHelper', 'Lib');
+
+                $this->set('should_display_import_incomplete_panel', $this->UsersService->shouldDisplayImportIncompletePanel());
                 $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
             }
 
@@ -439,9 +444,11 @@ class UsersController extends AppController
 
             if (strtolower($role['name']) === 'school manager') {
                 $hasSchoolManagerRole = true;
+                $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanelAccountManager();
             }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
+        $this->set('should_display_import_incomplete_panel', $should_display_import_incomplete_panel);
 
         $this->render($view, 'ajax');
     }

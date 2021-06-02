@@ -2,6 +2,7 @@
 <?php if($hasSchoolManagerRole) { ?>
 <div class="dashboard">
     <div class="notes">
+        <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification error">
             <div class="title">
                 <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
@@ -12,6 +13,7 @@
                 <a class="text-button" onclick="displayCompleteUserImport()">Inloggegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
             </div>
         </div>
+        <?php }?>
     </div>
 </div>
 <?php } ?>
