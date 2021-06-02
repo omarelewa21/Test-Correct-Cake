@@ -57,6 +57,35 @@ function FilterManager(settings) {
         }.bind(this));
     };
 
+    this.initCustom = function() {
+        this.renderActiveFilter();
+        this.isInitalizingState = true;
+        this.renderSelectFilterBoxNotFirstRun();
+        this.addChangeEventsToFilter(this);
+        this.initializeSelect2Fields();
+        this.isInitalizingState = false;
+        return;
+    };
+
+    this.prepareForAuthors = function() {
+
+        $.getJSON('/search_filter/get/' + this.settings.filterKey, function (response) {
+            this.filters = response.data;
+            var author_select = $('#TestAuthorId');
+            author_select.html('');
+            $.each(response.data, function (key1, obj) {
+                if(obj.active){
+                    $.each(obj.filters.authorId.filter, function (key,item) {
+                        var option = $('<option value="' + item + '"></option>');
+                        author_select.append(option);
+                    });
+                };
+            });
+            this.initializeSelect2Fields();
+            this.initializeSavedFilterSelect();
+        }.bind(this));
+    };
+
     this.initializeSelect2Fields = function () {
         this.filterFields.forEach(function (field) {
             if (field.type === 'multiSelect') {
@@ -598,8 +627,8 @@ function FilterManager(settings) {
                             'source': this.settings.tablefy.source,
                             'filters': $(this.settings.tablefy.filters),
                             'container': $(this.settings.tablefy.container)
-                        }
-        $(this.settings.table).tablefy(tablefySettings);
+                        };
+         $(this.settings.table).tablefy(tablefySettings);
     }
 }
 
