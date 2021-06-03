@@ -74,7 +74,8 @@ function FilterManager(settings) {
             var author_select = $('#TestAuthorId');
             author_select.html('');
             $.each(response.data, function (key1, obj) {
-                if(obj.active){
+                if(obj.active && obj.filters.hasOwnProperty('authorId')){
+                    console.log(obj.filters);
                     $.each(obj.filters.authorId.filter, function (key,item) {
                         var option = $('<option value="' + item + '"></option>');
                         author_select.append(option);
@@ -493,10 +494,16 @@ function FilterManager(settings) {
 
     this.bindActiveFilterDataToFilterModal = function () {
         this.filterFields.forEach(function (item) {
+            var input = this.getJqueryFilterInput(item.field);
+            var newValue = '';
             if (this.activeFilter && this.activeFilter.filters.hasOwnProperty(item.field)) {
-                var newValue = this.activeFilter.filters[item.field].filter;
-                var input = this.getJqueryFilterInput(item.field);
+                newValue = this.activeFilter.filters[item.field].filter;
 
+                if (!newValue && input.get(0).tagName === 'SELECT') {
+                    newValue = '0';
+                }
+                input.val(newValue);
+            } else if (this.activeFilter && !this.activeFilter.filters.hasOwnProperty(item.field)) {
                 if (!newValue && input.get(0).tagName === 'SELECT') {
                     newValue = '0';
                 }

@@ -195,26 +195,41 @@
                 }
 
                 itembankFiltermanager.init(itemBankFirstTimeRun);
-                var authorInterval = setInterval(function(){
-                    if(!authorsIsEmpty()){
-                        clearInterval(authorInterval);
-                        return;
-                    }
-                    if($('table#testsTable tbody').html()!=''){
-                        $.ajax({
-                            url: '/tests/get_authors',
-                            type: 'GET',
-                            success: function (data) {
-                                var json = $.parseJSON(data);
-                                Window.authors = json.data;
-                                setAuthors();
-                                itembankFiltermanager.initCustom();
-                            }
-                        });
-                        clearInterval(authorInterval);
-                    }
-                }, 1000);
+                // var authorIntervalCounter = 0;
+                // var authorInterval = setInterval(function(){
+                //     console.log(authorIntervalCounter);
+                //     if(!authorsIsEmpty()){
+                //         clearInterval(authorInterval);
+                //         return;
+                //     }
+                //     if($('table#testsTable tbody').html()!='' || authorIntervalCounter === 5){
+                //         $.ajax({
+                //             url: '/tests/get_authors',
+                //             type: 'GET',
+                //             success: function (data) {
+                //                 var json = $.parseJSON(data);
+                //                 Window.authors = json.data;
+                //                 setAuthors();
+                //                 itembankFiltermanager.initCustom();
+                //             }
+                //         });
+                //         clearInterval(authorInterval);
+                //     }
+                //     authorIntervalCounter++;
+                // }, 1000);
             });
+            document.addEventListener('load-authors', function () {
+                $.ajax({
+                    url: '/tests/get_authors',
+                    type: 'GET',
+                    success: function (data) {
+                        var json = $.parseJSON(data);
+                        Window.authors = json.data;
+                        setAuthors();
+                        itembankFiltermanager.initCustom();
+                    }
+                });
+            })
 
             function setAuthors(){
                 var author_select = $('#TestAuthorId');
