@@ -215,6 +215,9 @@
                 if(!endResults) {
                     if (!areHeadersPrepared()) {
                         prepareHeadersFixed();
+                        if(typeof settings.afterFirstRunCallback === 'function'){
+                            settings.afterFirstRunCallback();
+                        }
                     } else { // after filter click
                         makeElementsFixed();
                     }
@@ -248,9 +251,6 @@
                             tds.show();
                         }
                     });
-                }
-                if (settings.source === '/tests/load') {
-                    document.dispatchEvent(new CustomEvent('load-authors'));
                 }
             }
         )

@@ -183,9 +183,26 @@
                         tablefy: {
                             'source': '/tests/load',
                             'filters': '#TestIndexForm',
-                            'container': '#testsContainter'
+                            'container': '#testsContainter',
+                            'afterFirstRunCallback' : function(){
+                                Loading.hide();
+                                Core.surpressLoading = true;
+                                itembankFiltermanager.lockFilters();
+                                $.ajax({
+                                    url: '/tests/get_authors',
+                                    type: 'GET',
+                                    success: function (data) {
+                                        var json = $.parseJSON(data);
+                                        Window.authors = json.data;
+                                        setAuthors();
+                                        itembankFiltermanager.initCustom();
+                                        Core.surpressLoading = false;
+                                        itembankFiltermanager.unlockFilters();
+                                    }
+                                });
+                            }
                         },
-                        filterKey: 'item_bank',
+                        filterKey: 'item_bank'
                     });
                 }
                 if(!authorsIsEmpty()){
@@ -195,41 +212,7 @@
                 }
 
                 itembankFiltermanager.init(itemBankFirstTimeRun);
-                // var authorIntervalCounter = 0;
-                // var authorInterval = setInterval(function(){
-                //     console.log(authorIntervalCounter);
-                //     if(!authorsIsEmpty()){
-                //         clearInterval(authorInterval);
-                //         return;
-                //     }
-                //     if($('table#testsTable tbody').html()!='' || authorIntervalCounter === 5){
-                //         $.ajax({
-                //             url: '/tests/get_authors',
-                //             type: 'GET',
-                //             success: function (data) {
-                //                 var json = $.parseJSON(data);
-                //                 Window.authors = json.data;
-                //                 setAuthors();
-                //                 itembankFiltermanager.initCustom();
-                //             }
-                //         });
-                //         clearInterval(authorInterval);
-                //     }
-                //     authorIntervalCounter++;
-                // }, 1000);
             });
-            document.addEventListener('load-authors', function () {
-                $.ajax({
-                    url: '/tests/get_authors',
-                    type: 'GET',
-                    success: function (data) {
-                        var json = $.parseJSON(data);
-                        Window.authors = json.data;
-                        setAuthors();
-                        itembankFiltermanager.initCustom();
-                    }
-                });
-            })
 
             function setAuthors(){
                 var author_select = $('#TestAuthorId');
