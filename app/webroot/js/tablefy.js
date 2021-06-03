@@ -249,6 +249,9 @@
                         }
                     });
                 }
+                if (settings.source === '/tests/load') {
+                    document.dispatchEvent(new CustomEvent('load-authors'));
+                }
             }
         )
     }
