@@ -64,8 +64,20 @@ function FilterManager(settings) {
         this.addChangeEventsToFilter(this);
         this.initializeSelect2Fields();
         this.isInitalizingState = false;
+        this.unlockFilters();
         return;
     };
+
+    this.lockFilters = function() {
+        var t = $('#filterTable');
+        var parent = t.parent().parent();
+        parent.css('position','relative');
+        $('<div id="filterLock" style="background:url(/img/loading.gif);background-repeat:no-repeat;background-position:center;background-color:black;opacity:0.15;width:'+parent.width()+'px;height:'+parent.height()+'px;position:absolute;bottom:0;left:0"></div>').appendTo(parent);
+    }
+
+    this.unlockFilters = function() {
+        $('#filterLock').remove();
+    }
 
     this.prepareForAuthors = function() {
 
@@ -75,7 +87,6 @@ function FilterManager(settings) {
             author_select.html('');
             $.each(response.data, function (key1, obj) {
                 if(obj.active && obj.filters.hasOwnProperty('authorId')){
-                    console.log(obj.filters);
                     $.each(obj.filters.authorId.filter, function (key,item) {
                         var option = $('<option value="' + item + '"></option>');
                         author_select.append(option);
@@ -633,7 +644,8 @@ function FilterManager(settings) {
         var tablefySettings = {
                             'source': this.settings.tablefy.source,
                             'filters': $(this.settings.tablefy.filters),
-                            'container': $(this.settings.tablefy.container)
+                            'container': $(this.settings.tablefy.container),
+                            'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback
                         };
          $(this.settings.table).tablefy(tablefySettings);
     }
