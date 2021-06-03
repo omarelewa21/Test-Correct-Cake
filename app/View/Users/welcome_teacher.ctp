@@ -374,10 +374,12 @@ if ($wizard_steps) {
 <script>
     if(typeof(window.oneTrustInjected) === 'undefined') {
         <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
-        $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
-        $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
-        function OptanonWrapper() { }
-        window.oneTrustInjected = true;
+        //
+        // $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
+        // $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
+        // function OptanonWrapper() { }
+        // window.oneTrustInjected = true;
+
         <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
     }
 
@@ -415,9 +417,9 @@ if ($wizard_steps) {
         }
         ?>
     }
-    if($('#ot-sdk-btn').length !==1 ) {
-        $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
-    }
+    // if($('#ot-sdk-btn').length !==1 ) {
+    //     $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
+    // }
 
     var activeStep = "<?= $wizard_steps['active_step'] ?>";
     var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
