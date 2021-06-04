@@ -55,13 +55,13 @@
                             <?= $this->Form->input('created_at_end', array('label' => false)) ?>
                         </div>
                     </div>
-<!--                    <div class="row">-->
-<!--                        <div class="col-md-5">-->
-<!--                            <label for="">Auteur</label>-->
-<!--                            --><?//= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
-<!--                        </div>-->
-<!---->
-<!--                    </div>-->
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="">Auteur</label>
+                            <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        </div>
+
+                    </div>
 
                     <?php if (false): ?>
                         <div class="row">
@@ -174,8 +174,8 @@
                             {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
                             // // {field: 'isOpenSourcedContent', label: 'Bron'},
                             {field: 'createdAtStart', label: 'Aanmaakdatum van', type: 'datePicker'},
-                            {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker'} //,
-                            // {field: 'authorId', label: 'Auteur', type: 'multiSelect'},
+                            {field: 'createdAtEnd', label: 'Aanmaakdatum tot', type: 'datePicker'},
+                            {field: 'authorId', label: 'Auteur', type: 'multiSelect'},
                         ],
                         eventScope: '#ItemBank',
                         formPrefix: '#Test',
@@ -183,24 +183,24 @@
                         tablefy: {
                             'source': '/tests/load',
                             'filters': '#TestIndexForm',
-                            'container': '#testsContainter'//,
-                            // 'afterFirstRunCallback' : function(){
-                            //     Loading.hide();
-                            //     Core.surpressLoading = true;
-                            //     itembankFiltermanager.lockFilters();
-                            //     $.ajax({
-                            //         url: '/tests/get_authors',
-                            //         type: 'GET',
-                            //         success: function (data) {
-                            //             var json = $.parseJSON(data);
-                            //             Window.authors = json.data;
-                            //             setAuthors();
-                            //             itembankFiltermanager.initCustom();
-                            //             Core.surpressLoading = false;
-                            //             itembankFiltermanager.unlockFilters();
-                            //         }
-                            //     });
-                            // }
+                            'container': '#testsContainter',
+                            'afterFirstRunCallback' : function(){
+                                Loading.hide();
+                                Core.surpressLoading = true;
+                                itembankFiltermanager.lockFilters();
+                                $.ajax({
+                                    url: '/tests/get_authors',
+                                    type: 'GET',
+                                    success: function (data) {
+                                        var json = $.parseJSON(data);
+                                        Window.authors = json.data;
+                                        setAuthors();
+                                        itembankFiltermanager.initCustom();
+                                        Core.surpressLoading = false;
+                                        itembankFiltermanager.unlockFilters();
+                                    }
+                                });
+                            }
                         },
                         filterKey: 'item_bank'
                     });
