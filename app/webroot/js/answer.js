@@ -42,6 +42,7 @@ var Answer = {
             }
 
             $('#attachmentFrame').attr({'src' : '/answers/clear'});
+            parent.skip = true;
             $('#attachmentContainer').hide();
             $('#question_load').show();
             // $(this).hide();
