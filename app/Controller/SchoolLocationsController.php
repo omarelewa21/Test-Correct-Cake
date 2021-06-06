@@ -119,13 +119,19 @@ class SchoolLocationsController extends AppController
 
             if($data['school_id'] != 0) {
                 $school = $this->SchoolsService->getSchool($data['school_id']);
-                $data['external_main_code'] = $school['external_main_code'];
             }
 
             if(!empty($data['external_main_code'])){
                 $toIgnore = array();
                 $toIgnore[$school_id] = $data['external_main_code'].$data['external_sub_code'];
                 $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationListWithUUID();
+
+                if (strlen($data['external_sub_code']) > 2) {
+                    $this->formResponse(false, ['De Locatie BRIN code mag maximaal 2 karakters zijn']);exit();
+                }
+                if (strlen($data['external_main_code']) > 0 && strlen($data['external_main_code']) < 4) {
+                    $this->formResponse(false, ['De BRIN code moet uit 4 karakters bestaan']);exit();
+                }
 
                 foreach ($schoolLocationList as $id => $schoolLocationInList) {
                     if(in_array($id, array_keys($toIgnore))) continue;

@@ -218,6 +218,7 @@ class TestTakesController extends AppController {
                     $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date']));
                     $test_take['retake'] = 0;
                     $test_take['test_take_status_id'] = 1;
+                    $test_take['exported_to_rtti'] = null;
 
                     if (!isset($test_take['weight']))
                         $test_take['weight'] = 0;
@@ -342,7 +343,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
-        $this->set('is_rtti_school_location', $school_location['is_rtti_school_location']);
+        $this->set('is_rtti_school_location', $school_location['data'][0]['is_rtti_school_location']);
     }
 
     public function csv_export($take_id) {
@@ -2630,4 +2631,8 @@ class TestTakesController extends AppController {
         die;
     }
 
+    public function skip_discussion_popup($take_id)
+    {
+        $this->set('take_id', $take_id);
+    }
 }

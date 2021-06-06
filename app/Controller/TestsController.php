@@ -66,6 +66,14 @@ class TestsController extends AppController
         $this->set('subjects', $subjects);
     }
 
+    public function get_authors()
+    {
+        $authors = $this->TestsService->getAuthors();
+        $this->formResponse(
+            !empty($authors), $authors
+        );
+    }
+
     public function delete($test_id)
     {
         $this->isAuthorizedAs(["Teacher"]);
@@ -256,6 +264,10 @@ class TestsController extends AppController
 
         if (!empty($filters['created_at_end'])) {
             $params['filter']['created_at_end'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_end']));
+        }
+
+        if (!empty($filters['author_id'])) {
+            $params['filter']['author_id'] = $filters['author_id'];
         }
 
         if (!empty($filters['is_open_sourced_content']) && $filters['is_open_sourced_content'] != 0) {

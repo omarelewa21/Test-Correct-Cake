@@ -81,7 +81,7 @@ foreach($test_takes as $test_take) {
                     <span class="fa fa-file mr5"></span>
                     <?= __("Antwoorden PDF")?>
                 </a>
-                <a href="#" onclick="$.get('/test_takes/skip_discussion/<?=getUUID($test_take, 'get');?>',[], function(){ Navigation.load('/test_takes/to_rate');})" class="btn highlight white jquery-show-not-archived">
+                <a href="#" onclick="Popup.load('/test_takes/skip_discussion_popup/<?=getUUID($test_take, 'get');?>',500);" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-forward mr5"></span>
                     <?= __("Meteen naar nakijken")?>
                 </a>

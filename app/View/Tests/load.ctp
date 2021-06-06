@@ -40,22 +40,28 @@ foreach($tests as $test) {
                     </a>
                 <? } ?>
                 <? if ($test['has_duplicates']) { ?>
-                    <a href="#" class="btn highlight grey" >
-                        <span class="fa fa-calendar mr5"></span>
-                        <?= __("Inplannen niet mogelijk")?>
-                    </a>
+                        <a href="#" class="btn highlight grey" >
+                            <span class="fa fa-calendar mr5"></span>
+                            <?= __("Inplannen niet mogelijk")?>
+                        </a>
+                        <?php if(!AppHelper::isCitoTest($test)){?>
+                            <a href="#" class="btn highlight grey">
+                                <?php echo $this->element('schedule_now') ?>
+                                <?= __("Direct afnemen niet mogelijk")?>
+                            </a>
+                        <?php } ?>
                 <? } else { ?>
-                <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
-                    <span class="fa fa-calendar mr5"></span>
-                    <?= __("Inplannen")?>
-                </a>
+                        <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
+                            <span class="fa fa-calendar mr5"></span>
+                            <?= __("Inplannen")?>
+                        </a>
+                        <?php if(!AppHelper::isCitoTest($test)){?>
+                            <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
+                                <?php echo $this->element('schedule_now') ?>
+                                <?= __("Direct afnemen")?>
+                            </a>
+                        <?php } ?>
                 <? } ?>
-                <?php if(!AppHelper::isCitoTest($test)){?>
-                <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
-                    <?php echo $this->element('schedule_now') ?>
-                    <?= __("Direct afnemen")?>
-                </a>
-                <?php } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>

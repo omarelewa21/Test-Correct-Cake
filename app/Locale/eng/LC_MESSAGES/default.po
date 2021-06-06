@@ -10,6 +10,30 @@ msgstr "The answer given is not valid"
 msgid "Iets ging er mis "
 msgstr "Something went wrong"
 
+msgid "Import gegevens van klassen zijn incompleet"
+msgstr "Import data of classes is incomplete"
+
+msgid "Resultaten toetsafname exporteren naar RTTI Online"
+msgstr "Export test results to RTTI Online"
+
+msgid "Locatie brin code (Max. 2 karakters)"
+msgstr "Location brin code (Max. 2 characters)"
+
+msgid "Let op, de voorleesfunctionaliteit brengt extra kosten met zich mee, hier wordt elk schooljaar"
+msgstr "Please note, the reading functionality entails extra costs, here every school year"
+
+msgid "Van de geïmporteerde klassen gegevens uit Magister zijn incompleet. Er missen gegevens van één of meerdere klassen. Deze kunnen niet ingepland worden voor toetsen. Maak deze eerst compleet door op onderstaande link te klikken."
+msgstr "The imported class data from Magister is incomplete. Data from one or more classes is missing. These cannot be scheduled for tests. Complete this first by clicking on the link below."
+
+msgid "Direct afnemen niet mogelijk"
+msgstr "Direct purchase not possible"
+
+msgid "Eén of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken."
+msgstr "One or more questions appear twice in this test. Adjust the key to allow scheduling."
+
+msgid "Inloggegevens voor klassen compleet maken."
+msgstr "Complete class credentials."
+
 msgid "File niet gevonden om te importeren, probeer het nogmaals"
 msgstr "File not found for import, please try again"
 

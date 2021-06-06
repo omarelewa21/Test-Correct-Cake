@@ -78,7 +78,7 @@ class UsersService extends BaseService
 
         return $response;
     }
-    
+
     public function registerNewTeacher($data)
     {
         $response = $this->Connector->postRequest('/demo_account', [], $data);
@@ -511,16 +511,16 @@ class UsersService extends BaseService
     public function createMarketingReport($data)
     {
         $response = $this->Connector->postRequest('/marketing_report', [], $data);
-        
+
         if ($response) {
             return $this->Connector->getDownloadRequest('/marketing_report', [], $data);
         }
     }
-    
+
     public function createSchoolLocationReport($data)
     {
         $response = $this->Connector->postRequest('/school_location_report', [], $data);
-        
+
         if ($response) {
             return $this->Connector->getDownloadRequest('/school_location_report', [], $data);
         }
@@ -726,5 +726,30 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function getTeachersList()
+    {
+        $response = $this->Connector->getRequest('/teacher', ['mode' => 'import_data']);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+    public function shouldDisplayImportIncompletePanel() {
+        $response = $this->Connector->getRequest('/teacher/has_incomplete_import', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function shouldDisplayImportIncompletePanelAccountManager() {
+        $response = $this->Connector->getRequest('/account_manager/has_incomplete_import', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
 }
 

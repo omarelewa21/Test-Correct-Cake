@@ -65,11 +65,11 @@
         <tr>
             <th><?= __("Brin code")?></th>
             <td>
-                <?=$this->Form->input('external_main_code',array('style' => 'width: 185px', 'label' => false));?>
+                <?=$this->Form->input('external_main_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 4, 'verify' => 'length-0-or-4'));?>
             </td>
-            <th><?= __("Locatie brin code")?></th>
+            <th><?= __("Locatie brin code (Max. 2 karakters)")?></th>
             <td>
-                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false));?>
+                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2, 'verify' => 'max-length-2'));?>
             </td>
 
             <th><?= __("Is rtti school location")?></th>
@@ -191,5 +191,11 @@
       } else {
           $("#SchoolLocationIsOpenSourceContentCreator").removeAttr('disabled','disabled');
       }
+    });
+
+    $("#SchoolLocationExternalMainCode").on('change', function() {
+        if ($("#SchoolLocationExternalMainCode").val().length > 0 && $("#SchoolLocationExternalMainCode").val().length < 4) {
+            Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
+        }
     });
 </script>

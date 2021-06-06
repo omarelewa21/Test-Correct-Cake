@@ -195,7 +195,16 @@ if (!Array.isArray) {
                         passed = false;
                     }
                 }
-
+                if (check == 'length-0-or-4') {
+                    if ($(element).val().length > 0 && $(element).val().length < 4) {
+                        passed = false;
+                    }
+                }
+                if (check == 'max-length-2') {
+                    if ($(element).val().length > 2) {
+                        passed = false;
+                    }
+                }
                 // DATE
                 if (check == 'date' && $(element).val() != '') {
                     passed = true;

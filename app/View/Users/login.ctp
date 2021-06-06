@@ -74,6 +74,9 @@
 
 <div class="popup-footer">
     <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
+            <i class="fa fa-check mr5"></i> Entree
+        </a>
         <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
             <i class="fa fa-check mr5"></i> <?= __("Test login")?>
         </a>
@@ -81,6 +84,8 @@
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="" style="display:none;">
             <i class="fa fa-check mr5"></i> <?= __("Inloggen")?>
         </a>
+
+
     <? } else { ?>
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
             <i class="fa fa-check mr5"></i> <?= __("Inloggen")?>
@@ -93,7 +98,7 @@
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
     <?= __("Sluiten")?>
     </a>
-    <a href="#"  onclick="ChromeOSdopost();" class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
+    <a href="/logout"  class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
     <?= __("Sluiten")?>
     </a>
     <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseElectron" style="display: none;">
@@ -198,9 +203,9 @@
             }
         }
     );
-  
+
     function ChromeOSdopost(){
-        $.post("/users/logout", function (){window.location.href = '/';});  
+        $.post("/users/logout", function (){window.location.href = '/';});
     }
 
     function refreshCaptcha(){

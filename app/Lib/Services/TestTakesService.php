@@ -796,8 +796,9 @@ class TestTakesService extends BaseService {
 
     public function updateExportedToRtti($take_id)
     {
-        $params['exported_to_rtti'] = date('Y-m-d H:i:s', strtotime('now'));
-        // $params['exported_to_rtti'] = strtotime('now');
+        $dateTime = new DateTime('now', new DateTimeZone('Europe/Amsterdam'));
+        $params['exported_to_rtti'] = $dateTime->format('Y-m-d H:i:s');
+
         $response = $this->Connector->putRequest('/test_take/' . $take_id , $params, []);
 
         if($response === false){

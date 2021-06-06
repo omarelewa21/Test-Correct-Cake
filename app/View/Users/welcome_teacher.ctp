@@ -16,6 +16,18 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <?php if ($should_display_import_incomplete_panel) { ?>
+        <div class="notification error">
+            <div class="title">
+                <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
+                    style="margin-left: 20px;"><?= __("Import gegevens van klassen zijn incompleet")?></h5>
+            </div>
+            <div class="body">
+                <p><?= __("Van de geïmporteerde klassen gegevens uit Magister zijn incompleet. Er missen gegevens van één of meerdere klassen. Deze kunnen niet ingepland worden voor toetsen. Maak deze eerst compleet door op onderstaande link te klikken.")?></p>
+                <a class="text-button" onclick="displayCompleteUserImport()"><?= __("Inloggegevens voor klassen compleet maken.")?><?php echo $this->element('arrow') ?></a>
+            </div>
+        </div>
+        <?php } ?>
         <?php
 
         if (!$account_verified) {
@@ -363,6 +375,17 @@ if ($wizard_steps) {
         document.getElementById("buttons").style.display = 'none';
     }
     
+    if(typeof(window.oneTrustInjected) === 'undefined') {
+        <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
+        //
+        // $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
+        // $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
+        // function OptanonWrapper() { }
+        // window.oneTrustInjected = true;
+
+        <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
+    }
+
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
@@ -397,6 +420,9 @@ if ($wizard_steps) {
         }
         ?>
     }
+    // if($('#ot-sdk-btn').length !==1 ) {
+    //     $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
+    // }
 
     var activeStep = "<?= $wizard_steps['active_step'] ?>";
     var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
@@ -672,6 +698,11 @@ if ($wizard_steps) {
     }
 
     window.addEventListener('resize', checkForSlider);
+
+    function displayCompleteUserImport() {
+        Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
+    }
+
 </script>
 <style>
     .block .block-content {

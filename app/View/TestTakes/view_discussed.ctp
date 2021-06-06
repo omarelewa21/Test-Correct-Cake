@@ -107,7 +107,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 </td>
                 <?php if($take['is_rtti_test_take'] == 1): ?>
                     <th nowrap><?= __("Laatste RTTI export")?></th>
-                    <td nowrap><?= ($take['exported_to_rtti']) ?: __("Nog niet geëxporteerd") ?></td>
+                    <td nowrap><?= $take['exported_to_rtti_formated'] ?></td>
                 <?php endif; ?>
             </tr>
         </table>
