@@ -331,6 +331,9 @@ msgstr "This email address is already in use"
 msgid "Studentennummer is al in gebruik"
 msgstr "Student number is already in use"
 
+msgid "Entree"
+msgstr "Entrance"
+
 msgid "Database"
 msgstr "Database"
 

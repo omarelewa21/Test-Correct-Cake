@@ -75,7 +75,7 @@
 <div class="popup-footer">
     <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
         <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
-            <i class="fa fa-check mr5"></i> Entree
+            <i class="fa fa-check mr5"></i> <?= __("Entree")?>
         </a>
         <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
             <i class="fa fa-check mr5"></i> <?= __("Test login")?>
