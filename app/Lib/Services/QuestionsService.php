@@ -117,7 +117,35 @@ class QuestionsService extends BaseService
         $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
+
         $response = $this->Connector->postRequest('/test_question', [], $data);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function duplicatetogroup($owner, $owner_id, $question_id, $group_id)
+    {
+
+        $testservice = new TestsService();
+        $data['test_id'] = $testservice->getTest($owner_id)['id'];
+        $data['order'] = 0;
+        $data['maintain_position'] = 0;
+        $data['discuss'] = 1;
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
+        $data['question_id'] = $question_id;
+        $data['owner_id'] = $owner_id;
+        $data['group_id'] = $group_id;
+
+        if ($owner == 'test') {
+            $response = $this->Connector->postRequest('/test_question/', [], $data);
+        } else {
+            $response = $this->Connector->postRequest('/group_question_question/' , [], $data);
+        }
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

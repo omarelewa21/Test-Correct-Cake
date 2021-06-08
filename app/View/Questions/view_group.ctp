@@ -174,9 +174,9 @@ if(!empty($group['question']['question'])) {
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>', 800); return false;">
             <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
         </a>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;;">
-            <i class="fa fa-plus mr5"></i> Bestaande vraag toevoegen
-        </a>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing_to_group/group/<?=$group_id?>', 1200); return false;">
+                <i class="fa fa-clock-o mr5"></i> Bestaande vraag toevoegen
+            </a>
     </div>
 </div>
 

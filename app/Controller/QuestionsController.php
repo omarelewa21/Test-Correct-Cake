@@ -756,6 +756,82 @@ class QuestionsController extends AppController
         $this->set('filterSource',$filterSource);
     }
 
+    public function add_existing_to_group($owner, $owner_id, $group_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $this->Session->write('addExisting', [
+            'owner' => $owner,
+            'owner_id' => $owner_id
+        ]);
+
+        $education_level_years = [
+            0 => 'Alle',
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $subjects = $this->TestsService->getSubjects(true);
+
+        $education_levels = [0 => 'Alle'] + $education_levels;
+        $subjects = [0 => 'Alle'] + $subjects;
+
+        $_baseSubjects = $this->TestsService->getMyBaseSubjects();
+
+        $baseSubjects = [
+            '' => 'Alle',
+        ];
+
+        foreach($_baseSubjects as $baseSubject){
+            $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
+        }
+
+        $filterTypes = [
+            '' => 'Alle',
+            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
+            'MultipleChoiceQuestion.ARQ' => 'ARQ',
+            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
+            'OpenQuestion.Short' => 'Korte open vraag',
+//            'OpenQuestion.Medium' => 'Lange open vraag',
+//            'OpenQuestion.Long' => 'Wiskunde vraag',
+            'OpenQuestion.Long' => 'Lange open vraag',
+            'CompletionQuestion.multi' => 'Selectie',
+            'CompletionQuestion.completion' => 'Gatentekst',
+            'RankingQuestion' => 'Rangschik',
+            'MatchingQuestion.Matching' => 'Combineer',
+            'MatchingQuestion.Classify' => 'Rubriceer',
+            'DrawingQuestion' => 'Teken',
+            'GroupQuestion' => 'Groepvraag'
+        ];
+
+        $test = $this->Session->read('active_test');
+
+        $filterSource = [
+            '' => 'Alles',
+            'me' => 'Eigen content',
+            'schoolLocation' => 'Schoollocatie',
+        ];
+        if(AuthComponent::user('hasSharedSections')){
+            $filterSource['school'] = 'Scholengemeenschap';
+        }
+
+        $this->set('subject_id', getUUID($test['subject'], 'get'));
+        $this->set('year_id', $test['education_level_year']);
+        $this->set('education_level_id', $test['education_level_id']);
+
+        $this->set('education_levels', $education_levels);
+        $this->set('education_level_years', $education_level_years);
+        $this->set('subjects', $subjects);
+        $this->set('filterTypes', $filterTypes);
+        $this->set('baseSubjects',$baseSubjects);
+        $this->set('filterSource',$filterSource);
+    }
+
     public function add_existing_question($question_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
