@@ -2042,4 +2042,8 @@ class UsersController extends AppController
         $this->set('education_levels', $eductionLevels);
     }
 
+    public function prevent_logout()
+    {
+
+    }
 }

@@ -4,6 +4,11 @@ var User = {
     inactive: 0,
     surpressInactive: false,
 
+    userLogoutInterval: null,
+    secondsBeforeTeacherLogout: 5, //300 default
+    logoutWarningTimer: 30,
+    logoutCountdownInterval: null,
+
     initialise: function () {
         $.getJSON('/users/info',
             function (info) {
@@ -76,22 +81,7 @@ var User = {
             User.inactive = 0;
         });
 
-        setInterval(function () {
-            User.inactive++;
-            // Student
-            if (User.info.isStudent && User.inactive >= 900 && !User.surpressInactive) {
-                Core.lostFocus();
-                setTimeout(function () {
-                    User.logout(false);
-                }, 2000);
-            }
-
-            // Teacher
-            if (User.info.isTeacher && User.inactive >= 300 && !User.surpressInactive) {
-                User.logout(false);
-            }
-
-        }, 1000);
+        this.startUserLogoutInterval();
     },
 
     actOnLogout: function () {
@@ -300,5 +290,35 @@ var User = {
     teacherImportChooseTypeInActive : function(id){
         $('#'+id).addClass("grey");
         $('#'+id).removeClass("highlight");
+    },
+
+    postponeAutoUserLogout : function(seconds) {
+        clearInterval(User.logoutCountdownInterval);
+        User.logoutWarningTimer = 30;
+        User.inactive = 0;
+        User.secondsBeforeTeacherLogout = seconds;
+        // this.startUserLogoutInterval();
+    },
+
+    startUserLogoutInterval : function() {
+        User.userLogoutInterval = setInterval(function () {
+            User.inactive++;
+            console.log(User.inactive);
+            // Student
+            if (User.info.isStudent && User.inactive >= 900 && !User.surpressInactive) {
+                Core.lostFocus();
+                setTimeout(function () {
+                    User.logout(false);
+                }, 2000);
+            }
+
+            // Teacher
+            if (User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
+                clearInterval(User.userLogoutInterval);
+                Popup.load('/users/prevent_logout', 600);
+                // User.logout(false);
+            }
+
+        }, 1000);
     }
 };
