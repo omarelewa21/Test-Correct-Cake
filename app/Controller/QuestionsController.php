@@ -190,7 +190,7 @@ class QuestionsController extends AppController
     {
         $this->autoRender = false;
         $question = $this->QuestionsService->getSingleQuestion($question_id);
-        
+
         if (isset($group_id) && !empty($group_id)) {
             $group = $this->QuestionsService->getSingleQuestion($group_id);
             $question['attachments'] = $group['attachments'];
@@ -437,7 +437,7 @@ class QuestionsController extends AppController
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
         $this->set('test_id', $test_id);
-        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');     
+        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');
 
 
     }
@@ -756,7 +756,11 @@ class QuestionsController extends AppController
         $this->set('filterSource',$filterSource);
     }
 
-    public function add_existing_to_group($owner, $owner_id, $group_id)
+    /**
+     * @param $owner
+     * @param $owner_id Note the owner in this scenario is the groupId.
+     */
+    public function add_existing_to_group($owner, $owner_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -843,6 +847,18 @@ class QuestionsController extends AppController
         $this->QuestionsService->duplicate($data['owner'], $data['owner_id'], $question_id);
     }
 
+    public function add_existing_question_to_group($question_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $this->autoRender = false;
+
+        $data = $this->Session->read('addExisting');
+
+        $this->QuestionsService->duplicatetogroup($data['owner'], $data['owner_id'], $question_id);
+    }
+
+
 
     public function add_existing_question_group($group_id)
     {
@@ -923,6 +939,76 @@ class QuestionsController extends AppController
         $this->set('education_levels', $education_levels);
         $this->set('questions', $questions['data']);
     }
+
+    public function add_existing_question_to_group_list()
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $params = $this->request->data;
+        $filters = array();
+        parse_str($params['filters'], $filters);
+
+        $filters = $filters['data']['Question'];
+
+        unset($params['filters']);
+
+        $params['filter'] = [];
+
+        if(!empty($filters['source'])){
+            $params['filter']['source'] = $filters['source'];
+        }
+
+        if(!empty($filters['base_subject_id'])){
+            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
+        }
+
+        if (!empty($filters['subject'])) {
+            $params['filter']['subject_id'] = $filters['subject'];
+        }
+
+        if (!empty($filters['education_levels'])) {
+            $params['filter']['education_level_id'] = $filters['education_levels'];
+        }
+
+        if (!empty($filters['education_level_years'])) {
+            $params['filter']['education_level_year'] = $filters['education_level_years'];
+        }
+
+        if (!empty($filters['id'])) {
+            $params['filter']['id'] = $filters['id'];
+        }
+
+
+        if (!empty($filters['search'])) {
+            $params['filter']['search'] = $filters['search'];
+        }
+
+        if (!empty($filters['is_open_source_content'])) {
+            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        }
+
+        if (!empty($filters['type'])) {
+
+            $typeFilter = explode('.', $filters['type']);
+
+            $params['filter']['type'] = $typeFilter[0];
+
+            if (isset($typeFilter[1])) {
+                $params['filter']['subtype'] = $typeFilter[1];
+            }
+        }
+
+        $questions = $this->QuestionsService->getAllQuestions($params);
+        foreach ($questions['data'] as $question) {
+            if ($question['type'] !== 'GroupQuestion') {
+                $question['question'] = $this->stripTagsWithoutMath($question['question']);
+            }
+        }
+        $education_levels = $this->TestsService->getEducationLevels();
+        $this->set('education_levels', $education_levels);
+        $this->set('questions', $questions['data']);
+    }
+
 
     public function add_existing_test_list()
     {

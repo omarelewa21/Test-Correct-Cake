@@ -126,7 +126,12 @@ class QuestionsService extends BaseService
         return $response;
     }
 
-    public function duplicatetogroup($owner, $owner_id, $question_id, $group_id)
+    /**
+     * @param $owner
+     * @param $owner_id  should be the group_id to attach the question to.
+     * @param $question_id
+     */
+    public function duplicatetogroup($owner, $owner_id, $question_id)
     {
 
         $testservice = new TestsService();
@@ -139,7 +144,6 @@ class QuestionsService extends BaseService
         $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
         $data['owner_id'] = $owner_id;
-        $data['group_id'] = $group_id;
 
         if ($owner == 'test') {
             $response = $this->Connector->postRequest('/test_question/', [], $data);
