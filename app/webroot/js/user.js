@@ -300,6 +300,12 @@ var User = {
         this.startUserLogoutInterval();
     },
 
+    resetPreventLogoutData : function() {
+        clearInterval(User.logoutCountdownInterval);
+        User.logoutWarningTimer = 30;
+        this.startUserLogoutInterval();
+    },
+
     startUserLogoutInterval : function() {
         User.userLogoutInterval = setInterval(function () {
             User.inactive++;

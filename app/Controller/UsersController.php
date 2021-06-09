@@ -1146,6 +1146,12 @@ class UsersController extends AppController
                                                     </svg>
                                                 </button>
                                             ";
+                $menus['prevent_logout'] = "
+                    <div style='color:white;cursor:pointer'
+                             onclick=\"Popup.load('/users/prevent_logout?opened_by_user=true')\">
+                            <i class='fa fa-hourglass-2 fa-lg' style='color: white'></i>
+                        </div>
+                ";
             }
         }
 

@@ -103,9 +103,6 @@
 
 			</div>
 			<div id="menu"></div>
-            <div style="float: right;top: 1rem;right: 20px;position: relative;color:white" onclick="Popup.load('/users/prevent_logout?opened_by_user=true')">
-                <i class="fa fa-hourglass-2 fa-lg" style="color: white"></i>
-            </div>
 		</div>
 
 		<div id="tiles" class="highlight"></div>

@@ -12,7 +12,13 @@ $(function() {
 				com.wiris.js.JsPluginViewer.parseDocument();
 			}
         },250);
-    });
+    })
+		.ajaxError(function(event,xhr){
+			if (xhr.status === 401 || xhr.status === 403) {
+				window.onbeforeunload = null;
+				window.location.reload();
+			}
+		});
 });
 
 
