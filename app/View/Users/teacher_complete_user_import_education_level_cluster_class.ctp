@@ -149,8 +149,9 @@
                 <tr>
                     <th width="200px">Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
+                    <?php if (!empty($level['education_level'])) { ?>
                         <th width="80px"><?= $level['education_level']['name'] ?></th>
-
+                        <?php } ?>
                     <?php } ?>
                     <th width="80px">Status</th>
                     <th width="150px">Leerjaar</th>
@@ -162,10 +163,11 @@
                     <tr>
                         <td width="200px"><?= $schoolClass['name'] ?></td>
                         <?php foreach ($education_levels as $eductionLevel) { ?>
+                        <?php if (!empty($eductionLevel['education_level'])) { ?>
                             <td width="80px" style="position:relative; align-content: center"><input
                                     id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                     name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio"
-                                    class="radio-custom jquery-radio-set-eduction-level"
+                                    class="radio-custom jquery-radio-set-eduction-level-step-2"
                                     value="<?= $eductionLevel['education_level']['id'] ?>"
                                     <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked' : '' ?>
                                 >
@@ -178,8 +180,17 @@
                                               stroke-linecap="round"/>
                                     </svg>
                                 </label></td>
+                            <?php } ?>
                         <?php } ?>
-                        <td width="80px"><span class="import-label label-blue">bekend</span></td>
+                        <td width="80px">
+                            <?php if (empty($schoolClass['education_level_year']) || empty($schoolClass['education_level_id'])) { ?>
+                                <span class="import-label label-orange">onbekend</span>
+                            <?php } else if(!empty($schoolClass['checked_by_teacher'])){ ?>
+                                <span class="import-label label-green">Ingesteld</span>
+                            <?php } else { ?>
+                                <span class="import-label label-blue">bekend</span>
+                            <?php } ?>
+                        </td>
                         <td width="150px">
                             <div style="display: flex;">
                                 <?php foreach (range(1, 6) as $count) { ?>
@@ -199,12 +210,12 @@
                             </div>
                         </td>
                         <td width="150px">
-                            <input id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                            <input id="<?= sprintf('green-checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom jquery-controle"
                                    name="class[<?= $schoolClass['id'] ?>][checked]" type="checkbox"
                                 <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
                             >
-                            <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                            <label for="<?= sprintf('green-checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -301,8 +312,9 @@
                             Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
                         }, 500);
                     })
-                    .on('click', '.jquery-radio-set-eduction-level, .jquery-radio-set_school-year', function (e) {
+                    .on('click', '.jquery-radio-set-eduction-level-step-2, .jquery-radio-set_school-year', function (e) {
                         $(this).closest('tr').find('.jquery-controle').attr('checked', true).trigger('change');
+                        $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
                     });
 
                 window.teacherCompleteUserImportClusterSchoolClass = true;

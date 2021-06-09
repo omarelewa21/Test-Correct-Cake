@@ -125,7 +125,6 @@ class QuestionsService extends BaseService
         return $response;
     }
 
-
     public function getQuestion($owner, $owner_id, $question_id)
     {
 
