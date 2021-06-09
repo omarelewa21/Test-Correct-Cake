@@ -273,7 +273,7 @@ class TestsService extends BaseService {
         return $response;
     }
 
-    public function getSubjects($personal = false, $mode = 'list') {
+    public function getSubjects($personal = false, $mode = 'list', $without_demo=false) {
 
         if($personal) {
             if(isset($params['filter'])){
@@ -286,6 +286,14 @@ class TestsService extends BaseService {
         }
 
         $params['mode'] = $mode;
+
+        if ($without_demo){
+            if(isset($params['filter'])){
+                $params['filter']['demo'] = 0;
+            } else {
+                $params['filter'] = ['demo' => 0];
+            }
+        }
 
         $response = $this->Connector->getRequest('/subject', $params);
 

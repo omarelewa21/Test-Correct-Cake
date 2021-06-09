@@ -170,7 +170,7 @@
                                     id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                     name="class[<?= $schoolClass['id'] ?>][education_level]"
                                     type="radio"
-                                    class="radio-custom jquery-radio-set-eduction-level"
+                                    class="radio-custom jquery-radio-set-eduction-level-admin"
                                     value="<?= $eductionLevel['education_level']['id'] ?>"
                                     <?= $eductionLevel['education_level']['id'] == $schoolClass['education_level_id'] ? 'checked' : '' ?>
                                 >
@@ -185,17 +185,27 @@
                                 </label>
                             </td>
                         <?php } ?>
-                        <td width="80px"><span class="import-label label-blue">bekend</span></td>
+                        <td width="80px">
+                            <?php if (empty($schoolClass['education_level_id'])) { ?>
+                                <span class="import-label label-orange">onbekend</span>
+                            <?php } else if(!empty($schoolClass['checked_by_admin'])){ ?>
+                                <span class="import-label label-green">Ingesteld</span>
+                            <?php } else { ?>
+                                <span class="import-label label-blue">bekend</span>
+                            <?php } ?>
+
+
+                        </td>
 
                         <td width="150px">
                             <input
-                                id="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                                id="<?= sprintf('green-checkbox-%s', $schoolClass['id']) ?>"
                                 class="checkbox-custom jquery-complete-counter"
                                 name="class[<?= $schoolClass['id'] ?>][checked]"
                                 type="checkbox"
                                 <?= $schoolClass['checked_by_admin'] ? 'checked' : '' ?>
                             >
-                            <label for="<?= sprintf('checkbox-%s', $schoolClass['id']) ?>"
+                            <label for="<?= sprintf('green-checkbox-%s', $schoolClass['id']) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -257,8 +267,9 @@
                 });
             });
 
-            $('.jquery-radio-set-eduction-level').click(function (e) {
+            $('.jquery-radio-set-eduction-level-admin').click(function (e) {
                 $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
+                $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
             })
 
             $('.jquery-complete-counter').change(function (e) {

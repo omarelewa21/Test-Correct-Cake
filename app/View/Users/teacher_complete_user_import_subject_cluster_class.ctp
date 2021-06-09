@@ -206,7 +206,7 @@
                                     <div style="display:flex; position:relative;">
                                         <input
                                             id="checkbox-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
-                                            class="checkbox-custom jquery-radio-set-eduction-level"
+                                            class="checkbox-custom jquery-radio-set-eduction-level-step-3"
                                             name="teacher[<?= $schoolClass['id'] ?>][<?= $subjectId ?>]"
                                             type="checkbox"
                                             <?= array_key_exists($schoolClass['id'],
@@ -227,7 +227,7 @@
                                         id="radio-class-<?= $schoolClass['id'] ?>-<?= $subjectId ?>"
                                         name="teacher[<?= $schoolClass['id'] ?>]"
                                         type="radio"
-                                        class="radio-custom jquery-radio-set-eduction-level"
+                                        class="radio-custom jquery-radio-set-eduction-level-step-3"
                                         value="<?= $subjectId ?>"
                                         <?= array_key_exists($schoolClass['id'],
                                             $teacher_entries) && in_array($subjectId,$teacher_entries[$schoolClass['id']])  ? 'checked' : ''; ?>
@@ -246,17 +246,23 @@
                             </td>
                         <?php } ?>
                         <td>&nbsp;</td>
-                        <td width="80px"><span class="import-label label-blue">bekend</span></td>
-
-
+                        <td width="80px">
+                            <?php if (!array_key_exists($schoolClass['id'], $teacher_entries)) { ?>
+                                <span class="import-label label-orange">onbekend</span>
+                            <?php } else if(!empty($checked_by_teacher[$schoolClass['id']])){ ?>
+                                <span class="import-label label-green">Ingesteld</span>
+                            <?php } else { ?>
+                                <span class="import-label label-blue">bekend</span>
+                            <?php } ?>
+                        </td>
                         <td width="150px">
-                            <input id="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
+                            <input id="<?= sprintf('green-checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom jquery-subject-complete-counter"
                                    name="class[<?= $schoolClass['id'] ?>][checked]"
                                    type="checkbox"
                                 <?= $checked_by_teacher[$schoolClass['id']] ? 'checked' : '' ?>
                             >
-                            <label for="<?= sprintf('checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
+                            <label for="<?= sprintf('green-checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
                                 <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
@@ -352,9 +358,9 @@
                         }, 500);
                     })
 
-                    .on('click', '.jquery-radio-set-eduction-level', function (e) {
+                    .on('click', '.jquery-radio-set-eduction-level-step-3', function (e) {
                         $(this).closest('tr').find('.jquery-subject-complete-counter').attr('checked', true).trigger('change');
-
+                        $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
                     })
                     .on('click', '#btn-add-subject', function (e) {
                         e.preventDefault();

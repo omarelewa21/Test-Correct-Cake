@@ -420,7 +420,7 @@ class UsersController extends AppController
 
                 App::uses('MaintenanceHelper', 'Lib');
 
-                $this->set('should_display_import_incomplete_panel', $this->UsersService->shouldDisplayImportIncompletePanel());
+                $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanel();
                 $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
             }
 
@@ -1945,7 +1945,8 @@ class UsersController extends AppController
             'mode' => 'import_data',
         ]);
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
-            getUUID(AuthComponent::user('school_location'), 'get')
+            getUUID(AuthComponent::user('school_location'), 'get'),
+            true
         );
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
@@ -1965,12 +1966,14 @@ class UsersController extends AppController
             'filter' => [
                 'current'              => 1,
                 'is_main_school_class' => 0,
+                'demo' => 0,
             ],
             'mode'   => 'import_data',
         ]);
 
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
-            getUUID(AuthComponent::user('school_location'), 'get')
+            getUUID(AuthComponent::user('school_location'), 'get'),
+            true
         );
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
@@ -2005,11 +2008,12 @@ class UsersController extends AppController
 
         $classesList = $this->SchoolClassesService->getClasses([
             'filter' => [
-                'current' => 1
+                'current' => 1,
+                'demo' => 0,
             ],
             'mode'   => 'import_data',
         ]);
-        $subjects = $this->TestsService->getSubjects(false, 'all');
+        $subjects = $this->TestsService->getSubjects(false, 'all', true);
 
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
