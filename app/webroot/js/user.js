@@ -5,7 +5,7 @@ var User = {
     surpressInactive: false,
 
     userLogoutInterval: null,
-    secondsBeforeTeacherLogout: 5, //300 default
+    secondsBeforeTeacherLogout: 300, //300 default
     logoutWarningTimer: 30,
     logoutCountdownInterval: null,
 
@@ -297,13 +297,12 @@ var User = {
         User.logoutWarningTimer = 30;
         User.inactive = 0;
         User.secondsBeforeTeacherLogout = seconds;
-        // this.startUserLogoutInterval();
+        this.startUserLogoutInterval();
     },
 
     startUserLogoutInterval : function() {
         User.userLogoutInterval = setInterval(function () {
             User.inactive++;
-            console.log(User.inactive);
             // Student
             if (User.info.isStudent && User.inactive >= 900 && !User.surpressInactive) {
                 Core.lostFocus();

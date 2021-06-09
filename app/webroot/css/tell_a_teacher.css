@@ -426,7 +426,7 @@
     transition: color 0.3s cubic-bezier(.215,.61,.355,1);
 }
 
-.cta-button:hover {
+.cta-button:hover:enabled {
     background-color: rgb(60, 202, 86);
     background-size: 100% 100%;
     box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
@@ -441,6 +441,12 @@
 .cta-button:focus {
     background: var(--cta-primary);
     border: 2px solid var(--cta-primary-dark);
+}
+
+.cta-button:disabled {
+    background-color: var(--light-grey);
+    border-color: var(--light-grey);
+    color: var(--mid-grey);
 }
 
 .email-preview-body {

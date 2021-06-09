@@ -2044,6 +2044,6 @@ class UsersController extends AppController
 
     public function prevent_logout()
     {
-
+        $this->set('opened_by_user', $this->params['url']['opened_by_user']);
     }
 }
