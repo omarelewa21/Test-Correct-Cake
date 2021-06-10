@@ -293,11 +293,8 @@ var User = {
     },
 
     postponeAutoUserLogout : function(seconds) {
-        clearInterval(User.logoutCountdownInterval);
-        User.logoutWarningTimer = 30;
-        User.inactive = 0;
-        User.secondsBeforeTeacherLogout = seconds;
-        this.startUserLogoutInterval();
+        User.secondsBeforeTeacherLogout = seconds*60;
+        this.resetPreventLogoutData();
     },
 
     resetPreventLogoutData : function() {
@@ -321,7 +318,6 @@ var User = {
             if (User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
                 clearInterval(User.userLogoutInterval);
                 Popup.load('/users/prevent_logout', 600);
-                // User.logout(false);
             }
 
         }, 1000);

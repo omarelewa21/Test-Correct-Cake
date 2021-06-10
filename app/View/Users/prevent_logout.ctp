@@ -1,4 +1,4 @@
-<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;">
+<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0">
@@ -6,7 +6,7 @@
             </h2>
         </div>
         <div class="close" style="flex-shrink: 1">
-            <a href="#" onclick="Popup.closeLast(); <?php if(!$opened_by_user) {?> User.resetPreventLogoutData(); <?php } ?>">
+            <a href="#" onclick="Popup.closeLast(); User.postponeAutoUserLogout(5)">
                 <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">
                         <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>
@@ -16,57 +16,22 @@
         </div>
     </div>
     <div class="divider mb24 mt10"></div>
-    <div class="body2">
-        <p><?= !$opened_by_user ? 'U bent al langere tijd inactief geweest. ' : '' ?>U kunt het automatisch uitloggen
-            eenmalig uitstellen met:</p>
-    </div>
-    <div class="body2" style="padding-bottom: 20px">
-        <div>
-            <input id="prevent-10-min" name="prevent-logout-time" type="radio" class="radio-custom" value="1">
-            <label for="prevent-10-min" class="radio-custom-label" onclick="setPostponeTimeInMinutes(10)">
-                <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                          fill-rule="evenodd"
-                          stroke-linecap="round"/>
-                </svg>
-                <span>10 minuten</span>
-            </label>
-        </div>
-        <div>
-            <input id="prevent-20-min" name="prevent-logout-time" type="radio" class="radio-custom" value="1">
-            <label for="prevent-20-min" class="radio-custom-label" onclick="setPostponeTimeInMinutes(20)">
-                <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                          fill-rule="evenodd"
-                          stroke-linecap="round"/>
-                </svg>
-                <span>20 minuten</span>
-            </label>
-        </div>
-        <div>
-            <input id="prevent-30-min" name="prevent-logout-time" type="radio" class="radio-custom" value="1">
-            <label for="prevent-30-min" class="radio-custom-label" onclick="setPostponeTimeInMinutes(30)">
-                <svg width="13" height="13" xmlns="http://www.w3.org/2000/svg">
-                    <path stroke="currentColor" stroke-width="3" d="M1.5 5.5l4 4 6-8" fill="none"
-                          fill-rule="evenodd"
-                          stroke-linecap="round"/>
-                </svg>
-                <span>30 minuten</span>
-            </label>
-
-        </div>
+    <div class="body2 mb10">
+        <p><?= !$opened_by_user ? 'U bent al langere tijd inactief geweest en wordt automatisch uitgelogd voor de veiligheid van uw account.' : 'U kunt het automatisch uitloggen uitstellen met 10 minuten' ?></p>
     </div>
 </div>
-<div class="popup-footer tat-footer">
+<div class="popup-footer tat-footer" style="padding-bottom: 2rem!important;">
     <div style="display: flex;align-items:center;justify-content:space-between;width: 100%">
-        <div class="body2" style="display: flex">
+        <div class="body2" style="display: flex; width:50%;">
             <?php if (!$opened_by_user) { ?>
-                <p>Uitloggen over: <span id="logoutCountdown">30</span> seconden</p>
+            <span style="width: 100%; background-color: white; border: 1px solid var(--light-grey);height: 1rem;border-radius:4px;overflow: hidden;display:block">
+                <span id="prevent_logout_progress_bar" style="display:block;background-color: var(--cta-primary); height: 1rem;transition:width 0.25s;"></span>
+            </span>
             <?php } ?>
         </div>
         <div style="display: flex;">
-            <button id="postpone-button" class="button button-sm cta-button" style="cursor: pointer;" disabled
-                    onclick="Popup.closeLast();User.postponeAutoUserLogout(postponeTime)">
+            <button id="postpone-button" class="button button-sm cta-button" style="cursor: pointer;"
+                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 10 : 5 ?>')">
                 Uitstellen
             </button>
         </div>
@@ -74,16 +39,9 @@
 </div>
 
 <script>
-    var postponeTime = 0;
-
-    function setPostponeTimeInMinutes(time) {
-        postponeTime = time * 60;
-        $('#postpone-button').removeAttr('disabled')
-    }
-
     <?php if (!$opened_by_user) { ?>
     User.logoutCountdownInterval = setInterval(function () {
-        $('#logoutCountdown').text(User.logoutWarningTimer);
+        $('#prevent_logout_progress_bar').css({'width': (User.logoutWarningTimer/30*100)+'%'}) ;
         User.logoutWarningTimer--;
         if (User.logoutWarningTimer <= 0) {
             User.logout();
