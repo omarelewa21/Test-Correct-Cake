@@ -1,4 +1,4 @@
-<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
+<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0">
@@ -15,12 +15,12 @@
             </a>
         </div>
     </div>
-    <div class="divider mb24 mt10"></div>
-    <div class="body2 mb10">
-        <p><?= !$opened_by_user ? 'U bent al langere tijd inactief geweest en wordt automatisch uitgelogd voor de veiligheid van uw account.' : 'U kunt het automatisch uitloggen uitstellen met 10 minuten' ?></p>
+    <div class="divider mb16 mt16"></div>
+    <div class="body2">
+        <p><?= !$opened_by_user ? 'U bent al langere tijd inactief geweest en wordt automatisch uitgelogd voor de veiligheid van uw account.' : 'Om de veiligheid van uw account te garanderen wordt u na 5 minuten inactiviteit uitgelogd uit Test-Correct. U kunt het automatisch uitloggen tijdelijk uitstellen naar 10 minuten' ?></p>
     </div>
 </div>
-<div class="popup-footer tat-footer" style="padding-bottom: 2rem!important;">
+<div class="popup-footer tat-footer pt16" style="padding-bottom: 2rem!important;">
     <div style="display: flex;align-items:center;justify-content:space-between;width: 100%">
         <div class="body2" style="display: flex; width:50%;">
             <?php if (!$opened_by_user) { ?>
@@ -39,6 +39,10 @@
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#prevent_logout_div').parent().css({'border-radius': '10px'})
+    })
+
     <?php if (!$opened_by_user) { ?>
     User.logoutCountdownInterval = setInterval(function () {
         $('#prevent_logout_progress_bar').css({'width': (User.logoutWarningTimer/30*100)+'%'}) ;
