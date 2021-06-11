@@ -20,7 +20,7 @@ function FilterManager(settings) {
         }.bind(this));
     };
 
-    this.init = function (firstTimeRun) {
+    this.init = function (firstTimeRun, runCallbacks) {
         this.el = '#jquery-saved-filters';
         this.developmentErrors();
 
@@ -31,7 +31,7 @@ function FilterManager(settings) {
             this.renderSelectFilterBoxNotFirstRun();
             // this.registerEvents();
             this.addChangeEventsToFilter(this);
-            this.initTablefy();
+            this.initTablefy(runCallbacks);
             this.isInitalizingState = false;
             return;
         }
@@ -49,7 +49,7 @@ function FilterManager(settings) {
                 }
 
             }
-            this.initTablefy();
+            this.initTablefy(runCallbacks);
             // this.reloadData();
             this.isInitalizingEvents = false;
             this.isInitalizingState = false;
@@ -528,6 +528,10 @@ function FilterManager(settings) {
         return $(this.settings.formPrefix + name.charAt(0).toUpperCase() + name.slice(1));
     };
 
+    this.triggerActiveFilterChange = function() {
+        jQuery(this.settings.eventScope + ' ' + this.el).trigger('change');
+    }
+
     this.renderActiveFilter = function (e) {
         this.bindActiveFilterDataToFilterModal();
         this.initializeSelect2Fields();
@@ -640,12 +644,31 @@ function FilterManager(settings) {
             alert(this.el+' not present');
         }
     };
-    this.initTablefy = function(){
+
+    this.hasActiveFilterAtInitAuthorsAsField = function() {
+        var returnBool = false;
+        if(typeof (this.filters) != 'undefined') {
+            this.filters.forEach(function (filter, index) {
+                if (filter.active) {
+                    if (filter.filters.hasOwnProperty('authorId')) {
+                        if (filter.filters['authorId'].filter != "") {
+                            returnBool = true;
+                        }
+                    }
+                }
+            });
+        }
+        return returnBool;
+    }
+
+    this.initTablefy = function(runCallbacks){
         var tablefySettings = {
                             'source': this.settings.tablefy.source,
                             'filters': $(this.settings.tablefy.filters),
                             'container': $(this.settings.tablefy.container),
-                            'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback
+                            'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback,
+                            'filtermanager': this,
+                            'waitForFirstRunCallback': !!(runCallbacks && typeof(this.settings.tablefy.afterFirstRunCallback) == 'function' && this.hasActiveFilterAtInitAuthorsAsField()),
                         };
          $(this.settings.table).tablefy(tablefySettings);
     }
