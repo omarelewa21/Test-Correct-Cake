@@ -1146,6 +1146,12 @@ class UsersController extends AppController
                                                     </svg>
                                                 </button>
                                             ";
+                $menus['prevent_logout'] = "
+                    <div style='color:white;cursor:pointer'
+                             onclick=\"Popup.load('/users/prevent_logout?opened_by_user=true')\">
+                            <i class='fa fa-hourglass-2 fa-lg' style='color: white'></i>
+                        </div>
+                ";
             }
         }
 
@@ -2046,4 +2052,8 @@ class UsersController extends AppController
         $this->set('education_levels', $eductionLevels);
     }
 
+    public function prevent_logout()
+    {
+        $this->set('opened_by_user', $this->params['url']['opened_by_user']);
+    }
 }
