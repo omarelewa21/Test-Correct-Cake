@@ -155,7 +155,6 @@
 
         <script type="text/javascript">
 
-
             $(document).ready(function () {
                 var itemBankFirstTimeRun = false;
                 if (typeof (Window.authors) === 'undefined') {
@@ -184,7 +183,7 @@
                             'source': '/tests/load',
                             'filters': '#TestIndexForm',
                             'container': '#testsContainter',
-                            'afterFirstRunCallback' : function(){
+                            'afterFirstRunCallback' : function(callback){
                                 Loading.hide();
                                 Core.surpressLoading = true;
                                 itembankFiltermanager.lockFilters();
@@ -198,6 +197,9 @@
                                         itembankFiltermanager.initCustom();
                                         Core.surpressLoading = false;
                                         itembankFiltermanager.unlockFilters();
+                                        if(typeof (callback) == 'function'){
+                                            callback();
+                                        }
                                     }
                                 });
                             }
@@ -211,7 +213,7 @@
                 //     itembankFiltermanager.prepareForAuthors();
                 // }
 
-                itembankFiltermanager.init(itemBankFirstTimeRun);
+                itembankFiltermanager.init(itemBankFirstTimeRun,true);
             });
 
             function setAuthors(){

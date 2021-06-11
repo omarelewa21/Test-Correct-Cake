@@ -71,7 +71,16 @@
             });
         }
         clearTbodyData();
-        loadResults();
+        if(!settings.waitForFirstRunCallback) {
+            loadResults();
+        } else {
+            Loading.show();
+            settings.afterFirstRunCallback(
+                function(){
+                 settings.afterFirstRunCallback = false;
+                 settings.filtermanager.triggerActiveFilterChange();
+                });
+        }
     }
 
     var lastScrollTop = 0;
