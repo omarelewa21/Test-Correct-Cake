@@ -44,8 +44,9 @@
     })
 
     <?php if (!$opened_by_user) { ?>
+    let initialStartTime = User.logoutWarningTimer;
     User.logoutCountdownInterval = setInterval(function () {
-        $('#prevent_logout_progress_bar').css({'width': (User.logoutWarningTimer/30*100)+'%'}) ;
+        $('#prevent_logout_progress_bar').css({'width': (User.logoutWarningTimer/initialStartTime*100)+'%'}) ;
         User.logoutWarningTimer--;
         if (User.logoutWarningTimer <= 0) {
             User.logout();
