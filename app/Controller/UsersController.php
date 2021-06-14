@@ -1936,6 +1936,12 @@ class UsersController extends AppController
 
         if ($this->request->is('put')) {
             $response = $this->SchoolClassesService->updateWithEductionLevelsForMainClasses($this->request->data);
+            if ($response ==  false) {
+
+                echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
+                exit;
+            }
+
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -1947,6 +1953,8 @@ class UsersController extends AppController
             ],
             'mode' => 'import_data',
         ]);
+
+
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get'),
             true
@@ -1961,6 +1969,11 @@ class UsersController extends AppController
 
         if ($this->request->is('put')) {
             $response = $this->SchoolClassesService->updateWithEductionLevelsForClusterClasses($this->request->data);
+            if ($response ==  false) {
+
+                echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
+                exit;
+            }
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -1988,6 +2001,11 @@ class UsersController extends AppController
 
         if ($this->request->is('put')) {
             $response = $this->SchoolClassesService->updateTeachersWithSubjectsForClusterClasses($this->request->data);
+            if ($response ==  false) {
+
+                echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
+                exit;
+            }
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -2007,8 +2025,6 @@ class UsersController extends AppController
             }
         }
 
-
-
         $classesList = $this->SchoolClassesService->getClasses([
             'filter' => [
                 'current' => 1,
@@ -2016,7 +2032,7 @@ class UsersController extends AppController
             ],
             'mode'   => 'import_data',
         ]);
-        $subjects = $this->TestsService->getSubjects(false, 'all', true);
+        $subjects = $this->TestsService->getSubjects(false, 'all', true, true);
 
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);

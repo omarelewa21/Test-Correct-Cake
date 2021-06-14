@@ -275,6 +275,15 @@
                             url: 'users/teacher_complete_user_import_education_level_cluster_class',
                             dataType: 'json',
                             success: function (data) {
+                                if (typeof data.error !== 'undefined') {
+                                    var error;
+                                    for (const property in data.error) {
+                                        error = data.error[property];
+                                    }
+                                    Notify.notify(error, 'error');
+                                    return;
+                                }
+
                                 var msg = 'Gegevens voor 1 klas opgeslagen.';
                                 if (data.result.count !== 1) {
                                     msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
@@ -292,6 +301,15 @@
                             url: 'users/teacher_complete_user_import_education_level_cluster_class',
                             dataType: 'json',
                             success: function (data) {
+                                if (typeof data.error !== 'undefined') {
+                                    var error;
+                                    for (const property in data.error) {
+                                        error = data.error[property];
+                                    }
+                                    Notify.notify(error, 'error');
+                                    return;
+                                }
+
                                 var msg = 'Gegevens voor 1 klas opgeslagen.';
                                 if (data.result.count !== 1) {
                                     msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
