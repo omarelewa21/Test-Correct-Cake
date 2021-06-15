@@ -16,7 +16,7 @@
         <script>
             $('#UserText2speech').on('change',function(){
                 if($('#UserText2speech').is(':checked')){
-                    if(confirm("Let op, de voorleesfunctionaliteit brengt extra kosten met zich mee, hier wordt jaarlijks <? echo $_SESSION['Auth']['User']['general_text2speech_price']?> euro (excl btw) voor in rekening gebracht.")){
+                    if(confirm("Let op, de voorleesfunctionaliteit brengt extra kosten met zich mee, hier wordt elk schooljaar <? echo $_SESSION['Auth']['User']['general_text2speech_price']?> euro (excl btw) voor in rekening gebracht.")){
                         return true;
                     }
                     else{

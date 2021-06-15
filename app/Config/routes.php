@@ -35,6 +35,7 @@ if(MaintenanceHelper::getInstance()->doWeNeedToShowMaintenance()){
      */
     Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
     Router::connect('/app', array('controller' => 'pages', 'action' => 'display', 'app'));
+    Router::connect('/logout', array('controller' => 'pages', 'action' => 'logout'));
 
     /**
      * Load all plugin routes. See the CakePlugin documentation on

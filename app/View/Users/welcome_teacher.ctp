@@ -372,6 +372,17 @@ if ($wizard_steps) {
 
 <script src="/js/confetti.min.js"></script>
 <script>
+    if(typeof(window.oneTrustInjected) === 'undefined') {
+        <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
+        //
+        // $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
+        // $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
+        // function OptanonWrapper() { }
+        // window.oneTrustInjected = true;
+
+        <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
+    }
+
     if (typeof hubspotLoaded == 'undefined') {
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
@@ -406,6 +417,9 @@ if ($wizard_steps) {
         }
         ?>
     }
+    // if($('#ot-sdk-btn').length !==1 ) {
+    //     $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
+    // }
 
     var activeStep = "<?= $wizard_steps['active_step'] ?>";
     var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
@@ -685,6 +699,7 @@ if ($wizard_steps) {
     function displayCompleteUserImport() {
         Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
     }
+
 </script>
 <style>
     .block .block-content {

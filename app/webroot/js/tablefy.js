@@ -215,6 +215,9 @@
                 if(!endResults) {
                     if (!areHeadersPrepared()) {
                         prepareHeadersFixed();
+                        if(typeof settings.afterFirstRunCallback === 'function'){
+                            settings.afterFirstRunCallback();
+                        }
                     } else { // after filter click
                         makeElementsFixed();
                     }

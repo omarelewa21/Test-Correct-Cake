@@ -212,6 +212,20 @@ div.block-content img {
     border:1px solid #333333;
 }
 
+.cookie-button {
+    color: #191a17 !important;
+    border: none !important;
+    padding: 10px 15px 7px 15px !important;
+    text-decoration: none;
+    display: block;
+    transition: background-color 200ms linear !important;
+    font-family: "Myriad Pro", "Arial";
+    font-size: 1rem!important;
+}
+.cookie-button:hover {
+    background-color: white!important;
+}
+
 .colorcode-1 {color:#dddddd;background-color:#dddddd;}
 .colorcode-2 {color:#555555;background-color:#555555;}
 .colorcode-3 {color:#83DC92;background-color:#83DC92;}
@@ -260,7 +274,7 @@ div.block-content img {
 .colorcode-46 {color:#03FA25;background-color:#03FA25;}
 .colorcode-47 {color:#E2E3E2;background-color:#E2E3E2;}
 
-.tablefie td,
+.tablefied td,
 .tablefied th {
     box-sizing:border-box;
 }
