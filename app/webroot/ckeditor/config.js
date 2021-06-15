@@ -8,7 +8,7 @@ CKEDITOR.plugins.addExternal('ckeditor_wiris', 'plugins/@wiris/mathtype-ckeditor
 
 
 CKEDITOR.editorConfig = function( config ) {
-    config.extraPlugins = 'clipboard,pastefromgdocs,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
+    config.extraPlugins = 'clipboard,pastetools,pastefromgdocs,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
     config.allowedContent = true;
     config.disableNativeSpellChecker = true;
 
