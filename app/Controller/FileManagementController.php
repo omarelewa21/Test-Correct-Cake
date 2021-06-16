@@ -365,6 +365,9 @@ class FileManagementController extends AppController {
         ];
 
         $data = $this->FileService->getItem($id, $params);
+        // for($i = 0; $i < sizeof($data); $i++){
+        //     $data['status']['name'][$i] = __($data['status']['name'][$i]);
+        // }
 
 
         $this->set('file', $data);

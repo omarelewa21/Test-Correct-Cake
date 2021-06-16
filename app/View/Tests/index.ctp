@@ -20,9 +20,6 @@
                         </div>
                         <div class="col-md-5">
                             <label><?= __("Type")?></label>
-                            <?php for($i = 0; $i<sizeof($kinds); $i++){
-                                $kinds[$i] = "\"<?= __('" . $kinds[$i] . "')?>\"";
-                            } ?>
                             <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
                         </div>
                     </div>

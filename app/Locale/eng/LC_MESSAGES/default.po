@@ -1345,6 +1345,48 @@ msgstr "Code"
 msgid "Behandelaar"
 msgstr "Practitioner"
 
+msgid "Nieuw"
+msgstr "New"
+
+msgid "In Behandeling"
+msgstr "Processing"
+
+msgid "Behandeling gepauzeerd"
+msgstr "Processing paused"
+
+msgid "gereed voor eerste controle"
+msgstr "Ready for first round of checks"
+
+msgid "gereed voor tweede controle"
+msgstr "Ready for second round of checks"
+
+msgid "bijna klaar"
+msgstr "Almost done"
+
+msgid "goedgekeurd"
+msgstr "Approved"
+
+msgid "onvolledig, items ontbreken"
+msgstr "Incomplete"
+
+msgid "Antwoordmodel ontbreekt"
+msgstr "Answer model missing"
+
+msgid "Meerdere toetsen aanwezig"
+msgstr "Multiple tests present"
+
+msgid "Onduidelijke opdracht"
+msgstr "Unclear taks"
+
+msgid "Afgerond"
+msgstr "Done"
+
+msgid "Geannuleerd"
+msgstr "Canceled"
+
+msgid "Unclear taks"
+msgstr "Unclear task"
+
 msgid "Klik om uit te nodigen"
 msgstr "Click to invite"
 
@@ -2769,6 +2811,12 @@ msgstr "Absent"
 
 msgid "Formatief"
 msgstr "Formative"
+
+msgid "Summatief"
+msgstr "Summative test"
+
+msgid "Oefentoets"
+msgstr "Practice test"
 
 msgid "Geen informatie voor deze Student"
 msgstr "No information for this Student"

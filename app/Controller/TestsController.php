@@ -53,6 +53,9 @@ class TestsController extends AppController
         $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(false));
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
         //$education_levels = [0 => __("Alle")] + $education_levels;
         $periods = [0 => __("Alle")] + $periods;
@@ -151,6 +154,9 @@ class TestsController extends AppController
         $params['filter'] = ['current_school_year' => 1];
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
         $periods = $this->TestsService->getPeriods(false, $params);
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -188,6 +194,9 @@ class TestsController extends AppController
         $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(true);
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -218,6 +227,9 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
         $this->set('education_levels', $education_levels);
         $this->set('kinds', $kinds);
@@ -321,6 +333,9 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
         $this->set('totalScore', $totalScore);
         if($msg != ''){
