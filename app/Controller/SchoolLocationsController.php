@@ -168,7 +168,7 @@ class SchoolLocationsController extends AppController
             die;
         }
 
-        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_id);
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_id, true);
 
         $levels = [];
 
@@ -194,6 +194,18 @@ class SchoolLocationsController extends AppController
             $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
+        $lvs_types = ['' => 'Geen'];
+        foreach ($school_location['lvs_options'] as $option) {
+            $lvs_types += [$option => $option];
+        }
+
+        $sso_types = ['' => 'Geen'];
+        foreach ($school_location['sso_options'] as $option) {
+            $sso_types += [$option => $option];
+        }
+
+        $this->set('lvs_types', $lvs_types);
+        $this->set('sso_types', $sso_types);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('accountmanagers', $accountmanagers);

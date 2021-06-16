@@ -118,8 +118,14 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocation($id) {
-        $response = $this->Connector->getRequest('/school_location/' . $id, []);
+    public function getSchoolLocation($id, $withLvsAndSsoOptions = false) {
+        $params = [];
+
+        if ($withLvsAndSsoOptions) {
+            $params = ['withLvsAndSso' => true];
+        }
+
+        $response = $this->Connector->getRequest('/school_location/' . $id, $params);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

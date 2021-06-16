@@ -128,6 +128,36 @@
             <th>Land</th>
             <td><?=$this->Form->input('visit_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
+        <tr>
+            <th>LVS Koppeling type</th>
+            <td>
+                <?=$this->Form->input('lvs_type', array('style' => 'width: 185px', 'label' => false, 'options' => $lvs_types)); ?>
+            </td>
+
+            <th>LVS koppeling</th>
+            <td>
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->checkbox('lvs_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
+                    <span class="slider round"></span>
+                </label>
+
+            </td>
+
+        </tr>
+        <tr>
+            <th>Single Sign On type</th>
+            <td>
+                <?=$this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types, 'selected' => '')); ?>
+            </td>
+
+            <th>Single Sign On</th>
+            <td>
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->checkbox('sso_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
+                    <span class="slider round"></span>
+                </label>
+            </td>
+        </tr>
     </table>
     <?=$this->Form->end();?>
 </div>
@@ -172,7 +202,7 @@
                 });
             }
         });
-
+        checkSchoolLocationLvsType();
     });
 
 
@@ -215,7 +245,19 @@
     });
 
 
+    function checkSchoolLocationLvsType() {
+        var lvs_toggle = document.querySelector('#SchoolLocationLvsActive')
+        if (document.querySelector('#SchoolLocationLvsType').value === '') {
+            $('#SchoolLocationLvsActive').prop('checked', false);
+            lvs_toggle.setAttribute('disabled', 'disabled');
+        } else {
+            lvs_toggle.removeAttribute('disabled');
+        }
+    }
 
+    $("#SchoolLocationLvsType").on('change',function(){
+       checkSchoolLocationLvsType();
+    });
 
 
 </script>
