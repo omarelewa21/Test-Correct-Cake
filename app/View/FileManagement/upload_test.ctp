@@ -250,8 +250,8 @@
                         allowProcess: false,
                         allowFileSizeValidation: true,
                         maxTotalFileSize: <?php echo $max_file_upload_size ?>,
-                        labelMaxTotalFileSizeExceeded: __("Maximale bestandsgrootte bereikt"),
-                        labelMaxTotalFileSize: __("Bestandsgrootte is maximaal {filesize}"),
+                        labelMaxTotalFileSizeExceeded: "<?php echo __("Maximale bestandsgrootte bereikt") ?>",
+                        labelMaxTotalFileSize: "<?php echo __("Bestandsgrootte is maximaal {filesize}") ?>",
 
                     });
                     FilePond.setOptions({
