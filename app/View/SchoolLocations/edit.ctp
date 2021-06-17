@@ -73,22 +73,30 @@
             </td>
 
 
-            <th>Is rtti school location</th>
+            <th>Is rtti school</th>
 
             <td>
-                <?=$this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Is RTTI school
+                <label class="switch" style="display:flex;">
+                    <?=$this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
         </tr>
         <tr>
-          <th>Open source content creator</th>
-          <td>
-              <?=$this->Form->input('is_open_source_content_creator',array('type'=>'checkbox','label'=>false)); ?>
-          </td>
-          <th>Mag open source content bekijken</th>
-          <td>
-              <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
-          </td>
+            <th>Open source content creator</th>
+            <td>
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('is_open_source_content_creator', array('type' => 'checkbox', 'label' => false, 'value' => 1, 'div' => false)); ?>
+                    <span class="slider round"></span>
+                </label>
+            </td>
+            <th>Mag open source content bekijken</th>
+            <td>
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('is_allowed_to_view_open_source_content', array('type' => 'checkbox', 'label' => false, 'value' => 1, 'div' => false)); ?>
+                    <span class="slider round"></span>
+                </label>
+            </td>
         </tr>
 
         <tr>
@@ -147,7 +155,7 @@
         <tr>
             <th>Single Sign On type</th>
             <td>
-                <?=$this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types, 'selected' => '')); ?>
+                <?=$this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types)); ?>
             </td>
 
             <th>Single Sign On</th>
@@ -247,15 +255,23 @@
 
     function checkSchoolLocationLvsType() {
         var lvs_toggle = document.querySelector('#SchoolLocationLvsActive')
+        var sso_toggle = document.querySelector('#SchoolLocationSsoActive')
         if (document.querySelector('#SchoolLocationLvsType').value === '') {
             $('#SchoolLocationLvsActive').prop('checked', false);
             lvs_toggle.setAttribute('disabled', 'disabled');
         } else {
             lvs_toggle.removeAttribute('disabled');
         }
+
+        if (document.querySelector('#SchoolLocationSsoType').value === '') {
+            $('#SchoolLocationSsoActive').prop('checked', false);
+            sso_toggle.setAttribute('disabled', 'disabled');
+        } else {
+            sso_toggle.removeAttribute('disabled');
+        }
     }
 
-    $("#SchoolLocationLvsType").on('change',function(){
+    $("#SchoolLocationLvsType, #SchoolLocationSsoType").on('change',function(){
        checkSchoolLocationLvsType();
     });
 
