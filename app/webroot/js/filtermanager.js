@@ -57,6 +57,47 @@ function FilterManager(settings) {
         }.bind(this));
     };
 
+    this.initCustom = function() {
+        this.renderActiveFilter();
+        this.isInitalizingState = true;
+        this.renderSelectFilterBoxNotFirstRun();
+        this.addChangeEventsToFilter(this);
+        this.initializeSelect2Fields();
+        this.isInitalizingState = false;
+        this.unlockFilters();
+        return;
+    };
+
+    this.lockFilters = function() {
+        var t = $('#filterTable');
+        var parent = t.parent().parent();
+        parent.css('position','relative');
+        $('<div id="filterLock" style="background:url(/img/loading.gif);background-repeat:no-repeat;background-position:center;background-color:black;opacity:0.15;width:'+parent.width()+'px;height:'+parent.height()+'px;position:absolute;bottom:0;left:0"></div>').appendTo(parent);
+    }
+
+    this.unlockFilters = function() {
+        $('#filterLock').remove();
+    }
+
+    this.prepareForAuthors = function() {
+
+        $.getJSON('/search_filter/get/' + this.settings.filterKey, function (response) {
+            this.filters = response.data;
+            var author_select = $('#TestAuthorId');
+            author_select.html('');
+            $.each(response.data, function (key1, obj) {
+                if(obj.active && obj.filters.hasOwnProperty('authorId')){
+                    $.each(obj.filters.authorId.filter, function (key,item) {
+                        var option = $('<option value="' + item + '"></option>');
+                        author_select.append(option);
+                    });
+                };
+            });
+            this.initializeSelect2Fields();
+            this.initializeSavedFilterSelect();
+        }.bind(this));
+    };
+
     this.initializeSelect2Fields = function () {
         this.filterFields.forEach(function (field) {
             if (field.type === 'multiSelect') {
@@ -464,10 +505,16 @@ function FilterManager(settings) {
 
     this.bindActiveFilterDataToFilterModal = function () {
         this.filterFields.forEach(function (item) {
+            var input = this.getJqueryFilterInput(item.field);
+            var newValue = '';
             if (this.activeFilter && this.activeFilter.filters.hasOwnProperty(item.field)) {
-                var newValue = this.activeFilter.filters[item.field].filter;
-                var input = this.getJqueryFilterInput(item.field);
+                newValue = this.activeFilter.filters[item.field].filter;
 
+                if (!newValue && input.get(0).tagName === 'SELECT') {
+                    newValue = '0';
+                }
+                input.val(newValue);
+            } else if (this.activeFilter && !this.activeFilter.filters.hasOwnProperty(item.field)) {
                 if (!newValue && input.get(0).tagName === 'SELECT') {
                     newValue = '0';
                 }
@@ -597,9 +644,10 @@ function FilterManager(settings) {
         var tablefySettings = {
                             'source': this.settings.tablefy.source,
                             'filters': $(this.settings.tablefy.filters),
-                            'container': $(this.settings.tablefy.container)
-                        }
-        $(this.settings.table).tablefy(tablefySettings);
+                            'container': $(this.settings.tablefy.container),
+                            'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback
+                        };
+         $(this.settings.table).tablefy(tablefySettings);
     }
 }
 

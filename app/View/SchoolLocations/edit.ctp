@@ -65,11 +65,11 @@
         <tr>
             <th>Brin code</th>
             <td>
-                <?=$this->Form->input('external_main_code',array('style' => 'width: 185px', 'label' => false));?>
+                <?=$this->Form->input('external_main_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 4, 'verify' => 'length-0-or-4'));?>
             </td>
-            <th>Locatie brin code</th>
+            <th>Locatie brin code (Max. 2 karakters)</th>
             <td>
-                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false));?>
+                <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2));?>
             </td>
 
 
@@ -135,9 +135,11 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Wijzigen
-    </a>
+    <?php if(strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
+            Wijzigen
+        </a>
+    <?php } ?>
 </div>
 
 <script type="text/javascript">
@@ -146,12 +148,13 @@
 
         var revert = true;
 
-        if($("#SchoolLocationSchoolId").val() != '0') {
-            $("#SchoolLocationExternalMainCode").attr('disabled','disabled');
-        }
+        $("#SchoolLocationExternalMainCode").on('change', function() {
+            if ($("#SchoolLocationExternalMainCode").val().length > 0 && $("#SchoolLocationExternalMainCode").val().length < 4) {
+                Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
+            }
+        });
 
         $("#SchoolLocationSchoolId").on('change',function(){
-
             var currentVal = $("#SchoolLocationSchoolId").val();
 
             if(currentVal == "0") {
@@ -182,8 +185,10 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                // console.log(result);
                 // Notify.notify("School kon niet worden aangemaakt", "error");
+                if (result[0].toLowerCase().includes('locatie brin code')) {
+                    $("#SchoolLocationExternalSubCode").removeClass('verify-ok').addClass('verify-error');
+                }
                 Notify.notify(result.join('<br />'), 'error');
             }
         }

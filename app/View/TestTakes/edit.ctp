@@ -47,18 +47,39 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'multiple' => true, 'class' => 'takers_select', 'value' => $selectedInvigilator)) ?>
                 </td>
             </tr>
+            <?php if($is_rtti_school_location == '1'): ?>
+                <tr class="testTakeRow">
+                    <td colspan="7">
+                        <div style="display: flex;">
+                            <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
+                                <span class="fa fa-upload"></span>
+                                <span style="color: black; margin-left: 10px; margin-right: 10px;"><strong>Resultaten toetsafname exporteren naar RTTI Online</strong></span>
+                                <div style="display: flex; align-items: center; margin-left: auto">
+                                    <?php echo $this->element('questionmark_tooltip_rtti', array('id' => 1)) ?>
+                                    <label class="switch">
+                                        <?php echo $this->Form->checkbox('is_rtti_test_take', array('checked' => $take['is_rtti_test_take'], 'value' => 1, 'label' => false)); ?>
+                                        <span class="slider round"></span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            <?php endif; ?>
             <?php if ($school_allows_inbrowser_testing) { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
-                        <div style="display:flex; align-items: center; color: var(--system-base)"">
+                        <div style="display:flex; align-items: center; color: var(--system-base); width: 100%;">
                             <span class="fa fa-chrome"></span>
                             <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
-                            <?php echo $this->element('questionmark_tooltip', array('id' => 1)) ?>
-                            <label class="switch">
-                                <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'], 'value' => !$take['allow_inbrowser_testing'],'label' => false)); ?>
-                                <span class="slider round"></span>
-                            </label>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip', array('id' => 1)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('checked' => $take['allow_inbrowser_testing'],'value' => 1,'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </td>
@@ -72,15 +93,6 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     <?=$this->Form->input('invigilator_note', array('style' => 'width: 98%; height: 100px;', 'label' => false, 'value' => $take['invigilator_note'], 'type' => 'textarea')) ?>
                 </td>
             </tr>
-
-            <?php if($is_rtti_school_location == '1'): ?>
-                <tr class="testTakeRow">
-                    <th>Is RTTI</th>
-                    <td>
-                        <?=$this->Form->input('is_rtti_test_take', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'div' => false, 'style' => 'width:20px;', 'checked' => (bool) $take['is_rtti_test_take'])) ?>
-                    </td>
-                </tr>
-            <?php endif; ?>
         </table>
     <?=$this->Form->end();?>
 </div>

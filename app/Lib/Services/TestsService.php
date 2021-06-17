@@ -209,6 +209,20 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getAuthors()
+    {
+        $params = [];
+        $response = $this->Connector->getRequest('/authors', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        $newArray = [];
+        foreach($response as $item) {
+            $newArray[$item['id']] = $item['name_first'].' '.$item['name_suffix'].' '.$item['name'];
+        }
+        return $newArray;
+    }
+
     public function getPeriods($full = false, $params = null) {
 
         if(empty($params)) {
@@ -259,7 +273,7 @@ class TestsService extends BaseService {
         return $response;
     }
 
-    public function getSubjects($personal = false, $mode = 'list', $without_demo=false) {
+    public function getSubjects($personal = false, $mode = 'list', $without_demo=false, $without_imp=false) {
 
         if($personal) {
             if(isset($params['filter'])){
@@ -278,6 +292,14 @@ class TestsService extends BaseService {
                 $params['filter']['demo'] = 0;
             } else {
                 $params['filter'] = ['demo' => 0];
+            }
+        }
+
+        if ($without_imp){
+            if(isset($params['filter'])){
+                $params['filter']['imp'] = 0;
+            } else {
+                $params['filter'] = ['imp' => 0];
             }
         }
 

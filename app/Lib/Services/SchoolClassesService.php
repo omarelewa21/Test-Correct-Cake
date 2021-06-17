@@ -212,17 +212,18 @@ class SchoolClassesService extends BaseService {
 
         $response = $this->Connector->putRequest('/school_class/update_with_education_levels_for_main_classes',[], $data);
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
         }
-
         return $response;
     }
     public function updateWithEductionLevelsForClusterClasses($data) {
         $response = $this->Connector->putRequest('/school_class/update_with_education_levels_for_cluster_classes',[], $data);
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
         }
 
         return $response;
@@ -232,10 +233,10 @@ class SchoolClassesService extends BaseService {
     public function updateTeachersWithSubjectsForClusterClasses($data) {
         $response = $this->Connector->putRequest('/teacher/update_with_subjects_for_cluster_classes',[], $data);
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
         }
-
         return $response;
     }
 
