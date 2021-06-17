@@ -236,6 +236,7 @@ class SchoolClassesController extends AppController
         }
 
         $this->set('is_rtti', $this->SchoolClassesService->getClass($class_id)['school_location']['is_rtti_school_location']);
+        $this->set('lvs_type', $this->SchoolClassesService->getClass($class_id)['school_location']['lvs_type']);
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
         $educationLevels = $this->TestsService->getEducationLevels(false, false);

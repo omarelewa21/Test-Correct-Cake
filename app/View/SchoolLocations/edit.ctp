@@ -272,8 +272,9 @@
 
         if (document.querySelector('#SchoolLocationSsoType').value === '') {
             $('#SchoolLocationSsoActive').prop('checked', false);
+            $('#SchoolLocationLvsActive').prop('checked', false);
             sso_toggle.setAttribute('disabled', 'disabled');
-        } else if (!!hasRunImport === true) {
+        } else {
             sso_toggle.removeAttribute('disabled');
         }
     }
