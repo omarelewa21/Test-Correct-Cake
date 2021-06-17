@@ -62,7 +62,7 @@ foreach($education_levels as $education_level) {
                 </td>
             </tr>
 
-           <?php if($is_rtti == 1): ?>
+           <?php if($is_rtti == 1 || $lvs_type != null): ?>
             <tr>
                 <th>LVS</th>
                 <td>

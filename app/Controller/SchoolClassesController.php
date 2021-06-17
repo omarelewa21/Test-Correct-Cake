@@ -155,6 +155,7 @@ class SchoolClassesController extends AppController
         // klas niet overschrijven checkbox 
         $school_location = AuthComponent::user('school_location');
         $this->set('is_rtti', $school_location['is_rtti_school_location']);
+        $this->set('lvs_type', $school_location['lvs_type']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
 

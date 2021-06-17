@@ -113,6 +113,20 @@
                     </select>
                 </td>
             </tr>
+            <tr>
+                <th>LVS Koppeling</th>
+                <td><?= $school_location['lvs_type'] === null ? 'Geen koppeling' : $school_location['lvs_type'] ?></td>
+
+                <th>LVS Koppeling actief</th>
+                <td><?= $school_location['lvs_active'] ? 'Ja' : 'Nee' ?></td>
+            </tr>
+            <tr>
+                <th>SSO Koppeling</th>
+                <td><?=$school_location['sso_type'] === null ? 'Geen koppeling' : $school_location['sso_type']?></td>
+
+                <th>SSO Koppeling actief</th>
+                <td><?=$school_location['sso_active'] ? 'Ja' : 'Nee' ?></td>
+            </tr>
         </table>
     </div>
 </div>

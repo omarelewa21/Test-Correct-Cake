@@ -127,6 +127,17 @@
             <th>Land</th>
             <td><?=$this->Form->input('visit_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
+        <tr>
+            <th>LVS Koppeling type</th>
+            <td>
+                <?= $this->Form->input('lvs_type', array('style' => 'width: 185px', 'label' => false, 'options' => $lvs_types)); ?>
+            </td>
+
+            <th>Single Sign On type</th>
+            <td>
+                <?= $this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types)); ?>
+            </td>
+        </tr>
     </table>
     <?=$this->Form->end();?>
 </div>
