@@ -238,4 +238,15 @@ class SchoolLocationsService extends BaseService
 
         return $response;
     }
+
+    public function getLvsAndSsoOptions()
+    {
+        $response = $this->Connector->getRequest('/school_location/get_lvs_and_sso_options', []);
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
 }

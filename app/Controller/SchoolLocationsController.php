@@ -370,6 +370,19 @@ class SchoolLocationsController extends AppController
             $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
+        $lvs_and_sso_options = $this->SchoolLocationsService->getLvsAndSsoOptions();
+
+        $lvs_types = ['' => 'Geen'];
+        foreach ($lvs_and_sso_options['lvs'] as $option) {
+            $lvs_types += [$option => $option];
+        }
+        $sso_types = ['' => 'Geen'];
+        foreach ($lvs_and_sso_options['sso'] as $option) {
+            $sso_types += [$option => $option];
+        }
+
+        $this->set('lvs_types', $lvs_types);
+        $this->set('sso_types', $sso_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
