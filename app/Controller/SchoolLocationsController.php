@@ -198,14 +198,16 @@ class SchoolLocationsController extends AppController
         foreach ($school_location['lvs_options'] as $option) {
             $lvs_types += [$option => $option];
         }
-
         $sso_types = ['' => 'Geen'];
         foreach ($school_location['sso_options'] as $option) {
             $sso_types += [$option => $option];
         }
 
+        $schoolLocationHasRunManualImport = $school_location['has_run_manual_import'];
+
         $this->set('lvs_types', $lvs_types);
         $this->set('sso_types', $sso_types);
+        $this->set('school_location_has_run_manual_import', $schoolLocationHasRunManualImport);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('accountmanagers', $accountmanagers);

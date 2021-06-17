@@ -45,8 +45,10 @@
         <tr>
             <th>Contact actief</th>
             <td>
-                <?=$this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Contract is actief
+                <label class="switch" style="display:flex;">
+                    <?=$this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
             <th>
                 Aantal Studenten
@@ -181,6 +183,7 @@
 </div>
 
 <script type="text/javascript">
+    var hasRunImport = "<?php echo !! $school_location_has_run_manual_import ?>";
 
     $(document).ready(function(){
 
@@ -256,17 +259,19 @@
     function checkSchoolLocationLvsType() {
         var lvs_toggle = document.querySelector('#SchoolLocationLvsActive')
         var sso_toggle = document.querySelector('#SchoolLocationSsoActive')
+
         if (document.querySelector('#SchoolLocationLvsType').value === '') {
             $('#SchoolLocationLvsActive').prop('checked', false);
             lvs_toggle.setAttribute('disabled', 'disabled');
-        } else {
+        } else if (!!hasRunImport === true) {
+            console.log('run import true')
             lvs_toggle.removeAttribute('disabled');
         }
 
         if (document.querySelector('#SchoolLocationSsoType').value === '') {
             $('#SchoolLocationSsoActive').prop('checked', false);
             sso_toggle.setAttribute('disabled', 'disabled');
-        } else {
+        } else if (!!hasRunImport === true) {
             sso_toggle.removeAttribute('disabled');
         }
     }
