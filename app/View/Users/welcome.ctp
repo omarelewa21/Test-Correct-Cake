@@ -1,22 +1,22 @@
-<h1 style="text-align:center; margin-top: 200px;">Welkom in Test-Correct</h1>
 <?php if($hasSchoolManagerRole) { ?>
-<div class="dashboard">
-    <div class="notes">
-        <?php if ($should_display_import_incomplete_panel) { ?>
-        <div class="notification error">
-            <div class="title">
-                <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
-                    style="margin-left: 20px;">Import gegevens van klassen zijn incompleet</h5>
-            </div>
-            <div class="body">
-                <p>Van de geïmporteerde klassen gegevens uit Magister zijn incompleet. Er missen gegevens van één of meerdere klassen. Deze kunnen niet ingepland worden voor toetsen. Maak deze eerst compleet door op onderstaande link te klikken.</p>
-                <a class="text-button" onclick="displayCompleteUserImport()">Inloggegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
-            </div>
+    <div class="dashboard">
+        <div class="notes">
+            <?php if ($should_display_import_incomplete_panel) { ?>
+                <div class="notification warning">
+                    <div class="title">
+                        <h5 style="">De importgegevens van klassen zijn bijna compleet</h5>
+                    </div>
+                    <div class="body">
+                        <p>De geïmporteerde gegevens van klassen uit Magister of SOMtoday zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen.</p>
+                        <a class="text-button" onclick="displayCompleteUserImport()">Importgegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
+                    </div>
+                </div>
+            <?php }?>
         </div>
-        <?php }?>
     </div>
-</div>
 <?php } ?>
+
+<h1 style="text-align:center; margin-top: 200px;">Welkom in Test-Correct</h1>
 
 <script>
     function displayCompleteUserImport() {
