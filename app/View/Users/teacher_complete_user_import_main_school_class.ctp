@@ -58,9 +58,20 @@
         border-color: var(--primary);
     }
 
+    .checkbox-custom:checked:disabled + .checkbox-custom-label:before, .radio-custom:checked:disabled + .radio-custom-label:before, .number-radio:checked:disabled + .number-radio-label:before {
+        content: '';
+        background: var(--mid-grey);
+        border-color: var(--mid-grey);
+    }
+
     .checkbox-custom:checked + .checkbox-custom-label.checkbox-green:before {
         background: var(--cta-primary);
         border-color: var(--cta-primary);
+    }
+
+    .checkbox-custom:checked:disabled + .checkbox-custom-label.checkbox-green:before {
+        background: var(--mid-grey);
+        border-color: var(--mid-grey);
     }
 
     .checkbox-custom-label svg, .radio-custom-label svg {
@@ -162,7 +173,7 @@
                 <tbody>
                 <?php $checkedCount = 0; ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
-                    <?php if(!$schoolClass['checked_by_teacher']){ ?>
+                    <?php if(!$schoolClass['checked_by_teacher'] || ($schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] === AuthComponent::user('id'))){ ?>
                         <tr>
                             <td width="200px"><?= $schoolClass['name'] ?> </td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
@@ -223,7 +234,7 @@
                 </tr>
 
                     <?php foreach ($classes_list as $schoolClass) { ?>
-                        <?php if($schoolClass['checked_by_teacher']){ ?>
+                        <?php if($schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] !== AuthComponent::user('id')){ ?>
                             <tr>
                                 <td width="200px"><?= $schoolClass['name'] ?> </td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
