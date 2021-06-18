@@ -39,6 +39,7 @@
 </div>
 
 <script>
+    clearInterval(User.userLogoutInterval);
     $(document).ready(function() {
         $('#prevent_logout_div').parent().css({'border-radius': '10px'})
     })
