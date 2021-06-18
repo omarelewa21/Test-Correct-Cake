@@ -424,9 +424,9 @@ class TestTakesController extends AppController {
         }
 
         if ($take['test_take_status_id'] == 9) {
-            $this->isAuthorizedAs(["Teacher", "Invigilator", "Student"]);
+            $this->isAuthorizedAs(["Teacher", "Invigilator", "Student", "School Manager"]);
         } else {
-            $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+            $this->isAuthorizedAs(["Teacher", "Invigilator", "School Manager"]);
         }
 
         $this->set('take', $take);
