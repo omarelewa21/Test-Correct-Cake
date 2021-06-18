@@ -146,7 +146,7 @@
 
             <th>LVS koppeling actief</th>
             <td>
-                <label class="switch" style="display:flex;">
+                <label id="lvs_toggle" class="switch" style="display:flex;">
                     <?= $this->Form->checkbox('lvs_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
                     <span class="slider round"></span>
                 </label>
@@ -162,7 +162,7 @@
 
             <th>Single Sign On actief</th>
             <td>
-                <label class="switch" style="display:flex;">
+                <label id="sso_toggle" class="switch" style="display:flex;">
                     <?= $this->Form->checkbox('sso_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
                     <span class="slider round"></span>
                 </label>
@@ -193,6 +193,9 @@
             if ($("#SchoolLocationExternalMainCode").val().length > 0 && $("#SchoolLocationExternalMainCode").val().length < 4) {
                 Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
             }
+        });
+        $("#SchoolLocationExternalSubCode, #SchoolLocationExternalMainCode").on('input', function () {
+            checkSchoolLocationLvsType();
         });
 
         $("#SchoolLocationSchoolId").on('change', function () {
@@ -268,6 +271,10 @@
             if (!!hasRunImport === true) {
                 lvs_toggle.removeAttribute('disabled');
             }
+            if ($("#SchoolLocationExternalSubCode").val() === '' || $("#SchoolLocationExternalMainCode").val() === '') {
+                $('#SchoolLocationLvsActive').prop('checked', false);
+                lvs_toggle.setAttribute('disabled', 'disabled');
+            }
         }
 
         if (document.querySelector('#SchoolLocationSsoType').value === '') {
@@ -276,6 +283,10 @@
             sso_toggle.setAttribute('disabled', 'disabled');
         } else {
             sso_toggle.removeAttribute('disabled');
+            if ($("#SchoolLocationExternalSubCode").val() === '' || $("#SchoolLocationExternalMainCode").val() === '') {
+                $('#SchoolLocationSsoActive').prop('checked', false);
+                sso_toggle.setAttribute('disabled', 'disabled');
+            }
         }
     }
 
@@ -301,4 +312,9 @@
         }
     });
 
+    $('#sso_toggle, #lvs_toggle').click(function() {
+        if ($('#SchoolLocationSsoActive').prop('disabled') && ($("#SchoolLocationExternalSubCode").val() === '' || $("#SchoolLocationExternalMainCode").val() === '')){
+            Notify.notify('BRIN/Locatie code mag niet leeg zijn als je LVS of SSO wilt activeren', 'error');
+        }
+    });
 </script>
