@@ -173,7 +173,14 @@
                 <tbody>
                 <?php $checkedCount = 0; ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
-                    <?php if(!$schoolClass['checked_by_teacher'] || ($schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] === AuthComponent::user('id'))){ ?>
+                    <?php if(
+                            !$schoolClass['finalized']
+                            &&
+                            (
+                                !$schoolClass['checked_by_teacher']
+                                || $schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] === AuthComponent::user('id')
+                            )
+                    ){ ?>
                         <tr>
                             <td width="200px"><?= $schoolClass['name'] ?> </td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
@@ -234,7 +241,13 @@
                 </tr>
 
                     <?php foreach ($classes_list as $schoolClass) { ?>
-                        <?php if($schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] !== AuthComponent::user('id')){ ?>
+                        <?php if(
+                                    (
+                                            $schoolClass['checked_by_teacher']
+                                            && $schoolClass['checked_by_teacher_id'] !== AuthComponent::user('id')
+                                    )
+                                    || $schoolClass['finalized']
+                        ){ ?>
                             <tr>
                                 <td width="200px"><?= $schoolClass['name'] ?> </td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
