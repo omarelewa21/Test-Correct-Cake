@@ -317,4 +317,10 @@
             Notify.notify('BRIN/Locatie code mag niet leeg zijn als je LVS of SSO wilt activeren', 'error');
         }
     });
+
+    $('#lvs_toggle').click(function() {
+        if ($('#SchoolLocationLvsActive').prop('disabled') && !!hasRunImport === false){
+            Notify.notify('De LVS koppeling kan pas actief gezet worden als de koppeling  minimaal één keer handmatig heeft gedraaid.', 'error');
+        }
+    });
 </script>
