@@ -162,7 +162,12 @@
                 <tbody>
                 <?php $checkedCount = 0; ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
-                    <?php if(!$schoolClass['finalized']){ ?>
+                    <?php if(
+                            !$schoolClass['finalized']
+                            && !$schoolClass['visible']
+                            && !$schoolClass['checked_by_teacher']
+                            && !$schoolClass['checked_by_admin']
+                    ){ ?>
                         <tr>
                             <td width="200px"><?= $schoolClass['name'] ?> </td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
@@ -223,7 +228,12 @@
                         <td colspan="<?= 2+ count($education_levels);?>">Reeds eerder gecontroleerde klassen</td>
                     </tr>
                     <?php foreach ($classes_list as $schoolClass) { ?>
-                        <?php if($schoolClass['finalized']){ ?>
+                        <?php if(
+                                $schoolClass['finalized']
+                                || $schoolClass['visible']
+                                || $schoolClass['checked_by_admin']
+                                || $schoolClass['checked_by_teacher']
+                        ){ ?>
                             <tr>
                                 <td width="200px"><?= $schoolClass['name'] ?> </td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
