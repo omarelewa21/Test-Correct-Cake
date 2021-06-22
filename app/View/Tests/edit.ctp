@@ -115,16 +115,18 @@
             Wil je de huidige toets verbeteren, of een nieuwe toets maken?
         </div>
         <div class="popup-content">
-            <div id="edit_test_type_update" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 150px;;cursor:pointer">
+            <div id="edit_test_type_update" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
                 <h4 class="mt1 mb2">Ik verbeter de huidige toets</h4>
                 <div>
-                De toets wordt aangepast. Er worden duplicaten aangemaakt van deze toets en alle vragen die eronder vallen
+                    <p>Het exemplaar waarin u nu werkt wordt aangepast.</p>
+                    (de vraagitems zullen in de itembank alleen vindbaar zijn op het niveau, het jaar en het vak dat u nu gekozen heeft)
                 </div>
             </div>
-            <div id="edit_test_type_copy" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 150px;;cursor:pointer">
+            <div id="edit_test_type_copy" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
                 <h4 class="mt1 mb2">Ik ben met een nieuwe toets bezig</h4>
                 <div>
-                De toets wordt gedupliceer en de aanpassingen worden in het duplicaat doorgevoerd. Let op! Het vak en/of het niveau van alle vragen die aan deze toets zijn gekoppeld wordt ook aangepast.
+                    <p>Er wordt een duplicaat gemaakt van de toets, de aanpassingen zijn te zien in het duplicaat.</p>
+                    (de vraagitems zullen in de itembank vindbaar zijn op het niveau, het jaar en het vak dat in het origineel stond aangegeven én die u nu gekozen heeft)
                 </div>
              </div>
         </div>
@@ -170,7 +172,7 @@
             'margin-left': (0 - (650 / 2)) + 'px',
             'margin-top': (0 - (400 / 2)) + 'px',
             'width': 650 + 'px',
-            'height': 400 + 'px',
+            'height': 500 + 'px',
             'zIndex': Popup.zIndex
         });
     }
