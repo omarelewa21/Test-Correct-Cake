@@ -174,6 +174,7 @@ class CoreConnector {
 
     public function putRequestFile($path, $params, $body)
     {
+
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
         $url = $path . "?" . http_build_query($params);
@@ -182,7 +183,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
         $headers = [

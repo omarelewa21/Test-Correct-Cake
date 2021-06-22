@@ -1,3 +1,4 @@
+<span id="edit_view">
 <div class="popup-head">Toets wijzigen</div>
 <div class="popup-content">
     <?= $this->Form->create('Test') ?>
@@ -100,11 +101,42 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnEditTest">
+    <a href="#" class="btn highlight mt5 mr5 pull-right display-none" id="btnEditTest">
+        Toets wijzigen
+    </a>
+    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnChooseEditTest">
         Toets wijzigen
     </a>
 </div>
-
+</span>
+<span id="choose_view" class="display-none">
+    <div class="popup-head">Type aanpassing kiezen</div>
+        <div class="popup-content">
+            Wil je de huidige toets verbeteren, of een nieuwe toets maken?
+        </div>
+        <div class="popup-content">
+            <div id="edit_test_type_update" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
+                <h4 class="mt1 mb2">Ik verbeter de huidige toets</h4>
+                <div>
+                    <p>Het exemplaar waarin u nu werkt wordt aangepast.</p>
+                    (de vraagitems zullen in de itembank alleen vindbaar zijn op het niveau, het jaar en het vak dat u nu gekozen heeft)
+                </div>
+            </div>
+            <div id="edit_test_type_copy" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
+                <h4 class="mt1 mb2">Ik ben met een nieuwe toets bezig</h4>
+                <div>
+                    <p>Er wordt een duplicaat gemaakt van de toets, de aanpassingen zijn te zien in het duplicaat.</p>
+                    (de vraagitems zullen in de itembank vindbaar zijn op het niveau, het jaar en het vak dat in het origineel stond aangegeven én die u nu gekozen heeft)
+                </div>
+             </div>
+        </div>
+        <div class="popup-footer">
+            <div>
+                <a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="showEditView()">Annuleren</a>
+            </div>
+        </div>
+</span>
+<script type="text/javascript" src="/js/formhandler.js?<?= time() ?>"></script>
 <script type="text/javascript">
     $('#TestEditForm').formify(
         {
@@ -123,6 +155,60 @@
             }
         }
     );
+
+    $(document).ready(function(){
+        showEditView();
+        $('body').on('click','#btnChooseEditTest',function(){
+            sendFormOrChooseType();
+        })
+        Test.editTestChooseTypeEvents('TestEditForm','btnEditTest','<?=$test_id?>');
+        fillParamBag();
+    });
+
+    function showChooseView(){
+        $('#edit_view').hide();
+        $('#choose_view').show();
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (650 / 2)) + 'px',
+            'margin-top': (0 - (400 / 2)) + 'px',
+            'width': 650 + 'px',
+            'height': 500 + 'px',
+            'zIndex': Popup.zIndex
+        });
+    }
+    function showEditView(){
+        $('#choose_view').hide();
+        $('#edit_view').show();
+        $('#popup_' + Popup.index).css({
+            'margin-left': (0 - (800 / 2)) + 'px',
+            'margin-top': (0 - (800 / 2)) + 'px',
+            'width': 1000 + 'px',
+            'height': 600 + 'px',
+            'zIndex': Popup.zIndex
+        });
+    }
+
+    function fillParamBag(){
+        Test.paramBag.subjectId = $('#TestSubjectId').val();
+        Test.paramBag.educationLevelId = $('#TestEducationLevelId').val();
+        Test.paramBag.educationLevelYear = '<?=$education_level_year?>';
+    }
+
+    function sendFormOrChooseType(){
+        if(Test.paramBag.subjectId != $('#TestSubjectId').val()){
+            showChooseView();
+            return;
+        }
+        if(Test.paramBag.educationLevelId != $('#TestEducationLevelId').val()){
+            showChooseView();
+            return;
+        }
+        if(Test.paramBag.educationLevelYear != $('#TestEducationLevelYear').val()){
+            showChooseView();
+            return;
+        }
+        $('#btnEditTest').click();
+    }
 
     function updateEducationYears() {
         var val = $('#TestEducationLevelId').val();
