@@ -172,7 +172,8 @@
                 <?php $checkedCount = 0; ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
-                        !$schoolClass['finalized']
+                        !$schoolClass['visible']
+                        && !$schoolClass['finalized']
                         &&
                         (
                             !$schoolClass['checked_by_teacher']
@@ -256,6 +257,7 @@
                                 && $schoolClass['checked_by_teacher_id'] !== AuthComponent::user('id')
                             )
                             || $schoolClass['finalized']
+                            || $schoolClass['visible']
                         ){ ?>
                             <tr>
                                 <td width="200px"><?= $schoolClass['name'] ?></td>
