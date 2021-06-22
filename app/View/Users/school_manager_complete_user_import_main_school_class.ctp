@@ -339,7 +339,11 @@
                             msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
                         }
                         Notify.notify(msg)
-                        // Popup.closeLast();
+                        if(data.result.done){
+                            Notify.notify('Super!<br/>Alle gegevens zijn verwerkt');
+                            Popup.closeLast();
+                            Navigation.refresh();
+                        }
 
                     },
                 });

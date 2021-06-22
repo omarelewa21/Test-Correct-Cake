@@ -415,9 +415,14 @@
 
                                 Notify.notify(msg)
                                 Popup.closeLast();
-                                window.setTimeout(function () {
-                                    Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
-                                }, 500);
+                                if(data.result.done){
+                                    Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
+                                    Navigation.refresh();
+                                } else {
+                                    window.setTimeout(function () {
+                                        Popup.load('users/teacher_complete_user_import_subject_cluster_class', 1080);
+                                    }, 500);
+                                }
                             },
                         });
                     })

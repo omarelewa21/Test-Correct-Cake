@@ -1938,7 +1938,7 @@ class UsersController extends AppController
                 echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
                 exit;
             }
-
+            $response['data']['done'] = !$this->UsersService->shouldDisplayImportIncompletePanel();
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -1971,6 +1971,7 @@ class UsersController extends AppController
                 echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
                 exit;
             }
+            $response['data']['done'] = !$this->UsersService->shouldDisplayImportIncompletePanel();
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -2003,6 +2004,7 @@ class UsersController extends AppController
                 echo json_encode(['error' => $this->SchoolClassesService->getErrors()]);
                 exit;
             }
+            $response['data']['done'] = !$this->UsersService->shouldDisplayImportIncompletePanel();
             echo json_encode(['result' => $response['data']]);
             exit;
         }
@@ -2044,6 +2046,7 @@ class UsersController extends AppController
 
         if ($this->request->is('put')) {
             $response = $this->SchoolClassesService->updateWithEductionLevelsForMainClasses($this->request->data);
+            $response['data']['done'] = !$this->UsersService->shouldDisplayImportIncompletePanel();
             echo json_encode(['result' => $response['data']]);
             exit;
         }

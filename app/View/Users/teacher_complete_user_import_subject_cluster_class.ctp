@@ -355,6 +355,12 @@
                                 }
 
                                 Notify.notify(msg)
+
+                                if(data.result.done){
+                                    Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
+                                    Popup.closeLast();
+                                    Navigation.refresh();
+                                }
                                 // Popup.closeLast();
                             },
                         });
