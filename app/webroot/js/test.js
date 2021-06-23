@@ -2,6 +2,7 @@ var Test = {
     groupQuestionType : 'standard',
     test_id : null,
     groupQuestionTypeEvents : false,
+    paramBag : {},
     delete : function(test_id, view) {
 
         Popup.message({
@@ -96,6 +97,71 @@ var Test = {
     },
 
     groupQuestionChooseTypeInActive : function(id){
+        $('#'+id).addClass("grey");
+        $('#'+id).removeClass("highlight");
+    },
+
+
+
+    editTestChooseTypeEvents : function(formId,buttonId,test_id){
+        var testObj = this;
+        this.test_id = test_id;
+        testObj.editTestType = '';
+        if(!this.editTestTypeEvents) {
+            $(document).on("click", "#edit_test_type_confirm", function () {
+                if ($('#edit_test_type_confirm').hasClass("disabled")) {
+                    return false;
+                }
+                if(testObj.editTestType == ''){
+                    return false;
+                }
+                if(testObj.editTestType=='update'){
+                    $('#'+buttonId).click();
+                }
+                if(testObj.editTestType=='copy'){
+                    FormHandler.init(formId,{ action:'tests/create_copy_and_update/'+testObj.test_id,
+                                                    onsuccess: function (result) {
+                                                        Popup.closeLast();
+                                                        Navigation.load('tests/view/'+result.uuid);
+                                                        Notify.notify("Toets gewijzigd", "info");
+                                                    },
+                                                    onfailure: function (result) {
+                                                        if (result == 'unique_name') {
+                                                            Notify.notify("De gekozen titel is al in gebruik. Gebruik een unieke titel.", "error");
+                                                        } else {
+                                                            Notify.notify("Fout bij het wijzigen van de toets", "error");
+                                                        }
+                                                    }
+                    });
+                    FormHandler.submit();
+
+                }
+            });
+
+            $(document).on("click", "#edit_test_type_update", function () {
+                $('#edit_test_type_update').addClass("highlight");
+                testObj.editTestTypeConfirmButtonActive();
+                testObj.editTestChooseTypeInActive('edit_test_type_copy');
+                testObj.editTestType = 'update';
+            });
+
+            $(document).on("click", "#edit_test_type_copy", function () {
+                $('#edit_test_type_copy').addClass("highlight");
+                testObj.editTestTypeConfirmButtonActive();
+                testObj.editTestChooseTypeInActive('edit_test_type_update');
+                testObj.editTestType = 'copy';
+            });
+            this.editTestTypeEvents = true;
+        }
+    },
+
+    editTestTypeConfirmButtonActive : function(){
+        $('#edit_test_type_confirm').removeClass("disabled");
+        $('#edit_test_type_confirm').removeClass("grey");
+        $('#edit_test_type_confirm').addClass("blue");
+    },
+
+    editTestChooseTypeInActive : function(id){
         $('#'+id).addClass("grey");
         $('#'+id).removeClass("highlight");
     }
