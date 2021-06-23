@@ -293,7 +293,9 @@ var User = {
     },
 
     postponeAutoUserLogout : function(seconds) {
-        User.secondsBeforeTeacherLogout = seconds*60;
+        if (seconds != null) {
+            User.secondsBeforeTeacherLogout = seconds*60;
+        }
         this.resetPreventLogoutData();
     },
 

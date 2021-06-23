@@ -6,7 +6,7 @@
             </h2>
         </div>
         <div class="close" style="flex-shrink: 1">
-            <a href="#" onclick="Popup.closeLast(); User.postponeAutoUserLogout(5)">
+            <a href="#" onclick="Popup.closeLast(); User.postponeAutoUserLogout()">
                 <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
                     <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">
                         <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>
@@ -17,7 +17,7 @@
     </div>
     <div class="divider mb16 mt16"></div>
     <div class="body2">
-        <p><?= !$opened_by_user ? 'Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?' : 'Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 10 minuten?' ?></p>
+        <p><?= !$opened_by_user ? 'Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?' : 'Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 30 minuten?' ?></p>
     </div>
 </div>
 <div class="popup-footer tat-footer pt16" style="padding-bottom: 2rem!important;">
@@ -31,7 +31,7 @@
         </div>
         <div style="display: flex;">
             <button id="postpone-button" class="button button-sm cta-button" style="cursor: pointer;"
-                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 10 : 5 ?>')">
+                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 30 : 5 ?>')">
                 Sessie verlengen
             </button>
         </div>
