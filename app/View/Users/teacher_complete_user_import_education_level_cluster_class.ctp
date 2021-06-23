@@ -1,8 +1,13 @@
 <style>
+    .tableFixHead > *{
+        box-sizing: border-box;
+    }
     .tableFixHead {
         display: block;
         max-height: 400px;
         overflow: auto;
+        table-layout: fixed;
+        width:100%;
     }
 
     .tableFixHead thead, .tableFixHead tbody {
@@ -60,8 +65,9 @@
 
     .checkbox-custom:checked:disabled + .checkbox-custom-label:before, .radio-custom:checked:disabled + .radio-custom-label:before, .number-radio:checked:disabled + .number-radio-label:before {
         content: '';
-        background: var(--mid-grey);
-        border-color: var(--mid-grey);
+        background: var(--primary);
+        border-color: var(--primary);
+        opacity: .6;
     }
 
     .checkbox-custom:checked + .checkbox-custom-label.checkbox-green:before {
@@ -69,8 +75,9 @@
         border-color: var(--cta-primary);
     }
     .checkbox-custom:checked:disabled + .checkbox-custom-label.checkbox-green:before {
-        background: var(--mid-grey);
-        border-color: var(--mid-grey);
+        background: var(--cta-primary);
+        border-color: var(--cta-primary);
+        opacity: .6;
     }
 
     .checkbox-custom-label svg, .radio-custom-label svg {
@@ -152,12 +159,12 @@
     <div class="popup-content tat-content body1" style="display:flex; overflow:hidden">
         <div
             style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
-            <table class="tableFixHead">
+            <table class="tableFixHead mb30">
                 <thead
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr>
-                    <th width="200px">Klas</th>
+                    <th width="200">Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
                     <?php if (!empty($level['education_level'])) { ?>
                         <th width="80px"><?= $level['education_level']['name'] ?></th>
@@ -247,8 +254,13 @@
                     <?php } else { $checkedCount++;} ?>
                 <?php } ?>
                 <?php if($checkedCount > 0) { ?>
-                    <tr>
-                        <td colspan="<?= 4+ count($education_levels);?>">Reeds eerder gecontroleerde klassen</td>
+                    <tr style="margin-top: 10px">
+                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 0; padding-top: 10px;">
+                            <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: bold; margin-right: 8px">Toon gecontroleerde klassen</span>
+                                <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
+                            </div>
+                        </td>
                     </tr>
                     <?php foreach ($classes_list as $schoolClass) { ?>
                         <?php if(
@@ -259,7 +271,7 @@
                             || $schoolClass['finalized']
                             || $schoolClass['visible']
                         ){ ?>
-                            <tr>
+                            <tr class="completed_classes_rows" style="display: none;">
                                 <td width="200px"><?= $schoolClass['name'] ?></td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <?php if (!empty($eductionLevel['education_level'])) { ?>
@@ -451,5 +463,27 @@
                 $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>clusterklassen compleet');
             }
             updateTeacherCompleteClusterClassCounter();
+
+            function setTableColumnWidth() {
+                var headThs = $('.tableFixHead thead').find('th');
+                var bodyRows = $('.tableFixHead tbody').find('tr');
+
+            }
+            setTableColumnWidth();
+        });
+
+        $('#show_checked_classes_button').click(function() {
+            if($(this).hasClass('open')) {
+                $('.completed_classes_rows').hide();
+                $(this).find('span').text('Toon gecontroleerde klassen');
+                $('#checked_classes_svg').css({'transform': 'rotate(90deg) scale(.8)'});
+                $(this).toggleClass('open');
+            } else {
+                $('.completed_classes_rows').show();
+                $(this).find('span').text('Verberg gecontroleerde klassen');
+                $('#checked_classes_svg').css({'transform': 'rotate(-90deg) scale(.8)'});
+                $(this).toggleClass('open');
+            }
+
         });
     </script>

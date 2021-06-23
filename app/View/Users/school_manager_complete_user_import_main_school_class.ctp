@@ -58,9 +58,21 @@
         border-color: var(--primary);
     }
 
+    checkbox-custom:checked:disabled + .checkbox-custom-label:before, .radio-custom:checked:disabled + .radio-custom-label:before, .number-radio:checked:disabled + .number-radio-label:before {
+        content: '';
+        background: var(--primary);
+        border-color: var(--primary);
+        opacity: .6;
+    }
+
     .checkbox-custom:checked + .checkbox-custom-label.checkbox-green:before {
         background: var(--cta-primary);
         border-color: var(--cta-primary);
+    }
+    .checkbox-custom:checked:disabled + .checkbox-custom-label.checkbox-green:before {
+        background: var(--cta-primary);
+        border-color: var(--cta-primary);
+        opacity: .6;
     }
 
     .checkbox-custom-label svg, .radio-custom-label svg {
@@ -224,8 +236,13 @@
                 <?php } ?>
 
                 <?php if($checkedCount > 0){ ?>
-                    <tr>
-                        <td colspan="<?= 2+ count($education_levels);?>">Reeds eerder gecontroleerde klassen</td>
+                    <tr style="margin-top: 10px">
+                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 0; padding-top: 10px;">
+                            <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: bold; margin-right: 8px">Toon gecontroleerde klassen</span>
+                                <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
+                            </div>
+                        </td>
                     </tr>
                     <?php foreach ($classes_list as $schoolClass) { ?>
                         <?php if(
@@ -234,7 +251,7 @@
                                 || $schoolClass['checked_by_admin']
                                 || $schoolClass['checked_by_teacher']
                         ){ ?>
-                            <tr>
+                            <tr class="completed_classes_rows" style="display: none;">
                                 <td width="200px"><?= $schoolClass['name'] ?> </td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <td width="80px" style="position:relative; align-content: center">
@@ -367,5 +384,18 @@
             updateManagerCompleteCounter();
         });
 
+        $('#show_checked_classes_button').click(function() {
+            if($(this).hasClass('open')) {
+                $('.completed_classes_rows').hide();
+                $(this).find('span').text('Toon gecontroleerde klassen');
+                $('#checked_classes_svg').css({'transform': 'rotate(90deg) scale(.8)'});
+                $(this).toggleClass('open');
+            } else {
+                $('.completed_classes_rows').show();
+                $(this).find('span').text('Verberg gecontroleerde klassen');
+                $('#checked_classes_svg').css({'transform': 'rotate(-90deg) scale(.8)'});
+                $(this).toggleClass('open');
+            }
 
+        })
     </script>
