@@ -1,122 +1,3 @@
-<style>
-    .tableFixHead {
-        display: block;
-        max-height: 400px;
-        overflow: auto;
-    }
-
-    .tableFixHead thead, .tableFixHead tbody {
-        display: table;
-        width: 100%;
-    }
-
-    .tableFixHead thead th {
-        font-weight: bold;
-    }
-
-
-    .checkbox-custom, .radio-custom, .number-radio {
-        opacity: 0;
-        position: absolute;
-    }
-
-    .checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label, .number-radio, .number-radio-label {
-        display: inline-block;
-        vertical-align: middle;
-        margin: 4px;
-        cursor: pointer;
-        line-height: 18px;
-    }
-
-    .checkbox-custom-label, .radio-custom-label, .number-radio-label {
-        position: relative;
-    }
-
-    .checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before, .number-radio + .number-radio-label:before {
-        content: '';
-        background: var(--off-white);
-        border: 1px solid var(--blue-grey);
-        display: inline-block;
-        vertical-align: middle;
-        width: 18px;
-        height: 18px;
-        padding: 2px;
-        text-align: center;
-    }
-
-    .checkbox-custom + .checkbox-custom-label:before {
-        border-radius: 8px;
-    }
-
-    .radio-custom + .radio-custom-label:before, .number-radio + .number-radio-label:before {
-        border-radius: 50%;
-    }
-
-    .checkbox-custom:checked + .checkbox-custom-label:before, .radio-custom:checked + .radio-custom-label:before, .number-radio:checked + .number-radio-label:before {
-        content: '';
-        background: var(--primary);
-        border-color: var(--primary);
-    }
-
-    .checkbox-custom:checked + .checkbox-custom-label.checkbox-green:before {
-        background: var(--cta-primary);
-        border-color: var(--cta-primary);
-    }
-
-    .checkbox-custom-label svg, .radio-custom-label svg {
-        color: var(--off-white);
-        position: absolute;
-        left: 5px;
-        top: 7px;
-    }
-
-    .checkbox-custom:checked + .checkbox-custom-label svg, .radio-custom:checked + .radio-custom-label svg {
-        color: white;
-    }
-
-    .number-radio:checked + .number-radio-label span {
-        color: white;
-    }
-
-    .number-radio-label span {
-        position: absolute;
-        font-size: 12px;
-        left: 8px;
-        top: 6px;
-        line-height: 12px;
-    }
-
-    .import-label {
-        font-size: 10px;
-        font-weight: bold;
-        padding: 6px 8px;
-        line-height: 12px;
-        text-transform: uppercase;
-        border-radius: 4px;
-        max-height: 24px;
-    }
-
-    .import-label.label-blue {
-        color: var(--system-base);
-        background-color: var(--system-secondary);
-    }
-
-    .import-label.label-orange {
-        color: white;
-        background-color: var(--orange);
-    }
-
-    .import-label.label-green {
-        color: white;
-        background-color: var(--cta-primary);
-    }
-    #add-subject-list{
-        min-width:70px;
-    }
-
-
-</style>
-
 <div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;">
     <div style="display:flex">
         <div style="flex-grow:1">
@@ -143,12 +24,12 @@
 <form method="put" id="teacher-complete-user-import-subject-cluster-class-form">
     <div class="popup-content tat-content body1" style="display:flex; overflow:hidden">
         <div
-            style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:60px">
+            style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:70px">
             <table class="tableFixHead">
                 <thead
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
-                <tr>
+                <tr style="display: flex; align-items: center">
                     <th width="200px">Klas</th>
                     <?php foreach ($subjects as $subject) {
                         $subjectId = $subject['id'];
@@ -157,13 +38,13 @@
 
                         <th
                             class="subject-column-<?= $subjectId ?>"
-                            width="80px"
-                            <?= in_array($subjectId, $taught_subjects) ? '' : 'style="display:none"'; ?>
+                            width="60px"
+                            title="<?= $subject['name'] ?>"
+                                <?= in_array($subjectId, $taught_subjects) ? '' : 'style="display:none"'; ?>
                         ><?= $subjectName ?></th>
 
                     <?php } ?>
-                    <th>
-
+                    <th class="add-class-button-column" width="130px">
                         <div style="display:inline-flex; justify-content: space-between">
                             <select id="add-subject-list" class="primary-select-box mr8">
                                 <?php foreach ($subjects as $subject) {
@@ -182,14 +63,13 @@
                             </button>
                         </div>
                     </th>
-                    <th width="80px">Status</th>
-
-                    <th width="150px">Gecontrolleerd</th>
+                    <th style="margin-left: auto;" width="80px">Status</th>
+                    <th width="120px">Gecontrolleerd</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($classes_list as $schoolClass) { ?>
-                    <tr>
+                    <tr style="display: flex;align-items: center">
                         <td width="200px"><?= $schoolClass['name'] ?></td>
 
                         <?php foreach ($subjects as $subject) {
@@ -197,7 +77,7 @@
                             $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
                             ?>
                             <td
-                                width="80px"
+                                width="60px"
                                 class="subject-column-<?= $subjectId ?>"
                                 style="position:relative; align-content: center; <?= in_array($subjectId,
                                     $taught_subjects) ? '' : 'display:none'; ?>"
@@ -245,8 +125,8 @@
                                 <?php } ?>
                             </td>
                         <?php } ?>
-                        <td>&nbsp;</td>
-                        <td width="80px">
+                        <td class="add-class-filler-column" width="130px">&nbsp;</td>
+                        <td style="margin-left: auto;" width="80px">
                             <?php if (!array_key_exists($schoolClass['id'], $teacher_entries)) { ?>
                                 <span class="import-label label-orange">onbekend</span>
                             <?php } else if(!empty($checked_by_teacher[$schoolClass['id']])){ ?>
@@ -255,7 +135,7 @@
                                 <span class="import-label label-blue">bekend</span>
                             <?php } ?>
                         </td>
-                        <td width="150px">
+                        <td width="120px">
                             <input id="<?= sprintf('green-checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom jquery-subject-complete-counter"
                                    name="class[<?= $schoolClass['id'] ?>][checked]"
@@ -380,7 +260,7 @@
                     .on('click', '#btn-add-subject', function (e) {
                         e.preventDefault();
                         var subjectIdToShow = $('#add-subject-list').val();
-                        var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'table-cell');
+                        var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'inline-block');
                         $("#add-subject-list option[value='" + subjectIdToShow + "']").remove();
                         checkDisplaySelectBox();
                     });
@@ -402,9 +282,13 @@
                 updateTeacherSubjectCompleteCounter();
             });
             function checkDisplaySelectBox(){
-                if (document.getElementById('add-subject-list').options.length == 0){
+                if (document.getElementById('add-subject-list').options.length === 0){
                     $('#add-subject-list').hide();
                     $('#btn-add-subject').hide();
+                    document.querySelector('.add-class-button-column').setAttribute('width', 0);
+                    document.querySelectorAll('.add-class-filler-column').forEach(function(el) {
+                        el.setAttribute('width', 0);
+                    });
                 }
             }
 
