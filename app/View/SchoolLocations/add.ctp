@@ -45,8 +45,10 @@
         <tr>
             <th>Contact actief</th>
             <td>
-                <?=$this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Contract is actief
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
             <th>
                 Aantal Studenten
@@ -72,21 +74,29 @@
                 <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2, 'verify' => 'max-length-2'));?>
             </td>
 
-            <th>Is rtti school location</th>
+            <th>Is rtti school</th>
             <td>
-                <?=$this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Is RTTI school
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
         </tr>
 
         <tr>
           <th>Open source content creator</th>
           <td>
-              <?=$this->Form->input('is_open_source_content_creator',array('type'=>'checkbox','label'=>false)); ?>
+              <label class="switch" style="display:flex;">
+                  <?= $this->Form->input('is_open_source_content_creator', array('type' => 'checkbox', 'label' => false, 'div' => false)); ?>
+                  <span class="slider round"></span>
+              </label>
           </td>
           <th>Mag open source content bekijken</th>
           <td>
-              <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
+              <label class="switch" style="display:flex;">
+                  <?= $this->Form->input('is_allowed_to_view_open_source_content', array('type' => 'checkbox', 'label' => false, 'div' => false)); ?>
+                  <span class="slider round"></span>
+              </label>
           </td>
         </tr>
 
@@ -137,6 +147,13 @@
             <td>
                 <?= $this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types)); ?>
             </td>
+            <th>Single Sign On actief</th>
+            <td>
+                <label id="sso_toggle" class="switch" style="display:flex;">
+                    <?= $this->Form->checkbox('sso_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
+                    <span class="slider round"></span>
+                </label>
+            </td>
         </tr>
     </table>
     <?=$this->Form->end();?>
@@ -161,6 +178,7 @@
             }
             console.log($(this).val());
         });
+        checkSchoolLocationSsoToggle();
     });
 
     $('#SchoolLocationAddForm').formify(
@@ -203,4 +221,21 @@
             Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
         }
     });
+    $("#SchoolLocationExternalMainCode, #SchoolLocationExternalSubCode").on('input', function() {
+        checkSchoolLocationSsoToggle();
+    });
+    $("#SchoolLocationSsoType").on('change', function () {
+        checkSchoolLocationSsoToggle();
+    });
+    function checkSchoolLocationSsoToggle() {
+        var sso_toggle = document.querySelector('#SchoolLocationSsoActive')
+
+        $('#SchoolLocationSsoActive').prop('checked', false);
+        sso_toggle.setAttribute('disabled', 'disabled');
+        if (document.querySelector('#SchoolLocationSsoType').value !== '') {
+            if ($("#SchoolLocationExternalSubCode").val().length === 2 && $("#SchoolLocationExternalMainCode").val().length === 4) {
+                sso_toggle.removeAttribute('disabled');
+            }
+        }
+    }
 </script>
