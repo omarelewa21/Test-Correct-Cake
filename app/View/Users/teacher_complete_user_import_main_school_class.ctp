@@ -33,7 +33,13 @@
                     <th width="200px">Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
                         <?php if (!empty($level['education_level'])) { ?>
-                        <th class="ed_level_col" width="60px"><div title="<?= $level['education_level']['name'] ?>"><?= $level['education_level']['name'] ?></div></th>
+                        <th class="ed_level_col" width="60px">
+                            <div title="<?= $level['education_level']['name'] ?>">
+                                <span>
+                                    <?= $level['education_level']['name'] ?>
+                                </span>
+                            </div>
+                        </th>
                         <?php } ?>
 
                     <?php } ?>
@@ -209,40 +215,13 @@
             </div>
 
         </div>
-    </div>
-    <script>
-        $(document).ready(function () {
-            if (window.teacherCompleteUserImportMainSchoolClass !== true) {
-                $(document)
-                    .on('click', '#btn-save-teacher-complete-user-import-main-school-class', function (e) {
-                        e.preventDefault();
-
-                        $.ajax({
-                            method: 'PUT',
-                            data: $('#teacher-complete-user-import-main-school-class').serialize(),
-                            url: 'users/teacher_complete_user_import_main_school_class',
-                            dataType: 'json',
-                            success: function (data) {
-                                if (typeof data.error !== 'undefined') {
-                                    var error;
-                                    for (const property in data.error) {
-                                        error = data.error[property];
-                                    }
-                                    Notify.notify(error, 'error');
-                                    return;
-                                }
-
-                                var msg = 'Gegevens voor 1 klas opgeslagen.';
-                                if (data.result.count !== 1) {
-                                    msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                                }
-                                Notify.notify(msg)
-                            },
-
-                        });
-                    })
-                    .on('click', '#btn-go-to-teacher-complete-user-import-education-level-cluster-class', function (e) {
+        <script>
+            $(document).ready(function () {
+                if (window.teacherCompleteUserImportMainSchoolClass !== true) {
+                    $(document)
+                        .on('click', '#btn-save-teacher-complete-user-import-main-school-class', function (e) {
                             e.preventDefault();
+
                             $.ajax({
                                 method: 'PUT',
                                 data: $('#teacher-complete-user-import-main-school-class').serialize(),
@@ -257,57 +236,97 @@
                                         Notify.notify(error, 'error');
                                         return;
                                     }
+
                                     var msg = 'Gegevens voor 1 klas opgeslagen.';
                                     if (data.result.count !== 1) {
                                         msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
                                     }
                                     Notify.notify(msg)
-                                    Popup.closeLast();
-                                    if(data.result.done){
-                                        Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
-                                        Popup.closeLast();
-                                        Navigation.refresh();
-                                    } else {
-                                        window.setTimeout(function () {
-                                            Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
-                                        }, 500);
-                                    }
-                                }
+                                },
+
                             });
-                        }
-                    )
-                    .on('click', '.jquery-radio-set-eduction-level', function (e) {
-                        $(this).closest('tr').find('.jquery-controle').attr('checked', true).trigger('change');
-                        $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
-                    });
+                        })
+                        .on('click', '#btn-go-to-teacher-complete-user-import-education-level-cluster-class', function (e) {
+                                e.preventDefault();
+                                $.ajax({
+                                    method: 'PUT',
+                                    data: $('#teacher-complete-user-import-main-school-class').serialize(),
+                                    url: 'users/teacher_complete_user_import_main_school_class',
+                                    dataType: 'json',
+                                    success: function (data) {
+                                        if (typeof data.error !== 'undefined') {
+                                            var error;
+                                            for (const property in data.error) {
+                                                error = data.error[property];
+                                            }
+                                            Notify.notify(error, 'error');
+                                            return;
+                                        }
+                                        var msg = 'Gegevens voor 1 klas opgeslagen.';
+                                        if (data.result.count !== 1) {
+                                            msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                                        }
+                                        Notify.notify(msg)
+                                        Popup.closeLast();
+                                        if(data.result.done){
+                                            Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
+                                            Popup.closeLast();
+                                            Navigation.refresh();
+                                        } else {
+                                            window.setTimeout(function () {
+                                                Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
+                                            }, 500);
+                                        }
+                                    }
+                                });
+                            }
+                        )
+                        .on('click', '.jquery-radio-set-eduction-level', function (e) {
+                            $(this).closest('tr').find('.jquery-controle').attr('checked', true).trigger('change');
+                            $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
+                        });
 
-                window.teacherCompleteUserImportMainSchoolClass = true;
+                    window.teacherCompleteUserImportMainSchoolClass = true;
 
-            }
-            function updateTeacherCompleteCounter() {
-                var aantal = $('.jquery-controle').length;
-                var gevinked = $('.jquery-controle:checked').length;
-                $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>stamklassen compleet');
-            }
-            $('.jquery-controle').change(function (e) {
+                }
+                function updateTeacherCompleteCounter() {
+                    var aantal = $('.jquery-controle').length;
+                    var gevinked = $('.jquery-controle:checked').length;
+                    $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>stamklassen compleet');
+                }
+                $('.jquery-controle').change(function (e) {
+                    updateTeacherCompleteCounter();
+                });
+
                 updateTeacherCompleteCounter();
+
+                var paddingTimeout = setTimeout(function() {
+                    var canRemoveSomePadding = true;
+                    document.querySelectorAll('.ed_level_col span').forEach(function(el) {
+                        if (el.offsetWidth > 60) {
+                            canRemoveSomePadding = false;
+                        }
+                    });
+                    if (canRemoveSomePadding) {
+                        document.querySelectorAll('.rotate_table_headings th').forEach(function(el) {
+                            el.style.paddingTop = '30px';
+                        });
+                    }
+                }, 100);
             });
 
-
-            updateTeacherCompleteCounter();
-        });
-
-        $('#show_checked_classes_button').click(function() {
-            if($(this).hasClass('open')) {
-                $('.completed_classes_rows').hide();
-                $(this).find('span').text('Toon gecontroleerde klassen');
-                $('#checked_classes_svg').css({'transform': 'rotate(90deg) scale(.8)'});
-                $(this).toggleClass('open');
-            } else {
-                $('.completed_classes_rows').css('display','flex');
-                $(this).find('span').text('Verberg gecontroleerde klassen');
-                $('#checked_classes_svg').css({'transform': 'rotate(-90deg) scale(.8)'});
-                $(this).toggleClass('open');
-            }
-        });
-    </script>
+            $('#show_checked_classes_button').click(function() {
+                if($(this).hasClass('open')) {
+                    $('.completed_classes_rows').hide();
+                    $(this).find('span').text('Toon gecontroleerde klassen');
+                    $('#checked_classes_svg').css({'transform': 'rotate(90deg) scale(.8)'});
+                    $(this).toggleClass('open');
+                } else {
+                    $('.completed_classes_rows').css('display','flex');
+                    $(this).find('span').text('Verberg gecontroleerde klassen');
+                    $('#checked_classes_svg').css({'transform': 'rotate(-90deg) scale(.8)'});
+                    $(this).toggleClass('open');
+                }
+            });
+        </script>
+    </div>

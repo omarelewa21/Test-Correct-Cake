@@ -333,6 +333,20 @@
                 $('#teacher-complete-counter').html('<span style="font-size:16px;font-weight:bold">' + gevinked + '</span>/' + aantal + '<br/>clusterklassen compleet');
             }
             updateTeacherCompleteClusterClassCounter();
+
+            var paddingTimeout = setTimeout(function() {
+                var canRemoveSomePadding = true;
+                document.querySelectorAll('.ed_level_col span').forEach(function(el) {
+                    if (el.offsetWidth > 60) {
+                        canRemoveSomePadding = false;
+                    }
+                });
+                if (canRemoveSomePadding) {
+                    document.querySelectorAll('.rotate_table_headings th').forEach(function(el) {
+                        el.style.paddingTop = '30px';
+                    });
+                }
+            }, 100);
         });
 
         $('#show_checked_classes_button').click(function() {
