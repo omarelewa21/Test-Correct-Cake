@@ -300,6 +300,11 @@ div.block-content img {
     display: inline-block;
     box-sizing: border-box;
 }
+
+.tableFixHead tbody td {
+    padding: 3px 0;
+}
+
 .tableFixHead thead th {
     font-size: 1rem;
     font-weight: bold;
