@@ -530,8 +530,6 @@ function FilterManager(settings) {
     };
 
     this.triggerActiveFilterChange = function() {
-        console.log(this.settings.eventScope + ' ' + this.el);
-        console.log(this.activeFilter);
         jQuery(this.settings.eventScope + ' ' + this.el).trigger('change');
     }
 
