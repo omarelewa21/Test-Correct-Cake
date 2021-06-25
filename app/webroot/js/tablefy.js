@@ -78,7 +78,7 @@
             settings.afterFirstRunCallback(
                 function(){
                  settings.afterFirstRunCallback = false;
-                 settings.filtermanager.triggerActiveFilterChange();
+                 settings.filtermanager.reloadData();
                 });
         }
     }
