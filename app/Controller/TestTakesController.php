@@ -2167,7 +2167,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('rates_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2222,7 +2222,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('answers_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;

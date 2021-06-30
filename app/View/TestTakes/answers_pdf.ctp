@@ -1,6 +1,6 @@
 <style>
     body {
-        font-family: Arial;
+        font-family: Helvetica;
     }
 </style>
 
@@ -95,7 +95,7 @@ foreach($participants as $participant) {
                                 }
                             }
                         }
-                        echo '<Br />';
+                        echo '<br />';
                     }
                 }
 
@@ -105,7 +105,7 @@ foreach($participants as $participant) {
                     foreach($answerJson as $answer_id => $order) {
                         foreach($question['ranking_question_answers'] as $answer) {
                             if($answer['id'] == $answer_id) {
-                                echo $answer['answer'].'<Br />';
+                                echo $answer['answer'].'<br />';
                             }
                         }
                     }
