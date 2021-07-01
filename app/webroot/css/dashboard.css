@@ -209,6 +209,7 @@
     padding: 20px 30px;
     border-radius: 10px;
     margin-bottom: 16px;
+    box-sizing: border-box;
 }
 
 .dashboard .notification.info {
@@ -334,4 +335,21 @@
 
 .checkbox-custom:checked + .checkbox-custom-label svg, .radio-custom:checked + .radio-custom-label svg {
     color: white;
+}
+
+.dashboard.create-content .cta-blocks .block-container {
+    width: 100%;
+}
+.dashboard.create-content .cta-blocks .block-container .cta-block{
+    flex-grow: 1;
+    background-color: white;
+}
+.dashboard.create-content  {
+    border: solid 1px var(--blue-grey);
+    margin: 0;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
 }

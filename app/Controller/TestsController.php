@@ -717,4 +717,8 @@ class TestsController extends AppController
         return $this->formResponse(true,  $this->TestsService->getTestUrlForLaravel($testId));
     }
 
+    public function create_content()
+    {
+
+    }
 }

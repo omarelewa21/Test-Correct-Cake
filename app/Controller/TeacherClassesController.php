@@ -22,7 +22,7 @@ class TeacherClassesController extends AppController
 
     public function index()
     {
-        
+
     }
 
     public function load()
@@ -69,5 +69,24 @@ class TeacherClassesController extends AppController
         }
 
         $this->request->data['User'] = $this->UsersService->getUser($user_id);
+    }
+
+    public function school_location_classes()
+    {
+        $this->isAuthorizedAs(['']);
+    }
+
+    public function load_school_location_classes()
+    {
+        $params = $this->request->data;
+        $params = array_merge(
+            array('mode' => 'all_classes_for_location'),
+            $params
+        );
+
+        $classes  = $this->SchoolClassesService->getClasses($params);
+
+        $this->set('classes', $classes);
+        $this->render('load', 'ajax');
     }
 }

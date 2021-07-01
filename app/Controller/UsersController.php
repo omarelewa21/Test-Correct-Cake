@@ -1113,9 +1113,12 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
-                $menus['library'] = "Itembank";
-                $menus['tests'] = "Toetsing";
+                $menus['library'] = "Content";
+                $menus['tests'] = "Ingepland";
+                $menus['taken'] = "Afgenomen";
+                $menus['results'] = "<span style='cursor:pointer;' onclick=\"Navigation.load('/test_takes/rated')\">Resultaten</span>";
                 $menus['analyses'] = "Analyses";
+                $menus['classes'] = "Klassen";
                 $menus['other'] = "Overig";
                 $menus['support'] = "Support";
             }
@@ -1163,7 +1166,7 @@ class UsersController extends AppController
         $tiles['kennisbank'] = [
             'menu'  => 'support',
             'icon'  => 'knowledgebase',
-            'title' => 'Bezoek de kennisbank',
+            'title' => 'Kennisbank',
             'path'  => 'https://support.test-correct.nl',
             'type'  => 'externalpopup',
         ];
@@ -1380,10 +1383,17 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
+                $tiles['create_content'] = array(
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'Content creëren',
+                    'path'  => '/tests/create_content'
+                );
+
                 $tiles['tests_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Schoollocatie',
+                    'title' => 'Toetsen schoollocatie',
                     'path'  => '/tests/index'
                 );
 
@@ -1391,7 +1401,7 @@ class UsersController extends AppController
                     $tiles['tests_shared_sections_overview'] = array(
                         'menu'  => 'library',
                         'icon'  => 'testlist',
-                        'title' => 'Scholengemeenschap',
+                        'title' => 'Toetsen scholengemeenschap',
                         'path'  => '/shared_sections_tests/index'
                     );
                 }
@@ -1427,9 +1437,9 @@ class UsersController extends AppController
                 );
 
                 $tiles['tests_taken'] = array(
-                    'menu'  => 'tests',
+                    'menu'  => 'taken',
                     'icon'  => 'afgenomen',
-                    'title' => 'Afgenomen',
+                    'title' => 'Afgerond',
                     'path'  => '/test_takes/taken_teacher'
                 );
 
@@ -1441,37 +1451,37 @@ class UsersController extends AppController
 //                );
 
                 $tiles['tests_examine'] = array(
-                    'menu'  => 'tests',
+                    'menu'  => 'taken',
                     'icon'  => 'nakijken',
-                    'title' => 'Nakijken',
+                    'title' => 'Nakijken & normeren',
                     'path'  => '/test_takes/to_rate'
                 );
 
-                $tiles['tests_graded'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'becijferd',
-                    'title' => 'Becijferd',
-                    'path'  => '/test_takes/rated'
-                );
+//                $tiles['tests_graded'] = array(
+//                    'menu'  => 'results',
+//                    'icon'  => 'becijferd',
+//                    'title' => 'Becijferd',
+//                    'path'  => '/test_takes/rated'
+//                );
 
                 $tiles['analyse'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
-                    'title' => 'Uw analyse',
+                    'title' => 'Mijn analyses',
                     'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerlingen',
-                    'title' => 'Studenten',
+                    'title' => 'Mijn studenten',
                     'path'  => '/analyses/students_overview'
                 );
 
                 $tiles['analyse_classes'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Klassen',
+                    'title' => 'Mijn klassen',
                     'path'  => '/analyses/school_classes_overview'
                 );
 
@@ -1483,23 +1493,30 @@ class UsersController extends AppController
                 );
 
                 $tiles['teacher_classes'] = [
-                    'menu'  => 'other',
+                    'menu'  => 'classes',
                     'icon'  => 'testlist',
                     'title' => 'Mijn klassen',
                     'path'  => '/teacher_classes'
                 ];
 
-                $tiles['teacher_test_uploads'] = [
-                    'menu'  => 'other',
+                $tiles['school_location_classes'] = [
+                    'menu'  => 'classes',
                     'icon'  => 'testlist',
-                    'title' => 'Aangeboden toetsen',
-                    'path'  => '/file_management/testuploads'
+                    'title' => 'Mijn schoollocatie',
+                    'path'  => '/teacher_classes/school_location_classes'
                 ];
+
+//                $tiles['teacher_test_uploads'] = [
+//                    'menu'  => 'other',
+//                    'icon'  => 'testlist',
+//                    'title' => 'Aangeboden toetsen',
+//                    'path'  => '/file_management/testuploads'
+//                ];
 
                 $tiles['webinar'] = [
                     'menu'  => 'support',
                     'icon'  => 'webinar',
-                    'title' => 'Inschrijven webinar',
+                    'title' => 'Webinar',
                     'type'  => 'externalpopup',
                     'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
                 ];
@@ -1507,9 +1524,25 @@ class UsersController extends AppController
                 $tiles['supportmail'] = [
                     'menu'  => 'support',
                     'icon'  => 'send-email',
-                    'title' => 'Support mailen',
+                    'title' => 'E-mail',
                     'type'  => 'externallink',
                     'path'  => 'mailto:support@test-correct.nl',
+                ];
+
+                $tiles['supportchat'] = [
+                    'menu'  => 'support',
+                    'icon'  => 'send-email',
+                    'title' => 'Chat',
+                    'path'  => '',
+                ];
+
+                $tiles['updates'] = [
+                    'menu'  => 'support',
+                    'icon'  => 'send-email',
+                    'title' => 'Updates & onderhoud',
+                    'type'  => 'externalpopup',
+                    'width'=> '1000',
+                    'path'  => 'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates',
                 ];
 
                 /*

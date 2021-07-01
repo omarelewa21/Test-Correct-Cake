@@ -31,10 +31,15 @@ var Menu = {
                 } else {
                     $(this).addClass('noItemHover');
                 }
-            }).mouseout(function() {
-                window.menuTimer = setTimeout(function() {
+            }).mouseout(function () {
+                if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0) {
                     Menu.hideTiles();
-                }, 500);
+                } else {
+                    window.menuTimer = setTimeout(function () {
+                        Menu.hideTiles();
+
+                    }, 500);
+                }
             });
         });
 
@@ -56,7 +61,7 @@ var Menu = {
                 if($(this)[0].hasAttribute("type")) {
                     type = $(this).attr('type');
                 }
-                if($(this)[0].hasAttribute("pwidth")) {
+                if($(this)[0].hasAttribute("pwidth") && $(this).attr("pwidth") !== '') {
                     pWidth = $(this).attr('pwidth');
                 }
                 if(type === 'externallink'){
@@ -68,7 +73,7 @@ var Menu = {
                     return false;
                 }
                 else if(type === 'externalpopup'){
-                    Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe style="border:0;padding:0;margin:0" width="100%" height="500" src="'+$(this).attr('path')+'"></iframe>',800);
+                    Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe style="border:0;padding:0;margin:0" width="100%" height="500" src="'+$(this).attr('path')+'"></iframe>',pWidth);
                     return false;
                 }
                 else if(type === 'download') {
