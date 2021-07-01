@@ -133,9 +133,8 @@ class QuestionsService extends BaseService
      */
     public function duplicatetogroup($owner, $owner_id, $question_id)
     {
-
         $testservice = new TestsService();
-        $data['test_id'] = $testservice->getTest($owner_id)['id'];
+        $data['group_question_id'] = $testservice->getTest($owner_id)['id'];
         $data['order'] = 0;
         $data['maintain_position'] = 0;
         $data['discuss'] = 1;
@@ -145,11 +144,8 @@ class QuestionsService extends BaseService
         $data['question_id'] = $question_id;
         $data['owner_id'] = $owner_id;
 
-        if ($owner == 'test') {
-            $response = $this->Connector->postRequest('/test_question/', [], $data);
-        } else {
-            $response = $this->Connector->postRequest('/group_question_question/' , [], $data);
-        }
+        $response = $this->Connector->postRequest('/group_question_question/' . $owner_id . '/' . $question_id , [], $data);
+        
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

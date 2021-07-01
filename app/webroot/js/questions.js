@@ -144,7 +144,6 @@ var Questions = {
     addExistingQuestionToGroup : function(question_id, subquestion) {
 
         if(subquestion) {
-
             Popup.message({
                 btnOk: 'Importeren',
                 btnCancel: 'Annuleren',
@@ -158,7 +157,6 @@ var Questions = {
                     }
                 );
             });
-
 
         }else{
             $.get('/questions/add_existing_question_to_group/' + question_id,
