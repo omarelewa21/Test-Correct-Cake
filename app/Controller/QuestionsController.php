@@ -859,7 +859,6 @@ class QuestionsController extends AppController
     }
 
 
-
     public function add_existing_question_group($group_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);

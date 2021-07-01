@@ -144,8 +144,11 @@ class QuestionsService extends BaseService
         $data['question_id'] = $question_id;
         $data['owner_id'] = $owner_id;
 
-        $response = $this->Connector->postRequest('/group_question_question/' . $owner_id . '/' . $question_id , [], $data);
-        
+        if ($owner == 'test') {
+            $response = $this->Connector->postRequest('/test_question/', [], $data);
+        } else {
+            $response = $this->Connector->postRequest('/group_question_question/' . $owner_id . '/' . $question_id , [], $data);
+        }
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
