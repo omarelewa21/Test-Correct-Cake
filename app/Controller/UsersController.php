@@ -1113,21 +1113,23 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
+                //Dashboard is prepended to the menu in menu.js
+//                $menus['dashboard'] = "Dashboard";
                 $menus['library'] = "Content";
                 $menus['tests'] = "Ingepland";
                 $menus['taken'] = "Afgenomen";
-                $menus['results'] = "<span style='cursor:pointer;' onclick=\"Navigation.load('/test_takes/rated')\">Resultaten</span>";
+                $menus['results'] = "Resultaten";
                 $menus['analyses'] = "Analyses";
                 $menus['classes'] = "Klassen";
-                $menus['other'] = "Overig";
-                $menus['support'] = "Support";
+//                $menus['other'] = "Overig";
+//                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'Student') {
                 $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyse";
-                $menus['messages'] = "Berichten";
-                $menus['support'] = "Support";
+//                $menus['messages'] = "Berichten";
+//                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'School management') {
@@ -1136,20 +1138,20 @@ class UsersController extends AppController
             }
 
 
-            if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "
-                                                <button class='button cta-button button-sm' style='cursor: pointer;'
-                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
-                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
-                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
-                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
-                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
-                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            ";
-            }
+//            if ($role['name'] == 'Teacher') {
+//                $menus['tell_a_teacher'] = "
+//                                                <button class='button cta-button button-sm' style='cursor: pointer;'
+//                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
+//                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
+//                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
+//                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
+//                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
+//                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
+//                                                        </g>
+//                                                    </svg>
+//                                                </button>
+//                                            ";
+//            }
         }
 
         $this->set('menus', $menus);
@@ -1457,12 +1459,12 @@ class UsersController extends AppController
                     'path'  => '/test_takes/to_rate'
                 );
 
-//                $tiles['tests_graded'] = array(
-//                    'menu'  => 'results',
-//                    'icon'  => 'becijferd',
-//                    'title' => 'Becijferd',
-//                    'path'  => '/test_takes/rated'
-//                );
+                $tiles['tests_graded'] = array(
+                    'menu'  => 'results',
+                    'icon'  => 'becijferd',
+                    'title' => 'Becijferde toetsen',
+                    'path'  => '/test_takes/rated'
+                );
 
                 $tiles['analyse'] = array(
                     'menu'  => 'analyses',
@@ -1485,12 +1487,12 @@ class UsersController extends AppController
                     'path'  => '/analyses/school_classes_overview'
                 );
 
-                $tiles['messages'] = array(
-                    'menu'  => 'other',
-                    'icon'  => 'messages',
-                    'title' => 'Berichten',
-                    'path'  => '/messages'
-                );
+//                $tiles['messages'] = array(
+//                    'menu'  => 'other',
+//                    'icon'  => 'messages',
+//                    'title' => 'Berichten',
+//                    'path'  => '/messages'
+//                );
 
                 $tiles['teacher_classes'] = [
                     'menu'  => 'classes',
@@ -1513,37 +1515,37 @@ class UsersController extends AppController
 //                    'path'  => '/file_management/testuploads'
 //                ];
 
-                $tiles['webinar'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'webinar',
-                    'title' => 'Webinar',
-                    'type'  => 'externalpopup',
-                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
-                ];
-
-                $tiles['supportmail'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'send-email',
-                    'title' => 'E-mail',
-                    'type'  => 'externallink',
-                    'path'  => 'mailto:support@test-correct.nl',
-                ];
-
-                $tiles['supportchat'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'send-email',
-                    'title' => 'Chat',
-                    'path'  => '',
-                ];
-
-                $tiles['updates'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'send-email',
-                    'title' => 'Updates & onderhoud',
-                    'type'  => 'externalpopup',
-                    'width'=> '1000',
-                    'path'  => 'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates',
-                ];
+//                $tiles['webinar'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'webinar',
+//                    'title' => 'Webinar',
+//                    'type'  => 'externalpopup',
+//                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
+//                ];
+//
+//                $tiles['supportmail'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'E-mail',
+//                    'type'  => 'externallink',
+//                    'path'  => 'mailto:support@test-correct.nl',
+//                ];
+//
+//                $tiles['supportchat'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'Chat',
+//                    'path'  => '',
+//                ];
+//
+//                $tiles['updates'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'Updates & onderhoud',
+//                    'type'  => 'externalpopup',
+//                    'width'=> '1000',
+//                    'path'  => 'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates',
+//                ];
 
                 /*
                 $tiles['tell_a_teacher'] = array(

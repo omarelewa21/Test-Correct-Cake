@@ -91,6 +91,9 @@ var User = {
     welcome: function () {
         if (!TestTake.active) {
             Navigation.load('/users/welcome');
+            if (User.info.isTeacher) {
+                Menu.clearActiveMenu('dashboard');
+            }
         }
     },
 

@@ -44,7 +44,7 @@
     cursor:         pointer;
 }
 
-#header #top #user_menu {
+#header #top #user_menu, #header #top #support_menu {
     position:       absolute;
     top:            50px;
     right:          0px;
@@ -55,7 +55,7 @@
     z-index:        110;
 }
 
-#header #top #user_menu {
+#header #top #user_menu, #header #top #support_menu {
     background:     #cccccc;
 }
 
@@ -78,7 +78,7 @@
     font-size:      16px;
 }
 
-#header #menu .item .counter {
+#header #menu .item .counter, #action_icons .counter {
     background: red;
     -webkit-border-radius: 20px;
     -moz-border-radius: 20px;
@@ -105,12 +105,14 @@
 /* TILES */
 #tiles {
     position:       fixed;
-    background:     rgba(255, 255, 255, 0.7);
+    background:     #f9f9f9;
     width:          100%;
     z-index:        80;
-    top:            -20px;
-    padding:        10px;
+    top:            100px;
+    height: 52px;
+    padding:        5px;
     box-shadow:     0px 2px 10px rgba(0, 0, 0, 0.4);
+    display: none;
 }
 
 .tile {
@@ -120,7 +122,7 @@
     text-align: center;
     cursor: pointer;
     margin-right:15px;
-    margin-bottom:10px;
+    margin-bottom:5px;
     margin-top: 5px;
     float: left;
     padding: 10px 15px 7px 15px;
@@ -258,3 +260,29 @@
 /*99%{    background: #fff; color: #d9534f; }*/
 /*100%{   background: #d9534f; color: #fff; }*/
 /*}*/
+
+#action_icons {
+    position: relative;
+    float: right;
+    height: 100%;
+}
+
+#action_icons .action_icon_container {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+#action_icons .action_icon_container div {
+    margin: 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#action_icons .action_icon_container *{
+    box-sizing: border-box;
+}

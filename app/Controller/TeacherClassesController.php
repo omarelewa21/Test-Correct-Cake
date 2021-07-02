@@ -73,7 +73,7 @@ class TeacherClassesController extends AppController
 
     public function school_location_classes()
     {
-        $this->isAuthorizedAs(['']);
+        $this->isAuthorizedAs(['Teacher']);
     }
 
     public function load_school_location_classes()

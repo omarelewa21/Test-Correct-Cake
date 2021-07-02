@@ -89,16 +89,17 @@
 			<span id="versionBadge"></span>
 			<div id="top">
 				<div id="user"></div>
+                <div id="action_icons"></div>
 
 				<div id="user_menu">
                     <div id="user_school_locations"></div>
 					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
-
 					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
-
 					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
+				</div>
 
-
+                <div id="support_menu">
+                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white">Kennisbank</a>
 				</div>
 
 			</div>

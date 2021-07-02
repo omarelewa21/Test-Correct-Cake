@@ -153,8 +153,8 @@ var Core = {
 	},
 
 	afterLogin : function() {
-		Menu.initialise();
 		User.initialise();
+		Menu.initialise();
 
 		if(window.isInApp) {
 			Core.inApp = true;
@@ -162,6 +162,7 @@ var Core = {
 		}
 
 		$('#header').show();
+		$('#tiles').show();
 		Navigation.load('/users/welcome');
 
 		setTimeout(function() {Core.checkUnreadMessages()}, 3000);
@@ -178,7 +179,7 @@ var Core = {
 						//stuent
 						$('#messages .counter').show().html(unread);
 						//teacher
-						$('#other .counter').show().html(unread);
+						$('.menu_messages_icon .counter').show().html(unread);
                     }
                 }
             );
