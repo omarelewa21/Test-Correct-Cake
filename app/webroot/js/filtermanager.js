@@ -263,7 +263,7 @@ function FilterManager(settings) {
                 id: '',
                 name: 'Nieuw',
                 filters: this.newFilter
-            }
+            };
             this.renderActiveFilter(e);
         }.bind(this))
 
@@ -485,7 +485,8 @@ function FilterManager(settings) {
     };
 
     this.setActiveFilter = function (filterId) {
-        if (filterId == '') return;
+
+        // if (filterId == '') return;
 
         var filterToClone = this.filters.find(function (filter) {
             return filter.id == filterId;
@@ -657,6 +658,13 @@ function FilterManager(settings) {
                     }
                 }
             });
+        }
+        if (this.activeFilter) {
+            if (this.activeFilter.filters.hasOwnProperty('authorId')) {
+                if (this.activeFilter.filters.authorId.filter !== null) {
+                    returnBool = true;
+                }
+            }
         }
         return returnBool;
     }
