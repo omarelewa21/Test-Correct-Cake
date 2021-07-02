@@ -765,8 +765,8 @@ class QuestionsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->Session->write('addExisting', [
-            'owner' => $owner,
-            'owner_id' => $owner_id
+            'owner' => $owner, // group
+            'owner_id' => $owner_id // group_id
         ]);
 
         $education_level_years = [
@@ -854,6 +854,7 @@ class QuestionsController extends AppController
         $this->autoRender = false;
 
         $data = $this->Session->read('addExisting');
+
 
         $this->QuestionsService->duplicatetogroup($data['owner'], $data['owner_id'], $question_id);
     }

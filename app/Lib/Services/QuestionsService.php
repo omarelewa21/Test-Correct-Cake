@@ -146,6 +146,7 @@ class QuestionsService extends BaseService
         if ($owner == 'test') {
             $response = $this->Connector->postRequest('/test_question/', [], $data);
         } else {
+            // $ownerId is the test_questions.uuid
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id . '/' . $question_id , [], $data);
         }
         if ($response === false) {
