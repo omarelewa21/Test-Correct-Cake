@@ -103,7 +103,7 @@ foreach($questions as $question) {
             <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/preview_single/<?=getUUID($question, 'get');?>', 1000);">
                 <span class="fa fa-search"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Questions.addExistingQuestionToGroup('<?=getUUID($question, 'get');?>', <?=$question['is_subquestion']?>);">
+            <a href="#" class="btn white pull-right" onclick="Questions.addExistingQuestionToGroup('<?=getUUID($question, 'get');?>', <?=$question['is_subquestion']?>, <?=$group_id?>);">
                 <span class="fa fa-plus"></span>
             </a>
         </td>
