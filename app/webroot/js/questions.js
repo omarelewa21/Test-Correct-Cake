@@ -141,16 +141,17 @@ var Questions = {
         }
     },
 
-    addExistingQuestionToGroup : function(question_id, subquestion, group_id) {
+    addExistingQuestionToGroup : function(question_id, subquestion) {
 
         if(subquestion) {
+
             Popup.message({
                 btnOk: 'Importeren',
                 btnCancel: 'Annuleren',
                 title: 'Onderdeel van groepvraag',
                 message: 'Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.'
             }, function() {
-                $.get('/questions/add_existing_question_to_group/' + question_id + '/' + group_id,
+                $.get('/questions/add_existing_question_to_group/' + question_id,
                     function(response) {
                         Navigation.refresh();
                         Popup.closeLast();
@@ -158,8 +159,9 @@ var Questions = {
                 );
             });
 
+
         }else{
-            $.get('/questions/add_existing_question_to_group/' + question_id, '/', group_id,
+            $.get('/questions/add_existing_question_to_group/' + question_id,
                 function(response) {
                     Navigation.refresh();
                     Popup.closeLast();

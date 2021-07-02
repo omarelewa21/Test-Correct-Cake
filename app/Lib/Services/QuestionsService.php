@@ -131,9 +131,9 @@ class QuestionsService extends BaseService
      * @param $owner_id  should be the group_id to attach the question to.
      * @param $question_id
      */
-    public function duplicatetogroup($owner, $owner_id, $question_id, $group_id)
+    public function duplicatetogroup($owner, $owner_id, $question_id)
     {
-        $data['group_question_id'] = $group_id;
+        $data['group_question_id'] = $owner_id;
         $data['order'] = 0;
         $data['maintain_position'] = 0;
         $data['discuss'] = 1;

@@ -847,7 +847,7 @@ class QuestionsController extends AppController
         $this->QuestionsService->duplicate($data['owner'], $data['owner_id'], $question_id);
     }
 
-    public function add_existing_question_to_group($question_id, $group_id)
+    public function add_existing_question_to_group($question_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
@@ -855,8 +855,9 @@ class QuestionsController extends AppController
 
         $data = $this->Session->read('addExisting');
 
-        $this->QuestionsService->duplicatetogroup($data['owner'], $data['owner_id'], $question_id, $group_id);
+        $this->QuestionsService->duplicatetogroup($data['owner'], $data['owner_id'], $question_id);
     }
+
 
 
     public function add_existing_question_group($group_id)
@@ -1004,11 +1005,8 @@ class QuestionsController extends AppController
             }
         }
         $education_levels = $this->TestsService->getEducationLevels();
-        $data = $this->Session->read('addExisting');
-
         $this->set('education_levels', $education_levels);
         $this->set('questions', $questions['data']);
-        $this->set('group_id', $data['owner_id']);
     }
 
 
