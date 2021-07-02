@@ -435,7 +435,7 @@ var Popup = {
         if(typeof width == "undefined"){
             width = 600;
         }
-        $('#fade').hide();
+        $('#fade').fadeOut();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
         $('#container, #background, #header').removeClass('blurred');

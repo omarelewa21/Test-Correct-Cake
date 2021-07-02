@@ -346,7 +346,11 @@ class FileManagementController extends AppController {
         } else {
             $this->set('testKindOptions', $testKinds);
         }
-
+        if(array_key_exists('content_creation_step',$this->params['url']) && $this->params['url']['content_creation_step'] == 2) {
+            $this->set('opened_from_content', true);
+        } else {
+            $this->set('opened_from_content', false);
+        }
         $maxFileUpload = HelperFunctions::getInstance()->getMaxFileUploadSize();
         $this->set('max_file_upload_size', $maxFileUpload);
         $this->set('readable_max_upload_size', HelperFunctions::getInstance()->formatBytes($maxFileUpload));

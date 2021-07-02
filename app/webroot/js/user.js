@@ -63,6 +63,9 @@ var User = {
         );
 
         $('#header #top #user').click(function () {
+            if ($('#support_menu').is(':visible')) {
+                $('#support_menu').slideUp();
+            }
             $('#header #top #user_menu').slideDown();
             setTimeout(function () {
                 $('#header #top #user_menu').slideUp();

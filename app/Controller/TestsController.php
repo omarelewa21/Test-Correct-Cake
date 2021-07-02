@@ -155,6 +155,12 @@ class TestsController extends AppController
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
 
+        if(array_key_exists('content_creation_step',$this->params['url']) && $this->params['url']['content_creation_step'] == 2) {
+            $this->set('opened_from_content', true);
+        } else {
+            $this->set('opened_from_content', false);
+        }
+
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);

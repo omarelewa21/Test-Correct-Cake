@@ -96,6 +96,9 @@ var Menu = {
         $('#tiles .tile[menu=' + Menu.menu + ']').show();
         $('#menu .item').removeClass('active');
 
+        if(!$('#tiles .tile').is(':visible')) {
+                $('#tiles').slideUp();
+        }
         // $('#tiles').stop().animate({
         //     'top': '-20px'
         // },function(){
@@ -172,6 +175,9 @@ var Menu = {
         $('#action_icons').append('<div class="action_icon_container">'+support+''+ messages+'</div>');
 
         $('.menu_support_icon').click(function () {
+            if ($('#user_menu').is(':visible')) {
+                $('#user_menu').slideUp();
+            }
             $('#header #top #support_menu').slideDown();
             setTimeout(function () {
                 $('#header #top #support_menu').slideUp();
@@ -181,17 +187,5 @@ var Menu = {
         $('#header #top #support_menu').mouseleave(function () {
             $(this).slideUp();
         });
-
-        //In Timeout because User.info.isTeacher is not ready when the page is loaded.
-        setTimeout(function() {
-            if(User.info.isTeacher) {
-                $('#support_menu').append(
-                    '<a href="#" onclick="Popup.showExternalPage(\'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe\', 600)" class="btn white mt5">Webinar</a>\n' +
-                    '<a href="mailto:support@test-correct.nl" class="btn white mt5">E-mail</a>\n' +
-                    '<a href="#" class="btn white mt5">Chat</a>\n' +
-                    '<a href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5">Updates &amp; onderhoud</a>'
-                );
-            }
-        }, 100);
     }
 };

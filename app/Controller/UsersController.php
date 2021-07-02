@@ -1389,6 +1389,7 @@ class UsersController extends AppController
                     'menu'  => 'library',
                     'icon'  => 'testlist',
                     'title' => 'Content creëren',
+                    'type'  => 'popup',
                     'path'  => '/tests/create_content'
                 );
 

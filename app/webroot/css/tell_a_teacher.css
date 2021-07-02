@@ -376,7 +376,25 @@
 .primary-button:active {
     border: none;
 }
-
+.primary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.secondary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.text-button:disabled {
+    color: var(--mid-grey)!important;
+    cursor: default!important;
+}
+.cta-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
 .secondary-button.btn-disabled {
     background: var(--light-grey);
     color: var(--mid-grey);

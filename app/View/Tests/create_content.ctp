@@ -1,11 +1,15 @@
 <div class="dashboard create-content">
-    <div>
+    <div style="display: flex; justify-content: space-between; padding: 0 8px;">
         <h1>Content creëren voor Test-Correct</h1>
+        <span class="close" style="cursor:pointer" onclick="Popup.closeLast()">
+            <?= $this->element('close') ?>
+        </span>
     </div>
+    <div class="divider"></div>
     <div style="display: flex; justify-content: center;width: 100%; text-align: center; margin-top: 2rem;">
         <h5 style="display: flex">Wil je een toets construeren of uploaden?</h5>
     </div>
-    <div class="cta-blocks">
+    <div class="cta-blocks" style=" padding: 0 8px;">
         <div class="block-container">
             <div class="cta-block">
                 <div class="svg">
@@ -16,7 +20,7 @@
                 <span class="body">Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen</span>
 
                 <button type="button"
-                        onclick="Popup.load('/tests/add', 1000);"
+                        onclick="Popup.closeWithNewPopup('/tests/add?content_creation_step=2', 1000);"
                         class="button cta-button button-md">
                     <span>Toets Construeren</span>
                 </button>
@@ -30,12 +34,25 @@
                 <span class="body">Gelieve aan te leveren als: <br> PDF, Word, Wintoets</span>
 
                 <button type="button"
-                        onclick="Popup.load('/file_management/upload_test',800);"
+                        onclick="Popup.closeWithNewPopup('/file_management/upload_test?content_creation_step=2',800);"
                         class="button cta-button button-md">
                     <span>Toets uploaden</span>
                 </button>
             </div>
         </div>
     </div>
+    <div class="indicator">
+        <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+            <circle class="primary" cx="7" cy="7" r="7"/>
+        </svg>
+        <svg height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+            <circle class="system-secondary" cx="7" cy="7" r="7"/>
+        </svg>
+    </div>
 </div>
 
+<script>
+    $(document).ready(function() {
+        $('.dashboard.create-content').parent().css({'border-radius': '10px'})
+    })
+</script>

@@ -338,6 +338,7 @@
 }
 
 .dashboard.create-content .cta-blocks .block-container {
+    padding-bottom: 0;
     width: 100%;
 }
 .dashboard.create-content .cta-blocks .block-container .cta-block{
@@ -352,4 +353,29 @@
     border-radius: 10px;
     box-shadow: 0px 1px 3px rgb(0 0 0 / 20%);
     box-sizing: border-box;
+}
+
+.dashboard.create-content .close {
+    stroke: var(--system-base);
+}
+.dashboard.create-content .close:hover g {
+    stroke: var(--primary);
+}
+
+.dashboard.create-content .indicator {
+    position: relative;
+    left: auto;
+    transform: none;
+    display: flex;
+    padding-top: 1.5rem;
+    justify-content: center;
+}
+.add_test_indicator {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.add_test_indicator svg{
+    position: relative;
+    top: 2rem;
 }
