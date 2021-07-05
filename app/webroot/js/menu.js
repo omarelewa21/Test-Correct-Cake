@@ -99,7 +99,7 @@ var Menu = {
             $('#tiles').slideUp();
             $('#container').animate({'marginTop': '90px'});
         } else {
-            $('#container').animate({'marginTop': '170px'});
+            $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
         }
         // $('#tiles').stop().animate({
         //     'top': '-20px'
@@ -189,5 +189,8 @@ var Menu = {
         $('#header #top #support_menu').mouseleave(function () {
             $(this).slideUp();
         });
+
+        var right = $('#header').width() - $('.menu_support_icon').get(0).getBoundingClientRect().right;
+        $('#support_menu').css({'right': right});
     }
 };

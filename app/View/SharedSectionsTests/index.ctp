@@ -1,7 +1,11 @@
+<?= $this->element('testbank_tabs', array('tab' => 'shared_sections')) ?>
+
 <div id="TestsSharedSections">
 <div id="buttons">
-
-
+    <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
+        <span class="fa fa-calendar-o mr5"></span>
+        Toetsen inplannen
+    </a>
     <div class='popup' id='popup_search' style="display:none">
         <div class="popup-head" id="modal-head">Zoeken</div>
         <div class="popup-content">
@@ -67,7 +71,8 @@
 </div>
 
 <h1>Toetsitems andere schoollocaties binnen uw scholengemeenschap</h1>
-<div class="block">
+
+    <div class="block">
     <div class="block-content">
         <div class="block-head">Filteren</div>
         <table id="filterTable" class="table ">
@@ -151,7 +156,7 @@
                     sharedSectionsTestsFirstTimeRun = true;
                 }
 
-                
+
 
             sharedSectionsTestsFiltermanager.init(sharedSectionsTestsFirstTimeRun);
         });

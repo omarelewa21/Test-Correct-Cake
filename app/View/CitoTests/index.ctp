@@ -1,3 +1,4 @@
+<?= $this->element('testbank_tabs', array('tab' => 'cito')) ?>
 <div id="TestTakesCito">
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">

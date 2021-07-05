@@ -97,6 +97,8 @@
     </div>
 
     <h1>Toetsitems binnen uw schoollocatie</h1>
+    <?= $this->element('testbank_tabs', array('tab' => 'schoollocation')) ?>
+
     <div class="block">
         <div class="block-content">
             <div class="block-head">Filteren</div>

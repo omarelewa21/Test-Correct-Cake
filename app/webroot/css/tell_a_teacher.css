@@ -30,6 +30,8 @@
 
     --orange: #ff9d23;
 
+    --menu-blue: #197cb4;
+    --menu-blue-active: #1d93d6;
 }
 
 .color-primary {
@@ -293,7 +295,6 @@
 
 .button:focus {
     outline: none;
-    padding: 0 18px 0 18px;
 }
 
 .text-button {
@@ -321,7 +322,6 @@
     background-color: var(--off-white);
     height: 40px;
     color: var(--primary);
-
 }
 
 .button-sm {

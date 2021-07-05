@@ -1396,18 +1396,18 @@ class UsersController extends AppController
                 $tiles['tests_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Toetsen schoollocatie',
+                    'title' => 'Toetsenbank',
                     'path'  => '/tests/index'
                 );
 
-                if (AuthComponent::user('hasSharedSections')) {
-                    $tiles['tests_shared_sections_overview'] = array(
-                        'menu'  => 'library',
-                        'icon'  => 'testlist',
-                        'title' => 'Toetsen scholengemeenschap',
-                        'path'  => '/shared_sections_tests/index'
-                    );
-                }
+//                if (AuthComponent::user('hasSharedSections')) {
+//                    $tiles['tests_shared_sections_overview'] = array(
+//                        'menu'  => 'library',
+//                        'icon'  => 'testlist',
+//                        'title' => 'Toetsen scholengemeenschap',
+//                        'path'  => '/shared_sections_tests/index'
+//                    );
+//                }
 
                 $tiles['questions_overview'] = array(
                     'menu'  => 'library',
@@ -1416,14 +1416,14 @@ class UsersController extends AppController
                     'path'  => '/questions/index'
                 );
 
-                if (AuthComponent::user('hasCitoToetsen')) {
-                    $tiles['tests_cito_overview'] = array(
-                        'menu'  => 'library',
-                        'icon'  => 'testlist',
-                        'title' => 'CITO Toetsen op maat',
-                        'path'  => '/cito_tests/index'
-                    );
-                }
+//                if (AuthComponent::user('hasCitoToetsen')) {
+//                    $tiles['tests_cito_overview'] = array(
+//                        'menu'  => 'library',
+//                        'icon'  => 'testlist',
+//                        'title' => 'CITO Toetsen op maat',
+//                        'path'  => '/cito_tests/index'
+//                    );
+//                }
 
                 $tiles['tests_planned'] = array(
                     'menu'  => 'tests',
@@ -1446,12 +1446,12 @@ class UsersController extends AppController
                     'path'  => '/test_takes/taken_teacher'
                 );
 
-//                $tiles['tests_discussed'] = array(
-//                    'menu' => 'tests',
-//                    'icon' => 'bespreken',
-//                    'title' => 'Bespreken',
-//                    'path' => '/test_takes/discussion'
-//                );
+                $tiles['tests_discussed'] = array(
+                    'menu' => 'taken',
+                    'icon' => 'bespreken',
+                    'title' => 'Bespreken',
+                    'path' => '/test_takes/discussion'
+                );
 
                 $tiles['tests_examine'] = array(
                     'menu'  => 'taken',
@@ -1463,7 +1463,7 @@ class UsersController extends AppController
                 $tiles['tests_graded'] = array(
                     'menu'  => 'results',
                     'icon'  => 'becijferd',
-                    'title' => 'Becijferde toetsen',
+                    'title' => 'Beoordeeld',
                     'path'  => '/test_takes/rated'
                 );
 

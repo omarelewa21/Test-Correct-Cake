@@ -379,3 +379,10 @@
     position: relative;
     top: 2rem;
 }
+
+.justifyContentCenter {
+    justify-content: center;
+}
+.alignItemsCenter {
+    align-items: center;
+}
