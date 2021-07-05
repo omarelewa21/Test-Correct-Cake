@@ -1002,6 +1002,7 @@ class QuestionsController extends AppController
         $questions = $this->QuestionsService->getAllQuestions($params);
         $filter_group_questions = [];
         foreach ($questions['data'] as $question) {
+            // @todo this should be done better in the backend
             if ($question['type'] !== 'GroupQuestion') {
                 array_push($filter_group_questions, $question);
                 $filter_group_questions['question'] = $this->stripTagsWithoutMath($filter_group_questions['question']);
