@@ -162,7 +162,6 @@ var Core = {
 		}
 
 		$('#header').show();
-		$('#tiles').show();
 		Navigation.load('/users/welcome');
 
 		setTimeout(function() {Core.checkUnreadMessages()}, 3000);

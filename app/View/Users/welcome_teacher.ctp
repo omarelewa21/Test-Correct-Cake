@@ -700,12 +700,14 @@ if ($wizard_steps) {
         Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
     }
 
-    $('#support_menu').append(
-        '<a href="#" onclick="Popup.showExternalPage(\'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe\', 600)" class="btn white mt5">Webinar</a>\n' +
-        '<a href="mailto:support@test-correct.nl" class="btn white mt5">E-mail</a>\n' +
-        '<a href="#" class="btn white mt5">Chat</a>\n' +
-        '<a href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5">Updates &amp; onderhoud</a>'
-    );
+    if ($('#support_webinar').length !== 1) {
+        $('#support_menu').append(
+            '<a id="support_webinar" href="#" onclick="Popup.showExternalPage(\'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe\', 600)" class="btn white mt5">Webinar</a>\n' +
+            '<a id="support_email" href="mailto:support@test-correct.nl" class="btn white mt5">E-mail</a>\n' +
+            '<a id="support_chat" href="#" class="btn white mt5">Chat</a>\n' +
+            '<a id="support_updates" href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5">Updates &amp; onderhoud</a>'
+        );
+    }
 </script>
 <style>
     .block .block-content {

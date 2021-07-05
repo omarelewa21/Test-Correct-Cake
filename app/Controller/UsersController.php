@@ -1134,7 +1134,7 @@ class UsersController extends AppController
 
             if ($role['name'] == 'School management') {
                 $menus['analyses'] = "Analyse";
-                $menus['messages'] = "Berichten";
+//                $menus['messages'] = "Berichten";
             }
 
 

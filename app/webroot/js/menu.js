@@ -7,7 +7,6 @@ var Menu = {
     initialise: function () {
 
         $('#menu').load('/users/menu', function () {
-            // $('#tiles').hide();
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -97,7 +96,10 @@ var Menu = {
         $('#menu .item').removeClass('active');
 
         if(!$('#tiles .tile').is(':visible')) {
-                $('#tiles').slideUp();
+            $('#tiles').slideUp();
+            $('#container').animate({'marginTop': '90px'});
+        } else {
+            $('#container').animate({'marginTop': '170px'});
         }
         // $('#tiles').stop().animate({
         //     'top': '-20px'
