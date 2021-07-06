@@ -86,9 +86,9 @@
                 Navigation.load('/questions/view_group/<?=$test_id?>/' + result.uuid);
                 Popup.closeLast();
                 Notify.notify("Vraaggroep aangemaakt", "info");
-                setTimeout(function() {
-                    Popup.load('/questions/add_custom/group/' + result.uuid, 800);
-                }, 1000);
+               /* setTimeout(function() {
+                    Popup.load('/questions/add_custom/group/' + result.uuid, 800);     //this line has been commnted by Mohamed in order to allow the teacher to select if he needs to add new question or import a exisiting question
+                }, 1000); */  
             },
             onfailure : function(result) {
                 Notify.notify("Inloggegevens incorrect", "error");

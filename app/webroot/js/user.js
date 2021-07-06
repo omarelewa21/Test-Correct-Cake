@@ -313,7 +313,7 @@ var User = {
                 Core.lostFocus();
                 setTimeout(function () {
                     User.logout(false);
-                }, 2000);
+                }, 3000);
             }
 
             // Teacher

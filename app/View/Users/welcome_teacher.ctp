@@ -417,9 +417,9 @@ if ($wizard_steps) {
         }
         ?>
     }
-    if($('#ot-sdk-btn').length !==1 ) {
-        $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
-    }
+    // if($('#ot-sdk-btn').length !==1 ) {
+    //     $("#user_menu").append('<a id="ot-sdk-btn" class="ot-sdk-show-settings btn white mt5 cookie-button">Cookie Settings</a>');
+    // }
 
     var activeStep = "<?= $wizard_steps['active_step'] ?>";
     var showOnboardWizard = "<?= $wizard_steps['show'] ?>";
