@@ -1446,12 +1446,12 @@ class UsersController extends AppController
                     'path'  => '/test_takes/taken_teacher'
                 );
 
-                $tiles['tests_discussed'] = array(
-                    'menu' => 'taken',
-                    'icon' => 'bespreken',
-                    'title' => 'Bespreken',
-                    'path' => '/test_takes/discussion'
-                );
+//                $tiles['tests_discussed'] = array(
+//                    'menu' => 'taken',
+//                    'icon' => 'bespreken',
+//                    'title' => 'Bespreken',
+//                    'path' => '/test_takes/discussion'
+//                );
 
                 $tiles['tests_examine'] = array(
                     'menu'  => 'taken',
