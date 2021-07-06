@@ -2048,7 +2048,7 @@ class TestTakesController extends AppController {
             $take = $this->TestTakesService->getTestTake($getTakeId);
             if (!empty($take['discussing_parent_questions'])) {
                 //$group = $this->QuestionsService->getSingleQuestion();
-                $group = getUUID($take['discussing_parent_questions'][0]['group_question'], 'get');
+                $group = getUUID($take['discussing_parent_questions'][0]['group_question_uuid'], 'get');
                 $this->set('group', $group);
             }
 
