@@ -1509,12 +1509,12 @@ class UsersController extends AppController
                     'path'  => '/teacher_classes/school_location_classes'
                 ];
 
-//                $tiles['teacher_test_uploads'] = [
-//                    'menu'  => 'other',
-//                    'icon'  => 'testlist',
-//                    'title' => 'Aangeboden toetsen',
-//                    'path'  => '/file_management/testuploads'
-//                ];
+                $tiles['teacher_test_uploads'] = [
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'Mijn aangeboden toetsen',
+                    'path'  => '/file_management/testuploads'
+                ];
 
 //                $tiles['webinar'] = [
 //                    'menu'  => 'support',
