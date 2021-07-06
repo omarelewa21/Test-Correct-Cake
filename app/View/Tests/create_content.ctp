@@ -1,14 +1,11 @@
 <div class="dashboard create-content">
-    <div style="display: flex; justify-content: space-between; padding: 0 8px;">
-        <h1>Content creëren voor Test-Correct</h1>
+    <div style="display: flex; justify-content: space-between; padding: 0 8px;align-items: center;">
+        <h1>Hoe wil je content creëren?</h1>
         <span class="close" style="cursor:pointer" onclick="Popup.closeLast()">
             <?= $this->element('close') ?>
         </span>
     </div>
     <div class="divider"></div>
-    <div style="display: flex; justify-content: center;width: 100%; text-align: center; margin-top: 2rem;">
-        <h5 style="display: flex">Wil je een toets construeren of uploaden?</h5>
-    </div>
     <div class="cta-blocks" style=" padding: 0 8px;">
         <div class="block-container">
             <div class="cta-block">

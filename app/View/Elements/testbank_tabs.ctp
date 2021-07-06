@@ -1,33 +1,34 @@
-<div class="mb20" style="background-color: white;box-shadow: 0px 1px 3px rgb(0 0 0 / 20%);width:100%;">
-    <div class="flex justifyContentCenter">
-        <div class="flex justifyContentCenter" style="flex-direction: column; flex-grow: 1">
+<div style="border-bottom:solid 1px var(--mid-grey);flex-grow: 1">
+    <div class="flex">
+        <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
                     style="<?= $tab === 'schoollocation' ? 'color:var(--primary);' : '' ?>"
                     onclick="Navigation.load('/tests/index')"
             >
                 Schoollocatie
             </button>
-            <span style="display: flex;<?= $tab === 'schoollocation' ? 'border-bottom: 2px solid var(--primary)' : '' ?>">
+            <span style="display: flex;<?= $tab === 'schoollocation' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
-        <div class="flex justifyContentCenter" style="flex-direction: column; flex-grow: 1">
+        <?php if(AuthComponent::user('hasSharedSections')) { ?>
+        <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
-                    onclick="<?= AuthComponent::user('hasSharedSections') ? 'Navigation.load(\'/shared_sections_tests/index\')' : '' ?>"
+                    onclick="Navigation.load('/shared_sections_tests/index')"
                     style="<?= $tab === 'shared_sections' ? 'color:var(--primary);' : '' ?>"
-                <?= !AuthComponent::user('hasSharedSections') ? 'disabled' : '' ?>
             >
                 Scholengemeenschap
             </button>
-            <span style="display:flex;<?= $tab === 'shared_sections' ? 'border-bottom: 2px solid var(--primary)' : '' ?>">
+            <span style="display:flex;<?= $tab === 'shared_sections' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
-        <div class="flex justifyContentCenter" style="flex-direction: column; flex-grow: 1">
+        <?php } ?>
+        <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
                     onclick="<?= AuthComponent::user('hasCitoToetsen') ? 'Navigation.load(\'/cito_tests/index\')' : '' ?>"
                     style="<?= $tab === 'cito' ? 'color:var(--primary);' : '' ?>"
-                <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled' : '' ?>
+                <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled title="Binnenkort beschikbaar"' : '' ?>
             >
                 CITO toetsen
             </button>
-            <span style="display:flex;<?= $tab === 'cito' ? 'border-bottom: 2px solid var(--primary)' : '' ?>">
+            <span style="display:flex;<?= $tab === 'cito' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
     </div>
 </div>

@@ -84,8 +84,10 @@
 		<div id="notifications"></div>
 
 		<div id="header" class="highlight">
-			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />
-			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />
+            <?= $this->element('logo_circle') ?>
+            <?= $this->element('logo_text') ?>
+<!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
+<!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
 			<span id="versionBadge"></span>
 			<div id="top">
 				<div id="user"></div>
