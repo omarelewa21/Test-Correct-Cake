@@ -1,4 +1,4 @@
-<h1 style="text-align:center; margin-top: 200px;">Welkom in Test-Correct</h1>
+<h1 style="text-align:center; margin-top: 200px;"><?= __('Welkom in Test-Correct') ?></h1>
 <?php if($hasSchoolManagerRole) { ?>
 <div class="dashboard">
     <div class="notes">
