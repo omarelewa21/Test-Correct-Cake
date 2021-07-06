@@ -1,9 +1,18 @@
-<center>
-    <img src="http://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
-</center>
 
-<div style="margin:0 auto; width:80%;">
+<style>
+    * {
+        font-family: Helvetica;
+    }
 
+    table {
+        page-break-inside: avoid;
+    }
+</style>
+
+<div style="margin:0 auto; width:80%;page-break-inside: avoid;">
+    <center>
+        <img src="http://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
+    </center>
     <h1>Cijferlijst <?=$take['test']['name']?></h1>
 
     <?

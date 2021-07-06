@@ -109,7 +109,7 @@ class CoreConnector {
         return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
-    public function postRequest($path, $params, $body)
+    public function postRequest($path, $params, $body, $decode = true)
     {
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
@@ -127,7 +127,7 @@ class CoreConnector {
             "Content-Type" => "application/json"
         ];
 
-        return $this->_execute($handle,true,$headers);
+        return $this->_execute($handle,$decode,$headers);
     }
 
     public function postRequestFile($path, $params, $body)

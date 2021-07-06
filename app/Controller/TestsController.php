@@ -598,7 +598,7 @@ class TestsController extends AppController
         // Generate PDF
         $html = $view->render('pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html));
         $this->response->type('pdf');
 
         return $this->response;
@@ -636,7 +636,6 @@ class TestsController extends AppController
         $html = $view->render('attachmentpdf', 'pdf');
 
         $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -663,16 +662,9 @@ class TestsController extends AppController
         }
 
 
-        // $view = new View($this, false);
         $this->set('base64', $attachmentMatch['data']);
         $this->set('filename', $attachment['title']);
         $this->render('pdfatt', 'ajax');
-        // Generate PDF
-        // $html = $view->render('pdfatt', 'pdf');
-
-        // $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
-        // $this->response->type('pdf');
 
         return $this->response;
 
