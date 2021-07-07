@@ -253,6 +253,10 @@ var TestTake = {
         }
     },
 
+    startTestInLaravelWithIntense : function (take_id) {
+
+    },
+
     startTestInLaravel : function(take_id) {
         var _take_id = take_id;
         TestTake.atTestStart();
@@ -1225,7 +1229,7 @@ function ctrlactive (){
     } else{
         Notify.notify($.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'), 'error');
         Core.lostFocus("ctrl-key");
-    
+
     }
 }
 
@@ -1245,13 +1249,13 @@ function ShiftZero (){
 
      document.removeEventListener("keyup", window.shiftzeropressed );
      document.addEventListener("keyup", window.shiftzeropressed );
-     window.shiftzeropressed = function(){  
-        var keyCode = shiftzeropressed.keyCode ? shiftzeropressed.keyCode : shiftzeropressed.which;    
+     window.shiftzeropressed = function(){
+        var keyCode = shiftzeropressed.keyCode ? shiftzeropressed.keyCode : shiftzeropressed.which;
         if(event.shiftKey && event.keyCode == 48) {
         zeroshift =true;
         ctrlactive();
         } else {ctrlactive();
-          } 
+          }
     }
 }
 }
@@ -1264,10 +1268,10 @@ function shiftCtrlBtuCrOSAdd (){
             e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
         };
         window.ctrlpressaction = function(){
-          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;    
+          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
             if (event.ctrlKey ) {
                 ShiftZero ();
-            }        
+            }
         }
         document.removeEventListener('copy', window.copyeventlistener);
         document.addEventListener('copy', window.copyeventlistener);
