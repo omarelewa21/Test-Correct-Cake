@@ -435,7 +435,7 @@ var Popup = {
         if(typeof width == "undefined"){
             width = 600;
         }
-        $('#fade').hide();
+        $('#fade').fadeOut();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
         $('#container, #background, #header').removeClass('blurred');
@@ -584,7 +584,13 @@ var Popup = {
             }
         });
 
+    },
+
+    showExternalPage: function(path, width) {
+        var pWidth = typeof width !== 'undefined' ? width : 800 ;
+        Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe style="border:0;padding:0;margin:0" width="100%" height="500" src="' + path + '"></iframe>', pWidth);
     }
+
 
 
 };

@@ -1,105 +1,107 @@
-<div id="ItemBank">
-    <div id="buttons">
-        <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);">
+<div class="flex mb20 alignItemsCenter">
+    <?= $this->element('testbank_tabs', array('tab' => 'schoollocation')) ?>
+    <div class="flex" style="margin-left: 1rem;">
+        <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add',1000);" style="height: 22px;box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);">
             <span class="fa fa-calendar-o mr5"></span>
             Toetsen inplannen
         </a>
-        <a href="#" class="btn white" onclick="Popup.load('/tests/add', 1000);">
+        <a href="#" class="btn white" onclick="Popup.load('/tests/add', 1000);" style="height: 22px;box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);">
             <span class="fa fa-plus mr5"></span>
             Toets construeren
         </a>
-        <div class='popup' id='popup_search' style="display:none">
-            <div class="popup-head" id="modal-head">Zoeken</div>
-            <div class="popup-content">
-                <div id="testsFilter">
-                    <?= $this->Form->create('Test') ?>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label>Titel (trefwoord)</label>
-                            <?= $this->Form->input('name', array('label' => false)) ?>
-                        </div>
-                        <div class="col-md-5">
-                            <label>Type</label>
-                            <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
-                        </div>
+    </div>
+</div>
+<div id="ItemBank">
+    <div class='popup' id='popup_search' style="display:none">
+        <div class="popup-head" id="modal-head">Zoeken</div>
+        <div class="popup-content">
+            <div id="testsFilter">
+                <?= $this->Form->create('Test') ?>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label>Titel (trefwoord)</label>
+                        <?= $this->Form->input('name', array('label' => false)) ?>
                     </div>
-                    <div class="row">
-                        <div class="col-md-5"><label for="">Vak</label>
-                            <?= $this->Form->input('subject', array('style' => 'width: 100%', 'options' => $subjects, 'label' => false, 'multiple' => true)) ?>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label for="Periode">Periode</label>
-                            <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
-                        </div>
+                    <div class="col-md-5">
+                        <label>Type</label>
+                        <?= $this->Form->input('kind', array('options' => $kinds, 'label' => false)) ?>
                     </div>
-
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="">Niveau</label>
-                            <?= $this->Form->input('education_levels', array('style' => 'width: 100%', 'options' => $education_levels, 'label' => false, 'multiple' => true)) ?>
-                        </div>
-                        <div class="col-md-5">
-                            <label for="">Leerjaar</label>
-                            <?= $this->Form->input('education_level_years', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="">Aangemaakt van</label>
-                            <?= $this->Form->input('created_at_start', array('label' => false)) ?>
-                        </div>
-
-                        <div class="col-md-5">
-                            <label for="">Aangemaakt tot</label>
-                            <?= $this->Form->input('created_at_end', array('label' => false)) ?>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <label for="">Auteur</label>
-                            <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
-                        </div>
-
-                    </div>
-
-                    <?php if (false): ?>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <label for="">Bron</label>
-                                <?= $this->Form->input('is_open_sourced_content', array(
-                                    'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
-                                )) ?>
-
-                            </div>
-                            <div class="col-md-5"> &nbsp;</div>
-                        </div>
-                    <?php endif; ?>
-
-
-                    <?= $this->Form->end(); ?>
                 </div>
-            </div>
-            <div class="popup-footer">
-                <a href="#" style="float:right"
-                   id="jquery-save-filter-from-modal"
-                   class="btn blue pull-right mr5 mt5 inline-block">Opslaan</a>
-                <a href="#" style="float:right"
-                   id="jquery-save-filter-as-from-modal"
-                   class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
-                <a href="#" id="jquery-cache-filter-from-modal"  style="float:right"
-                   class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
+                <div class="row">
+                    <div class="col-md-5"><label for="">Vak</label>
+                        <?= $this->Form->input('subject', array('style' => 'width: 100%', 'options' => $subjects, 'label' => false, 'multiple' => true)) ?>
+                    </div>
 
+                    <div class="col-md-5">
+                        <label for="Periode">Periode</label>
+                        <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Niveau</label>
+                        <?= $this->Form->input('education_levels', array('style' => 'width: 100%', 'options' => $education_levels, 'label' => false, 'multiple' => true)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label for="">Leerjaar</label>
+                        <?= $this->Form->input('education_level_years', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Aangemaakt van</label>
+                        <?= $this->Form->input('created_at_start', array('label' => false)) ?>
+                    </div>
+
+                    <div class="col-md-5">
+                        <label for="">Aangemaakt tot</label>
+                        <?= $this->Form->input('created_at_end', array('label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Auteur</label>
+                        <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                    </div>
+
+                </div>
+
+                <?php if (false): ?>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="">Bron</label>
+                            <?= $this->Form->input('is_open_sourced_content', array(
+                                'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
+                            )) ?>
+
+                        </div>
+                        <div class="col-md-5"> &nbsp;</div>
+                    </div>
+                <?php endif; ?>
+
+
+                <?= $this->Form->end(); ?>
             </div>
+        </div>
+        <div class="popup-footer">
+            <a href="#" style="float:right"
+               id="jquery-save-filter-from-modal"
+               class="btn blue pull-right mr5 mt5 inline-block">Opslaan</a>
+            <a href="#" style="float:right"
+               id="jquery-save-filter-as-from-modal"
+               class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
+            <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
+               class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
 
         </div>
 
     </div>
 
-    <h1>Toetsitems binnen uw schoollocatie</h1>
+    <!--    <h1>Toetsitems binnen uw schoollocatie</h1>-->
+
     <div class="block">
         <div class="block-content">
-            <div class="block-head">Filteren</div>
             <table id="filterTable" class="table ">
                 <tbody>
                 <tr>
@@ -183,7 +185,7 @@
                             'source': '/tests/load',
                             'filters': '#TestIndexForm',
                             'container': '#testsContainter',
-                            'afterFirstRunCallback' : function(callback){
+                            'afterFirstRunCallback': function (callback) {
                                 Loading.hide();
                                 Core.surpressLoading = true;
                                 itembankFiltermanager.lockFilters();
@@ -197,7 +199,7 @@
                                         itembankFiltermanager.initCustom();
                                         Core.surpressLoading = false;
                                         itembankFiltermanager.unlockFilters();
-                                        if(typeof (callback) == 'function'){
+                                        if (typeof (callback) == 'function') {
                                             callback();
                                         }
                                     }
@@ -213,10 +215,10 @@
                 //     itembankFiltermanager.prepareForAuthors();
                 // }
 
-                itembankFiltermanager.init(itemBankFirstTimeRun,true);
+                itembankFiltermanager.init(itemBankFirstTimeRun, true);
             });
 
-            function setAuthors(){
+            function setAuthors() {
                 var author_select = $('#TestAuthorId');
                 author_select.html('');
                 $.each(Window.authors, function (key, value) {
@@ -225,13 +227,12 @@
                 });
             }
 
-            function authorsIsEmpty(){
-                if(Window.authors && Object.keys(Window.authors).length === 0 && Window.authors.constructor === Object){
+            function authorsIsEmpty() {
+                if (Window.authors && Object.keys(Window.authors).length === 0 && Window.authors.constructor === Object) {
                     return true;
                 }
                 return false;
             }
-
 
 
         </script>
