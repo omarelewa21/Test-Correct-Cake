@@ -16,6 +16,24 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <?php if ($shouldDisplayGeneralTermsNotification) {?>
+        <div class="notification warning terms-and-conditions">
+            <div class="title">
+                <h5 style="">Op de dienst Test-Correct zijn de algemene voorwaarden van toepassing</h5>
+            </div>
+            <div class="body mb20">
+                <p style="display: block; margin-bottom: 1rem;">Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert.</p>
+                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)">Lees en accepteer onze algemene voorwaarden <?php echo $this->element('arrow') ?></a>
+            </div>
+            <div class="flex tabs">
+                <?php for($i = 13; $i >= 0; $i--) {?>
+                    <div class="flex tab" style="<?= $i >= $generalTermsDaysLeft ? 'background-color:var(--teacher-Highlight-dark)' : '' ?>">
+                        <span><?= $i == $generalTermsDaysLeft ? 'nog '. $generalTermsDaysLeft .' dagen' : ''?></span>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <?php } ?>
         <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification warning">
             <div class="title">
@@ -65,9 +83,11 @@ if ($wizard_steps) {
             <div class="title">
                 <h5>Welkom op het Test-Correct platform!</h5>
             </div>
+            <?php if ($maintenanceNotification) { ?>
             <div class="body">
                 <?= $maintenanceNotification ?>
             </div>
+            <?php } ?>
         </div>
     </div>
 
@@ -370,6 +390,16 @@ if ($wizard_steps) {
 </div>
 
 <script src="/js/confetti.min.js"></script>
+<?php if($shouldDisplayGeneralTermsNotification) { ?>
+    <script>
+        setTimeout(function() {
+            if (<?= $generalTermsDaysLeft ?> == 0) {
+                Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
+            }
+
+        }, 1000);
+    </script>
+<?php } ?>
 <script>
     if(typeof(window.oneTrustInjected) === 'undefined') {
         <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
