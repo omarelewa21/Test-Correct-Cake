@@ -390,16 +390,7 @@ if ($wizard_steps) {
 </div>
 
 <script src="/js/confetti.min.js"></script>
-<?php if($shouldDisplayGeneralTermsNotification) { ?>
-    <script>
-        setTimeout(function() {
-            if (<?= $generalTermsDaysLeft ?> == 0) {
-                Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
-            }
 
-        }, 1000);
-    </script>
-<?php } ?>
 <script>
     if(typeof(window.oneTrustInjected) === 'undefined') {
         <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
@@ -729,6 +720,15 @@ if ($wizard_steps) {
     function displayCompleteUserImport() {
         Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
     }
+
+    <?php if($shouldDisplayGeneralTermsNotification) { ?>
+    setTimeout(function () {
+        if (<?= $generalTermsDaysLeft ?> == 0) {
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
+        }
+
+    }, 1000);
+    <?php } ?>
 
 </script>
 <style>

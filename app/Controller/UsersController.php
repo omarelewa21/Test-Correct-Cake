@@ -425,7 +425,6 @@ class UsersController extends AppController
 
                 $userGeneralTermsLog = $this->UsersService->getGeneralTermsLog(getUUID(AuthComponent::user('uuid'),'get'));
                 $shouldDisplayGeneralTermsNotification = $userGeneralTermsLog != null && $userGeneralTermsLog['accepted_at'] == null;
-
                 $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
                 if ($shouldDisplayGeneralTermsNotification) {
                     $firstRequest = new DateTime($userGeneralTermsLog['created_at']);
@@ -433,7 +432,6 @@ class UsersController extends AppController
                     $today = new DateTime('now');
 
                     $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff(new DateTime('now'))->format('%d') : 0;
-                    $generalTermsDaysLeft = 0;
                     $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
                 }
             }
