@@ -2304,6 +2304,15 @@ class TestTakesController extends AppController {
     public function export_to_rtti($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
 
+        if(!$this->TestTakesService->exportToRtti($take_id)){
+            $error = implode('<br>',$this->TestTakesService->getErrors());
+            $this->formResponse(0,$error);
+        } else {
+            $this->formResponse(1);
+        }
+        return true;
+
+/*
         require __DIR__ . '/rtti_api/autoload.php';
         require __DIR__ . '/rtti_api/nusoap.php';
 
@@ -2523,6 +2532,7 @@ class TestTakesController extends AppController {
         $this->formResponse(
                 empty($errors), $debug
         );
+*/
     }
 
     public function toggle_inbrowser_testing_for_participant($test_take_id, $participant_id) {

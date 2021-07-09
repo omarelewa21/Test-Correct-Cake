@@ -117,7 +117,7 @@
 
         $(".appType").val(Core.appType);
 
-    <?php if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <?php if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
         $('#UserPassword, #UserEmail').on('keydown',function(e){
             if(e.keyCode == 13){
                 $('.btnLoginTest').trigger('click');
@@ -136,13 +136,13 @@
             }
         );
 
-    <? } else { ?>
+        <? } else { ?>
         $('#UserPassword, #UserEmail').on('keydown',function(e){
             if(e.keyCode == 13){
                 $('.btnLogin').trigger('click');
             }
         });
-    <? } ?>
+        <? } ?>
 
     });
 

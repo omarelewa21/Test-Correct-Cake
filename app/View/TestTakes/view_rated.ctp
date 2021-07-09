@@ -45,7 +45,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
     <? endif; ?>
 
     <?php if($take['is_rtti_test_take'] == 1): ?>
-        <a href="#" onclick="Popup.load('/test_takes/export_to_rtti/<?=$take_id?>', 1000)" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
+        <a href="#" onclick="exportRtti('<?=$take_id?>')" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
@@ -283,6 +283,18 @@ if($isTeacher && $analysis && count($analysis)){
             });
         });
 
-
     </script>
 <?php } ?>
+<script>
+    function exportRtti(id){
+        $.get( '/test_takes/export_to_rtti/' + id, function( data ) {
+            if(data.status === 1) {
+                Notify.notify('De toets is succesvol geexporteerd naar RTTI');
+            } else {
+                Notify.notify('Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct.','error');
+            }
+        }).fail(function(error) {
+            Notify.notify(error,'error');
+        });
+    }
+</script>
