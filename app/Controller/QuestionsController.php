@@ -624,12 +624,19 @@ class QuestionsController extends AppController
                     break;
 
                 case 'MultipleChoiceQuestion' :
+
                     if ($question['question']['subtype'] == 'TrueFalse') {
                         $view = 'edit_true_false';
                     } elseif ($question['question']['subtype'] == 'ARQ') {
                         $view = 'edit_arq';
                     } else {
                         $view = 'edit_multiple_choice';
+                    }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['multiple_choice_question_answers'] as $key => $answerArray){
+                        $question['question']['multiple_choice_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
                     }
                     break;
 

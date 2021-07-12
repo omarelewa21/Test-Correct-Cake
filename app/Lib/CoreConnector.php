@@ -168,7 +168,6 @@ class CoreConnector {
             "Content-Type" => "application/json",
             "Content-Length" => strlen($body)
         ];
-
         return $this->_execute($handle,true,$headers);
     }
 

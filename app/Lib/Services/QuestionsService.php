@@ -1044,6 +1044,12 @@ class QuestionsService extends BaseService
                         $question['selectable_answers']++;
                     }
                 }
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
                 break;
             case "TrueFalseQuestion":
                 $question['answers'] = $this->getTrueFalsQuestionAnswers($question);
@@ -1652,5 +1658,17 @@ class QuestionsService extends BaseService
             $question['miller'] = $oriQuestion['miller'];
         }
         return $question;
+    }
+
+    public function transformHtmlChars($answer){
+        $answer = str_replace('<','&lt;',$answer);
+        $answer = str_replace('>','&gt;',$answer);
+        return $answer;
+    }
+
+    public function transformHtmlCharsReverse($answer){
+        $answer = str_replace('&lt;','<',$answer);
+        $answer = str_replace('&gt;','>',$answer);
+        return $answer;
     }
 }
