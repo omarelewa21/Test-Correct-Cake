@@ -23,8 +23,7 @@
 </div>
 <form method="put" id="teacher-complete-user-import-subject-cluster-class-form">
     <div class="popup-content tat-content body1" style="display:flex; overflow:hidden">
-        <div
-            style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:70px">
+        <div class="import-table-container">
             <table class="tableFixHead">
                 <thead
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">

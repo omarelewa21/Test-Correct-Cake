@@ -23,8 +23,7 @@
 </div>
 <form method="put" id="teacher-complete-user-import-main-school-class">
     <div class="popup-content tat-content body1" style="display:flex; overflow:hidden; padding-top: 10px!important;">
-        <div
-            style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px; padding-bottom:70px">
+        <div class="import-table-container">
             <table class="tableFixHead">
                 <thead
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
@@ -47,6 +46,15 @@
                 </thead>
                 <tbody>
                 <?php $checkedCount = 0; ?>
+                <?php if (empty($classes_list)) { ?>
+                        <tr>
+                            <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
+                                <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
+                                    <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
+                                </div>
+                            </td>
+                        </tr>
+                <?php } ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                             !$schoolClass['visible']
