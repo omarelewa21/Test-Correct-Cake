@@ -8,7 +8,7 @@ CKEDITOR.plugins.addExternal('ckeditor_wiris', 'plugins/@wiris/mathtype-ckeditor
 
 
 CKEDITOR.editorConfig = function( config ) {
-    config.extraPlugins = 'clipboard,pastetools,pastefromgdocs,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
+    config.extraPlugins = 'ajax,xml,clipboard,pastetools,pastefromgdocs,pastefromword,advanced,simpleuploads,quicktable,panelbutton,button,floatpanel,panel,ckeditor_wiris';
     config.allowedContent = true;
     config.disableNativeSpellChecker = true;
 
@@ -46,7 +46,6 @@ CKEDITOR.editorConfig = function( config ) {
     config.toolbar = [
         { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
         // { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-        { name: 'clipboard', items: [ 'PasteFromGDocs', '-', 'Undo', 'Redo' ] },
         { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
         { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
         { name: 'insert', items: [ 'addImage', 'Table' ] },
