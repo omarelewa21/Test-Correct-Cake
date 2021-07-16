@@ -156,6 +156,12 @@ class UsersController extends AppController
                 // no need to expose user info
                 $this->formResponse(true, ['message' => $message]);
             } else {
+                if($this->Auth->_authenticateObjects[0]->error === "NEEDS_LOGIN_ENTREE"){
+                    $this->formResponse(false, ['message' => 'Je gegevens zijn nog niet compleet. Log de eerste keer in via Entree']);
+                    return false;
+                }
+
+
                 // Check if there's a captcha reason to fail or that the data is just not okay
                 if (!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])) {
                     if ($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])) {
