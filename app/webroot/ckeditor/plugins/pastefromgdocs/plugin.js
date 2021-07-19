@@ -4,16 +4,91 @@
  * but were not part of the CKEDITOR 4.9.2 API, so they had to be defined elsewhere.
  */
 
-CKEDITOR.tools.array.some = ( array, func ) => {
-	return array.some(func);
+CKEDITOR.tools.array.some = function ( array, func ) {
+	if(Array.prototype.some) {
+		return array.some(func);
+	} else {
+		'use strict';
+		if (array == null) {
+			throw new TypeError('array is null or undefined');
+		}
+
+		if (typeof func !== 'function') {
+			throw new TypeError('func is not a function');
+		}
+
+		var t = Object(array);
+		var len = t.length >>> 0;
+
+		for (var i = 0; i < len; i++) {
+			if (i in t && func.call(thisArg, t[i], i, t)) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 }
 
-CKEDITOR.tools.array.find = ( array, func ) => {
-	return array.find(func);
+CKEDITOR.tools.array.find = function ( array, func ) {
+	if(Array.prototype.find) {
+		return array.find(func);
+	} else {
+		'use strict';
+		if (array == null) {
+			throw new TypeError('array is null or undefined');
+		}
+
+		if (typeof func !== 'function') {
+			throw new TypeError('func is not a function');
+		}
+
+		for(var i = 0; i <= array.length; i++) {
+			if(func(array[i])) return array[i];
+		}
+		return undefined;
+	}
 }
 
-CKEDITOR.tools.object.keys = ( object ) => {
-	return Object.keys(object);
+CKEDITOR.tools.object.keys = function ( object ) {
+	if(Object.keys) {
+		return Object.keys(object);
+	} else {
+		'use strict';
+		var hasOwnProperty = Object.prototype.hasOwnProperty,
+			hasDontEnumBug = !({ toString: null }).propertyIsEnumerable('toString'),
+			dontEnums = [
+				'toString',
+				'toLocaleString',
+				'valueOf',
+				'hasOwnProperty',
+				'isPrototypeOf',
+				'propertyIsEnumerable',
+				'constructor'
+			],
+			dontEnumsLength = dontEnums.length;
+
+		if (typeof object !== 'function' && (typeof object !== 'object' || object === null)) {
+			throw new TypeError('object is not an object');
+		}
+
+		var result = [], prop, i;
+
+		for (prop in object) {
+			if (hasOwnProperty.call(object, prop)) {
+				result.push(prop);
+			}
+		}
+
+		if (hasDontEnumBug) {
+			for (i = 0; i < dontEnumsLength; i++) {
+				if (hasOwnProperty.call(obj, dontEnums[i])) {
+					result.push(dontEnums[i]);
+				}
+			}
+		}
+		return result;
+	}
 }
 
 /**
