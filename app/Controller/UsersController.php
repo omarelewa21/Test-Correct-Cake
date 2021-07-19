@@ -451,6 +451,12 @@ class UsersController extends AppController
             }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
+        if ($should_display_import_incomplete_panel) {
+            $lvs_type = $this->SchoolLocationsService->getLvsType(
+                getUUID(AuthComponent::user('school_location'),'get')
+            )[0];
+            $this->set('lvs_type', $lvs_type);
+        }
         $this->set('should_display_import_incomplete_panel', $should_display_import_incomplete_panel);
 
         $this->render($view, 'ajax');
