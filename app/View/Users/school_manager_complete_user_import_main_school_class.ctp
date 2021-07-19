@@ -17,8 +17,7 @@
         </div>
     </div>
     <div class="divider mb24 mt10"></div>
-    <div class="pb24"
-         style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
         Stel het niveau in voor de stamklassen
     </div>
 
@@ -233,11 +232,15 @@
                             Notify.notify(error, 'error');
                             return;
                         }
-                        var msg = 'Gegevens voor 1 klas opgeslagen.';
-                        if (data.result.count !== 1) {
-                            msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                        if (typeof data.result.count !== 'undefined') {
+                            var msg = 'Gegevens voor 1 klas opgeslagen.';
+                            if (data.result.count !== 1) {
+                                msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                            }
+                            Notify.notify(msg)
+                        } else {
+                            Notify.notify('Kies het niveau alvorens op Gecontroleerd te klikken', 'error');
                         }
-                        Notify.notify(msg)
                         if(data.result.done){
                             Notify.notify('Super!<br/>Alle gegevens zijn verwerkt');
                             Popup.closeLast();
