@@ -1,11 +1,10 @@
-<div class="tat-content border-radius-bottom-0"
-     style="padding-bottom: 0!important;box-shadow: 0 3px 18px 0 rgba(77, 87, 143, 0.2); ">
+<div class="tat-content border-radius-bottom-0 import-heading">
     <div style="display:flex">
         <div style="flex-grow:1">
             <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
         </div>
         <div style="margin-top:-2px">
-            <?php echo $this->element('teacher_complete_user_import_tooltip') ?>
+            <?php echo $this->element('teacher_complete_user_import_tooltip', array('type' => $lvs_type)) ?>
         </div>
         <div class="close" style="flex-shrink: 1">
             <a href="#" onclick="Popup.closeLast()">
@@ -18,8 +17,7 @@
         </div>
     </div>
     <div class="divider mb24 mt10"></div>
-    <div class="pb24"
-         style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
         Stel het niveau in voor de stamklassen
     </div>
 
@@ -42,11 +40,20 @@
                         </th>
                     <?php } ?>
                     <th style="margin-left: auto" width="80px">Status</th>
-                    <th width="120px">Gecontrolleerd</th>
+                    <th width="120px">Gecontroleerd</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $checkedCount = 0; ?>
+                <?php if (empty($classes_list)) { ?>
+                    <tr>
+                        <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
+                            <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
+                                <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                             !$schoolClass['finalized']
@@ -225,11 +232,15 @@
                             Notify.notify(error, 'error');
                             return;
                         }
-                        var msg = 'Gegevens voor 1 klas opgeslagen.';
-                        if (data.result.count !== 1) {
-                            msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                        if (typeof data.result.count !== 'undefined') {
+                            var msg = 'Gegevens voor 1 klas opgeslagen.';
+                            if (data.result.count !== 1) {
+                                msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
+                            }
+                            Notify.notify(msg)
+                        } else {
+                            Notify.notify('Kies het niveau alvorens op Gecontroleerd te klikken', 'error');
                         }
-                        Notify.notify(msg)
                         if(data.result.done){
                             Notify.notify('Super!<br/>Alle gegevens zijn verwerkt');
                             Popup.closeLast();

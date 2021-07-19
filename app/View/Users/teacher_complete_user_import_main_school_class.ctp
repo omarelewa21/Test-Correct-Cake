@@ -1,10 +1,10 @@
-<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;">
+<div class="tat-content border-radius-bottom-0 import-heading">
     <div style="display:flex">
         <div style="flex-grow:1">
             <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
         </div>
         <div style="margin-top:-2px">
-            <?php echo $this->element('teacher_complete_user_import_tooltip') ?>
+            <?php echo $this->element('teacher_complete_user_import_tooltip', array('type' => $lvs_type)) ?>
         </div>
         <div class="close" style="flex-shrink: 1">
             <a href="#" onclick="Popup.closeLast()">
@@ -41,7 +41,7 @@
 
                     <?php } ?>
                     <th style="margin-left: auto" width="80px">Status</th>
-                    <th width="120px">Gecontrolleerd</th>
+                    <th width="120px">Gecontroleerd</th>
                 </tr>
                 </thead>
                 <tbody>

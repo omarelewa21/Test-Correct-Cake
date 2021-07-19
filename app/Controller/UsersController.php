@@ -1962,6 +1962,10 @@ class UsersController extends AppController
             getUUID(AuthComponent::user('school_location'), 'get'),
             true
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
@@ -1995,6 +1999,10 @@ class UsersController extends AppController
             getUUID(AuthComponent::user('school_location'), 'get'),
             true
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
@@ -2039,6 +2047,9 @@ class UsersController extends AppController
         ]);
         $subjects = $this->TestsService->getSubjects(false, 'all', true, true);
 
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
         $this->set('taught_subjects', $taughtSubjects);
@@ -2067,6 +2078,10 @@ class UsersController extends AppController
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get')
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
