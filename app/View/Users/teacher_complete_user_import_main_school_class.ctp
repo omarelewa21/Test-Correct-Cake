@@ -29,7 +29,7 @@
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr class="rotate_table_headings">
-                    <th width="200px">Klas</th>
+                    <th class="main_school_class_td">Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
                         <?php if (!empty($level['education_level'])) { ?>
                         <th class="ed_level_col" width="60px">
@@ -66,7 +66,7 @@
                             )
                     ){ ?>
                         <tr style='display: flex;align-items: center'>
-                            <td width="200px"><?= $schoolClass['name'] ?> </td>
+                            <td class="main_school_class_td"><span class="main_school_class_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
                             <?php if (!empty($eductionLevel['education_level'])) { ?>
                                 <td width="60px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
@@ -140,7 +140,7 @@
                                     || $schoolClass['visible']
                         ) { ?>
                             <tr class="completed_classes_rows" style="display: none;align-items: center">
-                                <td width="200px"><?= $schoolClass['name'] ?> </td>
+                                <td class="main_school_class_td"><span class="main_school_class_span"><?= $schoolClass['name'] ?></span></td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <?php if (!empty($eductionLevel['education_level'])) { ?>
                                         <td width="60px" style="position:relative; align-content: center">
@@ -319,6 +319,7 @@
                         });
                     }
                 }, 100);
+                changeClassColumnWidth();
             });
 
             $('#show_checked_classes_button').click(function() {
@@ -334,5 +335,24 @@
                     $(this).toggleClass('open');
                 }
             });
+
+            function changeClassColumnWidth() {
+                $('.completed_classes_rows').css('display', 'flex');
+                var spans = document.querySelectorAll('.main_school_class_span');
+
+                setTimeout(function() {
+                    var width = 100;
+                    spans.forEach(function(span) {
+                        console.log([span.innerHTML, span.offsetWidth])
+                        if (span.offsetWidth > width) {
+                            width = span.offsetWidth+10;
+                        }
+                    })
+                    document.querySelectorAll('.main_school_class_td').forEach(function(td) {
+                        td.width = width;
+                    })
+                    $('.completed_classes_rows').hide();
+                },100)
+            }
         </script>
     </div>

@@ -29,7 +29,7 @@
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr style="display: flex; align-items: center">
-                    <th width="200px">Klas</th>
+                    <th class="cluster_class_subject_td">Klas</th>
                     <?php foreach ($subjects as $subject) {
                         $subjectId = $subject['id'];
                         $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
@@ -69,7 +69,7 @@
                 <tbody>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <tr style="display: flex;align-items: center">
-                        <td width="200px"><?= $schoolClass['name'] ?></td>
+                        <td class="cluster_class_subject_td"><span class="cluster_class_subject_span"><?= $schoolClass['name'] ?></span></td>
 
                         <?php foreach ($subjects as $subject) {
                             $subjectId = $subject['id'];
@@ -294,5 +294,24 @@
             checkDisplaySelectBox();
 
             updateTeacherSubjectCompleteCounter();
+
+            changeClassColumnWidth();
         });
+
+        function changeClassColumnWidth() {
+            var spans = document.querySelectorAll('.cluster_class_subject_span');
+
+            setTimeout(function() {
+                var width = 100;
+                spans.forEach(function(span) {
+                    console.log([span.innerHTML, span.offsetWidth])
+                    if (span.offsetWidth > width) {
+                        width = span.offsetWidth+10;
+                    }
+                })
+                document.querySelectorAll('.cluster_class_subject_td').forEach(function(td) {
+                    td.width = width;
+                })
+            },100)
+        }
     </script>
