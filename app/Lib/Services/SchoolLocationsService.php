@@ -237,4 +237,15 @@ class SchoolLocationsService extends BaseService
 
         return $response;
     }
+
+    public function getLvsType($schoolLocationId)
+    {
+        $response = $this->Connector->getRequest('/school_location/' . $schoolLocationId . '/get_lvs_type/', []);
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
 }

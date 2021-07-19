@@ -1,11 +1,10 @@
-<div class="tat-content border-radius-bottom-0"
-     style="padding-bottom: 0!important;box-shadow: 0 3px 18px 0 rgba(77, 87, 143, 0.2); ">
+<div class="tat-content border-radius-bottom-0 import-heading">
     <div style="display:flex">
         <div style="flex-grow:1">
             <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
         </div>
         <div style="margin-top:-2px">
-            <?php echo $this->element('teacher_complete_user_import_tooltip') ?>
+            <?php echo $this->element('teacher_complete_user_import_tooltip', array('type' => $lvs_type)) ?>
         </div>
         <div class="close" style="flex-shrink: 1">
             <a href="#" onclick="Popup.closeLast()">
@@ -42,11 +41,20 @@
                         </th>
                     <?php } ?>
                     <th style="margin-left: auto" width="80px">Status</th>
-                    <th width="120px">Gecontrolleerd</th>
+                    <th width="120px">Gecontroleerd</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php $checkedCount = 0; ?>
+                <?php if (empty($classes_list)) { ?>
+                    <tr>
+                        <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
+                            <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
+                                <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
+                            </div>
+                        </td>
+                    </tr>
+                <?php } ?>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                             !$schoolClass['finalized']

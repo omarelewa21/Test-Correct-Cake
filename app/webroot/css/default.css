@@ -285,8 +285,8 @@ div.block-content img {
 }
 .tableFixHead {
     display: block;
-    max-height: 460px;
-    height: 460px;
+    max-height: 500px;
+    height: 500px;
     overflow: auto;
     table-layout: fixed;
     width:100%;
@@ -516,4 +516,15 @@ div.block-content img {
     background-color: var(--blue-grey);
     border-radius: 20px;
     border: 1px solid var(--system-secondary);
+}
+
+.import-heading {
+    padding-bottom: 24px!important;
+    margin-bottom: 10px;
+    box-shadow: 0 3px 18px 0 rgba(77, 87, 143, 0.2);
+}
+.import-heading h2 {
+    margin: 0;
+    font-size: 1.75rem;
+    line-height: 2rem;
 }
