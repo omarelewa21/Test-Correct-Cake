@@ -2034,7 +2034,7 @@ class UsersController extends AppController
         $checkedByTeacher = [];
         $taughtSubjects = [];
         foreach($teachersList as $teacherRecord) {
-            if (! is_array($teacherEntries[$teacherRecord['class_id']])){
+            if (!array_key_exists($teacherRecord['class_id'], $teacherEntries) || !is_array($teacherEntries[$teacherRecord['class_id']])){
                 $teacherEntries[$teacherRecord['class_id']] = [];
             }
             $teacherEntries[$teacherRecord['class_id']][] = $teacherRecord['subject_id'];
