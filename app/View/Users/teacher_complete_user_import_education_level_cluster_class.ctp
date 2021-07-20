@@ -227,15 +227,21 @@
                 bottom:0;
                 height:90px;
                 width:100%;
-                margin-left:-40px; display:flex"
+                margin-left:-40px;
+                display:flex;
+                justify-content:center;
+                "
         >
+            <div id="unsaveReturn" class="notification error" style="display:none;position:absolute;z-index: 10;top: -60px;">
+                <span class="body">Er zijn onopgeslagen wijzigingen. Weet je zeker dat je terug wilt gaan naar de vorige stap?</span>
+            </div>
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
                     <button id="btn-back-to-main-school-class"
                             style="height: 50px ; font-size:18px; font-weight: bold;"
                             class="button text-button button-md">
-                        <?= $this->element('chevron-left') ?> Terug naar stamklassen
+                        <?= $this->element('chevron-left') ?><span class="ml8">Terug naar stamklassen</span>
                     </button>
                 </div>
                 <div style="display:flex;">
@@ -246,7 +252,7 @@
                         Opslaan
                     </button>
                     <button id="btn-subject-cluster-class" style="height: 50px" class="button cta-button button-md">
-                        Vakken instellen <?= $this->element('chevron') ?>
+                        <span class="mr10">Vakken instellen</span><?= $this->element('chevron') ?>
                     </button>
                 </div>
             </div>
@@ -254,6 +260,9 @@
         </div>
     </div>
     <script>
+        var itemsHaveBeenChanged = false;
+        var itemsSaved = false;
+        var unsavedNoticeShown = false;
         $(document).ready(function () {
             if (window.teacherCompleteUserImportClusterSchoolClass !== true) {
                 $(document)
@@ -278,7 +287,8 @@
                                 if (data.result.count !== 1) {
                                     msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
                                 }
-
+                                itemsSaved = true;
+                                $('#unsaveReturn').fadeOut();
                                 Notify.notify(msg)
                             },
                         });
@@ -320,6 +330,13 @@
                     })
                     .on('click', '#btn-back-to-main-school-class', function (e) {
                         e.preventDefault();
+                        if (itemsHaveBeenChanged && !itemsSaved) {
+                            if (!unsavedNoticeShown) {
+                                $('#unsaveReturn').show();
+                                unsavedNoticeShown = true;
+                                return false;
+                            }
+                        }
                         Popup.closeLast();
                         window.setTimeout(function () {
                             Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
@@ -362,6 +379,13 @@
             if ($('.action_rows').length === 0) {
                 $('#note_row').show();
             }
+
+            $('.action_rows').on('change', function() {
+                itemsHaveBeenChanged = true;
+                itemsSaved = false;
+                unsavedNoticeShown = false;
+                $('#unsaveReturn').fadeOut();
+            })
         });
 
         $('#show_checked_classes_button').click(function() {

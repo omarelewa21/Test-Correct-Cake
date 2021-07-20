@@ -68,7 +68,7 @@
                 </thead>
                 <tbody>
                 <?php foreach ($classes_list as $schoolClass) { ?>
-                    <tr style="display: flex;align-items: center">
+                    <tr class="action_rows" style="display: flex;align-items: center">
                         <td class="cluster_class_subject_td"><span class="cluster_class_subject_span"><?= $schoolClass['name'] ?></span></td>
 
                         <?php foreach ($subjects as $subject) {
@@ -163,8 +163,13 @@
                 bottom:0;
                 height:90px;
                 width:100%;
-                margin-left:-40px; display:flex"
+                margin-left:-40px;
+                display:flex;
+                justify-content: center;"
         >
+            <div id="unsaveReturn" class="notification error" style="display:none;position:absolute;z-index: 10;top: -60px;">
+                <span class="body">Er zijn onopgeslagen wijzigingen. Weet je zeker dat je terug wilt gaan naar de vorige stap?</span>
+            </div>
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
@@ -190,7 +195,7 @@
 
                     <button id="btn-back-to-eduction-level" class="button text-button"
                             style="font-size:18px; font-weight:bold;">
-                        <?php echo $this->element('chevron-left') ?> Terug naar niveau &amp; leerjaar
+                        <?php echo $this->element('chevron-left') ?> <span class="ml8">Terug naar niveau &amp; leerjaar</span>
                     </button>
 
 
@@ -208,6 +213,9 @@
         </div>
     </div>
     <script>
+        var itemsHaveBeenChanged = false;
+        var itemsSaved = false;
+        var unsavedNoticeShown = false;
         $(document).ready(function () {
             if (window.teacherCompleteUserImportSubjectClusterClass !== true) {
                 $(document)
@@ -240,12 +248,22 @@
                                     Popup.closeLast();
                                     Navigation.refresh();
                                 }
+
+                                itemsSaved = true;
+                                $('#unsaveReturn').fadeOut();
                                 // Popup.closeLast();
                             },
                         });
                     })
                     .on('click', '#btn-back-to-eduction-level', function (e) {
                         e.preventDefault();
+                        if (itemsHaveBeenChanged && !itemsSaved) {
+                            if (!unsavedNoticeShown) {
+                                $('#unsaveReturn').show();
+                                unsavedNoticeShown = true;
+                                return false;
+                            }
+                        }
                         Popup.closeLast();
                         window.setTimeout(function () {
                             Popup.load('users/teacher_complete_user_import_education_level_cluster_class', 1080);
@@ -296,6 +314,13 @@
             updateTeacherSubjectCompleteCounter();
 
             changeClassColumnWidth();
+
+            $('.action_rows').on('change', function() {
+                itemsHaveBeenChanged = true;
+                itemsSaved = false;
+                unsavedNoticeShown = false;
+                $('#unsaveReturn').fadeOut();
+            })
         });
 
         function changeClassColumnWidth() {
