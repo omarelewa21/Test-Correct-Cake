@@ -73,10 +73,11 @@
 </div>
 
 <div class="popup-footer">
-    <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
-        <i class="fa fa-check mr5"></i> Entree
-    </a>
     <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
+            <i class="fa fa-check mr5"></i> Entree
+        </a>
+
         <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
             <i class="fa fa-check mr5"></i> Test login
         </a>
@@ -87,6 +88,10 @@
 
 
     <? } else { ?>
+        <a href="https://welcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
+            <i class="fa fa-check mr5"></i> Entree
+        </a>
+
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
             <i class="fa fa-check mr5"></i> Inloggen
         </a>
