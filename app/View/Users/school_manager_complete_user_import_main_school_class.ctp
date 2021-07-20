@@ -45,15 +45,13 @@
                 </thead>
                 <tbody>
                 <?php $checkedCount = 0; ?>
-                <?php if (empty($classes_list)) { ?>
-                    <tr>
-                        <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
-                            <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
-                                <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
-                            </div>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <tr id="note_row" style="display: none;">
+                    <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
+                        <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
+                            <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
+                        </div>
+                    </td>
+                </tr>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                             !$schoolClass['finalized']
@@ -61,7 +59,7 @@
                             && !$schoolClass['checked_by_teacher']
                             && !$schoolClass['checked_by_admin']
                     ){ ?>
-                        <tr style="display:flex;align-items: center">
+                        <tr class="action_rows" style="display:flex;align-items: center">
                             <td class="school_manager_class_td" ><span class="school_manager_class_name_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
                                 <td width="60px" style="position:relative; align-content: center">
@@ -283,6 +281,10 @@
             }, 100);
 
             changeClassColumnWidth();
+
+            if ($('.action_rows').length === 0) {
+                $('#note_row').show();
+            }
         });
 
         $('#show_checked_classes_button').click(function() {
