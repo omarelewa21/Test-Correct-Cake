@@ -1113,12 +1113,12 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
-                //Dashboard is prepended to the menu in menu.js
+                //Dashboard and Results is prepended to the menu in menu.js
 //                $menus['dashboard'] = "Dashboard";
-                $menus['library'] = "Content";
+                $menus['library'] = "Toetsen";
                 $menus['tests'] = "Ingepland";
                 $menus['taken'] = "Afgenomen";
-                $menus['results'] = "Resultaten";
+//                $menus['results'] = "Resultaten";
                 $menus['analyses'] = "Analyses";
                 $menus['classes'] = "Klassen";
 //                $menus['other'] = "Overig";
@@ -1388,7 +1388,7 @@ class UsersController extends AppController
                 $tiles['create_content'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Content creëren',
+                    'title' => 'Toetsen creëren',
                     'type'  => 'popup',
                     'path'  => '/tests/create_content'
                 );
@@ -1428,7 +1428,7 @@ class UsersController extends AppController
                 $tiles['tests_planned'] = array(
                     'menu'  => 'tests',
                     'icon'  => 'gepland',
-                    'title' => 'Geplande toetsen',
+                    'title' => 'Mijn ingeplande toetsen',
                     'path'  => '/test_takes/planned_teacher'
                 );
 
@@ -1442,7 +1442,7 @@ class UsersController extends AppController
                 $tiles['tests_taken'] = array(
                     'menu'  => 'taken',
                     'icon'  => 'afgenomen',
-                    'title' => 'Afgerond',
+                    'title' => 'Mijn afgenomen toetsen',
                     'path'  => '/test_takes/taken_teacher'
                 );
 
@@ -1460,12 +1460,12 @@ class UsersController extends AppController
                     'path'  => '/test_takes/to_rate'
                 );
 
-                $tiles['tests_graded'] = array(
-                    'menu'  => 'results',
-                    'icon'  => 'becijferd',
-                    'title' => 'Beoordeeld',
-                    'path'  => '/test_takes/rated'
-                );
+//                $tiles['tests_graded'] = array(
+//                    'menu'  => 'results',
+//                    'icon'  => 'becijferd',
+//                    'title' => 'Beoordeeld',
+//                    'path'  => '/test_takes/rated'
+//                );
 
                 $tiles['analyse'] = array(
                     'menu'  => 'analyses',
@@ -1512,7 +1512,7 @@ class UsersController extends AppController
                 $tiles['teacher_test_uploads'] = [
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Mijn aangeboden toetsen',
+                    'title' => 'Mijn uploads',
                     'path'  => '/file_management/testuploads'
                 ];
 

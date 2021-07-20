@@ -7,6 +7,8 @@ var Menu = {
     initialise: function () {
 
         $('#menu').load('/users/menu', function () {
+            Menu.addDashboardAndResultsToMenu();
+            Menu.addActionIconsToHeader();
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -16,16 +18,17 @@ var Menu = {
 
 
                 $('#tiles .tile').hide();
+                console.log($('#tiles .tile[menu=' + Menu.menuTmp + ']').length > 0);
                 if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length > 0) {
 
                     $(this).addClass('active');
                     $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
+                    $('#tiles').show();
 
                     clearTimeout(window.menuTimer);
-
-                    $('#tiles').show();
                     $('#tiles').stop().animate({
-                        'top': '104px'
+                        'top': '98px',
+                        'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menuTmp)
                     });
                 } else {
                     if (!$(this).find('.withActiveHover')) {
@@ -38,10 +41,6 @@ var Menu = {
 
                 }, 500);
             });
-            $(document).ready(function () {
-                Menu.addDashboardToMenu();
-                Menu.addActionIconsToHeader();
-            });
         });
 
         $('#tiles').load('/users/tiles', function () {
@@ -49,11 +48,14 @@ var Menu = {
             $('#tiles').mouseover(function () {
                 clearTimeout(window.menuTimer);
                 $(this).stop().animate({
-                    'top': '104px'
+                    'top': '98px'
                 });
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
                     Menu.hideTiles();
+                    $('#tiles').stop().animate({
+                        'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
+                    });
                 }, 500);
             });
 
@@ -129,8 +131,9 @@ var Menu = {
         $('#tiles .tile').removeClass('active');
     },
 
-    addDashboardToMenu: function () {
+    addDashboardAndResultsToMenu: function () {
         $("<div id='dashboard' class='item' onclick='Menu.dashboardButtonAction()'>Dashboard</div>").prependTo("#menu");
+        $("<div id='results' class='item' onclick='Navigation.load(\"/test_takes/rated\");Menu.clearActiveMenu(\"results\");'>Resultaten</div>").insertAfter("#taken");
         Menu.hideTiles();
     },
 
@@ -138,7 +141,6 @@ var Menu = {
         var support =   '<div class="menu_support_icon">' +
                             '<?xml version="1.0" encoding="UTF-8"?>' +
                             '<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
-                            '    <title>icons/support</title>' +
                             '    <g id="icons/support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
                             '        <path d="M9.95462046,7.11460331 C9.95462046,3.97760698 7.41158248,1.43456901 4.27458616,1.43456901 C1.13758983,1.43456901 -1.40544814,3.97760698 -1.40544814,7.11460331" id="Oval" stroke="currentColor" transform="translate(4.274586, 4.274586) rotate(-45.000000) translate(-4.274586, -4.274586) "></path>' +
                             '        <path d="M25.3456811,7.11460331 C25.3456811,3.97760698 22.8026432,1.43456901 19.6656468,1.43456901 C16.5286505,1.43456901 13.9856125,3.97760698 13.9856125,7.11460331" id="Oval" stroke="currentColor" transform="translate(19.665647, 4.274586) scale(-1, 1) rotate(-45.000000) translate(-19.665647, -4.274586) "></path>' +
@@ -148,6 +150,7 @@ var Menu = {
                             '        <path d="M12.0032183,1.9984048 C17.5114889,2.00887105 21.9772078,6.46594572 21.9983747,11.9741856 C22.0080813,16.0213483 19.5773714,19.6753275 15.84089,21.2304194 C12.1044087,22.7855113 7.79898955,21.935052 4.93443577,19.0760426 C2.06988199,16.2170331 1.21108313,11.9132697 2.75893319,8.17378258 C4.30678325,4.43429549 7.95604647,1.996511 12.0032183,1.9984048 Z M12.0024146,7 C9.9788257,6.9990531 8.15419145,8.21794711 7.3802653,10.0876934 C6.60633915,11.9574396 7.0357392,14.1093245 8.46801816,15.5388313 C9.90029713,16.9683381 12.0530098,17.3935683 13.9212532,16.6160212 C15.7894966,15.8384742 17.0048533,14.0114819 17,11.9878987 C16.9894165,9.2337737 14.7565538,7.00523313 12.0024146,7 Z" id="Combined-Shape" stroke="currentColor"></path>' +
                             '    </g>' +
                             '</svg>' +
+                            '<span class="ml6">Support</span>' +
                         '</div>';
 
         var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()">' +
@@ -167,8 +170,25 @@ var Menu = {
                             '</svg>' +
                             '<span class="counter"></span>'+
                         '</div>';
+        var chat =      '<div class="menu_chat_icon" onclick="window.HubSpotConversations.widget.load({ widgetOpen: true });">' +
+                            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
+                            '    <g fill="none" fill-rule="evenodd" stroke-linecap="round">' +
+                            '        <g stroke="currentColor">' +
+                            '            <g>' +
+                            '                <g>' +
+                            '                    <g>' +
+                            '                        <path stroke-width="2" d="M23 5v14c0 .552-.448 1-1 1H2c-.552 0-1-.448-1-1V5c0-.552.448-1 1-1h20c.552 0 1 .448 1 1z" transform="translate(-1216.000000, -18.000000) translate(24.000000, 10.000000) translate(1150.250000, 0.000000) translate(41.750000, 8.000000)"/>' +
+                            '                        <path d="M1.786 5.643l8.904 7.72c.752.653 1.868.653 2.62 0l8.904-7.72h0M1.786 19.214L9.159 12.408M14.837 12.405L22.214 19.214" transform="translate(-1216.000000, -18.000000) translate(24.000000, 10.000000) translate(1150.250000, 0.000000) translate(41.750000, 8.000000)"/>' +
+                            '                    </g>' +
+                            '                </g>' +
+                            '            </g>' +
+                            '        </g>' +
+                            '    </g>' +
+                            '</svg>' +
+                            '<span class="ml6">Chat</span>'+
+                        '</div>';
 
-        $('#action_icons').append('<div class="action_icon_container">'+support+''+ messages+'</div>');
+        $('#action_icons').append('<div class="action_icon_container">'+ chat + support + messages +'</div>');
 
         $('.menu_support_icon').click(function () {
             if ($('#user_menu').is(':visible')) {
@@ -186,5 +206,18 @@ var Menu = {
 
         var right = $('#header').width() - $('.menu_support_icon').get(0).getBoundingClientRect().right;
         $('#support_menu').css({'right': right});
+    },
+
+    getPaddingForActiveMenuItem: function(activeMenu) {
+        if (activeMenu !== 'library') {
+            var width = 0;
+            document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function(tile) {
+                width += tile.offsetWidth;
+            });
+            var menuItem = document.querySelector('#'+activeMenu);
+
+            return menuItem.getBoundingClientRect().right - (menuItem.offsetWidth/2) - (width/2);
+        }
+        return 70;
     }
 };
