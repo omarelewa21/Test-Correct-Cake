@@ -34,13 +34,13 @@ body {
 }
 
 #btnLogin.highlight {
-    background:         #1585c5;
+    background:         var(--primary);
     color:              white;
 }
 
 #btnLogin.highlight:hover,
 #btnLogin.highlight.active{
-    background:         #1585c5;
+    background:         var(--primary);
     color:              white;
 }
 

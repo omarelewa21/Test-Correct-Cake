@@ -89,7 +89,7 @@
         }
 
         .cke_button__advanced {
-            background-color:#1585C5 !important;
+            background-color:var(--primary) !important;
         }
     </style>
 

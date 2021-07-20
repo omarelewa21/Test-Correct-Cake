@@ -72,7 +72,7 @@
     </div>
 </div>
 
-<h1>Afgenomen toetsen</h1>
+<h1>Mijn afgenomen toetsen</h1>
 <div class="block">
     <div class="block-content">
         <div class="block-head">Filteren</div>

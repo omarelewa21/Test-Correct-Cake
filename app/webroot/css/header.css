@@ -20,7 +20,7 @@
     height: 20px;
     margin: 15px 0px 0px 90px;
     cursor: pointer;
-    color: #1d93d6;
+    color: var(--primary-hover);
 }
 #header.blue #logo_2 {
     color: var(--primary);
@@ -246,11 +246,11 @@
 /*    background-image: url('/img/header/tile-kennisbank.png');*/
 /*}*/
 
-.tile.plus::before {
-    font-family: "FontAwesome";
-    content: "\f067";
-    float:left;
-}
+/*.tile.plus::before {*/
+/*    font-family: "FontAwesome";*/
+/*    content: "\f067";*/
+/*    float:left;*/
+/*}*/
 
 
 /*.tile img {*/

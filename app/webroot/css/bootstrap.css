@@ -469,11 +469,11 @@ button.label-search-filter:hover {
     padding-right: 22px;
 }
 .select2-selection.select2-selection--multiple:hover{
-    border:1px solid #1d93d6;
+    border:1px solid var(--primary-hover);
     cursor:pointer;
 }
 .btn.hover-blue:hover{
-    background: #1d93d6;
+    background: var(--primary-hover);
     color: white;
 }
 

@@ -71,7 +71,7 @@
     </div>
 </div>
 
-<h1>Beoordeeld</h1>
+<h1>Resultaten</h1>
 <div class="block">
     <div class="block-content">
         <div class="block-head">Filteren</div>
