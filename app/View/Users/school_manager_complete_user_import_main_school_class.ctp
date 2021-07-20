@@ -250,7 +250,7 @@
             });
 
             $('.jquery-radio-set-eduction-level-admin').click(function (e) {
-                $(this).closest('tr').find('input[type=checkbox]').attr('checked', true);
+                $(this).closest('tr').find('input[type=checkbox]').attr('checked', true).trigger('change');
                 $(this).closest('tr').find('span.import-label').removeClass(['label-orange', 'label-blue']).addClass('label-green').html('ingesteld');
             })
 

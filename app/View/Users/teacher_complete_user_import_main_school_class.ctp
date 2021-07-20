@@ -214,7 +214,7 @@
                     </button>
                     <button id="btn-go-to-teacher-complete-user-import-education-level-cluster-class"
                             style="height: 50px" class="button cta-button button-md">
-                        Clusterklassen instellen <?= $this->element('chevron') ?>
+                        <span class="mr10">Clusterklassen instellen</span><?= $this->element('chevron') ?>
                     </button>
                 </div>
             </div>
