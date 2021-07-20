@@ -16,16 +16,13 @@ var Menu = {
                 // Highlight menu
                 $('#header #menu .item').removeClass('active');
 
-
                 $('#tiles .tile').hide();
-                console.log($('#tiles .tile[menu=' + Menu.menuTmp + ']').length > 0);
+                clearTimeout(window.menuTimer);
                 if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length > 0) {
 
                     $(this).addClass('active');
                     $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
                     $('#tiles').show();
-
-                    clearTimeout(window.menuTimer);
                     $('#tiles').stop().animate({
                         'top': '98px',
                         'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menuTmp)
@@ -34,12 +31,24 @@ var Menu = {
                     if (!$(this).find('.withActiveHover')) {
                         $(this).addClass('noItemHover');
                     }
+                    $('#tiles').stop().animate({
+                        'top': '0'
+                    });
                 }
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
-                    Menu.hideTiles();
-
+                    if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0) {
+                        Menu.hideTiles();
+                        $('#tiles').stop().animate({
+                            'top': '98px',
+                            'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
+                        });
+                    }
                 }, 500);
+            }).click(function() {
+                // if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0) {
+                //     $('#tiles').hide();
+                // }
             });
         });
 
@@ -129,6 +138,7 @@ var Menu = {
         Menu.menu = typeof placeholder !== 'undefined' ? placeholder : 'empty';
         Menu.tile = '';
         $('#tiles .tile').removeClass('active');
+        $('#tiles').hide();
     },
 
     addDashboardAndResultsToMenu: function () {
@@ -170,25 +180,8 @@ var Menu = {
                             '</svg>' +
                             '<span class="counter"></span>'+
                         '</div>';
-        var chat =      '<div class="menu_chat_icon" onclick="window.HubSpotConversations.widget.load({ widgetOpen: true });">' +
-                            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
-                            '    <g fill="none" fill-rule="evenodd" stroke-linecap="round">' +
-                            '        <g stroke="currentColor">' +
-                            '            <g>' +
-                            '                <g>' +
-                            '                    <g>' +
-                            '                        <path stroke-width="2" d="M23 5v14c0 .552-.448 1-1 1H2c-.552 0-1-.448-1-1V5c0-.552.448-1 1-1h20c.552 0 1 .448 1 1z" transform="translate(-1216.000000, -18.000000) translate(24.000000, 10.000000) translate(1150.250000, 0.000000) translate(41.750000, 8.000000)"/>' +
-                            '                        <path d="M1.786 5.643l8.904 7.72c.752.653 1.868.653 2.62 0l8.904-7.72h0M1.786 19.214L9.159 12.408M14.837 12.405L22.214 19.214" transform="translate(-1216.000000, -18.000000) translate(24.000000, 10.000000) translate(1150.250000, 0.000000) translate(41.750000, 8.000000)"/>' +
-                            '                    </g>' +
-                            '                </g>' +
-                            '            </g>' +
-                            '        </g>' +
-                            '    </g>' +
-                            '</svg>' +
-                            '<span class="ml6">Chat</span>'+
-                        '</div>';
 
-        $('#action_icons').append('<div class="action_icon_container">'+ chat + support + messages +'</div>');
+        $('#action_icons').append('<div class="action_icon_container">'+ support + messages +'</div>');
 
         $('.menu_support_icon').click(function () {
             if ($('#user_menu').is(':visible')) {
@@ -209,6 +202,7 @@ var Menu = {
     },
 
     getPaddingForActiveMenuItem: function(activeMenu) {
+        activeMenu = activeMenu === null ? 'dashboard' : activeMenu;
         if (activeMenu !== 'library') {
             var width = 0;
             document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function(tile) {
