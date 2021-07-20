@@ -383,7 +383,6 @@
             setTimeout(function() {
                 var width = 100;
                 spans.forEach(function(span) {
-                    console.log([span.innerHTML, span.offsetWidth])
                     if (span.offsetWidth > width) {
                         width = span.offsetWidth+10;
                     }
