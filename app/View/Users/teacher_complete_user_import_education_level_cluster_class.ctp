@@ -29,7 +29,7 @@
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr class="rotate_table_headings">
-                    <th width="200"><div>Klas</div></th>
+                    <th class="ed_level_cluster_class_td"><div>Klas</div></th>
                     <?php foreach ($education_levels as $level) { ?>
                     <?php if (!empty($level['education_level'])) { ?>
                         <th class="ed_level_col" width="60px">
@@ -46,15 +46,13 @@
                 </thead>
                 <tbody>
                 <?php $checkedCount = 0; ?>
-                <?php if (empty($classes_list)) { ?>
-                    <tr>
-                        <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
-                            <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
-                                <span class="note">Er hoeven geen niveau’s of leerjaren ingesteld te worden voor klusterklassen. Deze zijn mogelijk al bekend.</span>
-                            </div>
-                        </td>
-                    </tr>
-                <?php } ?>
+                <tr id="note_row" style="display: none">
+                    <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
+                        <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
+                            <span class="note">Er hoeven geen niveau’s of leerjaren ingesteld te worden voor klusterklassen. Deze zijn mogelijk al bekend.</span>
+                        </div>
+                    </td>
+                </tr>
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                         !$schoolClass['visible']
@@ -65,8 +63,8 @@
                             || $schoolClass['checked_by_teacher'] && $schoolClass['checked_by_teacher_id'] === AuthComponent::user('id')
                         )
                     ){ ?>
-                        <tr style="display: flex;align-items: center">
-                            <td width="200px"><?= $schoolClass['name'] ?></td>
+                        <tr class="action_rows" style="display: flex;align-items: center">
+                            <td class="ed_level_cluster_class_td"><span class="ed_level_cluster_class_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
                             <?php if (!empty($eductionLevel['education_level'])) { ?>
                                 <td width="60px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
@@ -152,7 +150,7 @@
                             || $schoolClass['visible']
                         ){ ?>
                             <tr class="completed_classes_rows" style="display: none;align-items: center">
-                                <td width="200px"><?= $schoolClass['name'] ?></td>
+                                <td class="ed_level_cluster_class_td"><span class="ed_level_cluster_class_span"><?= $schoolClass['name'] ?></span></td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <?php if (!empty($eductionLevel['education_level'])) { ?>
                                         <td width="60px" style="position:relative; align-content: center">
@@ -359,6 +357,11 @@
                     });
                 }
             }, 100);
+            changeClassColumnWidth();
+
+            if ($('.action_rows').length === 0) {
+                $('#note_row').show();
+            }
         });
 
         $('#show_checked_classes_button').click(function() {
@@ -374,4 +377,22 @@
                 $(this).toggleClass('open');
             }
         });
+
+        function changeClassColumnWidth() {
+            $('.completed_classes_rows').css('display', 'flex');
+            var spans = document.querySelectorAll('.ed_level_cluster_class_span');
+
+            setTimeout(function() {
+                var width = 100;
+                spans.forEach(function(span) {
+                    if (span.offsetWidth > width) {
+                        width = span.offsetWidth+10;
+                    }
+                })
+                document.querySelectorAll('.ed_level_cluster_class_td').forEach(function(td) {
+                    td.width = width;
+                })
+                $('.completed_classes_rows').hide();
+            },100)
+        }
     </script>
