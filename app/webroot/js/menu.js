@@ -12,8 +12,6 @@ var Menu = {
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
-
-                // Highlight menu
                 $('#header #menu .item').removeClass('active');
 
                 $('#tiles .tile').hide();
@@ -45,11 +43,7 @@ var Menu = {
                         });
                     }
                 }, 500);
-            }).click(function() {
-                // if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0) {
-                //     $('#tiles').hide();
-                // }
-            });
+            })
         });
 
         $('#tiles').load('/users/tiles', function () {
@@ -112,12 +106,6 @@ var Menu = {
         } else {
             $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
         }
-        // $('#tiles').stop().animate({
-        //     'top': '-20px'
-        // },function(){
-        //     $('#tiles').hide();
-        // });
-
         Menu.setHighlights();
     },
 
