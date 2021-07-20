@@ -139,7 +139,7 @@
                                    class="checkbox-custom jquery-subject-complete-counter"
                                    name="class[<?= $schoolClass['id'] ?>][checked]"
                                    type="checkbox"
-                                <?= $checked_by_teacher[$schoolClass['id']] ? 'checked' : '' ?>
+                                <?= array_key_exists($schoolClass['id'],$checked_by_teacher) && $checked_by_teacher[$schoolClass['id']] ? 'checked' : '' ?>
                             >
                             <label for="<?= sprintf('green-checkbox-%s-%s', $schoolClass['id'], $subjectId) ?>"
                                    class="checkbox-custom-label checkbox-green">
