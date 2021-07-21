@@ -33,7 +33,7 @@ This prevents local file inclusions
 PLEASE NOTE:
 Do not replace '../' with the empty string since this is **not** secure.
 */
-$filename = str_replace($_GET['filename'], '', '..');
+$filename = str_replace('..', '', $_GET['filename']);
 /*****/
 
 $file = $path.$filename;
