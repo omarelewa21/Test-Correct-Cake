@@ -527,8 +527,8 @@ var TestTake = {
 
     resetAnswerPreview: function (discussing_question_id, take_id) {
         $('#questionAnswer').load('/questions/preview_answer_load/' + discussing_question_id).parent().css({
-            'border-left': '20px solid #197cb4'
-        }).find('.block-head').css({'background-color': '#197cb4'}).children('strong').html('Antwoordmodel');
+            'border-left': '20px solid var(--menu-blue)'
+        }).find('.block-head').css({'background-color': 'var(--menu-blue)'}).children('strong').html('Antwoordmodel');
 
         $('#btnResetAnswerPreview').slideUp();
         clearInterval(window.participantsTimeout);

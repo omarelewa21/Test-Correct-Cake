@@ -31,8 +31,9 @@
 
     --orange: #ff9d23;
 
-    --menu-blue: #197cb4;
+    --menu-blue: var(--primary);
     --menu-blue-active: var(--primary-hover);
+    --old-blue: #197cb4;
 }
 
 .color-primary {

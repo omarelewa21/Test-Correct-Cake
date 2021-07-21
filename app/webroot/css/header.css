@@ -20,7 +20,7 @@
     height: 20px;
     margin: 15px 0px 0px 90px;
     cursor: pointer;
-    color: var(--primary-hover);
+    color: var(--old-blue);
 }
 #header.blue #logo_2 {
     color: var(--primary);
@@ -113,6 +113,9 @@
 
 #header.blue #menu .item {
     color:          white;
+}
+#header.blue #menu .item:first-child {
+    margin-left: 13px;
 }
 
 #header.green #menu .item {

@@ -31,7 +31,7 @@
 #test_progress {
     float: left;
     padding:    10px;
-    background: #197cb4;
+    background: var(--primary);
     margin-bottom: 20px;
     width:      calc(100% - 150px);
 }

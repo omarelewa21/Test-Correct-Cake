@@ -84,7 +84,7 @@
 
     <style type="text/css">
         .redactor-toolbar li a.re-advanced {
-            background: #197cb4;
+            background: var(--menu-blue);
             color: white;
         }
 

@@ -35,15 +35,15 @@ var Menu = {
                 }
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
-                    if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0) {
-                        Menu.hideTiles();
+                    if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0 && Menu.menu !== null) {
+                        Menu.hideInactiveTiles();
                         $('#tiles').stop().animate({
                             'top': '98px',
                             'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
                         });
                     }
                 }, 500);
-            })
+            });
         });
 
         $('#tiles').load('/users/tiles', function () {
@@ -55,10 +55,16 @@ var Menu = {
                 });
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
-                    Menu.hideTiles();
-                    $('#tiles').stop().animate({
-                        'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
-                    });
+                    Menu.hideInactiveTiles();
+                    if (shouldRemoveTilesBar()) {
+                        $('#tiles').stop().animate({
+                            'top':0
+                        });
+                    } else {
+                        $('#tiles').stop().animate({
+                            'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
+                        });
+                    }
                 }, 500);
             });
 
@@ -88,14 +94,26 @@ var Menu = {
                 Menu.menu = Menu.menuTmp;
                 Menu.tile = $(this).attr('id');
 
-                Menu.hideTiles();
+                Menu.hideInactiveTiles();
 
                 Navigation.load($(this).attr('path'));
             });
         });
+
+        function shouldRemoveTilesBar() {
+            var emptyMenuItems = [];
+            $('#header #menu .item').each(function() {
+                var item = $(this).attr('id');
+                if ($('#tiles .tile[menu=' + item + ']').length === 0) {
+                    emptyMenuItems.push(item);
+                }
+            });
+
+            return Menu.menu === null || emptyMenuItems.includes(Menu.menu);
+        }
     },
 
-    hideTiles: function () {
+    hideInactiveTiles: function () {
         $('#tiles .tile').hide();
         $('#tiles .tile[menu=' + Menu.menu + ']').show();
         $('#menu .item').removeClass('active');
@@ -132,7 +150,7 @@ var Menu = {
     addDashboardAndResultsToMenu: function () {
         $("<div id='dashboard' class='item' onclick='Menu.dashboardButtonAction()'>Dashboard</div>").prependTo("#menu");
         $("<div id='results' class='item' onclick='Navigation.load(\"/test_takes/rated\");Menu.clearActiveMenu(\"results\");'>Resultaten</div>").insertAfter("#taken");
-        Menu.hideTiles();
+        Menu.hideInactiveTiles();
     },
 
     addActionIconsToHeader: function () {
@@ -183,23 +201,34 @@ var Menu = {
 
         $('#header #top #support_menu').mouseleave(function () {
             $(this).slideUp();
+            Menu.hideInactiveTiles();
         });
 
         var right = $('#header').width() - $('.menu_support_icon').get(0).getBoundingClientRect().right;
         $('#support_menu').css({'right': right});
     },
 
-    getPaddingForActiveMenuItem: function(activeMenu) {
+    getPaddingForActiveMenuItem: function (activeMenu) {
         activeMenu = activeMenu === null ? 'dashboard' : activeMenu;
-        if (activeMenu !== 'library') {
-            var width = 0;
-            document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function(tile) {
-                width += tile.offsetWidth;
-            });
-            var menuItem = document.querySelector('#'+activeMenu);
 
-            return menuItem.getBoundingClientRect().right - (menuItem.offsetWidth/2) - (width/2);
+        var subItemsWidth = 0;
+        document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function (tile) {
+            subItemsWidth += tile.offsetWidth;
+        });
+
+        var menuItem = document.querySelector('#' + activeMenu);
+
+        var minimalOffset = document.querySelector('#menu .item:first-child').offsetLeft;
+        var maxOffset = $('#tiles').width() - subItemsWidth;
+        var calculatedOffset = menuItem.getBoundingClientRect().right - (menuItem.offsetWidth / 2) - (subItemsWidth / 2);
+
+        if (calculatedOffset < minimalOffset) {
+            return minimalOffset;
         }
-        return 70;
+        if (calculatedOffset > maxOffset) {
+            return maxOffset;
+        }
+        return calculatedOffset;
     }
+
 };

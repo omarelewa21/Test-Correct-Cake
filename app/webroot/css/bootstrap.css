@@ -456,7 +456,7 @@ button.label-search-filter {
 button.label-search-filter:hover {
     color: #fff;
     text-decoration: none;
-    background-color: #197cb4;
+    background-color: var(--menu-blue);
 / / #117a8b;
     cursor: pointer;
 }
