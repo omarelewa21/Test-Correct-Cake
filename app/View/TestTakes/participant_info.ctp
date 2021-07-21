@@ -89,7 +89,7 @@
     <div style="width:280px; float:right">
         <? foreach($events as $event) {
             ?>
-            <div style="padding:8px 15px 6px 15px; background: #197cb4; margin-bottom: 2px; color: white;">
+            <div style="padding:8px 15px 6px 15px; background: var(--menu-blue); margin-bottom: 2px; color: white;">
                 <?=date('H:i', strtotime($event['created_at']))?> -
 
                 <?

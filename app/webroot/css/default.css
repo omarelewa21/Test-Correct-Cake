@@ -1,19 +1,19 @@
-@import url('buttons.css');
-@import url('dropblock.css');
-@import url('popup.css');
-@import url('spacing.css');
-@import url('forms.css');
-@import url('redactor.css');
-@import url('select2.css');
-@import url('test_take.css');
-@import url('answer.css');
-@import url('header.css?v20210623-1515');
-@import url('jquery.datetimepicker.css');
-@import url('prettyCheckable.css');
-@import url('bootstrap.css?v20201110');
-@import url('questions.css');
-@import url('tell_a_teacher.css?v20210609-1718');
-@import url('dashboard.css?v20210520-0830');
+@import url('buttons.css?v20212007-1715');
+@import url('dropblock.css?v20212007-1715');
+@import url('popup.css?v20212007-1715');
+@import url('spacing.css?v20212007-1715');
+@import url('forms.css?v20212007-1715');
+@import url('redactor.css?v20212007-1715');
+@import url('select2.css?v20212007-1715');
+@import url('test_take.css?v20212007-1715');
+@import url('answer.css?v20212007-1715');
+@import url('header.css?v20212007-1715');
+@import url('jquery.datetimepicker.css?v20212007-1715');
+@import url('prettyCheckable.css?v20212007-1715');
+@import url('bootstrap.css?v20212007-1715');
+@import url('questions.css?v20212007-1715');
+@import url('tell_a_teacher.css?v20212007-1715');
+@import url('dashboard.css?v20212007-1715');
 /* GENERAL */
 body {
     margin:         0px;
@@ -34,13 +34,13 @@ body {
 }
 
 #btnLogin.highlight {
-    background:         #1585c5;
+    background:         var(--primary);
     color:              white;
 }
 
 #btnLogin.highlight:hover,
 #btnLogin.highlight.active{
-    background:         #1585c5;
+    background:         var(--primary);
     color:              white;
 }
 

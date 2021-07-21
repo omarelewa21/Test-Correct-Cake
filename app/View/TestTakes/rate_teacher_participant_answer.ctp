@@ -5,7 +5,7 @@
     </div>
 </div>
 
-<div class="block" style="border-left: 3px solid #197cb4;">
+<div class="block" style="border-left: 3px solid var(--menu-blue);">
     <div class="block-head">Vraag #<?=$i?> antwoordmodel</div>
     <div class="block-content" id="question_answer_preview_<?=$question['question']['id']?>">
         Laden..

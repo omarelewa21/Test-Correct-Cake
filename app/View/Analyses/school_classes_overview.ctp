@@ -1,4 +1,4 @@
-<h1>Klassen analyse</h1>
+<h1>Mijn klassen analyses</h1>
 <div class="block autoheight">
     <div class="block-head">Klassen overzicht</div>
     <div class="block-content" id="classesContainer">

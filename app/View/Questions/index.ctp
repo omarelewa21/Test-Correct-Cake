@@ -68,7 +68,7 @@
     </div>
 </div>
 
-<h1>Vragen</h1>
+<h1>Vragenbank</h1>
 
 <div class="block autoheight">
     <div class="block-head">Vragen</div>
