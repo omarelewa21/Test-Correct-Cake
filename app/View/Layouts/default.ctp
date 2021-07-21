@@ -84,8 +84,8 @@
 		<div id="notifications"></div>
 
 		<div id="header" class="highlight">
-            <?= $this->element('logo_circle') ?>
-            <?= $this->element('logo_text') ?>
+            <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
+            <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
 <!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
 <!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
 			<span id="versionBadge"></span>
