@@ -102,7 +102,7 @@
                             <td width="120px">
                                 <input
                                     id="<?= sprintf('green-checkbox-%s', $schoolClass['id']) ?>"
-                                    class="checkbox-custom jquery-controle"
+                                    class="checkbox-custom "
                                     name="class[<?= $schoolClass['id'] ?>][checked]"
                                     type="checkbox"
                                     <?= $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
