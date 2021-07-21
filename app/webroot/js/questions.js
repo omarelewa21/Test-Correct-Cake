@@ -141,6 +141,36 @@ var Questions = {
         }
     },
 
+    addExistingQuestionToGroup : function(question_id, subquestion) {
+
+        if(subquestion) {
+
+            Popup.message({
+                btnOk: 'Importeren',
+                btnCancel: 'Annuleren',
+                title: 'Onderdeel van groepvraag',
+                message: 'Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.'
+            }, function() {
+                $.get('/questions/add_existing_question_to_group/' + question_id,
+                    function(response) {
+                        Navigation.refresh();
+                        Popup.closeLast();
+                    }
+                );
+            });
+
+
+        }else{
+            $.get('/questions/add_existing_question_to_group/' + question_id,
+                function(response) {
+                    Navigation.refresh();
+                    Popup.closeLast();
+                }
+            );
+        }
+    },
+
+
     addExistingQuestionGroup : function(question_group_id) {
         $.get('/questions/add_existing_question_group/' + question_group_id,
             function(response) {

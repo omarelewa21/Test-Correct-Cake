@@ -117,6 +117,7 @@ class QuestionsService extends BaseService
         $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
+
         $response = $this->Connector->postRequest('/test_question', [], $data);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -124,6 +125,35 @@ class QuestionsService extends BaseService
 
         return $response;
     }
+
+    /**
+     * @param $owner
+     * @param $owner_id  should be the group_id to attach the question to.
+     * @param $question_id
+     */
+    public function duplicatetogroup($owner, $owner_id, $question_id)
+    {
+        $data['group_question_id'] = $owner_id;
+        $data['order'] = 0;
+        $data['maintain_position'] = 0;
+        $data['discuss'] = 1;
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
+        $data['question_id'] = $question_id;
+        $data['owner_id'] = $owner_id;
+
+        
+            // $ownerId is the test_questions.uuid
+            $response = $this->Connector->postRequest('/group_question_question/' . $owner_id , [], $data);
+        
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 
     public function getQuestion($owner, $owner_id, $question_id)
     {
@@ -1014,6 +1044,12 @@ class QuestionsService extends BaseService
                         $question['selectable_answers']++;
                     }
                 }
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
                 break;
             case "TrueFalseQuestion":
                 $question['answers'] = $this->getTrueFalsQuestionAnswers($question);
@@ -1622,5 +1658,17 @@ class QuestionsService extends BaseService
             $question['miller'] = $oriQuestion['miller'];
         }
         return $question;
+    }
+
+    public function transformHtmlChars($answer){
+        $answer = str_replace('<','&lt;',$answer);
+        $answer = str_replace('>','&gt;',$answer);
+        return $answer;
+    }
+
+    public function transformHtmlCharsReverse($answer){
+        $answer = str_replace('&lt;','<',$answer);
+        $answer = str_replace('&gt;','>',$answer);
+        return $answer;
     }
 }

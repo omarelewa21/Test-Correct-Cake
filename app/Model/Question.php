@@ -154,7 +154,7 @@ class Question extends AppModel
                         $html .= $item."<br /><br />";
                     }
 
-                    $html .= "</tr></table>";
+                    $html .= "</td></tr></table>";
 
                     break;
                 case 'DrawingQuestion':

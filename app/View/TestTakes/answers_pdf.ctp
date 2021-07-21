@@ -1,6 +1,6 @@
 <style>
     body {
-        font-family: Arial;
+        font-family: Helvetica;
     }
 </style>
 
@@ -95,7 +95,7 @@ foreach($participants as $participant) {
                                 }
                             }
                         }
-                        echo '<Br />';
+                        echo '<br />';
                     }
                 }
 
@@ -105,7 +105,7 @@ foreach($participants as $participant) {
                     foreach($answerJson as $answer_id => $order) {
                         foreach($question['ranking_question_answers'] as $answer) {
                             if($answer['id'] == $answer_id) {
-                                echo $answer['answer'].'<Br />';
+                                echo $answer['answer'].'<br />';
                             }
                         }
                     }
@@ -128,7 +128,9 @@ foreach($participants as $participant) {
 
                 if($question['type'] == 'DrawingQuestion') {
                     ?>
-                    <img src="<?=$answerJson['answer']?>" width="100%" />
+                    <img src="<?=htmlspecialchars_decode($answerJson['answer']) . 
+                    /* Include parameter pdf=sha1('true) to anonymous auth with the imageload */
+                    '&pdf=5ffe533b830f08a0326348a9160afafc8ada44db'?>" width="100%" />
                 <?
                 }
             }

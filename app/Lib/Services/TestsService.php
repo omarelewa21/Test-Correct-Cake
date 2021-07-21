@@ -381,7 +381,6 @@ class TestsService extends BaseService {
         if($response === false){
             return $this->Connector->getLastResponse();
         }
-
         return $response;
     }
 

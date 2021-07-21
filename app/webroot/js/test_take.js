@@ -295,6 +295,7 @@ var TestTake = {
                 zoomsetupcrOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
+                $('#action_icons').fadeOut();
                 $('#header #logo_1').animate({
                     'height': '30px'
                 });

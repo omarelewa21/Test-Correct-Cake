@@ -63,6 +63,9 @@ var User = {
         );
 
         $('#header #top #user').click(function () {
+            if ($('#support_menu').is(':visible')) {
+                $('#support_menu').slideUp();
+            }
             $('#header #top #user_menu').slideDown();
             setTimeout(function () {
                 $('#header #top #user_menu').slideUp();
@@ -91,6 +94,7 @@ var User = {
     welcome: function () {
         if (!TestTake.active) {
             Navigation.load('/users/welcome');
+            Menu.clearActiveMenu('dashboard');
         }
     },
 
@@ -313,7 +317,7 @@ var User = {
                 Core.lostFocus();
                 setTimeout(function () {
                     User.logout(false);
-                }, 2000);
+                }, 3000);
             }
 
             // Teacher

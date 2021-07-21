@@ -11,13 +11,13 @@
         $levelyears[$education_level['id']] = $education_level['max_years'];
     }
 
-    if(empty($subjects)) {
+    if (empty($subjects)) {
         ?>
         <center>
             Er zijn nog geen vakken aan uw account gekoppeld, hierdoor kunt u geen toets aanmaken.
         </center>
         <?
-    }else {
+    } else {
         ?>
 
         <?= $this->Form->create('Test') ?>
@@ -83,15 +83,15 @@
                 </td>
             </tr>
 
-            <?php if($is_open_source_content_creator): ?>
-              <tr>
-                <th width="140">
-                  Open source toets
-                </th>
-                <td>
-                  <?= $this->Form->input('is_open_source_content',array('label'=>false, 'type'=>'checkbox','div'=>false,'checked'=>true)) ?>
-                </td>
-              </tr>
+            <?php if ($is_open_source_content_creator): ?>
+                <tr>
+                    <th width="140">
+                        Open source toets
+                    </th>
+                    <td>
+                        <?= $this->Form->input('is_open_source_content', array('label' => false, 'type' => 'checkbox', 'div' => false, 'checked' => true)) ?>
+                    </td>
+                </tr>
             <?php endif; ?>
 
             <tr>
@@ -101,7 +101,7 @@
                 <td colspan="4">
                     <?= $this->Form->input('introduction', [
                         'style' => 'width:920px; height:100px',
-                        'type' => 'textarea',
+                        'type'  => 'textarea',
                         'label' => false
                     ]) ?>
                 </td>
@@ -112,39 +112,70 @@
     }
     ?>
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
-    </a>
-    <?
-    if(!empty($subjects)) {
-        ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTest">
-            Toets aanmaken
+<div class="<?= $opened_from_content ? '' : 'popup-footer' ?>" style="<?= $opened_from_content ? 'padding: 0 2rem 1rem 2rem' : '' ?>">
+    <?php if ($opened_from_content) { ?>
+        <div class="add_test_indicator">
+            <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+                <circle class="primary" cx="7" cy="7" r="7"/>
+            </svg>
+            <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+                <circle class="primary" cx="7" cy="7" r="7"/>
+            </svg>
+        </div>
+        <div style="display: flex; width: 100%;">
+            <button class="flex button text-button button-sm" style="align-items: center;"
+               onclick="Popup.closeWithNewPopup('/tests/create_content', 800);">
+                <?= $this->element('arrow-left')?>
+                <span style="margin-left: 10px;">Terug</span>
+            </button>
+            <div style="display: flex;margin-left: auto;">
+                <button class="flex button text-button button-sm" style="align-items: center;" onclick="Popup.closeLast();">
+                    Annuleer
+                </button>
+                <?
+                if (!empty($subjects)) {
+                    ?>
+                    <button id="btnAddTest" class="flex button primary-button button-md" style="align-items: center;">Toets aanmaken</button>
+                    <?
+                }
+                ?>
+            </div>
+        </div>
+    <?php } else { ?>
+
+        <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+            Annuleer
         </a>
         <?
-    }
-    ?>
+        if (!empty($subjects)) {
+            ?>
+            <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTest">
+                Toets aanmaken
+            </a>
+            <?
+        }
+        ?>
+    <?php } ?>
 </div>
 
 <script type="text/javascript">
     $('#TestAddForm').formify(
         {
-            confirm : $('#btnAddTest'),
-            onsuccess : function(result) {
+            confirm: $('#btnAddTest'),
+            onsuccess: function (result) {
 
                 Navigation.load('/tests/view/' + result.uuid);
                 Popup.closeLast();
                 Notify.notify("Toets aangemaakt", "info");
-                setTimeout(function() {
+                setTimeout(function () {
                     Popup.load('/questions/add_custom/test/' + result.uuid, 800);
                 }, 1000);
             },
-            onfailure : function(result) {
+            onfailure: function (result) {
 
-                if(result == 'unique_name') {
+                if (result == 'unique_name') {
                     Notify.notify("De gekozen titel is al in gebruik. Gebruik een unieke titel.", "error");
-                }else{
+                } else {
                     Notify.notify("Toets kon niet worden aangemaakt", "error");
                 }
             }
@@ -156,17 +187,17 @@
         var years = 0;
         <?php
         foreach($levelyears as $year => $years) {
-            ?>
-            if(val == '<?=$year?>') {
-                years = '<?=$years?>';
-            }
-            <?php
+        ?>
+        if (val == '<?=$year?>') {
+            years = '<?=$years?>';
+        }
+        <?php
         }
         ?>
 
         $("#TestEducationLevelYear option").remove();
 
-        for(var i = 1; i <= years; i++) {
+        for (var i = 1; i <= years; i++) {
             $("#TestEducationLevelYear").append('<option value="' + i + '">' + i + '</option>');
         }
     }

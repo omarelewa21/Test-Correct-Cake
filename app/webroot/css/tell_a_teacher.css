@@ -29,6 +29,9 @@
     --error-text: #cf1b04;
 
     --orange: #ff9d23;
+
+    --menu-blue: #197cb4;
+    --menu-blue-active: #1d93d6;
     --note: #6b7789;
 }
 
@@ -293,7 +296,6 @@
 
 .button:focus {
     outline: none;
-    padding: 0 18px 0 18px;
 }
 
 .text-button {
@@ -321,7 +323,6 @@
     background-color: var(--off-white);
     height: 40px;
     color: var(--primary);
-
 }
 
 .button-sm {
@@ -376,7 +377,25 @@
 .primary-button:active {
     border: none;
 }
-
+.primary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.secondary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.text-button:disabled {
+    color: var(--mid-grey)!important;
+    cursor: default!important;
+}
+.cta-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
 .secondary-button.btn-disabled {
     background: var(--light-grey);
     color: var(--mid-grey);
