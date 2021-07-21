@@ -143,8 +143,7 @@ var Menu = {
     clearActiveMenu: function(placeholder) {
         Menu.menu = typeof placeholder !== 'undefined' ? placeholder : 'empty';
         Menu.tile = '';
-        $('#tiles .tile').removeClass('active');
-        $('#tiles').hide();
+        Menu.hideInactiveTiles();
     },
 
     addDashboardAndResultsToMenu: function () {

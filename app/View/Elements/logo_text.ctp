@@ -1,4 +1,4 @@
-<svg id="logo_2"  onclick="User.welcome();" width="191px" height="20px" viewBox="0 0 191 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg id="logo_2" width="191px" height="20px" viewBox="0 0 191 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onclick="<?= isset($onclick) ? $onclick : '' ?>">
     <title>logos/Logo-Test-Correct recolored just text</title>
     <g id="logos/Logo-Test-Correct-recolored-just-text" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="Group" transform="translate(-0.000000, 0.000000)" fill="currentColor" fill-rule="nonzero">

@@ -1,4 +1,4 @@
-<svg id="logo_1" width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onclick="User.welcome();">
+<svg id="logo_1" width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" onclick="<?= isset($onclick) ? $onclick : '' ?>">
     <title>Test-Correct</title>
     <defs>
         <linearGradient x1="49.2939717%" y1="99.2939717%" x2="49.2939717%" y2="0.706028294%" id="linearGradient-1">
