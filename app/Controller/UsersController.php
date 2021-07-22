@@ -1388,7 +1388,7 @@ class UsersController extends AppController
                 $tiles['create_content'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Toetsen creëren',
+                    'title' => 'Toets creëren',
                     'type'  => 'popup',
                     'path'  => '/tests/create_content'
                 );

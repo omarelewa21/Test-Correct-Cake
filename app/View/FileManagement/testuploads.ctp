@@ -5,7 +5,7 @@
     </a>
 </div>
 
-<h1>Mijn uploads</h1>
+<h1>Mijn geüploade toetsbestanden</h1>
 
 <div class="block autoheight">
     <div class="block-head">Toetsen</div>

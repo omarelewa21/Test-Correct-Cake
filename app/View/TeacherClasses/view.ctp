@@ -5,7 +5,7 @@
     </a>
 </div>
 
-<h1><?=$class['name']?></h1>
+<h1>Klas: <?=$class['name']?></h1>
 
 <div class="block">
     <div class="block-head">Informatie</div>
