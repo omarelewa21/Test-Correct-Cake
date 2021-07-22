@@ -1,6 +1,6 @@
 <div class="dashboard create-content">
     <div style="display: flex; justify-content: space-between; padding: 0 8px;align-items: center;">
-        <h1>Hoe wil je content creëren?</h1>
+        <h1>Hoe wil je een toets creëren?</h1>
         <span class="close" style="cursor:pointer" onclick="Popup.closeLast()">
             <?= $this->element('close') ?>
         </span>

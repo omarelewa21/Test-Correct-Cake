@@ -243,6 +243,7 @@ var TestTake = {
                     TestTake.atTestStop();
                     Notify.notify('De toets is gestopt', 'info');
                     TestTake.active = false;
+                    Menu.handleHandIn();
                 }
             );
         };
@@ -303,7 +304,7 @@ var TestTake = {
                 startfullscreentimer();
 
                 $('#header #logo_2').animate({
-                    'margin-left': '50px'
+                    'margin-left': '70px'
                 });
                 $('#btnLogout').hide();
                 $('#btnMenuHandIn').show();

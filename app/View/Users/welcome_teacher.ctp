@@ -396,6 +396,15 @@ if ($wizard_steps) {
         hubspotLoaded = true;
     }
 
+    function openHubspotWidget() {
+        var widget = window.HubSpotConversations.widget;
+        if (widget.status().loaded) {
+            widget.open()
+        } else {
+            widget.load({ widgetOpen: true });
+        }
+    }
+
     HelpHero.identify("<?=AuthComponent::user('uuid')?>", {
         name: "<?=AuthComponent::user('name')?>",
         name_first: "<?=AuthComponent::user('name_first')?>",
@@ -708,7 +717,7 @@ if ($wizard_steps) {
         );
 
         $('.action_icon_container').prepend(
-        '<div class="menu_chat_icon" onclick="window.HubSpotConversations.widget.load({ widgetOpen: true });">' +
+        '<div class="menu_chat_icon" onclick="openHubspotWidget()" title="Chat">' +
             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
             '    <g fill="none" fill-rule="evenodd" stroke-linejoin="round">' +
             '        <g stroke="currentColor">' +

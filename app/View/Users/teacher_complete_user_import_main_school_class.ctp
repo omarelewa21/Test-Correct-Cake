@@ -172,7 +172,7 @@
 
                                 <td width="120px">
                                     <input disabled
-                                            class="checkbox-custom jquery-controle"
+                                            class="checkbox-custom "
                                             type="checkbox"
                                         <?= $schoolClass['checked_by_admin'] || $schoolClass['checked_by_teacher'] ? 'checked' : '' ?>
                                     >

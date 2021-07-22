@@ -54,7 +54,7 @@ foreach($test_takes as $test_take) {
                             Nu afnemen
                         </a>
                     <? } ?>
-                    <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
+                    <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
                         <span class="fa fa-file-o mr5"></span>
                         Exporteren / Printen
                     </a>

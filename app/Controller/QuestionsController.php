@@ -642,6 +642,12 @@ class QuestionsController extends AppController
 
                 case 'RankingQuestion':
                     $view = 'edit_ranking';
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['ranking_question_answers'] as $key => $answerArray){
+                        $question['question']['ranking_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
                     break;
 
                 case 'MatchingQuestion' :
@@ -649,6 +655,12 @@ class QuestionsController extends AppController
                         $view = 'edit_classify';
                     } else {
                         $view = 'edit_matching';
+                    }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['matching_question_answers'] as $key => $answerArray){
+                        $question['question']['matching_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
                     }
                     break;
             }
@@ -1092,6 +1104,8 @@ class QuestionsController extends AppController
                 ];
             }
 
+
+
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
@@ -1135,6 +1149,7 @@ class QuestionsController extends AppController
 //                if($type == 'ClassifyQuestion') {
 //                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
 //                }
+
 
 
                 if ($type == 'DrawingQuestion') {

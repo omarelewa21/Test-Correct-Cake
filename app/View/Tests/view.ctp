@@ -41,7 +41,7 @@
             <?= !$oldPlayerAccess ? 'Voorbeeld' : 'Voorbeeld nieuwe speler' ?>
         </a>
     <?php } ?>
-    <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
+    <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
         PDF
     </a>

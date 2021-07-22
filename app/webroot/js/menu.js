@@ -56,7 +56,7 @@ var Menu = {
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
                     Menu.hideInactiveTiles();
-                    if (shouldRemoveTilesBar()) {
+                    if (Menu.shouldRemoveTilesBar()) {
                         $('#tiles').stop().animate({
                             'top':0
                         });
@@ -100,17 +100,17 @@ var Menu = {
             });
         });
 
-        function shouldRemoveTilesBar() {
-            var emptyMenuItems = [];
-            $('#header #menu .item').each(function() {
-                var item = $(this).attr('id');
-                if ($('#tiles .tile[menu=' + item + ']').length === 0) {
-                    emptyMenuItems.push(item);
-                }
-            });
+    },
+    shouldRemoveTilesBar: function() {
+        var emptyMenuItems = [];
+        $('#header #menu .item').each(function() {
+            var item = $(this).attr('id');
+            if ($('#tiles .tile[menu=' + item + ']').length === 0) {
+                emptyMenuItems.push(item);
+            }
+        });
 
-            return Menu.menu === null || emptyMenuItems.includes(Menu.menu);
-        }
+        return Menu.menu === null || emptyMenuItems.includes(Menu.menu);
     },
 
     hideInactiveTiles: function () {
@@ -143,8 +143,9 @@ var Menu = {
     clearActiveMenu: function(placeholder) {
         Menu.menu = typeof placeholder !== 'undefined' ? placeholder : 'empty';
         Menu.tile = '';
-        $('#tiles .tile').removeClass('active');
-        $('#tiles').hide();
+        if (!TestTake.active) {
+            Menu.hideInactiveTiles();
+        }
     },
 
     addDashboardAndResultsToMenu: function () {
@@ -154,7 +155,7 @@ var Menu = {
     },
 
     addActionIconsToHeader: function () {
-        var support =   '<div class="menu_support_icon">' +
+        var support =   '<div class="menu_support_icon" title="Support">' +
                             '<?xml version="1.0" encoding="UTF-8"?>' +
                             '<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                             '    <g id="icons/support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -169,7 +170,7 @@ var Menu = {
                             '<span class="ml6">Support</span>' +
                         '</div>';
 
-        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()">' +
+        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()" title="Berichten">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
                             '    <g fill="none" fill-rule="evenodd" stroke-linecap="round">' +
                             '        <g stroke="currentColor">' +
@@ -229,6 +230,22 @@ var Menu = {
             return maxOffset;
         }
         return calculatedOffset;
-    }
+    },
 
+    handleHandIn: function() {
+        Menu.updateMenuFromRedirect('tests', 'tests_discussed');
+    },
+
+    updateMenuFromRedirect: function(menu, tile) {
+        Menu.menu = menu;
+        Menu.tile = tile;
+        Menu.hideInactiveTiles();
+        if (!Menu.shouldRemoveTilesBar()) {
+            $('#tiles').show();
+            $('#tiles').stop().animate({
+                'top': '98px'
+            });
+            $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
+        }
+    }
 };
