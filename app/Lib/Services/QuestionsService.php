@@ -1427,6 +1427,11 @@ class QuestionsService extends BaseService
         $score = 0;
         $selectable_answers = 0;
 
+
+        foreach ($question['answers'] as $key => $answerArray) {
+            $question['answers'][$key]['answer'] = $this->transformHtmlChars($answerArray['answer']);
+        }
+
         for ($i = 0; $i < 10; $i++) {
             if (isset($question['answers'][$i])) {
                 if (!empty($question['answers'][$i]['score'])) {

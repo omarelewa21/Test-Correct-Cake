@@ -926,6 +926,8 @@ class QuestionsController extends AppController
                 ];
             }
 
+
+
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
@@ -969,6 +971,7 @@ class QuestionsController extends AppController
 //                if($type == 'ClassifyQuestion') {
 //                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
 //                }
+
 
 
                 if ($type == 'DrawingQuestion') {
