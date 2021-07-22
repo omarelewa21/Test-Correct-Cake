@@ -11,7 +11,7 @@
             </a>
         <? } ?>
 
-        <a class="btn white mr2" href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($take['test'], 'get')?>;', 1000)">
+        <a class="btn white mr2" href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($take['test'], 'get')?>', 1000)">
             <span class="fa fa-print mr5"></span>
             PDF
         </a>
