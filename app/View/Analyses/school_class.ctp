@@ -5,7 +5,7 @@
     </a>
 </div>
 
-<h1><?=$class['name']?></h1>
+<h1>Analyse van <?=$class['name']?></h1>
 
 <?
 $teacher = false;

@@ -2,7 +2,7 @@
     <a href="#" class="btn highlight mr2" onclick="TestTake.toggleParticipantProgress();" id="btnSmartBoard"></a>
 </div>
 
-<h1 id="surveillanceTitle">Surveillance</h1>
+<h1 id="surveillanceTitle">Surveilleren van toetsen</h1>
 
 <?
 

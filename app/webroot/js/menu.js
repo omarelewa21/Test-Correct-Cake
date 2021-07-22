@@ -155,7 +155,7 @@ var Menu = {
     },
 
     addActionIconsToHeader: function () {
-        var support =   '<div class="menu_support_icon">' +
+        var support =   '<div class="menu_support_icon" title="Support">' +
                             '<?xml version="1.0" encoding="UTF-8"?>' +
                             '<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">' +
                             '    <g id="icons/support" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">' +
@@ -170,7 +170,7 @@ var Menu = {
                             '<span class="ml6">Support</span>' +
                         '</div>';
 
-        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()">' +
+        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()" title="Berichten">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
                             '    <g fill="none" fill-rule="evenodd" stroke-linecap="round">' +
                             '        <g stroke="currentColor">' +

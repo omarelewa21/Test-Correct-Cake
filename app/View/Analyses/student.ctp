@@ -19,11 +19,7 @@
     </a>
 </div>
 
-<h1>
-    <?=$student['name_first']?>
-    <?=$student['name_suffix']?>
-    <?=$student['name']?>&nbsp;
-</h1>
+<h1>Analyse van <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
 
 <?
 if(!$isStudent) {

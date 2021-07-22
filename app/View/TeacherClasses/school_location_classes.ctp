@@ -1,4 +1,4 @@
-<h1>Klassen binnen schoollocatie</h1>
+<h1>Klassen binnen mijn schoollocatie</h1>
 
 <div class="block autoheight">
     <div class="block-head">Klassen</div>
