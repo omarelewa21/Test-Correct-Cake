@@ -168,6 +168,7 @@
                 Popup.closeLast();
                 Notify.notify("Toets aangemaakt", "info");
                 setTimeout(function () {
+                    Menu.updateMenuFromRedirect('library', 'tests_overview');
                     Popup.load('/questions/add_custom/test/' + result.uuid, 800);
                 }, 1000);
             },

@@ -56,7 +56,7 @@ var Menu = {
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
                     Menu.hideInactiveTiles();
-                    if (shouldRemoveTilesBar()) {
+                    if (Menu.shouldRemoveTilesBar()) {
                         $('#tiles').stop().animate({
                             'top':0
                         });
@@ -100,17 +100,17 @@ var Menu = {
             });
         });
 
-        function shouldRemoveTilesBar() {
-            var emptyMenuItems = [];
-            $('#header #menu .item').each(function() {
-                var item = $(this).attr('id');
-                if ($('#tiles .tile[menu=' + item + ']').length === 0) {
-                    emptyMenuItems.push(item);
-                }
-            });
+    },
+    shouldRemoveTilesBar: function() {
+        var emptyMenuItems = [];
+        $('#header #menu .item').each(function() {
+            var item = $(this).attr('id');
+            if ($('#tiles .tile[menu=' + item + ']').length === 0) {
+                emptyMenuItems.push(item);
+            }
+        });
 
-            return Menu.menu === null || emptyMenuItems.includes(Menu.menu);
-        }
+        return Menu.menu === null || emptyMenuItems.includes(Menu.menu);
     },
 
     hideInactiveTiles: function () {
@@ -233,11 +233,19 @@ var Menu = {
     },
 
     handleHandIn: function() {
-        Menu.menu = 'tests';
-        Menu.tile = 'tests_discussed';
+        Menu.updateMenuFromRedirect('tests', 'tests_discussed');
+    },
 
+    updateMenuFromRedirect: function(menu, tile) {
+        Menu.menu = menu;
+        Menu.tile = tile;
         Menu.hideInactiveTiles();
-        $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
+        if (!Menu.shouldRemoveTilesBar()) {
+            $('#tiles').show();
+            $('#tiles').stop().animate({
+                'top': '98px'
+            });
+            $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
+        }
     }
-
 };

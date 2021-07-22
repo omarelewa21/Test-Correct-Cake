@@ -150,6 +150,7 @@
         onsuccess: function (result) {
             Notify.notify("Toetsen zijn ingepland", "info");
             Navigation.load('/test_takes/view/'+result.uuid);
+            Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();
         },
         onfailure: function (result) {

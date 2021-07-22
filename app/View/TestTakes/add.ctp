@@ -161,6 +161,7 @@
         onsuccess: function (result) {
             Notify.notify("Toetsen zijn ingepland", "info");
             Navigation.load('/test_takes/planned_teacher');
+            Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();
         },
         onfailure: function (result) {
