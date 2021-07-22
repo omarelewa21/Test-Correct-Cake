@@ -143,7 +143,9 @@ var Menu = {
     clearActiveMenu: function(placeholder) {
         Menu.menu = typeof placeholder !== 'undefined' ? placeholder : 'empty';
         Menu.tile = '';
-        Menu.hideInactiveTiles();
+        if (!TestTake.active) {
+            Menu.hideInactiveTiles();
+        }
     },
 
     addDashboardAndResultsToMenu: function () {
@@ -228,6 +230,14 @@ var Menu = {
             return maxOffset;
         }
         return calculatedOffset;
+    },
+
+    handleHandIn: function() {
+        Menu.menu = 'tests';
+        Menu.tile = 'tests_discussed';
+
+        Menu.hideInactiveTiles();
+        $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
     }
 
 };
