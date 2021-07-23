@@ -895,8 +895,8 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
-                $this->transformDrawingAnswer($answer['answer']);
-//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+                $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
 //
 //                if (strpos($drawingAnswer, 'http') === false) {
 //                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
