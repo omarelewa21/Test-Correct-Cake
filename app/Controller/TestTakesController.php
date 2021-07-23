@@ -895,6 +895,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer['answer']);
+//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -913,14 +920,6 @@ class TestTakesController extends AppController {
 
         $answer['answer'] = $answer;
 
-        if ($answer['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
-        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');
@@ -971,6 +970,12 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($rating['answer']);
+//                $drawingAnswer = json_decode($rating['answer']['json'])->answer;
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1215,6 +1220,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                    $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing2019';
                 break;
 
@@ -1460,6 +1472,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer['answer']);
+//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1474,15 +1493,6 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
-        }
-
-        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
         }
 
         $this->set('rating', $answer);
