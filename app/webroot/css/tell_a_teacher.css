@@ -7,6 +7,7 @@
     --cta-secondary: #004DF5;
     --primary: #004DF5;
     --primary-light: #e6edfa;
+    --primary-hover: #4781ff;
     --secondary: #ECD900;
     --highlight-primary: #ECD900;
     --system-base: #041F74;
@@ -29,8 +30,11 @@
     --error-text: #cf1b04;
 
     --orange: #ff9d23;
-    --note: #6b7789;
 
+    --menu-blue: var(--primary);
+    --menu-blue-active: var(--primary-hover);
+    --old-blue: #197cb4;
+    --note: #6b7789;
 }
 
 .color-primary {
@@ -322,7 +326,6 @@
     background-color: var(--off-white);
     height: 40px;
     color: var(--primary);
-
 }
 
 .button-sm {

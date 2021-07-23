@@ -155,6 +155,12 @@ class TestsController extends AppController
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
 
+        if(array_key_exists('content_creation_step',$this->params['url']) && $this->params['url']['content_creation_step'] == 2) {
+            $this->set('opened_from_content', true);
+        } else {
+            $this->set('opened_from_content', false);
+        }
+
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
@@ -598,7 +604,7 @@ class TestsController extends AppController
         // Generate PDF
         $html = $view->render('pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html));
         $this->response->type('pdf');
 
         return $this->response;
@@ -636,7 +642,6 @@ class TestsController extends AppController
         $html = $view->render('attachmentpdf', 'pdf');
 
         $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -663,16 +668,9 @@ class TestsController extends AppController
         }
 
 
-        // $view = new View($this, false);
         $this->set('base64', $attachmentMatch['data']);
         $this->set('filename', $attachment['title']);
         $this->render('pdfatt', 'ajax');
-        // Generate PDF
-        // $html = $view->render('pdfatt', 'pdf');
-
-        // $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
-        // $this->response->type('pdf');
 
         return $this->response;
 
@@ -717,4 +715,8 @@ class TestsController extends AppController
         return $this->formResponse(true,  $this->TestsService->getTestUrlForLaravel($testId));
     }
 
+    public function create_content()
+    {
+
+    }
 }

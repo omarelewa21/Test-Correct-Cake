@@ -117,6 +117,7 @@ class QuestionsService extends BaseService
         $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
+
         $response = $this->Connector->postRequest('/test_question', [], $data);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -124,6 +125,35 @@ class QuestionsService extends BaseService
 
         return $response;
     }
+
+    /**
+     * @param $owner
+     * @param $owner_id  should be the group_id to attach the question to.
+     * @param $question_id
+     */
+    public function duplicatetogroup($owner, $owner_id, $question_id)
+    {
+        $data['group_question_id'] = $owner_id;
+        $data['order'] = 0;
+        $data['maintain_position'] = 0;
+        $data['discuss'] = 1;
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
+        $data['question_id'] = $question_id;
+        $data['owner_id'] = $owner_id;
+
+        
+            // $ownerId is the test_questions.uuid
+            $response = $this->Connector->postRequest('/group_question_question/' . $owner_id , [], $data);
+        
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
 
     public function getQuestion($owner, $owner_id, $question_id)
     {
@@ -978,13 +1008,18 @@ class QuestionsService extends BaseService
 
         switch ($type) {
             case "CompletionQuestion":
-            case "MatchingQuestion":
-            case "ClassifyQuestion":
-//                $processed = $this->encodeCompletionTags($question['question']);
-//                $question['question'] = $processed['question'];
                 $hasBackendValidation = true;
                 break;
-
+            case "ClassifyQuestion":
+            case "MatchingQuestion":
+                $hasBackendValidation = true;
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
+                break;
             case "ARQQuestion":
                 $question['score'] = 0;
 
@@ -1014,10 +1049,25 @@ class QuestionsService extends BaseService
                         $question['selectable_answers']++;
                     }
                 }
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
                 break;
             case "TrueFalseQuestion":
                 $question['answers'] = $this->getTrueFalsQuestionAnswers($question);
             break;
+
+            case "RankingQuestion":
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
+                break;
 
             case "DrawingQuestion":
 
@@ -1359,7 +1409,6 @@ class QuestionsService extends BaseService
 
     private function _fillNewCompletionQuestion($question, $subtype = 'completion')
     {
-
         return [
             'question' => $question['question'],
             'type' => 'CompletionQuestion',
@@ -1421,6 +1470,8 @@ class QuestionsService extends BaseService
         $score = 0;
         $selectable_answers = 0;
 
+        $question  = $this->transformAnswers($question);
+
         for ($i = 0; $i < 10; $i++) {
             if (isset($question['answers'][$i])) {
                 if (!empty($question['answers'][$i]['score'])) {
@@ -1458,6 +1509,7 @@ class QuestionsService extends BaseService
 
     private function _fillNewRankingQuestion($question)
     {
+        $question  = $this->transformAnswers($question);
         return [
             'type' => 'RankingQuestion',
             'score' => $question['score'],
@@ -1477,6 +1529,8 @@ class QuestionsService extends BaseService
 
     public function _fillNewMatchingQuestion($question)
     {
+        $question  = $this->transformAnswersMatching($question);
+
         return [
 
             'type'                   => 'MatchingQuestion',
@@ -1498,6 +1552,8 @@ class QuestionsService extends BaseService
 
     public function _fillNewClassifyQuestion($question)
     {
+        $question  = $this->transformAnswersMatching($question);
+
         return [
             'type'                   => 'MatchingQuestion',
             'score'                  => $question['score'],
@@ -1623,4 +1679,34 @@ class QuestionsService extends BaseService
         }
         return $question;
     }
+
+    public function transformHtmlChars($answer){
+        $answer = str_replace('<','&lt;',$answer);
+        $answer = str_replace('>','&gt;',$answer);
+        return $answer;
+    }
+
+    public function transformHtmlCharsReverse($answer){
+        $answer = str_replace('&lt;','<',$answer);
+        $answer = str_replace('&gt;','>',$answer);
+        return $answer;
+    }
+
+    private function transformAnswers($question)
+    {
+        foreach ($question['answers'] as $key => $answerArray) {
+            $question['answers'][$key]['answer'] = $this->transformHtmlChars($answerArray['answer']);
+        }
+        return $question;
+    }
+
+    private function transformAnswersMatching($question)
+    {
+        foreach ($question['answers'] as $key => $answerArray) {
+            $question['answers'][$key]['left'] = $this->transformHtmlChars($answerArray['left']);
+            $question['answers'][$key]['right'] = $this->transformHtmlChars($answerArray['right']);
+        }
+        return $question;
+    }
+
 }

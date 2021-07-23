@@ -85,6 +85,33 @@
             <iframe id="frameUploadAttachment" name="frameUploadAttachment" width="0" height="0" frameborder="0" style="position: absolute"></iframe>
         </div>
         <div class="block-footer">
+            <?php if ($opened_from_content) { ?>
+                <div class="add_test_indicator">
+                    <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="primary" cx="7" cy="7" r="7"/>
+                    </svg>
+                    <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
+                        <circle class="primary" cx="7" cy="7" r="7"/>
+                    </svg>
+                </div>
+                <div style="display: flex; width: 100%;">
+                    <button class="flex button text-button button-sm" style="align-items: center;"
+                            onclick="Popup.closeWithNewPopup('/tests/create_content', 800);">
+                        <?= $this->element('arrow-left')?>
+                        <span style="margin-left: 10px;">Terug</span>
+                    </button>
+                    <div style="display: flex;margin-left: auto;">
+                        <button class="flex button text-button button-sm" style="align-items: center;"
+                                onclick="Popup.closeLast();Navigation.refresh();">
+                            Annuleer
+                        </button>
+                        <button id="submitbutton" onclick="handleSubmit()" class="flex button primary-button button-md"
+                                style="align-items: center;">
+                            Toets uploaden
+                        </button>
+                    </div>
+                </div>
+            <?php } else { ?>
             <a href="#" id="submitbutton" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
                 Toets uploaden
             </a>
@@ -92,6 +119,7 @@
                     Navigation.refresh();">
                 Annuleer
             </a>
+            <?php } ?>
         </div>
         <?= $this->Form->end ?>
     </div>
@@ -111,6 +139,7 @@
                 var canSubmit = false;
                 var fileAdded = false;
                 $('#submitbutton').addClass('disabled');
+                $('#submitbutton').attr('disabled', true);
 
                 function handleUploadError(error) {
                     clearTimeout(wistjedatjeTimer);
@@ -264,6 +293,7 @@
                             fileAdded = true;
 
                             $('#submitbutton').removeClass('disabled');
+                            $('#submitbutton').removeAttr('disabled');
                         },
                         onerror:function (error, file, status){
                             if(file !== undefined){

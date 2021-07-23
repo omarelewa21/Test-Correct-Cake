@@ -66,7 +66,7 @@
     </div>
 </div>
 
-<h1>Geplande toetsen</h1>
+<h1>Mijn ingeplande toetsen</h1>
 
 <div class="block">
     <div class="block-content">

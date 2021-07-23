@@ -96,12 +96,12 @@
 
 <style type="text/css">
     .redactor-toolbar li a.re-advanced {
-        background: #197cb4;
+        background: var(--menu-blue);
         color: white;
     }
 
     .cke_button__advanced {
-        background-color:#1585C5 !important;
+        background-color:var(--primary) !important;
     }
 
 </style>

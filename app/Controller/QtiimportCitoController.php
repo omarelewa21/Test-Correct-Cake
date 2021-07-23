@@ -26,7 +26,7 @@ class QtiimportCitoController extends AppController
 
         $subjectList = [];
         foreach($data['subjects'] as $subject){
-            $subjectList[] = (object) ['id' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',preg_replace('!\\r?\\n?\\t!', "", $subject['name']),$subject['abbreviation'])];
+            $subjectList[] = (object) ['id' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',str_replace("'","`",preg_replace('!\\r?\\n?\\t!', "", $subject['name'])),$subject['abbreviation'])];
         }
         $this->set('subjectList',$subjectList);
 

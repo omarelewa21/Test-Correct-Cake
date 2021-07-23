@@ -40,7 +40,7 @@ if ($wizard_steps) {
                 <h5 style="">De importgegevens van klassen zijn bijna compleet</h5>
             </div>
             <div class="body">
-                <p>De geïmporteerde gegevens van klassen uit Magister of SOMtoday zijn bijna compleet. Vul de gegevens aan om de klassen te kunnen inplannen voor toetsen.</p>
+                <p>De geïmporteerde gegevens van klassen uit <?= $lvs_type ?> zijn bijna compleet. Vul de gegevens aan om de klassen te kunnen inplannen voor toetsen.</p>
                 <a class="text-button" onclick="displayCompleteUserImport()">Importgegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
             </div>
         </div>
@@ -390,15 +390,14 @@ if ($wizard_steps) {
 </div>
 
 <script src="/js/confetti.min.js"></script>
-
 <script>
     if(typeof(window.oneTrustInjected) === 'undefined') {
         <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
-        //
+
         // $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
         // $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
-        // function OptanonWrapper() { }
-        // window.oneTrustInjected = true;
+        function OptanonWrapper() { }
+        window.oneTrustInjected = true;
 
         <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
     }
@@ -408,13 +407,22 @@ if ($wizard_steps) {
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
         _hsq.push(['trackPageView']);
 
-        try {
-            window.HubSpotConversations.widget.load();
-        } catch (error) {
-
-        }
+        // try {
+        //     window.HubSpotConversations.widget.load();
+        // } catch (error) {
+        //
+        // }
 
         hubspotLoaded = true;
+    }
+
+    function openHubspotWidget() {
+        var widget = window.HubSpotConversations.widget;
+        if (widget.status().loaded) {
+            widget.open()
+        } else {
+            widget.load({ widgetOpen: true });
+        }
     }
 
     HelpHero.identify("<?=AuthComponent::user('uuid')?>", {
@@ -721,6 +729,30 @@ if ($wizard_steps) {
         Popup.load('users/teacher_complete_user_import_main_school_class', 1080);
     }
 
+    if ($('#support_webinar').length !== 1) {
+        $('#support_menu').append(
+            '<a id="support_webinar" href="#" onclick="Popup.showExternalPage(\'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe\', 600)" class="btn white mt5">Webinar</a>\n' +
+            '<a id="support_email" href="mailto:support@test-correct.nl" class="btn white mt5">E-mail</a>\n' +
+            '<a id="support_updates" href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5">Updates &amp; onderhoud</a>'
+        );
+
+        $('.action_icon_container').prepend(
+        '<div class="menu_chat_icon" onclick="openHubspotWidget()" title="Chat">' +
+            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
+            '    <g fill="none" fill-rule="evenodd" stroke-linejoin="round">' +
+            '        <g stroke="currentColor">' +
+            '            <path stroke-width="2" d="M17 5c3.314 0 6 2.686 6 6v2c0 2.612-1.67 4.834-4 5.658V23l-5.6-4H10c-3.314 0-6-2.686-6-6v-2c0-3.314 2.686-6 6-6h7z"/>' +
+            '            <path stroke-width="2" d="M5 15c-2.21 0-4-1.79-4-4V7c0-3.314 2.686-6 6-6h8c2.761 0 5 2.239 5 5h0"/>' +
+            '            <g stroke-linecap="round">' +
+            '                <path d="M0 .5L8 .5M0 3.5L8 3.5" transform="translate(9.500000, 10.000000)"/>' +
+            '            </g>' +
+            '        </g>' +
+            '    </g>' +
+            '</svg>' +
+            '<span class="ml6">Chat</span>'+
+            '</div>'
+        )
+    }
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {

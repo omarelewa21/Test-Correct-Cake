@@ -243,6 +243,7 @@ var TestTake = {
                     TestTake.atTestStop();
                     Notify.notify('De toets is gestopt', 'info');
                     TestTake.active = false;
+                    Menu.handleHandIn();
                 }
             );
         };
@@ -295,6 +296,7 @@ var TestTake = {
                 zoomsetupcrOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
+                $('#action_icons').fadeOut();
                 $('#header #logo_1').animate({
                     'height': '30px'
                 });
@@ -302,7 +304,7 @@ var TestTake = {
                 startfullscreentimer();
 
                 $('#header #logo_2').animate({
-                    'margin-left': '50px'
+                    'margin-left': '70px'
                 });
                 $('#btnLogout').hide();
                 $('#btnMenuHandIn').show();
@@ -526,8 +528,8 @@ var TestTake = {
 
     resetAnswerPreview: function (discussing_question_id, take_id) {
         $('#questionAnswer').load('/questions/preview_answer_load/' + discussing_question_id).parent().css({
-            'border-left': '20px solid #197cb4'
-        }).find('.block-head').css({'background-color': '#197cb4'}).children('strong').html('Antwoordmodel');
+            'border-left': '20px solid var(--menu-blue)'
+        }).find('.block-head').css({'background-color': 'var(--menu-blue)'}).children('strong').html('Antwoordmodel');
 
         $('#btnResetAnswerPreview').slideUp();
         clearInterval(window.participantsTimeout);

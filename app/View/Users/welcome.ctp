@@ -7,7 +7,7 @@
                         <h5 style="">De importgegevens van klassen zijn bijna compleet</h5>
                     </div>
                     <div class="body">
-                        <p>De geïmporteerde gegevens van klassen uit Magister of SOMtoday zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen.</p>
+                        <p>De geïmporteerde gegevens van klassen uit <?= $lvs_type ?> zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen.</p>
                         <a class="text-button" onclick="displayCompleteUserImport()">Importgegevens voor klassen compleet maken.<?php echo $this->element('arrow') ?></a>
                     </div>
                 </div>

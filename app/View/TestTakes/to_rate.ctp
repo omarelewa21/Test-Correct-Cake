@@ -72,7 +72,7 @@
         </div>
     </div>
 
-    <h1>Na te kijken</h1>
+    <h1>Nakijken &amp; normeren</h1>
 
     <div class="block">
         <div class="block-content">

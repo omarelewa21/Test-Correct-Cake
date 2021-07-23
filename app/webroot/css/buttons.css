@@ -51,12 +51,12 @@
 }
 
 .btn.blue{
-    background:         #1585c5;
+    background:         var(--primary);
     color:              white;
 }
 .btn.blue:hover,
 .btn.blue:active{
-    background:         #1d93d6;
+    background:         var(--primary-hover);
 }
 
 /* TABS */

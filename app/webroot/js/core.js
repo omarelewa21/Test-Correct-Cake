@@ -153,8 +153,8 @@ var Core = {
 	},
 
 	afterLogin : function() {
-		Menu.initialise();
 		User.initialise();
+		Menu.initialise();
 
 		if(window.isInApp) {
 			Core.inApp = true;
@@ -178,7 +178,7 @@ var Core = {
 						//stuent
 						$('#messages .counter').show().html(unread);
 						//teacher
-						$('#other .counter').show().html(unread);
+						$('.menu_messages_icon .counter').show().html(unread);
                     }
                 }
             );

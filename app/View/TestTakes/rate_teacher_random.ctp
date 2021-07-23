@@ -15,7 +15,7 @@ foreach($answers as $answer) {
         </div>
     </div>
 
-    <div class="block" style="border-left: 3px solid #197cb4;">
+    <div class="block" style="border-left: 3px solid var(--menu-blue);">
         <div class="block-head">Antwoordmodel</div>
         <div class="block-content" id="participant_question_answer_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
 

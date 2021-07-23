@@ -49,7 +49,7 @@
     </div>
 
 
-    <h1>Studenten analyse</h1>
+    <h1>Mijn studenten analyses</h1>
 
     <div class="block">
         <div class="block-content">

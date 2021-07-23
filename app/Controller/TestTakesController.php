@@ -2048,7 +2048,7 @@ class TestTakesController extends AppController {
             $take = $this->TestTakesService->getTestTake($getTakeId);
             if (!empty($take['discussing_parent_questions'])) {
                 //$group = $this->QuestionsService->getSingleQuestion();
-                $group = getUUID($take['discussing_parent_questions'][0]['group_question'], 'get');
+                $group = getUUID($take['discussing_parent_questions'][0]['group_question_uuid'], 'get');
                 $this->set('group', $group);
             }
 
@@ -2167,7 +2167,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('rates_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2222,7 +2222,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('answers_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2602,12 +2602,15 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             $questions = $response['answers'];
 
-            App::uses('BugsnagLogger','Lib');
-            BugsnagLogger::getInstance()->setMetaData([
-                'response' => $response,
-            ])->notifyException(
-                new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
-            );
+            if (!$questions) {
+                // this can be removed when this error no longer occures: MF 7-7-2021
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->setMetaData([
+                    'response' => $response,
+                ])->notifyException(
+                    new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
+                );
+            }
         }
 
         $this->set('questions', $questions);

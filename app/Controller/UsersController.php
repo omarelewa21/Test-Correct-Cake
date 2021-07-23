@@ -156,6 +156,12 @@ class UsersController extends AppController
                 // no need to expose user info
                 $this->formResponse(true, ['message' => $message]);
             } else {
+                if($this->Auth->_authenticateObjects[0]->error === "NEEDS_LOGIN_ENTREE"){
+                    $this->formResponse(false, ['message' => 'Je gegevens zijn nog niet compleet. Log de eerste keer in via Entree']);
+                    return false;
+                }
+
+
                 // Check if there's a captcha reason to fail or that the data is just not okay
                 if (!empty($this->request->data['User']['email']) && !empty($this->request->data['User']['password'])) {
                     if ($this->UsersService->doWeNeedCaptcha($this->request->data['User']['email'])) {
@@ -457,6 +463,12 @@ class UsersController extends AppController
             }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
+        if ($should_display_import_incomplete_panel) {
+            $lvs_type = $this->SchoolLocationsService->getLvsType(
+                getUUID(AuthComponent::user('school_location'),'get')
+            )[0];
+            $this->set('lvs_type', $lvs_type);
+        }
         $this->set('should_display_import_incomplete_panel', $should_display_import_incomplete_panel);
 
         $this->render($view, 'ajax');
@@ -1125,40 +1137,45 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
-                $menus['library'] = "Itembank";
-                $menus['tests'] = "Toetsing";
+                //Dashboard and Results is prepended to the menu in menu.js
+//                $menus['dashboard'] = "Dashboard";
+                $menus['library'] = "Toetsen";
+                $menus['tests'] = "Ingepland";
+                $menus['taken'] = "Afgenomen";
+//                $menus['results'] = "Resultaten";
                 $menus['analyses'] = "Analyses";
-                $menus['other'] = "Overig";
-                $menus['support'] = "Support";
+                $menus['classes'] = "Klassen";
+//                $menus['other'] = "Overig";
+//                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'Student') {
                 $menus['tests'] = "Toetsing";
                 $menus['analyses'] = "Analyse";
-                $menus['messages'] = "Berichten";
-                $menus['support'] = "Support";
+//                $menus['messages'] = "Berichten";
+//                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'School management') {
                 $menus['analyses'] = "Analyse";
-                $menus['messages'] = "Berichten";
+//                $menus['messages'] = "Berichten";
             }
 
 
-            if ($role['name'] == 'Teacher') {
-                $menus['tell_a_teacher'] = "
-                                                <button class='button cta-button button-sm' style='cursor: pointer;'
-                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
-                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
-                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
-                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
-                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
-                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
-                                                        </g>
-                                                    </svg>
-                                                </button>
-                                            ";
-            }
+//            if ($role['name'] == 'Teacher') {
+//                $menus['tell_a_teacher'] = "
+//                                                <button class='button cta-button button-sm' style='cursor: pointer;'
+//                                                     onClick=\"Popup.load('/users/tell_a_teacher', 800);\">
+//                                                    <span style='margin-right: 10px'>Nodig een collega uit!</span>
+//                                                    <svg width='17' height='16' xmlns='http://www.w3.org/2000/svg'>
+//                                                        <g fill='none' fill-rule='evenodd' stroke-linecap='round' stroke='white' stroke-width='2'>
+//                                                            <path stroke-linejoin='round' d='M1 1l14 7-14 7 2-7z'/>
+//                                                            <path d='M3 8h10M1 1l14 7-14 7'/>
+//                                                        </g>
+//                                                    </svg>
+//                                                </button>
+//                                            ";
+//            }
         }
 
         $this->set('menus', $menus);
@@ -1175,7 +1192,7 @@ class UsersController extends AppController
         $tiles['kennisbank'] = [
             'menu'  => 'support',
             'icon'  => 'knowledgebase',
-            'title' => 'Bezoek de kennisbank',
+            'title' => 'Kennisbank',
             'path'  => 'https://support.test-correct.nl',
             'type'  => 'externalpopup',
         ];
@@ -1392,21 +1409,29 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
+                $tiles['create_content'] = array(
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'Toets creëren',
+                    'type'  => 'popup',
+                    'path'  => '/tests/create_content'
+                );
+
                 $tiles['tests_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Schoollocatie',
+                    'title' => 'Toetsenbank',
                     'path'  => '/tests/index'
                 );
 
-                if (AuthComponent::user('hasSharedSections')) {
-                    $tiles['tests_shared_sections_overview'] = array(
-                        'menu'  => 'library',
-                        'icon'  => 'testlist',
-                        'title' => 'Scholengemeenschap',
-                        'path'  => '/shared_sections_tests/index'
-                    );
-                }
+//                if (AuthComponent::user('hasSharedSections')) {
+//                    $tiles['tests_shared_sections_overview'] = array(
+//                        'menu'  => 'library',
+//                        'icon'  => 'testlist',
+//                        'title' => 'Toetsen scholengemeenschap',
+//                        'path'  => '/shared_sections_tests/index'
+//                    );
+//                }
 
                 $tiles['questions_overview'] = array(
                     'menu'  => 'library',
@@ -1415,19 +1440,19 @@ class UsersController extends AppController
                     'path'  => '/questions/index'
                 );
 
-                if (AuthComponent::user('hasCitoToetsen')) {
-                    $tiles['tests_cito_overview'] = array(
-                        'menu'  => 'library',
-                        'icon'  => 'testlist',
-                        'title' => 'CITO Toetsen op maat',
-                        'path'  => '/cito_tests/index'
-                    );
-                }
+//                if (AuthComponent::user('hasCitoToetsen')) {
+//                    $tiles['tests_cito_overview'] = array(
+//                        'menu'  => 'library',
+//                        'icon'  => 'testlist',
+//                        'title' => 'CITO Toetsen op maat',
+//                        'path'  => '/cito_tests/index'
+//                    );
+//                }
 
                 $tiles['tests_planned'] = array(
                     'menu'  => 'tests',
                     'icon'  => 'gepland',
-                    'title' => 'Geplande toetsen',
+                    'title' => 'Mijn ingeplande toetsen',
                     'path'  => '/test_takes/planned_teacher'
                 );
 
@@ -1439,90 +1464,113 @@ class UsersController extends AppController
                 );
 
                 $tiles['tests_taken'] = array(
-                    'menu'  => 'tests',
+                    'menu'  => 'taken',
                     'icon'  => 'afgenomen',
-                    'title' => 'Afgenomen',
+                    'title' => 'Mijn afgenomen toetsen',
                     'path'  => '/test_takes/taken_teacher'
                 );
 
 //                $tiles['tests_discussed'] = array(
-//                    'menu' => 'tests',
+//                    'menu' => 'taken',
 //                    'icon' => 'bespreken',
 //                    'title' => 'Bespreken',
 //                    'path' => '/test_takes/discussion'
 //                );
 
                 $tiles['tests_examine'] = array(
-                    'menu'  => 'tests',
+                    'menu'  => 'taken',
                     'icon'  => 'nakijken',
-                    'title' => 'Nakijken',
+                    'title' => 'Nakijken & normeren',
                     'path'  => '/test_takes/to_rate'
                 );
 
-                $tiles['tests_graded'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'becijferd',
-                    'title' => 'Becijferd',
-                    'path'  => '/test_takes/rated'
-                );
+//                $tiles['tests_graded'] = array(
+//                    'menu'  => 'results',
+//                    'icon'  => 'becijferd',
+//                    'title' => 'Beoordeeld',
+//                    'path'  => '/test_takes/rated'
+//                );
 
                 $tiles['analyse'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
-                    'title' => 'Uw analyse',
+                    'title' => 'Mijn analyses',
                     'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerlingen',
-                    'title' => 'Studenten',
+                    'title' => 'Mijn studenten',
                     'path'  => '/analyses/students_overview'
                 );
 
                 $tiles['analyse_classes'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Klassen',
+                    'title' => 'Mijn klassen',
                     'path'  => '/analyses/school_classes_overview'
                 );
 
-                $tiles['messages'] = array(
-                    'menu'  => 'other',
-                    'icon'  => 'messages',
-                    'title' => 'Berichten',
-                    'path'  => '/messages'
-                );
+//                $tiles['messages'] = array(
+//                    'menu'  => 'other',
+//                    'icon'  => 'messages',
+//                    'title' => 'Berichten',
+//                    'path'  => '/messages'
+//                );
 
                 $tiles['teacher_classes'] = [
-                    'menu'  => 'other',
+                    'menu'  => 'classes',
                     'icon'  => 'testlist',
                     'title' => 'Mijn klassen',
                     'path'  => '/teacher_classes'
                 ];
 
-                $tiles['teacher_test_uploads'] = [
-                    'menu'  => 'other',
+                $tiles['school_location_classes'] = [
+                    'menu'  => 'classes',
                     'icon'  => 'testlist',
-                    'title' => 'Aangeboden toetsen',
+                    'title' => 'Mijn schoollocatie',
+                    'path'  => '/teacher_classes/school_location_classes'
+                ];
+
+                $tiles['teacher_test_uploads'] = [
+                    'menu'  => 'library',
+                    'icon'  => 'testlist',
+                    'title' => 'Mijn uploads',
                     'path'  => '/file_management/testuploads'
                 ];
 
-                $tiles['webinar'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'webinar',
-                    'title' => 'Inschrijven webinar',
-                    'type'  => 'externalpopup',
-                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
-                ];
-
-                $tiles['supportmail'] = [
-                    'menu'  => 'support',
-                    'icon'  => 'send-email',
-                    'title' => 'Support mailen',
-                    'type'  => 'externallink',
-                    'path'  => 'mailto:support@test-correct.nl',
-                ];
+//                $tiles['webinar'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'webinar',
+//                    'title' => 'Webinar',
+//                    'type'  => 'externalpopup',
+//                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
+//                ];
+//
+//                $tiles['supportmail'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'E-mail',
+//                    'type'  => 'externallink',
+//                    'path'  => 'mailto:support@test-correct.nl',
+//                ];
+//
+//                $tiles['supportchat'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'Chat',
+//                    'path'  => '',
+//                ];
+//
+//                $tiles['updates'] = [
+//                    'menu'  => 'support',
+//                    'icon'  => 'send-email',
+//                    'title' => 'Updates & onderhoud',
+//                    'type'  => 'externalpopup',
+//                    'width'=> '1000',
+//                    'path'  => 'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates',
+//                ];
 
                 /*
                 $tiles['tell_a_teacher'] = array(
@@ -1968,6 +2016,10 @@ class UsersController extends AppController
             getUUID(AuthComponent::user('school_location'), 'get'),
             true
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
@@ -2001,6 +2053,10 @@ class UsersController extends AppController
             getUUID(AuthComponent::user('school_location'), 'get'),
             true
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
@@ -2026,7 +2082,7 @@ class UsersController extends AppController
         $checkedByTeacher = [];
         $taughtSubjects = [];
         foreach($teachersList as $teacherRecord) {
-            if (! is_array($teacherEntries[$teacherRecord['class_id']])){
+            if (!array_key_exists($teacherRecord['class_id'], $teacherEntries) || !is_array($teacherEntries[$teacherRecord['class_id']])){
                 $teacherEntries[$teacherRecord['class_id']] = [];
             }
             $teacherEntries[$teacherRecord['class_id']][] = $teacherRecord['subject_id'];
@@ -2045,6 +2101,9 @@ class UsersController extends AppController
         ]);
         $subjects = $this->TestsService->getSubjects(false, 'all', true, true);
 
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('subjects', $subjects);
         $this->set('taught_subjects', $taughtSubjects);
@@ -2073,6 +2132,10 @@ class UsersController extends AppController
         $eductionLevels = $this->SchoolLocationsService->getSchoolLocationEducationLevels(
             getUUID(AuthComponent::user('school_location'), 'get')
         );
+
+        $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
+
+        $this->set('lvs_type', $schoolLvsType);
         $this->set('classes_list', $classesList);
         $this->set('education_levels', $eductionLevels);
     }
