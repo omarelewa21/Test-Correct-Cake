@@ -87,6 +87,6 @@ class TeacherClassesController extends AppController
         $classes  = $this->SchoolClassesService->getClasses($params);
 
         $this->set('classes', $classes);
-        $this->render('load', 'ajax');
+        $this->render('load_school_location_classes', 'ajax');
     }
 }
