@@ -53,7 +53,8 @@
             <span style="margin-left: 10px">Later lezen en accepteren</span>
         </button>
         <?php }?>
-        <button id="terms_accept_btn" class="button button-md cta-button" style="cursor: pointer;margin-left:auto;" onclick="Navigation.load('users/terms_and_conditions?teacher_accepted_terms=true'); Popup.closeLast();">
+        <button id="terms_accept_btn" class="button button-md cta-button" style="cursor: pointer;margin-left:auto;"
+                onclick="userAcceptedTerms()">
             Accepteren
         </button>
     </div>
@@ -64,8 +65,14 @@
         $('#prevent_logout_div').parent().css({'border-radius': '10px'})
     })
 
-    // var terms_iframe = document.getElementById('terms_iframe')
-    // if (terms_iframe.contentWindow.scrollTop >= terms_iframe.contentWindow.offsetHeight - 100) {
-    //     $('#terms_accept_btn').removeAttr('disabled');
-    // }
+    function userAcceptedTerms() {
+        $.ajax({
+            url: '/users/accept_general_terms',
+            method: 'POST',
+            success: function (data) {
+                Popup.closeLast();
+                Navigation.reload();
+            }
+        })
+    }
 </script>
