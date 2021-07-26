@@ -428,6 +428,18 @@ class UsersController extends AppController
 
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanel();
                 $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
+
+                $userGeneralTermsLog = $this->UsersService->getGeneralTermsLog(getUUID(AuthComponent::user('uuid'),'get'));
+                $shouldDisplayGeneralTermsNotification = $userGeneralTermsLog != null && $userGeneralTermsLog['accepted_at'] == null;
+                $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
+                if ($shouldDisplayGeneralTermsNotification) {
+                    $firstRequest = new DateTime($userGeneralTermsLog['created_at']);
+                    $requestExpirationDate = $firstRequest->add(new DateInterval('P14D'));
+                    $today = new DateTime('now');
+
+                    $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff(new DateTime('now'))->format('%d') : 0;
+                    $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
+                }
             }
 
             if ($role['name'] == 'Student') {
@@ -2131,5 +2143,15 @@ class UsersController extends AppController
     public function prevent_logout()
     {
         $this->set('opened_by_user', $this->params['url']['opened_by_user']);
+    }
+
+    public function terms_and_conditions($daysLeft)
+    {
+        if ($this->params['url']['teacher_accepted_terms']) {
+            $this->UsersService->setGeneralTermsLogAcceptedAt(getUUID(AuthComponent::user(), 'get'));
+            $this->welcome();
+        }
+
+        $this->set('closeable', $daysLeft > 0);
     }
 }

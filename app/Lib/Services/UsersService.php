@@ -751,5 +751,22 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getGeneralTermsLog($user_uuid)
+    {
+        $response = $this->Connector->getRequest('/user/'.$user_uuid.'/general_terms_log', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function setGeneralTermsLogAcceptedAt($user_uuid)
+    {
+        $response = $this->Connector->putRequest('/user/'.$user_uuid.'/general_terms_accepted', [], []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 
