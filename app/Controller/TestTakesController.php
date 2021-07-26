@@ -2224,7 +2224,7 @@ class TestTakesController extends AppController {
         }
 
         $participants = $this->TestTakesService->getParticipants($take_id);
-        $this->transformDrawingQuestionAnswersForParticipants($participants);
+
         foreach ($participants as $key1 => $participant) {
             foreach ($participant['answers'] as $key2 => $answer) {
                 if (array_key_exists('answer', json_decode($answer['json'], true))) {
@@ -2238,6 +2238,7 @@ class TestTakesController extends AppController {
                 }
             }
         }
+
         $view = new View($this, false);
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
@@ -2659,13 +2660,5 @@ class TestTakesController extends AppController {
     public function skip_discussion_popup($take_id)
     {
         $this->set('take_id', $take_id);
-    }
-
-    /**
-     * @param $participants
-     */
-    private function transformDrawingQuestionAnswersForParticipants($participants)
-    {
-
     }
 }
