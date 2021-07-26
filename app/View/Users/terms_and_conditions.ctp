@@ -69,7 +69,8 @@
         $.ajax({
             url: '/users/accept_general_terms',
             method: 'POST',
-            success: function (data) {
+            data: {},
+            success: function () {
                 Popup.closeLast();
                 Navigation.reload();
             }
