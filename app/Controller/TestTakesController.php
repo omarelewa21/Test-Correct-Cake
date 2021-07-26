@@ -2229,7 +2229,16 @@ class TestTakesController extends AppController {
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
-
+        foreach ($participants['answer'] as $answer) {
+            foreach($questions as $question) {
+                if($question['type'] == 'DrawingQuestion') {
+                    if(!$this->transformDrawingAnswer($answer)) {
+                        /* Include parameter pdf=sha1('true) to anonymous auth with the imageload */
+                        $answer['json']['answer'] .= '&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
+                    }
+                }
+            }
+        }
         $html = $view->render('answers_pdf', 'pdf');
 
         $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
