@@ -2142,6 +2142,7 @@ class UsersController extends AppController
 
     public function accept_general_terms()
     {
+        $this->autoRender = false;
         $this->UsersService->setGeneralTermsLogAcceptedAt(getUUID(AuthComponent::user(), 'get'));
     }
 
