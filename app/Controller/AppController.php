@@ -241,7 +241,7 @@ class AppController extends Controller
         if (strpos($drawingAnswer, 'http') === false) {
             $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
             $this->set('drawing_url', $drawingAnswerUrl);
-            return true;
+            return $drawingAnswerUrl;
         }
         return false;
     }

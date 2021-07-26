@@ -2224,21 +2224,24 @@ class TestTakesController extends AppController {
         }
 
         $participants = $this->TestTakesService->getParticipants($take_id);
-
+        $this->transformDrawingQuestionAnswersForParticipants($participants);
+        foreach ($participants as $key1 => $participant) {
+            foreach ($participant['answers'] as $key2 => $answer) {
+                if (array_key_exists('answer', json_decode($answer['json'], true))) {
+                    $jsonAnswerData = json_decode($answer['json'], true);
+                    if ($transformedUrl = $this->transformDrawingAnswer($answer)) {
+                        $jsonAnswerData['answer'] = $transformedUrl['url'];
+                    } else {
+                        $jsonAnswerData['answer'] = $jsonAnswerData['answer'].'&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
+                    }
+                    $participants[$key1]['answers'][$key2]['json'] = json_encode($jsonAnswerData);
+                }
+            }
+        }
         $view = new View($this, false);
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
-        foreach ($participants['answer'] as $answer) {
-            foreach($questions as $question) {
-                if($question['type'] == 'DrawingQuestion') {
-                    if(!$this->transformDrawingAnswer($answer)) {
-                        /* Include parameter pdf=sha1('true) to anonymous auth with the imageload */
-                        $answer['json']['answer'] .= '&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
-                    }
-                }
-            }
-        }
         $html = $view->render('answers_pdf', 'pdf');
 
         $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
@@ -2656,5 +2659,13 @@ class TestTakesController extends AppController {
     public function skip_discussion_popup($take_id)
     {
         $this->set('take_id', $take_id);
+    }
+
+    /**
+     * @param $participants
+     */
+    private function transformDrawingQuestionAnswersForParticipants($participants)
+    {
+
     }
 }
