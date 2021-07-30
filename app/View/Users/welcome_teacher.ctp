@@ -370,6 +370,7 @@ if ($wizard_steps) {
 </div>
 
 <script src="/js/confetti.min.js"></script>
+<script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
     if(typeof(window.oneTrustInjected) === 'undefined') {
         <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
