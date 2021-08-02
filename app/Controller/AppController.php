@@ -234,12 +234,12 @@ class AppController extends Controller
         return (preg_match ("/^(-){0,1}([0-9]+)(,[0-9][0-9][0-9])*([0-9]){0,1}([0-9]*)$/", $value) == 1);
     }
 
-    function transformDrawingAnswer($answer)
+    function transformDrawingAnswer($answer, $base64 = false)
     {
         $drawingAnswer = json_decode($answer['json'])->answer;
 
         if (strpos($drawingAnswer, 'http') === false) {
-            $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+            $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer, $base64);
             $this->set('drawing_url', $drawingAnswerUrl);
             return $drawingAnswerUrl;
         }
