@@ -2153,10 +2153,14 @@ class UsersController extends AppController
         $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
         if ($shouldDisplayGeneralTermsNotification) {
             $firstRequest = new DateTime($userGeneralTermsLog['created_at']);
-            $requestExpirationDate = $firstRequest->add(new DateInterval('P14D'));
-            $today = new DateTime('now');
 
-            $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff(new DateTime('now'))->format('%d') : 0;
+            $requestExpirationDate = $firstRequest->setTimezone(new DateTimeZone(Configure::read('Config.timezone')))->setTime(0,0);
+            $requestExpirationDate->add(new DateInterval('P14D'));
+
+            $today = new DateTime('now');
+            $today->setTime(0,0);
+
+            $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff($today)->format('%d') : 0;
             $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
         }
     }

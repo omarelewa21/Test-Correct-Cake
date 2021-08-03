@@ -28,7 +28,7 @@ if ($wizard_steps) {
             <div class="flex tabs">
                 <?php for($i = 13; $i >= 0; $i--) {?>
                     <div class="flex tab" style="<?= $i >= $generalTermsDaysLeft ? 'background-color:var(--teacher-Highlight-dark)' : '' ?>">
-                        <span><?= $i == $generalTermsDaysLeft ? 'nog '. $generalTermsDaysLeft .' dagen' : ''?></span>
+                        <span><?= $i == $generalTermsDaysLeft ? 'nog '. $generalTermsDaysLeft . ($generalTermsDaysLeft == 1 ? ' dag': ' dagen') : ''?></span>
                     </div>
                 <?php } ?>
             </div>
