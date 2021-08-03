@@ -2229,7 +2229,7 @@ class TestTakesController extends AppController {
             foreach ($participant['answers'] as $key2 => $answer) {
                 if (array_key_exists('answer', json_decode($answer['json'], true))) {
                     $jsonAnswerData = json_decode($answer['json'], true);
-                    if ($transformedUrl = $this->transformDrawingAnswer($answer)) {
+                    if ($transformedUrl = $this->transformDrawingAnswer($answer, true)) {
                         $jsonAnswerData['answer'] = $transformedUrl['url'];
                     } else {
                         $jsonAnswerData['answer'] = $jsonAnswerData['answer'].'&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
