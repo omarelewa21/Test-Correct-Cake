@@ -2148,7 +2148,7 @@ class UsersController extends AppController
 
     private function handleGeneralTermsForUser()
     {
-        $userGeneralTermsLog = $this->UsersService->getGeneralTermsLog(getUUID(AuthComponent::user('uuid'), 'get'));
+        $userGeneralTermsLog = $this->UsersService->getGeneralTermsLog(AuthComponent::user('uuid'));
         $shouldDisplayGeneralTermsNotification = $userGeneralTermsLog != null && $userGeneralTermsLog['accepted_at'] == null;
         $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
         if ($shouldDisplayGeneralTermsNotification) {
