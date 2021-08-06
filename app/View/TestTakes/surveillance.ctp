@@ -149,10 +149,19 @@ if(count($takes) == 0) {
 }
 ?>
 
+<?php
+    $takeUuids = array();
+    foreach ($takes as $take) {
+        $takeUuids[] = getUUID($take['info'], 'get');
+    }
+?>
+
 <script type="text/javascript">
 
     startPolling(10000);
     window.onbeforeunload = confirmExit;
+
+    var takeUuids = <?= json_encode($takeUuids) ?>;
 
     if(typeof(Pusher) == 'undefined'){
         console.log('adding pusher');
@@ -178,6 +187,15 @@ if(count($takes) == 0) {
                 }
                 startPolling(data.pollingInterval);
             });
+
+            takeUuids.forEach(function(take) {
+                 take = pusher.subscribe('TestTake.'+take);
+                 take.bind('NewTestTakeEventAdded', function(data) {
+                     loadData();
+                     startPolling(10000);
+                 })
+            })
+
         },
         10000)
     }
