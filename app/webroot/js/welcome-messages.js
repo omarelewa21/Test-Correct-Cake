@@ -6,7 +6,7 @@ var supportsES6 = function() {
     catch (err) {
         var notice = document.createElement("div");
         notice.innerHTML = `
-        <div class="notification warning" style="background-color: #FFEDEB;">
+        <div class="notification warning" style="background-color: #FFEDEB; border-color: #EBCCC8;">
             <div class="body">
                 <p style="color: red">U gebruikt een verouderde browser. Deze browser wordt niet meer ondersteund vanaf 2 april 2021. Kies een andere browser of doe een upgrade.</p>
             </div>
