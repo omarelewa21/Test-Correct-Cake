@@ -88,6 +88,7 @@
 
 <br clear="all" />
 
+<script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
     function deleteIp(ip,uuid){
         if(confirm('Weet je zeker dat je het ip adres '+ip+' wil verwijderen?')){

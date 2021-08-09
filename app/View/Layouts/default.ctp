@@ -124,7 +124,6 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
-
 		</script>
 	</body>
 </html>
