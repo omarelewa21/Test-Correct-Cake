@@ -701,11 +701,12 @@ class TestTakesController extends AppController {
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
+        $this->set('currentIndex',0);
     }
 
     public function normalization_preview($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
-
+        $this->set('currentIndex',$this->request->data['hiddenIndex']);
         $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
         $this->set('results', $results);
     }

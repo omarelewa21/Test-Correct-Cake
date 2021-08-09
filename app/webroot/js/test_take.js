@@ -854,14 +854,34 @@ var TestTake = {
     },
 
     normalizationPreview: function (take_id) {
+        this.setNormalizationIndex();
         $(".groupquestion_child").prop( "disabled", false );
         $.post('/test_takes/normalization_preview/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
+                    if($(response).find('#currentIndex').val()!=$('#TestTakeNormalizationForm').find('#hiddenIndex').val()){
+                        return;
+                    }
                     $('#divPreview').html(response);
                     $(".groupquestion_child").prop( "disabled", true );
                 }
         );
+    },
+    normalizationIndex: function() {
+        if($('#TestTakeNormalizationForm').length==0){
+            return 0;
+        }
+        if($('#TestTakeNormalizationForm').find('#hiddenIndex').length==0){
+            return 0;
+        }
+        return $('#TestTakeNormalizationForm').find('#hiddenIndex').val();
+    },
+    setNormalizationIndex: function() {
+        if($('#TestTakeNormalizationForm').find('#hiddenIndex').length==0){
+            return 0;
+        }
+        $('#TestTakeNormalizationForm').find('#hiddenIndex').val(parseInt($('#TestTakeNormalizationForm').find('#hiddenIndex').val())+1);
+        return $('#TestTakeNormalizationForm').find('#hiddenIndex').val();
     },
     handleGroupQuestionSkip: function(checkbox,group_question_id,take_id){
         var checked = $(checkbox).is(':checked');
