@@ -1,21 +1,38 @@
 <h1>Welkom in Test-Correct</h1>
-<?php if ($this->Session->read('TLCVersionCheckResult') !== 'OK') { ?>
+<?php if ($this->Session->read('TLCVersionCheckResult') == 'NEEDSUPDATE') { ?>
 <div class="dashboard">
     <div class="notes">
-        <div class="notification error">
+        <div class="notification warning">
             <div class="title">
                 <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
                     style="margin-left: 20px;">Let op!</h5>
             </div>
             <div class="body">
                 <p>
-                    Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund.<br/>
-                    Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei. Werk je in de browser, dan is dit niet van toepassing.
+                    De versie van de app die je gebruikt wordt binnenkort niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch. <a onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge/melding-verouderde-versie')" href="#">Lees meer. </a>
                 </p>
             </div>
         </div>
     </div>
 </div>
+<?php } ?>
+
+<?php if (($this->Session->read('TLCVersionCheckResult') == 'NOTALLOWED')&&!$isInBrowser) { ?>
+    <div class="dashboard">
+        <div class="notes">
+            <div class="notification error">
+                <div class="title">
+                    <?php echo $this->element('warning', array('color' => 'var(--error-text)')) ?><h5
+                            style="margin-left: 20px;">Let op!</h5>
+                </div>
+                <div class="body">
+                    <p>
+                        De versie van de app die je gebruikt wordt niet meer toegelaten. Update de app om toetsen te kunnen maken. <a onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge/melding-verouderde-versie')" href="#">Lees meer. </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 <?php } ?>
 
 <div class="block" style="width:calc(50% - 10px); float: left">
@@ -45,7 +62,7 @@
             $version = $this->Session->read('TLCVersion');
             $versionClassAr = [
                 'OK' => '',
-                'NEEDSUPDATE' => 'label-danger',
+                'NEEDSUPDATE' => 'label-warning',
                 //'NOTALLOWED' => 'label-danger-blink',
                 'NOTALLOWED' => 'label-danger',
         ];

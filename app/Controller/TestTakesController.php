@@ -2287,6 +2287,15 @@ class TestTakesController extends AppController {
         exit($this->Session->read("TLCVersionCheckResult"));
     }
 
+    public function is_in_browser() {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        if($isInBrowser){
+            exit('inBrowser');
+        }
+        exit('notInBrowser');
+    }
+
     public function archive($take_id) {
         $this->isAuthorizedAs(['Teacher']);
         $response = $this->TestsService->archive($take_id);

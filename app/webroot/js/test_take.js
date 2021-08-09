@@ -56,15 +56,9 @@ var TestTake = {
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                             $('#waiting').slideUp();
-                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
-                                // $('#waiting').slideUp();
-                                // if(Core.inApp == true){
-                                    $('#chromebook-menu-notice-container-inapp').show();
-                                    // TestTake.startScreenSizeListenerForChromebookApp();
-                                    clearInterval(TestTake.heartBeatInterval);
-                                // } else {
-                                //     $('#chromebook-menu-notice-container-notinapp').show();
-                                // }
+                            if(Core.isChromebook() && !isFullScreen() && Core.inBrowser == false){
+                                $('#chromebook-menu-notice-container-inapp').show();
+                                clearInterval(TestTake.heartBeatInterval);
                                 $('#chromebook-menu-notice-container').slideDown();
                             } else {
                                 $('#chromebook-menu-notice-container').slideUp();
@@ -658,10 +652,7 @@ var TestTake = {
     },
 
     doIHaveAGoodApp: function() {
-        if(window.navigator.userAgent.indexOf('CrOS') == -1) {
-            return false;
-        }
-        Core.appType = 'Chromebook';
+        var response = false;
         $.ajax({
             url: '/test_takes/get_header_session',
             cache: false,
@@ -670,18 +661,17 @@ var TestTake = {
             async: false,
             success: function(data) {
                 if(data == 'NEEDSUPDATE' || data == 'OK') {
-                    Core.inApp = true;
+                    response = true;
                 }
             }
         });
-
-        return Core.inApp;
+        return response;
 
     },
 
     loadTake: function (take_id, makebutton) {
-        if (Core.inApp || this.doIHaveAGoodApp()) {
-            this.redirectToTest(take_id, makebutton, Core.inApp);
+        if (this.doIHaveAGoodApp()) {
+            this.redirectToTest(take_id, makebutton, true);
         } else {
             var that = this;
             Loading.show();
@@ -691,11 +681,12 @@ var TestTake = {
                     return;
                 }
                 Loading.hide();
-                if(Core.appType === 'Chromebook') {
-                    Notify.notify("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>",'error');
-                } else {
-                    Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error");
+                if(Core.inBrowser){
+                    Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error",10000);
+                }else{
+                    Notify.notify("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>",'error',10000);
                 }
+
             });
         }
     },

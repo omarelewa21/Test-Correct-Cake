@@ -91,6 +91,7 @@ class AppController extends Controller
         }
 
         $this->Auth->allow('get_header_session');
+        $this->Auth->allow('is_in_browser');
     }
 
     protected function handleHeaderCheck($headers)
@@ -114,6 +115,7 @@ class AppController extends Controller
         $this->Session->write('TLCOs', $version['os']);
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+
 
         $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
     }
