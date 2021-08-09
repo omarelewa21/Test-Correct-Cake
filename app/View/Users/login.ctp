@@ -194,7 +194,7 @@
             confirm : $('.btnLogin'),
             enterConfirm : ['#UserPassword','#UserCaptchaString'],
             onsuccess : function(result) {
-                if(Core.inApp && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
+                if(!Core.inBrowser && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
                     Notify.notify(result.message);
                 }
 

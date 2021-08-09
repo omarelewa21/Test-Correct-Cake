@@ -25,8 +25,9 @@ $(function() {
 var Core = {
 
 	dev : false,
-	inApp : false,
+	inBrowser : true,
 	appType : '',
+	status : 'OK',
 	cache : [],
 	surpressLoading : false,
     lastLostFocusNotification : false,
@@ -49,17 +50,11 @@ var Core = {
   			Core.isAndroid();
   		}
 
-
 		$.datepicker.setDefaults({
 			dateFormat: 'dd-mm-yy'
 		});
 
-		if(Core.dev) {
-			Core.inApp = true;
-		}
-
 		if(window.isInApp) {
-			Core.inApp = true;
 			Core.appType = 'windows';
 		}
 
@@ -67,17 +62,17 @@ var Core = {
 			Core.appType = 'Chromebook';
 		}
 
+
 		$.ajax({
-			url: '/test_takes/get_header_session',
+			url: '/test_takes/is_in_browser',
 			cache: false,
 			type: 'POST',
 			dataType: 'text',
 			success: function(data) {
-				if(data == 'NEEDSUPDATE' || data == 'OK') {
-					Core.inApp = true;
-					if(Core.appType !== 'ipad'){
-						Core.appType = 'mac';
-					}
+				if(data == 'inBrowser') {
+					Core.inBrowser = true;
+				}else{
+					Core.inBrowser = false;
 				}
 			}
 		});
@@ -157,7 +152,7 @@ var Core = {
 		Menu.initialise();
 
 		if(window.isInApp) {
-			Core.inApp = true;
+			//Core.inApp = true;
 			Core.appType = 'windows';
 		}
 
@@ -303,19 +298,19 @@ var Core = {
 	    if( ios ) {
 		    if ( !standalone && safari ) {
 		        Core.appType = 'browser';
-		        Core.inApp = false;
+		        //Core.inApp = false;
 		    } else if ( standalone && !safari ) {
 		        Core.appType = 'standalone';
-				Core.inApp = true;
+				//Core.inApp = true;
 		    } else if ( !standalone && !safari ) {
 		        Core.appType = 'ipad';
-		        Core.inApp = true;
+		        //Core.inApp = true;
 		    };
 		}
 	},
 
 	isAndroid : function() {
-		Core.inApp = true;
+		//Core.inApp = true;
 		Core.appType = 'android';
 	},
 

@@ -10,9 +10,9 @@ abstract class AllowedAppType
 class AppVersionDetector
 {
     private static $osConversion = [
-        "windows10" => "windows10OS",
-        "windows" => "windowsOS",
-        "macbook" => "macOS",
+//        "windows10" => "windows10OS",
+//        "windows" => "windowsOS",
+//        "macbook" => "macOS",
         "ipad" => "iOS",
         "chromebook" => "ChromeOS",
         "win32" => "windowsElectron",
@@ -20,28 +20,28 @@ class AppVersionDetector
     ];
 
     private static $allowedVersions = [
-        "windows10OS" => [
-            "ok" => [],
-            "needsUpdate" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
-        ],
-        "windowsOS" => [
-            "ok" => [],
-            "needsUpdate" => [
-                "2.0",
-                "2.1",
-                "2.2",
-                "2.3",
-                "2.4",
-                "2.5",
-                "2.6",
-                "2.8",
-                "2.9",
-            ],
-        ],
-        "macOS" => [
-            "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
-            "needsUpdate" => ["2.0", "2.1", "2.2", "2.3"],
-        ],
+//        "windows10OS" => [
+//            "ok" => [],
+//            "needsUpdate" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
+//        ],
+//        "windowsOS" => [
+//            "ok" => [],
+//            "needsUpdate" => [
+//                "2.0",
+//                "2.1",
+//                "2.2",
+//                "2.3",
+//                "2.4",
+//                "2.5",
+//                "2.6",
+//                "2.8",
+//                "2.9",
+//            ],
+//        ],
+//        "macOS" => [
+//            "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
+//            "needsUpdate" => ["2.0", "2.1", "2.2", "2.3"],
+//        ],
         "iOS" => [
             "ok" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
             "needsUpdate" => ["2.0", "2.1"],
@@ -164,6 +164,21 @@ class AppVersionDetector
         }
 
         return $appType;
+    }
+
+    public static function isInBrowser($headers = false)
+    {
+        if (!$headers) {
+            $headers = self::getAllHeaders();
+        }
+        if(!isset($headers["tlctestcorrectversion"])){
+            return true;
+        }
+        $data = explode("|", strtolower($headers["tlctestcorrectversion"]));
+        if(!isset(self::$osConversion[$data[0]])){
+            return true;
+        }
+        return false;
     }
 
     public static function isVersionAllowed($headers = false)
