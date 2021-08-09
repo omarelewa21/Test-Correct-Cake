@@ -81,6 +81,7 @@
     scrollbar-width: none;
     overflow-x: auto;
     display: flex;
+    position: relative;
 }
 #header #menu::-webkit-scrollbar {
     display: none;
@@ -160,20 +161,22 @@
 }
 
 .tile {
+    display: flex;
+    align-items: center;
     width: auto;
-    /*height: 25px;*/
+    height: 25px;
     /*line-height: 25px;*/
     text-align: center;
     cursor: pointer;
     /*margin-bottom:5px;*/
     /*margin-top: 5px;*/
     float: left;
-    padding: 15px;
+    padding: 13px 10px 10px 10px;
 }
 
 #tiles.blue .tile {
     width: auto;
-    /*height: 25px;*/
+    height: 25px;
     /*line-height: 25px;*/
     text-align: center;
     cursor: pointer;
@@ -271,7 +274,6 @@
     background:     white;
     color:          var(--system-base);
     font-weight: bold;
-    border-bottom: 3px solid transparent;
 }
 
 .green .tile {
@@ -300,15 +302,14 @@
     width: 100%;
     height: 3px;
     left: 0;
+    bottom: 0;
     border-radius: 15px;
 }
 .blue .tile.active:after {
     background: var(--primary);
-    bottom: -3px;
-}
+    }
 .green .tile.active:after {
     background: #377531;
-    bottom: 0;
 }
 .green .tile:hover, .green .tile.active {
     cursor:         pointer;
@@ -369,4 +370,16 @@
 
 #action_icons .action_icon_container *{
     box-sizing: border-box;
+}
+
+@media screen and (max-width: 800px) {
+    #header #top #user {
+        max-width: 23%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .action_icon_container span {
+        display: none;
+    }
 }
