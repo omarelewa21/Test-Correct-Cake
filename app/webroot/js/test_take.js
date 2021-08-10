@@ -670,6 +670,7 @@ var TestTake = {
     },
 
     loadTake: function (take_id, makebutton) {
+        console.dir(take_id);
         if (this.doIHaveAGoodApp()) {
             this.redirectToTest(take_id, makebutton, true);
         } else {
