@@ -13,6 +13,7 @@
     height: 70px;
     margin: 10px;
     cursor: pointer;
+    z-index: 1;
 }
 
 #header #logo_2 {
@@ -372,6 +373,12 @@
     box-sizing: border-box;
 }
 
+@media screen and (max-width: 650px) {
+    #header #logo_2 {
+        transform: scale(.8);
+        margin-left: 75px;
+    }
+}
 @media screen and (max-width: 800px) {
     #header #top #user {
         max-width: 23%;
