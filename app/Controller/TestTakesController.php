@@ -1050,7 +1050,7 @@ class TestTakesController extends AppController {
             $bugsnagService = new BugsnagService();
             $message = 'Let op! Student probeert de toets te starten vanuit de console. username:'.AuthComponent::user('username').';message:'.$e->getMessage();
             $bugsnagService->sendMessage(['message'=>$message]);
-            return $this->redirect('/');
+            return $this->view('/users/welcome');
         }
         $questions = false;
         $participant_id = $this->Session->read('participant_id');
