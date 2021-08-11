@@ -8,7 +8,6 @@ App::uses('AnswersService', 'Lib/Services');
 App::uses('SchoolClassesService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
 App::uses('SchoolYearsService', 'Lib/Services');
-App::uses('BugsnagService','Lib/Services');
 App::uses('HelperFunctions','Lib');
 App::uses('CarouselMethods', 'Trait');
 
@@ -1047,9 +1046,14 @@ class TestTakesController extends AppController {
                 throw new Exception('browser testing not allowed');
             }
         }catch(Exception $e){
-            $bugsnagService = new BugsnagService();
             $message = 'Let op! Student probeert de toets te starten vanuit de console. username:'.AuthComponent::user('username').';message:'.$e->getMessage();
-            $bugsnagService->sendMessage(['message'=>$message]);
+            BugsnagLogger::getInstance()->setMetaData([
+                'versionCheckResult' => $versionCheckResult,
+                'headers' => $headers,
+                'user_name' => AuthComponent::user('username'),
+            ])->notifyException(
+                new CakeToLaravelException("Cake => Console hack error: (". $message .")")
+            );
             return $this->view('/users/welcome');
         }
         $questions = false;
