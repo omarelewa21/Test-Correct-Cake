@@ -10,9 +10,9 @@ abstract class AllowedAppType
 class AppVersionDetector
 {
     private static $osConversion = [
-//        "windows10" => "windows10OS",
-//        "windows" => "windowsOS",
-//        "macbook" => "macOS",
+        "windows10" => "windows10OS",
+        "windows" => "windowsOS",
+        "macbook" => "macOS",
         "ipad" => "iOS",
         "chromebook" => "ChromeOS",
         "win32" => "windowsElectron",
@@ -20,28 +20,18 @@ class AppVersionDetector
     ];
 
     private static $allowedVersions = [
-//        "windows10OS" => [
-//            "ok" => [],
-//            "needsUpdate" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
-//        ],
-//        "windowsOS" => [
-//            "ok" => [],
-//            "needsUpdate" => [
-//                "2.0",
-//                "2.1",
-//                "2.2",
-//                "2.3",
-//                "2.4",
-//                "2.5",
-//                "2.6",
-//                "2.8",
-//                "2.9",
-//            ],
-//        ],
-//        "macOS" => [
-//            "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
-//            "needsUpdate" => ["2.0", "2.1", "2.2", "2.3"],
-//        ],
+        "windows10OS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
+        "windowsOS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
+        "macOS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
         "iOS" => [
             "ok" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
             "needsUpdate" => ["2.0", "2.1"],
