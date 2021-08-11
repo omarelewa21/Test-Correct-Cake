@@ -18,7 +18,7 @@
                 'Started late' => 'Laat gestart',
                 'Application closed' => 'Opnieuw gestart met toets',
                 'Lost focus alt tab' => 'Via alt+tab naar ander venster',
-                'Pressed meta key' => 'Windows toets ingedrukt',
+                'Pressed meta key' => 'Windows/command toets ingedrukt',
                 'Pressed alt key' => 'Alt toets ingedrukt',
                 'Application closed alt+f4' => 'Applicatie afgesloten via alt+f4',
                 'Lost focus blur' => 'App verlaten',
