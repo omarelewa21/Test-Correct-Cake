@@ -19,6 +19,13 @@ class AppVersionDetector
         "darwin" => "macosElectron"
     ];
 
+    /* example:
+        "iOS" => [
+            "ok" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
+            "needsUpdate" => ["2.0","2.1"],
+            "needsUpdateDeadline" => ["2.1"=>"1 mei 2022"],
+        ],
+    */
     private static $allowedVersions = [
         "windows10OS" => [
             "ok" => [],
