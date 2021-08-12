@@ -817,6 +817,7 @@ var TestTake = {
                 $.get('/test_takes/set_taken/' + take_id,
                         function () {
                             Navigation.refresh();
+                            pusher.unsubscribe('TestTake.'+take_id);
                         }
                 );
             });
