@@ -10,9 +10,9 @@ abstract class AllowedAppType
 class AppVersionDetector
 {
     private static $osConversion = [
-//        "windows10" => "windows10OS",
-//        "windows" => "windowsOS",
-//        "macbook" => "macOS",
+        "windows10" => "windows10OS",
+        "windows" => "windowsOS",
+        "macbook" => "macOS",
         "ipad" => "iOS",
         "chromebook" => "ChromeOS",
         "win32" => "windowsElectron",
@@ -20,31 +20,23 @@ class AppVersionDetector
     ];
 
     private static $allowedVersions = [
-//        "windows10OS" => [
-//            "ok" => [],
-//            "needsUpdate" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
-//        ],
-//        "windowsOS" => [
-//            "ok" => [],
-//            "needsUpdate" => [
-//                "2.0",
-//                "2.1",
-//                "2.2",
-//                "2.3",
-//                "2.4",
-//                "2.5",
-//                "2.6",
-//                "2.8",
-//                "2.9",
-//            ],
-//        ],
-//        "macOS" => [
-//            "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
-//            "needsUpdate" => ["2.0", "2.1", "2.2", "2.3"],
-//        ],
+        "windows10OS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
+        "windowsOS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
+        "macOS" => [
+            "ok" => [],
+            "needsUpdate" => [],
+        ],
         "iOS" => [
             "ok" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
             "needsUpdate" => ["2.0", "2.1"],
+            "needsUpdateDeadline" => [  "2.0" => "1 mei 2022"
+                                     ]
         ],
         "ChromeOS" => [
             "ok" => ["2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
@@ -52,61 +44,73 @@ class AppVersionDetector
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.0.2",
-                "3.0.3",
                 "3.1.0",
-                "3.0.3-beta.1",
-                "3.0.3-beta.2",
-                "3.0.3-beta.3",
-                "3.0.3-beta.4",
-                "3.0.4-beta.1",
-                "3.0.4-beta.2",
-                "3.0.4-beta.3",
-                "3.0.4-beta.4",
-                "3.0.4",
-                "3.0.5",
-                "3.0.5-beta.1",
-                "3.0.5-beta.2",
-                "3.0.5-beta.3",
-                "3.0.5-beta.4",
-                "3.1.0-beta.1",
-                "3.1.0-beta.2",
-                "3.1.0-beta.3",
-                "3.1.0-beta.4"
+                "3.1.1",
+                "3.1.1-beta.1",
+                "3.1.1-beta.2",
+                "3.1.1-beta.3",
+                "3.1.1-beta.4",
+                "3.1.1-beta.5",
+                "3.1.2",
+                "3.1.2-beta.1",
+                "3.1.2-beta.2",
+                "3.1.2-beta.3",
+                "3.1.2-beta.4",
+                "3.1.2-beta.5",
+                "3.1.3",
+                "3.1.3-beta.1",
+                "3.1.3-beta.2",
+                "3.1.3-beta.3",
+                "3.1.3-beta.4",
+                "3.1.3-beta.5",
+                "3.1.4",
+                "3.1.4-beta.1",
+                "3.1.4-beta.2",
+                "3.1.4-beta.3",
+                "3.1.4-beta.4",
+                "3.1.4-beta.5",
+                "3.2.0",
+                "3.2.0-beta.1",
+                "3.2.0-beta.2",
+                "3.2.0-beta.3",
+                "3.2.0-beta.4",
+                "3.2.0-beta.5",
             ],
-            "needsUpdate" => [
-                "2.300.2-beta.2", 
-                "3.0.0-beta.5", 
-                "3.0.0", 
-                "3.0.1",
-                "3.0.2-beta.1",
-                "3.0.2-beta.2",
-                "3.0.2-beta.3",
-                "3.0.2-beta.4"
-            ],
+            "needsUpdate" => [],
         ],
         "macosElectron" => [
             "ok" => [
-                "3.0.3",
                 "3.1.0",
-                "3.0.3-beta.1",
-                "3.0.3-beta.2",
-                "3.0.3-beta.3",
-                "3.0.3-beta.4",
-                "3.0.4-beta.1",
-                "3.0.4-beta.2",
-                "3.0.4-beta.3",
-                "3.0.4-beta.4",
-                "3.0.4",
-                "3.0.5",
-                "3.0.5-beta.1",
-                "3.0.5-beta.2",
-                "3.0.5-beta.3",
-                "3.0.5-beta.4",
-                "3.1.0-beta.1",
-                "3.1.0-beta.2",
-                "3.1.0-beta.3",
-                "3.1.0-beta.4"
+                "3.1.1",
+                "3.1.1-beta.1",
+                "3.1.1-beta.2",
+                "3.1.1-beta.3",
+                "3.1.1-beta.4",
+                "3.1.1-beta.5",
+                "3.1.2",
+                "3.1.2-beta.1",
+                "3.1.2-beta.2",
+                "3.1.2-beta.3",
+                "3.1.2-beta.4",
+                "3.1.2-beta.5",
+                "3.1.3",
+                "3.1.3-beta.1",
+                "3.1.3-beta.2",
+                "3.1.3-beta.3",
+                "3.1.3-beta.4",
+                "3.1.3-beta.5",
+                "3.1.4",
+                "3.1.4-beta.1",
+                "3.1.4-beta.2",
+                "3.1.4-beta.3",
+                "3.1.4-beta.4",
+                "3.1.4-beta.5",
+                "3.2.0",
+                "3.2.0-beta.1",
+                "3.2.0-beta.2",
+                "3.2.0-beta.3",
+                "3.2.0-beta.4",
+                "3.2.0-beta.5",
             ],
             "needsUpdate" => [],
         ]
@@ -177,6 +181,24 @@ class AppVersionDetector
         $data = explode("|", strtolower($headers["tlctestcorrectversion"]));
         if(!isset(self::$osConversion[$data[0]])){
             return true;
+        }
+        return false;
+    }
+
+    public static function needsUpdateDeadline($headers = false)
+    {
+        if (!$headers) {
+            $headers = self::getAllHeaders();
+        }
+        $version = self::detect($headers);
+        if(!isset(self::$allowedVersions[$version["os"]])){
+            return false;
+        }
+        if(!isset(self::$allowedVersions[$version["os"]]["needsUpdateDeadline"])){
+            return false;
+        }
+        if(array_key_exists($version["app_version"],self::$allowedVersions[$version["os"]]["needsUpdateDeadline"])){
+            return self::$allowedVersions[$version["os"]]["needsUpdateDeadline"][$version["app_version"]];
         }
         return false;
     }

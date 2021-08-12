@@ -436,6 +436,8 @@ class UsersController extends AppController
                 $headers = AppVersionDetector::getAllHeaders();
                 $isInBrowser = AppVersionDetector::isInBrowser($headers);
                 $this->set('isInBrowser', $isInBrowser);
+                $needsUpdateDeadline = AppVersionDetector::needsUpdateDeadline($headers);
+                $this->set('needsUpdateDeadline', $needsUpdateDeadline);
                 $view = "welcome_student";
 //                if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //                    if($this->check('AppOS') && $this->read('AppOS') === 'windows') {
