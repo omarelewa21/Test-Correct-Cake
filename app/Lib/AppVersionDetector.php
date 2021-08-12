@@ -35,6 +35,8 @@ class AppVersionDetector
         "iOS" => [
             "ok" => ["2.2", "2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
             "needsUpdate" => ["2.0", "2.1"],
+            "needsUpdateDeadline" => [  "2.0" => "1 mei 2022"
+                                     ]
         ],
         "ChromeOS" => [
             "ok" => ["2.3", "2.4", "2.5", "2.6", "2.8", "2.9"],
@@ -179,6 +181,24 @@ class AppVersionDetector
         $data = explode("|", strtolower($headers["tlctestcorrectversion"]));
         if(!isset(self::$osConversion[$data[0]])){
             return true;
+        }
+        return false;
+    }
+
+    public static function needsUpdateDeadline($headers = false)
+    {
+        if (!$headers) {
+            $headers = self::getAllHeaders();
+        }
+        $version = self::detect($headers);
+        if(!isset(self::$allowedVersions[$version["os"]])){
+            return false;
+        }
+        if(!isset(self::$allowedVersions[$version["os"]]["needsUpdateDeadline"])){
+            return false;
+        }
+        if(array_key_exists($version["app_version"],self::$allowedVersions[$version["os"]]["needsUpdateDeadline"])){
+            return self::$allowedVersions[$version["os"]]["needsUpdateDeadline"][$version["app_version"]];
         }
         return false;
     }

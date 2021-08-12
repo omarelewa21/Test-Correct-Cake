@@ -8,9 +8,15 @@
                     style="margin-left: 20px;">Let op!</h5>
             </div>
             <div class="body">
+                <?php if ($needsUpdateDeadline) { ?>
                 <p>
-                    De versie van de app die je gebruikt wordt binnenkort niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch. <a onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge/melding-verouderde-versie')" href="#">Lees meer. </a>
+                    De versie van de app die je gebruikt wordt per <?=$needsUpdateDeadline?> niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch. <a onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge/melding-verouderde-versie')" href="#">Lees meer. </a>
                 </p>
+                <?php }else{ ?>
+                    <p>
+                        De versie van de app die je gebruikt wordt binnenkort niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch. <a onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge/melding-verouderde-versie')" href="#">Lees meer. </a>
+                    </p>
+                <?php } ?>
             </div>
         </div>
     </div>
