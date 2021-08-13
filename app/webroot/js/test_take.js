@@ -528,13 +528,8 @@ var TestTake = {
 
     resetAnswerPreview: function (discussing_question_id, take_id) {
         $('#questionAnswer').load('/questions/preview_answer_load/' + discussing_question_id).parent().css({
-<<<<<<< HEAD
             'border-left': '20px solid var(--menu-blue)'
         }).find('.block-head').css({'background-color': 'var(--menu-blue)'}).children('strong').html('Antwoordmodel');
-=======
-            'border-left': '20px solid #197cb4'
-        }).find('.block-head').css({'background-color': '#197cb4'}).children('strong').html($.i18n('Antwoordmodel'));
->>>>>>> 054076eaa79e92afdd8097d92deef28f443fa28a
 
         $('#btnResetAnswerPreview').slideUp();
         clearInterval(window.participantsTimeout);
