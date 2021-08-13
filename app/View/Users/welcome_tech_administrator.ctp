@@ -86,6 +86,19 @@
     </div>
 </div>
 
+<div style="width:100%">
+    <div class="block">
+        <div class="block-head">Doorverwijs linkjes naar andere portals
+        </div>
+        <div class="block-content" id="redirectContainer">
+            <a href="https://portal.test-correct.nl/">live portal</a><br>
+            <a href="https://testportal.test-correct.nl/">test portal</a><br>
+            <a href="https://devportal.test-correct.nl/">dev portal</a><br>
+            <a href="http://test-correct.test/">Sobit dev</a><br>
+        </div>
+    </div>
+</div>
+
 <br clear="all" />
 
 <script>
