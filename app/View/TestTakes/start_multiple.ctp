@@ -1,13 +1,13 @@
-<div class="popup-head">Meerdere toets-afnames starten</div>
+<div class="popup-head"><?= __("Meerdere toets-afnames starten")?></div>
 <div class="popup-content">
     <?= $this->Form->create('TestTake')?>
         <table class="table table-striped">
             <tr>
                 <th width="30"></th>
-                <th>Toets</th>
-                <th>Klassen</th>
-                <th>Vak</th>
-                <th>Type</th>
+                <th><?= __("Toets")?></th>
+                <th><?= __("Klassen")?></th>
+                <th><?= __("Vak")?></th>
+                <th><?= __("Type")?></th>
             </tr>
             <?
             foreach($test_takes as $test_take) {
@@ -30,7 +30,7 @@
                         ?>
                     </td>
                     <td><?=$test_take['test']['subject']['name']?></td>
-                    <td><?=$test_take['retake'] == 0 ? 'Normaal' : 'Inhalen'?></td>
+                    <td><?=$test_take['retake'] == 0 ? __("Normaal") : __("Inhalen")?></td>
                 </tr>
                 <?
             }
@@ -40,9 +40,9 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="TestTake.startMultiple();">
-        Toetsen nu afnemen
+    <?= __("Toetsen nu afnemen")?>
     </a>
 </div>

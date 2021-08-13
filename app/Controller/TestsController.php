@@ -37,7 +37,7 @@ class TestsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-//            0 => 'Alle',
+//            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -50,14 +50,17 @@ class TestsController extends AppController
 
 
         $periods = $this->TestsService->getPeriods();
-        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(false));
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(false));
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
-        //$education_levels = [0 => 'Alle'] + $education_levels;
-        $periods = [0 => 'Alle'] + $periods;
-        //$subjects = [0 => 'Alle'] + $subjects;
-        $kinds = [0 => 'Alle'] + $kinds;
+        //$education_levels = [0 => __("Alle")] + $education_levels;
+        $periods = [0 => __("Alle")] + $periods;
+        //$subjects = [0 => __("Alle")] + $subjects;
+        $kinds = [0 => __("Alle")] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
@@ -151,6 +154,9 @@ class TestsController extends AppController
         $params['filter'] = ['current_school_year' => 1];
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
         $periods = $this->TestsService->getPeriods(false, $params);
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -194,6 +200,9 @@ class TestsController extends AppController
         $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(true);
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -247,6 +256,9 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
         $this->set('education_levels', $education_levels);
         $this->set('kinds', $kinds);
@@ -350,6 +362,9 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+        for($i = 0; $i < sizeof($kinds); $i++){
+            $kinds[$i] = __($kinds[$i]);
+        }
 
         $this->set('totalScore', $totalScore);
         if($msg != ''){
@@ -582,12 +597,12 @@ class TestsController extends AppController
         // Default data
         $education_levels = $this->TestsService->getEducationLevels();
         $questionTypes = [
-            'MultipleChoiceQuestion' => 'Multiple Choice',
-            'OpenQuestion' => 'Open vraag',
-            'CompletionQuestion' => 'Gatentekstvraag',
-            'RankingQuestion' => 'Rangschik-vraag',
-            'MatchingQuestion' => 'Matching',
-            'MatrixQuestion' => 'Matrix',
+            'MultipleChoiceQuestion' => __("Multiple Choice"),
+            'OpenQuestion' => __("Open vraag"),
+            'CompletionQuestion' => __("Gatentekstvraag"),
+            'RankingQuestion' => __("Rangschik-vraag"),
+            'MatchingQuestion' => __("Matching"),
+            'MatrixQuestion' => __("Matrix"),
         ];
 
         $view = new View($this, false);

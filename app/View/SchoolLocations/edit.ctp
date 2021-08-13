@@ -1,22 +1,22 @@
-<div class="popup-head">Schoollocatie</div>
+<div class="popup-head"><?= __("Schoollocatie")?></div>
 <div class="popup-content">
     <?= $this->Form->create('SchoolLocation') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?= $this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
-                Scholengemeenschap
+            <?= __("Scholengemeenschap")?>
             </th>
             <td>
                 <?= $this->Form->input('school_id', array('style' => 'width: 185px', 'label' => false, 'options' => $schools, 'selected' => getUUID($school_location['school'], 'get'))); ?>
             </td>
             <th width="130">
-                Niveau
+            <?= __("Niveau")?>
             </th>
             <td>
                 <?= $this->Form->input('education_levels', array('style' => 'width: 185px', 'label' => false, 'options' => $eduction_levels, 'multiple' => true)) ?>
@@ -24,26 +24,26 @@
         </tr>
         <tr>
             <th>
-                Klantcode
+            <?= __("Klantcode")?>
             </th>
             <td>
                 <?= $this->Form->input('customer_code', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
-                Accountmanager
+            <?= __("Accountmanager")?>
             </th>
             <td>
                 <?= $this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers, 'selected' => getUUID($school_location['user'], 'get'))) ?>
             </td>
             <th width="130">
-                Cijfermodel
+            <?= __("Cijfermodel")?>
             </th>
             <td>
                 <?= $this->Form->input('grading_scale_id', array('style' => 'width: 185px', 'label' => false, 'options' => $grading_scales)) ?>
             </td>
         </tr>
         <tr>
-            <th>Contact actief</th>
+            <th><?= __("Contact actief")?></th>
             <td>
                 <label class="switch" style="display:flex;">
                     <?= $this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
@@ -51,13 +51,13 @@
                 </label>
             </td>
             <th>
-                Aantal Studenten
+            <?= __("Aantal Studenten")?>
             </th>
             <td>
                 <?= $this->Form->input('number_of_students', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th>
-                Aantal docenten
+            <?= __("Aantal docenten")?>
             </th>
             <td>
                 <?= $this->Form->input('number_of_teachers', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -65,17 +65,17 @@
         </tr>
 
         <tr>
-            <th>Brin code</th>
+            <th><?= __("Brin code")?></th>
             <td>
                 <?= $this->Form->input('external_main_code', array('style' => 'width: 185px', 'label' => false, 'maxLength' => 4, 'verify' => 'length-0-or-4')); ?>
             </td>
-            <th>Locatie brin code (Max. 2 karakters)</th>
+            <th><?= __("Locatie brin code (Max. 2 karakters)")?></th>
             <td>
                 <?= $this->Form->input('external_sub_code', array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2)); ?>
             </td>
 
 
-            <th>Is rtti school</th>
+            <th><?= __("Is rtti school")?></th>
 
             <td>
                 <label class="switch" style="display:flex;">
@@ -85,14 +85,14 @@
             </td>
         </tr>
         <tr>
-            <th>Open source content creator</th>
+            <th><?= __("Open source content creator")?></th>
             <td>
                 <label class="switch" style="display:flex;">
                     <?= $this->Form->input('is_open_source_content_creator', array('type' => 'checkbox', 'label' => false, 'value' => 1, 'div' => false)); ?>
                     <span class="slider round"></span>
                 </label>
             </td>
-            <th>Mag open source content bekijken</th>
+            <th><?= __("Mag open source content bekijken")?></th>
             <td>
                 <label class="switch" style="display:flex;">
                     <?= $this->Form->input('is_allowed_to_view_open_source_content', array('type' => 'checkbox', 'label' => false, 'value' => 1, 'div' => false)); ?>
@@ -102,49 +102,49 @@
         </tr>
 
         <tr>
-            <th colspan="2" style="text-align: center"><br/>Vestigingsadres</th>
-            <th colspan="2" style="text-align: center"><br/>Factuuradres</th>
-            <th colspan="2" style="text-align: center"><br/>Bezoekadres</th>
+            <th colspan="2" style="text-align: center"><br/><?= __("Vestigingsadres")?></th>
+            <th colspan="2" style="text-align: center"><br/><?= __("Factuuradres")?></th>
+            <th colspan="2" style="text-align: center"><br/><?= __("Bezoekadres")?></th>
         </tr>
         <tr>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?= $this->Form->input('main_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?= $this->Form->input('invoice_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?= $this->Form->input('visit_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?= $this->Form->input('main_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?= $this->Form->input('invoice_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?= $this->Form->input('visit_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?= $this->Form->input('main_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?= $this->Form->input('invoice_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?= $this->Form->input('visit_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?= $this->Form->input('main_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?= $this->Form->input('invoice_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?= $this->Form->input('visit_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>LVS Koppeling type</th>
+            <th><?= __("LVS Koppeling type")?></th>
             <td>
                 <?= $this->Form->input('lvs_type', array('style' => 'width: 185px', 'label' => false, 'options' => $lvs_types)); ?>
             </td>
 
-            <th>LVS koppeling actief</th>
+            <th><?= __("LVS koppeling actief")?></th>
             <td>
                 <label id="lvs_toggle" class="switch" style="display:flex;">
                     <?= $this->Form->checkbox('lvs_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
@@ -155,12 +155,12 @@
 
         </tr>
         <tr>
-            <th>Single Sign On type</th>
+            <th><?= __("Single Sign On type")?></th>
             <td>
                 <?= $this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types)); ?>
             </td>
 
-            <th>Single Sign On actief</th>
+            <th><?= __("Single Sign On actief")?></th>
             <td>
                 <label id="sso_toggle" class="switch" style="display:flex;">
                     <?= $this->Form->checkbox('sso_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
@@ -173,11 +173,11 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <?php if (strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts') { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-            Wijzigen
+        <?= __("Wijzigen")?>
         </a>
     <?php } ?>
 </div>
@@ -205,10 +205,10 @@
                 $("#SchoolLocationExternalMainCode").removeAttr('disabled');
             } else if (currentVal != "0" && $("#SchoolLocationExternalMainCode").val() != "") {
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
-                    message: 'School gemeenschap aanpassen verwijderd de RTTI code'
+                    btnOk: '<?= __("Ja")?>',
+                    btnCancel: '<?= __("Annuleer")?>',
+                    title: '<?= __("Weet u het zeker?")?>',
+                    message: '<?= __("School gemeenschap aanpassen verwijderd de RTTI code")?>'
                 }, function () {
                     $("#SchoolLocationSchoolId").val(currentVal);
                     $("#SchoolLocationExternalMainCode").attr('disabled', 'disabled');
@@ -225,7 +225,7 @@
             confirm: $('#btnSave'),
             onsuccess: function (result) {
                 Popup.closeLast();
-                Notify.notify("School gewijzigd", "info");
+                Notify.notify('<?= __("School gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure: function (result) {

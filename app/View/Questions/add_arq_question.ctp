@@ -1,25 +1,25 @@
-<div class="popup-head">ARQ Choice</div>
+<div class="popup-head"><?= __("ARQ Choice")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Question')?>
 
         <table class="table mb15">
             <tr>
                 <td>
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  Bespreken in de klas <br />
-                    <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag vastzetten<br /><? } ?>
-                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Halve punten mogelijk<br />
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  <?= __("Bespreken in de klas")?> <br />
+                    <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __(" Deze vraag vastzetten")?><br /><? } ?>
+                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Halve punten mogelijk")?><br />
 
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
                     <?php endif; ?>
                 </td>
 
                 <td width="230">
                     <?=$this->Form->input('note_type', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [
-                        'NONE' => 'Geen kladblok',
-                        'TEXT' => 'Tekstvlak',
-                        'DRAWING' => 'Tekenvlak'
+                        'NONE' => __("Geen kladblok"),
+                        'TEXT' => __("Tekstvlak"),
+                        'DRAWING' => __("Tekenvlak")
                     ]))?>
                 </td>
             </tr>
@@ -27,29 +27,29 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-                Vraag
+            <?= __("Vraag")?>
             </a>
 
             <a href="#" class="btn grey" page="options" tabs="add_question">
-                Antwoorden
+            <?= __("Antwoorden")?>
             </a>
 
             <? if($owner == 'test') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="add_question">
-                    Bronnen
+                <?= __("Bronnen")?>
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="add_question">
-                Eindtermen
+            <?= __("Eindtermen")?>
             </a>
 
             <a href="#" class="btn grey" page="tags" tabs="add_question">
-                Tags
+            <?= __("Tags")?>
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="add_question">
-                Taxonomie
+            <?= __("Taxonomie")?>
             </a>
             <br clear="all" />
         </div>
@@ -65,33 +65,33 @@
                         <th width="40">&nbsp;</th>
                         <th width="40">St. 1</th>
                         <th width="40">St. 2</th>
-                        <th>Reden</th>
-                        <th width="40">Score</th>
+                        <th><?= __("Reden")?></th>
+                        <th width="40"><?= __("Score ")?></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>A</td>
-                        <td>J</td>
-                        <td>J</td>
-                        <td>Juiste reden</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __("Juiste reden")?></td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0))?>
                         </td>
                     </tr>
                     <tr>
                         <td>B</td>
-                        <td>J</td>
-                        <td>J</td>
-                        <td>Onjuiste reden</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __("Onjuiste reden")?></td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0))?>
                         </td>
                     </tr>
                     <tr>
                         <td>C</td>
-                        <td>J</td>
-                        <td>O</td>
+                        <td><?= __('J') ?></td>
+                        <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0))?>
@@ -99,8 +99,8 @@
                     </tr>
                     <tr>
                         <td>D</td>
-                        <td>O</td>
-                        <td>J</td>
+                        <td><?= __('O') ?></td>
+                        <td><?= __('J') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0))?>
@@ -108,8 +108,8 @@
                     </tr>
                     <tr>
                         <td>E</td>
-                        <td>O</td>
-                        <td>O</td>
+                        <td><?= __('O') ?></td>
+                        <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
                             <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0))?>
@@ -135,10 +135,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ARQQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-        Vraag opslaan
+    <?= __("Vraag opslaan")?>
     </a>
 </div>
 

@@ -240,7 +240,7 @@ class FileManagementController extends AppController {
                     $response = $r['error'];
                     $error = true;
                 } else {
-                    $response = "De klas is klaargezet voor verwerking";
+                    $response = __("De klas is klaargezet voor verwerking");
                 }
                 
                 if ($error) {
@@ -270,35 +270,35 @@ class FileManagementController extends AppController {
             // useless checks
             $error = false;
             if (!isset($data['education_level_id'])) {
-                $response = 'Het is niet duidelijk om welk niveau het gaat';
+                $response = __("Het is niet duidelijk om welk niveau het gaat");
                 $error = true;
             } else if (!isset($data['education_level_year'])) {
-                $response = 'Het is niet duidelijk om welk leerjaar het gaat';
+                $response = __("Het is niet duidelijk om welk leerjaar het gaat");
                 $error = true;
             } else if (!isset($data['test_kind_id'])) {
-                $response = "het is niet duidelijk om wat voor type toets het gaat";
+                $response = __("het is niet duidelijk om wat voor type toets het gaat");
                 $error = true;
             } else if (!isset($data['name'])) {
-                $response = "het is niet duidelijk om wat de naam van de toets is";
+                $response = __("het is niet duidelijk om wat de naam van de toets is");
                 $error = true;
             } else if (!isset($data['correctiemodel']) || $data['correctiemodel'] != 1) {
-                $response = "Er dient een correctiemodel mee gestuurd te worden";
+                $response = __("Er dient een correctiemodel mee gestuurd te worden");
                 $error = true;
             } else if (!isset($data['multiple']) || $data['multiple'] != 0) {
-                $response = "Er kan maximaal 1 toets per keer geupload worden";
+                $response = __("Er kan maximaal 1 toets per keer geupload worden");
                 $error = true;
             } else {
                 if (!$error) {
                     $r = $this->FileService->uploadTest($school_location_id, $data);
 
                     if ($r === false) {
-                        $response = 'Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals';
+                        $response = __("Het is helaas niet gelukt om de upload te verwerken probeer het nogmaals");
                         $error = true;
                     } else if (array_key_exists('error', $r)) {
                         $response = $r['error'];
                         $error = true;
                     } else {
-                        $response = "De toets is klaargezet voor verwerking";
+                        $response = __("De toets is klaargezet voor verwerking");
                     }
                 }
             }
@@ -369,6 +369,9 @@ class FileManagementController extends AppController {
         ];
 
         $data = $this->FileService->getItem($id, $params);
+        // for($i = 0; $i < sizeof($data); $i++){
+        //     $data['status'][$i]['name'] = __($data['status'][$i]['name']);
+        // }
 
 
         $this->set('file', $data);
@@ -440,10 +443,10 @@ class FileManagementController extends AppController {
             $error = false;
 
             if (!$data['class'] || strlen($data['class']) < 2) {
-                $response = 'Het is niet duidelijk om welke klas deze upload gaat.';
+                $response = __("Het is niet duidelijk om welke klas deze upload gaat.");
                 $error = true;
             } else if (!isset($data['file']) || !isset($data['file']['tmp_name']) || !$data['file']['tmp_name']) {
-                $response = 'File niet gevonden om te uploaden, probeer het nogmaals';
+                $response = __("File niet gevonden om te uploaden, probeer het nogmaals");
                 $error = true;
             } else {
                 $r = $this->FileService->uploadClass($school_location_id, $data);
@@ -452,7 +455,7 @@ class FileManagementController extends AppController {
                     $response = $r['error'];
                     $error = true;
                 } else {
-                    $response = "De klas is klaargezet voor verwerking";
+                    $response = __("De klas is klaargezet voor verwerking");
                 }
             }
 

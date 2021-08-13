@@ -1,5 +1,5 @@
 <span id="edit_view">
-<div class="popup-head">Toets wijzigen</div>
+<div class="popup-head"><?= __("Toets wijzigen")?></div>
 <div class="popup-content">
     <?= $this->Form->create('Test') ?>
     <?
@@ -14,30 +14,30 @@
     <table class="table mb15">
         <tr>
             <th width="140">
-                Omschrijving
+            <?= __("Omschrijving")?>
             </th>
             <td>
                 <?= $this->Form->input('name', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="140">
-                Afkorting
+            <?= __("Afkorting")?>
             </th>
             <td>
                 <div style="float:right; margin-top:4px; margin-right:20px;">
-                    (max 5 karakters)
+                <?= __("(max 5 karakters)")?>
                 </div>
                 <?= $this->Form->input('abbreviation', array('style' => 'width: 145px', 'label' => false, 'verify' => 'notempty max-length-5')) ?>
             </td>
         </tr>
         <tr>
             <th width="140">
-                Type
+            <?= __("Type")?>
             </th>
             <td>
                 <?= $this->Form->input('test_kind_id', array('style' => 'width: 282px', 'label' => false, 'options' => $kinds)) ?>
             </td>
             <th width="140">
-                Vak
+            <?= __("Vak")?>
             </th>
             <td>
                 <?= $this->Form->input('subject_id', array('style' => 'width: 282px', 'label' => false, 'options' => $subjects)) ?>
@@ -45,13 +45,13 @@
         </tr>
         <tr>
             <th width="140">
-                Niveau
+            <?= __("Niveau")?>
             </th>
             <td>
                 <?= $this->Form->input('education_level_id', array('selected' => $current_education_level_uuid,'style' => 'width: 282px', 'label' => false, 'options' => $levels, 'onchange' => 'updateEducationYears();')) ?>
             </td>
             <th width="140">
-                Niveau-jaar
+            <?= __("Niveau-jaar")?>
             </th>
             <td>
                 <?= $this->Form->input('education_level_year', array('style' => 'width: 282px', 'label' => false, 'type' => 'select')) ?>
@@ -59,23 +59,23 @@
         </tr>
         <tr>
             <th width="140">
-                Periode
+            <?= __("Periode")?>
             </th>
             <td>
                 <?= $this->Form->input('period_id', array('style' => 'width: 282px', 'label' => false, 'options' => $periods)) ?>
             </td>
             <th width="140">
-                Vragen shuffelen
+            <?= __("Vragen shuffelen")?>
             </th>
             <td>
                 <?= $this->Form->input('shuffle', array('label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false)) ?>
-                Shuffle vragen tijdens afname
+                <?= __("Shuffle vragen tijdens afname")?>
             </td>
         </tr>
         <?php if ($is_open_source_content_creator): ?>
             <tr>
                 <th width="140">
-                    Open source toets
+                <?= __("Open source toets")?>
                 </th>
                 <td>
                     <?= $this->Form->input('is_open_source_content', array('label' => false, 'type' => 'checkbox', 'div' => false)) ?>
@@ -83,7 +83,7 @@
             </tr>
         <?php endif; ?>
         <tr>
-            <th colspan="4">Introductie-tekst</th>
+            <th colspan="4"><?= __("Introductie-tekst")?></th>
         </tr>
         <tr>
             <td colspan="4">
@@ -99,40 +99,40 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right display-none" id="btnEditTest">
-        Toets wijzigen
+    <?= __("Toets wijzigen")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnChooseEditTest">
-        Toets wijzigen
+    <?= __("Toets wijzigen")?>
     </a>
 </div>
 </span>
 <span id="choose_view" class="display-none">
-    <div class="popup-head">Type aanpassing kiezen</div>
+    <div class="popup-head"><?= __("Type aanpassing kiezen")?></div>
         <div class="popup-content">
-            Wil je de huidige toets verbeteren, of een nieuwe toets maken?
+        <?= __("Wil je de huidige toets verbeteren, of een nieuwe toets maken")?>?
         </div>
         <div class="popup-content">
             <div id="edit_test_type_update" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
-                <h4 class="mt1 mb2">Ik verbeter de huidige toets</h4>
+                <h4 class="mt1 mb2"><?= __("Ik verbeter de huidige toets")?></h4>
                 <div>
-                    <p>Het exemplaar waarin u nu werkt wordt aangepast.</p>
-                    (de vraagitems zullen in de itembank alleen vindbaar zijn op het niveau, het jaar en het vak dat u nu gekozen heeft)
+                    <p><?= __("Het exemplaar waarin u nu werkt wordt aangepast")?>.</p>
+                    (<?= __("de vraagitems zullen in de itembank alleen vindbaar zijn op het niveau, het jaar en het vak dat u nu gekozen heeft")?>)
                 </div>
             </div>
             <div id="edit_test_type_copy" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 220px;;cursor:pointer">
-                <h4 class="mt1 mb2">Ik ben met een nieuwe toets bezig</h4>
+                <h4 class="mt1 mb2"><?= __("Ik ben met een nieuwe toets bezig")?></h4>
                 <div>
-                    <p>Er wordt een duplicaat gemaakt van de toets, de aanpassingen zijn te zien in het duplicaat.</p>
-                    (de vraagitems zullen in de itembank vindbaar zijn op het niveau, het jaar en het vak dat in het origineel stond aangegeven én die u nu gekozen heeft)
+                    <p><?= __("Er wordt een duplicaat gemaakt van de toets, de aanpassingen zijn te zien in het duplicaat")?>.</p>
+                    (<?= __("de vraagitems zullen in de itembank vindbaar zijn op het niveau, het jaar en het vak dat in het origineel stond aangegeven én die u nu gekozen heeft")?>)
                 </div>
              </div>
         </div>
         <div class="popup-footer">
             <div>
-                <a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="showEditView()">Annuleren</a>
+                <a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick=""><?= __("Bevestigen")?></a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="showEditView()">Annuleren</a>
             </div>
         </div>
 </span>
@@ -144,13 +144,13 @@
             onsuccess: function (result) {
                 Popup.closeLast();
                 Navigation.refresh();
-                Notify.notify("Toets gewijzigd", "info");
+                Notify.notify('<?= __("Toets gewijzigd")?>', "info");
             },
             onfailure: function (result) {
                 if (result == 'unique_name') {
-                    Notify.notify("De gekozen titel is al in gebruik. Gebruik een unieke titel.", "error");
+                    Notify.notify('<?= __("De gekozen titel is al in gebruik. Gebruik een unieke titel.")?>', "error");
                 } else {
-                    Notify.notify("Fout bij het wijzigen van de toets", "error");
+                    Notify.notify('<?= __("Fout bij het wijzigen van de toets")?>', "error");
                 }
             }
         }

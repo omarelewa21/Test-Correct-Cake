@@ -22,7 +22,7 @@
 <?
 if(!empty($test['introduction'])) {
     ?>
-    <strong>Belangrijk</strong><br />
+    <strong><?= __("Belangrijk")?></strong><br />
     <?
     echo nl2br($test['introduction']);
 }?>
@@ -109,7 +109,7 @@ foreach($questions as $question) {
 
             if(!strpos($attachment['title'], '.pdf') && !$questionSet){
                 ?>
-                <h2>Bijlages vraag #<?= $i ?></h2>
+                <h2><?= __("Bijlages vraag")?> #<?= $i ?></h2>
                 <?
 
                 $questionSet = true;
@@ -122,10 +122,10 @@ foreach($questions as $question) {
                 if(!isset($usedAttachments[$attachment['id']])) {
                     $usedAttachments[$attachment['id']] = $i;
                     ?>
-                    Bijlage #<?=$a?><br />
+                    <?= __("Bijlage")?> #<?=$a?><br />
                     <?
                     if($attachment['type'] == 'file' && in_array(substr($attachment['title'], -3), ['mp3', 'wav'])) {
-                        echo 'Vraag je docent naar het geluidsfragment van deze vraag.<br /><br />';
+                        echo __("Vraag je docent naar het geluidsfragment van deze vraag.<br /><br />");
                     }elseif($attachment['type'] == 'file' && in_array(substr($attachment['title'], -3), ['jpg', 'peg', 'png'])) {
                         ?>
                         <img src="<?= $attachment['data'] ?>" style=" max-width: 100%; max-height:600px"/>
@@ -135,7 +135,7 @@ foreach($questions as $question) {
                 }else{
                     if (!empty($attachment['data']) && strstr($attachment['data'], 'image')) {
                         if ($a == 1) {
-                            echo 'Zelfde als in vraag #' . $usedAttachments[$attachment['id']];
+                            echo __("Zelfde als in vraag #") . $usedAttachments[$attachment['id']];
                         }
                     }
                 }

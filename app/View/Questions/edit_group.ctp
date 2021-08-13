@@ -13,7 +13,7 @@
             <? } ?>
             <tr>
                 <th width="10%">
-                    Naam
+                <?= __("Naam")?>
                 </th>
                 <td>
                     <?=$this->Form->input('name', array('style' => 'width: 400px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th width="10%" valign="top">
-                    Omschrijving
+                <?= __("Omschrijving")?>
                 </th>
                 <td>
                     <?=$this->Form->input('question', array('style' => 'width: 400px', 'type' => 'textarea', 'label' => false)) ?>
@@ -32,7 +32,7 @@
             ?>
             <tr>
                 <th width="10%" valign="top">
-                    Aantal vragen
+                    <?= __("Aantal vragen")?>
                 </th>
                 <td>
                     <?=$this->Form->input('number_of_subquestions', array('style' => 'width: 400px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
@@ -44,25 +44,25 @@
             ?>
             <tr>
                 <td colspan="2">
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $this->request->data['question']['closeable'] == 1 ? 'checked' : ''))?> Deze vraaggroep afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $this->request->data['question']['closeable'] == 1 ? 'checked' : ''))?> <?= __("Deze vraaggroep afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br />
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'label' => false, 'div' => false, 'value' => 1, 'checked' => $this->request->data['maintain_position'] == 1)) ?>
-                    Deze vraaggroep vastzetten
+                    <?= __("Deze vraaggroep vastzetten")?>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('shuffle', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
-                    Vragen in deze groep shuffelen
+                    <?= __("Vragen in deze groep shuffelen")?>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
-                    Delen Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                    <?= __("Delen Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
                     <?=$this->Form->input('groupquestion_type', array('type' => 'hidden', 'label' => false, 'value' => $groupquestion_type))?>
                 </td>
             </tr>
@@ -72,10 +72,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btbEditQuestionGroup">
-        Vraaggroep opslaan
+    <?= __("Vraaggroep opslaan")?>
     </a>
 </div>
 
@@ -92,7 +92,7 @@
             onsuccess : function(result) {
                 Popup.closeLast();
                 Navigation.refresh();
-                Notify.notify("Vraaggroep opgeslagen", "info");
+                Notify.notify('<?= __("Vraaggroep opgeslagen")?>', "info");
             },
             onfailure : function(result) {}
         }

@@ -11,11 +11,11 @@
     <h1 class="question_type <?=$citoClass?>">
         <?
         if($question['subtype'] == 'TrueFalse') {
-            ?>Juist / Onjuist<?
+            ?><?= __("Juist / Onjuist")?><?
         }elseif($question['subtype'] == 'ARQ') {
             ?>ARQ<?
         }else{
-            ?>Meerkeuze<?
+            ?><?= __("Meerkeuze")?><?
         }
         ?>
         [<?=$question['score']?>pt]

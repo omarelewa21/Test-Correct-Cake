@@ -29,7 +29,7 @@ class RttiimportController extends AppController {
         $response = '';
         if (!$data['file']['tmp_name']) {
 
-            $response = 'File niet gevonden om te importeren, probeer het nogmaals';
+            $response = __("File niet gevonden om te importeren, probeer het nogmaals");
             
         } else {  
             

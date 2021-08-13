@@ -140,7 +140,7 @@ class SchoolLocationsController extends AppController
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
-                                ['Combinatie brin/locatie code bestaat reeds op andere school']
+                                [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                             ); exit();
                         }
                     }
@@ -156,7 +156,7 @@ class SchoolLocationsController extends AppController
             if(!$result) {
                 $errors = $this->SchoolLocationsService->getErrors();
                 if(count($errors) < 1) {
-                    $errors[] = 'School kon niet worden aangepast';
+                    $errors[] = __("School kon niet worden aangepast");
                 }
             }
 
@@ -260,7 +260,7 @@ class SchoolLocationsController extends AppController
             $data = $this->request->data;
 
             if(!is_numeric($data['Licence']['amount'])) {
-                $this->formResponse(false, ['errors' => 'Aantal niet numeriek']);
+                $this->formResponse(false, ['errors' => __("Aantal niet numeriek")]);
                 die;
             }
 
@@ -312,7 +312,7 @@ class SchoolLocationsController extends AppController
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
-                                ['Combinatie brin/locatie code bestaat reeds op andere school']
+                                [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                             ); exit();
                         }
                     }
@@ -337,7 +337,7 @@ class SchoolLocationsController extends AppController
                     if($toIgnore == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                         $this->formResponse(
                             false,
-                            ['Combinatie brin/locatie code bestaat reeds op andere school']
+                            [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                         ); exit();
                     }
                 }
@@ -348,7 +348,7 @@ class SchoolLocationsController extends AppController
             if(!$result){
                 $errors = $this->SchoolLocationsService->getErrors();
                 if(count($errors) < 1) {
-                    $errors[] = 'School kon niet worden aangemaakt';
+                    $errors[] = __("School kon niet worden aangemaakt");
                 }
             }
 
@@ -358,7 +358,7 @@ class SchoolLocationsController extends AppController
             );
         }
 
-        $schools[''] = 'Geen';
+        $schools[''] = __('Geen');
         $schools += $this->SchoolsService->getSchoolList();
 
         $params['filter'] = ['role' => [5]];

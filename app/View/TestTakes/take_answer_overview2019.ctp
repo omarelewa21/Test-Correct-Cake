@@ -6,7 +6,7 @@
 <div id="attachmentFade"></div>
 
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?
@@ -44,11 +44,11 @@ foreach($questions as $questionAr) {
     $i++;
     ?>
     <div class="block">
-        <div class="block-head">Vraag #<?=$i?></div>
+        <div class="block-head"><?= __("Vraag")?> #<?=$i?></div>
         <div class="block-content" id="question_preview_<?=getUUID($question, 'get')?>">
             <?php
             if($answer['closed'] == 1 || $answer['closed_group'] == 1){
-                echo "<div>Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten</div>";
+                echo "<div>__(\"Het is niet mogelijk om het antwoord in te zien omdat deze vraag is afgesloten\")</div>";
             } else {
 
              echo $this->element('take_overview_question2019',['question' => $question]);

@@ -1,13 +1,13 @@
-<div class="popup-head">Selecteer geplande toets</div>
+<div class="popup-head"><?= __("Selecteer geplande toets")?></div>
 <div class="popup-content">
     <div id="testsContainter" style="height:300px; overflow: auto;">
         <table class="table table-striped" id="TestTakeTestTable">
             <thead>
             <tr>
-                <th>Toets</th>
-                <th width="200">Ingepland door</th>
-                <th width="140">Afname-datum</th>
-                <th width="60">Weging</th>
+                <th><?= __("Toets")?></th>
+                <th width="200"><?= __("Ingepland door")?></th>
+                <th width="140"><?= __("Afname-datum")?></th>
+                <th width="60"><?= __("Weging")?></th>
                 <th width="40">&nbsp;</th>
             </tr>
             </thead>
@@ -25,6 +25,6 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
 </div>

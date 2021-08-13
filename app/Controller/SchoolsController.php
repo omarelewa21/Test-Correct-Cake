@@ -68,8 +68,6 @@ class SchoolsController extends AppController
             }
 
             if(!empty($data['external_main_code'])) {
-
-
                 $toIgnore = array();
 
                 $schoolFetch = $this->SchoolsService->getSchool($school_id);
@@ -86,7 +84,7 @@ class SchoolsController extends AppController
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
-                                ['Combinatie brin/locatie code bestaat reeds op andere school']
+                                [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                             ); exit();
                         }
                     }
@@ -102,7 +100,7 @@ class SchoolsController extends AppController
             $result = $this->SchoolsService->updateSchool($school_id, $data);
 
             if(!$result) {
-                $errors[] = 'School kon niet worden aangemaakt';
+                $errors[] = __("School kon niet worden aangemaakt");
             }
 
             $this->formResponse(

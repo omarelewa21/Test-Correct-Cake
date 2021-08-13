@@ -1,5 +1,5 @@
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/discussed_glance');">
-    Sluiten
+<?= __("Sluiten")?>
 </a>
 
 <div id="test_progress">
@@ -65,13 +65,13 @@
 
         <div style='font-size:40px; text-align: center;'><?=!empty($score) ? $score : ' - '?> / <?=$questions[$question_index]['question']['score']?></div>
         <div style="text-transform: uppercase; text-align: center; opacity:.7; font-size:13px; font-weight: bold;">
-            SCORE
+        <?= __("SCORE")?>
         </div>
     </div>
 </div>
 
 <div class="block" style="float:left; width:calc(100% - 220px)">
-    <div class="block-head">Vraag</div>
+    <div class="block-head"><?= __("Vraag")?></div>
     <div class="block-content" id="questionQuestion">
 
     </div>
@@ -80,14 +80,14 @@
 <br clear="all" />
 
 <div class="block">
-    <div class="block-head">Antwoordmodel</div>
+    <div class="block-head"><?= __("Antwoordmodel")?></div>
     <div class="block-content" id="questionQuestion_correct">
 
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Jouw antwoord</div>
+    <div class="block-head"><?= __("Jouw antwoord")?></div>
     <div class="block-content" id="questionAnswer">
 
     </div>

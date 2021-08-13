@@ -43,7 +43,25 @@
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
-
+	
+		<!-- Importing javascript files required for translation -->
+		<script src="/js/jquery_i18n/CLDRPluralRuleParser.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.messagestore.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.fallbacks.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.language.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.parser.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.js?<?= time() ?>"></script>
+        <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js?<?= time() ?>"></script>
+		<script src="/js/translation.js?<?= time() ?>"></script>
+		<?php 
+			$current_lang = CakeSession::read('Config.language');
+			echo "<script>
+			$.i18n().locale = '$current_lang'
+			</script>";
+		 ?>
+		<!-- ----------------------------------- -->
+		
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>
@@ -67,12 +85,13 @@
 		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
         <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
+		
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
 
 	<body>
-
+		
 		<div id="loading">
 			<img src="/img/loading.gif" />
 		</div>
@@ -95,13 +114,13 @@
 
 				<div id="user_menu">
                     <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
-					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
-					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
+					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
+					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
+					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
 				</div>
 
                 <div id="support_menu">
-                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white">Kennisbank</a>
+                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white"><?= __("Kennisbank")?></a>
 				</div>
 
 			</div>

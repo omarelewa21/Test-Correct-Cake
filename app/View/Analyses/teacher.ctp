@@ -1,18 +1,18 @@
 <h1>Mijn analyses</h1>
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="160">Vraag-items</th>
+                <th width="160"><?= __("Vraag-items")?></th>
                 <td><?=$teacher['count_questions']?></td>
-                <th width="160">Toets-items</th>
+                <th width="160"><?= __("Toets-items")?></th>
                 <td><?=$teacher['count_tests']?></td>
             </tr>
             <tr>
-                <th width="160">Afgenomen toetsen</th>
+                <th width="160"><?= __("Afgenomen toetsen")?></th>
                 <td><?=$teacher['count_tests_taken']?></td>
-                <th width="160">Besproken toetsen</th>
+                <th width="160"><?= __("Besproken toetsen")?></th>
                 <td><?=$teacher['count_tests_discussed']?></td>
             </tr>
         </table>
@@ -22,16 +22,16 @@
 <?
 if ($is_temp_teacher) {
 ?>
-    <script>Notify.notify("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school.", "info", 15000);</script>
+    <script>Notify.notify('<?= __("Je kunt nog geen analyses bekijken omdat je in een tijdelijke school zit. Zodra we je verplaatst hebben naar je school kun je analyses wel bekijken. We sturen je een bericht zodra we je gekoppeld hebben aan je school")?>', "info", 15000);</script>
 <?}?>
 
 <div class="block">
-    <div class="block-head">Vergelijking met collega's</div>
+    <div class="block-head"><?= __("Vergelijking met collega's")?></div>
     <div class="block-content" id="teacherGraph">
         <?
         if(!isset($teacher['compared_teachers']) || empty($teacher['compared_teachers']) || $is_temp_teacher) {
             ?>
-            <center>Geen rapportage</center>
+            <center><?= __("Geen rapportage")?></center>
             <?
         }else{
             ?>
@@ -77,7 +77,7 @@ if ($is_temp_teacher) {
                             }
                         },
                         series: [{
-                            name: 'Gemiddelde',
+                            name: '<?= __("Gemiddeld")?>',
                             data: [
                                 <?
                                 foreach($teacher['compared_teachers'] as $compared_teacher) {
@@ -87,7 +87,7 @@ if ($is_temp_teacher) {
                             ]
 
                         }, {
-                            name: 'Vergelijkende docent',
+                            name: '<?= __("Vergelijkende docen")?>',
                             data: [
                                 <?
                                 foreach($teacher['compared_teachers'] as $compared_teacher) {
@@ -160,7 +160,7 @@ if(isset($teacher['school_class_stats']) && !empty($teacher['school_class_stats'
                     }
 
                     if(count($ratings) == 0 || $is_temp_teacher) {
-                        echo 'Geen gegevens</div></div>';
+                        echo __("Geen gegevens</div></div>");
                         continue;
                     }
 

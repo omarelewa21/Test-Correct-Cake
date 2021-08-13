@@ -35,11 +35,11 @@ var TestPreview = {
             $('#AnswerQuestionForm').serialize(),
             function(data) {
                 if(data.status == 'next') {
-                    Notify.notify('Antwoord opgeslagen', 'info');
+                    Notify.notify($.i18n('Antwoord opgeslagen'), 'info');
                     Navigation.load('/test_takes/take/' + data.take_id + '/' + data.question_id);
                     Answer.questionSaved = true;
                 }else if(data.status == 'done') {
-                    Notify.notify('Er zijn geen vragen meer. Lever de toets in.');
+                    Notify.notify($.i18n('Er zijn geen vragen meer. Lever de toets in.'));
                 }
             },
             'JSON'
@@ -47,7 +47,7 @@ var TestPreview = {
     },
 
     completeAnswer : function(tag_id) {
-        var answer = prompt("Antwoord");
+        var answer = prompt($.i18n("Antwoord"));
 
         if(answer != "" && answer != undefined) {
             $('#tag_' + tag_id).html(answer);
@@ -57,7 +57,7 @@ var TestPreview = {
 
     checkMultipleChoice : function(max) {
         if($('.multiple_choice_option:checked').length > max) {
-            alert('Selecteer maximaal ' + max + ' opties');
+            alert($.i18n('Selecteer maximaal ') + max + $.i18n(' opties'));
         }else{
             Answer.saveAnswer();
         }
