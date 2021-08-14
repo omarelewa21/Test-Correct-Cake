@@ -1,4 +1,4 @@
-<h1>Mijn analyses</h1>
+<h1><?= __("Mijn analyses")?></h1>
 <div class="block">
     <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">

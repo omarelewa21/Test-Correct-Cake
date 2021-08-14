@@ -103,6 +103,7 @@ $.i18n().load({
       'Dit bestandstype wordt niet ondersteund':'This file type is not supported',
       'Dit bestand is te groot':'This file is too big',
       'Geen bestand geselecteerd':'No file selected',
+      'Selecteer':'Select',
 
       //test_preview & test_take.js
       'Antwoord opgeslagen':'Answer saved',
@@ -182,6 +183,7 @@ $.i18n().load({
       'ja' : 'ja',
       'Toets gedupliceerd':'Toets gedupliceerd',
       'Resultaten':'Resultaten',
+      'Selecteer':'Selecteer',
 
       'Lees de onderstaande tekst en type deze over in het tekstvak eronder.':'Lees de onderstaande tekst en type deze over in het tekstvak eronder.',
       'Afronden':'Afronden',

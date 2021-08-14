@@ -413,7 +413,7 @@ var TestTake = {
     removeTestRow: function (e, i) {
 
         $('#tableTestTakes #' + i).fadeOut().find('input').val('');
-        $('#tableTestTakes #' + i).find('.btnSelectTest').html('Selecteer');
+        $('#tableTestTakes #' + i).find('.btnSelectTest').html($.i18n('Selecteer'));
 
         $('#tableTestTakes #notes_' + i).fadeOut().find('input').val('');
         $('input:checkbox[name="data[TestTake]['+i+'][allow_inbrowser_testing]"]').prop('checked', false);

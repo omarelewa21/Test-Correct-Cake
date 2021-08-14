@@ -135,7 +135,7 @@
                 <?
                 if (!empty($subjects)) {
                     ?>
-                    <button id="btnAddTest" class="flex button primary-button button-md" style="align-items: center;">Toets aanmaken</button>
+                    <button id="btnAddTest" class="flex button primary-button button-md" style="align-items: center;"><?= __("Toets aanmaken")?></button>
                     <?
                 }
                 ?>

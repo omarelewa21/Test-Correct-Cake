@@ -32,7 +32,7 @@ msgid "Direct afnemen niet mogelijk"
 msgstr "Direct purchase not possible"
 
 msgid "Eén of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken."
-msgstr "One or more questions appear twice in this test. Adjust the key to allow scheduling."
+msgstr "One or more questions appear twice in this test. Adjust the test to allow scheduling."
 
 msgid "Inloggegevens voor klassen compleet maken."
 msgstr "Complete class credentials."
@@ -2879,6 +2879,18 @@ msgstr "Get on"
 msgid "Normeren"
 msgstr "Standardize"
 
+msgid "normeren"
+msgstr "Standardize"
+
+msgid "Mijn studenten analyses"
+msgstr "My student analyses"
+
+msgid "Mijn klassen analyses"
+msgstr "My class analyses"
+
+msgid "Surveilleren van toetsen"
+msgstr "Surveillance of tests"
+
 msgid "Normering"
 msgstr "Standardization"
 
@@ -3337,6 +3349,9 @@ msgstr "Introduction"
 
 msgid "Toets aangemaakt"
 msgstr "Test created"
+
+msgid "Mijn geüploade toetsbestanden"
+msgstr "My uploaded test files"
 
 msgid "De gekozen titel is al in gebruik. Gebruik een unieke titel."
 msgstr "The chosen title is already in use. Use a unique title."
@@ -4018,6 +4033,12 @@ msgstr "Deployment"
 
 msgid "Onderhouds bericht"
 msgstr "Maintenance notice"
+
+msgid "onderhoud"
+msgstr "maintenance"
+
+msgid "Updates"
+msgstr "Updates"
 
 msgid "Vooraankondiging"
 msgstr "Advance notice"
