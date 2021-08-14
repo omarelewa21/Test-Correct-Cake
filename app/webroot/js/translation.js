@@ -11,6 +11,7 @@ $.i18n().load({
       'Selecteer maximaal ':'Select maximum ',
       ' optie':' option',
       ' opties':' options',
+      'Resultaten':'Results',
 
       // core.js
       'Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd':'It is not allowed to take a screenshot, we have informed your teacher about this',
@@ -180,6 +181,7 @@ $.i18n().load({
       'Ja' : 'Ja',
       'ja' : 'ja',
       'Toets gedupliceerd':'Toets gedupliceerd',
+      'Resultaten':'Resultaten',
 
       'Lees de onderstaande tekst en type deze over in het tekstvak eronder.':'Lees de onderstaande tekst en type deze over in het tekstvak eronder.',
       'Afronden':'Afronden',

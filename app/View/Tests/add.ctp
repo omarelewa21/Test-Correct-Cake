@@ -144,13 +144,13 @@
     <?php } else { ?>
 
         <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-            Annuleer
+        <?= __("Annuleer")?>
         </a>
         <?
         if (!empty($subjects)) {
             ?>
             <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTest">
-                Toets aanmaken
+            <?= __("Toets aanmaken")?>
             </a>
             <?
         }

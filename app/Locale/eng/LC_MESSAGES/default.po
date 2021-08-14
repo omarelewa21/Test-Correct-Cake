@@ -10,6 +10,9 @@ msgstr "The answer given is not valid"
 msgid "Iets ging er mis "
 msgstr "Something went wrong"
 
+msgid "Niveau stamklassen"
+msgstr "Tribal class level"
+
 msgid "Import gegevens van klassen zijn incompleet"
 msgstr "Import data of classes is incomplete"
 
@@ -129,6 +132,9 @@ msgstr "Question group created"
 
 msgid "Aantal te beantwoorden vragen:"
 msgstr "Number of questions to be answered:"
+
+msgid "aan"
+msgstr "at"
 
 msgid "Geen domein"
 msgstr "No domain"
@@ -367,8 +373,122 @@ msgstr "Messages"
 msgid "Kennisbank"
 msgstr "Knowledgebase"
 
+msgid "Automatisch uitloggen uitstellen"
+msgstr "Defer automatic logout"
+
+msgid " Let op! Je wordt automatisch uitgelogd"
+msgstr " Look out! You will be automatically logged out"
+
+msgid "Sessie verlengen"
+msgstr "Extend session"
+
+msgid "Importgegevens van klassen compleet maken"
+msgstr "Complete class import data"
+
+msgid "Stel het niveau in voor de stamklassen"
+msgstr "Set the level for the tribe classes"
+
+msgid "Gecontroleerd"
+msgstr "Checked"
+
+msgid "Er hoeven geen niveau’s of leerjaren ingesteld te worden voor klusterklassen. Deze zijn mogelijk al bekend"
+msgstr "No levels or grades need to be set for cluster classes. These may already be known"
+
+msgid "Ingesteld"
+msgstr "Set"
+
+msgid "Er zijn onopgeslagen wijzigingen. Weet je zeker dat je terug wilt gaan naar de vorige stap?"
+msgstr "There are unsaved changes. Are you sure you want to go back to the previous step?"
+
+msgid "Terug naar stamklassen"
+msgstr "Back to tribal classes"
+
+msgid "Vakken instellen"
+msgstr "Set courses"
+
+msgid "bekend"
+msgstr "known"
+
+msgid "Toon gecontroleerde klassen"
+msgstr "Show controlled classes"
+
+msgid "Clusterklassen instellen"
+msgstr "Set up cluster classes"
+
+msgid "Verberg gecontroleerde klassen"
+msgstr "Hide controlled classes"
+
+msgid "Gegevens voor 1 klas opgeslagen."
+msgstr "Data saved for 1 class."
+
+msgid "Terug naar niveau"
+msgstr "Back to level"
+
+msgid "Gegevens voor "
+msgstr "Data for "
+
+msgid "Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen"
+msgstr "Super!<br/>All data has been processed and you can now get started with tests"
+
+msgid " klassen opgeslagen."
+msgstr " classes saved."
+
+msgid "Super!<br/>Alle gegevens zijn verwerkt"
+msgstr "Super!<br/>All data has been processed"
+
+msgid "Kies het niveau alvorens op Gecontroleerd te klikken"
+msgstr "Choose the level before clicking Verified"
+
+msgid "Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend"
+msgstr "No level needs to be set for trunk classes. These may already be known"
+
+msgid "Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?"
+msgstr "You have been inactive on Test-Correct for a long time and will be automatically logged out in 30 seconds to guarantee the security of your account. Do you want to extend your session by 5 minutes?"
+
+msgid "Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 30 minuten?"
+msgstr "To guarantee the security of your account, you will be automatically logged out of Test-Correct after 5 minutes of inactivity. Do you want to extend your session by 30 minutes?"
+
 msgid "Bezoek de kennisbank"
 msgstr "Visit the knowledge base"
+
+msgid "Kennisbank"
+msgstr "Knowledge base"
+
+msgid "Toets creëren"
+msgstr "Create test"
+
+msgid "Toetsenbank"
+msgstr "Test bank"
+
+msgid "Mijn ingeplande toetsen"
+msgstr "My scheduled tests"
+
+msgid "Mijn afgenomen toetsen"
+msgstr "My taken tests"
+
+msgid "Nakijken & normeren"
+msgstr "Check & standard"
+
+msgid "Mijn analyses"
+msgstr "My analyses"
+
+msgid "Mijn studenten"
+msgstr "My students"
+
+msgid "Mijn klassen"
+msgstr "My classes"
+
+msgid "Mijn schoollocatie"
+msgstr "My school location"
+
+msgid "Mijn uploads"
+msgstr "My uploads"
+
+msgid "Resultaten"
+msgstr "Results"
+
+msgid "Analyse van"
+msgstr "Analysis of"
 
 msgid "Koepelorganisaties"
 msgstr "Umbrella organizations"
@@ -420,6 +540,12 @@ msgstr "Questions"
 
 msgid "CITO Toetsen op maat"
 msgstr "CITO Customized tests"
+
+msgid "CITO toetsen"
+msgstr "CITO tests"
+
+msgid "Binnenkort beschikbaar"
+msgstr "Available soon"
 
 msgid "Geplande toetsen"
 msgstr "Scheduled tests"
@@ -531,6 +657,9 @@ msgstr "school class "
 
 msgid " is onbekend."
 msgstr " is unknown."
+
+msgid "onbekend"
+msgstr "unknown"
 
 msgid "Mentor"
 msgstr "Mentor"
@@ -886,6 +1015,28 @@ msgstr "Period"
 msgid "Niveau"
 msgstr "Level"
 
+msgid "leerjaar clusterklassen"
+msgstr "grade cluster classes"
+
+msgid "clusterklassen"
+msgstr "cluster classes"
+
+msgid "De importgegevens worden elke dag automatisch geüpdate vanuit"
+msgstr "The import data is automatically updated every day from"
+
+msgid "het LVS systeem"
+msgstr "the LVS system"
+
+msgid "Hieruit kunnen wij niet altijd alle informatie verkrijgen. Daarom vragen we om deze compleet te maken"
+msgstr "We cannot always obtain all information from this. That's why we ask to complete this one"
+
+msgid "Lees meer hierover op de Kennisbank"
+msgstr "Read more about this on the Knowledge Base"
+
+msgid "Vak stam"
+msgstr "Box tribe"
+
+
 msgid "Niveau jaar"
 msgstr "Year Level"
 
@@ -916,6 +1067,9 @@ msgstr "Author"
 msgid "Leerjaar"
 msgstr "Level year"
 
+msgid "leerjaar"
+msgstr "Level year"
+
 msgid "Aanmaakdatum van"
 msgstr "Created at from"
 
@@ -942,6 +1096,9 @@ msgstr "Select maximum "
 
 msgid "Toetsinformatie"
 msgstr "Test information"
+
+msgid "Reguliere toets"
+msgstr "Regular test"
 
 msgid "Eigenaar"
 msgstr "Owner"
@@ -1408,6 +1565,9 @@ msgstr "Have an existing digital test"
 msgid "Gelieve aan te leveren als: <br> PDF, Word, Wintoets"
 msgstr "Please deliver as: <br> PDF, Word, Wintoets"
 
+msgid "PDF, Word, Wintoets"
+msgstr "PDF, Word, Win key"
+
 msgid "Aangeboden toets bestanden"
 msgstr "Offered test files"
 
@@ -1611,6 +1771,9 @@ msgstr "ARQ Choice"
 
 msgid "J"
 msgstr "T"
+
+msgid "Je gegevens zijn nog niet compleet. Log de eerste keer in via Entree"
+msgstr "Your details are not yet complete. Log in for the first time via Entrance"
 
 msgid "O"
 msgstr "F"
@@ -2182,11 +2345,44 @@ msgstr "Brin code"
 msgid "Locatie brin code"
 msgstr "Location brin code"
 
+msgid "De BRIN code moet uit 4 karakters bestaan."
+msgstr "The BRIN code must consist of 4 characters."
+
 msgid "Is rtti school location"
 msgstr "Is rtti school location"
 
 msgid "Is RTTI school"
 msgstr "Is RTTI school"
+
+msgid "Selecteer eerst een Single Sign On type."
+msgstr "First select a Single Sign On type."
+
+msgid "Geen koppeling"
+msgstr "No link"
+
+msgid "LVS Koppeling"
+msgstr "LVS Coupling"
+
+msgid "LVS Koppeling actief"
+msgstr "LVS Link active"
+
+msgid "SSO Koppeling"
+msgstr "SSO Link"
+
+msgid "SSO Koppeling actief"
+msgstr "SSO Link active"
+
+msgid "Klassen binnen mijn schoollocatie"
+msgstr "Classes within my school location"
+
+msgid "Single Sign On mag niet uit gezet worden als de LVS koppeling actief is."
+msgstr "Single Sign On must not be turned off when the LVS link is active."
+
+msgid "BRIN/Locatie code mag niet leeg zijn als je LVS of SSO wilt activeren"
+msgstr "BRIN/Location code cannot be empty if you want to activate LVS or SSO"
+
+msgid "De LVS koppeling kan pas actief gezet worden als de koppeling  minimaal één keer handmatig heeft gedraaid."
+msgstr "The LVS clutch can only be activated if the clutch has been turned manually at least once."
 
 msgid "Is RTTI"
 msgstr "Is RTTI"
@@ -2671,8 +2867,14 @@ msgstr "Reply PDF"
 msgid "Meteen naar nakijken"
 msgstr "Check it immediately"
 
+msgid "Weet je zeker dat je meteen naar nakijken wilt gaan?"
+msgstr "Are you sure you want to check right away?"
+
 msgid "Normering opslaan"
 msgstr "Save standards"
+
+msgid "Doorgaan"
+msgstr "Get on"
 
 msgid "Normeren"
 msgstr "Standardize"
@@ -3111,6 +3313,9 @@ msgstr "No grades are available yet."
 
 msgid "Toets aanmaken"
 msgstr "Create test"
+
+msgid "Hoe wil je een toets creëren?"
+msgstr "How do you want to create a test?"
 
 msgid "Er zijn nog geen vakken aan uw account gekoppeld, hierdoor kunt u geen toets aanmaken."
 msgstr "There are no courses linked to your account yet, so you cannot create a test."

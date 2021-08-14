@@ -28,12 +28,12 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-md-5"><label for="">Vak</label>
+                    <div class="col-md-5"><label for=""><?= __("Vak")?></label>
                         <?= $this->Form->input('subject', array('style' => 'width: 100%', 'options' => $subjects, 'label' => false, 'multiple' => true)) ?>
                     </div>
 
                     <div class="col-md-5">
-                        <label for="Periode">Periode</label>
+                        <label for="Periode"><?= __("Periode")?></label>
                         <?= $this->Form->input('period', array('options' => $periods, 'label' => false)) ?>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <div class="col-md-5">
                             <label for=""><?= __("Bron")?></label>
                             <?= $this->Form->input('is_open_sourced_content', array(
-                                'options' => ['Alles', 'Eigen content', 'Gratis content'], 'label' => false
+                                'options' => [__("Alles"), __("Eigen content"), __("Gratis content")], 'label' => false
                             )) ?>
 
                         </div>

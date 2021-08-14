@@ -19,7 +19,7 @@
     </a>
 </div>
 
-<h1>Analyse van <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
+<h1><?= __("Analyse van")?> <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
 
 <?
 if(!$isStudent) {
@@ -251,7 +251,7 @@ if(!$isStudent) {
                             <?
                             if($message['user_id'] == AuthComponent::user('id')) {
                                 ?>
-                                aan
+                                <?= __("aan")?>
                                 <?=$message['message_receivers'][0]['user']['name_first']?>
                                 <?=$message['message_receivers'][0]['user']['name_suffix']?>
                                 <?=$message['message_receivers'][0]['user']['name']?>

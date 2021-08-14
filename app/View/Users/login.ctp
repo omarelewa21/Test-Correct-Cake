@@ -89,7 +89,7 @@
 
     <? } else { ?>
         <a href="https://welcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
-            <i class="fa fa-check mr5"></i> Entree
+            <i class="fa fa-check mr5"></i> <?= __("Entree")?>
         </a>
 
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">

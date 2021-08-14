@@ -1,7 +1,7 @@
 <div class="tat-content border-radius-bottom-0 import-heading">
     <div style="display:flex">
         <div style="flex-grow:1">
-            <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
+            <h2 style="margin-top:0"><?= __("Importgegevens van klassen compleet maken")?></h2>
         </div>
         <div style="margin-top:-2px">
             <?php echo $this->element('teacher_complete_user_import_tooltip', array('type' => $lvs_type)) ?>
@@ -29,7 +29,7 @@
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr style="display: flex; align-items: center">
-                    <th class="cluster_class_subject_td">Klas</th>
+                    <th class="cluster_class_subject_td"><?= __("Klas")?></th>
                     <?php foreach ($subjects as $subject) {
                         $subjectId = $subject['id'];
                         $subjectName = $subject['abbreviation'] ?  $subject['abbreviation'] : substr($subject['name'], 0,3);
@@ -62,8 +62,8 @@
                             </button>
                         </div>
                     </th>
-                    <th style="margin-left: auto;" width="80px">Status</th>
-                    <th width="120px">Gecontroleerd</th>
+                    <th style="margin-left: auto;" width="80px"><?= __("Status")?></th>
+                    <th width="120px"><?= __("Gecontroleerd")?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -127,11 +127,11 @@
                         <td class="add-class-filler-column" width="130px">&nbsp;</td>
                         <td style="margin-left: auto;" width="80px">
                             <?php if (!array_key_exists($schoolClass['id'], $teacher_entries)) { ?>
-                                <span class="import-label label-orange">onbekend</span>
+                                <span class="import-label label-orange"><?= __("onbekend")?></span>
                             <?php } else if(!empty($checked_by_teacher[$schoolClass['id']])){ ?>
-                                <span class="import-label label-green">Ingesteld</span>
+                                <span class="import-label label-green"><?= __("Ingesteld")?></span>
                             <?php } else { ?>
-                                <span class="import-label label-blue">bekend</span>
+                                <span class="import-label label-blue"><?= __("bekend")?></span>
                             <?php } ?>
                         </td>
                         <td width="120px">
@@ -168,7 +168,7 @@
                 justify-content: center;"
         >
             <div id="unsaveReturn" class="notification error" style="display:none;position:absolute;z-index: 10;top: -60px;">
-                <span class="body">Er zijn onopgeslagen wijzigingen. Weet je zeker dat je terug wilt gaan naar de vorige stap?</span>
+                <span class="body"><?= __("Er zijn onopgeslagen wijzigingen. Weet je zeker dat je terug wilt gaan naar de vorige stap?")?></span>
             </div>
             <div
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
@@ -195,7 +195,7 @@
 
                     <button id="btn-back-to-eduction-level" class="button text-button"
                             style="font-size:18px; font-weight:bold;">
-                        <?php echo $this->element('chevron-left') ?> <span class="ml8">Terug naar niveau &amp; leerjaar</span>
+                        <?php echo $this->element('chevron-left') ?> <span class="ml8"><?= __("Terug naar niveau")?> &amp; <?= __("leerjaar")?></span>
                     </button>
 
 
@@ -205,7 +205,7 @@
                           style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
                     <button id="btn-save-subject-cluster-class" style="height: 50px"
                             class="button cta-button button-md">
-                        Opslaan
+                            <?= __("Opslaan")?>
                     </button>
                 </div>
             </div>
@@ -236,15 +236,15 @@
                                     return;
                                 }
 
-                                var msg = 'Gegevens voor 1 koppeling opgeslagen.';
+                                var msg = '<?= __("Gegevens voor 1 koppeling opgeslagen.")?>';
                                 if (data.result.count !== 1) {
-                                    msg = 'Gegevens voor ' + data.result.count + ' koppelingen opgeslagen.';
+                                    msg = '<?= __("Gegevens voor ")?>' + data.result.count + '<?= __(" koppelingen opgeslagen.")?>';
                                 }
 
                                 Notify.notify(msg)
 
                                 if(data.result.done){
-                                    Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
+                                    Notify.notify('<?= __("Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen")?>');
                                     Popup.closeLast();
                                     Navigation.refresh();
                                 }

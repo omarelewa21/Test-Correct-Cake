@@ -5,7 +5,7 @@
                     style="<?= $tab === 'schoollocation' ? 'color:var(--primary);' : '' ?>"
                     onclick="Navigation.load('/tests/index')"
             >
-                Schoollocatie
+            <?= __("Schoollocatie")?>
             </button>
             <span style="display: flex;<?= $tab === 'schoollocation' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
@@ -15,7 +15,7 @@
                     onclick="Navigation.load('/shared_sections_tests/index')"
                     style="<?= $tab === 'shared_sections' ? 'color:var(--primary);' : '' ?>"
             >
-                Scholengemeenschap
+            <?= __("Scholengemeenschap")?>
             </button>
             <span style="display:flex;<?= $tab === 'shared_sections' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
@@ -24,9 +24,9 @@
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
                     onclick="<?= AuthComponent::user('hasCitoToetsen') ? 'Navigation.load(\'/cito_tests/index\')' : '' ?>"
                     style="<?= $tab === 'cito' ? 'color:var(--primary);' : '' ?>"
-                <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled title="Binnenkort beschikbaar"' : '' ?>
+                <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled title=\'<?= __("Binnenkort beschikbaar")?>\'' : '' ?>
             >
-                CITO toetsen
+            <?= __("CITO toetsen")?>
             </button>
             <span style="display:flex;<?= $tab === 'cito' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>

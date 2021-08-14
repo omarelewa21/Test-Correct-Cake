@@ -146,10 +146,10 @@ var Questions = {
         if(subquestion) {
 
             Popup.message({
-                btnOk: 'Importeren',
-                btnCancel: 'Annuleren',
-                title: 'Onderdeel van groepvraag',
-                message: 'Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.'
+                btnOk: $.i18n('Importeren'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Onderdeel van groepvraag'),
+                message: $.i18n('Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.')
             }, function() {
                 $.get('/questions/add_existing_question_to_group/' + question_id,
                     function(response) {

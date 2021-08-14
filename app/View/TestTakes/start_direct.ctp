@@ -148,7 +148,7 @@
         confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify("Toetsen zijn ingepland", "info");
+            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
             Navigation.load('/test_takes/view/'+result.uuid);
             Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();

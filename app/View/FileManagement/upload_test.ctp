@@ -98,16 +98,16 @@
                     <button class="flex button text-button button-sm" style="align-items: center;"
                             onclick="Popup.closeWithNewPopup('/tests/create_content', 800);">
                         <?= $this->element('arrow-left')?>
-                        <span style="margin-left: 10px;">Terug</span>
+                        <span style="margin-left: 10px;"><?= __("Terug")?></span>
                     </button>
                     <div style="display: flex;margin-left: auto;">
                         <button class="flex button text-button button-sm" style="align-items: center;"
                                 onclick="Popup.closeLast();Navigation.refresh();">
-                            Annuleer
+                                <?= __("Annuleer")?>
                         </button>
                         <button id="submitbutton" onclick="handleSubmit()" class="flex button primary-button button-md"
                                 style="align-items: center;">
-                            Toets uploaden
+                                <?= __("Toets uploaden")?>
                         </button>
                     </div>
                 </div>

@@ -99,6 +99,11 @@
                     <span class="slider round"></span>
                 </label>
             </td>
+
+            <th width="130"><?= __("Taal Test-Correct")?></th>
+            <td>
+                <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('eng'=>'English', 'nl' => 'Dutch'))) ?>
+            </td>
         </tr>
 
         <tr>
@@ -191,7 +196,7 @@
 
         $("#SchoolLocationExternalMainCode").on('change', function () {
             if ($("#SchoolLocationExternalMainCode").val().length > 0 && $("#SchoolLocationExternalMainCode").val().length < 4) {
-                Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
+                Notify.notify('<?= __("De BRIN code moet uit 4 karakters bestaan.")?>', 'error');
             }
         });
         $("#SchoolLocationExternalSubCode, #SchoolLocationExternalMainCode").on('input', function () {
@@ -230,7 +235,7 @@
             },
             onfailure: function (result) {
                 // Notify.notify("School kon niet worden aangemaakt", "error");
-                if (result[0].toLowerCase().includes('locatie brin code')) {
+                if (result[0].toLowerCase().includes('<?= __("locatie brin code")?>')) {
                     $("#SchoolLocationExternalSubCode").removeClass('verify-ok').addClass('verify-error');
                 }
                 Notify.notify(result.join('<br />'), 'error');
@@ -298,7 +303,7 @@
         if (document.querySelector('#SchoolLocationSsoType').value === '') {
             if (document.querySelector('#SchoolLocationLvsActive').checked) {
                 $('#SchoolLocationLvsActive').prop('checked', false);
-                Notify.notify('Selecteer eerst een Single Sign On type.', 'error');
+                Notify.notify('<?= __("Selecteer eerst een Single Sign On type.")?>', 'error');
             }
         } else {
             $('#SchoolLocationSsoActive').prop('checked', true);
@@ -308,19 +313,19 @@
     $('#SchoolLocationSsoActive').on('change', function () {
         if (!document.querySelector('#SchoolLocationSsoActive').checked && document.querySelector('#SchoolLocationLvsActive').checked) {
             $('#SchoolLocationSsoActive').prop('checked', true);
-            Notify.notify('Single Sign On mag niet uit gezet worden als de LVS koppeling actief is.', 'error');
+            Notify.notify('<?= __("Single Sign On mag niet uit gezet worden als de LVS koppeling actief is.")?>', 'error');
         }
     });
 
     $('#sso_toggle, #lvs_toggle').click(function() {
         if ($('#SchoolLocationSsoActive').prop('disabled') && ($("#SchoolLocationExternalSubCode").val() === '' || $("#SchoolLocationExternalMainCode").val() === '')){
-            Notify.notify('BRIN/Locatie code mag niet leeg zijn als je LVS of SSO wilt activeren', 'error');
+            Notify.notify('<?= __("BRIN/Locatie code mag niet leeg zijn als je LVS of SSO wilt activeren")?>', 'error');
         }
     });
 
     $('#lvs_toggle').click(function() {
         if ($('#SchoolLocationLvsActive').prop('disabled') && !!hasRunImport === false){
-            Notify.notify('De LVS koppeling kan pas actief gezet worden als de koppeling  minimaal één keer handmatig heeft gedraaid.', 'error');
+            Notify.notify('<?= __("De LVS koppeling kan pas actief gezet worden als de koppeling  minimaal één keer handmatig heeft gedraaid.")?>', 'error');
         }
     });
 </script>

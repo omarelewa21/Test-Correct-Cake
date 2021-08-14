@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <th width="130">
-                Geverifieerd
+            <?= __("Geverifieerd")?>
             </th>
             <td><a style="cursor:pointer" class="btn <?= $this->request->data['account_verified']?  'blue': 'grey' ?>" id="updateVerified">
                     <?= $this->request->data['account_verified'] ?  $this->request->data['account_verified'] : 'Niet geverifieerd'?>

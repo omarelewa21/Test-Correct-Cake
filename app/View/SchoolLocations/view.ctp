@@ -114,18 +114,18 @@
                 </td>
             </tr>
             <tr>
-                <th>LVS Koppeling</th>
-                <td><?= $school_location['lvs_type'] === null ? 'Geen koppeling' : $school_location['lvs_type'] ?></td>
+                <th><?= __("LVS Koppeling")?></th>
+                <td><?= $school_location['lvs_type'] === null ? __("Geen koppeling") : $school_location['lvs_type'] ?></td>
 
-                <th>LVS Koppeling actief</th>
-                <td><?= $school_location['lvs_active'] ? 'Ja' : 'Nee' ?></td>
+                <th><?= __("LVS Koppeling actief")?></th>
+                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
             <tr>
-                <th>SSO Koppeling</th>
-                <td><?=$school_location['sso_type'] === null ? 'Geen koppeling' : $school_location['sso_type']?></td>
+                <th><?= __("SSO Koppeling")?></th>
+                <td><?=$school_location['sso_type'] === null ? __("Geen koppeling") : $school_location['sso_type']?></td>
 
-                <th>SSO Koppeling actief</th>
-                <td><?=$school_location['sso_active'] ? 'Ja' : 'Nee' ?></td>
+                <th><?= __("SSO Koppeling actief")?></th>
+                <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
         </table>
     </div>

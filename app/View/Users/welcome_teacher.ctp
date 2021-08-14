@@ -415,8 +415,8 @@ if ($wizard_steps) {
     });
 
     if (jQuery("#supportLinkUserMenu").length != 1) {
-        jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" > Supportpagina</a>');
-        jQuery("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5"> Automatisch uitloggen uitstellen</a>');
+        jQuery("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" >' +  '<?= __("Supportpagina")?>' + '</a>');
+        jQuery("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  '<?= __("Automatisch uitloggen uitstellen")?>' + '</a>');
         <?php
         if(AuthComponent::user('isToetsenbakker') == true){
         ?>

@@ -815,21 +815,22 @@ class QuestionsController extends AppController
         }
 
         $filterTypes = [
-            '' => 'Alle',
-            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
-            'MultipleChoiceQuestion.ARQ' => 'ARQ',
-            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
-            'OpenQuestion.Short' => 'Korte open vraag',
-//            'OpenQuestion.Medium' => 'Lange open vraag',
-//            'OpenQuestion.Long' => 'Wiskunde vraag',
-            'OpenQuestion.Long' => 'Lange open vraag',
-            'CompletionQuestion.multi' => 'Selectie',
-            'CompletionQuestion.completion' => 'Gatentekst',
-            'RankingQuestion' => 'Rangschik',
-            'MatchingQuestion.Matching' => 'Combineer',
-            'MatchingQuestion.Classify' => 'Rubriceer',
-            'DrawingQuestion' => 'Teken',
-            'GroupQuestion' => 'Groepvraag'
+
+            '' => __("Alle"),
+            'MultipleChoiceQuestion.TrueFalse' => __("Juist / Onjuist"),
+            'MultipleChoiceQuestion.ARQ' => __("ARQ"),
+            'MultipleChoiceQuestion.MultipleChoice' => __("Meerkeuze"),
+            'OpenQuestion.Short' => __("Korte open vraag"),
+//            'OpenQuestion.Medium' => __("Lange open vraag"),
+//            'OpenQuestion.Long' => __("Wiskunde vraag"),
+            'OpenQuestion.Long' => __("Lange open vraag"),
+            'CompletionQuestion.multi' => __("Selectie"),
+            'CompletionQuestion.completion' => __("Gatentekst"),
+            'RankingQuestion' => __("Rangschik"),
+            'MatchingQuestion.Matching' => __("Combineer"),
+            'MatchingQuestion.Classify' => __("Rubriceer"),
+            'DrawingQuestion' => __("Teken"),
+            'GroupQuestion' => __("Groepvraag")
         ];
 
         $test = $this->Session->read('active_test');

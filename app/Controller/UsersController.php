@@ -158,7 +158,7 @@ class UsersController extends AppController
                 $this->formResponse(true, ['message' => $message]);
             } else {
                 if($this->Auth->_authenticateObjects[0]->error === "NEEDS_LOGIN_ENTREE"){
-                    $this->formResponse(false, ['message' => 'Je gegevens zijn nog niet compleet. Log de eerste keer in via Entree']);
+                    $this->formResponse(false, ['message' => __("Je gegevens zijn nog niet compleet. Log de eerste keer in via Entree")]);
                     return false;
                 }
 
@@ -1129,25 +1129,25 @@ class UsersController extends AppController
             if ($role['name'] == 'Teacher') {
                 //Dashboard and Results is prepended to the menu in menu.js
 //                $menus['dashboard'] = "Dashboard";
-                $menus['library'] = "Toetsen";
-                $menus['tests'] = "Ingepland";
-                $menus['taken'] = "Afgenomen";
-//                $menus['results'] = "Resultaten";
-                $menus['analyses'] = "Analyses";
-                $menus['classes'] = "Klassen";
+                $menus['library'] = __("Toetsen");
+                $menus['tests'] = __("Ingepland");
+                $menus['taken'] = __("Afgenomen");
+//                $menus['results'] = __("Resultaten");
+                $menus['analyses'] = __("Analyses");
+                $menus['classes'] = __("Klassen");
 //                $menus['other'] = "Overig";
 //                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'Student') {
-                $menus['tests'] = "Toetsing";
-                $menus['analyses'] = "Analyse";
+                $menus['tests'] = __("Toetsing");
+                $menus['analyses'] = __("Analyse");
 //                $menus['messages'] = "Berichten";
 //                $menus['support'] = "Support";
             }
 
             if ($role['name'] == 'School management') {
-                $menus['analyses'] = "Analyse";
+                $menus['analyses'] = __("Analyse");
 //                $menus['messages'] = "Berichten";
             }
 
@@ -1181,7 +1181,7 @@ class UsersController extends AppController
         $tiles['kennisbank'] = [
             'menu'  => 'support',
             'icon'  => 'knowledgebase',
-            'title' => 'Kennisbank',
+            'title' => __("Kennisbank"),
             'path'  => 'https://support.test-correct.nl',
             'type'  => 'externalpopup',
         ];
@@ -1401,7 +1401,7 @@ class UsersController extends AppController
                 $tiles['create_content'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Toets creëren',
+                    'title' => __("Toets creëren"),
                     'type'  => 'popup',
                     'path'  => '/tests/create_content'
                 );
@@ -1409,7 +1409,7 @@ class UsersController extends AppController
                 $tiles['tests_overview'] = array(
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Toetsenbank',
+                    'title' => __("Toetsenbank"),
                     'path'  => '/tests/index'
                 );
 
@@ -1441,7 +1441,7 @@ class UsersController extends AppController
                 $tiles['tests_planned'] = array(
                     'menu'  => 'tests',
                     'icon'  => 'gepland',
-                    'title' => 'Mijn ingeplande toetsen',
+                    'title' => __("Mijn ingeplande toetsen"),
                     'path'  => '/test_takes/planned_teacher'
                 );
 
@@ -1455,7 +1455,7 @@ class UsersController extends AppController
                 $tiles['tests_taken'] = array(
                     'menu'  => 'taken',
                     'icon'  => 'afgenomen',
-                    'title' => 'Mijn afgenomen toetsen',
+                    'title' => __("Mijn afgenomen toetsen"),
                     'path'  => '/test_takes/taken_teacher'
                 );
 
@@ -1469,7 +1469,7 @@ class UsersController extends AppController
                 $tiles['tests_examine'] = array(
                     'menu'  => 'taken',
                     'icon'  => 'nakijken',
-                    'title' => 'Nakijken & normeren',
+                    'title' => __("Nakijken & normeren"),
                     'path'  => '/test_takes/to_rate'
                 );
 
@@ -1483,21 +1483,21 @@ class UsersController extends AppController
                 $tiles['analyse'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leraar',
-                    'title' => 'Mijn analyses',
+                    'title' => __("Mijn analyses"),
                     'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
                 );
 
                 $tiles['analyse_student'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-leerlingen',
-                    'title' => 'Mijn studenten',
+                    'title' => __("Mijn studenten"),
                     'path'  => '/analyses/students_overview'
                 );
 
                 $tiles['analyse_classes'] = array(
                     'menu'  => 'analyses',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Mijn klassen',
+                    'title' => __("Mijn klassen"),
                     'path'  => '/analyses/school_classes_overview'
                 );
 
@@ -1518,14 +1518,14 @@ class UsersController extends AppController
                 $tiles['school_location_classes'] = [
                     'menu'  => 'classes',
                     'icon'  => 'testlist',
-                    'title' => 'Mijn schoollocatie',
+                    'title' => __("Mijn schoollocatie"),
                     'path'  => '/teacher_classes/school_location_classes'
                 ];
 
                 $tiles['teacher_test_uploads'] = [
                     'menu'  => 'library',
                     'icon'  => 'testlist',
-                    'title' => 'Mijn uploads',
+                    'title' => __("Mijn uploads"),
                     'path'  => '/file_management/testuploads'
                 ];
 
@@ -1970,7 +1970,7 @@ class UsersController extends AppController
         }
         if (stristr($service->getErrors()['error'], 'School class id not found for class')) {
             return (str_replace('School class id not found for class', 'SchoolKlas',
-                    $service->getErrors()['error']).' niet gevonden!');
+                    $service->getErrors()['error']).__(" niet gevonden!"));
         }
 
         return $service->getErrors()['error'];

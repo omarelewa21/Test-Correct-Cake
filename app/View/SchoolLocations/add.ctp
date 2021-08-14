@@ -74,7 +74,7 @@
                 <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2, 'verify' => 'max-length-2'));?>
             </td>
 
-            <th>Is rtti school</th>
+            <th><?= __("Is rtti school")?></th>
             <td>
                 <label class="switch" style="display:flex;">
                     <?= $this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
