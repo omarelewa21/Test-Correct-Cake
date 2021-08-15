@@ -31,7 +31,7 @@ var Questions = {
                     Popup.closeLast();
                     Navigation.refresh();
                 }else{
-                    console.log(response['data']);
+                    // console.log(response['data']);
                     Notify.notify(response['data'].join('<br />'), 'error');
                 }
             }

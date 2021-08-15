@@ -51,7 +51,7 @@
     ;
 
     function handleSubmit() {
-        console.log('handle submit');
+        // console.log('handle submit');
         $('#RttiImportBlock').height($('#RttiImportBlock').height()).css('overflow', 'scroll').css('padding', '8px');
         $('#RttiImportContainer').show();
         $('#buttons').show();
@@ -62,7 +62,7 @@
 
     function RttiImportSetup() {
         $(document).ready(function () {
-            console.log('import setup');
+            // console.log('import setup');
             $('#buttons').hide();
         });
         RttiImportSetupRun = true;

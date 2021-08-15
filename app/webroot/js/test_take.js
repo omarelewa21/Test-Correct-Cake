@@ -18,7 +18,7 @@ var TestTake = {
 
     startHeartBeat: function (callback, interval) {
         if (callback == 'active') {
-            console.log('startheartbeat');
+            // console.log('startheartbeat');
             if (!TestTake.active) {
                 TestTake.atTestStart();
             } else {
@@ -157,7 +157,7 @@ var TestTake = {
       }
     },
     markBackground: function () {
-        console.log('mark background');
+        // console.log('mark background');
         if (!TestTake.alert) {
             $('#test_progress').css({
                 'background': '#294409'
@@ -933,7 +933,7 @@ var TestTake = {
                 }
             },
             error: function(response) {
-                console.dir(response);
+                // console.dir(response);
                 alert('error');
             },
         });
@@ -975,7 +975,7 @@ var TestTake = {
                 }
             },
             error: function(response) {
-                console.dir(response);
+                // console.dir(response);
                 alert('error');
             }
         });
@@ -1048,45 +1048,45 @@ var TestTake = {
         Intense = new IntenseWrapper({
             api_key: "api_key", // This is a public key which will be provided by Intense.
             app: "name of the app that implements Intense. example: TC@1.0.0",
-            debug: true // If true, all debug data will be written to console.log().
+            debug: true // If true, all debug data will be written to // console.log().
         }).onCallibrated(function(type) {
             document.getElementById('typecalibration_complete_button').classList.add('primary-button');
         }).onError(function(e, msg) {
 
             // So far, the only available value for 'msg' is 'unavailable', meaning that the given interface/method cannot be used.
-            // If no error handler is registered, all errors will be written to console.log.
+            // If no error handler is registered, all errors will be written to // console.log.
 
             switch(e) {
                 case 'start':
-                    console.log('Intense: Could not start recording because it was '+msg);
+                    // console.log('Intense: Could not start recording because it was '+msg);
                     break;
                 case 'pause':
-                    console.log('Intense: Could not pause recording because it was '+msg);
+                    // console.log('Intense: Could not pause recording because it was '+msg);
                     break;
                 case 'resume':
-                    console.log('Intense: Could not resume recording because it was '+msg);
+                    // console.log('Intense: Could not resume recording because it was '+msg);
                     break;
                 case 'end':
-                    console.log('Intense: Could not end recording because it was '+msg);
+                    // console.log('Intense: Could not end recording because it was '+msg);
                     break;
                 case 'network':
-                    console.log('Intense: Could not send data over network because it was '+msg);
+                    // console.log('Intense: Could not send data over network because it was '+msg);
                     break;
                 default:
-                    console.log('Intense: Unknown error occured!');
+                    // console.log('Intense: Unknown error occured!');
             }
 
         }).onData(function(data) {
             // This function is called when data is sent to the Intense server. data contains the data that is being sent.
-            console.log('Data sent to Intense', data);
+            // console.log('Data sent to Intense', data);
         }).onStart(function() {
-            console.log('Intense started recording');
+            // console.log('Intense started recording');
         }).onPause(function() {
-            console.log('Intense paused recording');
+            // console.log('Intense paused recording');
         }).onResume(function() {
-            console.log('Intense resumed recording');
+            // console.log('Intense resumed recording');
         }).onEnd(function() {
-            console.log('Intense ended recording');
+            // console.log('Intense ended recording');
         });
 
         var widthForPopup =  $(window).width() < 1400 ? $(window).width() : 1400;
@@ -1141,7 +1141,7 @@ function onchange(evt) {
         document.body.className = this[hidden] ? "hidden" : "visible";
     }
     if (this[hidden] && typeof Core !== "undefined") {
-        console.log('lostfocus');
+        // console.log('lostfocus');
         Core.lostFocus();
     }
 }
@@ -1167,7 +1167,7 @@ function isFullScreen(){
 var fullscreentimer;
 function checkfullscreen() {
     if (!isFullScreen()) {
-        console.log('hand in from checkfullscreen');
+        // console.log('hand in from checkfullscreen');
         Core.lostFocus();
     }
 }
@@ -1206,7 +1206,7 @@ function checkPageFocus() {
     if (!parent.skip) {
         if (!document.hasFocus()) {
             if (!notifsent) {  // checks for the notifcation if it is already sent to the teacher
-                console.log('lost focus from checkPageFocus');
+                // console.log('lost focus from checkPageFocus');
                 Core.lostFocus();
                 notifsent = true;
             }

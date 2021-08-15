@@ -75,7 +75,7 @@
                 $('#UserGenderDifferent').trigger('keyup');
             }
         }).on('keyup', '#UserGenderDifferent', function(e) {
-            console.log('keyUp');
+            // console.log('keyUp');
             if($(this).val() == '') {
                 $(this).removeClass().addClass('verify');
             }

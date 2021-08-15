@@ -22,7 +22,7 @@
     updateAndClosePopup = {
         confirm: $('#btnAddUser'),
         onsuccess: function (result) {
-            console.dir(result);
+            // console.dir(result);
             Popup.closeLast();
             Notify.notify("Je gegevens zijn opgeslagen", "info");
         },
@@ -160,7 +160,7 @@
                 $('#UserGenderDifferent').trigger('keyup');
             }
         }).on('keyup', '#UserGenderDifferent', function (e) {
-            console.log('keyUp');
+            // console.log('keyUp');
             if ($(this).val() == '') {
                 $(this).removeClass().addClass('verify');
             }

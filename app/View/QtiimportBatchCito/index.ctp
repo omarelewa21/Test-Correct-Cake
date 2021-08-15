@@ -78,7 +78,7 @@
 <script>
 
     function handleQtiImportResponse(data){
-        console.log(data);
+        // console.log(data);
         clearTimeout(wistjedatjeTimer);
       jQuery('#QtiImportBlock').html((data));
     };
@@ -137,7 +137,7 @@
                 .on('change', '#QtiSchoolLocationId', function () {
                     var schoolLocationId = $(this).val();
 
-                    console.log(schoolLocationId);
+                    // console.log(schoolLocationId);
 
                     teacherSelect.find('option').remove();
                     jQuery.each(teachers1, function (key, t) {
