@@ -58,7 +58,8 @@ var Menu = {
                     Menu.hideInactiveTiles();
                     if (Menu.shouldRemoveTilesBar()) {
                         $('#tiles').stop().animate({
-                            'top':0
+                            'top':0,
+                            'height':'48px'
                         });
                     } else {
                         $('#tiles').stop().animate({
