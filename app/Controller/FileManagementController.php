@@ -344,6 +344,9 @@ class FileManagementController extends AppController {
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
+            for($i = 1; $i < count($testKinds)+1; $i++){
+                $testKinds[$i] = __("$testKinds[$i]");
+            }
             $this->set('testKindOptions', $testKinds);
         }
         if(array_key_exists('content_creation_step',$this->params['url']) && $this->params['url']['content_creation_step'] == 2) {
