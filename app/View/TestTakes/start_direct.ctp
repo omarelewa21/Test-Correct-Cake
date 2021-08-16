@@ -155,7 +155,7 @@
         },
         onfailure: function (result) {
 
-            console.log(result["errors"]);
+            // console.log(result["errors"]);
 
             for (var i = 0; i < result["errors"].length; i++) {
                 Notify.notify(result["errors"][i], "error");

@@ -155,7 +155,7 @@ if(count($takes) == 0) {
     window.onbeforeunload = confirmExit;
 
     if(typeof(Pusher) == 'undefined'){
-        console.log('adding pusher');
+        // console.log('adding pusher');
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = '//js.pusher.com/5.0/pusher.min.js';

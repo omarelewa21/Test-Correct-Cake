@@ -78,7 +78,7 @@
 <script>
 
     function handleQtiImportResponse(data){
-        console.log(data);
+        // console.log(data);
         clearTimeout(wistjedatjeTimer);
       jQuery('#QtiImportBlock').html((data));
     };

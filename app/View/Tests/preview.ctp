@@ -41,7 +41,7 @@
 <script type="text/javascript">
     TestPreview.loadQuestion('<?=$test_id?>', '<?=$question_index?>');
     jQuery("#btnAttachmentFrameMove").on('mouseenter', function(e){
-        console.log('mousentered');
+        // console.log('mousentered');
         jQuery("#attachmentContainer").draggable({handle:'#btnAttachmentFrameMove'});
     });
 </script>
