@@ -36,6 +36,29 @@ class DeploymentController extends AppController {
                 die;
             }
 
+            try {
+                App::uses('DeploymentMaintenanceService', 'Lib/Services');
+                $deploymentMaintenanceService = new DeploymentMaintenanceService;
+                $data = $deploymentMaintenanceService->checkForDeploymentMaintenance();
+
+                App::uses('MaintenanceHelper', 'Lib');
+                $helper = MaintenanceHelper::getInstance();
+                $helper->unsetNotificationForMaintenance();
+                $helper->unsetMaintenanceMode();
+                if ($data) {
+                    if ($data['status'] === 'ACTIVE') {
+                        $helper->setInMaintenanceMode($data['message'], $data['whitelisted_ips']);
+                    } else {
+                        if ($data['status'] === 'NOTIFY') {
+                            $helper->setNotificationForMaintenance($data['notification']);
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                $this->formResponse(false, [ $e->getMessage()]);
+                die;
+            }
+
             $this->formResponse(true, []);
             die;
         }
