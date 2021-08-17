@@ -44,6 +44,7 @@
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
 
+		<script type="text/javascript" src="/js/polyfill.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>
