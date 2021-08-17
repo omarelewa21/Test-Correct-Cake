@@ -194,11 +194,10 @@ class AppController extends Controller
         }
         $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
         if ($isInBrowser && !$allowedBrowserTesting) {
-            $message = 'Let op! Student probeert de toets te starten vanuit de console. username:'.AuthComponent::user('username').';';
+            $message = 'Let op! Student probeert de toets te starten vanuit de console. id:'.AuthComponent::user('id').';';
             BugsnagLogger::getInstance()->setMetaData([
                 'versionCheckResult' => $versionCheckResult,
                 'headers' => $headers,
-                'user_name' => AuthComponent::user('username'),
                 'user_id' => AuthComponent::user('id'),
                 'user_uuid' => AuthComponent::user('uuid')
             ])->notifyException(
