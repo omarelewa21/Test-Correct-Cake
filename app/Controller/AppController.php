@@ -184,6 +184,30 @@ class AppController extends Controller
         }
     }
 
+    public function isNotInBrowser($take_id) {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+        if ($versionCheckResult == AllowedAppType::NOTALLOWED && !$isInBrowser) {
+            http_response_code(403);
+            exit();
+        }
+        $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
+        if ($isInBrowser && !$allowedBrowserTesting) {
+            $message = 'Let op! Student probeert de toets te starten vanuit de console. id:'.AuthComponent::user('id').';';
+            BugsnagLogger::getInstance()->setMetaData([
+                'versionCheckResult' => $versionCheckResult,
+                'headers' => $headers,
+                'user_id' => AuthComponent::user('id'),
+                'user_uuid' => AuthComponent::user('uuid')
+            ])->notifyException(
+                new StudentFraudDetectionException("Console hack error: (". $message .")")
+            );
+            http_response_code(403);
+            exit();
+        }
+    }
+
     public function getallheaders()
     {
         $headers = array();

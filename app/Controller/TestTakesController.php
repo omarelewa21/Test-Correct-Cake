@@ -1039,29 +1039,7 @@ class TestTakesController extends AppController {
     }
 
     public function take2019($take_id, $question_index = null, $clean = false) {
-
-        try {
-            $headers = AppVersionDetector::getAllHeaders();
-            $isInBrowser = AppVersionDetector::isInBrowser($headers);
-            $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
-            if ($versionCheckResult == 'NOTALLOWED' && !$isInBrowser) {
-                throw new Exception('This version is too old');
-            }
-            $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
-            if ($isInBrowser && !$allowedBrowserTesting) {
-                throw new Exception('browser testing not allowed');
-            }
-        }catch(Exception $e){
-            $message = 'Let op! Student probeert de toets te starten vanuit de console. username:'.AuthComponent::user('username').';message:'.$e->getMessage();
-            BugsnagLogger::getInstance()->setMetaData([
-                'versionCheckResult' => $versionCheckResult,
-                'headers' => $headers,
-                'user_name' => AuthComponent::user('username'),
-            ])->notifyException(
-                new CakeToLaravelException("Cake => Console hack error: (". $message .")")
-            );
-            return $this->view('/users/welcome');
-        }
+        $this->isNotInBrowser($take_id);
         $questions = false;
         $participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
@@ -1130,6 +1108,7 @@ class TestTakesController extends AppController {
     }
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
+        $this->isNotInBrowser($take_id);
         return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
 
     }
