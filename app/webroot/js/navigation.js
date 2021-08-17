@@ -3,6 +3,7 @@ var Navigation = {
     callback : null,
 
     history : [],
+    onSurveillance: false,
 
     load : function(url) {
         Loading.show();
@@ -15,6 +16,13 @@ var Navigation = {
 
         User.inactive = 0;
         User.surpressInactive = false;
+
+        if (Navigation.onSurveillance) {
+            pusher.disconnect();
+            pusher = undefined;
+            console.log('Pusher disconnected.');
+            Navigation.onSurveillance = false;
+        }
 
         $('#page_fade').fadeIn(function() {
             $.get(url,

@@ -149,21 +149,32 @@ if(count($takes) == 0) {
 }
 ?>
 
+<?php
+    $takeUuids = array();
+    foreach ($takes as $take) {
+        $takeUuids[] = getUUID($take['info'], 'get');
+    }
+?>
+
 <script type="text/javascript">
 
     startPolling(10000);
     window.onbeforeunload = confirmExit;
 
-    if(typeof(Pusher) == 'undefined'){
-        // console.log('adding pusher');
+    var takeUuids = <?= json_encode($takeUuids) ?>;
+
+    if(typeof(window.pusher) == 'undefined'){
+        //console.log('adding pusher');
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = '//js.pusher.com/5.0/pusher.min.js';
 
         document.getElementsByTagName('head')[0].appendChild(script);
 
+        Navigation.onSurveillance = true;
+
         setTimeout(function(){
-            var pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
+            window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
                 cluster: 'eu',
                 forceTLS: false,
             });
@@ -178,6 +189,15 @@ if(count($takes) == 0) {
                 }
                 startPolling(data.pollingInterval);
             });
+
+            takeUuids.forEach(function(take) {
+                 take = pusher.subscribe('TestTake.'+take);
+                 take.bind('NewTestTakeEventAdded', function(data) {
+                     loadData();
+                     startPolling(10000);
+                 })
+            })
+
         },
         10000)
     }
