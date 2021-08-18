@@ -357,38 +357,6 @@ if ($wizard_steps) {
     ?>
 </div>
 
-
-<h1 style="text-align:center; margin-top: 50px;">Meteen naar:</h1>
-<div style="text-align:center;">
-    <div style="display:inline-block;">
-        <?php
-        if (AuthComponent::user('isToetsenbakker') == true) {
-            ?>
-            <span class="blue">
-            <div class="tile btn pull-left defaultMenuButton plus"
-                 onclick="Navigation.load('file_management/testuploads');">
-            Te verwerken toetsen
-            </div></span>
-        <?php } else { ?>
-
-            <span class="blue">
-            <div class="tile btn pull-left defaultMenuButton plus" onclick="Popup.load('/tests/add', 1000);">
-            Toets construeren
-            </div></span>
-
-            <span class="blue"><div class="tile tile-surveilleren"
-                                    onclick="Navigation.load('/test_takes/surveillance');">
-            Surveilleren
-            </div></span>
-
-            <span class="blue"><div class="tile tile-nakijken" onclick="Navigation.load('/test_takes/to_rate');">
-            Nakijken
-            </div></span>
-        <?php } ?>
-    </div>
-
-</div>
-
 <script src="/js/confetti.min.js"></script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>

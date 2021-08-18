@@ -62,7 +62,7 @@
         }
         if($newPlayerAccess) {
             ?>
-        <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');">
+        <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>'); Loading.show()">
             <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
         </a>
         <?php } ?>
