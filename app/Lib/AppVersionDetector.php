@@ -88,8 +88,9 @@ class AppVersionDetector
                 "3.0.4",
                 "3.0.5",
                 "3.1.0",
+                "2.3",
             ],
-            "needsUpdate" => ["2.3"],
+            "needsUpdate" => [],
         ],
         "ChromeOS" => [
             "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
