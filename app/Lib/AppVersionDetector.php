@@ -89,7 +89,7 @@ class AppVersionDetector
                 "3.0.5",
                 "3.1.0",
             ],
-            "needsUpdate" => [],
+            "needsUpdate" => ["2.3"],
         ],
         "ChromeOS" => [
             "ok" => ["2.4", "2.5", "2.6", "2.8", "2.9"],
@@ -174,7 +174,7 @@ class AppVersionDetector
         if (!$headers) {
             $headers = self::getAllHeaders();
         }
-        
+
         /**
          * Format of TLCTestCorrectVersion header:
          *
