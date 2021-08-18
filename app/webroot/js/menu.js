@@ -214,13 +214,12 @@ var Menu = {
         activeMenu = activeMenu === null ? 'dashboard' : activeMenu;
 
         var subItemsWidth = 0;
-        document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function (tile) {
-            subItemsWidth += tile.offsetWidth;
+        $('#tiles .tile[menu=' + activeMenu + ']').each(function() {
+            subItemsWidth += this.offsetWidth;
         });
 
-        var menuItem = document.querySelector('#' + activeMenu);
-
-        var minimalOffset = document.querySelector('#menu .item:first-child').offsetLeft;
+        var menuItem = $('#' + activeMenu).get(0);
+        var minimalOffset = $('#menu .item:first-child').offsetLeft;
         var maxOffset = $('#tiles').width() - subItemsWidth;
         var calculatedOffset = menuItem.getBoundingClientRect().right - (menuItem.offsetWidth / 2) - (subItemsWidth / 2);
 
