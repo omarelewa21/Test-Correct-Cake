@@ -18,10 +18,11 @@ var Navigation = {
         User.surpressInactive = false;
 
         if (Navigation.onSurveillance) {
-            pusher.disconnect();
-            pusher = undefined;
-            console.log('Pusher disconnected.');
             Navigation.onSurveillance = false;
+            if (typeof (window.pusher) !== 'undefined') {
+                pusher.disconnect();
+                pusher = undefined;
+            }
         }
 
         $('#page_fade').fadeIn(function() {

@@ -808,7 +808,9 @@ var TestTake = {
                 $.get('/test_takes/set_taken/' + take_id,
                         function () {
                             Navigation.refresh();
-                            pusher.unsubscribe('TestTake.'+take_id);
+                            if (typeof(window.pusher) !== 'undefined') {
+                                pusher.unsubscribe('TestTake.'+take_id);
+                            }
                         }
                 );
             });
