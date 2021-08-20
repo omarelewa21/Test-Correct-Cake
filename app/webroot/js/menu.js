@@ -247,5 +247,24 @@ var Menu = {
             });
             $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
         }
+    },
+
+    initScrollForMenu: function() {
+        let width = 0;
+        let rightButton = document.querySelector('.slider-button.right');
+        let leftButton = document.querySelector('.slider-button.left');
+        let dashboard = document.querySelector('.dashboard');
+        let ctaBlockContainer = document.querySelector('.block-container');
+    },
+
+    scrollToLeft: function() {
+        ctaBlockContainer.scrollTo({left: 0, behavior: 'smooth'})
+        leftButton.classList.add('display-none');
+        rightButton.classList.remove('display-none');
+    },
+    scrollToRight: function() {
+        ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
+        rightButton.classList.add('display-none');
+        leftButton.classList.remove('display-none');
     }
 };

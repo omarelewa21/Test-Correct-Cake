@@ -106,7 +106,14 @@
 				</div>
 
 			</div>
-			<div id="menu"></div>
+			<div id="menu">
+                <div class="menu-scroll-button left display-none" onclick="Menu.scrollToLeft()">
+                    <?php echo $this->element('chevron'); ?>
+                </div>
+                <div class="menu-scroll-button right display-none" onclick="Menu.scrollToRight()">
+                    <?php echo $this->element('chevron'); ?>
+                </div>
+            </div>
 		</div>
 
 		<div id="tiles" class="highlight"></div>
