@@ -3378,7 +3378,7 @@ msgid "Vandaag geen geplande toetsen"
 msgstr "No scheduled tests today"
 
 msgid "Nu maken"
-msgstr "Create now"
+msgstr "Take test now"
 
 msgid "Er zijn nog geen cijfers bekend."
 msgstr "No grades are available yet."
