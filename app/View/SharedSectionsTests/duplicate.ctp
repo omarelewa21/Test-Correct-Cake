@@ -52,7 +52,7 @@
             Popup.closeLast();
         },
         onfailure: function (result) {
-            console.log(result);
+            // console.log(result);
 
             for (var i = result.length - 1; i >= 0; i--) {
                 Notify.notify(result[i], "error");

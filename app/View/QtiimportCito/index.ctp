@@ -78,7 +78,7 @@
 <script>
 
     function handleQtiImportResponse(data){
-        console.log(data);
+        // console.log(data);
         clearTimeout(wistjedatjeTimer);
       jQuery('#QtiImportBlock').html((data));
     };
@@ -150,7 +150,7 @@
                         var teacherSubjects = teachers[authorId]['subject_ids'];
                         subjectSelect.find('option').remove();
                         jQuery.each(subjects, function (key, s) {
-                            console.log(s)
+                            // console.log(s)
                             if (teacherSubjects.includes(s.id)) {
                                 subjectSelect.append('<option value="' + s.id + '">' + s.name + '</option>');
                             }

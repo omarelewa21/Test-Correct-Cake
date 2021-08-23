@@ -154,6 +154,6 @@
             }
         );
 
-        console.log(classes);
+        // console.log(classes);
     }).change();
 </script>

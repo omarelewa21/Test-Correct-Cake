@@ -88,9 +88,9 @@
 
 <script type="text/javascript">
 
-    console.log('here');
-    console.log(typeof isIpad);
-    console.log(typeof isiPad == typeof undefined);
+    // console.log('here');
+    // console.log(typeof isIpad);
+    // console.log(typeof isiPad == typeof undefined);
 
     if(typeof isiPad == typeof undefined) {
         isiPad = false;

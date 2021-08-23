@@ -327,3 +327,56 @@
 .alignItemsCenter {
     align-items: center;
 }
+
+
+.dashboard .notes .terms-and-conditions {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard .notes .terms-and-conditions .tabs {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
+    margin: 0;
+}
+
+.dashboard .notes .terms-and-conditions .tabs .tab:first-child {
+    margin: 0 4px 0 0;
+    border-top-left-radius: 0;
+}
+
+.dashboard .notes .terms-and-conditions .tabs .tab:last-child {
+    margin: 0 0 0 4px;
+    border-top-right-radius: 0;
+}
+
+.dashboard .notes .terms-and-conditions .tabs .tab{
+    flex-grow: 1;
+    height: 10px;
+    border-radius: 5px;
+    margin: 0 4px;
+    background-color: var(--teacher-Highlight-primary);
+    position: relative;
+}
+
+.dashboard .notes .terms-and-conditions .tabs .tab span {
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    font-weight: bold;
+    right: 0;
+    width: max-content;
+}
+
+.dashboard .notes .terms-and-conditions .tabs .tab:first-child span {
+    left: 4px;
+}
+
+span.note {
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--note);
+}

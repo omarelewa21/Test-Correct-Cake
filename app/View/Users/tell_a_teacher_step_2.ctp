@@ -146,7 +146,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 },
                 method: 'POST',
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#popup_' + Popup.index).html(data);
                 }
             })

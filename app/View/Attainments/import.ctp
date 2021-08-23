@@ -31,7 +31,7 @@
 <script>
 
     function handleAttainmentsImportResponse(data){
-        console.log(data);
+        // console.log(data);
         clearTimeout(wistjedatjeTimer);
       jQuery('#AttainmentsImportBlock').html((data));
     };

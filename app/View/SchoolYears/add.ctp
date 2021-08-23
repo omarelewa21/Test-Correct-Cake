@@ -34,7 +34,7 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 
-                console.log(result);
+                // console.log(result);
 
                 setTimeout(function() {
                     Popup.load('/school_years/add_period/' + result.uuid, 400);

@@ -4,6 +4,7 @@ if(empty($results['test_participants'])) {
 }else{
     ?>
     <table class="table table-striped">
+        <div style="display: none"><input type="hidden" value="<?=$currentIndex?>" id="currentIndex"></div>
         <tr>
             <th><?= __("Student")?></th>
             <th><?= __("Cijfer")?></th>

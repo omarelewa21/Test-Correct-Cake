@@ -44,6 +44,7 @@ if($totalScore === 0){
 
     <div class="block">
         <div class="block-head"><?= __("Normering")?></div>
+        <div style="display: none"><input type="hidden" id="hiddenIndex" name="hiddenIndex" value="0"></div>
         <div class="block-content">
             <table class="table table-striped">
                 <tr>

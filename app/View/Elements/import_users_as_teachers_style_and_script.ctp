@@ -378,6 +378,9 @@
                                 if (field.name === 'Externe code' && hasSameUserNameDifferentExternalIdSameSchoollocation) {
                                     return;
                                 }
+                                if (field.name === 'Externe code' ) {
+                                    return 'De Externe code is verplicht!, (conflicten gemarkeerd in rood).';
+                                }
 
                                 return '<?= __("De kolom [")?>' + field.name + '<?= __("] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).")?>';
                             })

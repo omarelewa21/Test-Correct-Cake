@@ -18,7 +18,7 @@ var TestTake = {
 
     startHeartBeat: function (callback, interval) {
         if (callback == 'active') {
-            console.log('startheartbeat');
+            // console.log('startheartbeat');
             if (!TestTake.active) {
                 TestTake.atTestStart();
             } else {
@@ -56,15 +56,9 @@ var TestTake = {
 
                         if (TestTake.heartBeatCallback == 'planned' && response.take_status == 3) {
                             $('#waiting').slideUp();
-                            if(Core.isChromebook() && !isFullScreen() && Core.inApp == true){
-                                // $('#waiting').slideUp();
-                                // if(Core.inApp == true){
-                                    $('#chromebook-menu-notice-container-inapp').show();
-                                    // TestTake.startScreenSizeListenerForChromebookApp();
-                                    clearInterval(TestTake.heartBeatInterval);
-                                // } else {
-                                //     $('#chromebook-menu-notice-container-notinapp').show();
-                                // }
+                            if(Core.isChromebook() && !isFullScreen() && Core.inBrowser == false){
+                                $('#chromebook-menu-notice-container-inapp').show();
+                                clearInterval(TestTake.heartBeatInterval);
                                 $('#chromebook-menu-notice-container').slideDown();
                             } else {
                                 $('#chromebook-menu-notice-container').slideUp();
@@ -157,7 +151,7 @@ var TestTake = {
       }
     },
     markBackground: function () {
-        console.log('mark background');
+        // console.log('mark background');
         if (!TestTake.alert) {
             $('#test_progress').css({
                 'background': '#294409'
@@ -658,10 +652,7 @@ var TestTake = {
     },
 
     doIHaveAGoodApp: function() {
-        if(window.navigator.userAgent.indexOf('CrOS') == -1) {
-            return false;
-        }
-        Core.appType = 'Chromebook';
+        var response = false;
         $.ajax({
             url: '/test_takes/get_header_session',
             cache: false,
@@ -670,18 +661,17 @@ var TestTake = {
             async: false,
             success: function(data) {
                 if(data == 'NEEDSUPDATE' || data == 'OK') {
-                    Core.inApp = true;
+                    response = true;
                 }
             }
         });
-
-        return Core.inApp;
+        return response;
 
     },
 
     loadTake: function (take_id, makebutton) {
-        if (Core.inApp || this.doIHaveAGoodApp()) {
-            this.redirectToTest(take_id, makebutton, Core.inApp);
+        if (this.doIHaveAGoodApp()) {
+            this.redirectToTest(take_id, makebutton, true);
         } else {
             var that = this;
             Loading.show();
@@ -691,11 +681,12 @@ var TestTake = {
                     return;
                 }
                 Loading.hide();
-                if(Core.appType === 'Chromebook') {
-                    Notify.notify($.i18n("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"),'error');
-                } else {
-                    Notify.notify($.i18n("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"), "error");
+                if(Core.inBrowser){
+                    Notify.notify($.i18n("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"), "error",10000);
+                }else{
+                    Notify.notify($.i18n("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"),'error',10000);
                 }
+
             });
         }
     },
@@ -817,6 +808,9 @@ var TestTake = {
                 $.get('/test_takes/set_taken/' + take_id,
                         function () {
                             Navigation.refresh();
+                            if (typeof(window.pusher) !== 'undefined') {
+                                pusher.unsubscribe('TestTake.'+take_id);
+                            }
                         }
                 );
             });
@@ -863,14 +857,34 @@ var TestTake = {
     },
 
     normalizationPreview: function (take_id) {
+        this.setNormalizationIndex();
         $(".groupquestion_child").prop( "disabled", false );
         $.post('/test_takes/normalization_preview/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
+                    if($(response).find('#currentIndex').val()!=$('#TestTakeNormalizationForm').find('#hiddenIndex').val()){
+                        return;
+                    }
                     $('#divPreview').html(response);
                     $(".groupquestion_child").prop( "disabled", true );
                 }
         );
+    },
+    normalizationIndex: function() {
+        if($('#TestTakeNormalizationForm').length==0){
+            return 0;
+        }
+        if($('#TestTakeNormalizationForm').find('#hiddenIndex').length==0){
+            return 0;
+        }
+        return $('#TestTakeNormalizationForm').find('#hiddenIndex').val();
+    },
+    setNormalizationIndex: function() {
+        if($('#TestTakeNormalizationForm').find('#hiddenIndex').length==0){
+            return 0;
+        }
+        $('#TestTakeNormalizationForm').find('#hiddenIndex').val(parseInt($('#TestTakeNormalizationForm').find('#hiddenIndex').val())+1);
+        return $('#TestTakeNormalizationForm').find('#hiddenIndex').val();
     },
     handleGroupQuestionSkip: function(checkbox,group_question_id,take_id){
         var checked = $(checkbox).is(':checked');
@@ -933,7 +947,7 @@ var TestTake = {
                 }
             },
             error: function(response) {
-                console.dir(response);
+                // console.dir(response);
                 alert('error');
             },
         });
@@ -975,7 +989,7 @@ var TestTake = {
                 }
             },
             error: function(response) {
-                console.dir(response);
+                // console.dir(response);
                 alert('error');
             }
         });
@@ -1048,45 +1062,45 @@ var TestTake = {
         Intense = new IntenseWrapper({
             api_key: "api_key", // This is a public key which will be provided by Intense.
             app: "name of the app that implements Intense. example: TC@1.0.0",
-            debug: true // If true, all debug data will be written to console.log().
+            debug: true // If true, all debug data will be written to // console.log().
         }).onCallibrated(function(type) {
             document.getElementById('typecalibration_complete_button').classList.add('primary-button');
         }).onError(function(e, msg) {
 
             // So far, the only available value for 'msg' is 'unavailable', meaning that the given interface/method cannot be used.
-            // If no error handler is registered, all errors will be written to console.log.
+            // If no error handler is registered, all errors will be written to // console.log.
 
             switch(e) {
                 case 'start':
-                    console.log('Intense: Could not start recording because it was '+msg);
+                    // console.log('Intense: Could not start recording because it was '+msg);
                     break;
                 case 'pause':
-                    console.log('Intense: Could not pause recording because it was '+msg);
+                    // console.log('Intense: Could not pause recording because it was '+msg);
                     break;
                 case 'resume':
-                    console.log('Intense: Could not resume recording because it was '+msg);
+                    // console.log('Intense: Could not resume recording because it was '+msg);
                     break;
                 case 'end':
-                    console.log('Intense: Could not end recording because it was '+msg);
+                    // console.log('Intense: Could not end recording because it was '+msg);
                     break;
                 case 'network':
-                    console.log('Intense: Could not send data over network because it was '+msg);
+                    // console.log('Intense: Could not send data over network because it was '+msg);
                     break;
                 default:
-                    console.log('Intense: Unknown error occured!');
+                    // console.log('Intense: Unknown error occured!');
             }
 
         }).onData(function(data) {
             // This function is called when data is sent to the Intense server. data contains the data that is being sent.
-            console.log('Data sent to Intense', data);
+            // console.log('Data sent to Intense', data);
         }).onStart(function() {
-            console.log('Intense started recording');
+            // console.log('Intense started recording');
         }).onPause(function() {
-            console.log('Intense paused recording');
+            // console.log('Intense paused recording');
         }).onResume(function() {
-            console.log('Intense resumed recording');
+            // console.log('Intense resumed recording');
         }).onEnd(function() {
-            console.log('Intense ended recording');
+            // console.log('Intense ended recording');
         });
 
         var widthForPopup =  $(window).width() < 1400 ? $(window).width() : 1400;
@@ -1141,7 +1155,7 @@ function onchange(evt) {
         document.body.className = this[hidden] ? "hidden" : "visible";
     }
     if (this[hidden] && typeof Core !== "undefined") {
-        console.log('lostfocus');
+        // console.log('lostfocus');
         Core.lostFocus();
     }
 }
@@ -1167,7 +1181,7 @@ function isFullScreen(){
 var fullscreentimer;
 function checkfullscreen() {
     if (!isFullScreen()) {
-        console.log('hand in from checkfullscreen');
+        // console.log('hand in from checkfullscreen');
         Core.lostFocus();
     }
 }
@@ -1206,7 +1220,7 @@ function checkPageFocus() {
     if (!parent.skip) {
         if (!document.hasFocus()) {
             if (!notifsent) {  // checks for the notifcation if it is already sent to the teacher
-                console.log('lost focus from checkPageFocus');
+                // console.log('lost focus from checkPageFocus');
                 Core.lostFocus();
                 notifsent = true;
             }

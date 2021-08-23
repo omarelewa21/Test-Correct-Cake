@@ -226,7 +226,6 @@ class FileManagementController extends AppController {
         if ($this->request->is('post')) {
             
             $data = $this->request->data['FileTest'];
-            
             // capture filepond filesubmit
             If (!isset($data['education_level_id'])) {
 
@@ -244,20 +243,20 @@ class FileManagementController extends AppController {
                 }
                 
                 if ($error) {
-                echo "
-                <script>
-                    window.parent.handleUploadError('" . $response . "');
-                </script>
-                ";
-            } else {
-
-                echo "
-                    <div id='response'>" . $response . "</div>
+                    echo "
                     <script>
-                        window.parent.handleUploadResponse(document.getElementById('response').outerHTML);
+                        window.parent.handleUploadError('" . $response . "');
                     </script>
-                ";
-            }
+                    ";
+                } else {
+
+                    echo "
+                        <div id='response'>" . $response . "</div>
+                        <script>
+                            window.parent.handleUploadResponse(document.getElementById('response').outerHTML);
+                        </script>
+                    ";
+                }
                 
                 return true;
                 
@@ -266,7 +265,6 @@ class FileManagementController extends AppController {
             }
 
             $data['file'] = [];
-
             // useless checks
             $error = false;
             if (!isset($data['education_level_id'])) {
@@ -357,7 +355,8 @@ class FileManagementController extends AppController {
         $maxFileUpload = HelperFunctions::getInstance()->getMaxFileUploadSize();
         $this->set('max_file_upload_size', $maxFileUpload);
         $this->set('readable_max_upload_size', HelperFunctions::getInstance()->formatBytes($maxFileUpload));
-        $this->set('form_id', md5(time()));
+        //$this->set('form_id', md5(time()));
+        $this->set('form_id', $this->FileService->getFormId());
         $this->set('school_location_id', $school_location_id);
         $this->set('user_uuid', AuthComponent::user('uuid'));
     }

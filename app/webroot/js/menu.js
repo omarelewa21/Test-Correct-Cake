@@ -21,7 +21,7 @@ var Menu = {
                     $(this).addClass('active');
                     $('#tiles .tile[menu=' + Menu.menuTmp + ']').show();
                     $('#tiles').show();
-                    $('#tiles').stop().animate({
+                    $('#tiles').stop(true, true).animate({
                         'top': '98px',
                         'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menuTmp)
                     });
@@ -29,7 +29,7 @@ var Menu = {
                     if (!$(this).find('.withActiveHover')) {
                         $(this).addClass('noItemHover');
                     }
-                    $('#tiles').stop().animate({
+                    $('#tiles').stop(true, true).animate({
                         'top': '0'
                     });
                 }
@@ -37,7 +37,7 @@ var Menu = {
                 window.menuTimer = setTimeout(function () {
                     if ($('#tiles .tile[menu=' + Menu.menuTmp + ']').length === 0 && Menu.menu !== null) {
                         Menu.hideInactiveTiles();
-                        $('#tiles').stop().animate({
+                        $('#tiles').stop(true, true).animate({
                             'top': '98px',
                             'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
                         });
@@ -50,18 +50,19 @@ var Menu = {
             $('#tiles .tile').hide();
             $('#tiles').mouseover(function () {
                 clearTimeout(window.menuTimer);
-                $(this).stop().animate({
+                $(this).stop(true, true).animate({
                     'top': '98px'
                 });
             }).mouseout(function () {
                 window.menuTimer = setTimeout(function () {
                     Menu.hideInactiveTiles();
                     if (Menu.shouldRemoveTilesBar()) {
-                        $('#tiles').stop().animate({
-                            'top':0
+                        $('#tiles').stop(true, true).animate({
+                            'top':0,
+                            'height':'48px'
                         });
                     } else {
-                        $('#tiles').stop().animate({
+                        $('#tiles').stop(true, true).animate({
                             'padding-left': Menu.getPaddingForActiveMenuItem(Menu.menu)
                         });
                     }
@@ -213,13 +214,12 @@ var Menu = {
         activeMenu = activeMenu === null ? 'dashboard' : activeMenu;
 
         var subItemsWidth = 0;
-        document.querySelectorAll('#tiles .tile[menu=' + activeMenu + ']').forEach(function (tile) {
-            subItemsWidth += tile.offsetWidth;
+        $('#tiles .tile[menu=' + activeMenu + ']').each(function() {
+            subItemsWidth += this.offsetWidth;
         });
 
-        var menuItem = document.querySelector('#' + activeMenu);
-
-        var minimalOffset = document.querySelector('#menu .item:first-child').offsetLeft;
+        var menuItem = $('#' + activeMenu).get(0);
+        var minimalOffset = $('#menu .item:first-child').get(0).offsetLeft;
         var maxOffset = $('#tiles').width() - subItemsWidth;
         var calculatedOffset = menuItem.getBoundingClientRect().right - (menuItem.offsetWidth / 2) - (subItemsWidth / 2);
 
@@ -242,7 +242,7 @@ var Menu = {
         Menu.hideInactiveTiles();
         if (!Menu.shouldRemoveTilesBar()) {
             $('#tiles').show();
-            $('#tiles').stop().animate({
+            $('#tiles').stop(true, true).animate({
                 'top': '98px'
             });
             $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});

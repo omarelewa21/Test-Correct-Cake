@@ -60,8 +60,9 @@
 			$.i18n().locale = '$current_lang'
 			</script>";
 		 ?>
-		<!-- ----------------------------------- -->
 		
+
+		<script type="text/javascript" src="/js/polyfill.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/jquery.datetimepicker.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/popup.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/definitions.js?<?= time() ?>"></script>
@@ -143,7 +144,6 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
-
 		</script>
 	</body>
 </html>

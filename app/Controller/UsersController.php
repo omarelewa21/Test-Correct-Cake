@@ -430,9 +430,16 @@ class UsersController extends AppController
 
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanel();
                 $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
+
+                $this->handleGeneralTermsForUser();
             }
 
             if ($role['name'] == 'Student') {
+                $headers = AppVersionDetector::getAllHeaders();
+                $isInBrowser = AppVersionDetector::isInBrowser($headers);
+                $this->set('isInBrowser', $isInBrowser);
+                $needsUpdateDeadline = AppVersionDetector::needsUpdateDeadline($headers);
+                $this->set('needsUpdateDeadline', $needsUpdateDeadline);
                 $view = "welcome_student";
 //                if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //                    if($this->check('AppOS') && $this->read('AppOS') === 'windows') {
@@ -2132,5 +2139,35 @@ class UsersController extends AppController
     public function prevent_logout()
     {
         $this->set('opened_by_user', $this->params['url']['opened_by_user']);
+    }
+
+    public function terms_and_conditions($daysLeft)
+    {
+        $this->set('closeable', $daysLeft > 0);
+    }
+
+    public function accept_general_terms()
+    {
+        $this->autoRender = false;
+        $this->UsersService->setGeneralTermsLogAcceptedAt(getUUID(AuthComponent::user(), 'get'));
+    }
+
+    private function handleGeneralTermsForUser()
+    {
+        $userGeneralTermsLog = $this->UsersService->getGeneralTermsLog(AuthComponent::user('uuid'));
+        $shouldDisplayGeneralTermsNotification = $userGeneralTermsLog != null && $userGeneralTermsLog['accepted_at'] == null;
+        $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
+        if ($shouldDisplayGeneralTermsNotification) {
+            $firstRequest = new DateTime($userGeneralTermsLog['created_at']);
+
+            $requestExpirationDate = $firstRequest->setTimezone(new DateTimeZone(Configure::read('Config.timezone')))->setTime(0,0);
+            $requestExpirationDate->add(new DateInterval('P14D'));
+
+            $today = new DateTime('now');
+            $today->setTime(0,0);
+
+            $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff($today)->format('%d') : 0;
+            $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
+        }
     }
 }

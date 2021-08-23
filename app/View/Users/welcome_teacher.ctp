@@ -16,6 +16,24 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <?php if ($shouldDisplayGeneralTermsNotification) {?>
+        <div class="notification warning terms-and-conditions">
+            <div class="title">
+                <h5 style=""><?= __("Op de dienst Test-Correct zijn de algemene voorwaarden van toepassing")?></h5>
+            </div>
+            <div class="body mb20">
+                <p style="display: block; margin-bottom: 1rem;"><?= __("Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert.")?></p>
+                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
+            </div>
+            <div class="flex tabs">
+                <?php for($i = 13; $i >= 0; $i--) {?>
+                    <div class="flex tab" style="<?= $i >= $generalTermsDaysLeft ? 'background-color:var(--teacher-Highlight-dark)' : '' ?>">
+                        <span><?= $i == $generalTermsDaysLeft ? 'nog '. $generalTermsDaysLeft . ($generalTermsDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
+                    </div>
+                <?php } ?>
+            </div>
+        </div>
+        <?php } ?>
         <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification warning">
             <div class="title">
@@ -64,9 +82,11 @@ if ($wizard_steps) {
             <div class="title">
                 <h5><?= __("Welkom op het Test-Correct platform!")?></h5>
             </div>
+            <?php if ($maintenanceNotification) { ?>
             <div class="body">
                 <?= $maintenanceNotification ?>
             </div>
+            <?php } ?>
         </div>
     </div>
 
@@ -335,39 +355,8 @@ if ($wizard_steps) {
     ?>
 </div>
 
-
-<h1 style="text-align:center; margin-top: 50px;"><?= __("Meteen naar:")?></h1>
-<div style="text-align:center;">
-    <div style="display:inline-block;">
-        <?php
-        if (AuthComponent::user('isToetsenbakker') == true) {
-            ?>
-            <span class="blue">
-            <div class="tile btn pull-left defaultMenuButton plus"
-                 onclick="Navigation.load('file_management/testuploads');">
-                 <?= __("Te verwerken toetsen")?>
-            </div></span>
-        <?php } else { ?>
-
-            <span class="blue">
-            <div class="tile btn pull-left defaultMenuButton plus" onclick="Popup.load('/tests/add', 1000);">
-            <?= __("Toets construeren")?>
-            </div></span>
-
-            <span class="blue"><div class="tile tile-surveilleren"
-                                    onclick="Navigation.load('/test_takes/surveillance');">
-            <?= __("Surveilleren")?>
-            </div></span>
-
-            <span class="blue"><div class="tile tile-nakijken" onclick="Navigation.load('/test_takes/to_rate');">
-            <?= __("Nakijken")?>
-            </div></span>
-        <?php } ?>
-    </div>
-
-</div>
-
 <script src="/js/confetti.min.js"></script>
+<script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
     if('<?= $language?>' == 'eng'){
         document.getElementById("demo").style.display = 'none';
@@ -736,6 +725,15 @@ if ($wizard_steps) {
             '</div>'
         )
     }
+    <?php if($shouldDisplayGeneralTermsNotification) { ?>
+    setTimeout(function () {
+        if (<?= $generalTermsDaysLeft ?> == 0) {
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
+        }
+
+    }, 1000);
+    <?php } ?>
+
 </script>
 <style>
     .block .block-content {

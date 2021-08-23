@@ -164,7 +164,7 @@
                     for(i=1;i<=maxYears;i++){
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
                     };
-                    console.log('changed');
+                    // console.log('changed');
                 });
         });
         fileClassSetupRun = true;

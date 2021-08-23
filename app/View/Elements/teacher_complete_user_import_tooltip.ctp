@@ -45,7 +45,7 @@
                                   "
     >
         <p style="margin-top: .5rem"><?= __("De importgegevens worden elke dag automatisch geüpdate vanuit")?> <?= $type ? $type : __("het LVS systeem") ?>. <?= __("Hieruit kunnen wij niet altijd alle informatie verkrijgen. Daarom vragen we om deze compleet te maken")?>.</p>
-        <a href="https://support.test-correct.nl/lvs_koppeling" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px"><?= __("Lees meer hierover op de Kennisbank")?></span><?php echo $this->element('arrow') ?></a>
+        <a href="https://support.test-correct.nl/knowledge/lvs_koppeling" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px">Lees meer hierover op de Kennisbank</span><?php echo $this->element('arrow') ?></a>
     </div>
     <script>
         function showTooltip() {

@@ -16,6 +16,18 @@ msgstr "Tribal class level"
 msgid "Deze grafiek kon niet worden gegegereer"
 msgstr "This graph could not be generated"
 
+msgid "De versie van de app die je gebruikt wordt per"
+msgstr "The version of the app you are using is per"
+
+msgid "niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch."
+msgstr "no longer allowed. Update the app as soon as possible. If you have installed the app via an app store, the update is usually automatic."
+
+msgid "De versie van de app die je gebruikt wordt binnenkort niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch."
+msgstr "The version of the app you are using will soon no longer be allowed. Update the app as soon as possible. If you have installed the app via an app store, the update is usually automatic."
+
+msgid "Lees meer."
+msgstr "Read more."
+
 msgid "Geen, gemeenschap is eindklant"
 msgstr "None, community is end customer"
 
@@ -4069,6 +4081,45 @@ msgstr "Video popup"
 
 msgid "Let op!"
 msgstr "Pay attention!"
+
+msgid "De versie van de app die je gebruikt wordt niet meer toegelaten. Update de app om toetsen te kunnen maken."
+msgstr "The version of the app you are using is no longer allowed. Update the app to be able to create tests."
+
+msgid "Op de dienst Test-Correct zijn de algemene voorwaarden van toepassing"
+msgstr "The general terms and conditions apply to the Test-Correct service"
+
+msgid "Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert."
+msgstr "We ask you to read and accept our terms and conditions. This is necessary to continue using our products. You have 14 days to read and accept it. After that, your account will be frozen until they are accepted."
+
+msgid "Lees en accepteer onze algemene voorwaarden"
+msgstr "Read and accept our terms and conditions"
+
+msgid "algemene voorwaarden"
+msgstr "Terms and Conditions"
+
+msgid "heeft ontvangen, gelezen en begrepen."
+msgstr "has received, read and understood."
+
+msgid "Later lezen en accepteren"
+msgstr "Read and accept later"
+
+msgid "Op de dienst Test-Correct zijn de algemene voorwaarden van The Teach & Learn Company B.V./Test-Correct van toepassing. Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken."
+msgstr "The terms and conditions of The Teach & Learn Company B.V./Test-Correct apply to the Test-Correct service. We ask you to read and accept our terms and conditions. This is necessary to continue using our products."
+
+msgid "14 dagen zijn verstreken. Accepteer de algemene voorwaarden om Test-Correct verder te gebruiken"
+msgstr "14 days have passed. Accept the terms and conditions to continue using Test-Correct"
+
+msgid "Door middel van het accepteren bevestigt u dat u de"
+msgstr "By accepting you confirm that you"
+
+msgid "Accepteren"
+msgstr "Accept"
+
+msgid " dag"
+msgstr " day"
+
+msgid " dagen"
+msgstr " days"
 
 msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei."
 msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021. If the version number at the top right of yours turns red, please update the app before May 1."

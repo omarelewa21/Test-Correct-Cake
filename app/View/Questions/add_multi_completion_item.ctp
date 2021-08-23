@@ -109,10 +109,10 @@
 
         var code = $('#QuestionQuestion').redactor('code.get');
 
-        console.log(code);
+        // console.log(code);
         code = code.replace('-' + $('#multiSelecRightOption').val(), result);
-        console.log(code);
-        console.log(result);
+        // console.log(code);
+        // console.log(result);
         $('#QuestionQuestion').redactor('code.set', code);
         Popup.closeLast();
     }

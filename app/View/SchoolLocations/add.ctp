@@ -177,7 +177,7 @@
             }else{
                 $("#SchoolLocationExternalMainCode").attr('disabled','disabled');
             }
-            console.log($(this).val());
+            // console.log($(this).val());
         });
         checkSchoolLocationSsoToggle();
     });

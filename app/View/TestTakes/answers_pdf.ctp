@@ -128,9 +128,7 @@ foreach($participants as $participant) {
 
                 if($question['type'] == 'DrawingQuestion') {
                     ?>
-                    <img src="<?=htmlspecialchars_decode($answerJson['answer']) . 
-                    /* Include parameter pdf=sha1('true) to anonymous auth with the imageload */
-                    '&pdf=5ffe533b830f08a0326348a9160afafc8ada44db'?>" width="100%" />
+                    <img src="<?=htmlspecialchars_decode($answerJson['answer'])?>" width="100%" />
                 <?
                 }
             }

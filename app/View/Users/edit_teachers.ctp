@@ -132,7 +132,7 @@
             },
             failure: function(data) {
                 alert('error');
-                console.dir(data);
+                // console.dir(data);
             }
         });
 

@@ -36,6 +36,7 @@
 
 <br clear="all" />
 
+<script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script type="text/javascript">
     $('#widget_planned').load('/test_takes/widget_planned');
     $('#widget_rated').load('/test_takes/widget_rated');

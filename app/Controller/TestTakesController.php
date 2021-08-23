@@ -11,6 +11,7 @@ App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('HelperFunctions','Lib');
 App::uses('CarouselMethods', 'Trait');
 
+
 // App::uses('TestsService', 'Lib/Services');
 
 class TestTakesController extends AppController {
@@ -701,11 +702,12 @@ class TestTakesController extends AppController {
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
+        $this->set('currentIndex',0);
     }
 
     public function normalization_preview($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
-
+        $this->set('currentIndex',$this->request->data['hiddenIndex']);
         $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
         $this->set('results', $results);
     }
@@ -895,6 +897,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -913,14 +922,6 @@ class TestTakesController extends AppController {
 
         $answer['answer'] = $answer;
 
-        if ($answer['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
-        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');
@@ -971,6 +972,12 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($rating['answer']);
+//                $drawingAnswer = json_decode($rating['answer']['json'])->answer;
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1032,9 +1039,8 @@ class TestTakesController extends AppController {
     }
 
     public function take2019($take_id, $question_index = null, $clean = false) {
-
+        $this->isNotInBrowser($take_id);
         $questions = false;
-
         $participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
         $participant_status = false;
@@ -1102,6 +1108,7 @@ class TestTakesController extends AppController {
     }
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
+        $this->isNotInBrowser($take_id);
         return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
 
     }
@@ -1215,6 +1222,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                    $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing2019';
                 break;
 
@@ -1460,6 +1474,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer['answer']);
+//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1474,15 +1495,6 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
-        }
-
-        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
         }
 
         $this->set('rating', $answer);
@@ -2215,11 +2227,24 @@ class TestTakesController extends AppController {
 
         $participants = $this->TestTakesService->getParticipants($take_id);
 
+        foreach ($participants as $key1 => $participant) {
+            foreach ($participant['answers'] as $key2 => $answer) {
+                if (array_key_exists('answer', json_decode($answer['json'], true))) {
+                    $jsonAnswerData = json_decode($answer['json'], true);
+                    if ($transformedUrl = $this->transformDrawingAnswer($answer, true)) {
+                        $jsonAnswerData['answer'] = $transformedUrl['url'];
+                    } else {
+                        $jsonAnswerData['answer'] = $jsonAnswerData['answer'].'&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
+                    }
+                    $participants[$key1]['answers'][$key2]['json'] = json_encode($jsonAnswerData);
+                }
+            }
+        }
+
         $view = new View($this, false);
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
-
         $html = $view->render('answers_pdf', 'pdf');
 
         $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
@@ -2285,6 +2310,15 @@ class TestTakesController extends AppController {
     public function get_header_session() {
         // exit(json_encode($this->Session->read('headers')));
         exit($this->Session->read("TLCVersionCheckResult"));
+    }
+
+    public function is_in_browser() {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        if($isInBrowser){
+            exit('inBrowser');
+        }
+        exit('notInBrowser');
     }
 
     public function archive($take_id) {

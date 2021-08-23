@@ -46,6 +46,15 @@ class FileManagementService extends BaseService {
         return $r;
     }
 
+    public function getFormId(){
+        $r = $this->Connector->getRequest('/filemanagement/form_id', []);
+
+        if(!$r){
+            $r = json_decode($this->Connector->getLastResponse(),true);
+        }
+        return $r;
+    }
+
     public function getData($params = []) {
         $response = $this->Connector->getRequest('/filemanagement', $params);
         if($response === false){
@@ -57,7 +66,6 @@ class FileManagementService extends BaseService {
 
     public function uploadTest($school_location_id,$data)
     {
-
         foreach($data['file'] as $key => $file){
             $data["files[$key]"] = new CURLFILE($file['tmp_name'],$file['type'],$file['name']);
         }

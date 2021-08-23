@@ -177,7 +177,7 @@ if($isTeacher && $analysis && count($analysis)){
         var url = '/test_takes/export_to_rtti/' + take_id;
         $.post(url, function(response, status){
             
-            console.log(response);
+            // console.log(response);
             
             response = JSON.parse(response);
 

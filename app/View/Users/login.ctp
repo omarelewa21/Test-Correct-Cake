@@ -73,7 +73,7 @@
 </div>
 
 <div class="popup-footer">
-    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct') || substr_count(Router::url( $this->here, true ),'testportal2.test-correct')){ ?>
         <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
             <i class="fa fa-check mr5"></i> Entree
         </a>
@@ -194,7 +194,7 @@
             confirm : $('.btnLogin'),
             enterConfirm : ['#UserPassword','#UserCaptchaString'],
             onsuccess : function(result) {
-                if(Core.inApp && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
+                if(!Core.inBrowser && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
                     Notify.notify(result.message);
                 }
 

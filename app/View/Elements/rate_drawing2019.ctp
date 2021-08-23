@@ -2,6 +2,9 @@
   $answer = $rating['answer']['json'];
   // var_dump($rating);
   $answer = json_decode($answer, true);
+    if (isset($drawing_url)) {
+        $answer['answer'] = $drawing_url['url'];
+    }
 ?>
 
 <img src="<?= $answer['answer'] ?>" />

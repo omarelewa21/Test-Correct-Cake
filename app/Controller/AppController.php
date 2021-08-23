@@ -91,14 +91,7 @@ class AppController extends Controller
         }
 
         $this->Auth->allow('get_header_session');
-
-        if (!($this->Auth->loggedIn())) {
-            $language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-
-            if($language !=	 'nl'){
-                $this->Session->write('Config.language', 'eng');
-            }
-        }
+        $this->Auth->allow('is_in_browser');
     }
 
     protected function handleHeaderCheck($headers)
@@ -122,6 +115,7 @@ class AppController extends Controller
         $this->Session->write('TLCOs', $version['os']);
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+
 
         $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
     }
@@ -190,6 +184,30 @@ class AppController extends Controller
         }
     }
 
+    public function isNotInBrowser($take_id) {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+        if ($versionCheckResult == AllowedAppType::NOTALLOWED && !$isInBrowser) {
+            http_response_code(403);
+            exit();
+        }
+        $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
+        if ($isInBrowser && !$allowedBrowserTesting) {
+            $message = 'Let op! Student probeert de toets te starten vanuit de console. id:'.AuthComponent::user('id').';';
+            BugsnagLogger::getInstance()->setMetaData([
+                'versionCheckResult' => $versionCheckResult,
+                'headers' => $headers,
+                'user_id' => AuthComponent::user('id'),
+                'user_uuid' => AuthComponent::user('uuid')
+            ])->notifyException(
+                new StudentFraudDetectionException("Console hack error: (". $message .")")
+            );
+            http_response_code(403);
+            exit();
+        }
+    }
+
     public function getallheaders()
     {
         $headers = array();
@@ -240,6 +258,18 @@ class AppController extends Controller
     function is_eu_numeric($value)
     {
         return (preg_match ("/^(-){0,1}([0-9]+)(,[0-9][0-9][0-9])*([0-9]){0,1}([0-9]*)$/", $value) == 1);
+    }
+
+    function transformDrawingAnswer($answer, $base64 = false)
+    {
+        $drawingAnswer = json_decode($answer['json'])->answer;
+
+        if (strpos($drawingAnswer, 'http') === false) {
+            $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer, $base64);
+            $this->set('drawing_url', $drawingAnswerUrl);
+            return $drawingAnswerUrl;
+        }
+        return false;
     }
 
 }
