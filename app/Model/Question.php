@@ -73,7 +73,7 @@ class Question extends AppModel
                 case 'CompletionQuestion':
 
                     if($question['subtype'] == 'multi') {
-                        $html = "<p><strong><?= __('Streep de verkeerde antwoorden door')?></strong></p>";
+                        $html = "<p><strong>" . "<?= __('Streep de verkeerde antwoorden door')?>" . "</strong></p>";
                         $questionText = $question['question'];
 
 
@@ -94,7 +94,7 @@ class Question extends AppModel
 
                         $html .= "<p>" . $questionText . "</p>";
                     }else{
-                        $html = "<p><strong><?= __('Noteer welke woorden op de plekken horen')?></strong></p>";
+                        $html = "<p><strong>" . "<?= __('Noteer welke woorden op de plekken horen')?>" . "</strong></p>";
                         $questionText = $question['question'];
                         for ($i = 1; $i < 100; $i++) {
                             $questionText = str_replace('[' . $i . ']', ':______________', $questionText);

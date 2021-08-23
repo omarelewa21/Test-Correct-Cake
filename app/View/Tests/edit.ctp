@@ -132,7 +132,7 @@
         </div>
         <div class="popup-footer">
             <div>
-                <a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick=""><?= __("Bevestigen")?></a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="showEditView()">Annuleren</a>
+                <a href="#" id="edit_test_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick=""><?= __("Bevestigen")?></a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="showEditView()"><?=__("Annuleren")?></a>
             </div>
         </div>
 </span>

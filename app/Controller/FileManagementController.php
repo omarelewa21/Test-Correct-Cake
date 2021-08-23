@@ -415,7 +415,6 @@ class FileManagementController extends AppController {
         if ($this->UsersService->hasRole('Account manager')) {
             $view = 'load_classuploads_accountmanager';
         }
-
         $data = $this->FileService->getData($params);
 
         $this->log($data, 'debug');

@@ -13,6 +13,12 @@ msgstr "Something went wrong"
 msgid "Niveau stamklassen"
 msgstr "Tribal class level"
 
+msgid "Deze grafiek kon niet worden gegegereer"
+msgstr "This graph could not be generated"
+
+msgid "Geen, gemeenschap is eindklant"
+msgstr "None, community is end customer"
+
 msgid "Import gegevens van klassen zijn incompleet"
 msgstr "Import data of classes is incomplete"
 
@@ -1499,14 +1505,26 @@ msgstr "Tests"
 msgid "Code"
 msgstr "Code"
 
+msgid "De importgegevens van klassen zijn bijna compleet"
+msgstr "Class import data is almost complete"
+
+msgid "De geïmporteerde gegevens van klassen uit"
+msgstr "The imported data of classes from"
+
+msgid "zijn bijna compleet. Vul de gegevens aan om de klassen te kunnen inplannen voor toetsen."
+msgstr "are almost complete. Complete the information to be able to schedule the classes for tests."
+
+msgid "zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen."
+msgstr "are almost complete. Fill in the information so that the teachers can get started."
+
 msgid "Behandelaar"
 msgstr "Practitioner"
 
 msgid "Nieuw"
 msgstr "New"
 
-msgid "In Behandeling"
-msgstr "Processing"
+msgid "In behandeling"
+msgstr "In Processing"
 
 msgid "Behandeling gepauzeerd"
 msgstr "Processing paused"
@@ -1533,7 +1551,7 @@ msgid "Meerdere toetsen aanwezig"
 msgstr "Multiple tests present"
 
 msgid "Onduidelijke opdracht"
-msgstr "Unclear taks"
+msgstr "Unclear assignment"
 
 msgid "Afgerond"
 msgstr "Done"
@@ -1678,6 +1696,12 @@ msgstr "School location"
 
 msgid "Klik om te wijzigen"
 msgstr "Click to change"
+
+msgid "Klik om een notitie toe te toevoegen"
+msgstr "Click to add a note"
+
+msgid "Geüpload toetsbestand"
+msgstr "Uploaded test file"
 
 msgid "Deze vraag afsluiten"
 msgstr "Close this question"
@@ -2439,10 +2463,10 @@ msgid "Licenties"
 msgstr "Licenses"
 
 msgid "Startdatum"
-msgstr "Start date"
+msgstr "Created at from"
 
 msgid "Einddatum"
-msgstr "End date"
+msgstr "Created at to"
 
 msgid "Licentiepakket aangemaakt"
 msgstr "License package created"
@@ -2979,7 +3003,31 @@ msgid "Toetsen afnemen"
 msgstr "Take tests"
 
 msgid "Inhaaltoetsen"
-msgstr "make up tests"
+msgstr "Catch up tests"
+
+msgid "Type aanpassing kiezen"
+msgstr "Choose adjustment type"
+
+msgid "Wil je de huidige toets verbeteren, of een nieuwe toets maken"
+msgstr "Do you want to improve the current test, or create a new test"
+
+msgid "Ik verbeter de huidige toets"
+msgstr "I'm correcting the current test"
+
+msgid "Het exemplaar waarin u nu werkt wordt aangepast"
+msgstr "The instance you are currently working in is being modified"
+
+msgid "de vraagitems zullen in de itembank alleen vindbaar zijn op het niveau, het jaar en het vak dat u nu gekozen heeft"
+msgstr "the question items will only be found in the item bank at the level, year and subject you have now chosen"
+
+msgid "Ik ben met een nieuwe toets bezig"
+msgstr "I'm working on a new test"
+
+msgid "Er wordt een duplicaat gemaakt van de toets, de aanpassingen zijn te zien in het duplicaat"
+msgstr "A duplicate is made of the test, the changes can be seen in the duplicate"
+
+msgid "de vraagitems zullen in de itembank vindbaar zijn op het niveau, het jaar en het vak dat in het origineel stond aangegeven én die u nu gekozen heeft"
+msgstr "the question items will be found in the item bank at the level, year and course that was indicated in the original and that you have now chosen"
 
 msgid "Gepland van"
 msgstr "Scheduled from"
@@ -3117,10 +3165,10 @@ msgid "Nakijken starten"
 msgstr "Start checking"
 
 msgid "Alles per vraag"
-msgstr "Everything per question"
+msgstr "All per question"
 
 msgid "Alles per Student"
-msgstr "Everything per Student"
+msgstr "All per student"
 
 msgid "Steekproef"
 msgstr "Sample"
@@ -3925,6 +3973,9 @@ msgstr "Pay attention! Your account has not yet been verified."
 
 msgid "Je account is nog niet geverifieerd in ons systeem. Heb je geen mail ontvangen?"
 msgstr "Your account has not yet been verified in our system. Have you not received an email?"
+
+msgid "Importgegevens voor klassen compleet maken"
+msgstr "Complete import data for classes"
 
 msgid "Stuur verificatiemail opnieuw"
 msgstr "Send verification email again"

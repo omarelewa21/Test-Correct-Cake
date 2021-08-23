@@ -1,7 +1,6 @@
 <link href="/css/filepond.css" rel="stylesheet">
 <div class="popup-head"><?= __("Toets uploaden")?></div>
 <div class="popup-content">
-
     <div class=" " id="FileTestBlock">
         <div id="FileTestContainer" style="display:none;padding: 8px;">
         <?= __("Een moment dit kan even duren...")?>

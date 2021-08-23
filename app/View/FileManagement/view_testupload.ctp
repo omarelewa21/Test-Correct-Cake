@@ -36,7 +36,7 @@
                 <th width="12%"><?= __("Status")?></th>
                 <td width="38%" class="editable" onClick="makeEditable();">
                     <div class="editable_view">
-                        <?=$file['status']['name']?>
+                        <?=__($file['status']['name'])?>
                     </div>
                     <div class="editable_elements">
                         <select name="file_management_status_id" class="editable_input" style="width:100%">
@@ -45,7 +45,7 @@
                                 if($status['id'] == $file['status']['id']){
                                     $selected = "selected = 'selected'";
                                 }
-                                echo "<option value='".$status['id']."' ".$selected.">".$status['name']."</option>";
+                                echo "<option value='".$status['id']."' ".$selected.">".__($status['name'])."</option>";
                             }
                         ?>
                         </select>

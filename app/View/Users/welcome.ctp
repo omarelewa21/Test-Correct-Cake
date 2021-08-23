@@ -7,7 +7,7 @@
                         <h5 style=""><?= __("De importgegevens van klassen zijn bijna compleet")?></h5>
                     </div>
                     <div class="body">
-                        <p><?= __("De geïmporteerde gegevens van klassen uit")?> <?= $lvs_type ?> <?= __("zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen")?>.</p>
+                        <p><?= __("De geïmporteerde gegevens van klassen uit")?> <?= $lvs_type ?> <?= __("zijn bijna compleet. Vul de gegevens aan zodat de docenten aan de slag kunnen.")?></p>
                         <a class="text-button" onclick="displayCompleteUserImport()"><?= __("Importgegevens voor klassen compleet maken")?>.<?php echo $this->element('arrow') ?></a>
                     </div>
                 </div>
