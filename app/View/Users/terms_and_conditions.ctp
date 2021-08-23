@@ -47,12 +47,12 @@
                 style="font-size: 18px; align-items: center;padding:0!important;"
                 onclick="Popup.closeLast()">
             <?= $this->element('arrow-left') ?>
-            <span style="margin-left: 10px">Later lezen en accepteren</span>
+            <span style="margin-left: 10px"><?= __("Later lezen en accepteren")?></span>
         </button>
         <?php }?>
         <button id="terms_accept_btn" class="button button-md cta-button" style="cursor: pointer;margin-left:auto;"
                 onclick="userAcceptedTerms()">
-            Accepteren
+                <?= __("Accepteren")?>
         </button>
     </div>
 </div>
