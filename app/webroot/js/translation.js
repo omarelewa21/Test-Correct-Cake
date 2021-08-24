@@ -65,6 +65,7 @@ $.i18n().load({
       
       //loadpaint.js
       'Er ging iets mis':'Something went wrong',
+      'U gebruikt een verouderde browser. Deze browser wordt niet meer ondersteund vanaf 2 april 2021. Kies een andere browser of doe een upgrade':'You are using an outdated browser. This browser will no longer be supported from April 2, 2021. Please choose another browser or upgrade',
 
       //popup.js
       'Annuleren':'Cancel',
@@ -209,6 +210,7 @@ $.i18n().load({
       'Selecteer maximaal ':'Selecteer maximaal ',
       ' optie':' optie',
       ' opties':' opties',
+      'U gebruikt een verouderde browser. Deze browser wordt niet meer ondersteund vanaf 2 april 2021. Kies een andere browser of doe een upgrade':'U gebruikt een verouderde browser. Deze browser wordt niet meer ondersteund vanaf 2 april 2021. Kies een andere browser of doe een upgrade',
       'Toets gedwongen ingeleverd':'Toets gedwongen ingeleverd',
       'Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.':'Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.',
       'Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd':'Het is niet toegestaan om een screenshot te maken, we hebben je docent hierover geïnformeerd',
