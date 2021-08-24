@@ -16,6 +16,16 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <div class="notification info">
+            <div class="title">
+                <h5>Welkom op het Test-Correct platform!</h5>
+            </div>
+            <?php if ($maintenanceNotification) { ?>
+                <div class="body">
+                    <?= $maintenanceNotification ?>
+                </div>
+            <?php } ?>
+        </div>
         <?php if ($shouldDisplayGeneralTermsNotification) {?>
         <div class="notification warning terms-and-conditions">
             <div class="title">
@@ -62,8 +72,7 @@ if ($wizard_steps) {
                 </div>
             </div>
             <?php
-        } else if (AuthComponent::user('is_temp_teacher')) {
-            ?>
+        } else if (AuthComponent::user('is_temp_teacher')) { ?>
             <div class="notification warning">
                 <div class="title">
                     <?php echo $this->element('warning', array('color' => 'var(--teacher-Highlight-dark)')) ?><h5
@@ -79,16 +88,7 @@ if ($wizard_steps) {
                 </div>
             </div>
         <?php } ?>
-        <div class="notification info">
-            <div class="title">
-                <h5>Welkom op het Test-Correct platform!</h5>
-            </div>
-            <?php if ($maintenanceNotification) { ?>
-            <div class="body">
-                <?= $maintenanceNotification ?>
-            </div>
-            <?php } ?>
-        </div>
+
         <div class="notification info">
             <div class="title">
                 <h5>19 augustus 2021: Belangrijke updates</h5>
