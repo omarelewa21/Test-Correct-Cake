@@ -106,13 +106,14 @@
 				</div>
 
 			</div>
-			<div id="menu">
-                <div class="menu-scroll-button left display-none" onclick="Menu.scrollToLeft()">
-                    <?php echo $this->element('chevron'); ?>
-                </div>
-                <div class="menu-scroll-button right display-none" onclick="Menu.scrollToRight()">
-                    <?php echo $this->element('chevron'); ?>
-                </div>
+            <div class="menu-scroll-button left">
+                <span></span>
+                <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
+            </div>
+			<div id="menu"></div>
+            <div class="menu-scroll-button right">
+                <span></span>
+                <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
             </div>
 		</div>
 

@@ -44,6 +44,10 @@ var Menu = {
                     }
                 }, 500);
             });
+            Menu.initScrollForMenu();
+            window.addEventListener('resize', function () {
+                Menu.initScrollForMenu();
+            });
         });
 
         $('#tiles').load('/users/tiles', function () {
@@ -139,6 +143,9 @@ var Menu = {
     dashboardButtonAction: function () {
         Navigation.home();
         Menu.clearActiveMenu('dashboard');
+        $('#menu').animate({
+            scrollLeft: 0
+        }, 1000);
     },
 
     clearActiveMenu: function(placeholder) {
@@ -250,21 +257,62 @@ var Menu = {
     },
 
     initScrollForMenu: function() {
-        let width = 0;
-        let rightButton = document.querySelector('.slider-button.right');
-        let leftButton = document.querySelector('.slider-button.left');
-        let dashboard = document.querySelector('.dashboard');
-        let ctaBlockContainer = document.querySelector('.block-container');
+        var menu = $('#menu');
+        var totalMenuWidth = menu.outerWidth(true) - menu.innerWidth() + 40;
+
+        $('#menu .item').each(function(item) {
+            totalMenuWidth += this.offsetWidth;
+        });
+
+        if (totalMenuWidth >= menu.width()) {
+            $('.menu-scroll-button').css('display', 'flex');
+            menu.css('paddingRight','30px');
+            Menu.startVisibilityTimer();
+        } else {
+            $('.menu-scroll-button').hide();
+            menu.css('paddingRight','0');
+        }
+
+        $('.menu-scroll-button.left').on('click', function () {
+            menu.animate({
+                scrollLeft: 0
+            }, 1000);
+            Menu.startVisibilityTimer();
+        });
+        $('.menu-scroll-button.right').on('click', function () {
+            menu.animate({
+                scrollLeft: totalMenuWidth
+            }, 1000);
+            Menu.startVisibilityTimer();
+        });
+
     },
 
-    scrollToLeft: function() {
-        ctaBlockContainer.scrollTo({left: 0, behavior: 'smooth'})
-        leftButton.classList.add('display-none');
-        rightButton.classList.remove('display-none');
-    },
-    scrollToRight: function() {
-        ctaBlockContainer.scrollTo({left: width, behavior: 'smooth'})
-        rightButton.classList.add('display-none');
-        leftButton.classList.remove('display-none');
+    startVisibilityTimer: function() {
+        var activeEl = $('.item.active');
+
+        setTimeout(function() {
+            if(activeEl.length !== 0 && !isElementInViewport(activeEl)) {
+                $('#menu').animate({
+                    scrollLeft: activeEl.offset().left - activeEl.parent().offset().left
+                }, 1000);
+                Menu.getPaddingForActiveMenuItem(activeEl.get(0).id);
+            }
+        }, 5000);
+
+        function isElementInViewport (el) {
+            if (typeof jQuery === "function" && el instanceof jQuery) {
+                el = el[0];
+            }
+
+            var rect = el.getBoundingClientRect();
+
+            return (
+                rect.top >= 0 &&
+                rect.left >= 0 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+            );
+        }
     }
 };
