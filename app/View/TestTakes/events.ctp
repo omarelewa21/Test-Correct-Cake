@@ -31,6 +31,7 @@
                 'Force shutdown' => 'Applicatie geforceerd afgesloten',
                 'Other window on top' => 'Ander venster op de voorgrond',
                 'Used unallowed Ctrl key combination' => 'De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.',
+                'Illegal programs' => 'De student heeft een app in de achtergrond open die niet toegestaan is'
             ];
 
             foreach($events as $event) {
