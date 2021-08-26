@@ -3,6 +3,7 @@ var Menu = {
     menuTmp: null,
     menu: null,
     tile: null,
+    visibilityTimeout: null,
 
     initialise: function () {
 
@@ -277,21 +278,22 @@ var Menu = {
             menu.animate({
                 scrollLeft: 0
             }, 1000);
+            clearTimeout(this.visibilityTimeout);
             Menu.startVisibilityTimer();
         });
         $('.menu-scroll-button.right').on('click', function () {
             menu.animate({
                 scrollLeft: totalMenuWidth
             }, 1000);
+            clearTimeout(this.visibilityTimeout);
             Menu.startVisibilityTimer();
         });
 
     },
 
     startVisibilityTimer: function() {
-        var activeEl = $('.item.active');
-
-        setTimeout(function() {
+        this.visibilityTimeout = setTimeout(function() {
+            var activeEl = $('.item.active');
             if(activeEl.length !== 0 && !isElementInViewport(activeEl)) {
                 $('#menu').animate({
                     scrollLeft: activeEl.offset().left - activeEl.parent().offset().left
@@ -299,17 +301,18 @@ var Menu = {
                 Menu.getPaddingForActiveMenuItem(activeEl.get(0).id);
             }
         }, 5000);
-
         function isElementInViewport (el) {
             if (typeof jQuery === "function" && el instanceof jQuery) {
                 el = el[0];
             }
 
             var rect = el.getBoundingClientRect();
-
+            console.log(rect.top >= 0 && rect.left >= 70 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */);
             return (
                 rect.top >= 0 &&
-                rect.left >= 0 &&
+                rect.left >= 70 &&
                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
             );
