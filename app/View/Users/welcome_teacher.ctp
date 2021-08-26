@@ -16,6 +16,16 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <div class="notification info">
+            <div class="title">
+                <h5>Welkom op het Test-Correct platform!</h5>
+            </div>
+            <?php if ($maintenanceNotification) { ?>
+                <div class="body">
+                    <?= $maintenanceNotification ?>
+                </div>
+            <?php } ?>
+        </div>
         <?php if ($shouldDisplayGeneralTermsNotification) {?>
         <div class="notification warning terms-and-conditions">
             <div class="title">
@@ -62,8 +72,7 @@ if ($wizard_steps) {
                 </div>
             </div>
             <?php
-        } else if (AuthComponent::user('is_temp_teacher')) {
-            ?>
+        } else if (AuthComponent::user('is_temp_teacher')) { ?>
             <div class="notification warning">
                 <div class="title">
                     <?php echo $this->element('warning', array('color' => 'var(--teacher-Highlight-dark)')) ?><h5
@@ -79,15 +88,21 @@ if ($wizard_steps) {
                 </div>
             </div>
         <?php } ?>
+
         <div class="notification info">
             <div class="title">
-                <h5>Welkom op het Test-Correct platform!</h5>
+                <h5>19 augustus 2021: Belangrijke updates</h5>
             </div>
-            <?php if ($maintenanceNotification) { ?>
             <div class="body">
-                <?= $maintenanceNotification ?>
+                <p>Om de veiligheid en stabiliteit van onze digitale toetsen te kunnen blijven waarborgen is het
+                    noodzakelijk dat leerlingen/studenten werken met een actuele versie van de Test-Correct App.</p><br/>
+                <p>Vanaf 19 augustus 2021 worden verouderde apps niet meer ondersteund. Een student kan dan met een
+                    verouderde app geen toetsen meer maken. (Zie <a href="https://support.test-correct.nl/knowledge/inbrowser-toetsen" target="_blank">browsertoetsen</a> voor een tijdelijk alternatief.)</p><br/>
+                <p>Vraag je studenten/leerlingen de meest recente versies van de app te downloaden via de App Store van
+                    hun
+                    besturingssysteem. Kijk <a href="https://www.test-correct.nl/student/" target="_blank">hier</a> voor een overzicht van de downloadlocaties.</p><br/>
+                <p>Meer informatie over de systeemvereisten van Test-Correct is <a href="https://support.test-correct.nl/knowledge/ondersteunde-browsers-besturingssystemen-en-test-correct-app-versies" target="_blank">hier</a> te vinden.</p>
             </div>
-            <?php } ?>
         </div>
     </div>
 
