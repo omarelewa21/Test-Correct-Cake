@@ -13,6 +13,9 @@ msgstr "Something went wrong"
 msgid "Niveau stamklassen"
 msgstr "Tribal class level"
 
+msgid "De demo sectie kan niet gewijzigd of verwijderd worden"
+msgstr "The demo section cannot be changed or deleted"
+
 msgid "Deze grafiek kon niet worden gegegereer"
 msgstr "This graph could not be generated"
 
@@ -1059,10 +1062,10 @@ msgid "Niveau jaar"
 msgstr "Year Level"
 
 msgid "Aangemaakt van"
-msgstr "Start from"
+msgstr "Created at from"
 
 msgid "Aangemaakt tot"
-msgstr "End at"
+msgstr "Created at to"
 
 msgid "Bron"
 msgstr "Source"
@@ -3922,6 +3925,9 @@ msgstr "Welcome to Test-Correct"
 
 msgid "Laatste cijfers"
 msgstr "Latest grades"
+
+msgid "Doorverwijs linkjes naar andere portals"
+msgstr "Refer links to other portals"
 
 msgid "Let op! Je gebruikt een oude versie van Test-Correct."
 msgstr "Pay attention! You are using an old version of Test-Correct."

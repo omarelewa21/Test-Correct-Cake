@@ -16,7 +16,7 @@ foreach($sections as $section) {
                 <span class="fa fa-list-ul"></span>
             </a>
             <?php } else { ?>
-            <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('De demo sectie kan niet gewijzigd of verwijderd worden','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('<?= __('De demo sectie kan niet gewijzigd of verwijderd worden')?>','error');">
                 <span class="fa fa-list-ul"></span>
             </a>
             <?php } ?>

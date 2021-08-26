@@ -4,16 +4,16 @@
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="160"><?= __("Vraag-items")?></th>
-                <td><?=$teacher['count_questions']?></td>
-                <th width="160"><?= __("Toets-items")?></th>
-                <td><?=$teacher['count_tests']?></td>
+                <th width="160"> <?= __("Vraag-items")?> </th>
+                <td> <?= ($teacher['count_questions'] != "<" ? $teacher['count_questions'] : " ") ?> </td>
+                <th width="160"> <?= __("Toets-items")?> </th>
+                <td> <?= ($teacher['count_tests'] != "<" ? $teacher['count_tests'] : " ") ?> </td>
             </tr>
             <tr>
                 <th width="160"><?= __("Afgenomen toetsen")?></th>
-                <td><?=$teacher['count_tests_taken']?></td>
+                <td> <?= ($teacher['count_tests_taken'] != "<" ? $teacher['count_tests_taken'] : " ") ?> </td>
                 <th width="160"><?= __("Besproken toetsen")?></th>
-                <td><?=$teacher['count_tests_discussed']?></td>
+                <td><?= ($teacher['count_tests_discussed'] != "<" ? $teacher['count_tests_discussed'] : " ") ?></td>
             </tr>
         </table>
     </div>
