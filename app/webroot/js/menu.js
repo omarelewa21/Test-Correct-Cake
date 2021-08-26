@@ -267,7 +267,8 @@ var Menu = {
 
         if (totalMenuWidth >= menu.width()) {
             $('.menu-scroll-button').css('display', 'flex');
-            menu.css('paddingRight','30px');
+            menu.css('paddingRight','40px');
+            clearTimeout(Menu.visibilityTimeout);
             Menu.startVisibilityTimer();
         } else {
             $('.menu-scroll-button').hide();
@@ -278,14 +279,14 @@ var Menu = {
             menu.animate({
                 scrollLeft: 0
             }, 1000);
-            clearTimeout(this.visibilityTimeout);
+            clearTimeout(Menu.visibilityTimeout);
             Menu.startVisibilityTimer();
         });
         $('.menu-scroll-button.right').on('click', function () {
             menu.animate({
                 scrollLeft: totalMenuWidth
             }, 1000);
-            clearTimeout(this.visibilityTimeout);
+            clearTimeout(Menu.visibilityTimeout);
             Menu.startVisibilityTimer();
         });
 
@@ -307,12 +308,10 @@ var Menu = {
             }
 
             var rect = el.getBoundingClientRect();
-            console.log(rect.top >= 0 && rect.left >= 70 &&
-                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
-                    rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */);
+
             return (
                 rect.top >= 0 &&
-                rect.left >= 70 &&
+                rect.left >= 35 &&
                 rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
             );
