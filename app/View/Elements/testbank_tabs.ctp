@@ -26,7 +26,7 @@
                     style="<?= $tab === 'cito' ? 'color:var(--primary);' : '' ?>"
                 <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled title="Binnenkort beschikbaar"' : '' ?>
             >
-                CITO toetsen
+                CITO Snelle Starttoets
             </button>
             <span style="display:flex;<?= $tab === 'cito' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
