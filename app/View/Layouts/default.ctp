@@ -106,7 +106,15 @@
 				</div>
 
 			</div>
+            <div class="menu-scroll-button left">
+                <span></span>
+                <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
+            </div>
 			<div id="menu"></div>
+            <div class="menu-scroll-button right">
+                <span></span>
+                <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
+            </div>
 		</div>
 
 		<div id="tiles" class="highlight"></div>

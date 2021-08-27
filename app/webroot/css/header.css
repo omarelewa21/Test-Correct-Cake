@@ -13,7 +13,7 @@
     height: 70px;
     margin: 10px;
     cursor: pointer;
-    z-index: 1;
+    z-index: 10;
 }
 
 #header #logo_2 {
@@ -374,10 +374,7 @@
 }
 
 @media screen and (max-width: 650px) {
-    #header #logo_2 {
-        transform: scale(.8);
-        margin-left: 75px;
-    }
+
 }
 @media screen and (max-width: 800px) {
     #header #top #user {
@@ -388,5 +385,20 @@
     }
     .action_icon_container span {
         display: none;
+    }
+    #header #logo_2 {
+        transform: scale(.8);
+        margin-left: 55px;
+    }
+
+    #header #logo_1 {
+        transform: scale(.75);
+        top: -20px;
+    }
+    #header #menu {
+        padding-left: 40px;
+    }
+    #header.blue #menu .item:first-child {
+        margin-left: 0;
     }
 }
