@@ -357,6 +357,8 @@ if ($wizard_steps) {
 
 <script src="/js/confetti.min.js"></script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>'; </script>
+
 <script>
     if('<?= $language?>' == 'eng'){
         document.getElementById("demo").style.display = 'none';

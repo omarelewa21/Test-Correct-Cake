@@ -88,7 +88,7 @@
 
 <div style="width:100%">
     <div class="block">
-        <div class="block-head">Doorverwijs linkjes naar andere portals
+        <div class="block-head"><?= __("Doorverwijs linkjes naar andere portals")?>
         </div>
         <div class="block-content" id="redirectContainer">
             <a href="https://portal.test-correct.nl/">live portal</a><br>
@@ -102,6 +102,7 @@
 <br clear="all" />
 
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>'; </script>
 <script>
     function deleteIp(ip,uuid){
         if(confirm('<?= __("Weet je zeker dat je het ip adres ")?>'+ip+'<?= __(" wil verwijderen?")?>')){

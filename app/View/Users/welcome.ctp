@@ -19,6 +19,8 @@
 <h1 style="text-align:center; margin-top: 200px;"><?= __("Welkom in Test-Correct")?></h1>
 
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>'; </script>
+
 <script>
     function displayCompleteUserImport() {
         Popup.load('users/school_manager_complete_user_import_main_school_class', 1080);

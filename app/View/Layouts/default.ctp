@@ -54,12 +54,17 @@
         <script src="/js/jquery_i18n/jquery.i18n.emitter.js?<?= time() ?>"></script>
         <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js?<?= time() ?>"></script>
 		<script src="/js/translation.js?<?= time() ?>"></script>
-		<?php 
+		<?php
+			$language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+			if($language !=	 'nl'){
+				$lang = 'eng';
+			}
+			else{
+				$lang = $language;
+			}  
 			$current_lang = CakeSession::read('Config.language');
-			echo "<script>
-			$.i18n().locale = '$current_lang'
-			</script>";
-		 ?>
+			echo "<script> $.i18n().locale = '$lang'; </script>";
+		?>
 		
 
 		<script type="text/javascript" src="/js/polyfill.js?<?= time() ?>"></script>
