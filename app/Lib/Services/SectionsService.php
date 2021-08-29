@@ -73,8 +73,26 @@ class SectionsService extends BaseService
         return $response;
     }
 
+    public function getSectionSubjectWithSectionId($section_id) {
+        $response = $this->Connector->getRequest('/subject/section/' . $section_id, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getBaseSubjects() {
         $response = $this->Connector->getRequest('/base_subject', ['mode' => 'list']);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function sectionBaseSubjectsList($section_id){
+        $response = $this->Connector->getRequest('/base_subject/' . $section_id , []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
