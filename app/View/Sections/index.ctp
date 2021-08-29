@@ -15,6 +15,8 @@
             <tr>
                 <th>Sectie</th>
                 <th>Schoollocaties</th>
+                <th>Vak</th>
+                <th>Categorie</th>
                 <th></th>
             </tr>
             </thead>
