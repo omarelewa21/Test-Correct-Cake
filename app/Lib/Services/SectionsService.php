@@ -92,7 +92,7 @@ class SectionsService extends BaseService
     }
 
     public function sectionBaseSubjectsList($section_id){
-        $response = $this->Connector->getRequest('/base_subject/' . $section_id , []);
+        $response = $this->Connector->getRequest('/section/base_subject/' . $section_id , []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
