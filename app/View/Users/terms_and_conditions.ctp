@@ -27,7 +27,7 @@
                 <div class="notification warning" style="padding: 4px;border-radius: 5px;">
                     <div style="display: flex;align-items: center;justify-content: center;">
                         <?= $this->element('warning') ?>
-                        <span style="font-size: 16px; font-weight: bold;margin-left: 10px; line-height: 22px">14 dagen zijn verstreken. Accepteer de algemene voorwaarden om Test-Correct verder te gebruiken</span>
+                        <span style="font-size: 16px; font-weight: 700;margin-left: 10px; line-height: 22px">14 dagen zijn verstreken. Accepteer de algemene voorwaarden om Test-Correct verder te gebruiken</span>
                     </div>
                 </div>
             </div>

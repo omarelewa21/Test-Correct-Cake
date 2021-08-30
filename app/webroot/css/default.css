@@ -434,7 +434,7 @@ div.block-content img {
 
 .import-label {
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 700;
     padding: 6px 8px;
     line-height: 12px;
     text-transform: uppercase;
@@ -527,5 +527,5 @@ div.block-content img {
     margin: 0;
     font-size: 1.75rem;
     line-height: 2rem;
-    font-weight: bold;
+    font-weight: 700;
 }
