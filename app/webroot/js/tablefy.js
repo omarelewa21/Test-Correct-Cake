@@ -18,6 +18,14 @@
             'hideEmpty' : false
         }, options );
 
+        window.addEventListener("resizeTable", function(evt) {
+            var containerEl = $(settings.container).get(0);
+            var theadHeight = parseInt($(settings.container).find('table:first thead').height());
+            var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
+            var tbodyHeight = evt.detail - paddingTop - theadHeight;
+            setScrollContainerHeight(tbodyHeight);
+        }, false);
+
         initialise();
     };
 
@@ -69,6 +77,7 @@
                     $('.fa-filter').parent().addClass('highlight');
                 }*/
             });
+
         }
         clearTbodyData();
         if(!settings.waitForFirstRunCallback) {
@@ -128,6 +137,7 @@
     }
 
     function setScrollContainerHeight(tbodyHeight) {
+
         if(typeof tbodyHeight !== 'undefined') {
             getScrollContainer().height(tbodyHeight);
         }
