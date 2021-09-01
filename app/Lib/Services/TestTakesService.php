@@ -883,4 +883,9 @@ class TestTakesService extends BaseService {
              []
          );
     }
+
+    public function getSurveillanceData()
+    {
+        return $response = $this->Connector->getRequest('/test_take/get_surveillance_data', []);
+    }
 }
