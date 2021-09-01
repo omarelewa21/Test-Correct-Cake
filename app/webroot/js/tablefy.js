@@ -1,3 +1,4 @@
+var resizeTableListenerActivated = false;
 (function ( $ ) {
 
     var settings = [];
@@ -18,13 +19,16 @@
             'hideEmpty' : false
         }, options );
 
-        window.addEventListener("resizeTable", function(evt) {
-            var containerEl = $(settings.container).get(0);
-            var theadHeight = parseInt($(settings.container).find('table:first thead').height());
-            var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
-            var tbodyHeight = evt.detail - paddingTop - theadHeight;
-            setScrollContainerHeight(tbodyHeight);
-        }, false);
+        if(resizeTableListenerActivated == false) {
+            window.addEventListener("resizeTable", function (evt) {
+                var containerEl = $(settings.container).get(0);
+                var theadHeight = parseInt($(settings.container).find('table:first thead').height());
+                var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
+                var tbodyHeight = evt.detail - paddingTop - theadHeight;
+                setScrollContainerHeight(tbodyHeight);
+            }, false);
+            resizeTableListenerActivated = true;
+        }
 
         initialise();
     };
