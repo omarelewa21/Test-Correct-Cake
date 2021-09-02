@@ -13,8 +13,8 @@
         settings = $.extend({
             'results' : 60,
             'page' : 1,
-            'sort' : '',
-            'direction' : 'down',
+            'sort' : 'id',
+            'direction' : 'desc',
             'hideEmpty' : false
         }, options );
 
@@ -31,8 +31,15 @@
 
             if(key != undefined) {
                 $(this).click(function() {
-                    settings.sort = key;
-                    afterSortOrFilter();
+                    if (!Loading.isLoading()) {
+                        if (settings.sort !== key) {
+                            settings.direction= 'desc';
+                        } else {
+                            settings.direction = settings.direction === 'desc' ? 'asc' : 'desc';
+                        }
+                        settings.sort = key;
+                        afterSortOrFilter();
+                    }
                 });
             }
         });
@@ -203,6 +210,7 @@
         $.post(settings.source,
             {
                 sort : settings.sort,
+                direction : settings.direction,
                 results : settings.results,
                 page : settings.page,
                 filters : $(settings.filters).serialize()
