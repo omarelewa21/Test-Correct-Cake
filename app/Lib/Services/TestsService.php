@@ -122,8 +122,13 @@ class TestsService extends BaseService {
 
     public function getTests($params)
     {
-
-        $params['order'] = ['id' => 'desc'];
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = ['id' => 'desc'];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
 
         $response = $this->Connector->getRequest('/test', $params);
         if($response === false){

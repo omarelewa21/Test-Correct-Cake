@@ -29,18 +29,8 @@
         $.each($(element).find('th'), function() {
             var key = $(this).attr('sortkey');
 
-            if(key != undefined) {
-                $(this).click(function() {
-                    if (!Loading.isLoading()) {
-                        if (settings.sort !== key) {
-                            settings.direction= 'desc';
-                        } else {
-                            settings.direction = settings.direction === 'desc' ? 'asc' : 'desc';
-                        }
-                        settings.sort = key;
-                        afterSortOrFilter();
-                    }
-                });
+            if (key != undefined) {
+                addEventHandlersToSortables($(this), key);
             }
         });
 
@@ -294,6 +284,41 @@
 
     function hideEmptyCols(table) {
 
+    }
+
+    function addEventHandlersToSortables(sortHeader, key) {
+        sortHeader.click(function () {
+            if (!Loading.isLoading()) {
+                if (settings.sort !== key) {
+                    settings.direction = 'desc';
+                    sortHeader.siblings().attr('sortdir', '');
+                    sortHeader.attr('sortdirhover', '');
+                } else {
+                    settings.direction = settings.direction === 'desc' ? 'asc' : 'desc';
+                }
+                settings.sort = key;
+                afterSortOrFilter();
+                sortHeader.attr('sortdir', settings.direction);
+                sortHeader.attr('sortdirhover', '');
+            }
+        })
+            .mouseover(function () {
+                sortHeader.siblings().attr('sortdirhover', '');
+                if (key !== settings.sort) {
+                    sortHeader.attr('sortdirhover', 'desc');
+                }
+
+                if (key === settings.sort) {
+                    sortHeader.attr('sortdir', '');
+                    sortHeader.attr('sortdirhover', settings.direction === 'desc' ? 'asc' : 'desc');
+                }
+            })
+            .mouseleave(function () {
+                sortHeader.attr('sortdirhover', '');
+                if (key === settings.sort) {
+                    sortHeader.attr('sortdir', settings.direction);
+                }
+            });
     }
 
 }( jQuery ));

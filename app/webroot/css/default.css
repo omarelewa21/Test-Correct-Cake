@@ -529,3 +529,42 @@ div.block-content img {
     line-height: 2rem;
     font-weight: bold;
 }
+
+.tablefied th[sortkey] {
+    position: relative;
+    padding-right: 20px;
+    cursor: pointer;
+}
+.tablefied th[sortkey]:hover {
+    color: var(--primary);
+}
+.tablefied th[sortkey]:after {
+    content: '';
+    position: relative;
+    left: 5px;
+    border: 5px solid transparent;
+}
+
+.tablefied th[sortkey][sortdir='asc']:after {
+    top: 12px;
+    border-top-color: black;
+}
+.tablefied th[sortkey][sortdir='desc']:after {
+    bottom: 10px;
+    border-bottom-color: black;
+}
+.tablefied th[sortkey][sortdir='asc']:hover:after {
+    border-top-color: var(--primary);
+}
+.tablefied th[sortkey][sortdir='desc']:hover:after {
+    border-bottom-color: var(--primary);
+}
+
+.tablefied th[sortkey][sortdirhover='asc']:after {
+    top: 12px;
+    border-top-color: var(--primary);
+}
+.tablefied th[sortkey][sortdirhover='desc']:after {
+    bottom: 10px;
+    border-bottom-color: var(--primary);
+}
