@@ -545,26 +545,26 @@ div.block-content img {
     border: 5px solid transparent;
 }
 
-.tablefied th[sortkey][sortdir='asc']:after {
+.tablefied th[sortkey][sortdir='desc']:after {
     top: 12px;
     border-top-color: black;
 }
-.tablefied th[sortkey][sortdir='desc']:after {
+.tablefied th[sortkey][sortdir='asc']:after {
     bottom: 10px;
     border-bottom-color: black;
 }
-.tablefied th[sortkey][sortdir='asc']:hover:after {
+.tablefied th[sortkey][sortdir='desc']:hover:after {
     border-top-color: var(--primary);
 }
-.tablefied th[sortkey][sortdir='desc']:hover:after {
+.tablefied th[sortkey][sortdir='asc']:hover:after {
     border-bottom-color: var(--primary);
 }
 
-.tablefied th[sortkey][sortdirhover='asc']:after {
+.tablefied th[sortkey][sortdirhover='desc']:after {
     top: 12px;
     border-top-color: var(--primary);
 }
-.tablefied th[sortkey][sortdirhover='desc']:after {
+.tablefied th[sortkey][sortdirhover='asc']:after {
     bottom: 10px;
     border-bottom-color: var(--primary);
 }

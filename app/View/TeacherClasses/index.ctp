@@ -18,7 +18,7 @@
         <table class="table table-striped" id="classesTable">
             <thead>
             <tr>
-                <th>Naam</th>
+                <th sortkey="name">Naam</th>
                 <th></th>
             </tr>
             </thead>

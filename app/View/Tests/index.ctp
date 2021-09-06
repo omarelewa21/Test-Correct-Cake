@@ -146,7 +146,7 @@
                 <th sortkey="name">Titel</th>
                 <th width="70" style="text-align: center" sortkey="question_count">Vragen</th>
                 <th width="170" sortkey="subject">Vak</th>
-                <th width="170" sortkey="author_id">Auteur</th>
+                <th width="170" sortkey="author">Auteur</th>
                 <th width="170" sortkey="kind">Type</th>
                 <th width="150" sortkey="education_level">Niveau</th>
                 <th width="100">&nbsp;</th>

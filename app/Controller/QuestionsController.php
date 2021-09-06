@@ -1048,7 +1048,8 @@ class QuestionsController extends AppController
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $this->set('test_id', $data['owner_id']);
         $this->set('tests', $tests['data']);
     }

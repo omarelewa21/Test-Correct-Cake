@@ -27,7 +27,8 @@ class TeacherClassesController extends AppController
 
     public function load()
     {
-        $params = $this->request->data;
+        $params = $this->handleRequestOrderParameters($this->request->data);
+
         $params = array_merge([
             'filter' => ['current_school_year' => 1],
         ],$params);
@@ -78,7 +79,8 @@ class TeacherClassesController extends AppController
 
     public function load_school_location_classes()
     {
-        $params = $this->request->data;
+        $params = $this->handleRequestOrderParameters($this->request->data);
+
         $params = array_merge(
             array('mode' => 'all_classes_for_location'),
             $params
