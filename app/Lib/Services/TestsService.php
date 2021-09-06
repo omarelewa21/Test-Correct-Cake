@@ -60,9 +60,6 @@ class TestsService extends BaseService {
 
     public function getCitoTests($params)
     {
-
-        $params['order'] = ['id' => 'desc'];
-
         $response = $this->Connector->getRequest('/cito_test', $params);
         if($response === false){
             return $this->Connector->getLastResponse();
@@ -73,9 +70,6 @@ class TestsService extends BaseService {
 
     public function getSharedSectionsTests($params)
     {
-
-        $params['order'] = ['name' => 'desc'];
-
         $response = $this->Connector->getRequest('/shared_section_test', $params);
         if($response === false){
             return $this->Connector->getLastResponse();
