@@ -197,10 +197,15 @@ var Core = {
 			if(fooH != null) {
 				conH -= fooH;
 			}
-
+			if($(this).find('.block-content').css('height')!=(conH - 300) + 'px'){
+				var evt = new CustomEvent("resizeTable", {detail: (conH - 300)});
+				window.dispatchEvent(evt);
+			}
 			$(this).find('.block-content').css({
 				'height' : (conH - 300) + 'px'
 			});
+
+
 		});
 	},
 
