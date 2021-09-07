@@ -345,6 +345,10 @@ var Loading = {
 
 	hide : function() {
 		$('#loading').fadeOut();
+	},
+
+	isLoading : function() {
+		return $('#loading')[0].style.display === 'block';
 	}
 };
 

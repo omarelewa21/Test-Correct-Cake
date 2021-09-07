@@ -2300,7 +2300,8 @@ class TestTakesController extends AppController {
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $msgArray = [];
         $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
         $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);

@@ -529,3 +529,29 @@ div.block-content img {
     line-height: 2rem;
     font-weight: bold;
 }
+
+.tablefied th[sortkey] {
+    position: relative;
+    cursor: pointer;
+    transition: ease-in-out 150ms;
+}
+.tablefied th[sortkey]:hover {
+    color: var(--primary);
+}
+.tablefied th[sortkey]:active {
+    color: var(--primary-hover);
+}
+
+.sorting-chevron {
+    display: none;
+    position: relative;
+    left: 5px;
+    top: 2px;
+    transition: ease-in-out 150ms;
+}
+.sorting-chevron.desc{
+    transform: scale(.75) rotate(90deg);
+}
+.sorting-chevron.asc{
+    transform: scale(.75) rotate(-90deg);
+}

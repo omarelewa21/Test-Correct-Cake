@@ -272,4 +272,16 @@ class AppController extends Controller
         return false;
     }
 
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
 }
