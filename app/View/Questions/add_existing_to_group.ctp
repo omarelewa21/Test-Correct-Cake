@@ -94,7 +94,7 @@
         <script type="text/javascript">
             $('#questionsTable').tablefy({
                 'source' : '/questions/add_existing_question_to_group_list',
-                'filters' : $('#QuestionAddExistingForm'),
+                'filters' : $('#QuestionAddExistingToGroupForm'),
                 'container' : $('#questionsContainter')
             });
         </script>
