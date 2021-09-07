@@ -532,39 +532,26 @@ div.block-content img {
 
 .tablefied th[sortkey] {
     position: relative;
-    padding-right: 20px;
     cursor: pointer;
+    transition: ease-in-out 150ms;
 }
 .tablefied th[sortkey]:hover {
     color: var(--primary);
 }
-.tablefied th[sortkey]:after {
-    content: '';
+.tablefied th[sortkey]:active {
+    color: var(--primary-hover);
+}
+
+.sorting-chevron {
+    display: none;
     position: relative;
     left: 5px;
-    border: 5px solid transparent;
+    top: 2px;
+    transition: ease-in-out 150ms;
 }
-
-.tablefied th[sortkey][sortdir='desc']:after {
-    top: 12px;
-    border-top-color: black;
+.sorting-chevron.desc{
+    transform: scale(.75) rotate(90deg);
 }
-.tablefied th[sortkey][sortdir='asc']:after {
-    bottom: 10px;
-    border-bottom-color: black;
-}
-.tablefied th[sortkey][sortdir='desc']:hover:after {
-    border-top-color: var(--primary);
-}
-.tablefied th[sortkey][sortdir='asc']:hover:after {
-    border-bottom-color: var(--primary);
-}
-
-.tablefied th[sortkey][sortdirhover='desc']:after {
-    top: 12px;
-    border-top-color: var(--primary);
-}
-.tablefied th[sortkey][sortdirhover='asc']:after {
-    bottom: 10px;
-    border-bottom-color: var(--primary);
+.sorting-chevron.asc{
+    transform: scale(.75) rotate(-90deg);
 }

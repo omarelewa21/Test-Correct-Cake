@@ -29,7 +29,7 @@
         $.each($(element).find('th'), function() {
             var key = $(this).attr('sortkey');
 
-            if (key != undefined) {
+            if (key !== undefined) {
                 addEventHandlersToSortables($(this), key);
             }
         });
@@ -287,38 +287,53 @@
     }
 
     function addEventHandlersToSortables(sortHeader, key) {
+
         sortHeader.click(function () {
             if (!Loading.isLoading()) {
+                var chevron = $('#'+key+'-chev');
+                $('.sorting-chevron').hide();
+
                 if (settings.sort !== key) {
                     settings.direction = 'desc';
-                    sortHeader.siblings().attr('sortdir', '');
-                    sortHeader.attr('sortdirhover', '');
                 } else {
                     settings.direction = settings.direction === 'desc' ? 'asc' : 'desc';
                 }
+                chevron.show();
+                chevron.get(0).classList.remove('asc', 'desc');
+                chevron.get(0).classList.add(settings.direction);
                 settings.sort = key;
                 afterSortOrFilter();
-                sortHeader.attr('sortdir', settings.direction);
-                sortHeader.attr('sortdirhover', '');
             }
         })
             .mouseover(function () {
-                sortHeader.siblings().attr('sortdirhover', '');
-                if (key !== settings.sort) {
-                    sortHeader.attr('sortdirhover', 'desc');
-                }
+                var chevron = $('#'+key+'-chev');
+                chevron.get(0).classList.remove('asc', 'desc');
 
-                if (key === settings.sort) {
-                    sortHeader.attr('sortdir', '');
-                    sortHeader.attr('sortdirhover', settings.direction === 'desc' ? 'asc' : 'desc');
+                if (key !== settings.sort) {
+                    chevron.get(0).classList.add('desc');
                 }
+                if (key === settings.sort) {
+                    chevron.get(0).classList.add(settings.direction === 'desc' ? 'asc' : 'desc');
+                }
+                chevron.show();
             })
             .mouseleave(function () {
-                sortHeader.attr('sortdirhover', '');
+                var chevron = $('#'+key+'-chev');
+
+                chevron.hide();
+                chevron.get(0).classList.remove('asc', 'desc');
+
                 if (key === settings.sort) {
-                    sortHeader.attr('sortdir', settings.direction);
+                    chevron.show();
+                    chevron.get(0).classList.add(settings.direction);
                 }
             });
+
+        sortHeader.append(
+            '<svg id="'+key+'-chev" class="sorting-chevron desc" width="9" height="13" xmlns="http://www.w3.org/2000/svg">\n' +
+            '    <path stroke="currentColor" stroke-width="3" d="M1.5 1.5l5 5-5 5" fill="none" fill-rule="evenodd"\n' +
+            '          stroke-linecap="round"/>\n' +
+            '</svg>\n');
     }
 
 }( jQuery ));

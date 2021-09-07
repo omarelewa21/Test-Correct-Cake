@@ -144,7 +144,7 @@
                 <th></th>
                 <th sortkey="abbreviation" width="50">Afk.</th>
                 <th sortkey="name">Titel</th>
-                <th width="70" style="text-align: center" sortkey="question_count">Vragen</th>
+                <th width="80" sortkey="question_count">Vragen</th>
                 <th width="170" sortkey="subject">Vak</th>
                 <th width="170" sortkey="author">Auteur</th>
                 <th width="170" sortkey="kind">Type</th>
