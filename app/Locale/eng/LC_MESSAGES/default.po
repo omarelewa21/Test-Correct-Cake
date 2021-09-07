@@ -4013,6 +4013,9 @@ msgstr "data before you can upload classes and tests and collaborate with your c
 msgid "Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons"
 msgstr "Test-Correct. This can take one to two working days. Don't want to wait that long? Call us"
 
+msgid "nog "
+msgstr "remaining "
+
 msgid "dan op"
 msgstr "then on"
 
