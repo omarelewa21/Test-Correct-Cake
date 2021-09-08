@@ -1926,12 +1926,12 @@ class TestTakesController extends AppController {
     public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        return $this->TestTakesService->getSurveillanceData();
+        echo json_encode($this->TestTakesService->getSurveillanceData()); die;
     }
 
 
 
-    public function surveillance_data_old() {
+    public function surveillance_data_old   () {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
