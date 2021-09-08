@@ -1936,12 +1936,15 @@ class UsersController extends AppController
         die();
     }
 
-    public
-    function temporary_login(
-        $tlid
-    ) {
+    public function temporary_login($tlid) {
         $result = $this->UsersService->getUserWithTlid($tlid);
         $this->Auth->login($result);
+
+        if($this->request->query != null) {
+            foreach ($this->request->query as $key => $value) {
+                CakeSession::write($key, $value);
+            }
+        }
 
         try {
             $this->render('templogin', 'templogin');

@@ -82,4 +82,7 @@
     jQuery("#versionBadge").attr("class","versionBadge <?=$extraClass?>").text("<?=$version?>");
         <? } ?>
 
+    <?php if ($this->Session->consume('redirect_message') === 'browser_testing_disabled') {?>
+        Notify.notify('Het is niet toegestaan om de toets in de browser te maken. Start de Test-Correct app om de toets te maken.', 'info', 7500)
+    <?php }?>
 </script>
