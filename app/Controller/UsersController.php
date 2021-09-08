@@ -1940,12 +1940,6 @@ class UsersController extends AppController
         $result = $this->UsersService->getUserWithTlid($tlid);
         $this->Auth->login($result);
 
-        if($this->request->query != null) {
-            foreach ($this->request->query as $key => $value) {
-                CakeSession::write($key, $value);
-            }
-        }
-
         try {
             $this->render('templogin', 'templogin');
         } catch (Exception $e) {
