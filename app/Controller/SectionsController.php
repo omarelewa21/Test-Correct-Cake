@@ -86,16 +86,10 @@ class SectionsController extends AppController
 
         $params = $this->request->data;
         $_sections = $this->SectionsService->getSections($params);
-        $sections = [];
         foreach($_sections as $section){
             $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
-            $section['subjects'] = $this->SectionsService->getSectionSubjectWithSectionId($section['id']);
-            $section['base_subjects'] = $this->SectionsService->sectionBaseSubjectsList($section['id']);
-            $section['sharedSchoolLocations'] = $this->SharedSectionsService->getSharedSectionSchoolLocations(getUUID($section,'get'),[]);
-            $sections[] = $section;
         }
-
-        $this->set('sections', $sections);
+        $this->set('sections', $_sections);
     }
 
     public function edit($section_id) {

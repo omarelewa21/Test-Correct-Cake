@@ -1,6 +1,6 @@
 <?
 foreach($sections as $section) {
-    for($subject = 0; $subject < sizeof($section['subjects']); $subject++){
+    foreach($section['subjects'] as $index => $subject){
     ?>
     <tr>
         <td><?=$section['name']?></td>
@@ -12,7 +12,7 @@ foreach($sections as $section) {
                 $counter++;
             }
             
-            foreach($section['sharedSchoolLocations'] as $shared_location){
+            foreach($section['shared_school_locations'] as $shared_location){
                 if($counter < 4){
                     echo $shared_location['name'] . '<br />';
                     $counter++;
@@ -25,12 +25,12 @@ foreach($sections as $section) {
         </td>
         <td>
             <?
-                echo $section['subjects'][$subject]['name'] . '<br />';
+                echo $subject['name'] . '<br />';
             ?>
         </td>
         <td>
             <?
-                echo $section['base_subjects'][$subject]['name'] . '<br />';
+                echo $section['base_subjects'][$index]['name'] . '<br />';
             ?>
         </td>
 
