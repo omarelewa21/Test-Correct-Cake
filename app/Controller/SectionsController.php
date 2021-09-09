@@ -86,10 +86,12 @@ class SectionsController extends AppController
 
         $params = $this->request->data;
         $_sections = $this->SectionsService->getSections($params);
+        $sections = [];
         foreach($_sections as $section){
             $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
+            $sections[] = $section;
         }
-        $this->set('sections', $_sections);
+        $this->set('sections', $sections);
     }
 
     public function edit($section_id) {

@@ -17,8 +17,8 @@ class SectionsService extends BaseService
         }
 
 
-        if (isset($response) && !empty($response)) {
-            return $response;
+        if (isset($response['data']) && !empty($response['data'])) {
+            return $response['data'];
         } else {
             return [];
         }
