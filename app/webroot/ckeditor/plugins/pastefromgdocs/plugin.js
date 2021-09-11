@@ -91,6 +91,11 @@ CKEDITOR.tools.object.keys = function ( object ) {
 	}
 }
 
+/**
+ * The following code was taken directly from the CKEDITOR4 source code, located at:
+ * https://github.com/ckeditor/ckeditor4/blob/cae20318d46745cc46c811da4e7d68b38ca32449/core/tools.js#L1858-L1885
+ */
+
 CKEDITOR.tools.style.parse.sideShorthand = function( value, split ) {
 	var ret = {},
 		parts = split ? split( value ) : value.split( /\s+/ );
@@ -121,7 +126,7 @@ CKEDITOR.tools.style.parse.sideShorthand = function( value, split ) {
 }
 
 /**
- * The following code was taken directly from the CKEDITOR4 source code:
+ * The following code was taken directly from the CKEDITOR4 source code, located at:
  * https://github.com/ckeditor/ckeditor4/blob/cae20318d46745cc46c811da4e7d68b38ca32449/core/tools.js#L2689-L2909
  */ 
 CKEDITOR.tools.style.border = CKEDITOR.tools.createClass( {
