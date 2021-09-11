@@ -91,6 +91,35 @@ CKEDITOR.tools.object.keys = function ( object ) {
 	}
 }
 
+CKEDITOR.tools.style.parse.sideShorthand = function( value, split ) {
+	var ret = {},
+		parts = split ? split( value ) : value.split( /\s+/ );
+
+	switch ( parts.length ) {
+		case 1:
+			mapStyles( [ 0, 0, 0, 0 ] );
+			break;
+		case 2:
+			mapStyles( [ 0, 1, 0, 1 ] );
+			break;
+		case 3:
+			mapStyles( [ 0, 1, 2, 1 ] );
+			break;
+		case 4:
+			mapStyles( [ 0, 1, 2, 3 ] );
+			break;
+	}
+
+	function mapStyles( map ) {
+		ret.top = parts[ map[ 0 ] ];
+		ret.right = parts[ map[ 1 ] ];
+		ret.bottom = parts[ map[ 2 ] ];
+		ret.left = parts[ map[ 3 ] ];
+	}
+
+	return ret;
+}
+
 /**
  * The following code was taken directly from the CKEDITOR4 source code:
  * https://github.com/ckeditor/ckeditor4/blob/cae20318d46745cc46c811da4e7d68b38ca32449/core/tools.js#L2689-L2909
