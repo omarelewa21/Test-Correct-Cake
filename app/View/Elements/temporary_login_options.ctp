@@ -1,12 +1,11 @@
 <?php
-$notificationsToShow = [];
-
 if (CakeSession::read('temporaryLoginOptions') !== null) {
     $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
-    if (array_key_exists('redirect_reason', $options)) {
+    if (array_key_exists('notification', $options) || array_key_exists('notifications', $options)) {
+        $notifications = $options['notification'] != null ? $options['notification'] : $options['notifications'];
         ?>
         <script>
-            <?php foreach ($options['redirect_reason'] as $text => $type) {?>
+            <?php foreach ($notifications as $text => $type) {?>
             Notify.notify('<?php echo $text ?>', '<?php echo $type ?>', 7500)
             <?php } ?>
         </script>
@@ -15,7 +14,7 @@ if (CakeSession::read('temporaryLoginOptions') !== null) {
     if (array_key_exists('page', $options)) {
         ?>
         <script>
-            Navigation.load('<?= $options['page']['url'] ?>')
+            Navigation.load('<?= $options['page'] ?>')
         </script>
     <?php }
 
