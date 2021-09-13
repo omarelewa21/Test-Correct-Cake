@@ -36,7 +36,7 @@
             <iframe id="terms_iframe" src="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Algemene-Voorwaarden-2021-The-Teach-and-Learn-Company-BV-Test-Correct-versie-20210618.pdf" frameborder="0" width="100%" height="100%"></iframe>
         </div>
         <div>
-            <p class="body2 bold">Door middel van het accepteren bevestigt u dat u de <a href="https://www.test-correct.nl/algemene-voorwaarden/" target="_blank" style="text-decoration: underline">algemene voorwaarden</a> heeft ontvangen, gelezen en begrepen.</p>
+            <p class="body2 bold">Door middel van het accepteren bevestigt u dat u de <a href="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Algemene-Voorwaarden-2021-The-Teach-and-Learn-Company-BV-Test-Correct-versie-20210618.pdf" target="_blank" style="text-decoration: underline">algemene voorwaarden</a> heeft ontvangen, gelezen en begrepen.</p>
         </div>
     </div>
 </div>
