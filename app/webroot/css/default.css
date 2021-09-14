@@ -298,8 +298,9 @@ div.block-content img {
 }
 
 .tableFixHead tbody td, .tableFixHead thead th {
-    display: inline-block;
+    display: inline-flex;
     box-sizing: border-box;
+    align-items: end;
 }
 
 .tableFixHead tbody td {
@@ -461,20 +462,42 @@ div.block-content img {
     display: flex;
 }
 .rotate_table_headings th {
-    padding-top:70px;
+    /*padding-top:70px;*/
 }
 
+.rotate_table_headings .ed_level_col {
+    justify-content: center;
+}
 .rotate_table_headings .ed_level_col div {
     /*border-bottom: solid 1px var(--system-base);*/
-    box-sizing: border-box;
-    width: 120px;
-    transform: rotate(-50deg);
-    position: relative;
-    top: -40px;
-    left: -10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    /*box-sizing: border-box;*/
+    /*width: 120px;*/
+    /*transform: rotate(-50deg);*/
+    /*position: relative;*/
+    /*top: -40px;*/
+    /*left: -10px;*/
+    /*overflow: hidden;*/
+    /*text-overflow: ellipsis;*/
+    /*white-space: nowrap;*/
+    word-break: break-word;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 3px;
+}
+.rotate_table_headings .ed_level_col div span{
+    display: inline-block;
+    line-height: 1.5rem;
+}
+
+.ed_level_checkbox_cols {
+    display: flex;
+}
+.ed_level_checkbox_cols label{
+    display: flex;
+    left: 14px;
 }
 
 #add-subject-list{
