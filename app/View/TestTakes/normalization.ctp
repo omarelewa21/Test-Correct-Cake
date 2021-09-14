@@ -135,7 +135,9 @@ if($totalScore === 0){
                 $groupQuestionUuid = '';
                 $i = 0;
                 foreach($questions as $question_id => $question) {
+                if(!$question['type']=='GroupQuestion') {
                     $i++;
+                }
                     ?>
                         <?
                             if($question['type']=='GroupQuestion'){
@@ -143,7 +145,7 @@ if($totalScore === 0){
                         ?>
                             <tr>
                                 <td>
-                                    <?=$i?>
+
                                 </td>
                                 <td><?=substr(strip_tags($question['name']), 0, 100)?> - <?
                                         if($question['groupquestion_type']=='carousel'){   
