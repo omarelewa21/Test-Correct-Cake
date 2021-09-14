@@ -40,12 +40,11 @@ var User = {
                     $('#menu, #header, #tiles').addClass('blue');
                 }
 
-                $('#header #user').html(
-                    User.info.name_first + ' ' +
+                var username = User.info.name_first + ' ' +
                     User.info.name_suffix + ' ' +
                     User.info.name + ' ' +
-                    activeSchool
-                );
+                    activeSchool;
+                $('#header #user').html(username).attr('title', username);
 
 
                 if (activeSchool) {
