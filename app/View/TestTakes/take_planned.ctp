@@ -62,9 +62,15 @@
         }
         if($newPlayerAccess) {
             ?>
-        <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>'); Loading.show()">
-            <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
-        </a>
+            <?php if( $take['test_participant']['intense']) { ?>
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');})">
+                <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
+            </a>
+                <?php } else { ?>
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>'); Loading.show()">
+                <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
+            </a>
+            <?php } ?>
         <?php } ?>
         </center>
     </div>

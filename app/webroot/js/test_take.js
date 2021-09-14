@@ -248,6 +248,10 @@ var TestTake = {
         }
     },
 
+    startTestInLaravelWithIntense : function (take_id) {
+
+    },
+
     startTestInLaravel : function(take_id) {
         var _take_id = take_id;
         TestTake.atTestStart();
