@@ -460,6 +460,7 @@ div.block-content img {
 
 .rotate_table_headings {
     display: flex;
+    z-index: 3;
 }
 .rotate_table_headings th {
     /*padding-top:70px;*/
@@ -469,16 +470,6 @@ div.block-content img {
     justify-content: center;
 }
 .rotate_table_headings .ed_level_col div {
-    /*border-bottom: solid 1px var(--system-base);*/
-    /*box-sizing: border-box;*/
-    /*width: 120px;*/
-    /*transform: rotate(-50deg);*/
-    /*position: relative;*/
-    /*top: -40px;*/
-    /*left: -10px;*/
-    /*overflow: hidden;*/
-    /*text-overflow: ellipsis;*/
-    /*white-space: nowrap;*/
     word-break: break-word;
     text-align: center;
     height: 100%;
@@ -490,14 +481,20 @@ div.block-content img {
 .rotate_table_headings .ed_level_col div span{
     display: inline-block;
     line-height: 1.5rem;
+    font-size: .875rem;
+    max-width: 53px;
 }
 
 .ed_level_checkbox_cols {
     display: flex;
+    justify-content: center;
 }
 .ed_level_checkbox_cols label{
     display: flex;
-    left: 14px;
+}
+
+th.subject-column, td.subject-column {
+    justify-content: center;
 }
 
 #add-subject-list{
