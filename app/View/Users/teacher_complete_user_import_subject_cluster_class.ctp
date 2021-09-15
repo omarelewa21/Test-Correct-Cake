@@ -239,7 +239,7 @@
 
                                 var msg = buildNotificationMessage(data.result.count);
 
-                                Notify.notify(msg)
+                                Notify.notify(msg, 8000)
 
                                 if(data.result.done){
                                     Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
