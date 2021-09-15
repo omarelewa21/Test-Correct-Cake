@@ -462,7 +462,7 @@ var TestTake = {
         var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
 
         var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
-            '<p class="title" style="display: block;margin:0;font-weight: bold">' +
+            '<p class="title" style="display: block;margin:0;font-weight: 700">' +
             '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
             '    <g fill="currentColor" fill-rule="evenodd">' +
             '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +

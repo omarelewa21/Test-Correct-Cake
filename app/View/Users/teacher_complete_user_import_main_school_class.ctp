@@ -26,13 +26,13 @@
         <div class="import-table-container">
             <table class="tableFixHead">
                 <thead
-                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
+                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:3;">
 
                 <tr class="rotate_table_headings">
                     <th class="main_school_class_td">Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
                         <?php if (!empty($level['education_level'])) { ?>
-                        <th class="ed_level_col" width="60px">
+                        <th class="ed_level_col" width="57px">
                             <div title="<?= $level['education_level']['name'] ?>">
                                 <span><?= $level['education_level']['name'] ?></span>
                             </div>
@@ -68,7 +68,7 @@
                             <td class="main_school_class_td"><span class="main_school_class_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
                             <?php if (!empty($eductionLevel['education_level'])) { ?>
-                                <td width="60px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
+                                <td width="57px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
                                     <input
                                         id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                         name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio"
@@ -121,9 +121,9 @@
 
                 <?php if($checkedCount > 0) { ?>
                     <tr style="margin-top: 10px">
-                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;">
+                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;justify-content: center">
                             <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
-                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: bold; margin-right: 8px">Toon gecontroleerde klassen</span>
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: 700; margin-right: 8px">Toon gecontroleerde klassen</span>
                                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
                             </div>
                         </td>
@@ -142,7 +142,7 @@
                                 <td class="main_school_class_td"><span class="main_school_class_span"><?= $schoolClass['name'] ?></span></td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <?php if (!empty($eductionLevel['education_level'])) { ?>
-                                        <td width="60px" style="position:relative; align-content: center">
+                                        <td width="57px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
                                             <input disabled
                                                     type="radio"
                                                     class="radio-custom jquery-radio-set-eduction-level"
@@ -242,10 +242,8 @@
                                         return;
                                     }
 
-                                    var msg = 'Gegevens voor 1 klas opgeslagen.';
-                                    if (data.result.count !== 1) {
-                                        msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                                    }
+                                    msg = buildNotificationMessage(data.result.count);
+
                                     Notify.notify(msg)
                                 },
 
@@ -267,13 +265,12 @@
                                             Notify.notify(error, 'error');
                                             return;
                                         }
-                                        var msg = 'Gegevens voor 1 klas opgeslagen.';
-                                        if (data.result.count !== 1) {
-                                            msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                                        }
+
+                                        var msg = buildNotificationMessage(data.result.count);
+
                                         Notify.notify(msg)
                                         Popup.closeLast();
-                                        if(data.result.done){
+                                        if (data.result.done) {
                                             Notify.notify('Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen');
                                             Popup.closeLast();
                                             Navigation.refresh();
@@ -305,19 +302,21 @@
 
                 updateTeacherCompleteCounter();
 
-                var paddingTimeout = setTimeout(function() {
-                    var canRemoveSomePadding = true;
-                    document.querySelectorAll('.ed_level_col span').forEach(function(el) {
-                        if (el.offsetWidth > 60) {
-                            canRemoveSomePadding = false;
-                        }
-                    });
-                    if (canRemoveSomePadding) {
-                        document.querySelectorAll('.rotate_table_headings th').forEach(function(el) {
-                            el.style.paddingTop = '30px';
-                        });
+                function checkedAllClasses() {
+                    return $('.jquery-controle').length === $('.jquery-controle:checked').length;
+                }
+
+                function buildNotificationMessage(result) {
+                    var msg = 'Gegevens voor 1 klas opgeslagen.';
+                    if (result !== 1) {
+                        msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
                     }
-                }, 100);
+                    if (!checkedAllClasses()) {
+                        msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                    }
+                    return msg;
+                }
+
                 changeClassColumnWidth();
 
                 if ($('.action_rows').length === 0) {
