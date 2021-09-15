@@ -33,7 +33,7 @@
                 <tr class="rotate_table_headings">
                     <th class="school_manager_class_td" >Klas</th>
                     <?php foreach ($education_levels as $level) { ?>
-                        <th class="ed_level_col" width="60px">
+                        <th class="ed_level_col" width="57px">
                             <div title="<?= $level['education_level']['name'] ?>">
                                 <span><?= $level['education_level']['name'] ?></span>
                             </div>
@@ -62,7 +62,7 @@
                         <tr class="action_rows" style="display:flex;align-items: center">
                             <td class="school_manager_class_td" ><span class="school_manager_class_name_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
-                                <td width="60px" style="position:relative; align-content: center">
+                                <td width="57px" style="position:relative; align-content: center">
                                     <input
                                         id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                         name="class[<?= $schoolClass['id'] ?>][education_level]"
@@ -133,7 +133,7 @@
                             <tr class="completed_classes_rows" style="display: none;align-items: center">
                                 <td class="school_manager_class_td" ><span class="school_manager_class_name_span"><?= $schoolClass['name'] ?></span></td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
-                                    <td width="60px" style="position:relative; align-content: center">
+                                    <td width="57px" style="position:relative; align-content: center">
                                         <input disabled
                                                 type="radio"
                                                 class="radio-custom jquery-radio-set-eduction-level-admin"
@@ -231,11 +231,9 @@
                             return;
                         }
                         if (typeof data.result.count !== 'undefined') {
-                            var msg = 'Gegevens voor 1 klas opgeslagen.';
-                            if (data.result.count !== 1) {
-                                msg = 'Gegevens voor ' + data.result.count + ' klassen opgeslagen.';
-                            }
-                            Notify.notify(msg)
+                            var msg = buildNotificationMessage(data.result.count);
+
+                            Notify.notify(msg, 8000)
                         } else {
                             Notify.notify('Kies het niveau alvorens op Gecontroleerd te klikken', 'error');
                         }
@@ -258,6 +256,21 @@
                 updateManagerCompleteCounter();
             });
 
+            function checkedAllClasses() {
+                return $('.jquery-controle').length === $('.jquery-controle:checked').length;
+            }
+
+            function buildNotificationMessage(result) {
+                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                if (result !== 1) {
+                    msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
+                }
+                if (!checkedAllClasses()) {
+                    msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                }
+                return msg;
+            }
+
             function updateManagerCompleteCounter() {
                 var aantal = $('.jquery-complete-counter').length;
                 var gevinked = $('.jquery-complete-counter:checked').length;
@@ -265,20 +278,6 @@
             }
 
             updateManagerCompleteCounter();
-
-            var paddingTimeout = setTimeout(function() {
-                var canRemoveSomePadding = true;
-                document.querySelectorAll('.ed_level_col span').forEach(function(el) {
-                    if (el.offsetWidth > 60) {
-                        canRemoveSomePadding = false;
-                    }
-                });
-                if (canRemoveSomePadding) {
-                    document.querySelectorAll('.rotate_table_headings th').forEach(function(el) {
-                        el.style.paddingTop = '30px';
-                    });
-                }
-            }, 100);
 
             changeClassColumnWidth();
 

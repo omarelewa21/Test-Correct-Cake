@@ -82,43 +82,42 @@
 
         </div>
     </div>
-</div>
 
-<!--<h1>CITO Toetsen op maat</h1>-->
-<div class="block">
-    <div class="block-content">
-        <table id="filterTable" class="table ">
-            <tbody>
-            <tr>
-                <th width="150">Kies filter</th>
-                <td colspan="2">
-                    <select name="opgelagen filters" id="jquery-saved-filters">
-                    </select>
-                </td>
-                <td width="380">
-                    <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter">Verwijderen</a>
-                    <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
-                        <span class="fa mr5"></span>
-                        Nieuw filter maken
-                    </a>
-                </td>
-            </tr>
+    <!--<h1>CITO Toetsen op maat</h1>-->
+    <div class="block">
+        <div class="block-content">
+            <table id="filterTable" class="table ">
+                <tbody>
+                <tr>
+                    <th width="150">Kies filter</th>
+                    <td colspan="2">
+                        <select name="opgelagen filters" id="jquery-saved-filters">
+                        </select>
+                    </td>
+                    <td width="380">
+                        <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter">Verwijderen</a>
+                        <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
+                            <span class="fa mr5"></span>
+                            Nieuw filter maken
+                        </a>
+                    </td>
+                </tr>
 
-            <tr id="jquery-applied-filters" style="display:none">
-                <th>Toegepast filter</th>
-                <td colspan="2" id="jquery-filter-filters"></td>
-                <td>
-                    <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
-                        <span class="fa mr5"></span>Filter aanpassen
-                    </a>
-                    <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter">Opslaan</a>
-                    <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                <tr id="jquery-applied-filters" style="display:none">
+                    <th>Toegepast filter</th>
+                    <td colspan="2" id="jquery-filter-filters"></td>
+                    <td>
+                        <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
+                            <span class="fa mr5"></span>Filter aanpassen
+                        </a>
+                        <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter">Opslaan</a>
+                        <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
 </div>
 <div class="block autoheight">
     <div class="block-content" id="testsContainter">
