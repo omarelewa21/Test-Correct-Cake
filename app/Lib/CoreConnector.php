@@ -98,9 +98,27 @@ class CoreConnector {
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
-        
-        
+
+
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
+    }
+
+    public function getJsonRequest($path, $params)
+    {
+
+        $params['session_hash'] = $this->sessionHash;
+        $params['user'] = $this->user;
+
+        $url = $path . "?" . http_build_query($params);
+        $validationHash = $this->_generateHash($url);
+        $params['signature'] = $validationHash;
+
+        // Include signature
+        $finalUrl = $path . "?" . http_build_query($params);
+        //$response = file_get_contents($this->baseUrl .$finalUrl);
+
+
+        return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
     public function getDownloadRequest($path, $params)
