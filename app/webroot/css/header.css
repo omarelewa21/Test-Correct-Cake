@@ -373,8 +373,10 @@
     box-sizing: border-box;
 }
 
-@media screen and (max-width: 650px) {
-
+@media screen and (max-width: 550px) {
+    #header #logo_2 {
+        display: none;
+    }
 }
 @media screen and (max-width: 800px) {
     #header #top #user {
