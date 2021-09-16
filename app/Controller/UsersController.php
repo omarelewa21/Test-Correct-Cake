@@ -1936,11 +1936,10 @@ class UsersController extends AppController
         die();
     }
 
-    public
-    function temporary_login(
-        $tlid
-    ) {
+    public function temporary_login($tlid) {
         $result = $this->UsersService->getUserWithTlid($tlid);
+
+        $result = $this->handleTemporaryLoginOptions($result);
         $this->Auth->login($result);
 
         try {
@@ -2168,5 +2167,18 @@ class UsersController extends AppController
             $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff($today)->format('%d') : 0;
             $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
         }
+    }
+
+    private function handleTemporaryLoginOptions($result)
+    {
+        if (empty($result['temporaryLoginOptions'])) {
+            return $result;
+        }
+        $options = $result['temporaryLoginOptions'];
+        unset($result['temporaryLoginOptions']);
+
+        CakeSession::write('temporaryLoginOptions', $options);
+
+        return $result;
     }
 }
