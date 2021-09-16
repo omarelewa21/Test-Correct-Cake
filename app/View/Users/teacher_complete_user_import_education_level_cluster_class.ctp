@@ -26,13 +26,13 @@
         <div class="import-table-container">
             <table class="tableFixHead">
                 <thead
-                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
+                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:3;">
 
                 <tr class="rotate_table_headings">
                     <th class="ed_level_cluster_class_td"><div><?= __("Klas")?></div></th>
                     <?php foreach ($education_levels as $level) { ?>
                     <?php if (!empty($level['education_level'])) { ?>
-                        <th class="ed_level_col" width="60px">
+                        <th class="ed_level_col" width="57px">
                             <div title="<?= $level['education_level']['name'] ?>">
                                 <span><?= $level['education_level']['name'] ?></span>
                             </div>
@@ -67,7 +67,7 @@
                             <td class="ed_level_cluster_class_td"><span class="ed_level_cluster_class_span"><?= $schoolClass['name'] ?></span></td>
                             <?php foreach ($education_levels as $eductionLevel) { ?>
                             <?php if (!empty($eductionLevel['education_level'])) { ?>
-                                <td width="60px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
+                                <td width="57px" style="position:relative; align-content: center" class="ed_level_checkbox_cols">
                                     <input
                                         id="radio-class-<?= $schoolClass['id'] ?>-<?= $eductionLevel['education_level']['id'] ?>"
                                         name="class[<?= $schoolClass['id'] ?>][education_level]" type="radio"
@@ -133,9 +133,9 @@
                 <?php } ?>
                 <?php if($checkedCount > 0) { ?>
                     <tr style="margin-top: 10px">
-                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;">
-                            <div id="show_checked_classes_button" style="§text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
-                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: bold; margin-right: 8px"><?= __("Toon gecontroleerde klassen")?></span>
+                        <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;justify-content: center;">
+                            <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: 700; margin-right: 8px"><?= __("Toon gecontroleerde klassen")?></span>
                                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
                             </div>
                         </td>
@@ -150,10 +150,12 @@
                             || $schoolClass['visible']
                         ){ ?>
                             <tr class="completed_classes_rows" style="display: none;align-items: center">
-                                <td class="ed_level_cluster_class_td"><span class="ed_level_cluster_class_span"><?= $schoolClass['name'] ?></span></td>
+                                <td class="ed_level_cluster_class_td">
+                                    <span class="ed_level_cluster_class_span"><?= $schoolClass['name'] ?></span>
+                                </td>
                                 <?php foreach ($education_levels as $eductionLevel) { ?>
                                     <?php if (!empty($eductionLevel['education_level'])) { ?>
-                                        <td width="60px" style="position:relative; align-content: center">
+                                        <td width="57px" style="position:relative; justify-content: center" class="ed_level_checkbox_cols">
                                             <input disabled
                                                     type="radio"
                                                     class="radio-custom jquery-radio-set-eduction-level-step-2"
@@ -239,7 +241,7 @@
                 style="display:flex; width: 100%; align-items: center; justify-content: space-between; padding: 0 40px;">
                 <div style="display:flex; position:relative; align-items:center">
                     <button id="btn-back-to-main-school-class"
-                            style="height: 50px ; font-size:18px; font-weight: bold;"
+                            style="height: 50px ; font-size:18px; font-weight: 700;"
                             class="button text-button button-md">
                         <?= $this->element('chevron-left') ?><span class="ml8"><?= __("Terug naar stamklassen")?></span>
                     </button>
@@ -283,10 +285,8 @@
                                     return;
                                 }
 
-                                var msg = '<?= __("Gegevens voor 1 klas opgeslagen.")?>';
-                                if (data.result.count !== 1) {
-                                    msg = '<?= __("Gegevens voor ")?>' + data.result.count + '<?= __(" klassen opgeslagen.")?>';
-                                }
+                                var msg = buildNotificationMessage(data.result.count);
+
                                 itemsSaved = true;
                                 $('#unsaveReturn').fadeOut();
                                 Notify.notify(msg)
@@ -310,10 +310,7 @@
                                     return;
                                 }
 
-                                var msg = '<?= __("Gegevens voor 1 klas opgeslagen.")?>';
-                                if (data.result.count !== 1) {
-                                    msg = '<?= __("Gegevens voor ")?>' + data.result.count + '<?= __(" klassen opgeslagen.")?>';
-                                }
+                                var msg = buildNotificationMessage(data.result.count);
 
                                 Notify.notify(msg)
                                 Popup.closeLast();
@@ -353,6 +350,20 @@
             $('.jquery-controle').change(function (e) {
                 updateTeacherCompleteClusterClassCounter();
             });
+            function checkedAllClasses() {
+                return $('.jquery-controle').length === $('.jquery-controle:checked').length;
+            }
+
+            function buildNotificationMessage(result) {
+                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                if (result !== 1) {
+                    msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
+                }
+                if (!checkedAllClasses()) {
+                    msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                }
+                return msg;
+            }
 
             function updateTeacherCompleteClusterClassCounter() {
                 var aantal = $('.jquery-controle').length;
@@ -361,19 +372,6 @@
             }
             updateTeacherCompleteClusterClassCounter();
 
-            var paddingTimeout = setTimeout(function() {
-                var canRemoveSomePadding = true;
-                document.querySelectorAll('.ed_level_col span').forEach(function(el) {
-                    if (el.offsetWidth > 60) {
-                        canRemoveSomePadding = false;
-                    }
-                });
-                if (canRemoveSomePadding) {
-                    document.querySelectorAll('.rotate_table_headings th').forEach(function(el) {
-                        el.style.paddingTop = '30px';
-                    });
-                }
-            }, 100);
             changeClassColumnWidth();
 
             if ($('.action_rows').length === 0) {

@@ -120,7 +120,7 @@
 }
 
 .tat-head h6 {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.125rem;
     margin: 0 0 8px;
 }
@@ -308,7 +308,7 @@
     border: none;
     background: none;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 
@@ -543,7 +543,7 @@
 
 .email-preview-body .notification > .body {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     line-height: 1.5rem;
@@ -558,7 +558,7 @@
 
 .tat-content .notification > .body {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     display: block;
     line-height: 1.5rem;
 }

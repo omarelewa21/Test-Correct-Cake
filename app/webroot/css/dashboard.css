@@ -136,7 +136,7 @@
 
 .dashboard .cta-blocks .cta-block .subtitle {
     font-size: 1.125rem;
-    font-weight: bold;
+    font-weight: 700;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -366,7 +366,7 @@
     position: absolute;
     top: -20px;
     font-size: 14px;
-    font-weight: bold;
+    font-weight: 700;
     right: 0;
     width: max-content;
 }

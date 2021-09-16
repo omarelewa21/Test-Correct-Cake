@@ -22,11 +22,11 @@
     </div>
 </div>
 <form method="put" id="teacher-complete-user-import-subject-cluster-class-form">
-    <div class="popup-content tat-content body1" style="display:flex; overflow:hidden">
+    <div class="popup-content tat-content body1" style="display:flex; overflow:hidden;padding-top: 10px!important;">
         <div class="import-table-container">
             <table class="tableFixHead">
                 <thead
-                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
+                    style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:3;">
 
                 <tr style="display: flex; align-items: center">
                     <th class="cluster_class_subject_td"><?= __("Klas")?></th>
@@ -36,7 +36,7 @@
                         ?>
 
                         <th
-                            class="subject-column-<?= $subjectId ?>"
+                            class="subject-column subject-column-<?= $subjectId ?>"
                             width="60px"
                             title="<?= $subject['name'] ?>"
                                 <?= in_array($subjectId, $taught_subjects) ? '' : 'style="display:none"'; ?>
@@ -77,7 +77,7 @@
                             ?>
                             <td
                                 width="60px"
-                                class="subject-column-<?= $subjectId ?>"
+                                class="subject-column subject-column-<?= $subjectId ?>"
                                 style="position:relative; align-content: center; <?= in_array($subjectId,
                                     $taught_subjects) ? '' : 'display:none'; ?>"
                             >
@@ -236,10 +236,8 @@
                                     return;
                                 }
 
-                                var msg = '<?= __("Gegevens voor 1 koppeling opgeslagen.")?>';
-                                if (data.result.count !== 1) {
-                                    msg = '<?= __("Gegevens voor ")?>' + data.result.count + '<?= __(" koppelingen opgeslagen.")?>';
-                                }
+
+                                var msg = buildNotificationMessage(data.result.count);
 
                                 Notify.notify(msg)
 
@@ -277,7 +275,7 @@
                     .on('click', '#btn-add-subject', function (e) {
                         e.preventDefault();
                         var subjectIdToShow = $('#add-subject-list').val();
-                        var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'inline-block');
+                        var columnSelector = $('.subject-column-' + subjectIdToShow).css('display', 'inline-flex');
                         $("#add-subject-list option[value='" + subjectIdToShow + "']").remove();
                         checkDisplaySelectBox();
                     });
@@ -308,7 +306,20 @@
                     });
                 }
             }
+            function checkedAllClasses(result) {
+                return $('.jquery-subject-complete-counter').length === result;
+            }
 
+            function buildNotificationMessage(result) {
+                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                if (result !== 1) {
+                    msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
+                }
+                if (!checkedAllClasses()) {
+                    msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                }
+                return msg;
+            }
             checkDisplaySelectBox();
 
             updateTeacherSubjectCompleteCounter();

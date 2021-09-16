@@ -298,8 +298,9 @@ div.block-content img {
 }
 
 .tableFixHead tbody td, .tableFixHead thead th {
-    display: inline-block;
+    display: inline-flex;
     box-sizing: border-box;
+    align-items: end;
 }
 
 .tableFixHead tbody td {
@@ -434,7 +435,7 @@ div.block-content img {
 
 .import-label {
     font-size: 10px;
-    font-weight: bold;
+    font-weight: 700;
     padding: 6px 8px;
     line-height: 12px;
     text-transform: uppercase;
@@ -459,22 +460,41 @@ div.block-content img {
 
 .rotate_table_headings {
     display: flex;
+    z-index: 3;
 }
 .rotate_table_headings th {
-    padding-top:70px;
+    /*padding-top:70px;*/
 }
 
+.rotate_table_headings .ed_level_col {
+    justify-content: center;
+}
 .rotate_table_headings .ed_level_col div {
-    /*border-bottom: solid 1px var(--system-base);*/
-    box-sizing: border-box;
-    width: 120px;
-    transform: rotate(-50deg);
-    position: relative;
-    top: -40px;
-    left: -10px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    word-break: break-word;
+    text-align: center;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: center;
+    padding-bottom: 3px;
+}
+.rotate_table_headings .ed_level_col div span{
+    display: inline-block;
+    line-height: 1.5rem;
+    font-size: .875rem;
+    max-width: 53px;
+}
+
+.ed_level_checkbox_cols {
+    display: flex;
+    justify-content: center;
+}
+.ed_level_checkbox_cols label{
+    display: flex;
+}
+
+th.subject-column, td.subject-column {
+    justify-content: center;
 }
 
 #add-subject-list{
@@ -527,5 +547,5 @@ div.block-content img {
     margin: 0;
     font-size: 1.75rem;
     line-height: 2rem;
-    font-weight: bold;
+    font-weight: 700;
 }

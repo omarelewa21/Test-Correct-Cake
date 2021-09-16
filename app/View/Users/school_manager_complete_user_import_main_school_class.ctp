@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class="divider mb24 mt10"></div>
-    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: bold;">
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: 700;">
     <?= __("Stel het niveau in voor de stamklassen")?>
     </div>
 
@@ -118,7 +118,7 @@
                     <tr style="margin-top: 10px">
                         <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;">
                             <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
-                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: bold; margin-right: 8px"><?= __("Toon gecontroleerde klassen")?></span>
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: 700; margin-right: 8px"><?= __("Toon gecontroleerde klassen")?></span>
                                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
                             </div>
                         </td>
