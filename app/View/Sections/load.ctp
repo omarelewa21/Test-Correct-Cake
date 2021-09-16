@@ -1,22 +1,46 @@
 <?
 foreach($sections as $section) {
+    foreach($section['subjects'] as $index => $subject){
     ?>
     <tr>
         <td><?=$section['name']?></td>
         <td>
             <?
+            $counter = 1;
             foreach($section['school_locations'] as $location) {
-                echo $location['name'].'<br />';
+                echo $location['name'] . '<br />';
+                $counter++;
+            }
+            
+            foreach($section['shared_school_locations'] as $shared_location){
+                if($counter < 4){
+                    echo $shared_location['name'] . '<br />';
+                    $counter++;
+                }
+                else{
+                    echo "..." . '<br />';
+                }
             }
             ?>
         </td>
+        <td>
+            <?
+                echo $subject['name'] . '<br />';
+            ?>
+        </td>
+        <td>
+            <?
+                echo $section['base_subjects'][$index]['name'] . '<br />';
+            ?>
+        </td>
+
         <td class="nopadding">
             <?php if((bool) $section['demo'] !== true){?>
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=getUUID($section, 'get');?>">
                 <span class="fa fa-list-ul"></span>
             </a>
             <?php } else { ?>
-            <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('De demo sectie kan niet gewijzigd of verwijderd worden','error');">
+            <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('<?= __('De demo sectie kan niet gewijzigd of verwijderd worden')?>','error');">
                 <span class="fa fa-list-ul"></span>
             </a>
             <?php } ?>
@@ -27,15 +51,16 @@ foreach($sections as $section) {
             <div class="dropblock blur-close" for="section_<?=getUUID($section, 'get');?>">
                 <a href="#" class="btn highlight white" onclick="Popup.load('/sections/edit/<?=getUUID($section, 'get');?>', 400);">
                     <span class="fa fa-edit mr5"></span>
-                    Wijzigen
+                    <?= __("Wijzigen")?>
                 </a>
                 <a href="#" class="btn highlight white" onclick="Section.delete(<?=getUUID($section, 'getQuoted');?>);">
                     <span class="fa fa-remove mr5"></span>
-                    Verwijderen
+                    <?= __("Verwijderen")?>
                 </a>
             </div>
         </td>
     </tr>
     <?
+    }
 }
 ?>
