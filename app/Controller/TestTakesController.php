@@ -1063,7 +1063,7 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             if ($response) {
                 $questions = $response['answers'];
-                $take = $response['take'];
+                $take = $response['test_take'];
                 $participant_status = $response['participant_test_take_status_id'];
             }
         }
@@ -1954,8 +1954,9 @@ class TestTakesController extends AppController {
 
     public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->autoRender = false;
 
-        echo json_encode($this->TestTakesService->getSurveillanceData()); die;
+        return $this->TestTakesService->getSurveillanceData();
     }
 
 
