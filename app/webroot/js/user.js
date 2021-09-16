@@ -14,6 +14,7 @@ var User = {
             function (info) {
                 User.info = info;
                 var activeSchool = '';
+                var activeSchoolName = '';
 
                 if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')&&User.info.school_location_list.length>1) {
                     var result = User.info.school_location_list.find(function (school_location) {
@@ -21,6 +22,7 @@ var User = {
                     });
                     if (result) {
                         activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                        activeSchoolName = '(' + result.name + ')';
                     }
                 }
 
@@ -42,9 +44,8 @@ var User = {
 
                 var username = User.info.name_first + ' ' +
                     User.info.name_suffix + ' ' +
-                    User.info.name + ' ' +
-                    activeSchool;
-                $('#header #user').html(username).attr('title', username);
+                    User.info.name;
+                $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
 
                 if (activeSchool) {
