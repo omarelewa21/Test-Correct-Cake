@@ -1140,7 +1140,7 @@ msgid "Vraag"
 msgstr "Question"
 
 msgid "Score"
-msgstr "Score"
+msgstr "Points"
 
 msgid "Besprk."
 msgstr "Discuss."
@@ -2865,7 +2865,7 @@ msgid "Tijd"
 msgstr "Time"
 
 msgid "SCORE"
-msgstr "SCORE"
+msgstr "POINTS"
 
 msgid "Jouw antwoord"
 msgstr "Your answer"
