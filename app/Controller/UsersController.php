@@ -456,6 +456,9 @@ class UsersController extends AppController
                 $hasSchoolManagerRole = true;
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanelAccountManager();
             }
+            if (strtolower($role['name']) === 'support') {
+                $view = "welcome_support";
+            }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
         if ($should_display_import_incomplete_panel) {
