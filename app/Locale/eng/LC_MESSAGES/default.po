@@ -2865,7 +2865,7 @@ msgid "Tijd"
 msgstr "Time"
 
 msgid "SCORE"
-msgstr "POINTS"
+msgstr "SCORE"
 
 msgid "Jouw antwoord"
 msgstr "Your answer"
