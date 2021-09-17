@@ -135,7 +135,7 @@ if($totalScore === 0){
                 $groupQuestionUuid = '';
                 $i = 0;
                 foreach($questions as $question_id => $question) {
-                if(!$question['type']=='GroupQuestion') {
+                if($question['type']!=='GroupQuestion') {
                     $i++;
                 }
                     ?>
