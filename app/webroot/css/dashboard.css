@@ -12,7 +12,7 @@
     flex-direction: column;
     font-family: "Nunito", sans-serif;
     color: var(--system-base);
-    margin: 50px 82px 0 82px;
+    margin: 100px 82px 0 82px;
 }
 
 .dashboard h1 {
