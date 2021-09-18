@@ -689,6 +689,206 @@ class QuestionsController extends AppController
         }
     }
 
+    public function clone($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+        if ($this->request->is('post') || $internal == true) {
+
+            $question = $this->request->data['Question'];
+            if ($question == null && $internal == true) {
+                $question = $oldQuestion['question'];
+            }
+
+            $test = $this->TestsService->getTest($owner_id);
+
+            if (empty($question['type'])) {
+                //TCP-133
+                //TrueFalse and ARQ are subtypes of MultipleChoice
+                //so type should be MultipleChoiceQuestion
+                if ($type == "TrueFalseQuestion") {
+                    $question['type'] = 'MultipleChoiceQuestion';
+                    $question['subtype'] = 'TrueFalse';
+                } elseif ($type == "ARQQuestion") {
+                    $question['type'] = 'MultipleChoiceQuestion';
+                    $question['subtype'] = 'ARQ';
+                } else {
+                    $question['type'] = $type;
+                }
+            }
+
+            if ($test['is_open_source_content'] == 1) {
+                $question['add_to_database'] = 1;
+                $question['is_open_source_content'] = 1;
+            } else {
+                $question['is_open_source_content'] = 0;
+            }
+
+            if (!empty($question['sub_attainments'])) {
+                $question['attainments'] = [
+                    $question['attainments'], $question['sub_attainments']
+                ];
+            }
+
+            $check = $this->Question->check($type, $question, $this->Session->read());
+            if ($check['status'] == true) {
+
+                $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
+
+                if ($this->hasBackendValidation($type) && !$result) {
+
+                    $this->formResponse(false, $this->QuestionsService->getErrors());
+                    return false;
+                }
+
+                // if ($type == 'TrueFalseQuestion') {
+                //     $this->QuestionsService->addTrueFalseAnswers($result, $question, $owner);
+                // }
+
+//                if($type == 'CompletionQuestion') {
+//                    $this->QuestionsService->addCompletionQuestionAnswers($result, $question, $owner);
+//                }
+
+                // if ($type == 'MultipleChoiceQuestion') {
+                //     $this->QuestionsService->addMultiChoiceAnswers($result, $question, $owner);
+
+                // }
+
+                // if ($type == 'ARQQuestion') {
+                //     $this->QuestionsService->addARQAnswers($result, $question, $owner);
+                // }
+
+//                if($type == 'RankingQuestion') {
+//                    $this->QuestionsService->addRankingAnswers($result, $question, $owner);
+//                }
+
+//                if($type == 'ClassifyQuestion') {
+//                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+//                }
+                if ($type == 'DrawingQuestion') {
+                    $this->Session->delete('drawing_grid');
+                    $this->Session->delete('drawing_data');
+                    $this->Session->delete('drawing_background');
+                }
+
+//                if($type == 'MatchingQuestion') {
+//                    if($oldQuestion['question']['subtype'] == 'Classify') {
+//                        $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
+//                    }else{
+//                        $this->QuestionsService->addMatchingAnswers($result, $question, $owner);
+//                    }
+//                }
+
+                if ($internal === false) {
+                    $this->formResponse(true);
+                    die;
+                }
+            } else if (!$hideresponse) {
+                $this->formResponse(false, $check['errors']);
+            }
+        } else {
+
+            $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+            $tagsArray = [];
+
+            foreach ($question['question']['tags'] as $tag) {
+                $tagsArray[$tag['name']] = $tag['name'];
+            }
+
+            $question['question']['tags'] = $tagsArray;
+
+            switch ($question['question']['type']) {
+
+                case 'DrawingQuestion' :
+                    $this->Session->write('drawing_data', $question['question']['answer']);
+                    $view = 'clone_drawing';
+                    break;
+
+                case 'InfoscreenQuestion' :
+                    $view = 'clone_infoscreen';
+                    break;
+
+                case 'OpenQuestion' :
+                    $view = 'clone_open';
+                    break;
+
+                case 'CompletionQuestion' :
+                    $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+                    if ($question['question']['subtype'] == 'multi') {
+                        $view = 'clone_multi_completion';
+                    } else {
+                        $view = 'clone_completion';
+                    }
+                    break;
+
+                case 'MultipleChoiceQuestion' :
+
+                    if ($question['question']['subtype'] == 'TrueFalse') {
+                        $view = 'clone_true_false';
+                    } elseif ($question['question']['subtype'] == 'ARQ') {
+                        $view = 'clone_arq';
+                    } else {
+                        $view = 'clone_multiple_choice';
+                    }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['multiple_choice_question_answers'] as $key => $answerArray){
+                        $question['question']['multiple_choice_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
+                    break;
+
+                case 'RankingQuestion':
+                    $view = 'clone_ranking';
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['ranking_question_answers'] as $key => $answerArray){
+                        $question['question']['ranking_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
+                    break;
+
+                case 'MatchingQuestion' :
+                    if ($question['question']['subtype'] == 'Classify') {
+                        $view = 'clone_classify';
+                    } else {
+                        $view = 'clone_matching';
+                    }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['matching_question_answers'] as $key => $answerArray){
+                        $question['question']['matching_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
+                    break;
+            }
+
+            $test = $this->Session->read('active_test');
+            $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+            $selectedAttainments = [];
+
+            foreach ($question['question']['attainments'] as $attainment) {
+                $selectedAttainments[] = $attainment['id'];
+            }
+
+            $this->set('selectedAttainments', $selectedAttainments);
+            $this->set('question', $question);
+            $this->set('owner', $owner);
+            $this->set('owner_id', $owner_id);
+            $this->set('editable', true);
+            $this->Session->write('attachments_editable', true);
+
+            $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
+            $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+            $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+
+            $this->render($view, 'ajax');
+        }
+    }
+
     public function add_multi_completion_item()
     {
 
