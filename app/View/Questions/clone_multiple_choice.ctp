@@ -5,7 +5,7 @@
 ?>
 
 <div class="popup-content">
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
         <?
         $options = [];

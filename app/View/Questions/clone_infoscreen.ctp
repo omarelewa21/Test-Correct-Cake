@@ -1,7 +1,7 @@
 <div class="popup-head">Infoscherm</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
 
     <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />

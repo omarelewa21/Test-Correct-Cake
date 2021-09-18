@@ -1,6 +1,6 @@
 <div class="popup-head">ARQ</div>
 <div class="popup-content">
-    <?=$this->Form->create('')?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
         <?
         $options = [];
@@ -31,44 +31,44 @@
         </table>
 
         <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="clone_question">
+            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
                 Vraag
             </a>
 
-            <a href="#" class="btn grey" page="options" tabs="clone_question">
+            <a href="#" class="btn grey" page="options" tabs="edit_question">
                 Antwoorden
             </a>
 
             <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="clone_question">
+                <a href="#" class="btn grey" page="sources" tabs="edit_question">
                     Bronnen
                 </a>
             <? } ?>
 
-            <a href="#" class="btn grey" page="attainments" tabs="clone_question">
+            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
                 Eindtermen
             </a>
 
 
-            <a href="#" class="btn grey" page="tags" tabs="clone_question">
+            <a href="#" class="btn grey" page="tags" tabs="edit_question">
                 Tags
             </a>
 
-            <a href="#" class="btn grey" page="rtti" tabs="clone_question">
+            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
                 Taxonomie
             </a>
 
-            <a href="#" class="btn grey" page="owners" tabs="clone_question">
+            <a href="#" class="btn grey" page="owners" tabs="edit_question">
                 Info
             </a>
             <br clear="all" />
         </div>
 
-        <div page="question" class="page active" tabs="clone_question">
+        <div page="question" class="page active" tabs="edit_question">
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
         </div>
 
-        <div page="options" class="page" tabs="clone_question">
+        <div page="options" class="page" tabs="edit_question">
             <table class="table" id="tableMultiChoiceOptions">
                 <thead>
                 <tr>
@@ -129,25 +129,25 @@
             </table>
         </div>
 
-        <div page="attainments" class="page" tabs="clone_question">
+        <div page="attainments" class="page" tabs="edit_question">
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 
         <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
-    <div page="tags" class="page" tabs="clone_question">
+    <div page="tags" class="page" tabs="edit_question">
         <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
     </div>
 
 
-    <div page="owners" class="page" tabs="clone_question">
+    <div page="owners" class="page" tabs="edit_question">
         <?=$this->element('question_info', ['question' => $question])?>
     </div>
 
         <?=$this->Form->end();?>
 
         <? if($owner != 'group') { ?>
-            <div page="sources" class="page" tabs="clone_question"></div>
+            <div page="sources" class="page" tabs="edit_question"></div>
         <? } ?>
 </div>
 <div class="popup-footer">
@@ -156,7 +156,7 @@
     </a>
     <? if($editable) { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ARQQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-            Vraag opslaanaaan
+            Vraag opslaan
         </a>
     <? } ?>
 </div>

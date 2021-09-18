@@ -1,7 +1,7 @@
 <div class="popup-head">Open vraag</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
         <?
         $openTypes = [
             'short' => 'Korte open-antwoordvraag',

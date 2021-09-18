@@ -1,7 +1,7 @@
 <div class="popup-head">Gatentekst</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
         <table class="table mb15">
             <tr>
