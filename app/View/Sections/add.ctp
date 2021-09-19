@@ -23,25 +23,37 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
+    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave" onclick="addSection()">
         Aanmaken
     </a>
 </div>
 
 <script type="text/javascript">
-    $('#SectionAddForm').formify(
-        {
-            confirm : $('#btnSave'),
-            onsuccess : function(result) {
-                Popup.closeLast();
-                Notify.notify("Sectie aangemaakt", "info");
-                Navigation.refresh();
-            },
-            onfailure : function(result) {
-                Notify.notify("Sectie kon niet worden aangemaakt", "error");
-            }
+    function addSection(){
+        if($('#SectionName').val() === ""){
+            Notify.notify("schoolnaam moet ingevuld zijn", "error");
         }
-    );
+        else if($('#SectionSchoolLocations').val() === null){
+            Notify.notify("schoollocatie moet ten minste één waarde hebben", "error");
+        }
+        else{
+                $('#SectionAddForm').formify(
+                {
+                    confirm : $('#btnSave'),
+                    onsuccess : function(result) {
+                        Popup.closeLast();
+                        Notify.notify("Sectie aangemaakt", "info");
+                        Navigation.refresh();
+                    },
+                    onfailure : function(result) {
+                        Notify.notify("Sectie kon niet worden aangemaakt", "error");
+                    }
+                }
+            );
+        }
+    }
+    
+    
 
     $('#SectionSchoolLocations').select2();
 </script>
