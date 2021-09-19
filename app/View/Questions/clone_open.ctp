@@ -88,6 +88,8 @@
             <?=$this->element('question_info', ['question' => $question])?>
         </div>
 
+        <?=$this->Form->input('subtype', array('label' => false, 'type' => 'hidden'))?>
+
     <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
         <div page="tags" class="page" tabs="edit_question">
@@ -120,7 +122,8 @@
     <? if($owner != 'group') { ?>
         Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? } ?>
-
+    $('#QuestionSubtype').val("<?= $subtype ?>");
+    $('#QuestionAttainments').select2();
     $('#QuestionTags').select2({
         tags : true,
         ajax: {
