@@ -144,6 +144,7 @@
                 <th>E-mailadres</th>
                 <th>Notities</th>
                 <th width=30>&nbsp;</th>
+                <th width=30>&nbsp;</th>
             </tr>
             <?
             foreach($managers as $manager) {
@@ -157,6 +158,11 @@
                     <td class="nopadding">
                         <a href="#" class="btn white pull-right dropblock-left" onclick="Popup.load('/users/edit/<?=getUUID($manager, 'get');?>', 400);">
                             <span class="fa fa-folder-open-o"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn small red inline-block" onclick="SchoolManager.delete('<?=getUUID($manager, 'get');?>');">
+                            <span class="fa fa-remove"></span>
                         </a>
                     </td>
                 </tr>

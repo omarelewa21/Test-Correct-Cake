@@ -720,6 +720,27 @@ var Contact = {
 	}
 };
 
+var SchoolManager = {
+	delete : function(id) {
+		console.log(id);
+		Popup.message({
+			btnOk: 'Ja',
+			btnCancel: 'Annuleer',
+			title: 'Weet u het zeker?',
+			message: 'Weet u zeker dat u dit Schoolbeheerder wilt verwijderen?'
+		}, function() {
+			$.ajax({
+				url: '/users/delete/' + '42898',
+				type: 'DELETE',
+				success: function(response) {
+					Navigation.refresh();
+					Notify.notify('Schoolbeheerder verwijderd');
+				}
+			});
+		});
+	}
+};
+
 var Period = {
 	delete : function(id) {
 
