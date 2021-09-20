@@ -474,7 +474,7 @@ class UsersController extends AppController
 
     public function index($type)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         switch ($type) {
             case 'accountmanagers':
@@ -586,7 +586,7 @@ class UsersController extends AppController
 
     public function edit($user_id)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
             if (array_key_exists('teacher_external_id', $this->request->data['User'])) {
@@ -802,7 +802,7 @@ class UsersController extends AppController
 
     public function load($type)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         $params = $this->request->data;
 
@@ -1156,6 +1156,10 @@ class UsersController extends AppController
 
             if ($role['name'] == 'School management') {
                 $menus['analyses'] = "Analyse";
+//                $menus['messages'] = "Berichten";
+            }
+            if ($role['name'] == 'Support') {
+                $menus['lists'] = "Gebruikers";
 //                $menus['messages'] = "Berichten";
             }
 
@@ -1652,6 +1656,14 @@ class UsersController extends AppController
                     'icon'  => 'messages',
                     'title' => 'Berichten',
                     'path'  => '/messages'
+                );
+            }
+            if ($role['name'] == 'Support') {
+                $tiles['lists'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'analyse-klassen',
+                    'title' => 'Gebruikers',
+                    'path'  => '/users/index/teachers'
                 );
             }
         }
@@ -2170,6 +2182,30 @@ class UsersController extends AppController
 
             $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff($today)->format('%d') : 0;
             $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
+        }
+    }
+
+    public function take_over_user_confirmation($userUuid)
+    {
+        if ($this->request->is('post') || $this->request->is('put')) {
+            $result = $this->UsersService->verifyPasswordForUser(getUUID(AuthComponent::user(), 'get'), $this->request->data['User']);
+
+            if ($result === 'refused') {
+                $this->formResponse(false, ['Wrong password']);exit();
+            }
+
+            $supportUsername = sprintf(
+                '%s%s %s',
+                $result['name_first'],
+                !empty($result['name_suffix']) ? ' '.$result['name_suffix'] : '',
+                $result['name']);
+
+            $requestedUser = $this->UsersService->getUser($userUuid);
+
+            $loggedIn = $this->Auth->login($requestedUser);
+
+            CakeSession::write('supportAccountTakeover', $supportUsername);
+            $this->render('templogin', 'templogin');
         }
     }
 }

@@ -424,7 +424,7 @@
 }
 
 .secondary-button:hover {
-    background-color: rgba(71, 129, 255, 1);
+    background-color: var(--blue-grey);
     background-size: 100% 100%;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
@@ -450,6 +450,12 @@
 }
 
 .cta-button:hover:enabled {
+    background-color: rgb(60, 202, 86);
+    background-size: 100% 100%;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(.215,.61,.355,1);
+}
+.cta-button:hover {
     background-color: rgb(60, 202, 86);
     background-size: 100% 100%;
     box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
