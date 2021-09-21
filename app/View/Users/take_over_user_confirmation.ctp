@@ -18,6 +18,7 @@
             'password',
             array(
                 'type'        => 'password',
+                'id'          => 'VerifyPassword',
                 'label'       => false,
                 'placeholder' => 'Wachtwoord',
                 'verify'      => 'notempty',
@@ -43,13 +44,18 @@
     $('#UserTakeOverUserConfirmationForm').formify(
         {
             confirm: $('#take_over_user_send'),
-            enterConfirm : ['#UserPassword','#UserCaptchaString'],
             onsuccess: function (result) {
-
+                location.reload();
             },
             onfailure: function (result) {
                 Notify.notify(result, 'error');
             }
         }
     );
+    $('#VerifyPassword').on('keydown',function(e){
+        if(e.keyCode == 13){
+            e.preventDefault();
+            $('#take_over_user_send').trigger('click');
+        }
+    });
 </script>

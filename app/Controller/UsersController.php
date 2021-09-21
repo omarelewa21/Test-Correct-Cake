@@ -2197,7 +2197,7 @@ class UsersController extends AppController
 
             if (empty($result) || $result === 'refused') {
                 $this->formResponse(false, ['Authentification failed.']);
-                return;
+                exit();
             }
 
             $requestedUser = $this->UsersService->getUser($userUuid);
@@ -2212,6 +2212,8 @@ class UsersController extends AppController
                 exit();
             }
 
+            $sessionHash = CakeSession::read('Auth.User.session_hash');
+
             if(!$this->Auth->login($requestedUser)) {
                 $this->formResponse(false, ['Could not login with the selected user.']);
                 exit();
@@ -2224,8 +2226,9 @@ class UsersController extends AppController
                 $result['name']);
 
             CakeSession::write('supportAccountTakeover', $supportUsername);
+            CakeSession::write('Auth.User.session_hash', $sessionHash);
 
-            $this->render('templogin', 'templogin');
+            $this->formResponse(true, ['redirect']);
         }
     }
 }
