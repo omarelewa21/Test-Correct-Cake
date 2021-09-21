@@ -127,7 +127,7 @@
             }
 
             <?php if($name = CakeSession::consume('supportAccountTakeover')) {?>
-                Notify.notify('Let op! Je bent ingelogd met het Support account van <?= $name ?>', 'info', 10000)
+                Notify.notify('Let op! Je bent ingelogd via het Support account van <?= $name ?>', 'info', 10000)
             <?php }?>
 		</script>
 	</body>

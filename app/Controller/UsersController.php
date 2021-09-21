@@ -2190,8 +2190,8 @@ class UsersController extends AppController
         if ($this->request->is('post') || $this->request->is('put')) {
             $result = $this->UsersService->verifyPasswordForUser(getUUID(AuthComponent::user(), 'get'), $this->request->data['User']);
 
-            if ($result === 'refused') {
-                $this->formResponse(false, ['Wrong password']);exit();
+            if (empty($result) || $result === 'refused') {
+                $this->formResponse(false, ['Authentification failed.']);exit();
             }
 
             $supportUsername = sprintf(
@@ -2202,7 +2202,7 @@ class UsersController extends AppController
 
             $requestedUser = $this->UsersService->getUser($userUuid);
 
-            $loggedIn = $this->Auth->login($requestedUser);
+            $this->Auth->login($requestedUser);
 
             CakeSession::write('supportAccountTakeover', $supportUsername);
             $this->render('templogin', 'templogin');
