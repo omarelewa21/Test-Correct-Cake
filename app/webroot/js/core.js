@@ -722,7 +722,6 @@ var Contact = {
 
 var SchoolManager = {
 	delete : function(id) {
-		console.log(id);
 		Popup.message({
 			btnOk: 'Ja',
 			btnCancel: 'Annuleer',
@@ -730,7 +729,7 @@ var SchoolManager = {
 			message: 'Weet u zeker dat u dit Schoolbeheerder wilt verwijderen?'
 		}, function() {
 			$.ajax({
-				url: '/users/delete/' + '42898',
+				url: '/users/delete/' + id,
 				type: 'DELETE',
 				success: function(response) {
 					Navigation.refresh();
