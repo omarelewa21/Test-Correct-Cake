@@ -725,7 +725,8 @@ if ($wizard_steps) {
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
-            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
+            var generalTermsPopupWidth = $(document).width() < 900 ? $(document).width() : 900;
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', generalTermsPopupWidth);
         }
 
     }, 1000);
