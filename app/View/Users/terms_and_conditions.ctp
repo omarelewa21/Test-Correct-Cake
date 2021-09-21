@@ -59,7 +59,12 @@
 
 <script>
     $(document).ready(function() {
-        $('#prevent_logout_div').parent().css({'border-radius': '10px'})
+        $('#prevent_logout_div').parent().css({
+            'border-radius': '10px',
+            'height' : '90vh',
+            'max-height' : '820px',
+            'overflow' : 'auto'
+        })
     })
 
     function userAcceptedTerms() {
