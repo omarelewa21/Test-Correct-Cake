@@ -380,3 +380,22 @@ span.note {
     font-weight: normal;
     color: var(--note);
 }
+
+input.new-styling-input {
+    padding: 0 10px 0 10px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--blue-grey);
+    font-family: "Nunito", sans-serif;
+}
+
+input.new-styling-input:hover {
+    border: 1px solid var(--primary);
+}
+
+input.new-styling-input:focus, input.new-styling-input:active {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    outline: none;
+}

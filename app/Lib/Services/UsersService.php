@@ -777,5 +777,14 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function registerTakeOverForUser($user_uuid)
+    {
+        $response = $this->Connector->putRequest('/support/register_take_over/'.$user_uuid, [], []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

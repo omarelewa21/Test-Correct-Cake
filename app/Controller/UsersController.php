@@ -1160,7 +1160,6 @@ class UsersController extends AppController
             }
             if ($role['name'] == 'Support') {
                 $menus['lists'] = "Gebruikers";
-//                $menus['messages'] = "Berichten";
             }
 
 
@@ -1659,11 +1658,17 @@ class UsersController extends AppController
                 );
             }
             if ($role['name'] == 'Support') {
-                $tiles['lists'] = array(
+                $tiles['teachers'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Gebruikers',
+                    'title' => 'Docenten',
                     'path'  => '/users/index/teachers'
+                );
+                $tiles['students'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'analyse-klassen',
+                    'title' => 'Studenten',
+                    'path'  => '/users/index/students'
                 );
             }
         }
@@ -2191,20 +2196,35 @@ class UsersController extends AppController
             $result = $this->UsersService->verifyPasswordForUser(getUUID(AuthComponent::user(), 'get'), $this->request->data['User']);
 
             if (empty($result) || $result === 'refused') {
-                $this->formResponse(false, ['Authentification failed.']);exit();
+                $this->formResponse(false, ['Authentification failed.']);
+                return;
+            }
+
+            $requestedUser = $this->UsersService->getUser($userUuid);
+
+            if (!$requestedUser) {
+                $this->formResponse(false, ['Requested user unavailable.']);
+                exit();
+            }
+
+            if(!$this->UsersService->registerTakeOverForUser($userUuid)) {
+                $this->formResponse(false, ['Something went wrong with logging the current action.']);
+                exit();
+            }
+
+            if(!$this->Auth->login($requestedUser)) {
+                $this->formResponse(false, ['Could not login with the selected user.']);
+                exit();
             }
 
             $supportUsername = sprintf(
                 '%s%s %s',
                 $result['name_first'],
-                !empty($result['name_suffix']) ? ' '.$result['name_suffix'] : '',
+                !empty($result['name_suffix']) ? ' ' . $result['name_suffix'] : '',
                 $result['name']);
 
-            $requestedUser = $this->UsersService->getUser($userUuid);
-
-            $this->Auth->login($requestedUser);
-
             CakeSession::write('supportAccountTakeover', $supportUsername);
+
             $this->render('templogin', 'templogin');
         }
     }
