@@ -522,6 +522,13 @@ class UsersController extends AppController
                     'add_title' => 'Nieuw Directielid'
                 ];
                 break;
+
+            case 'support':
+                $params = [
+                    'title'     => 'Supportmedewerkers',
+                    'add_title' => 'Nieuwe medewerker'
+                ];
+                break;
         }
 
         $roles = AuthComponent::user('roles');
@@ -734,6 +741,10 @@ class UsersController extends AppController
             case 5: //Accountmanager
                 $this->render('view_accountmanager', 'ajax');
                 break;
+
+            case 11: //Accountmanager
+                $this->render('view_support', 'ajax');
+                break;
         }
     }
 
@@ -854,6 +865,10 @@ class UsersController extends AppController
 
             case 'management':
                 $params['filter']['role'] = 7;
+                break;
+
+            case 'support':
+                $params['filter']['role'] = 11;
                 break;
         }
 
@@ -1119,6 +1134,7 @@ class UsersController extends AppController
             }
             if ($role['name'] == 'Administrator') {
                 $menus['accountmanagers'] = "Accountmanagers";
+                $menus['support_list'] = "Support";
                 $menus['lists'] = "Database";
             }
 
@@ -1252,6 +1268,13 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'RTTI Import',
                     'path'  => '/rttiimport/index'
+                );
+
+                $tiles['support'] = array(
+                    'menu'  => 'support_list',
+                    'icon'  => 'testlist',
+                    'title' => 'Medewerkers',
+                    'path'  => '/users/index/support'
                 );
             }
 
@@ -2200,7 +2223,7 @@ class UsersController extends AppController
                 exit();
             }
 
-            $requestedUser = $this->UsersService->getUser($userUuid);
+            $requestedUser = $this->UsersService->getUser($userUuid, ['with' => ['sessionHash']]);
 
             if (!$requestedUser) {
                 $this->formResponse(false, ['Requested user unavailable.']);
@@ -2212,8 +2235,6 @@ class UsersController extends AppController
                 exit();
             }
 
-            $sessionHash = CakeSession::read('Auth.User.session_hash');
-
             if(!$this->Auth->login($requestedUser)) {
                 $this->formResponse(false, ['Could not login with the selected user.']);
                 exit();
@@ -2223,12 +2244,12 @@ class UsersController extends AppController
                 '%s%s %s',
                 $result['name_first'],
                 !empty($result['name_suffix']) ? ' ' . $result['name_suffix'] : '',
-                $result['name']);
+                $result['name']
+            );
 
             CakeSession::write('supportAccountTakeover', $supportUsername);
-            CakeSession::write('Auth.User.session_hash', $sessionHash);
 
-            $this->formResponse(true, ['redirect']);
+            $this->formResponse(true);
         }
     }
 }
