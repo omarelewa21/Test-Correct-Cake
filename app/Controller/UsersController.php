@@ -12,6 +12,7 @@ App::uses('Securimage', 'webroot/img');
 App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
+App::uses('SupportService', 'Lib/Services');
 
 /**
  * Users controller
@@ -38,6 +39,7 @@ class UsersController extends AppController
         $this->DeploymentService = new DeploymentService();
         $this->WhitelistIpService = new WhitelistIpService();
         $this->TestsService = new TestsService();
+        $this->SupportService = new SupportService();
 
         parent::beforeFilter();
     }
@@ -692,6 +694,11 @@ class UsersController extends AppController
                     HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
                 $this->render('edit_students', 'ajax');
                 break;
+
+            case 11: //Parent
+                $this->render('edit_support', 'ajax');
+                break;
+
         }
 
         $this->Session->delete('user_profile_picture');
@@ -743,6 +750,7 @@ class UsersController extends AppController
                 break;
 
             case 11: //Accountmanager
+                $this->set('takeOverLogs', $this->SupportService->getTakeOverLogsForUser(getUUID($user, 'get')));
                 $this->render('view_support', 'ajax');
                 break;
         }
@@ -1023,6 +1031,10 @@ class UsersController extends AppController
                 $data['user_roles'] = [8];
             }
 
+            if ($type == 'support') {
+                $data['user_roles'] = [11];
+            }
+
 
             $result = $this->UsersService->addUser($type, $data);
 
@@ -1275,6 +1287,12 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'Medewerkers',
                     'path'  => '/users/index/support'
+                );
+                $tiles['support_logs'] = array(
+                    'menu'  => 'support_list',
+                    'icon'  => 'testlist',
+                    'title' => 'Logs',
+                    'path'  => '/support/index'
                 );
             }
 
@@ -2230,7 +2248,7 @@ class UsersController extends AppController
                 exit();
             }
 
-            if(!$this->UsersService->registerTakeOverForUser($userUuid)) {
+            if(!$this->SupportService->registerTakeOverForUser($userUuid)) {
                 $this->formResponse(false, ['Something went wrong with logging the current action.']);
                 exit();
             }

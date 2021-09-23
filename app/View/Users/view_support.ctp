@@ -28,36 +28,37 @@
                     <?=$user['name_suffix']?>
                     <?=$user['name']?>
                 </td>
-                <th width="10%">Vraag items</th>
-                <td width="23%"><?=$user['count_questions']?></td>
-            </tr>
-            <tr>
-                <th width="10%">Toets items</th>
-                <td width="23%"><?=$user['count_tests']?></td>
-                <th>Afgenomen toetsen</th>
-                <td><?=$user['count_tests_taken']?></td>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Klassen en vakken</div>
+    <div class="block-head">Logs</div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th>Vak</th>
-                <th>Klas</th>
-                <th>Leerjaar</th>
+                <th>Gebruiker</th>
+                <th>Rol</th>
+                <th>Datum</th>
+                <th>IP</th>
             </tr>
             <?
-            foreach($user['own_teachers'] as $teacher) {
+            foreach($takeOverLogs as $log) {
+                $created_at = new DateTime($log['created_at']);
+                $created_at->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+                $name = sprintf(
+                    '%s%s %s',
+                    $log['user']['name_first'],
+                    !empty($log['user']['name_suffix']) ? ' ' . $log['user']['name_suffix'] : '',
+                    $log['user']['name']
+                );
                 ?>
                 <tr>
-                    <td><?=$teacher['subject']['name']?></td>
-                    <td><?=$teacher['school_class']['name']?></td>
-                    <td><?=$school_years[$teacher['school_class']['school_year_id']]?></td>
-
+                    <td><?= $name ?></td>
+                    <td><?= $log['user']['roles'][0]['name'] ?></td>
+                    <td><?= $created_at->format('d-m-Y H:i:s') ?></td>
+                    <td><?= $log['ip'] ?></td>
                 </tr>
                 <?
             }
