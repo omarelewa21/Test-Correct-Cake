@@ -1109,7 +1109,10 @@ class TestTakesController extends AppController {
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
         $this->isNotInBrowser($take_id);
-        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+
+        $params['app_details'] = $this->getAppInfoFromSession();
+
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id, $params));
 
     }
 

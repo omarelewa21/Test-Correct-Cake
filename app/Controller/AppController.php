@@ -284,4 +284,14 @@ class AppController extends Controller
 
         return $params;
     }
+
+    public function getAppInfoFromSession()
+    {
+        return [
+            'TLCVersion'            => CakeSession::read('TLCVersion'),
+            'TLCOs'                 => CakeSession::read('TLCOs'),
+            'TLCHeader'             => CakeSession::read('TLCHeader'),
+            'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+        ];
+    }
 }
