@@ -273,7 +273,7 @@ class TestsService extends BaseService {
         return $response;
     }
 
-    public function getSubjects($personal = false, $mode = 'list', $without_demo=false, $without_imp=false) {
+    public function getSubjects($personal = false, $mode = 'list', $without_demo=false, $without_imp=false, $without_show_in_onboarding = false) {
 
         if($personal) {
             if(isset($params['filter'])){
@@ -300,6 +300,13 @@ class TestsService extends BaseService {
                 $params['filter']['imp'] = 0;
             } else {
                 $params['filter'] = ['imp' => 0];
+            }
+        }
+        if ($without_show_in_onboarding){
+            if(isset($params['filter'])){
+                $params['filter']['show_in_onboarding'] = 0;
+            } else {
+                $params['filter'] = ['show_in_onboarding' => 0];
             }
         }
 
