@@ -285,7 +285,7 @@ class AppController extends Controller
         return $params;
     }
 
-    public function getAppInfoFromSession()
+    function getAppInfoFromSession()
     {
         return [
             'TLCVersion'            => CakeSession::read('TLCVersion'),
