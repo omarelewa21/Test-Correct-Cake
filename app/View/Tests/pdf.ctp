@@ -14,7 +14,7 @@
     }
 </style>
 <div style="text-align:center;">
-    <img src="http://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
+    <img src="https://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
     <h1><?=$test['name']?></h1>
     <h1><?=$test['education_level_year']?> <?=$test['education_level']['name']?> - <?=$test['subject']['name']?></h1>
 </div>
