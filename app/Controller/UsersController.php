@@ -2093,7 +2093,7 @@ class UsersController extends AppController
             ],
             'mode'   => 'import_data',
         ]);
-        $subjects = $this->TestsService->getSubjects(false, 'all', true, true);
+        $subjects = $this->TestsService->getSubjects(false, 'all', true, true, true);
 
         $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
 
