@@ -1247,6 +1247,13 @@ class UsersController extends AppController
                     'title' => 'RTTI Import',
                     'path'  => '/rttiimport/index'
                 );
+
+                $tiles['attainments_import_export'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments',
+                    'path'  => '/attainments/upload_download_provision'
+                );
             }
 
             if ($role['name'] == 'Account manager') {
