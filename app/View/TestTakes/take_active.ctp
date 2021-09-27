@@ -209,10 +209,10 @@
             item.setAttribute('style', 'fill : #515151');
         });
         if(!hideButtonsFound && hideButtonsIterator < 10){
-            setTimeout(function((){
+            setTimeout(function(){
                 hideButtonsIterator++;
                 hideBrowseAloudButtons();
-            }),250);
+            },250);
         }
     }
 
