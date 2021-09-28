@@ -2,14 +2,12 @@
 if ($wizard_steps) {
     ?>
     <div style="position: relative; width: 100%">
-        <div id="buttons" style="position:absolute; right: 0;">
-            <a id="toggle-ob-wizard" href="#0" class="btn white">
-            <span>
-                <i class="fa fa-minus mr5"></i>
-                Verberg demo tour
-            </span>
-                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-            </a>
+        <div style="position:absolute; top:30px; right: 0;">
+            <button class="button cta-button button-md" onclick="window.location.href='#demo-tour';" >
+                <span>
+                     Naar de demo tour
+                </span>
+            </button>
         </div>
     </div>
 <?php } ?>
@@ -194,18 +192,31 @@ if ($wizard_steps) {
     </div>
 
 </div>
-
+<div style="margin-top:-150px; position: absolute; " id="demo-tour">
+<p></p>
+</div>
 
 <?php
 if ($wizard_steps) {
 ?>
-<div>
 
+<div>
+    <div  style="position: relative; height:100px; width: 100%">
+        <div id="buttons" style="position:absolute; right: 0;">
+            <button id="toggle-ob-wizard" class="button cta-button button-md">
+            <span>
+                <i class="fa fa-minus mr5"></i>
+                Verberg demo tour
+            </span>
+                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
+            </button>
+        </div>
+    </div>
     <div id="ob-wizard">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
         <div class="block">
-            <div class="block-head m56" style="padding-top:25px;">
+            <div class="block-head mt20 m56" style="padding-top:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
@@ -818,5 +829,9 @@ if ($wizard_steps) {
         padding-left: 19px;
         padding-right: 19px;
         margin-left: -9px;
+    }
+    html{
+        transition-duration: 300ms;
+        scroll-behavior: smooth;
     }
 </style>
