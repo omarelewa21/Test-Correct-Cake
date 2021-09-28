@@ -86,7 +86,7 @@ foreach($sections as $section) {
             </td>
             <td>
                 <?
-                    echo $section['base_subjects'][$index]['name'] . '<br />';
+                    echo $subject['base_subject']['name'] . '<br />';
                 ?>
             </td>
 
