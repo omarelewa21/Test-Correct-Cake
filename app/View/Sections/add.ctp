@@ -37,19 +37,18 @@
             Notify.notify("schoollocatie moet ten minste één waarde hebben", "error");
         }
         else{
-                $('#SectionAddForm').formify(
-                {
-                    confirm : $('#btnSave'),
-                    onsuccess : function(result) {
-                        Popup.closeLast();
-                        Notify.notify("Sectie aangemaakt", "info");
-                        Navigation.refresh();
-                    },
-                    onfailure : function(result) {
-                        Notify.notify("Sectie kon niet worden aangemaakt", "error");
-                    }
+            $.post('/sections/add',
+            $('#SectionAddForm').serialize(),
+            function(response) {
+                response = JSON.parse(response);
+                if(response['status'] == 1) {
+                    Popup.closeLast();
+                    Navigation.refresh();
                 }
-            );
+                else{
+                    Notify.notify(response['data'].join('<br />'), 'error');
+                }
+            });
         }
     }
     
