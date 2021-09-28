@@ -3,7 +3,7 @@ if ($wizard_steps) {
     ?>
     <div style="position: relative; width: 100%">
         <div style="position:absolute; top:30px; right: 0;">
-            <button class="button cta-button button-md" onclick="window.location.href='#demo-tour';" >
+            <button class="button primary-button button-md" onclick="window.location.href='#demo-tour';" >
                 <span>
                      Naar de demo tour
                 </span>
@@ -185,23 +185,21 @@ if ($wizard_steps) {
 if ($wizard_steps) {
 ?>
 
+
 <div>
     <div  style="position: relative; height:100px; width: 100%">
-        <div id="buttons" style="position:absolute; right: 0;">
-            <button id="toggle-ob-wizard" class="button cta-button button-md">
-            <span>
-                <i class="fa fa-minus mr5"></i>
-                Verberg demo tour
-            </span>
-                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-            </button>
+        <div class="Read-more">
+            <div id="toggle-ob-wizard" class="showdemotour Hide-demo-tour">
+            <span class="text">Demotour verbergen</span>
+                <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
+            </div>
         </div>
     </div>
-    <div id="ob-wizard">
+    <div id="ob-wizard" class="fadeInOut">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
         <div class="block">
-            <div class="block-head mt20 m56" style="padding-top:25px;">
+            <div class="block-head" style="padding:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
@@ -367,7 +365,9 @@ if ($wizard_steps) {
     }
     ?>
 </div>
+<div style="height: 50px;">
 
+</div>
 <script src="/js/confetti.min.js"></script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
@@ -494,25 +494,28 @@ if ($wizard_steps) {
         }
 
         function toggleWizardVisibilityState() {
-            var el = $('i:first', $('#toggle-ob-wizard'));
+            var button = $('#toggle-ob-wizard');
             var show = true;
-
             var completed = $("wizard-completed").length;
+            var Chevron = button.find('#checked_classes_svg');
 
-            if (el.hasClass('fa-minus')) {
-                el.parent().html('<i class="fa fa-plus mr5"></i> Toon demo tour');
-                $('#ob-wizard').hide();
+            if (button.hasClass('showdemotour')) {
+                button.find('.text').html('Demotour tonen');
+                Chevron.css({ WebkitTransform: 'rotate(270deg)'});
+                $('#ob-wizard').addClass('hidden');
                 show = false;
             } else {
-                el.parent().html('<i class="fa fa-minus mr5"></i> Verberg demo tour');
-                $('#ob-wizard').show();
+                button.find('.text').html('Demotour verbergen');
+                Chevron.css({ WebkitTransform: 'rotate(90deg)'})
+                $('#ob-wizard').removeClass('hidden');
             }
+
+
+            button.toggleClass('showdemotour');
 
             if (completed !== 0) {
                 markWizardCompleted();
             }
-
-
             return show;
         }
 
@@ -793,7 +796,47 @@ if ($wizard_steps) {
         padding-top: 5px;
         color: #337ab7;
     }
+    .Read-more{
+        width: 100%;
+        display: flex;
+        border-bottom: solid 1px var(--blue-grey);
+        justify-content: center;
 
+    }
+    .Hide-demo-tour {
+        padding: 8px 16px 0 16px;
+        background-color: #f5f5f5;
+        color: #041f74;
+        text-align:center;
+        line-height: 1.5;
+        display: inline-flex;
+        box-sizing:border-box;
+        align-items: center;
+        cursor:pointer;
+        position:relative;
+        top:1px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-top: solid 1px var(--blue-grey);
+        border-right: solid 1px var(--blue-grey);
+        border-left: solid 1px var(--blue-grey);
+
+    }
+    .Hide-demo-tour .text {
+        display:flex;
+        flex-grow:1;
+        text-align:center;
+        font-size:16px;
+        font-weight: bold;
+        margin-right: 8px
+    }
+    .fadeInOut {
+        transition: all 5s linear;
+    }
+    .fadeInOut.hidden {
+         height:0;
+        overflow: hidden;
+     }
     .prr-button {
         padding: 6px;
         line-height: 15px;
