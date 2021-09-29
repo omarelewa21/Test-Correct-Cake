@@ -33,10 +33,10 @@
             </div>
         <?php } ?>
         <div style="border-radius: 10px; border:solid 1px var(--blue-grey);height: 400px; overflow: hidden;box-sizing: border-box">
-            <iframe id="terms_iframe" src="https://www.test-correct.nl/wp-content/uploads/2021/06/Algemene-Voorwaarden-2021-The-Teach-and-Learn-Company-BV-Test-Correct-versie-20210618.pdf#toolbar=0" frameborder="0" width="100%" height="100%"></iframe>
+            <iframe id="terms_iframe" src="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Algemene-Voorwaarden-2021-The-Teach-and-Learn-Company-BV-Test-Correct-versie-20210618.pdf#toolbar=0" frameborder="0" width="100%" height="100%"></iframe>
         </div>
         <div>
-            <p class="body2 bold"><?= __("Door middel van het accepteren bevestigt u dat u de")?> <a href="https://www.test-correct.nl/algemene-voorwaarden/" target="_blank" style="text-decoration: underline"><?= __("algemene voorwaarden")?></a> <?= __("heeft ontvangen, gelezen en begrepen.")?></p>
+            <p class="body2 bold"><?= __("Door middel van het accepteren bevestigt u dat u de")?> <a href="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Algemene-Voorwaarden-2021-The-Teach-and-Learn-Company-BV-Test-Correct-versie-20210618.pdf" target="_blank" style="text-decoration: underline"><?= __("algemene voorwaarden")?></a> <?= __("heeft ontvangen, gelezen en begrepen.")?></p>
         </div>
     </div>
 </div>

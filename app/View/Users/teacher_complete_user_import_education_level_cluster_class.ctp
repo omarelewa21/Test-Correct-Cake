@@ -312,7 +312,7 @@
 
                                 var msg = buildNotificationMessage(data.result.count);
 
-                                Notify.notify(msg)
+                                Notify.notify(msg, 8000)
                                 Popup.closeLast();
                                 if(data.result.done){
                                     Notify.notify('<?= __("Super!<br/>Alle gegevens zijn verwerkt en je kunt nu aan de slag met toetsen")?>');
