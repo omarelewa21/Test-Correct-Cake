@@ -483,11 +483,10 @@ if ($wizard_steps) {
                 .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
-
-            $('#scrollToDemo').on("click",function (){
+                .on("click", '#scrollToDemo' ,function (){
                 $("HTML, BODY").animate({
                     scrollTop: $("#demo-tour").offset().top
-                }, 1000);
+            }, 500);
             });
         })
 
@@ -500,22 +499,22 @@ if ($wizard_steps) {
         }
 
         function toggleWizardVisibilityState() {
-            var button = $('#toggle-ob-wizard');
+            var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
-            var completed = $("wizard-completed").length;
-            var Chevron = button.find('#checked_classes_svg');
+            var completed = $('wizard-completed').length;
+            var chevron = tabDemoTour.find('#checked_classes_svg');
+            var tabDemoTourText = tabDemoTour.find('.text');
 
-            if ($('#ob-wizard').is(":hidden")) {
-                button.find('.text').html('Demotour verbergen');
-                Chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
-                $('#ob-wizard').slideDown( "slow" );
+            if ($('#ob-wizard').is(':hidden')) {
+                tabDemoTourText.html('Demotour verbergen');
+                chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
+                $('#ob-wizard').slideDown( 'slow' );
                 show = false;
             } else {
-                button.find('.text').html('Demotour tonen');
-                Chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
-                $('#ob-wizard').slideUp( "slow" );
+                tabDemoTourText.html('Demotour tonen');
+                chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
+                $('#ob-wizard').slideUp( 'slow' );
             }
-
 
             if (completed !== 0) {
                 markWizardCompleted();
