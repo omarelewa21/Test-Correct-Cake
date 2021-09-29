@@ -3,7 +3,7 @@ if ($wizard_steps) {
     ?>
     <div style="position: relative; width: 100%">
         <div style="position:absolute; top:30px; right: 0;">
-            <button class="button primary-button button-md" onclick="window.location.href='#demo-tour';" >
+            <button id="scrollToDemo" class="button primary-button button-md" >
                 <span>
                      Naar de demo tour
                 </span>
@@ -483,6 +483,12 @@ if ($wizard_steps) {
                 .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
+
+            $('#scrollToDemo').on("click",function (){
+                $("HTML, BODY").animate({
+                    scrollTop: $("#demo-tour").offset().top
+                }, 1000);
+            });
         })
 
         function saveShowState(show) {
@@ -499,19 +505,17 @@ if ($wizard_steps) {
             var completed = $("wizard-completed").length;
             var Chevron = button.find('#checked_classes_svg');
 
-            if (button.hasClass('showdemotour')) {
-                button.find('.text').html('Demotour tonen');
-                Chevron.css({ WebkitTransform: 'rotate(270deg)'});
-                $('#ob-wizard').addClass('hidden');
+            if ($('#ob-wizard').is(":hidden")) {
+                button.find('.text').html('Demotour verbergen');
+                Chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
+                $('#ob-wizard').slideDown( "slow" );
                 show = false;
             } else {
-                button.find('.text').html('Demotour verbergen');
-                Chevron.css({ WebkitTransform: 'rotate(90deg)'})
-                $('#ob-wizard').removeClass('hidden');
+                button.find('.text').html('Demotour tonen');
+                Chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
+                $('#ob-wizard').slideUp( "slow" );
             }
 
-
-            button.toggleClass('showdemotour');
 
             if (completed !== 0) {
                 markWizardCompleted();
@@ -830,13 +834,6 @@ if ($wizard_steps) {
         font-weight: bold;
         margin-right: 8px
     }
-    .fadeInOut {
-        transition: all 5s linear;
-    }
-    .fadeInOut.hidden {
-         height:0;
-        overflow: hidden;
-     }
     .prr-button {
         padding: 6px;
         line-height: 15px;
