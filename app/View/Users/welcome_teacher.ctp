@@ -230,7 +230,7 @@ if ($wizard_steps) {
                 <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
-                <div class="progress">
+                <div id="progress-total" class="progress">
                     <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
                          aria-valuemax="100" style="width: <?= $progress ?>%;">
                         <span class="sr-only"></span>
@@ -482,7 +482,7 @@ if ($wizard_steps) {
                     return false
                 })
                 .on('click', '#toggle-ob-wizard', function (e) {
-                    saveShowState(toggleWizardVisibilityState(false))
+                    saveShowState(toggleWizardVisibilityState())
                 })
                 .on("click", '#scrollToDemo' ,function (){
                     toggleWizardVisibilityState(true);
@@ -502,12 +502,17 @@ if ($wizard_steps) {
         }
 
         function toggleWizardVisibilityState(DoNotHide) {
+
             var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
             var progress = $('#progress-bar').width();
-            var completed = $('.progress').width();
+            var completed = $('#progress-total').width();
             var chevron = tabDemoTour.find('#checked_classes_svg');
             var tabDemoTourText = tabDemoTour.find('.text');
+            if (DoNotHide === undefined) {
+                var DoNotHide = false;
+            }
+
 
             if ($('#ob-wizard').is(':hidden') || DoNotHide) {
                 tabDemoTourText.html('Demotour verbergen');
@@ -663,7 +668,7 @@ if ($wizard_steps) {
     $('#ob-wizard-' + activeStep).find('.ob-wizard-toggle-sub').trigger('click');
     updateDoneButtonStatuses();
     if (showOnboardWizard != 1) {
-        toggleWizardVisibilityState(false);
+        toggleWizardVisibilityState();
     }
 
     function resendEmailVerificationMail() {
