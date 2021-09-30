@@ -227,7 +227,7 @@ if ($wizard_steps) {
 
                 </div>
 
-                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
+                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage" data-progress="<?= $progress ?>"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
                 <div id="progress-total" class="progress">
@@ -490,7 +490,7 @@ if ($wizard_steps) {
                         scrollTop: $("#demo-tour").offset().top
                     }, 500);
             });
-            markWizardCompleted();
+            markWizardCompletedIfAppropriate();
         })
 
         function saveShowState(show) {
@@ -518,7 +518,7 @@ if ($wizard_steps) {
                 $('#ob-wizard').slideUp('slow');
                 show = false;
             }
-            markWizardCompleted();
+            markWizardCompletedIfAppropriate();
 
             return show;
         }
@@ -569,12 +569,13 @@ if ($wizard_steps) {
 
         function closeWizard() {
             $('#toggle-ob-wizard').trigger('click');
-            markWizardCompleted();
+            markWizardCompletedIfAppropriate();
         }
 
-        function markWizardCompleted() {
-            var progress = $('#progress-percentage').html();
-            if ("100%" === progress) {
+        function markWizardCompletedIfAppropriate() {
+            var progress = $('#progress-percentage').data('progress');
+            console.log('progress '+progress);
+            if (100 === parseInt(progress)) {
                 $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
             }
         }
@@ -607,7 +608,7 @@ if ($wizard_steps) {
         function updateProgressBarTo(percentage) {
             var valueAsString = percentage + '%';
             $('#progress-bar').css({'width': valueAsString});
-            $('#progress-percentage').html(valueAsString);
+            $('#progress-percentage').html(valueAsString).data('progress',parseInt(valueAsString));
             $('#progress-bar').attr('aria-valuenow', percentage)
             if (percentage === 100) {
                 $('#ob-wizard').hide();
