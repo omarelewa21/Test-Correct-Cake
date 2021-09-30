@@ -190,7 +190,8 @@ if ($wizard_steps) {
     <div  style="position: relative; height:100px; width: 100%">
         <div class="Read-more">
             <div id="toggle-ob-wizard" class="showdemotour Hide-demo-tour">
-            <span class="text">Demotour verbergen</span>
+                <span id="ob-wizard-finished-icon"></span>
+                <span class="text">Demotour verbergen</span>
                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
             </div>
         </div>
@@ -481,12 +482,14 @@ if ($wizard_steps) {
                     return false
                 })
                 .on('click', '#toggle-ob-wizard', function (e) {
-                    saveShowState(toggleWizardVisibilityState())
+                    saveShowState(toggleWizardVisibilityState(false))
                 })
                 .on("click", '#scrollToDemo' ,function (){
-                $("HTML, BODY").animate({
-                    scrollTop: $("#demo-tour").offset().top
-            }, 500);
+                    toggleWizardVisibilityState(true);
+                    $("HTML, BODY").animate({
+                        scrollTop: $("#demo-tour").offset().top
+                    }, 500);
+
             });
         })
 
@@ -498,25 +501,26 @@ if ($wizard_steps) {
             });
         }
 
-        function toggleWizardVisibilityState() {
+        function toggleWizardVisibilityState(DoNotHide) {
             var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
-            var completed = $('wizard-completed').length;
+            var progress = $('#progress-bar').width();
+            var completed = $('.progress').width();
             var chevron = tabDemoTour.find('#checked_classes_svg');
             var tabDemoTourText = tabDemoTour.find('.text');
 
-            if ($('#ob-wizard').is(':hidden')) {
+            if ($('#ob-wizard').is(':hidden') || DoNotHide) {
                 tabDemoTourText.html('Demotour verbergen');
                 chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
                 $('#ob-wizard').slideDown( 'slow' );
-                show = false;
             } else {
                 tabDemoTourText.html('Demotour tonen');
                 chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
                 $('#ob-wizard').slideUp( 'slow' );
+                show = false;
             }
 
-            if (completed !== 0) {
+            if (completed === progress) {
                 markWizardCompleted();
             }
             return show;
@@ -659,7 +663,7 @@ if ($wizard_steps) {
     $('#ob-wizard-' + activeStep).find('.ob-wizard-toggle-sub').trigger('click');
     updateDoneButtonStatuses();
     if (showOnboardWizard != 1) {
-        toggleWizardVisibilityState();
+        toggleWizardVisibilityState(false);
     }
 
     function resendEmailVerificationMail() {
