@@ -242,7 +242,7 @@ if ($wizard_steps) {
 
                 </div>
 
-                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
+                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage" data-progress="<?= $progress ?>"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
                 <div id="progress-total" class="progress">
@@ -504,8 +504,8 @@ if ($wizard_steps) {
                     $("HTML, BODY").animate({
                         scrollTop: $("#demo-tour").offset().top
                     }, 500);
-
             });
+            markWizardCompletedIfAppropriate();
         })
 
         function saveShowState(show) {
@@ -520,8 +520,6 @@ if ($wizard_steps) {
             var doNotHide = !!doNotHide;
             var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
-            var progress = $('#progress-bar').width();
-            var completed = $('#progress-total').width();
             var chevron = tabDemoTour.find('#checked_classes_svg');
             var tabDemoTourText = tabDemoTour.find('.text');
 
@@ -531,14 +529,12 @@ if ($wizard_steps) {
                 $('#ob-wizard').slideDown( 'slow' );
             } else {
                 tabDemoTourText.html('Demotour tonen');
-                chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
-                $('#ob-wizard').slideUp( 'slow' );
+                chevron.css({transform: 'rotate(90deg)', transition: '0.5s ease-in-out'})
+                $('#ob-wizard').slideUp('slow');
                 show = false;
             }
+            markWizardCompletedIfAppropriate();
 
-            if (completed === progress) {
-                markWizardCompleted();
-            }
             return show;
         }
 
@@ -588,11 +584,15 @@ if ($wizard_steps) {
 
         function closeWizard() {
             $('#toggle-ob-wizard').trigger('click');
-            markWizardCompleted();
+            markWizardCompletedIfAppropriate();
         }
 
-        function markWizardCompleted() {
-            $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+        function markWizardCompletedIfAppropriate() {
+            var progress = $('#progress-percentage').data('progress');
+            console.log('progress '+progress);
+            if (100 === parseInt(progress)) {
+                $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+            }
         }
 
         function consumeStepLink(el) {
@@ -623,7 +623,7 @@ if ($wizard_steps) {
         function updateProgressBarTo(percentage) {
             var valueAsString = percentage + '%';
             $('#progress-bar').css({'width': valueAsString});
-            $('#progress-percentage').html(valueAsString);
+            $('#progress-percentage').html(valueAsString).data('progress',parseInt(valueAsString));
             $('#progress-bar').attr('aria-valuenow', percentage)
             if (percentage === 100) {
                 $('#ob-wizard').hide();
