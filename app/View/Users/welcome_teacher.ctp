@@ -489,8 +489,8 @@ if ($wizard_steps) {
                     $("HTML, BODY").animate({
                         scrollTop: $("#demo-tour").offset().top
                     }, 500);
-
             });
+            markWizardCompleted();
         })
 
         function saveShowState(show) {
@@ -505,8 +505,6 @@ if ($wizard_steps) {
             var doNotHide = !!doNotHide;
             var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
-            var progress = $('#progress-bar').width();
-            var completed = $('#progress-total').width();
             var chevron = tabDemoTour.find('#checked_classes_svg');
             var tabDemoTourText = tabDemoTour.find('.text');
 
@@ -516,14 +514,12 @@ if ($wizard_steps) {
                 $('#ob-wizard').slideDown( 'slow' );
             } else {
                 tabDemoTourText.html('Demotour tonen');
-                chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
-                $('#ob-wizard').slideUp( 'slow' );
+                chevron.css({transform: 'rotate(90deg)', transition: '0.5s ease-in-out'})
+                $('#ob-wizard').slideUp('slow');
                 show = false;
             }
+            markWizardCompleted();
 
-            if (completed === progress) {
-                markWizardCompleted();
-            }
             return show;
         }
 
@@ -577,7 +573,10 @@ if ($wizard_steps) {
         }
 
         function markWizardCompleted() {
-            $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+            var progress = $('#progress-percentage').html();
+            if ("100%" === progress) {
+                $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+            }
         }
 
         function consumeStepLink(el) {
