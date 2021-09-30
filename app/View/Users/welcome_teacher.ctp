@@ -589,7 +589,6 @@ if ($wizard_steps) {
 
         function markWizardCompletedIfAppropriate() {
             var progress = $('#progress-percentage').data('progress');
-            console.log('progress '+progress);
             if (100 === parseInt(progress)) {
                 $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
             }
