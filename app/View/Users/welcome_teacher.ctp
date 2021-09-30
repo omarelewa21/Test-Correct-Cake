@@ -3,7 +3,7 @@ if ($wizard_steps) {
     ?>
     <div style="position: relative; width: 100%">
         <div style="position:absolute; top:30px; right: 0;">
-            <button class="button cta-button button-md" onclick="window.location.href='#demo-tour';" >
+            <button id="scrollToDemo" class="button primary-button button-md" >
                 <span>
                      Naar de demo tour
                 </span>
@@ -200,23 +200,22 @@ if ($wizard_steps) {
 if ($wizard_steps) {
 ?>
 
+
 <div>
     <div  style="position: relative; height:100px; width: 100%">
-        <div id="buttons" style="position:absolute; right: 0;">
-            <button id="toggle-ob-wizard" class="button cta-button button-md">
-            <span>
-                <i class="fa fa-minus mr5"></i>
-                Verberg demo tour
-            </span>
-                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-            </button>
+        <div class="Read-more">
+            <div id="toggle-ob-wizard" class="showdemotour Hide-demo-tour">
+                <span id="ob-wizard-finished-icon"></span>
+                <span class="text">Demotour verbergen</span>
+                <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
+            </div>
         </div>
     </div>
-    <div id="ob-wizard">
+    <div id="ob-wizard" class="fadeInOut">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
         <div class="block">
-            <div class="block-head mt20 m56" style="padding-top:25px;">
+            <div class="block-head" style="padding:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
@@ -246,7 +245,7 @@ if ($wizard_steps) {
                 <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
-                <div class="progress">
+                <div id="progress-total" class="progress">
                     <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
                          aria-valuemax="100" style="width: <?= $progress ?>%;">
                         <span class="sr-only"></span>
@@ -382,7 +381,9 @@ if ($wizard_steps) {
     }
     ?>
 </div>
+<div style="height: 50px;">
 
+</div>
 <script src="/js/confetti.min.js"></script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
@@ -498,6 +499,13 @@ if ($wizard_steps) {
                 .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
+                .on("click", '#scrollToDemo' ,function (){
+                    toggleWizardVisibilityState(true);
+                    $("HTML, BODY").animate({
+                        scrollTop: $("#demo-tour").offset().top
+                    }, 500);
+
+            });
         })
 
         function saveShowState(show) {
@@ -508,26 +516,29 @@ if ($wizard_steps) {
             });
         }
 
-        function toggleWizardVisibilityState() {
-            var el = $('i:first', $('#toggle-ob-wizard'));
+        function toggleWizardVisibilityState(doNotHide) {
+            var doNotHide = !!doNotHide;
+            var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
+            var progress = $('#progress-bar').width();
+            var completed = $('#progress-total').width();
+            var chevron = tabDemoTour.find('#checked_classes_svg');
+            var tabDemoTourText = tabDemoTour.find('.text');
 
-            var completed = $("wizard-completed").length;
-
-            if (el.hasClass('fa-minus')) {
-                el.parent().html('<i class="fa fa-plus mr5"></i> Toon demo tour');
-                $('#ob-wizard').hide();
-                show = false;
+            if ($('#ob-wizard').is(':hidden') || doNotHide) {
+                tabDemoTourText.html('Demotour verbergen');
+                chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
+                $('#ob-wizard').slideDown( 'slow' );
             } else {
-                el.parent().html('<i class="fa fa-minus mr5"></i> Verberg demo tour');
-                $('#ob-wizard').show();
+                tabDemoTourText.html('Demotour tonen');
+                chevron.css({ transform: 'rotate(90deg)', transition:'0.5s ease-in-out'})
+                $('#ob-wizard').slideUp( 'slow' );
+                show = false;
             }
 
-            if (completed !== 0) {
+            if (completed === progress) {
                 markWizardCompleted();
             }
-
-
             return show;
         }
 
@@ -809,7 +820,40 @@ if ($wizard_steps) {
         padding-top: 5px;
         color: #337ab7;
     }
+    .Read-more{
+        width: 100%;
+        display: flex;
+        border-bottom: solid 1px var(--blue-grey);
+        justify-content: center;
 
+    }
+    .Hide-demo-tour {
+        padding: 8px 16px 0 16px;
+        background-color: #f5f5f5;
+        color: #041f74;
+        text-align:center;
+        line-height: 1.5;
+        display: inline-flex;
+        box-sizing:border-box;
+        align-items: center;
+        cursor:pointer;
+        position:relative;
+        top:1px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-top: solid 1px var(--blue-grey);
+        border-right: solid 1px var(--blue-grey);
+        border-left: solid 1px var(--blue-grey);
+
+    }
+    .Hide-demo-tour .text {
+        display:flex;
+        flex-grow:1;
+        text-align:center;
+        font-size:16px;
+        font-weight: bold;
+        margin-right: 8px
+    }
     .prr-button {
         padding: 6px;
         line-height: 15px;
