@@ -501,20 +501,16 @@ if ($wizard_steps) {
             });
         }
 
-        function toggleWizardVisibilityState(DoNotHide) {
-
+        function toggleWizardVisibilityState(doNotHide) {
+            var doNotHide = !!doNotHide;
             var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
             var progress = $('#progress-bar').width();
             var completed = $('#progress-total').width();
             var chevron = tabDemoTour.find('#checked_classes_svg');
             var tabDemoTourText = tabDemoTour.find('.text');
-            if (DoNotHide === undefined) {
-                var DoNotHide = false;
-            }
 
-
-            if ($('#ob-wizard').is(':hidden') || DoNotHide) {
+            if ($('#ob-wizard').is(':hidden') || doNotHide) {
                 tabDemoTourText.html('Demotour verbergen');
                 chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
                 $('#ob-wizard').slideDown( 'slow' );
