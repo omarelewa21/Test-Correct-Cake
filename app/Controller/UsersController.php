@@ -151,8 +151,16 @@ class UsersController extends AppController
                         }
                     }
                 }
-
-                $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language']);
+                if(is_null(AuthComponent::user('school_location')['school_language'])){
+                    $language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+                    if($language !=	 'nl'){
+                        $language = 'eng';
+                    }
+                    $this->Session->write('Config.language', $language);
+                }
+                else{
+                    $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language']);
+                }
 
                 // no need to expose user info
                 $this->formResponse(true, ['message' => $message]);
