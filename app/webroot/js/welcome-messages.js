@@ -1,4 +1,4 @@
-var supportsES6 = function() {
+let supportsES6 = function() {
     try {
         new Function("(a = 0) => a");
         return true;
@@ -19,4 +19,11 @@ var supportsES6 = function() {
         notes.insertBefore(notice, notes.firstChild);
         return false;                   
     }
+}();
+
+let setUserMenuButtonText = function(){
+    $('#btnLogout').text($.i18n('Uitloggen'));
+    $('#btnChangePassword').text($.i18n('Wachtwoord wijzigen'));
+    $('#btnMenuHandIn').text($.i18n('Inleveren'));
+    $('#btnMenuKnowledgeBase').text($.i18n('Kennisbank'));
 }();

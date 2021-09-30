@@ -62,7 +62,7 @@
 			else{
 				$lang = $language;
 			}  
-			$current_lang = CakeSession::read('Config.language');
+			$current_lang = CakeSession::write('Config.language');
 			echo "<script> $.i18n().locale = '$lang'; </script>";
 		?>
 		
@@ -126,7 +126,7 @@
 				</div>
 
                 <div id="support_menu">
-                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white"><?= __("Kennisbank")?></a>
+                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" id="btnMenuKnowledgeBase" class="btn white"><?= __("Kennisbank")?></a>
 				</div>
 
 			</div>

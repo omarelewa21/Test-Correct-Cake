@@ -101,8 +101,10 @@
 
 <br clear="all" />
 
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
-<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>'; </script>
+
+</script>
 <script>
     function deleteIp(ip,uuid){
         if(confirm('<?= __("Weet je zeker dat je het ip adres ")?>'+ip+'<?= __(" wil verwijderen?")?>')){

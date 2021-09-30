@@ -169,7 +169,13 @@ $.i18n().load({
       'Gewisseld naar school ':'Switched to school ',
       'Docent succesvol toegevoegd':'Teacher added successfully',
       'Docent succesvol verwijderd':'Teacher successfully removed',
-      'Organisatie verwijderd':'Organization deleted'
+      'Organisatie verwijderd':'Organization deleted',
+
+      //welcome-messages.js
+      'Uitloggen':'Log out',
+      'Wachtwoord wijzigen': 'Change password',
+      'Inleveren': 'Hand in',
+      'Kennisbank':'Knowledge base',
     },
 
     'nl': {
@@ -185,6 +191,10 @@ $.i18n().load({
       'Toets gedupliceerd':'Toets gedupliceerd',
       'Resultaten':'Resultaten',
       'Selecteer':'Selecteer',
+      'Uitloggen':'Uitloggen',
+      'Wachtwoord wijzigen':'Wachtwoord wijzigen',
+      'Inleveren':'Inleveren',
+      'Kennisbank':'Kennisbank',
 
       'Lees de onderstaande tekst en type deze over in het tekstvak eronder.':'Lees de onderstaande tekst en type deze over in het tekstvak eronder.',
       'Afronden':'Afronden',

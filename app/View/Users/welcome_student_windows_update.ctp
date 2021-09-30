@@ -16,7 +16,5 @@
         </p>
     </div>
 </div>
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
-<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>'; </script>
-
-
