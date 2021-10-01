@@ -27,8 +27,9 @@ class SupportController extends AppController
     {
         $this->isAuthorizedAs(['Administrator']);
 
-        $logs = $this->SupportService->getTakeOverLogs($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $logs = $this->SupportService->getTakeOverLogs($params);
 
-        $this->set('logs', $logs);
+        $this->set('logs', $logs['data']);
     }
 }

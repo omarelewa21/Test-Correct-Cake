@@ -749,7 +749,7 @@ class UsersController extends AppController
                 $this->render('view_accountmanager', 'ajax');
                 break;
 
-            case 11: //Accountmanager
+            case 11: //Support employees
                 $this->set('takeOverLogs', $this->SupportService->getTakeOverLogsForUser(getUUID($user, 'get')));
                 $this->render('view_support', 'ajax');
                 break;
