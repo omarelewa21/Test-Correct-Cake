@@ -2,20 +2,28 @@
 if ($wizard_steps) {
     ?>
     <div style="position: relative; width: 100%">
-        <div id="buttons" style="position:absolute; right: 0;">
-            <a id="toggle-ob-wizard" href="#0" class="btn white">
-            <span>
-                <i class="fa fa-minus mr5"></i>
-                Verberg demo tour
-            </span>
-                <span id="ob-wizard-finished-icon"><?= $progress == 100 ? ' <i id="wizard-completed" class="text-success fa fa-check"></i>' : '' ?></span>
-            </a>
+        <div style="position:absolute; top:30px; right: 0;">
+            <button id="scrollToDemo" class="button primary-button button-md" >
+                <span>
+                     Naar de demo tour
+                </span>
+            </button>
         </div>
     </div>
 <?php } ?>
 
 <div class="dashboard">
     <div class="notes">
+        <div class="notification info">
+            <div class="title">
+                <h5>Welkom op het Test-Correct platform!</h5>
+            </div>
+            <?php if ($maintenanceNotification) { ?>
+                <div class="body">
+                    <?= $maintenanceNotification ?>
+                </div>
+            <?php } ?>
+        </div>
         <?php if ($shouldDisplayGeneralTermsNotification) {?>
         <div class="notification warning terms-and-conditions">
             <div class="title">
@@ -62,8 +70,7 @@ if ($wizard_steps) {
                 </div>
             </div>
             <?php
-        } else if (AuthComponent::user('is_temp_teacher')) {
-            ?>
+        } else if (AuthComponent::user('is_temp_teacher')) { ?>
             <div class="notification warning">
                 <div class="title">
                     <?php echo $this->element('warning', array('color' => 'var(--teacher-Highlight-dark)')) ?><h5
@@ -79,15 +86,21 @@ if ($wizard_steps) {
                 </div>
             </div>
         <?php } ?>
+
         <div class="notification info">
             <div class="title">
-                <h5>Welkom op het Test-Correct platform!</h5>
+                <h5>19 augustus 2021: Belangrijke updates</h5>
             </div>
-            <?php if ($maintenanceNotification) { ?>
             <div class="body">
-                <?= $maintenanceNotification ?>
+                <p>Om de veiligheid en stabiliteit van onze digitale toetsen te kunnen blijven waarborgen is het
+                    noodzakelijk dat leerlingen/studenten werken met een actuele versie van de Test-Correct App.</p><br/>
+                <p>Vanaf 19 augustus 2021 worden verouderde apps niet meer ondersteund. Een student kan dan met een
+                    verouderde app geen toetsen meer maken. (Zie <a href="https://support.test-correct.nl/knowledge/inbrowser-toetsen" target="_blank">browsertoetsen</a> voor een tijdelijk alternatief.)</p><br/>
+                <p>Vraag je studenten/leerlingen de meest recente versies van de app te downloaden via de App Store van
+                    hun
+                    besturingssysteem. Kijk <a href="https://www.test-correct.nl/student/" target="_blank">hier</a> voor een overzicht van de downloadlocaties.</p><br/>
+                <p>Meer informatie over de systeemvereisten van Test-Correct is <a href="https://support.test-correct.nl/knowledge/ondersteunde-browsers-besturingssystemen-en-test-correct-app-versies" target="_blank">hier</a> te vinden.</p>
             </div>
-            <?php } ?>
         </div>
     </div>
 
@@ -179,18 +192,30 @@ if ($wizard_steps) {
     </div>
 
 </div>
-
+<div style="margin-top:-150px; position: absolute; " id="demo-tour">
+<p></p>
+</div>
 
 <?php
 if ($wizard_steps) {
 ?>
-<div>
 
-    <div id="ob-wizard">
+
+<div>
+    <div  style="position: relative; height:100px; width: 100%">
+        <div class="Read-more">
+            <div id="toggle-ob-wizard" class="showdemotour Hide-demo-tour">
+                <span id="ob-wizard-finished-icon"></span>
+                <span class="text">Demotour verbergen</span>
+                <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
+            </div>
+        </div>
+    </div>
+    <div id="ob-wizard" class="fadeInOut">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
         <div class="block">
-            <div class="block-head m56" style="padding-top:25px;">
+            <div class="block-head" style="padding:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
@@ -217,10 +242,10 @@ if ($wizard_steps) {
 
                 </div>
 
-                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage"
+                <div style="height:25px;"><span class="pull-left">Voortgang...</span> <span id="progress-percentage" data-progress="<?= $progress ?>"
                                                                                             class="pull-right"><?= $progress ?>%</span>
                 </div>
-                <div class="progress">
+                <div id="progress-total" class="progress">
                     <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
                          aria-valuemax="100" style="width: <?= $progress ?>%;">
                         <span class="sr-only"></span>
@@ -356,7 +381,9 @@ if ($wizard_steps) {
     }
     ?>
 </div>
+<div style="height: 50px;">
 
+</div>
 <script src="/js/confetti.min.js"></script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 <script>
@@ -472,6 +499,13 @@ if ($wizard_steps) {
                 .on('click', '#toggle-ob-wizard', function (e) {
                     saveShowState(toggleWizardVisibilityState())
                 })
+                .on("click", '#scrollToDemo' ,function (){
+                    toggleWizardVisibilityState(true);
+                    $("HTML, BODY").animate({
+                        scrollTop: $("#demo-tour").offset().top
+                    }, 500);
+            });
+            markWizardCompletedIfAppropriate();
         })
 
         function saveShowState(show) {
@@ -482,25 +516,24 @@ if ($wizard_steps) {
             });
         }
 
-        function toggleWizardVisibilityState() {
-            var el = $('i:first', $('#toggle-ob-wizard'));
+        function toggleWizardVisibilityState(doNotHide) {
+            var doNotHide = !!doNotHide;
+            var tabDemoTour = $('#toggle-ob-wizard');
             var show = true;
+            var chevron = tabDemoTour.find('#checked_classes_svg');
+            var tabDemoTourText = tabDemoTour.find('.text');
 
-            var completed = $("wizard-completed").length;
-
-            if (el.hasClass('fa-minus')) {
-                el.parent().html('<i class="fa fa-plus mr5"></i> Toon demo tour');
-                $('#ob-wizard').hide();
-                show = false;
+            if ($('#ob-wizard').is(':hidden') || doNotHide) {
+                tabDemoTourText.html('Demotour verbergen');
+                chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
+                $('#ob-wizard').slideDown( 'slow' );
             } else {
-                el.parent().html('<i class="fa fa-minus mr5"></i> Verberg demo tour');
-                $('#ob-wizard').show();
+                tabDemoTourText.html('Demotour tonen');
+                chevron.css({transform: 'rotate(90deg)', transition: '0.5s ease-in-out'})
+                $('#ob-wizard').slideUp('slow');
+                show = false;
             }
-
-            if (completed !== 0) {
-                markWizardCompleted();
-            }
-
+            markWizardCompletedIfAppropriate();
 
             return show;
         }
@@ -551,11 +584,14 @@ if ($wizard_steps) {
 
         function closeWizard() {
             $('#toggle-ob-wizard').trigger('click');
-            markWizardCompleted();
+            markWizardCompletedIfAppropriate();
         }
 
-        function markWizardCompleted() {
-            $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+        function markWizardCompletedIfAppropriate() {
+            var progress = $('#progress-percentage').data('progress');
+            if (100 === parseInt(progress)) {
+                $('#ob-wizard-finished-icon').html('<i id="wizard-completed" class="text-success fa fa-check"></i>');
+            }
         }
 
         function consumeStepLink(el) {
@@ -586,7 +622,7 @@ if ($wizard_steps) {
         function updateProgressBarTo(percentage) {
             var valueAsString = percentage + '%';
             $('#progress-bar').css({'width': valueAsString});
-            $('#progress-percentage').html(valueAsString);
+            $('#progress-percentage').html(valueAsString).data('progress',parseInt(valueAsString));
             $('#progress-bar').attr('aria-valuenow', percentage)
             if (percentage === 100) {
                 $('#ob-wizard').hide();
@@ -725,7 +761,8 @@ if ($wizard_steps) {
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
-            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)
+            var generalTermsPopupWidth = $(document).width() < 900 ? $(document).width() : 900;
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', generalTermsPopupWidth);
         }
 
     }, 1000);
@@ -782,7 +819,40 @@ if ($wizard_steps) {
         padding-top: 5px;
         color: #337ab7;
     }
+    .Read-more{
+        width: 100%;
+        display: flex;
+        border-bottom: solid 1px var(--blue-grey);
+        justify-content: center;
 
+    }
+    .Hide-demo-tour {
+        padding: 8px 16px 0 16px;
+        background-color: #f5f5f5;
+        color: #041f74;
+        text-align:center;
+        line-height: 1.5;
+        display: inline-flex;
+        box-sizing:border-box;
+        align-items: center;
+        cursor:pointer;
+        position:relative;
+        top:1px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        border-top: solid 1px var(--blue-grey);
+        border-right: solid 1px var(--blue-grey);
+        border-left: solid 1px var(--blue-grey);
+
+    }
+    .Hide-demo-tour .text {
+        display:flex;
+        flex-grow:1;
+        text-align:center;
+        font-size:16px;
+        font-weight: bold;
+        margin-right: 8px
+    }
     .prr-button {
         padding: 6px;
         line-height: 15px;
@@ -802,5 +872,9 @@ if ($wizard_steps) {
         padding-left: 19px;
         padding-right: 19px;
         margin-left: -9px;
+    }
+    html{
+        transition-duration: 300ms;
+        scroll-behavior: smooth;
     }
 </style>

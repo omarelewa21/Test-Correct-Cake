@@ -1023,13 +1023,16 @@ class QuestionsController extends AppController
         foreach ($questions['data'] as $question) {
             // @todo this should be done better in the backend
             if ($question['type'] !== 'GroupQuestion') {
+                $question['question'] = $this->stripTagsWithoutMath($question['question']);
                 array_push($filter_group_questions, $question);
-                $filter_group_questions['question'] = $this->stripTagsWithoutMath($filter_group_questions['question']);
             }
         }
+
         $education_levels = $this->TestsService->getEducationLevels();
         $this->set('education_levels', $education_levels);
         $this->set('questions', $filter_group_questions);
+
+
     }
 
 
@@ -1048,7 +1051,8 @@ class QuestionsController extends AppController
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $this->set('test_id', $data['owner_id']);
         $this->set('tests', $tests['data']);
     }

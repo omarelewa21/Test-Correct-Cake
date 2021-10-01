@@ -25,20 +25,22 @@
     $participants = ['red' => [], 'orange' => [], 'green' => [], 'grey' => []];
 
     foreach($take['test_participants'] as $participant) {
-        if(isset($participant['answer_rated'])) {
-            if ($participant['answer_rated'] == 0) {
-                $color = 'red';
-                $discussingAllDiscussed = false;
-            } elseif ($participant['answer_rated'] == $participant['answer_to_rate']) {
+        if ($participant['active']) {
+            if (isset($participant['answer_rated'])) {
+                if ($participant['answer_rated'] == 0) {
+                    $color = 'red';
+                    $discussingAllDiscussed = false;
+                } elseif ($participant['answer_rated'] == $participant['answer_to_rate']) {
                     $color = 'green';
-            } else {
+                } else {
                     $color = 'orange';
                     $discussingAllDiscussed = false;
+                }
+            } else {
+                $color = 'grey';
             }
-        }else{
-            $color = 'grey';
+            $participants[$color][] = $participant;
         }
-        $participants[$color][] = $participant;
     }
 
     foreach($participants as $color => $_participants) {

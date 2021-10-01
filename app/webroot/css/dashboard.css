@@ -12,7 +12,7 @@
     flex-direction: column;
     font-family: "Nunito", sans-serif;
     color: var(--system-base);
-    margin: 50px 82px 0 82px;
+    margin: 100px 82px 0 82px;
 }
 
 .dashboard h1 {
@@ -380,6 +380,46 @@ span.note {
     font-weight: normal;
     color: var(--note);
 }
+
+
+
+#header .menu-scroll-button {
+    position: absolute;
+    cursor: pointer;
+    top: 60px;
+    color: white;
+    z-index: 3;
+    display: none;
+    padding: 8px;
+}
+#header .menu-scroll-button svg{
+    z-index: 2;
+}
+#header .menu-scroll-button.right {
+    right: 5px;
+}
+#header .menu-scroll-button span {
+    position: absolute;
+    width: 40px;
+    height: 48px;
+    top: -10px;
+}
+#header .menu-scroll-button.right span {
+    right: -5px;
+}
+
+#header .menu-scroll-button.left {
+    left: 5px;
+}
+#header .menu-scroll-button.left span {
+    left: -5px;
+}
+
+#header.blue .menu-scroll-button.left span {background: linear-gradient(90deg, rgba(0, 77, 245, 1) 75%, rgba(60, 121, 253, 0.1));}
+#header.blue .menu-scroll-button.right span {background: linear-gradient(90deg, rgba(0, 77, 245, 0.1) 0%, rgba(71, 129, 255, 1) 40%);}
+#header.green .menu-scroll-button.left span {}
+#header.green .menu-scroll-button.right span {}
+
 
 input.new-styling-input {
     padding: 0 10px 0 10px;

@@ -1109,7 +1109,10 @@ class TestTakesController extends AppController {
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
         $this->isNotInBrowser($take_id);
-        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+
+        $params['app_details'] = $this->getAppInfoFromSession();
+
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id, $params));
 
     }
 
@@ -2300,7 +2303,8 @@ class TestTakesController extends AppController {
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $msgArray = [];
         $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
         $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);

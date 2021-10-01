@@ -123,6 +123,7 @@ if($totalScore === 0){
         <div class="block-content">
             <table class="table table-striped">
                 <tr>
+                    <th>#</th>
                     <th>Vragen</th>
                     <th>Beoordelingen</th>
                     <th>Gem. score</th>
@@ -130,15 +131,23 @@ if($totalScore === 0){
                     <th>Overslaan</th>
                 </tr>
                 <?
+
                 $groupQuestionUuid = '';
+                $i = 0;
                 foreach($questions as $question_id => $question) {
+                if($question['type']!=='GroupQuestion') {
+                    $i++;
+                }
                     ?>
-                        <? 
+                        <?
                             if($question['type']=='GroupQuestion'){
 
                         ?>
                             <tr>
-                                <td><?=substr(strip_tags($question['name']), 0, 100)?> - <? 
+                                <td>
+
+                                </td>
+                                <td><?=substr(strip_tags($question['name']), 0, 100)?> - <?
                                         if($question['groupquestion_type']=='carousel'){   
                                              echo('carrousel');
                                         }else{
@@ -161,6 +170,7 @@ if($totalScore === 0){
                             </tr>
                         <? }elseif($question['is_subquestion']=='1'){ ?>
                             <tr>
+                                <td><?=$i?></td>
                                 <td style="padding-left:15px"><?=substr(strip_tags($question['question']), 0, 100)?></td>
                                 <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
                                 <td>
@@ -185,6 +195,7 @@ if($totalScore === 0){
                             </tr>  
                         <? }else{ ?>
                             <tr>
+                                <td><?=$i?></td>
                                 <td><?=substr(strip_tags($question['question']), 0, 100)?></td>
                                 <td><?=isset($question['ratings']) ? $question['ratings'] : 0?></td>
                                 <td>
@@ -203,6 +214,7 @@ if($totalScore === 0){
                             </tr>
                         <? } ?>
                     <?
+
                 }
                 ?>
             </table>

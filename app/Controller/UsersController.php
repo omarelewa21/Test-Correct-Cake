@@ -1997,11 +1997,10 @@ class UsersController extends AppController
         die();
     }
 
-    public
-    function temporary_login(
-        $tlid
-    ) {
+    public function temporary_login($tlid) {
         $result = $this->UsersService->getUserWithTlid($tlid);
+
+        $result = $this->handleTemporaryLoginOptions($result);
         $this->Auth->login($result);
 
         try {
@@ -2155,7 +2154,7 @@ class UsersController extends AppController
             ],
             'mode'   => 'import_data',
         ]);
-        $subjects = $this->TestsService->getSubjects(false, 'all', true, true);
+        $subjects = $this->TestsService->getSubjects(false, 'all', true, true, true);
 
         $schoolLvsType = $this->SchoolLocationsService->getLvsType(getUUID(AuthComponent::user('school_location'), 'get'))[0];
 
@@ -2229,6 +2228,19 @@ class UsersController extends AppController
             $generalTermsDaysLeft = $today->format('Y-m-d') < $requestExpirationDate->format('Y-m-d') ? $requestExpirationDate->diff($today)->format('%d') : 0;
             $this->set('generalTermsDaysLeft', $generalTermsDaysLeft);
         }
+    }
+
+    private function handleTemporaryLoginOptions($result)
+    {
+        if (empty($result['temporaryLoginOptions'])) {
+            return $result;
+        }
+        $options = $result['temporaryLoginOptions'];
+        unset($result['temporaryLoginOptions']);
+
+        CakeSession::write('temporaryLoginOptions', $options);
+
+        return $result;
     }
 
     public function take_over_user_confirmation($userUuid)

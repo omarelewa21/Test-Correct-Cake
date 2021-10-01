@@ -113,6 +113,7 @@ class SharedSectionsTestsController extends AppController {
           $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params, 'name');
         $tests = $this->TestsService->getSharedSectionsTests($params);
 
         $this->set('tests', $tests['data']);
