@@ -132,6 +132,11 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
+
+            <?php if($name = CakeSession::read('Support.name')) {?>
+                Notify.notify('Let op! Je bent ingelogd via het support account van <?= $name ?>', 'info', 10000)
+                Menu.supportUser = '<?= CakeSession::read("Support.id") ?>';
+            <?php }?>
 		</script>
 	</body>
 </html>

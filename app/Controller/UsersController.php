@@ -12,6 +12,7 @@ App::uses('Securimage', 'webroot/img');
 App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
+App::uses('SupportService', 'Lib/Services');
 
 /**
  * Users controller
@@ -38,6 +39,7 @@ class UsersController extends AppController
         $this->DeploymentService = new DeploymentService();
         $this->WhitelistIpService = new WhitelistIpService();
         $this->TestsService = new TestsService();
+        $this->SupportService = new SupportService();
 
         parent::beforeFilter();
     }
@@ -456,6 +458,9 @@ class UsersController extends AppController
                 $hasSchoolManagerRole = true;
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanelAccountManager();
             }
+            if (strtolower($role['name']) === 'support') {
+                $view = "welcome_support";
+            }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
         if ($should_display_import_incomplete_panel) {
@@ -471,7 +476,7 @@ class UsersController extends AppController
 
     public function index($type)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         switch ($type) {
             case 'accountmanagers':
@@ -517,6 +522,13 @@ class UsersController extends AppController
                 $params = [
                     'title'     => 'Directieleden',
                     'add_title' => 'Nieuw Directielid'
+                ];
+                break;
+
+            case 'support':
+                $params = [
+                    'title'     => 'Supportmedewerkers',
+                    'add_title' => 'Nieuwe medewerker'
                 ];
                 break;
         }
@@ -583,7 +595,7 @@ class UsersController extends AppController
 
     public function edit($user_id)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
             if (array_key_exists('teacher_external_id', $this->request->data['User'])) {
@@ -682,6 +694,11 @@ class UsersController extends AppController
                     HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
                 $this->render('edit_students', 'ajax');
                 break;
+
+            case 11: //Parent
+                $this->render('edit_support', 'ajax');
+                break;
+
         }
 
         $this->Session->delete('user_profile_picture');
@@ -730,6 +747,11 @@ class UsersController extends AppController
 
             case 5: //Accountmanager
                 $this->render('view_accountmanager', 'ajax');
+                break;
+
+            case 11: //Support employees
+                $this->set('takeOverLogs', $this->SupportService->getTakeOverLogsForUser(getUUID($user, 'get')));
+                $this->render('view_support', 'ajax');
                 break;
         }
     }
@@ -799,7 +821,7 @@ class UsersController extends AppController
 
     public function load($type)
     {
-        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
+        $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management', 'Support']);
 
         $params = $this->request->data;
 
@@ -851,6 +873,10 @@ class UsersController extends AppController
 
             case 'management':
                 $params['filter']['role'] = 7;
+                break;
+
+            case 'support':
+                $params['filter']['role'] = 11;
                 break;
         }
 
@@ -1005,6 +1031,10 @@ class UsersController extends AppController
                 $data['user_roles'] = [8];
             }
 
+            if ($type == 'support') {
+                $data['user_roles'] = [11];
+            }
+
 
             $result = $this->UsersService->addUser($type, $data);
 
@@ -1116,6 +1146,7 @@ class UsersController extends AppController
             }
             if ($role['name'] == 'Administrator') {
                 $menus['accountmanagers'] = "Accountmanagers";
+                $menus['support_list'] = "Support";
                 $menus['lists'] = "Database";
             }
 
@@ -1154,6 +1185,9 @@ class UsersController extends AppController
             if ($role['name'] == 'School management') {
                 $menus['analyses'] = "Analyse";
 //                $menus['messages'] = "Berichten";
+            }
+            if ($role['name'] == 'Support') {
+                $menus['lists'] = "Gebruikers";
             }
 
 
@@ -1246,6 +1280,19 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'RTTI Import',
                     'path'  => '/rttiimport/index'
+                );
+
+                $tiles['support'] = array(
+                    'menu'  => 'support_list',
+                    'icon'  => 'testlist',
+                    'title' => 'Medewerkers',
+                    'path'  => '/users/index/support'
+                );
+                $tiles['support_logs'] = array(
+                    'menu'  => 'support_list',
+                    'icon'  => 'testlist',
+                    'title' => 'Logs',
+                    'path'  => '/support/index'
                 );
             }
 
@@ -1649,6 +1696,20 @@ class UsersController extends AppController
                     'icon'  => 'messages',
                     'title' => 'Berichten',
                     'path'  => '/messages'
+                );
+            }
+            if ($role['name'] == 'Support') {
+                $tiles['teachers'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'analyse-klassen',
+                    'title' => 'Docenten',
+                    'path'  => '/users/index/teachers'
+                );
+                $tiles['students'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'analyse-klassen',
+                    'title' => 'Studenten',
+                    'path'  => '/users/index/students'
                 );
             }
         }

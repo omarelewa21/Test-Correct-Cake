@@ -768,5 +768,14 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function verifyPasswordForUser($userUuid, $password)
+    {
+        $response = $this->Connector->getRequest('/user/'.$userUuid.'/verify_password', $password);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

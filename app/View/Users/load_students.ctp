@@ -60,6 +60,12 @@ foreach($users as $user) {
                         Overplaatsen
                     </a>
                 <? } ?>
+                <?php if (isset($role) && $role == 'Support') { ?>
+                    <a href="#" class="btn highlight white" onclick="Popup.load('/support/take_over_user_confirmation/<?=getUUID($user, 'get');?>', 600);">
+                        <span class="fa fa-user-secret mr5"></span>
+                        Log in als deze gebruiker
+                    </a>
+                <?php }?>
             </div>
         </td>
     </tr>
