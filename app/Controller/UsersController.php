@@ -2242,44 +2242,4 @@ class UsersController extends AppController
 
         return $result;
     }
-
-    public function take_over_user_confirmation($userUuid)
-    {
-        if ($this->request->is('post') || $this->request->is('put')) {
-            $result = $this->UsersService->verifyPasswordForUser(getUUID(AuthComponent::user(), 'get'), $this->request->data['User']);
-
-            if (empty($result) || $result === 'refused') {
-                $this->formResponse(false, ['Authentification failed.']);
-                exit();
-            }
-
-            $requestedUser = $this->UsersService->getUser($userUuid, ['with' => ['sessionHash']]);
-
-            if (!$requestedUser) {
-                $this->formResponse(false, ['Requested user unavailable.']);
-                exit();
-            }
-
-            if(!$this->SupportService->registerTakeOverForUser($userUuid)) {
-                $this->formResponse(false, ['Something went wrong with logging the current action.']);
-                exit();
-            }
-
-            if(!$this->Auth->login($requestedUser)) {
-                $this->formResponse(false, ['Could not login with the selected user.']);
-                exit();
-            }
-
-            $supportUsername = sprintf(
-                '%s%s %s',
-                $result['name_first'],
-                !empty($result['name_suffix']) ? ' ' . $result['name_suffix'] : '',
-                $result['name']
-            );
-
-            CakeSession::write('supportAccountTakeover', $supportUsername);
-
-            $this->formResponse(true);
-        }
-    }
 }

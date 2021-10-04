@@ -4,12 +4,16 @@ var Menu = {
     menu: null,
     tile: null,
     visibilityTimeout: null,
+    supportUser: null,
 
     initialise: function () {
 
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
+            if (Menu.supportUser !== null) {
+                Menu.addReturnToSupportButton(Menu.supportUser);
+            }
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -316,5 +320,26 @@ var Menu = {
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
             );
         }
+    },
+
+    addReturnToSupportButton : function (userId) {
+        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="Return to support environment." onclick="Menu.handleReturnToSupportAction(\''+ userId +'\')">' +
+                        '   <svg xmlns="http://www.w3.org/2000/svg" style="height: 30px; width:30px" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
+                        '       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />\n' +
+                        '   </svg>';
+                        '</div>';
+
+        $('.action_icon_container').prepend(button);
+    },
+
+    handleReturnToSupportAction: function (userId) {
+        $.get('support/return_as_support_user/'+userId, function (response) {
+                if (response) {
+                    location.reload();
+                } else {
+                    Notify.notify('Something went wrong. Log out to return to the support environment', 'error', 6000);
+                }
+            }
+        );
     }
 };

@@ -365,6 +365,20 @@
     cursor: pointer;
     position: relative;
 }
+
+#action_icons .action_icon_container div.return_to_support {
+    order: 1;
+}
+#action_icons .action_icon_container div.menu_chat_icon {
+    order: 2;
+}
+#action_icons .action_icon_container div.menu_support_icon {
+    order: 3;
+}
+#action_icons .action_icon_container div.menu_messages_icon {
+    order: 4;
+}
+
 #header.blue #action_icons .action_icon_container div:hover {
     color: var(--primary);
 }
