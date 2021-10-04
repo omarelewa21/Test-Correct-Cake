@@ -61,7 +61,7 @@
                 Studentennummer
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
             </td>
         </tr>
         <tr>
