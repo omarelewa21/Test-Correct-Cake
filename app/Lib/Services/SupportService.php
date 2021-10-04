@@ -9,9 +9,9 @@ App::uses('BaseService', 'Lib/Services');
  */
 class SupportService extends BaseService {
 
-    public function registerTakeOverForUser($user_uuid)
+    public function registerTakeOverForUser($user_uuid, $params = [])
     {
-        $response = $this->Connector->putRequest('/support/register_take_over/'.$user_uuid, [], []);
+        $response = $this->Connector->putRequest('/support/register_take_over/'.$user_uuid, $params, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
