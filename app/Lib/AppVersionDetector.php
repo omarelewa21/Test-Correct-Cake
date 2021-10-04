@@ -143,7 +143,6 @@ class AppVersionDetector
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.1.0",
                 "3.1.1",
                 "3.1.1-beta.1",
                 "3.1.1-beta.2",
@@ -175,7 +174,12 @@ class AppVersionDetector
                 "3.2.0-beta.4",
                 "3.2.0-beta.5",
             ],
-            "needsUpdate" => [],
+            "needsUpdate" => [
+                '3.1.0'
+            ],
+            "needsUpdateDeadline" => [
+                "3.1.0" => "1 november 2021"
+            ],
         ],
         "macosElectron" => [
             "ok" => [
