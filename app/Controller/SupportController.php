@@ -50,7 +50,7 @@ class SupportController extends AppController
                 exit();
             }
 
-            if(!$this->SupportService->registerTakeOverForUser($userUuid)) {
+            if(!$this->SupportService->registerTakeOverForUser($userUuid, ['ip' => $_SERVER['REMOTE_ADDR']])) {
                 $this->formResponse(false, ['Something went wrong with logging the current action.']);
                 exit();
             }
