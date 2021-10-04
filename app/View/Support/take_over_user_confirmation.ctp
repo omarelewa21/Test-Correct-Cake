@@ -1,4 +1,4 @@
-<div class="tat-content" style="padding: 1rem!important;">
+<div id="take_over_confirmation" class="tat-content" style="padding: 1rem!important;">
     <div style="padding: 0 1rem; display: flex; justify-content: space-between; align-items: center;">
         <h2 style="display: flex">Inloggen als gebruiker</h2>
         <span class="close primary-hover" style="cursor:pointer; color: var(--system-base)" onclick="Popup.closeLast()">
@@ -35,12 +35,16 @@
             Annuleer
         </button>
         <button type="submit" class="button primary-button" id="take_over_user_send">
-            Stuur
+            Inloggen
         </button>
     </div>
 </div>
 
 <script>
+    $(document).ready(function() {
+        $('#take_over_confirmation').parent().css({'border-radius': '10px'})
+    });
+
     $('#UserTakeOverUserConfirmationForm').formify(
         {
             confirm: $('#take_over_user_send'),
@@ -52,8 +56,8 @@
             }
         }
     );
-    $('#VerifyPassword').on('keydown',function(e){
-        if(e.keyCode == 13){
+    $('#VerifyPassword').on('keydown', function (e) {
+        if (e.keyCode == 13) {
             e.preventDefault();
             $('#take_over_user_send').trigger('click');
         }

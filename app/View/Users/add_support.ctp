@@ -1,4 +1,4 @@
-<div class="popup-head">Docent</div>
+<div class="popup-head">Support</div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">

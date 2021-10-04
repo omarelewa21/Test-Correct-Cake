@@ -2,11 +2,6 @@
 
 App::uses('BaseService', 'Lib/Services');
 
-/**
- * Class ContactsService
- *
- *
- */
 class SupportService extends BaseService {
 
     public function registerTakeOverForUser($user_uuid, $params = [])
