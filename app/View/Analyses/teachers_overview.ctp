@@ -1,12 +1,12 @@
-<h1>Docenten</h1>
+<h1><?= __("Docenten")?></h1>
 <div class="block autoheight">
-    <div class="block-head">Docenten</div>
+    <div class="block-head"><?= __("Docenten")?></div>
     <div class="block-content" id="teachersContainer">
         <table class="table" id="teachersTable" cellpadding="1">
             <tr>
-                <th>Voornaam</th>
-                <th>Achternaam</th>
-                <th>Afkorting</th>
+                <th><?= __("Voornaam")?></th>
+                <th><?= __("Achternaam")?></th>
+                <th><?= __("Afkorting")?></th>
                 <th width="30"></th>
             </tr>
         </table>

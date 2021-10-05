@@ -49,23 +49,23 @@ foreach($users as $user) {
                     <? if($role != 'Administrator') { ?>
                         <a href="#" class="btn highlight white" onclick="Popup.load('/users/edit/<?=getUUID($user, 'get');?>', 400);">
                             <span class="fa fa-edit mr5"></span>
-                            Wijzigen
+                            <?= __("Wijzigen")?>
                         </a>
                         <a href="#" class="btn highlight white" onclick="User.delete('<?=getUUID($user, 'get');?>');">
                             <span class="fa fa-remove mr5"></span>
-                            Verwijderen
+                            <?= __("Verwijderen")?>
                         </a>
                     <? }else { ?>
                         <a href="#" class="btn highlight white" onclick="Popup.load('/users/move/<?=getUUID($user, 'get');?>', 400);">
                             <span class="fa fa-edit mr5"></span>
-                            Overplaatsen
+                            <?= __("Overplaatsen")?>
                         </a>
                     <? } ?>
                 <? } ?>
                 <?php if (isset($role) && $role == 'Support') { ?>
                     <a href="#" class="btn highlight white" onclick="Popup.load('/support/take_over_user_confirmation/<?=getUUID($user, 'get');?>', 600);">
                         <span class="fa fa-user-secret mr5"></span>
-                        Log in als deze gebruiker
+                        <?= __("Log in als deze gebruiker"); ?>
                     </a>
                 <?php }?>
             </div>

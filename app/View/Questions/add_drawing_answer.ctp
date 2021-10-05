@@ -1,4 +1,4 @@
-<div class="popup-head">Antwoord tekenen</div>
+<div class="popup-head"><?= __("Antwoord tekenen")?></div>
 
 <center>
     <img id="imgDrawing" style="width:970px; height: 530px;" />
@@ -6,8 +6,8 @@
 
 <iframe src="/questions/add_drawing_answer_canvas" frameborder="0" id="drawingFrame" width="100%" height="540"></iframe>
 <center>
-    <a href="#" class="btn highlight" id="btn-change" style="display: none;">Tekening wijzigen</a>
-    <a href="#" class="btn white" id="btn-cancel" onclick="Popup.closeLast();" style="display: none;">Annuleren</a>
+    <a href="#" class="btn highlight" id="btn-change" style="display: none;"><?= __("Tekening wijzigen")?></a>
+    <a href="#" class="btn white" id="btn-cancel" onclick="Popup.closeLast();" style="display: none;"><?= __("Annuleren")?></a>
 </center>
 
 <script type="text/javascript">
@@ -25,7 +25,7 @@
         $('#drawingFrame').hide();
 
         $('#btn-change').show().click(function(){
-            if(confirm("Weet u het zeker? De huidige tekening gaat verloren.")) {
+            if(confirm(__("Weet u het zeker? De huidige tekening gaat verloren."))) {
                 $('#imgDrawing').hide();
                 $('#drawingFrame').show();
                 $(this).hide();

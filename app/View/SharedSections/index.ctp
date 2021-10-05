@@ -3,7 +3,7 @@
 
 </div>
 
-<h1>Toetsen</h1>
+<h1><?= __("Toetsen")?></h1>
 
 </div>
 <div class="block autoheight">
@@ -12,8 +12,8 @@
             <thead>
             <tr>
               <th></th>
-                <th width="250">Sectie</th>
-                <th >School locatie</th>
+                <th width="250"><?= __("Sectie")?></th>
+                <th ><?= __("School locatie")?></th>
             </tr>
             </thead>
             <tbody></tbody>

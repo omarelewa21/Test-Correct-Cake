@@ -1,8 +1,8 @@
 <div class="popup-head">
     <?php if (isset($in_app) && $in_app) { ?>
-        We hebben nog wat gegevens van je nodig
+        <?= __("We hebben nog wat gegevens van je nodig")?>
     <?php } else { ?>
-        Registreer voor Test-Correct
+        <?= __("Registreer voor Test-Correct")?>
     <?php } ?>
 </div>
 
@@ -11,10 +11,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn highlight mt5 mr5 pull-right blue" id="btnAddUser">
-        Opslaan
+    <?= __("Opslaan")?>
     </a>
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="window.location.href='/'">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
 </div>
 
@@ -24,7 +24,7 @@
         onsuccess: function (result) {
             // console.dir(result);
             Popup.closeLast();
-            Notify.notify("Je gegevens zijn opgeslagen", "info");
+            Notify.notify('<?= __("Je gegevens zijn opgeslagen")?>', "info");
         },
         onfailure: function (result) {
             this.hideAllErrors();
@@ -33,7 +33,7 @@
                 that.showError(key);
             });
 
-            Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+            Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
         },
         hideAllErrors: function () {
             var that = this;
@@ -90,7 +90,7 @@
                     Popup.closeLast();
                     Popup.message({
                         title: 'Account aangemaakt',
-                        message: 'Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan'
+                        message: '<?= __("Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan")?>'
                     }, () => window.location.href = '/');
                     Notify.notify("Account aangemaakt", "info");
 
@@ -110,7 +110,7 @@
                         that.showError(key);
                     });
 
-                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                    Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
                 },
                 hideAllErrors: function () {
                     var that = this;

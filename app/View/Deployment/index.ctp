@@ -1,21 +1,21 @@
     <div id="buttons">
         <a href="#" class="btn white" onclick="Popup.load('/deployment/add',800);">
             <span class="fa fa-plus mr5"></span>
-            Nieuwe deployment
+            <?= __("Nieuwe deployment")?>
         </a>
     </div>
 
 
-<h1>Deployments</h1>
+<h1><?= __("Deployments")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head">Overzicht</div>
+    <div class="block-head"><?= __("Overzicht")?></div>
     <div class="block-content" id="schoolsContainer">
         <table class="table table-striped" id="deploymentsTable">
             <thead>
             <tr>
-                <th>Datum</th>
-                <th>Status</th>
+                <th><?= __("Datum")?></th>
+                <th><?= __("Status")?></th>
                 <th></th>
             </tr>
             </thead>

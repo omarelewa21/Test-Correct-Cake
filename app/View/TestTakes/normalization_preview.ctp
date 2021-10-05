@@ -1,13 +1,13 @@
 <?
 if(empty($results['test_participants'])) {
-    echo '<center>Er konden geen cijfers berekend worden op basis van de gekozen normering.</center>';
+    echo __("<center>Er konden geen cijfers berekend worden op basis van de gekozen normering.</center>");
 }else{
     ?>
     <table class="table table-striped">
         <div style="display: none"><input type="hidden" value="<?=$currentIndex?>" id="currentIndex"></div>
         <tr>
-            <th>Student</th>
-            <th>Cijfer</th>
+            <th><?= __("Student")?></th>
+            <th><?= __("Cijfer")?></th>
         </tr>
         <?
         $resultTotal = 0;
@@ -34,7 +34,7 @@ if(empty($results['test_participants'])) {
         }
         ?>
         <tr>
-            <th style="text-align: right;">Gemiddelde</th>
+            <th style="text-align: right;"><?= __("Gemiddelde")?></th>
             <th>
                 <? if($resultCount > 0) { ?>
                     <?=round($resultTotal / $resultCount, 1)?>

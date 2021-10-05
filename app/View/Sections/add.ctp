@@ -1,17 +1,17 @@
-<div class="popup-head">Sectie</div>
+<div class="popup-head"><?= __("Sectie")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Section') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
-            <th>Locaties</th>
+            <th><?= __("Locaties")?></th>
             <td>
                 <?=$this->Form->input('school_locations', ['options' => $locations, 'style' => 'width:200px;', 'multiple' => true, 'label' => false]) ?>
             </td>
@@ -21,10 +21,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -34,11 +34,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Sectie aangemaakt", "info");
+                Notify.notify('<?= __("Sectie aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Sectie kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Sectie kon niet worden aangemaakt")?>', "error");
             }
         }
     );

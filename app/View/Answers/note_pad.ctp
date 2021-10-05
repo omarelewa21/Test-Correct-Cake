@@ -21,7 +21,7 @@
 
 <header>
     <div>
-        <a href="#" onclick="saveNotePad();" class="btn highlight small ml5 pull-right"><span class="fa fa-check"></span> Klaar</a>
+        <a href="#" onclick="saveNotePad();" class="btn highlight small ml5 pull-right"><span class="fa fa-check"></span> <?= __("Klaar")?></a>
     </div>
 </header>
 

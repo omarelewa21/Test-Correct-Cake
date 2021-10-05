@@ -1,10 +1,10 @@
-<div class="popup-head">Vak</div>
+<div class="popup-head"><?= __("Vak")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Subject') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -12,14 +12,14 @@
         </tr>
         <tr>
             <th width="130">
-                Afkorting
+            <?= __("Afkorting")?>
             </th>
             <td>
                 <?=$this->Form->input('abbreviation', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
-            <th>Categorie</th>
+            <th><?= __("Categorie")?></th>
             <td>
                 <?=$this->Form->input('base_subject_id', array('style' => 'width: 185px', 'options' => $base_subjects, 'label' => false, 'verify' => 'notempty')) ?>
             </td>
@@ -29,10 +29,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -42,11 +42,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Vak aangemaakt", "info");
+                Notify.notify('<?= __("Vak aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Vak kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Vak kon niet worden aangemaakt")?>', "error");
             }
         }
     );

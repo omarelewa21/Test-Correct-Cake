@@ -1,18 +1,18 @@
-<div class="popup-head">Schooljaar</div>
+<div class="popup-head"><?= __("Schooljaar")?></div>
 <div class="popup-content">
     <?=$this->Form->create('SchoolYear') ?>
 
     <table class="table">
         <tr>
             <th width="130">
-                Jaar
+            <?= __("Jaar")?>
             </th>
             <td>
                 <?=$this->Form->input('year', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
-            <th>Locaties</th>
+            <th><?= __("Locaties")?></th>
             <td>
                 <?
                 $selectedLocations = [];
@@ -28,10 +28,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Wijzigen
+    <?= __("Wijzigen")?>
     </a>
 </div>
 
@@ -41,11 +41,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("SchoolYear gewijzigd", "info");
+                Notify.notify('<?= __("SchoolYear gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("SchoolYear kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("SchoolYear kon niet worden aangemaakt")?>', "error");
             }
         }
     );

@@ -1,26 +1,26 @@
 <div class="popup-head">
-    Inzien door Studenten
+<?= __("Inzien door Studenten")?>
 </div>
 <div class="popup-content">
     <div class="alert alert-info">
-        Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien.
+    <?= __("Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien.")?>
     </div>
 
     <?=$this->Form->create('TestTake')?>
-    <?=$this->Form->input('active', ['type' => 'checkbox', 'checked' => !empty($take['show_results']), 'label' => ' Mogelijkheid tot inzien activeren', 'onchange' => 'updateSpecifyDate(this);'])?>
+    <?=$this->Form->input('active', ['type' => 'checkbox', 'checked' => !empty($take['show_results']), 'label' => __(" Mogelijkheid tot inzien activeren"), 'onchange' => 'updateSpecifyDate(this);'])?>
 
     <div class="well well-sm mt10" style="margin-bottom: 0px; text-align: center; <?=!isset($take['show_results']) ? 'display: none;' : '' ?>" id="specifyDate">
-        Inzien mogelijk tot<br />
+    <?= __("Inzien mogelijk tot")?><br />
         <?=$this->Form->input('show_results', ['type' => 'text', 'class' => 'mt5', 'value' => $take['show_results'] , 'label' => false, 'value' => date('d-m-Y H:i', strtotime('+ 20 min'))])?>
     </div>
     <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();"> 
-        Niet laten inzien
+    <?= __("Niet laten inzien")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Toepassen
+    <?= __("Toepassen")?>
     </a>
 </div>
 

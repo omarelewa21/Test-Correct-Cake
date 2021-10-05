@@ -1,6 +1,6 @@
 <?
 $mainAttaiments = [
-    '' => 'Geen domein'
+    '' => __("Geen domein")
 ];
 
 $subAttainments = [];
@@ -19,11 +19,11 @@ foreach($attainments as $id => $data) {
 }
 ?>
 
-<strong>Domein</strong>
+<strong><?= __("Domein")?></strong>
 <?=$this->Form->input('attainments', array('label' => false, 'type' => 'select', 'onchange' => 'updateSubAttainments();', 'options' => $mainAttaiments, 'style' => 'width:750px;', 'value' => $selectedAttainments))?>
 <div id="dvSubdomain" style="<?=count($selectedAttainments) < 2 ? 'display:none;' : '' ?>">
     <br /><br />
-    <strong>Subdomein</strong>
+    <strong><?= __("Subdomein")?></strong>
     <?=$this->Form->input('sub_attainments', array('label' => false, 'type' => 'select', 'options' => $subAttainments, 'style' => 'width:750px;', 'value' => $selectedAttainments))?>
 </div>
 

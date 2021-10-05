@@ -13,7 +13,7 @@
                 <th width="40">&nbsp;</th>
                 <th width="40">St. 1</th>
                 <th width="40">St. 2</th>
-                <th>Reden</th>
+                <th><?= __("Reden")?></th>
             </tr>
             </thead>
             <tbody>
@@ -29,9 +29,9 @@
                     ]);?>
                 </td>
                 <td>A</td>
-                <td>J</td>
-                <td>J</td>
-                <td>Juiste reden</td>
+                <td><?= __('J') ?></td>
+                <td><?= __('J') ?></td>
+                <td><?= __("Juiste reden")?></td>
             </tr>
             <tr>
                 <td>
@@ -45,9 +45,9 @@
                     ]);?>
                 </td>
                 <td>B</td>
-                <td>J</td>
-                <td>J</td>
-                <td>Onjuiste reden</td>
+                <td><?= __('J') ?></td>
+                <td><?= __('J') ?></td>
+                <td><?= __("Onjuiste reden")?></td>
             </tr>
             <tr>
                 <td>
@@ -61,8 +61,8 @@
                     ]);?>
                 </td>
                 <td>C</td>
-                <td>J</td>
-                <td>O</td>
+                <td><?= __('J') ?></td>
+                <td><?= __('O') ?></td>
                 <td>-</td>
             </tr>
             <tr>
@@ -77,8 +77,8 @@
                     ]);?>
                 </td>
                 <td>D</td>
-                <td>O</td>
-                <td>J</td>
+                <td><?= __('O') ?></td>
+                <td><?= __('J') ?></td>
                 <td>-</td>
             </tr>
             <tr>
@@ -93,8 +93,8 @@
                     ]);?>
                 </td>
                 <td>E</td>
-                <td>O</td>
-                <td>O</td>
+                <td><?= __('O') ?></td>
+                <td><?= __('O') ?></td>
                 <td>-</td>
             </tr>
             </tbody>
@@ -116,7 +116,7 @@
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

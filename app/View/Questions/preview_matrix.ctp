@@ -2,9 +2,9 @@
 <h1>
     <?
     if($question['subtype'] == 'SingleChoice') {
-        ?>Matrix<?
+        ?><?= __("Matrix")?><?
     }else{
-        ?>Matrix subtype ONBEKEND<?
+        ?><?= __("Matrix subtype ONBEKEND")?><?
     }
     ?>
     <?=AppHelper::showExternalId($question);?>
@@ -47,7 +47,7 @@
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>',' <?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

@@ -47,11 +47,9 @@ var User = {
                     User.info.name;
                 $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
-
                 if (activeSchool) {
                     $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
                 }
-
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
@@ -150,12 +148,12 @@ var User = {
 
     sendWelcomeMails: function (type) {
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?')
         }, function () {
-            Notify.notify('Welkomstmails verstuurd', 'info');
+            Notify.notify($.i18n('Welkomstmails verstuurd'), 'info');
 
             $.get('/users/notify_welcome/' + type);
         });
@@ -164,16 +162,16 @@ var User = {
     delete: function (id) {
 
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u deze gebruiker wilt verwijderen?')
         }, function () {
             $.ajax({
                 url: '/users/delete/' + id,
                 type: 'DELETE',
                 success: function (response) {
-                    Notify.notify('Gebruiker verwijderd', 'info');
+                    Notify.notify($.i18n('Gebruiker verwijderd'), 'info');
                     Navigation.refresh();
                 }
             });
@@ -184,13 +182,13 @@ var User = {
         var email = $('#UserEmail').val();
 
         if (email == "") {
-            Notify.notify('Voer eerst uw emailadres in.', 'error');
+            Notify.notify($.i18n('Voer eerst uw emailadres in.'), 'error');
         } else {
             $.post('/users/forgot_password', {
                     'email': email
                 },
                 function (response) {
-                    Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
+                    Notify.notify($.i18n('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.'), 'info', 10000);
                 });
         }
     },
@@ -205,7 +203,7 @@ var User = {
             User.info.school_location_id = active_location.id;
 
             document.getElementById('active_school').innerHTML = active_location.name;
-            Notify.notify('Gewisseld naar school ' + active_location.name);
+            Notify.notify($.i18n('Gewisseld naar school ') + active_location.name);
             // disable before unload;
             window.onbeforeunload = function () {  }
             window.location.reload();
@@ -219,7 +217,7 @@ var User = {
             method: 'POST',
             data: {user: uuid},
             success: function (data) {
-                Notify.notify('Docent succesvol toegevoegd');
+                Notify.notify($.i18n('Docent succesvol toegevoegd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('white').addClass('blue').find('span:first').removeClass('fa-link').addClass('fa-trash');
             }
@@ -231,7 +229,7 @@ var User = {
             type: 'DELETE',
             data: {user: uuid},
             success: function (result) {
-                Notify.notify('Docent succesvol verwijderd');
+                Notify.notify($.i18n('Docent succesvol verwijderd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('blue').addClass('white').find('span:first').removeClass('fa-trash').addClass('fa-link');
             }

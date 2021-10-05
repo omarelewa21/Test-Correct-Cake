@@ -1,41 +1,41 @@
-<div class="popup-head">Toetsvraag importeren</div>
+<div class="popup-head"><?= __("Toetsvraag importeren")?></div>
 <div class="popup-content">
 
     <div id="buttons" style="float:right;">
         <a href="#" class="btn white highlight dropblock-owner dropblock-left mr2" id="existingQuestionsFilter">
             <span class="fa fa-filter mr5"></span>
-            Filteren
+            <?= __("Filteren")?>
         </a>
 
         <div class="dropblock" for="existingQuestionsFilter">
             <?=$this->Form->create('Question')?>
             <table id="questionsFilter" class="mb5">
                 <tr>
-                    <th>Id</th>
+                    <th><?= __("Id")?></th>
                     <td>
                         <?=$this->Form->input('id', array('label' => false, 'type' => 'text', 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Termen</th>
+                    <th><?= __("Termen")?></th>
                     <td>
                         <?=$this->Form->input('search', array('label' => false, 'type' => 'select', 'multiple' => true, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Type </th>
+                    <th><?= __("Type")?> </th>
                     <td>
                         <?=$this->Form->input('type', array('options' => $filterTypes, 'label' => false, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Vak</th>
+                    <th><?= __("Vak")?></th>
                     <td>
                         <?=$this->Form->input('subject', array('options' => $subjects, 'label' => false, 'value' => $subject_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Examenvak</th>
+                    <th><?= __("Examenvak")?></th>
                     <td>
                         <?=
                   $this->Form->input('base_subject_id',array('options' => $baseSubjects,'label' => false))
@@ -43,20 +43,20 @@
                     </td>
                 </tr>
                 <tr>
-                    <th>Niveau</th>
+                    <th><?= __("Niveau")?></th>
                     <td>
                         <?=$this->Form->input('education_levels', array('options' => $education_levels, 'label' => false, 'value' => $education_level_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
                 <tr>
-                    <th>Leerjaar</th>
+                    <th><?= __("Leerjaar")?></th>
                     <td>
                         <?=$this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false, 'value' => $year_id, 'class' => 'disable_protect')) ?>
                     </td>
                 </tr>
 
                 <tr>
-                    <th>Bron</th>
+                    <th><?= __("Bron")?></th>
                     <td>
                         <?=
                   $this->Form->input('source',array('options' => $filterSource,'label' => false))
@@ -66,7 +66,7 @@
             </table>
             <?=$this->Form->end();?>
 
-            <a href="#" class="btn btn-close white small pull-right">Sluiten</a>
+            <a href="#" class="btn btn-close white small pull-right"><?= __("Sluiten")?></a>
             <br clear="all" />
         </div>
     </div>
@@ -79,12 +79,12 @@
             <tr>
                 <th></th>
                 <th></th>
-                <th>Vraag</th>
-                <th>Leerjaar</th>
-                <th>Niveau</th>
-                <th>Type</th>
-                <th>Punten</th>
-                <th>Tags</th>
+                <th><?= __("Vraag")?></th>
+                <th><?= __("Leerjaar")?></th>
+                <th><?= __("Niveau")?></th>
+                <th><?= __("Type")?></th>
+                <th><?= __("Punten")?></th>
+                <th><?= __("Tags")?></th>
                 <th></th>
             </tr>
             </thead>
@@ -102,7 +102,7 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
 </div>
 

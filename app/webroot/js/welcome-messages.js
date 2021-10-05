@@ -21,3 +21,11 @@ var supportsES6 = function() {
     //     return false;
     // }
 }();
+
+
+let setUserMenuButtonText = function(){
+    $('#btnLogout').text($.i18n('Uitloggen'));
+    $('#btnChangePassword').text($.i18n('Wachtwoord wijzigen'));
+    $('#btnMenuHandIn').text($.i18n('Inleveren'));
+    $('#btnMenuKnowledgeBase').text($.i18n('Kennisbank'));
+}();
