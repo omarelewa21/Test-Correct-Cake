@@ -16,7 +16,7 @@
                 'Lost focus' => 'App verlaten',
                 'Screenshot' => 'Screenshot gemaakt',
                 'Started late' => 'Laat gestart',
-                'Application closed' => 'Opnieuw gestart met toets',
+                'Application closed' => 'App afgesloten',
                 'Lost focus alt tab' => 'Via alt+tab naar ander venster',
                 'Pressed meta key' => 'Windows/command toets ingedrukt',
                 'Pressed alt key' => 'Alt toets ingedrukt',
@@ -31,7 +31,8 @@
                 'Force shutdown' => 'Applicatie geforceerd afgesloten',
                 'Other window on top' => 'Ander venster op de voorgrond',
                 'Used unallowed Ctrl key combination' => 'De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.',
-                'Illegal programs' => 'De student heeft een app in de achtergrond open die niet toegestaan is'
+                'Illegal programs' => 'De student heeft een app in de achtergrond open die niet toegestaan is',
+                'Rejoined' => 'Opnieuw gestart met toets'
             ];
 
             foreach($events as $event) {
