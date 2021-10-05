@@ -50,7 +50,7 @@
                 if(response['status'] == 1) {
                     Popup.closeLast();
                     Navigation.refresh();
-                    Notify.notify("Sectie aangemaakt");
+                    Notify.notify("Sectie gewijzigd");
                 }
                 else{
                     Notify.notify(response['data'].join('<br />'), 'error');
