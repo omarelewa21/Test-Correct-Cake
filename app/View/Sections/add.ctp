@@ -44,6 +44,7 @@
                 if(response['status'] == 1) {
                     Popup.closeLast();
                     Navigation.refresh();
+                    Notify.notify("Sectie aangemaakt");
                 }
                 else{
                     Notify.notify(response['data'].join('<br />'), 'error');
@@ -51,8 +52,6 @@
             });
         }
     }
-    
-    
 
     $('#SectionSchoolLocations').select2();
 </script>
