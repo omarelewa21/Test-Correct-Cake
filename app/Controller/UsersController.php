@@ -528,13 +528,13 @@ class UsersController extends AppController
             case 'support':
                 $params = [
                     'title'     => __('Supportmedewerkers'),
-                    'add_title' => 'Nieuwe medewerker'
+                    'add_title' => __('Nieuwe medewerker')
                 ];
                 break;
             case 'test_team':
                 $params = [
-                    'title'     => 'Test team',
-                    'add_title' => 'Nieuwe tester'
+                    'title'     => __('Test team'),
+                    'add_title' => __('Nieuwe tester')
                 ];
                 break;
         }

@@ -4207,3 +4207,9 @@ msgstr "employee"
 
 msgid "Nieuwe medewerker"
 msgstr "New employee"
+
+msgid "Nieuwe tester"
+msgstr "New tester"
+
+msgid "Test team"
+msgstr "Test team"
