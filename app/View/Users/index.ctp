@@ -63,7 +63,7 @@
                 </td>
             </tr>
             <? if ($type == 'students') { ?>
-                <tr>
+                <tr style="<?= ($role == 'Support') ? 'display:none;' : '' ?>">
                     <th>Studentnummer</th>
                     <td>
                         <?= $this->Form->input('external_id', array('label' => false, 'type' => 'text')) ?>
@@ -88,6 +88,13 @@
                     <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                 </td>
             </tr>
+            <? } elseif ($role == 'Support' && in_array($type, ['teachers', 'students']) ) { ?>
+                <tr>
+                    <th>Locatie</th>
+                    <td>
+                        <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
+                    </td>
+                </tr>
             <? } ?>
 
         </table>
@@ -107,31 +114,39 @@
         <table class="table table-striped" id="usersTable">
             <thead>
             <tr>
-                <? if ($type == 'students') { ?>
-                    <th width="50"></th>
+                <? if ($role == 'Support') { ?>
                     <th>Voornaam</th>
                     <th>Tussenvoegsel</th>
                     <th>Achternaam</th>
                     <th>School</th>
-                    <th>Klassen</th>
-                    <th width="100">&nbsp;</th>
-                <? } elseif ($type == 'accountmanagers') { ?>
-                    <th>In dienst van</th>
-                    <th>Voornaam</th>
-                    <th>Tussenvoegsel</th>
-                    <th>Achternaam</th>
-                    <th>Accounts</th>
-                    <th>Licenties totaal</th>
-                    <th>Licenties actief</th>
-                    <th width="100">&nbsp;</th>
-                <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || 'support') { ?>
-                    <th>Voornaam</th>
-                    <th>Tussenvoegsel</th>
-                    <th>Achternaam</th>
-                    <? if ($type == 'teachers' && in_array($role, ['Administrator']) ) { ?>
-                    <th>E-mailadres</th>
+                    <th width="100"></th>
+                <? } else { ?>
+                    <? if ($type == 'students') { ?>
+                        <th width="50"></th>
+                        <th>Voornaam</th>
+                        <th>Tussenvoegsel</th>
+                        <th>Achternaam</th>
+                        <th>School</th>
+                        <th>Klassen</th>
+                        <th width="100">&nbsp;</th>
+                    <? } elseif ($type == 'accountmanagers') { ?>
+                        <th>In dienst van</th>
+                        <th>Voornaam</th>
+                        <th>Tussenvoegsel</th>
+                        <th>Achternaam</th>
+                        <th>Accounts</th>
+                        <th>Licenties totaal</th>
+                        <th>Licenties actief</th>
+                        <th width="100">&nbsp;</th>
+                    <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || $type == 'support') { ?>
+                        <th>Voornaam</th>
+                        <th>Tussenvoegsel</th>
+                        <th>Achternaam</th>
+                        <? if ($type == 'teachers' && in_array($role, ['Administrator']) ) { ?>
+                        <th>E-mailadres</th>
+                        <? } ?>
+                        <th width="140">&nbsp;</th>
                     <? } ?>
-                    <th width="140">&nbsp;</th>
                 <? } ?>
             </tr>
             </thead>

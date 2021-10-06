@@ -459,7 +459,7 @@ class UsersController extends AppController
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanelAccountManager();
             }
             if (strtolower($role['name']) === 'support') {
-                $view = "welcome_support";
+//                $view = "welcome_support";
             }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
