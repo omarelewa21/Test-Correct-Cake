@@ -138,7 +138,7 @@
                         <th>Licenties totaal</th>
                         <th>Licenties actief</th>
                         <th width="100">&nbsp;</th>
-                    <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || $type == 'support') { ?>
+                    <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || $type == 'support' || $type == 'test_team') { ?>
                         <th>Voornaam</th>
                         <th>Tussenvoegsel</th>
                         <th>Achternaam</th>
