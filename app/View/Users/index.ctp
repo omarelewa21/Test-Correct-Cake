@@ -115,10 +115,10 @@
             <thead>
             <tr>
                 <? if ($role == 'Support') { ?>
-                    <th>Voornaam</th>
-                    <th>Tussenvoegsel</th>
-                    <th>Achternaam</th>
-                    <th>School</th>
+                    <th><?=__('Voornaam')?></th>
+                    <th><?=__('Tussenvoegsel')?></th>
+                    <th><?=__('Achternaam')?></th>
+                    <th><?=__('School')?></th>
                     <th width="100"></th>
                 <? } else { ?>
                     <? if ($type == 'students') { ?>

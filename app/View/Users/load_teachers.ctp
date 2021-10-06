@@ -5,6 +5,7 @@ foreach($users as $user) {
         <td><?=$user['name_first']?></td>
         <td><?=$user['name_suffix']?></td>
         <td><?=$user['name']?></td>
+        <?php if (isset($role) && $role == 'Support') { ?>
         <td>
             <?
             if(isset($user['school_location']['name']) && !empty($user['school_location']['name'])) {
@@ -14,6 +15,7 @@ foreach($users as $user) {
             }
             ?>
         </td>
+        <?php } ?>
         <td class="nopadding">
             <?php if (isset($role) && $role == 'Support') { ?>
                 <a href="#" class="btn highlight white"
