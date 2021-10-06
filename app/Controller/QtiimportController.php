@@ -17,7 +17,7 @@ class QtiimportController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data = $this->QtiImportService->getData();
-        
+
         $schoolList = [];
         foreach($data['schoolLocations'] as $loc){
             $schoolList[getUUID($loc, 'get')] = $loc['name'];
@@ -42,7 +42,7 @@ class QtiimportController extends AppController
             $testKindList[getUUID($e, 'get')] = $e['name'];
         }
         for($i = 1; $i < count($testKindList)+1; $i++){
-            $testKindList[$i] = __("$testKindList[$i]");
+            $testKindList[$i] = __($testKindList[$i]);
         }
         $this->set('testKindList',$testKindList);
 

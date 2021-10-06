@@ -139,7 +139,7 @@ class FileManagementController extends AppController {
 //            foreach ($_teachers as $teacher) {
 //                $teachers[getUUID($teacher, 'get')] = [
 //                    'name' => sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']),
-//                    
+//
 //                ];
 //            }
 //
@@ -224,15 +224,15 @@ class FileManagementController extends AppController {
         $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
         if ($this->request->is('post')) {
-            
+
             $data = $this->request->data['FileTest'];
             // capture filepond filesubmit
             If (!isset($data['education_level_id'])) {
 
                 $filepond_data = json_decode($_POST['data']['FileTest']['file'][0],1);
-                // add filepond data 
+                // add filepond data
                 $data['form_id']=$filepond_data['form_id'];
-                
+
                 $r = $this->FileService->uploadTest($school_location_id, $data);
 
                 if (array_key_exists('error', $r)) {
@@ -241,7 +241,7 @@ class FileManagementController extends AppController {
                 } else {
                     $response = __("De klas is klaargezet voor verwerking");
                 }
-                
+
                 if ($error) {
                     echo "
                     <script>
@@ -257,9 +257,9 @@ class FileManagementController extends AppController {
                         </script>
                     ";
                 }
-                
+
                 return true;
-                
+
             } else {
                 $this->log('no filepond data', 'debug');
             }
@@ -342,8 +342,12 @@ class FileManagementController extends AppController {
         if (!$schoolLocationEducationLevels) {
             $this->set('error', implode('<br />', $this->SchoolLocationService->getErrors()));
         } else {
-            for($i = 1; $i < count($testKinds)+1; $i++){
-                $testKinds[$i] = __("$testKinds[$i]");
+//            for($i = 1; $i < count($testKinds)+1; $i++){
+//                $testKinds[$i] = __($testKinds[$i]);
+//            }
+
+            foreach($testKinds as $key=> $kind){
+                $testKinds[$key] = __($kind);
             }
             $this->set('testKindOptions', $testKinds);
         }

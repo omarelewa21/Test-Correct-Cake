@@ -1660,13 +1660,13 @@ class QuestionsController extends AppController
 
     private function handleGroupQuestionType($groupquestion_type,$mode = '__("aanmaken")'){
         $this->set('groupquestion_type', $groupquestion_type);
-        $this->set('title',__("Vraaggroep ").$mode);
+        $this->set('title',__("Vraaggroep").' '.$mode);
         switch ($groupquestion_type) {
             case 'standard':
-                $this->set('title',__("Standaard vraaggroep ").$mode);
+                $this->set('title',__("Standaard vraaggroep").' '.$mode);
                 break;
             case 'carousel':
-                $this->set('title',__("Carrousel vraaggroep ").$mode);
+                $this->set('title',__("Carrousel vraaggroep").' '.$mode);
                 break;
         }
     }

@@ -42,7 +42,7 @@ class QtiimportBatchCitoController extends AppController
             $testKindList[getUUID($e, 'get')] = $e['name'];
         }
         for($i = 1; $i < count($testKindList)+1; $i++){
-            $testKindList[$i] = __("$testKindList[$i]");
+            $testKindList[$i] = __($testKindList[$i]);
         }
         $this->set('testKindList',$testKindList);
 

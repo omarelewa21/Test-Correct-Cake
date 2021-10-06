@@ -911,7 +911,7 @@ class UsersController extends AppController
         $data = $this->request->data;
 
         if (!in_array($data['User']['file']['type'], ['image/jpg', 'image/jpeg', 'image/png'])) {
-            echo '<script>window.parent.Notify.notify(\'<?= __("Foutief bestandsformaat")?>\', "error", 3000); window.parent.Loading.hide();</script>';
+            echo '<script>window.parent.Notify.notify("'. __("Foutief bestandsformaat").'", "error", 3000); window.parent.Loading.hide();</script>';
             die;
         }
 

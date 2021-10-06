@@ -24,7 +24,13 @@
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
                     onclick="<?= AuthComponent::user('hasCitoToetsen') ? 'Navigation.load(\'/cito_tests/index\')' : '' ?>"
                     style="<?= $tab === 'cito' ? 'color:var(--primary);' : '' ?>"
-                <?= !AuthComponent::user('hasCitoToetsen') ? 'disabled title=\'<?= __("Binnenkort beschikbaar")?>\'' : '' ?>
+                <?php
+                 if(!AuthComponent::user('hasCitoToetsen') ){
+                    echo "disabled title='". __("Binnenkort beschikbaar") ."'";
+                 } else {
+                     echo  '';
+                 }
+                 ?>
             >
             <?= __(" CITO Snelle Starttoets")?>
             </button>

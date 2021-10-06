@@ -106,7 +106,7 @@
                         style: {
                             fontStyle: 'italic'
                         },
-                        text: '<?= __("'Minimaal gewenste hoeveelheid vraagitems'")?>'
+                        text: '<?= __("Minimaal gewenste hoeveelheid vraagitems")?>'
                     },
                     zIndex: 3
                 }]

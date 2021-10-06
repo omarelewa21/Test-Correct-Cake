@@ -53,8 +53,11 @@ class TestsController extends AppController
         $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(false));
 
         $kinds = $this->TestsService->getKinds();
-        for($i = 1; $i < count($kinds)+1; $i++){
-            $kinds[$i] = __("$kinds[$i]");
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __($kinds[$i]);
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
         }
 
         //$education_levels = [0 => __("Alle")] + $education_levels;
@@ -154,8 +157,11 @@ class TestsController extends AppController
         $params['filter'] = ['current_school_year' => 1];
 
         $kinds = $this->TestsService->getKinds();
-        for($i = 1; $i < count($kinds)+1; $i++){
-            $kinds[$i] = __("$kinds[$i]");
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __($kinds[$i]);
+//        }
+        foreach ($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
         }
         $periods = $this->TestsService->getPeriods(false, $params);
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
@@ -200,9 +206,13 @@ class TestsController extends AppController
         $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $kinds = $this->TestsService->getKinds();
-        for($i = 1; $i < count($kinds)+1; $i++){
-            $kinds[$i] = __("$kinds[$i]");
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
         }
+
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(true);
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -256,8 +266,11 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
-        for($i = 1; $i < count($kinds)+1; $i++){
-            $kinds[$i] = __("$kinds[$i]");
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
         }
 
         $this->set('education_levels', $education_levels);
@@ -355,16 +368,19 @@ class TestsController extends AppController
                     $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
                 $this->setNotificationsForViewGroup($question['question']);
-            } 
+            }
             array_push($questionsArray, $question);
         }
-        
+
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
-        for($i = 1; $i < count($kinds)+1; $i++){
-            $kinds[$i] = __("$kinds[$i]");
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
         }
 
         $this->set('totalScore', $totalScore);
