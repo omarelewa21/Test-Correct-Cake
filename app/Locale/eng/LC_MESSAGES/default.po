@@ -4192,3 +4192,18 @@ msgstr "Log in as user"
 
 msgid "Voer ter verificatie opnieuw je wachtwoord in om door te gaan als deze gebruiker."
 msgstr "Please enter your password for verification to continue as this user."
+
+msgid "Supportmederwerker"
+msgstr "Support employee"
+
+msgid "Supportmederwerkers"
+msgstr "Support employees"
+
+msgid "Medewerkers"
+msgstr "Employees"
+
+msgid "medewerker"
+msgstr "employee"
+
+msgid "Nieuwe medewerker"
+msgstr "New employee"

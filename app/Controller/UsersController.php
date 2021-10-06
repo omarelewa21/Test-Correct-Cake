@@ -527,7 +527,7 @@ class UsersController extends AppController
 
             case 'support':
                 $params = [
-                    'title'     => 'Supportmedewerkers',
+                    'title'     => __('Supportmedewerkers'),
                     'add_title' => 'Nieuwe medewerker'
                 ];
                 break;
@@ -1305,7 +1305,7 @@ class UsersController extends AppController
                 $tiles['support'] = array(
                     'menu'  => 'support_list',
                     'icon'  => 'testlist',
-                    'title' => 'Medewerkers',
+                    'title' => __('Employees'),
                     'path'  => '/users/index/support'
                 );
                 $tiles['support_logs'] = array(

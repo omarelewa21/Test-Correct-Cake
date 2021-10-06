@@ -1,4 +1,4 @@
-<div class="popup-head">Supportmedewerker</div>
+<div class="popup-head"><?=__('Supportmedewerker')?></div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">
