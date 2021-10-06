@@ -1,6 +1,6 @@
 <div class="dashboard" style="margin-top: 20px!important">
-    <h1>Welkom in Test-Correct</h1>
-    <h3 class="ml10">Kies een andere omgeving </h3>
+    <h1><?=__('Welkom in Test-Correct')?></h1>
+    <h3 class="ml10"><?=__('Kies een andere omgeving')?></h3>
     <div style="display: flex; justify-content: center; width: 100%">
         <div style="display: flex; flex-direction: column; justify-content: center; width: 100%">
             <a class="button primary-button button-md" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin: 0 10px;" href="https://portal.test-correct.nl/">

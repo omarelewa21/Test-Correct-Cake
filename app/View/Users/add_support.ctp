@@ -4,7 +4,7 @@
     <table class="table">
         <tr>
             <th width="130">
-                Voornaam
+                <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+                <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+                <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th width="130">
-                E-mailadres
+                <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th width="130">
-                Wachtwoord
+                <?= __("Wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'type' => 'text')) ?>
@@ -44,7 +44,7 @@
         </tr>
 
         <tr>
-            <th colspan="2">Notities</th>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -60,10 +60,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+        <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Aanmaken
+        <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -73,21 +73,21 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify("<?= __("Gebruiker aangemaakt")?>", "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if (result.error == 'username') {
-                    Notify.notify("E-mailadres al in gebruik", "error");
+                    Notify.notify('<?= __("E-mailadres al in gebruik")?>', "error");
                 }else if(result.error== 'dns'){
-                    Notify.notify("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen", "error");
+                    Notify.notify('<?= __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen")?>', "error");
                 }else if(result.error== 'external_code'){
-                    Notify.notify("Deze externe code is al in gebruik", "error");
+                    Notify.notify('<?= __("Deze externe code is al in gebruik")?>', "error");
                 }else if (result.error == 'user_roles'){
-                    Notify.notify('U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt.','error')
+                    Notify.notify('<?= __("U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt.")?>','error')
                 }
                 else{
-                    Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                    Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
                 }
             }
         }
