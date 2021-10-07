@@ -195,9 +195,9 @@ if ($wizard_steps) {
 
 
 <div>
-    <div  style="position: relative; height:100px; width: 100%">
-        <div class="Read-more">
-            <div id="toggle-ob-wizard" class="showdemotour Hide-demo-tour">
+    <div  id="buttons" style="position: relative; height:100px; width: 100%">
+        <div class="read-more">
+            <div id="toggle-ob-wizard" class="showdemotour hide-demo-tour">
                 <span id="ob-wizard-finished-icon"></span>
                 <span class="text">Demotour verbergen</span>
                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
@@ -207,7 +207,7 @@ if ($wizard_steps) {
     <div id="ob-wizard" class="fadeInOut">
         &nbsp; <!-- nbsp spacer for div  i_i -->
 
-        <div class="block">
+        <div class="block" id="demo">
             <div class="block-head" style="padding:25px;">
                 <?php
                 $name = AuthComponent::user('name_first');
@@ -385,6 +385,7 @@ if ($wizard_steps) {
     if('<?= $language?>' == 'eng'){
         document.getElementById("demo").style.display = 'none';
         document.getElementById("buttons").style.display = 'none';
+        document.getElementById("scrollToDemo").style.display = 'none';
     }
 
     if(typeof(window.oneTrustInjected) === 'undefined') {
@@ -819,14 +820,14 @@ if ($wizard_steps) {
         padding-top: 5px;
         color: #337ab7;
     }
-    .Read-more{
+    .read-more{
         width: 100%;
         display: flex;
         border-bottom: solid 1px var(--blue-grey);
         justify-content: center;
 
     }
-    .Hide-demo-tour {
+    .hide-demo-tour {
         padding: 8px 16px 0 16px;
         background-color: #f5f5f5;
         color: #041f74;
@@ -845,7 +846,7 @@ if ($wizard_steps) {
         border-left: solid 1px var(--blue-grey);
 
     }
-    .Hide-demo-tour .text {
+    .hide-demo-tour .text {
         display:flex;
         flex-grow:1;
         text-align:center;
