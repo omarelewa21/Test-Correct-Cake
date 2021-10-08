@@ -99,7 +99,8 @@
                     'Lost focus' => 'App verlaten',
                     'Screenshot' => 'Screenshot gemaakt',
                     'Started late' => 'Laat gestart',
-                    'Application closed' => 'Opnieuw gestart met toets'
+                    'Application closed' => 'Opnieuw gestart met toets',
+                    'Rejoined' => 'Opnieuw gestart met toets'
                 ];
 
                 echo isset($translations[$event['test_take_event_type']['name']]) ? $translations[$event['test_take_event_type']['name']] : $event['test_take_event_type']['name'];
