@@ -31,10 +31,10 @@
 <script type="text/javascript">
     function addSection(){
         if($('#SectionName').val() === ""){
-            Notify.notify("schoolnaam moet ingevuld zijn", "error");
+            Notify.notify('<?= __("schoolnaam moet ingevuld zijn")?>', "error");
         }
         else if($('#SectionSchoolLocations').val() === null){
-            Notify.notify("schoollocatie moet ten minste één waarde hebben", "error");
+            Notify.notify('<?= __("schoollocatie moet ten minste één waarde hebben")?>', "error");
         }
         else{
             $.post('/sections/add',
@@ -44,7 +44,7 @@
                 if(response['status'] == 1) {
                     Popup.closeLast();
                     Navigation.refresh();
-                    Notify.notify("Sectie aangemaakt");
+                    Notify.notify('<?= __("Sectie aangemaakt")?>');
                 }
                 else{
                     Notify.notify(response['data'].join('<br />'), 'error');

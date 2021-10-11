@@ -37,10 +37,10 @@
 <script type="text/javascript">
     function editSection(){
         if($('#SectionName').val() === ""){
-            Notify.notify("schoolnaam moet ingevuld zijn", "error");
+            Notify.notify('<?= __("schoolnaam moet ingevuld zijn")?>', "error");
         }
         else if($('#SectionSchoolLocations').val() === null){
-            Notify.notify("schoollocatie moet ten minste één waarde hebben", "error");
+            Notify.notify('<?= __("schoollocatie moet ten minste één waarde hebben")?>', "error");
         }
         else{
             $.post('/sections/edit/<?=$section_uuid?>',
@@ -50,7 +50,7 @@
                 if(response['status'] == 1) {
                     Popup.closeLast();
                     Navigation.refresh();
-                    Notify.notify("Sectie gewijzigd");
+                    Notify.notify('<?= __("Sectie gewijzigd")?>');
                 }
                 else{
                     Notify.notify(response['data'].join('<br />'), 'error');
