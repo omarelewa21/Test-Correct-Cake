@@ -20,7 +20,7 @@
             </tr>
             </thead>
             <tbody>
-                <?php foreach($list as $deployment) ?>
+                <?php foreach($list as $deployment){ ?>
                     <tr>
                         <td><?= $deployment->deployment_day?></td>
                         <td><?= $deployment->status?></td>

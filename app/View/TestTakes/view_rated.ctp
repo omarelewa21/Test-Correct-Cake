@@ -74,9 +74,9 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     }else if(!empty($take['wanted_average'])) {
                         echo __("Gemiddeld cijfer: ") . $take['wanted_average'];
                     }else if(!empty($take['pass_mark'])) {
-                        echo __("Cesuur: ") . $take['pass_mark'] . ' - N-term: ' . $take['n_term'];
+                        echo __("Cesuur: ") . $take['pass_mark'] . __(" - N-term: ") . $take['n_term'];
                     }else{
-                        echo 'N-term: ' . $take['n_term'];
+                        echo __("N-term: ") . $take['n_term'];
                     }
                     ?>
                 </td>

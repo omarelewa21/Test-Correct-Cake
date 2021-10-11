@@ -89,10 +89,10 @@
                 onsuccess: function (result) {
                     Popup.closeLast();
                     Popup.message({
-                        title: 'Account aangemaakt',
+                        title: '<?= __("Account aangemaakt")?>',
                         message: '<?= __("Je account is aangemaakt, klik op Oke om naar het loginscherm te gaan")?>'
                     }, () => window.location.href = '/');
-                    Notify.notify("Account aangemaakt", "info");
+                    Notify.notify('<?= __("Account aangemaakt")?>', "info");
 
                     var redirectTo = 'https://www.test-correct.nl/bedankt-aanmelding-docent';
 

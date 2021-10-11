@@ -355,12 +355,12 @@
             }
 
             function buildNotificationMessage(result) {
-                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                var msg = '<?= __("Gegevens voor 1 klas opgeslagen.")?>';
                 if (result !== 1) {
-                    msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
+                    msg = '<?= __("Gegevens voor ")?>' + result + '<?= __(" klassen opgeslagen.")?>';
                 }
                 if (!checkedAllClasses()) {
-                    msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                    msg += '<br/><strong>' + '<?= __("Let op!")?>'  + '</strong>' + '<?= __("Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.")?>'
                 }
                 return msg;
             }

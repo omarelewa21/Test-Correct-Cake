@@ -29,7 +29,7 @@
             <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess"><?= __("Docenten")?>
             <?= __("importeren")?></a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump"
-                      placeholder="JSON Data will appear here..."></textarea>
+                      placeholder='<?= __("JSON Data will appear here...")?>'></textarea>
         </div>
     </div>
 </div>

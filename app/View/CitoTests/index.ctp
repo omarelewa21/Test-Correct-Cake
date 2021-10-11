@@ -124,10 +124,10 @@
         <table class="table table-striped" id="testsTable">
             <thead>
             <tr>
-              <th></th>
+            <th></th>
                 <th width="50"><?= __("Afk.")?></th>
                 <th sortkey="name"><?= __("Titel")?></th>
-                <th width="80" sortkey="question_count"> __("Vragen")</th>
+                <th width="80" sortkey="question_count"> <?= __("Vragen")?></th>
                 <th width="170" sortkey="subject"><?= __("Vak")?></th>
                 <th width="170" sortkey="author"><?= __("Auteur")?></th>
                 <th width="170" sortkey="kind"><?= __("Type")?></th>
