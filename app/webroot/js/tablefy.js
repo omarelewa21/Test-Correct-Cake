@@ -274,7 +274,11 @@ var resizeTableListenerActivated = false;
                     });
                 }
             }
-        )
+        ).always(function(){
+            loading = false;
+        }).fail(function(data){
+            console.dir(data.statusText);
+        });
     }
 
     function checkOverflow(el)
