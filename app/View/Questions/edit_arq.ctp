@@ -183,8 +183,6 @@
     <? } ?>
 
     $('#QuestionAttainments').select2();
-
-
     $('#QuestionTags').select2({
         tags : true,
         ajax: {

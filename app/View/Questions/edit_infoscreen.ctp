@@ -1,7 +1,7 @@
 <div class="popup-head">Infoscherm</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
 
 
     <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
@@ -81,10 +81,16 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
+    <? if($is_clone_request){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
             Vraag opslaan
         </a>
+    <? }else{ ?>
+        <? if($editable) { ?>
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
+                Vraag opslaan
+            </a>
+        <? } ?>
     <? } ?>
 </div>
 
@@ -94,8 +100,12 @@
         $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments('true');
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
     <? } ?>
 
     $('#QuestionTags').select2({
