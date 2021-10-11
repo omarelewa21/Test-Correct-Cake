@@ -89,25 +89,43 @@
                 </td>
             </tr>
         <?php endif; ?>
-        <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
+
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="inbrowser_toggle_<?= $i ?>" class="testTakeRowInbrowserToggle">
             <td colspan="7">
-                <div style="display: flex;">
-                    <div style="display:flex; width:60%; align-items: center; color: var(--system-base)">
-                        <span class="fa fa-chrome"></span>
-                        <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
-                        <div style="display: flex; align-items: center; margin-left: auto">
-                            <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
-                            <label class="switch">
-                                <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
-                                <span class="slider round"></span>
-                            </label>
+                <div style="display: flex; width: 100%;justify-content:space-between">
+                    <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
+                    <div style="display: flex; flex-grow:1">
+                        <div style="display:flex; ; align-items: center; color: var(--system-base)">
+                            <span class="fa fa-chrome"></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+                    <div style="display: flex;flex-grow:1">
+                        <div style="display:flex;align-items: center; color: var(--system-base);">
+                            <?= $this->element('profile') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('guest_accounts', array('name' => 'data[TestTake][' . $i . '][guest_accounts]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
             </td>
         </tr>
-        <?php } ?>
+        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+        </tr>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="notes_<?= $i ?>" class="testTakeRowNotes">
             <td colspan="7">
                 <strong>Notities voor surveillant</strong><br />

@@ -109,6 +109,23 @@
                 </td>
             </tr>
             <?php } ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
+                            <?= $this->element('profile') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('guest_accounts', array('name' => 'data[TestTake][' . $i . '][guest_accounts]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <?
         }
         ?>

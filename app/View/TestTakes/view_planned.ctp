@@ -30,7 +30,14 @@
 </div>
 
 <h1>Geplande toets</h1>
-
+<?php if(isset($take['test_take_code']) && !empty($take['test_take_code']) && $take['guest_accounts']) {?>
+<div class="test-take-code-show-wrapper">
+    <div class="test-take-code-text-container">
+        <h5>Student inlogtoetscode</h5>
+        <h1><?= $take['test_take_code']['prefix'] ?> <?= chunk_split($take['test_take_code']['code'], 3, ' ') ?></h1>
+    </div>
+</div>
+<?php } ?>
 <div class="block">
     <div class="block-head">Toetsinformatie</div>
     <div class="block-content">
@@ -60,12 +67,20 @@
             </tr>
             <tr>
                 <th>Klas(sen)</th>
-                <td colspan="5">
+                <td>
                     <?
                     foreach($take['school_classes'] as $class) {
                         echo $class['name'] . '<br />';
                     }
                     ?>
+                </td>
+                <th>Browser toetsen</th>
+                <td>
+                    <?= $take['allow_inbrowser_testing'] ? 'Ja' : 'Nee'?>
+                </td>
+                <th>Gast accounts</th>
+                <td>
+                    <?= $take['guest_accounts'] ? 'Ja' : 'Nee'?>
                 </td>
             </tr>
         </table>

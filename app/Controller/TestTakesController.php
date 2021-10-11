@@ -1913,6 +1913,13 @@ class TestTakesController extends AppController {
 
             $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
 
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
             $newArray[$take_id] = $take;
 
         }
@@ -1920,7 +1927,6 @@ class TestTakesController extends AppController {
         $takes = $newArray;
 
         $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
-
 
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
         $this->set('takes', $takes);
