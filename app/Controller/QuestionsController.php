@@ -611,6 +611,7 @@ class QuestionsController extends AppController
                     break;
 
                 case 'OpenQuestion' :
+                    $this->set('subtype', $question['question']['subtype']);
                     $view = 'edit_open';
                     break;
 

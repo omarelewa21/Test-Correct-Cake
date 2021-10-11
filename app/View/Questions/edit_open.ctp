@@ -87,6 +87,8 @@
         <div page="owners" class="page" tabs="edit_question">
             <?=$this->element('question_info', ['question' => $question])?>
         </div>
+        
+        <?=$this->Form->input('subtype', array('label' => false, 'type' => 'hidden', 'value' => $subtype))?>
 
     <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
