@@ -768,5 +768,22 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function createTemporaryLogin($options = null, $path = null)
+    {
+        $params = [];
+        if(is_array($options)){
+            $params = ['options' => $options];
+        }
+        if($path){
+            $params['redirect'] = $path;
+        }
+
+        $response = $this->Connector->postRequest('/temporary_login', $params, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

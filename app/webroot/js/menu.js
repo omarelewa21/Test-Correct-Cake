@@ -95,6 +95,9 @@ var Menu = {
                 } else if (type === 'download') {
                     window.location.href = $(this).attr('path');
                     return false;
+                } else if (type === 'laravelpage') {
+                    Core.goToLaravel($(this).attr('path'));
+                    return false;
                 }
                 $(this).addClass('active');
                 Menu.menu = Menu.menuTmp;

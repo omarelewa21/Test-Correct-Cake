@@ -328,7 +328,23 @@ var Core = {
 		}else{
 			$(container).html(Core.cache[path]);
 		}
-	}
+	},
+
+	goToLaravel : function(path) {
+		$.ajax({
+			type: 'post',
+			url: '/users/goToLaravelPath/' + path,
+			dataType: 'json',
+			data: {},
+			success: function (data) {
+				document.removeEventListener("visibilitychange", onchange);
+				window.open(data.data.url, '_self');
+				try {
+					electron.loadUrl(data.data.url)
+				} catch(error) {}
+			},
+		});
+	},
 };
 
 var Loading = {
