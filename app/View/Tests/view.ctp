@@ -427,7 +427,7 @@
                                             <span class="fa fa-trash mr5"></span>
                                             Verwijderen
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/true', 800);">
+                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
                                             <span class="fa fa-clone mr5"></span>
                                             Gebruik als sjabloon
                                         </a>

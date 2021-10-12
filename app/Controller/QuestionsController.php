@@ -489,7 +489,7 @@ class QuestionsController extends AppController
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $is_clone_request = false, $internal = false, $hideresponse = false)
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false, $is_clone_request = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
