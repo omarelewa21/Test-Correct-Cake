@@ -291,6 +291,11 @@ if(count($takes) == 0) {
                     }).html(percentage + '%');
                 });
 
+
+                if (Object.keys(response.participants).length !== document.querySelectorAll('[participantrow]').length) {
+                    Navigation.refresh();
+                }
+
                 $.each(response.participants, function(id, data) {
                     var widthPercentage = data.percentage;
 

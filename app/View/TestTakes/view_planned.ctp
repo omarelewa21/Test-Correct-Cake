@@ -74,14 +74,6 @@
                     }
                     ?>
                 </td>
-                <th>Browser toetsen</th>
-                <td>
-                    <?= $take['allow_inbrowser_testing'] ? 'Ja' : 'Nee'?>
-                </td>
-                <th>Gast accounts</th>
-                <td>
-                    <?= $take['guest_accounts'] ? 'Ja' : 'Nee'?>
-                </td>
             </tr>
         </table>
     </div>

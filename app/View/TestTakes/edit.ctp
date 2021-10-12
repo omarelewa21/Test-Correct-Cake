@@ -85,6 +85,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 </td>
             </tr>
             <?php } ?>
+            <?php if ($school_allows_guest_accounts) { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
@@ -102,6 +103,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     </div>
                 </td>
             </tr>
+            <?php } ?>
             <tr>
                 <th width="140">
                     Instructies

@@ -33,7 +33,7 @@
                     <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
                 </td>
                 <td>
-                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
+                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
                 </td>
                 <td>
                     <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : 'Selecteer' ?></span>
@@ -109,6 +109,7 @@
                 </td>
             </tr>
             <?php } ?>
+            <?php if ($locations[0]['allow_guest_accounts']) { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
@@ -127,6 +128,7 @@
                 </td>
             </tr>
             <?
+            }
         }
         ?>
     </table>
@@ -190,4 +192,12 @@
         var today = date.toLocaleDateString('nl-NL');
         $('#TestTakeDate0').val(today).trigger('change');
     });
+
+    $('#TestTakeGuestAccounts').on('change', (function () {
+        if ($('#TestTakeGuestAccounts').prop('checked')) {
+            $('#TestTakeClassId').attr('verify', '');
+        } else {
+            $('#TestTakeClassId').attr('verify', 'notempty');
+        }
+    }));
 </script>

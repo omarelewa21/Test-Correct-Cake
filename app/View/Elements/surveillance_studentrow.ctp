@@ -1,4 +1,4 @@
-<tr>
+<tr participantrow>
     <td style="padding:2px 5px 2px 5px;" width="35">
         <? if(!substr(Router::fullBaseUrl(),-5) === '.test') {?>
         <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get')?>" width="35" height="35" style="border-radius: 35px;" />
