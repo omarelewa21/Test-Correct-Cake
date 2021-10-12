@@ -22,6 +22,9 @@ msgstr "This graph could not be generated"
 msgid "De versie van de app die je gebruikt wordt per"
 msgstr "The version of the app you are using is per"
 
+msgid "Support gebruiker"
+msgstr "Support user"
+
 msgid "niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch."
 msgstr "no longer allowed. Update the app as soon as possible. If you have installed the app via an app store, the update is usually automatic."
 
@@ -359,7 +362,7 @@ msgid "Studentennummer is al in gebruik"
 msgstr "Student number is already in use"
 
 msgid "Entree"
-msgstr "Entrance"
+msgstr "Entree"
 
 msgid "Database"
 msgstr "Database"
@@ -453,6 +456,9 @@ msgstr "Super!<br/>All data has been processed and you can now get started with 
 
 msgid " klassen opgeslagen."
 msgstr " classes saved."
+
+msgid "Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond."
+msgstr "Not all data has been entered. Your classes will not be visible until the wizard is fully completed."
 
 msgid "Super!<br/>Alle gegevens zijn verwerkt"
 msgstr "Super!<br/>All data has been processed"
@@ -819,6 +825,9 @@ msgstr "Minimum desired amount of question items'"
 
 msgid "B1 - Eiwitsynthese (Dit schooljaar)"
 msgstr "B1 - Protein synthesis (This school year)"
+
+msgid "Let op! Als exporteren naar RTTI Online aanstaat, dan kan deze toetsafname niet meer genormeerd en becijferd worden in Test-Correct, maar gebeurt dit in RTTI Online"
+msgstr "Pay attention! If export to RTTI Online is enabled, this test can no longer be standardized and graded in Test-Correct, but this is done in RTTI Online"
 
 msgid "'B1 - Eiwitsynthese (Totaal)'"
 msgstr "B1 - Protein Synthesis (Total) '"
@@ -1508,6 +1517,12 @@ msgstr "Class files offered"
 msgid "Datum"
 msgstr "Date"
 
+msgid "Inloggen als gebruiker"
+msgstr "Login as user"
+
+msgid "Voer ter verificatie opnieuw je wachtwoord in om door te gaan als deze gebruiker"
+msgstr "Enter your password again for verification to continue as this user"
+
 msgid "Docent"
 msgstr "Teacher"
 
@@ -1546,6 +1561,27 @@ msgstr "Processing paused"
 
 msgid "gereed voor eerste controle"
 msgstr "Ready for first round of checks"
+
+msgid "Rol"
+msgstr "Role"
+
+msgid "Welkom in bij het support overzicht"
+msgstr "Welcome to the support overview"
+
+msgid "Kies een andere omgeving"
+msgstr "Choose a different environment"
+
+msgid "Om de veiligheid en stabiliteit van onze digitale toetsen te kunnen blijven waarborgen is het"
+msgstr "To be able to continue to guarantee the security and stability of our digital tests, it is"
+
+msgid "noodzakelijk dat leerlingen/studenten werken met een actuele versie van de Test-Correct App"
+msgstr "necessary that students work with an up-to-date version of the Test-Correct App"
+
+msgid "Vanaf 19 augustus 2021 worden verouderde apps niet meer ondersteund. Een student kan dan met een"
+msgstr "As of August 19, 2021, outdated apps will no longer be supported. A student can then"
+
+msgid "verouderde app geen toetsen meer maken. (Zie"
+msgstr "no longer create tests with outdated app. (See"
 
 msgid "gereed voor tweede controle"
 msgstr "Ready for second round of checks"
@@ -2195,6 +2231,9 @@ msgstr "User linked"
 msgid "Gebruiker kon niet worden aangemaakt"
 msgstr "User could not be created"
 
+msgid "JSON Data will appear here..."
+msgstr "JSON Data will appear here..."
+
 msgid "Wachtwoord"
 msgstr "Password"
 
@@ -2734,6 +2773,33 @@ msgstr "Notes for invigilator"
 
 msgid "Browsertoetsen voor iedereen toestaan"
 msgstr "Allow browser tests for everyone"
+
+msgid "browsertoetsen"
+msgstr "browser tests"
+
+msgid "voor een tijdelijk alternatief.)"
+msgstr "for a temporary alternative.)"
+
+msgid "19 augustus 2021: Belangrijke updates"
+msgstr "August 19, 2021: Important updates"
+
+msgid "hier"
+msgstr "here"
+
+msgid "Vraag je studenten/leerlingen de meest recente versies van de app te downloaden via de App Store van hun"
+msgstr "Ask your students/pupils to download the latest versions of the app from their App Store"
+
+msgid "besturingssysteem. Kijk"
+msgstr "operating system. Look"
+
+msgid "voor een overzicht van de downloadlocaties."
+msgstr "for an overview of the download locations."
+
+msgid "Meer informatie over de systeemvereisten van Test-Correct is"
+msgstr "More information about Test-Correct system requirements is"
+
+msgid "te vinden."
+msgstr "to find."
 
 msgid "Extra toets plannen"
 msgstr "Schedule an additional test"
@@ -3683,6 +3749,9 @@ msgstr "Transfer"
 msgid "Je kunt een demo gebruiker niet verwijderen"
 msgstr "You cannot delete a demo user"
 
+msgid "Log in als deze gebruiker"
+msgstr "Log in as this user"
+
 msgid "Je kunt deze gebruiker niet wijzigen"
 msgstr "You cannot change this user"
 
@@ -3709,6 +3778,9 @@ msgstr "Test login"
 
 msgid "Inloggen"
 msgstr "login"
+
+msgid "Deze knop kun je vinden boven de 5"
+msgstr "This button can be found above 5"
 
 msgid "Wachtwoord vergeten"
 msgstr "Forgot your password"

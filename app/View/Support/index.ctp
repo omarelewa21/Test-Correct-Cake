@@ -1,13 +1,13 @@
-<h1>Support logs</h1>
+<h1><?= __("Support logs")?></h1>
 
 <div class="block autoheight">
     <div class="block-content" id="supportLogsContainer">
         <table class="table table-striped" id="supportLogsTable">
             <thead>
             <tr>
-                <th width="250">Support gebruiker</th>
-                <th width="250">Gebruiker</th>
-                <th width="180" sortkey="created_at">Datum</th>
+                <th width="250"><?= __("Support gebruiker")?></th>
+                <th width="250"><?= __("Gebruiker")?></th>
+                <th width="180" sortkey="created_at"><?= __("Datum")?></th>
                 <th>IP</th>
                 <th width="30">&nbsp;</th>
             </tr>
