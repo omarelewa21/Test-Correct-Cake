@@ -41,7 +41,7 @@
                 <th><?= __("Gebruiker")?></th>
                 <th><?= __("Rol")?></th>
                 <th><?= __("Datum")?></th>
-                <th>IP</th>
+                <th><?= __("Ip")?></th>
             </tr>
             <?
             foreach($takeOverLogs as $log) {

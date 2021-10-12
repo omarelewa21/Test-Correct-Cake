@@ -468,8 +468,8 @@ class UsersController extends AppController
                 $hasSchoolManagerRole = true;
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanelAccountManager();
             }
-            if (strtolower($role['name']) === 'support') {
-                $view = "welcome_support";
+            if (strtolower($role['name']) === 'test team') {
+                $view = "welcome_test_team";
             }
         }
         $this->set('hasSchoolManagerRole', $hasSchoolManagerRole);
@@ -537,8 +537,14 @@ class UsersController extends AppController
 
             case 'support':
                 $params = [
-                    'title'     => 'Supportmedewerkers',
-                    'add_title' => 'Nieuwe medewerker'
+                    'title'     => __('Supportmedewerkers'),
+                    'add_title' => __('Nieuwe medewerker')
+                ];
+                break;
+            case 'test_team':
+                $params = [
+                    'title'     => __('Test team'),
+                    'add_title' => __('Nieuwe tester')
                 ];
                 break;
         }
@@ -705,8 +711,11 @@ class UsersController extends AppController
                 $this->render('edit_students', 'ajax');
                 break;
 
-            case 11: //Parent
+            case 11: //Support
                 $this->render('edit_support', 'ajax');
+                break;
+            case 12: //Test team
+                $this->render('edit_test_team', 'ajax');
                 break;
 
         }
@@ -762,6 +771,9 @@ class UsersController extends AppController
             case 11: //Support employees
                 $this->set('takeOverLogs', $this->SupportService->getTakeOverLogsForUser(getUUID($user, 'get')));
                 $this->render('view_support', 'ajax');
+                break;
+            case 12: //Test team
+                $this->render('view_test_team', 'ajax');
                 break;
         }
     }
@@ -887,6 +899,10 @@ class UsersController extends AppController
 
             case 'support':
                 $params['filter']['role'] = 11;
+                break;
+
+            case 'test_team':
+                $params['filter']['role'] = 12;
                 break;
         }
 
@@ -1044,6 +1060,9 @@ class UsersController extends AppController
             if ($type == 'support') {
                 $data['user_roles'] = [11];
             }
+            if ($type == 'test_team') {
+                $data['user_roles'] = [12];
+            }
 
 
             $result = $this->UsersService->addUser($type, $data);
@@ -1157,6 +1176,7 @@ class UsersController extends AppController
             if ($role['name'] == 'Administrator') {
                 $menus['accountmanagers'] = __("Accountmanagers");
                 $menus['support_list'] = __("Support");
+                $menus['test_team'] = "Test Team";
                 $menus['lists'] = __("Database");
             }
 
@@ -1294,7 +1314,7 @@ class UsersController extends AppController
                 $tiles['support'] = array(
                     'menu'  => 'support_list',
                     'icon'  => 'testlist',
-                    'title' => __('Medewerkers'),
+                    'title' => __('Employees'),
                     'path'  => '/users/index/support'
                 );
                 $tiles['support_logs'] = array(
@@ -1302,6 +1322,12 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => __('Logs'),
                     'path'  => '/support/index'
+                );
+                $tiles['testers'] = array(
+                    'menu'  => 'test_team',
+                    'icon'  => 'testlist',
+                    'title' => 'Testers',
+                    'path'  => '/users/index/test_team'
                 );
             }
 

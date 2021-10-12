@@ -63,8 +63,10 @@
                 </td>
             </tr>
             <? if ($type == 'students') { ?>
-                <tr>
+                <tr style="<?= ($role == 'Support') ? 'display:none;' : '' ?>">
                     <th><?= __("Studentnummer")?></th>
+
+                    <th>Studentnummer</th>
                     <td>
                         <?= $this->Form->input('external_id', array('label' => false, 'type' => 'text')) ?>
                     </td>
@@ -88,6 +90,13 @@
                     <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                 </td>
             </tr>
+            <? } elseif ($role == 'Support' && in_array($type, ['teachers', 'students']) ) { ?>
+                <tr>
+                    <th>Locatie</th>
+                    <td>
+                        <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
+                    </td>
+                </tr>
             <? } ?>
 
         </table>
@@ -107,6 +116,13 @@
         <table class="table table-striped" id="usersTable">
             <thead>
             <tr>
+                <? if ($role == 'Support') { ?>
+                    <th><?=__('Voornaam')?></th>
+                    <th><?=__('Tussenvoegsel')?></th>
+                    <th><?=__('Achternaam')?></th>
+                    <th><?=__('School')?></th>
+                    <th width="100"></th>
+                <? } else { ?>
                 <? if ($type == 'students') { ?>
                     <th width="50"></th>
                     <th><?= __("Voornaam")?></th>
@@ -124,7 +140,7 @@
                     <th><?= __("Licenties totaal")?></th>
                     <th><?= __("Licenties actief")?></th>
                     <th width="100">&nbsp;</th>
-                <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management'|| 'support') { ?>
+                <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management'|| 'support' || $type == 'test_team') { ?>
                     <th><?= __("Voornaam")?></th>
                     <th><?= __("Tussenvoegsel")?></th>
                     <th><?= __("Achternaam")?></th>

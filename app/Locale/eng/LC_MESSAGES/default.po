@@ -22,9 +22,6 @@ msgstr "This graph could not be generated"
 msgid "De versie van de app die je gebruikt wordt per"
 msgstr "The version of the app you are using is per"
 
-msgid "Support gebruiker"
-msgstr "Support user"
-
 msgid "niet meer toegelaten. Update de app zo spoedig mogelijk. Heb je de app via een app store geïnstalleerd, dan gaat het updaten meestal automatisch."
 msgstr "no longer allowed. Update the app as soon as possible. If you have installed the app via an app store, the update is usually automatic."
 
@@ -362,7 +359,7 @@ msgid "Studentennummer is al in gebruik"
 msgstr "Student number is already in use"
 
 msgid "Entree"
-msgstr "Entree"
+msgstr "Entrance"
 
 msgid "Database"
 msgstr "Database"
@@ -4252,3 +4249,36 @@ msgstr " want to delete?"
 
 msgid "Deployments"
 msgstr "Deployments"
+
+msgid "Support gebruiker"
+msgstr "Support user"
+
+msgid "Support logs"
+msgstr "Support logs"
+
+msgid "Inloggen als gebruiker"
+msgstr "Log in as user"
+
+msgid "Voer ter verificatie opnieuw je wachtwoord in om door te gaan als deze gebruiker."
+msgstr "Please enter your password for verification to continue as this user."
+
+msgid "Supportmederwerker"
+msgstr "Support employee"
+
+msgid "Supportmederwerkers"
+msgstr "Support employees"
+
+msgid "Medewerkers"
+msgstr "Employees"
+
+msgid "medewerker"
+msgstr "employee"
+
+msgid "Nieuwe medewerker"
+msgstr "New employee"
+
+msgid "Nieuwe tester"
+msgstr "New tester"
+
+msgid "Test team"
+msgstr "Test team"
