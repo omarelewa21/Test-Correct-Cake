@@ -65,8 +65,6 @@
             <? if ($type == 'students') { ?>
                 <tr style="<?= ($role == 'Support') ? 'display:none;' : '' ?>">
                     <th><?= __("Studentnummer")?></th>
-
-                    <th>Studentnummer</th>
                     <td>
                         <?= $this->Form->input('external_id', array('label' => false, 'type' => 'text')) ?>
                     </td>
@@ -92,7 +90,7 @@
             </tr>
             <? } elseif ($role == 'Support' && in_array($type, ['teachers', 'students']) ) { ?>
                 <tr>
-                    <th>Locatie</th>
+                    <th><?= __("Locatie")?></th>
                     <td>
                         <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                     </td>
