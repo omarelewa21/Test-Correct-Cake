@@ -23,25 +23,35 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
     <?= __("Annuleer")?>
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-    <?= __("Aanmaken")?>
+    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave" onclick="addSection()">
+        <?= __("Aanmaken")?>
     </a>
 </div>
 
 <script type="text/javascript">
-    $('#SectionAddForm').formify(
-        {
-            confirm : $('#btnSave'),
-            onsuccess : function(result) {
-                Popup.closeLast();
-                Notify.notify('<?= __("Sectie aangemaakt")?>', "info");
-                Navigation.refresh();
-            },
-            onfailure : function(result) {
-                Notify.notify('<?= __("Sectie kon niet worden aangemaakt")?>', "error");
-            }
+    function addSection(){
+        if($('#SectionName').val() === ""){
+            Notify.notify('<?= __("schoolnaam moet ingevuld zijn")?>', "error");
         }
-    );
+        else if($('#SectionSchoolLocations').val() === null){
+            Notify.notify('<?= __("schoollocatie moet ten minste één waarde hebben")?>', "error");
+        }
+        else{
+            $.post('/sections/add',
+            $('#SectionAddForm').serialize(),
+            function(response) {
+                response = JSON.parse(response);
+                if(response['status'] == 1) {
+                    Popup.closeLast();
+                    Navigation.refresh();
+                    Notify.notify('<?= __("Sectie aangemaakt")?>');
+                }
+                else{
+                    Notify.notify(response['data'].join('<br />'), 'error');
+                }
+            });
+        }
+    }
 
     $('#SectionSchoolLocations').select2();
 </script>
