@@ -97,7 +97,7 @@ class UsersController extends AppController
                 $captchaSet = true;
 
                 if (!class_exists('Securimage')) {
-                    include_once(WWW_ROOT.'img/securimage.php');
+                    include_once(WWW_ROOT . 'img/securimage.php');
                 }
                 $this->SecureImage = new Securimage();
                 if ($this->SecureImage->check($this->request->data['User']['captcha_string']) == false) {
@@ -555,7 +555,7 @@ class UsersController extends AppController
 
         // if in local test mode, don't do a user call, but just show the default icon
         if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
-            $result = file_get_contents(APP.WEBROOT_DIR.'/img/ico/user.png');
+            $result = file_get_contents(APP . WEBROOT_DIR . '/img/ico/user.png');
             $this->response->type('image/png');
             $this->response->body($result);
             return $this->response;
@@ -1164,6 +1164,7 @@ class UsersController extends AppController
                 $menus['lists'] = __("Database");
                 $menus['files'] = __("Bestanden");
                 $menus['qti'] = __("QTI");
+                $menus['imports'] = __('Imports');
             }
 
             if ($role['name'] == 'School manager') {
@@ -1220,8 +1221,7 @@ class UsersController extends AppController
         $this->set('menus', $menus);
     }
 
-    public
-    function tiles()
+    public function tiles()
     {
         $roles = AuthComponent::user('roles');
 
@@ -1306,6 +1306,14 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Account manager') {
+                $tiles['uwlr'] = array(
+                    'menu' => 'imports',
+                    'icon' => 'testlist',
+                    'title' => __('UWLR'),
+                    'path' => '/uwlr',
+                    'type' => 'laravelpage',
+                );
+
                 $tiles['users_administrators'] = array(
                     'menu'  => 'users',
                     'icon'  => 'testlist',
@@ -1726,8 +1734,7 @@ class UsersController extends AppController
         $this->set('tiles', $tiles);
     }
 
-    public
-    function password_reset()
+    public function password_reset()
     {
         if ($this->request->is('post')) {
             $this->autoRender = false;
@@ -1757,8 +1764,7 @@ class UsersController extends AppController
         }
     }
 
-    public
-    function info()
+    public function info()
     {
         $this->autoRender = false;
         $info = AuthComponent::user();
@@ -1812,8 +1818,7 @@ class UsersController extends AppController
         echo json_encode($return);
     }
 
-    public
-    function import(
+    public function import(
         $type
     ) {
         if ($type == 'students') {
@@ -1848,8 +1853,7 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public
-    function doImport(
+    public function doImport(
         $type
     ) {
         $data['data'] = $this->request->data;
@@ -1862,8 +1866,7 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public
-    function doImportTeachers()
+    public function doImportTeachers()
     {
         $data['data'] = $this->request->data;
 
@@ -1876,8 +1879,7 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public
-    function doImportTeachersBare()
+    public function doImportTeachersBare()
     {
         $data['data'] = $this->request->data;
 
@@ -1890,8 +1892,7 @@ class UsersController extends AppController
         $this->formResponse(true, []);
     }
 
-    public
-    function setActiveSchoolLocation(
+    public function setActiveSchoolLocation(
         $uuid
     ) {
 //        if (! $this->isAuthorizedAs(['Teacher']) ) {
@@ -1909,8 +1910,7 @@ class UsersController extends AppController
 
     }
 
-    public
-    function add_existing_teachers()
+    public function add_existing_teachers()
     {
 //        if (!$this->isAuthorizedAs('Administrator') ) {
 //            $this->formResponse(false, 'U heeft onvoldoende rechten om dit te mogen uitvoeren');
@@ -1927,8 +1927,7 @@ class UsersController extends AppController
 
     }
 
-    public
-    function load_existing_teachers()
+    public function load_existing_teachers()
     {
         $params = $this->request->data;
 
@@ -1959,8 +1958,7 @@ class UsersController extends AppController
 //        }
     }
 
-    public
-    function add_existing_teacher_to_schoolLocation()
+    public function add_existing_teacher_to_schoolLocation()
     {
         $this->isAuthorizedAs(['School manager']);
 
@@ -1974,8 +1972,7 @@ class UsersController extends AppController
         }
     }
 
-    public
-    function delete_existing_teacher_from_schoolLocation()
+    public function delete_existing_teacher_from_schoolLocation()
     {
         $this->isAuthorizedAs(['School manager']);
 
@@ -1990,8 +1987,7 @@ class UsersController extends AppController
     }
 
 
-    public
-    function resendEmailVerificationMail()
+    public function resendEmailVerificationMail()
     {
         $this->isAuthorizedAs(["Teacher"]);
 
@@ -2006,7 +2002,16 @@ class UsersController extends AppController
         die();
     }
 
-    public function temporary_login($tlid) {
+    public function goToLaravelPath($path)
+    {
+        if($path{0} !== '/'){
+            $path = '/'.$path;
+        }
+        return $this->formResponse(true,  $this->UsersService->createTemporaryLogin([],$path));
+    }
+
+    public function temporary_login($tlid)
+    {
         $result = $this->UsersService->getUserWithTlid($tlid);
 
         $result = $this->handleTemporaryLoginOptions($result);
