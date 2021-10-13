@@ -419,4 +419,4 @@ Configure::write('pusher-key','');
 //Configure BugSnag
 // add the keys if you want to make use of bugsnag
 Configure::write('bugsnag-key-cake','');
-Configure::write('bugsnag-key-browser','4c0b612fe5112add2955fd8c30d32b21');
+Configure::write('bugsnag-key-browser','');

@@ -277,7 +277,6 @@ var resizeTableListenerActivated = false;
         ).always(function(){
             loading = false;
         }).fail(function(data){
-            console.dir(data);
             if(typeof Bugsnag != undefined){
                 var msg = 'tablefy load failed. url:'+settings.source+'; status:'+data.status+' statusText:'+data.statusText+';filters:'+$(settings.filters).serialize();
                 Bugsnag.notify(msg);
