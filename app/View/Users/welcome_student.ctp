@@ -83,5 +83,3 @@
         <? } ?>
 
 </script>
-
-<?= $this->element('temporary_login_options') ?>

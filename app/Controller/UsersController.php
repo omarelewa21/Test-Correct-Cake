@@ -27,7 +27,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -1732,7 +1732,8 @@ class UsersController extends AppController
             'isTeacher',
             'isStudent',
             'school_location_list',
-            'school_location_id'
+            'school_location_id',
+            'guest'
         ];
 
         foreach ($allowed as $key) {
@@ -2180,5 +2181,20 @@ class UsersController extends AppController
         CakeSession::write('temporaryLoginOptions', $options);
 
         return $result;
+    }
+
+    public function front_controller()
+    {
+        $this->autoRender = false;
+
+        if (CakeSession::read('temporaryLoginOptions')) {
+            $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
+            if ($page = array_key_exists('page', $options)) {
+                $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
+                header('location: /'.$page);
+            }
+        }
+
+        $this->welcome();
     }
 }

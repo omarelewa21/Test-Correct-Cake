@@ -10,57 +10,70 @@ var User = {
     logoutCountdownInterval: null,
 
     initialise: function () {
-        $.getJSON('/users/info',
-            function (info) {
-                User.info = info;
-                var activeSchool = '';
-                var activeSchoolName = '';
+        $.ajax({
+            dataType: 'json',
+            url: '/users/info',
+            async: false,
+            success:
+                function (info) {
+                    User.info = info;
+                    if (User.info.guest) {
+                        console.log('No user initialise needed');
+                        var guest_username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+                        $('#header #guest_user').prepend('<span>'+guest_username+'</span>');
+                    } else {
 
-                if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')&&User.info.school_location_list.length>1) {
-                    var result = User.info.school_location_list.find(function (school_location) {
-                        return school_location.active;
-                    });
-                    if (result) {
-                        activeSchool = '(<span id="active_school">' + result.name + '</span>)';
-                        activeSchoolName = '(' + result.name + ')';
+                        var activeSchool = '';
+                        var activeSchoolName = '';
+
+                        if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list') && User.info.school_location_list.length > 1) {
+                            var result = User.info.school_location_list.find(function (school_location) {
+                                return school_location.active;
+                            });
+                            if (result) {
+                                activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                activeSchoolName = '(' + result.name + ')';
+                            }
+                        }
+
+                        if (User.info.isStudent) {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.green.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('green');
+                        } else {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.blue.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('blue');
+                        }
+
+                        var username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+                        $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
+
+
+                        if (activeSchool) {
+                            $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
+                        }
+
+
+                        if (User.info.isTeacher) {
+                            $("#supportpage_link, #upload_test_link").remove();
+                            var hubspotScript = document.createElement('script');
+                            hubspotScript.setAttribute('src', '//js.hs-scripts.com/3780499.js');
+                            document.head.appendChild(hubspotScript);
+                        }
                     }
                 }
-
-                if (User.info.isStudent) {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.green.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('green');
-                } else {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.blue.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('blue');
-                }
-
-                var username = User.info.name_first + ' ' +
-                    User.info.name_suffix + ' ' +
-                    User.info.name;
-                $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
-
-
-                if (activeSchool) {
-                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
-                }
-
-
-                if (User.info.isTeacher) {
-                    $("#supportpage_link, #upload_test_link").remove();
-                    var hubspotScript = document.createElement('script');
-                    hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
-                    document.head.appendChild(hubspotScript);
-                }
-            }
-        );
+        });
 
         $('#header #top #user').click(function () {
             if ($('#support_menu').is(':visible')) {

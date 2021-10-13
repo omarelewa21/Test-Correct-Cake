@@ -84,6 +84,7 @@
 		<div id="notifications"></div>
 
 		<div id="header" class="highlight">
+            <?php if (AuthComponent::user('guest') != true) { ?>
             <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
             <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
 <!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
@@ -114,11 +115,46 @@
                 <span></span>
                 <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
             </div>
+
+            <?php } else { ?>
+                <div class="guest_top">
+                    <div class="guest_logo">
+                        <?= $this->element('logo_new_full') ?>
+                    </div>
+                    <div class="guest_name">
+                        <button id="guest_user" onclick="showGuestDropdown()">
+                            <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(90deg)']) ?>
+                        </button>
+                        <div id="guest_name_dropdown" style="display: none">
+                            <button id="guest_user" onclick="showGuestDropdown()">
+                                <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(-90deg)']) ?>
+                            </button>
+                            <button onclick="User.logout()">Log uit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function showGuestDropdown() {
+                        var menu = $('#guest_name_dropdown');
+                        var chevron = $('#guest_user_chevron');
+
+                        if(menu.get(0).style.display === 'none') {
+                            menu.fadeIn({duration: 100});
+                            chevron.css({'transform' : 'rotate(-90deg)'})
+                        } else {
+                            menu.fadeOut({duration: 100});
+                            chevron.css({'transform' : 'rotate(90deg)'})
+                        }
+                    }
+                </script>
+            <?php } ?>
 		</div>
 
 		<div id="tiles" class="highlight"></div>
 
 		<div id="container"></div>
+        <?= $this->element('temporary_login_options') ?>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
 		<script>
             function onConversationsAPIReady() {
