@@ -779,7 +779,7 @@ class UsersService extends BaseService
             $params['redirect'] = $path;
         }
 
-        $response = $this->Connector->postRequest('/temporary_login', $params, []);
+        $response = $this->Connector->postRequest('/temporary-login', $params, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
