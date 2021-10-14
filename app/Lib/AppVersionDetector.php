@@ -41,7 +41,6 @@ class AppVersionDetector
         ],
         "iOS" => [
             "ok" => [
-                "2.3.2",
                 "2.3.3",
                 "2.3.4",
                 "2.3.5",
@@ -90,6 +89,10 @@ class AppVersionDetector
                 "3.1.0",
             ],
             "needsUpdate" => [
+                "2.3.2",
+            ],
+            "needsUpdateDeadline" => [
+                "2.3.2" => "12 november 2021"
             ],
         ],
         "ChromeOS" => [
@@ -183,7 +186,6 @@ class AppVersionDetector
         ],
         "macosElectron" => [
             "ok" => [
-                "3.1.0",
                 "3.1.1",
                 "3.1.1-beta.1",
                 "3.1.1-beta.2",
@@ -215,7 +217,12 @@ class AppVersionDetector
                 "3.2.0-beta.4",
                 "3.2.0-beta.5",
             ],
-            "needsUpdate" => [],
+            "needsUpdate" => [
+                "3.1.0",
+            ],
+            "needsUpdateDeadline" => [
+                "3.1.0" => "18 november 2021"
+            ],
         ]
     ];
 
