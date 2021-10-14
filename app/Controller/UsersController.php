@@ -1314,7 +1314,7 @@ class UsersController extends AppController
                 $tiles['support'] = array(
                     'menu'  => 'support_list',
                     'icon'  => 'testlist',
-                    'title' => __('Employees'),
+                    'title' => __('Medewerkers'),
                     'path'  => '/users/index/support'
                 );
                 $tiles['support_logs'] = array(
