@@ -4213,3 +4213,7 @@ msgstr "New tester"
 
 msgid "Test team"
 msgstr "Test team"
+
+msgid "Let op! Je bent ingelogd via het support account van"
+msgstr "Attention! You are logged in with the support account of"
+
