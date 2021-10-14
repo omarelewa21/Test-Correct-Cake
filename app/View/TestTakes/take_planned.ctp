@@ -63,11 +63,11 @@
         if($newPlayerAccess) {
             ?>
             <?php if( $take['test_participant']['intense']) { ?>
-            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>');})">
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>', '<?=  getUUID($take['test_participant'], 'get')  ?>');})">
                 <?= !$oldPlayerAccess? __("Toets starten") : __("Start in nieuwe speler") ?>
             </a>
                 <?php } else { ?>
-            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>'); Loading.show()">
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>', '<?=  getUUID($take['test_participant'], 'get')  ?>'); Loading.show()">
                 <?= !$oldPlayerAccess? __("Toets starten") : __("Start in nieuwe speler") ?>
             </a>
             <?php } ?>
