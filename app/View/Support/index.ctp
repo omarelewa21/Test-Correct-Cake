@@ -7,6 +7,7 @@
             <tr>
                 <th width="250"><?= __('Support gebruiker') ?></th>
                 <th width="250"><?=__('Gebruiker')?></th>
+                <th><?=__('Schoollocatie')?></th>
                 <th width="180" sortkey="created_at"><?=__('Datum')?></th>
                 <th><?=__('Ip')?></th>
                 <th width="30">&nbsp;</th>

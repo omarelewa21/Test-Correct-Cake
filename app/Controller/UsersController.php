@@ -412,7 +412,7 @@ class UsersController extends AppController
     public function welcome()
     {
         $roles = AuthComponent::user('roles');
-
+        var_dump(CakeSession::read('Config'));
         $menus = array();
 
         $view = "welcome";
@@ -1218,7 +1218,7 @@ class UsersController extends AppController
 //                $menus['messages'] = "Berichten";
             }
             if ($role['name'] == 'Support') {
-                $menus['lists'] = "Gebruikers";
+                $menus['lists'] = __("Gebruikers");
             }
 
 
@@ -1745,13 +1745,13 @@ class UsersController extends AppController
                 $tiles['teachers'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Docenten',
+                    'title' => __('Docenten'),
                     'path'  => '/users/index/teachers'
                 );
                 $tiles['students'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'analyse-klassen',
-                    'title' => 'Studenten',
+                    'title' => __('Studenten'),
                     'path'  => '/users/index/students'
                 );
             }

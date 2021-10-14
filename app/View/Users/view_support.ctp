@@ -40,6 +40,7 @@
             <tr>
                 <th><?= __("Gebruiker")?></th>
                 <th><?= __("Rol")?></th>
+                <th><?= __("Schoollocatie")?></th>
                 <th><?= __("Datum")?></th>
                 <th><?= __("Ip")?></th>
             </tr>
@@ -57,6 +58,7 @@
                 <tr>
                     <td><?= $name ?></td>
                     <td><?= $log['user']['roles'][0]['name'] ?></td>
+                    <td><?= $log['user']['school_location']['name'] ?></td>
                     <td><?= $created_at->format('d-m-Y H:i:s') ?></td>
                     <td><?= $log['ip'] ?></td>
                 </tr>
