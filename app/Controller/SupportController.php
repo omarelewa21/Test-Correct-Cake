@@ -68,7 +68,7 @@ class SupportController extends AppController
             );
 
             CakeSession::write('Support', ['name' => $supportUsername, 'id' => getUUID($result, 'get')]);
-
+            $this->setUserLanguage();
             $this->formResponse(true);
         }
     }
