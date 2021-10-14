@@ -6,6 +6,7 @@ foreach($logs as $log) {
     <tr>
         <td><?= $log['support_user']['fullname'] ?></td>
         <td><?= $log['user']['fullname'] ?></td>
+        <td><?= $log['user']['school_location']['name'] ?></td>
         <td><?= $created_at->format('d-m-Y H:i:s') ?></td>
         <td><?= $log['ip'] ?></td>
 
