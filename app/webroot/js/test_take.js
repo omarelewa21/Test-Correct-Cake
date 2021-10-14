@@ -252,7 +252,7 @@ var TestTake = {
 
     },
 
-    startTestInLaravel : function(take_id) {
+    startTestInLaravel : function(take_id, participant_id) {
         var _take_id = take_id;
         TestTake.atTestStart();
         setTimeout(function() {
@@ -264,6 +264,9 @@ var TestTake = {
                 success: function (data) {
                     document.removeEventListener("visibilitychange", onchange);
                     window.open(data.data.url, '_self');
+                    try {
+                        electron.setTestConfig(participant_id);
+                    } catch (error) {}
                     try {
                         electron.loadUrl(data.data.url)
                     } catch(error) {}
