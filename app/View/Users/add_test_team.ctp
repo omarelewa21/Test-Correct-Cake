@@ -7,7 +7,7 @@
                 <?=__('Voornaam')?>
             </th>
             <td>
-                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'id' => 'TesterPrimaryName')) ?>
             </td>
         </tr>
         <tr>
@@ -15,7 +15,7 @@
                 <?=__('Tussenvoegsel')?>
             </th>
             <td>
-                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false, 'id' => 'TesterSuffix')) ?>
             </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
                 <?=__('Achternaam')?>
             </th>
             <td>
-                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'id' => 'TesterLastName')) ?>
             </td>
         </tr>
         <tr>
@@ -31,15 +31,15 @@
                 <?=__('E-mailadres')?>
             </th>
             <td>
-                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
+                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email', 'id' => 'WebAdressForMail')) ?>
             </td>
         </tr>
         <tr>
             <th width="130">
-                <?=__('Nieuw wachtwoord')?>
+                <?=__('Wachtwoord')?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'id' => 'TesterCodeForLogin')) ?>
             </td>
         </tr>
         <tr>
