@@ -412,7 +412,7 @@ class UsersController extends AppController
     public function welcome()
     {
         $roles = AuthComponent::user('roles');
-        var_dump(CakeSession::read('Config'));
+
         $menus = array();
 
         $view = "welcome";
