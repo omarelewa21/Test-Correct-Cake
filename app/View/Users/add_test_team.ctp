@@ -7,7 +7,7 @@
                 <?=__('Voornaam')?>
             </th>
             <td>
-                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'id' => 'TesterPrimaryName')) ?>
+                <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
@@ -15,7 +15,7 @@
                 <?=__('Tussenvoegsel')?>
             </th>
             <td>
-                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false, 'id' => 'TesterSuffix')) ?>
+                <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>
@@ -23,7 +23,7 @@
                 <?=__('Achternaam')?>
             </th>
             <td>
-                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'id' => 'TesterLastName')) ?>
+                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
@@ -31,7 +31,7 @@
                 <?=__('E-mailadres')?>
             </th>
             <td>
-                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email', 'id' => 'WebAdressForMail')) ?>
+                <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
             </td>
         </tr>
         <tr>
@@ -39,7 +39,7 @@
                 <?=__('Wachtwoord')?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'id' => 'TesterCodeForLogin')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
             </td>
         </tr>
         <tr>

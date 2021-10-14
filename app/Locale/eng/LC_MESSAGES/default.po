@@ -4193,10 +4193,10 @@ msgstr "Log in as user"
 msgid "Voer ter verificatie opnieuw je wachtwoord in om door te gaan als deze gebruiker."
 msgstr "Please enter your password for verification to continue as this user."
 
-msgid "Supportmederwerker"
+msgid "Supportmedewerker"
 msgstr "Support employee"
 
-msgid "Supportmederwerkers"
+msgid "Supportmedewerkers"
 msgstr "Support employees"
 
 msgid "Medewerkers"
