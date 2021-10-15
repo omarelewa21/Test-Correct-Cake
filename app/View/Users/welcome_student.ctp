@@ -81,7 +81,10 @@
             ?>
     jQuery("#versionBadge").attr("class","versionBadge <?=$extraClass?>").text("<?=$version?>");
         <? } ?>
-
+    <?php if($name = CakeSession::read('Support.name')) {?>
+    Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
+    Menu.supportUser = '<?= CakeSession::read("Support.id") ?>';
+    <?php }?>
 </script>
 
 <?= $this->element('temporary_login_options') ?>
