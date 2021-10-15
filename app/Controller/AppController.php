@@ -294,4 +294,9 @@ class AppController extends Controller
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
         ];
     }
+
+    public function returnToLaravelUrl($userId)
+    {
+        return $this->UsersService->getReturnToLaravelUrl($userId);
+    }
 }

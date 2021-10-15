@@ -768,5 +768,14 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function getReturnToLaravelUrl($userId, $params = [])
+    {
+        $response = $this->Connector->getRequest('/user/'. $userId .'/return_to_laravel_url', $params);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

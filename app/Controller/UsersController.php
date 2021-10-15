@@ -2188,10 +2188,12 @@ class UsersController extends AppController
         $this->autoRender = false;
 
         if (CakeSession::read('temporaryLoginOptions')) {
-            $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
-            if ($page = array_key_exists('page', $options)) {
+            //TODO: Change this back to consume instead of read
+            $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+            if (array_key_exists('page', $options)) {
+                $page = $options['page'];
                 $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
-                header('location: /'.$page);
+                header('Location: '.$page);
             }
         }
 

@@ -627,6 +627,11 @@ class TestTakesController extends AppController {
                 break;
 
             case 8:
+                $this->set('guest', AuthComponent::user('guest'));
+
+                $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+                $this->set('loginUrl', $returnUrl['url']);
+
                 $view = 'take_discussed';
                 break;
 
