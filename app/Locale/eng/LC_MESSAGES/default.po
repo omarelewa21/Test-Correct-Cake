@@ -4286,3 +4286,9 @@ msgstr "Test team"
 msgid "Let op! Je bent ingelogd via het support account van"
 msgstr "Attention! You are logged in with the support account of"
 
+msgid "Er is iets misgegaan. Log uit en opnieuw in voor de Support omgeving"
+msgstr "Something went wrong. Log out to return to the support environment"
+
+msgid "Terug naar support omgeving"
+msgstr "Return to support environment"
+

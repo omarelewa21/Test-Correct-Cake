@@ -326,7 +326,7 @@ var Menu = {
     },
 
     addReturnToSupportButton : function (userId) {
-        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="Return to support environment." onclick="Menu.handleReturnToSupportAction(\''+ userId +'\')">' +
+        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="'+ $.i18n("Terug naar support omgeving") +'" onclick="Menu.handleReturnToSupportAction(\''+ userId +'\')">' +
                         '   <svg xmlns="http://www.w3.org/2000/svg" style="height: 30px; width:30px" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
                         '       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />\n' +
                         '   </svg>';
@@ -340,7 +340,7 @@ var Menu = {
                 if (response) {
                     location.reload();
                 } else {
-                    Notify.notify('Something went wrong. Log out to return to the support environment', 'error', 6000);
+                    Notify.notify($.i18n('Er is iets misgegaan. Log uit en opnieuw in voor de Support omgeving'), 'error', 6000);
                 }
             }
         );
