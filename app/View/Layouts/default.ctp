@@ -132,6 +132,9 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
-		</script>
+            <?php if($name = CakeSession::read('Support.name')) {?>
+                Menu.supportUser = '<?= CakeSession::read("Support.id") ?>';
+            <?php }?>
+        </script>
 	</body>
 </html>
