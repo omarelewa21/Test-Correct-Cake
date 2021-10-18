@@ -240,8 +240,6 @@ class TestsController extends AppController
 
     public function load()
     {
-        http_response_code(404);
-        exit;
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_levels = $this->TestsService->getEducationLevels(true, false);
