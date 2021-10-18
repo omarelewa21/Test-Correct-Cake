@@ -1,6 +1,6 @@
 <div class="popup-head"><?= __("ARQ")?></div>
 <div class="popup-content">
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
 
         <?
         $options = [];
@@ -81,7 +81,7 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>A</td>
+                    <td><?= __('A') ?></td>
                     <td><?= __('J') ?></td>
                     <td><?= __('J') ?></td>
                     <td><?= __("Juiste reden")?></td>
@@ -90,7 +90,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>B</td>
+                    <td><?= __('B') ?></td>
                     <td><?= __('J') ?></td>
                     <td><?= __('J') ?></td>
                     <td><?= __("Onjuiste reden")?></td>
@@ -99,7 +99,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>C</td>
+                    <td><?= __('C') ?></td>
                     <td><?= __('J') ?></td>
                     <td><?= __('O') ?></td>
                     <td>-</td>
@@ -108,7 +108,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>D</td>
+                    <td><?= __('D') ?></td>
                     <td><?= __('O') ?></td>
                     <td><?= __('J') ?></td>
                     <td>-</td>
@@ -117,7 +117,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>E</td>
+                    <td><?= __('E') ?></td>
                     <td><?= __('O') ?></td>
                     <td><?= __('O') ?></td>
                     <td>-</td>
@@ -154,10 +154,17 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
     <?= __("Annuleer")?>
     </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'ARQQuestion', '<?=getUUID($question, 'get');?>');">
-        <?= __("Vraag opslaan")?>
+
+    <? if($is_clone_request){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ARQQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+            <?= __("Vraag opslaan")?>
         </a>
+    <? }else{ ?>
+        <? if($editable) { ?>
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'ARQQuestion', '<?=getUUID($question, 'get');?>');">
+                <?= __("Vraag opslaan")?>
+            </a>
+        <? } ?>
     <? } ?>
 </div>
 
@@ -167,8 +174,12 @@
     $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments('true');
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
     <? } ?>
 
     $('#QuestionAttainments').select2();

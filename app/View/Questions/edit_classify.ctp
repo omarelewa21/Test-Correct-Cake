@@ -1,6 +1,6 @@
 <div class="popup-head"><?= __("Rubriceervraag")?></div>
 <div class="popup-content">
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
 
         <table class="table mb15">
             <tr>
@@ -165,10 +165,16 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
     <?= __("Annuleer")?>
     </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'MatchingQuestion', '<?=getUUID($question, 'get');?>');">
-        <?= __("Vraag opslaan")?>
+    <? if($is_clone_request){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ClassifyQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+            <?= __("Vraag opslaan")?>
         </a>
+    <? }else{ ?>
+            <? if($editable) { ?>
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'MatchingQuestion', '<?=getUUID($question, 'get');?>');">
+                <?= __("Vraag opslaan")?>
+            </a>
+        <? } ?>
     <? } ?>
 </div>
 
@@ -178,8 +184,12 @@
        $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments('true');
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
     <? } ?>
 
     $('#QuestionAttainments').select2();

@@ -489,7 +489,7 @@ class QuestionsController extends AppController
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false)
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false, $is_clone_request = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
@@ -611,6 +611,7 @@ class QuestionsController extends AppController
                     break;
 
                 case 'OpenQuestion' :
+                    $this->set('subtype', $question['question']['subtype']);
                     $view = 'edit_open';
                     break;
 
@@ -679,6 +680,7 @@ class QuestionsController extends AppController
             $this->set('owner', $owner);
             $this->set('owner_id', $owner_id);
             $this->set('editable', true);
+            $this->set('is_clone_request', $is_clone_request);
             $this->Session->write('attachments_editable', true);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
