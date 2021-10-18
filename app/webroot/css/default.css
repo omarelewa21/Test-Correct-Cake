@@ -715,7 +715,7 @@ th.subject-column, td.subject-column {
     color: var(--system-base);
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
 }
-.discuss-test-code-box h1, h5 {
+.discuss-test-code-box h1, .discuss-test-code-box h5 {
     font-weight: bold!important;
     margin: 0!important;
 }
