@@ -23,6 +23,12 @@ var User = {
                             User.info.name_suffix + ' ' +
                             User.info.name;
                         $('#header #guest_user').prepend('<span>'+guest_username+'</span>');
+
+                        $("<link/>", {
+                            rel: "stylesheet",
+                            type: "text/css",
+                            href: "/css/buttons.green.css"
+                        }).appendTo("head");
                     } else {
 
                         var activeSchool = '';

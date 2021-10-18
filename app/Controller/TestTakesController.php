@@ -1440,6 +1440,11 @@ class TestTakesController extends AppController {
             $group = "";
         }
 
+        $this->set('guest', AuthComponent::user('guest'));
+        if(AuthComponent::user('guest')) {
+            $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+            $this->set('loginUrl', $returnUrl['url']);
+        }
         $this->set('group', $group);
         $this->set('answer', $answer);
         $this->set('question_index', $question_index);

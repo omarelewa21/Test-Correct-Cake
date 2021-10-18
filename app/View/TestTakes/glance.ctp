@@ -1,7 +1,12 @@
+<?php if ($guest) { ?>
+<a href="<?= $loginUrl ?>" class="btn highlight" id="btnHandIn">
+    Sluiten
+</a>
+<?php } else { ?>
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/discussed_glance');">
     Sluiten
 </a>
-
+<?php } ?>
 <div id="test_progress">
     <?
     $i = 0;
