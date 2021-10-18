@@ -490,6 +490,7 @@ var TestTake = {
                         function (response) {
                             Notify.notify('Toetsafname gestart', 'info');
                             Navigation.load('/test_takes/surveillance');
+                            Menu.updateMenuFromRedirect(Menu.menu, 'tests_surveillance');
                         }
                     );
                 });
@@ -505,6 +506,7 @@ var TestTake = {
                         function (response) {
                             Notify.notify('Toetsafname gestart', 'info');
                             Navigation.load('/test_takes/surveillance');
+                            Menu.updateMenuFromRedirect(Menu.menu, 'tests_surveillance');
                         }
                     );
                 }
