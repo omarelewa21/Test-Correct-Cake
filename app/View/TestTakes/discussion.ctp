@@ -20,10 +20,19 @@ if(!isset($take)) {
 
 <?= $this->element("attachment_popup"); ?>
 
-    <div class="block" style="float:right; width:250px;">
-        <div class="block-head">Studenten</div>
-        <div class="block-content" style="padding:13px 15px 13px 15px;" id="participants">
-
+    <div style="float:right; width:250px;">
+        <?php if(isset($take['test_take_code']) && $take['test_take_code'] != null) {
+            $test_code = sprintf('%s %s', $take['test_take_code']['prefix'], chunk_split($take['test_take_code']['code'], 3, ' '));
+            ?>
+            <div class="discuss-test-code-box" style="">
+                <h5>Student inlogtoetscode</h5>
+                <h1><?= $test_code ?></h1>
+            </div>
+        <?php } ?>
+        <div class="block">
+            <div class="block-head">Studenten</div>
+            <div class="block-content" style="padding:13px 15px 13px 15px;" id="participants">
+            </div>
         </div>
     </div>
 

@@ -28,7 +28,7 @@ if(count($takes) == 0) {
                 <table class="table table-striped">
                     <tr>
                         <th>Toets</th>
-                        <th width="150">Student inlogtoetscode</th>
+                        <?php if($allow_guest_accounts) {?><th width="150">Student inlogtoetscode</th> <?php } ?>
                         <th>Klas(sen)</th>
                         <th width="40"></th>
                         <th width="200">Voortgang</th>
@@ -41,14 +41,17 @@ if(count($takes) == 0) {
                         ?>
                         <tr>
                             <td><?= $take[0]['test'] ?></td>
-                            <td style="position: relative"><?php if($take[0]['code']) { ?>
+                            <?php if($allow_guest_accounts) {?>
+                            <td style="position: relative">
+                                <?php if($take[0]['code']) { ?>
                                     <div class="surveillance_test_code">
                                         <span><?= $take[0]['code'] ?></span>
                                     </div>
                                 <?php } else { ?>
-                                    <span>Geen code.</span>
+                                    <span></span>
                                 <?php } ?>
                             </td>
+                            <?php } ?>
                             <td>
                                 <?php
                                 foreach ($take as $take_item) {

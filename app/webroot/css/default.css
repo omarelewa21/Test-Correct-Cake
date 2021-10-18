@@ -701,3 +701,27 @@ th.subject-column, td.subject-column {
     color: var(--primary);
 }
 
+.discuss-test-code-box {
+    display: flex;
+    width: 100%;
+    background: var(--secondary);
+    flex-direction: column;
+    text-align: center;
+    font-family: Nunito, sans-serif;
+    font-weight: bold;
+    padding: 8px 10px 4px 10px;
+    margin-bottom: 8px;
+    box-sizing: border-box;
+    color: var(--system-base);
+    box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
+}
+.discuss-test-code-box h1, h5 {
+    font-weight: bold!important;
+    margin: 0!important;
+}
+.discuss-test-code-box h1 {
+    font-size: 40px;
+}
+.discuss-test-code-box h5 {
+    font-size: 20px;
+}

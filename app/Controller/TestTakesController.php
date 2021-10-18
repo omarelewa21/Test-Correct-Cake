@@ -1943,6 +1943,7 @@ class TestTakesController extends AppController {
         $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
 
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
         $this->set('takes', $takes);
     }
 

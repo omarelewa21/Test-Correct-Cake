@@ -68,7 +68,14 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
 </div>
 
 <h1>Na te kijken toets</h1>
-
+<?php if(isset($take['test_take_code']) && !empty($take['test_take_code']) && $take['guest_accounts']) {?>
+    <div class="test-take-code-show-wrapper">
+        <div class="test-take-code-text-container">
+            <h5>Student inlogtoetscode</h5>
+            <h1><?= $take['test_take_code']['prefix'] ?> <?= chunk_split($take['test_take_code']['code'], 3, ' ') ?></h1>
+        </div>
+    </div>
+<?php } ?>
 <div class="block">
     <div class="block-head">Toetsinformatie</div>
     <div class="block-content">
