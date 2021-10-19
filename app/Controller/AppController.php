@@ -308,4 +308,9 @@ class AppController extends Controller
             $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language']);
         }
     }
+
+    public function returnToLaravelUrl($userId)
+    {
+        return $this->UsersService->getReturnToLaravelUrl($userId);
+    }
 }

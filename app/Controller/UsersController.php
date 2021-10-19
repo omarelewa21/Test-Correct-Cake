@@ -28,7 +28,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -1824,7 +1824,8 @@ class UsersController extends AppController
             'isTeacher',
             'isStudent',
             'school_location_list',
-            'school_location_id'
+            'school_location_id',
+            'guest'
         ];
 
         foreach ($allowed as $key) {
@@ -2271,5 +2272,36 @@ class UsersController extends AppController
         CakeSession::write('temporaryLoginOptions', $options);
 
         return $result;
+    }
+
+    public function front_controller()
+    {
+        $this->autoRender = false;
+
+        if (CakeSession::read('temporaryLoginOptions')) {
+            //TODO: Change this back to consume instead of read
+            $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+            if (array_key_exists('page', $options)) {
+                $page = $options['page'];
+                $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
+                header('Location: '.$page);
+            }
+        }
+
+        $this->welcome();
+    }
+
+    public function return_to_laravel($logout = false)
+    {
+        $this->autoRender = false;
+
+        $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+
+        if ($logout) {
+            $this->Auth->logout();
+            $this->Session->destroy();
+        }
+
+        return $returnUrl['url'];
     }
 }

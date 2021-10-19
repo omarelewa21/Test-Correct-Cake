@@ -157,7 +157,7 @@ var Core = {
 		}
 
 		$('#header').show();
-		Navigation.load('/users/welcome');
+		Navigation.load('/users/front_controller');
 
 		setTimeout(function() {Core.checkUnreadMessages()}, 3000);
 

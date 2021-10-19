@@ -8,6 +8,11 @@ var Menu = {
 
     initialise: function () {
 
+        if (User.info.guest) {
+            console.log('Insert guest dummy menu here :)');
+            return;
+        }
+
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();

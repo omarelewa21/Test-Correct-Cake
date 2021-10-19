@@ -195,6 +195,14 @@ class TestTakesController extends AppController {
 //					}
 
                     $check = $this->TestTake->check($test_take, $test);
+                    if ($test_take['guest_accounts']) {
+                        foreach ($check['errors'] as $errorKey => $error) {
+                            if($error == 'Geen klas geselecteerd') {
+                                $check['status'] = true;
+                            }
+                        }
+                    }
+
                     if (!$check['status']) {
                         $this->formResponse(
                                 false, [
@@ -344,6 +352,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
+        $this->set('school_allows_guest_accounts', $school_location['data'][0]['allow_guest_accounts']);
         $this->set('is_rtti_school_location', $school_location['data'][0]['is_rtti_school_location']);
     }
 
@@ -618,6 +627,11 @@ class TestTakesController extends AppController {
                 break;
 
             case 8:
+                $this->set('guest', AuthComponent::user('guest'));
+
+                $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+                $this->set('loginUrl', $returnUrl['url']);
+
                 $view = 'take_discussed';
                 break;
 
@@ -1426,6 +1440,11 @@ class TestTakesController extends AppController {
             $group = "";
         }
 
+        $this->set('guest', AuthComponent::user('guest'));
+        if(AuthComponent::user('guest')) {
+            $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+            $this->set('loginUrl', $returnUrl['url']);
+        }
         $this->set('group', $group);
         $this->set('answer', $answer);
         $this->set('question_index', $question_index);
@@ -1913,6 +1932,13 @@ class TestTakesController extends AppController {
 
             $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
 
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
             $newArray[$take_id] = $take;
 
         }
@@ -1921,8 +1947,8 @@ class TestTakesController extends AppController {
 
         $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
 
-
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
         $this->set('takes', $takes);
     }
 

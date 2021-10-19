@@ -87,5 +87,3 @@
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
 </script>
-
-<?= $this->element('temporary_login_options') ?>

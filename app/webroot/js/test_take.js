@@ -477,10 +477,25 @@ var TestTake = {
             '<span class="body" style="font-size: 14px">' +  $.i18n('De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.') + '</span>' +
             '</div>';
 
+        var guests_allowed =    '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
+                                    '<p class="title" style="display: block;margin:0;font-weight: 700">' +
+                                        '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
+                                        '    <g fill="currentColor" fill-rule="evenodd">' +
+                                        '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
+                                        '        <circle cx="2" cy="12" r="2"/>' +
+                                        '    </g>' +
+                                        '</svg>' +
+                                        '<span style="margin-left:10px;font-size:16px">Gastprofielen van studenten worden toegelaten</span>' +
+                                    '</p>' +
+                                    '<span class="body" style="font-size: 14px">De student kan inloggen met een gastprofiel (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken.</span>' +
+                                '</div>';
+
 
         $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
+            var guests = data.response.guests == true;
             var showWarning = data.response.allowed == true;
-            message = showWarning ? warning+message : message;
+            message = guests ? guests_allowed + message : message;
+            message = showWarning ? warning + message : message;
 
             var showPopupMessage = function(message) {
                 Popup.message({
@@ -502,8 +517,12 @@ var TestTake = {
             if (!TestTake.studentsPresent) {
                 showPopupMessage(message);
             } else {
-                if (showWarning) {
+                if(showWarning && guests) {
+                    showPopupMessage(warning+guests_allowed);
+                } else if (showWarning) {
                     showPopupMessage(warning);
+                } else if(guests) {
+                    showPopupMessage(guests_allowed);
                 } else {
                     $.get('/test_takes/start_test/' + take_id,
                         function (response) {

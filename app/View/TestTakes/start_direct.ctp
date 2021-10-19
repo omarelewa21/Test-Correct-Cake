@@ -33,7 +33,7 @@
                     <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
                 </td>
                 <td>
-                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
+                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
                 </td>
                 <td>
                     <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : __("Selecteer") ?></span>
@@ -109,7 +109,26 @@
                 </td>
             </tr>
             <?php } ?>
+            <?php if ($locations[0]['allow_guest_accounts']) { ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
+                            <?= $this->element('profile') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('guest_accounts', array('name' => 'data[TestTake][' . $i . '][guest_accounts]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <?
+            }
         }
         ?>
     </table>
@@ -173,4 +192,12 @@
         var today = date.toLocaleDateString('nl-NL');
         $('#TestTakeDate0').val(today).trigger('change');
     });
+
+    $('#TestTakeGuestAccounts').on('change', (function () {
+        if ($('#TestTakeGuestAccounts').prop('checked')) {
+            $('#TestTakeClassId').attr('verify', '');
+        } else {
+            $('#TestTakeClassId').attr('verify', 'notempty');
+        }
+    }));
 </script>

@@ -42,7 +42,7 @@
 		<script type="text/javascript" src="/js/bootstrap.min.js"></script>
 		<script src="/ckeditor/ckeditor.js" type="text/javascript"></script>
 		<script src="/ckeditor/adapters/jquery.js"></script>
-	
+
 		<!-- Importing javascript files required for translation -->
 		<script src="/js/jquery_i18n/CLDRPluralRuleParser.js?<?= time() ?>"></script>
         <script src="/js/jquery_i18n/jquery.i18n.js?<?= time() ?>"></script>
@@ -78,13 +78,13 @@
 		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
         <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
-		
+
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 	</head>
 
 	<body>
-		
+
 		<div id="loading">
 			<img src="/img/loading.gif" />
 		</div>
@@ -96,41 +96,77 @@
 		<div id="notifications"></div>
 
 		<div id="header" class="highlight">
-            <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
-            <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
-<!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
-<!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
-			<span id="versionBadge"></span>
-			<div id="top">
-				<div id="user"></div>
-                <div id="action_icons"></div>
+            <?php if (AuthComponent::user('guest') != true) { ?>
+                <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
+                <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
+    <!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
+    <!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
+                <span id="versionBadge"></span>
+                <div id="top">
+                    <div id="user"></div>
+                    <div id="action_icons"></div>
 
-				<div id="user_menu">
-                    <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
-					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
-					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
-				</div>
+                    <div id="user_menu">
+                        <div id="user_school_locations"></div>
+                        <a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
+                        <a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
+                        <a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
+                    </div>
 
-                <div id="support_menu">
-                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" id="btnMenuKnowledgeBase" class="btn white"><?= __("Kennisbank")?></a>
-				</div>
+                    <div id="support_menu">
+                        <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" id="btnMenuKnowledgeBase" class="btn white"><?= __("Kennisbank")?></a>
+                    </div>
 
-			</div>
-            <div class="menu-scroll-button left">
-                <span></span>
-                <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
-            </div>
-			<div id="menu"></div>
-            <div class="menu-scroll-button right">
-                <span></span>
-                <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
-            </div>
+                </div>
+                <div class="menu-scroll-button left">
+                    <span></span>
+                    <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
+                </div>
+                <div id="menu"></div>
+                <div class="menu-scroll-button right">
+                    <span></span>
+                    <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
+                </div>
+
+            <?php } else { ?>
+                <div class="guest_top">
+                    <div class="guest_logo">
+                        <?= $this->element('logo_new_full') ?>
+                    </div>
+                    <div class="guest_name">
+                        <button id="guest_user" onclick="showGuestDropdown()">
+                            <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(90deg)']) ?>
+                        </button>
+                        <div id="guest_name_dropdown" style="display: none">
+                            <button id="guest_user" onclick="showGuestDropdown()">
+                                <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(-90deg)']) ?>
+                            </button>
+                            <button onclick="User.returnToLaravelLogin()">Log uit</button>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function showGuestDropdown() {
+                        var menu = $('#guest_name_dropdown');
+                        var chevron = $('#guest_user_chevron');
+
+                        if(menu.get(0).style.display === 'none') {
+                            menu.fadeIn({duration: 100});
+                            chevron.css({'transform' : 'rotate(-90deg)'})
+                        } else {
+                            menu.fadeOut({duration: 100});
+                            chevron.css({'transform' : 'rotate(90deg)'})
+                        }
+                    }
+                </script>
+            <?php } ?>
 		</div>
 
 		<div id="tiles" class="highlight"></div>
 
 		<div id="container"></div>
+        <?= $this->element('temporary_login_options') ?>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
 		<script>
             function onConversationsAPIReady() {

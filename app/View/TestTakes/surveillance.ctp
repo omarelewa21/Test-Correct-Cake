@@ -28,6 +28,7 @@ if(count($takes) == 0) {
                 <table class="table table-striped">
                     <tr>
                         <th><?= __("Toets")?></th>
+                        <?php if($allow_guest_accounts) {?><th width="150">Student inlogtoetscode</th> <?php } ?>
                         <th><?= __("Klas(sen)")?></th>
                         <th width="40"></th>
                         <th width="200"><?= __("Voortgang")?></th>
@@ -38,9 +39,19 @@ if(count($takes) == 0) {
                         foreach ($takes as $take) {
 
                         ?>
-
                         <tr>
                             <td><?= $take[0]['test'] ?></td>
+                            <?php if($allow_guest_accounts) {?>
+                            <td style="position: relative">
+                                <?php if($take[0]['code']) { ?>
+                                    <div class="surveillance_test_code">
+                                        <span><?= $take[0]['code'] ?></span>
+                                    </div>
+                                <?php } else { ?>
+                                    <span></span>
+                                <?php } ?>
+                            </td>
+                            <?php } ?>
                             <td>
                                 <?php
                                 foreach ($take as $take_item) {
@@ -282,6 +293,11 @@ if(count($takes) == 0) {
                         'width' : widthPercentage + '%'
                     }).html(percentage + '%');
                 });
+
+
+                if (Object.keys(response.participants).length !== document.querySelectorAll('[participantrow]').length) {
+                    Navigation.refresh();
+                }
 
                 $.each(response.participants, function(id, data) {
                     var widthPercentage = data.percentage;
