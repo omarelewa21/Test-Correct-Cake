@@ -127,7 +127,7 @@
     <? } ?>
 
     <? if($is_clone_request){ ?>
-        Questions.loadAddAttachments('true');
+        Questions.loadAddAttachments(true);
     <? }else{ ?>
         <? if($owner != 'group') { ?>
             Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
