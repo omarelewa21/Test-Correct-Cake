@@ -85,36 +85,36 @@
 
 		<div id="header" class="highlight">
             <?php if (AuthComponent::user('guest') != true) { ?>
-            <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
-            <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
-<!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
-<!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
-			<span id="versionBadge"></span>
-			<div id="top">
-				<div id="user"></div>
-                <div id="action_icons"></div>
+                <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
+                <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
+    <!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
+    <!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
+                <span id="versionBadge"></span>
+                <div id="top">
+                    <div id="user"></div>
+                    <div id="action_icons"></div>
 
-				<div id="user_menu">
-                    <div id="user_school_locations"></div>
-					<a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
-					<a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
-					<a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
-				</div>
+                    <div id="user_menu">
+                        <div id="user_school_locations"></div>
+                        <a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white">Uitloggen</a>
+                        <a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" >Wachtwoord wijzigen</a>
+                        <a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;">Inleveren</a>
+                    </div>
 
-                <div id="support_menu">
-                    <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white">Kennisbank</a>
-				</div>
+                    <div id="support_menu">
+                        <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" class="btn white">Kennisbank</a>
+                    </div>
 
-			</div>
-            <div class="menu-scroll-button left">
-                <span></span>
-                <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
-            </div>
-			<div id="menu"></div>
-            <div class="menu-scroll-button right">
-                <span></span>
-                <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
-            </div>
+                </div>
+                <div class="menu-scroll-button left">
+                    <span></span>
+                    <?php echo $this->element('chevron', array('style' => 'color:var(--white);transform:rotate(180deg);')); ?>
+                </div>
+                <div id="menu"></div>
+                <div class="menu-scroll-button right">
+                    <span></span>
+                    <?php echo $this->element('chevron', array('style' => 'color:var(--white);')); ?>
+                </div>
 
             <?php } else { ?>
                 <div class="guest_top">
@@ -129,7 +129,7 @@
                             <button id="guest_user" onclick="showGuestDropdown()">
                                 <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(-90deg)']) ?>
                             </button>
-                            <button onclick="User.logout()">Log uit</button>
+                            <button onclick="User.returnToLaravelLogin()">Log uit</button>
                         </div>
                     </div>
                 </div>

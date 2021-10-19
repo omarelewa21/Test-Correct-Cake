@@ -2199,4 +2199,18 @@ class UsersController extends AppController
 
         $this->welcome();
     }
+
+    public function return_to_laravel($logout = false)
+    {
+        $this->autoRender = false;
+
+        $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
+
+        if ($logout) {
+            $this->Auth->logout();
+            $this->Session->destroy();
+        }
+
+        return $returnUrl['url'];
+    }
 }

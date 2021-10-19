@@ -346,5 +346,15 @@ var User = {
             }
 
         }, 1000);
+    },
+    returnToLaravelLogin : function() {
+        $.ajax({
+            url: '/users/return_to_laravel/true',
+            method: 'get',
+            success: function (url) {
+                url = typeof url == 'undefined' ? '/' : url;
+                window.location.href = url;
+            }
+        });
     }
 };

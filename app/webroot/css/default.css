@@ -684,17 +684,24 @@ th.subject-column, td.subject-column {
     flex-direction: column;
     overflow: hidden;
     width: max-content;
+    min-width: 220px;
     transition: ease-in-out 100ms;
 }
 .guest_top .guest_name #guest_name_dropdown button {
     padding: 8px 20px;
     display: inline-flex;
     width: 100%;
-    justify-content: end;
+    font-weight: 400;
+    font-size: 1rem;
 }
 .guest_top .guest_name #guest_name_dropdown button:hover {
     background: var(--cta-primary);
     color: white;
+}
+.guest_top .guest_name #guest_name_dropdown #guest_user {
+    justify-content: end;
+    font-weight: bold;
+    color: var(--primary);
 }
 .guest_top .guest_name #guest_name_dropdown #guest_user:hover {
     background: white;
