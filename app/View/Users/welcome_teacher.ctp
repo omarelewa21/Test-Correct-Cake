@@ -194,7 +194,7 @@ if ($wizard_steps) {
 
 
 <div>
-    <div  id="buttons" style="position: relative; height:100px; width: 100%">
+    <div style="position: relative; height:100px; width: 100%">
         <div class="read-more">
             <div id="toggle-ob-wizard" class="showdemotour hide-demo-tour">
                 <span id="ob-wizard-finished-icon"></span>
