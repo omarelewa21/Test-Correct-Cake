@@ -4,15 +4,20 @@ var Menu = {
     menu: null,
     tile: null,
     visibilityTimeout: null,
-    supportUser: null,
+    supportInfo: null,
 
     initialise: function () {
+
+        if (User.info.guest) {
+            console.log('Insert guest dummy menu here :)');
+            return;
+        }
 
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
-            if (Menu.supportUser !== null) {
-                Menu.addReturnToSupportButton(Menu.supportUser);
+            if (Menu.supportInfo !== null) {
+                Menu.addReturnToSupportButton(Menu.supportInfo);
             }
             $('#header #menu .item').mouseover(function () {
 
@@ -322,8 +327,8 @@ var Menu = {
         }
     },
 
-    addReturnToSupportButton : function (userId) {
-        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="'+ $.i18n("Terug naar support omgeving") +'" onclick="Menu.handleReturnToSupportAction(\''+ userId +'\')">' +
+    addReturnToSupportButton : function (userInfo) {
+        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="'+ userInfo.text +'" onclick="Menu.handleReturnToSupportAction(\''+ userInfo.user +'\')">' +
                         '   <svg xmlns="http://www.w3.org/2000/svg" style="height: 30px; width:30px" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
                         '       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />\n' +
                         '   </svg>';
