@@ -764,13 +764,17 @@ var TestTake = {
         );
     },
 
-    forceTakenAway: function (take_id, participant_id) {
+    forceTakenAway: function (take_id, participant_id, guest) {
+        var message = $.i18n('Weet u zeker dat u de toets wil innemen?');
+        if (guest) {
+            message += ' '+$.i18n('Dit is een gastaccount waardoor je de toets niet meer kunt heropenen.');
+        }
 
         Popup.message({
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de toets wil innemen?')
+            message: message
         }, function () {
             $.get('/test_takes/force_taken_away/' + take_id + '/' + participant_id,
                     function () {

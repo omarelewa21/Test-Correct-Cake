@@ -197,7 +197,7 @@ class TestTakesController extends AppController {
                     $check = $this->TestTake->check($test_take, $test);
                     if ($test_take['guest_accounts']) {
                         foreach ($check['errors'] as $errorKey => $error) {
-                            if($error == 'Geen klas geselecteerd') {
+                            if($error == __('Geen klas geselecteerd')) {
                                 $check['status'] = true;
                             }
                         }

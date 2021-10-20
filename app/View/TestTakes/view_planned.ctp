@@ -137,4 +137,7 @@
     clearTimeout(window.loadParticipants);
     TestTake.loadParticipants('<?=$take_id?>');
     User.surpressInactive = true;
+
+    var presenceChannel = pusher.subscribe('Presence-TestTake.'<?= $take_id['uuid'] ?>);
+    console.log(presenceChannel);
 </script>
