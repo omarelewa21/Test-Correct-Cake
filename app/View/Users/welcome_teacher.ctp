@@ -87,7 +87,7 @@ if ($wizard_steps) {
             </div>
         <?php } ?>
 
-        
+
     </div>
 
     <div class="cta">
