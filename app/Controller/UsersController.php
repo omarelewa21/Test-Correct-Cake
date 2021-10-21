@@ -2304,4 +2304,11 @@ class UsersController extends AppController
 
         return $returnUrl['url'];
     }
+
+    public function pusher_auth()
+    {
+        $this->autoRender = false;
+
+        return true;
+    }
 }

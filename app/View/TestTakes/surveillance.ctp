@@ -174,7 +174,7 @@ if(count($takes) == 0) {
 
     var takeUuids = <?= json_encode($takeUuids) ?>;
 
-    if(typeof(window.pusher) == 'undefined'){
+    if(typeof(window.pusher) == 'undefined') {
         //console.log('adding pusher');
         var script = document.createElement('script');
         script.type = 'text/javascript';
@@ -182,12 +182,14 @@ if(count($takes) == 0) {
 
         document.getElementsByTagName('head')[0].appendChild(script);
 
-        Navigation.onSurveillance = true;
+    }
+    Navigation.usingPusher = true;
 
-        setTimeout(function(){
+    setTimeout(function () {
             window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
                 cluster: 'eu',
                 forceTLS: false,
+                authEndpoint: "/users/pusher_auth",
             });
 
             var channel = pusher.subscribe('my-channel');
@@ -201,17 +203,16 @@ if(count($takes) == 0) {
                 startPolling(data.pollingInterval);
             });
 
-            takeUuids.forEach(function(take) {
-                 take = pusher.subscribe('TestTake.'+take);
-                 take.bind('NewTestTakeEventAdded', function(data) {
-                     loadData();
-                     startPolling(10000);
-                 })
+            takeUuids.forEach(function (take) {
+                take = pusher.subscribe('TestTake.' + take);
+                take.bind('NewTestTakeEventAdded', function (data) {
+                    loadData();
+                    startPolling(10000);
+                })
             })
 
         },
         5000)
-    }
 
 
 

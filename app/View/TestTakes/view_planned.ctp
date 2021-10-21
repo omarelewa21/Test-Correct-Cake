@@ -138,6 +138,35 @@
     TestTake.loadParticipants('<?=$take_id?>');
     User.surpressInactive = true;
 
-    var presenceChannel = pusher.subscribe('Presence-TestTake.'<?= $take_id['uuid'] ?>);
-    console.log(presenceChannel);
+    if(typeof(window.pusher) == 'undefined') {
+        var script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = '//js.pusher.com/5.0/pusher.min.js';
+
+        document.getElementsByTagName('head')[0].appendChild(script);
+    }
+
+    Navigation.usingPusher = true;
+    setTimeout(function() {
+        window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
+            cluster: 'eu',
+            forceTLS: true,
+            authEndpoint: "/users/pusher_auth",
+        });
+        console.log('<?= $take_id ?>');
+
+        // var presenceChannel = pusher.subscribe('presence-presence-TestTake.42330827-c5ae-4cf5-adf0-91d4c9b78c2e');
+        var presenceChannel = pusher.subscribe('presence-presence-TestTake.<?= $take_id ?>');
+        var normalchannel = pusher.subscribe('TestTake.<?= $take_id ?>');
+
+        console.log(presenceChannel);
+        console.log(normalchannel);
+        presenceChannel.bind("pusher:subscription_succeeded", (members) => {
+            console.log(members);
+            // members.forEach(function(member) {
+            //     console.log(member.info);
+            // });
+        });
+
+    }, 5000)
 </script>
