@@ -66,7 +66,7 @@ var User = {
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
-                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
+                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
                 }
 
                 if (User.info.isTeacher) {

@@ -299,8 +299,8 @@ class AppController extends Controller
     {
         if(is_null(AuthComponent::user('school_location')['school_language'])){
             $language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-            if($language !=	 'nl'){
-                $language = 'eng';
+            if(!in_array(strtolower($language),['en','nl'])){
+                $language = 'nl';
             }
             $this->Session->write('Config.language', $language);
         }
