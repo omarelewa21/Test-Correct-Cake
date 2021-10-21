@@ -122,7 +122,7 @@
         return {
             init: function ()
             {
-                var button = this.button.add('advanced', __("Vierkante haakjes toevoegen"));
+                var button = this.button.add('advanced', '<?= __("Vierkante haakjes toevoegen")?>');
                 this.button.setAwesome('advanced', 'fa-plus');
                 this.button.addCallback(button, this.advanced.testButton);
             },
