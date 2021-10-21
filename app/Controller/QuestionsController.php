@@ -1531,7 +1531,7 @@ class QuestionsController extends AppController
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadAddAttachments();window.parent.Loading.hide();</script>';
             } else {
 
                 $attachments = [];
