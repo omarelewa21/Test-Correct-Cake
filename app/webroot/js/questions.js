@@ -220,7 +220,6 @@ var Questions = {
 
     loadAddAttachments : function(is_clone) {
         is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
-        console.log('clone: '+is_clone);
         if(is_clone){
             $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
         }else{
