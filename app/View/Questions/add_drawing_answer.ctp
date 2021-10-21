@@ -25,7 +25,7 @@
         $('#drawingFrame').hide();
 
         $('#btn-change').show().click(function(){
-            if(confirm(__("Weet u het zeker? De huidige tekening gaat verloren."))) {
+            if(confirm('<?= __("Weet u het zeker? De huidige tekening gaat verloren.")?>')) {
                 $('#imgDrawing').hide();
                 $('#drawingFrame').show();
                 $(this).hide();
