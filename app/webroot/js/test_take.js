@@ -426,6 +426,8 @@ var TestTake = {
         $.get('/test_takes/load_participants/' + take_id,
                 function (html) {
                     $('.page[page=participants]').html(html);
+
+                    TestTake.setPresentParticipantsActive(take_id);
                 }
         );
     },
@@ -1149,6 +1151,29 @@ var TestTake = {
         });
 
         Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
+    },
+    setPresentParticipantsActive: function(take_id) {
+        if (typeof (window.pusher) !== 'undefined') {
+            var presenceChannel = pusher.channel('presence-presence-TestTake.' + take_id);
+            if (typeof presenceChannel !== 'undefined') {
+                presenceChannel.members.each(function (member) {
+                    $('#participant_' + member.info.uuid).addClass('active');
+                });
+            }
+        }
+    },
+
+    enterWaitingRoomPresenceChannel: function(pusherKey, take_id)
+    {
+        User.connectToPusher(pusherKey);
+
+        var presenceChannel = pusher.subscribe('presence-presence-TestTake.' + take_id);
+        presenceChannel.bind("pusher:member_added", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
+        presenceChannel.bind("pusher:member_removed", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
     }
 };
 

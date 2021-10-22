@@ -354,5 +354,15 @@ var User = {
                 window.location.href = url;
             }
         });
+    },
+    connectToPusher : function (pusherKey) {
+        Navigation.usingPusher = true;
+
+        window.pusher = new Pusher(pusherKey, {
+            cluster: 'eu',
+            forceTLS: true,
+            authEndpoint: "/users/pusher_auth"
+        });
+
     }
 };
