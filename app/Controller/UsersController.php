@@ -1137,17 +1137,14 @@ class UsersController extends AppController
         $this->render('add_'.$type, 'ajax');
     }
 
-    public
-    function delete(
-        $user_id
-    ) {
+    public function delete($user_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('delete')) {
             $this->autoRender = false;
-
+            $serviceCall = $this->UsersService->deleteUser($user_id);
             $this->formResponse(
-                $this->UsersService->deleteUser($user_id) ? true : false, []
+                $serviceCall['success'], ($serviceCall['success']?[]:$serviceCall['response'])
             );
         }
     }

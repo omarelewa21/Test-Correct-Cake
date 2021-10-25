@@ -190,6 +190,11 @@ var User = {
                 url: '/users/delete/' + id,
                 type: 'DELETE',
                 success: function (response) {
+                    var json_response = JSON.parse(response);
+                    if(!json_response.status){
+                        Notify.notify(json_response.data, 'error');
+                        return;
+                    }
                     Notify.notify($.i18n('Gebruiker verwijderd'), 'info');
                     Navigation.refresh();
                 }

@@ -465,10 +465,10 @@ class UsersService extends BaseService
     {
         $response = $this->Connector->deleteRequest('/user/'.$user_id, []);
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            return ['success'=>false,'response'=>$this->Connector->getLastResponse()];
         }
+        return ['success'=>true,'response'=>$response];
 
-        return $response;
     }
 
     public function getUser($user_id, $params = [])
