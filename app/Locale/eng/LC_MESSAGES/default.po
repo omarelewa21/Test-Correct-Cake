@@ -1,3 +1,6 @@
+msgid "Gebruik als sjabloon"
+msgstr "Use as template"
+
 msgid "Het is niet meer mogelijk deze vraag te beantwoorden"
 msgstr "It is no longer possible to answer this question"
 
