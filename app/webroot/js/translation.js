@@ -112,7 +112,7 @@ $.i18n().load({
       'Antwoord':'Answer',
       'Toets inleveren':'Hand in the test',
       'Niet alle vragen zijn beantwoord, weet je het zeker?':'Not all questions have been answered, are you sure?',
-      'Weet je zeker dat je de toets wilt inleveren?':'Are you sure you want to turn in the test?',
+      'Weet je zeker dat je de toets wilt inleveren?':'Are you sure you want to hand in the test?',
       'De toets is gestopt':'The test has stopped',
       'Toetsafname kon niet worden gestart. Waarschuw de surveillant.':'Test administration could not be started. Alert the security guard.',
       'Klas toegevoegd':'Class added',
@@ -176,6 +176,9 @@ $.i18n().load({
       'Wachtwoord wijzigen': 'Change password',
       'Inleveren': 'Hand in',
       'Kennisbank':'Knowledge base',
+
+      // menu.js
+      'Resultaten' : 'Results',
     },
 
     'nl': {
@@ -331,6 +334,9 @@ $.i18n().load({
       'Gewisseld naar school ':'Gewisseld naar school ',
       'Docent succesvol toegevoegd':'Docent succesvol toegevoegd',
       'Docent succesvol verwijderd':'Docent succesvol verwijderd',
-      'Organisatie verwijderd':'Organisatie verwijderd'
+      'Organisatie verwijderd':'Organisatie verwijderd',
+
+      // menu.js
+      'Resultaten': 'Resultaten',
     }
 });

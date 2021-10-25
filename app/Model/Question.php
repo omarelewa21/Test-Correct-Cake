@@ -31,7 +31,7 @@ class Question extends AppModel
 
                     if($question['subtype'] == 'ARQ') {
                         $html .= "<table width=100% cellpadding=10 cellspacing=0><tr><td></td><td>St.1</td><td>St.2</td><td>" . __("Reden") . "</td></tr>";
-                        $html .= "<tr><td width=40>A</td><td width=40>". __('J') ."</td><td width=40><?= __('J') ?></td><td>" . __("Juiste reden") . "</td></tr>";
+                        $html .= "<tr><td width=40>A</td><td width=40>". __('J') ."</td><td width=40>". __('J') ."</td><td>" . __("Juiste reden") . "</td></tr>";
                         $html .= "<tr><td>B</td><td>". __('J') ."</td><td>". __('J') ."</td><td>" . __("Onjuiste reden") . "</td></tr>";
                         $html .= "<tr><td>C</td><td>". __('J') ."</td><td>". __('O') ."</td><td></td></tr>";
                         $html .= "<tr><td>D</td><td>". __('O') ."</td><td>". __('J') ."</td><td></td></tr>";

@@ -170,8 +170,6 @@ var Menu = {
     },
 
     addDashboardAndResultsToMenu: function () {
-        $("<div id='dashboard' class='item' onclick='Menu.dashboardButtonAction()'>Dashboard</div>").prependTo("#menu");
-        $("<div id='results' class='item' onclick='Navigation.load(\"/test_takes/rated\");Menu.clearActiveMenu(\"results\");'>" + $.i18n("Resultaten") + "</div>").insertAfter("#taken");
         Menu.hideInactiveTiles();
     },
 

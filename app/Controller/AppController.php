@@ -297,15 +297,18 @@ class AppController extends Controller
 
     public function setUserLanguage()
     {
-        if(is_null(AuthComponent::user('school_location')['school_language'])){
-            $language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-            if($language !=	 'nl'){
+        if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
+            $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+            if(!in_array($language,['en','nl'])){
+                $language = 'nl';
+            }
+            if($language === 'en') {
                 $language = 'eng';
             }
             $this->Session->write('Config.language', $language);
         }
         else{
-            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language']);
+            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language_cake']);
         }
     }
 

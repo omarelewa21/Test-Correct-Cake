@@ -491,7 +491,7 @@ msgid "Mijn afgenomen toetsen"
 msgstr "My taken tests"
 
 msgid "Nakijken & normeren"
-msgstr "Check & standard"
+msgstr "Check & standardize"
 
 msgid "Mijn analyses"
 msgstr "My analyses"

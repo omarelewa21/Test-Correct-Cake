@@ -370,9 +370,12 @@ if ($wizard_steps) {
 
 <script>
     if('<?= $language?>' == 'eng'){
-        document.getElementById("demo").style.display = 'none';
-        document.getElementById("buttons").style.display = 'none';
-        document.getElementById("scrollToDemo").style.display = 'none';
+        ['demo','buttons','scrollToDemo'].forEach(function(id){
+            var el = document.getElementById(id);
+            if(el){
+                el.style.display = 'none';
+            }
+        });
     }
 
     if(typeof(window.oneTrustInjected) === 'undefined') {
