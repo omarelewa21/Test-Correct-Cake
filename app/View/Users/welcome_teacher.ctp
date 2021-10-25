@@ -81,20 +81,8 @@ if ($wizard_steps) {
                 </div>
             </div>
         <?php } ?>
-        <div class="notification info">
-            <div class="title">
-                <h5><?= __("19 augustus 2021: Belangrijke updates") ?></h5>
-            </div>
-            <div class="body">
-                <p><?= __("Om de veiligheid en stabiliteit van onze digitale toetsen te kunnen blijven waarborgen is het")?>
-                <?= __("noodzakelijk dat leerlingen/studenten werken met een actuele versie van de Test-Correct App")?>.</p><br/>
-                <p><?= __("Vanaf 19 augustus 2021 worden verouderde apps niet meer ondersteund. Een student kan dan met een")?>
-                <?= __("verouderde app geen toetsen meer maken. (Zie")?> <a href="https://support.test-correct.nl/knowledge/inbrowser-toetsen" target="_blank"><?= __("browsertoetsen")?></a> <?= __("voor een tijdelijk alternatief.)")?></p><br/>
-                <p><?= __("Vraag je studenten/leerlingen de meest recente versies van de app te downloaden via de App Store van hun")?>
-                <?= __("besturingssysteem. Kijk")?> <a href="https://www.test-correct.nl/student/" target="_blank"><?= __("hier")?></a> <?= __("voor een overzicht van de downloadlocaties.")?></p><br/>
-                <p><?= __("Meer informatie over de systeemvereisten van Test-Correct is")?> <a href="https://support.test-correct.nl/knowledge/ondersteunde-browsers-besturingssystemen-en-test-correct-app-versies" target="_blank"><?= __("hier")?></a> <?= __("te vinden.")?></p>
-            </div>
-        </div>
+
+
     </div>
 
     <div class="cta">
