@@ -381,7 +381,7 @@ if ($wizard_steps) {
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 
 <script>
-    if('<?= $language?>' == 'en'){
+    if('<?= $language?>' == 'eng'){
         ['demo','buttons','scrollToDemo'].forEach(function(id){
             var el = document.getElementById(id);
             if(el){

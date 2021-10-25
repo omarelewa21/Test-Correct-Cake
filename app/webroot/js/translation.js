@@ -1,6 +1,6 @@
 
 $.i18n().load({
-    'en': {
+    'eng': {
     // Answer.js
       'Let op! Vraaggroep sluit': 'Pay attention! Question group closes',
       'Door naar deze vraag te gaan, sluit je de vraaggroep af waar je nu mee bezig bent. Je kan hierna niet meer terugkeren.': 'By going to this question, you close the question group you are currently working on. You cannot return after this. ',

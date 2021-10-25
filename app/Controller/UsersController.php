@@ -1185,11 +1185,11 @@ class UsersController extends AppController
 
             if ($role['name'] == 'Teacher') {
                 //Dashboard and Results is prepended to the menu in menu.js
-//                $menus['dashboard'] = "Dashboard";
+                $menus['dashboard'] = ['title' => "Dashboard",'onClick' => 'Menu.dashboardButtonAction()'];
                 $menus['library'] = __("Toetsen");
                 $menus['tests'] = __("Ingepland");
                 $menus['taken'] = __("Afgenomen");
-//                $menus['results'] = __("Resultaten");
+                $menus['results'] = ['title' => __("Resultaten"),'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'];
                 $menus['analyses'] = __("Analyses");
                 $menus['classes'] = __("Klassen");
 //                $menus['other'] = "Overig";

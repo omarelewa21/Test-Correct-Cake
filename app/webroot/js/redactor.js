@@ -103,7 +103,7 @@
 	$.Redactor.opts = {
 
 		// settings
-		lang: 'en',
+		lang: 'eng',
 		direction: 'ltr', // ltr or rtl
 
 		plugins: false, // array
