@@ -1808,6 +1808,7 @@ class UsersController extends AppController
                     'uuid'   => $location['uuid'],
                     'name'   => $location['name'],
                     'active' => $location['active'],
+                    'language' => $location['language'],
                 ];
             }, $this->UsersService->getSchoolLocationList());
         }
