@@ -40,6 +40,7 @@ var User = {
                             });
                             if (result) {
                                 activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                $.i18n().locale = result.language;
                                 activeSchoolName = '(' + result.name + ')';
                             }
                         }
@@ -66,6 +67,7 @@ var User = {
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
+                    console.log('locale => '+$.i18n().locale);
                     $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
                 }
 
