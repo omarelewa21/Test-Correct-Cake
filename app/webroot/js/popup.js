@@ -589,9 +589,9 @@ var Popup = {
     showExternalPage: function(path, width, height) {
         var pWidth = typeof width !== 'undefined' ? width : 800 ;
         var pHeight = typeof height !== 'undefined' ? height : 500 ;
-        Popup.show('' +
-            '<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i>' +
-            '<iframe id="PopupIframe" style="display:flex;border:0;padding:0;margin:0 ;height:' + pHeight + 'px;" width="100%" src="' + path + '"></iframe>', pWidth);
+        var html = '<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i>' +
+                    '<iframe id="PopupIframe" style="display:flex;border:0;padding:0;margin:0 ;height:' + pHeight + 'px;" width="100%" src="' + path + '"></iframe>';
+        Popup.show(html , pWidth);
     }
 
 
