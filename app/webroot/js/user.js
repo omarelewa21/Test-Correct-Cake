@@ -105,34 +105,38 @@ var User = {
 			try {
 				var successful = document.execCommand("copy");
 				var msg = successful ? "successful" : "unsuccessful";
-				// console.log("Fallback: Copying text command was " + msg);
 			} catch (err) {
-				// console.error("Fallback: Oops, unable to copy", err);
 			}
 
 			document.body.removeChild(textArea);
 		}
 		function copyTextToClipboard(text) {
-			// return new Promise((resolve, reject) => {
+			return new Promise((resolve, reject) => {
 				if (!navigator.clipboard) {
 					fallbackCopyTextToClipboard(text);
-					// resolve();
+					resolve();
 				}
 				navigator.clipboard.writeText(text).then(() => {
-					// resolve();
+					resolve();
 				});
-			// });
+			});
 		}
 
 		return copyTextToClipboard("");
 	},
 
     actOnLogout: function () {
-        $("#supportpage_link, #upload_test_link").remove();
+        return new Promise(resolve => {
+            $("#supportpage_link, #upload_test_link").remove();
 
-        if (User.info.isStudent) {
-             User.clearClipboard();
-        }
+            if (User.info.isStudent) {
+                 User.clearClipboard().then(() => {
+                     resolve()
+                 });
+            } else {
+                resolve();
+            }
+        })
     },
 
     welcome: function () {
