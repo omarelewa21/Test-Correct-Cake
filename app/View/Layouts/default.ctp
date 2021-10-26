@@ -52,6 +52,7 @@
         <script src="/js/jquery_i18n/jquery.i18n.parser.js?<?= time() ?>"></script>
         <script src="/js/jquery_i18n/jquery.i18n.emitter.js?<?= time() ?>"></script>
         <script src="/js/jquery_i18n/jquery.i18n.emitter.bidi.js?<?= time() ?>"></script>
+        <script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
 		<script src="/js/translation.js?<?= time() ?>"></script>
 
 		<script type="text/javascript" src="/js/polyfill.js?<?= time() ?>"></script>
