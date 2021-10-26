@@ -4,7 +4,7 @@
 <div class="popup-content">
 
     <div class="alert alert-info">
-    <?= __("Wilt u de gesloten vragen overslaan of bespreken?")?>
+    <?= __("Wilt u de gesloten vragen zoverslaan of bespreken?")?>
     </div>
     <?php if ($has_carousel) { ?>
     <div class="warning" style="padding-top:5px;padding-bottom:5px;margin-top:13px;margin-bottom:13px;color:#000000;text-align: center;font-size:14px">
