@@ -73,9 +73,22 @@ var User = {
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
+                    // var cookielawConsentScript = document.createElement('script');
+                    // cookielawConsentScript.setAttribute('src','https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js');
+                    // document.head.insertBefore(cookielawConsentScript,document.head.firstChild);
+                    // var cookieLawScript = document.createElement('script');
+                    // cookieLawScript.setAttribute('src','https://cdn.cookielaw.org/scripttemplates/otSDKStub.js');
+                    // cookieLawScript.setAttribute('charset','UTF-8');
+                    // cookieLawScript.setAttribute('data-domain-script','59ebfb6a-8dcb-443e-836a-329cb8623832');
+                    // document.head.insertBefore(cookieLawScript,document.head.firstChild);
+                    //
+                    // function OptanonWrapper() { }
+                    // window.oneTrustInjected = true;
+
                     var hubspotScript = document.createElement('script');
                     hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
                     document.head.appendChild(hubspotScript);
+
                 }
             }
         }
