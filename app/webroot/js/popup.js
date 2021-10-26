@@ -589,30 +589,9 @@ var Popup = {
     showExternalPage: function(path, width, height) {
         var pWidth = typeof width !== 'undefined' ? width : 800 ;
         var pHeight = typeof height !== 'undefined' ? height : 500 ;
-        Popup.show('<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i><iframe id="PopupIframe" style="border:0;padding:0;margin:0 ;height:' + pHeight + 'px;" width="100%" src="' + path + '"></iframe>', pWidth);
-        $(function() {
-
-            $('iframe').on("load", function(e) {
-                console.log(this.contentWindow);
-                var h = this.contentWindow.document.body.scrollHeight;
-                console.log(h+"  "+w);
-                $(this).css({
-                    height: ""
-                });
-                var h1 = this.contentWindow.document.body.scrollHeight;
-
-                $(this).css({
-                    height: h
-                }).animate({
-                    height: h1
-                }, 300, function() {
-                    //console.log(["animated", h, w, h1, w1])
-                    parent.$ && parent.$('#PopupIframe').trigger('reload');
-                });
-            });
-
-        });
-
+        var html = '<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i>' +
+                    '<iframe id="PopupIframe" style="display:flex;border:0;padding:0;margin:0 ;height:' + pHeight + 'px;" width="100%" src="' + path + '"></iframe>';
+        Popup.show(html , pWidth);
     }
 
 
