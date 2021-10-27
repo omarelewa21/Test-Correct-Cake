@@ -1963,15 +1963,6 @@ class TestTakesController extends AppController {
 
     public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
-        $this->autoRender = false;
-
-        return $this->TestTakesService->getSurveillanceData();
-    }
-
-
-
-    public function surveillance_data_old   () {
-        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
         $user_id = AuthComponent::user()['id'];
