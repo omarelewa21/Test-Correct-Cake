@@ -118,8 +118,56 @@ var User = {
         this.startUserLogoutInterval();
     },
 
+	clearClipboard: function () {
+        //source: https://stackoverflow.com/a/30810322
+		function fallbackCopyTextToClipboard(text) {
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
+
+			// Avoid scrolling to bottom
+			textArea.style.top = "0";
+			textArea.style.left = "0";
+			textArea.style.position = "fixed";
+
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				var successful = document.execCommand("copy");
+				var msg = successful ? "successful" : "unsuccessful";
+			} catch (err) {
+			}
+
+			document.body.removeChild(textArea);
+		}
+		function copyTextToClipboard(text) {
+			return new Promise((resolve, reject) => {
+				if (!navigator.clipboard) {
+					fallbackCopyTextToClipboard(text);
+					resolve();
+				}
+				navigator.clipboard.writeText(text).then(() => {
+					resolve();
+				});
+			});
+		}
+
+		return copyTextToClipboard("");
+	},
+
     actOnLogout: function () {
-        $("#supportpage_link, #upload_test_link").remove();
+        return new Promise(resolve => {
+            $("#supportpage_link, #upload_test_link").remove();
+
+            if (User.info.isStudent) {
+                 User.clearClipboard().then(() => {
+                     resolve()
+                 });
+            } else {
+                resolve();
+            }
+        })
     },
 
     welcome: function () {
@@ -155,21 +203,22 @@ var User = {
         }
         $.get('/users/logout',
             function () {
-                User.actOnLogout();
-                window.location.href = '/';
-                try {
-                    if (typeof(electron.closeApp) === typeof(Function)) {
-                        if (typeof(electron.reloadApp) === typeof(Function)) {
-                            if (closeApp) {
-                                electron.closeApp();
+                User.actOnLogout().then(() => {
+                    window.location.href = '/';
+                    try {
+                        if (typeof(electron.closeApp) === typeof(Function)) {
+                            if (typeof(electron.reloadApp) === typeof(Function)) {
+                                if (closeApp) {
+                                    electron.closeApp();
+                                } else {
+                                    electron.reloadApp();
+                                }
                             } else {
-                                electron.reloadApp();
+                                electron.closeApp();
                             }
-                        } else {
-                            electron.closeApp();
                         }
-                    }
-                } catch (error) {}
+                    } catch (error) {}
+                });
             }
         );
 
