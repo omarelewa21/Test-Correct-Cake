@@ -583,7 +583,7 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false) {
         if ($('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: 'Ja',
@@ -592,11 +592,21 @@ var TestTake = {
                 message: 'Niet alle Studenten zijn aanwezig'
             }, function () {
                 setTimeout(function () {
-                    Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    if(consists_only_closed_question){
+                        TestTake.startDiscussion(take_id, 'ALL')
+                    }
+                    else{
+                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    }
                 }, 1000);
             });
         } else {
-            Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            if(consists_only_closed_question){
+                this.startDiscussion(take_id, 'ALL');
+            }
+            else{
+                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            }
         }
     },
 

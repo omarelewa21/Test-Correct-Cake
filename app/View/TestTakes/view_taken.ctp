@@ -4,12 +4,11 @@
         Terug
     </a>
 
-    <? if($take['consists_only_closed_question']) {?>
-        <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion('<?=$take_id?>');">
-            <span class="fa fa-users mr5"></span>
-            Toets bespreken
-        </a>
-    <? } ?>
+    <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion('<?=$take_id?>', '<?= $take['consists_only_closed_question'] ?>');">
+        <span class="fa fa-users mr5"></span>
+        Toets bespreken
+    </a>
+
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/skip_discussion_popup/<?=$take_id?>',500);">
         <span class="fa fa-forward mr5"></span>
         Meteen naar nakijken
