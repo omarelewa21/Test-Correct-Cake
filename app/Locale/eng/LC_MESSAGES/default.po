@@ -2903,7 +2903,7 @@ msgstr "Discuss test"
 msgid "Er is geen toets om te bespreken."
 msgstr "There is no test to discuss."
 
-msgid "Bespreking beéindigen"
+msgid "Bespreking beëindigen"
 msgstr "End discussion"
 
 msgid "Bespreken"
