@@ -76,7 +76,7 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify(<?=__('Gebruiker kon niet worden aangemaakt')?>, "error");
+                Notify.notify('<?=__('Gebruiker kon niet worden aangemaakt')?>', "error");
             }
         }
     );
