@@ -112,7 +112,7 @@
                         'title' : '<?= __("Selecteer juiste antwoord")?>',
                         'message' : '<?= __("Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen.")?>',
                         'btnOk' : '<?= __("Oke")?>'
-                    });
+                    });``
                 }else {
                     Popup.load('/questions/add_multi_completion_item', 500);
                 }
