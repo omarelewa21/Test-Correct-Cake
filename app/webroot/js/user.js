@@ -147,9 +147,9 @@ var User = {
 					fallbackCopyTextToClipboard(text);
 					resolve();
 				}
-				navigator.clipboard.writeText(text).then(() => {
-					resolve();
-				});
+                navigator.clipboard.writeText(text).then(() => {
+                    resolve();
+                }).catch(() => { fallbackCopyTextToClipboard(text); resolve(); });
 			});
 		}
 
