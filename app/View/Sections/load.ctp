@@ -67,7 +67,7 @@ foreach($sections as $section) {
                     echo $location['name'] . '<br />';
                     $counter++;
                 }
-                
+
                 foreach($section['shared_school_locations'] as $shared_location){
                     if($counter < 4){
                         echo $shared_location['name'] . '<br />';

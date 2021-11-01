@@ -1,19 +1,19 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Studenten import</h1>
+<h1><?= __("Studenten import")?></h1>
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="15%">Locatie</th>
+                <th width="15%"><?= __("Locatie")?></th>
                 <td width="35%"><?= $school_location['name'] ?></td>
-                <th width="15%">Klas</th>
+                <th width="15%"><?= __("Klas")?></th>
                 <td width="35%">
                     </td>
             </tr> 
@@ -22,8 +22,8 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Data
-        <button id="setDefaultHeading">Zet default kolom headers!!</button>
+    <div class="block-head"><?= __("Data")?>
+        <button id="setDefaultHeading"><?= __("Zet default kolom headers!!")?></button>
     </div>
     <div class="duplicate" id="duplicates-data-errors"></div>
     <div class="duplicate-in-database" id="duplicates-in-database-data-errors"></div>
@@ -35,13 +35,13 @@
 
         <div >
             <div>
-                <textarea rows="1" id="excelPasteBox" placeholder="Plak je excel data hier..."></textarea>
+                <textarea rows="1" id="excelPasteBox" placeholder='<?= __("Plak je excel data hier...")?>'></textarea>
             </div>
             <hr class="showAfterProcess"/>
             <div id="output">
             </div>
             <hr class="showAfterProcess"/>
-            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess" >Studenten importeren</a>
+            <a href="#" id="exportJsonData" style="display:none" class="btn highlight inline-block showAfterProcess" ><?= __("Studenten importeren")?></a>
             <textarea style="display:none !important" rows="20" id="jsonDataDump" placeholder="JSON Data will appear here..."></textarea>
         </div>
     </div>

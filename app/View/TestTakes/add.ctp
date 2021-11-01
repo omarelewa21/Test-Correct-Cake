@@ -1,14 +1,14 @@
-<div class="popup-head">Toets plannen</div>
+<div class="popup-head"><?= __("Toets plannen")?></div>
 <div class="popup-content">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
-            <th width="70">Datum</th>
-            <th width="110">Periode</th>
-            <th>Surveillanten</th>
-            <th width="110">Klas</th>
-            <th width="150">Toets</th>
-            <th width="50">Weging</th>
+            <th width="70"><?= __("Datum")?></th>
+            <th width="110"><?= __("Periode")?></th>
+            <th><?= __("Surveillanten")?></th>
+            <th width="110"><?= __("Klas")?></th>
+            <th width="150"><?= __("Toets")?></th>
+            <th width="50"><?= __("Weging")?></th>
             <th width="30"></th>
         </tr>
 
@@ -34,10 +34,10 @@
                 <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
             </td>
             <td>
-                <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
+                <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
             </td>
             <td>
-                <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : 'Selecteer' ?></a>
+                <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : __("Selecteer") ?></a>
                 <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
             </td>
             <td>
@@ -76,7 +76,7 @@
                     <div style="display: flex;">
                         <div style="display:flex;width:60%;align-items: center; color: var(--system-base);">
                             <span class="fa fa-upload"></span>
-                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Resultaten toetsafname exporteren naar RTTI Online</strong></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Resultaten toetsafname exporteren naar RTTI Online")?></strong></span>
                             <div style="display: flex; align-items: center; margin-left: auto">
                                 <?php echo $this->element('questionmark_tooltip_rtti', array('id' => $i)) ?>
                                 <label class="switch">
@@ -89,28 +89,48 @@
                 </td>
             </tr>
         <?php endif; ?>
-        <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
+
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="inbrowser_toggle_<?= $i ?>" class="testTakeRowInbrowserToggle">
             <td colspan="7">
-                <div style="display: flex;">
-                    <div style="display:flex; width:60%; align-items: center; color: var(--system-base)">
-                        <span class="fa fa-chrome"></span>
-                        <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
-                        <div style="display: flex; align-items: center; margin-left: auto">
-                            <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
-                            <label class="switch">
-                                <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
-                                <span class="slider round"></span>
-                            </label>
+                <div style="display: flex; width: 100%;justify-content:space-between">
+                    <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
+                    <div style="display: flex; flex-grow:1">
+                        <div style="display:flex; ; align-items: center; color: var(--system-base)">
+                            <span class="fa fa-chrome"></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Browsertoetsen voor iedereen toestaan")?></strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('allow_inbrowser_testing', array('name' => 'data[TestTake][' . $i . '][allow_inbrowser_testing]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
                         </div>
                     </div>
+                    <?php } ?>
+                    <?php if ($locations[0]['allow_guest_accounts']) { ?>
+                    <div style="display: flex;flex-grow:1">
+                        <div style="display:flex;align-items: center; color: var(--system-base);">
+                            <?= $this->element('profile') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
+                                <label id="guest_toggle" class="switch">
+                                    <?php echo $this->Form->checkbox('guest_accounts', array('name' => 'data[TestTake][' . $i . '][guest_accounts]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
                 </div>
             </td>
         </tr>
-        <?php } ?>
+        <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+        </tr>
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="notes_<?= $i ?>" class="testTakeRowNotes">
             <td colspan="7">
-                <strong>Notities voor surveillant</strong><br />
+                <strong><?= __("Notities voor surveillant")?></strong><br />
                 <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
             </td>
         </tr>
@@ -123,16 +143,16 @@
     <center>
         <a href="#" class="btn highlight small inline-block" onclick="TestTake.addTestRow();">
             <span class="fa fa-plus"></span>
-            Extra toets plannen
+            <?= __("Extra toets plannen")?>
         </a>
     </center>
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-        Toetsen plannen
+    <?= __("Toetsen plannen")?>
     </a>
 </div>
 
@@ -156,10 +176,10 @@
     $('#TestTakeAddForm').formify({
         confirm: $('#btnAddTestTakes'),
         confirmPopup: confirmPopup,
-        confirmMessage: 'Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?',
+        confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify("Toetsen zijn ingepland", "info");
+            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
             Navigation.load('/test_takes/planned_teacher');
             Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();
@@ -181,5 +201,13 @@
             dateFormat: 'dd-mm-yy'
         });
     });
+
+    $('#TestTakeGuestAccounts').on('change', (function () {
+        if ($('#TestTakeGuestAccounts').prop('checked')) {
+            $('#TestTakeClassId').attr('verify', '');
+        } else {
+            $('#TestTakeClassId').attr('verify', 'notempty');
+        }
+    }));
 
 </script>

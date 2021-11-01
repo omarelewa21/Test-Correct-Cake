@@ -9,7 +9,7 @@
                 <path d="M3 8h10M1 1l14 7-14 7"/>
             </g>
         </svg>
-        <h5 class="inline-block">We hebben een uitnodiging gestuurd naar jouw collega's!</h5>
-        <span class="body1 display-block">Jouw collega's kunnen gratis een account aanmaken. Je ontvangt een bericht als een van hen zich heeft aangemeld.</span>
+        <h5 class="inline-block"><?= __("We hebben een uitnodiging gestuurd naar jouw collega's!")?></h5>
+        <span class="body1 display-block"><?= __("Jouw collega's kunnen gratis een account aanmaken. Je ontvangt een bericht als een van hen zich heeft aangemeld.")?></span>
     </div>
 </div>

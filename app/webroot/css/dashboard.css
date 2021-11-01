@@ -419,3 +419,23 @@ span.note {
 #header.blue .menu-scroll-button.right span {background: linear-gradient(90deg, rgba(0, 77, 245, 0.1) 0%, rgba(71, 129, 255, 1) 40%);}
 #header.green .menu-scroll-button.left span {}
 #header.green .menu-scroll-button.right span {}
+
+
+input.new-styling-input {
+    padding: 0 10px 0 10px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--blue-grey);
+    font-family: "Nunito", sans-serif;
+}
+
+input.new-styling-input:hover {
+    border: 1px solid var(--primary);
+}
+
+input.new-styling-input:focus, input.new-styling-input:active {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    outline: none;
+}

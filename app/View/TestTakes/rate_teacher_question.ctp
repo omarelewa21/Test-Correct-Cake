@@ -1,5 +1,5 @@
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/view/<?=$take_id?>');">
-    Terug
+<?= __("Terug")?>
 </a>
 <div id="test_progress">
     <?
@@ -27,17 +27,17 @@
 
 <br clear="all" />
 <div class="block">
-    <div class="block-head">Vraag</div>
+    <div class="block-head"><?= __("Vraag")?></div>
     <div class="block-content" id="question_load"></div>
 </div>
 
 <div class="block" style="border-left: 3px solid var(--menu-blue);">
-    <div class="block-head">Antwoordmodel</div>
+    <div class="block-head"><?= __("Antwoordmodel")?></div>
     <div class="block-content" id="question_answer_load"></div>
 </div>
 
 <center>
-    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();">Alle antwoorden weergeven</a>
+    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();"><?= __("Alle antwoorden weergeven")?></a>
 </center>
 
 <?
@@ -54,17 +54,17 @@ foreach($participants as $participant) {
             <div class="block" style="float:left; width:calc(100% - 250px); border-left: 3px solid #3D9D36">
                 <div class="block-head">
                     <span id="name_student_<?=getUUID($participant, 'get')?>">
-                        Student antwoord
+                    <?= __("Student antwoord")?>
                     </span>
                     <span class="fa fa-eye" onclick="$('#name_student_<?=getUUID($participant, 'get')?>').html('<?=$name?>'); $(this).hide();"></span>
                 </div>
                 <div id="participant_answer_<?=getUUID($participant, 'get')?>" class="block-content">
-                    Laden..
+                <?= __("Laden..")?>
                 </div>
             </div>
 
             <div class="block" style="float:right; width: 230px;">
-                <div class="block-head">Score</div>
+                <div class="block-head"><?= __("Score")?></div>
                 <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
                     --
                 </div>
@@ -89,7 +89,7 @@ foreach($participants as $participant) {
 <center>
     <? if($question_index < (count($questions) - 1)) {
         ?>
-        <a href="#" class="btn highlight mb15" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$question_index +1 ?>');">Volgende vraag</a>
+        <a href="#" class="btn highlight mb15" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$question_index +1 ?>');"><?= __("Volgende vraag")?></a>
         <?
     }
     ?>

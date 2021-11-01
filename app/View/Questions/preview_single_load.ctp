@@ -2,7 +2,7 @@
 <? if(count($question['attachments']) > 0) { ?>
     <div style="width:250px; padding:20px; background: #294409; margin-left: 30px; float: right;">
         <div style="color: white; text-align: center; font-size: 22px; margin-bottom: 10px;">
-            Bronnen
+        <?= __("Bronnen")?>
         </div>
         <?
         $i = 0;
@@ -10,7 +10,7 @@
             $i++;
             ?>
             <a href="#" class="btn white" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=getUUID($attachemnt, 'get');?>');">
-                Bijlage #<?=$i?>
+            <?= __("Bijlage")?> #<?=$i?>
             </a>
         <?
         }
@@ -23,38 +23,38 @@
     switch($question['type']) {
         case 'MultipleChoiceQuestion':
             if($question['subtype'] == 'TrueFalse') {
-                echo 'Juist / Onjuist<br />';
+                echo __("Juist / Onjuist<br />");
             }else{
-                echo 'Meerkeuze<br />';
+                echo __("Meerkeuze<br />");
             }
             break;
 
         case 'OpenQuestion':
-            echo 'Open vraag';
+            echo __("Open vraag");
             break;
 
         case 'CompletionQuestion':
             if($question['subtype'] == 'multi') {
-                echo 'Selectie<br />';
+                echo __("Selectie<br />");
             }else{
-                echo 'Gatentekst<br />';
+                echo __("Gatentekst<br />");
             }
             break;
 
         case 'RankingQuestion':
-            echo 'Rangschik<br />';
+            echo __("Rangschik<br />");
             break;
 
         case 'MatchingQuestion':
             if($question['subtype'] == 'Matching') {
-                echo 'Combineer<br />';
+                echo __("Combineer<br />");
             }else{
-                echo 'Rubriceer<br />';
+                echo __("Rubriceer<br />");
             }
             break;
 
         case 'DrawingQuestion':
-            echo 'Teken<br />';
+            echo __("Teken<br />");
             break;
     }
     ?>

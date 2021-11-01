@@ -465,10 +465,10 @@ class UsersService extends BaseService
     {
         $response = $this->Connector->deleteRequest('/user/'.$user_id, []);
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            return ['success'=>false,'response'=>$this->Connector->getLastResponse()];
         }
+        return ['success'=>true,'response'=>$response];
 
-        return $response;
     }
 
     public function getUser($user_id, $params = [])
@@ -763,6 +763,41 @@ class UsersService extends BaseService
     public function setGeneralTermsLogAcceptedAt($user_uuid)
     {
         $response = $this->Connector->putRequest('/user/'.$user_uuid.'/general_terms_accepted', [], []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function createTemporaryLogin($options = null, $path = null)
+    {
+        $params = [];
+        if(is_array($options)){
+            $params = ['options' => $options];
+        }
+        if($path){
+            $params['redirect'] = $path;
+        }
+
+        $response = $this->Connector->postRequest('/temporary-login', $params, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function verifyPasswordForUser($userUuid, $password)
+    {
+        $response = $this->Connector->getRequest('/user/'.$userUuid.'/verify_password', $password);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getReturnToLaravelUrl($userId, $params = [])
+    {
+        $response = $this->Connector->getRequest('/user/'. $userId .'/return_to_laravel_url', $params);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

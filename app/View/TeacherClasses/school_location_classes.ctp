@@ -1,12 +1,12 @@
-<h1>Klassen binnen mijn schoollocatie</h1>
+<h1><?= __("Klassen binnen mijn schoollocatie")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head">Klassen</div>
+    <div class="block-head"><?= __("Klassen")?></div>
     <div class="block-content" id="classesContainer">
         <table class="table table-striped" id="classesTable">
             <thead>
             <tr>
-                <th sortkey="name">Naam</th>
+                <th sortkey="name"><?= __("Naam")?></th>
                 <th></th>
             </tr>
             </thead>

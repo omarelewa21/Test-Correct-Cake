@@ -110,7 +110,7 @@
                 try {
                     parsePastedData(e);
                 } catch (e) {
-                    Notify.notify('Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.', 'error');
+                    Notify.notify('<?= __("Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.")?>', 'error');
                 }
             })
             .on('change', '.selectbox-update', function () {
@@ -132,10 +132,10 @@
             .on('click', '.deleteicon', function () {
                 $(this).parents('tr:first').addClass('rowToDelete');
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
-                    message: 'Weet u zeker dat u deze rij wil verwijderen?'
+                    btnOk: '<?= __("Ja")?>',
+                    btnCancel: '<?= __("Annuleer")?>',
+                    title: '<?= __("Weet u het zeker?")?>',
+                    message: '<?= __("Weet u zeker dat u deze rij wil verwijderen?")?>'
                 }, function () {
                     $('.rowToDelete').remove();
                     var studentCount = $('table#excelDataTable tbody tr').length;
@@ -236,7 +236,7 @@
                     if (response['status'] == true) {
                         jQuery('#output').html('');
                         jQuery('.showAfterProcess').hide();
-                        Notify.notify('De docenten zijn succesvol geimporteerd', 'success');
+                        Notify.notify('<?= __("De docenten zijn succesvol geimporteerd")?>', 'success');
                         Navigation.load('/users/index/teachers');
                     } else {
                         var missingHeaders = [];
@@ -319,31 +319,31 @@
 
                         $('#duplicates-data-errors, #missing-data-errors, #column-errors').html('');
                         if (hasDuplicates) {
-                            $('#duplicates-data-errors').append($('<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>'));
+                            $('#duplicates-data-errors').append($('<?= __("<ul><li>De import bevat duplicaten (conflicten gemarkeerd als blauw)</li></ul>")?>'));
                         }
                         if (hasDuplicatesInDatabase) {
-                            $('#duplicates-in-database-data-errors').append($('<ul><li>Duplicaten reeds in de database (oranje)</li></ul>'));
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>' + '<?= __("Duplicaten reeds in de database (oranje)")?>' + '</li></ul>'));
                         }
                         if(emailDns){
-                            $('#column-errors').append($('<ul><li>Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)</li></ul>'));
+                            $('#column-errors').append($('<ul><li>' + '<?= __("Het domein van het opgegeven e-mailadres is niet geconfigureerd voor e-mailadressen (rood)")?>' + '</li></ul>'));
                         }
                         if(hasSameUserNameDifferentExternalIdSameSchoollocation){
-                            $('#duplicates-data-errors').append($('<ul><li>Deze docent bestaat al voor deze schoollocatie met een andere externe code (blauw)</li></ul>'));
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Deze docent bestaat al voor deze schoollocatie met een andere externe code (blauw)")?>' + '</li></ul>'));
                         }
                         if(hasDuplicateSchoolLocation){
-                            $('#duplicates-in-database-data-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie met deze klas en dit vak (oranje)</li></ul>'));
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>' + '<?= __("Deze docent zit al in deze schoollocatie met deze klas en dit vak (oranje)")?>' + '</li></ul>'));
                         }
                         if(hasDuplicateSchoolLocationBare){
-                            $('#duplicates-in-database-data-errors').append($('<ul><li>Deze docent zit al in deze schoollocatie (oranje)</li></ul>'));
+                            $('#duplicates-in-database-data-errors').append($('<ul><li>' + '<?= __("Deze docent zit al in deze schoollocatie (oranje)")?>' + '</li></ul>'));
                         }
                         if(hasSameExternalIdDifferentUsernameSameSchoollocation){
-                            $('#duplicates-data-errors').append($('<ul><li>Deze docent bestaat al voor deze schoollocatie met een ander e-mailadres (blauw)</li></ul>'));
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Deze docent bestaat al voor deze schoollocatie met een ander e-mailadres (blauw)")?>' + '</li></ul>'));
                         }
                         if(hasDuplicateExternalIdInImport){
-                            $('#duplicates-data-errors').append($('<ul><li>Dezelfde docent staat met 2 verschillende externe codes in de gegevens die u wilt uploaden (blauw)</li></ul>'));
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Dezelfde docent staat met 2 verschillende externe codes in de gegevens die u wilt uploaden (blauw)")?>' + '</li></ul>'));
                         }
                         if(hasDuplicateUsernameInImport){
-                            $('#duplicates-data-errors').append($('<ul><li>Dezelfde docent staat met 2 verschillende e-mailadressen in de gegevens die u wilt uploaden (blauw)</li></ul>'));
+                            $('#duplicates-data-errors').append($('<ul><li>' + '<?= __("Dezelfde docent staat met 2 verschillende e-mailadressen in de gegevens die u wilt uploaden (blauw)")?>' + '</li></ul>'));
                         }
 
                         if (dataMissingHeaders.length) {
@@ -370,7 +370,7 @@
                                     return;
                                 }
                                 if (field.name === 'E-mailadres') {
-                                    return 'De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)';
+                                    return '<?= __("De kolom [E-mailadres] is leeg (maar verplicht) of bevat waarden met internationale karakters (gemarkeerd met rood)")?>';
                                 }
                                 if (field.name === 'Koppeling welk vak' && hasDuplicateSchoolLocation) {
                                     return;
@@ -382,7 +382,7 @@
                                     return 'De Externe code is verplicht!, (conflicten gemarkeerd in rood).';
                                 }
 
-                                return 'De kolom [' + field.name + '] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).';
+                                return '<?= __("De kolom [")?>' + field.name + '<?= __("] bevat waarden die niet in de database voorkomen!, (conflicten gemarkeerd in rood).")?>';
                             })
                             var joinedErrorMsg = errorMsg.join('');
                             if(joinedErrorMsg!='') {
