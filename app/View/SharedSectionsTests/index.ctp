@@ -119,10 +119,10 @@
               <th></th>
                 <th sortkey="abbriviation" width="50">Afk.</th>
                 <th sortkey="name">Titel</th>
-                <th width="70" style="text-align: center" sortkey="subject">Vragen</th>
+                <th width="80" sortkey="question_count">Vragen</th>
                 <th width="170" sortkey="subject">Vak</th>
                 <th width="170" sortkey="kind">Type</th>
-                <th width="150" sortkey="level">Niveau</th>
+                <th width="150" sortkey="education_level">Niveau</th>
                 <th width="100">&nbsp;</th>
             </tr>
             </thead>

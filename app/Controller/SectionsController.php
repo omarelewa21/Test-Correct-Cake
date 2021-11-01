@@ -91,7 +91,6 @@ class SectionsController extends AppController
             $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
             $sections[] = $section;
         }
-
         $this->set('sections', $sections);
     }
 

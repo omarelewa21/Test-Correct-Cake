@@ -303,6 +303,7 @@ class TestsController extends AppController
             $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getTests($params);
 
         $this->set('tests', $tests['data']);
@@ -600,6 +601,12 @@ class TestsController extends AppController
         $debug = $this->Session->Read();
 
         $view->set('debug', $debug);
+
+        $logo_url = 'https://testportal.test-correct.nl/img/logo_full.jpg';
+        if (strstr($logo_url, $_SERVER['HTTP_HOST']) != false) {
+            $logo_url = 'https://portal.test-correct.nl/img/logo_full.jpg';
+        }
+        $view->set('logo_url', $logo_url);
 
         // Generate PDF
         $html = $view->render('pdf', 'pdf');

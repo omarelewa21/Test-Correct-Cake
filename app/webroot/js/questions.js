@@ -218,8 +218,13 @@ var Questions = {
         });
     },
 
-    loadAddAttachments : function() {
-        $('div[page=sources][tabs=add_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+    loadAddAttachments : function(is_clone) {
+        is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
+        if(is_clone){
+            $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+        }else{
+            $('div[page=sources][tabs=add_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+        }
     },
 
     loadEditAttachments : function(owner, owner_id, id) {

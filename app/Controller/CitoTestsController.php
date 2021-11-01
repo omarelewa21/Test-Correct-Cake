@@ -118,6 +118,7 @@ class CitoTestsController extends AppController {
           $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getCitoTests($params);
 
         $this->set('tests', $tests['data']);

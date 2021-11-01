@@ -3,6 +3,7 @@ var Menu = {
     menuTmp: null,
     menu: null,
     tile: null,
+    visibilityTimeout: null,
 
     initialise: function () {
 
@@ -43,6 +44,10 @@ var Menu = {
                         });
                     }
                 }, 500);
+            });
+            Menu.initScrollForMenu();
+            window.addEventListener('resize', function () {
+                Menu.initScrollForMenu();
             });
         });
 
@@ -139,6 +144,9 @@ var Menu = {
     dashboardButtonAction: function () {
         Navigation.home();
         Menu.clearActiveMenu('dashboard');
+        $('#menu').animate({
+            scrollLeft: 0
+        }, 1000);
     },
 
     clearActiveMenu: function(placeholder) {
@@ -246,6 +254,67 @@ var Menu = {
                 'top': '98px'
             });
             $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
+        }
+    },
+
+    initScrollForMenu: function() {
+        var menu = $('#menu');
+        var totalMenuWidth = menu.outerWidth(true) - menu.innerWidth() + 40;
+
+        $('#menu .item').each(function(item) {
+            totalMenuWidth += this.offsetWidth;
+        });
+
+        if (totalMenuWidth >= menu.width()) {
+            $('.menu-scroll-button').css('display', 'flex');
+            menu.css('paddingRight','40px');
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        } else {
+            $('.menu-scroll-button').hide();
+            menu.css('paddingRight','0');
+        }
+
+        $('.menu-scroll-button.left').on('click', function () {
+            menu.animate({
+                scrollLeft: 0
+            }, 1000);
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        });
+        $('.menu-scroll-button.right').on('click', function () {
+            menu.animate({
+                scrollLeft: totalMenuWidth
+            }, 1000);
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        });
+
+    },
+
+    startVisibilityTimer: function() {
+        this.visibilityTimeout = setTimeout(function() {
+            var activeEl = $('.item.active');
+            if(activeEl.length !== 0 && !isElementInViewport(activeEl)) {
+                $('#menu').animate({
+                    scrollLeft: activeEl.offset().left - activeEl.parent().offset().left
+                }, 1000);
+                Menu.getPaddingForActiveMenuItem(activeEl.get(0).id);
+            }
+        }, 5000);
+        function isElementInViewport (el) {
+            if (typeof jQuery === "function" && el instanceof jQuery) {
+                el = el[0];
+            }
+
+            var rect = el.getBoundingClientRect();
+
+            return (
+                rect.top >= 0 &&
+                rect.left >= 35 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+            );
         }
     }
 };

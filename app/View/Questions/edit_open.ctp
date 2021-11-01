@@ -1,7 +1,7 @@
 <div class="popup-head">Open vraag</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
         <?
         $openTypes = [
             'short' => 'Korte open-antwoordvraag',
@@ -87,6 +87,8 @@
         <div page="owners" class="page" tabs="edit_question">
             <?=$this->element('question_info', ['question' => $question])?>
         </div>
+        
+        <?=$this->Form->input('subtype', array('label' => false, 'type' => 'hidden', 'value' => $subtype))?>
 
     <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
@@ -104,10 +106,17 @@
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         Annuleer
     </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'OpenQuestion', '<?=getUUID($question, 'get');?>');">
+
+    <? if($is_clone_request){ ?>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('OpenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
             Vraag opslaan
         </a>
+    <? }else{ ?>
+        <? if($editable) { ?>
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'OpenQuestion', '<?=getUUID($question, 'get');?>');">
+                Vraag opslaan
+            </a>
+        <? } ?>
     <? } ?>
 </div>
 
@@ -117,8 +126,12 @@
         $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments(true);
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
     <? } ?>
 
     $('#QuestionTags').select2({

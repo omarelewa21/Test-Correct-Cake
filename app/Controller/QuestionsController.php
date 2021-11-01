@@ -489,7 +489,7 @@ class QuestionsController extends AppController
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false)
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false, $is_clone_request = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
@@ -611,6 +611,7 @@ class QuestionsController extends AppController
                     break;
 
                 case 'OpenQuestion' :
+                    $this->set('subtype', $question['question']['subtype']);
                     $view = 'edit_open';
                     break;
 
@@ -679,6 +680,7 @@ class QuestionsController extends AppController
             $this->set('owner', $owner);
             $this->set('owner_id', $owner_id);
             $this->set('editable', true);
+            $this->set('is_clone_request', $is_clone_request);
             $this->Session->write('attachments_editable', true);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
@@ -1127,13 +1129,16 @@ class QuestionsController extends AppController
         foreach ($questions['data'] as $question) {
             // @todo this should be done better in the backend
             if ($question['type'] !== 'GroupQuestion') {
+                $question['question'] = $this->stripTagsWithoutMath($question['question']);
                 array_push($filter_group_questions, $question);
-                $filter_group_questions['question'] = $this->stripTagsWithoutMath($filter_group_questions['question']);
             }
         }
+
         $education_levels = $this->TestsService->getEducationLevels();
         $this->set('education_levels', $education_levels);
         $this->set('questions', $filter_group_questions);
+
+
     }
 
 
@@ -1152,7 +1157,8 @@ class QuestionsController extends AppController
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $this->set('test_id', $data['owner_id']);
         $this->set('tests', $tests['data']);
     }
@@ -1629,7 +1635,7 @@ class QuestionsController extends AppController
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadAddAttachments();window.parent.Loading.hide();</script>';
             } else {
 
                 $attachments = [];

@@ -1,3 +1,11 @@
+<style>
+    @media screen and (max-width: 650px) {
+        #prevent_logout_div {
+            padding-left: 1rem!important;
+            padding-right: 1rem!important;
+        }
+    }
+</style>
 <div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
@@ -25,7 +33,7 @@
         <?php if(!$closeable) {?>
             <div class="dashboard" style="margin: 0">
                 <div class="notification warning" style="padding: 4px;border-radius: 5px;">
-                    <div style="display: flex;align-items: center;justify-content: center;">
+                    <div style="display: flex;align-items: center;justify-content: center; padding: 0 1rem;">
                         <?= $this->element('warning') ?>
                         <span style="font-size: 16px; font-weight: 700;margin-left: 10px; line-height: 22px">14 dagen zijn verstreken. Accepteer de algemene voorwaarden om Test-Correct verder te gebruiken</span>
                     </div>
@@ -59,7 +67,12 @@
 
 <script>
     $(document).ready(function() {
-        $('#prevent_logout_div').parent().css({'border-radius': '10px'})
+        $('#prevent_logout_div').parent().css({
+            'border-radius': '10px',
+            'height' : '90vh',
+            'max-height' : '820px',
+            'overflow' : 'auto'
+        })
     })
 
     function userAcceptedTerms() {
