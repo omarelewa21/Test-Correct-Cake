@@ -76,9 +76,11 @@
             <?= __("Taxonomie")?>
             </a>
 
+            <?php if(!$is_clone_request) { ?>
             <a href="#" class="btn grey" page="owners" tabs="edit_question">
-            <?= __("Info")?>
+                <?= __("Info")?>
             </a>
+            <?php } ?>
             <br clear="all" />
         </div>
 
@@ -116,10 +118,11 @@
             <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
         </div>
 
+    <?php  if(!$is_clone_request) { ?>
     <div page="owners" class="page" tabs="edit_question">
         <?=$this->element('question_info', ['question' => $question])?>
     </div>
-
+    <?php } ?>
     <?=$this->Form->end();?>
 
     <div page="sources" class="page" tabs="edit_question"></div>

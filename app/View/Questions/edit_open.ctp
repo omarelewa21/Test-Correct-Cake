@@ -65,9 +65,11 @@
             <?= __("Taxonomie")?>
             </a>
 
-            <a href="#" class="btn grey" page="owners" tabs="edit_question">
-            <?= __("Info")?>
-            </a>
+            <?php if(!$is_clone_request) { ?>
+                <a href="#" class="btn grey" page="owners" tabs="edit_question">
+                    <?= __("Info")?>
+                </a>
+            <?php } ?>
 
             <br clear="all" />
         </div>
