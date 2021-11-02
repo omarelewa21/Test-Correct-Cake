@@ -582,7 +582,6 @@ var Popup = {
                 windowReference.focus();
             }
         });
-
     },
 
     showExternalPage: function(path, width, height) {
