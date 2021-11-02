@@ -1,6 +1,6 @@
 <?php
 if (CakeSession::read('temporaryLoginOptions') !== null) {
-    $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
+    $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
     if (array_key_exists('notification', $options) || array_key_exists('notifications', $options)) {
         $notifications = $options['notification'] != null ? $options['notification'] : $options['notifications'];
         ?>
@@ -10,13 +10,5 @@ if (CakeSession::read('temporaryLoginOptions') !== null) {
             <?php } ?>
         </script>
     <?php }
-
-    if (array_key_exists('page', $options)) {
-        ?>
-        <script>
-            Navigation.load('<?= $options['page'] ?>')
-        </script>
-    <?php }
-
 }
 ?>

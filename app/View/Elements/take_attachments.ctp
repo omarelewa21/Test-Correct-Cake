@@ -3,13 +3,13 @@
     if($question['note_type'] == 'TEXT') {
         ?>
         <a href="#" class="btn highlight btn-attachment" onclick="Answer.notePad('<?=getUUID($question, 'get');?>');" style="width:260px; text-align: center;">
-            Tekstblok
+        <?= __("Tekstblok")?>
         </a>
         <?
     }elseif($question['note_type'] == 'DRAWING') {
         ?>
         <a href="#" class="btn highlight btn-attachment" onclick="Answer.drawingPad('<?=getUUID($question, 'get');?>');" style="width:260px; text-align: center;">
-            Tekenblok
+        <?= __("Tekenblok")?>
         </a>
         <?
     }
@@ -18,7 +18,7 @@
     <? if(count($question['attachments']) > 0) { ?>
         <div style="width:250px; background: #294409; padding:20px; ">
             <div style="color: white; text-align: center; font-size: 22px; margin-bottom: 10px;">
-                Bronnen
+            <?= __("Bronnen")?>
             </div>
             <?
             $i = 0;
@@ -39,7 +39,7 @@
                 $i++;
                 ?>
                 <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=$attachment['id']?>',<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
-                    Bijlage #<?=$i?>
+                <?= __("Bijlage")?> #<?=$i?>
                 </a>
                 <?
             }

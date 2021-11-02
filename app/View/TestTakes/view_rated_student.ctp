@@ -2,27 +2,27 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Becijferde toets</h1>
+<h1><?= __("Becijferde toets")?></h1>
 <div class="block">
-    <div class="block-head">Toetsinformatie</div>
+    <div class="block-head"><?= __("Toetsinformatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="25%">Toets</th>
+                <th width="25%"><?= __("Toets")?></th>
                 <td width="25%"><?=$take['test']['name']?></td>
-                <th width="25%">Afgenomen</th>
+                <th width="25%"><?= __("Afgenomen")?></th>
                 <td width="25%"><?=date('d-m-Y', strtotime($take['time_start']))?></td>
             </tr>
             <tr>
-                <th>Vak</th>
+                <th><?= __("Vak")?></th>
                 <td>
                     <?=$take['test']['subject']['name']?>
                 </td>
-                <th>Docent</th>
+                <th><?= __("Docent")?></th>
                 <td>
                     <?=$take['user']['name_first']?>
                     <?=$take['user']['name_suffix']?>
@@ -30,12 +30,12 @@
                 </td>
             </tr>
             <tr>
-                <th>Cijfer</th>
+                <th><?= __("Cijfer")?></th>
                 <td>
                     <?=$rating ?>
                 </td>
-                <th>Type</th>
-                <td><?=$take['retake'] == 0 ? 'Reguliere toets' : 'Inhaal toets'?></td>
+                <th><?= __("Type")?></th>
+                <td><?=$take['retake'] == 0 ? __("Reguliere toets") : __("Inhaal toets")?></td>
             </tr>
         </table>
     </div>

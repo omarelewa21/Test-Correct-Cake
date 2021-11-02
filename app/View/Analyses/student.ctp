@@ -9,26 +9,26 @@
     ?>
     <? if(!$isStudent) { ?>
         <a href="#" class="btn white white" onclick="Popup.load('/messages/send/<?=getUUID($student, 'get')?>', 500);">
-            Bericht sturen
+        <?= __("Bericht sturen")?>
         </a>
     <? } ?>
 
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Analyse van <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
+<h1><?= __("Analyse van")?> <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
 
 <?
 if(!$isStudent) {
     if ($student['has_text2speech']) {
         ?>
-        <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student mag tekst naar spraak omzetten.
+        <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;"><?= __("Deze student mag tekst naar spraak omzetten.")?>
             <?php if(!$student['active_text2speech']) {
             ?>
-            <div><b>Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student</b></div>
+            <div><b><?= __("Let op: Deze functionaliteit is tijdelijk uitgeschakeld voor deze student")?></b></div>
             <?php
             }
             ?>
@@ -36,17 +36,17 @@ if(!$isStudent) {
         <?
     } else {
         ?>
-        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student mag tekst <b>niet</b> naar spraak omzetten.</div>
+        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;"><?= __("Deze student mag tekst")?> <b><?= __("niet")?></b> <?= __("naar spraak omzetten.")?></div>
         <?
     }
     if ($student['time_dispensation']) {
         ?>
         <div style="background: #85a959; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">
-            Deze student heeft tijdsdispensatie
+        <?= __("Deze student heeft tijdsdispensatie")?>
         </div>
         <?
     } else { ?>
-        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;">Deze student heeft <b>geen</b> tijdsdispensatie</div>
+        <div style="background: #c51515; color: white; padding: 15px 0px 10px 0px; text-align:center; margin-bottom: 15px;"><?= __("Deze student heeft")?> <b><?= __("geen")?></b> <?= __("tijdsdispensatie")?></div>
     <?php }
 }
 ?>
@@ -54,30 +54,30 @@ if(!$isStudent) {
 
 
 <div class="block" style="width:180px; float:right;">
-    <div class="block-head">Profielfoto</div>
+    <div class="block-head"><?= __("Profielfoto")?></div>
     <div class="block-content">
         <img src="/users/profile_picture/<?=getUUID($student, 'get')?>" style="max-width:130px;" />
     </div>
 </div>
 <div class="block" style="float:left; width: calc(100% - 200px)">
-    <div class="block-head">Prestaties per vak</div>
+    <div class="block-head"><?= __("Prestaties per vak")?></div>
     <div class="block-content" style="max-height: 300px; overflow: auto">
 
         <?
         if(!isset($student['average_ratings']) || empty($student['average_ratings'])) {
             ?>
-            <center>Geen gegevens</center>
+            <center><?= __("Geen gegevens")?></center>
             <?
         }else {
             ?>
 
             <table class="table">
                 <tr>
-                    <th>Vak</th>
-                    <th><?=$isStudent ? 'Jouw cijfer' : 'Student cijfer' ?></th>
-                    <th>Gemiddeld klassecijfer</th>
-                    <th>Gemiddelde cijfer zelfde<br />
-                        niveau / leerjaar</th>
+                    <th><?= __("Vak")?></th>
+                    <th><?=$isStudent ? __("Jouw cijfe") : __("Student cijfe") ?></th>
+                    <th><?= __("Gemiddeld klassecijfer")?></th>
+                    <th><?= __("Gemiddelde cijfer zelfde")?><br />
+                    <?= __("niveau / leerjaar")?></th>
                 </tr>
                 <?
                 foreach ($student['average_ratings'] as $ratings) {
@@ -100,19 +100,19 @@ if(!$isStudent) {
 
 <br clear="all" />
 <div class="block">
-    <div class="block-head">Toetsafnames</div>
+    <div class="block-head"><?= __("Toetsafnames")?></div>
     <div class="block-content" style="max-height: 400px;">
         <?
         if(empty($student['test_participants'])) {
-            echo '<center>Geen notities</center>';
+            echo '<center><?= __("Geen notities")?></center>';
         }else{
             ?>
             <table class="table table-striped" width="100%">
                 <tr>
-                    <th>Toetsnaam</th>
-                    <?if(!$isStudent){ ?><th>Notities</th><? } ?>
-                    <th>Cijfer</th>
-                    <th width="150">Moment</th>
+                    <th><?= __("Toetsnaam")?></th>
+                    <?if(!$isStudent){ ?><th><?= __("Notities")?></th><? } ?>
+                    <th><?= __("Cijfer")?></th>
+                    <th width="150"><?= __("Moment")?></th>
                     <th width="30"></th>
                 </tr>
                 <?
@@ -144,19 +144,19 @@ if(!$isStudent) {
 </div>
 
 <div class="block">
-    <div class="block-head">Eindtermen</div>
+    <div class="block-head"><?= __("Eindtermen")?></div>
     <div class="block-content">
         <?=$this->Form->create('StudentEndterms')?>
             <table class="table">
                 <tr>
                     <th width="130">
-                        Vak
+                    <?= __("Vak")?>
                     </th>
                     <td>
                         <?=$this->Form->input('subject_id', array('style' => 'width: 185px', 'label' => false, 'options' => $subjects)) ?>
                     </td>
                     <td align="right">
-                        <a href="#" onclick="Analyses.loadStudentEndterms('<?=$user_id?>'); return false;" class="btn highlight inline-block">Analyse laden</a>
+                        <a href="#" onclick="Analyses.loadStudentEndterms('<?=$user_id?>'); return false;" class="btn highlight inline-block"><?= __("Analyse laden")?></a>
                     </td>
                 </tr>
             </table>
@@ -167,35 +167,35 @@ if(!$isStudent) {
 </div>
 
 <div class="block">
-    <div class="block-head">Cijfers</div>
+    <div class="block-head"><?= __("Cijfers")?></div>
     <div class="block-content">
         <?=$this->Form->create('StudentRatings')?>
         <table class="table">
             <tr>
                 <th width="130">
-                    Vak
+                <?= __("Vak")?>
                 </th>
                 <td>
                     <?=$this->Form->input('subject_id', array('style' => 'width: 185px', 'label' => false, 'options' => $subjects)) ?>
                 </td>
                 <th width="130">
-                    Examenvak
+                <?= __("Examenvak")?>
                 </th>
                 <td>
                     <?=$this->Form->input('base_subject_id', array('style' => 'width: 185px', 'label' => false, 'options' => $base_subjects)) ?>
                 </td>
                 <th width="130">
-                    Score in
+                <?= __("Score in")?>
                 </th>
                 <td>
                     <?=$this->Form->input('score_type', array('style' => 'width: 185px', 'label' => false, 'options' => [
-                        'rates' => 'Cijfers',
-                        'percentages' => 'Percentages'
+                        'rates' => __("Cijfer"),
+                        'percentages' => __("Percentage")
                     ])) ?>
                 </td>
 
                 <td align="right">
-                    <a href="#" onclick="Analyses.loadStudentSubjectRatings('<?=$user_id?>'); return false;" class="btn highlight inline-block">Analyse laden</a>
+                    <a href="#" onclick="Analyses.loadStudentSubjectRatings('<?=$user_id?>'); return false;" class="btn highlight inline-block"><?= __("Analyse laden")?></a>
                 </td>
             </tr>
         </table>
@@ -206,12 +206,12 @@ if(!$isStudent) {
 </div>
 <? if(!$isStudent) { ?>
     <div class="block">
-        <div class="block-head">Berichten</div>
+        <div class="block-head"><?= __("Berichten")?></div>
         <div class="block-content" style="overflow: auto; max-height: 400px;">
 
             <? if(!$isStudent) { ?>
                 <a href="#" class="btn highlight" onclick="Popup.load('/messages/send/<?=getUUID($student,'get')?>', 500);" style="position: absolute; right: 50px;">
-                    Bericht sturen
+                <?= __("Bericht sturen")?>
                 </a>
             <? } ?>
 
@@ -219,10 +219,10 @@ if(!$isStudent) {
                 <thead>
                 <tr>
                     <th width="30"></th>
-                    <th>Onderwerp</th>
+                    <th><?= __("Onderwerp")?></th>
                     <th width="70"></th>
                     <th width="250"></th>
-                    <th width="130">Datum/tijd</th>
+                    <th width="130"><?= __("Datum/tijd")?></th>
                     <th width="75"></th>
                 </tr>
                 </thead>
@@ -240,10 +240,10 @@ if(!$isStudent) {
                         </td>
                         <td>
                             <? if ($message['message_receivers'][0]['read'] == 0) { ?>
-                                <div class="label label-success" id="label_read_<?=getUUID($message,'get')?>">Ongelezen</div>
+                                <div class="label label-success" id="label_read_<?=getUUID($message,'get')?>"><?= __("Ongelezen")?></div>
                             <? }else{
                                 ?>
-                                <div class="label" id="label_read_<?=getUUID($message, 'get')?>">Gelezen</div>
+                                <div class="label" id="label_read_<?=getUUID($message, 'get')?>"><?= __("Gelezen")?></div>
                                 <?
                             } ?>
                         </td>
@@ -251,14 +251,14 @@ if(!$isStudent) {
                             <?
                             if($message['user_id'] == AuthComponent::user('id')) {
                                 ?>
-                                aan
+                                <?= __("aan")?>
                                 <?=$message['message_receivers'][0]['user']['name_first']?>
                                 <?=$message['message_receivers'][0]['user']['name_suffix']?>
                                 <?=$message['message_receivers'][0]['user']['name']?>
                                 <?
                             }else{
                                 ?>
-                                van
+                                <?= __("van")?>
                                 <?=$message['user']['name_first']?>
                                 <?=$message['user']['name_suffix']?>
                                 <?=$message['user']['name']?>

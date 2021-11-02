@@ -11,10 +11,10 @@ foreach($messages as $message) {
         </td>
         <td>
             <? if ($message['message_receivers'][0]['read'] == 0) { ?>
-                <div class="label label-success" id="label_read_<?=getUUID($message, 'get');?>">Ongelezen</div>
+                <div class="label label-success" id="label_read_<?=getUUID($message, 'get');?>"><?= __("Ongelezen")?></div>
             <? }else{
                 ?>
-                <div class="label label-info" id="label_read_<?=getUUID($message, 'get');?>">Gelezen</div>
+                <div class="label label-info" id="label_read_<?=getUUID($message, 'get');?>"><?= __("Gelezen")?></div>
                 <?
             } ?>
         </td>

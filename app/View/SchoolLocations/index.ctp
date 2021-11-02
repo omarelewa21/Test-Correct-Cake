@@ -2,26 +2,26 @@
     <div id="buttons">
         <a href="#" class="btn white" onclick="Popup.load('/school_locations/add', 1100);">
             <span class="fa fa-plus mr5"></span>
-            Nieuwe schoollocatie
+            <?= __("Nieuwe schoollocatie")?>
         </a>
     </div>
 <? endif; ?>
 
-<h1>Schoollocaties</h1>
+<h1><?= __("Schoollocaties")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head">Schoollocaties</div>
+    <div class="block-head"><?= __("Schoollocaties")?></div>
     <div class="block-content" id="schoolsContainer">
         <table class="table table-striped" id="schoolsTable">
             <thead>
             <tr>
-                <th>Klantcode</th>
-                <th>School</th>
-                <th>Gemeenschap</th>
-                <th>Stad</th>
-                <th>Licenties</th>
-                <th>Geactiveerd</th>
-                <th>Vraagitems</th>
+                <th><?= __("Klantcode")?></th>
+                <th><?= __("School")?></th>
+                <th><?= __("Gemeenschap")?></th>
+                <th><?= __("Stad")?></th>
+                <th><?= __("Licenties")?></th>
+                <th><?= __("Geactiveerd")?></th>
+                <th><?= __("Vraagitems")?></th>
                 <th></th>
             </tr>
             </thead>

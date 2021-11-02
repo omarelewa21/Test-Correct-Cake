@@ -1,7 +1,7 @@
 <div class="tat-content border-radius-bottom-0 import-heading">
     <div style="display:flex">
         <div style="flex-grow:1">
-            <h2 style="margin-top:0">Importgegevens van klassen compleet maken</h2>
+            <h2 style="margin-top:0"><?= __("Importgegevens van klassen compleet maken")?></h2>
         </div>
         <div style="margin-top:-2px">
             <?php echo $this->element('teacher_complete_user_import_tooltip', array('type' => $lvs_type)) ?>
@@ -18,7 +18,7 @@
     </div>
     <div class="divider mb24 mt10"></div>
     <div style="display: flex; align-items: center; justify-content: center; font-size: 16px; color:var(--primary); font-weight: 700;">
-        Stel het niveau in voor de stamklassen
+    <?= __("Stel het niveau in voor de stamklassen")?>
     </div>
 
 </div>
@@ -31,7 +31,7 @@
                     style="position: sticky; top: 0; background: white; border-bottom: 2px solid var(--system-base); z-index:1;">
 
                 <tr class="rotate_table_headings">
-                    <th class="school_manager_class_td" >Klas</th>
+                    <th class="school_manager_class_td" ><?= __("Klas")?></th>
                     <?php foreach ($education_levels as $level) { ?>
                         <th class="ed_level_col" width="57px">
                             <div title="<?= $level['education_level']['name'] ?>">
@@ -39,8 +39,8 @@
                             </div>
                         </th>
                     <?php } ?>
-                    <th style="margin-left: auto" width="80px">Status</th>
-                    <th width="120px">Gecontroleerd</th>
+                    <th style="margin-left: auto" width="80px"><?= __("Status")?></th>
+                    <th width="120px"><?= __("Gecontroleerd")?></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -48,7 +48,7 @@
                 <tr id="note_row" style="display: none;">
                     <td colspan="<?= 4+ count($education_levels);?>" style="width: 100%;">
                         <div class="flex" style="width: 100%; justify-content: center;padding-top: 40px">
-                            <span class="note">Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend.</span>
+                            <span class="note"><?= __("Er hoeven geen niveau ingesteld te worden voor stamklassen. Deze zijn mogelijk al bekend")?>.</span>
                         </div>
                     </td>
                 </tr>
@@ -84,11 +84,11 @@
                             <?php } ?>
                             <td style="margin-left: auto;" width="80px">
                                 <?php if (empty($schoolClass['education_level_id'])) { ?>
-                                    <span class="import-label label-orange">onbekend</span>
+                                    <span class="import-label label-orange"><?= __("onbekend")?></span>
                                 <?php } else if(!empty($schoolClass['checked_by_admin'])){ ?>
-                                    <span class="import-label label-green">Ingesteld</span>
+                                    <span class="import-label label-green"><?= __("Ingesteld")?></span>
                                 <?php } else { ?>
-                                    <span class="import-label label-blue">bekend</span>
+                                    <span class="import-label label-blue"><?= __("bekend")?></span>
                                 <?php } ?>
 
 
@@ -118,7 +118,7 @@
                     <tr style="margin-top: 10px">
                         <td colspan="<?= 4+ count($education_levels);?>" style="text-align: center; border-bottom: 1px solid var(--blue-grey); padding: 2.5rem 0 0;width:100%;">
                             <div id="show_checked_classes_button" style="text-align:center;display: inline-flex;width:300px;box-sizing:border-box;align-items: center;cursor:pointer; padding: 0 20px;position:relative; top:1px; background-color:white; border-top-left-radius: 10px;border-top-right-radius: 10px; border-top: solid 1px var(--blue-grey); border-right: solid 1px var(--blue-grey); border-left: solid 1px var(--blue-grey);">
-                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: 700; margin-right: 8px">Toon gecontroleerde klassen</span>
+                                <span style="display:flex;flex-grow:1;text-align:center;font-size:16px;font-weight: 700; margin-right: 8px"><?= __("Toon gecontroleerde klassen")?></span>
                                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
                             </div>
                         </td>
@@ -152,11 +152,11 @@
                                 <?php } ?>
                                 <td style="margin-left: auto;" width="80px">
                                     <?php if (empty($schoolClass['education_level_id'])) { ?>
-                                        <span class="import-label label-orange">onbekend</span>
+                                        <span class="import-label label-orange"><?= __("onbekend")?></span>
                                     <?php } else if(!empty($schoolClass['checked_by_admin'])){ ?>
-                                        <span class="import-label label-green">Ingesteld</span>
+                                        <span class="import-label label-green"><?= __("Ingesteld")?></span>
                                     <?php } else { ?>
-                                        <span class="import-label label-blue">bekend</span>
+                                        <span class="import-label label-blue"><?= __("bekend")?></span>
                                     <?php } ?>
 
 
@@ -203,7 +203,7 @@
                           style="line-height:1.5rem; text-align:right; font-size:14px;" class="mr10"></span>
                     <button id="button-save-school-manager-complete-user-import" style="height: 50px"
                             class="button cta-button button-md mr10">
-                        Opslaan
+                            <?= __("Opslaan")?>
                     </button>
                 </div>
             </div>
@@ -235,10 +235,10 @@
 
                             Notify.notify(msg, 8000)
                         } else {
-                            Notify.notify('Kies het niveau alvorens op Gecontroleerd te klikken', 'error');
+                            Notify.notify('<?= __("Kies het niveau alvorens op Gecontroleerd te klikken")?>', 'error');
                         }
                         if(data.result.done){
-                            Notify.notify('Super!<br/>Alle gegevens zijn verwerkt');
+                            Notify.notify('<?= __("Super!<br/>Alle gegevens zijn verwerkt")?>');
                             Popup.closeLast();
                             Navigation.refresh();
                         }
@@ -261,12 +261,12 @@
             }
 
             function buildNotificationMessage(result) {
-                var msg = 'Gegevens voor 1 klas opgeslagen.';
+                var msg = '<?= __("Gegevens voor 1 klas opgeslagen.")?>';
                 if (result !== 1) {
-                    msg = 'Gegevens voor ' + result + ' klassen opgeslagen.';
+                    msg = '<?= __("Gegevens voor ")?>' + result + '<?= __(" klassen opgeslagen.")?>';
                 }
                 if (!checkedAllClasses()) {
-                    msg += '<br/><strong>Let op!</strong> Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.'
+                    msg += '<br/><strong>' + '<?= __("Let op!")?>' + '</strong>' +  '<?= __("Niet alle gegevens zijn ingevuld. Je klassen worden pas zichtbaar als de wizard volledig is afgerond.")?>'
                 }
                 return msg;
             }
@@ -289,12 +289,12 @@
         $('#show_checked_classes_button').click(function() {
             if($(this).hasClass('open')) {
                 $('.completed_classes_rows').hide();
-                $(this).find('span').text('Toon gecontroleerde klassen');
+                $(this).find('span').text('<?= __("Toon gecontroleerde klassen")?>');
                 $('#checked_classes_svg').css({'transform': 'rotate(90deg) scale(.8)'});
                 $(this).toggleClass('open');
             } else {
                 $('.completed_classes_rows').css('display','flex');
-                $(this).find('span').text('Verberg gecontroleerde klassen');
+                $(this).find('span').text('<?= __("Verberg gecontroleerde klassen")?>');
                 $('#checked_classes_svg').css({'transform': 'rotate(-90deg) scale(.8)'});
                 $(this).toggleClass('open');
             }

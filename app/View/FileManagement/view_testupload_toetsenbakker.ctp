@@ -10,21 +10,21 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/testuploads');">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>Geüpload toetsbestand</h1>
+<h1><?= __("Geüpload toetsbestand")?></h1>
 
 <div class="block">
-    <div class="block-head">informatie</div>
+    <div class="block-head"><?= __("informatie")?></div>
     <div class="block-content">
         <table class="table table-striped form">
             <tr>
-                <th width="12%">Status</th>
+                <th width="12%"><?= __("Status")?></th>
                 <td width="38%" class="editable" onClick="makeEditable();">
                     <div class="editable_view">
-                        <?=$file['status']['name']?>
+                        <?=__($file['status']['name'])?>
                     </div>
                     <div class="editable_elements">
                         <select name="file_management_status_id" class="editable_input" style="width:100%">
@@ -33,35 +33,35 @@
                                 if($status['id'] == $file['status']['id']){
                                     $selected = "selected = 'selected'";
                                 }
-                                echo "<option value='".$status['id']."' ".$selected.">".$status['name']."</option>";
+                                echo "<option value='".$status['id']."' ".$selected.">".__($status['name'])."</option>";
                             }
                         ?>
                         </select>
                     </div>
                 </td>
-                <th width="12%">Klantcode</th>
+                <th width="12%"><?= __("Klantcode")?></th>
                 <td width="38%">
                     <?= $file['school_location']['customer_code']?>
                 </td>
             </tr>
             <tr>
-                <th width="12%" rowspan="5" valign="top">Notitie</th>
+                <th width="12%" rowspan="5" valign="top"><?= __("Notitie")?></th>
                 <td width="38%" rowspan="5" valign="top" id='notes' class="editable" onClick="makeEditable();">
-                    <div id="notes_div" class='editable_view' title="Klik om te wijzigen" style="max-height:60px;overflow:scroll"><?
-                        echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : 'Klik om een notitie toe te toevoegen';
+                    <div id="notes_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
+                        echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : __("Klik om een notitie toe te toevoegen");
                     ?></div>
                     <div id="notes_edit" class='editable_elements'>
                         <textarea name="notes" class='editable_input' style="height:60px;"><?=$file['notes']?></textarea>
-                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> Opslaan</a>
+                        <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right" style="display:inline-block"><i class="fa fa-save"></i> <?= __("Opslaan")?></a>
                     </div>
                     </td>
-                <th width="12%">Vak</th>
+                <th width="12%"><?= __("Vak")?></th>
                 <td width="38%">
                     <?=$file['typedetails']['subject'] ?>
                 </td>
             </tr>
             <tr>
-                <th width="12%">Docent</th>
+                <th width="12%"><?= __("Docent")?></th>
                 <td width="38%">
                     <?=$file['user']['name_first']?>
                     <?=$file['user']['name_suffix']?>
@@ -69,20 +69,20 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%">Niveau</th>
+                <th width="12%"><?= __("Niveau")?></th>
                 <td width="38%">
                     <?=$educationLevel?> <?=$file['typedetails']['education_level_year']?>
                 </td>
             </tr>
             <tr>
                 <th>
-                    Type
+                <?= __("Type")?>
                 </th>
                 <td><?= $testKind?></td>
             </tr>
             <tr>
                 <th>
-                    Naam
+                <?= __("Naam")?>
                 </th>
                 <td><?= $file['typedetails']['name']?></td>
             </tr>
@@ -91,14 +91,14 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Bestanden</div>
+    <div class="block-head"><?= __("Bestanden")?></div>
     <div class="block-content">
 
 
         <table class="table table-stiped">
             <tr>
-                <th>Bestand</th>
-                <th>Originele naam</th>
+                <th><?= __("Bestand")?></th>
+                <th><?= __("Originele naam")?></th>
             </tr>
             <?
             foreach($file['children'] as $child) {
@@ -129,13 +129,13 @@
                 {data: {'action' : action}},
                 function(response) {
                     Loading.hide();
-                    Notify.notify('De status is aangepast', 'success');
+                    Notify.notify('<?= __("De status is aangepast")?>', 'success');
                     Navigation.refresh();
                 }
             )
             .fail(function(){
                 Loading.hide();
-                Notify.notify('Er is iets fout gegaan bij het aanpassen van de status', 'error');
+                Notify.notify('<?= __("Er is iets fout gegaan bij het aanpassen van de status")?>', 'error');
             });
     }
 
@@ -148,13 +148,13 @@
                 data,
                 function(response) {
                     Loading.hide();
-                    Notify.notify('De gegevens zijn aangepast', 'success');
+                    Notify.notify('<?= __("De gegevens zijn aangepast")?>', 'success');
                     Navigation.refresh();
                 }
             )
             .fail(function(){
                     Loading.hide();
-                    Notify.notify('Er is iets fout gegaan bij het aanpassen van de gegevens', 'error');
+                    Notify.notify('<?= __("Er is iets fout gegaan bij het aanpassen van de gegevens")?>', 'error');
                 });
             }
     $('select').select2();

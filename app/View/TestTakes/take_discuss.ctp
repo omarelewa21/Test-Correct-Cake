@@ -2,20 +2,20 @@
 
 </div>
 
-<h1>Vraag beoordelen</h1>
+<h1><?= __("Vraag beoordelen")?></h1>
 
 <div class="block" style="float:left;width:calc(100% - 280px)">
-    <div class="block-head">Antwoord</div>
+    <div class="block-head"><?= __("Antwoord")?></div>
     <div class="block-content" id="div_answer">
 
     </div>
     <div class="mt10 mb10" style="margin-left:auto;margin-right:auto;width:250px;text-align:center">
-        <a href="#" class="btn highlight" onclick="saveRating()">Beoordeling opslaan</a>
+        <a href="#" class="btn highlight" onclick="saveRating()"><?= __("Beoordeling opslaan")?></a>
     </div>
 </div>
 
 <div class="block" style="width:250px;float:right" id="divRate">
-    <div class="block-head">Beoordeling</div>
+    <div class="block-head"><?= __("Beoordeling")?></div>
     <div class="block-content" id="div_rating">
 
         <div class="mr25 ml25" style="font-size:30px; text-align:center; border:2px solid #eeeeee;border-radius:8px;display:flex;align-items:center;justify-content: center;" id="divScore"> <span style="color:#3D9D36;">?</span> </div>
@@ -65,7 +65,7 @@
 
     function saveRating(){
         if(!rated){
-            Notify.notify('Je dient eerst een beoordeling te geven','error');
+            Notify.notify('<?= __("Je dient eerst een beoordeling te geven")?>','error');
         }else{
             TestTake.saveRating();
         }

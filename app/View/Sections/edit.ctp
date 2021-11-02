@@ -1,17 +1,17 @@
-<div class="popup-head">Sectie</div>
+<div class="popup-head"><?= __("Sectie")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Section') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
         </tr>
         <tr>
-            <th>Locaties</th>
+            <th><?= __("Locaties")?></th>
             <td>
                 <?
                 $selectedLocations = [];
@@ -27,27 +27,37 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Wijzigen
+    <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave" onclick="editSection()">
+        <?= __("Wijzigen")?>
     </a>
 </div>
 
 <script type="text/javascript">
-    $('#SectionEditForm').formify(
-        {
-            confirm : $('#btnSave'),
-            onsuccess : function(result) {
-                Popup.closeLast();
-                Notify.notify("Sectie gewijzigd", "info");
-                Navigation.refresh();
-            },
-            onfailure : function(result) {
-                Notify.notify("Sectie kon niet worden aangemaakt", "error");
-            }
+    function editSection(){
+        if($('#SectionName').val() === ""){
+            Notify.notify('<?= __("schoolnaam moet ingevuld zijn")?>', "error");
         }
-    );
+        else if($('#SectionSchoolLocations').val() === null){
+            Notify.notify('<?= __("schoollocatie moet ten minste één waarde hebben")?>', "error");
+        }
+        else{
+            $.post('/sections/edit/<?=$section_uuid?>',
+            $('#SectionEditForm').serialize(),
+            function(response) {
+                response = JSON.parse(response);
+                if(response['status'] == 1) {
+                    Popup.closeLast();
+                    Navigation.refresh();
+                    Notify.notify('<?= __("Sectie gewijzigd")?>');
+                }
+                else{
+                    Notify.notify(response['data'].join('<br />'), 'error');
+                }
+            });
+        }
+    }
 
     $('#SectionSchoolLocations').select2();
 </script>

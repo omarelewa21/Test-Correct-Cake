@@ -27,7 +27,7 @@ class SharedSectionsTestsController extends AppController {
         $this->isAuthorizedAs(["Teacher"]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -41,10 +41,10 @@ class SharedSectionsTestsController extends AppController {
 //        $subjects = $this->TestsService->getSubjects(false);
         $kinds = $this->TestsService->getKinds();
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
-//        $periods = [0 => 'Alle'] + $periods;
-//        $subjects = [0 => 'Alle'] + $subjects;
-        $kinds = [0 => 'Alle'] + $kinds;
+        $education_levels = [0 => __("Alle")] + $education_levels;
+//        $periods = [0 => __("Alle")] + $periods;
+//        $subjects = [0 => __("Alle")] + $subjects;
+        $kinds = [0 => __("Alle")] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
@@ -129,12 +129,12 @@ class SharedSectionsTestsController extends AppController {
             if($response === false){
                 if(substr_count('The name has already been taken.',json_encode($this->TestsService->getErrors())) > 0){
                     $this->formResponse(false, [
-                        'message' => 'Deze naam heb je inmiddels in gebruik voor een van je toetsen.'
+                        'message' => __("Deze naam heb je inmiddels in gebruik voor een van je toetsen.")
                     ]);
 
                 } else {
                     $this->formResponse(false, [
-                        'message' => 'Er is iets fout gegaan, probeer het nogmaals.'
+                        'message' => __("Er is iets fout gegaan, probeer het nogmaals.")
                     ]);
                 }
             } else {

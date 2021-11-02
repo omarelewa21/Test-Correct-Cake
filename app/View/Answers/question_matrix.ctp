@@ -9,9 +9,9 @@
     <h1 class="<?=$citoClass?>">
         <?
         if($question['subtype'] == 'SingleChoice') {
-            ?>Matrix<?
+            ?><?= __("Matrix")?><?
         }else{
-            ?>Matrix ONBEKEND<?
+            ?><?= __("Matrix ONBEKEND")?><?
         }
         ?>
         [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?>

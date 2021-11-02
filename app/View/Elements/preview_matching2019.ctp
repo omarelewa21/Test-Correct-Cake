@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?><?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == __("Matching") ? __("Combineervraag") : __("Rubriceer-vraag")?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -85,7 +85,7 @@ echo sprintf('<div class="answer_container %s">',$citoClass);
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

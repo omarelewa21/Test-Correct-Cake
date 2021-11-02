@@ -1,19 +1,19 @@
-<h1>Becijferde toetsen</h1>
+<h1><?= __("Becijferde toetsen")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head">Becijferde toetsen</div>
+    <div class="block-head"><?= __("Becijferde toetsen")?></div>
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
             <thead>
             <tr>
-                <th>Toets</th>
-                <th width="50">Vragen</th>
-                <th width="200">Docent</th>
-                <th width="120">Vak</th>
-                <th width="80">Afname</th>
-                <th width="80">Type</th>
-                <th width="60">Weging</th>
-                <th width="100">Cijfer</th>
+                <th><?= __("Toets")?></th>
+                <th width="50"><?= __("Vragen")?></th>
+                <th width="200"><?= __("Docent")?></th>
+                <th width="120"><?= __("Vak")?></th>
+                <th width="80"><?= __("Afname")?></th>
+                <th width="80"><?= __("Type")?></th>
+                <th width="60"><?= __("Weging")?></th>
+                <th width="100"><?= __("Cijfer")?></th>
             </tr>
             </thead>
             <tbody></tbody>

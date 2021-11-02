@@ -43,8 +43,8 @@
                                     cursor: default;
                                   "
     >
-        <p style="margin-top: .5rem">Let op! Als exporteren naar RTTI Online aanstaat, dan kan deze toetsafname niet meer genormeerd en becijferd worden in Test-Correct, maar gebeurt dit in RTTI Online.</p>
-        <a href="https://support.test-correct.nl/knowledge/rtti-online" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px">Lees meer op de Kennisbank</span><?php echo $this->element('arrow') ?></a>
+        <p style="margin-top: .5rem"><?= __("Let op! Als exporteren naar RTTI Online aanstaat, dan kan deze toetsafname niet meer genormeerd en becijferd worden in Test-Correct, maar gebeurt dit in RTTI Online")?>.</p>
+        <a href="https://support.test-correct.nl/knowledge/rtti-online" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px"><?= __("Lees meer op de Kennisbank")?></span><?php echo $this->element('arrow') ?></a>
     </div>
     <script>
         function showTooltipRtti(id) {

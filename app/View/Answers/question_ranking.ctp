@@ -9,7 +9,7 @@
         $isCitoQuestion = true;
     }
 ?>
-<h1 class="question_type <?=$citoClass?>">Rangschikvraag [<?=$question['score']?>pt]</h1>
+<h1 class="question_type <?=$citoClass?>"><?= __("Rangschikvraag")?> [<?=$question['score']?>pt]</h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
 <?php

@@ -4,12 +4,21 @@ var Menu = {
     menu: null,
     tile: null,
     visibilityTimeout: null,
+    supportInfo: null,
 
     initialise: function () {
+
+        if (User.info.guest) {
+            console.log('Insert guest dummy menu here :)');
+            return;
+        }
 
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
+            if (Menu.supportInfo !== null) {
+                Menu.addReturnToSupportButton(Menu.supportInfo);
+            }
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -95,6 +104,9 @@ var Menu = {
                 } else if (type === 'download') {
                     window.location.href = $(this).attr('path');
                     return false;
+                } else if (type === 'laravelpage') {
+                    Core.goToLaravel($(this).attr('path'));
+                    return false;
                 }
                 $(this).addClass('active');
                 Menu.menu = Menu.menuTmp;
@@ -158,8 +170,6 @@ var Menu = {
     },
 
     addDashboardAndResultsToMenu: function () {
-        $("<div id='dashboard' class='item' onclick='Menu.dashboardButtonAction()'>Dashboard</div>").prependTo("#menu");
-        $("<div id='results' class='item' onclick='Navigation.load(\"/test_takes/rated\");Menu.clearActiveMenu(\"results\");'>Resultaten</div>").insertAfter("#taken");
         Menu.hideInactiveTiles();
     },
 
@@ -316,5 +326,26 @@ var Menu = {
                 rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
             );
         }
+    },
+
+    addReturnToSupportButton : function (userInfo) {
+        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="'+ userInfo.text +'" onclick="Menu.handleReturnToSupportAction(\''+ userInfo.user +'\')">' +
+                        '   <svg xmlns="http://www.w3.org/2000/svg" style="height: 30px; width:30px" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
+                        '       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />\n' +
+                        '   </svg>';
+                        '</div>';
+
+        $('.action_icon_container').prepend(button);
+    },
+
+    handleReturnToSupportAction: function (userId) {
+        $.get('support/return_as_support_user/'+userId, function (response) {
+                if (response) {
+                    location.reload();
+                } else {
+                    Notify.notify($.i18n('Er is iets misgegaan. Log uit en opnieuw in voor de Support omgeving'), 'error', 6000);
+                }
+            }
+        );
     }
 };

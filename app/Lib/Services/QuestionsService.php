@@ -1052,7 +1052,7 @@ class QuestionsService extends BaseService
                         $question['selectable_answers']++;
                     }
                 }
-                if(!question['html_specialchars_encoded']){
+                if(!$question['html_specialchars_encoded']){
                     break;
                 }
                 foreach ($question['answers'] as $key => $answer){
@@ -1579,9 +1579,10 @@ class QuestionsService extends BaseService
     {
 
         $tags = [];
-
-        foreach ($question['completion_question_answers'] as $tag) {
-            $tags[$tag['tag']][] = $tag['answer'];
+        if (array_key_exists('completion_question_answers', $question) && is_array($question['completion_question_answers'])) {
+            foreach ($question['completion_question_answers'] as $tag) {
+                $tags[$tag['tag']][] = $tag['answer'];
+            }
         }
 
         $searchPattern = '/\[([0-9]+)\]/i';
