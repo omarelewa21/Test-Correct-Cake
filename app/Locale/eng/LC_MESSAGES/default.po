@@ -1865,6 +1865,12 @@ msgstr "Half points possible"
 msgid "Openbaar maken"
 msgstr "Make public"
 
+msgid "Automatisch nakijken"
+msgstr "Auto check the answer"
+
+msgid "Hoofdletter gevoelig nakijken"
+msgstr "Case sensitive auto check"
+
 msgid "Geen kladblok"
 msgstr "No notepad"
 

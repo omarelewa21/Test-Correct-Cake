@@ -26,6 +26,9 @@
                         'TEXT' => __("Tekstvlak"),
                         'DRAWING' => __("Tekenvlak")
                     ]))?>
+                    <?=$this->Form->input('auto_check_answer', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['auto_check_answer'] ? 'checked' : '', 'onclick' => "enableDisableAutoCheckCaseSensitive();"))?>  <?= __("Automatisch nakijken")?> <br />
+                    <?=$this->Form->input('auto_check_answer_case_sensitive', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['auto_check_answer_case_sensitive'] ? 'checked' : ''))?>  <?= __("Hoofdletter gevoelig nakijken")?> <br />
+
                 </td>
             </tr>
         </table>
@@ -207,4 +210,14 @@
 
         return false;
     }
+
+    function enableDisableAutoCheckCaseSensitive(){
+        if(jQuery("#QuestionAutoCheckAnswer").is(":checked")){
+            jQuery("#QuestionAutoCheckAnswerCaseSensitive").removeAttr('disabled');
+        } else {
+            jQuery("#QuestionAutoCheckAnswerCaseSensitive").attr('disabled',true);
+        }
+    }
+
+    enableDisableAutoCheckCaseSensitive();
 </script>
