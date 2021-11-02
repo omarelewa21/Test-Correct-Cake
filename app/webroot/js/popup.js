@@ -570,6 +570,7 @@ var Popup = {
 
     showPreviewTest: function (testId) {
         var url;
+        var windowReference = window.open();
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_url/' + testId,
@@ -577,10 +578,8 @@ var Popup = {
             data: {},
             success: function (data) {
                 url = data.data.url;
-                window.open(url, '_blank').focus();
-                // Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
-                //     '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
-                //     'onclick="Popup.closeLast()">' + $.i18n('Voorbeeldweergave sluiten') + '</a>', 1200);
+                windowReference.location = url;
+                windowReference.focus();
             }
         });
 
