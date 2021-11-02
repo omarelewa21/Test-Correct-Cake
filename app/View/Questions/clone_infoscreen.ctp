@@ -1,10 +1,10 @@
-<div class="popup-head"><?= __("Infoscherm")?></div>
+<div class="popup-head">Infoscherm</div>
 <div class="popup-content">
 
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
 
-    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
     
                 <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('decimal_score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
@@ -15,34 +15,34 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-            <?= __("Info")?>
+                Info
             </a>
 
             <a href="#" class="btn grey" page="options" tabs="edit_question">
-            <?= __("Antwoord")?>
+                Antwoord
             </a>
 
             <? if($owner != 'group') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                <?= __("Bronnen")?>
+                    Bronnen
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-            <?= __("Eindtermen")?>
+                Eindtermen
             </a>
 
 
             <a href="#" class="btn grey" page="tags" tabs="edit_question">
-            <?= __("Tags")?>
+                Tags
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-            <?= __("Taxonomie")?>
+                Taxonomie
             </a>
 
             <a href="#" class="btn grey" page="owners" tabs="edit_question">
-            <?= __("Info")?>
+                Info
             </a>
 
             <br clear="all" />
@@ -54,7 +54,7 @@
 
         <div page="options" class="page" tabs="edit_question">
             <?=$this->Form->input('answer', array('value' => $question['question']['answer'],'label' => false, 'type' => 'hidden'))?>
-            <?= __("Niet van toepassing")?>
+            Niet van toepassing
         </div>
 
         <div page="attainments" class="page" tabs="edit_question">
@@ -79,18 +79,12 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
+        Annuleer
     </a>
-    <? if($is_clone_request){ ?>
+    <? if($editable) { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-            <?= __("Vraag opslaan")?>
+            Vraag opslaan
         </a>
-    <? }else{ ?>
-        <? if($editable) { ?>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
-                <?= __("Vraag opslaan")?>
-            </a>
-        <? } ?>
     <? } ?>
 </div>
 
@@ -100,12 +94,8 @@
         $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($is_clone_request){ ?>
-        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-    <? }else{ ?>
-        <? if($owner != 'group') { ?>
-            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-        <? } ?>
+    <? if($owner != 'group') { ?>
+        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? } ?>
 
     $('#QuestionTags').select2({

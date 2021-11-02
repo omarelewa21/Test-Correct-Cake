@@ -358,6 +358,9 @@ class QuestionsService extends BaseService
         }
 
         $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
+        if(array_key_exists('clone_attachments',$oriQuestion) && !empty($oriQuestion['clone_attachments'])){
+            $question['clone_attachments'] = $oriQuestion['clone_attachments'];
+        }
 
         // if (empty($question['attainments'])) {
         //     $question['attainments'] = [];

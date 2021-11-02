@@ -218,10 +218,15 @@ var Questions = {
         });
     },
 
-    loadAddAttachments : function(is_clone) {
+    loadAddAttachments : function(is_clone,owner, owner_id,id) {
         is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
         if(is_clone){
-            $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+            $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(),function(){
+                var form = jQuery('#QuestionAddForm');
+                jQuery('.cloneAttachment').each(function(){
+                   $(this).prependTo(form);
+                });
+            });
         }else{
             $('div[page=sources][tabs=add_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
         }
@@ -356,6 +361,11 @@ var Attachments = {
                 Questions.loadAddAttachments();
             }
         });
+    },
+
+    removeCloneAttachment : function(id,el) {
+        jQuery('#cloneAttachment'+id).remove();
+        jQuery(el).parents('tr').remove();
     },
 
     removeEditAttachment : function(owner, owner_id, id) {

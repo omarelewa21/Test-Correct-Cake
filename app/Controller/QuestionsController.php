@@ -691,6 +691,110 @@ class QuestionsController extends AppController
         }
     }
 
+    public function clone($owner, $owner_id, $question_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);        
+        
+        $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+        $tagsArray = [];
+
+        foreach ($question['question']['tags'] as $tag) {
+            $tagsArray[$tag['name']] = $tag['name'];
+        }
+
+        $question['question']['tags'] = $tagsArray;
+
+        switch ($question['question']['type']) {
+
+            case 'DrawingQuestion' :
+                $this->Session->write('drawing_data', $question['question']['answer']);
+                $view = 'clone_drawing';
+                break;
+
+            case 'InfoscreenQuestion' :
+                $view = 'clone_infoscreen';
+                break;
+
+            case 'OpenQuestion' :
+                $this->set('subtype', $question['question']['subtype']);
+                $view = 'clone_open';
+                break;
+
+            case 'CompletionQuestion' :
+                $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+                if ($question['question']['subtype'] == 'multi') {
+                    $view = 'clone_multi_completion';
+                } else {
+                    $view = 'clone_completion';
+                }
+                break;
+
+            case 'MultipleChoiceQuestion' :
+
+                if ($question['question']['subtype'] == 'TrueFalse') {
+                    $view = 'clone_true_false';
+                } elseif ($question['question']['subtype'] == 'ARQ') {
+                    $view = 'clone_arq';
+                } else {
+                    $view = 'clone_multiple_choice';
+                }
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['multiple_choice_question_answers'] as $key => $answerArray){
+                    $question['question']['multiple_choice_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'clone_ranking';
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['ranking_question_answers'] as $key => $answerArray){
+                    $question['question']['ranking_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+
+            case 'MatchingQuestion' :
+                if ($question['question']['subtype'] == 'Classify') {
+                    $view = 'clone_classify';
+                } else {
+                    $view = 'clone_matching';
+                }
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['matching_question_answers'] as $key => $answerArray){
+                    $question['question']['matching_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+        }
+
+        $test = $this->Session->read('active_test');
+        $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+        $selectedAttainments = [];
+
+        foreach ($question['question']['attainments'] as $attainment) {
+            $selectedAttainments[] = $attainment['id'];
+        }
+
+        $this->set('selectedAttainments', $selectedAttainments);
+        $this->set('question', $question);
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+        $this->set('editable', true);
+        $this->Session->write('attachments_editable', true);
+
+        $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+        $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+
+        $this->render($view, 'ajax');
+    }
+
     public function add_multi_completion_item()
     {
 
@@ -1111,8 +1215,6 @@ class QuestionsController extends AppController
                 ];
             }
 
-
-
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
@@ -1294,12 +1396,18 @@ class QuestionsController extends AppController
 
     public function attachments($type, $owner = null, $owner_id = null, $id = null)
     {
+        $cloneAttachments = null;
         if ($type == 'add') {
             if (!$this->Session->check('attachments')) {
                 $this->Session->write('attachments', []);
                 $attachments = [];
             } else {
                 $attachments = $this->Session->read('attachments');
+            }
+            if(null !== $owner && null !== $owner_id && null !== $id){
+                $question = $this->QuestionsService->getQuestion('test', null, $id);
+                $cloneAttachments = $question['question']['attachments'];
+                $owner = $owner_id = $id = null;
             }
         } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
@@ -1313,8 +1421,11 @@ class QuestionsController extends AppController
         $this->set('owner_id', $owner_id);
         $this->set('id', $id);
         $this->set('type', $type);
+        $this->set('is_clone',!!($type === 'add' && null !== $owner));
         $this->set('editable', $this->Session->read('attachments_editable'));
         $this->set('attachments', $attachments);
+        $this->set('clone_attachments',$cloneAttachments);
+
     }
 
     public function attachments_sound($type, $owner = null, $owner_id = null, $id = null)

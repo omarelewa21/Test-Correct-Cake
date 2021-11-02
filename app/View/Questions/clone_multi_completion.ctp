@@ -1,29 +1,29 @@
-<div class="popup-head"><?= __("Selectievraag")?></div>
+<div class="popup-head">Selectievraag</div>
 <div class="popup-content">
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
+    <?=$this->Form->create('Question', array('id' => 'QuestionAddForm'))?>
 
         <table class="table mb15">
             <tr>
                 <th width="10%">
-                <?= __("Punten")?>
+                    Punten
                 </th>
                 <td width="110">
                     <?=$this->Form->input('score', array('style' => 'width:50px;', 'value' => $question['question']['score'], 'label' => false, 'verify' => 'notempty'))?>
                 </td>
                 <td>
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['closeable'] == 1 ? 'checked' : ''))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['discuss'] == 1 ? 'checked' : ''))?> <?= __("Bespreken in de klas")?><br />
-                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> <?= __("Deze vraag vastzetten")?> <br /><? }?>
-                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> <?= __("Halve punten mogelijk")?><br />
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['closeable'] == 1 ? 'checked' : ''))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['discuss'] == 1 ? 'checked' : ''))?> Bespreken in de klas<br />
+                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> Deze vraag vastzetten <br /><? }?>
+                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> Halve punten mogelijk<br />
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
                     <?php endif; ?>
                 </td>
                 <td width="230">
                     <?=$this->Form->input('note_type', array('type' => 'select', 'value' => $question['question']['note_type'], 'label' => false, 'div' => false, 'options' => [
-                        'NONE' => __("Geen kladblok"),
-                        'TEXT' => __("Tekstvlak"),
-                        'DRAWING' => __("Tekenvlak")
+                        'NONE' => 'Geen kladblok',
+                        'TEXT' => 'Tekstvlak',
+                        'DRAWING' => 'Tekenvlak'
                     ]))?>
                 </td>
             </tr>
@@ -31,30 +31,30 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-            <?= __("Tekst")?>
+                Tekst
             </a>
             <? if($owner != 'group') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                <?= __("Bronnen")?>
+                    Bronnen
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-            <?= __("Eindtermen")?>
+                Eindtermen
             </a>
 
 
             <a href="#" class="btn grey" page="tags" tabs="edit_question">
-            <?= __("Tags")?>
+                Tags
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-            <?= __("Taxonomie")?>
+                Taxonomie
             </a>
 
 
             <a href="#" class="btn grey" page="owners" tabs="edit_question">
-            <?= __("Info")?>
+                Info
             </a>
             <br clear="all" />
 
@@ -83,19 +83,12 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
+        Annuleer
     </a>
-
-    <? if($is_clone_request){ ?>
+    <? if($editable) { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-            <?= __("Vraag opslaan")?>
+            Vraag opslaan
         </a>
-    <? }else{ ?>
-        <? if($editable) { ?>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'CompletionQuestion', '<?=getUUID($question, 'get');?>');">
-                <?= __("Vraag opslaan")?>
-            </a>
-        <? } ?>
     <? } ?>
 </div>
 
@@ -116,7 +109,7 @@
         return {
             init: function ()
             {
-                var button = this.button.add('advanced', '<?= __("Vierkante haakjes toevoegen")?>');
+                var button = this.button.add('advanced', 'Vierkante haakjes toevoegen');
                 this.button.setAwesome('advanced', 'fa-tags');
                 this.button.addCallback(button, this.advanced.testButton);
             },
@@ -126,9 +119,9 @@
 
                 if(selection == "") {
                     Popup.message({
-                        'title' : '<?= __("Selecteer juiste antwoord")?>',
-                        'message' : '<?= __("Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen.")?>',
-                        'btnOk' : '<?= __("Oke")?>'
+                        'title' : 'Selecteer juiste antwoord',
+                        'message' : 'Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen.',
+                        'btnOk' : 'Oke'
                     });
                 }else {
                     Popup.load('/questions/add_multi_completion_item', 500);
@@ -145,13 +138,9 @@
     $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <?php } ?>
 
-    <? if($is_clone_request){ ?>
-        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-    <? }else{ ?>
-        <? if($owner != 'group') { ?>
-            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-        <? } ?>
-    <? } ?>
+    <?php if($owner != 'group') { ?>
+        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <?php }?>
 
     $('#QuestionAttainments').select2();
 
