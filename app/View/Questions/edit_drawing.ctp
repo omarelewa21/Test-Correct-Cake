@@ -123,7 +123,7 @@
     <?php } ?>
 
     <? if($is_clone_request){ ?>
-        Questions.loadAddAttachments(true);
+        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? }else{ ?>
         <? if($owner != 'group') { ?>
             Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');

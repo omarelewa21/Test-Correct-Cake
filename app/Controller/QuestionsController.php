@@ -1214,8 +1214,6 @@ class QuestionsController extends AppController
                 ];
             }
 
-
-
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
@@ -1397,12 +1395,18 @@ class QuestionsController extends AppController
 
     public function attachments($type, $owner = null, $owner_id = null, $id = null)
     {
+        $cloneAttachments = null;
         if ($type == 'add') {
             if (!$this->Session->check('attachments')) {
                 $this->Session->write('attachments', []);
                 $attachments = [];
             } else {
                 $attachments = $this->Session->read('attachments');
+            }
+            if(null !== $owner && null !== $owner_id && null !== $id){
+                $question = $this->QuestionsService->getQuestion('test', null, $id);
+                $cloneAttachments = $question['question']['attachments'];
+                $owner = $owner_id = $id = null;
             }
         } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
@@ -1414,8 +1418,11 @@ class QuestionsController extends AppController
         $this->set('owner_id', $owner_id);
         $this->set('id', $id);
         $this->set('type', $type);
+        $this->set('is_clone',!!($type === 'add' && null !== $owner));
         $this->set('editable', $this->Session->read('attachments_editable'));
         $this->set('attachments', $attachments);
+        $this->set('clone_attachments',$cloneAttachments);
+
     }
 
     public function attachments_sound($type, $owner = null, $owner_id = null, $id = null)
