@@ -81,4 +81,7 @@
 
 <script>
     TestTake.startHeartBeat('planned');
+
+    User.connectToPusher('<?=Configure::read('pusher-key')?>');
+    pusher.subscribe('presence-presence-TestTake.<?=getUUID($take, 'get');?>');
 </script>

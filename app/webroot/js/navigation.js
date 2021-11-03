@@ -3,7 +3,7 @@ var Navigation = {
     callback : null,
 
     history : [],
-    onSurveillance: false,
+    usingPusher: false,
 
     load : function(url) {
         Loading.show();
@@ -17,8 +17,8 @@ var Navigation = {
         User.inactive = 0;
         User.surpressInactive = false;
 
-        if (Navigation.onSurveillance) {
-            Navigation.onSurveillance = false;
+        if (Navigation.usingPusher) {
+            Navigation.usingPusher = false;
             if (typeof (window.pusher) !== 'undefined') {
                 pusher.disconnect();
                 pusher = undefined;

@@ -1,5 +1,7 @@
 <?php
 
+use Pusher\Pusher;
+
 App::uses('AppController', 'Controller');
 App::uses('UsersService', 'Lib/Services');
 App::uses('SchoolClassesService', 'Lib/Services');
@@ -2301,5 +2303,30 @@ class UsersController extends AppController
         }
 
         return $returnUrl['url'];
+    }
+
+    public function pusher_auth()
+    {
+        $this->autoRender = false;
+        $requestData = $this->request->data;
+
+        $app_id = ''; //not necessary
+        $app_key = Configure::read('pusher-key');
+        $app_secret = Configure::read('pusher_surveillance_key');
+        $app_cluster = 'eu';
+
+        $pusher = new Pusher($app_key, $app_secret, $app_id, ['cluster' => $app_cluster]);
+
+        if (strpos($requestData['channel_name'], 'presence') === 0) {
+            $presence_data = [
+                'name'  => AuthComponent::user('name'),
+                'uuid'  => AuthComponent::user('uuid'),
+                'guest' => AuthComponent::user('guest'),
+            ];
+
+            return $pusher->presence_auth($requestData['channel_name'], $requestData['socket_id'], AuthComponent::user('id'), $presence_data);
+        }
+
+        return true;
     }
 }

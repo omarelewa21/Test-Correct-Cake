@@ -90,4 +90,6 @@
 <script type="text/javascript">
     clearTimeout(window.loadParticipants);
     TestTake.loadParticipants('<?=$take_id?>');
+
+    TestTake.enterWaitingRoomPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
 </script>

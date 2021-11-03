@@ -14,4 +14,6 @@
 
 <script>
     TestTake.startHeartBeat('discussing');
+    User.connectToPusher('<?=Configure::read('pusher-key')?>');
+    pusher.subscribe('presence-presence-TestTake.<?=getUUID($take, 'get');?>');
 </script>
