@@ -309,8 +309,8 @@ class AppController extends Controller
         }
     }
 
-    public function returnToLaravelUrl($userId)
+    public function returnToLaravelUrl($userId, $params = [])
     {
-        return $this->UsersService->getReturnToLaravelUrl($userId);
+        return $this->UsersService->getReturnToLaravelUrl($userId, $params);
     }
 }
