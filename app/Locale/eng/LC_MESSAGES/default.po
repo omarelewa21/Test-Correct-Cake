@@ -2912,11 +2912,11 @@ msgstr "CO-learning"
 msgid "Er is geen toets klaar voor CO-learning."
 msgstr "There is no test ready for CO-learning."
 
-msgid "Bespreking beëindigen"
-msgstr "End discussion"
+msgid "CO-learning beëindigen"
+msgstr "End CO-learning"
 
-msgid "Bespreken"
-msgstr "Discuss"
+msgid "CO-learning"
+msgstr "CO-learning"
 
 msgid "Antwoordmodel"
 msgstr "Answer model"
@@ -3233,8 +3233,8 @@ msgstr "Review"
 msgid "Aangepaste beoordeling"
 msgstr "Custom rating"
 
-msgid "Bespreking starten"
-msgstr "Discuss test"
+msgid "CO-learning starten"
+msgstr "Start CO-learning"
 
 msgid "Wilt u de gesloten vragen overslaan of bespreken?"
 msgstr "Would you like to skip or discuss the closed questions?"

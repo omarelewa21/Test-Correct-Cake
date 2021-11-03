@@ -4543,7 +4543,7 @@ msgid "Er is geen toets klaar voor CO-learning."
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:13
-msgid "Bespreking beëindigen"
+msgid "CO-learning beëindigen"
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:19
@@ -4933,7 +4933,7 @@ msgid "Aangepaste beoordeling"
 msgstr ""
 
 #: View/TestTakes/start_discussion_popup.ctp:2
-msgid "Bespreking starten"
+msgid "CO-learning starten"
 msgstr ""
 
 #: View/TestTakes/start_discussion_popup.ctp:7
