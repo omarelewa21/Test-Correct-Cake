@@ -1952,7 +1952,7 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function surveillance_data() {
+    public function surveillance_data_new() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
 
@@ -1961,7 +1961,7 @@ class TestTakesController extends AppController {
 
 
 
-    public function surveillance_data_old   () {
+    public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;

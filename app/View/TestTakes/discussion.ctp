@@ -10,7 +10,7 @@ if(!isset($take)) {
     ?>
 
     <div id="buttons">
-        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');"><?= __("Bespreking beéindigen")?></a>
+        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');"><?= __("Bespreking beëindigen")?></a>
         <? if($has_next_question) { ?>
             <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight mr2 nextDiscussionQuestion"><?= __("Volgende vraag")?></a>
         <? }  ?>

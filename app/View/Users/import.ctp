@@ -46,7 +46,7 @@
         {'column': 'abbrviation', 'name': '<?= __("Afkorting")?>'},
         {'column': 'username', 'name': '<?= __("E-mailadres")?>'},
         {'column': 'external_id', 'name': '<?= __("Externe code")?>'},
-        {'column': 'notes', 'name': '<?= __("Notities")?>'},
+        {'column': 'note', 'name': '<?= __("Notities")?>'},
         {'column': 'school_class', 'name': '<?= __("Koppeling klasnaam")?>'},
         {'column': 'subject', 'name': '<?= __("Koppeling welk vak")?>'},
     ];

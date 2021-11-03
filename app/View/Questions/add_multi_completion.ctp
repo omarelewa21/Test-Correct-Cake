@@ -99,7 +99,7 @@
         return {
             init: function ()
             {
-                var button = this.button.add('advanced', 'Vierkante haakjes toevoegen');
+                var button = this.button.add('advanced', '<?= __('Vierkante haakjes toevoegen')?>');
                 this.button.setAwesome('advanced', 'fa-tags');
                 this.button.addCallback(button, this.advanced.testButton);
             },
@@ -109,10 +109,10 @@
 
                 if(selection == "") {
                     Popup.message({
-                        'title' : __("Selecteer juiste antwoord"),
-                        'message' : __("Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen."),
-                        'btnOk' : __("Oke")
-                    });
+                        'title' : '<?= __("Selecteer juiste antwoord")?>',
+                        'message' : '<?= __("Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen.")?>',
+                        'btnOk' : '<?= __("Oke")?>'
+                    });``
                 }else {
                     Popup.load('/questions/add_multi_completion_item', 500);
                 }

@@ -1,3 +1,6 @@
+msgid "Gebruik als sjabloon"
+msgstr "Use as template"
+
 msgid "Het is niet meer mogelijk deze vraag te beantwoorden"
 msgstr "It is no longer possible to answer this question"
 
@@ -491,7 +494,7 @@ msgid "Mijn afgenomen toetsen"
 msgstr "My taken tests"
 
 msgid "Nakijken & normeren"
-msgstr "Check & standard"
+msgstr "Check & standardize"
 
 msgid "Mijn analyses"
 msgstr "My analyses"
@@ -2900,7 +2903,7 @@ msgstr "Discuss test"
 msgid "Er is geen toets om te bespreken."
 msgstr "There is no test to discuss."
 
-msgid "Bespreking beéindigen"
+msgid "Bespreking beëindigen"
 msgstr "End discussion"
 
 msgid "Bespreken"

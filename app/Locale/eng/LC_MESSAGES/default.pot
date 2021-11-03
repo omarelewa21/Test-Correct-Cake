@@ -4543,7 +4543,7 @@ msgid "Er is geen toets om te bespreken."
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:13
-msgid "Bespreking beéindigen"
+msgid "Bespreking beëindigen"
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:19

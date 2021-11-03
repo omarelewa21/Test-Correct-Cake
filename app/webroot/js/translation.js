@@ -112,7 +112,7 @@ $.i18n().load({
       'Antwoord':'Answer',
       'Toets inleveren':'Hand in the test',
       'Niet alle vragen zijn beantwoord, weet je het zeker?':'Not all questions have been answered, are you sure?',
-      'Weet je zeker dat je de toets wilt inleveren?':'Are you sure you want to turn in the test?',
+      'Weet je zeker dat je de toets wilt inleveren?':'Are you sure you want to hand in the test?',
       'De toets is gestopt':'The test has stopped',
       'Toetsafname kon niet worden gestart. Waarschuw de surveillant.':'Test administration could not be started. Alert the security guard.',
       'Klas toegevoegd':'Class added',
@@ -123,7 +123,7 @@ $.i18n().load({
       'Antwoord leerling':'Student answer',
       'Antwoordmodel':'Answer model',
       'Toetsbespreking gestart':'Test discussion started',
-      'Weet u zeker dat u de bespreking wilt be&iuml;ndigen?':'Are you sure you want to end the meeting?',
+      'Weet u zeker dat u de bespreking wilt be&euml;indigen?':'Are you sure you want to end the meeting?',
       'Toetsafnames gestart':'Test tests started',
       'Studenten toegevoegd':'Students added',
       'Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>':'Pay attention! You are not in the latest version of the Test-Correct app. Download the latest version of <a href=\"https://www.test-correct.nl/student/\"> https://www.test-correct.nl/student/ </a>',
@@ -176,6 +176,9 @@ $.i18n().load({
       'Wachtwoord wijzigen': 'Change password',
       'Inleveren': 'Hand in',
       'Kennisbank':'Knowledge base',
+
+      // menu.js
+      'Resultaten' : 'Results',
     },
 
     'nl': {
@@ -297,7 +300,7 @@ $.i18n().load({
       'Antwoord leerling':'Antwoord leerling',
       'Antwoordmodel':'Antwoordmodel',
       'Toetsbespreking gestart':'Toetsbespreking gestart',
-      'Weet u zeker dat u de bespreking wilt be&iuml;ndigen?':'Weet u zeker dat u de bespreking wilt be&iuml;ndigen?',
+      'Weet u zeker dat u de bespreking wilt be&euml;indigen?':'Weet u zeker dat u de bespreking wilt be&euml;indigen?',
       'Toetsafnames gestart':'Toetsafnames gestart',
       'Studenten toegevoegd':'Studenten toegevoegd',
       'Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>':'Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>',
@@ -331,6 +334,9 @@ $.i18n().load({
       'Gewisseld naar school ':'Gewisseld naar school ',
       'Docent succesvol toegevoegd':'Docent succesvol toegevoegd',
       'Docent succesvol verwijderd':'Docent succesvol verwijderd',
-      'Organisatie verwijderd':'Organisatie verwijderd'
+      'Organisatie verwijderd':'Organisatie verwijderd',
+
+      // menu.js
+      'Resultaten': 'Resultaten',
     }
 });

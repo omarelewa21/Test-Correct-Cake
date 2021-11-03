@@ -161,10 +161,12 @@ if(!empty($group['question']['question'])) {
                                     <span class="fa fa-remove mr5"></span>
                                     <?= __("Verwijderen")?>
                                 </a>
+                                <?php if('sjabloon' === true){ ?>
                                 <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
                                     <span class="fa fa-clone mr5"></span>
-                                    Gebruik als sjabloon
+                                    <?= __('Gebruik als sjabloon')?>
                                 </a>
+                                <?php } ?>
                             </div>
                         </td>
                     </tr>

@@ -1303,8 +1303,10 @@ class QuestionsController extends AppController
             }
         } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
-
-            $attachments = $question['question']['attachments'];
+            $attachments = [];
+            if(array_key_exists('attachments', $question['question']) && is_array($question['question']['attachments'])) {
+                $attachments = $question['question']['attachments'];
+            }
         }
 
         $this->set('owner', $owner);
@@ -1532,7 +1534,7 @@ class QuestionsController extends AppController
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadAddAttachments();window.parent.Loading.hide();</script>';
             } else {
 
                 $attachments = [];

@@ -81,20 +81,8 @@ if ($wizard_steps) {
                 </div>
             </div>
         <?php } ?>
-        <div class="notification info">
-            <div class="title">
-                <h5><?= __("19 augustus 2021: Belangrijke updates") ?></h5>
-            </div>
-            <div class="body">
-                <p><?= __("Om de veiligheid en stabiliteit van onze digitale toetsen te kunnen blijven waarborgen is het")?>
-                <?= __("noodzakelijk dat leerlingen/studenten werken met een actuele versie van de Test-Correct App")?>.</p><br/>
-                <p><?= __("Vanaf 19 augustus 2021 worden verouderde apps niet meer ondersteund. Een student kan dan met een")?>
-                <?= __("verouderde app geen toetsen meer maken. (Zie")?> <a href="https://support.test-correct.nl/knowledge/inbrowser-toetsen" target="_blank"><?= __("browsertoetsen")?></a> <?= __("voor een tijdelijk alternatief.)")?></p><br/>
-                <p><?= __("Vraag je studenten/leerlingen de meest recente versies van de app te downloaden via de App Store van hun")?>
-                <?= __("besturingssysteem. Kijk")?> <a href="https://www.test-correct.nl/student/" target="_blank"><?= __("hier")?></a> <?= __("voor een overzicht van de downloadlocaties.")?></p><br/>
-                <p><?= __("Meer informatie over de systeemvereisten van Test-Correct is")?> <a href="https://support.test-correct.nl/knowledge/ondersteunde-browsers-besturingssystemen-en-test-correct-app-versies" target="_blank"><?= __("hier")?></a> <?= __("te vinden.")?></p>
-            </div>
-        </div>
+
+
     </div>
 
     <div class="cta">
@@ -194,7 +182,7 @@ if ($wizard_steps) {
 
 
 <div>
-    <div  id="buttons" style="position: relative; height:100px; width: 100%">
+    <div style="position: relative; height:100px; width: 100%">
         <div class="read-more">
             <div id="toggle-ob-wizard" class="showdemotour hide-demo-tour">
                 <span id="ob-wizard-finished-icon"></span>
@@ -382,23 +370,16 @@ if ($wizard_steps) {
 
 <script>
     if('<?= $language?>' == 'eng'){
-        document.getElementById("demo").style.display = 'none';
-        document.getElementById("buttons").style.display = 'none';
-        document.getElementById("scrollToDemo").style.display = 'none';
-    }
-
-    if(typeof(window.oneTrustInjected) === 'undefined') {
-        <!-- OneTrust Cookies Consent Notice start for test-correct.nl -->
-
-        $('<script type="text/javascript" src="https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js" ></'+ 'script>').prependTo(document.head);
-        $('<script src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"  type="text/javascript" charset="UTF-8" data-domain-script="59ebfb6a-8dcb-443e-836a-329cb8623832" ></' + 'script>').prependTo(document.head)
-        function OptanonWrapper() { }
-        window.oneTrustInjected = true;
-
-        <!-- OneTrust Cookies Consent Notice end for test-correct.nl -->
+        ['demo','buttons','scrollToDemo'].forEach(function(id){
+            var el = document.getElementById(id);
+            if(el){
+                el.style.display = 'none';
+            }
+        });
     }
 
     if (typeof hubspotLoaded == 'undefined') {
+
         var _hsq = window._hsq = window._hsq || [];
         _hsq.push(["identify", "<?=AuthComponent::user('username')?>"]);
         _hsq.push(['trackPageView']);
