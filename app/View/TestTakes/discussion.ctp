@@ -1,9 +1,9 @@
 <?
 if(!isset($take)) {
     ?>
-    <h1><?= __("Toets bespreken")?></h1>
+    <h1><?= __("CO-learning")?></h1>
     <center>
-    <?= __("Er is geen toets om te bespreken.")?>
+    <?= __("Er is geen toets klaar voor CO-learning.")?>
     </center>
     <?
 }else {
