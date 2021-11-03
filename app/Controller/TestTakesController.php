@@ -434,6 +434,16 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
 
         if ($take['test_take_status_id'] < 6) {
+            $invigilatorsAssigned = false;
+            $invigilatorsRemoved = false;
+            if($this->hasValidInvigilators($take)){
+                $invigilatorsAssigned = true;
+            }
+            if($this->hasRemovedInvigilators($take)){
+                $invigilatorsRemoved = true;
+            }
+            $this->set('invigilatorsAssigned', $invigilatorsAssigned);
+            $this->set('invigilatorsRemoved', $invigilatorsRemoved);
             $this->render('view_planned', 'ajax');
         } elseif ($take['test_take_status_id'] == 8) {
             $params['with'] = ['statistics'];
@@ -2675,5 +2685,24 @@ class TestTakesController extends AppController {
     public function skip_discussion_popup($take_id)
     {
         $this->set('take_id', $take_id);
+    }
+
+    private function hasValidInvigilators($testTake)
+    {
+        foreach ($testTake['invigilator_users'] as $invigilator){
+            if(is_null($invigilator['deleted_at'])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private function hasRemovedInvigilators($testTake){
+        foreach ($testTake['invigilator_users'] as $invigilator){
+            if(!is_null($invigilator['deleted_at'])){
+                return true;
+            }
+        }
+        return false;
     }
 }

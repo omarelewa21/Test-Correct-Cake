@@ -1121,6 +1121,9 @@ var TestTake = {
         });
 
         Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
+    },
+    noStartTake : function(txt){
+        Notify.notify(txt );
     }
 };
 

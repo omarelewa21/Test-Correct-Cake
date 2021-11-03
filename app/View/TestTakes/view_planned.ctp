@@ -5,7 +5,21 @@
     </a>
     <? if($take['test_take_status_id'] == 1) { ?>
         <? if(date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) {?>
-            <a href="#" class="btn white mr2" onclick="TestTake.startTake('<?=$take_id?>');">
+            <a href="#" class="btn white mr2
+                     <? if(!$invigilatorsAssigned){?>
+                        toets_afnemen_disabled
+                <?}?>
+                "
+               <? if($invigilatorsAssigned){?>
+               onclick="TestTake.startTake('<?=$take_id?>');"
+                <?}?>
+                <? if(!$invigilatorsAssigned&&!$invigilatorsRemoved){?>
+                    onclick="TestTake.noStartTake('<?=__('Er is geen surveillant gekoppeld')?>');"
+                <?}?>
+                <? if(!$invigilatorsAssigned&&$invigilatorsRemoved){?>
+                    onclick="TestTake.noStartTake('<?=__('De surveilant is niet langer actief binnen Test-Correct')?>');"
+                <?}?>
+                >
                 <span class="fa fa-pencil mr5"></span>
                 Toets afnemen
             </a>
@@ -103,8 +117,18 @@
         <div page="invigilators" class="page" tabs="view_test_take">
             <?
             foreach($take['invigilator_users'] as $invigilator) {
+                $disabled = false;
+                if(!is_null($invigilator['deleted_at'])){
+                    $disabled = true;
+                }
                 ?>
-                <div class="participant">
+                <div class="participant
+                            <?
+                                if($disabled){?>
+                                  disabled_invigilator
+                                <?}
+                                ?>
+                    ">
                     <?=$invigilator['name_first']?>
                     <?=$invigilator['name_suffix']?>
                     <?=$invigilator['name']?>
