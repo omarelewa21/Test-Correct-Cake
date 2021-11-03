@@ -4535,11 +4535,11 @@ msgstr ""
 
 #: View/TestTakes/discussion.ctp:4
 #: View/TestTakes/view_taken.ctp:9
-msgid "Toets bespreken"
+msgid "CO-learning"
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:6
-msgid "Er is geen toets om te bespreken."
+msgid "Er is geen toets klaar voor CO-learning."
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:13

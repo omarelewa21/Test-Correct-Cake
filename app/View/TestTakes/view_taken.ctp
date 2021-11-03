@@ -6,7 +6,7 @@
 
     <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion('<?=$take_id?>');">
         <span class="fa fa-users mr5"></span>
-        <?= __("Toets bespreken")?>
+        <?= __("CO-learning")?>
     </a>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/skip_discussion_popup/<?=$take_id?>',500);">
         <span class="fa fa-forward mr5"></span>
