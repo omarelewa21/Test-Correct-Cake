@@ -197,7 +197,7 @@ class TestTakesController extends AppController {
                     $check = $this->TestTake->check($test_take, $test);
                     if ($test_take['guest_accounts']) {
                         foreach ($check['errors'] as $errorKey => $error) {
-                            if($error == 'Geen klas geselecteerd') {
+                            if($error == __('Geen klas geselecteerd')) {
                                 $check['status'] = true;
                             }
                         }
@@ -629,8 +629,8 @@ class TestTakesController extends AppController {
             case 8:
                 $this->set('guest', AuthComponent::user('guest'));
 
-                $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
-                $this->set('loginUrl', $returnUrl['url']);
+                $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'discussed']);
+                $this->set('loginUrl', $loginUrl['url']);
 
                 $view = 'take_discussed';
                 break;
@@ -1442,8 +1442,8 @@ class TestTakesController extends AppController {
 
         $this->set('guest', AuthComponent::user('guest'));
         if(AuthComponent::user('guest')) {
-            $returnUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'));
-            $this->set('loginUrl', $returnUrl['url']);
+            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
+            $this->set('loginUrl', $loginUrl['url']);
         }
         $this->set('group', $group);
         $this->set('answer', $answer);

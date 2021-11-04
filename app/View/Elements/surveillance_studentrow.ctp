@@ -56,7 +56,7 @@
             }
         ?>
         <a href="#" class="btn highlight small" style="<?=$style?>" id="buttonTaken<?= getUUID($participant, 'get'); ?>"
-           onclick="TestTake.forceTakenAway('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>');">
+           onclick="TestTake.forceTakenAway('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>', <?= !!$participant['user']['guest'] ?>)">
            <?= __("Inleveren")?>
         </a>
         <?
@@ -65,9 +65,11 @@
                 $style = '';
             }
         ?>
+        <?php if(!$participant['user']['guest']) {?>
         <a href="#" class="btn highlight small" style="<?=$style?>" id="buttonPlanned<?= getUUID($participant, 'get'); ?>"
            onclick="TestTake.forcePlanned('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>');">
            <?= __("Heropen")?>
         </a>
+        <?php } ?>
     </td>
 </tr>
