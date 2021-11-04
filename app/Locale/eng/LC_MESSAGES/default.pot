@@ -5034,7 +5034,7 @@ msgid "Je dient eerst een beoordeling te geven"
 msgstr ""
 
 #: View/TestTakes/take_discuss_waiting.ctp:9
-msgid "Bespreken is nog niet gestart, wacht op de docent.."
+msgid "CO-learning is nog niet gestart, wacht op de docent.."
 msgstr ""
 
 #: View/TestTakes/take_discuss_waiting_next.ctp:2
@@ -5070,7 +5070,7 @@ msgid "Deze toets is afgerond en kan niet meer worden geopend."
 msgstr ""
 
 #: View/TestTakes/taken_student.ctp:1;4
-msgid "Te bespreken toetsen"
+msgid "Bespreken met CO-learning"
 msgstr ""
 
 #: View/TestTakes/to_rate.ctp:75
