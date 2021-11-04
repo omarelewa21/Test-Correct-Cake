@@ -3308,8 +3308,8 @@ msgstr "Save assessment"
 msgid "Je dient eerst een beoordeling te geven"
 msgstr "You must first rate"
 
-msgid "Bespreken is nog niet gestart, wacht op de docent.."
-msgstr "Discussion has not started yet, please wait for the teacher ..."
+msgid "CO-learning is nog niet gestart, wacht op de docent.."
+msgstr "CO-learning has not started yet, please wait for the teacher ..."
 
 msgid "Moment geduld.."
 msgstr "Please wait ..."
@@ -3335,8 +3335,8 @@ msgstr "Test has been completed"
 msgid "Deze toets is afgerond en kan niet meer worden geopend."
 msgstr "This test has been completed and can no longer be opened."
 
-msgid "Te bespreken toetsen"
-msgstr "Tests Under-Review"
+msgid "Bespreken met CO-learning"
+msgstr "Discuss with CO-learning"
 
 msgid "Na te kijken"
 msgstr "Check"

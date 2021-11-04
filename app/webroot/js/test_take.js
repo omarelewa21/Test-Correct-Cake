@@ -632,7 +632,7 @@ var TestTake = {
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de bespreking wilt be&euml;indigen?')
+            message: $.i18n('Weet u zeker dat u de CO-learning wilt be&euml;indigen?')
         }, function () {
             $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {
