@@ -115,7 +115,7 @@
                     <? } else { ?>
                 <td class="danger" colspan="5">
                     <? } ?>
-                    <?= __("én of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.")?>
+                    <?= __("Eén of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.")?>
                 </td>
             </tr>
             <? } ?>
@@ -460,6 +460,10 @@
             </a>
         </div>
     <? } ?>
+</div>
+
+<div id="hereComesFilterPopup">
+
 </div>
 <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
     <script type="text/javascript">

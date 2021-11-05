@@ -336,7 +336,7 @@ var Popup = {
         $('#popup_search').stop().removeClass('center').fadeOut(function () {
             $(this).hide();
         });
-        Popup.index = 0;
+
         $('#container, #background, #header').removeClass('blurred');
     },
 
