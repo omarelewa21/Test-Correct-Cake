@@ -2319,9 +2319,10 @@ class UsersController extends AppController
 
         if (strpos($requestData['channel_name'], 'presence') === 0) {
             $presence_data = [
-                'name'  => AuthComponent::user('name'),
-                'uuid'  => AuthComponent::user('uuid'),
-                'guest' => AuthComponent::user('guest'),
+                'name'    => AuthComponent::user('name'),
+                'uuid'    => AuthComponent::user('uuid'),
+                'guest'   => AuthComponent::user('guest'),
+                'student' => $this->UsersService->hasRole('Student'),
             ];
 
             return $pusher->presence_auth($requestData['channel_name'], $requestData['socket_id'], AuthComponent::user('id'), $presence_data);
