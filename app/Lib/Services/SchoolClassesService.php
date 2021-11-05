@@ -198,6 +198,15 @@ class SchoolClassesService extends BaseService {
         return $response;
     }
 
+    public function removeMentor($class_id,$user_id)
+    {
+        $response = $this->Connector->deleteRequest('/school_class_mentor/'.$class_id.'/'.$user_id, []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
     public function deleteClass($class_id) {
         $response = $this->Connector->deleteRequest('/school_class/' . $class_id, []);
 

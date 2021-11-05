@@ -6,19 +6,17 @@
     <? if($take['test_take_status_id'] == 1) { ?>
         <? if(date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) {?>
             <a href="#" class="btn white mr2
-                     <? if(!$invigilatorsAssigned){?>
+                     <? if(!$take['invigilators_acceptable']){?>
                         toets_afnemen_disabled
                 <?}?>
                 "
-               <? if($invigilatorsAssigned){?>
+               <? if($take['invigilators_acceptable']){?>
                onclick="TestTake.startTake('<?=$take_id?>');"
                 <?}?>
-                <? if(!$invigilatorsAssigned&&!$invigilatorsRemoved){?>
-                    onclick="TestTake.noStartTake('<?=__('Er is geen surveillant gekoppeld')?>');"
+                <? if(!$take['invigilators_acceptable']){?>
+                    onclick="TestTake.noStartTake('<?=$take['invigilators_unacceptable_message']?>');"
                 <?}?>
-                <? if(!$invigilatorsAssigned&&$invigilatorsRemoved){?>
-                    onclick="TestTake.noStartTake('<?=__('De surveilant is niet langer actief binnen Test-Correct')?>');"
-                <?}?>
+
                 >
                 <span class="fa fa-pencil mr5"></span>
                 Toets afnemen

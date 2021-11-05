@@ -339,10 +339,7 @@ class SchoolClassesController extends AppController
 
         if ($this->request->is('delete')) {
             $this->autoRender = false;
-            $this->SchoolClassesService->removeFromClass($user_id, [
-                'delete_mentor_school_class' => $this->SchoolClassesService->getClass($class_id)['id']
-            ]);
-
+            $this->SchoolClassesService->removeMentor($class_id,$user_id);
             echo $this->formResponse(
                 true,
                 []

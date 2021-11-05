@@ -70,7 +70,12 @@
         </div>
 
         <div page="mentors" class="page" tabs="class_tabs">
-
+            <?= $this->element('load_mentors',[
+                'mentors' => $class['mentor_users'],
+                'class' => $class,
+                'class_id' => getUUID($class, 'get')
+            ]);
+            ?>
         </div>
 
         <div page="managers" class="page" tabs="class_tabs">
@@ -87,7 +92,7 @@
 <script type="text/javascript">
     $(function() {
         $('.page[page="students"]').load('/school_classes/load_students/<?=getUUID($class, 'get');?>/<?=getUUID($class["school_location"], 'get');?>?' + new Date().getTime());
-        $('.page[page="mentors"]').load('/school_classes/load_mentors/<?=getUUID($class, 'get');?>?' + new Date().getTime());
+        //$('.page[page="mentors"]').load('/school_classes/load_mentors/<?//=getUUID($class, 'get');?>//?' + new Date().getTime());
         $('.page[page="managers"]').load('/school_classes/load_managers/<?=getUUID($class, 'get');?>?' + new Date().getTime());
         $('.page[page="teachers"]').load('/school_classes/load_teachers/<?=getUUID($class, 'get');?>?' + new Date().getTime());
     });

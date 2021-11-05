@@ -14,12 +14,16 @@
                 ?>
                 <tr>
                     <td>
-                        <?=$this->Form->input('TestTake.'.getUUID($test_take, 'get'), [
-                            'type' => 'checkbox',
-                            'label' => false,
-                            'class' => 'test_take',
-                            'take_id' => getUUID($test_take, 'get')
-                        ])?>
+                        <? if($test_take['invigilators_acceptable']){ ?>
+                            <?=$this->Form->input('TestTake.'.getUUID($test_take, 'get'), [
+                                'type' => 'checkbox',
+                                'label' => false,
+                                'class' => 'test_take',
+                                'take_id' => getUUID($test_take, 'get')
+                            ])?>
+                        <? }else{ ?>
+                            <img src="/img/ico/warning.svg" style="cursor:pointer;" onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');">
+                        <?}?>
                     </td>
                     <td><?=$test_take['test']['name']?></td>
                     <td>
