@@ -723,8 +723,8 @@ class QuestionsController extends AppController
         $education_levels = $this->TestsService->getEducationLevels();
         $subjects = $this->TestsService->getSubjects(true);
 
-        $education_levels = [0 => __("Alle")] + $education_levels;
-        $subjects = [0 => __("Alle")] + $subjects;
+//        $education_levels = [0 => __("Alle")] + $education_levels;
+//        $subjects = [0 => __("Alle")] + $subjects;
 
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
