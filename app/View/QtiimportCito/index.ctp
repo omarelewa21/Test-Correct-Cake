@@ -1,10 +1,10 @@
 
 
-<h1>QTI import Cito</h1>
+<h1><?= __("QTI import Cito")?></h1>
 
 <div class="block " id="QtiImportBlock">
     <div id="QtiImportContainer" style="display:none;overflow:scroll;padding: 8px;">
-        Een moment dit kan enige tijd duren (als in een paar minuten);
+    <?= __("Een moment dit kan enige tijd duren (als in een paar minuten);")?>
         <h4 style="color:green;" id="wistjedatjes"></h4>
     </div>
     <?=$this->Form->create('Qti', array('id' => 'QtiImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'import'))?>
@@ -12,47 +12,47 @@
         <table class='table'>
             <tr>
                 <td>
-                    <label>School</label>
+                    <label><?= __("School")?></label>
                 </td>
                 <td>
                     <?=$this->Form->input('school_location_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $schoolList))?>
                 </td>
             </tr>
             <tr>
-                <td><label>Docent</label></td>
+                <td><label><?= __("Docent")?></label></td>
                 <td>
                     <?=$this->Form->input('author_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                 </td>
             </tr>
             </tr>
             <tr>
-                <td><label>Vakgebied</label></td>
+                <td><label><?= __("Vakgebied")?></label></td>
                 <td>
                     <?=$this->Form->input('subject_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                 </td>
             </tr>
             <tr>
-                <td><label>Niveau</label></td>
+                <td><label><?= __("Niveau")?></label></td>
                 <td>
                     <?=$this->Form->input('education_level_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $educationLevelList))?>
                 </td>
             </tr>
 
             <tr>
-                <td><label>Jaar</label></td>
+                <td><label><?= __("Jaar")?></label></td>
                 <td>
                     <?=$this->Form->input('education_level_year', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                 </td>
             </tr>
 
             <tr>
-                <td><label>Type toetsen</label></td>
+                <td><label><?= __("Type toetsen")?></label></td>
                 <td>
                     <?=$this->Form->input('test_kind_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $testKindList))?>
                 </td>
             </tr>
             <tr>
-                <td><label>Voorloop afkorting voor de toets namen (max 3 karakters)</label></td>
+                <td><label><?= __("Voorloop afkorting voor de toets namen (max 3 karakters)")?></label></td>
                 <td>
                     <?=$this->Form->input('abbr', array('style' => 'width:50px;', 'value' => '', 'label' => false, 'verify' => 'notempty'))?>
                 </td>
@@ -69,7 +69,7 @@
     </div>
     <div class="block-footer">
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
-            Vraag opslaan
+        <?= __("Vraag opslaan")?>
         </a>
     </div>
     <?=$this->Form->end?>
@@ -87,10 +87,10 @@
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
     var wistjedatjes = [
-      'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-      'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-      'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-      'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+        '<?= __("Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+        '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..")?>',
+        '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+        '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
     ];
     var wistjedatjesEl = jQuery('#wistjedatjes');
 

@@ -12,9 +12,9 @@ foreach($questions as $question) {
             <?php
 
             if($question['closeable'] == 1) {
-                $title = 'Deze vraag afsluiten';
+                $title = __("Deze vraag afsluiten");
                 if ($question['type'] == 'GroupQuestion') {
-                    $title = 'Deze vraaggroep afsluiten';
+                    $title = __("Deze vraaggroep afsluiten");
                 }
                 printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
             } else {
@@ -38,9 +38,9 @@ foreach($questions as $question) {
             switch($question['type']) {
                 case 'MultipleChoiceQuestion':
                     if($question['subtype'] == 'TrueFalse') {
-                        echo 'Juist / Onjuist';
+                        echo __("Juist / Onjuist");
                     }else{
-                        echo 'Meerkeuze';
+                        echo __("Meerkeuze");
                     }
                     break;
 
@@ -48,40 +48,40 @@ foreach($questions as $question) {
                     switch($question['subtype']){
 
                         case 'short':
-                            echo 'Open vraag - kort<br />';
+                            echo __("Open vraag - kort<br />");
                             break;
                         case 'long':
                         case 'medium':
-                            echo 'Open vraag - lang<br />';
+                            echo __("Open vraag - lang<br />");
                             break;
                         default:
-                            echo 'Open vraag<br />';
+                            echo __("Open vraag<br />");
                             break;
                     }
                     break;
 
                 case 'CompletionQuestion':
                     if($question['subtype'] == 'multi') {
-                        echo 'Selectie';
+                        echo __("Selectie");
                     }else{
-                        echo 'Gatentekst';
+                        echo __("Gatentekst");
                     }
                     break;
 
                 case 'RankingQuestion':
-                    echo 'Rangschik';
+                    echo __("Rangschik");
                     break;
 
                 case 'MatchingQuestion':
                     if($question['subtype'] == 'Matching') {
-                        echo 'Combineer';
+                        echo __("Combineer");
                     }else{
-                        echo 'Rubriceer';
+                        echo __("Rubriceer");
                     }
                     break;
 
                 case 'DrawingQuestion':
-                    echo 'Teken';
+                    echo __("Teken");
                     break;
             }
             ?>
@@ -90,7 +90,7 @@ foreach($questions as $question) {
         <td>
             <?
             if(count($question['tags']) == 0) {
-                echo 'Geen';
+                echo __("Geen");
             }else{
                 foreach($question['tags'] as $tag) {
                     echo $tag['name']. " - ";

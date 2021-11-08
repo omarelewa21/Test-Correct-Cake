@@ -411,7 +411,7 @@ var App = function() {
 					window.parent.Loading.hide();
 					window.parent.drawingCallback();
 				}else{
-					alert('Er ging iets mis');
+					alert($.i18n('Er ging iets mis'));
 				}
 			}
 		);

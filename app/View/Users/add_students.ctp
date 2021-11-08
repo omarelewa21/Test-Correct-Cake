@@ -1,11 +1,11 @@
-<div class="popup-head">Student</div>
+<div class="popup-head"><?= __("Student")?></div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">
 
         <tr>
             <th width="130">
-                Schoollocatie
+            <?= __("Schoollocatie")?>
             </th>
             <td>
                 <?=$this->Form->input('school_location_id', array('style' => 'width: 185px', 'label' => false, 'options' => $school_locations)) ?>
@@ -13,21 +13,21 @@
         </tr>
         <tr>
             <th width="130">
-                Klassen
+            <?= __("Klassen")?>
             </th>
             <td>
                 <?=$this->Form->input('student_school_classes', array('style' => 'width: 185px', 'label' => false, 'multiple' => true, 'options'=> $school_classes, 'value' => $class_id)) ?>
             </td>
         </tr>
         <tr>
-            <th>Geslacht</th>
+            <th><?= __("Geslacht")?></th>
             <td>
                 <?=$this->Form->input('gender', array('style' => 'width: 185px', 'label' => false, 'options' => ['Male' => 'Mannelijk', 'Female' => 'Vrouwelijk'])) ?>
             </td>
         </tr>
         <tr>
             <th width="130">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
@@ -35,7 +35,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false, 'autocomplete'=> 'new-password')) ?>
@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
@@ -51,15 +51,15 @@
         </tr>
         <tr>
             <th width="130">
-                Studentennummer
+            <?= __("Studentennummer")?>
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'notempty', 'autocomplete'=> 'new-password')) ?>
+                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
             <th>
-                Dyslexie
+            <?= __("Dyslexie")?>
             </th>
             <td>
                 <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> heeft recht op tijdsdispensatie
@@ -68,7 +68,7 @@
         <?php echo $this->element('text2speech'); ?>
         <tr>
             <th width="130">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email', 'autocomplete'=> 'new-password')) ?>
@@ -76,14 +76,14 @@
         </tr>
         <tr>
             <th width="130">
-                Nieuw wachtwoord
+            <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'autocomplete'=> 'new-password')) ?>
             </td>
         </tr>
         <tr>
-            <th colspan="2">Notities</th>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -100,7 +100,7 @@
     <table class="table">
         <tr>
             <th width="130">
-                Profielfoto
+            <?= __("Profielfoto")?>
             </th>
             <td>
                 <?=$this->Form->input('file', array('style' => 'width: 185px', 'type' => 'file', 'label' => false, 'onchange' => '$("#formProfilePicture").submit(); Loading.show();')) ?>
@@ -113,10 +113,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -127,14 +127,14 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify('<?= __("Gebruiker aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if(result.error != undefined && result.error == 'external_code') {
-                    Notify.notify("Studentnummer is al in gebruik", "error");
+                    Notify.notify('<?= __("Studentnummer is al in gebruik")?>', "error");
                 }else {
-                    Notify.notify("Het opgegeven e-mailadres is al in gebruik of onvolledig", "error");
+                    Notify.notify('<?= __("Het opgegeven e-mailadres is al in gebruik of onvolledig")?>', "error");
                 }
             }
         }

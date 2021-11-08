@@ -3,12 +3,22 @@ var Menu = {
     menuTmp: null,
     menu: null,
     tile: null,
+    visibilityTimeout: null,
+    supportInfo: null,
 
     initialise: function () {
+
+        if (User.info.guest) {
+            console.log('Insert guest dummy menu here :)');
+            return;
+        }
 
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
+            if (Menu.supportInfo !== null) {
+                Menu.addReturnToSupportButton(Menu.supportInfo);
+            }
             $('#header #menu .item').mouseover(function () {
 
                 Menu.menuTmp = $(this).attr('id');
@@ -43,6 +53,10 @@ var Menu = {
                         });
                     }
                 }, 500);
+            });
+            Menu.initScrollForMenu();
+            window.addEventListener('resize', function () {
+                Menu.initScrollForMenu();
             });
         });
 
@@ -89,6 +103,9 @@ var Menu = {
                     return false;
                 } else if (type === 'download') {
                     window.location.href = $(this).attr('path');
+                    return false;
+                } else if (type === 'laravelpage') {
+                    Core.goToLaravel($(this).attr('path'));
                     return false;
                 }
                 $(this).addClass('active');
@@ -139,6 +156,9 @@ var Menu = {
     dashboardButtonAction: function () {
         Navigation.home();
         Menu.clearActiveMenu('dashboard');
+        $('#menu').animate({
+            scrollLeft: 0
+        }, 1000);
     },
 
     clearActiveMenu: function(placeholder) {
@@ -150,8 +170,6 @@ var Menu = {
     },
 
     addDashboardAndResultsToMenu: function () {
-        $("<div id='dashboard' class='item' onclick='Menu.dashboardButtonAction()'>Dashboard</div>").prependTo("#menu");
-        $("<div id='results' class='item' onclick='Navigation.load(\"/test_takes/rated\");Menu.clearActiveMenu(\"results\");'>Resultaten</div>").insertAfter("#taken");
         Menu.hideInactiveTiles();
     },
 
@@ -247,5 +265,87 @@ var Menu = {
             });
             $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
         }
+    },
+
+    initScrollForMenu: function() {
+        var menu = $('#menu');
+        var totalMenuWidth = menu.outerWidth(true) - menu.innerWidth() + 40;
+
+        $('#menu .item').each(function(item) {
+            totalMenuWidth += this.offsetWidth;
+        });
+
+        if (totalMenuWidth >= menu.width()) {
+            $('.menu-scroll-button').css('display', 'flex');
+            menu.css('paddingRight','40px');
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        } else {
+            $('.menu-scroll-button').hide();
+            menu.css('paddingRight','0');
+        }
+
+        $('.menu-scroll-button.left').on('click', function () {
+            menu.animate({
+                scrollLeft: 0
+            }, 1000);
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        });
+        $('.menu-scroll-button.right').on('click', function () {
+            menu.animate({
+                scrollLeft: totalMenuWidth
+            }, 1000);
+            clearTimeout(Menu.visibilityTimeout);
+            Menu.startVisibilityTimer();
+        });
+
+    },
+
+    startVisibilityTimer: function() {
+        this.visibilityTimeout = setTimeout(function() {
+            var activeEl = $('.item.active');
+            if(activeEl.length !== 0 && !isElementInViewport(activeEl)) {
+                $('#menu').animate({
+                    scrollLeft: activeEl.offset().left - activeEl.parent().offset().left
+                }, 1000);
+                Menu.getPaddingForActiveMenuItem(activeEl.get(0).id);
+            }
+        }, 5000);
+        function isElementInViewport (el) {
+            if (typeof jQuery === "function" && el instanceof jQuery) {
+                el = el[0];
+            }
+
+            var rect = el.getBoundingClientRect();
+
+            return (
+                rect.top >= 0 &&
+                rect.left >= 35 &&
+                rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) && /* or $(window).height() */
+                rect.right <= (window.innerWidth || document.documentElement.clientWidth) /* or $(window).width() */
+            );
+        }
+    },
+
+    addReturnToSupportButton : function (userInfo) {
+        var button =    '<div class="return_to_support" style="color: var(--error-text)" title="'+ userInfo.text +'" onclick="Menu.handleReturnToSupportAction(\''+ userInfo.user +'\')">' +
+                        '   <svg xmlns="http://www.w3.org/2000/svg" style="height: 30px; width:30px" fill="none" viewBox="0 0 24 24" stroke="currentColor">\n' +
+                        '       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />\n' +
+                        '   </svg>';
+                        '</div>';
+
+        $('.action_icon_container').prepend(button);
+    },
+
+    handleReturnToSupportAction: function (userId) {
+        $.get('support/return_as_support_user/'+userId, function (response) {
+                if (response) {
+                    location.reload();
+                } else {
+                    Notify.notify($.i18n('Er is iets misgegaan. Log uit en opnieuw in voor de Support omgeving'), 'error', 6000);
+                }
+            }
+        );
     }
 };

@@ -1,3 +1,4 @@
+var resizeTableListenerActivated = false;
 (function ( $ ) {
 
     var settings = [];
@@ -13,10 +14,21 @@
         settings = $.extend({
             'results' : 60,
             'page' : 1,
-            'sort' : '',
-            'direction' : 'down',
+            'sort' : 'id',
+            'direction' : 'desc',
             'hideEmpty' : false
         }, options );
+
+        if(resizeTableListenerActivated == false) {
+            window.addEventListener("resizeTable", function (evt) {
+                var containerEl = $(settings.container).get(0);
+                var theadHeight = parseInt($(settings.container).find('table:first thead').height());
+                var paddingTop = parseInt(window.getComputedStyle(containerEl).getPropertyValue('padding-top'));
+                var tbodyHeight = evt.detail - paddingTop - theadHeight;
+                setScrollContainerHeight(tbodyHeight);
+            }, false);
+            resizeTableListenerActivated = true;
+        }
 
         initialise();
     };
@@ -29,11 +41,8 @@
         $.each($(element).find('th'), function() {
             var key = $(this).attr('sortkey');
 
-            if(key != undefined) {
-                $(this).click(function() {
-                    settings.sort = key;
-                    afterSortOrFilter();
-                });
+            if (key !== undefined) {
+                addEventHandlersToSortables($(this), key);
             }
         });
 
@@ -69,6 +78,7 @@
                     $('.fa-filter').parent().addClass('highlight');
                 }*/
             });
+
         }
         clearTbodyData();
         if(!settings.waitForFirstRunCallback) {
@@ -128,6 +138,7 @@
     }
 
     function setScrollContainerHeight(tbodyHeight) {
+
         if(typeof tbodyHeight !== 'undefined') {
             getScrollContainer().height(tbodyHeight);
         }
@@ -203,6 +214,7 @@
         $.post(settings.source,
             {
                 sort : settings.sort,
+                direction : settings.direction,
                 results : settings.results,
                 page : settings.page,
                 filters : $(settings.filters).serialize()
@@ -262,7 +274,17 @@
                     });
                 }
             }
-        )
+        ).always(function(){
+            loading = false;
+        }).fail(function(data){
+            if(typeof Bugsnag != undefined){
+                var msg = 'tablefy load failed. url:'+settings.source+'; status:'+data.status+' statusText:'+data.statusText+';filters:'+$(settings.filters).serialize();
+                Bugsnag.notify(msg);
+            }else{
+                console.dir(data.statusText);
+            }
+
+        });
     }
 
     function checkOverflow(el)
@@ -286,6 +308,56 @@
 
     function hideEmptyCols(table) {
 
+    }
+
+    function addEventHandlersToSortables(sortHeader, key) {
+
+        sortHeader.click(function () {
+            if (!Loading.isLoading()) {
+                var chevron = $('#'+key+'-chev');
+                $('.sorting-chevron').hide();
+
+                if (settings.sort !== key) {
+                    settings.direction = 'desc';
+                } else {
+                    settings.direction = settings.direction === 'desc' ? 'asc' : 'desc';
+                }
+                chevron.show();
+                chevron.get(0).classList.remove('asc', 'desc');
+                chevron.get(0).classList.add(settings.direction);
+                settings.sort = key;
+                afterSortOrFilter();
+            }
+        })
+            .mouseover(function () {
+                var chevron = $('#'+key+'-chev');
+                chevron.get(0).classList.remove('asc', 'desc');
+
+                if (key !== settings.sort) {
+                    chevron.get(0).classList.add('desc');
+                }
+                if (key === settings.sort) {
+                    chevron.get(0).classList.add(settings.direction === 'desc' ? 'asc' : 'desc');
+                }
+                chevron.show();
+            })
+            .mouseleave(function () {
+                var chevron = $('#'+key+'-chev');
+
+                chevron.hide();
+                chevron.get(0).classList.remove('asc', 'desc');
+
+                if (key === settings.sort) {
+                    chevron.show();
+                    chevron.get(0).classList.add(settings.direction);
+                }
+            });
+
+        sortHeader.append(
+            '<svg id="'+key+'-chev" class="sorting-chevron desc" width="9" height="13" xmlns="http://www.w3.org/2000/svg">\n' +
+            '    <path stroke="currentColor" stroke-width="3" d="M1.5 1.5l5 5-5 5" fill="none" fill-rule="evenodd"\n' +
+            '          stroke-linecap="round"/>\n' +
+            '</svg>\n');
     }
 
 }( jQuery ));

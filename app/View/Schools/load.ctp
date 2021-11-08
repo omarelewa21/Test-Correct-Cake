@@ -13,7 +13,7 @@ foreach($schools as $school) {
         <td>
             <?
             if(empty($school['umbrella_organization']['name'])) {
-                echo '<div class="label" style="background:green">Geen, gemeenschap is eindklant</div>';
+                echo '<div class="label" style="background:green">' . __("Geen, gemeenschap is eindklant") . '</div>';
             }else{
                 echo $school['umbrella_organization']['name'];
             }
@@ -37,11 +37,11 @@ foreach($schools as $school) {
                 <a href="#" class="btn highlight white" onclick="Popup.load('/schools/edit/<?=getUUID($school, 'get');?>', 800);">
                     
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif;?>

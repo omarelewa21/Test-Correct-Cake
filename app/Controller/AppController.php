@@ -272,4 +272,48 @@ class AppController extends Controller
         return false;
     }
 
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
+
+    function getAppInfoFromSession()
+    {
+        return [
+            'TLCVersion'            => CakeSession::read('TLCVersion'),
+            'TLCOs'                 => CakeSession::read('TLCOs'),
+            'TLCHeader'             => CakeSession::read('TLCHeader'),
+            'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+        ];
+    }
+
+    public function setUserLanguage()
+    {
+        if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
+            $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+            if(!in_array($language,['en','nl'])){
+                $language = 'nl';
+            }
+            if($language === 'en') {
+                $language = 'eng';
+            }
+            $this->Session->write('Config.language', $language);
+        }
+        else{
+            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language_cake']);
+        }
+    }
+
+    public function returnToLaravelUrl($userId)
+    {
+        return $this->UsersService->getReturnToLaravelUrl($userId);
+    }
 }

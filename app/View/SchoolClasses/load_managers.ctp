@@ -1,7 +1,7 @@
 <table class="table table-striped">
     <tr>
-<th>Naam</th>
-<th>Emailadres</th>
+<th><?= __("Naam")?></th>
+<th><?= __("Emailadres")?></th>
 <th></th>
 </tr>
 <?
@@ -39,11 +39,11 @@ foreach($managers as $manager) {
 <center>
     <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/users/add/management/<?=$class_id?>', 400);">
-        Nieuwe toevoegen
+    <?= __("Nieuwe toevoegen")?>
     </a>
 
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_management/<?=$class_id?>', 400);">
-        Bestaande koppelen
+    <?= __("Bestaande koppelen")?>
     </a>
     <?php } ?>
 </center>

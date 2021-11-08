@@ -1,36 +1,39 @@
 <div class="block">
-    <div class="block-head">Gebeurtenissen</div>
+    <div class="block-head"><?= __("Gebeurtenissen")?></div>
     <div class="block-content" style="max-height:400px; overflow: auto;">
         <table class="table table-striped">
             <tr>
-                <th>Student</th>
-                <th width="100">Gebeurtenis</th>
-                <th width="45">Tijd</th>
+                <th><?= __("Student")?></th>
+                <th width="100"><?= __("Gebeurtenis")?></th>
+                <th width="45"><?= __("Tijd")?></th>
                 <th width="70"></th>
             </tr>
             <?
 
             $translations = [
-                'Start' => 'Gestart met toets',
-                'Stop' => 'Gestopt met toets',
-                'Lost focus' => 'App verlaten',
-                'Screenshot' => 'Screenshot gemaakt',
-                'Started late' => 'Laat gestart',
-                'Application closed' => 'Opnieuw gestart met toets',
-                'Lost focus alt tab' => 'Via alt+tab naar ander venster',
-                'Pressed meta key' => 'Windows/command toets ingedrukt',
-                'Pressed alt key' => 'Alt toets ingedrukt',
-                'Application closed alt+f4' => 'Applicatie afgesloten via alt+f4',
-                'Lost focus blur' => 'App verlaten',
-                'Window hidden' => 'Applicatie verborgen',
-                'Window minimized' => 'Applicatie geminimalizeerd',
-                'Window moved' => 'Venster bewogen',
-                'Window not fullscreen' => 'Applicatie niet volledig scherm',
-                'Always on top changed' => 'Applicatie niet altijd op de voorgrond',
-                'Window resized' => 'Venster groote aangepast',
-                'Force shutdown' => 'Applicatie geforceerd afgesloten',
-                'Other window on top' => 'Ander venster op de voorgrond',
-                'Used unallowed Ctrl key combination' => 'De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is.',
+                'Start' => __("Gestart met toets"),
+                'Stop' => __("Gestopt met toets"),
+                'Lost focus' => __("App verlaten"),
+                'Screenshot' => __("Screenshot gemaakt"),
+                'Started late' => __("Laat gestart"),
+                'Application closed' => __("Opnieuw gestart met toets"),
+                'Lost focus alt tab' => __("Via alt+tab naar ander venster"),
+                'Pressed meta key' => __("Windows toets ingedrukt"),
+                'Pressed alt key' => __("Alt toets ingedrukt"),
+                'Application closed alt+f4' => __("Applicatie afgesloten via alt+f4"),
+                'Lost focus blur' => __("App verlaten"),
+                'Window hidden' => __("Applicatie verborgen"),
+                'Window minimized' => __("Applicatie geminimalizeerd"),
+                'Window moved' => __("Venster bewogen"),
+                'Window not fullscreen' => __("Applicatie niet volledig scherm"),
+                'Always on top changed' => __("Applicatie niet altijd op de voorgrond"),
+                'Window resized' => __("Venster groote aangepast"),
+                'Force shutdown' => __("Applicatie geforceerd afgesloten"),
+                'Other window on top' => __("Ander venster op de voorgrond"),
+                'Used unallowed Ctrl key combination' => __("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is."),
+                   'Illegal programs' => __('De student heeft een app in de achtergrond open die niet toegestaan is'),
+                'Rejoined' => __('Opnieuw gestart met toets'),
+
             ];
 
             foreach($events as $event) {
@@ -70,7 +73,7 @@
     </div>
     <div class="block-footer">
         <a href="#" class="btn grey pull-right" onclick="Popup.closeLast();">
-            Sluiten
+        <?= __("Sluiten")?>
         </a>
     </div>
 </div>

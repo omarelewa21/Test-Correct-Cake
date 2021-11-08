@@ -26,7 +26,7 @@ if(isset($result)) {
     }else{
         ?>
         <div class="alert">
-            Je wachtwoord kon niet worden gereset. Zorg ervoor dat het wachtwoord minimaal 6 karakters bevat.
+        <?= __("Je wachtwoord kon niet worden gereset. Zorg ervoor dat het wachtwoord minimaal 6 karakters bevat.")?>
         </div>
         <?
     }
@@ -35,11 +35,11 @@ if(isset($result)) {
 
 <div style="padding: 15px; background: #f1f1f1; margin: 0px auto; width: 200px; text-align: center; margin-top:20px;">
     <form method="post">
-        <strong>E-mailadres</strong><br />
+        <strong><?= __("E-mailadres")?></strong><br />
         <input type="text" name="email" /><br /><br />
-        <strong>Nieuw wachtwoord:</strong><br />
-        <span style="color: #888">Minimaal 6 karakters</span>
+        <strong><?= __("Nieuw wachtwoord:")?></strong><br />
+        <span style="color: #888"><?= __("Minimaal 6 karakters")?></span>
         <input type="password" name="password" /><br /><br />
-        <input type="submit" value="Wachtwoord resetten" />
+        <input type="submit" value='<?= __("Wachtwoord resetten")?>' />
     </form>
 </div>

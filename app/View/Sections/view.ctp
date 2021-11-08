@@ -2,16 +2,16 @@
     <?php if((bool) $section['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Popup.load('/sections/edit/<?=getUUID($section, 'get');?>', 400);">
         <span class="fa fa-edit mr5"></span>
-        Wijzigen
+        <?= __("Wijzigen")?>
     </a>
     <a href="#" class="btn white" onclick="Section.delete(<?=getUUID($section, 'getQuoted');?>, true);">
         <span class="fa fa-remove mr5"></span>
-        Verwijderen
+        <?= __("Verwijderen")?>
     </a>
     <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
@@ -19,13 +19,13 @@
 
 
 <div class="block">
-    <div class="block-head">Vakken</div>
+    <div class="block-head"><?= __("Vakken")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <table class="table table-striped">
                 <tr>
-                    <th>Vak</th>
-                    <th>Categorie</th>
+                    <th><?= __("Vak")?></th>
+                    <th><?= __("Categorie")?></th>
                     <th></th>
                 </tr>
                 <?
@@ -43,11 +43,11 @@
                             <div class="dropblock blur-close" for="SchoolYear_<?=getUUID($subject, 'get');?>">
                                 <a href="#" class="btn highlight white" onclick="Popup.load('/sections/edit_subject/<?=getUUID($subject, 'get');?>', 400);">
                                     <span class="fa fa-edit mr5"></span>
-                                    Wijzigen
+                                    <?= __("Wijzigen")?>
                                 </a>
                                 <a href="#" class="btn highlight white" onclick="Subject.delete(<?=getUUID($subject, 'getQuoted');?>);">
                                     <span class="fa fa-remove mr5"></span>
-                                    Verwijderen
+                                    <?= __("Verwijderen")?>
                                 </a>
                             </div>
                             <?php } ?>
@@ -62,7 +62,7 @@
                 <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_subject/<?=getUUID($section, 'get');?>', 400);">
                     <span class="icon icon-plus"></span>
-                    Nieuw vak
+                    <?= __("Nieuw vak")?>
                 </a>
                 <?php } ?>
             </center>
@@ -73,14 +73,14 @@
 
 <?php foreach($section['subjects'] as $subject) { ?>
 <div class="block ">
-    <div class="block-head">Docenten gekoppeld <?=$subject['name']?> </div>
+    <div class="block-head"><?= __("Docenten gekoppeld")?> <?=$subject['name']?> </div>
     <div class="block-content">
         <table class="table table-striped" id="usersTable">
             <thead>
             <tr>
-                <th>Voornaam</th>
-                <th>Tussenvoegsel</th>
-                <th>Achternaam</th>
+                <th><?= __("Voornaam")?></th>
+                <th><?= __("Tussenvoegsel")?></th>
+                <th><?= __("Achternaam")?></th>
             </tr>
             </thead>
             <tbody>
@@ -104,12 +104,12 @@
 <?php } ?>
 
 <div class="block ">
-    <div class="block-head">Sectie gedeeld met</div>
+    <div class="block-head"><?= __("Sectie gedeeld met")?></div>
     <div class="block-content">
         <table class="table table-striped" id="schoolLocationTable">
             <thead>
             <tr>
-                <th>School locatie naam</th>
+                <th><?= __("School locatie naam")?></th>
                 <th></th>
             </tr>
             </thead>
@@ -134,7 +134,7 @@
         <center>
         <a href="#" class="btn highlight inline-block" onclick="Popup.load('/sections/add_school_location/<?=getUUID($section, 'get');?>', 600);">
             <span class="icon icon-plus"></span>
-            Nieuwe schoollocatie toevoegen
+            <?= __("Nieuwe schoollocatie toevoegen")?>
         </a>
         </center>
 
@@ -149,16 +149,16 @@
         delete : function(sectionId,schoolLocationId) {
 
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze school locatie wilt ontkoppelen?'
+                btnOk: '<?= __("Ja")?>',
+                btnCancel: '<?= __("Annuleer")?>',
+                title: '<?= __("Weet u het zeker?")?>',
+                message: '<?= __("Weet u zeker dat u deze school locatie wilt ontkoppelen?")?>'
             }, function() {
                 $.ajax({
                     url: '/sections/delete_shared_section_school_location/' + sectionId+'/'+schoolLocationId,
                     type: 'DELETE',
                     success: function(response) {
-                        Notify.notify('De school locatie is ontkoppeld', 'info');
+                        Notify.notify('<?= __("De school locatie is ontkoppeld")?>', 'info');
                         Navigation.refresh();
                     }
                 });

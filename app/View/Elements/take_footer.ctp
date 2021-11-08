@@ -8,7 +8,7 @@
 <a href="#" class="btn highlight large" onclick="<?= $has_next_question ? 'Answer.saveAndNextAnswerPlease();' : "$('.fa.fa-list:first').trigger('click');" ?>"
 style="position: fixed; bottom: 0px; left: 0px; width: 100%; text-align: center">
     <span class="fa fa-check"></span>
-    <?= $has_next_question ? 'Volgende vraag' : 'Gereed' ?>
+    <?= $has_next_question ? __("Volgende vraag") : __("Gereed") ?>
 </a>
 
 <script type="text/javascript">

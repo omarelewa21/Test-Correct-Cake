@@ -10,57 +10,88 @@ var User = {
     logoutCountdownInterval: null,
 
     initialise: function () {
-        $.getJSON('/users/info',
-            function (info) {
-                User.info = info;
-                var activeSchool = '';
+        $.ajax({
+            dataType: 'json',
+            url: '/users/info',
+            async: false,
+            success:
+                function (info) {
+                    User.info = info;
+                    if (User.info.guest) {
+                        console.log('No user initialise needed');
+                        var guest_username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+                        $('#header #guest_user').prepend('<span>'+guest_username+'</span>');
 
-                if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')&&User.info.school_location_list.length>1) {
-                    var result = User.info.school_location_list.find(function (school_location) {
-                        return school_location.active;
-                    });
-                    if (result) {
-                        activeSchool = '(<span id="active_school">' + result.name + '</span>)';
-                    }
-                }
+                        $("<link/>", {
+                            rel: "stylesheet",
+                            type: "text/css",
+                            href: "/css/buttons.green.css"
+                        }).appendTo("head");
+                    } else {
 
-                if (User.info.isStudent) {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.green.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('green');
-                } else {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.blue.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('blue');
-                }
+                        var activeSchool = '';
+                        var activeSchoolName = '';
 
-                $('#header #user').html(
-                    User.info.name_first + ' ' +
-                    User.info.name_suffix + ' ' +
-                    User.info.name + ' ' +
-                    activeSchool
-                );
+                        if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list') && User.info.school_location_list.length > 1) {
+                            var result = User.info.school_location_list.find(function (school_location) {
+                                return school_location.active;
+                            });
+                            if (result) {
+                                activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                $.i18n().locale = result.language;
+                                activeSchoolName = '(' + result.name + ')';
+                            }
+                        }
 
+                        if (User.info.isStudent) {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.green.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('green');
+                        } else {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.blue.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('blue');
+                        }
+
+                        var username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+                        $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
-                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
+                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
                 }
-
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
+                    // var cookielawConsentScript = document.createElement('script');
+                    // cookielawConsentScript.setAttribute('src','https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js');
+                    // document.head.insertBefore(cookielawConsentScript,document.head.firstChild);
+                    // var cookieLawScript = document.createElement('script');
+                    // cookieLawScript.setAttribute('src','https://cdn.cookielaw.org/scripttemplates/otSDKStub.js');
+                    // cookieLawScript.setAttribute('charset','UTF-8');
+                    // cookieLawScript.setAttribute('data-domain-script','59ebfb6a-8dcb-443e-836a-329cb8623832');
+                    // document.head.insertBefore(cookieLawScript,document.head.firstChild);
+                    //
+                    // function OptanonWrapper() { }
+                    // window.oneTrustInjected = true;
+
                     var hubspotScript = document.createElement('script');
                     hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
                     document.head.appendChild(hubspotScript);
+
                 }
             }
-        );
+        }
+        });
 
         $('#header #top #user').click(function () {
             if ($('#support_menu').is(':visible')) {
@@ -87,8 +118,56 @@ var User = {
         this.startUserLogoutInterval();
     },
 
+	clearClipboard: function () {
+        //source: https://stackoverflow.com/a/30810322
+		function fallbackCopyTextToClipboard(text) {
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
+
+			// Avoid scrolling to bottom
+			textArea.style.top = "0";
+			textArea.style.left = "0";
+			textArea.style.position = "fixed";
+
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				var successful = document.execCommand("copy");
+				var msg = successful ? "successful" : "unsuccessful";
+			} catch (err) {
+			}
+
+			document.body.removeChild(textArea);
+		}
+		function copyTextToClipboard(text) {
+			return new Promise((resolve, reject) => {
+				if (!navigator.clipboard) {
+					fallbackCopyTextToClipboard(text);
+					resolve();
+				}
+                navigator.clipboard.writeText(text).then(() => {
+                    resolve();
+                }).catch(() => { fallbackCopyTextToClipboard(text); resolve(); });
+			});
+		}
+
+		return copyTextToClipboard("");
+	},
+
     actOnLogout: function () {
-        $("#supportpage_link, #upload_test_link").remove();
+        return new Promise(resolve => {
+            $("#supportpage_link, #upload_test_link").remove();
+
+            if (User.info.isStudent) {
+                 User.clearClipboard().then(() => {
+                     resolve()
+                 });
+            } else {
+                resolve();
+            }
+        })
     },
 
     welcome: function () {
@@ -124,21 +203,22 @@ var User = {
         }
         $.get('/users/logout',
             function () {
-                User.actOnLogout();
-                window.location.href = '/';
-                try {
-                    if (typeof(electron.closeApp) === typeof(Function)) {
-                        if (typeof(electron.reloadApp) === typeof(Function)) {
-                            if (closeApp) {
-                                electron.closeApp();
+                User.actOnLogout().then(() => {
+                    window.location.href = '/';
+                    try {
+                        if (typeof(electron.closeApp) === typeof(Function)) {
+                            if (typeof(electron.reloadApp) === typeof(Function)) {
+                                if (closeApp) {
+                                    electron.closeApp();
+                                } else {
+                                    electron.reloadApp();
+                                }
                             } else {
-                                electron.reloadApp();
+                                electron.closeApp();
                             }
-                        } else {
-                            electron.closeApp();
                         }
-                    }
-                } catch (error) {}
+                    } catch (error) {}
+                });
             }
         );
 
@@ -150,12 +230,12 @@ var User = {
 
     sendWelcomeMails: function (type) {
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?')
         }, function () {
-            Notify.notify('Welkomstmails verstuurd', 'info');
+            Notify.notify($.i18n('Welkomstmails verstuurd'), 'info');
 
             $.get('/users/notify_welcome/' + type);
         });
@@ -164,16 +244,21 @@ var User = {
     delete: function (id) {
 
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u deze gebruiker wilt verwijderen?')
         }, function () {
             $.ajax({
                 url: '/users/delete/' + id,
                 type: 'DELETE',
                 success: function (response) {
-                    Notify.notify('Gebruiker verwijderd', 'info');
+                    var json_response = JSON.parse(response);
+                    if(!json_response.status){
+                        Notify.notify(json_response.data, 'error');
+                        return;
+                    }
+                    Notify.notify($.i18n('Gebruiker verwijderd'), 'info');
                     Navigation.refresh();
                 }
             });
@@ -184,13 +269,13 @@ var User = {
         var email = $('#UserEmail').val();
 
         if (email == "") {
-            Notify.notify('Voer eerst uw emailadres in.', 'error');
+            Notify.notify($.i18n('Voer eerst uw emailadres in.'), 'error');
         } else {
             $.post('/users/forgot_password', {
                     'email': email
                 },
                 function (response) {
-                    Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
+                    Notify.notify($.i18n('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.'), 'info', 10000);
                 });
         }
     },
@@ -205,7 +290,7 @@ var User = {
             User.info.school_location_id = active_location.id;
 
             document.getElementById('active_school').innerHTML = active_location.name;
-            Notify.notify('Gewisseld naar school ' + active_location.name);
+            Notify.notify($.i18n('Gewisseld naar school ') + active_location.name);
             // disable before unload;
             window.onbeforeunload = function () {  }
             window.location.reload();
@@ -219,7 +304,7 @@ var User = {
             method: 'POST',
             data: {user: uuid},
             success: function (data) {
-                Notify.notify('Docent succesvol toegevoegd');
+                Notify.notify($.i18n('Docent succesvol toegevoegd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('white').addClass('blue').find('span:first').removeClass('fa-link').addClass('fa-trash');
             }
@@ -231,7 +316,7 @@ var User = {
             type: 'DELETE',
             data: {user: uuid},
             success: function (result) {
-                Notify.notify('Docent succesvol verwijderd');
+                Notify.notify($.i18n('Docent succesvol verwijderd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('blue').addClass('white').find('span:first').removeClass('fa-trash').addClass('fa-link');
             }
@@ -327,5 +412,15 @@ var User = {
             }
 
         }, 1000);
+    },
+    returnToLaravelLogin : function() {
+        $.ajax({
+            url: '/users/return_to_laravel/true',
+            method: 'get',
+            success: function (url) {
+                url = typeof url == 'undefined' ? '/' : url;
+                window.location.href = url;
+            }
+        });
     }
 };

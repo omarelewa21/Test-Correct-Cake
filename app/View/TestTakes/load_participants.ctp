@@ -34,7 +34,7 @@ foreach($participants as $participant) {
     <center>
         <a href="#" class="btn highlight inline-block" onclick="Popup.load('/test_takes/add_participants/<?=$take_id?>', 700);">
             <span class="fa fa-plus"></span>
-            Studenten toevoegen
+            <?= __("Studenten toevoegen")?>
         </a>
     </center>
 <? } ?>

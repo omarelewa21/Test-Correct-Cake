@@ -96,7 +96,7 @@ var TestTake = {
                                 ) {
                             TestTake.atTestStop();
                             Navigation.refresh();
-                            Notify.notify('Toets gedwongen ingeleverd', 'error');
+                            Notify.notify($.i18n('Toets gedwongen ingeleverd'), 'error');
                         }
 
                         if (
@@ -105,7 +105,7 @@ var TestTake = {
                                 ) {
                             TestTake.atTestStop();
                             Navigation.refresh();
-                            Notify.notify('Toets gedwongen ingeleverd', 'error');
+                            Notify.notify($.i18n('Toets gedwongen ingeleverd'), 'error');
                         }
 
                         if (
@@ -166,10 +166,10 @@ var TestTake = {
     delete: function (take_id) {
 
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u het zeker?'
+            btnOk: $.i18n('ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u het zeker?')
         }, function () {
             $.get('/test_takes/delete/' + take_id,
                     function () {
@@ -192,10 +192,10 @@ var TestTake = {
 
         if ($('.question.grey').length > 0) {
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleren',
-                title: 'Toets inleveren',
-                message: 'Niet alle vragen zijn beantwoord, weet je het zeker?'
+                btnOk: $.i18n('ja'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Toets inleveren'),
+                message: $.i18n('Niet alle vragen zijn beantwoord, weet je het zeker?')
             }, function () {
                 TestTake.doHandIn();
             }, function(){
@@ -204,19 +204,19 @@ var TestTake = {
             });
         }/*else if(!Answer.questionSaved) {
          Popup.message({
-         btnOk: 'Ja',
-         btnCancel: 'Annuleren',
-         title: 'Toets inleveren',
+         btnOk: $.i18n('ja'),
+         btnCancel: $.i18n('Annuleren'),
+         title: $.i18n('Toets inleveren'),
          message: 'Huidige vraag is nog niet opgeslagen! Weet je het zeker?'
          }, function() {
          TestTake.doHandIn();
          });
          }*/else {
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleren',
-                title: 'Toets inleveren',
-                message: 'Weet je zeker dat je de toets wilt inleveren?'
+                btnOk: $.i18n('ja'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Toets inleveren'),
+                message: $.i18n('Weet je zeker dat je de toets wilt inleveren?')
             }, function () {
                 TestTake.doHandIn();
             }, function(){
@@ -235,7 +235,7 @@ var TestTake = {
                     // Navigation.refresh();
                     Navigation.load('/test_takes/taken_student');
                     TestTake.atTestStop();
-                    Notify.notify('De toets is gestopt', 'info');
+                    Notify.notify($.i18n('De toets is gestopt'), 'info');
                     TestTake.active = false;
                     Menu.handleHandIn();
                 }
@@ -248,7 +248,11 @@ var TestTake = {
         }
     },
 
-    startTestInLaravel : function(take_id) {
+    startTestInLaravelWithIntense : function (take_id) {
+
+    },
+
+    startTestInLaravel : function(take_id, participant_id) {
         var _take_id = take_id;
         TestTake.atTestStart();
         setTimeout(function() {
@@ -258,7 +262,11 @@ var TestTake = {
                 dataType: 'json',
                 data: {},
                 success: function (data) {
+                    document.removeEventListener("visibilitychange", onchange);
                     window.open(data.data.url, '_self');
+                    try {
+                        electron.setTestConfig(participant_id);
+                    } catch (error) {}
                     try {
                         electron.loadUrl(data.data.url)
                     } catch(error) {}
@@ -282,7 +290,7 @@ var TestTake = {
     atTestStart : function() {
         $.get('/test_takes/start_take_participant', function(response) {
             if(response == 'error') {
-                alert('Toetsafname kon niet worden gestart. Waarschuw de surveillant.');
+                alert($.i18n('Toetsafname kon niet worden gestart. Waarschuw de surveillant.'));
             } else {
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
@@ -407,7 +415,7 @@ var TestTake = {
     removeTestRow: function (e, i) {
 
         $('#tableTestTakes #' + i).fadeOut().find('input').val('');
-        $('#tableTestTakes #' + i).find('.btnSelectTest').html('Selecteer');
+        $('#tableTestTakes #' + i).find('.btnSelectTest').html($.i18n('Selecteer'));
 
         $('#tableTestTakes #notes_' + i).fadeOut().find('input').val('');
         $('input:checkbox[name="data[TestTake]['+i+'][allow_inbrowser_testing]"]').prop('checked', false);
@@ -447,14 +455,14 @@ var TestTake = {
         $.get('/test_takes/add_class/' + test_id,
                 function (response) {
                     Navigation.refresh();
-                    Notify.notify('Klas toegevoegd', 'info');
+                    Notify.notify($.i18n('Klas toegevoegd'), 'info');
                     Popup.closeLast();
                 }
         );
     },
 
     startTake: function (take_id) {
-        var message = '<div>Niet alle Studenten zijn aanwezig.</div>';
+        var message = '<div>' + $.i18n('Niet alle Studenten zijn aanwezig.')+ '</div>';
 
         var warning = '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
             '<p class="title" style="display: block;margin:0;font-weight: 700">' +
@@ -464,27 +472,43 @@ var TestTake = {
             '        <circle cx="2" cy="12" r="2"/>' +
             '    </g>' +
             '</svg>' +
-            '<span style="margin-left:10px;font-size:16px">Beveiligde student app niet verplicht</span>' +
+            '<span style="margin-left:10px;font-size:16px">' + $.i18n('Beveiligde student app niet verplicht') + '</span>' +
             '</p>' +
-            '<span class="body" style="font-size: 14px">De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.</span>' +
+            '<span class="body" style="font-size: 14px">' +  $.i18n('De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.') + '</span>' +
             '</div>';
+
+        var guests_allowed =    '<div class="notification warning" style="margin-bottom: 1rem;font-family: \'Nunito\', sans-serif; padding: 12px">' +
+                                    '<p class="title" style="display: block;margin:0;font-weight: 700">' +
+                                        '<svg class="inline-block" width="4" height="14" xmlns="http://www.w3.org/2000/svg">' +
+                                        '    <g fill="currentColor" fill-rule="evenodd">' +
+                                        '        <path d="M1.615 0h.77A1.5 1.5 0 013.88 1.61l-.45 6.06a1.436 1.436 0 01-2.863 0L.12 1.61A1.5 1.5 0 011.615 0z"/>' +
+                                        '        <circle cx="2" cy="12" r="2"/>' +
+                                        '    </g>' +
+                                        '</svg>' +
+                                        '<span style="margin-left:10px;font-size:16px">Gastprofielen van studenten worden toegelaten</span>' +
+                                    '</p>' +
+                                    '<span class="body" style="font-size: 14px">De student kan inloggen met een gastprofiel (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken.</span>' +
+                                '</div>';
 
 
         $.getJSON('/test_takes/is_allowed_inbrowser_testing/'+take_id, function(data) {
+            var guests = data.response.guests == true;
             var showWarning = data.response.allowed == true;
-            message = showWarning ? warning+message : message;
+            message = guests ? guests_allowed + message : message;
+            message = showWarning ? warning + message : message;
 
             var showPopupMessage = function(message) {
                 Popup.message({
-                    btnOk: 'Ja',
-                    btnCancel: 'Annuleer',
-                    title: 'Weet u het zeker?',
+                    btnOk: $.i18n('Ja'),
+                    btnCancel: $.i18n('Annuleer'),
+                    title: $.i18n('Weet u het zeker?'),
                     message: message
                 }, function () {
                     $.get('/test_takes/start_test/' + take_id,
                         function (response) {
-                            Notify.notify('Toetsafname gestart', 'info');
+                            Notify.notify($.i18n('Toetsafname gestart'), 'info');
                             Navigation.load('/test_takes/surveillance');
+                            Menu.updateMenuFromRedirect(Menu.menu, 'tests_surveillance');
                         }
                     );
                 });
@@ -493,13 +517,18 @@ var TestTake = {
             if (!TestTake.studentsPresent) {
                 showPopupMessage(message);
             } else {
-                if (showWarning) {
+                if(showWarning && guests) {
+                    showPopupMessage(warning+guests_allowed);
+                } else if (showWarning) {
                     showPopupMessage(warning);
+                } else if(guests) {
+                    showPopupMessage(guests_allowed);
                 } else {
                     $.get('/test_takes/start_test/' + take_id,
                         function (response) {
-                            Notify.notify('Toetsafname gestart', 'info');
+                            Notify.notify($.i18n('Toetsafname gestart'), 'info');
                             Navigation.load('/test_takes/surveillance');
+                            Menu.updateMenuFromRedirect(Menu.menu, 'tests_surveillance');
                         }
                     );
                 }
@@ -514,7 +543,7 @@ var TestTake = {
     loadParticipantAnswerPreview: function (take_id, user_id) {
         $('#questionAnswer').load('/test_takes/rate/' + take_id + '/' + user_id).parent().css({
             'border-left': '20px solid #3D9D36',
-        }).find('.block-head').css({'background-color': '#3D9D36'}).children('strong').html('Antwoord leerling');
+        }).find('.block-head').css({'background-color': '#3D9D36'}).children('strong').html($.i18n('Antwoord leerling'));
 
         $('#btnResetAnswerPreview').slideDown();
         clearInterval(window.participantsTimeout);
@@ -536,7 +565,7 @@ var TestTake = {
     startDiscussion: function (take_id, type) {
         $.get('/test_takes/start_discussion/' + take_id + '/' + type,
                 function (response) {
-                    Notify.notify('Toetsbespreking gestart', 'info');
+                    Notify.notify($.i18n('Toetsbespreking gestart'), 'info');
                     Navigation.load('/test_takes/discussion/' + take_id);
                     Popup.closeLast();
                     User.surpressInactive = true;
@@ -560,10 +589,10 @@ var TestTake = {
             );
         } else {
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Niet iedereen is klaar met bespreken.'
+                btnOk: $.i18n('ja'),
+                btnCancel: $.i18n('Annuleer'),
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Niet iedereen is klaar met bespreken.')
             }, function () {
                 $.get('/test_takes/next_discussion_question/' + take_id,
                         function () {
@@ -581,10 +610,10 @@ var TestTake = {
     checkStartDiscussion: function (take_id) {
         if ($('.participant:not(".active")').length > 0) {
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Niet alle Studenten zijn aanwezig'
+                btnOk: $.i18n('ja'),
+                btnCancel: $.i18n('Annuleer'),
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Niet alle Studenten zijn aanwezig')
             }, function () {
                 setTimeout(function () {
                     Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
@@ -598,10 +627,10 @@ var TestTake = {
     finishDiscussion: function (take_id) {
         $('.redactor-toolbar').attr('style', 'z-index: 0 !important');
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u de bespreking wilt be&iuml;ndigen?'
+            btnOk: $.i18n('ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u de bespreking wilt be&euml;indigen?')
         }, function () {
             $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {
@@ -623,7 +652,7 @@ var TestTake = {
         });
 
         Popup.closeLast();
-        Notify.notify('Toetsafnames gestart', 'info');
+        Notify.notify($.i18n('Toetsafnames gestart'), 'info');
         Navigation.load('/test_takes/surveillance');
     },
 
@@ -636,7 +665,7 @@ var TestTake = {
                 $('#StudentAddClassParticipantsForm').serialize(),
                 function (response) {
                     Popup.closeLast();
-                    Notify.notify('Studenten toegevoegd', 'info');
+                    Notify.notify($.i18n('Studenten toegevoegd'), 'info');
                     Navigation.refresh();
                 }
         );
@@ -682,9 +711,9 @@ var TestTake = {
                 }
                 Loading.hide();
                 if(Core.inBrowser){
-                    Notify.notify("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>", "error",10000);
+                    Notify.notify($.i18n("niet in beveiligde omgeving <br> download de laatste app versie via <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"), "error",10000);
                 }else{
-                    Notify.notify("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>",'error',10000);
+                    Notify.notify($.i18n("Let op! Je zit niet in de laatste versie van de Test-Correct app. Download de laatste versie van <a href=\"https://www.test-correct.nl/student/\">https://www.test-correct.nl/student/</a>"),'error',10000);
                 }
 
             });
@@ -713,9 +742,9 @@ var TestTake = {
 
     ipAlert: function () {
         Popup.message({
-            btnOk: 'Oke',
-            title: 'Incorrect IP-adres',
-            message: 'Deze Student bevindt zich op een incorrect ip-adres'
+            btnOk: $.i18n('Oke'),
+            title: $.i18n('Incorrect IP-adres'),
+            message: $.i18n('Deze Student bevindt zich op een incorrect ip-adres')
         });
     },
 
@@ -738,10 +767,10 @@ var TestTake = {
     forceTakenAway: function (take_id, participant_id) {
 
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u de toets wil innemen?'
+            btnOk: $.i18n('ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u de toets wil innemen?')
         }, function () {
             $.get('/test_takes/force_taken_away/' + take_id + '/' + participant_id,
                     function () {
@@ -799,10 +828,10 @@ var TestTake = {
     setTakeTaken: function (take_id) {
 
             Popup.message({
-                btnOk: 'Ja',
-                btnCancel: 'Annuleer',
-                title: 'Weet u het zeker?',
-                message: 'Weet je zeker dat je de toets wilt innemen?'
+                btnOk: $.i18n('ja'),
+                btnCancel: $.i18n('Annuleer'),
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet je zeker dat je de toets wilt innemen?')
             }, function () {
 
                 $.get('/test_takes/set_taken/' + take_id,
@@ -818,7 +847,7 @@ var TestTake = {
     setFinalRate: function (take_id, participant_id, rate) {
         $.get('/test_takes/set_final_rate/' + take_id + '/' + participant_id + '/' + rate,
                 function () {
-                    Notify.notify('Score opgeslagen');
+                    Notify.notify($.i18n('Score opgeslagen'));
                 }
         );
     },
@@ -826,7 +855,7 @@ var TestTake = {
     markRated: function (take_id) {
         $.get('/test_takes/mark_rated/' + take_id,
                 function () {
-                    Notify.notify("Als becijferd gemarkeerd");
+                    Notify.notify($.i18n("Als becijferd gemarkeerd"));
                     Navigation.load('/test_takes/view/' + take_id);
                 }
         );
@@ -850,7 +879,7 @@ var TestTake = {
         $.post('/test_takes/normalization/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
-                    Notify.notify('Normering toegepast', 'info');
+                    Notify.notify($.i18n('Normering toegepast'), 'info');
                     Navigation.load("/test_takes/set_final_rates/" + take_id);
                 }
         );
@@ -908,7 +937,7 @@ var TestTake = {
     archive: function (e, take_id) {
 
         $.get('/test_takes/archive/' + take_id, function (response) {
-            Notify.notify('De toets is gearchiveerd, je kunt het archiveringsfilter gebruiken om de toets te dearchiveren.');
+            Notify.notify($.i18n('De toets is gearchiveerd, je kunt het archiveringsfilter gebruiken om de toets te dearchiveren.'));
         });
         var row = $(e).parents('tr:first');
         $(e).parents('tr:first').addClass('jquery-has-just-been-archived').addClass('jquery-archived').removeClass('jquery-not-archived');
@@ -918,13 +947,13 @@ var TestTake = {
     },
     unarchive: function (e, take_id) {
         $.get('/test_takes/unarchive/' + take_id, function (response) {
-            Notify.notify('De toets is gedearchiveerd.');
+            Notify.notify($.i18n('De toets is gedearchiveerd.'));
             $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
         });
     },
     loadDetails: function (e, take_id) {
         if ($(e).parents('tr:first').hasClass('jquery-archived')) {
-            Notify.notify('Dearchiveer deze toets om de details in te zien.');
+            Notify.notify($.i18n('Dearchiveer deze toets om de details in te zien.'));
             return;
         }
         Navigation.load('/test_takes/view/' + take_id);
@@ -938,12 +967,12 @@ var TestTake = {
                 if (el.classList.contains('cta-button')) {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
-                    Notify.notify('Browsertoetsing voor '+name+' uitgeschakeld');
-                    Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+                    Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld'));
+                    Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
-                    Notify.notify('Browsertoetsing voor '+name+' ingeschakeld' );
+                    Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld') );
                 }
             },
             error: function(response) {
@@ -957,8 +986,8 @@ var TestTake = {
         el.classList.remove('cta-button');
         el.classList.add('grey');
 
-        Notify.notify('Browsertoetsing voor alle studenten uitgeschakeld');
-        Notify.notify('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.');
+        Notify.notify($.i18n('Browsertoetsing voor alle studenten uitgeschakeld'));
+        Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.remove('cta-button');
             el.classList.add('grey');
@@ -968,7 +997,7 @@ var TestTake = {
         el.classList.add('cta-button');
         el.classList.remove('grey');
 
-        Notify.notify('Browsertoetsing voor alle studenten ingeschakeld' );
+        Notify.notify($.i18n('Browsertoetsing voor alle studenten ingeschakeld') );
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.add('cta-button');
             el.classList.remove('grey');
@@ -999,7 +1028,7 @@ var TestTake = {
         return '<div class="tat-content border-radius-bottom-0"> '+
         '<div style="display:flex">'+
         '   <div style="flex-grow:1">'+
-        '       <h2 style="margin-top:0">Typecalibratie test</h2>'+
+        '       <h2 style="margin-top:0">' + $.i18n('Typecalibratie test') + '</h2>'+
         '   </div>'+
         // '    <div class="close" style="flex-shrink: 1">'+
         // '        <a href="#" onclick="Popup.closeLast()">'+
@@ -1015,7 +1044,7 @@ var TestTake = {
         '</div>'+
         '<div class="popup-content tat-content body1" style="margin-top:-60px; display:flex">' +
         '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-right: 10px">'+
-        '<p style="margin:0">Lees de onderstaande tekst en type deze over in het tekstvak eronder.</p>'+
+        '<p style="margin:0">' + $.i18n('Lees de onderstaande tekst en type deze over in het tekstvak eronder.') + '</p>'+
         '<p style="border:var(--blue-grey) solid 1px; font-size:1rem; border-radius:10px; padding:1rem; margin-bottom: 0;">'+ text +'</p>' +
         '</div>' +
         '<div style="display:flex; flex-grow:1; flex-direction: column; width:50%; padding-left: 10px">'+
@@ -1024,7 +1053,7 @@ var TestTake = {
         '        <label for="callibration-init-text-input" style="font-size: 18px">Type de tekst over</label>'+
         '    </div>' +
         '    <button id="typecalibration_complete_button" class="button button-md  stretched" style="cursor: pointer;">'+
-        '       Afronden'+
+        $.i18n('Afronden')+
         '    </button>'+
         '</div>'+
         '</div>';
@@ -1241,7 +1270,7 @@ function ctrlactive (){
     } else{
         Notify.notify($.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'), 'error');
         Core.lostFocus("ctrl-key");
-    
+
     }
 }
 
@@ -1261,13 +1290,13 @@ function ShiftZero (){
 
      document.removeEventListener("keyup", window.shiftzeropressed );
      document.addEventListener("keyup", window.shiftzeropressed );
-     window.shiftzeropressed = function(){  
-        var keyCode = shiftzeropressed.keyCode ? shiftzeropressed.keyCode : shiftzeropressed.which;    
+     window.shiftzeropressed = function(){
+        var keyCode = shiftzeropressed.keyCode ? shiftzeropressed.keyCode : shiftzeropressed.which;
         if(event.shiftKey && event.keyCode == 48) {
         zeroshift =true;
         ctrlactive();
         } else {ctrlactive();
-          } 
+          }
     }
 }
 }
@@ -1275,15 +1304,15 @@ function ShiftZero (){
 function shiftCtrlBtuCrOSAdd (){
     if(Core.isChromebook()) {
         window.copyeventlistener = function(e){
-            e.clipboardData.setData('text/plain', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
-            e.clipboardData.setData('text/html', 'U hebt een toetsencombinatie gebruikt die niet toegestaan is.');
+            e.clipboardData.setData('text/plain', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
+            e.clipboardData.setData('text/html', $.i18n('U hebt een toetsencombinatie gebruikt die niet toegestaan is.'));
             e.preventDefault(); // We want to write our data to the clipboard, not data from any user selection
         };
         window.ctrlpressaction = function(){
-          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;    
+          var keyCode = ctrlpressaction.keyCode ? ctrlpressaction.keyCode : ctrlpressaction.which;
             if (event.ctrlKey ) {
                 ShiftZero ();
-            }        
+            }
         }
         document.removeEventListener('copy', window.copyeventlistener);
         document.addEventListener('copy', window.copyeventlistener);

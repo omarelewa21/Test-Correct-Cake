@@ -1,11 +1,11 @@
-<div class="popup-head">Infoscherm</div>
+<div class="popup-head"><?= __("Infoscherm")?></div>
 <div class="popup-content">
 
     <?=$this->Form->create('Question')?>
 
-    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
     
-                <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
+    <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('decimal_score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('note_type', array('value' => 'NONE','label' => false, 'type' => 'hidden'))?>
@@ -14,29 +14,29 @@
 
         <div class="tabs">
             <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-                Info
+            <?= __("Info")?>
             </a>
 
             <a href="#" class="btn grey" page="options" tabs="add_question">
-                Antwoord
+            <?= __("Antwoord")?>
 
             </a>
             <? if($owner != 'group') { ?>
                 <a href="#" class="btn grey" page="sources" tabs="add_question">
-                    Bronnen
+                <?= __("Bronnen")?>
                 </a>
             <? } ?>
 
             <a href="#" class="btn grey" page="attainments" tabs="add_question">
-                Eindtermen
+            <?= __("Eindtermen")?>
             </a>
 
             <a href="#" class="btn grey" page="tags" tabs="add_question">
-                Tags
+            <?= __("Tags")?>
             </a>
 
             <a href="#" class="btn grey" page="rtti" tabs="add_question">
-                Taxonomie
+            <?= __("Taxonomie")?>
             </a>
 
             <br clear="all" />
@@ -47,8 +47,8 @@
         </div>
 
         <div page="options" class="page" tabs="add_question">
-            <?=$this->Form->input('answer', array('value' => 'niet van toepassing','label' => false, 'type' => 'hidden'))?>
-            Niet van toepassing
+            <?=$this->Form->input('answer', array('value' => __("niet van toepassing"),'label' => false, 'type' => 'hidden'))?>
+            <?= __("Niet van toepassing")?>
         </div>
 
         <div page="attainments" class="page" tabs="add_question">
@@ -68,10 +68,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-        Vraag opslaan
+    <?= __("Vraag opslaan")?>
     </a>
 </div>
 

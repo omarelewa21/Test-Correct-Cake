@@ -23,11 +23,11 @@
             <div class="alert alert-info" style="text-align: center; margin:20px 0px 0px 0px;">
                 <?php if( $take['test_participant']['intense'] && $take['test_take_status_id'] != 3) { ?>
                     <a href="#" class="btn highlight large" id="btnIntenseCalibration" onclick="TestTake.startIntenseCalibrationForTestWaitingRoom('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(e){ document.getElementById('btnIntenseCalibration').style.display = 'none'; });">
-                        Calibratie starten
+                    <?= __("Calibratie starten")?>
                     </a>
                 <?php } ?>
 
-                Deze toets is nog niet gestart, wacht op de surveillant..
+                <?= __("Deze toets is nog niet gestart, wacht op de surveillant..")?>
             </div>
         </div>
         <center>
@@ -35,13 +35,13 @@
             <div class="notification error">
                 <div class="body">
                     <div id="chromebook-menu-notice-container-inapp" style="display:none">
-                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop (<img src="/img/chromebook-menu-icon.png" title="Deze knop kun je vinden boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>), sluit de Test-Correct app af en start de app opnieuw op om de toets te maken.</p>
-                        <p id="needs-zoom-out" class="fullscreenChromebookAppMessage" style="display:none">Het kan ook zijn dat je scherm nog ingezoomd is, in dat geval dien je eerst uit te zoomen</p>
-                        <p id="needs-zoom-in" class="fullscreenChromebookAppMessage" style="display:none">Het kan ook zijn dat je scherm nog uitgezoomd is, in dat geval dien je eerst in te zoomen</p>
-                        <p id="fullscreen-okay" class="fullscreenChromebookAppMessage" style="display:none"><strong>Het scherm lijkt nu ok, sluit de Test-Correct app af en start de app opnieuw op om de toets te maken.</strong></p>
+                        <p><strong><?= __("Let op!")?></strong> <?= __("je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop ")?> (<img src="/img/chromebook-menu-icon.png" title='<?= __("Deze knop kun je vinden boven de 5")?>' style="border:none;vertical-align:middle;max-height:13px"/>), <?= __("sluit de Test-Correct app af en start de app opnieuw op om de toets te maken.")?></p>
+                        <p id="needs-zoom-out" class="fullscreenChromebookAppMessage" style="display:none"><?= __("Het kan ook zijn dat je scherm nog ingezoomd is, in dat geval dien je eerst uit te zoomen")?></p>
+                        <p id="needs-zoom-in" class="fullscreenChromebookAppMessage" style="display:none"><?= __("Het kan ook zijn dat je scherm nog uitgezoomd is, in dat geval dien je eerst in te zoomen")?></p>
+                        <p id="fullscreen-okay" class="fullscreenChromebookAppMessage" style="display:none"><strong><?= __("Het scherm lijkt nu ok, sluit de Test-Correct app af en start de app opnieuw op om de toets te maken.")?></strong></p>
                     </div>
                     <div id="chromebook-menu-notice-container-notinapp" style="display:none">
-                        <p><strong>Let op!</strong> je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop (<img src="/img/chromebook-menu-icon.png" title="Deze knop kun je vinden boven de 5" style="border:none;vertical-align:middle;max-height:13px"/>) om verder te gaan.</p>
+                        <p><strong><?= __("Let op!")?></strong> <?= __("je kunt de toets pas starten als je in full screen modus zit. Druk op de full screen knop")?> (<img src="/img/chromebook-menu-icon.png" title='<?= __("Deze knop kun je vinden boven de 5")?>' style="border:none;vertical-align:middle;max-height:13px"/>) <?= __("om verder te gaan.")?></p>
                     </div>
                 </div>
             </div>
@@ -51,20 +51,26 @@
             <?php if( $take['test_participant']['intense']) { ?>
 
             <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTest('<?=getUUID($take, 'get');?>');});">
-                Toets starten
+                <?= __("Toets starten")?>
             </a>
                 <?php } else { ?>
                 <a href="#" class="btn highlight large" style="display: none;" id="btnStartTest" onclick="TestTake.startTest('<?=getUUID($take, 'get');?>');">
-                    Toets starten
+                <?= __("Toets starten")?>
                 </a>
                 <?php } ?>
         <?php
         }
         if($newPlayerAccess) {
             ?>
-        <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>'); Loading.show()">
-            <?= !$oldPlayerAccess? 'Toets starten' : 'Start in nieuwe speler' ?>
-        </a>
+            <?php if( $take['test_participant']['intense']) { ?>
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startIntenseCalibration('<?=getUUID($take, 'get');?>', '<?= AuthComponent::user('id') ?>', '<?=  getUUID($take['test_participant'], 'get')  ?>', function(){TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>', '<?=  getUUID($take['test_participant'], 'get')  ?>');})">
+                <?= !$oldPlayerAccess? __("Toets starten") : __("Start in nieuwe speler") ?>
+            </a>
+                <?php } else { ?>
+            <a href="#" class="btn highlight large" style="display: none;" id="btnStartTestInLaravel" onclick="TestTake.startTestInLaravel('<?=getUUID($take, 'get');?>', '<?=  getUUID($take['test_participant'], 'get')  ?>'); Loading.show()">
+                <?= !$oldPlayerAccess? __("Toets starten") : __("Start in nieuwe speler") ?>
+            </a>
+            <?php } ?>
         <?php } ?>
         </center>
     </div>

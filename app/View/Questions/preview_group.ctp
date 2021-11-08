@@ -1,4 +1,4 @@
-<div class="popup-head">Vraag voorbeeld</div>
+<div class="popup-head"><?= __("Vraag voorbeeld")?></div>
 <div class="popup-content">
 
     <div class="tabs">
@@ -8,7 +8,7 @@
         foreach($questions as $question) {
             ?>
             <a href="#" class="btn grey <?=$first ? 'highlight' : ''?>" page="question_preview_<?=$question['question_id']?>" tabs="groep_question_preview">
-                Vraag <?=$i?>
+            <?= __("Vraag")?> <?=$i?>
             </a>
             <?
             $first = false;
@@ -35,7 +35,7 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
 </div>
 
