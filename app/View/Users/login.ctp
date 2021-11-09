@@ -1,3 +1,9 @@
+<?php if (isset($laravelLogin) && $laravelLogin != null) {?>
+<script>
+    window.location.href = '<?= $laravelLogin ?>';
+</script>
+<?php } ?>
+
 <div class="popup-head">
 <?= __("Inloggen op Test-Correct")?>
     <?php
