@@ -266,11 +266,13 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                        // also tell the iPad app
+                        webview.setTestConfig(participant_id);
                     } catch (error) {}
                     try {
-                        electron.loadUrl(data.data.url)
+                        electron.loadUrl(data.data.url);
                     } catch(error) {}
-                },
+                }
             });
         }, 500);
         // }else{
