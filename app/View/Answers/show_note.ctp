@@ -1,4 +1,4 @@
-<div class="popup-head">Aantekening</div>
+<div class="popup-head"><?= __("Aantekening")?></div>
 <div class="popup-content">
     <?
     if($answer['question']['note_type'] == 'TEXT') {
@@ -12,6 +12,6 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
 </div>

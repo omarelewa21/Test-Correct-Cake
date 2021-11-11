@@ -2,42 +2,42 @@
     <? if($isAdministrator): ?>
         <a href="#" class="btn white" onclick="Popup.load('/umbrella_organisations/edit/<?=getUUID($organisation, 'get');?>', 800);">
             <span class="fa fa-edit mr5"></span>
-            Wijzigen
+            <?= __("Wijzigen")?>
         </a>
         <a href="#" class="btn white" onclick="Organisation.delete(<?=getUUID($organisation, 'getQuoted');?>);">
             <span class="fa fa-remove mr5"></span>
-            Verwijderen
+            <?= __("Verwijderen")?>
         </a>
     <? endif; ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
 <h1><?=$organisation['name']?></h1>
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="15%">Klantcode</th>
+                <th width="15%"><?= __("Klantcode")?></th>
                 <td width="35%">
                     <?=$organisation['customer_code']?>
                 </td>
-                <th width="15%">Accountmanager</th>
+                <th width="15%"><?= __("Accountmanager")?></th>
                 <td>
                     <?=$organisation['user']['name_first']?>  <?=$organisation['user']['name_suffix']?> <?=$organisation['user']['name']?>
                 </td>
             </tr>
             <tr>
-                <th width="15%">Bezoekadres</th>
+                <th width="15%"><?= __("Bezoekadres")?></th>
                 <td width="35%">
                     <?=$organisation['main_address']?><br />
                     <?=$organisation['main_postal']?> <?=$organisation['main_city']?><br />
                     <?=$organisation['main_country']?>
                 </td>
-                <th width="15%">Factuuradres</th>
+                <th width="15%"><?= __("Factuuradres")?></th>
                 <td>
                     <?=$organisation['invoice_address']?><br />
                     <?=$organisation['invoice_postal']?> <?=$organisation['invoice_city']?><br />
@@ -45,22 +45,22 @@
                 </td>
             </tr>
             <tr>
-                <th>Studenten</th>
+                <th><?= __("Studenten")?></th>
                 <td><?=$organisation['count_students']?></td>
-                <th>Vraagitems</th>
+                <th><?= __("Vraagitems")?></th>
                 <td><?=$organisation['count_questions']?></td>
             </tr>
             <tr>
-                <th>Afgenomen toetsen</th>
+                <th><?= __("Afgenomen toetsen")?></th>
                 <td><?=$organisation['count_tests_taken']?></td>
-                <th>Actieve docenten</th>
+                <th><?= __("Actieve docenten")?></th>
                 <td><?=$organisation['count_active_teachers']?></td>
             </tr>
             <tr>
-                <th>Actieve licenties</th>
+                <th><?= __("Actieve licenties")?></th>
                 <td ><?=$organisation['count_active_licenses']?></td>
                 
-                <th>Brin code</th>
+                <th><?= __("Brin code")?></th>
                 <td><?=$organisation['external_main_code']?></td>
             </tr>
         </table>
@@ -68,12 +68,12 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Scholengemeenschappen</div>
+    <div class="block-head"><?= __("Scholengemeenschappen")?></div>
     <div class="block-content">
         <table class="table table-striped" id="schoolsTable">
             <thead>
             <tr>
-                <th>School</th>
+                <th><?= __("School")?></th>
                 <th></th>
             </tr>
             </thead>
@@ -98,7 +98,7 @@
 </div>
 
 <div class="block">
-    <div class="block-head">Contactpersonen</div>
+    <div class="block-head"><?= __("Contactpersonen")?></div>
     <div class="block-content">
         <?
         foreach($organisation['umbrella_organization_contacts'] as $contact) {
@@ -106,7 +106,7 @@
             <div style="float:left; width:300px; background: #f1f1f1; padding:10px; margin:3px;">
                 <table cellpadding="5" cellspacing="0" class="mb10">
                     <tr>
-                        <th width="80">Type</th>
+                        <th width="80"><?= __("Type")?></th>
                         <td>
                             <?
 
@@ -114,19 +114,19 @@
 
                             switch($contact['type']) {
                                 case 'FINANCE':
-                                    echo 'Financieel';
+                                    echo __("Financieel");
                                     $type = 'financial';
                                     break;
                                 case 'TECHNICAL':
-                                    echo 'Technisch';
+                                    echo __("Technisch");
                                     $type = 'technical';
                                     break;
                                 case 'IMPLEMENTATION':
-                                    echo 'Implementatie';
+                                    echo __("Implementatie");
                                     $type = 'implementation';
                                     break;
                                 case 'OTHER':
-                                    echo 'Anders';
+                                    echo __("Anders");
                                     $type = 'other';
                                     break;
                             }
@@ -134,11 +134,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Naam</th>
+                        <th><?= __("Naam")?></th>
                         <td><?=$contact['contact']['name']?></td>
                     </tr>
                     <tr>
-                        <th valign="top">Adres</th>
+                        <th valign="top"><?= __("Adres")?></th>
                         <td>
                             <?=$contact['contact']['address']?><br />
                             <?=$contact['contact']['postal']?> <?=$contact['contact']['city']?><br />
@@ -146,11 +146,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Telefoon</th>
+                        <th><?= __("Telefoon")?></th>
                         <td><?=$contact['contact']['phone']?></td>
                     </tr>
                     <tr>
-                        <th>Mobiel</th>
+                        <th><?= __("Mobiel")?></th>
                         <td><?=$contact['contact']['mobile']?></td>
                     </tr>
                 </table>
@@ -175,7 +175,7 @@
             <center>
                 <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/umbrella_organization/<?=getUUID($organisation, 'get');?>', 400);">
                     <span class="fa fa-plus"></span>
-                    Contactpersoon toevoegen
+                    <?= __("Contactpersoon toevoegen")?>
                 </a>
             </center>
         <? endif; ?>

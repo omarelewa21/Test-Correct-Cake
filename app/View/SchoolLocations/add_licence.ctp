@@ -1,10 +1,10 @@
-<div class="popup-head">Licentiepakket</div>
+<div class="popup-head"><?= __("Licentiepakket")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Licence') ?>
     <table>
         <tr>
             <th width="130">
-                Licenties
+            <?= __("Licenties")?>
             </th>
             <td>
                 <?=$this->Form->input('amount', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th width="130">
-                Startdatum
+            <?= __("Startdatum")?>
             </th>
             <td>
                 <?=$this->Form->input('start', array('style' => 'width: 185px', 'label' => false, 'verify' => 'date')) ?>
@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th width="130">
-                Einddatum
+            <?= __("Einddatum")?>
             </th>
             <td>
                 <?=$this->Form->input('end', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -32,10 +32,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddLicence">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -49,11 +49,11 @@
             confirm : $('#btnAddLicence'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Licentiepakket aangemaakt", "info");
+                Notify.notify('<?= __("Licentiepakket aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Licentiepakket kon niet worden aangemaakt. Controleer of u alle velden correct heeft ingevuld.", "error");
+                Notify.notify('<?= __("Licentiepakket kon niet worden aangemaakt. Controleer of u alle velden correct heeft ingevuld.")?>', "error");
             }
         }
     );

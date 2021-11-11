@@ -17,7 +17,7 @@ class QtiimportController extends AppController
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         $data = $this->QtiImportService->getData();
-        
+
         $schoolList = [];
         foreach($data['schoolLocations'] as $loc){
             $schoolList[getUUID($loc, 'get')] = $loc['name'];
@@ -40,6 +40,9 @@ class QtiimportController extends AppController
         $testKindList = [];
         foreach($data['testKinds'] as $e){
             $testKindList[getUUID($e, 'get')] = $e['name'];
+        }
+        for($i = 1; $i < count($testKindList)+1; $i++){
+            $testKindList[$i] = __($testKindList[$i]);
         }
         $this->set('testKindList',$testKindList);
 
@@ -64,7 +67,7 @@ class QtiimportController extends AppController
         $data = $this->request->data['Qti'];
 
         if(!$data['file']['tmp_name']){
-            $response = 'File niet gevonden om te importeren, probeer het nogmaals';
+            $response = __("File niet gevonden om te importeren, probeer het nogmaals");
         }else{
             $r = $this->QtiImportService->uploadData($data);
 

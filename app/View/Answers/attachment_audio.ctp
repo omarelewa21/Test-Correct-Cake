@@ -16,30 +16,30 @@
 </head>
 <body>
 <br /><br /><br />
-<span id="audioSupportText">Een ogenblik geduld..</span>
+<span id="audioSupportText"><?= __("Een ogenblik geduld")?>..</span>
 <br />
 <br />
-<a href="#" role="button" id="audioBtn" class="btn disabled mt5">Laden..</a>
+<a href="#" role="button" id="audioBtn" class="btn disabled mt5"><?= __("Laden..")?></a>
 <script type="text/javascript">
     function screenText(pauseable, playonce, playedonce, timesout, canPlay) {
-        var text = "Geluidsfragment";
+        var text = '<?= __("Geluidsfragment")?>';
         if(playedonce) {
-            text = "Dit geluidsfragment was éénmalig afspeelbaar en is al beluisterd.";
+            text = '<?= __("Dit geluidsfragment was éénmalig afspeelbaar en is al beluisterd.")?>';
         } else if(!canPlay) {
-            text = "Dit apparaat ondersteunt geen geluidsfragmenten.";
+            text = '<?= __("Dit apparaat ondersteunt geen geluidsfragmenten.")?>';
         } else {
             if(!pauseable) {
                 if(playonce) {
-                    text = "Dit geluidsfragment is niet te pauzeren en slechts éénmaal te beluisteren.";
+                    text = '<?= __("Dit geluidsfragment is niet te pauzeren en slechts éénmaal te beluisteren.")?>';
                 } else {
-                    text = "Dit geluidsfragment is niet te pauzeren.";
+                    text = '<?= __("Dit geluidsfragment is niet te pauzeren.")?>';
                 }
             } else if(playonce) {
-                text = "Dit geluidsfragment is slechts éénmaal te beluisteren.";
+                text = '<?= __("Dit geluidsfragment is slechts éénmaal te beluisteren.")?>';
             }
 
             if(timesout) {
-                text = text + " Na sluiten van dit geluidsfragment heb je slechts " + timesout + " seconden om de vraag te beantwoorden";
+                text = text + '<?= __(" Na sluiten van dit geluidsfragment heb je slechts ")?>' + timesout + '<?= __(" seconden om de vraag te beantwoorden")?>';
             }
         }
         var audioSupportText = document.getElementById("audioSupportText")
@@ -82,29 +82,29 @@
         audio.crossOrigin = 'Anonymous'
         audio.onended = function() {
             if(!playonce) {
-                playButtonText("Afspelen");
+                playButtonText('<?= __("Afspelen")?>');
             } else {
                 playable = false;
-                playButtonText("Afgespeeld", true);
+                playButtonText('<?= __("Afgespeeld")?>', true);
                 Cookies.set(cookieName, '1');
             }
         };
 
-        playButtonText("Afspelen");
+        playButtonText('<?= __("Afspelen")?>');
 
         $('#audioBtn').click(function() {
             if(playable) {
                 if (audio.paused) {
                     audio.play();
                     if (pauseable) {
-                        playButtonText("Speelt af.. (pauzeer)");
+                        playButtonText('<?= __("Speelt af.. (pauzeer)")?>');
                     } else {
-                        playButtonText("Speelt af.. (niet pauzeerbaar)", true);
+                        playButtonText('<?= __("Speelt af.. (niet pauzeerbaar)")?>', true);
                     }
                     // Indien aan het afspelen en pauzeerbaar
                 } else if (pauseable) {
                     audio.pause();
-                    playButtonText("Afspelen");
+                    playButtonText('<?= __("Afspelen")?>');
                 }
             }
         })
@@ -118,10 +118,10 @@
                 readyPlayer(data);
             }).fail(function() {
                 audioSupportText = document.getElementById("audioSupportText");
-                audioSupportText.innerText = "Er is een fout opgetreden bij het laden van dit geluidsfragment.";
+                audioSupportText.innerText = '<?= __("Er is een fout opgetreden bij het laden van dit geluidsfragment.")?>';
             });
         } else if(playedonce) {
-            playButtonText("Afgespeeld", true);
+            playButtonText('<?= __("Afgespeeld")?>', true);
         }
     });
 </script>

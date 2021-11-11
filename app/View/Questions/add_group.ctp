@@ -5,7 +5,7 @@
         <table class="table mb15">
             <tr>
                 <th width="10%">
-                    Naam
+                <?= __("Naam")?>
                 </th>
                 <td>
                     <?=$this->Form->input('name', array('style' => 'width: 400px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -13,7 +13,7 @@
             </tr>
             <tr>
                 <th width="10%" valign="top">
-                    Omschrijving
+                <?= __("Omschrijving")?>
                 </th>
                 <td>
                     <?=$this->Form->input('text', array('style' => 'width: 400px', 'type' => 'textarea', 'label' => false)) ?>
@@ -24,7 +24,7 @@
             ?>
             <tr>
                 <th width="10%" valign="top">
-                    Aantal vragen
+                <?= __("Aantal vragen")?>
                 </th>
                 <td>
                     <?=$this->Form->input('number_of_subquestions', array('style' => 'width: 400px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
@@ -37,25 +37,25 @@
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?>
-                    Deze vraaggroep afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?= __("Deze vraaggroep afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/group_closeable_info', 500);" style="cursor:pointer"></span><br />
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
-                    Deze vraaggroep vastzetten
+                    <?= __("Deze vraaggroep vastzetten")?>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('shuffle', array('type' => 'checkbox', 'label' => false, 'div' => false)) ?>
-                    Vragen in deze groep shuffelen
+                    <?= __("Vragen in deze groep shuffelen")?>
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'label' => false, 'checked' => true, 'div' => false)) ?>
-                    Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                    <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
                     <?=$this->Form->input('groupquestion_type', array('type' => 'hidden', 'label' => false, 'value' => $groupquestion_type))?>
                 </td>
             </tr>
@@ -65,10 +65,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btbAddQuestionGroup">
-        Vraaggroep opslaan
+    <?= __("Vraaggroep opslaan")?>
     </a>
 </div>
 
@@ -85,13 +85,13 @@
             onsuccess : function(result) {
                 Navigation.load('/questions/view_group/<?=$test_id?>/' + result.uuid);
                 Popup.closeLast();
-                Notify.notify("Vraaggroep aangemaakt", "info");
+                Notify.notify('<?= __("Vraaggroep aangemaakt")?>', "info");
                /* setTimeout(function() {
                     Popup.load('/questions/add_custom/group/' + result.uuid, 800);     //this line has been commnted by Mohamed in order to allow the teacher to select if he needs to add new question or import a exisiting question
                 }, 1000); */  
             },
             onfailure : function(result) {
-                Notify.notify("Inloggegevens incorrect", "error");
+                Notify.notify('<?= __("Inloggegevens incorrect")?>', "error");
             }
         }
     );

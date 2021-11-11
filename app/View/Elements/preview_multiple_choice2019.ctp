@@ -8,9 +8,9 @@
 <h1 class="question_type <?=$citoClass?>">
     <?
     if($question['subtype'] == 'TrueFalse') {
-        ?>Juist / Onjuist<?
+        ?><?= __("Juist / Onjuist")?><?
     }else{
-        ?>Multiple choice<?
+        ?><?= __("Multiple choice")?><?
     }
     echo AppHelper::showExternalId($question);
     ?>
@@ -25,7 +25,7 @@
     <?=$question['question']?><br />
 
     <? if($question['subtype'] != 'TrueFalse') { ?>
-        <br />Selecteer maximaal <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord'?><br /><br />
+        <br /><?= __("Selecteer maximaal")?> <?=$question['selectable_answers']?> <?=$question['selectable_answers'] > 1 ? 'antwoorden' : __("antwoord")?><br /><br />
     <? } ?>
 
     <?
@@ -69,7 +69,7 @@
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

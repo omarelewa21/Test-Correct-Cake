@@ -1,8 +1,8 @@
-<div class="popup-head">Toets in PDF</div>
+<div class="popup-head"><?= __("Toets in PDF")?></div>
 
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
 </div>
 

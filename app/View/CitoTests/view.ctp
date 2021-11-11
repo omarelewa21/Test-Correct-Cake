@@ -1,31 +1,31 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);">
         <span class="fa fa-calendar mr5"></span>
-        Inplannen
+        <?= __("Inplannen")?>v
     </a>
     <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
         <span class="fa fa-search mr5"></span>
-        Voorbeeld
+        <?= __("Voorbeeld")?>
     </a>
     <?php if(1==0){ ?>
     <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-print mr5"></span>
-        PDF
+        <?= __("PDF")?>
     </a>
     <?php } ?>
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#" class="btn white mr2" onclick="Test.delete('<?=$test_id?>', true);">
             <span class="fa fa-remove mr5"></span>
-            Verwijderen
+            <?= __("Verwijderen")?>
         </a>
 
         <a href="#" class="btn white" onclick="Popup.load('/tests/edit/<?=$test_id?>', 1000);">
             <span class="fa fa-edit mr5"></span>
-            Gegevens wijzigen
+            <?= __("Gegevens wijzigen")?>
         </a>
     <? } ?>
 </div>
@@ -33,19 +33,19 @@
 <h1><?=$test['name']?></h1>
 
 <div class="block">
-    <div class="block-head">Toetsinformatie</div>
+    <div class="block-head"><?= __("Toetsinformatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="12%">Afkorting</th>
+                <th width="12%"><?= __("Afkorting")?></th>
                 <td width="21%"><?=$test['abbreviation']?></td>
-                <th width="12%">Auteur</th>
+                <th width="12%"><?= __("Auteur")?></th>
                 <td width="21%">
                     <?=$test['author']['name_first']?>
                     <?=$test['author']['name_suffix']?>
                     <?=$test['author']['name']?>
                 </td>
-                <th width="12%">Eigenaar</th>
+                <th width="12%"><?= __("Eigenaar")?></th>
                 <td>
                     <?
                     if(!empty($test['author']['school']['name'])) {
@@ -57,17 +57,17 @@
                 </td>
             </tr>
             <tr>
-                <th>Vak</th>
+                <th><?= __("Vak")?></th>
                 <td><?=$test['subject']['name']?></td>
-                <th>Periode</th>
+                <th><?= __("Periode")?></th>
                 <td><?=$test['period']['name']?></td>
-                <th>Soort</th>
+                <th><?= __("Soort")?></th>
             <td><?=$test['test_kind']['name']?></td>
             </tr>
             <tr>
-                <th>Niveau</th>
+                <th><?= __("Niveau")?></th>
                 <td><?=$test['education_level_year']?> <?=$test['education_level']['name']?></td>
-                <th>Maximale score</th>
+                <th><?= __("Maximale score")?></th>
                 <td colspan="3"><?=$totalScore?></td>
             </tr>
         </table>
@@ -76,16 +76,16 @@
 
 
 <div class="block">
-    <div class="block-head">Toetsvragen</div>
+    <div class="block-head"><?= __("Toetsvragen")?></div>
     <div class="block-content">
         <table class="table table-striped" id="tableQuestions">
             <thead>
             <tr>
                 <th>#</th>
-                <th>Vraag</th>
-                <th>Soort</th>
-                <th width="80">Score</th>
-                <th width="80">Besprk.</th>
+                <th><?= __("Vraag")?></th>
+                <th><?= __("Soort")?></th>
+                <th width="80"><?= __("Score")?></th>
+                <th width="80"><?= __("Besprk.")?></th>
                 <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
                     <th width="80"></th>
                 <? } ?>
@@ -149,13 +149,13 @@
                                 foreach($subquestions as $subquestion) {
                                     switch($subquestion['question']['type']) {
                                         case 'InfoscreenQuestion':
-                                            echo 'Infoscherm';
+                                            echo __("Infoscherm");
                                             break;
                                         case 'MultipleChoiceQuestion':
                                             if($subquestion['question']['subtype'] == 'TrueFalse') {
-                                                echo 'Juist / Onjuist<br />';
+                                                echo __("Juist / Onjuist<br />");
                                             }else{
-                                                echo 'Meerkeuze<br />';
+                                                echo __("Meerkeuze<br />");
                                             }
                                             break;
 
@@ -163,48 +163,48 @@
                                             switch($subquestion['question']['subtype']){
                                                 
                                                 case 'short':
-                                                    echo 'Open vraag - kort<br />';
+                                                    echo __("Open vraag - kort<br />");
                                                     break;
                                                 case 'long':
                                                 case 'medium':
-                                                    echo 'Open vraag - lang<br />';
+                                                    echo __("Open vraag - lang<br />");
                                                     break;
                                                 default:
-                                                    echo 'Open vraag<br />';
+                                                    echo __("Open vraag<br />");
                                                     break;
                                             }
                                             break;
 
                                         case 'CompletionQuestion':
                                             if($subquestion['question']['subtype'] == 'multi') {
-                                                echo 'Selectie<br />';
+                                                echo __("Selectie<br />");
                                             }else{
-                                                echo 'Gatentekst<br />';
+                                                echo __("Gatentekst<br />");
                                             }
                                             break;
 
                                         case 'RankingQuestion':
-                                            echo 'Rangschik<br />';
+                                            echo __("Rangschik<br />");
                                             break;
 
                                         case 'MatchingQuestion':
                                             if($subquestion['question']['subtype'] == 'Matching') {
-                                                echo 'Combineer<br />';
+                                                echo __("Combineer<br />");
                                             }else{
-                                                echo 'Rubriceer<br />';
+                                                echo __("Rubriceer<br />");
                                             }
                                             break;
 
                                         case 'MatrixQuestion':
                                             if($subquestion['question']['subtype'] == 'SingleChoice'){
-                                                echo 'MatrixQuestion';
+                                                echo __("MatrixQuestion");
                                             } else {
-                                                echo 'MatrixQuestion ONBEKEND';
+                                                echo __("MatrixQuestion ONBEKEND");
                                             }
                                         break;
 
                                         case 'DrawingQuestion':
-                                            echo 'Teken<br />';
+                                            echo __("Teken<br />");
                                             break;
                                     }
 
@@ -213,15 +213,15 @@
                             }else{
                                 switch($question['question']['type']) {
                                     case 'InfoscreenQuestion':
-                                        echo 'Infoscherm';
+                                        echo __("Infoscherm");
                                         break;
                                     case 'MultipleChoiceQuestion':
                                         if($question['question']['subtype'] == 'TrueFalse') {
-                                            echo 'Juist / Onjuist';
+                                            echo __("Juist / Onjuist");
                                         }elseif($question['question']['subtype'] == 'ARQ') {
                                             echo 'ARQ';
                                         }else{
-                                            echo 'Meerkeuze';
+                                            echo __("Meerkeuze");
                                         }
                                         break;
 
@@ -229,48 +229,48 @@
                                         switch($question['question']['subtype']){
                                             
                                             case 'short':
-                                                echo 'Open vraag - kort<br />';
+                                                echo __("Open vraag - kort<br />");
                                                 break;
                                             case 'long':
                                             case 'medium':
-                                                echo 'Open vraag - lang<br />';
+                                                echo __("Open vraag - lang<br />");
                                                 break;
                                             default:
-                                                echo 'Open vraag<br />';
+                                                echo __("Open vraag<br />");
                                                 break;
                                         }
                                         break;
 
                                     case 'CompletionQuestion':
                                         if($question['question']['subtype'] == 'multi') {
-                                            echo 'Selectie';
+                                            echo __("Selectie");
                                         }else{
-                                            echo 'Gatentekst';
+                                            echo __("Gatentekst");
                                         }
                                         break;
 
                                     case 'RankingQuestion':
-                                        echo 'Rangschik';
+                                        echo __("Rangschik");
                                         break;
 
                                     case 'MatchingQuestion':
                                         if($question['question']['subtype'] == 'Matching') {
-                                            echo 'Combineer';
+                                            echo __("Combineer");
                                         }else{
-                                            echo 'Rubriceer';
+                                            echo __("Rubriceer");
                                         }
                                         break;
 
                                     case 'MatrixQuestion':
                                         if($subquestion['question']['subtype'] == 'SingleChoice'){
-                                            echo 'MatrixQuestion';
+                                            echo __("MatrixQuestion");
                                         } else {
-                                            echo 'MatrixQuestion ONBEKEND';
+                                            echo __("MatrixQuestion ONBEKEND");
                                         }
                                         break;
 
                                     case 'DrawingQuestion':
-                                        echo 'Teken';
+                                        echo __("Teken");
                                         break;
                                 }
                             }
@@ -320,11 +320,11 @@
                                     <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get')?>">
                                         <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get')?>');">
                                             <span class="fa fa-edit mr5"></span>
-                                            Wijzigen
+                                            <?= __("Wijzigen")?>
                                         </a>
                                         <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>', <?=getUUID($question, 'get')?>);">
                                             <span class="fa fa-trash mr5"></span>
-                                            Verwijderen
+                                            <?= __("Verwijderen")?>
                                         </a>
                                     </div>
                                 <? }else{ ?>
@@ -335,11 +335,11 @@
                                     <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get')?>">
                                         <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get')?>', 800);">
                                             <span class="fa fa-edit mr5"></span>
-                                            Wijzigen
+                                            <?= __("Wijzigen")?>
                                         </a>
                                         <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>', <?=getUUID($question, 'get')?>);">
                                             <span class="fa fa-trash mr5"></span>
-                                            Verwijderen
+                                            <?= __("Verwijderen")?>
                                         </a>
                                     </div>
                                 <? } ?>
@@ -355,16 +355,16 @@
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <div class="block-footer">
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing/test/<?=$test_id?>', 1200); return false;">
-                <i class="fa fa-clock-o mr5"></i> Bestaande vraag toevoegen
+                <i class="fa fa-clock-o mr5"></i> <?= __("Bestaande vraag toevoegen")?>
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/test/<?=$test_id?>', 800); return false;">
-                <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
+                <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraag toevoegen")?>
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_group/<?=$test_id?>', 600); return false;">
-                <i class="fa fa-plus mr5"></i> Nieuwe vraaggroep
+                <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraag-groep")?>
             </a>
             <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;">
-                <i class="fa fa-check mr5"></i> Bestaande vraag toevoegen
+                <i class="fa fa-check mr5"></i> <?= __("Bestaande vraag toevoegen")?>
             </a>
         </div>
     <? } ?>

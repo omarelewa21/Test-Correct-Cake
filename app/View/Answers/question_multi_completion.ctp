@@ -9,7 +9,7 @@
         $isCitoQuestion = true;
     }
 ?>
-<h1 class="<?=$citoClass?>">Selectievraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="<?=$citoClass?>"><?= __("Selectievraag")?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {
@@ -45,7 +45,7 @@
                 shuffle($keys);
             }
             $random = array(
-                '' => 'Selecteer'
+                '' => __("Selecteer")
             );
             foreach ($keys as $key) {
                 $random[$key] = $answers[$key];
@@ -106,7 +106,7 @@
         if(ok) {
             Answer.saveAnswer();
         }else{
-            Notify.notify('Niet alle opties geselecteerd', 'error');
+            Notify.notify('<?= __("Niet alle opties geselecteerd")?>', 'error');
         }
     }
 

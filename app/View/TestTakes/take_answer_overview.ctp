@@ -6,7 +6,7 @@
 <div id="attachmentFade"></div>
 
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?
@@ -40,16 +40,16 @@ foreach($questions as $question) {
     $i++;
     ?>
     <div class="block">
-        <div class="block-head">Vraag #<?=$i?> voorbeeld</div>
+        <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("voorbeeld")?></div>
         <div class="block-content" id="question_preview_<?=$question['id']?>">
-            Laden..
+        <?= __("Laden..")?>
         </div>
     </div>
 
     <div class="block" style="margin-bottom: 100px; border-left: 3px solid #3D9D36">
-        <div class="block-head">Vraag #<?=$i?> antwoord</div>
+        <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("antwoord")?></div>
         <div class="block-content" id="question_answer_<?=$question['id']?>">
-            Laden..
+        <?= __("Laden..")?>
         </div>
     </div>
 

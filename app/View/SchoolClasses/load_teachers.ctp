@@ -1,15 +1,15 @@
 <center>
     <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn highlight inline-block" onclick="Popup.load('/school_classes/add_teacher/<?=getUUID($class, 'get');?>', 400);">
-        Docent toevoegen
+    <?= __("Docent toevoegen")?>
     </a>
     <?php } ?>
 </center>
 <br />
 <table class="table table-striped">
     <tr>
-        <th>Docent</th>
-        <th>Vak</th>
+        <th><?= __("Docent")?></th>
+        <th><?= __("Vak")?></th>
         <th></th>
     </tr>
     <?

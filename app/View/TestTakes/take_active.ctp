@@ -1,5 +1,5 @@
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?
@@ -114,7 +114,7 @@
 
         </div>
         <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
-             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
+             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> <?= __("Lees voor")?>
         </div>
         <?
     }

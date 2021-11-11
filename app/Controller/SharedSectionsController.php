@@ -94,12 +94,12 @@ class SharedSectionsController extends AppController {
             if($response === false){
                 if(substr_count('The name has already been taken.',json_encode($this->TestsService->getErrors())) > 0){
                     $this->formResponse(false, [
-                        'message' => 'Deze naam heb je inmiddels in gebruik voor een van je toetsen.'
+                        'message' => __("Deze naam heb je inmiddels in gebruik voor een van je toetsen.")
                     ]);
 
                 } else {
                     $this->formResponse(false, [
-                        'message' => 'Er is iets fout gegaan, probeer het nogmaals.'
+                        'message' => __("Er is iets fout gegaan, probeer het nogmaals.")
                     ]);
                 }
             } else {

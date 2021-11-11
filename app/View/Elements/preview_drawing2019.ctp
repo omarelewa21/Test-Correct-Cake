@@ -5,7 +5,7 @@
 $citoClass = 'cito';
 }
 ?>
-<h1 class="question_type <?=$citoClass?>">Teken-vraag<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= __("Teken-vraag")?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -17,7 +17,7 @@ $citoClass = 'cito';
     <center>
         <a href="#" class="btn highlight large inline-block" onclick="false">
             <span class="fa fa-edit"></span>
-            Antwoord tekenen
+            <?= __("Antwoord tekenen")?>
         </a>
     </center>
 </div>
@@ -27,7 +27,7 @@ $citoClass = 'cito';
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

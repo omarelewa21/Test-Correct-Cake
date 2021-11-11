@@ -1,16 +1,16 @@
-<div class="popup-head">Deployment</div>
+<div class="popup-head"><?= __("Deployment")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Deployment') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Datum
+            <?= __("Datum")?>
             </th>
             <td>
                 <?=$this->Form->input('deployment_day', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d')) ?>
             </td>
             <th width="130">
-                Status
+            <?= __("Status")?>
             </th>
             <td>
                 <?=$this->Form->input('status', array('style' => 'width: 185px', 'label' => false, 'options' => $statuses, 'selected' => getUUID($deployment['status'], 'get'))) ?>
@@ -18,10 +18,10 @@
         </tr>
         <tr>
             <th colspan="2">
-                Onderhouds bericht
+            <?= __("Onderhouds bericht")?>
             </th>
             <th colspan="2">
-                Vooraankondiging
+            <?= __("Vooraankondiging")?>
             </th>
         </tr>
         <tr>
@@ -37,10 +37,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -53,11 +53,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Deployment aangemaakt", "info");
+                Notify.notify('<?= __("Deployment aangemaakt")?>', "info");
                 Navigation.refresh()
             },
             onfailure : function(result) {
-                Notify.notify("Deployment kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Deployment kon niet worden aangemaakt")?>', "error");
             }
         }
     );
