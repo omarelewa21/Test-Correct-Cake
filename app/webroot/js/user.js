@@ -419,7 +419,10 @@ var User = {
             method: 'get',
             success: function (url) {
                 url = typeof url == 'undefined' ? '/' : url;
-                window.location.href = url;
+                window.open(url, '_self');
+                try {
+                    electron.loadUrl(url);
+                } catch(error) {}
             }
         });
     },
