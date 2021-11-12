@@ -10,6 +10,11 @@ App::uses('BaseService', 'Lib/Services');
 class UsersService extends BaseService
 {
 
+    public function getAllRoles()
+    {
+        return $this->Connector->getRequest('/role',[]);
+    }
+
     public function getRoles()
     {
         return AuthComponent::user('roles');

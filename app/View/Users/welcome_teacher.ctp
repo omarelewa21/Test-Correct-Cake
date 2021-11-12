@@ -82,6 +82,9 @@ if ($wizard_steps) {
             </div>
         <?php } ?>
 
+        <?php if(count($infos)){
+            echo $this->element('welcome_info_messages');
+         } ?>
 
     </div>
 

@@ -15,6 +15,7 @@ App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
 App::uses('SupportService', 'Lib/Services');
+App::uses('InfoService', 'Lib/Services');
 
 /**
  * Users controller
@@ -406,6 +407,7 @@ class UsersController extends AppController
 
     public function welcome()
     {
+        $this->InfoService = new InfoService();
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -413,6 +415,7 @@ class UsersController extends AppController
         $view = "welcome";
         $hasSchoolManagerRole = false;
         $should_display_import_incomplete_panel = false;
+        $this->set('infos', $this->InfoService->dashboard());
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
 
@@ -1176,6 +1179,7 @@ class UsersController extends AppController
                 $menus['lists'] = __("Database");
                 $menus['files'] = __("Bestanden");
                 $menus['qti'] = __("QTI");
+                $menus['infos'] = __('Info Messages');
                 $menus['imports'] = __('Imports');
             }
 
@@ -1424,6 +1428,13 @@ class UsersController extends AppController
                     'title' => __("School locatie Rapport"),
                     'type'  => 'download',
                     'path'  => '/users/school_location_report'
+                );
+
+                $tiles['info_messages'] = array(
+                    'menu'  => 'infos',
+                    'icon'  => 'testlist',
+                    'title' => __("Info Messages"),
+                    'path'  => '/infos/index'
                 );
             }
 

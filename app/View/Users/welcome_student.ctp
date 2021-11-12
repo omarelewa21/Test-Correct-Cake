@@ -19,6 +19,10 @@
                 <?php } ?>
             </div>
         </div>
+
+        <?php if(count($infos)){
+            echo $this->element('welcome_info_messages');
+        } ?>
     </div>
 </div>
 <?php } ?>
