@@ -1176,7 +1176,7 @@ class UsersController extends AppController
                 $menus['lists'] = __("Database");
                 $menus['files'] = __("Bestanden");
                 $menus['qti'] = __("QTI");
-                $menus['infos'] = __('Info Messages');
+                $menus['infos'] = __('info.Info Messages');
                 $menus['imports'] = __('Imports');
             }
 
@@ -1430,7 +1430,7 @@ class UsersController extends AppController
                 $tiles['info_messages'] = array(
                     'menu'  => 'infos',
                     'icon'  => 'testlist',
-                    'title' => __("Info Messages"),
+                    'title' => __("info.Info Messages"),
                     'path'  => '/infos/index'
                 );
             }
