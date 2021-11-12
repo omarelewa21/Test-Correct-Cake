@@ -1,12 +1,12 @@
     <div id="buttons">
         <a href="#" class="btn white" onclick="Popup.load('/infos/add',800);">
             <span class="fa fa-plus mr5"></span>
-            <?= __("Nieuwe Info message")?>
+            <?= __("info.Nieuwe Info message")?>
         </a>
     </div>
 
 
-<h1><?= __("Info Messages")?></h1>
+<h1><?= __("info.Info Messages")?></h1>
 
 <div class="block autoheight">
     <div class="block-head"><?= __("Overzicht")?></div>
@@ -14,11 +14,11 @@
         <table class="table table-striped" id="deploymentsTable">
             <thead>
             <tr>
-                <th><?= __("Titel")?></th>
-                <th><?= __("Tonen van")?></th>
-                <th><?= __("Tonen tot")?></th>
-                <th><?= __("Status")?></th>
-                <th><?= __("Aan")?></th>
+                <th><?= __("info.Titel")?></th>
+                <th><?= __("info.Tonen van")?></th>
+                <th><?= __("info.Tonen tot")?></th>
+                <th><?= __("info.Status")?></th>
+                <th><?= __("info.Tonen aan")?></th>
                 <th></th>
             </tr>
             </thead>
@@ -28,10 +28,10 @@
                         <td><?= $info['title']?></td>
                         <td><?= $info['show_from']?></td>
                         <td><?= $info['show_until']?></td>
-                        <td><?= $info['status']?></td>
+                        <td><?= $statuses[$info['status']]?></td>
                         <td><?
                             if($info['for_all']) {
-                                echo __("Iedereen");
+                                echo __("info.Everbody");
                             } else {
                                 $roleList = [];
                                 foreach($info['roles'] as $roleAr){

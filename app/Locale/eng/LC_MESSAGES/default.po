@@ -4298,3 +4298,56 @@ msgstr "Return to support environment"
 msgid "Dit is een gastaccount waardoor je de toets niet meer kunt heropenen voor deze student."
 msgstr "This is a guest account, which makes it impossible for you to re-open the test for this student."
 
+msgid "info.Zichtbaar"
+msgstr "Visible"
+
+msgid "info.Niet zichtbaar"
+msgstr "Not visible"
+
+msgid "info.Info Message"
+msgstr "Info message"
+
+msgid "info.Tonen vanaf"
+msgstr "Show from"
+
+msgid "info.Tonen tot"
+msgstr "Show until"
+
+msgid "info.Tonen aan"
+msgstr "Visible for"
+
+msgid "info.Status"
+msgstr "Visibility"
+
+msgid "info.Everybody"
+msgstr "Everybody"
+
+msgid "info.Title nl"
+msgstr "Title (Dutch)"
+
+msgid "info.Title en"
+msgstr "Title (English)"
+
+msgid "info.Content nl"
+msgstr "Content (Dutch)"
+
+msgid "info.Content en"
+msgstr "Content (English)"
+
+msgid "info.Info message aangemaakt"
+msgstr "Info message has been created"
+
+msgid "info.Info message kon niet worden aangemaakt"
+msgstr "Info message could not be created"
+
+msgid "Info message gewijzigd"
+msgstr "Info message has been updated"
+
+msgid "info.Nieuwe Info message"
+msgstr "New Info message"
+
+msgid "info.Info Messages"
+msgstr "Info messages"
+
+msgid "info.Titel"
+msgstr "Title"

@@ -1,16 +1,16 @@
-<div class="popup-head"><?= __("Info Message")?></div>
+<div class="popup-head"><?= __("info.Info Message")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Info') ?>
     <table class="table">
         <tr>
             <th width="130">
-            <?= __("Tonen vanaf")?>
+            <?= __("info.Tonen vanaf")?>
             </th>
             <td>
                 <?=$this->Form->input('show_from', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
             </td>
             <th>
-                <?= __("Tonen tot")?>
+                <?= __("info.Tonen tot")?>
             </th>
             <td>
                 <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
@@ -18,23 +18,23 @@
         </tr>
         <tr>
             <th width="130" valign="top">
-                <?= __("Status")?>
+                <?= __("info.Status")?>
             </th>
             <td valign="top">
                 <?=$this->Form->input('status', array('style' => 'width: 185px', 'label' => false, 'options' => $statuses, 'selected' => getUUID($info['status'], 'get'))) ?>
             </td>
             <th valign="top"><?= __("Tonen aan")?></th>
             <td>
-                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'checkForAll();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("Iedereen")?> <br />
+                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'checkForAll();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
                 <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
             </td>
         </tr>
         <tr>
             <th colspan="2">
-            <?= __("Title nl")?>
+            <?= __("info.Title nl")?>
             </th>
             <th colspan="2">
-            <?= __("Title En")?>
+            <?= __("info.Title en")?>
             </th>
         </tr>
         <tr>
@@ -47,10 +47,10 @@
         </tr>
         <tr>
             <th colspan="2">
-                <?= __("Content nl")?>
+                <?= __("info.Content nl")?>
             </th>
             <th colspan="2">
-                <?= __("Content En")?>
+                <?= __("info.Content en")?>
             </th>
         </tr>
         <tr>
@@ -94,11 +94,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify('<?= __("Info message aangemaakt")?>', "info");
+                Notify.notify('<?= __("info.Info message aangemaakt")?>', "info");
                 Navigation.refresh()
             },
             onfailure : function(result) {
-                Notify.notify('<?= __("Info message kon niet worden aangemaakt")?>', "error");
+                Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
             }
         }
     );
