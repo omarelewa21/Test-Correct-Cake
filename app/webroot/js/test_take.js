@@ -268,7 +268,7 @@ var TestTake = {
                         electron.setTestConfig(participant_id);
                     } catch (error) {}
                     try {
-                        electron.loadUrl(data.data.url)
+                        electron.loadUrl(data.data.url);
                     } catch(error) {}
                 },
             });

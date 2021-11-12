@@ -340,7 +340,7 @@ var Core = {
 				document.removeEventListener("visibilitychange", onchange);
 				window.open(data.data.url, '_self');
 				try {
-					electron.loadUrl(data.data.url)
+					electron.loadUrl(data.data.url);
 				} catch(error) {}
 			},
 		});
