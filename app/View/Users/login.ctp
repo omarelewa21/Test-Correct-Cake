@@ -107,10 +107,10 @@
     </a>
 
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
-    <?= __("Sluiten")?>
+    <?= __("Sluiten")?> btnclose
     </a>
     <a href="/logout"  class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
-    <?= __("Sluiten")?>
+    <?= __("Sluiten")?> btnclosechromebook
     </a>
     <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseElectron" style="display: none;">
     <?= __("Sluiten")?>
