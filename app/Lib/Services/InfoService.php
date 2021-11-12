@@ -47,8 +47,8 @@ class InfoService extends BaseService {
     public function getStatuses()
     {
         return [
-            'INACTIVE' => 'Niet zichtbaar',
-            'ACTIVE' => 'Zichtbaar',
+            'INACTIVE' => __('info.Niet zichtbaar'),
+            'ACTIVE' => __('info.Zichtbaar'),
         ];
     }
 

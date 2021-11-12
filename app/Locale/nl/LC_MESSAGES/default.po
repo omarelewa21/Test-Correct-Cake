@@ -1,0 +1,53 @@
+msgid "info.Zichtbaar"
+msgstr "Zichtbaar"
+
+msgid "info.Niet zichtbaar"
+msgstr "Niet zichtbaar"
+
+msgid "info.Info Message"
+msgstr "Info bericht"
+
+msgid "info.Tonen vanaf"
+msgstr "Tonen vanaf"
+
+msgid "info.Tonen tot"
+msgstr "Tonen tot"
+
+msgid "info.Tonen aan"
+msgstr "Zichtbaar voor"
+
+msgid "info.Status"
+msgstr "Zichtbaarheid"
+
+msgid "info.Everybody"
+msgstr "Iedereen"
+
+msgid "info.Title nl"
+msgstr "Titel (Nederlands)"
+
+msgid "info.Title en"
+msgstr "Titel (Engels)"
+
+msgid "info.Content nl"
+msgstr "Content (Nederlands)"
+
+msgid "info.Content en"
+msgstr "Content (Engels)"
+
+msgid "info.Info message aangemaakt"
+msgstr "Info bericht is aangemaakt"
+
+msgid "info.Info message kon niet worden aangemaakt"
+msgstr "Info bericht kon niet worden aangemaakt"
+
+msgid "Info message gewijzigd"
+msgstr "Info bericht is gewijzigd"
+
+msgid "info.Nieuwe Info message"
+msgstr "Nieuw info bericht"
+
+msgid "info.Info Messages"
+msgstr "Info berichten"
+
+msgid "info.Titel"
+msgstr "Titel"

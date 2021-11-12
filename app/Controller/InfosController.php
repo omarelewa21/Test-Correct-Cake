@@ -103,6 +103,7 @@ class InfosController extends AppController {
     public function index()
     {
         $this->set('infos', $this->InfoService->index());
+        $this->set('statuses', $this->InfoService->getStatuses());
     }
 
     public function dashboard()
