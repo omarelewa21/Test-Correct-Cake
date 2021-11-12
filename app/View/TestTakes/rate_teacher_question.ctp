@@ -1,3 +1,4 @@
+<div>
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/view/<?=$take_id?>');">
 <?= __("Terug")?>
 </a>
@@ -31,8 +32,8 @@
     <div class="block-content" id="question_load"></div>
 </div>
 
-<div class="block" style="border-left: 3px solid var(--menu-blue);">
-    <div class="block-head"><?= __("Antwoordmodel")?></div>
+<div id="answerModel" class="block" style="border-left: 3px solid var(--menu-blue);">
+    <div class="block-head"><?= __("Antwoordmodel")?><button id="pinAnswerModel" class="fa fa-unlock pull-right" style="background-color:white; border:none;"></button></div>
     <div class="block-content" id="question_answer_load"></div>
 </div>
 
@@ -94,8 +95,19 @@ foreach($participants as $participant) {
     }
     ?>
 </center>
+</div>
 
 <script type="text/javascript">
     $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
     $('#question_answer_load').load('/questions/preview_answer_load/<?=$question_id?>');
+    $('#pinAnswerModel').click(function(){
+        if ($(this).hasClass('fa-unlock')) {
+            $('#answerModel').css({'position':'sticky', 'top':'170px'})
+            $(this).addClass('fa-lock').removeClass('fa-unlock');
+        } else {
+            $('#answerModel').css({'position':'relative', 'top':'0'})
+            $(this).addClass('fa-unlock').removeClass('fa-lock');
+
+        }
+    })
 </script>
