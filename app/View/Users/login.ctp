@@ -1,9 +1,3 @@
-<?php if (isset($laravelLogin) && $laravelLogin != null) {?>
-<script>
-    window.location.href = '<?= $laravelLogin ?>';
-</script>
-<?php } ?>
-
 <div class="popup-head">
 <?= __("Inloggen op Test-Correct")?>
     <?php
@@ -106,15 +100,17 @@
     <?= __("Wachtwoord vergeten")?>
     </a>
 
-    <a href="https://testwelcome.test-correct.nl/login" class="btn mt5 mr5 grey pull-right">
-        laravel
+    <?php if (isset($laravelLogin) && $laravelLogin != null) {?>
+    <a href="<?= $laravelLogin ?>" class="btn mt5 mr5 grey pull-right">
+        Laravel
     </a>
+    <?php } ?>
 
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
-    <?= __("Sluiten")?> btnclose
+    <?= __("Sluiten")?>
     </a>
     <a href="/logout"  class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
-    <?= __("Sluiten")?> btnclosechromebook
+    <?= __("Sluiten")?>
     </a>
     <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseElectron" style="display: none;">
     <?= __("Sluiten")?>

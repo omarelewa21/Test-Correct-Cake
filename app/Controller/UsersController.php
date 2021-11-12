@@ -80,7 +80,7 @@ class UsersController extends AppController
     {
         $domain = $_SERVER['HTTP_HOST'];
         if (strpos($domain, 'testportal.test-correct.nl') !== false) {
-//            $this->set('laravelLogin', 'https://testwelcome.test-correct.nl/login');
+            $this->set('laravelLogin', 'https://testwelcome.test-correct.nl/login');
         }
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
