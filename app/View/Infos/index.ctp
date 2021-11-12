@@ -15,7 +15,7 @@
             <thead>
             <tr>
                 <th><?= __("info.Titel")?></th>
-                <th><?= __("info.Tonen van")?></th>
+                <th><?= __("info.Tonen vanaf")?></th>
                 <th><?= __("info.Tonen tot")?></th>
                 <th><?= __("info.Status")?></th>
                 <th><?= __("info.Tonen aan")?></th>
