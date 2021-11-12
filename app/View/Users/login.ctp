@@ -106,6 +106,10 @@
     <?= __("Wachtwoord vergeten")?>
     </a>
 
+    <a href="https://testwelcome.test-correct.nl/login" class="btn mt5 mr5 grey pull-right">
+        laravel
+    </a>
+
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
     <?= __("Sluiten")?> btnclose
     </a>
