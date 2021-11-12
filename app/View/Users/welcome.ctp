@@ -18,6 +18,14 @@
 
 <h1 style="text-align:center; margin-top: 200px;"><?= __("Welkom in Test-Correct")?></h1>
 
+<?php if(count($infos)){ ?>
+    <div class="dashboard">
+        <div class="notes">
+            <?= $this->element('welcome_info_messages'); ?>
+        </div>
+    </div>
+<?php } ?>
+
 <script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 
