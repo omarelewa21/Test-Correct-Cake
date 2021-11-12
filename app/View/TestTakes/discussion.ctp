@@ -1,42 +1,51 @@
 <?
 if(!isset($take)) {
     ?>
-    <h1>Toets bespreken</h1>
+    <h1><?= __("Toets bespreken")?></h1>
     <center>
-        Er is geen toets om te bespreken.
+    <?= __("Er is geen toets om te bespreken.")?>
     </center>
     <?
 }else {
     ?>
 
     <div id="buttons">
-        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');">Bespreking be&euml;indigen</a>
+        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');"><?= __("Bespreking beëindigen")?></a>
         <? if($has_next_question) { ?>
-            <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight mr2 nextDiscussionQuestion">Volgende vraag</a>
+            <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight mr2 nextDiscussionQuestion"><?= __("Volgende vraag")?></a>
         <? }  ?>
     </div>
 
-    <h1>Bespreken <?=$take['test']['name']?></h1>
+    <h1><?= __("Bespreken")?> <?=$take['test']['name']?></h1>
 
 <?= $this->element("attachment_popup"); ?>
 
-    <div class="block" style="float:right; width:250px;">
-        <div class="block-head">Studenten</div>
-        <div class="block-content" style="padding:13px 15px 13px 15px;" id="participants">
-
+    <div style="float:right; width:250px;">
+        <?php if(isset($take['test_take_code']) && $take['test_take_code'] != null) {
+            $test_code = sprintf('%s %s', $take['test_take_code']['prefix'], chunk_split($take['test_take_code']['code'], 3, ' '));
+            ?>
+            <div class="discuss-test-code-box" style="">
+                <h5>Student inlogtoetscode</h5>
+                <h1><?= $test_code ?></h1>
+            </div>
+        <?php } ?>
+        <div class="block">
+            <div class="block-head"><?= __("Studenten")?></div>
+            <div class="block-content" style="padding:13px 15px 13px 15px;" id="participants">
+            </div>
         </div>
     </div>
 
     <div style="float:left; width:calc(100% - 280px)">
         <div class="block" id="blockDiscussionQuestion">
-            <div class="block-head">Vraag</div>
+            <div class="block-head"><?= __("Vraag")?></div>
             <div class="block-content" id="questionQuestion" style="font-size: 24px !important;">
 
             </div>
         </div>
 
-        <div class="block" style="border-left: 20px solid #197cb4;" id="blockDiscussionAnswer">
-            <div class="block-head" style="color:white; background-color:#197cb4;"><strong>Antwoordmodel</strong></div>
+        <div class="block" style="border-left: 20px solid var(--menu-blue);" id="blockDiscussionAnswer">
+            <div class="block-head" style="color:white; background-color:var(--menu-blue);"><strong><?= __("Antwoordmodel")?></strong></div>
             <div class="block-content" id="questionAnswer" style="font-size: 24px !important;">
 
             </div>

@@ -91,6 +91,7 @@ class AppController extends Controller
         }
 
         $this->Auth->allow('get_header_session');
+        $this->Auth->allow('is_in_browser');
     }
 
     protected function handleHeaderCheck($headers)
@@ -114,6 +115,7 @@ class AppController extends Controller
         $this->Session->write('TLCOs', $version['os']);
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+
 
         $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
     }
@@ -182,6 +184,30 @@ class AppController extends Controller
         }
     }
 
+    public function isNotInBrowser($take_id) {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+        if ($versionCheckResult == AllowedAppType::NOTALLOWED && !$isInBrowser) {
+            http_response_code(403);
+            exit();
+        }
+        $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
+        if ($isInBrowser && !$allowedBrowserTesting) {
+            $message = 'Let op! Student probeert de toets te starten vanuit de console. id:'.AuthComponent::user('id').';';
+            BugsnagLogger::getInstance()->setMetaData([
+                'versionCheckResult' => $versionCheckResult,
+                'headers' => $headers,
+                'user_id' => AuthComponent::user('id'),
+                'user_uuid' => AuthComponent::user('uuid')
+            ])->notifyException(
+                new StudentFraudDetectionException("Console hack error: (". $message .")")
+            );
+            http_response_code(403);
+            exit();
+        }
+    }
+
     public function getallheaders()
     {
         $headers = array();
@@ -234,4 +260,60 @@ class AppController extends Controller
         return (preg_match ("/^(-){0,1}([0-9]+)(,[0-9][0-9][0-9])*([0-9]){0,1}([0-9]*)$/", $value) == 1);
     }
 
+    function transformDrawingAnswer($answer, $base64 = false)
+    {
+        $drawingAnswer = json_decode($answer['json'])->answer;
+
+        if (strpos($drawingAnswer, 'http') === false) {
+            $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer, $base64);
+            $this->set('drawing_url', $drawingAnswerUrl);
+            return $drawingAnswerUrl;
+        }
+        return false;
+    }
+
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
+
+    function getAppInfoFromSession()
+    {
+        return [
+            'TLCVersion'            => CakeSession::read('TLCVersion'),
+            'TLCOs'                 => CakeSession::read('TLCOs'),
+            'TLCHeader'             => CakeSession::read('TLCHeader'),
+            'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+        ];
+    }
+
+    public function setUserLanguage()
+    {
+        if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
+            $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+            if(!in_array($language,['en','nl'])){
+                $language = 'nl';
+            }
+            if($language === 'en') {
+                $language = 'eng';
+            }
+            $this->Session->write('Config.language', $language);
+        }
+        else{
+            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language_cake']);
+        }
+    }
+
+    public function returnToLaravelUrl($userId, $params = [])
+    {
+        return $this->UsersService->getReturnToLaravelUrl($userId, $params);
+    }
 }

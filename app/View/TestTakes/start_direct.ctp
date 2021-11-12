@@ -1,14 +1,14 @@
-<div class="popup-head">Toets direct starten</div>
+<div class="popup-head"><?= __("Toets direct starten")?></div>
 <div class="popup-content overflow-visible">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
-            <th style="display: none;" width="70">Datum</th>
-            <th style="display: none;" width="110">Periode</th>
-            <th style="display: none;">Surveillanten</th>
-            <th>Klas</th>
-            <th>Toets</th>
-            <th>Weging</th>
+            <th style="display: none;" width="70"><?= __("Datum")?></th>
+            <th style="display: none;" width="110"><?= __("Periode")?></th>
+            <th style="display: none;"><?= __("Surveillanten")?></th>
+            <th><?= __("Klas")?></th>
+            <th><?= __("Toets")?></th>
+            <th><?= __("Weging")?></th>
         </tr>
 
         <?
@@ -33,10 +33,10 @@
                     <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
                 </td>
                 <td>
-                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes)) ?>
+                    <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
                 </td>
                 <td>
-                    <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : 'Selecteer' ?></span>
+                    <span href="#" class="btn highlight small btnSelectTest" style="text-align: center; cursor:default;" id="TestTakeSelect_<?= $i ?>"><?= $i == 0 ? $test_name : __("Selecteer") ?></span>
                     <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
                 </td>
                 <td>
@@ -71,7 +71,7 @@
                         <div style="display: flex;">
                             <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
                                 <span class="fa fa-upload"></span>
-                                <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Resultaten toetsafname exporteren naar RTTI Online</strong></span>
+                                <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Resultaten toetsafname exporteren naar RTTI Online")?></strong></span>
                                 <div style="display: flex; align-items: center; margin-left: auto">
                                     <?php echo $this->element('questionmark_tooltip_rtti', array('id' => 1)) ?>
                                     <label class="switch">
@@ -86,7 +86,7 @@
             <?php endif; ?>
             <tr style="display: none;" class="testTakeRowNotes">
                 <td colspan="7">
-                    <strong>Notities voor surveillant</strong><br />
+                    <strong><?= __("Notities voor surveillant")?></strong><br />
                     <?= $this->Form->input('invigilator_note', array('name' => 'data[TestTake][' . $i . '][invigilator_note]', 'style' => 'width:98%; height:100px;', 'label' => false, 'type' => 'textarea')) ?>
                 </td>
             </tr>
@@ -96,7 +96,7 @@
                     <div style="display: flex;">
                         <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
                             <span class="fa fa-chrome"></span>
-                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Browsertoetsen voor iedereen toestaan</strong></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Browsertoetsen voor iedereen toestaan")?></strong></span>
                             <div style="display: flex; align-items: center; margin-left: auto">
                                 <?php echo $this->element('questionmark_tooltip', array('id' => $i)) ?>
                                 <label class="switch">
@@ -109,7 +109,26 @@
                 </td>
             </tr>
             <?php } ?>
+            <?php if ($locations[0]['allow_guest_accounts']) { ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
+                            <?= $this->element('profile') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('guest_accounts', array('name' => 'data[TestTake][' . $i . '][guest_accounts]', 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
             <?
+            }
         }
         ?>
     </table>
@@ -117,10 +136,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-        Direct afnemen
+    <?= __("Direct afnemen")?>
     </a>
 </div>
 
@@ -145,16 +164,17 @@
     $('#TestTakeStartDirectForm').formify({
         confirm: $('#btnAddTestTakes'),
         confirmPopup: confirmPopup,
-        confirmMessage: 'Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?',
+        confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify("Toetsen zijn ingepland", "info");
+            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
             Navigation.load('/test_takes/view/'+result.uuid);
+            Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();
         },
         onfailure: function (result) {
 
-            console.log(result["errors"]);
+            // console.log(result["errors"]);
 
             for (var i = 0; i < result["errors"].length; i++) {
                 Notify.notify(result["errors"][i], "error");
@@ -172,4 +192,12 @@
         var today = date.toLocaleDateString('nl-NL');
         $('#TestTakeDate0').val(today).trigger('change');
     });
+
+    $('#TestTakeGuestAccounts').on('change', (function () {
+        if ($('#TestTakeGuestAccounts').prop('checked')) {
+            $('#TestTakeClassId').attr('verify', '');
+        } else {
+            $('#TestTakeClassId').attr('verify', 'notempty');
+        }
+    }));
 </script>

@@ -2,43 +2,43 @@
     <? if($isAdministrator && strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'): ?>
         <a href="#" class="btn white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
             <span class="fa fa-edit mr5"></span>
-            Wijzigen
+            <?= __("Wijzigen")?>
         </a>
         <a href="#" class="btn white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 1);">
             <span class="fa fa-remove mr5"></span>
-            Verwijderen
+            <?= __("Verwijderen")?>
         </a>
     <? endif; ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
 <h1><?=$school_location['name']?></h1>
 
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="15%">Klantcode</th>
+                <th width="15%"><?= __("Klantcode")?></th>
                 <td width="35%">
                     <?=$school_location['customer_code']?>
                 </td>
-                <th width="15%">Accountmanager</th>
+                <th width="15%"><?= __("Accountmanager")?></th>
                 <td>
                     <?=$school_location['user']['name_first']?>  <?=$school_location['user']['name_suffix']?> <?=$school_location['user']['name']?>
                 </td>
             </tr>
             <tr>
-                <th width="15%">Bezoekadres</th>
+                <th width="15%"><?= __("Bezoekadres")?></th>
                 <td width="35%">
                     <?=$school_location['main_address']?><br />
                     <?=$school_location['main_postal']?> <?=$school_location['main_city']?><br />
                     <?=$school_location['main_country']?>
                 </td>
-                <th width="15%">Factuuradres</th>
+                <th width="15%"><?= __("Factuuradres")?></th>
                 <td>
                     <?=$school_location['invoice_address']?><br />
                     <?=$school_location['invoice_postal']?> <?=$school_location['invoice_city']?><br />
@@ -46,89 +46,104 @@
                 </td>
             </tr>
             <tr>
-                <th>Studenten</th>
+                <th><?= __("Studenten")?></th>
                 <td><?=$school_location['count_students']?> / <?=$school_location['number_of_students']?></td>
-                <th>Vraagitems</th>
+                <th><?= __("Vraagitems")?></th>
                 <td><?=$school_location['count_questions']?></td>
             </tr>
             <tr>
-                <th>Afgenomen toetsen</th>
+                <th><?= __("Afgenomen toetsen")?></th>
                 <td><?=$school_location['count_tests_taken']?></td>
-                <th>Actieve docenten</th>
+                <th><?= __("Actieve docenten")?></th>
                 <td><?=$school_location['count_active_teachers']?></td>
             </tr>
             <tr>
-                <th>Actieve licenties</th>
+                <th><?= __("Actieve licenties")?></th>
                 <td><?=$school_location['count_active_licenses']?></td>
-                <th>Docenten</th>
+                <th><?= __("Docenten")?></th>
                 <td><?=$school_location['count_teachers']?> / <?=$school_location['number_of_teachers']?></td>
             </tr>
             <tr>
-                <th>Scholengemeenschap</th>
+                <th><?= __("Scholengemeenschap")?></th>
                 <td>
                     <?
                     if(isset($school_location['school']) && !empty($school_location['school']['name'])) {
                         echo $school_location['school']['name'];
                     }else{
                         ?>
-                        <div class="label" style="background: green;">Geen, dit is de eindklant</div>
+                        <div class="label" style="background: green;"><?= __("Geen, dit is de eindklant")?></div>
                         <?
                     }
                     ?>
                 </td>
-                <th>Voorlees licenties</th>
+                <th><?= __("Voorlees licenties")?></th>
                 <td><span title="Totaal aantal text2speech licenties voor deze locatie"><?=$school_location['count_text2speech']?></span></td>
             </tr>
             <tr>
-                <th>Brin code</th>
+                <th><?= __("Brin code")?></th>
                 <td><?=$school_location['external_main_code']?></td>
                 
-                <th>Locatie brin code</th>
+                <th><?= __("Locatie brin code")?></th>
                 <td><?=$school_location['external_sub_code']?></td>
             </tr>
             <tr>
-                <th>InBrowser toetsen toestaan</th>
+                <th><?= __("InBrowser toetsen toestaan")?></th>
                 <td>
-                    <?=$school_location['allow_inbrowser_testing'] ? 'ja' : 'nee' ?>
+                    <?=$school_location['allow_inbrowser_testing'] ? __("ja") : __("nee") ?>
                     <?php
                         if($school_location['allow_inbrowser_testing']){
                             $allow = 0;
                             $btnClass = 'blue';
-                            $btnText = 'Ontnemen';
+                            $btnText = __("Ontnemen");
                         } else {
                             $allow = 1;
                             $btnClass = 'red';
-                            $btnText = 'Toestaan';
+                            $btnText = __("Toestaan");
                         }
                     ?>
                     <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
                 </td>
 
-                <th>Toetsen in nieuwe speler</th>
+                <th><?= __("Toetsen in nieuwe speler")?></th>
                 <td>
                     <select id="new_player_access" onchange="ChangeAllowNewPlayerAccess(this.value)">
-                        <option value="0">Niet toestaan</option>
-                        <option value="1">Beide spelers aanbieden</option>
-                        <option value="2">Alleen nieuwe speler</option>
+                        <option value="0"><?= __("Niet toestaan")?></option>
+                        <option value="1"><?= __("Beide spelers aanbieden")?></option>
+                        <option value="2"><?= __("Alleen nieuwe speler")?></option>
                     </select>
                 </td>
+            </tr>
+            <tr>
+                <th><?= __("LVS Koppeling")?></th>
+                <td><?= $school_location['lvs_type'] === null ? __("Geen koppeling") : $school_location['lvs_type'] ?></td>
+
+                <th><?= __("LVS Koppeling actief")?></th>
+                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?></td>
+            </tr>
+            <tr>
+                <th><?= __("SSO Koppeling")?></th>
+                <td><?=$school_location['sso_type'] === null ? __("Geen koppeling") : $school_location['sso_type']?></td>
+
+                <th><?= __("SSO Koppeling actief")?></th>
+                <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
         </table>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Schoolbeheerders</div>
+    <div class="block-head"><?= __("Schoolbeheerders")?></div>
     <div class="block-content">
 
 
         <table class="table table-stiped">
             <tr>
-                <th>Voornaam</th>
-                <th>Tussenv.</th>
-                <th>Achternaam</th>
-                <th>E-mailadres</th>
-                <th>Notities</th>
+                <th><?= __("Voornaam")?></th>
+                <th><?= __("Tussenv")?>.</th>
+                <th><?= __("Achternaam")?></th>
+                <th<?= __("E-mailadres")?></th>
+                <th><?= __("Notities")?></th>
+                <th width=30>&nbsp;</th>
                 <th width=30>&nbsp;</th>
             </tr>
             <?
@@ -145,6 +160,11 @@
                             <span class="fa fa-folder-open-o"></span>
                         </a>
                     </td>
+                    <td>
+                        <a href="#" class="btn small red inline-block" onclick="SchoolManager.delete('<?=getUUID($manager, 'get');?>');">
+                            <span class="fa fa-remove"></span>
+                        </a>
+                    </td>
                 </tr>
                 <?
             }
@@ -156,22 +176,22 @@
         <center>
             <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/users/add/managers/location/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
-                Schoolbeheerder toevoegen
+                <?= __("Schoolbeheerder toevoegen")?>
             </a>
         </center>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Licentiepakketten</div>
+    <div class="block-head"><?= __("Licentiepakketten")?></div>
     <div class="block-content">
 
 
         <table class="table table-stiped">
             <tr>
-                <th>Startdatum</th>
-                <th>Einddatum</th>
-                <th>Aantal</th>
+                <th><?= __("Startdatum")?></th>
+                <th><?= __("Einddatum")?></th>
+                <th><?= __("Aantal")?></th>
                 <th></th>
             </tr>
             <?
@@ -200,14 +220,14 @@
         <center>
             <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_licence/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
-                Licentiepakket toevoegen
+                <?= __("Licentiepakket toevoegen")?>
             </a>
         </center>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Contactpersonen</div>
+    <div class="block-head"><?= __("Contactpersonen")?></div>
     <div class="block-content">
         <?
         foreach($school_location['school_location_contacts'] as $contact) {
@@ -215,7 +235,7 @@
             <div style="float:left; width:300px; background: #f1f1f1; padding:10px; margin:3px;">
                 <table cellpadding="5" cellspacing="0" class="mb10">
                     <tr>
-                        <th width="80">Type</th>
+                        <th width="80"><?= __("Type")?></th>
                         <td>
                             <?
 
@@ -223,19 +243,19 @@
 
                             switch($contact['type']) {
                                 case 'FINANCE':
-                                    echo 'Financieel';
+                                    echo __("Financieel");
                                     $type = 'financial';
                                     break;
                                 case 'TECHNICAL':
-                                    echo 'Technisch';
+                                    echo __("Technisch");
                                     $type = 'technical';
                                     break;
                                 case 'IMPLEMENTATION':
-                                    echo 'Implementatie';
+                                    echo __("Implementatie");
                                     $type = 'implementation';
                                     break;
                                 case 'OTHER':
-                                    echo 'Anders';
+                                    echo __("Anders");
                                     $type = 'other';
                                     break;
                             }
@@ -243,11 +263,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Naam</th>
+                        <th><?= __("Naam")?></th>
                         <td><?=$contact['contact']['name']?></td>
                     </tr>
                     <tr>
-                        <th valign="top">Adres</th>
+                        <th valign="top"><?= __("Adres")?></th>
                         <td>
                             <?=$contact['contact']['address']?><br />
                             <?=$contact['contact']['postal']?> <?=$contact['contact']['city']?><br />
@@ -255,15 +275,15 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Telefoon</th>
+                        <th><?= __("Telefoon")?></th>
                         <td><?=$contact['contact']['phone']?></td>
                     </tr>
                     <tr>
-                        <th>Mobiel</th>
+                        <th><?= __("Mobiel")?></th>
                         <td><?=$contact['contact']['mobile']?></td>
                     </tr>
                     <tr>
-                        <th>Notitie</th>
+                        <th><?= __("Notitie")?></th>
                         <td>
                             <div style="width:190px;text-wrap: none; text-overflow: ellipsis; white-space: nowrap; overflow: hidden">
                                 <?=empty($contact['contact']['note']) ? '-' : $contact['contact']['note']?>
@@ -290,19 +310,19 @@
         <center>
             <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school_location/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
-                Contactpersoon toevoegen
+                <?= __("Contactpersoon toevoegen")?>
             </a>
         </center>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">IP-adressen</div>
+    <div class="block-head"><?= __("IP-adressen")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th>Adres</th>
-                <th>Netmask</th>
+                <th><?= __("Adres")?></th>
+                <th><?= __("Netmask")?></th>
                 <th width="30"></th>
             </tr>
             <?
@@ -327,7 +347,7 @@
         <center>
             <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/school_locations/add_ip/<?=getUUID($school_location, 'get');?>', 400);">
                 <span class="fa fa-plus"></span>
-                Ip toevoegen
+                <?= __("Ip toevoegen")?>
             </a>
         </center>
     </div>

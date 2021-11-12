@@ -1,10 +1,10 @@
-<div class="popup-head">Docent</div>
+<div class="popup-head"><?= __("Docent")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Teacher') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Docent
+            <?= __("Docent")?>
             </th>
             <td>
                 <?=$this->Form->input('teacher_id', array('style' => 'width: 185px', 'label' => false, 'options' => $teachers)) ?>
@@ -12,7 +12,7 @@
          </tr>
         <tr>
             <th width="130">
-                Vak
+            <?= __("Vak")?>
             </th>
             <td>
                 <?=$this->Form->input('subject_id', array('style' => 'width: 185px', 'label' => false, 'options' => $subjects)) ?>
@@ -23,10 +23,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -36,11 +36,11 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify('<?= __("Gebruiker aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );

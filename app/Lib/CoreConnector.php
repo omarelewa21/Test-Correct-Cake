@@ -7,6 +7,13 @@ class CakeToLaravelException extends Exception {
     }
 }
 
+class StudentFraudDetectionException extends Exception {
+    //$message is now not optional, just for the extension.
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
 class CoreConnector {
 
     /**
@@ -91,9 +98,27 @@ class CoreConnector {
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
-        
-        
+
+
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
+    }
+
+    public function getJsonRequest($path, $params)
+    {
+
+        $params['session_hash'] = $this->sessionHash;
+        $params['user'] = $this->user;
+
+        $url = $path . "?" . http_build_query($params);
+        $validationHash = $this->_generateHash($url);
+        $params['signature'] = $validationHash;
+
+        // Include signature
+        $finalUrl = $path . "?" . http_build_query($params);
+        //$response = file_get_contents($this->baseUrl .$finalUrl);
+
+
+        return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
     public function getDownloadRequest($path, $params)
@@ -109,7 +134,7 @@ class CoreConnector {
         return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
-    public function postRequest($path, $params, $body)
+    public function postRequest($path, $params, $body, $decode = true)
     {
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
@@ -127,7 +152,7 @@ class CoreConnector {
             "Content-Type" => "application/json"
         ];
 
-        return $this->_execute($handle,true,$headers);
+        return $this->_execute($handle,$decode,$headers);
     }
 
     public function postRequestFile($path, $params, $body)
@@ -168,12 +193,12 @@ class CoreConnector {
             "Content-Type" => "application/json",
             "Content-Length" => strlen($body)
         ];
-
         return $this->_execute($handle,true,$headers);
     }
 
     public function putRequestFile($path, $params, $body)
     {
+
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
         $url = $path . "?" . http_build_query($params);
@@ -182,7 +207,6 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
-
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
         $headers = [

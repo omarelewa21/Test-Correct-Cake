@@ -1,24 +1,24 @@
-<div class="popup-head">Student</div>
+<div class="popup-head"><?= __("Student")?></div>
 <div class="popup-content">
     <?=$this->Form->create('User', ['']) ?>
     <table class="table">
         <tr>
             <th width="130">
-                Klassen
+            <?= __("Klassen")?>
             </th>
             <td>
                 <?=$this->Form->input('student_school_classes', array('style' => 'width: 185px', 'label' => false, 'options' => $school_classes, 'multiple' => true, 'value' => $active_classes)) ?>
             </td>
         </tr>
         <tr>
-            <th>Geslacht</th>
+            <th><?= __("Geslacht")?></th>
             <td>
                 <?=$this->Form->input('gender', array('style' => 'width: 185px', 'label' => false, 'options' => ['Male' => 'Mannelijk', 'Female' => 'Vrouwelijk'])) ?>
             </td>
         </tr>
         <tr>
             <th width="130">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -26,7 +26,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -42,7 +42,7 @@
         </tr>
         <tr>
             <th width="130">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
@@ -50,7 +50,7 @@
         </tr>
         <tr>
             <th width="130">
-                Nieuw wachtwoord
+            <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -58,15 +58,15 @@
         </tr>
         <tr>
             <th width="130">
-                Studentennummer
+            <?= __("Studentennummer")?>
             </th>
             <td>
-                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('external_id', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
             </td>
         </tr>
         <tr>
             <th>
-                Dyslexie
+            <?= __("Dyslexie")?>
             </th>
             <td>
                 <?=$this->Form->input('time_dispensation', ['type' => 'checkbox', 'style' => 'width:20px;', 'label' => false, 'div' => false])?> heeft recht op tijdsdispensatie
@@ -76,7 +76,7 @@
         <?php echo $this->element('text2speech'); ?>
 
         <tr>
-            <th colspan="2">Notities</th>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -93,7 +93,7 @@
         <table class="table">
             <tr>
                 <th width="130">
-                    Profielfoto
+                <?= __("Profielfoto")?>
                 </th>
                 <td>
                     <?=$this->Form->input('file', array('style' => 'width: 185px', 'type' => 'file', 'label' => false, 'onchange' => '$("#formProfilePicture").submit(); Loading.show();')) ?>
@@ -106,10 +106,10 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Wijzigen
+    <?= __("Wijzigen")?>
     </a>
 </div>
 
@@ -120,7 +120,7 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker gewijzigd", "info");
+                Notify.notify('<?= __("Gebruiker gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {

@@ -1,28 +1,28 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.load('/rttiimport/index')">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
-<h1>RTTI import</h1>
+<h1><?= __("RTTI import")?></h1>
 
 <div class="block " id="RttiImportBlock">
     <div id="RttiImportContainer" style="display:none;overflow:scroll;padding: 8px;">
-        Een moment dit kan enige tijd duren (als in een paar minuten);
+    <?= __("Een moment dit kan enige tijd duren (als in een paar minuten);")?>
 
     </div>
     <?= $this->Form->create('Rtti', array('id' => 'RttiImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'import')) ?>
     <div class="block-content" id="testsContainter">
         <table class='table'>
             <tr>
-                <td><label>Email domein</label></td>
+                <td><label><?= __("Email domein")?></label></td>
                 <td>
-                    <?= $this->Form->input('email_domain', array('style' => 'width:150px;', 'type' => 'email', 'placeholder' => 'Domein.nl', 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
+                    <?= $this->Form->input('email_domain', array('style' => 'width:150px;', 'type' => 'email', 'placeholder' => __("Domein.nl"), 'value' => '', 'label' => false, 'verify' => 'notempty')) ?>
                 </td>
             </tr>
             <tr>
-                <td><label>Scheidingsteken</label></td>
+                <td><label><?= __("Scheidingsteken")?></label></td>
                 <td>
                     <?= $this->Form->input('separator', array('label' => false, 'type' => 'select', 'onchange' => '', 'options' => [';'=>'; puntkomma',','=>', komma'], 'style' => 'width:150px;', 'value' => ';')) ?>       </td>
             </tr>
@@ -37,7 +37,7 @@
     </div>
     <div class="block-footer">
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
-            Gegevens importeren
+        <?= __("Gegevens importeren")?>
         </a>
     </div>
     <?= $this->Form->end ?>
@@ -51,7 +51,7 @@
     ;
 
     function handleSubmit() {
-        console.log('handle submit');
+        // console.log('handle submit');
         $('#RttiImportBlock').height($('#RttiImportBlock').height()).css('overflow', 'scroll').css('padding', '8px');
         $('#RttiImportContainer').show();
         $('#buttons').show();
@@ -62,7 +62,7 @@
 
     function RttiImportSetup() {
         $(document).ready(function () {
-            console.log('import setup');
+            // console.log('import setup');
             $('#buttons').hide();
         });
         RttiImportSetupRun = true;

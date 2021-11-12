@@ -91,7 +91,6 @@ class SectionsController extends AppController
             $section['name'] = HelperFunctions::getInstance()->revertSpecialChars($section['name']);
             $sections[] = $section;
         }
-
         $this->set('sections', $sections);
     }
 
@@ -117,9 +116,8 @@ class SectionsController extends AppController
         $section['Section'] = $section;
 
         $this->request->data = $section;
-
         $this->request->data['Section']['name'] = HelperFunctions::getInstance()->revertSpecialChars($this->request->data['Section']['name']);
-
+        $this->set('section_uuid', $section['uuid']);
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
     }
 

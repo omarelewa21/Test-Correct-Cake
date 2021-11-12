@@ -1,6 +1,6 @@
 <style>
     body {
-        font-family: Arial;
+        font-family: Helvetica;
     }
 </style>
 
@@ -11,7 +11,7 @@ foreach($participants as $participant) {
     if(count($participant['answers']) > 0) {
         ?>
         <h1>
-            Antwoorden
+        <?= __("Antwoorden")?>
             <?= $participant['user']['name_first'] ?>
             <?= $participant['user']['name_suffix'] ?>
             <?= $participant['user']['name'] ?>
@@ -24,7 +24,7 @@ foreach($participants as $participant) {
 
             $q++;
             ?>
-            <h2>Vraag #<?=$q?></h2>
+            <h2><?= __("Vraag")?> #<?=$q?></h2>
             <?
             foreach ($participant['answers'] as $answer) {
 
@@ -95,7 +95,7 @@ foreach($participants as $participant) {
                                 }
                             }
                         }
-                        echo '<Br />';
+                        echo '<br />';
                     }
                 }
 
@@ -105,7 +105,7 @@ foreach($participants as $participant) {
                     foreach($answerJson as $answer_id => $order) {
                         foreach($question['ranking_question_answers'] as $answer) {
                             if($answer['id'] == $answer_id) {
-                                echo $answer['answer'].'<Br />';
+                                echo $answer['answer'].'<br />';
                             }
                         }
                     }
@@ -128,7 +128,7 @@ foreach($participants as $participant) {
 
                 if($question['type'] == 'DrawingQuestion') {
                     ?>
-                    <img src="<?=$answerJson['answer']?>" width="100%" />
+                    <img src="<?=htmlspecialchars_decode($answerJson['answer'])?>" width="100%" />
                 <?
                 }
             }

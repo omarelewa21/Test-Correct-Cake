@@ -64,7 +64,7 @@ class AnalysesController extends AppController
         $params = $this->request->data;
 
         $params['with'] = ['schoolClassStats'];
-        $params['filter'] = ['is_main_school_class' => 1, 'current_school_year' => 1];
+        $params['filter'] = ['current_school_year' => 1];
 
         $classes = $this->TestsService->getClassesItems($params);
 
@@ -140,7 +140,7 @@ class AnalysesController extends AppController
         ]);
 
         if(!isset($student['developed_attainments']) || empty($student['developed_attainments'])) {
-            die('Grafiek kon niet worden gegenereerd');
+            die(__('Grafiek kon niet worden gegenereerd'));
         }
 
         $this->set('attainments', $student['developed_attainments']);
@@ -173,7 +173,7 @@ class AnalysesController extends AppController
         $student = $this->UsersService->getUser($user_id, $params);
 
         if(!isset($student['subjects']) && empty($student['subjects'])) {
-            die('Grafiek kon niet worden gegenereerd');
+            die(__('Grafiek kon niet worden gegenereerd'));
         }else{
             $this->set('student', $student);
             $this->set('subjects', $student['subjects']);
@@ -196,7 +196,7 @@ class AnalysesController extends AppController
 
         $params['filter'] = ['current_school_year' => 1];
         
-        $school_locations[0] = 'Alle';
+        $school_locations[0] = __('Alle');
         $school_locations_list = $this->SchoolLocationsService->getSchoolLocationList();
 
         if (!empty($school_locations_list) && is_array($school_locations_list)) {
@@ -205,7 +205,7 @@ class AnalysesController extends AppController
 
         $school_classes_list = $this->SchoolClassesService->getClassesList($params);
 
-        $school_classes[0] = 'Alle';
+        $school_classes[0] = __('Alle');
 
         if (!empty($school_classes_list) && is_array($school_classes_list)) {
             $school_classes += $school_classes_list;

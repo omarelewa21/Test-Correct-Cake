@@ -6,13 +6,13 @@ $citoClass = 'cito';
 }
 ?>
 <?=$this->Form->create('Answer')?>
-<h1 class="question_type <?=$citoClass?>">Tekenvraag [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= __("Tekenvraag")?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 
 <?=$this->element('take_question', ['question' => $question])?>
 <center>
     <a href="#" class="btn highlight large inline-block" onclick="Popup.load('/answers/drawing_answer/<?=getUUID($question, 'get');?>', 1220); Answer.answerChanged = true;">
         <span class="fa fa-edit"></span>
-        Antwoord tekenen
+        <?= __("Antwoord tekenen")?>
     </a>
 </center>
 

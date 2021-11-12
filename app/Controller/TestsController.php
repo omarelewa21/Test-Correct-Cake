@@ -37,7 +37,7 @@ class TestsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-//            0 => 'Alle',
+//            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -50,14 +50,20 @@ class TestsController extends AppController
 
 
         $periods = $this->TestsService->getPeriods();
-        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(false));
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(false));
 
         $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __($kinds[$i]);
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
 
-        //$education_levels = [0 => 'Alle'] + $education_levels;
-        $periods = [0 => 'Alle'] + $periods;
-        //$subjects = [0 => 'Alle'] + $subjects;
-        $kinds = [0 => 'Alle'] + $kinds;
+        //$education_levels = [0 => __("Alle")] + $education_levels;
+        $periods = [0 => __("Alle")] + $periods;
+        //$subjects = [0 => __("Alle")] + $subjects;
+        $kinds = [0 => __("Alle")] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
@@ -151,9 +157,21 @@ class TestsController extends AppController
         $params['filter'] = ['current_school_year' => 1];
 
         $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __($kinds[$i]);
+//        }
+        foreach ($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
         $periods = $this->TestsService->getPeriods(false, $params);
         $subjects = HelperFunctions::getInstance()->revertSpecialChars($this->TestsService->getCurrentSubjectsForTeacher());
         $education_levels = $this->TestsService->getEducationLevels(false);
+
+        if(array_key_exists('content_creation_step',$this->params['url']) && $this->params['url']['content_creation_step'] == 2) {
+            $this->set('opened_from_content', true);
+        } else {
+            $this->set('opened_from_content', false);
+        }
 
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
@@ -188,6 +206,13 @@ class TestsController extends AppController
         $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
 
         $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
+
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects(true);
         $education_levels = $this->TestsService->getEducationLevels(false);
@@ -200,7 +225,8 @@ class TestsController extends AppController
                 $currentEducationlevelUuid = $level['uuid'];
             }
         }
-
+        $this->set('education_level_year',$this->request->data['Test']['education_level_year']);
+        $this->set('test_id',$test_id);
         $this->set('current_education_level_uuid', $currentEducationlevelUuid);
         $this->set('kinds', $kinds);
         $this->set('periods', $periods);
@@ -209,8 +235,32 @@ class TestsController extends AppController
         $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
     }
 
+    public function create_copy_and_update($test_id)
+    {
+        $response = $this->TestsService->duplicate($test_id);
+        if ($this->request->is('post') || $this->request->is('put')) {
+
+            $test = $this->request->data['Test'];
+            if(stristr($response['name'],$test['name'])){
+                $test['name'] = $response['name'];
+            }
+
+            $questions = $this->TestsService->getQuestions($response['uuid']);
+
+            $result = $this->TestsService->edit($response['uuid'], $test);
+
+            if ($result == 'unique_name') {
+                $this->formResponse(false, 'unique_name');
+            } else {
+                $this->formResponse(!empty($result), $result);
+            }
+        }
+    }
+
     public function load()
     {
+//        http_response_code(404);
+//        exit;
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_levels = $this->TestsService->getEducationLevels(true, false);
@@ -218,6 +268,12 @@ class TestsController extends AppController
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
 
         $this->set('education_levels', $education_levels);
         $this->set('kinds', $kinds);
@@ -274,6 +330,7 @@ class TestsController extends AppController
             $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getTests($params);
 
         $this->set('tests', $tests['data']);
@@ -313,14 +370,20 @@ class TestsController extends AppController
                     $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
                 }
                 $this->setNotificationsForViewGroup($question['question']);
-            } 
+            }
             array_push($questionsArray, $question);
         }
-        
+
         $education_levels = $this->TestsService->getEducationLevels();
         $periods = $this->TestsService->getPeriods();
         $subjects = $this->TestsService->getSubjects();
         $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
 
         $this->set('totalScore', $totalScore);
         if($msg != ''){
@@ -340,6 +403,7 @@ class TestsController extends AppController
         $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
         $this->set('newPlayerAccess', $newPlayerAccess);
         $this->set('oldPlayerAccess', $oldPlayerAccess);
+        $this->set('startWithEdit',false);
     }
 
     /**
@@ -552,12 +616,12 @@ class TestsController extends AppController
         // Default data
         $education_levels = $this->TestsService->getEducationLevels();
         $questionTypes = [
-            'MultipleChoiceQuestion' => 'Multiple Choice',
-            'OpenQuestion' => 'Open vraag',
-            'CompletionQuestion' => 'Gatentekstvraag',
-            'RankingQuestion' => 'Rangschik-vraag',
-            'MatchingQuestion' => 'Matching',
-            'MatrixQuestion' => 'Matrix',
+            'MultipleChoiceQuestion' => __("Multiple Choice"),
+            'OpenQuestion' => __("Open vraag"),
+            'CompletionQuestion' => __("Gatentekstvraag"),
+            'RankingQuestion' => __("Rangschik-vraag"),
+            'MatchingQuestion' => __("Matching"),
+            'MatrixQuestion' => __("Matrix"),
         ];
 
         $view = new View($this, false);
@@ -571,10 +635,16 @@ class TestsController extends AppController
 
         $view->set('debug', $debug);
 
+        $logo_url = 'https://testportal.test-correct.nl/img/logo_full.jpg';
+        if (strstr($logo_url, $_SERVER['HTTP_HOST']) != false) {
+            $logo_url = 'https://portal.test-correct.nl/img/logo_full.jpg';
+        }
+        $view->set('logo_url', $logo_url);
+
         // Generate PDF
         $html = $view->render('pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html));
         $this->response->type('pdf');
 
         return $this->response;
@@ -612,7 +682,6 @@ class TestsController extends AppController
         $html = $view->render('attachmentpdf', 'pdf');
 
         $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -639,16 +708,9 @@ class TestsController extends AppController
         }
 
 
-        // $view = new View($this, false);
         $this->set('base64', $attachmentMatch['data']);
         $this->set('filename', $attachment['title']);
         $this->render('pdfatt', 'ajax');
-        // Generate PDF
-        // $html = $view->render('pdfatt', 'pdf');
-
-        // $this->response->body($attachmentMatch['data']);
-        // $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
-        // $this->response->type('pdf');
 
         return $this->response;
 
@@ -693,4 +755,8 @@ class TestsController extends AppController
         return $this->formResponse(true,  $this->TestsService->getTestUrlForLaravel($testId));
     }
 
+    public function create_content()
+    {
+
+    }
 }

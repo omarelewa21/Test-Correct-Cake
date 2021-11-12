@@ -24,7 +24,18 @@ if(isset($_GET['type']) && $_GET['type'] == 'drawing'){
   $path = realpath($_SERVER['DOCUMENT_ROOT']) . DS . '..' . DS . 'tmp' . DS . 'questionanswers' . DS;
 }
 
-$filename = $_GET['filename'];
+
+/*
+SECURITY FIX:
+
+Replace all '..' occurrences with an empty string
+This prevents local file inclusions
+PLEASE NOTE:
+Do not replace '../' with the empty string since this is **not** secure.
+*/
+$filename = str_replace('..', '', $_GET['filename']);
+/*****/
+
 $file = $path.$filename;
 $mime = mime_content_type($file);
 

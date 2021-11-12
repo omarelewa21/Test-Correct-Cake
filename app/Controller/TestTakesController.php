@@ -11,6 +11,7 @@ App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('HelperFunctions','Lib');
 App::uses('CarouselMethods', 'Trait');
 
+
 // App::uses('TestsService', 'Lib/Services');
 
 class TestTakesController extends AppController {
@@ -145,7 +146,7 @@ class TestTakesController extends AppController {
             if (!is_array($test_takes) || count($test_takes) < 1) {
                 $this->formResponse(false, [
                     'errors' => [
-                        'Er dient tenminste één toets gekozen te worden'
+                        __("Er dient tenminste één toets gekozen te worden")
                     ]
                 ]);
 
@@ -158,7 +159,7 @@ class TestTakesController extends AppController {
                     if ($test_take['test_id'] == '' || empty($test_take['test_id'])) {
                         $this->formResponse(false, [
                             'errors' => [
-                                'Er dient een toets gekozen te worden.'
+                                __("Er dient een toets gekozen te worden.")
                             ]
                         ]);
                         exit;
@@ -172,7 +173,7 @@ class TestTakesController extends AppController {
                     if (strtotime($test_take['date']) == 0) {
                         $this->formResponse(false, [
                             'errors' => [
-                                'Datum is incorrect'
+                                __("Datum is incorrect")
                             ]
                         ]);
 
@@ -194,6 +195,14 @@ class TestTakesController extends AppController {
 //					}
 
                     $check = $this->TestTake->check($test_take, $test);
+                    if ($test_take['guest_accounts']) {
+                        foreach ($check['errors'] as $errorKey => $error) {
+                            if($error == __('Geen klas geselecteerd')) {
+                                $check['status'] = true;
+                            }
+                        }
+                    }
+
                     if (!$check['status']) {
                         $this->formResponse(
                                 false, [
@@ -263,7 +272,7 @@ class TestTakesController extends AppController {
                 $this->set('test', $test);
                 $this->validateCarouselQuestionsInTest($test_id);
             } else {
-                $test_name = 'Selecteer';
+                $test_name = __("Selecteer");
             }
 
             $this->set('classes', $classes);
@@ -329,7 +338,7 @@ class TestTakesController extends AppController {
             $test = $this->TestsService->getTest($test_id);
             $test_name = $test['name'];
         } else {
-            $test_name = 'Selecteer';
+            $test_name = __("Selecteer");
         }
 
         $this->set('classes', $classes);
@@ -343,6 +352,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
+        $this->set('school_allows_guest_accounts', $school_location['data'][0]['allow_guest_accounts']);
         $this->set('is_rtti_school_location', $school_location['data'][0]['is_rtti_school_location']);
     }
 
@@ -418,15 +428,15 @@ class TestTakesController extends AppController {
         if (!$take) {
             echo "<script>
             Navigation.back();
-            Notify.notify('Je hebt helaas geen toegang tot deze toets','error');
+            Notify.notify('<?= __(\"Je hebt helaas geen toegang tot deze toets\")?>','error');
 </script>";
             exit;
         }
 
         if ($take['test_take_status_id'] == 9) {
-            $this->isAuthorizedAs(["Teacher", "Invigilator", "Student"]);
+            $this->isAuthorizedAs(["Teacher", "Invigilator", "Student", "School Manager"]);
         } else {
-            $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+            $this->isAuthorizedAs(["Teacher", "Invigilator", "School Manager"]);
         }
 
         $this->set('take', $take);
@@ -617,11 +627,16 @@ class TestTakesController extends AppController {
                 break;
 
             case 8:
+                $this->set('guest', AuthComponent::user('guest'));
+
+                $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'discussed']);
+                $this->set('loginUrl', $loginUrl['url']);
+
                 $view = 'take_discussed';
                 break;
 
             default:
-                die('Niet te bespreken');
+                die(__("Niet te bespreken"));
                 break;
         }
 
@@ -701,11 +716,12 @@ class TestTakesController extends AppController {
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
+        $this->set('currentIndex',0);
     }
 
     public function normalization_preview($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
-
+        $this->set('currentIndex',$this->request->data['hiddenIndex']);
         $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
         $this->set('results', $results);
     }
@@ -853,7 +869,7 @@ class TestTakesController extends AppController {
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
 
         if (!$answer) {
-            echo 'Vraag niet gemaakt';
+            echo __("Vraag niet gemaakt");
             die;
         }
 
@@ -895,6 +911,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -913,14 +936,6 @@ class TestTakesController extends AppController {
 
         $answer['answer'] = $answer;
 
-        if ($answer['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
-        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');
@@ -931,7 +946,7 @@ class TestTakesController extends AppController {
         $rating = $this->TestTakesService->getRating($take_id, $user_id);
 
         if (!isset($rating['id'])) {
-            echo 'Geen antwoord om weer te geven';
+            echo __("Geen antwoord om weer te geven");
             die;
         }
 
@@ -971,6 +986,12 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($rating['answer']);
+//                $drawingAnswer = json_decode($rating['answer']['json'])->answer;
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1032,9 +1053,8 @@ class TestTakesController extends AppController {
     }
 
     public function take2019($take_id, $question_index = null, $clean = false) {
-
+        $this->isNotInBrowser($take_id);
         $questions = false;
-
         $participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
         $participant_status = false;
@@ -1043,7 +1063,7 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             if ($response) {
                 $questions = $response['answers'];
-                $take = $response['take'];
+                $take = $response['test_take'];
                 $participant_status = $response['participant_test_take_status_id'];
             }
         }
@@ -1102,7 +1122,11 @@ class TestTakesController extends AppController {
     }
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
-        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+        $this->isNotInBrowser($take_id);
+
+        $params['app_details'] = $this->getAppInfoFromSession();
+
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id, $params));
 
     }
 
@@ -1215,6 +1239,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                    $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing2019';
                 break;
 
@@ -1371,7 +1402,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $periods = $this->TestsService->getPeriods();
-        $periods = [0 => 'Alle'] + $periods;
+        $periods = [0 => __("Alle")] + $periods;
         $this->set('periods', $periods);
     }
 
@@ -1397,7 +1428,7 @@ class TestTakesController extends AppController {
         $take = $this->TestTakesService->getTestTake($take_id);
 
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {
-            die('Deze toets is niet meer in te zien');
+            die(__("Deze toets is niet meer in te zien"));
         }
 
         $questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
@@ -1409,6 +1440,11 @@ class TestTakesController extends AppController {
             $group = "";
         }
 
+        $this->set('guest', AuthComponent::user('guest'));
+        if(AuthComponent::user('guest')) {
+            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
+            $this->set('loginUrl', $loginUrl['url']);
+        }
         $this->set('group', $group);
         $this->set('answer', $answer);
         $this->set('question_index', $question_index);
@@ -1460,6 +1496,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer['answer']);
+//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1474,15 +1517,6 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
-        }
-
-        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
         }
 
         $this->set('rating', $answer);
@@ -1514,13 +1548,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -1898,6 +1932,13 @@ class TestTakesController extends AppController {
 
             $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
 
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
             $newArray[$take_id] = $take;
 
         }
@@ -1906,10 +1947,19 @@ class TestTakesController extends AppController {
 
         $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
 
-
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
         $this->set('takes', $takes);
     }
+
+    public function surveillance_data_new() {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->autoRender = false;
+
+        return $this->TestTakesService->getSurveillanceData();
+    }
+
+
 
     public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
@@ -1957,32 +2007,32 @@ class TestTakesController extends AppController {
                 switch ($participant['test_take_status']['id']) {
                     case 1:
                         $label = 'info';
-                        $text = 'Ingepland';
+                        $text = __("Ingepland");
                         break;
 
                     case 2:
                         $label = 'danger';
-                        $text = 'Niet gemaakt';
+                        $text = __("Niet gemaakt");
                         break;
 
                     case 3:
                         $label = 'success';
-                        $text = 'Maakt toets';
+                        $text = __("Maakt toets");
                         break;
 
                     case 4:
                         $label = 'info';
-                        $text = 'Ingeleverd';
+                        $text = __("Ingeleverd");
                         break;
 
                     case 5:
                         $label = 'warning';
-                        $text = 'Ingeleverd (geforceerd)';
+                        $text = __("Ingeleverd (geforceerd)");
                         break;
 
                     case 6:
                         $label = 'success';
-                        $text = 'Ingenomen';
+                        $text = __("Ingenomen");
                         break;
                 }
 
@@ -2007,13 +2057,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] +$this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] +$this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2021,13 +2071,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2048,7 +2098,7 @@ class TestTakesController extends AppController {
             $take = $this->TestTakesService->getTestTake($getTakeId);
             if (!empty($take['discussing_parent_questions'])) {
                 //$group = $this->QuestionsService->getSingleQuestion();
-                $group = getUUID($take['discussing_parent_questions'][0]['group_question'], 'get');
+                $group = getUUID($take['discussing_parent_questions'][0]['group_question_uuid'], 'get');
                 $this->set('group', $group);
             }
 
@@ -2167,7 +2217,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('rates_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2215,14 +2265,27 @@ class TestTakesController extends AppController {
 
         $participants = $this->TestTakesService->getParticipants($take_id);
 
+        foreach ($participants as $key1 => $participant) {
+            foreach ($participant['answers'] as $key2 => $answer) {
+                if (array_key_exists('answer', json_decode($answer['json'], true))) {
+                    $jsonAnswerData = json_decode($answer['json'], true);
+                    if ($transformedUrl = $this->transformDrawingAnswer($answer, true)) {
+                        $jsonAnswerData['answer'] = $transformedUrl['url'];
+                    } else {
+                        $jsonAnswerData['answer'] = $jsonAnswerData['answer'].'&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
+                    }
+                    $participants[$key1]['answers'][$key2]['json'] = json_encode($jsonAnswerData);
+                }
+            }
+        }
+
         $view = new View($this, false);
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
-
         $html = $view->render('answers_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2275,7 +2338,8 @@ class TestTakesController extends AppController {
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $msgArray = [];
         $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
         $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);
@@ -2285,6 +2349,15 @@ class TestTakesController extends AppController {
     public function get_header_session() {
         // exit(json_encode($this->Session->read('headers')));
         exit($this->Session->read("TLCVersionCheckResult"));
+    }
+
+    public function is_in_browser() {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        if($isInBrowser){
+            exit('inBrowser');
+        }
+        exit('notInBrowser');
     }
 
     public function archive($take_id) {
@@ -2328,7 +2401,7 @@ class TestTakesController extends AppController {
         try {
             // START SETTING DATA FOR SCHOOL SECTION
             if ($schoolLocation['data'][0]['school_id'] == NULL && $schoolLocation['data'][0]['external_main_code'] == NULL)
-                $errors[] = 'Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.';
+                $errors[] = __("Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.");
 
             if ($schoolLocation['data'][0]['external_main_code'] == NULL) {
                 $external_main_code = $schoolLocation['data'][0]['school']['external_main_code'];
@@ -2337,13 +2410,13 @@ class TestTakesController extends AppController {
             }
 
             if ($external_main_code == NULL && $schoolLocation['data'][0]['school']['umbrella_organisation_id'] == NULL)
-                $errors[] = 'Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.';
+                $errors[] = __("Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.");
 
             if ($external_main_code == NULL)
                 $external_main_code = $schoolLocation['data'][0]['school']['umbrella_organisation']['external_main_code'];
 
             if ($external_main_code == NULL)
-                $errors[] = 'Geen brincode gevonden voor deze setup, neem contact op met administrators.';
+                $errors[] = __("Geen brincode gevonden voor deze setup, neem contact op met administrators.");
 
             $ctpSchool = new ctpSchool(new DateTime('now'));
             $ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
@@ -2602,12 +2675,15 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             $questions = $response['answers'];
 
-            App::uses('BugsnagLogger','Lib');
-            BugsnagLogger::getInstance()->setMetaData([
-                'response' => $response,
-            ])->notifyException(
-                new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
-            );
+            if (!$questions) {
+                // this can be removed when this error no longer occures: MF 7-7-2021
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->setMetaData([
+                    'response' => $response,
+                ])->notifyException(
+                    new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
+                );
+            }
         }
 
         $this->set('questions', $questions);

@@ -1,5 +1,5 @@
 <a href="#" class="btn highlight" id="btnHandIn" onclick="TestTake.handIn();">
-    Inleveren
+<?= __("Inleveren")?>
 </a>
 <div id="test_progress">
     <?
@@ -114,7 +114,7 @@
 
         </div>
         <div class="question green" style="float:right;width:auto;padding-right:7px;padding-left:7px;"
-             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> Lees voor
+             onClick="toggleBrowseAloud();"><i class="fa fa-volume-up"></i> <?= __("Lees voor")?>
         </div>
         <?
     }
@@ -161,7 +161,7 @@
     Answer.takeId = '<?=$take_id?>';
 
     jQuery("#btnAttachmentFrameMove").on('mouseenter', function (e) {
-        console.log('mousentered');
+        // console.log('mousentered');
         jQuery("#attachmentContainer").draggable({handle: '#btnAttachmentFrameMove'});
     });
 
@@ -182,15 +182,23 @@
         }
     }
 
+    var hideButtonsFound = false;
+    var hideButtonsIterator = 0;
     function hideBrowseAloudButtons() {
         var shadowRoot = document.querySelector('div#__bs_entryDiv').querySelector('div').shadowRoot;
         var elementsToHide = ['th_translate','th_mp3Maker', 'ba-toggle-menu'];
+        var nrButtonsFound = 0;
         elementsToHide.forEach(function(id) {
             var el = shadowRoot.getElementById(id);
             if (el !== null) {
                 shadowRoot.getElementById(id).setAttribute('style', 'display:none');
+                nrButtonsFound++
             }
         });
+
+        if(nrButtonsFound === count(elementsToHide)){
+            hideButtonsFound = true;
+        }
 
         var toolbar = shadowRoot.getElementById('th_toolbar');
         if (toolbar !== null) {
@@ -200,6 +208,12 @@
         [... shadowRoot.querySelectorAll('.th-browsealoud-toolbar-button__icon')].forEach(function(item) {
             item.setAttribute('style', 'fill : #515151');
         });
+        if(!hideButtonsFound && hideButtonsIterator < 10){
+            setTimeout(function(){
+                hideButtonsIterator++;
+                hideBrowseAloudButtons();
+            },250);
+        }
     }
 
     var _baTimer;
@@ -231,7 +245,7 @@
         BrowseAloud.panel.toggleBar(!0);
         setTimeout(function() {
             hideBrowseAloudButtons();
-        }, 1500);
+        }, 250);
     }
 
     <?php

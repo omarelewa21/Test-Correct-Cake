@@ -1,22 +1,22 @@
-<div class="popup-head">Schoollocatie</div>
+<div class="popup-head"><?= __("Schoollocatie")?></div>
 <div class="popup-content">
     <?=$this->Form->create('SchoolLocation') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
-                Scholengemeenschap
+            <?= __("Scholengemeenschap")?>
             </th>
             <td>
                 <?=$this->Form->input('school_id', array('style' => 'width: 185px', 'label' => false, 'options' => $schools)) ?>
             </td>
             <th width="130">
-                Niveau
+            <?= __("Niveau")?>
             </th>
             <td>
                 <?=$this->Form->input('education_levels', array('style' => 'width: 185px', 'label' => false, 'options' => $eduction_levels, 'multiple' => true)) ?>
@@ -24,38 +24,40 @@
         </tr>
         <tr>
             <th>
-                Klantcode
+            <?= __("Klantcode")?>
             </th>
             <td>
                 <?=$this->Form->input('customer_code', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
-                Accountmanager
+            <?= __("Accountmanager")?>
             </th>
             <td>
                 <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers)) ?>
             </td>
             <th width="130">
-                Cijfermodel
+            <?= __("Cijfermodel")?>
             </th>
             <td>
                 <?=$this->Form->input('grading_scale_id', array('style' => 'width: 185px', 'label' => false, 'options' => $grading_scales)) ?>
             </td>
         </tr>
         <tr>
-            <th>Contact actief</th>
+            <th><?= __("Contact actief")?></th>
             <td>
-                <?=$this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Contract is actief
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('activated', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
             <th>
-                Aantal Studenten
+            <?= __("Aantal Studenten")?>
             </th>
             <td>
                 <?=$this->Form->input('number_of_students', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th>
-                Aantal docenten
+            <?= __("Aantal docenten")?>
             </th>
             <td>
                 <?=$this->Form->input('number_of_teachers', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -63,79 +65,110 @@
         </tr>
 
         <tr>
-            <th>Brin code</th>
+            <th><?= __("Brin code")?></th>
             <td>
                 <?=$this->Form->input('external_main_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 4, 'verify' => 'length-0-or-4'));?>
             </td>
-            <th>Locatie brin code (Max. 2 karakters)</th>
+            <th><?= __("Locatie brin code (Max. 2 karakters)")?></th>
             <td>
                 <?=$this->Form->input('external_sub_code',array('style' => 'width: 185px', 'label' => false, 'maxLength' => 2, 'verify' => 'max-length-2'));?>
             </td>
 
-            <th>Is rtti school location</th>
+            <th><?= __("Is rtti school")?></th>
             <td>
-                <?=$this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
-                Is RTTI school
+                <label class="switch" style="display:flex;">
+                    <?= $this->Form->input('is_rtti_school_location', array('style' => 'width: 185px', 'label' => false, 'type' => 'checkbox', 'value' => 1, 'div' => false, 'style' => 'width:20px;')) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
         </tr>
 
         <tr>
-          <th>Open source content creator</th>
+          <th><?= __("Open source content creator")?></th>
           <td>
-              <?=$this->Form->input('is_open_source_content_creator',array('type'=>'checkbox','label'=>false)); ?>
+              <label class="switch" style="display:flex;">
+                  <?= $this->Form->input('is_open_source_content_creator', array('type' => 'checkbox', 'label' => false, 'div' => false)); ?>
+                  <span class="slider round"></span>
+              </label>
           </td>
-          <th>Mag open source content bekijken</th>
+          <th><?= __("Mag open source content bekijken")?></th>
           <td>
-              <?=$this->Form->input('is_allowed_to_view_open_source_content',array('type'=>'checkbox','label'=>false)); ?>
+              <label class="switch" style="display:flex;">
+                  <?= $this->Form->input('is_allowed_to_view_open_source_content', array('type' => 'checkbox', 'label' => false, 'div' => false)); ?>
+                  <span class="slider round"></span>
+              </label>
           </td>
+            <th width="130"><?= __("Taal Test-Correct")?></th>
+            <td>
+                <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('en'=>'English', 'nl' => 'Dutch'))) ?>
+            </td>
         </tr>
+        
 
         <tr>
-            <th colspan="2" style="text-align: center"><br />Vestigingsadres</th>
-            <th colspan="2" style="text-align: center"><br />Factuuradres</th>
-            <th colspan="2" style="text-align: center"><br />Bezoekadres</th>
+            <th colspan="2" style="text-align: center"><br /><?= __("Vestigingsadres")?></th>
+            <th colspan="2" style="text-align: center"><br /><?= __("Factuuradres")?></th>
+            <th colspan="2" style="text-align: center"><br /><?= __("Bezoekadres")?></th>
         </tr>
         <tr>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?=$this->Form->input('main_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?=$this->Form->input('invoice_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?=$this->Form->input('visit_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?=$this->Form->input('main_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?=$this->Form->input('invoice_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?=$this->Form->input('visit_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?=$this->Form->input('main_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?=$this->Form->input('invoice_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?=$this->Form->input('visit_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?=$this->Form->input('main_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?=$this->Form->input('invoice_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?=$this->Form->input('visit_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
+        </tr>
+        <tr>
+            <th><?= __("LVS Koppeling type")?></th>
+            <td>
+                <?= $this->Form->input('lvs_type', array('style' => 'width: 185px', 'label' => false, 'options' => $lvs_types)); ?>
+            </td>
+
+            <th><?= __("Single Sign On type")?></th>
+            <td>
+                <?= $this->Form->input('sso_type', array('style' => 'width: 185px', 'label' => false, 'options' => $sso_types)); ?>
+            </td>
+            <th><?= __("Single Sign On actief")?></th>
+            <td>
+                <label id="sso_toggle" class="switch" style="display:flex;">
+                    <?= $this->Form->checkbox('sso_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
+                    <span class="slider round"></span>
+                </label>
+            </td>
         </tr>
     </table>
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -148,8 +181,9 @@
             }else{
                 $("#SchoolLocationExternalMainCode").attr('disabled','disabled');
             }
-            console.log($(this).val());
+            // console.log($(this).val());
         });
+        checkSchoolLocationSsoToggle();
     });
 
     $('#SchoolLocationAddForm').formify(
@@ -157,7 +191,7 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("School aangemaakt", "info");
+                Notify.notify('<?= __("School aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
@@ -192,4 +226,21 @@
             Notify.notify('De BRIN code moet uit 4 karakters bestaan.', 'error');
         }
     });
+    $("#SchoolLocationExternalMainCode, #SchoolLocationExternalSubCode").on('input', function() {
+        checkSchoolLocationSsoToggle();
+    });
+    $("#SchoolLocationSsoType").on('change', function () {
+        checkSchoolLocationSsoToggle();
+    });
+    function checkSchoolLocationSsoToggle() {
+        var sso_toggle = document.querySelector('#SchoolLocationSsoActive')
+
+        $('#SchoolLocationSsoActive').prop('checked', false);
+        sso_toggle.setAttribute('disabled', 'disabled');
+        if (document.querySelector('#SchoolLocationSsoType').value !== '') {
+            if ($("#SchoolLocationExternalSubCode").val().length === 2 && $("#SchoolLocationExternalMainCode").val().length === 4) {
+                sso_toggle.removeAttribute('disabled');
+            }
+        }
+    }
 </script>

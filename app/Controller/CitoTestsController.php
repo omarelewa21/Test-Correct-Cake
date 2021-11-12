@@ -27,7 +27,7 @@ class CitoTestsController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -46,10 +46,10 @@ class CitoTestsController extends AppController {
         }
         $kinds = $this->TestsService->getKinds();
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
-        $periods = [0 => 'Alle'] + $periods;
-        $subjects = [0 => 'Alle'] + $subjects;
-        $kinds = [0 => 'Alle'] + $kinds;
+        $education_levels = [0 => __("Alle")] + $education_levels;
+        $periods = [0 => __("Alle")] + $periods;
+        $subjects = [0 => __("Alle")] + $subjects;
+        $kinds = [0 => __("Alle")] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
@@ -118,6 +118,7 @@ class CitoTestsController extends AppController {
           $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getCitoTests($params);
 
         $this->set('tests', $tests['data']);

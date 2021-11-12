@@ -30,17 +30,17 @@ class Question extends AppModel
 
 
                     if($question['subtype'] == 'ARQ') {
-                        $html .= "<table width=100% cellpadding=10 cellspacing=0><tr><td></td><td>St.1</td><td>St.2</td><td>Reden</td></tr>";
-                        $html .= "<tr><td width=40>A</td><td width=40>J</td><td width=40>J</td><td>Juiste reden</td></tr>";
-                        $html .= "<tr><td>B</td><td>J</td><td>J</td><td>Onjuiste reden</td></tr>";
-                        $html .= "<tr><td>C</td><td>J</td><td>O</td><td></td></tr>";
-                        $html .= "<tr><td>D</td><td>O</td><td>J</td><td></td></tr>";
-                        $html .= "<tr><td>E</td><td>O</td><td>O</td><td></td></tr>";
+                        $html .= "<table width=100% cellpadding=10 cellspacing=0><tr><td></td><td>St.1</td><td>St.2</td><td>" . __("Reden") . "</td></tr>";
+                        $html .= "<tr><td width=40>A</td><td width=40>". __('J') ."</td><td width=40>". __('J') ."</td><td>" . __("Juiste reden") . "</td></tr>";
+                        $html .= "<tr><td>B</td><td>". __('J') ."</td><td>". __('J') ."</td><td>" . __("Onjuiste reden") . "</td></tr>";
+                        $html .= "<tr><td>C</td><td>". __('J') ."</td><td>". __('O') ."</td><td></td></tr>";
+                        $html .= "<tr><td>D</td><td>". __('O') ."</td><td>". __('J') ."</td><td></td></tr>";
+                        $html .= "<tr><td>E</td><td>". __('O') ."</td><td>". __('O') ."</td><td></td></tr>";
                         $html .= "</table>";
                     }else {
 
-                        $html .= 'Selecteer maximaal ' . $question['selectable_answers'] . ' ';
-                        $html .= $question['selectable_answers'] > 1 ? 'antwoorden' : 'antwoord';
+                        $html .= __('Selecteer maximaal ') . $question['selectable_answers'] . ' ';
+                        $html .= $question['selectable_answers'] > 1 ? __("antwoorden") : __("antwoord");
 
                         $answers = [];
 
@@ -73,7 +73,7 @@ class Question extends AppModel
                 case 'CompletionQuestion':
 
                     if($question['subtype'] == 'multi') {
-                        $html = "<p><strong>Streep de verkeerde antwoorden door</strong></p>";
+                        $html = "<p><strong>" . __('Streep de verkeerde antwoorden door') . "</strong></p>";
                         $questionText = $question['question'];
 
 
@@ -94,7 +94,7 @@ class Question extends AppModel
 
                         $html .= "<p>" . $questionText . "</p>";
                     }else{
-                        $html = "<p><strong>Noteer welke woorden op de plekken horen</strong></p>";
+                        $html = "<p><strong>" . __('Noteer welke woorden op de plekken horen') . "</strong></p>";
                         $questionText = $question['question'];
                         for ($i = 1; $i < 100; $i++) {
                             $questionText = str_replace('[' . $i . ']', ':______________', $questionText);
@@ -154,7 +154,7 @@ class Question extends AppModel
                         $html .= $item."<br /><br />";
                     }
 
-                    $html .= "</tr></table>";
+                    $html .= "</td></tr></table>";
 
                     break;
                 case 'DrawingQuestion':
@@ -261,12 +261,12 @@ class Question extends AppModel
         $errors = [];
 
         if(empty($question['question'])) {
-            $errors[] = "Geen vraag ingevuld";
+            $errors[] = __("Geen vraag ingevuld");
         }
 
         if($type == 'OpenQuestion') {
             if(empty($question['answer'])) {
-                $errors[] = "Geen antwoord ingevuld";
+                $errors[] = __("Geen antwoord ingevuld");
             }
         }
 
@@ -310,13 +310,13 @@ class Question extends AppModel
             }
 
             if($found < 2) {
-                $errors[] = "U dient minimaal 2 antwoorden op te geven";
+                $errors[] = __("U dient minimaal 2 antwoorden op te geven");
             }elseif(!$scores) {
-                $errors[] = "Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn.";
+                $errors[] = __("Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn.");
             }
 
             if(!$scoresFound) {
-                $errors[] = "U dient minimaal 1 antwoord van een score te voorzien.";
+                $errors[] = __("U dient minimaal 1 antwoord van een score te voorzien.");
             }
 
         }
@@ -336,9 +336,9 @@ class Question extends AppModel
             }
 
             if(!$scores) {
-                $errors[] = "Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn.";
+                $errors[] = __("Bij elk antwoord dient een (numeriek) aantal punten opgegeven te zijn.");
             }elseif(!$found) {
-                $errors[] = "U dient minimaal 1 optie een score te geven.";
+                $errors[] = __("U dient minimaal 1 optie een score te geven.");
             }
         }
 
@@ -359,9 +359,9 @@ class Question extends AppModel
             }
 
             if($found < 2) {
-                $errors[] = "U dient minimaal 2 items op te geven";
+                $errors[] = __("U dient minimaal 2 items op te geven");
             }elseif(!$right) {
-                $errors[] = "Niet elk item heeft een antwoord";
+                $errors[] = __("Niet elk item heeft een antwoord");
             }
 
         }
@@ -377,7 +377,7 @@ class Question extends AppModel
             }
 
             if($found < 2) {
-                $errors[] = "U dient minimaal 2 items op te geven";
+                $errors[] = __("U dient minimaal 2 items op te geven");
             }
 
         }
@@ -391,13 +391,13 @@ class Question extends AppModel
             }
 
             if($found < 2) {
-                $errors[] = "U dient minimaal 2 antwoorden op te geven";
+                $errors[] = __("U dient minimaal 2 antwoorden op te geven");
             }
         }
 
         if($type == 'DrawingQuestion') {
             if(!isset($session['drawing_data']) || empty($session['drawing_data'])) {
-                $errors[] = "U heeft nog geen antwoord getekend";
+                $errors[] = __("U heeft nog geen antwoord getekend");
             }
         }
 
@@ -412,14 +412,14 @@ class Question extends AppModel
                 foreach($stringArray as $string) {
 
                     if (preg_match("/<[^<]+>/",$string) != 0) {
-                        $errors[] = 'U kunt geen opmaak gebruiken tussen de vierkante haakjes';
+                        $errors[] = __("U kunt geen opmaak gebruiken tussen de vierkante haakjes");
                         break 2;
                     }
 
                     //TC-154
                     //empty brackets are not allowed
                     if ($string == '' || $string == null) {
-                        $errors[] = 'U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen';
+                        $errors[] = __("U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen");
                         break 2;
                     }
                 }
@@ -434,7 +434,7 @@ class Question extends AppModel
 
         if($type == 'MultiCompletionQuestion') {
             if(!strstr($question['question'], '[') && !strstr($question['question'], ']')) {
-                $errors[] = "U dient minimaal &eacute;&eacute;n keuze toe te voegen aan de vraag. ";
+                $errors[] = __("U dient minimaal &eacute;&eacute;n keuze toe te voegen aan de vraag. ");
             }
         }
 
@@ -447,16 +447,16 @@ class Question extends AppModel
     private function validateScore($question,$errors){
 
         if(!(new AppController())->is_eu_numeric($question['score'])){
-            $errors[] = "De score dient numeriek te zijn";
+            $errors[] = __("De score dient numeriek te zijn");
         }
         if($question['score']==''||is_null($question['score'])){
-            $errors[] = "De score is verplicht";
+            $errors[] = __("De score is verplicht");
         }
         if(stristr($question['score'], '.')||stristr($question['score'], ',')){
-                $errors[] = "De score dient in hele getallen te worden opgegeven";
+                $errors[] = __("De score dient in hele getallen te worden opgegeven");
         }
         if(is_numeric($question['score'])&&(intval($question['score']<0))){
-            $errors[] = "De score dient groter dan nul te zijn";
+            $errors[] = __("De score dient groter dan nul te zijn");
         }
         return $errors;
     }

@@ -1,62 +1,62 @@
-<div class="popup-head">Optie toevoegen</div>
+<div class="popup-head"><?= __("Optie toevoegen")?></div>
 <div class="popup-content">
     <table class="table table-striped" id="tableAddOptions">
         <tr>
-            <th>Juiste antwoord</th>
+            <th><?= __("Juiste antwoord")?></th>
             <td>
                 <input type="text" id="multiSelecRightOption" disabled="disabled" />
             </td>
         </tr>
         <tr>
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
         </tr>
         <tr style="display:none;">
-            <th>Foutief antwoord</th>
+            <th><?= __("Foutief antwoord")?></th>
             <td>
                 <input type="text" class="multiSelectOption" />
             </td>
@@ -66,16 +66,16 @@
 <br />
 <center>
     <a href="#" class="btn highlight" onclick="$('#tableAddOptions tr:hidden').first().fadeIn()">
-        Optie toevoegen
+    <?= __("Optie toevoegen")?>
     </a>
 </center>
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="addItems();">
-        Toevoegen
+    <?= __("Toevoegen")?>
     </a>
 </div>
 
@@ -109,10 +109,10 @@
 
         var code = $('#QuestionQuestion').redactor('code.get');
 
-        console.log(code);
+        // console.log(code);
         code = code.replace('-' + $('#multiSelecRightOption').val(), result);
-        console.log(code);
-        console.log(result);
+        // console.log(code);
+        // console.log(result);
         $('#QuestionQuestion').redactor('code.set', code);
         Popup.closeLast();
     }

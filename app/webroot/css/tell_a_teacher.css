@@ -7,6 +7,7 @@
     --cta-secondary: #004DF5;
     --primary: #004DF5;
     --primary-light: #e6edfa;
+    --primary-hover: #4781ff;
     --secondary: #ECD900;
     --highlight-primary: #ECD900;
     --system-base: #041F74;
@@ -30,6 +31,10 @@
 
     --orange: #ff9d23;
 
+    --menu-blue: var(--primary);
+    --menu-blue-active: var(--primary-hover);
+    --old-blue: #197cb4;
+    --note: #6b7789;
 }
 
 .color-primary {
@@ -115,7 +120,7 @@
 }
 
 .tat-head h6 {
-    font-weight: bold;
+    font-weight: 700;
     font-size: 1.125rem;
     margin: 0 0 8px;
 }
@@ -303,7 +308,7 @@
     border: none;
     background: none;
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
 }
 
@@ -321,7 +326,6 @@
     background-color: var(--off-white);
     height: 40px;
     color: var(--primary);
-
 }
 
 .button-sm {
@@ -377,6 +381,25 @@
     border: none;
 }
 
+.primary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.secondary-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
+.text-button:disabled {
+    color: var(--mid-grey)!important;
+    cursor: default!important;
+}
+.cta-button:disabled {
+    background: var(--light-grey);
+    color: var(--mid-grey);
+    box-shadow: none;
+}
 .secondary-button.btn-disabled {
     background: var(--light-grey);
     color: var(--mid-grey);
@@ -401,7 +424,7 @@
 }
 
 .secondary-button:hover {
-    background-color: rgba(71, 129, 255, 1);
+    background-color: var(--blue-grey);
     background-size: 100% 100%;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(.215, .61, .355, 1);
@@ -426,6 +449,12 @@
     transition: color 0.3s cubic-bezier(.215,.61,.355,1);
 }
 
+.cta-button:hover:enabled {
+    background-color: rgb(60, 202, 86);
+    background-size: 100% 100%;
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(.215,.61,.355,1);
+}
 .cta-button:hover {
     background-color: rgb(60, 202, 86);
     background-size: 100% 100%;
@@ -441,6 +470,12 @@
 .cta-button:focus {
     background: var(--cta-primary);
     border: 2px solid var(--cta-primary-dark);
+}
+
+.cta-button:disabled {
+    background-color: var(--light-grey);
+    border-color: var(--light-grey);
+    color: var(--mid-grey);
 }
 
 .email-preview-body {
@@ -514,7 +549,7 @@
 
 .email-preview-body .notification > .body {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     display: flex;
     justify-content: center;
     line-height: 1.5rem;
@@ -529,7 +564,7 @@
 
 .tat-content .notification > .body {
     font-size: 1rem;
-    font-weight: bold;
+    font-weight: 700;
     display: block;
     line-height: 1.5rem;
 }

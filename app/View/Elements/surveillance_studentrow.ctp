@@ -1,4 +1,4 @@
-<tr>
+<tr participantrow>
     <td style="padding:2px 5px 2px 5px;" width="35">
         <? if(!substr(Router::fullBaseUrl(),-5) === '.test') {?>
         <img src="/users/profile_picture/<?=getUUID($participant['user'], 'get')?>" width="35" height="35" style="border-radius: 35px;" />
@@ -10,7 +10,7 @@
         <?= $participant['user']['name'] ?>
 
         <?php if($participant['user']['time_dispensation'] == 1) {?>
-            <span class="fa fa-clock-o" title="Deze student heeft tijdsdispensatie"></span>
+            <span class="fa fa-clock-o" title='<?= __("Deze student heeft tijdsdispensatie")?>'></span>
         <?php } ?>
         <span class="fa fa-exclamation-triangle" id="alert_events_<?= getUUID($participant, 'get') ?>" style="color:orange;display:none" onclick="Popup.load('/test_takes/events/<?= $participant['test_take_uuid'] ?>/<?= getUUID($participant, 'get'); ?>', 500);"></span>
         <span class="fa fa-exclamation-triangle" id="alert_ip_<?= getUUID($participant, 'get') ?>" style="color:red;display:none" onclick="TestTake.ipAlert();"></span>
@@ -32,7 +32,7 @@
 
     <?php if ($allow_inbrowser_testing) {  ?>
     <td align="center" width="40" class="nopadding">
-        <a title="Browsertoetsen aan/uit"
+        <a title='<?= __("Browsertoetsen aan/uit")?>'
            href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>"
            class="btn active <?= $participant['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
            onclick="TestTake.toggleInbrowserTestingForParticipant(
@@ -56,8 +56,8 @@
             }
         ?>
         <a href="#" class="btn highlight small" style="<?=$style?>" id="buttonTaken<?= getUUID($participant, 'get'); ?>"
-           onclick="TestTake.forceTakenAway('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>');">
-            Inleveren
+           onclick="TestTake.forceTakenAway('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>', <?= !!$participant['user']['guest'] ?>)">
+           <?= __("Inleveren")?>
         </a>
         <?
             $style = 'display:none';
@@ -65,9 +65,11 @@
                 $style = '';
             }
         ?>
+        <?php if(!$participant['user']['guest']) {?>
         <a href="#" class="btn highlight small" style="<?=$style?>" id="buttonPlanned<?= getUUID($participant, 'get'); ?>"
            onclick="TestTake.forcePlanned('<?= $participant['test_take_uuid'] ?>', '<?= getUUID($participant, 'get'); ?>');">
-            Heropen
+           <?= __("Heropen")?>
         </a>
+        <?php } ?>
     </td>
 </tr>

@@ -1,9 +1,9 @@
 <div class="popup-head">
-    Inloggen op Test-Correct
+<?= __("Inloggen op Test-Correct")?>
     <?php
-		if(MaintenanceHelper::getInstance()->isInMaintenanceMode()){
-            echo '<br /><strong style="color:#ff6666">Maintenance mode</strong>';
-        }
+    if(MaintenanceHelper::getInstance()->isInMaintenanceMode()){
+        echo '<br /><strong style="color:#ff6666">Maintenance mode</strong>';
+    }
     ?>
 </div>
 
@@ -12,11 +12,11 @@
     <table width="100%" class="table table-striped form">
         <tr id="SeleniumWarning" style="background-color:yellow;display:none;">
             <th colspan="2">
-                Selenium Test is actief
+            <?= __("Selenium Test is actief")?>
             </th>
         </tr>
         <tr>
-            <th width="120">E-mail</th>
+            <th width="120"><?= __("E-mail")?></th>
             <td>
                 <?php
                 echo $this->Form->input(
@@ -24,7 +24,7 @@
                     array(
                         'type' => 'text',
                         'label' => false,
-                        'placeholder' => 'Gebruikersnaam',
+                        'placeholder' => __("Gebruikersnaam"),
                         'verify' => 'notempty'
                     )
                 );
@@ -32,7 +32,7 @@
             </td>
         </tr>
         <tr>
-            <th>Wachtwoord</th>
+            <th><?= __("Wachtwoord")?></th>
             <td>
                 <?php
                 echo $this->Form->input(
@@ -40,7 +40,7 @@
                     array(
                         'type' => 'password',
                         'label' => false,
-                        'placeholder' => 'Wachtwoord',
+                        'placeholder' => __("Wachtwoord"),
                         'verify' => 'notempty'
                     )
                 );
@@ -49,7 +49,7 @@
         </tr>
 
         <tr id="captcha_container" style="display:none">
-            <th>Beveiligingscode</th>
+            <th><?= __("Beveiligingscode")?></th>
             <td>
                 <img src="" id="captcha"/><br/>
                 <?php
@@ -58,7 +58,7 @@
                     array(
                         'type' => 'text',
                         'label' => false,
-                        'placeholder' => 'Beveiligingscode',
+                        'placeholder' => __("Beveiligingscode"),
                         'verify' => ''
                     )
                 );
@@ -73,36 +73,41 @@
 </div>
 
 <div class="popup-footer">
-    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+    <? if(substr_count(Router::url( $this->here, true ),'testportal.test-correct') || substr_count(Router::url( $this->here, true ),'testportal2.test-correct')){ ?>
         <a href="https://testwelcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
-            <i class="fa fa-check mr5"></i> Entree
+            <i class="fa fa-check mr5"></i> <?= __("Entree")?>
         </a>
+
         <a href="#" class="btn mt5 mr5 blue pull-right btnLoginTest btnLogin" id="">
-            <i class="fa fa-check mr5"></i> Test login
+            <i class="fa fa-check mr5"></i> <?= __("Test login")?>
         </a>
 
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="" style="display:none;">
-            <i class="fa fa-check mr5"></i> Inloggen
+            <i class="fa fa-check mr5"></i> <?= __("Inloggen")?>
         </a>
 
 
     <? } else { ?>
+        <a href="https://welcome.test-correct.nl/saml2/entree/login" class="btn mt5 mr5 grey pull-left btnLoginEntree" id="">
+            <i class="fa fa-check mr5"></i> <?= __("Entree")?>
+        </a>
+
         <a href="#" class="btn mt5 mr5 blue pull-right btnLogin" id="">
-            <i class="fa fa-check mr5"></i> Inloggen
+            <i class="fa fa-check mr5"></i> <?= __("Inloggen")?>
         </a>
     <? }?>
     <a href="#" class="btn mt5 mr5 grey pull-right" onclick="User.forgotPassword();">
-        Wachtwoord vergeten
+    <?= __("Wachtwoord vergeten")?>
     </a>
 
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
     <a href="/logout"  class="btn grey pull-right mt5 mr5" id="btnCloseChromebook" style="display: none;">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
     <a onclick="closeApplication('close')" class="btn grey pull-right mt5 mr5" id="btnCloseElectron" style="display: none;">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
 </div>
 
@@ -117,7 +122,7 @@
 
         $(".appType").val(Core.appType);
 
-    <?php if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
+        <?php if(substr_count(Router::url( $this->here, true ),'testportal.test-correct')){ ?>
         $('#UserPassword, #UserEmail').on('keydown',function(e){
             if(e.keyCode == 13){
                 $('.btnLoginTest').trigger('click');
@@ -131,12 +136,18 @@
             function (state) {
                 if (state.status == 1) {
                     $('#SeleniumWarning').show();
-                    Notify.notify("Selenium test is actief", 'error')
+                    Notify.notify('<?= __("Selenium test is actief")?>', 'error')
                 }
             }
         );
 
-    <?php } ?>
+        <? } else { ?>
+        $('#UserPassword, #UserEmail').on('keydown',function(e){
+            if(e.keyCode == 13){
+                $('.btnLogin').trigger('click');
+            }
+        });
+        <? } ?>
 
     });
 
@@ -183,12 +194,12 @@
             confirm : $('.btnLogin'),
             enterConfirm : ['#UserPassword','#UserCaptchaString'],
             onsuccess : function(result) {
-                if(Core.inApp && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
+                if(!Core.inBrowser && result.message != '' && typeof result.message !== typeof undefined && result.message !== null) {
                     Notify.notify(result.message);
                 }
 
                 Popup.closeLast();
-                Notify.notify("Je bent ingelogd", "info");
+                Notify.notify('<?= __("Je bent ingelogd")?>', "info");
                 Core.afterLogin();
             },
             onfailure : function(result) {
@@ -198,7 +209,7 @@
                 if( typeof result.message !== typeof undefined && result.message != '') {
                     Notify.notify(result.message, 'error');
                 }else{
-                    Notify.notify("Inloggegevens incorrect", "error");
+                    Notify.notify('<?= __("Inloggegevens incorrect")?>', "error");
                 }
             }
         }

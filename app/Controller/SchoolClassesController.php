@@ -155,6 +155,7 @@ class SchoolClassesController extends AppController
         // klas niet overschrijven checkbox 
         $school_location = AuthComponent::user('school_location');
         $this->set('is_rtti', $school_location['is_rtti_school_location']);
+        $this->set('lvs_type', $school_location['lvs_type']);
 
         if ($this->request->is('post') || $this->request->is('put')) {
 
@@ -173,7 +174,7 @@ class SchoolClassesController extends AppController
             } elseif ($result == 'Failed to create school class') {
                 $this->formResponse(
                     false,
-                    'Klas kon niet worden aangemaakt'
+                    __("Klas kon niet worden aangemaakt")
                 );
             } else {
                 $this->formResponse(
@@ -235,6 +236,7 @@ class SchoolClassesController extends AppController
         }
 
         $this->set('is_rtti', $this->SchoolClassesService->getClass($class_id)['school_location']['is_rtti_school_location']);
+        $this->set('lvs_type', $this->SchoolClassesService->getClass($class_id)['school_location']['lvs_type']);
 
         $this->set('locations', $this->SchoolLocationsService->getSchoolLocationList());
         $educationLevels = $this->TestsService->getEducationLevels(false, false);

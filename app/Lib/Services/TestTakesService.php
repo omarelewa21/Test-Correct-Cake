@@ -10,8 +10,8 @@ App::uses('CakeLog', 'Log');
  */
 class TestTakesService extends BaseService {
 
-    public function getTestTakeUrlForLaravel($take_id) {
-        return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), [], []);
+    public function getTestTakeUrlForLaravel($take_id, $params = []) {
+        return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), $params, []);
     }
 
     public function getAttainmentAnalysis($test_take_id) {
@@ -852,9 +852,9 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
-    public function getDrawingAnswerUrl($answer_uuid)
+    public function getDrawingAnswerUrl($answer_uuid, $base64 = false)
     {
-        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);
+        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,['base64' => $base64],[]);
 
         if($response === false){
             return $this->Connector->getLastResponse();
@@ -882,5 +882,10 @@ class TestTakesService extends BaseService {
              ),
              []
          );
+    }
+
+    public function getSurveillanceData()
+    {
+        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', []);
     }
 }

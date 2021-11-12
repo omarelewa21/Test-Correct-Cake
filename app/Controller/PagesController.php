@@ -82,6 +82,7 @@ class PagesController extends AppController {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
 		$this->set(compact('page', 'subpage', 'title_for_layout'));
+		$this->setUserLanguage();
         $roles = AuthComponent::user('roles');
         $this->set('role', $roles['0']['name']);
 		try {

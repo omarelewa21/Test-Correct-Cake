@@ -67,7 +67,7 @@ table.form th{
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #c3d0ed;
+    background-color: var(--blue-grey);
     -webkit-transition: .4s;
     transition: .4s;
 }
@@ -85,11 +85,15 @@ table.form th{
 }
 
 input:checked + .slider {
-    background-color: #3dbb56;
+    background-color: var(--cta-primary);
 }
 
 input:focus + .slider {
-    box-shadow: 0 0 1px #3dbb56;
+    box-shadow: 0 0 1px var(--cta-primary);
+}
+
+input:disabled + .slider {
+    background-color: var(--off-white);
 }
 
 input:checked + .slider:before {

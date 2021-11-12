@@ -11,7 +11,7 @@ foreach($organisations as $organisation) {
     <tr>
         <td><?=$organisation['customer_code']?></td>
         <td><?=$organisation['name']?></td>
-        <td><div class="label" style="background:green">Dit is de eindklant</div></td>
+        <td><div class="label" style="background:green"><?= __("Dit is de eindklant")?></div></td>
         <td><?=$organisation['count_active_licenses']?></td>
         <td><?=$organisation['count_students'] . ' (' . $percentage . '%)'?></td>
         <td><?=$organisation['count_questions']?></td>
@@ -28,11 +28,11 @@ foreach($organisations as $organisation) {
                 <div class="dropblock blur-close" for="organisation_<?=getUUID($organisation, 'get');?>">
                     <a href="#" class="btn highlight white" onclick="Popup.load('/umbrella_organisations/edit/<?=getUUID($organisation, 'get');?>', 800);">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="Organisation.delete(<?=getUUID($organisation, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif; ?>

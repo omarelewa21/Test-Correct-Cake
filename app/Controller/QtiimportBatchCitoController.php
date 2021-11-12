@@ -26,7 +26,7 @@ class QtiimportBatchCitoController extends AppController
 
         $subjectList = [];
         foreach($data['subjects'] as $subject){
-            $subjectList[] = (object) ['id' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',$subject['name'],$subject['abbreviation'])];
+            $subjectList[] = (object) ['id' => getUUID($subject, 'get'),'name' => sprintf('%s (%s)',str_replace("'","`",preg_replace('!\\r?\\n?\\t!', "", $subject['name'])),$subject['abbreviation'])];
         }
         $this->set('subjectList',$subjectList);
 
@@ -40,6 +40,9 @@ class QtiimportBatchCitoController extends AppController
         $testKindList = [];
         foreach($data['testKinds'] as $e){
             $testKindList[getUUID($e, 'get')] = $e['name'];
+        }
+        for($i = 1; $i < count($testKindList)+1; $i++){
+            $testKindList[$i] = __($testKindList[$i]);
         }
         $this->set('testKindList',$testKindList);
 
@@ -66,7 +69,7 @@ class QtiimportBatchCitoController extends AppController
         $data = $this->request->data['Qti'];
 
         if(!$data['file']['tmp_name']){
-            $response = 'File niet gevonden om te importeren, probeer het nogmaals';
+            $response = __("File niet gevonden om te importeren, probeer het nogmaals");
         }else{
             $r = $this->QtiImportService->uploadData($data);
 

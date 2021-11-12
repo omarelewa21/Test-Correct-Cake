@@ -1,7 +1,6 @@
 <style>
     * {
-        font-family: Arial;
-        font-size: 20px;
+        font-family: Helvetica;
     }
 
     img {
@@ -9,17 +8,21 @@
         max-height:600px;
         height: auto !important;
     }
+
+    table {
+        page-break-inside: avoid;
+    }
 </style>
-<center>
-    <img src="http://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
+<div style="text-align:center;">
+    <img src="<?= $logo_url ?>" width="200" />
     <h1><?=$test['name']?></h1>
     <h1><?=$test['education_level_year']?> <?=$test['education_level']['name']?> - <?=$test['subject']['name']?></h1>
-</center>
+</div>
 
 <?
 if(!empty($test['introduction'])) {
     ?>
-    <strong>Belangrijk</strong><br />
+    <strong><?= __("Belangrijk")?></strong><br />
     <?
     echo nl2br($test['introduction']);
 }?>
@@ -48,28 +51,18 @@ foreach($questions as $question) {
 
         ?>
 
-        <?php if($question['type'] === 'DrawingQuestion' || (isset($question['grid']) && $question['grid'] > 0)): ?>
-            <div style="page-break-after: always;"></div>
-        <?php endif; ?>
-
-        <table cellspacing="0" cellpadding="0" width="100%" >
-            <tbody>
-                <tr>
-                    <td width="100%" valign="top" style="font-size: 11px;">
-                        <?=$question['score']?>pt
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100" valign="top" style="font-size: 24px;" class="question-html">
+                    <div valign="top" style="font-size: 18px;width: 100%;page-break-inside: avoid;" class="question-html">
+                        <div valign="top" style="font-size: 11px;width: 100%;margin:1px;">
+                            <?=$question['score']?>pt
+                        </div>
                         <?=$i?> &nbsp; <?=$question['html']?>
-                    </td>
-                </tr>
-                <tr>
-                    <td width="100%">
+                    </div>
+                    <div style="width: 100%;">
 
                         <?php if($question['type'] === 'DrawingQuestion'): ?>
+
                             <?php if($question['answer_background_image'] !== null): ?>
-                                <?= '<img width="100%" src="'.$question['answer_background_image'].'" alt="backgrounod image">'; ?>
+                                <?= '<img width="100%" src="'.$question['answer_background_image'].'" alt="background image">'; ?>
                             <?php elseif($question['grid'] > 0): ?>
                                 <?php 
                                     if($question['grid'] < 4){
@@ -92,10 +85,7 @@ foreach($questions as $question) {
 
                             <?php endif; ?>
                         <?php endif; ?>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    </div>
         <br /><br />
 
         <?
@@ -119,7 +109,7 @@ foreach($questions as $question) {
 
             if(!strpos($attachment['title'], '.pdf') && !$questionSet){
                 ?>
-                <h2>Bijlages vraag #<?= $i ?></h2>
+                <h2><?= __("Bijlages vraag")?> #<?= $i ?></h2>
                 <?
 
                 $questionSet = true;
@@ -132,10 +122,10 @@ foreach($questions as $question) {
                 if(!isset($usedAttachments[$attachment['id']])) {
                     $usedAttachments[$attachment['id']] = $i;
                     ?>
-                    Bijlage #<?=$a?><br />
+                    <?= __("Bijlage")?> #<?=$a?><br />
                     <?
                     if($attachment['type'] == 'file' && in_array(substr($attachment['title'], -3), ['mp3', 'wav'])) {
-                        echo 'Vraag je docent naar het geluidsfragment van deze vraag.<br /><br />';
+                        echo __("Vraag je docent naar het geluidsfragment van deze vraag.<br /><br />");
                     }elseif($attachment['type'] == 'file' && in_array(substr($attachment['title'], -3), ['jpg', 'peg', 'png'])) {
                         ?>
                         <img src="<?= $attachment['data'] ?>" style=" max-width: 100%; max-height:600px"/>
@@ -145,7 +135,7 @@ foreach($questions as $question) {
                 }else{
                     if (!empty($attachment['data']) && strstr($attachment['data'], 'image')) {
                         if ($a == 1) {
-                            echo 'Zelfde als in vraag #' . $usedAttachments[$attachment['id']];
+                            echo __("Zelfde als in vraag #") . $usedAttachments[$attachment['id']];
                         }
                     }
                 }
@@ -161,17 +151,3 @@ foreach($questions as $question) {
     $questionSet = false;
 }
 ?>
-<script type="text/javascript" charset="utf-8">
-    $(document).ready(function(){
-        console.log('ready');
-        $(".question-html").find('img').each(function(){
-            var src = $(this).attr('src');
-            src += '&pdf=true';
-            $(this).attr('src',src);
-
-            console.log($(this));
-        });
-    });
-    alert('here');
-    
-</script>

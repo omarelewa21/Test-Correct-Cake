@@ -1,1 +1,1 @@
-Tijd over, baluh
+<?= __("Tijd over, baluh")?>

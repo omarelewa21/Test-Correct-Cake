@@ -36,7 +36,7 @@ class QuestionsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -51,7 +51,7 @@ class QuestionsController extends AppController
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
         $baseSubjects = [
-          '' => 'Alle',
+          '' => __("Alle"),
         ];
 
         foreach($_baseSubjects as $baseSubject){
@@ -59,34 +59,34 @@ class QuestionsController extends AppController
         }
 
         $baseSubjects = HelperFunctions::getInstance()->revertSpecialChars($baseSubjects);
-        $education_levels = [0 => 'Alle'] + $education_levels;
-        $subjects = HelperFunctions::getInstance()->revertSpecialChars([0 => 'Alle'] + $subjects);
+        $education_levels = [0 => __("Alle")] + $education_levels;
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars([0 => __("Alle")] + $subjects);
 
         $filterTypes = [
-            '' => 'Alle',
-            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
-            'MultipleChoiceQuestion.ARQ' => 'ARQ',
-            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
-            'OpenQuestion.Short' => 'Korte open vraag',
-//            'OpenQuestion.Medium' => 'Lange open vraag',
-//            'OpenQuestion.Long' => 'Wiskunde vraag',
-            'OpenQuestion.Long' => 'Lange open vraag',
-            'CompletionQuestion.multi' => 'Selectie',
-            'CompletionQuestion.completion' => 'Gatentekst',
-            'RankingQuestion' => 'Rangschik',
-            'MatchingQuestion.Matching' => 'Combineer',
-            'MatchingQuestion.Classify' => 'Rubriceer',
-            'DrawingQuestion' => 'Teken',
-            'GroupQuestion' => 'Groepvraag'
+            '' => __("Alle"),
+            'MultipleChoiceQuestion.TrueFalse' => __("Juist / Onjuist"),
+            'MultipleChoiceQuestion.ARQ' => __("ARQ"),
+            'MultipleChoiceQuestion.MultipleChoice' => __("Meerkeuze"),
+            'OpenQuestion.Short' => __("Korte open vraag"),
+//            'OpenQuestion.Medium' => __("Lange open vraag"),
+//            'OpenQuestion.Long' => __("Wiskunde vraag"),
+            'OpenQuestion.Long' => __("Lange open vraag"),
+            'CompletionQuestion.multi' => __("Selectie"),
+            'CompletionQuestion.completion' => __("Gatentekst"),
+            'RankingQuestion' => __("Rangschik"),
+            'MatchingQuestion.Matching' => __("Combineer"),
+            'MatchingQuestion.Classify' => __("Rubriceer"),
+            'DrawingQuestion' => __("Teken"),
+            'GroupQuestion' => __("Groepvraag")
         ];
 
         $filterSource = [
-            '' => 'Alles',
-            'me' => 'Eigen content',
-            'schoolLocation' => 'Schoollocatie',
+            '' => __("Alles"),
+            'me' => __("Eigen content"),
+            'schoolLocation' => __("Schoollocatie"),
         ];
         if(AuthComponent::user('hasSharedSections')){
-            $filterSource['school'] = 'Scholengemeenschap';
+            $filterSource['school'] = __("Scholengemeenschap");
         }
 
         $this->set('education_levels', $education_levels);
@@ -190,7 +190,7 @@ class QuestionsController extends AppController
     {
         $this->autoRender = false;
         $question = $this->QuestionsService->getSingleQuestion($question_id);
-        
+
         if (isset($group_id) && !empty($group_id)) {
             $group = $this->QuestionsService->getSingleQuestion($group_id);
             $question['attachments'] = $group['attachments'];
@@ -437,7 +437,7 @@ class QuestionsController extends AppController
         $test = $this->Session->read('active_test');
         $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
         $this->set('test_id', $test_id);
-        $this->handleGroupQuestionType($groupquestion_type,'aanmaken');     
+        $this->handleGroupQuestionType($groupquestion_type,__('aanmaken'));
 
 
     }
@@ -473,7 +473,7 @@ class QuestionsController extends AppController
         $this->set('selectedAttainments', $selectedAttainments);
         $this->request->data = $group;
         $this->set('test_id', $test_id);
-        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],'bewerken');
+        $this->handleGroupQuestionType($group['QuestionGroup']['groupquestion_type'],__('bewerken'));
         $this->set('carouselGroupQuestionNotify', false);
         $this->setNotificationsForViewGroup($group['QuestionGroup']);
     }
@@ -489,7 +489,7 @@ class QuestionsController extends AppController
         );
     }
 
-    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false)
+    public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false, $is_clone_request = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $oldQuestion = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
@@ -611,6 +611,7 @@ class QuestionsController extends AppController
                     break;
 
                 case 'OpenQuestion' :
+                    $this->set('subtype', $question['question']['subtype']);
                     $view = 'edit_open';
                     break;
 
@@ -624,6 +625,7 @@ class QuestionsController extends AppController
                     break;
 
                 case 'MultipleChoiceQuestion' :
+
                     if ($question['question']['subtype'] == 'TrueFalse') {
                         $view = 'edit_true_false';
                     } elseif ($question['question']['subtype'] == 'ARQ') {
@@ -631,10 +633,22 @@ class QuestionsController extends AppController
                     } else {
                         $view = 'edit_multiple_choice';
                     }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['multiple_choice_question_answers'] as $key => $answerArray){
+                        $question['question']['multiple_choice_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
                     break;
 
                 case 'RankingQuestion':
                     $view = 'edit_ranking';
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['ranking_question_answers'] as $key => $answerArray){
+                        $question['question']['ranking_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                    }
                     break;
 
                 case 'MatchingQuestion' :
@@ -642,6 +656,12 @@ class QuestionsController extends AppController
                         $view = 'edit_classify';
                     } else {
                         $view = 'edit_matching';
+                    }
+                    if(!$question['question']['html_specialchars_encoded']){
+                        break;
+                    }
+                    foreach ($question['question']['matching_question_answers'] as $key => $answerArray){
+                        $question['question']['matching_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
                     }
                     break;
             }
@@ -660,6 +680,7 @@ class QuestionsController extends AppController
             $this->set('owner', $owner);
             $this->set('owner_id', $owner_id);
             $this->set('editable', true);
+            $this->set('is_clone_request', $is_clone_request);
             $this->Session->write('attachments_editable', true);
 
             $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
@@ -690,6 +711,86 @@ class QuestionsController extends AppController
         ]);
 
         $education_level_years = [
+            0 => __("Alle"),
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $subjects = $this->TestsService->getSubjects(true);
+
+        $education_levels = [0 => __("Alle")] + $education_levels;
+        $subjects = [0 => __("Alle")] + $subjects;
+
+        $_baseSubjects = $this->TestsService->getMyBaseSubjects();
+
+        $baseSubjects = [
+            '' => __("Alle"),
+        ];
+
+        foreach($_baseSubjects as $baseSubject){
+            $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
+        }
+
+        $filterTypes = [
+            '' => __("Alle"),
+            'MultipleChoiceQuestion.TrueFalse' => __("Juist / Onjuist"),
+            'MultipleChoiceQuestion.ARQ' => __("ARQ"),
+            'MultipleChoiceQuestion.MultipleChoice' => __("Meerkeuze"),
+            'OpenQuestion.Short' => __("Korte open vraag"),
+//            'OpenQuestion.Medium' => __("Lange open vraag"),
+//            'OpenQuestion.Long' => __("Wiskunde vraag"),
+            'OpenQuestion.Long' => __("Lange open vraag"),
+            'CompletionQuestion.multi' => __("Selectie"),
+            'CompletionQuestion.completion' => __("Gatentekst"),
+            'RankingQuestion' => __("Rangschik"),
+            'MatchingQuestion.Matching' => __("Combineer"),
+            'MatchingQuestion.Classify' => __("Rubriceer"),
+            'DrawingQuestion' => __("Teken"),
+            'GroupQuestion' => __("Groepvraag")
+        ];
+
+        $test = $this->Session->read('active_test');
+
+        $filterSource = [
+            '' => __("Alles"),
+            'me' => __("Eigen content"),
+            'schoolLocation' => __("Schoollocatie"),
+        ];
+        if(AuthComponent::user('hasSharedSections')){
+            $filterSource['school'] = __("Scholengemeenschap");
+        }
+
+        $this->set('subject_id', getUUID($test['subject'], 'get'));
+        $this->set('year_id', $test['education_level_year']);
+        $this->set('education_level_id', $test['education_level_id']);
+
+        $this->set('education_levels', $education_levels);
+        $this->set('education_level_years', $education_level_years);
+        $this->set('subjects', $subjects);
+        $this->set('filterTypes', $filterTypes);
+        $this->set('baseSubjects',$baseSubjects);
+        $this->set('filterSource',$filterSource);
+    }
+
+    /**
+     * @param $owner
+     * @param $owner_id Note the owner in this scenario is the groupId.
+     */
+    public function add_existing_to_group($owner, $owner_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $this->Session->write('addExisting', [
+            'owner' => $owner, // group
+            'owner_id' => $owner_id // group_id
+        ]);
+
+        $education_level_years = [
             0 => 'Alle',
             1 => 1,
             2 => 2,
@@ -716,21 +817,22 @@ class QuestionsController extends AppController
         }
 
         $filterTypes = [
-            '' => 'Alle',
-            'MultipleChoiceQuestion.TrueFalse' => 'Juist / Onjuist',
-            'MultipleChoiceQuestion.ARQ' => 'ARQ',
-            'MultipleChoiceQuestion.MultipleChoice' => 'Meerkeuze',
-            'OpenQuestion.Short' => 'Korte open vraag',
-//            'OpenQuestion.Medium' => 'Lange open vraag',
-//            'OpenQuestion.Long' => 'Wiskunde vraag',
-            'OpenQuestion.Long' => 'Lange open vraag',
-            'CompletionQuestion.multi' => 'Selectie',
-            'CompletionQuestion.completion' => 'Gatentekst',
-            'RankingQuestion' => 'Rangschik',
-            'MatchingQuestion.Matching' => 'Combineer',
-            'MatchingQuestion.Classify' => 'Rubriceer',
-            'DrawingQuestion' => 'Teken',
-            'GroupQuestion' => 'Groepvraag'
+
+            '' => __("Alle"),
+            'MultipleChoiceQuestion.TrueFalse' => __("Juist / Onjuist"),
+            'MultipleChoiceQuestion.ARQ' => __("ARQ"),
+            'MultipleChoiceQuestion.MultipleChoice' => __("Meerkeuze"),
+            'OpenQuestion.Short' => __("Korte open vraag"),
+//            'OpenQuestion.Medium' => __("Lange open vraag"),
+//            'OpenQuestion.Long' => __("Wiskunde vraag"),
+            'OpenQuestion.Long' => __("Lange open vraag"),
+            'CompletionQuestion.multi' => __("Selectie"),
+            'CompletionQuestion.completion' => __("Gatentekst"),
+            'RankingQuestion' => __("Rangschik"),
+            'MatchingQuestion.Matching' => __("Combineer"),
+            'MatchingQuestion.Classify' => __("Rubriceer"),
+            'DrawingQuestion' => __("Teken"),
+            'GroupQuestion' => __("Groepvraag")
         ];
 
         $test = $this->Session->read('active_test');
@@ -766,6 +868,19 @@ class QuestionsController extends AppController
 
         $this->QuestionsService->duplicate($data['owner'], $data['owner_id'], $question_id);
     }
+
+    public function add_existing_question_to_group($question_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $this->autoRender = false;
+
+        $data = $this->Session->read('addExisting');
+
+
+        $this->QuestionsService->duplicatetogroup($data['owner'], $data['owner_id'], $question_id);
+    }
+
 
 
     public function add_existing_question_group($group_id)
@@ -848,6 +963,82 @@ class QuestionsController extends AppController
         $this->set('questions', $questions['data']);
     }
 
+    public function add_existing_question_to_group_list()
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $params = $this->request->data;
+        $filters = array();
+        parse_str($params['filters'], $filters);
+
+        $filters = $filters['data']['Question'];
+
+        unset($params['filters']);
+
+        $params['filter'] = [];
+
+        if(!empty($filters['source'])){
+            $params['filter']['source'] = $filters['source'];
+        }
+
+        if(!empty($filters['base_subject_id'])){
+            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
+        }
+
+        if (!empty($filters['subject'])) {
+            $params['filter']['subject_id'] = $filters['subject'];
+        }
+
+        if (!empty($filters['education_levels'])) {
+            $params['filter']['education_level_id'] = $filters['education_levels'];
+        }
+
+        if (!empty($filters['education_level_years'])) {
+            $params['filter']['education_level_year'] = $filters['education_level_years'];
+        }
+
+        if (!empty($filters['id'])) {
+            $params['filter']['id'] = $filters['id'];
+        }
+
+
+        if (!empty($filters['search'])) {
+            $params['filter']['search'] = $filters['search'];
+        }
+
+        if (!empty($filters['is_open_source_content'])) {
+            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
+        }
+
+        if (!empty($filters['type'])) {
+
+            $typeFilter = explode('.', $filters['type']);
+
+            $params['filter']['type'] = $typeFilter[0];
+
+            if (isset($typeFilter[1])) {
+                $params['filter']['subtype'] = $typeFilter[1];
+            }
+        }
+
+        $questions = $this->QuestionsService->getAllQuestions($params);
+        $filter_group_questions = [];
+        foreach ($questions['data'] as $question) {
+            // @todo this should be done better in the backend
+            if ($question['type'] !== 'GroupQuestion') {
+                $question['question'] = $this->stripTagsWithoutMath($question['question']);
+                array_push($filter_group_questions, $question);
+            }
+        }
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $this->set('education_levels', $education_levels);
+        $this->set('questions', $filter_group_questions);
+
+
+    }
+
+
     public function add_existing_test_list()
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
@@ -863,7 +1054,8 @@ class QuestionsController extends AppController
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $this->set('test_id', $data['owner_id']);
         $this->set('tests', $tests['data']);
     }
@@ -919,6 +1111,8 @@ class QuestionsController extends AppController
                 ];
             }
 
+
+
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
@@ -962,6 +1156,7 @@ class QuestionsController extends AppController
 //                if($type == 'ClassifyQuestion') {
 //                    $this->QuestionsService->addClassifyAnswers($result, $question, $owner);
 //                }
+
 
 
                 if ($type == 'DrawingQuestion') {
@@ -1108,8 +1303,10 @@ class QuestionsController extends AppController
             }
         } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
-
-            $attachments = $question['question']['attachments'];
+            $attachments = [];
+            if(array_key_exists('attachments', $question['question']) && is_array($question['question']['attachments'])) {
+                $attachments = $question['question']['attachments'];
+            }
         }
 
         $this->set('owner', $owner);
@@ -1337,7 +1534,7 @@ class QuestionsController extends AppController
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
-                echo '<script>window.parent.Questions.loadAddAttachments("add");window.parent.Loading.hide();</script>';
+                echo '<script>window.parent.Questions.loadAddAttachments();window.parent.Loading.hide();</script>';
             } else {
 
                 $attachments = [];
@@ -1465,15 +1662,15 @@ class QuestionsController extends AppController
         $this->Session->write('attachments_editable', true);
     }
 
-    private function handleGroupQuestionType($groupquestion_type,$mode = 'aanmaken'){
+    private function handleGroupQuestionType($groupquestion_type,$mode = '__("aanmaken")'){
         $this->set('groupquestion_type', $groupquestion_type);
-        $this->set('title','Vraaggroep '.$mode);
+        $this->set('title',__("Vraaggroep").' '.$mode);
         switch ($groupquestion_type) {
             case 'standard':
-                $this->set('title','Standaard vraaggroep '.$mode);
+                $this->set('title',__("Standaard vraaggroep").' '.$mode);
                 break;
             case 'carousel':
-                $this->set('title','Carrousel vraaggroep '.$mode);
+                $this->set('title',__("Carrousel vraaggroep").' '.$mode);
                 break;
         }
     }
