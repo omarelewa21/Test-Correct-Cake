@@ -1,6 +1,6 @@
 <h1><?= __("Welkom in Test-Correct")?></h1>
 
-<?php if(count($infos)){ ?>
+<?php if($infos && count($infos)){ ?>
     <div class="dashboard">
         <div class="notes">
             <?= $this->element('welcome_info_messages'); ?>
