@@ -10,7 +10,7 @@
                     <div class="row">
                         <div class="col-md-5">
                             <label><?= __("Titel (trefwoord)") ?></label>
-                            <?= $this->Form->input('search', array('style' => 'width: 100%','label' => false)) ?>
+                            <?= $this->Form->input('search', array('label' => false)) ?>
                         </div>
                         <div class="col-md-5">
                             <label for=""><?= __("Uniek ID") ?></label>
@@ -134,6 +134,7 @@
                             {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
                             {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
                             {field: 'source', label: 'Bron'},
+                            {field: 'type', label: 'Type',type:'select'},
                         ],
                         eventScope: 'body:first',
                         formPrefix: '#Question',
@@ -158,8 +159,4 @@
     </a>
 </div>
 
-<script type="text/javascript">
-    $('#QuestionSearch').select2({
-        tags: true
-    });
-</script>
+
