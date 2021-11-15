@@ -1917,6 +1917,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $user_id = AuthComponent::user()['id'];
+        $this->TestTakesService->bustSurveillanceCache();
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
