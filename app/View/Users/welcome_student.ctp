@@ -19,10 +19,6 @@
                 <?php } ?>
             </div>
         </div>
-
-        <?php if($infos && count($infos)){
-            echo $this->element('welcome_info_messages');
-        } ?>
     </div>
 </div>
 <?php } ?>
@@ -43,6 +39,14 @@
             </div>
         </div>
     </div>
+<?php } ?>
+
+<?php if($infos && count($infos)){ ?>
+<div class="dashboard" style="margin-top:0;">
+    <div class="notes">
+        <?= $this->element('welcome_info_messages'); ?>
+    </div>
+</div>
 <?php } ?>
 
 <div class="block" style="width:calc(50% - 10px); float: left">

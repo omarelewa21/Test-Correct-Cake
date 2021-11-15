@@ -16,16 +16,18 @@
     </div>
 <?php } ?>
 
-<h1 style="text-align:center; margin-top: 200px;"><?= __("Welkom in Test-Correct")?></h1>
 
 <?php if($infos && count($infos)){ ?>
+    <h1><?= __("Welkom in Test-Correct")?></h1>
+
     <div class="dashboard">
         <div class="notes">
             <?= $this->element('welcome_info_messages'); ?>
         </div>
     </div>
+<?php } else { ?>
+<h1 style="text-align:center; margin-top: 200px;"><?= __("Welkom in Test-Correct")?></h1>
 <?php } ?>
-
 <script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
 <script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
 
