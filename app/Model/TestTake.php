@@ -9,8 +9,17 @@ class TestTake extends AppModel
     public function check($test_take, $test) {
         $errors = [];
 
-        if(empty($test_take['date']) && strlen($test_take['date']) != 10) {
-            $errors[] = __("Geen datum ingevuld");
+        if ($test['test_kind_id'] == 4) {
+            if(empty($test_take['date_from']) && strlen($test_take['date_from']) != 10) {
+                $errors[] = __("Geen startdatum ingevuld");
+            }
+            if(empty($test_take['date_till']) && strlen($test_take['date_till']) != 10) {
+                $errors[] = __("Geen einddatum ingevuld");
+            }
+        } else {
+            if(empty($test_take['date']) && strlen($test_take['date']) != 10) {
+                $errors[] = __("Geen datum ingevuld");
+            }
         }
 
         if(empty($test_take['period_id'])) {
@@ -48,7 +57,7 @@ class TestTake extends AppModel
                     }
                 }
             }
-        } 
+        }
 
         return [
             'status' => count($errors) == 0 ? true : false,
@@ -144,7 +153,7 @@ class TestTake extends AppModel
                         if((int) $test_take['weight'] > 15 ) {
                             $errors[] = __("Voor een summatieve RTTI toets mag de weging niet meer dan 15 zijn.");
                         }
-                    }                    
+                    }
                 }
             }
         }

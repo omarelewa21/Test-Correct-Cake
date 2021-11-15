@@ -1295,6 +1295,12 @@ msgstr "The score must be greater than zero"
 msgid "Geen datum ingevuld"
 msgstr "No date entered"
 
+msgid "Geen einddatum ingevuld"
+msgstr "No end date entered"
+
+msgid "Geen startdatum ingevuld"
+msgstr "No start date entered"
+
 msgid "Geen periode geselecteerd"
 msgstr "No period selected"
 
@@ -3157,6 +3163,9 @@ msgstr "Formative"
 
 msgid "Summatief"
 msgstr "Summative test"
+
+msgid "Opdracht"
+msgstr "Assessment"
 
 msgid "Oefentoets"
 msgstr "Practice test"
