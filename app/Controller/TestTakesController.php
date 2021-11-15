@@ -167,18 +167,28 @@ class TestTakesController extends AppController {
 
                     //$class = $this->SchoolClassesService->getClass($test_take['class_id']);
                     $test = $this->TestsService->getTest($test_take['test_id']);
-
                     $test_takes[$key]['test_id'] = $test['id'];
-
-                    if (strtotime($test_take['date']) == 0) {
+                    $test_takes[$key]['test_kind_id'] = $test['test_kind_id'];
+                    $errors = [];
+                    if ($test['test_kind_id'] === 4) {
+                        if (strtotime($test_take['date_from']) == 0) {
+                            $errors[] = __('Datum vanaf is incorrect');
+                        }
+                        if (strtotime($test_take['date_till']) == 0) {
+                            $errors[] = __('Datum tot is incorrect');
+                        }
+                    } else {
+                        if (strtotime($test_take['date']) == 0) {
+                           $errors[] = __("Datum is incorrect");
+                        }
+                    }
+                    if ($errors) {
                         $this->formResponse(false, [
-                            'errors' => [
-                                __("Datum is incorrect")
-                            ]
+                            'errors' =>  $errors
                         ]);
-
                         die;
                     }
+
 
                     // 20190930 uitgezet op verzoek van Alex omdat het verder geen doel dient.
 //					if(
@@ -228,6 +238,13 @@ class TestTakesController extends AppController {
                     $test_take['retake'] = 0;
                     $test_take['test_take_status_id'] = 1;
                     $test_take['exported_to_rtti'] = null;
+                    // if type is opdracht dan test gelijk op test_take_status_id 3 zetten;
+                    if ($test_take['test_kind_id'] == 4){
+                        $test_take['test_take_status_id'] = 3;
+                        $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date_from']));
+                        $test_take['time_end'] = date('Y-m-d 23:59:59', strtotime($test_take['date_till']));
+                    }
+
 
                     if (!isset($test_take['weight']))
                         $test_take['weight'] = 0;
@@ -269,13 +286,16 @@ class TestTakesController extends AppController {
             if (!empty($test_id)) {
                 $test = $this->TestsService->getTest($test_id);
                 $test_name = $test['name'];
+                $test_kind_id = $test['test_kind_id'];
                 $this->set('test', $test);
                 $this->validateCarouselQuestionsInTest($test_id);
             } else {
+                $test_kind_id = 1;
                 $test_name = __("Selecteer");
             }
 
             $this->set('classes', $classes);
+            $this->set('test_kind_id', $test_kind_id);
             $this->set('inviligators', $newInviligators);
             $this->set('test_name', $test_name);
             $this->set('education_levels', $education_levels);
