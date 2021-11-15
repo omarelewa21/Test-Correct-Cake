@@ -31,7 +31,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -2343,5 +2343,14 @@ class UsersController extends AppController
         }
 
         return true;
+    }
+
+    public function get_laravel_login_page()
+    {
+        $this->autoRender = false;
+
+        $response = $this->UsersService->getLaravelLoginPage();
+
+        return $response['url'];
     }
 }

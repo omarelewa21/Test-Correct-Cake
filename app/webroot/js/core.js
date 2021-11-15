@@ -345,6 +345,18 @@ var Core = {
 			},
 		});
 	},
+	laravelLoginPage : function () {
+		$.ajax({
+			type: 'get',
+			url: '/users/get_laravel_login_page',
+			success: function (url) {
+				window.open(url, '_self');
+				try {
+					electron.loadUrl(url);
+				} catch(error) {}
+			}
+		});
+	}
 };
 
 var Loading = {

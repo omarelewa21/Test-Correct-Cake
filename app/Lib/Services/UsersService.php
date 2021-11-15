@@ -808,5 +808,14 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function getLaravelLoginPage()
+    {
+        $response = $this->Connector->getRequest('/auth/laravel_login_page', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 
