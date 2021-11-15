@@ -20,7 +20,7 @@
             </div>
         </div>
 
-        <?php if(count($infos)){
+        <?php if($infos && count($infos)){
             echo $this->element('welcome_info_messages');
         } ?>
     </div>
