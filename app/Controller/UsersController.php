@@ -2349,7 +2349,12 @@ class UsersController extends AppController
     {
         $this->autoRender = false;
 
+        $appInfo = $this->getAppInfoFromSession();
         $response = $this->UsersService->getLaravelLoginPage();
+
+        if ($appInfo['TLCOs'] == 'iOS') {
+            $response['url'] = $response['url'].'?device=ipad';
+        }
 
         return $response['url'];
     }
