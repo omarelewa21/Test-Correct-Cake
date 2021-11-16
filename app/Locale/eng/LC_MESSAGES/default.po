@@ -1286,8 +1286,26 @@ msgstr "The score must be numeric"
 msgid "De score is verplicht"
 msgstr "The score is mandatory"
 
+msgid "Selecteer juiste antwoord"
+msgstr "Select correct answer"
+
+msgid "Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen."
+msgstr "First select the correct word in your text from which you want to build the choice."
+
+msgid "Vierkante haakjes toevoegen"
+msgstr "Add square brackets"
+
 msgid "De score dient in hele getallen te worden opgegeven"
 msgstr "The score must be given in whole numbers"
+
+msgid "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen."
+msgstr "You cannot have just one selection, you must add at least one additional selection in each bracket."
+
+msgid "U dient minimaal één antwoord tussen vierkante haakjes te plaatsen"
+msgstr "You must put at least one answer in square brackets"
+
+msgid "U dient minimaal één keuze toe te voegen aan de vraag. "
+msgstr "You must add at least one choice to the question. "
 
 msgid "De score dient groter dan nul te zijn"
 msgstr "The score must be greater than zero"

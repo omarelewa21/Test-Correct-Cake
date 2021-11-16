@@ -32,7 +32,7 @@ var Questions = {
                     Navigation.refresh();
                 }else{
                     // console.log(response['data']);
-                    Notify.notify(response['data'].join('<br />'), 'error');
+                    Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                 }
             }
         );
@@ -48,7 +48,7 @@ var Questions = {
                     Navigation.refresh();
                 }else{
                     $.each(response['data'], function() {
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                        Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                     });
                 }
             }
