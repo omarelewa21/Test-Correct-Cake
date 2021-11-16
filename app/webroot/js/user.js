@@ -432,5 +432,12 @@ var User = {
             authEndpoint: "/users/pusher_auth"
         });
 
+    },
+
+    glancingClosedReturnToLogin : function(url) {
+        window.open(url, '_self');
+        try {
+            electron.loadUrl(url);
+        } catch(error) {}
     }
 };
