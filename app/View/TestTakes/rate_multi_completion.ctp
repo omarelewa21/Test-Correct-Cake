@@ -10,7 +10,7 @@ $question = $rating['answer']['question']['question'];
     }
 echo sprintf('<div class="answer_container %s">',$citoClass);
 ?>
-<?= $this->element('discussing_completion_question_html',['question' => $question,'answer' => $answer]);?>
+<?= $this->element('discussing_completion_question_html',['question' => $question,'answer' => $answer, 'zeroBased' => false]);?>
 
     </div>
 <?=$this->element('question_styling',['question' => $rating['answer']['question']]);?>
