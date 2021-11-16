@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for=""><?= __("Examenvak")?></label>
-                        <?= $this->Form->input('base_subject_id', array('options' => $baseSubjects, 'label' => false))?>
+                        <?= $this->Form->input('base_subject_id', array('style' => 'width: 100%','options' => $baseSubjects, 'label' => false, 'multiple' => true))?>
                     </div>
                     <div class="col-md-5"><label for=""><?= __("Vak")?></label>
                         <?= $this->Form->input('subject', array('style' => 'width: 100%', 'options' => $subjects, 'label' => false, 'multiple' => true)) ?>
@@ -137,6 +137,7 @@
                     QuestionBankFiltermanager = new FilterManager({
                         filterFields: [
                             {field: 'search', label: 'titel', type: 'text'},
+                            {field: 'baseSubjectId', label: 'Examenvak', type: 'multiSelect'},
                             {field: 'subject', label: 'Vak', type: 'multiSelect'},
                             {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
                             {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
