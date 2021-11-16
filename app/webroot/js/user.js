@@ -18,7 +18,6 @@ var User = {
                 function (info) {
                     User.info = info;
                     if (User.info.guest) {
-                        console.log('No user initialise needed');
                         var guest_username = User.info.name_first + ' ' +
                             User.info.name_suffix + ' ' +
                             User.info.name;
