@@ -238,8 +238,8 @@ if($isTeacher && $analysis && count($analysis)){
 <? if(count($scores) > 5) { ?>
     <script type="text/javascript">
         clearTimeout(window.loadParticipants);
+        TestTake.enterWaitingRoomPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
         TestTake.loadParticipants('<?=$take_id?>');
-
         $(function () {
             $('#boxplot').highcharts({
 
