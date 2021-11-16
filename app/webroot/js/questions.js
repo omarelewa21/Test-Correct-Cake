@@ -124,8 +124,8 @@ var Questions = {
             }, function() {
                 $.get('/questions/add_existing_question/' + question_id,
                     function(response) {
+                        Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                         Navigation.refresh();
-                        Popup.closeLast();
                     }
                 );
             });
@@ -134,8 +134,8 @@ var Questions = {
         }else{
             $.get('/questions/add_existing_question/' + question_id,
                 function(response) {
+                    Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                     Navigation.refresh();
-                    Popup.closeLast();
                 }
             );
         }
@@ -153,8 +153,8 @@ var Questions = {
             }, function() {
                 $.get('/questions/add_existing_question_to_group/' + question_id,
                     function(response) {
+                        Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                         Navigation.refresh();
-                        Popup.closeLast();
                     }
                 );
             });
@@ -163,8 +163,8 @@ var Questions = {
         }else{
             $.get('/questions/add_existing_question_to_group/' + question_id,
                 function(response) {
+                    Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                     Navigation.refresh();
-                    Popup.closeLast();
                 }
             );
         }
