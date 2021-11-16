@@ -60,6 +60,8 @@ class SchoolClassesController extends AppController
             $params['filter']['school_year_id'] = $filters['school_year_id'];
         }
 
+        $params['filter']['without_guest_classes'] = true;
+
         $classes = $this->SchoolClassesService->getClasses($params);
 
 
