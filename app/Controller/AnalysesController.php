@@ -65,6 +65,7 @@ class AnalysesController extends AppController
 
         $params['with'] = ['schoolClassStats'];
         $params['filter'] = ['current_school_year' => 1];
+        $params['filter'] = ['without_guest_classes' => 1];
 
         $classes = $this->TestsService->getClassesItems($params);
 
