@@ -1,11 +1,11 @@
 
 <div class="popup-head"><?= __("Toetsvraag importeren") ?></div>
 <div class="popup-content">
-    <div id="QuestionBank">
+    <div id="ExistingQuestionBank">
         <div class='popup' id='popup_search' style="display:none;">
             <div class="popup-head" id="modal-head"><?= __("Zoeken") ?></div>
             <div class="popup-content">
-                <div id="testsFilter">
+                <div id="existingQuestionFilter">
                     <?= $this->Form->create('Question') ?>
                     <div class="row">
                         <div class="col-md-5">
@@ -19,8 +19,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-5">
-                            <label for=""><?= __("Examenvak") ?></label>
-                            <?= $this->Form->input('base_subject_id', array('options' => $baseSubjects, 'label' => false)) ?>
+                            <label for=""><?= __("Examenvak")?></label>
+                            <?= $this->Form->input('base_subject_id', array('style' => 'width: 100%','options' => $baseSubjects, 'label' => false, 'multiple' => true))?>
                         </div>
                         <div class="col-md-5">
                             <label for=""><?= __("Vak")?></label>
@@ -127,16 +127,17 @@
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#popup_search').prependTo('#hereComesFilterPopup');
-                var QuestionBankFirstTimeRun = false;
+                var ExistingQuestionBankFirstTimeRun = false;
                 if (typeof (Window.authors) === 'undefined') {
                     Window.authors = {};
                 }
 
-                if (typeof (QuestionBankFiltermanager) === 'undefined') {
-                    QuestionBankFirstTimeRun = true;
-                    QuestionBankFiltermanager = new FilterManager({
+                if (typeof (ExistingQuestionBankFiltermanager) === 'undefined') {
+                    ExistingQuestionBankFirstTimeRun = true;
+                    ExistingQuestionBankFiltermanager = new FilterManager({
                         filterFields: [
                             {field: 'search', label: 'titel', type: 'text'},
+                            {field: 'baseSubjectId', label: 'Examenvak', type: 'multiSelect'},
                             {field: 'subject', label: 'Vak', type: 'multiSelect'},
                             {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
                             {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
@@ -154,7 +155,7 @@
                             'afterFirstRunCallback': function (callback) {
                                 Loading.hide();
                                 Core.surpressLoading = true;
-                                QuestionBankFiltermanager.lockFilters();
+                                ExistingQuestionBankFiltermanager.lockFilters();
                                 $.ajax({
                                     url: '/tests/get_authors',
                                     type: 'GET',
@@ -162,9 +163,9 @@
                                         var json = $.parseJSON(data);
                                         Window.authors = json.data;
                                         setAuthors();
-                                        QuestionBankFiltermanager.initCustom();
+                                        ExistingQuestionBankFiltermanager.initCustom();
                                         Core.surpressLoading = false;
-                                        QuestionBankFiltermanager.unlockFilters();
+                                        ExistingQuestionBankFiltermanager.unlockFilters();
                                         if (typeof (callback) == 'function') {
                                             callback();
                                         }
@@ -172,10 +173,10 @@
                                 });
                             }
                         },
-                        filterKey: 'question_bank'
+                        filterKey: 'existing_question_bank'
                     });
                 }
-                QuestionBankFiltermanager.init(QuestionBankFirstTimeRun, true);
+                ExistingQuestionBankFiltermanager.init(ExistingQuestionBankFirstTimeRun, true);
 
             });
 
