@@ -1427,8 +1427,21 @@ class TestTakesController extends AppController {
 
         $take = $this->TestTakesService->getTestTake($take_id);
 
+        $guest = AuthComponent::user('guest');
+        $this->set('guest', $guest);
+
+        if ($guest) {
+            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
+            $this->set('loginUrl', $loginUrl['url']);
+        }
+
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {
+            if($guest) {
+                $this->set('guest_exit', true);
+                return;
+            }
             die(__("Deze toets is niet meer in te zien"));
+
         }
 
         $questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
@@ -1440,11 +1453,6 @@ class TestTakesController extends AppController {
             $group = "";
         }
 
-        $this->set('guest', AuthComponent::user('guest'));
-        if(AuthComponent::user('guest')) {
-            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
-            $this->set('loginUrl', $loginUrl['url']);
-        }
         $this->set('group', $group);
         $this->set('answer', $answer);
         $this->set('question_index', $question_index);

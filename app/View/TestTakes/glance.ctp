@@ -106,6 +106,10 @@
 
 
 <script type="text/javascript">
+    <?php if (isset($guest_exit)) {?>
+        User.glancingClosedReturnToLogin('<?= $loginUrl?>')
+    <?php } ?>
+
     $('#questionQuestion').load('/questions/preview_single_load/<?=getUUID($questions[$question_index]['question'], 'get')?>/<?=isset($group) ? $group : ''?>');
     $('#questionQuestion_correct').load('/questions/preview_answer_load/<?=getUUID($questions[$question_index]['question'], 'get')?>');
     $('#questionAnswer').load('/test_takes/glance_answer/<?=$take_id?>/<?=$question_index?>');
