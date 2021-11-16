@@ -55,7 +55,7 @@ foreach($tests as $test) {
                             <span class="fa fa-calendar mr5"></span>
                             <?= __("Inplannen")?>
                         </a>
-                        <?php if(!AppHelper::isCitoTest($test)){?>
+                        <?php if(!AppHelper::isCitoTest($test) && $test['test_kind_id'] != 4 ){ ?>
                             <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
                                 <?php echo $this->element('schedule_now') ?>
                                 <?= __("Direct afnemen")?>
