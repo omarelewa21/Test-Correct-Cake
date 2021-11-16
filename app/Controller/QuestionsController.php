@@ -899,56 +899,38 @@ class QuestionsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
-        $filters = array();
-        parse_str($params['filters'], $filters);
 
+        $filters = [];
+        parse_str($params['filters'], $filters);
         $filters = $filters['data']['Question'];
 
         unset($params['filters']);
 
         $params['filter'] = [];
 
-        if(!empty($filters['source'])){
-            $params['filter']['source'] = $filters['source'];
-        }
-
-        if(!empty($filters['base_subject_id'])){
-            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
-        }
-
-        if (!empty($filters['subject'])) {
-            $params['filter']['subject_id'] = $filters['subject'];
-        }
-
-        if (!empty($filters['education_levels'])) {
-            $params['filter']['education_level_id'] = $filters['education_levels'];
-        }
-
-        if (!empty($filters['education_level_years'])) {
-            $params['filter']['education_level_year'] = $filters['education_level_years'];
-        }
-
-        if (!empty($filters['id'])) {
-            $params['filter']['id'] = $filters['id'];
-        }
-
-
-        if (!empty($filters['search'])) {
-            $params['filter']['search'] = $filters['search'];
-        }
-
-        if (!empty($filters['is_open_source_content'])) {
-            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
-        }
-
-        if (!empty($filters['type'])) {
-
-            $typeFilter = explode('.', $filters['type']);
-
-            $params['filter']['type'] = $typeFilter[0];
-
-            if (isset($typeFilter[1])) {
-                $params['filter']['subtype'] = $typeFilter[1];
+        $filterKeys = [
+            'source' => 'source',
+            'base_subject_id' => 'base_subject_id',
+            'education_levels' => 'education_level_id',
+            'education_level_years' => 'education_level_year',
+            'subject' => 'subject_id',
+            'search' => 'search',
+            'type' => 'type',
+            'id' => 'id',
+            'is_open_source_content' => 'is_open_source_content',
+            'author_id' => 'author_id'
+        ];
+        foreach ($filterKeys as $from => $to) {
+            if (!empty($filters['type'])) {
+                $typeFilter = explode('.', $filters['type']);
+                $params['filter']['type'] = $typeFilter[0];
+                if (isset($typeFilter[1])) {
+                    $params['filter']['subtype'] = $typeFilter[1];
+                }
+                continue;
+            }
+            if (!empty($filters[$from])) {
+                $params['filter'][$to] = $filters[$from];
             }
         }
 

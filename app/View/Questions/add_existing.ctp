@@ -47,18 +47,25 @@
                             <?= $this->Form->input('type', array('options' => $filterTypes, 'label' => false)) ?>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <label for="">Auteur</label>
+                            <?= $this->Form->input('author_id', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        </div>
+
+                    </div>
                     <?= $this->Form->end(); ?>
                 </div>
             </div>
             <div class="popup-footer">
                 <a href="#" style="float:right"
                    id="jquery-save-filter-from-modal"
-                   class="btn blue pull-right mr5 mt5 inline-block">Opslaan</a>
+                   class="btn blue pull-right mr5 mt5 inline-block"><?= __("Opslaan")?></a>
                 <a href="#" style="float:right"
                    id="jquery-save-filter-as-from-modal"
-                   class="btn grey pull-right mr5 mt5 inline-block">Opslaan als</a>
+                   class="btn grey pull-right mr5 mt5 inline-block"><?= __("Opslaan als")?></a>
                 <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
-                   class="btn grey pull-right mr5 mt5 inline-block">Bevestigen</a>
+                   class="btn grey pull-right mr5 mt5 inline-block"><?= __("Bevestigen")?></a>
 
             </div>
         </div>
@@ -67,30 +74,30 @@
                 <table id="filterTable" class="table ">
                     <tbody>
                     <tr>
-                        <th width="150">Kies filter</th>
+                        <th width="150"><?= __("Kies filter")?></th>
                         <td colspan="2">
                             <select name="opgelagen filters" id="jquery-saved-filters">
                             </select>
                         </td>
                         <td width="380">
                             <a href="#" class="btn inline-block btn-default grey disabled mr2"
-                               id="jquery-delete-filter">Verwijderen</a>
+                               id="jquery-delete-filter"><?= __("Verwijderen")?></a>
                             <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
                                 <span class="fa mr5"></span>
-                                Nieuw filter maken
+                                  <?= __("Nieuw filter maken")?>
                             </a>
                         </td>
                     </tr>
 
                     <tr id="jquery-applied-filters" style="display:none">
-                        <th>Toegepast filter</th>
+                        <th><?= __("Toegepast filter")?></th>
                         <td colspan="2" id="jquery-filter-filters"></td>
                         <td>
                             <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
-                                <span class="fa mr5"></span>Filter aanpassen
+                                <span class="fa mr5"></span><?= __("Filter aanpassen")?>
                             </a>
-                            <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter">Opslaan</a>
-                            <a href="#" class="btn inline-block grey" id="jquery-reset-filter">Reset Filter</a>
+                            <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter"><?= __("Opslaan")?></a>
+                            <a href="#" class="btn inline-block grey" id="jquery-reset-filter"><?= __("Reset Filter")?></a>
                         </td>
                     </tr>
                     </tbody>
@@ -135,6 +142,7 @@
                             {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
                             {field: 'source', label: 'Bron'},
                             {field: 'type', label: 'Type',type:'select'},
+                            {field: 'authorId', label: 'Auteur', type: 'multiSelect'}
                         ],
                         eventScope: 'body:first',
                         formPrefix: '#Question',
@@ -143,6 +151,26 @@
                             'source': '/questions/add_existing_question_list',
                             'filters': '#QuestionAddExistingForm',
                             'container': '#questionsContainter',
+                            'afterFirstRunCallback': function (callback) {
+                                Loading.hide();
+                                Core.surpressLoading = true;
+                                QuestionBankFiltermanager.lockFilters();
+                                $.ajax({
+                                    url: '/tests/get_authors',
+                                    type: 'GET',
+                                    success: function (data) {
+                                        var json = $.parseJSON(data);
+                                        Window.authors = json.data;
+                                        setAuthors();
+                                        QuestionBankFiltermanager.initCustom();
+                                        Core.surpressLoading = false;
+                                        QuestionBankFiltermanager.unlockFilters();
+                                        if (typeof (callback) == 'function') {
+                                            callback();
+                                        }
+                                    }
+                                });
+                            }
                         },
                         filterKey: 'question_bank'
                     });
@@ -150,6 +178,15 @@
                 QuestionBankFiltermanager.init(QuestionBankFirstTimeRun, true);
 
             });
+
+            function setAuthors() {
+                var author_select = $('#QuestionAuthorId');
+                author_select.html('');
+                $.each(Window.authors, function (key, value) {
+                    var option = $('<option value="' + key + '">' + value + '</option>');
+                    author_select.append(option);
+                });
+            }
         </script>
     </div>
 </div>
