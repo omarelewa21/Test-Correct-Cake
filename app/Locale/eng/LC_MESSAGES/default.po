@@ -4298,3 +4298,6 @@ msgstr "Return to support environment"
 msgid "Dit is een gastaccount waardoor je de toets niet meer kunt heropenen voor deze student."
 msgstr "This is a guest account, which makes it impossible for you to re-open the test for this student."
 
+
+msgid "Versie"
+msgstr "Version"
