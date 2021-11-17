@@ -88,12 +88,12 @@
     </a>
 
     <? if($is_clone_request){ ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ARQQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
             <?= __("Vraag opslaan")?>
         </a>
     <? }else{ ?>
         <? if($editable) { ?>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="checkBeforeCompletion('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="checkBeforeCompletion('<?=$owner?>', '<?=$owner_id?>', 'CompletionQuestion', '<?=getUUID($question, 'get');?>');">
                 <?= __("Vraag opslaan")?>
             </a>
         <? } ?>

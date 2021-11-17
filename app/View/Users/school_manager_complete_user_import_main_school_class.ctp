@@ -55,7 +55,6 @@
                 <?php foreach ($classes_list as $schoolClass) { ?>
                     <?php if(
                             !$schoolClass['finalized']
-                            && !$schoolClass['visible']
                             && !$schoolClass['checked_by_teacher']
                             && !$schoolClass['checked_by_admin']
                     ){ ?>
