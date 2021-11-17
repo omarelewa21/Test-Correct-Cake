@@ -4,6 +4,7 @@
     <table class="table mb15" id="tableTestTakes">
         <tr>
             <th width="70"><?= __("Datum")?></th>
+            <th width="70"><?= __("Datum tot")?></th>
             <th width="110"><?= __("Periode")?></th>
             <th colspan="2"><?= __("Surveillanten")?></th>
             <th width="110"><?= __("Klas")?></th>
@@ -19,14 +20,23 @@
             $selectedInviligator = null;
         }
         ?>
-        <? for($i = 0; $i < 10; $i++) {
+        <? for($i = 0; $i < 10; $i++) { ?>
 
-        ?>
+            <? if ($i > 0) { ?>
+                <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRowDivider">
+                    <td colspan="8" style="border-bottom:1px solid #cccccc"></td>
+                </tr>
+            <? } ?>
+
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRow">
             <td>
                 <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][visible]', 'id' => 'TestTakeVisible' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $i == 0 ? 1 : '' )) ?>
                 <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date]', 'id' => 'TestTakeDate' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
                 <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][test_kind]', 'id' => 'TestTakeTestKind_' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $test_kind_id )) ?>
+                <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_from]', 'id' => 'TestTakeDateFrom' . $i, 'class' => 'dateField', 'style' => 'width:70px; display:none', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
+            </td>
+            <td>
+                <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_till]', 'id' => 'TestTakeDateTill' . $i, 'class' => 'dateField', 'style' => 'width:70px; display:none;', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
             </td>
 
             <td>
@@ -38,10 +48,7 @@
             <td>
                 <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
             </td>
-            <td>
-                <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : __("Selecteer") ?></a>
-                <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
-            </td>
+
             <td>
                 <?
                     if(isset($test)){
@@ -72,18 +79,11 @@
                 </a>
             </td>
         </tr>
-            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="periodRow_<?= $i ?>" class="testTakePeriod">
-                <th>Datum van</th>
-                <td>
-                    <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_from]', 'id' => 'TestTakeDateFrom' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRowPlanButton">
+                <td colspan="7">
+                    <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : __("Selecteer") ?></a>
+                    <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
                 </td>
-                <th>Datum tot
-
-                </th>
-                <td><?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_till]', 'id' => 'TestTakeDateTill' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?></td>
-                <td></td>
-                <td></td>
-                <td></td>
             </tr>
         <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">

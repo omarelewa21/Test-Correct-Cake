@@ -391,15 +391,18 @@ var TestTake = {
     },
 
     updatedTestKind:function() {
-        var periodRowSelector = '#periodRow_'+ TestTake.i;
-        var dateFieldSelector = '#TestTakeDate'+TestTake.i;
+        var dateOriginalSelector = '#TestTakeDate'+ TestTake.i;
+        var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
+        var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
 
         if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
-            $(periodRowSelector).fadeIn();
-            $(dateFieldSelector).hide();
+            $(dateFromSelector).fadeIn();
+            $(dateTillSelector).fadeIn();
+            $(dateOriginalSelector).hide();
         }else {
-            $(periodRowSelector).hide();
-            $(dateFieldSelector).fadeIn();
+            $(dateFromSelector).hide();
+            $(dateTillSelector).hide();
+            $(dateOriginalSelector).fadeIn();
         }
     },
 
@@ -428,6 +431,8 @@ var TestTake = {
         $('.testTakeRow:hidden').first().find('.testIsVisible:first').val(1);
         $('.testTakeRow:hidden').first().fadeIn();
 
+        $('.testTakeRowPlanButton:hidden').first().fadeIn();
+        $('.testTakeRowDivider:hidden').first().fadeIn();
         $('.testTakeRowNotes:hidden').first().fadeIn();
         $('.testTakeRowInbrowserToggle:hidden').first().fadeIn();
     },
