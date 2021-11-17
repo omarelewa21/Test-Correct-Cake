@@ -412,11 +412,14 @@ var User = {
 
         }, 1000);
     },
-    returnToLaravelLogin : function() {
+    returnToLaravelLogin : function(desiredUrl) {
         $.ajax({
             url: '/users/return_to_laravel/true',
             method: 'get',
             success: function (url) {
+                if (desiredUrl != null) {
+                    url = desiredUrl;
+                }
                 url = typeof url == 'undefined' ? '/' : url;
                 window.open(url, '_self');
                 try {
@@ -433,13 +436,5 @@ var User = {
             forceTLS: true,
             authEndpoint: "/users/pusher_auth"
         });
-
     },
-
-    glancingClosedReturnToLogin : function(url) {
-        window.open(url, '_self');
-        try {
-            electron.loadUrl(url);
-        } catch(error) {}
-    }
 };
