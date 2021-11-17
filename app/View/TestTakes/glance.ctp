@@ -107,7 +107,7 @@
 
 <script type="text/javascript">
     <?php if (isset($guest_exit)) {?>
-        User.glancingClosedReturnToLogin('<?= $loginUrl?>')
+        User.returnToLaravelLogin('<?= $loginUrl?>')
     <?php } ?>
 
     $('#questionQuestion').load('/questions/preview_single_load/<?=getUUID($questions[$question_index]['question'], 'get')?>/<?=isset($group) ? $group : ''?>');
