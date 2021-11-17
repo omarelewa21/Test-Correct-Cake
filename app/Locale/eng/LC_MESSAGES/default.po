@@ -4360,3 +4360,6 @@ msgstr "Info messages"
 
 msgid "info.Titel"
 msgstr "Title"
+
+msgid "Versie"
+msgstr "Version"

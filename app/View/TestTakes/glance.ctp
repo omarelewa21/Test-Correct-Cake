@@ -1,5 +1,5 @@
 <?php if ($guest) { ?>
-<a href="<?= $loginUrl ?>" class="btn highlight" id="btnHandIn">
+<a href="#" onclick="User.returnToLaravelLogin('<?= $loginUrl?>')" class="btn highlight" id="btnHandIn">
     Sluiten
 </a>
 <?php } else { ?>

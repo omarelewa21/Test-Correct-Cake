@@ -639,6 +639,7 @@ th.subject-column, td.subject-column {
 
 .guest_top .guest_logo {
     display: flex;
+    position: relative;
 }
 .guest_top .guest_name {
     color: var(--system-base);
@@ -731,4 +732,24 @@ th.subject-column, td.subject-column {
 }
 .discuss-test-code-box h5 {
     font-size: 20px;
+}
+.student_version_tag {
+    display: flex;
+    position: absolute;
+    bottom: 0;
+    font-size: 12px;
+    font-family: Nunito, sans-serif;
+    left: 62px;
+}
+.student_version_tag.OK {
+    color: var(--cta-primary);
+}
+.student_version_tag.NEEDSUPDATE {
+    color: var(--orange);
+}
+.student_version_tag.NOTALLOWED {
+    color: var(--error-text);
+}
+#container[guest]{
+    margin-top: 70px;
 }
