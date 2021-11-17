@@ -2639,8 +2639,8 @@ msgstr "Date to"
 msgid "Periode aangemaakt"
 msgstr "Period created"
 
-msgid "Deze data overlapt met andere periode's"
-msgstr "This data overlaps with other periods"
+msgid "Deze data overlapt met een andere periode."
+msgstr "This data overlaps with other periods."
 
 msgid "SchoolYear gewijzigd"
 msgstr "SchoolYear changed"
