@@ -646,7 +646,7 @@ class TestTakesController extends AppController {
         $this->render($view, 'ajax');
     }
 
-    public function rate_teacher_question($take_id, $question_index = 0) {
+    public function rate_teacher_question($take_id, $question_index = 0, $sticky = 0) {
 
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
@@ -674,6 +674,7 @@ class TestTakesController extends AppController {
         $this->set('question_index', $question_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('sticky',$sticky);
     }
 
     public function normalization($take_id) {
