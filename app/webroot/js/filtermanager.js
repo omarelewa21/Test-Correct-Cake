@@ -491,6 +491,7 @@ function FilterManager(settings) {
         var filterToClone = this.filters.find(function (filter) {
             return filter.id == filterId;
         });
+        if(!filterToClone) return;
         this.editFilter = JSON.parse(JSON.stringify(filterToClone));
         // clone the object using the oldest trick in the book because we have no deep clone helper;
 
