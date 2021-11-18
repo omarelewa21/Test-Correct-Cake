@@ -317,7 +317,7 @@ msgid "Matrix"
 msgstr "Matrix"
 
 msgid "U kunt niet inloggen omdat het contract van uw school niet actief is. Neem contact met ons op als u denkt dat dit een vergissing is."
-msgstr "You cannot log in because your school's contract is not active. Please contact us if you think this is a mistake."
+msgstr "You cannot log in because the contract of your school is not active. Please contact us if you think this is a mistake."
 
 msgid "Accountmanagers"
 msgstr "Account Managers"
@@ -817,11 +817,11 @@ msgstr "Whitelisted ip address changed"
 msgid "Ip adres kon niet worden toegevoegd"
 msgstr "Ip address could not be added"
 
-msgid "'Minimaal gewenste p-waarde'"
-msgstr "Minimum desired p-value '"
+msgid "Minimaal gewenste p-waarde"
+msgstr "Minimum desired p-value"
 
-msgid "'Minimaal gewenste hoeveelheid vraagitems'"
-msgstr "Minimum desired amount of question items'"
+msgid "Minimaal gewenste hoeveelheid vraagitems"
+msgstr "Minimum desired amount of question items"
 
 msgid "B1 - Eiwitsynthese (Dit schooljaar)"
 msgstr "B1 - Protein synthesis (This school year)"
@@ -829,8 +829,8 @@ msgstr "B1 - Protein synthesis (This school year)"
 msgid "Let op! Als exporteren naar RTTI Online aanstaat, dan kan deze toetsafname niet meer genormeerd en becijferd worden in Test-Correct, maar gebeurt dit in RTTI Online"
 msgstr "Pay attention! If export to RTTI Online is enabled, this test can no longer be standardized and graded in Test-Correct, but this is done in RTTI Online"
 
-msgid "'B1 - Eiwitsynthese (Totaal)'"
-msgstr "B1 - Protein Synthesis (Total) '"
+msgid "B1 - Eiwitsynthese (Totaal)"
+msgstr "B1 - Protein Synthesis (Total)"
 
 msgid "Zoeken"
 msgstr "Search"
@@ -1018,7 +1018,7 @@ msgstr "Process import"
 msgid "Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken.."
 msgstr "Did you know that with the co-learning module you can have the students mark the tests themselves ..."
 
-msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z'n device.."
+msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device.."
 msgstr "Did you know that we also offer drawing questions that allow students to draw on their device."
 
 msgid "Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets..."
@@ -1058,7 +1058,7 @@ msgid "het LVS systeem"
 msgstr "the LVS system"
 
 msgid "Hieruit kunnen wij niet altijd alle informatie verkrijgen. Daarom vragen we om deze compleet te maken"
-msgstr "We cannot always obtain all information from this. That's why we ask to complete this one"
+msgstr "We cannot always obtain all information from this. That is why we ask to complete this one"
 
 msgid "Lees meer hierover op de Kennisbank"
 msgstr "Read more about this on the Knowledge Base"
@@ -1695,7 +1695,7 @@ msgid "Maak een keuze"
 msgstr "make a choice"
 
 msgid "Nee, dat heb ik nog niet gedaan"
-msgstr "No, I haven't yet"
+msgstr "No, I haven`t yet"
 
 msgid "Ja, die zit erbij"
 msgstr "Yes, it is included"
@@ -2276,8 +2276,8 @@ msgstr "ignore"
 msgid "Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op."
 msgstr "Something went wrong while converting, <br /> Please try again and if the problem persists please contact us."
 
-msgid "Weet u het zeker?',"
-msgstr "Are you sure?',"
+msgid "Weet u het zeker?,"
+msgstr "Are you sure?,"
 
 msgid "Weet u zeker dat u deze rij wil verwijderen?"
 msgstr "Are you sure you want to delete this row?"

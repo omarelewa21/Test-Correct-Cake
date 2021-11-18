@@ -1620,7 +1620,7 @@ msgstr ""
 #: View/Qtiimport/index.ctp:91
 #: View/QtiimportBatchCito/index.ctp:91
 #: View/QtiimportCito/index.ctp:91
-msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z'n device.."
+msgid "Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device.."
 msgstr ""
 
 #: View/Attainments/import.ctp:45
