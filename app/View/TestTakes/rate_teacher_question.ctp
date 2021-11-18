@@ -16,7 +16,7 @@
         }
 
         ?>
-        <div class="question <?=$class?>" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$index?>');"><?=$i?></div>
+        <div class="question <?=$class?>" onclick="loadQuestion(<?=$index?>);"><?=$i?></div>
         <?
     }
     ?>
@@ -90,7 +90,7 @@ foreach($participants as $participant) {
 <center>
     <? if($question_index < (count($questions) - 1)) {
         ?>
-        <a href="#" class="btn highlight mb15" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$question_index +1 ?>');"><?= __("Volgende vraag")?></a>
+        <a href="#" class="btn highlight mb15" onclick="loadQuestion(<?=$question_index +1 ?>);"><?= __("Volgende vraag")?></a>
         <?
     }
     ?>
@@ -98,16 +98,22 @@ foreach($participants as $participant) {
 </div>
 
 <script type="text/javascript">
+    var sticky = <?= $sticky ?>;
+    function loadQuestion(index){
+        Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/'+index+'/'+sticky);
+    }
+
     $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
     $('#question_answer_load').load('/questions/preview_answer_load/<?=$question_id?>');
     $('#pinAnswerModel').click(function(){
         if ($(this).hasClass('fa-unlock')) {
+            sticky = 1;
             $('#answerModel').css({'position':'sticky', 'top':'170px'})
             $(this).addClass('fa-lock').removeClass('fa-unlock');
         } else {
+            sticky = 0;
             $('#answerModel').css({'position':'relative', 'top':'0'})
             $(this).addClass('fa-unlock').removeClass('fa-lock');
-
         }
-    })
+    })<?php if($sticky){ echo ".trigger('click');";} ?>
 </script>
