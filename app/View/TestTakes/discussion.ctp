@@ -1,22 +1,22 @@
 <?
 if(!isset($take)) {
     ?>
-    <h1><?= __("CO-learning")?></h1>
+    <h1><?= __("CO-Learning")?></h1>
     <center>
-    <?= __("Er is geen toets klaar voor CO-learning.")?>
+    <?= __("Er is geen toets klaar voor CO-Learning.")?>
     </center>
     <?
 }else {
     ?>
 
     <div id="buttons">
-        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');"><?= __("CO-learning beëindigen")?></a>
+        <a href="#" class="btn highlight mr2" onclick="TestTake.finishDiscussion('<?=getUUID($take, 'get');?>');"><?= __("CO-Learning beëindigen")?></a>
         <? if($has_next_question) { ?>
             <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight mr2 nextDiscussionQuestion"><?= __("Volgende vraag")?></a>
         <? }  ?>
     </div>
 
-    <h1><?= __("CO-learning")?> <?=$take['test']['name']?></h1>
+    <h1><?= __("CO-Learning")?> <?=$take['test']['name']?></h1>
 
 <?= $this->element("attachment_popup"); ?>
 
