@@ -1827,6 +1827,8 @@ class UsersController extends AppController
             }, $this->UsersService->getSchoolLocationList());
         }
 
+
+        $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
 
@@ -1840,7 +1842,8 @@ class UsersController extends AppController
             'isStudent',
             'school_location_list',
             'school_location_id',
-            'guest'
+            'guest',
+            'laravel_look'
         ];
 
         foreach ($allowed as $key) {
@@ -2292,6 +2295,9 @@ class UsersController extends AppController
     public function front_controller()
     {
         $this->autoRender = false;
+
+        $headers = AppVersionDetector::getAllHeaders();
+        $this->handleHeaderCheck($headers);
 
         if (CakeSession::read('temporaryLoginOptions')) {
             //TODO: Change this back to consume instead of read

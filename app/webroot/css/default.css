@@ -629,7 +629,7 @@ th.subject-column, td.subject-column {
     background: white;
     display: flex;
     width: 100%;
-    padding: 10px 60px;
+    padding: 10px 24px;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;

@@ -12,6 +12,16 @@ var Menu = {
             return;
         }
 
+        if (User.info.isStudent && User.info.laravel_look == 1) {
+            return;
+        }
+
+        this.loadMenuItems();
+
+        this.loadTilesForMenu();
+
+    },
+    loadMenuItems: function () {
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
@@ -58,7 +68,8 @@ var Menu = {
                 Menu.initScrollForMenu();
             });
         });
-
+    },
+    loadTilesForMenu: function () {
         $('#tiles').load('/users/tiles', function () {
             $('#tiles .tile').hide();
             $('#tiles').mouseover(function () {
@@ -71,8 +82,8 @@ var Menu = {
                     Menu.hideInactiveTiles();
                     if (Menu.shouldRemoveTilesBar()) {
                         $('#tiles').stop(true, true).animate({
-                            'top':0,
-                            'height':'48px'
+                            'top': 0,
+                            'height': '48px'
                         });
                     } else {
                         $('#tiles').stop(true, true).animate({
@@ -116,7 +127,6 @@ var Menu = {
                 Navigation.load($(this).attr('path'));
             });
         });
-
     },
     shouldRemoveTilesBar: function() {
         var emptyMenuItems = [];
