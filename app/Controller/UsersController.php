@@ -2293,6 +2293,9 @@ class UsersController extends AppController
     {
         $this->autoRender = false;
 
+        $headers = AppVersionDetector::getAllHeaders();
+        $this->handleHeaderCheck($headers);
+
         if (CakeSession::read('temporaryLoginOptions')) {
             //TODO: Change this back to consume instead of read
             $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
