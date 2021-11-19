@@ -6,7 +6,7 @@
                 <img src="/img/ico/loading-large.gif" />
             </center>
             <div class="alert alert-info" style="text-align: center; margin:20px 0px 0px 0px;">
-            <?= __("CO-learning is nog niet gestart, wacht op de docent..")?>
+            <?= __("CO-Learning is nog niet gestart, wacht op de docent..")?>
             </div>
         </div>
     </div>
