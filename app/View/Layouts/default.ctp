@@ -100,13 +100,18 @@
 
 		<div id="header" class="highlight">
             <?php if (AuthComponent::user('guest') != true) { ?>
+                <div class="logo-container">
                 <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
                 <?= $this->element('logo_text', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
     <!--			<img src="/img/logo_1.png" id="logo_1" onclick="User.welcome();" />-->
     <!--			<img src="/img/logo_2.png" id="logo_2" onclick="User.welcome();" />-->
+                </div>
                 <span id="versionBadge"></span>
                 <div id="top">
-                    <div id="user"></div>
+                    <div class="user_name_button">
+                        <div id="user"></div>
+                        <?= $this->element('chevron', ['id' => 'user_chevron', 'style' => 'transform:rotate(90deg);']) ?>
+                    </div>
                     <div id="action_icons"></div>
 
                     <div id="user_menu">
@@ -140,11 +145,11 @@
                         <?php }?>
                     </div>
                     <div class="guest_name">
-                        <button id="guest_user" onclick="showGuestDropdown()">
+                        <button id="guest_user" onclick="showDropdown('#guest_name_dropdown', '#guest_user_chevron')">
                             <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(90deg)']) ?>
                         </button>
                         <div id="guest_name_dropdown" style="display: none">
-                            <button id="guest_user" onclick="showGuestDropdown()">
+                            <button id="guest_user" onclick="showDropdown('#guest_name_dropdown', '#guest_user_chevron')">
                                 <?= $this->element('chevron', ['id' => 'guest_user_chevron', 'style' => 'transform:rotate(-90deg)']) ?>
                             </button>
                             <button onclick="User.returnToLaravelLogin()">Log uit</button>
@@ -153,18 +158,18 @@
                 </div>
 
                 <script>
-                    function showGuestDropdown() {
-                        var menu = $('#guest_name_dropdown');
-                        var chevron = $('#guest_user_chevron');
-
-                        if(menu.get(0).style.display === 'none') {
-                            menu.fadeIn({duration: 100});
-                            chevron.css({'transform' : 'rotate(-90deg)'})
-                        } else {
-                            menu.fadeOut({duration: 100});
-                            chevron.css({'transform' : 'rotate(90deg)'})
-                        }
-                    }
+                    // function showGuestDropdown() {
+                    //     var menu = $('#guest_name_dropdown');
+                    //     var chevron = $('#guest_user_chevron');
+                    //
+                    //     if(menu.get(0).style.display === 'none') {
+                    //         menu.fadeIn({duration: 100});
+                    //         chevron.css({'transform' : 'rotate(-90deg)'})
+                    //     } else {
+                    //         menu.fadeOut({duration: 100});
+                    //         chevron.css({'transform' : 'rotate(90deg)'})
+                    //     }
+                    // }
                 </script>
             <?php } ?>
 		</div>

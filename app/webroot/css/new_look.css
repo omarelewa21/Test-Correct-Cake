@@ -1,0 +1,221 @@
+#header.laravel-look {
+    background: white;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: .625rem 1.5rem;
+    font-family: Nunito, sans-serif;
+    color: var(--system-base);
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+}
+#header.laravel-look .logo-container #logo_1, #header.laravel-look .logo-container #logo_2 {
+    position: relative;
+    display: flex;
+    margin: 0;
+}
+#header.laravel-look .logo-container #logo_1 {
+    width: 50px;
+    height: 50px;
+}
+#header.laravel-look .logo-container #logo_2 {
+    color: var(--primary);
+    height: 17px;
+    margin-left: -5px;
+}
+
+#header.laravel-look .logo-container {
+    display: flex;
+    align-items: center;
+}
+#header.laravel-look #top {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: auto;
+    height: auto;
+}
+#header.laravel-look #top #user{
+    padding: 0;
+    background: none;
+}
+
+
+#header.laravel-look #menu {
+    display: none;
+}
+
+.shadow {
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+}
+
+#user_chevron {
+    display: none;
+}
+#header.laravel-look #top #user {
+    font-weight: 900;
+    color: inherit;
+}
+
+#header.laravel-look #top #user_chevron {
+    display: flex;
+    margin-left: 10px;
+}
+
+#header.laravel-look #top .user_name_button {
+    display: flex;
+    align-items: center;
+    color: var(--system-base);
+    cursor: pointer;
+    margin-left: 10px;
+    transition: 100ms ease-in-out;
+}
+
+#header.laravel-look #top .user_name_button:hover {
+    color: var(--primary);
+}
+
+#header.laravel-look #top #user_menu, #header.laravel-look #top #support_menu {
+    flex-direction: column;
+    background: white;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+    overflow: hidden;
+    top: 40px;
+    right: -5px;
+}
+#header.laravel-look #top #user_menu a, #header.laravel-look #top #support_menu a{
+    color: var(--system-base);
+    margin-top: 0;
+}
+#header.laravel-look #top #user_menu a:hover, #header.laravel-look #top #support_menu a:hover {
+    color: var(--primary)!important;
+    background: var(--primary-opacity-10)!important;
+}
+
+#header.laravel-look #student-menu {
+    display: flex;
+}
+#header.laravel-look #student-menu .item {
+    display: flex;
+    padding: 0 8px;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--system-base);
+    cursor: pointer;
+    user-select: none;
+    transition: 100ms ease-in-out;
+}
+#header.laravel-look #student-menu .item:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-10);
+}
+#header.laravel-look #student-menu .item span {
+    position: relative;
+    padding: 10px 0;
+}
+#header.laravel-look #student-menu .item span:after, #tiles.laravel-look .tile span:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: transparent;
+    border-radius: 2px;
+}
+#header.laravel-look #student-menu .item.active {
+    color: var(--primary);
+}
+#header.laravel-look #student-menu .item.active > span:after, #tiles.laravel-look .tile.active > span:after {
+    background: var(--primary);
+}
+
+#container.laravel-look {
+    margin-top: 110px;
+}
+#tiles.laravel-look {
+    display: none;
+    position: absolute;
+    top: 70px;
+    background: transparent;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: 100ms ease-in-out;
+    align-items: center;
+    border-bottom: 1px solid var(--system-secondary);
+    padding: 0 1.5rem;
+}
+#tiles.laravel-look .tile {
+    display: none;
+    background: transparent;
+    color: var(--system-base);
+    height: auto;
+    padding: 0 10px;
+}
+
+#tiles.laravel-look .tile.active {
+    color: var(--primary);
+}
+#tiles.laravel-look .tile.active:after {
+    display: none;
+}
+#tiles.laravel-look .tile:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-10);
+}
+
+#tiles.laravel-look .tile span {
+    position: relative;
+    color: inherit;
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+    padding: 10px 0;
+}
+
+#header.laravel-look #top .action_icon_container > div {
+    margin: 0 2px;
+    padding: 6px;
+    border-radius: 100%;
+    background: transparent;
+    transition: 100ms ease-in-out;
+}
+
+#header.laravel-look #top .action_icon_container > div.active, #header.laravel-look #top .action_icon_container > div:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-10);
+}
+
+@media screen and (max-width: 550px) {
+    #header #logo_2 {
+        display: none;
+    }
+}
+@media screen and (max-width: 800px) {
+    #header.laravel-look #top #user {
+        max-width: 10rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .action_icon_container span {
+        display: none;
+    }
+    #header.laravel-look .logo-container #logo_2 {
+        display: none;
+    }
+
+    #header.laravel-look .logo-container #logo_1 {
+        transform: none;
+        top: 0;
+        margin-right: 10px;
+    }
+    #header.laravel-look #menu {
+        padding-left: 40px;
+    }
+    #header.laravel-look.blue #menu .item:first-child {
+        margin-left: 0;
+    }
+}

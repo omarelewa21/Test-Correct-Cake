@@ -1204,8 +1204,15 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Student') {
-                $menus['tests'] = __("Toetsing");
-                $menus['analyses'] = __("Analyse");
+                $menus['tests'] = [
+                    'title' => __("Toetsing"),
+                    'onClick' => 'Navigation.load("/test_takes/planned_student")'
+                ];
+
+                $menus['analyses'] = [
+                    'title' => __("Analyse"),
+                    'onClick' => 'Navigation.load("/analyses/student/'.AuthComponent::user('uuid').'")'
+                ];
 //                $menus['messages'] = "Berichten";
 //                $menus['support'] = "Support";
             }
