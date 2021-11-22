@@ -4,7 +4,7 @@
         <?= __("Terug")?>
     </a>
 
-    <a href="#" class="btn white mr2" onclick="TestTake.checkStartDiscussion('<?=$take_id?>');">
+    <a href="#" class="btn white mr2" selid="co-learning-button" onclick="TestTake.checkStartDiscussion('<?=$take_id?>');">
         <span class="fa fa-users mr5"></span>
         <?= __("CO-Learning")?>
     </a>
