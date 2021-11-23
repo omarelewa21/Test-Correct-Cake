@@ -176,7 +176,7 @@ class FileManagementController extends AppController {
 
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $params = $this->request->data;
-        $params['type'] = 'testupload';
+        $params['filter']['type'] = 'testupload';
 
         $data = $this->FileService->getData($params);
 
@@ -412,7 +412,7 @@ class FileManagementController extends AppController {
     public function load_classuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
         $params = $this->request->data;
-        $params['type'] = 'classupload';
+        $params['filter']['type'] = 'classupload';
 
         $view = 'load_classuploads';
         if ($this->UsersService->hasRole('Account manager')) {
