@@ -66,7 +66,7 @@
     align-items: center;
     color: var(--system-base);
     cursor: pointer;
-    margin-left: 10px;
+    margin-left: 38px;
     transition: 100ms ease-in-out;
 }
 
@@ -118,7 +118,7 @@
 }
 #header.laravel-look #student-menu .item span {
     position: relative;
-    padding: 10px 0;
+    padding: 12px 0;
 }
 #header.laravel-look #student-menu .item span:after, #tiles.laravel-look .tile span:after {
     content: '';
@@ -181,7 +181,7 @@
     font-size: 18px;
     font-weight: 900;
     margin: 0;
-    padding: 14px 0;
+    padding: 12px 0;
 }
 
 #header.laravel-look #top .action_icon_container > div {

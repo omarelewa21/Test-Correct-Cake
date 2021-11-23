@@ -156,21 +156,6 @@
                         </div>
                     </div>
                 </div>
-
-                <script>
-                    // function showGuestDropdown() {
-                    //     var menu = $('#guest_name_dropdown');
-                    //     var chevron = $('#guest_user_chevron');
-                    //
-                    //     if(menu.get(0).style.display === 'none') {
-                    //         menu.fadeIn({duration: 100});
-                    //         chevron.css({'transform' : 'rotate(-90deg)'})
-                    //     } else {
-                    //         menu.fadeOut({duration: 100});
-                    //         chevron.css({'transform' : 'rotate(90deg)'})
-                    //     }
-                    // }
-                </script>
             <?php } ?>
 		</div>
 

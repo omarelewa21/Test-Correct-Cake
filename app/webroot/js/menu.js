@@ -141,7 +141,7 @@ var Menu = {
                     var menuItemsHtml = menu.responseText;
                     $('.laravel-look .logo-container').after('' +
                         '<div id="student-menu">' +
-                        '   <div class="item" id="dashboard" onclick="Menu.dashboardButtonAction()">\n' +
+                        '   <div class="item" id="dashboard" onclick="User.goToLaravel(\'/student/dashboard\')">\n' +
                         '        <span class="item-title">Dashboard</span>\n' +
                         '        <span class="counter"></span>\n' +
                         '    </div>' +
@@ -153,14 +153,14 @@ var Menu = {
                             Menu.removeMenuStates();
                             Menu.menu = $(this).get(0).id;
 
-                            $('#tiles .tile').hide();
-                            $('#tiles .tile[menu=' + Menu.menu + ']').css("display", "flex")
-                                .hide()
-                                .fadeIn();
-
-                            $('#tiles').css("display", "flex")
-                                .hide()
-                                .fadeIn();
+                            // $('#tiles .tile').hide();
+                            // $('#tiles .tile[menu=' + Menu.menu + ']').css("display", "flex")
+                            //     .hide()
+                            //     .fadeIn();
+                            //
+                            // $('#tiles').css("display", "flex")
+                            //     .hide()
+                            //     .fadeIn();
 
                             $(this).addClass('active');
                             $('#tiles .tile[menu=' + Menu.menu + ']').first().addClass('active');

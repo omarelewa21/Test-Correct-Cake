@@ -288,3 +288,8 @@ if(!$isStudent) {
         <div class="block-footer"></div>
     </div>
 <? } ?>
+<script type="application/javascript">
+    $(document).ready(function() {
+        $('#analyses').addClass('active');
+    });
+</script>

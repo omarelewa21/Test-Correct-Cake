@@ -1161,6 +1161,7 @@ class UsersController extends AppController
     public
     function menu()
     {
+        $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -1204,15 +1205,20 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Student') {
-                $menus['tests'] = [
-                    'title' => __("Toetsen"),
-                    'onClick' => 'Navigation.load("/test_takes/planned_student")'
-                ];
+                if ($newEnvironment) {
+                    $menus['tests'] = [
+                        'title' => __("Toetsen"),
+                        'onClick' => 'User.goToLaravel("/student/test-takes?tab=planned")'
+                    ];
 
-                $menus['analyses'] = [
-                    'title' => __("Analyses"),
-                    'onClick' => 'Navigation.load("/analyses/student/'.AuthComponent::user('uuid').'")'
-                ];
+                    $menus['analyses'] = [
+                        'title' => __("Analyses"),
+                        'onClick' => 'Navigation.load("/analyses/student/'.AuthComponent::user('uuid').'")'
+                    ];
+                } else {
+                    $menus['tests'] = __("Toetsen");
+                    $menus['analyses'] = __("Analyses");
+                }
 //                $menus['messages'] = "Berichten";
 //                $menus['support'] = "Support";
             }
@@ -2044,8 +2050,12 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath($path)
+    public function goToLaravelPath($path = null)
     {
+        if ($path === null) {
+            $path = $this->request->query['path'];
+        }
+
         if($path{0} !== '/'){
             $path = '/'.$path;
         }
