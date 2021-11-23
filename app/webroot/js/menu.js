@@ -14,58 +14,7 @@ var Menu = {
 
         if (User.info.isStudent && User.info.laravel_look == 1) {
             $('#header, #container, #tiles').addClass('laravel-look');
-
-            $.ajax({
-                    dataType: 'json',
-                    url: '/users/menu',
-                    async: false,
-                    complete:
-                        function (menu) {
-                            var menuItemsHtml = menu.responseText;
-                            $('.laravel-look .logo-container').after('<div id="student-menu">' + menuItemsHtml +'</div>');
-
-                            $('#student-menu > .item').each(function() {
-                                $(this).click(function() {
-                                    Menu.removeMenuStates();
-                                    Menu.menu = $(this).get(0).id;
-
-                                    $('#tiles .tile').hide();
-                                    $('#tiles .tile[menu=' + Menu.menu + ']').css("display", "flex")
-                                        .hide()
-                                        .fadeIn();
-
-                                    $('#tiles').css("display", "flex")
-                                        .hide()
-                                        .fadeIn();
-
-                                    $(this).addClass('active');
-                                    $('#tiles .tile[menu=' + Menu.menu + ']').first().addClass('active');
-                                });
-                            });
-
-                            $('.logo-container').click(function() {
-                                Menu.menu = null;
-                                Menu.removeMenuStates();
-                            });
-
-                            $('#tiles').load('/users/tiles', function() {
-                                $('#tiles > .tile').each(function() {
-                                    $(this).click(function() {
-
-                                        if (typeof $(this).attr('path') !== 'undefined') {
-                                            Navigation.load($(this).attr('path'));
-                                        }
-
-                                        $('#tiles > .tile').removeClass('active');
-                                        $(this).addClass('active');
-
-                                    });
-                                });
-                            });
-                        },
-            });
-
-            this.addActionIconsToHeader();
+            this.loadNewLookMenu();
 
             return;
         }
@@ -181,6 +130,66 @@ var Menu = {
                 Navigation.load($(this).attr('path'));
             });
         });
+    },
+    loadNewLookMenu: function () {
+        $.ajax({
+            dataType: 'json',
+            url: '/users/menu',
+            async: false,
+            complete:
+                function (menu) {
+                    var menuItemsHtml = menu.responseText;
+                    $('.laravel-look .logo-container').after('' +
+                        '<div id="student-menu">' +
+                        '   <div class="item" id="dashboard" onclick="Menu.dashboardButtonAction()">\n' +
+                        '        <span class="item-title">Dashboard</span>\n' +
+                        '        <span class="counter"></span>\n' +
+                        '    </div>' +
+                        '' + menuItemsHtml + '</div>' +
+                        '');
+
+                    $('#student-menu > .item').each(function () {
+                        $(this).click(function () {
+                            Menu.removeMenuStates();
+                            Menu.menu = $(this).get(0).id;
+
+                            $('#tiles .tile').hide();
+                            $('#tiles .tile[menu=' + Menu.menu + ']').css("display", "flex")
+                                .hide()
+                                .fadeIn();
+
+                            $('#tiles').css("display", "flex")
+                                .hide()
+                                .fadeIn();
+
+                            $(this).addClass('active');
+                            $('#tiles .tile[menu=' + Menu.menu + ']').first().addClass('active');
+                        });
+                    });
+
+                    $('.logo-container').click(function () {
+                        Menu.removeMenuStates();
+                        Menu.dashboardButtonAction();
+                    });
+
+                    $('#tiles').load('/users/tiles', function () {
+                        $('#tiles > .tile').each(function () {
+                            $(this).click(function () {
+
+                                if (typeof $(this).attr('path') !== 'undefined') {
+                                    Navigation.load($(this).attr('path'));
+                                }
+
+                                $('#tiles > .tile').removeClass('active');
+                                $(this).addClass('active');
+
+                            });
+                        });
+                    });
+                },
+        });
+
+        this.addActionIconsToHeader();
     },
     shouldRemoveTilesBar: function() {
         var emptyMenuItems = [];

@@ -90,6 +90,9 @@
 }
 #header.laravel-look #top #user_menu a:hover, #header.laravel-look #top #support_menu a:hover {
     color: var(--primary)!important;
+    background: var(--primary-opacity-05)!important;
+}
+#header.laravel-look #top #user_menu a:active, #header.laravel-look #top #support_menu a:active {
     background: var(--primary-opacity-10)!important;
 }
 
@@ -108,6 +111,9 @@
 }
 #header.laravel-look #student-menu .item:hover {
     color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+#header.laravel-look #student-menu .item:active {
     background: var(--primary-opacity-10);
 }
 #header.laravel-look #student-menu .item span {
@@ -162,6 +168,9 @@
 }
 #tiles.laravel-look .tile:hover {
     color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+#tiles.laravel-look .tile:active {
     background: var(--primary-opacity-10);
 }
 
@@ -172,7 +181,7 @@
     font-size: 18px;
     font-weight: 900;
     margin: 0;
-    padding: 10px 0;
+    padding: 14px 0;
 }
 
 #header.laravel-look #top .action_icon_container > div {
@@ -183,11 +192,20 @@
     transition: 100ms ease-in-out;
 }
 
-#header.laravel-look #top .action_icon_container > div.active, #header.laravel-look #top .action_icon_container > div:hover {
+#header.laravel-look #top .action_icon_container > div:hover {
     color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+#header.laravel-look #top .action_icon_container > div:active {
     background: var(--primary-opacity-10);
 }
-
+#header.laravel-look #top .action_icon_container > div.active {
+    color: white;
+    background: var(--primary);
+}
+#header.laravel-look #top .action_icon_container > div.active:hover {
+    background: var(--primary-hover);
+}
 @media screen and (max-width: 550px) {
     #header #logo_2 {
         display: none;
