@@ -49,7 +49,18 @@ foreach($test_takes as $test_take) {
                 </a>
                 <? if($test_take['test_take_status_id'] == 1) { ?>
                     <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) {?>
-                        <a href="#" class="btn highlight white" onclick="TestTake.startTake(<?=getUUID($test_take, 'getQuoted');?>);">
+                        <a href="#" class="btn  <? if(!$test_take['invigilators_acceptable']){?>
+                                                                        toets_afnemen_disabled
+                                                                <?}else{?>
+                                                                        highlight white
+                                                                <?}?>"
+                            <? if($test_take['invigilators_acceptable']){?>
+                                onclick="TestTake.startTake('<?=getUUID($test_take, 'getQuoted');?>');"
+                            <?}?>
+                            <? if(!$test_take['invigilators_acceptable']){?>
+                                onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');"
+                            <?}?>
+                           >
                             <span class="fa fa-calendar mr5"></span>
                             <?= __("Nu afnemen")?>
                         </a>

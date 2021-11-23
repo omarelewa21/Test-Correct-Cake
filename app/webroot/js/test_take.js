@@ -1186,6 +1186,9 @@ var TestTake = {
         presenceChannel.bind("pusher:member_removed", function(member) {
             TestTake.loadParticipants(take_id);
         });
+    },
+    noStartTake : function(txt){
+        Notify.notify(txt );
     }
 };
 

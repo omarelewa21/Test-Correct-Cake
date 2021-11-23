@@ -195,6 +195,9 @@ body {
     color:          white;
 }
 
+.participant.disabled_invigilator {
+    color:          lightgrey;
+}
 
 
 div#container img,
@@ -574,6 +577,10 @@ th.subject-column, td.subject-column {
 }
 .sorting-chevron.asc{
     transform: scale(.75) rotate(-90deg);
+}
+
+.toets_afnemen_disabled {
+    color: lightgrey !important;
 }
 .test-take-code-show-wrapper {
     display: flex;
