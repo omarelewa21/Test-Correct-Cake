@@ -13,7 +13,7 @@ var Menu = {
         }
 
         if (User.info.isStudent && User.info.laravel_look == 1) {
-            $('#header, #container, #tiles').addClass('laravel-look');
+            $('body').attr('laravel-look', '');
             this.loadNewLookMenu();
 
             return;
@@ -139,7 +139,7 @@ var Menu = {
             complete:
                 function (menu) {
                     var menuItemsHtml = menu.responseText;
-                    $('.laravel-look .logo-container').after('' +
+                    $('[laravel-look] .logo-container').after('' +
                         '<div id="student-menu">' +
                         '   <div class="item" id="dashboard" onclick="User.goToLaravel(\'/student/dashboard\')">\n' +
                         '        <span class="item-title">Dashboard</span>\n' +
@@ -147,6 +147,8 @@ var Menu = {
                         '    </div>' +
                         '' + menuItemsHtml + '</div>' +
                         '');
+
+                    $('#logo_1, #logo_2').attr('onClick', 'User.goToLaravel(\'/student/dashboard\')');
 
                     $('#student-menu > .item').each(function () {
                         $(this).click(function () {
@@ -167,10 +169,10 @@ var Menu = {
                         });
                     });
 
-                    $('.logo-container').click(function () {
-                        Menu.removeMenuStates();
-                        Menu.dashboardButtonAction();
-                    });
+                    // $('.logo-container').click(function () {
+                    //     Menu.removeMenuStates();
+                    //     Menu.dashboardButtonAction();
+                    // });
 
                     $('#tiles').load('/users/tiles', function () {
                         $('#tiles > .tile').each(function () {
