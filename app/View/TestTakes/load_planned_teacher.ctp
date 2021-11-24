@@ -22,14 +22,20 @@ foreach($test_takes as $test_take) {
         <td><?=date('d-m-Y', strtotime($test_take['time_start']))?></td>
         <td>
             <?
-            if($test_take['retake'] == 0) {
+            if($test_take['test']['test_kind_id'] == 4) {
                 ?>
-                <div class="label label-info"><?= __("Standaard")?></div>
+                <div class="label label-info" style="background-color:#ab46e3"><?= __("Opdracht")?></div>
                 <?
-            }else{
-                ?>
-                <div class="label label-warning"><?= __("Inhaaltoets")?></div>
-            <?
+            } else {
+                if($test_take['retake'] == 0) {
+                    ?>
+                    <div class="label label-info"><?= __("Toets")?></div>
+                    <?
+                }else {
+                    ?>
+                    <div class="label label-warning"><?= __("Inhaaltoets")?></div>
+                <?
+                    }
             }
             ?>
         </td>
