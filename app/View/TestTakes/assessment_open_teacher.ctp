@@ -120,48 +120,6 @@ foreach ($takes as $take) {
     startPolling(10000);
     window.onbeforeunload = confirmExit;
 
-    var takeUuids = <?= json_encode($takeUuids) ?>;
-
-    if(typeof(window.pusher) == 'undefined') {
-        //console.log('adding pusher');
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '//js.pusher.com/5.0/pusher.min.js';
-
-        document.getElementsByTagName('head')[0].appendChild(script);
-
-    }
-    Navigation.usingPusher = true;
-
-    setTimeout(function () {
-            window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
-                cluster: 'eu',
-                forceTLS: false,
-                authEndpoint: "/users/pusher_auth",
-            });
-
-            var channel = pusher.subscribe('my-channel');
-            channel.bind('stop-polling', function (data) {
-                stopPolling(data.message, data.title);
-            });
-            channel.bind('start-polling', function (data) {
-                if (!data.pollingInterval) {
-                    data.pollingInterval = 10000;
-                }
-                startPolling(data.pollingInterval);
-            });
-
-            takeUuids.forEach(function (take) {
-                take = pusher.subscribe('TestTake.' + take);
-                take.bind('NewTestTakeEventAdded', function (data) {
-                    loadData();
-                    startPolling(10000);
-                })
-            })
-
-        },
-        5000)
-
     function stopPolling(message, title) {
         if (title === undefined) {
             title = '<span class="label-danger" style="display:block">\'<?= __("Hoge server belasting")?>\'</span>';
@@ -203,28 +161,9 @@ foreach ($takes as $take) {
         $.getJSON('/test_takes/assessment_open_teacher_data/?' + new Date().getTime(),
             function(response) {
 
-                $('#time').html(response.time);
 
-
-                if(response.alerts > 0) {
-                    $('#alertOrange').show().find('span').html('&nbsp;' + response.alerts);
-                }else{
-                    $('#alertOrange').hide();
-                }
-
-                if(response.ipAlerts > 0) {
-                    $('#alertRed').show().find('span').html('&nbsp;' + response.ipAlerts);
-                }else{
-                    $('#alertRed').hide();
-                }
-
-                var totalCounts = parseInt(response.alerts) + parseInt(response.ipAlerts);
-
-                if(totalCounts > 0) {
-                    document.title = '[' + totalCounts + '] Test Correct';
-                }else{
                     document.title = 'Test Correct';
-                }
+
 
 
                 $.each(response.takes, function(id, percentage) {
