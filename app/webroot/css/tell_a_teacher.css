@@ -8,6 +8,8 @@
     --primary: #004DF5;
     --primary-light: #e6edfa;
     --primary-hover: #4781ff;
+    --primary-opacity-10: rgba(0, 77, 245, 0.1);
+    --primary-opacity-05: rgba(0, 77, 245, 0.05);
     --secondary: #ECD900;
     --highlight-primary: #ECD900;
     --system-base: #041F74;

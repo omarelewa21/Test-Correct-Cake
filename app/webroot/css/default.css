@@ -14,6 +14,8 @@
 @import url('questions.css?v20210826');
 @import url('tell_a_teacher.css?v20210826');
 @import url('dashboard.css?v20210826');
+@import url('new_look.css?v20210826');
+
 /* GENERAL */
 body {
     margin:         0px;
@@ -636,7 +638,7 @@ th.subject-column, td.subject-column {
     background: white;
     display: flex;
     width: 100%;
-    padding: 10px 60px;
+    padding: 10px 24px;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;

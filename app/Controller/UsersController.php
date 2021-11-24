@@ -449,6 +449,11 @@ class UsersController extends AppController
                 $this->set('isInBrowser', $isInBrowser);
                 $needsUpdateDeadline = AppVersionDetector::needsUpdateDeadline($headers);
                 $this->set('needsUpdateDeadline', $needsUpdateDeadline);
+
+                if (AuthComponent::user('school_location.allow_new_student_environment')) {
+                    $this->set('redirectToLaravel', true);
+                }
+
                 $view = "welcome_student";
 //                if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //                    if($this->check('AppOS') && $this->read('AppOS') === 'windows') {
@@ -1161,6 +1166,7 @@ class UsersController extends AppController
     public
     function menu()
     {
+        $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -1204,8 +1210,20 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Student') {
-                $menus['tests'] = __("Toetsing");
-                $menus['analyses'] = __("Analyse");
+                if ($newEnvironment) {
+                    $menus['tests'] = [
+                        'title' => __("Toetsen"),
+                        'onClick' => 'User.goToLaravel("/student/test-takes?tab=planned")'
+                    ];
+
+                    $menus['analyses'] = [
+                        'title' => __("Analyses"),
+                        'onClick' => 'Navigation.load("/analyses/student/'.AuthComponent::user('uuid').'")'
+                    ];
+                } else {
+                    $menus['tests'] = __("Toetsen");
+                    $menus['analyses'] = __("Analyses");
+                }
 //                $menus['messages'] = "Berichten";
 //                $menus['support'] = "Support";
             }
@@ -1827,6 +1845,8 @@ class UsersController extends AppController
             }, $this->UsersService->getSchoolLocationList());
         }
 
+
+        $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
 
@@ -1840,7 +1860,8 @@ class UsersController extends AppController
             'isStudent',
             'school_location_list',
             'school_location_id',
-            'guest'
+            'guest',
+            'laravel_look'
         ];
 
         foreach ($allowed as $key) {
@@ -2034,8 +2055,12 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath($path)
+    public function goToLaravelPath($path = null)
     {
+        if ($path === null) {
+            $path = $this->request->query['path'];
+        }
+
         if($path{0} !== '/'){
             $path = '/'.$path;
         }
@@ -2292,6 +2317,9 @@ class UsersController extends AppController
     public function front_controller()
     {
         $this->autoRender = false;
+
+        $headers = AppVersionDetector::getAllHeaders();
+        $this->handleHeaderCheck($headers);
 
         if (CakeSession::read('temporaryLoginOptions')) {
             //TODO: Change this back to consume instead of read
