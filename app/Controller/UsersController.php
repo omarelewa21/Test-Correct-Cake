@@ -449,6 +449,11 @@ class UsersController extends AppController
                 $this->set('isInBrowser', $isInBrowser);
                 $needsUpdateDeadline = AppVersionDetector::needsUpdateDeadline($headers);
                 $this->set('needsUpdateDeadline', $needsUpdateDeadline);
+
+                if (AuthComponent::user('school_location.allow_new_student_environment')) {
+                    $this->set('redirectToLaravel', true);
+                }
+
                 $view = "welcome_student";
 //                if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //                    if($this->check('AppOS') && $this->read('AppOS') === 'windows') {
