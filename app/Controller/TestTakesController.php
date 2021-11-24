@@ -2788,7 +2788,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
 
-        return $this->TestTakesService->getSurveillanceData();
+        return $this->TestTakesService->getSurveillanceData(['test_kind_id' => 4, 'withoutParticipants' => true]);
     }
 
     function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
