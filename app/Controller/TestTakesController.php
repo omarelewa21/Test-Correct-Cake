@@ -2783,9 +2783,12 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function load_assessment_open_teacher()
+    public function assessment_open_teacher_data()
     {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->autoRender = false;
 
+        return $this->TestTakesService->getSurveillanceData();
     }
 
     function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
