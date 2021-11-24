@@ -1536,6 +1536,12 @@ class UsersController extends AppController
                     'title' => __("Surveilleren"),
                     'path'  => '/test_takes/surveillance'
                 );
+                $tiles['tests_assesments'] = array(
+                    'menu'  => 'tests',
+                    'icon'  => 'surveilleren',
+                    'title' => __("Lopende opdrachten"),
+                    'path'  => '/test_takes/assessment_open_teacher'
+                );
 
                 $tiles['tests_taken'] = array(
                     'menu'  => 'taken',

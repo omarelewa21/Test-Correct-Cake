@@ -2731,4 +2731,64 @@ class TestTakesController extends AppController {
     {
         $this->set('take_id', $take_id);
     }
+
+    public function assessment_open_teacher()
+    {
+
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $user_id = AuthComponent::user()['id'];
+
+        $params['filter']['invigilator_id'] = $user_id;
+        $params['filter']['test_take_status_id'] = 3;
+        $params['mode'] = 'list';
+
+        $takes = $this->TestTakesService->getTestTakes($params);
+
+        $newArray = [];
+
+        foreach ($takes as $take_id => $take) {
+
+            $take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
+
+            $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
+
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
+            $newArray[$take_id] = $take;
+
+        }
+
+        $takes = $newArray;
+
+        $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
+
+        $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
+        $this->set('takes', $takes);
+    }
+
+    public function load_assessment_open_teacher()
+    {
+
+    }
+
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
+
 }

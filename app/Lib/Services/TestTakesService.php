@@ -299,7 +299,6 @@ class TestTakesService extends BaseService {
         if(!isset($params['order'])) {
             $params['order'] = ['id' => 'desc'];
         }
-
         $response = $this->Connector->getRequest('/test_take', $params);
 
         if($response === false){

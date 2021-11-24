@@ -580,6 +580,9 @@ msgstr "Scheduled tests"
 msgid "Surveilleren"
 msgstr "Surveillance"
 
+msgid "Lopende opdrachten"
+msgstr "Open Assessments"
+
 msgid "Afgenomen"
 msgstr "Taken tests"
 
@@ -2954,6 +2957,9 @@ msgstr "Show"
 msgid "Inhaaltoets"
 msgstr "Overtaking Test"
 
+msgid "Inhalen"
+msgstr "Retake"
+
 msgid "Toets maken"
 msgstr "make test"
 
@@ -3271,6 +3277,9 @@ msgstr "Surveillance"
 
 msgid "Er zijn geen toetsen om te surveilleren"
 msgstr "There are no tests to supervise"
+
+msgid "Er zijn geen lopende opdrachten om te surveilleren"
+msgstr "There are currently no assessments to supervise"
 
 msgid "Voortgang"
 msgstr "Progress"
