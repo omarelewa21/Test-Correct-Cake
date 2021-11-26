@@ -266,6 +266,8 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                    } catch (error) {}
+                    try {
                         // also tell the iPad app
                         webview.setTestConfig(participant_id);
                     } catch (error) {}
