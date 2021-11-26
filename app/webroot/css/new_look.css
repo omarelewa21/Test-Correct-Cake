@@ -24,6 +24,7 @@
 }
 
 [laravel-look] #header .logo-container {
+    position: relative;
     display: flex;
     align-items: center;
 }

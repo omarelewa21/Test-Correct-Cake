@@ -2387,4 +2387,10 @@ class UsersController extends AppController
 
         return $response['url'];
     }
+
+    public function getAppDetailsForMenu()
+    {
+        $this->autoRender = false;
+        return json_encode(AppVersionDetector::detect() + ['status' => AppVersionDetector::isVersionAllowed()]);
+    }
 }
