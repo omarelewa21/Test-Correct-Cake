@@ -14,7 +14,9 @@
 		<?php } ?>
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="viewport" content="width=1280, user-scalable = no">
+        <?php if (AuthComponent::user('school_location.allow_new_student_environment') == false) { ?>
+		    <meta name="viewport" content="width=1280, user-scalable = no">
+        <?php } ?>
 
 		<link href="/css/default.css?v=<?= time() ?>" rel="stylesheet" type="text/css" />
 		<link rel="stylesheet" href="/css/font-awesome.min.css">
