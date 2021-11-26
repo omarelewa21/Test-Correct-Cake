@@ -38,7 +38,7 @@ if(count($takes) == 0) {
                     foreach ($takes as $take) {
 
                         ?>
-                        <tr takesrow="true">
+                        <tr <?= $take[0]['schoolClass']=='' ? '' : 'takesrow="true"' ?> >
                             <td><?= $take[0]['test'] ?></td>
                             <?php if($allow_guest_accounts) {?>
                                 <td style="position: relative">
@@ -181,7 +181,7 @@ foreach ($takes as $take) {
 
 
                 if (Object.keys(response.takes).length !== document.querySelectorAll('[takesrow]').length) {
-                     Navigation.refresh();
+                      Navigation.refresh();
                 }
 
             }
