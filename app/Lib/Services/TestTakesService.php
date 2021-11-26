@@ -887,6 +887,4 @@ class TestTakesService extends BaseService {
     {
         return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', $params);
     }
-
-
 }
