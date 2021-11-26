@@ -4,7 +4,7 @@ var Questions = {
     addPopup : function(type, owner, owner_id) {
         Popup.closeLast();
         setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/' + type, 800);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
 
