@@ -55,7 +55,7 @@ foreach($test_takes as $test_take) {
                                                                         highlight white
                                                                 <?}?>"
                             <? if($test_take['invigilators_acceptable']){?>
-                                onclick="TestTake.startTake('<?=getUUID($test_take, 'getQuoted');?>');"
+                                onclick="TestTake.startTake('<?=getUUID($test_take, 'get');?>');"
                             <?}?>
                             <? if(!$test_take['invigilators_acceptable']){?>
                                 onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');"
