@@ -15,6 +15,7 @@ var Menu = {
         if (User.info.isStudent && User.info.laravel_look == 1) {
             $('body').attr('laravel-look', '');
             this.loadNewLookMenu();
+            this.handleAppVersion();
 
             return;
         }
@@ -192,6 +193,23 @@ var Menu = {
         });
 
         this.addActionIconsToHeader();
+    },
+    handleAppVersion: function () {
+        setTimeout(function () {
+            $.ajax({
+                type: 'get',
+                url: '/users/getAppDetailsForMenu',
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (result.app_version !== 'undefined' && result.app_version !== 'x') {
+                        var versionTag = $('.student_version_tag');
+                        versionTag.get(0).innerText = $.i18n('Versie')+': '+result.app_version;
+                        versionTag.addClass(result.status);
+                        versionTag.show();
+                    }
+                }
+            });
+        }, 2000);
     },
     shouldRemoveTilesBar: function() {
         var emptyMenuItems = [];
