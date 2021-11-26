@@ -1950,6 +1950,7 @@ class TestTakesController extends AppController {
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
+        $params['filter']['type_not_assessment'] = true;
         $params['mode'] = 'list';
 
         $takes = $this->TestTakesService->getTestTakes($params);
@@ -2751,6 +2752,7 @@ class TestTakesController extends AppController {
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
+        $params['filter']['type_assessment'] = true;
         $params['mode'] = 'list';
 
         $takes = $this->TestTakesService->getTestTakes($params);
