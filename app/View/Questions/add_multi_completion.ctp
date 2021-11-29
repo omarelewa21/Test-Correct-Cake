@@ -1,5 +1,6 @@
-<div class="popup-head"><?= __("Selectievraag")?></div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Selectievraag"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Selectievraag")?><!--</div>-->
+<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question')?>
 
     <table class="table mb15">
@@ -73,15 +74,7 @@
 
         <div page="sources" class="page" tabs="add_question"></div>
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
-    </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-    <?= __("Vraag opslaan")?>
-    </a>
-</div>
-
+<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiCompletionQuestion', '$owner', '$owner_id');"]) ?>
 
 <style type="text/css">
     .redactor-toolbar li a.re-advanced {

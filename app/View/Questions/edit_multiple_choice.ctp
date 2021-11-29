@@ -1,10 +1,6 @@
-<div class="popup-head"><?= __("Multiple Choice")?></div>
-
-<?php
-    // die(var_dump($question));
-?>
-
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Multiple Choice"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
+<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
 
         <?
@@ -164,23 +160,14 @@
             <div page="sources" class="page" tabs="edit_question"></div>
         <? } ?>
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
-    </a>
 
-    <? if($is_clone_request){ ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-            <?= __("Vraag opslaan")?>
-        </a>
-    <? }else{ ?>
-        <? if($editable) { ?>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'MultipleChoiceQuestion', '<?=getUUID($question, 'get');?>');">
-                <?= __("Vraag opslaan")?>
-            </a>
-        <? } ?>
+<? if ($is_clone_request) { ?>
+    <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiChoiceQuestion', '$owner', '$owner_id');"]) ?>
+<? } else { ?>
+    <? if ($editable) { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'MultipleChoiceQuestion', '".getUUID($question, 'get')."')"]) ?>
     <? } ?>
-</div>
+<? } ?>
 
 <script type="text/javascript">
 

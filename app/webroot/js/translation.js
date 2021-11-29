@@ -105,6 +105,7 @@ $.i18n().load({
       'Dit bestand is te groot':'This file is too big',
       'Geen bestand geselecteerd':'No file selected',
       'Selecteer':'Select',
+      'Vraag opgeslagen':'Question saved',
 
       //test_preview & test_take.js
       'Antwoord opgeslagen':'Answer saved',

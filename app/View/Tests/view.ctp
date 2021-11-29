@@ -418,7 +418,7 @@
                                         </a>
                                     </div>
                                 <? }else{ ?>
-                                    <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                                    <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
 
@@ -431,7 +431,7 @@
                                             <span class="fa fa-trash mr5"></span>
                                             <?= __("Verwijderen")?>
                                         </a>
-                                        <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
+                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
                                             <span class="fa fa-clone mr5"></span>
                                             <?= __('Gebruik als sjabloon') ?>
                                         </a>

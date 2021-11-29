@@ -4381,3 +4381,6 @@ msgstr "Title"
 
 msgid "Versie"
 msgstr "Version"
+
+msgid "Vraag opgeslagen"
+msgstr "Question saved"
