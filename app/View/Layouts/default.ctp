@@ -14,7 +14,7 @@
 		<?php } ?>
 
 		<meta name="apple-mobile-web-app-capable" content="yes">
-        <?php if (AuthComponent::user('school_location.allow_new_student_environment') == false) { ?>
+        <?php if (AuthComponent::user('roles.0.name') == 'Student' && AuthComponent::user('school_location.allow_new_student_environment') == false) { ?>
 		    <meta name="viewport" content="width=1280, user-scalable = no">
         <?php } ?>
 
