@@ -77,15 +77,10 @@
             <div page="sources" class="page" tabs="add_question"></div>
     </div>
     <div class="popup-footer">
-        <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        <?= __("Annuleer")?>
-        </a>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="checkBeforeCompletion('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-        <?= __("Vraag opslaan")?>
-        </a>
-    </div>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('CompletionQuestion', '$owner', '$owner_id');"]) ?>
 
-    <style type="text/css">
+
+        <style type="text/css">
         .redactor-toolbar li a.re-advanced {
             background: var(--menu-blue);
             color: white;

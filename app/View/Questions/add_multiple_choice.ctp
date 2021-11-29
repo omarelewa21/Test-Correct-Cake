@@ -1,6 +1,6 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Multiple Choice"), 'test_name' =>'Nog even uitzoeken dus']) ?>
-<div class="popup-head"><?= __("Multiple Choice")?> AAAAA</div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Multiple Choice"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
+<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question')?>
 
         <table class="table mb15">
@@ -119,7 +119,7 @@
     <div page="sources" class="page" tabs="add_question"></div>
 </div>
 
-<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');"]) ?>
+<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiChoiceQuestion', '$owner', '$owner_id');"]) ?>
 
 
 <script type="text/javascript">
