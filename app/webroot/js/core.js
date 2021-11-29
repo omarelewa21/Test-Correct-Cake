@@ -283,7 +283,8 @@ var Core = {
 	screenshotDetected : function() {
 		if(!Core.screenshotnotify) {
 			Notify.notify($.i18n('Het is niet toegestaan om een screenshot te maken,  we hebben je docent hierover geïnformeerd'), 'info');
-			$.get('/test_takes/screenshot_detected');
+            var jqxhr = $.get('/test_takes/screenshot_detected');
+
 		}
 		Core.screenshotnotify = true;
 		setTimeout(function(){

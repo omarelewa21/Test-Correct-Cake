@@ -2,7 +2,7 @@
 <div class="popup-content">
     <div><?= __("Gesloten vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Meerkeuze")?>
     </div>
 
@@ -35,7 +35,7 @@
 
     <div class="pt15" style="clear:both"><?= __("Open vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Leg uit kort")?>
     </div>
 

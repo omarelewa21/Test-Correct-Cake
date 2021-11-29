@@ -1,14 +1,23 @@
 var Questions = {
     openType : null,
 
-    addPopup : function(type, owner, owner_id) {
+    addPopup : function(type, owner, owner_id, goToLaravel) {
+        if (goToLaravel) {
+            Core.goToLaravel('teacher/questions/'+type+'/add?owner=' + owner + '&owner_id' + owner_id);
+            return;
+        }
+
         Popup.closeLast();
         setTimeout(function() {
             Popup.load('/questions/add/' + owner + '/' + owner_id + '/' + type, 800);
         }, 500);
     },
 
-    addOpenPopup : function(type, owner, owner_id) {
+    addOpenPopup : function(type, owner, owner_id, goToLaravel) {
+        if (goToLaravel) {
+            Core.goToLaravel('teacher/questions/open-'+type+'/add?owner=' + owner + '&owner_id' + owner_id);
+            return;
+        }
 
         Questions.openType = type;
 
