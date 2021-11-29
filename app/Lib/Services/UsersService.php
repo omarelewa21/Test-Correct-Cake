@@ -10,6 +10,11 @@ App::uses('BaseService', 'Lib/Services');
 class UsersService extends BaseService
 {
 
+    public function getAllRoles()
+    {
+        return $this->Connector->getRequest('/role',[]);
+    }
+
     public function getRoles()
     {
         return AuthComponent::user('roles');
@@ -798,6 +803,15 @@ class UsersService extends BaseService
     public function getReturnToLaravelUrl($userId, $params = [])
     {
         $response = $this->Connector->getRequest('/user/'. $userId .'/return_to_laravel_url', $params);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getLaravelLoginPage()
+    {
+        $response = $this->Connector->getRequest('/auth/laravel_login_page', []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }

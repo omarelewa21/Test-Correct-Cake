@@ -1,5 +1,5 @@
 <?
-if(!empty($attachments)) {
+if(!empty($attachments) || null !== $clone_attachments) {
     if($type == 'add') {
         ?>
         <table class="table">
@@ -9,10 +9,78 @@ if(!empty($attachments)) {
                 <th width="200"><?= __("Instellingen")?></th>
                 <th width="30"></th>
             </tr>
+
+            <?php
+            $i = 0;
+            if(null !== $clone_attachments) {
+                foreach ($clone_attachments as $key => $attachment) {
+                    $i++;
+                    ?>
+                    <tr>
+                        <td>
+                            Bijlage #<?=$i?>
+                        </td>
+                        <td>
+                            <?
+                            if (strstr($attachment['file_mime_type'], 'audio')) {
+                                echo 'Audio';
+                            }elseif (strstr($attachment['file_mime_type'], 'image')) {
+                                echo 'Afbeelding';
+                            } elseif ($attachment['type'] == 'video') {
+                                echo 'Video';
+                            } elseif (strstr($attachment['file_mime_type'], 'pdf')) {
+                                echo 'PDF';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?
+                            if(!empty($attachment['json'])) {
+                                $settings = json_decode($attachment['json'], true);
+
+                                if(isset($settings['pausable'])) {
+                                    if($settings['pausable'] == '1') {
+                                        echo '- Te pauzeren';
+                                    }else{
+                                        echo '- Niet te pauzeren';
+                                    }
+
+                                    echo '<br />';
+                                }
+                                if(isset($settings['play_once'])) {
+                                    if($settings['play_once'] == '1') {
+                                        echo '- Eenmalig af te spelen';
+                                    }else{
+                                        echo '- Oneindig af te spelen';
+                                    }
+
+                                    echo '<br />';
+                                }
+
+                                if(isset($settings['timeout'])) {
+                                    echo '- Binnen ' . $settings['timeout'] . 's beantwoorden';
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <? if($editable) { ?>
+                                    <input type="hidden" class="cloneAttachment" id="cloneAttachment<?=getUUID($attachment, 'get');?>" name="data[Question][clone_attachments][]" value="<?=getUUID($attachment, 'get');?>" />
+                                <a href="#" class="btn red small"
+                                   onclick="Attachments.removeCloneAttachment('<?=getUUID($attachment, 'get');?>',this);">
+                                    <span class="fa fa-remove"></span>
+                                </a>
+                            <? } ?>
+                        </td>
+                    </tr>
+                    <?
+                }
+            }
+            ?>
+
             <?
             $i = 0;
             foreach ($attachments as $key => $attachment) {
-                $i++;
                 ?>
                 <tr>
                     <td>
@@ -69,6 +137,7 @@ if(!empty($attachments)) {
             <?
             }
             ?>
+
         </table>
     <?
     }else{

@@ -415,6 +415,7 @@ Configure::write(
 
 // add the key if you want to make use of pusher
 Configure::write('pusher-key','');
+Configure::write('pusher_surveillance_key','');
 
 //Configure BugSnag
 // add the keys if you want to make use of bugsnag

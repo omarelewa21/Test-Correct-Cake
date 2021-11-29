@@ -89,16 +89,14 @@ class AppVersionDetector
                 "3.1.0",
             ],
             "needsUpdate" => [
-                "2.3.2",
             ],
             "needsUpdateDeadline" => [
-                "2.3.2" => "12 november 2021"
             ],
         ],
         "ChromeOS" => [
-            "ok" => 
+            "ok" =>
             [
-                "2.4",
+
                 "2.4.1",
                 "2.4.2",
                 "2.4.3",
@@ -142,22 +140,15 @@ class AppVersionDetector
                 "3.0.5",
                 "3.1.0",
             ],
-            "needsUpdate" => [],
+            "needsUpdate" => [
+                "2.4",
+            ],
+            "needsUpdateDeadline" => [
+                "2.4" => "27 december 2021",
+            ],
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.1.1",
-                "3.1.1-beta.1",
-                "3.1.1-beta.2",
-                "3.1.1-beta.3",
-                "3.1.1-beta.4",
-                "3.1.1-beta.5",
-                "3.1.2",
-                "3.1.2-beta.1",
-                "3.1.2-beta.2",
-                "3.1.2-beta.3",
-                "3.1.2-beta.4",
-                "3.1.2-beta.5",
                 "3.1.3",
                 "3.1.3-beta.1",
                 "3.1.3-beta.2",
@@ -178,10 +169,22 @@ class AppVersionDetector
                 "3.2.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.1.0"
+                "3.1.1",
+                "3.1.1-beta.1",
+                "3.1.1-beta.2",
+                "3.1.1-beta.3",
+                "3.1.1-beta.4",
+                "3.1.1-beta.5",
+                "3.1.2",
+                "3.1.2-beta.1",
+                "3.1.2-beta.2",
+                "3.1.2-beta.3",
+                "3.1.2-beta.4",
+                "3.1.2-beta.5",
             ],
             "needsUpdateDeadline" => [
-                "3.1.0" => "1 november 2021"
+                "3.1.1" => "27 december 2021",
+                "3.1.2" => "16 januari 2022",
             ],
         ],
         "macosElectron" => [
@@ -218,10 +221,10 @@ class AppVersionDetector
                 "3.2.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.1.0",
+                "3.1.0"
             ],
             "needsUpdateDeadline" => [
-                "3.1.0" => "18 november 2021"
+                "3.1.0" => "12 december 2021",
             ],
         ]
     ];

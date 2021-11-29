@@ -15,6 +15,7 @@ App::uses('DeploymentService', 'Lib/Services');
 App::uses('WhitelistIpService', 'Lib/Services');
 App::uses('TestsService', 'Lib/Services');
 App::uses('SupportService', 'Lib/Services');
+App::uses('InfoService', 'Lib/Services');
 
 /**
  * Users controller
@@ -30,7 +31,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -78,7 +79,11 @@ class UsersController extends AppController
 
     public function login()
     {
-
+        //Only on test domains;
+        $domain = $_SERVER['HTTP_HOST'];
+        if (strpos($domain, 'testportal.test-correct.nl') !== false || strpos($domain, 'testportal.test-correct.test') !== false) {
+            $this->set('laravelLogin', 'https://testwelcome.test-correct.nl/login');
+        }
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
 //                $view = "windows_update";
@@ -403,6 +408,7 @@ class UsersController extends AppController
 
     public function welcome()
     {
+        $this->InfoService = new InfoService();
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -410,6 +416,7 @@ class UsersController extends AppController
         $view = "welcome";
         $hasSchoolManagerRole = false;
         $should_display_import_incomplete_panel = false;
+        $this->set('infos', $this->InfoService->dashboard());
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
 
@@ -1173,6 +1180,7 @@ class UsersController extends AppController
                 $menus['lists'] = __("Database");
                 $menus['files'] = __("Bestanden");
                 $menus['qti'] = __("QTI");
+                $menus['infos'] = __('info.Info Messages');
                 $menus['imports'] = __('Imports');
             }
 
@@ -1421,6 +1429,13 @@ class UsersController extends AppController
                     'title' => __("School locatie Rapport"),
                     'type'  => 'download',
                     'path'  => '/users/school_location_report'
+                );
+
+                $tiles['info_messages'] = array(
+                    'menu'  => 'infos',
+                    'icon'  => 'testlist',
+                    'title' => __("info.Info Messages"),
+                    'path'  => '/infos/index'
                 );
             }
 
@@ -2319,14 +2334,29 @@ class UsersController extends AppController
 
         if (strpos($requestData['channel_name'], 'presence') === 0) {
             $presence_data = [
-                'name'  => AuthComponent::user('name'),
-                'uuid'  => AuthComponent::user('uuid'),
-                'guest' => AuthComponent::user('guest'),
+                'name'    => AuthComponent::user('name'),
+                'uuid'    => AuthComponent::user('uuid'),
+                'guest'   => AuthComponent::user('guest'),
+                'student' => $this->UsersService->hasRole('Student'),
             ];
 
             return $pusher->presence_auth($requestData['channel_name'], $requestData['socket_id'], AuthComponent::user('id'), $presence_data);
         }
 
         return true;
+    }
+
+    public function get_laravel_login_page()
+    {
+        $this->autoRender = false;
+
+        $appInfo = $this->getAppInfoFromSession();
+        $response = $this->UsersService->getLaravelLoginPage();
+
+        if ($appInfo['TLCOs'] == 'iOS') {
+            $response['url'] = $response['url'].'?device=ipad';
+        }
+
+        return $response['url'];
     }
 }

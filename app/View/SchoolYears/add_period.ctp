@@ -51,7 +51,7 @@
                 if (result.errors && result.errors.end_date) {
                     Notify.notify('<?= __("\"Datum van\" moet een datum voor \"Datum tot\" zijn.")?>', 'error')
                 } else {
-                    Notify.notify('<?= __("Deze data overlapt met andere periode's")?>', "error");
+                    Notify.notify('<?= __("Deze data overlapt met een andere periode.")?>', "error");
                 }
             }
         }

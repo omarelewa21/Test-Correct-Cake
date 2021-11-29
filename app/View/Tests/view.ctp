@@ -115,7 +115,7 @@
                     <? } else { ?>
                 <td class="danger" colspan="5">
                     <? } ?>
-                    <?= __("én of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.")?>
+                    <?= __("Eén of meerdere vragen staan dubbel in deze toets. Pas de toets aan om het inplannen mogelijk te maken.")?>
                 </td>
             </tr>
             <? } ?>
@@ -427,12 +427,10 @@
                                             <span class="fa fa-trash mr5"></span>
                                             <?= __("Verwijderen")?>
                                         </a>
-                                        <?php if('sjabloon' === true){ ?>
                                         <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
                                             <span class="fa fa-clone mr5"></span>
                                             <?= __('Gebruik als sjabloon') ?>
                                         </a>
-                                        <?php } ?>
                                     </div>
                                 <? } ?>
                             </td>
@@ -460,6 +458,10 @@
             </a>
         </div>
     <? } ?>
+</div>
+
+<div id="hereComesFilterPopup">
+
 </div>
 <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
     <script type="text/javascript">

@@ -36,7 +36,7 @@ class QuestionsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => __("Alle"),
+//          0 => 'Alle',
             1 => 1,
             2 => 2,
             3 => 3,
@@ -51,51 +51,49 @@ class QuestionsController extends AppController
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
         $baseSubjects = [
-          '' => __("Alle"),
+            '' => __('Alle'),
         ];
 
-        foreach($_baseSubjects as $baseSubject){
-            $baseSubjects[getUUID($baseSubject,'get')] = $baseSubject['name'];
+        foreach ($_baseSubjects as $baseSubject) {
+            $baseSubjects[getUUID($baseSubject, 'get')] = $baseSubject['name'];
         }
 
         $baseSubjects = HelperFunctions::getInstance()->revertSpecialChars($baseSubjects);
-        $education_levels = [0 => __("Alle")] + $education_levels;
-        $subjects = HelperFunctions::getInstance()->revertSpecialChars([0 => __("Alle")] + $subjects);
+        $education_levels = ['' => __('Alle')] + $education_levels;
+        $subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __('Alle')] + $subjects);
+
 
         $filterTypes = [
-            '' => __("Alle"),
-            'MultipleChoiceQuestion.TrueFalse' => __("Juist / Onjuist"),
-            'MultipleChoiceQuestion.ARQ' => __("ARQ"),
-            'MultipleChoiceQuestion.MultipleChoice' => __("Meerkeuze"),
-            'OpenQuestion.Short' => __("Korte open vraag"),
-//            'OpenQuestion.Medium' => __("Lange open vraag"),
-//            'OpenQuestion.Long' => __("Wiskunde vraag"),
-            'OpenQuestion.Long' => __("Lange open vraag"),
-            'CompletionQuestion.multi' => __("Selectie"),
-            'CompletionQuestion.completion' => __("Gatentekst"),
-            'RankingQuestion' => __("Rangschik"),
-            'MatchingQuestion.Matching' => __("Combineer"),
-            'MatchingQuestion.Classify' => __("Rubriceer"),
-            'DrawingQuestion' => __("Teken"),
-            'GroupQuestion' => __("Groepvraag")
+            '' => 'Alle',
+            'MultipleChoiceQuestion.TrueFalse' => __('Juist / Onjuist'),
+            'MultipleChoiceQuestion.ARQ' => __('ARQ'),
+            'MultipleChoiceQuestion.MultipleChoice' => __('Meerkeuze'),
+            'OpenQuestion.Short' => __('Korte open vraag'),
+            'OpenQuestion.Long' => __('Lange open vraag'),
+            'CompletionQuestion.multi' => __('Selectie'),
+            'CompletionQuestion.completion' => __('Gatentekst'),
+            'RankingQuestion' => __('Rangschik'),
+            'MatchingQuestion.Matching' => __('Combineer'),
+            'MatchingQuestion.Classify' => __('Rubriceer'),
+            'DrawingQuestion' => __('Teken'),
+            'GroupQuestion' => __('Groepvraag')
         ];
 
         $filterSource = [
-            '' => __("Alles"),
-            'me' => __("Eigen content"),
-            'schoolLocation' => __("Schoollocatie"),
+            '' => __('Alles'),
+            'me' => __('Eigen content'),
+            'schoolLocation' => __('Schoollocatie'),
         ];
-        if(AuthComponent::user('hasSharedSections')){
-            $filterSource['school'] = __("Scholengemeenschap");
+        if (AuthComponent::user('hasSharedSections')) {
+            $filterSource['school'] = __('Scholengemeenschap');
         }
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
         $this->set('subjects', $subjects);
         $this->Set('filterTypes', $filterTypes);
-        $this->set('filterSource',$filterSource);
-        $this->set('baseSubjects',$baseSubjects);
-
+        $this->set('filterSource', $filterSource);
+        $this->set('baseSubjects', $baseSubjects);
     }
 
     public function preview_single($question_id)
@@ -691,6 +689,110 @@ class QuestionsController extends AppController
         }
     }
 
+    public function clone($owner, $owner_id, $question_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);        
+        
+        $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
+
+        $tagsArray = [];
+
+        foreach ($question['question']['tags'] as $tag) {
+            $tagsArray[$tag['name']] = $tag['name'];
+        }
+
+        $question['question']['tags'] = $tagsArray;
+
+        switch ($question['question']['type']) {
+
+            case 'DrawingQuestion' :
+                $this->Session->write('drawing_data', $question['question']['answer']);
+                $view = 'clone_drawing';
+                break;
+
+            case 'InfoscreenQuestion' :
+                $view = 'clone_infoscreen';
+                break;
+
+            case 'OpenQuestion' :
+                $this->set('subtype', $question['question']['subtype']);
+                $view = 'clone_open';
+                break;
+
+            case 'CompletionQuestion' :
+                $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+                if ($question['question']['subtype'] == 'multi') {
+                    $view = 'clone_multi_completion';
+                } else {
+                    $view = 'clone_completion';
+                }
+                break;
+
+            case 'MultipleChoiceQuestion' :
+
+                if ($question['question']['subtype'] == 'TrueFalse') {
+                    $view = 'clone_true_false';
+                } elseif ($question['question']['subtype'] == 'ARQ') {
+                    $view = 'clone_arq';
+                } else {
+                    $view = 'clone_multiple_choice';
+                }
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['multiple_choice_question_answers'] as $key => $answerArray){
+                    $question['question']['multiple_choice_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+
+            case 'RankingQuestion':
+                $view = 'clone_ranking';
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['ranking_question_answers'] as $key => $answerArray){
+                    $question['question']['ranking_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+
+            case 'MatchingQuestion' :
+                if ($question['question']['subtype'] == 'Classify') {
+                    $view = 'clone_classify';
+                } else {
+                    $view = 'clone_matching';
+                }
+                if(!$question['question']['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['question']['matching_question_answers'] as $key => $answerArray){
+                    $question['question']['matching_question_answers'][$key]['answer'] = $this->QuestionsService->transformHtmlCharsReverse($answerArray['answer']);
+                }
+                break;
+        }
+
+        $test = $this->Session->read('active_test');
+        $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
+
+        $selectedAttainments = [];
+
+        foreach ($question['question']['attainments'] as $attainment) {
+            $selectedAttainments[] = $attainment['id'];
+        }
+
+        $this->set('selectedAttainments', $selectedAttainments);
+        $this->set('question', $question);
+        $this->set('owner', $owner);
+        $this->set('owner_id', $owner_id);
+        $this->set('editable', true);
+        $this->Session->write('attachments_editable', true);
+
+        $school_location_id = $this->Session->read('Auth.User.school_location.uuid');
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id);
+        $this->set('is_open_source_content_creator', (bool)$school_location['is_open_source_content_creator']);
+
+        $this->render($view, 'ajax');
+    }
+
     public function add_multi_completion_item()
     {
 
@@ -723,8 +825,8 @@ class QuestionsController extends AppController
         $education_levels = $this->TestsService->getEducationLevels();
         $subjects = $this->TestsService->getSubjects(true);
 
-        $education_levels = [0 => __("Alle")] + $education_levels;
-        $subjects = [0 => __("Alle")] + $subjects;
+//        $education_levels = [0 => __("Alle")] + $education_levels;
+//        $subjects = [0 => __("Alle")] + $subjects;
 
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
@@ -899,58 +1001,39 @@ class QuestionsController extends AppController
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $params = $this->request->data;
-        $filters = array();
-        parse_str($params['filters'], $filters);
 
+        $filters = [];
+        parse_str($params['filters'], $filters);
         $filters = $filters['data']['Question'];
 
         unset($params['filters']);
 
-        $params['filter'] = [];
-
-        if(!empty($filters['source'])){
-            $params['filter']['source'] = $filters['source'];
-        }
-
-        if(!empty($filters['base_subject_id'])){
-            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
-        }
-
-        if (!empty($filters['subject'])) {
-            $params['filter']['subject_id'] = $filters['subject'];
-        }
-
-        if (!empty($filters['education_levels'])) {
-            $params['filter']['education_level_id'] = $filters['education_levels'];
-        }
-
-        if (!empty($filters['education_level_years'])) {
-            $params['filter']['education_level_year'] = $filters['education_level_years'];
-        }
-
-        if (!empty($filters['id'])) {
-            $params['filter']['id'] = $filters['id'];
-        }
-
-
-        if (!empty($filters['search'])) {
-            $params['filter']['search'] = $filters['search'];
-        }
-
-        if (!empty($filters['is_open_source_content'])) {
-            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
-        }
-
-        if (!empty($filters['type'])) {
-
-            $typeFilter = explode('.', $filters['type']);
-
-            $params['filter']['type'] = $typeFilter[0];
-
-            if (isset($typeFilter[1])) {
-                $params['filter']['subtype'] = $typeFilter[1];
-            }
-        }
+//        $params['filter'] = [];
+//
+//        $filterKeys = [
+//            'source' => 'source',
+//            'base_subject_id' => 'base_subject_id',
+//            'education_levels' => 'education_level_id',
+//            'education_level_years' => 'education_level_year',
+//            'subject' => 'subject_id',
+//            'search' => 'search',
+//            'id' => 'id',
+//            'is_open_source_content' => 'is_open_source_content',
+//            'author_id' => 'author_id'
+//        ];
+//        foreach ($filterKeys as $from => $to) {
+//            if (!empty($filters[$from])) {
+//                $params['filter'][$to] = $filters[$from];
+//            }
+//        }
+//        if (!empty($filters['type'])) {
+//            $typeFilter = explode('.', $filters['type']);
+//            $params['filter']['type'] = $typeFilter[0];
+//            if (isset($typeFilter[1])) {
+//                $params['filter']['subtype'] = $typeFilter[1];
+//            }
+//        }
+        $params['filter'] = $this->getQuestionFilterParams($filters);
 
         $questions = $this->QuestionsService->getAllQuestions($params);
         foreach ($questions['data'] as $question) {
@@ -1295,12 +1378,18 @@ class QuestionsController extends AppController
 
     public function attachments($type, $owner = null, $owner_id = null, $id = null)
     {
+        $cloneAttachments = null;
         if ($type == 'add') {
             if (!$this->Session->check('attachments')) {
                 $this->Session->write('attachments', []);
                 $attachments = [];
             } else {
                 $attachments = $this->Session->read('attachments');
+            }
+            if(null !== $owner && null !== $owner_id && null !== $id){
+                $question = $this->QuestionsService->getQuestion('test', null, $id);
+                $cloneAttachments = $question['question']['attachments'];
+                $owner = $owner_id = $id = null;
             }
         } elseif ($type == 'edit') {
             $question = $this->QuestionsService->getQuestion('test', null, $id);
@@ -1314,8 +1403,11 @@ class QuestionsController extends AppController
         $this->set('owner_id', $owner_id);
         $this->set('id', $id);
         $this->set('type', $type);
+        $this->set('is_clone',!!($type === 'add' && null !== $owner));
         $this->set('editable', $this->Session->read('attachments_editable'));
         $this->set('attachments', $attachments);
+        $this->set('clone_attachments',$cloneAttachments);
+
     }
 
     public function attachments_sound($type, $owner = null, $owner_id = null, $id = null)
@@ -1356,56 +1448,13 @@ class QuestionsController extends AppController
 
         $params = $this->request->data;
 
-        $filters = array();
+        $filters = [];
         parse_str($params['filters'], $filters);
         $filters = $filters['data']['Question'];
 
         unset($params['filters']);
 
-        $params['filter'] = [];
-
-        if(!empty($filters['source'])){
-            $params['filter']['source'] = $filters['source'];
-        }
-
-        if(!empty($filters['base_subject_id'])){
-            $params['filter']['base_subject_id'] = $filters['base_subject_id'];
-        }
-
-        if (!empty($filters['education_levels'])) {
-            $params['filter']['education_level_id'] = $filters['education_levels'];
-        }
-
-        if (!empty($filters['education_level_years'])) {
-            $params['filter']['education_level_year'] = $filters['education_level_years'];
-        }
-
-        if (!empty($filters['subject'])) {
-            $params['filter']['subject_id'] = $filters['subject'];
-        }
-
-        if (!empty($filters['search'])) {
-            $params['filter']['search'] = $filters['search'];
-        }
-
-        if (!empty($filters['id'])) {
-            $params['filter']['id'] = $filters['id'];
-        }
-
-        if (!empty($filters['type'])) {
-
-            $typeFilter = explode('.', $filters['type']);
-
-            $params['filter']['type'] = $typeFilter[0];
-
-            if (isset($typeFilter[1])) {
-                $params['filter']['subtype'] = $typeFilter[1];
-            }
-        }
-
-        if (!empty($filters['is_open_source_content'])) {
-            $params['filter']['is_open_source_content'] = $filters['is_open_source_content'];
-        }
+        $params['filter'] = $this->getQuestionFilterParams($filters);
 
         $questions = $this->QuestionsService->getAllQuestions($params);
         $this->set('questions', $questions['data']);
@@ -1676,5 +1725,33 @@ class QuestionsController extends AppController
         }
     }
 
+    private function getQuestionFilterParams($filters)
+    {
+        $filterParams = [];
 
+        $filterKeys = [
+            'source' => 'source',
+            'base_subject_id' => 'base_subject_id',
+            'education_levels' => 'education_level_id',
+            'education_level_years' => 'education_level_year',
+            'subject' => 'subject_id',
+            'search' => 'search',
+            'id' => 'id',
+            'is_open_source_content' => 'is_open_source_content',
+            'author_id' => 'author_id'
+        ];
+        foreach ($filterKeys as $from => $to) {
+            if (!empty($filters[$from])) {
+                $filterParams[$to] = $filters[$from];
+            }
+        }
+        if (!empty($filters['type'])) {
+            $typeFilter = explode('.', $filters['type']);
+            $filterParams['type'] = $typeFilter[0];
+            if (isset($typeFilter[1])) {
+                $filterParams['subtype'] = $typeFilter[1];
+            }
+        }
+        return $filterParams;
+    }
 }

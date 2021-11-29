@@ -58,9 +58,11 @@
             <?= __("Taxonomie")?>
             </a>
 
-            <a href="#" class="btn grey" page="owners" tabs="edit_question">
-            <?= __("Info")?>
-            </a>
+            <?php if(!$is_clone_request) { ?>
+                <a href="#" class="btn grey" page="owners" tabs="edit_question">
+                    <?= __("Info")?>
+                </a>
+            <?php } ?>
             <br clear="all" />
         </div>
 
@@ -175,7 +177,7 @@
     <? } ?>
 
     <? if($is_clone_request){ ?>
-        Questions.loadAddAttachments(true);
+        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
     <? }else{ ?>
         <? if($owner != 'group') { ?>
             Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');

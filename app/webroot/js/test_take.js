@@ -266,11 +266,13 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                        // also tell the iPad app
+                        webview.setTestConfig(participant_id);
                     } catch (error) {}
                     try {
-                        electron.loadUrl(data.data.url)
+                        electron.loadUrl(data.data.url);
                     } catch(error) {}
-                },
+                }
             });
         }, 500);
         // }else{
@@ -609,7 +611,7 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false) {
         if ($('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('ja'),
@@ -618,11 +620,21 @@ var TestTake = {
                 message: $.i18n('Niet alle Studenten zijn aanwezig')
             }, function () {
                 setTimeout(function () {
-                    Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    if(consists_only_closed_question){
+                        TestTake.startDiscussion(take_id, 'ALL')
+                    }
+                    else{
+                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    }
                 }, 1000);
             });
         } else {
-            Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            if(consists_only_closed_question){
+                this.startDiscussion(take_id, 'ALL');
+            }
+            else{
+                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            }
         }
     },
 
@@ -632,7 +644,7 @@ var TestTake = {
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de bespreking wilt be&euml;indigen?')
+            message: $.i18n('Weet u zeker dat u de CO-learning wilt be&euml;indigen?')
         }, function () {
             $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {

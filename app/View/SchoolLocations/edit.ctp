@@ -107,6 +107,21 @@
         </tr>
 
         <tr>
+            <th><?= __("Hubspot ID")?></th>
+            <td>
+                <?=$this->Form->input('company_id', array('style' => 'width: 185px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
+            </td>
+            <th></th>
+            <td>
+
+            </td>
+            <th width="130"></th>
+            <td>
+
+            </td>
+        </tr>
+
+        <tr>
             <th colspan="2" style="text-align: center"><br/><?= __("Vestigingsadres")?></th>
             <th colspan="2" style="text-align: center"><br/><?= __("Factuuradres")?></th>
             <th colspan="2" style="text-align: center"><br/><?= __("Bezoekadres")?></th>

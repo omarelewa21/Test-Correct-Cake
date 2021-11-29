@@ -646,7 +646,7 @@ class TestTakesController extends AppController {
         $this->render($view, 'ajax');
     }
 
-    public function rate_teacher_question($take_id, $question_index = 0) {
+    public function rate_teacher_question($take_id, $question_index = 0, $sticky = 0) {
 
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
@@ -674,6 +674,7 @@ class TestTakesController extends AppController {
         $this->set('question_index', $question_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('sticky',$sticky);
     }
 
     public function normalization($take_id) {
@@ -1427,8 +1428,21 @@ class TestTakesController extends AppController {
 
         $take = $this->TestTakesService->getTestTake($take_id);
 
+        $guest = AuthComponent::user('guest');
+        $this->set('guest', $guest);
+
+        if ($guest) {
+            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
+            $this->set('loginUrl', $loginUrl['url']);
+        }
+
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {
+            if($guest) {
+                $this->set('guest_exit', true);
+                return;
+            }
             die(__("Deze toets is niet meer in te zien"));
+
         }
 
         $questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
@@ -1440,11 +1454,6 @@ class TestTakesController extends AppController {
             $group = "";
         }
 
-        $this->set('guest', AuthComponent::user('guest'));
-        if(AuthComponent::user('guest')) {
-            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
-            $this->set('loginUrl', $loginUrl['url']);
-        }
         $this->set('group', $group);
         $this->set('answer', $answer);
         $this->set('question_index', $question_index);
@@ -1917,6 +1926,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $user_id = AuthComponent::user()['id'];
+        $this->TestTakesService->bustSurveillanceCache();
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
@@ -1952,7 +1962,7 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function surveillance_data_new() {
+    public function surveillance_data() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
 
@@ -1961,7 +1971,7 @@ class TestTakesController extends AppController {
 
 
 
-    public function surveillance_data() {
+    public function surveillance_data_old() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;

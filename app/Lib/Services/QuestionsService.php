@@ -358,6 +358,9 @@ class QuestionsService extends BaseService
         }
 
         $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
+        if(array_key_exists('clone_attachments',$oriQuestion) && !empty($oriQuestion['clone_attachments'])){
+            $question['clone_attachments'] = $oriQuestion['clone_attachments'];
+        }
 
         // if (empty($question['attainments'])) {
         //     $question['attainments'] = [];
@@ -1423,7 +1426,9 @@ class QuestionsService extends BaseService
             'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
-            'is_open_source_content' => $question['is_open_source_content']
+            'is_open_source_content' => $question['is_open_source_content'],
+            'auto_check_answer' => $question['auto_check_answer'],
+            'auto_check_answer_case_sensitive' => $question['auto_check_answer_case_sensitive'],
         ];
     }
 

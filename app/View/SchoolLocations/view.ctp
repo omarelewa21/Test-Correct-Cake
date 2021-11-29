@@ -24,7 +24,7 @@
             <tr>
                 <th width="15%"><?= __("Klantcode")?></th>
                 <td width="35%">
-                    <?=$school_location['customer_code']?>
+                    <?=$school_location['customer_code']?> (<?=$school_location['company_id']?>)
                 </td>
                 <th width="15%"><?= __("Accountmanager")?></th>
                 <td>
