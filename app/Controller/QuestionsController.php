@@ -594,7 +594,8 @@ class QuestionsController extends AppController
             foreach ($question['question']['tags'] as $tag) {
                 $tagsArray[$tag['name']] = $tag['name'];
             }
-
+            $test = $this->Session->read('active_test');
+            $this->set('test_name', $test['name']);
             $question['question']['tags'] = $tagsArray;
 
             switch ($question['question']['type']) {

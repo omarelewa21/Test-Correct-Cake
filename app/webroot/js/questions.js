@@ -18,7 +18,7 @@ var Questions = {
         }, 500);
 
         setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion', 800);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion');
         }, 1000);
     },
 
@@ -29,7 +29,8 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                 }else{
                     // console.log(response['data']);
                     Notify.notify(response['data'].join('<br />'), 'error');
@@ -45,7 +46,8 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                 }else{
                     $.each(response['data'], function() {
                         Notify.notify(response['data'].join('<br />'), 'error');

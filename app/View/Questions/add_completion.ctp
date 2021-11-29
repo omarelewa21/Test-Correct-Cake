@@ -1,5 +1,6 @@
-<div class="popup-head"><?= __("Gatentekst")?></div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Gatentekst"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Gatentekst")?><!--</div>-->
+<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question')?>
 
     <table class="table mb15">
