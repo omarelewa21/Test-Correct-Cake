@@ -1,7 +1,7 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Multiple Choice"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
 <div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
 
         <table class="table mb15">
             <tr>
@@ -25,50 +25,19 @@
             </tr>
         </table>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-            <?= __("Vraag")?>
-            </a>
+        <?= $this->element('teacher_add_question_tabs') ?>
 
-            <a href="#" class="btn grey" page="options" tabs="add_question">
-            <?= __("Antwoorden")?>
-            </a>
-
-            <? if($owner == 'test') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="add_question">
-                <?= __("Bronnen")?>
-                </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="add_question">
-            <?= __("Eindtermen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="add_question">
-            <?= __("Tags")?>
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="add_question">
-            <?= __("Taxonomie")?>
-            </a>
-
-            <br clear="all" />
-        </div>
-
+<!--    VRAAG-->
         <div page="question" class="page active" tabs="add_question">
+            <span class="title">Vraag</span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
-        <div page="options" class="page" tabs="add_question">
+<!--    ANTWOORD-->
+        <div page="question" class="page" tabs="add_question">
+            <span class="title">Antwoord</span>
+
             <table class="table" id="tableMultiChoiceOptions">
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th><?= __("Antwoord")?></th>
-                        <th><?= __("Score ")?></th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <?
                     for($i = 0; $i < 10; $i++) {
@@ -104,19 +73,18 @@
             </center>
         </div>
 
-        <div page="attainments" class="page" tabs="add_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+        <div page="settings" class="page" tabs="add_question">
+            <span class="title"><?= __('Eindtermen') ?></span>
+            <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 
-        <?=$this->element('question_tab_rtti',[]); ?>
+        <?= $this->element('question_tab_rtti',[]); ?>
 
-        <div page="tags" class="page" tabs="add_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-        </div>
+        <?= $this->element('question_editor_tags') ?>
 
-        <?=$this->Form->end();?>
+        <?= $this->Form->end();?>
 
-    <div page="sources" class="page" tabs="add_question"></div>
+        <?= $this->element('question_editor_attachments') ?>
 </div>
 
 <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiChoiceQuestion', '$owner', '$owner_id');"]) ?>

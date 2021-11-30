@@ -3261,7 +3261,7 @@ msgid "Deze vraag vastzetten"
 msgstr ""
 
 #: View/Questions/add_classify.ctp:68
-msgid "Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \"Mogelijkheden\"."
+msgid "Per item links zijn er meerdere mogelijkheden, voer één optie per regel in onder \"Mogelijkheden\"."
 msgstr ""
 
 #: View/Questions/add_classify.ctp:76

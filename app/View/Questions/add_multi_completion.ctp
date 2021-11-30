@@ -1,7 +1,7 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Selectievraag"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Selectievraag")?><!--</div>-->
 <div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
 
     <table class="table mb15">
         <tr>
@@ -31,48 +31,24 @@
         </tr>
     </table>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-            <?= __("Tekst")?>
-            </a>
-
-            <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="add_question">
-                <?= __("Bronnen")?>
-                </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="add_question">
-            <?= __("Eindtermen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="add_question">
-            <?= __("Tags")?>
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="add_question">
-            <?= __("Taxonomie")?>
-            </a>
-            <br clear="all" />
-        </div>
+        <?= $this->element('teacher_add_question_tabs') ?>
 
         <div page="question" class="page active" tabs="add_question">
+            <span class="title"><?=__('Vraag')?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px; margin-bottom:0px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
-        <div page="attainments" class="page" tabs="add_question">
+        <div page="settings" class="page" tabs="add_question">
+            <span class="title"><?=__('Eindtermen')?></span>
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 
         <?=$this->element('question_tab_rtti',[]); ?>
-
-        <div page="tags" class="page" tabs="add_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-        </div>
+        <?=$this->element('question_editor_tags',[]); ?>
 
         <?=$this->Form->end();?>
 
-        <div page="sources" class="page" tabs="add_question"></div>
+        <?=$this->element('question_editor_attachments',[]); ?>
 </div>
 <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiCompletionQuestion', '$owner', '$owner_id');"]) ?>
 

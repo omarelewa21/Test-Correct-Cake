@@ -12,7 +12,9 @@
 </div>
 <script>
     function closeQuestionEditor() {
+        Navigation.back();
+        $('.question-editor-header').slideUp();
         $('#container').removeClass('question-editor');
-        $('#header, #tiles').slideDown();Navigation.back();
+        $('#header, #tiles').slideDown();
     }
 </script>
