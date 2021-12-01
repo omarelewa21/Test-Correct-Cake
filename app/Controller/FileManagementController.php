@@ -15,6 +15,7 @@ class FileManagementController extends AppController {
         $this->UsersService = new UsersService();
         $this->TestsService = new TestsService();
 
+
         parent::beforeFilter();
     }
 
@@ -26,6 +27,15 @@ class FileManagementController extends AppController {
                 exit; // one should be a toetsenbakker;
             }
         }
+    }
+
+    public function get_users($type='class')
+    {
+        $this->ifNotAllowedExit(['Teacher', 'Account manager'], true);
+        $users = $this->FileService->getUsers($type);
+        $this->formResponse(
+            !empty($users), $users
+        );
     }
 
     public function update($id, $type = 'classupload') {
@@ -166,17 +176,32 @@ class FileManagementController extends AppController {
         $view = 'testuploads';
         if ($this->UsersService->hasRole('Account manager')) {
             $view = 'testuploads_accountmanager';
+            $schoolLocations = $this->FileService->getSchoolLocations('testupload');
+            $this->set('schoolLocations',$schoolLocations);
+            $this->set('education_level_years',$this->getEducationLevelYears());
+            $this->set('education_levels',$this->FileService->getEducationLevels('testupload'));
         } else if (AuthComponent::user('isToetsenbakker')) {
             $view = 'testuploads_toetsenbakker';
         }
         $this->render($view);
     }
 
-    public function load_testuploads() {
+    public function load_testuploads($params = []) {
 
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
+
         $params = $this->request->data;
-        $params['type'] = 'testupload';
+
+        $params = $this->handleRequestFilterAndOrderParams($params,'FileManagement',[
+           'schoolLocation' => 'schoolLocation',
+           'teacherId' => 'teacher_id',
+           'handlerId' => 'handler_id',
+           'subject' => 'subject',
+        ]);
+
+        $params = array_merge([
+            'filter' => ['type' => 'testupload'],
+        ],$params);
 
         $data = $this->FileService->getData($params);
 
@@ -411,8 +436,19 @@ class FileManagementController extends AppController {
 
     public function load_classuploads() {
         $this->ifNotAllowedExit(['Teacher', 'Account manager'], false);
+
         $params = $this->request->data;
-        $params['type'] = 'classupload';
+
+        $params = $this->handleRequestFilterAndOrderParams($params,'FileManagement',[
+            'schoolLocation' => 'schoolLocation',
+            'teacherId' => 'teacher_id',
+            'handlerId' => 'handler_id',
+            'class' => 'class',
+        ]);
+
+        $params = array_merge([
+            'filter' => ['type' => 'classupload'],
+        ],$params);
 
         $view = 'load_classuploads';
         if ($this->UsersService->hasRole('Account manager')) {
@@ -432,6 +468,10 @@ class FileManagementController extends AppController {
         $view = 'classuploads';
         if ($this->UsersService->hasRole('Account manager')) {
             $view = 'classuploads_accountmanager';
+            $schoolLocations = $this->FileService->getSchoolLocations('classupload');
+            $this->set('education_level_years',$this->getEducationLevelYears());
+            $this->set('education_levels',$this->FileService->getEducationLevels('classupload'));
+            $this->set('schoolLocations',$schoolLocations);
         }
         $this->render($view);
     }

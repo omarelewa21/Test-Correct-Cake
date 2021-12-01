@@ -1076,6 +1076,12 @@ msgstr "Created at from"
 msgid "Aangemaakt tot"
 msgstr "Created at to"
 
+msgid "Note"
+msgstr "Note"
+
+msgid "Handler"
+msgstr "Handler"
+
 msgid "Bron"
 msgstr "Source"
 
