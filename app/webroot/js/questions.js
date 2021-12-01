@@ -223,7 +223,7 @@ var Questions = {
     loadAddAttachments : function(is_clone,owner, owner_id,id) {
         is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
         if(is_clone){
-            $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(),function(){
+            $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(), function(){
                 var form = jQuery('#QuestionAddForm');
                 jQuery('.cloneAttachment').each(function(){
                    $(this).prependTo(form);
@@ -236,7 +236,7 @@ var Questions = {
 
     loadEditAttachments : function(owner, owner_id, id) {
         Attachments.owner_id = owner_id;
-        $('div[sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
+        $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
     },
 
     updateIndex : function(question, test_id) {
