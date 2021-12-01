@@ -580,6 +580,9 @@ msgstr "Scheduled tests"
 msgid "Surveilleren"
 msgstr "Surveillance"
 
+msgid "Lopende opdrachten"
+msgstr "Open Assessments"
+
 msgid "Afgenomen"
 msgstr "Taken tests"
 
@@ -1300,6 +1303,12 @@ msgstr "The score must be greater than zero"
 
 msgid "Geen datum ingevuld"
 msgstr "No date entered"
+
+msgid "Geen einddatum ingevuld"
+msgstr "No end date entered"
+
+msgid "Geen startdatum ingevuld"
+msgstr "No start date entered"
 
 msgid "Geen periode geselecteerd"
 msgstr "No period selected"
@@ -2963,6 +2972,9 @@ msgstr "Show"
 msgid "Inhaaltoets"
 msgstr "Overtaking Test"
 
+msgid "Inhalen"
+msgstr "Retake"
+
 msgid "Toets maken"
 msgstr "make test"
 
@@ -3173,6 +3185,9 @@ msgstr "Formative"
 msgid "Summatief"
 msgstr "Summative test"
 
+msgid "Opdracht"
+msgstr "Assessment"
+
 msgid "Oefentoets"
 msgstr "Practice test"
 
@@ -3277,6 +3292,9 @@ msgstr "Surveillance"
 
 msgid "Er zijn geen toetsen om te surveilleren"
 msgstr "There are no tests to supervise"
+
+msgid "Er zijn geen lopende opdrachten om te surveilleren"
+msgstr "There are currently no assessments to supervise"
 
 msgid "Voortgang"
 msgstr "Progress"
@@ -4369,3 +4387,6 @@ msgstr "Title"
 
 msgid "Versie"
 msgstr "Version"
+
+msgid "Vraag opgeslagen"
+msgstr "Question saved"

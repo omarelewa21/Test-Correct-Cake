@@ -299,7 +299,6 @@ class TestTakesService extends BaseService {
         if(!isset($params['order'])) {
             $params['order'] = ['id' => 'desc'];
         }
-
         $response = $this->Connector->getRequest('/test_take', $params);
 
         if($response === false){
@@ -884,9 +883,9 @@ class TestTakesService extends BaseService {
          );
     }
 
-    public function getSurveillanceData()
+    public function getSurveillanceData($params = [])
     {
-        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', []);
+        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', $params);
     }
 
     public function bustSurveillanceCache()

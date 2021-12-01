@@ -286,8 +286,8 @@
 }
 
 .tile span {
-    font-size:      26px;
-    margin-bottom:  14px;
+    /*font-size:      26px;*/
+    /*margin-bottom:  14px;*/
 }
 
 .blue .tile:hover, .blue .tile.active {

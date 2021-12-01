@@ -266,6 +266,8 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                    } catch (error) {}
+                    try {
                         // also tell the iPad app
                         webview.setTestConfig(participant_id);
                     } catch (error) {}
@@ -388,9 +390,27 @@ var TestTake = {
         Popup.load('/test_takes/select_test_retake', 1000);
     },
 
+    updatedTestKind:function() {
+        var dateOriginalSelector = '#TestTakeDate'+ TestTake.i;
+        var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
+        var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
+
+        if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
+            $(dateFromSelector).fadeIn();
+            $(dateTillSelector).fadeIn();
+            $(dateOriginalSelector).hide();
+        }else {
+            $(dateFromSelector).hide();
+            $(dateTillSelector).hide();
+            $(dateOriginalSelector).fadeIn();
+        }
+    },
+
     setSelectedTest: function (id, name, kind) {
         $('#TestTakeSelect_' + TestTake.i).html(name);
         $('#TestTakeTestId_' + TestTake.i).val(id);
+        $('#TestTakeTestKind_' + TestTake.i).val(kind);
+        this.updatedTestKind();
 
         if (kind == 1) {
             $('#TestTakeWeight_' + TestTake.i).attr('disabled', true).val('0');
@@ -410,6 +430,9 @@ var TestTake = {
     addTestRow: function () {
         $('.testTakeRow:hidden').first().find('.testIsVisible:first').val(1);
         $('.testTakeRow:hidden').first().fadeIn();
+
+        $('.testTakeRowPlanButton:hidden').first().fadeIn();
+        $('.testTakeRowDivider:hidden').first().fadeIn();
         $('.testTakeRowNotes:hidden').first().fadeIn();
         $('.testTakeRowInbrowserToggle:hidden').first().fadeIn();
     },

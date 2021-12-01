@@ -586,7 +586,8 @@ class QuestionsController extends AppController
             foreach ($question['question']['tags'] as $tag) {
                 $tagsArray[$tag['name']] = $tag['name'];
             }
-
+            $test = $this->Session->read('active_test');
+            $this->set('test_name', $test['name']);
             $question['question']['tags'] = $tagsArray;
 
             switch ($question['question']['type']) {
@@ -683,8 +684,8 @@ class QuestionsController extends AppController
 
     public function clone($owner, $owner_id, $question_id)
     {
-        $this->isAuthorizedAs(["Teacher", "Invigilator"]);        
-        
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
         $question = $this->QuestionsService->getQuestion($owner, $owner_id, $question_id);
 
         $tagsArray = [];
@@ -1256,6 +1257,7 @@ class QuestionsController extends AppController
 
             $test = $this->Session->read('active_test');
             $this->Session->write('attachments_editable', true);
+            $this->set('test_name', $test['name']);
             $this->set('editable', true);
             $this->set('attainments', $this->QuestionsService->getAttainments($test['education_level_id'], $test['subject_id']));
             $this->set('selectedAttainments', []);

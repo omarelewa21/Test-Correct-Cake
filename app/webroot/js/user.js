@@ -437,4 +437,16 @@ var User = {
             authEndpoint: "/users/pusher_auth"
         });
     },
+    goToLaravel : function (path) {
+        $.ajax({
+            url: '/users/goToLaravelPath',
+            method: 'get',
+            data: {'path': path},
+            success: function (url) {
+                url = JSON.parse(url);
+                window.open(url.data.url, '_self');
+                try {electron.loadUrl(url);} catch(error) {}
+            }
+            });
+    }
 };
