@@ -16,7 +16,7 @@ foreach($tests as $test) {
         <td><?=$test['abbreviation']?></td>
         <td><?=$test['name']?></td>
         <td style="text-align: center"><?=$test['question_count']?></td>
-        <td><?=$subjects[$test['subject_id']]?></td>
+        <td><?=$test['subject']['name']?></td>
         <td>
             <?=$test['author']['name_first']?>
             <?=$test['author']['name_suffix']?>
