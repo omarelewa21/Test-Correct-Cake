@@ -15,7 +15,8 @@ var Questions = {
 
     addOpenPopup : function(type, owner, owner_id, goToLaravel) {
         if (goToLaravel) {
-            Core.goToLaravel('teacher/questions/open-'+type+'/add?owner=' + owner + '&owner_id' + owner_id);
+            var path = 'teacher/questions/open-'+type+'/add?owner=' + owner + '&owner_id=' + owner_id;
+            Core.goToLaravel(path);
             return;
         }
 
