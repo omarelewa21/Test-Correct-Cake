@@ -62,7 +62,7 @@
 
     <?=$this->Form->end();?>
 
-    <?=$this->element('question_editor_attachments') ?>
+    <?=$this->element('question_editor_attachments', ['owner' => $owner]) ?>
 </div>
 <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('DrawingQuestion', '$owner', '$owner_id');"]) ?>
 

@@ -1,6 +1,6 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Multiple Choice"), 'test_name' => $test_name]) ?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Meerkeuze"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
-<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
 
         <table class="table mb15">
@@ -29,13 +29,13 @@
 
 <!--    VRAAG-->
         <div page="question" class="page active" tabs="add_question">
-            <span class="title">Vraag</span>
+            <span class="title"><?= __('Vraag') ?>></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
 <!--    ANTWOORD-->
         <div page="question" class="page" tabs="add_question">
-            <span class="title">Antwoord</span>
+            <span class="title"><?= __('Antwoord') ?></span>
 
             <table class="table" id="tableMultiChoiceOptions">
                 <tbody>

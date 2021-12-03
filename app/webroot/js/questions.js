@@ -31,6 +31,8 @@ var Questions = {
                     Popup.closeLast();
                     // Navigation.refresh();
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
+
                 }else{
                     // console.log(response['data']);
                     Notify.notify(response['data'].join('<br />'), 'error');
@@ -48,6 +50,7 @@ var Questions = {
                     Popup.closeLast();
                     // Navigation.refresh();
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
                 }else{
                     $.each(response['data'], function() {
                         Notify.notify(response['data'].join('<br />'), 'error');
@@ -344,6 +347,12 @@ var Questions = {
                 Navigation.refresh();
             }
         );
+    },
+    closeQuestionEditor: function () {
+        Navigation.back();
+        $('#container').removeClass('question-editor');
+        $('#header, #tiles').slideDown();
+        $('.question-editor-header').slideUp();
     }
 };
 

@@ -78,6 +78,8 @@
 <? } else { ?>
     <? if ($editable) { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'DrawingQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'withSaving' => false]) ?>
     <? } ?>
 <? } ?>
 

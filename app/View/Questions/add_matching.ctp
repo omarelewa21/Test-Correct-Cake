@@ -1,6 +1,6 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Combineervraag"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Combineervraag")?><!--</div>-->
-<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
 
         <table class="table mb15">
