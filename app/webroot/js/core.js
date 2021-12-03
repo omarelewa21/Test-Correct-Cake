@@ -228,7 +228,7 @@ var Core = {
 			$('.page[tabs=' + tabs + '][page=' + page + ']').addClass('active');
 
 			setCookie('tab', page);
-			console.log('set cookie: ' + page);
+			// console.log('set cookie: ' + page);
 		});
 
 		if(getCookie('tab') != undefined) {

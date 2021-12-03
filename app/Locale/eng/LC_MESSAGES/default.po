@@ -1913,7 +1913,7 @@ msgstr "Points"
 msgid "Deze vraag vastzetten"
 msgstr "Pin this question"
 
-msgid "Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \\"Mogelijkheden\\"."
+msgid "Per item links zijn er meerdere mogelijkheden, voer één optie per regel in onder \\"Mogelijkheden\\"."
 msgstr "There are several options per item on the left, enter one option per line under \\ "Options \\"."
 
 msgid "Mogelijkheden"

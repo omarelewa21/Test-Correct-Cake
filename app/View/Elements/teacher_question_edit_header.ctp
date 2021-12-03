@@ -6,8 +6,10 @@
         <h2><?= $question_type ?></h2>
     </div>
     <div class="question-test-name">
-        <span><?= __('test') ?>:</span>
+    <?php if (!empty($test_name)) { ?>
+        <span><?= __('Toets') ?>:</span>
         <span class="bold"><?= $test_name ?></span>
+    <?php } ?>
     </div>
 </div>
 

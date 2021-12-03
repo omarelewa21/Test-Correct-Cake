@@ -148,12 +148,12 @@ if(!empty($group['question']['question'])) {
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
 
                             <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                                <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
                                     <span class="fa fa-edit mr5"></span>
                                     <?= __("Wijzigen")?>
                                 </a>
@@ -161,7 +161,7 @@ if(!empty($group['question']['question'])) {
                                     <span class="fa fa-remove mr5"></span>
                                     <?= __("Verwijderen")?>
                                 </a>
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1', 800);">
+                                <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1');">
                                     <span class="fa fa-clone mr5"></span>
                                     <?= __('Gebruik als sjabloon')?>
                                 </a>

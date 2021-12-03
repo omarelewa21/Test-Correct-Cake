@@ -1,7 +1,7 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Combineervraag"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Combineervraag")?><!--</div>-->
-<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
 
         <table class="table mb15">
             <tr>
@@ -30,176 +30,148 @@
             </tr>
         </table>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-            <?= __("Vraag")?>
-            </a>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
 
-            <a href="#" class="btn grey" page="options" tabs="edit_question">
-            <?= __("Antwoorden")?>
-            </a>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title"><?= __('Vraag')?></span>
+        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
+    </div>
+    <div page="question" class="page" tabs="edit_question">
+        <span class="title"><?= __('Antwoord')?></span>
+        <table class="table" id="tableMatchingOptions">
+            <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th><?= __("Links") ?></th>
+                <th><?= __("Rechts") ?></th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?
+            function findRightAnswer($ar, $id)
+            {
+                $rightAnswer = false;
+                foreach ($ar as $answer) {
+                    if ($answer['correct_answer_id'] == $id) {
+                        $rightAnswer = $answer;
+                        break;
+                    }
+                }
+                return $rightAnswer;
+            }
 
-            <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                <?= __("Bronnen")?>
+            $counter = 0;
+            $answers = $question['question']['matching_question_answers'];
+            $leftAr = $rightAr = [];
+            foreach ($answers as $answer) {
+                if ($answer['type'] == 'LEFT' && $answer['answer']) {
+                    $leftAr[] = $answer;
+                } elseif ($answer['type'] == 'RIGHT' && $answer['answer']) {
+                    $rightAr[] = $answer;
+                } else {
+                    // should not happen
+                }
+            }
+
+            foreach ($leftAr as $i => $answer) {
+                $left = $answer;
+                $right = findRightAnswer($rightAr, $answer['id']);
+                $display = true;
+                ?>
+                <tr style="<?= $display ? '' : 'display:none;' ?>">
+                    <td>
+                        <span class="fa fa-arrows" style="cursor:move"></span>
+                    </td>
+                    <td>
+                        <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $i, 'class' => 'order')) ?>
+                        <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][left]', 'value' => isset($left['answer']) ? $left['answer'] : '')) ?>
+                    </td>
+                    <td>
+                        <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][right]', 'value' => isset($right['answer']) ? $right['answer'] : '')) ?>
+                    </td>
+                    <td>
+                        <? if ($editable) { ?>
+                            <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
+                                <span class="fa fa-remove"></span>
+                            </a>
+                        <? } ?>
+                    </td>
+                </tr>
+                <?
+            }
+            $i++;
+            for ($i; $i < 50; $i++) {
+                $display = false;
+                $left = [];
+                $right = [];
+                ?>
+                <tr style="<?= $display ? '' : 'display:none;' ?>">
+                    <td>
+                        <span class="fa fa-arrows"></span>
+                    </td>
+                    <td>
+                        <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $i, 'class' => 'order')) ?>
+                        <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][left]', 'value' => isset($left['answer']) ? $left['answer'] : '')) ?>
+                    </td>
+                    <td>
+                        <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][right]', 'value' => isset($right['answer']) ? $right['answer'] : '')) ?>
+                    </td>
+                    <td>
+                        <? if ($editable) { ?>
+                            <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
+                                <span class="fa fa-remove"></span>
+                            </a>
+                        <? } ?>
+                    </td>
+                </tr>
+                <?
+            }
+
+            ?>
+            </tbody>
+        </table>
+
+        <? if ($editable) { ?>
+            <center>
+                <a href="#" class="btn highlight small inline-block" onclick="Questions.addMatchingOption();">
+                    <span class="fa fa-plus"></span>
+                    <?= __("Optie toevoegen") ?>
                 </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-            <?= __("Eindtermen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="edit_question">
-            <?= __("Tags")?>
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-            <?= __("Taxonomie")?>
-            </a>
-
-            <?php if(!$is_clone_request) { ?>
-                <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                    <?= __("Info")?>
-                </a>
-            <?php } ?>
-            <br clear="all" />
-        </div>
-
-
-        <div page="question" class="page active" tabs="edit_question">
-            <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
-        </div>
-        <div page="options" class="page" tabs="edit_question">
-            <table class="table" id="tableMatchingOptions">
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th><?= __("Links")?></th>
-                        <th><?= __("Rechts")?></th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?
-                    function findRightAnswer($ar, $id){
-                        $rightAnswer = false;
-                        foreach($ar as $answer){
-                            if($answer['correct_answer_id'] == $id){
-                                $rightAnswer = $answer;
-                                break;
-                            }
-                        }
-                        return $rightAnswer;
-                    }
-                    $counter = 0;
-                    $answers = $question['question']['matching_question_answers'];
-                    $leftAr = $rightAr = [];
-                    foreach($answers as $answer){
-                        if($answer['type'] == 'LEFT' && $answer['answer']){
-                            $leftAr[] = $answer;
-                        }
-                        elseif($answer['type'] == 'RIGHT' && $answer['answer']){
-                            $rightAr[] = $answer;
-                        }
-                        else{
-                            // should not happen
-                        }
-                    }
-
-                    foreach($leftAr as $i => $answer){
-                        $left = $answer;
-                        $right = findRightAnswer($rightAr,$answer['id']);
-                        $display = true;
-                        ?>
-                        <tr style="<?=$display ? '' : 'display:none;' ?>">
-                            <td>
-                                <span class="fa fa-arrows" style="cursor:move"></span>
-                            </td>
-                            <td>
-                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
-                            </td>
-                            <td>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
-                            </td>
-                            <td>
-                                <? if($editable) { ?>
-                                    <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
-                                        <span class="fa fa-remove"></span>
-                                    </a>
-                                <? } ?>
-                            </td>
-                        </tr>
-                        <?
-                    }
-                    $i++;
-                    for($i;$i<50;$i++){
-                        $display = false;
-                        $left = [];
-                        $right = [];
-                        ?>
-                        <tr style="<?=$display ? '' : 'display:none;' ?>">
-                            <td>
-                                <span class="fa fa-arrows"></span>
-                            </td>
-                            <td>
-                                <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
-                            </td>
-                            <td>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
-                            </td>
-                            <td>
-                                <? if($editable) { ?>
-                                <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
-                                    <span class="fa fa-remove"></span>
-                                </a>
-                                <? } ?>
-                            </td>
-                        </tr>
-                        <?
-                    }
-
-                    ?>
-                </tbody>
-            </table>
-
-            <? if($editable) { ?>
-                <center>
-                    <a href="#" class="btn highlight small inline-block" onclick="Questions.addMatchingOption();">
-                        <span class="fa fa-plus"></span>
-                        <?= __("Optie toevoegen")?>
-                    </a>
-                </center>
-            <? } ?>
-        </div>
-
-        <div page="attainments" class="page" tabs="edit_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
-        </div>
-
-
-    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
-
-        <div page="tags" class="page" tabs="edit_question">
-
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
-        </div>
-
-    <div page="owners" class="page" tabs="edit_question">
-        <?=$this->element('question_info', ['question' => $question])?>
+            </center>
+        <? } ?>
     </div>
 
-        <?=$this->Form->end();?>
-        <? if($owner != 'group') { ?>
-            <div page="sources" class="page" tabs="edit_question"></div>
-        <? } ?>
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Eindtermen')?></span>
+        <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+    </div>
+
+
+    <?= $this->element('question_tab_rtti', ['question' => $question]); ?>
+
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Tags')?></span>
+        <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
+    </div>
+
+    <div page="info" class="page" tabs="edit_question">
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
+
+    <?= $this->Form->end(); ?>
+    <? if ($owner != 'group') { ?>
+        <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
+    <? } ?>
 </div>
 <? if ($is_clone_request) { ?>
     <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MatchingQuestion', '$owner', '$owner_id');"]) ?>
 <? } else { ?>
     <? if ($editable) { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'MatchingQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'withSaving' => false]) ?>
     <? } ?>
 <? } ?>
 <script type="text/javascript">

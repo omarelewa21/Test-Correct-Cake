@@ -1,7 +1,7 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Juist / Onjuist"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("Juist / Onjuist")?><!--</div>-->
-<div class="popup-content" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
 
         <table class="table mb15">
             <tr>
@@ -52,87 +52,65 @@
         }
         ?>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-            <?= __("Vraag")?>
-            </a>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
 
-            <a href="#" class="btn grey" page="answer" tabs="edit_question">
-            <?= __("Antwoord")?>
-            </a>
-
-            <a href="#" class="btn grey" page="sources" tabs="edit_question">
-            <?= __("Bronnen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-            <?= __("Eindtermen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="edit_question">
-            <?= __("Tags")?>
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-            <?= __("Taxonomie")?>
-            </a>
-
-            <?php if(!$is_clone_request) { ?>
-            <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                <?= __("Info")?>
-            </a>
-            <?php } ?>
-            <br clear="all" />
-        </div>
-
-        <div page="question" class="page active" tabs="edit_question">
-            <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'value' => $question['question']['question'], 'div' => false, 'label' => false)); ?>
-        </div>
-
-        <div page="answer" class="page" tabs="edit_question">
-            <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td width="100">
-                    <?= __("Antwoord is:")?>
-                    </td>
-                    <td>
-                        <?=$this->Form->input('answer', [
-                            'options' => [
-                                1 => __("Juist"),
-                                0 => __("Onjuist")
-                            ],
-                            'value' => $value,
-                            'label' => false
-                        ])?>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div page="attainments" class="page" tabs="edit_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
-        </div>
-
-    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
-
-        <div page="tags" class="page" tabs="edit_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
-        </div>
-
-    <?php  if(!$is_clone_request) { ?>
-    <div page="owners" class="page" tabs="edit_question">
-        <?=$this->element('question_info', ['question' => $question])?>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title"><?= __('Vraag')?></span>
+        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'value' => $question['question']['question'], 'div' => false, 'label' => false)); ?>
     </div>
-    <?php } ?>
-    <?=$this->Form->end();?>
 
-    <div page="sources" class="page" tabs="edit_question"></div>
+    <div page="question" class="page" tabs="edit_question">
+        <span class="title"><?= __('Antwoord')?></span>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="100">
+                    <?= __("Antwoord is:") ?>
+                </td>
+                <td>
+                    <?= $this->Form->input('answer', [
+                        'options' => [
+                            1 => __("Juist"),
+                            0 => __("Onjuist")
+                        ],
+                        'value'   => $value,
+                        'label'   => false
+                    ]) ?>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Eindtermen')?></span>
+        <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+    </div>
+
+    <?= $this->element('question_tab_rtti', ['question' => $question]); ?>
+
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Tags')?></span>
+        <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
+    </div>
+
+    <?php if ($is_clone_request) { ?>
+        <div page="info" class="page" tabs="edit_question">
+            <span class="title"><?= __('Info')?></span>
+            <?= $this->element('question_info', ['question' => $question]) ?>
+        </div>
+    <?php } ?>
+    <?= $this->Form->end(); ?>
+
+    <? if ($owner != 'group') { ?>
+        <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
+    <? } ?>
 </div>
 <? if ($is_clone_request) { ?>
     <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('TrueFalseQuestion', '$owner', '$owner_id');"]) ?>
 <? } else { ?>
     <? if ($editable) { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'TrueFalseQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'withSaving' => false]) ?>
     <? } ?>
 <? } ?>
 
