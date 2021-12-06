@@ -1,4 +1,4 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Selectievraag"), 'test_name' => $test_name]) ?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Selectievraag"), 'test_name' => $test_name, 'icon' => !$editable ? 'preview' : 'edit']) ?>
 <!--<div class="popup-head">--><?//= __("Selectievraag")?><!--</div>-->
 <div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
     <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>

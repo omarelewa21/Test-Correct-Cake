@@ -1,4 +1,4 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Infoscherm"), 'test_name' => $test_name]) ?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Infoscherm"), 'test_name' => $test_name, 'icon' => !$editable ? 'preview' : 'edit']) ?>
 <!--<div class="popup-head">--><?//= __("Infoscherm")?><!--</div>-->
 <div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
 
