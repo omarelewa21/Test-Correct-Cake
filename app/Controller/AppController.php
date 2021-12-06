@@ -337,7 +337,7 @@ class AppController extends Controller
         if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
             $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
             if(!in_array($language,['en','nl'])){
-                $language = 'nl';
+                $language = 'nld';
             }
             if($language === 'en') {
                 $language = 'eng';

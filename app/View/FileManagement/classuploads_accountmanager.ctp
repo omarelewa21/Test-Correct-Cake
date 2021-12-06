@@ -8,24 +8,22 @@
                 <?= $this->Form->create('FileManagement') ?>
                 <div class="row">
                     <div class="col-md-5">
-                        <label><?= __("Titel")?> (<?= __("trefwoord")?>)</label>
-                        <?= $this->Form->input('name', array('label' => false)) ?>
                         <label for=""><?= __("Klas")?></label>
                         <?= $this->Form->input('class', array('label' => false)) ?>
                     </div>
                     <div class="col-md-5">
-                        <label><?= __("SchoolLocation")?></label>
+                        <label><?= __("Schoollocatie")?></label>
                         <?= $this->Form->input('schoolLocation', array('style' => 'width: 100%', 'options' => $schoolLocations, 'label' => false, 'multiple' => true)) ?>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-5">
-                        <label for=""><?= __("Teacher")?></label>
+                        <label for=""><?= __("Docent")?></label>
                         <?= $this->Form->input('teacher_id', array('placeholder' => 'Alle', 'id' => 'FileManagementTestTeacherId','style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                     <div class="col-md-5">
-                        <label for=""><?= __("Handler")?></label>
+                        <label for=""><?= __("Behandelaar")?></label>
                         <?= $this->Form->input('handler_id', array('placeholder' => 'Alle', 'id'=>'FileManagementTestHandlerId','style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
@@ -44,7 +42,7 @@
 
                 <div class="row">
                     <div class="col-md-5">
-                        <label for=""><?= __("Note")?></label>
+                        <label for=""><?= __("Notitie")?></label>
                         <?= $this->Form->input('notes', array('label' => false)) ?>
                     </div>
                 </div>
@@ -147,7 +145,6 @@
                     fileMangementClassuploadsFirstTimeRun = true;
                     fileMangementClassuploadsFiltermanager = new FilterManager({
                         filterFields: [
-                            {field: 'name', label: '<?= __("Toets")?>', type: 'text'},
                             {field: 'class', label: '<?= __("Klas")?>', type: 'text'},
                             {field: 'schoolLocation', label: '<?= __("School location")?>', type: 'select'},
                             {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},

@@ -51,9 +51,3 @@ msgstr "Info berichten"
 
 msgid "info.Titel"
 msgstr "Titel"
-
-msgid "Note"
-msgstr "Notitie"
-
-msgid "Handler"
-msgstr "Behandelaar"
