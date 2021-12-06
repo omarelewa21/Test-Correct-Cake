@@ -4,11 +4,10 @@
     <table class="table mb15" id="tableTestTakes">
         <tr>
             <th width="70"><?= __("Datum")?></th>
-            <th width="70"><?= __("Datum tot")?></th>
+            <th width="70"><span id="TestTakeDateTillHeader" style="display:none;"><?= __("Datum tot")?></span></th>
             <th width="110"><?= __("Periode")?></th>
             <th colspan="2"><?= __("Surveillanten")?></th>
             <th width="110"><?= __("Klas")?></th>
-            <th width="150"><?= __("Toets")?></th>
             <th width="50"><?= __("Weging")?></th>
             <th width="30"></th>
         </tr>
@@ -195,7 +194,12 @@
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
             Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
-            Navigation.load('/test_takes/planned_teacher');
+                var url = '/test_takes/planned_teacher';
+
+                if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
+                    var url = '/test_takes/assessment_open_teacher';
+                }
+                Navigation.load(url);
             Menu.updateMenuFromRedirect('tests', 'tests_planned')
             Popup.closeLast();
         },

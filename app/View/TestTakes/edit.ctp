@@ -21,6 +21,17 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     <?=$this->Form->input('time_start', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
                 </td>
             </tr>
+            <?php if($take['test']['test_kind_id'] ==  4) { ?>
+            <tr>
+                <th width="140">
+                    <?= __("Datum tot")?>
+                </th>
+                <td>
+                    <?=$this->Form->input('time_end', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_end'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
+                </td>
+            </tr>
+            <?php } ?>
+
             <? if($take['retake'] == 0) { ?>
                 <tr>
                     <th width="140">
