@@ -1,7 +1,10 @@
+<?php
+    $icon = isset($icon) && $icon != null ? $icon : 'edit';
+?>
 <div class="question-editor-header">
     <div class="question-title">
         <div class="icon-arrow">
-            <?= $this->element('edit', ['style' => 'position:relative;left:-5px;']) ?>
+            <?= $this->element($icon, ['style' => 'position:relative;left:-5px;']) ?>
         </div>
         <h2><?= $question_type ?></h2>
     </div>

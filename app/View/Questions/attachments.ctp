@@ -78,9 +78,10 @@ if(!empty($attachments) || null !== $clone_attachments) {
             }
             ?>
 
-            <?
+            <?php
             $i = 0;
             foreach ($attachments as $key => $attachment) {
+                $i++;
                 ?>
                 <tr>
                     <td>
