@@ -3,7 +3,7 @@ var Questions = {
 
     addPopup : function(type, owner, owner_id, goToLaravel) {
         if (goToLaravel) {
-            Core.goToLaravel('teacher/questions/'+type+'/add?owner=' + owner + '&owner_id' + owner_id);
+            User.goToLaravel('teacher/questions/'+type+'/add?owner=' + owner + '&owner_id' + owner_id);
             return;
         }
 
@@ -16,7 +16,7 @@ var Questions = {
     addOpenPopup : function(type, owner, owner_id, goToLaravel) {
         if (goToLaravel) {
             var path = 'teacher/questions/open-'+type+'/add?owner=' + owner + '&owner_id=' + owner_id;
-            Core.goToLaravel(path);
+            User.goToLaravel(path);
             return;
         }
 

@@ -2034,12 +2034,18 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath($path)
+    public function goToLaravelPath($path = null)
     {
+        if ($path === null) {
+            $path = $this->request->query['path'];
+        }
+
         if($path{0} !== '/'){
             $path = '/'.$path;
         }
-        return $this->formResponse(true,  $this->UsersService->createTemporaryLogin([],$path));
+        $params['app_details'] = $this->getAppInfoFromSession();
+
+        return $this->formResponse(true,  $this->UsersService->createTemporaryLogin($params ,$path));
     }
 
     public function temporary_login($tlid)
