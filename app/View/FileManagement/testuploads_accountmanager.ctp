@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label><?= __("Titel")?> (<?= __("trefwoord")?>)</label>
-                        <?= $this->Form->input('name', array('label' => false)) ?>
+                        <?= $this->Form->input('testName', array('label' => false)) ?>
                         <label for=""><?= __("Vak")?></label>
                         <?= $this->Form->input('subject', array('label' => false)) ?>
                     </div>
@@ -149,7 +149,7 @@
                     fileMangementTestuploadsFirstTimeRun = true;
                     fileMangementTestuploadsFiltermanager = new FilterManager({
                         filterFields: [
-                            {field: 'name', label: '<?= __("Toets")?>', type: 'text'},
+                            {field: 'testName', label: '<?= __("Toets")?>', type: 'text'},
                             {field: 'subject', label: '<?= __("Vak")?>', type: 'text'},
                             {field: 'schoolLocation', label: '<?= __("School location")?>', type: 'select'},
                             {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},

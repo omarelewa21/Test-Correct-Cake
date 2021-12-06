@@ -197,6 +197,7 @@ class FileManagementController extends AppController {
            'teacherId' => 'teacher_id',
            'handlerId' => 'handler_id',
            'subject' => 'subject',
+            'testName' => 'test_name'
         ]);
 
         $params = array_merge([
