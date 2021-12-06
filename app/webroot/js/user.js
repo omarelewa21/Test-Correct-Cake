@@ -203,7 +203,13 @@ var User = {
         $.get('/users/logout',
             function () {
                 User.actOnLogout().then(() => {
-                    window.location.href = '/';
+                    if (User.info.isStudent && User.info.laravel_look == 1) {
+                        var url = window.location.href.replace('portal', 'welcome');
+                        url = url.endsWith('/') ? url : url+'/';
+                        window.location.href = url+'login';
+                    } else {
+                        window.location.href = '/';
+                    }
                     try {
                         if (typeof(electron.closeApp) === typeof(Function)) {
                             if (typeof(electron.reloadApp) === typeof(Function)) {
