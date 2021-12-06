@@ -1326,6 +1326,14 @@ class UsersController extends AppController
                     'path'  => '/rttiimport/index'
                 );
 
+
+                $tiles['attainments_import_export'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments',
+                    'path'  => '/attainments/upload_download_provision'
+                );
+
                 $tiles['support'] = array(
                     'menu'  => 'support_list',
                     'icon'  => 'testlist',
