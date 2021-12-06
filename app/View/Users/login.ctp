@@ -100,6 +100,11 @@
     <?= __("Wachtwoord vergeten")?>
     </a>
 
+    <?php if (isset($laravelLogin) && $laravelLogin != null) { ?>
+    <a href="#" onclick="Core.laravelLoginPage()" class="btn mt5 mr5 grey pull-right">
+        Laravel
+    </a>
+    <?php } ?>
     <a href="#" onclick="return closeApplication('quit');" class="btn grey pull-right mt5 mr5" id="btnClose" style="display: none;">
     <?= __("Sluiten")?>
     </a>

@@ -1,5 +1,5 @@
 <?php if ($guest) { ?>
-<a href="<?= $loginUrl ?>" class="btn highlight" id="btnHandIn">
+<a href="#" onclick="User.returnToLaravelLogin('<?= $loginUrl?>')" class="btn highlight" id="btnHandIn">
     Sluiten
 </a>
 <?php } else { ?>
@@ -106,6 +106,10 @@
 
 
 <script type="text/javascript">
+    <?php if (isset($guest_exit)) {?>
+        User.returnToLaravelLogin('<?= $loginUrl?>')
+    <?php } ?>
+
     $('#questionQuestion').load('/questions/preview_single_load/<?=getUUID($questions[$question_index]['question'], 'get')?>/<?=isset($group) ? $group : ''?>');
     $('#questionQuestion_correct').load('/questions/preview_answer_load/<?=getUUID($questions[$question_index]['question'], 'get')?>');
     $('#questionAnswer').load('/test_takes/glance_answer/<?=$take_id?>/<?=$question_index?>');

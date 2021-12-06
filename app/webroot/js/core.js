@@ -340,11 +340,23 @@ var Core = {
 				document.removeEventListener("visibilitychange", onchange);
 				window.open(data.data.url, '_self');
 				try {
-					electron.loadUrl(data.data.url)
+					electron.loadUrl(data.data.url);
 				} catch(error) {}
 			},
 		});
 	},
+	laravelLoginPage : function () {
+		$.ajax({
+			type: 'get',
+			url: '/users/get_laravel_login_page',
+			success: function (url) {
+				window.open(url, '_self');
+				try {
+					electron.loadUrl(url);
+				} catch(error) {}
+			}
+		});
+	}
 };
 
 var Loading = {

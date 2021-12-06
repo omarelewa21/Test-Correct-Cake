@@ -80,7 +80,7 @@
                         style: {
                             fontStyle: 'italic'
                         },
-                        text: '<?= __("'Minimaal gewenste p-waarde'")?>'
+                        text: '<?= __("Minimaal gewenste p-waarde")?>'
                     },
                     zIndex: 3
                 }]

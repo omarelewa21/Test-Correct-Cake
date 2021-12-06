@@ -18,7 +18,6 @@ var User = {
                 function (info) {
                     User.info = info;
                     if (User.info.guest) {
-                        console.log('No user initialise needed');
                         var guest_username = User.info.name_first + ' ' +
                             User.info.name_suffix + ' ' +
                             User.info.name;
@@ -413,14 +412,29 @@ var User = {
 
         }, 1000);
     },
-    returnToLaravelLogin : function() {
+    returnToLaravelLogin : function(desiredUrl) {
         $.ajax({
             url: '/users/return_to_laravel/true',
             method: 'get',
             success: function (url) {
+                if (desiredUrl != null) {
+                    url = desiredUrl;
+                }
                 url = typeof url == 'undefined' ? '/' : url;
-                window.location.href = url;
+                window.open(url, '_self');
+                try {
+                    electron.loadUrl(url);
+                } catch(error) {}
             }
         });
-    }
+    },
+    connectToPusher : function (pusherKey) {
+        Navigation.usingPusher = true;
+
+        window.pusher = new Pusher(pusherKey, {
+            cluster: 'eu',
+            forceTLS: true,
+            authEndpoint: "/users/pusher_auth"
+        });
+    },
 };

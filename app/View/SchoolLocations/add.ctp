@@ -103,6 +103,21 @@
                 <?=$this->Form->input('school_language', array('style' => 'width: 185px', 'label' => false, 'options' => array('en'=>'English', 'nl' => 'Dutch'))) ?>
             </td>
         </tr>
+
+        <tr>
+            <th><?= __("Hubspot ID")?></th>
+            <td>
+                <?=$this->Form->input('company_id', array('style' => 'width: 185px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
+            </td>
+            <th></th>
+            <td>
+
+            </td>
+            <th width="130"></th>
+            <td>
+
+            </td>
+        </tr>
         
 
         <tr>

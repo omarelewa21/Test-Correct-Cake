@@ -22,6 +22,7 @@
 	  "php": ">=5.3",
 	  "cakephp/cakephp" : "2.10.*",
 		"phpunit/phpunit": "^8.5",
-		"bugsnag/bugsnag": "^3.0"
+		"bugsnag/bugsnag": "^3.0",
+		"pusher/pusher-php-server": "^6.1"
 	}
   }

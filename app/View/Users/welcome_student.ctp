@@ -41,6 +41,14 @@
     </div>
 <?php } ?>
 
+<?php if($infos && count($infos)){ ?>
+<div class="dashboard" style="margin-top:0;">
+    <div class="notes">
+        <?= $this->element('welcome_info_messages'); ?>
+    </div>
+</div>
+<?php } ?>
+
 <div class="block" style="width:calc(50% - 10px); float: left">
     <div class="block-head"><?= __("Geplande toetsen")?></div>
     <div id="widget_planned" style="height:200px; overflow: auto;">

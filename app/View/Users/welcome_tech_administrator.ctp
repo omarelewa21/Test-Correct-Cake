@@ -1,5 +1,12 @@
 <h1><?= __("Welkom in Test-Correct")?></h1>
 
+<?php if($infos && count($infos)){ ?>
+    <div class="dashboard" style="margin-top:0;">
+        <div class="notes">
+            <?= $this->element('welcome_info_messages'); ?>
+        </div>
+    </div>
+<?php } ?>
 
 <div class="" style="width:calc(50% - 10px); float: left">
 

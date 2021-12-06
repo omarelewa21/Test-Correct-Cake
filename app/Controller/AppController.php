@@ -312,8 +312,19 @@ class AppController extends Controller
         }
     }
 
-    public function returnToLaravelUrl($userId)
+    public function returnToLaravelUrl($userId, $params = [])
     {
-        return $this->UsersService->getReturnToLaravelUrl($userId);
+        $returnUrl = $this->UsersService->getReturnToLaravelUrl($userId, $params);
+        $appInfo = $this->getAppInfoFromSession();
+
+        if ($appInfo['TLCOs'] == 'iOS') {
+            $separator = '?';
+            if (strpos($returnUrl['url'], '?') !== false) {
+               $separator = '&';
+            }
+            $returnUrl['url'] = $returnUrl['url'] . $separator . 'device=ipad';
+        }
+
+        return $returnUrl;
     }
 }

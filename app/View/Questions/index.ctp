@@ -1,74 +1,109 @@
-<div id="buttons">
-    <a href="#" class="btn white dropblock-owner dropblock-left mr2" id="filters">
-        <span class="fa fa-filter mr5"></span>
-        <?= __("Filteren")?>
-    </a>
+<h1><?= __("Vragenbank")?></h1>
 
-    <div class="dropblock" for="filters">
-        <?=$this->Form->create('Question')?>
-        <table id="testsFilter" class="mb5">
-            <tr>
-                <th><?= __("Uniek ID")?></th>
-                <td>
-                    <?=$this->Form->input('id', array('label' => false, 'type' => 'text')) ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Termen")?></th>
-                <td>
-                    <?=$this->Form->input('search', array('label' => false, 'type' => 'select', 'multiple' => true)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Type")?></th>
-                <td>
-                    <?=$this->Form->input('type', array('options' => $filterTypes, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Vak")?></th>
-                <td>
-                    <?=$this->Form->input('subject', array('options' => $subjects, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Examenvak")?></th>
-                <td>
-                    <?=
-                  $this->Form->input('base_subject_id',array('options' => $baseSubjects,'label' => false))
-                    ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Niveau")?></th>
-                <td>
-                    <?=$this->Form->input('education_levels', array('options' => $education_levels, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-                <th><?= __("Leerjaar")?></th>
-                <td>
-                    <?=$this->Form->input('education_level_years', array('options' => $education_level_years, 'label' => false)) ?>
-                </td>
-            </tr>
-            <tr>
-              <th><?= __("Bron")?></th>
-              <td>
-                <?=
-                  $this->Form->input('source',array('options' => $filterSource,'label' => false))
-                ?>
-              </td>
-            </tr>
-        </table>
-        <?=$this->Form->end();?>
+<div id="QuestionBank">
+    <div class='popup' id='popup_search' style="display:none">
+        <div class="popup-head" id="modal-head"><?= __("Zoeken")?></div>
+        <div class="popup-content">
+            <div id="questionsFilter">
+                <?= $this->Form->create('Question') ?>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label><?= __("Titel (trefwoord)")?></label>
+                        <?= $this->Form->input('search', array('label' => false)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label for=""><?= __("Uniek ID")?></label>
+                        <?= $this->Form->input('id', array('label' => false, 'type' => 'text')) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for=""><?= __("Examenvak")?></label>
+                        <?= $this->Form->input('base_subject_id', array('style' => 'width: 100%','options' => $baseSubjects, 'label' => false, 'multiple' => true))?>
+                    </div>
+                    <div class="col-md-5"><label for=""><?= __("Vak")?></label>
+                        <?= $this->Form->input('subject', array('style' => 'width: 100%', 'options' => $subjects, 'label' => false, 'multiple' => true)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for=""><?= __("Niveau")?></label>
+                        <?= $this->Form->input('education_levels', array('style' => 'width: 100%', 'options' => $education_levels, 'label' => false, 'multiple' => true)) ?>
+                    </div>
+                    <div class="col-md-5">
+                        <label for=""><?= __("Leerjaar")?></label>
+                        <?= $this->Form->input('education_level_years', array('style' => 'width: 100%','options' => $education_level_years, 'label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for=""><?= __("Bron")?></label>
+                        <?=$this->Form->input('source', array('options' => $filterSource, 'label' => false))?>
+                    </div>
+                    <div class="col-md-5">
+                        <label><?= __("Type")?></label>
+                        <?= $this->Form->input('type', array('options' => $filterTypes, 'label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <label for="">Auteur</label>
+                        <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                    </div>
 
-        <a href="#" class="btn btn-close white small pull-right mr5"><?= __("Sluiten")?></a>
-        <a href="#" class="btn btn-reset white small pull-right"><?= __("Reset")?></a>
-        <br clear="all" />
+                </div>
+                <?= $this->Form->end(); ?>
+            </div>
+        </div>
+        <div class="popup-footer">
+            <a href="#" style="float:right"
+               id="jquery-save-filter-from-modal"
+               class="btn blue pull-right mr5 mt5 inline-block"><?= __("Opslaan")?></a>
+            <a href="#" style="float:right"
+               id="jquery-save-filter-as-from-modal"
+               class="btn grey pull-right mr5 mt5 inline-block"><?= __("Opslaan als")?></a>
+            <a href="#" id="jquery-cache-filter-from-modal" style="float:right"
+               class="btn grey pull-right mr5 mt5 inline-block"><?= __("Bevestigen")?></a>
+
+        </div>
+
+    </div>
+
+    <div class="block">
+        <div class="block-content">
+            <table id="filterTable" class="table ">
+                <tbody>
+                <tr>
+                    <th width="150"><?= __("Kies filter")?></th>
+                    <td colspan="2">
+                        <select name="opgelagen filters" id="jquery-saved-filters">
+                        </select>
+                    </td>
+                    <td width="380">
+                        <a href="#" class="btn inline-block btn-default grey disabled mr2" id="jquery-delete-filter"><?= __("Verwijderen")?></a>
+                        <a href="#" class="btn inline-block grey mr2" id="jquery-add-filter">
+                            <span class="fa mr5"></span>
+                            <?= __("Nieuw filter maken")?>
+                        </a>
+                    </td>
+                </tr>
+
+                <tr id="jquery-applied-filters" style="display:none">
+                    <th><?= __("Toegepast filter")?></th>
+                    <td colspan="2" id="jquery-filter-filters"></td>
+                    <td>
+                        <a href="#" class="btn inline-block grey mr2" id="jquery-edit-filter">
+                            <span class="fa mr5"></span><?= __("Filter aanpassen")?>
+                        </a>
+                        <a href="#" class="btn inline-block blue mr2 disabled" id="jquery-save-filter"><?= __("Opslaan")?></a>
+                        <a href="#" class="btn inline-block grey" id="jquery-reset-filter"><?= __("Reset Filter")?></a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-
-<h1><?= __("Vragenbank")?></h1>
 
 <div class="block autoheight">
     <div class="block-head"><?= __("Vragen")?></div>
@@ -90,18 +125,72 @@
         </table>
 
         <script type="text/javascript">
-            $('#questionsTable').tablefy({
-                'source' : '/questions/load',
-                'filters' : $('#QuestionIndexForm'),
-                'container' : $('#questionsContainter')
+            $(document).ready(function () {
+
+                var QuestionBankFirstTimeRun = false;
+                if (typeof (Window.authors) === 'undefined') {
+                    Window.authors = {};
+                }
+
+                if (typeof (QuestionBankFiltermanager) === 'undefined') {
+                    QuestionBankFirstTimeRun = true;
+                    QuestionBankFiltermanager = new FilterManager({
+                        filterFields: [
+                            {field: 'search', label: 'titel', type: 'text'},
+                            {field: 'baseSubjectId', label: 'Examenvak', type: 'multiSelect'},
+                            {field: 'subject', label: 'Vak', type: 'multiSelect'},
+                            {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
+                            {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
+                            {field: 'source', label: 'Bron'},
+                            {field: 'type', label: 'Type', type: 'select'},
+                            {field: 'authorId', label: 'Auteur', type: 'multiSelect'}
+                        ],
+                        eventScope: '#QuestionBank',
+                        formPrefix: '#Question',
+                        table: '#questionsTable',
+                        tablefy: {
+                            'source': '/questions/load',
+                            'filters': '#QuestionIndexForm',
+                            'container': '#questionsContainter',
+                            'afterFirstRunCallback': function (callback) {
+                                Loading.hide();
+                                Core.surpressLoading = true;
+                                QuestionBankFiltermanager.lockFilters();
+                                $.ajax({
+                                    url: '/tests/get_authors',
+                                    type: 'GET',
+                                    success: function (data) {
+                                        var json = $.parseJSON(data);
+                                        Window.authors = json.data;
+                                        setAuthors();
+                                        QuestionBankFiltermanager.initCustom();
+                                        Core.surpressLoading = false;
+                                        QuestionBankFiltermanager.unlockFilters();
+                                        if (typeof (callback) == 'function') {
+                                            callback();
+                                        }
+                                    }
+                                });
+                            }
+                        },
+                        filterKey: 'question_bank'
+                    });
+                }
+                QuestionBankFiltermanager.init(QuestionBankFirstTimeRun, true);
             });
+
+            function setAuthors() {
+                var author_select = $('#QuestionAuthorId');
+                author_select.html('');
+                $.each(Window.authors, function (key, value) {
+                    var option = $('<option value="' + key + '">' + value + '</option>');
+                    author_select.append(option);
+                });
+            }
+
+
         </script>
     </div>
     <div class="block-footer"></div>
 </div>
 
-<script type="text/javascript">
-    $('#QuestionSearch').select2({
-        tags : true
-    });
-</script>

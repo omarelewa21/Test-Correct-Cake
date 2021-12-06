@@ -1,7 +1,7 @@
-<h1><?= __("Te bespreken toetsen")?></h1>
+<h1><?= __("Bespreken met CO-learning")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head"><?= __("Te bespreken toetsen")?></div>
+    <div class="block-head"><?= __("Bespreken met CO-learning")?></div>
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
             <thead>

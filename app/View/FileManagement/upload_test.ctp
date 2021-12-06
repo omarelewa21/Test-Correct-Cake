@@ -160,7 +160,7 @@
                 var wistjedatjeNr = 0;
                 let wistjedatjes = [
                     '<?= __("Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
-                    '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..")?>',
+                    '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device..")?>',
                     '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
                     '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
                 ];

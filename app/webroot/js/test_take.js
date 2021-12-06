@@ -266,11 +266,13 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                        // also tell the iPad app
+                        webview.setTestConfig(participant_id);
                     } catch (error) {}
                     try {
-                        electron.loadUrl(data.data.url)
+                        electron.loadUrl(data.data.url);
                     } catch(error) {}
-                },
+                }
             });
         }, 500);
         // }else{
@@ -426,6 +428,8 @@ var TestTake = {
         $.get('/test_takes/load_participants/' + take_id,
                 function (html) {
                     $('.page[page=participants]').html(html);
+
+                    TestTake.setPresentParticipantsActive(take_id);
                 }
         );
     },
@@ -607,7 +611,7 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false) {
         if ($('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('ja'),
@@ -616,11 +620,21 @@ var TestTake = {
                 message: $.i18n('Niet alle Studenten zijn aanwezig')
             }, function () {
                 setTimeout(function () {
-                    Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    if(consists_only_closed_question){
+                        TestTake.startDiscussion(take_id, 'ALL')
+                    }
+                    else{
+                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                    }
                 }, 1000);
             });
         } else {
-            Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            if(consists_only_closed_question){
+                this.startDiscussion(take_id, 'ALL');
+            }
+            else{
+                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+            }
         }
     },
 
@@ -630,7 +644,7 @@ var TestTake = {
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de bespreking wilt be&euml;indigen?')
+            message: $.i18n('Weet u zeker dat u de CO-learning wilt be&euml;indigen?')
         }, function () {
             $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {
@@ -764,13 +778,17 @@ var TestTake = {
         );
     },
 
-    forceTakenAway: function (take_id, participant_id) {
+    forceTakenAway: function (take_id, participant_id, guest) {
+        var message = $.i18n('Weet u zeker dat u de toets wil innemen?');
+        if (guest) {
+            message += ' '+$.i18n('Dit is een gastaccount waardoor je de toets niet meer kunt heropenen.');
+        }
 
         Popup.message({
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de toets wil innemen?')
+            message: message
         }, function () {
             $.get('/test_takes/force_taken_away/' + take_id + '/' + participant_id,
                     function () {
@@ -1145,6 +1163,29 @@ var TestTake = {
         });
 
         Intense.start(deviceId, sessionId, '<?php echo md5("1.1") ?>');
+    },
+    setPresentParticipantsActive: function(take_id) {
+        if (typeof (window.pusher) !== 'undefined') {
+            var presenceChannel = pusher.channel('presence-presence-TestTake.' + take_id);
+            if (typeof presenceChannel !== 'undefined') {
+                presenceChannel.members.each(function (member) {
+                    $('#participant_' + member.info.uuid).addClass('active');
+                });
+            }
+        }
+    },
+
+    enterWaitingRoomPresenceChannel: function(pusherKey, take_id)
+    {
+        User.connectToPusher(pusherKey);
+
+        var presenceChannel = pusher.subscribe('presence-presence-TestTake.' + take_id);
+        presenceChannel.bind("pusher:member_added", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
+        presenceChannel.bind("pusher:member_removed", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
     }
 };
 

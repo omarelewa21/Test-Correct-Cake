@@ -82,6 +82,8 @@
 
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
+
+        <script type="text/javascript" src="//js.pusher.com/5.0/pusher.min.js"></script>
 	</head>
 
 	<body>
@@ -133,6 +135,9 @@
                 <div class="guest_top">
                     <div class="guest_logo">
                         <?= $this->element('logo_new_full') ?>
+                        <?php if(CakeSession::read('TLCVersion') != 'x') { ?>
+                            <span class="student_version_tag <?= CakeSession::read('TLCVersionCheckResult') ?>"><?= __('Versie') ?>: <?= CakeSession::read('TLCVersion') ?></span>
+                        <?php }?>
                     </div>
                     <div class="guest_name">
                         <button id="guest_user" onclick="showGuestDropdown()">
@@ -166,7 +171,7 @@
 
 		<div id="tiles" class="highlight"></div>
 
-		<div id="container"></div>
+		<div id="container" <?= AuthComponent::user('guest') == true ? 'guest' : ''?>></div>
         <?= $this->element('temporary_login_options') ?>
         <script src="//app.helphero.co/embed/2EBWUZfGT2n"></script>
 		<script>
