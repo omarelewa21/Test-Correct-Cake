@@ -448,16 +448,16 @@
     </div>
     <? if($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <div class="block-footer">
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing/test/<?=$test_id?>', 1200); return false;">
+            <a href="javascript:void(0)" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing/test/<?=$test_id?>', 1200); return false;">
                 <i class="fa fa-clock-o mr5"></i> <?= __("Bestaande vraag toevoegen")?>
             </a>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/test/<?=$test_id?>', 800); return false;">
+            <a href="javascript:void(0)" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/test/<?=$test_id?>', 800); return false;">
                 <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraag toevoegen")?>
             </a>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Test.groupQuestionChooseTypePopup('<?=$test_id?>')">
+            <a href="javascript:void(0)" class="btn highlight mt5 mr5 pull-right" onclick="Test.groupQuestionChooseTypePopup('<?=$test_id?>')">
                 <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraaggroep")?>
             </a>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;">
+            <a href="javascript:void(0)" class="btn highlight mt5 mr5 pull-right" style="display: none;">
                 <i class="fa fa-check mr5"></i> <?= __("Bestaande vraag toevoegen")?>
             </a>
         </div>

@@ -64,7 +64,7 @@
             </table>
 
             <center>
-                <a href="#" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();">
                     <span class="fa fa-plus"></span>
                     <?= __("Optie toevoegen")?>
                 </a>

@@ -100,7 +100,7 @@ foreach($questions as $question) {
             ?>
         </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/preview_single/<?=getUUID($question, 'get');?>');Popup.closeLast();">
+            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/preview_single/<?=getUUID($question, 'get');?>', 1200);">
                 <span class="fa fa-search"></span>
             </a>
             <a href="#" class="btn white pull-right" onclick="Questions.addExistingQuestionToGroup('<?=getUUID($question, 'get');?>', <?=$question['is_subquestion']?>);">

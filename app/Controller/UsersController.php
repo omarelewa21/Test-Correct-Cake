@@ -80,10 +80,8 @@ class UsersController extends AppController
     public function login()
     {
         //Only on test domains;
-        $domain = $_SERVER['HTTP_HOST'];
-        if (strpos($domain, 'testportal.test-correct.nl') !== false || strpos($domain, 'testportal.test-correct.test') !== false) {
-            $this->set('laravelLogin', 'https://testwelcome.test-correct.nl/login');
-        }
+        $this->set('useLaravelLogin', true);
+
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
 //                $view = "windows_update";

@@ -66,7 +66,7 @@ if(!empty($attachments) || null !== $clone_attachments) {
                         <td>
                             <? if($editable) { ?>
                                     <input type="hidden" class="cloneAttachment" id="cloneAttachment<?=getUUID($attachment, 'get');?>" name="data[Question][clone_attachments][]" value="<?=getUUID($attachment, 'get');?>" />
-                                <a href="#" class="btn red small"
+                                <a href="javascript:void(0);" class="btn red small"
                                    onclick="Attachments.removeCloneAttachment('<?=getUUID($attachment, 'get');?>',this);">
                                     <span class="fa fa-remove"></span>
                                 </a>
@@ -129,7 +129,7 @@ if(!empty($attachments) || null !== $clone_attachments) {
                         ?>
                     </td>
                     <td>
-                        <a href="#" class="btn red small"
+                        <a href="javascript:void(0);" class="btn red small"
                         onclick="Attachments.removeAddAttachment(<?= $key ?>);">
                             <span class="fa fa-remove"></span>
                         </a>
@@ -204,7 +204,7 @@ if(!empty($attachments) || null !== $clone_attachments) {
                     </td>
                     <td>
                         <? if($editable) { ?>
-                            <a href="#" class="btn red small"
+                            <a href="javascript:void(0);" class="btn red small"
                             onclick="Attachments.removeEditAttachment('<?=$owner?>', '<?=$id?>', '<?=getUUID($attachment, 'get');?>');">
                                 <span class="fa fa-remove"></span>
                             </a>
@@ -229,31 +229,31 @@ if($type == 'add') {
 <? if($editable) { ?>
     <?=$this->Form->create('Question', array('id' => 'FormAddAttachment', 'type' => 'file', 'target' => 'frameUploadAttachment', 'action' => $action))?>
         <center>
-            <a href="#" class="btn highlight small inline-block">
+            <a href="javascript:void(0);" class="btn highlight small inline-block">
                 <?=$this->Form->input('file', array('type' => 'file', 'style' => 'width:120px; position: absolute; opacity: 0;', 'label' => false, 'div' => false, 'onchange' => 'Attachments.fileInserted();')) ?>
                 <span class="fa fa-picture-o"></span>
                 <?= __("Afbeelding uploaden")?>
             </a>
-            <a href="#" class="btn highlight small inline-block">
+            <a href="javascript:void(0);" class="btn highlight small inline-block">
                 <?=$this->Form->input('file2', array('type' => 'file', 'style' => 'width:120px; position: absolute; opacity: 0;', 'label' => false, 'div' => false, 'onchange' => 'Attachments.fileInserted();')) ?>
                 <span class="fa fa-file"></span>
                 <?= __("PDF uploaden")?>
             </a>
             <? if($type == 'add') { ?>
-                <a href="#" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_sound/add', 600);">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_sound/add', 600);">
                     <span class="fa fa-file-sound-o"></span>
                     <?= __("Geluidsfragment uploaden")?>
                 </a>
-                <a href="#" class="btn highlight small inline-block"  onclick="Popup.load('/questions/attachments_video/add', 600);">
+                <a href="javascript:void(0);" class="btn highlight small inline-block"  onclick="Popup.load('/questions/attachments_video/add', 600);">
                     <span class="fa fa-video-camera"></span>
                     <?= __("Video toevoegen")?>
                 </a>
             <? }else{ ?>
-                <a href="#" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_sound/edit/<?=$owner?>/<?=$owner_id?>/<?=$id?>', 600);">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_sound/edit/<?=$owner?>/<?=$owner_id?>/<?=$id?>', 600);">
                     <span class="fa fa-file-sound-o"></span>
                     <?= __("Geluidsfragment uploaden")?>
                 </a>
-                <a href="#" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_video/edit/<?=$owner?>/<?=$owner_id?>/<?=$id?>', 600);">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Popup.load('/questions/attachments_video/edit/<?=$owner?>/<?=$owner_id?>/<?=$id?>', 600);">
                     <span class="fa fa-video-camera"></span>
                     <?= __("Video toevoegen")?>
                 </a>

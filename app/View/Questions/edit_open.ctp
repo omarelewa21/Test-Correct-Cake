@@ -1,6 +1,6 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Open vraag"), 'test_name' => $test_name, 'icon' => !$editable ? 'preview' : 'edit']) ?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Open vraag"), 'test_name' => $test_name, 'icon' => $editable ? 'edit' : 'preview', 'editable' => $editable]) ?>
 <!--<div class="popup-head">--><?//= __("Open vraag")?><!--</div>-->
-<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+<div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
 
     <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
         <?
@@ -81,7 +81,7 @@
     <? if ($editable) { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'OpenQuestion', '".getUUID($question, 'get')."')"]) ?>
     <? } else { ?>
-        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'withSaving' => false]) ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
     <? } ?>
 <? } ?>
 
