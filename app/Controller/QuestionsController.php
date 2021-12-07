@@ -1198,7 +1198,7 @@ class QuestionsController extends AppController
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
                 if(is_string($result)){
-                    $this->formResponse(false, [$result]);
+                    $this->formResponse(false, $this->QuestionsService->getErrors());
                     return false;
                 }
                 if ($this->hasBackendValidation($type) && !$result) {
