@@ -158,6 +158,7 @@
                         filterFields: [
                             {field: 'testName', label: '<?= __("Toets")?>', type: 'text'},
                             {field: 'subject', label: '<?= __("Vak")?>', type: 'text'},
+                            {field: 'customercode', label: '<?= __("Klantcode")?>', type: 'text'},
                             {field: 'schoolLocation', label: '<?= __("School location")?>', type: 'select'},
                             {field: 'educationLevels', label: '<?= __('Niveau')?>', type: 'multiSelect'},
                             {field: 'educationLevelYears', label: '<?= __('Leerjaar')?>', type: 'multiSelect'},
