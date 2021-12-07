@@ -14,10 +14,10 @@
     <?=$this->Form->input('subtype', array('label' => false, 'value' => 'none','type' => 'hidden'))?>
     <?=$this->Form->input('is_opensource_content', array('label' => false, 'value' => '0','type' => 'hidden'))?>
 
-    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true, 'infoscreen' => true]) ?>
 
         <div page="question" class="page active" tabs="edit_question">
-            <span class="title"><?= __('Vraag')?></span>
+            <span class="title"><?=__('Infoscherm')?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
         </div>
 
