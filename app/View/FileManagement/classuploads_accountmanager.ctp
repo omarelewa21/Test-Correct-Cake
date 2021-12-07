@@ -10,6 +10,9 @@
                     <div class="col-md-5">
                         <label for=""><?= __("Klas")?></label>
                         <?= $this->Form->input('class', array('label' => false)) ?>
+
+                        <label for=""><?= __("Klantcode")?></label>
+                        <?= $this->Form->input('customercode', array('label' => false)) ?>
                     </div>
                     <div class="col-md-5">
                         <label><?= __("Schoollocatie")?></label>
@@ -18,13 +21,25 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5">
+                        <label for=""><?= __("Status")?></label>
+                        <?= $this->Form->input('statusIds', array('style' => 'width: 100%', 'options' => $statuses, 'label' => false, 'multiple' => true)) ?>
+                    </div>
+
+                    <div class="col-md-5">
+
+                        <label for=""><?= __("Notitie")?></label>
+                        <?= $this->Form->input('notes', array('label' => false)) ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
                         <label for=""><?= __("Docent")?></label>
-                        <?= $this->Form->input('teacher_id', array('placeholder' => 'Alle', 'id' => 'FileManagementTestTeacherId','style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('teacherId', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                     <div class="col-md-5">
                         <label for=""><?= __("Behandelaar")?></label>
-                        <?= $this->Form->input('handler_id', array('placeholder' => 'Alle', 'id'=>'FileManagementTestHandlerId','style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('handlerId', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                 </div>
@@ -36,14 +51,7 @@
                     </div>
                     <div class="col-md-5">
                         <label for=""><?= __("Leerjaar")?></label>
-                        <?= $this->Form->input('education_level_years', array('style' => 'width: 100%','options' => $education_level_years, 'label' => false)) ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-5">
-                        <label for=""><?= __("Notitie")?></label>
-                        <?= $this->Form->input('notes', array('label' => false)) ?>
+                        <?= $this->Form->input('education_level_years', array('style' => 'width: 100%','options' => $education_level_years, 'label' => false, 'multiple' => true)) ?>
                     </div>
                 </div>
 
@@ -147,12 +155,13 @@
                         filterFields: [
                             {field: 'class', label: '<?= __("Klas")?>', type: 'text'},
                             {field: 'schoolLocation', label: '<?= __("School location")?>', type: 'select'},
-                            {field: 'educationLevels', label: 'Niveau', type: 'multiSelect'},
-                            {field: 'educationLevelYears', label: 'Leerjaar', type: 'multiSelect'},
-                            {field: 'testTeacherId', label: '<?= __("Teacher")?>', type: 'multiSelect'},
-                            {field: 'testHandlerId', label: '<?= __("Handler")?>', type: 'multiSelect'},
+                            {field: 'educationLevels', label: '<?= __('Niveau')?>', type: 'multiSelect'},
+                            {field: 'educationLevelYears', label: '<?= __('Leerjaar')?>', type: 'multiSelect'},
+                            {field: 'teacherId', label: '<?= __("Teacher")?>', type: 'multiSelect'},
+                            {field: 'handlerId', label: '<?= __("Handler")?>', type: 'multiSelect'},
                             {field: 'createdAtStart', label: '<?= __("Aanmaakdatum van")?>', type: 'datePicker'},
                             {field: 'createdAtEnd', label: '<?= __("Aanmaakdatum tot")?>', type: 'datePicker'},
+                            {field: 'statusIds', label: '<?= __('Status')?>', type: 'multiSelect'},
                         ],
                         eventScope: '#FileMangementClassuploads',
                         formPrefix: '#FileManagement',
@@ -184,6 +193,8 @@
                         },
                         filterKey: 'file_management_classes'
                     });
+                } else {
+                    setUsers();
                 }
                 // if(!authorsIsEmpty()){
                 //     setAuthors();
@@ -195,11 +206,11 @@
             });
 
             function setUsers() {
-                var teacher_select = $('#FileManagementTestTeacherId');
-                var handler_select = $('#FileManagementTestHandlerId');
+                var teacher_select = $('#FileManagementTeacherId');
+                var handler_select = $('#FileManagementHandlerId');
                 handler_select.html('');
                 teacher_select.html('');
-                $.each(Window.file_management_users, function (key, value) {
+                $.each(Window.file_management_class_users, function (key, value) {
                     var option = $('<option value="' + key + '">' + value + '</option>');
                     teacher_select.append(option);
                     handler_select.append(option.clone());

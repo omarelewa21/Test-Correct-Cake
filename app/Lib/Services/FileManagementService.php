@@ -125,4 +125,15 @@ class FileManagementService extends BaseService {
 
         return $response;
     }
+
+    public function getStatuses()
+    {
+        $params = [];
+        $response = $this->Connector->getRequest('/filemanagement/statuses', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }

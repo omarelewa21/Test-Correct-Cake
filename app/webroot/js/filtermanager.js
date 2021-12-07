@@ -517,10 +517,12 @@ function FilterManager(settings) {
                 }
                 input.val(newValue);
             } else if (this.activeFilter && !this.activeFilter.filters.hasOwnProperty(item.field)) {
-                if (!newValue && input.get(0).tagName === 'SELECT') {
-                    newValue = '0';
-                }
-                input.val(newValue);
+                try {
+                    if (!newValue && input.get(0).tagName === 'SELECT') {
+                        newValue = '0';
+                    }
+                    input.val(newValue);
+                } catch (e){}
             }
         }.bind(this));
         this.initializeSelect2Fields();
