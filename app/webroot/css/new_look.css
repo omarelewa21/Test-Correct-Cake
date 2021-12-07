@@ -207,6 +207,11 @@
 [laravel-look] #header #top .action_icon_container > div.active:hover {
     background: var(--primary-hover);
 }
+[laravel-look] #header #top .action_icon_container .counter {
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
 @media screen and (max-width: 550px) {
     #header #logo_2 {
         display: none;

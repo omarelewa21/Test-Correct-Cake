@@ -233,7 +233,7 @@
                     ?>
                 ]
             },{
-                name: '<?= __("'B1 - Eiwitsynthese (Totaal)'")?>',
+                name: '<?= __("B1 - Eiwitsynthese (Totaal)")?>',
                 color: 'rgba(20, 20, 20, .5)',
                 data: [
                     <?
