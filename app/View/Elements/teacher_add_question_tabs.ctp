@@ -6,11 +6,11 @@
     <a href="#" class="btn grey highlight" page="question" tabs="<?= $action ?>_question">
         Opstellen
     </a>
-    <a href="#" class="btn grey highlight" page="settings" tabs="<?= $action ?>_question">
+    <a href="#" class="btn grey" page="settings" tabs="<?= $action ?>_question">
         Instellingen
     </a>
-    <?php if ($cloneRequest) { ?>
-        <a href="#" class="btn grey highlight" page="info" tabs="<?= $action ?>_question">
+    <?php if (isset($edit) && $edit) { ?>
+        <a href="#" class="btn grey" page="info" tabs="<?= $action ?>_question">
             Info
         </a>
     <?php } ?>

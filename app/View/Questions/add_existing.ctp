@@ -192,7 +192,7 @@
     </div>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+    <a href="javascript:void(0);" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
         <?= __("Annuleer") ?>
     </a>
 </div>

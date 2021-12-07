@@ -72,7 +72,7 @@
             </table>
 
             <center>
-                <a href="#" class="btn highlight small inline-block" onclick="Questions.addRankingOption();">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addRankingOption();">
                     <span class="fa fa-plus"></span>
                     <?= __("Optie toevoegen")?>
                 </a>

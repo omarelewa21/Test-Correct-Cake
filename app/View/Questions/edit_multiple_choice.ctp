@@ -1,6 +1,6 @@
-<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Meerkeuze"), 'test_name' => $test_name, 'icon' => !$editable ? 'preview' : 'edit']) ?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Meerkeuze"), 'test_name' => $test_name, 'icon' => $editable ? 'edit' : 'preview', 'editable' => $editable]) ?>
 <!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
-<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+<div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
     <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
 
         <?
@@ -35,7 +35,7 @@
 
     <div page="question" class="page active" tabs="edit_question">
         <span class="title"><?= __('Vraag')?></span>
-        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
+        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'], 'disabled' => !$editable)); ?>
     </div>
 
     <div page="question" class="page" tabs="edit_question">
@@ -79,14 +79,14 @@
                     </td>
                     <td>
                         <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $loopCounter, 'class' => 'order')) ?>
-                        <?= $this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : '')) ?>
+                        <?= $this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : '', 'disabled' => !$editable)) ?>
                     </td>
                     <td>
                         <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][score]', 'value' => isset($answer['score']) ? $answer['score'] : '')) ?>
                     </td>
                     <td>
                         <? if ($editable) { ?>
-                            <a href="#" class="btn red small" onclick="Questions.removeMultiChoiceOption(this);">
+                            <a href="javascript:void(0);" class="btn red small" onclick="Questions.removeMultiChoiceOption(this);">
                                 <span class="fa fa-remove"></span>
                             </a>
                         <? } ?>
@@ -100,7 +100,7 @@
 
         <? if ($editable) { ?>
             <center>
-                <a href="#" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();">
                     <span class="fa fa-plus"></span>
                     <?= __("Optie toevoegen") ?>
                 </a>
@@ -122,7 +122,7 @@
 
     <div page="info" class="page" tabs="edit_question">
         <span class="title"><?= __('Info')?></span>
-        <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
+        <?= $this->element('question_info', ['question' => $question]) ?>
     </div>
     <?= $this->Form->end(); ?>
 
@@ -137,7 +137,7 @@
     <? if ($editable) { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'MultipleChoiceQuestion', '".getUUID($question, 'get')."')"]) ?>
     <? } else { ?>
-        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'withSaving' => false]) ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
     <? } ?>
 <? } ?>
 
