@@ -180,6 +180,11 @@ class FileManagementController extends AppController {
             $this->set('schoolLocations',$schoolLocations);
             $this->set('education_level_years',$this->getEducationLevelYears());
             $this->set('education_levels',$this->FileService->getEducationLevels('testupload'));
+            $statuses = [];
+            foreach($this->FileService->getStatuses() as $status){
+                $statuses[$status['id']] = $status['name'];
+            }
+            $this->set('statuses',$statuses);
         } else if (AuthComponent::user('isToetsenbakker')) {
             $view = 'testuploads_toetsenbakker';
         }
@@ -194,10 +199,15 @@ class FileManagementController extends AppController {
 
         $params = $this->handleRequestFilterAndOrderParams($params,'FileManagement',[
            'schoolLocation' => 'schoolLocation',
-           'teacherId' => 'teacher_id',
-           'handlerId' => 'handler_id',
+           'teacherId' => 'teacherId',
+           'handlerId' => 'handlerId',
            'subject' => 'subject',
-            'testName' => 'test_name'
+            'testName' => 'test_name',
+            'customercode' => 'customercode',
+            'education_levels' => 'education_levels',
+            'education_level_years' => 'education_level_years',
+            'notes' => 'notes',
+            'statusIds' => 'statusIds',
         ]);
 
         $params = array_merge([
@@ -442,9 +452,14 @@ class FileManagementController extends AppController {
 
         $params = $this->handleRequestFilterAndOrderParams($params,'FileManagement',[
             'schoolLocation' => 'schoolLocation',
-            'teacherId' => 'teacher_id',
-            'handlerId' => 'handler_id',
+            'teacherId' => 'teacherId',
+            'handlerId' => 'handlerId',
             'class' => 'class',
+            'customercode' => 'customercode',
+            'education_levels' => 'education_levels',
+            'education_level_years' => 'education_level_years',
+            'statusIds' => 'statusIds',
+            'notes' => 'notes',
         ]);
 
         $params = array_merge([
@@ -473,6 +488,11 @@ class FileManagementController extends AppController {
             $this->set('education_level_years',$this->getEducationLevelYears());
             $this->set('education_levels',$this->FileService->getEducationLevels('classupload'));
             $this->set('schoolLocations',$schoolLocations);
+            $statuses = [];
+            foreach($this->FileService->getStatuses() as $status){
+                $statuses[$status['id']] = $status['name'];
+            }
+            $this->set('statuses',$statuses);
         }
         $this->render($view);
     }
