@@ -195,12 +195,14 @@
         onsuccess: function (result) {
             Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
                 var url = '/test_takes/planned_teacher';
+                var menu = 'test_planned';
 
                 if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
-                    var url = '/test_takes/assessment_open_teacher';
+                    url = '/test_takes/assessment_open_teacher';
+                    menu = 'tests_assesmements';
                 }
                 Navigation.load(url);
-            Menu.updateMenuFromRedirect('tests', 'tests_planned')
+            Menu.updateMenuFromRedirect('tests', menu)
             Popup.closeLast();
         },
         onfailure: function (result) {

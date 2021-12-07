@@ -242,6 +242,7 @@ class TestTakesController extends AppController {
                     if ($test_take['test_kind_id'] == 4){
                         $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date_from']));
                         $test_take['time_end'] = date('Y-m-d 23:59:59', strtotime($test_take['date_till']));
+                        $test_take['test_take_status_id'] = 3;
                     }
 
 
@@ -359,6 +360,14 @@ class TestTakesController extends AppController {
         } else {
             $test_name = __("Selecteer");
         }
+
+        $disable_edit_start_time = false;
+        if ($take['test']['test_kind_id'] == 4){
+           $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+           $disable_edit_start_time = ($dateStart < new dateTime());
+        }
+
+        $this->set('disable_edit_start_time', $disable_edit_start_time);
 
         $this->set('classes', $classes);
         $this->set('inviligators', $newInviligators);

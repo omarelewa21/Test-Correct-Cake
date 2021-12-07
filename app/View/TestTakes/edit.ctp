@@ -18,7 +18,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 <?= __("Datum")?>
                 </th>
                 <td>
-                    <?=$this->Form->input('time_start', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
+                    <?=$this->Form->input('time_start', array('disabled'=> $disable_edit_start_time, 'style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
                 </td>
             </tr>
             <?php if($take['test']['test_kind_id'] ==  4) { ?>
