@@ -205,8 +205,9 @@ var User = {
                 User.actOnLogout().then(() => {
                     if (User.info.isStudent && User.info.laravel_look == 1) {
                         var url = window.location.href.replace('portal', 'welcome');
-                        url = url.endsWith('/') ? url : url+'/';
-                        window.location.href = url+'login';
+                        url = url.endsWith('/') === true ? url : url+'/';
+                        url = url + 'login';
+                        window.location.href = url;
                     } else {
                         window.location.href = '/';
                     }
