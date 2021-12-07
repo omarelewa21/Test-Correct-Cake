@@ -1,3 +1,9 @@
+<?php if ($useLaravelLogin) { ?>
+    <script>
+        Core.laravelLoginPage();
+    </script>
+<?php } else { ?>
+
 <div class="popup-head">
 <?= __("Inloggen op Test-Correct")?>
     <?php
@@ -233,3 +239,4 @@
         $('#UserEmail').focus();
     }, 500);
 </script>
+<?php } ?>
