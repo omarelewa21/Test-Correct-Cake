@@ -162,6 +162,7 @@
                             {field: 'createdAtStart', label: '<?= __("Aanmaakdatum van")?>', type: 'datePicker'},
                             {field: 'createdAtEnd', label: '<?= __("Aanmaakdatum tot")?>', type: 'datePicker'},
                             {field: 'statusIds', label: '<?= __('Status')?>', type: 'multiSelect'},
+                            {field: 'customercode', label: '<?= __("Klantcode")?>', type: 'text'},
                         ],
                         eventScope: '#FileMangementClassuploads',
                         formPrefix: '#FileManagement',
