@@ -32,6 +32,7 @@ if(count($takes) == 0) {
                         <th width="40"></th>
                         <th width="200"><?= __("Voortgang")?></th>
                         <th width="120"></th>
+                        <th></th>
                     </tr>
                     <?php
 
@@ -93,6 +94,9 @@ if(count($takes) == 0) {
                                     <?= __("Innemen")?>
                                 </a>
                             </td>
+                            <td><a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/edit/<?= getUUID($take['info'], 'get') ?>', 500);">
+                                    <span class="fa fa-folder-open-o"></span>
+                                </a></td>
                         </tr>
                         <?php
                     }

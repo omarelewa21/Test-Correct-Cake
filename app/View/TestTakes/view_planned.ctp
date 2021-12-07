@@ -60,6 +60,7 @@
                 <td width="21%"><?= $take['test']['name'] ?></td>
                 <th width="12%"><?= __("Gepland") ?></th>
                 <td width="21%"><?= date('d-m-Y', strtotime($take['time_start'])) ?></td>
+
                 <th width="12%"><?= __("Type") ?></th>
                 <td width="21%"><?= $take['retake'] == 0 ? __("Normale toets") : __("Inhaal toets") ?></td>
             </tr>
@@ -67,12 +68,11 @@
 
                 <th><?= __("Weging") ?></th>
                 <td><?= $take['weight'] ?></td>
-                <th><?= __("Gepland door") ?></th>
-                <td>
-                    <?= $take['user']['name_first'] ?>
-                    <?= $take['user']['name_suffix'] ?>
-                    <?= $take['user']['name'] ?>
-                </td>
+                <?php if(!empty($take['time_end'])) { ?>
+                    <th width="12%"><?= __("Gepland tot") ?></th>
+                    <td width="21%"><?= date('d-m-Y', strtotime($take['time_end'])) ?></td>
+                <?php } ?>
+
                 <th><?= __("Vak") ?></th>
                 <td>
                     <?= $take['test']['subject']['name'] ?>
@@ -86,6 +86,12 @@
                         echo $class['name'] . '<br />';
                     }
                     ?>
+                </td>
+                <th><?= __("Gepland door") ?></th>
+                <td>
+                    <?= $take['user']['name_first'] ?>
+                    <?= $take['user']['name_suffix'] ?>
+                    <?= $take['user']['name'] ?>
                 </td>
             </tr>
         </table>

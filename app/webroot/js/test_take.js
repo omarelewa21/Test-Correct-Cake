@@ -394,14 +394,17 @@ var TestTake = {
         var dateOriginalSelector = '#TestTakeDate'+ TestTake.i;
         var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
         var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
+        var dateTillHeader = '#TestTakeDateTillHeader';
 
         if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
             $(dateFromSelector).fadeIn();
             $(dateTillSelector).fadeIn();
+            $(dateTillHeader).fadeIn();
             $(dateOriginalSelector).hide();
         }else {
             $(dateFromSelector).hide();
             $(dateTillSelector).hide();
+            $(dateTillHeader).hide();
             $(dateOriginalSelector).fadeIn();
         }
     },
