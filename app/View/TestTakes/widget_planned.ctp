@@ -38,16 +38,36 @@ if(count($test_takes) == 0) {
                         ?>
                     </td>
                     <td class="nopadding">
-                        <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
-                            <a href="#" class="btn highlight mb1"
-                               onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
-                               <?= __("Nu maken")?>
-                            </a>
-                        <? }else{ ?>
-                            <a href="#" class="btn white mb1">
-                            <?= __("Nu maken")?>
-                            </a>
-                        <? } ?>
+                        <? if($test_take['test']['test_kind_id'] == 4) { ?>
+                            <?
+                            $now = new DateTime();
+                            $dateStart = (new dateTime($test_take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+                            $dateEnd = (new dateTime($test_take['time_end']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+
+                            if ($dateStart <= $now && $dateEnd >= $now) { ?>
+                                <a href="#" class="btn highlight mb1"
+                                   onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
+                                    <?= __("Nu maken")?>
+                                </a>
+                            <? }else{ ?>
+                                <a href="#" class="btn white mb1">
+                                    <?= __("Nu maken")?>
+                                </a>
+                            <? } ?>
+                        <? } else { ?>
+                            <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
+                                <a href="#" class="btn highlight mb1"
+                                   onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
+                                   <?= __("Nu maken")?>
+                                </a>
+                            <? }else{ ?>
+                                <a href="#" class="btn white mb1">
+                                <?= __("Nu maken")?>
+                                </a>
+                            <? }
+                        }
+
+                    ?>
                     </td>
                 </tr>
             <?

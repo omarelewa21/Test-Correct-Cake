@@ -2,7 +2,10 @@
 foreach($test_takes as $test_take) {
     ?>
     <tr>
-        <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
+        <td>
+            <?= $test_take['test']['test_kind_id'] == 4 ? 'OPDRACHT ' : ''; ?>
+            <?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]
+        </td>
         <td>
             <?
             foreach($test_take['school_classes'] as $class) {
@@ -22,21 +25,15 @@ foreach($test_takes as $test_take) {
         <td><?=date('d-m-Y', strtotime($test_take['time_start']))?></td>
         <td>
             <?
-            if($test_take['test']['test_kind_id'] == 4) {
-                ?>
-                <div class="label label-info" style="background-color:#ab46e3"><?= __("Opdracht")?></div>
-                <?
-            } else {
                 if($test_take['retake'] == 0) {
                     ?>
-                    <div class="label label-info"><?= __("Toets")?></div>
+                    <div class="label label-info"><?= __("Standaard")?></div>
                     <?
                 }else {
                     ?>
                     <div class="label label-warning"><?= __("Inhaaltoets")?></div>
                 <?
-                    }
-            }
+                }
             ?>
         </td>
         <td><?=$test_take['weight']?></td>
