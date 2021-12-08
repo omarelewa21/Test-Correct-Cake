@@ -3,7 +3,7 @@
 <?= __("Er is geen voorbeeld weergave voor een vraaggroep.")?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Navigation.back();">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
     <?= __("Terug")?>
     </a>
 </div>

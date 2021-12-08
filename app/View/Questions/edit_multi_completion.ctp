@@ -63,7 +63,7 @@
     <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiCompletionQuestion', '$owner', '$owner_id');"]) ?>
 <? } else { ?>
     <? if ($editable) { ?>
-        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'MultiCompletionQuestion', '".getUUID($question, 'get')."')"]) ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'CompletionQuestion', '".getUUID($question, 'get')."')"]) ?>
     <? } else { ?>
         <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
     <? } ?>
