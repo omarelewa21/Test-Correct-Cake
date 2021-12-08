@@ -188,6 +188,7 @@
             jQuery("#QuestionAutoCheckAnswerCaseSensitive").attr('disabled',true);
         }
     }
-
-    enableDisableAutoCheckCaseSensitive();
+    <?php if ($editable) { ?>
+        enableDisableAutoCheckCaseSensitive();
+    <?php } ?>
 </script>

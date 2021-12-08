@@ -24,7 +24,7 @@ foreach($attainments as $id => $data) {
 <div id="dvSubdomain" style="<?=count($selectedAttainments) < 2 ? 'display:none;' : '' ?>">
     <br /><br />
     <strong><?= __("Subdomein")?></strong>
-    <?=$this->Form->input('sub_attainments', array('label' => false, 'type' => 'select', 'options' => $subAttainments, 'style' => 'width:750px;', 'value' => $selectedAttainments))?>
+    <?=$this->Form->input('sub_attainments', array('label' => false, 'type' => 'select', 'options' => $subAttainments, 'style' => 'width:750px;', 'value' => $selectedAttainments, 'div' => ['style' => 'overflow: hidden;']))?>
 </div>
 
 <script type="text/javascript">
