@@ -318,6 +318,16 @@ class TestTakesController extends AppController {
 
             $data = $this->request->data['TestTake'];
             $test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
+
+            if ($test['test_kind_id'] == 4) {
+                $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+
+                if ($disable_edit_start_time = ($dateStart < new dateTime())) {
+                    $data['time_start'] = $take['time_start'];
+                }
+            }
+
+
             $check = $this->TestTake->checkEdit($data, $take['retake'] == 1, $test);
 
             if (!$check['status']) {
