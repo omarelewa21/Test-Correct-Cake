@@ -62,9 +62,13 @@
 .question-editor-footer .question-editor-footer-button-container {
     margin-left: auto;
 }
-.page.active {
+.question-editor .page.active {
     flex-direction: column;
+    display:flex;
+
 }
+
+
 .question-editor .page, .popup-content.non-edit .page {
     background: white;
     padding: 1rem 1.5rem 1.5rem 1.5rem;
