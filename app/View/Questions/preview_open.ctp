@@ -1,4 +1,4 @@
-<?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
+    <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
 <h1><?= __("Open vraag")?> <? if($question['subtype'] == 'short') { ?>- <?= __("kort")?><?}else {?>- <?= __("lang")?><?}?><?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
