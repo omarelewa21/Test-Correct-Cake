@@ -313,20 +313,20 @@ class TestTakesController extends AppController {
 
         $take = $this->TestTakesService->getTestTake($take_id);
 
+        if ($take['test']['test_kind_id'] == 4) {
+            $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+            $disable_edit_start_time = ($dateStart < new dateTime() && $take['has_active_participants']);
+        }
+
         if ($this->request->is('post')) {
             $this->autoRender = false;
 
             $data = $this->request->data['TestTake'];
             $test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
 
-            if ($test['test_kind_id'] == 4) {
-                $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
-
-                if ($disable_edit_start_time = ($dateStart < new dateTime())) {
-                    $data['time_start'] = $take['time_start'];
-                }
+            if ($disable_edit_start_time) {
+                $data['time_start'] = $take['time_start'];
             }
-
 
             $check = $this->TestTake->checkEdit($data, $take['retake'] == 1, $test);
 
@@ -369,12 +369,6 @@ class TestTakesController extends AppController {
             $test_name = $test['name'];
         } else {
             $test_name = __("Selecteer");
-        }
-
-        $disable_edit_start_time = false;
-        if ($take['test']['test_kind_id'] == 4){
-           $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
-           $disable_edit_start_time = ($dateStart < new dateTime());
         }
 
         $this->set('disable_edit_start_time', $disable_edit_start_time);
