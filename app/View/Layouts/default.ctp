@@ -141,9 +141,9 @@
 
                     <div id="user_menu">
                         <div id="user_school_locations"></div>
-                        <a href="#" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
-                        <a href="#" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
-                        <a href="#" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
+                        <a href="javascript:void(0)" onclick="User.logout(true);" id="btnLogout" class="btn white"><?= __("Uitloggen")?></a>
+                        <a href="javascript:void(0)" onclick="User.resetPassword();" class="btn white mt5" id="btnChangePassword" ><?= __("Wachtwoord wijzigen")?></a>
+                        <a href="javascript:void(0)" onclick="TestTake.handIn(); return false" id="btnMenuHandIn" class="btn white mt5" style="display: none;"><?= __("Inleveren")?></a>
                     </div>
 
                     <div id="support_menu">
