@@ -50,12 +50,17 @@ var Questions = {
                     Popup.closeLast();
                     Navigation.refresh();
                 }else{
+                    // if(typeof ){
+
+                    // }
+                    // else{
+
+                    // }
                     $.each(response['data'], function() {
                         Object.entries(response['data']).map(item => {
                             typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
                         })      // Add translation to error message
-
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                        Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                     });
                 }
             }
