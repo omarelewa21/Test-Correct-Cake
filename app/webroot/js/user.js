@@ -28,6 +28,8 @@ var User = {
                             type: "text/css",
                             href: "/css/buttons.green.css"
                         }).appendTo("head");
+
+                        User.surpressInactive = true;
                     } else {
 
                         var activeSchool = '';
@@ -452,7 +454,7 @@ var User = {
             success: function (url) {
                 url = JSON.parse(url);
                 window.open(url.data.url, '_self');
-                try {electron.loadUrl(url);} catch(error) {}
+                try {electron.loadUrl(url.data.url);} catch(error) {}
             }
             });
     }
