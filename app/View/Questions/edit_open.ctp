@@ -45,6 +45,11 @@
         <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
     </div>
 
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
+
     <div page="question" class="page" tabs="edit_question">
         <span class="title"><?= __('Antwoord')?></span>
         <?= $this->Form->input('answer', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['answer'])); ?>
@@ -53,11 +58,6 @@
     <div page="settings" class="page" tabs="edit_question">
         <span class="title"><?= __('Eindtermen')?></span>
         <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
-    </div>
-
-    <div page="info" class="page" tabs="edit_question">
-        <span class="title"><?= __('Info')?></span>
-        <?= $this->element('question_info', ['question' => $question]) ?>
     </div>
 
     <?= $this->Form->input('subtype', array('label' => false, 'type' => 'hidden', 'value' => $subtype)) ?>
