@@ -62,7 +62,7 @@
 .question-editor-footer .question-editor-footer-button-container {
     margin-left: auto;
 }
-.question-editor .page.active {
+.question-editor .page.active, .popup-content.non-edit .page.active {
     flex-direction: column;
     display:flex;
 
