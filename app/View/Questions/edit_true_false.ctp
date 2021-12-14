@@ -81,6 +81,11 @@
     </div>
 
     <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
+
+    <div page="settings" class="page" tabs="edit_question">
         <span class="title"><?= __('Eindtermen')?></span>
         <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>

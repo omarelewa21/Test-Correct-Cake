@@ -12,9 +12,4 @@
         Instellingen
     </a>
     <?php } ?>
-    <?php if (isset($edit) && $edit) { ?>
-        <a href="#" class="btn grey" page="info" tabs="<?= $action ?>_question">
-            Info
-        </a>
-    <?php } ?>
 </div>

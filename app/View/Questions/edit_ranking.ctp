@@ -104,13 +104,13 @@
     </div>
 
     <div page="settings" class="page" tabs="edit_question">
-        <span class="title"><?= __('Eindtermen')?></span>
-        <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
     </div>
 
-    <div page="info" class="page" tabs="edit_question">
-        <span class="title"><?= __('Info')?></span>
-        <?=$this->element('question_info', ['question' => $question])?>
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Eindtermen')?></span>
+        <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>
 
     <?=$this->element('question_tab_rtti',['question' => $question]); ?>

@@ -109,6 +109,11 @@
     </div>
 
     <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
+
+    <div page="settings" class="page" tabs="edit_question">
         <span class="title"><?= __('Eindtermen')?></span>
         <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>
@@ -120,10 +125,6 @@
         <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
     </div>
 
-    <div page="info" class="page" tabs="edit_question">
-        <span class="title"><?= __('Info')?></span>
-        <?= $this->element('question_info', ['question' => $question]) ?>
-    </div>
     <?= $this->Form->end(); ?>
 
     <? if ($owner != 'group') { ?>
