@@ -1,4 +1,4 @@
-<div class="popup-head"><?= __("Toets plannen")?></div>
+<div class="popup-head"><?= __("Plannen")?></div>
 <div class="popup-content">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
@@ -157,7 +157,7 @@
     <center>
         <a href="#" class="btn highlight small inline-block" onclick="TestTake.addTestRow();">
             <span class="fa fa-plus"></span>
-            <?= __("Extra toets plannen")?>
+            <?= __("Extra toets/opdracht plannen")?>
         </a>
     </center>
 </div>
@@ -166,7 +166,7 @@
     <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-    <?= __("Toetsen plannen")?>
+    <?= __("Plannen")?>
     </a>
 </div>
 
