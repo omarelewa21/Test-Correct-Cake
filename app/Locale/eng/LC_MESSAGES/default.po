@@ -4393,3 +4393,7 @@ msgstr "Version"
 
 msgid "Vraag opgeslagen"
 msgstr "Question saved"
+
+msgid "Nieuwe studenten omgeving toestaan"
+msgstr "Allow new student environment"
+

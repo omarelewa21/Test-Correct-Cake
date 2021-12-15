@@ -46,6 +46,17 @@ class SchoolLocationsController extends AppController
         );
     }
 
+    public function change_allow_new_student_environment($locationId, $allow) {
+        $this->isAuthorizedAs(['Administrator','Account manager']);
+        if($this->request->is('post') || $this->request->is('put')) {
+            $this->SchoolLocationsService->change_allow_new_student_environment($locationId, $allow);
+        }
+        $this->formResponse(
+            true,
+            []
+        );
+    }
+
     public function index() {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
