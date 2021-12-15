@@ -4363,3 +4363,7 @@ msgstr "Title"
 
 msgid "Versie"
 msgstr "Version"
+
+msgid "Nieuwe studenten omgeving toestaan"
+msgstr "Allow new student environment"
+
