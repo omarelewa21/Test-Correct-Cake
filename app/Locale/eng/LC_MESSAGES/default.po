@@ -2945,6 +2945,9 @@ msgstr "Reset answer model"
 msgid "Geplande toets wijzigen"
 msgstr "Change scheduled test"
 
+msgid "Geplande toets/opdracht wijzigen"
+msgstr "Change scheduled test/assignment"
+
 msgid "Instructies"
 msgstr "Instructions"
 
