@@ -2783,6 +2783,9 @@ msgstr "Subject(s)"
 msgid "Toets plannen"
 msgstr "Schedule Test"
 
+msgid "Plannen"
+msgstr "Schedule"
+
 msgid "Surveillanten"
 msgstr "Invigilators"
 
@@ -2822,8 +2825,8 @@ msgstr "More information about Test-Correct system requirements is"
 msgid "te vinden."
 msgstr "to find."
 
-msgid "Extra toets plannen"
-msgstr "Schedule an additional test"
+msgid "Extra toets/opdracht plannen"
+msgstr "Schedule an additional test or assignment"
 
 msgid "Toetsen plannen"
 msgstr "Schedule Tests"
