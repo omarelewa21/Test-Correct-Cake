@@ -29,7 +29,6 @@ if(count($takes) == 0) {
                         <th><?= __("Klas(sen)")?></th>
                         <th><?= __("Datum van")?></th>
                         <th><?= __("Datum tot")?></th>
-                        <th width="40"></th>
                         <th width="200"><?= __("Voortgang")?></th>
                         <th width="120"></th>
                         <th></th>
@@ -67,16 +66,7 @@ if(count($takes) == 0) {
                             <td>
                                 <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
                             </td>
-                            <td>
-                                <?php if ($allow_inbrowser_testing) { ?>
-                                    <a title='<?= __("Browsertoetsen voor iedereen aan/uit")?>'
-                                       href="#" id=""
-                                       class="btn active <?= $take['info']['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
-                                       onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?=$take[0]['uuid']?>')">
-                                        <span class="fa fa-chrome"></span>
-                                    </a>
-                                <?php } ?>
-                            </td>
+
                             <td>
                                 <?php
                                 foreach ($take['info']['school_classes'] as $class) {
