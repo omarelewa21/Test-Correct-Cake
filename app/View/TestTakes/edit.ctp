@@ -77,7 +77,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     </td>
                 </tr>
             <?php endif; ?>
-            <?php if ($school_allows_inbrowser_testing) { ?>
+            <?php if ($school_allows_inbrowser_testing && $take['test']['test_kind_id'] !=  4)  { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
