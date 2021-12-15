@@ -108,7 +108,7 @@
             <td colspan="7">
                 <div style="display: flex; width: 100%;justify-content:space-between">
                     <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
-                    <div style="display: flex; flex-grow:1">
+                    <div id="inbrowser_toggle_div_<?= $i ?>" style="display: flex; flex-grow:1">
                         <div style="display:flex; ; align-items: center; color: var(--system-base)">
                             <span class="fa fa-chrome"></span>
                             <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Browsertoetsen voor iedereen toestaan")?></strong></span>

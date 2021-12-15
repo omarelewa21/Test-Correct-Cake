@@ -9,7 +9,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
 
 ?>
 
-<div class="popup-head"><?= __("Geplande toets wijzigen")?></div>
+<div class="popup-head"><?= __("Geplande toets/opdracht wijzigen")?></div>
 <div class="popup-content overflow-visible">
     <?=$this->Form->create('TestTake') ?>
         <table class="table mb15">
@@ -131,7 +131,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
     <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnEditTestTake">
-    <?= __("Geplande toets wijzigen")?>
+    <?= __("Wijzigen")?>
     </a>
 </div>
 

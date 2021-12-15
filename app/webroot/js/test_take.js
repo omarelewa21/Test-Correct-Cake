@@ -391,7 +391,7 @@ var TestTake = {
         var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
         var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
         var dateTillHeader = '#TestTakeDateTillHeader';
-        var inBrowserTestingToggle = '#inbrowser_toggle_'+TestTake.i;
+        var inBrowserTestingToggle = '#inbrowser_toggle_div_'+TestTake.i;
 
         if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
             $(dateFromSelector).fadeIn();
