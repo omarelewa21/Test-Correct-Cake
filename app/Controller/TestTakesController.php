@@ -240,6 +240,7 @@ class TestTakesController extends AppController {
                     $test_take['exported_to_rtti'] = null;
                     // if type is opdracht dan test gelijk op test_take_status_id 3 zetten;
                     if ($test_take['test_kind_id'] == 4){
+                        $test_take['allow_inbrowser_testing'] = 1;
                         $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date_from']));
                         $test_take['time_end'] = date('Y-m-d 23:59:59', strtotime($test_take['date_till']));
                         $test_take['test_take_status_id'] = 3;
@@ -322,6 +323,10 @@ class TestTakesController extends AppController {
             $this->autoRender = false;
 
             $data = $this->request->data['TestTake'];
+
+            if ($take['test']['test_kind_id'] == 4) {
+                $data['allow_inbrowser_testing'] = 1;
+            }
             $test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
 
             if ($disable_edit_start_time) {

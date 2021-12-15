@@ -391,17 +391,20 @@ var TestTake = {
         var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
         var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
         var dateTillHeader = '#TestTakeDateTillHeader';
+        var inBrowserTestingToggle = '#inbrowser_toggle_'+TestTake.i;
 
         if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
             $(dateFromSelector).fadeIn();
             $(dateTillSelector).fadeIn();
             $(dateTillHeader).fadeIn();
             $(dateOriginalSelector).hide();
+            $(inBrowserTestingToggle).hide();
         }else {
             $(dateFromSelector).hide();
             $(dateTillSelector).hide();
             $(dateTillHeader).hide();
             $(dateOriginalSelector).fadeIn();
+            $(inBrowserTestingToggle).fadeIn();
         }
     },
 
@@ -998,7 +1001,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld'));
-                    Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
+                    // Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -1017,7 +1020,7 @@ var TestTake = {
         el.classList.add('grey');
 
         Notify.notify($.i18n('Browsertoetsing voor alle studenten uitgeschakeld'));
-        Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
+        // Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.remove('cta-button');
             el.classList.add('grey');
