@@ -2345,9 +2345,10 @@ class UsersController extends AppController
                 $this->set('internal_page',$internalPage);
                 $this->render('internal_redirect');
             }
+        } else {
+            $this->welcome();
         }
 
-        $this->welcome();
     }
 
     public function return_to_laravel($logout = false)
