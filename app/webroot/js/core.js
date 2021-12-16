@@ -337,9 +337,9 @@ var Core = {
 	goToLaravel : function(path) {
 		$.ajax({
 			type: 'post',
-			url: '/users/goToLaravelPath/' + path,
+			url: '/users/goToLaravelPath',
 			dataType: 'json',
-			data: {},
+			data: {path:path},
 			success: function (data) {
 				document.removeEventListener("visibilitychange", onchange);
 				window.open(data.data.url, '_self');
