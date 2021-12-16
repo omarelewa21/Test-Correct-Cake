@@ -452,9 +452,6 @@ var User = {
             method: 'post',
             data: {'path': path, autoLogout : autoLogout},
             success: function (url) {
-                if(autoLogout){
-                    document.cookie = "cookiename= ; expires = Thu, 01 Jan 1970 00:00:00 GMT"
-                }
                 url = JSON.parse(url);
                 window.open(url.data.url, '_self');
                 try {electron.loadUrl(url.data.url);} catch(error) {}
