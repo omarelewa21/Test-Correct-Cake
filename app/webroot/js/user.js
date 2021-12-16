@@ -448,8 +448,8 @@ var User = {
     },
     goToLaravel : function (path, autoLogout = null) {
         var url = '/users/goToLaravelPath';
-        if(autoLogout != null){
-            url = url +'/1';
+        if(autoLogout == true){
+            url = url + '/1';
         }
         $.ajax({
             url: url,
