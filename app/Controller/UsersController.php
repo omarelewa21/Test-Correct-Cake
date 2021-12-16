@@ -2356,7 +2356,6 @@ class UsersController extends AppController
                 $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
                 $this->set('internal_page',$internalPage);
                 $this->render('internal_redirect');
-                echo 'stop';exit;
                 return;
             }
         }
