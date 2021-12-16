@@ -2358,7 +2358,6 @@ class UsersController extends AppController
                 $this->set('internal_page',$internalPage);
                 CakeSession::delete('internal_page');
                 $this->render('internal_redirect');
-                return;
             }
         } else {
             $this->welcome();
