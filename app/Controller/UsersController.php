@@ -2338,11 +2338,13 @@ class UsersController extends AppController
             if (array_key_exists('page', $options)) {
                 $page = $options['page'];
                 $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
+                CakeSession::delete('page');
                 header('Location: '.$page);
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
                 $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
                 $this->set('internal_page',$internalPage);
+                CakeSession::delete('internal_page');
                 $this->render('internal_redirect');
             }
         } else {
