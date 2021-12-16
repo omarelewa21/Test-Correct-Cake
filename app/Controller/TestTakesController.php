@@ -1473,7 +1473,10 @@ class TestTakesController extends AppController {
             $this->set('loginUrl', $loginUrl['url']);
         } else if (AuthComponent::user('school_location.allow_new_student_environment')) {
             $tab = $take['test_take_status_id'] == 9 ? 'graded' : 'review';
-            $this->set('laravelUrl', '/student/test-takes?tab='.$tab);
+            if (!empty($this->request->query['origin'])) {
+                $tab = $this->request->query['origin'];
+            }
+            $this->set('laravelUrl', '/student/test-takes?tab=' . $tab);
         }
 
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {

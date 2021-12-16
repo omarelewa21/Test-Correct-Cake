@@ -47,6 +47,11 @@ class UsersController extends AppController
         parent::beforeFilter();
     }
 
+    public function student_splash()
+    {
+
+    }
+
     public function registereduix()
     {
         if ($this->request->is('post')) {
@@ -2067,8 +2072,9 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath($path = null)
+    public function goToLaravelPath($path = null,$registerDeviceInLaravel = null)
     {
+        $params = [];
         if ($path === null) {
             $path = $this->request->query['path'];
         }
@@ -2077,6 +2083,9 @@ class UsersController extends AppController
             $path = '/'.$path;
         }
         $params['app_details'] = $this->getAppInfoFromSession();
+        if($registerDeviceInLaravel != null){
+            $params['registerDeviceInLaravel'] = true;
+        }
 
         return $this->formResponse(true,  $this->UsersService->createTemporaryLogin($params ,$path));
     }
