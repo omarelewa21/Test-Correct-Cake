@@ -330,6 +330,7 @@ class AppController extends Controller
             'TLCHeader'             => CakeSession::read('TLCHeader'),
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
             'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'headers'               => $this->getallheaders(),
         ];
     }
 
