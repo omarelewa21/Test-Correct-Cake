@@ -447,14 +447,10 @@ var User = {
         });
     },
     goToLaravel : function (path, autoLogout = null) {
-        var u = '/users/goToLaravelPath';
-        if(autoLogout == true){
-            u = u + '/1';
-        }
         $.ajax({
-            url: u,
+            url: '/users/goToLaravelPath',
             method: 'get',
-            data: {'path': path},
+            data: {'path': path, autoLogout : autoLogout},
             success: function (url) {
                 url = JSON.parse(url);
                 window.open(url.data.url, '_self');
