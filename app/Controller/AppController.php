@@ -329,6 +329,7 @@ class AppController extends Controller
             'TLCOs'                 => CakeSession::read('TLCOs'),
             'TLCHeader'             => CakeSession::read('TLCHeader'),
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
         ];
     }
 
