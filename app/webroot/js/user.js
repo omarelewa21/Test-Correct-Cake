@@ -204,6 +204,7 @@ var User = {
         }
         $.get('/users/logout',
             function () {
+                Core.resetCache();
                 User.actOnLogout().then(() => {
                     if (User.info.isStudent && User.info.laravel_look == 1) {
                         var url = window.location.href.replace('portal', 'welcome');
@@ -452,6 +453,9 @@ var User = {
             method: 'post',
             data: {'path': path, autoLogout : autoLogout},
             success: function (url) {
+                if(autoLogout){
+                    Core.resetCache();
+                }
                 url = JSON.parse(url);
                 window.open(url.data.url, '_self');
                 try {electron.loadUrl(url.data.url);} catch(error) {}

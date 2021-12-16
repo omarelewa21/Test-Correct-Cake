@@ -319,6 +319,10 @@ var Core = {
 		Core.appType = 'android';
 	},
 
+	resetCache : function() {
+		Core.cache = [];
+	},
+
 	cacheLoad : function(path, container) {
 		if(Core.cache[path] == undefined) {
 			$.get(path, function(html) {
