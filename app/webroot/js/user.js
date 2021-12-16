@@ -446,9 +446,13 @@ var User = {
             authEndpoint: "/users/pusher_auth"
         });
     },
-    goToLaravel : function (path) {
+    goToLaravel : function (path, autoLogout = null) {
+        var url = '/users/goToLaravelPath';
+        if(autoLogout != null){
+            url = url +'/1';
+        }
         $.ajax({
-            url: '/users/goToLaravelPath',
+            url: url,
             method: 'get',
             data: {'path': path},
             success: function (url) {
