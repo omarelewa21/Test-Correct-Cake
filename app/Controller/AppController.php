@@ -71,7 +71,7 @@ class AppController extends Controller
 
         $headers = AppVersionDetector::getAllHeaders();
 
-        if(!$this->Session->check('TLCHeader')) {
+        if(!$this->Session->check('TLCHeader') || !$this->Session->check('TLCHeader') == 'not secure...') {
             $this->handleHeaderCheck($headers);
         } else {
             // set the details always when there is a tlctestcorrectversion header
