@@ -2073,7 +2073,7 @@ class UsersController extends AppController
         $params['app_details'] = $this->getAppInfoFromSession();
         $responseData = $this->UsersService->createTemporaryLogin($params ,$path);
         if($autoLogout){
-            $this->Auth->logout();
+            $this->logout();
         }
         return $this->formResponse(true,  $responseData);
     }
