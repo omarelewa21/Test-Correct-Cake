@@ -449,7 +449,7 @@ var User = {
     goToLaravel : function (path, autoLogout = null) {
         $.ajax({
             url: '/users/goToLaravelPath',
-            method: 'get',
+            method: 'post',
             data: {'path': path, autoLogout : autoLogout},
             success: function (url) {
                 url = JSON.parse(url);
