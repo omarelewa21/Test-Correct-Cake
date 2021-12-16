@@ -447,12 +447,12 @@ var User = {
         });
     },
     goToLaravel : function (path, autoLogout = null) {
-        var url = '/users/goToLaravelPath';
+        var u = '/users/goToLaravelPath';
         if(autoLogout == true){
-            url = url + '/1';
+            u = u + '/1';
         }
         $.ajax({
-            url: url,
+            url: u,
             method: 'get',
             data: {'path': path},
             success: function (url) {
