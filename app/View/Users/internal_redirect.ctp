@@ -1,3 +1,3 @@
 <script>
-    Navigation.load('<?= $interal_page?>');
+    Navigation.load('<?= $internal_page?>');
 </script>
