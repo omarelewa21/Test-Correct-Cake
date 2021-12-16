@@ -2060,7 +2060,7 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath($path = null,$registerDeviceInLaravel = null)
+    public function goToLaravelPath($path = null)
     {
         $params = [];
         if ($path === null) {
@@ -2071,9 +2071,6 @@ class UsersController extends AppController
             $path = '/'.$path;
         }
         $params['app_details'] = $this->getAppInfoFromSession();
-        if($registerDeviceInLaravel != null){
-            $params['registerDeviceInLaravel'] = true;
-        }
 
         return $this->formResponse(true,  $this->UsersService->createTemporaryLogin($params ,$path));
     }
