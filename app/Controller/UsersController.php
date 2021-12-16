@@ -2063,8 +2063,8 @@ class UsersController extends AppController
     public function goToLaravelPath()
     {
         if ($this->request->is('post')) {
-            $path = $this->params['path'];
-            $autoLogout = $this->params['autoLogout'] ?? false;
+            $path = $this->data['path'];
+            $autoLogout = $this->data['autoLogout'] ?? false;
 
             $params = [];
             if ($path === null) {
@@ -2077,7 +2077,7 @@ class UsersController extends AppController
             $params['app_details'] = $this->getAppInfoFromSession();
             $responseData = $this->UsersService->createTemporaryLogin($params ,$path);
             if($autoLogout){
-                $this->Session->destroy();
+                $this->logout();
             }
             return $this->formResponse(true,  $responseData);
         }
