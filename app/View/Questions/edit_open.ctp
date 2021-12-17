@@ -50,7 +50,7 @@
         <?= $this->element('question_info', ['question' => $question]) ?>
     </div>
 
-    <div page="question" class="page" tabs="edit_question">
+    <div page="question" class="page active" tabs="edit_question">
         <span class="title"><?= __('Antwoord')?></span>
         <?= $this->Form->input('answer', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['answer'])); ?>
     </div>

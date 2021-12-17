@@ -21,7 +21,7 @@
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'autocorrect' => 'off', 'spellcheck' => 'false', 'autocomplete' => 'off')); ?>
         </div>
 
-        <div page="question" class="page" tabs="add_question">
+        <div page="question" class="page active" tabs="add_question">
             <span class="title"><?=__('Antwoord')?></span>
             <?=$this->Form->input('answer', array('value' => __("niet van toepassing"),'label' => false, 'type' => 'hidden'))?>
             <?= __("Niet van toepassing")?>
