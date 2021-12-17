@@ -39,7 +39,7 @@
         <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
     </div>
 
-    <div page="question" class="page" tabs="add_question">
+    <div page="question" class="page active" tabs="add_question">
         <span class="title"><?=__('Antwoord')?></span>
         <div class="alert alert-info">
         <?= __("Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1).")?>
