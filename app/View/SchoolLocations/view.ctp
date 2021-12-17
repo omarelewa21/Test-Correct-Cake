@@ -104,13 +104,23 @@
                     <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
                 </td>
 
-                <th><?= __("Toetsen in nieuwe speler")?></th>
+                <th><?= __("Nieuwe studenten omgeving toestaan")?></th>
                 <td>
-                    <select id="new_player_access" onchange="ChangeAllowNewPlayerAccess(this.value)">
-                        <option value="0"><?= __("Niet toestaan")?></option>
-                        <option value="1"><?= __("Beide spelers aanbieden")?></option>
-                        <option value="2"><?= __("Alleen nieuwe speler")?></option>
-                    </select>
+                    <span><?=$school_location['allow_new_student_environment']?></span>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_new_student_environment',
+                            array(
+                                    'checked' => $school_location['allow_new_student_environment'],
+                                    'label' => false,
+                                    'type' => 'checkbox',
+                                    'value' => !$school_location['allow_new_student_environment'],
+                                    'div' => false,
+                                    'style' => 'width:20px;',
+                                    'onclick' => 'ChangeAllowNewStudentEnvironment(this.checked)'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
                 </td>
             </tr>
             <tr>
@@ -366,6 +376,12 @@
         Loading.show();
         $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
            Loading.hide();
+        });
+    }
+    function ChangeAllowNewStudentEnvironment(allow){
+        Loading.show();
+        $.post('/school_locations/change_allow_new_student_environment/<?=getUUID($school_location, 'get');?>/'+(allow === true ? '1' : '0'),function(){
+            Navigation.refresh();
         });
     }
 </script>

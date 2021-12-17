@@ -1,13 +1,13 @@
-<div class="popup-head"><?= __("Toets plannen")?></div>
+<div class="popup-head"><?= __("Plannen")?></div>
 <div class="popup-content">
     <?= $this->Form->create('TestTake') ?>
     <table class="table mb15" id="tableTestTakes">
         <tr>
             <th width="70"><?= __("Datum")?></th>
+            <th width="70"><span id="TestTakeDateTillHeader" style="display:none;"><?= __("Datum tot")?></span></th>
             <th width="110"><?= __("Periode")?></th>
-            <th><?= __("Surveillanten")?></th>
+            <th colspan="2"><?= __("Surveillanten")?></th>
             <th width="110"><?= __("Klas")?></th>
-            <th width="150"><?= __("Toets")?></th>
             <th width="50"><?= __("Weging")?></th>
             <th width="30"></th>
         </tr>
@@ -19,27 +19,35 @@
             $selectedInviligator = null;
         }
         ?>
-        <? for($i = 0; $i < 10; $i++) {
+        <? for($i = 0; $i < 10; $i++) { ?>
 
-        ?>
+            <? if ($i > 0) { ?>
+                <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRowDivider">
+                    <td colspan="8" style="border-bottom:1px solid #cccccc"></td>
+                </tr>
+            <? } ?>
+
         <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRow">
             <td>
                 <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][visible]', 'id' => 'TestTakeVisible' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $i == 0 ? 1 : '' )) ?>
                 <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date]', 'id' => 'TestTakeDate' . $i, 'class' => 'dateField', 'style' => 'width:70px', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
+                <?= $this->Form->hidden('visible', array('name' => 'data[TestTake][' . $i . '][test_kind]', 'id' => 'TestTakeTestKind_' . $i, 'class' => 'testIsVisible', 'label' => false,'value' => $test_kind_id )) ?>
+                <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_from]', 'id' => 'TestTakeDateFrom' . $i, 'class' => 'dateField', 'style' => 'width:70px; display:none', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
             </td>
+            <td>
+                <?= $this->Form->input('date', array('name' => 'data[TestTake][' . $i . '][date_till]', 'id' => 'TestTakeDateTill' . $i, 'class' => 'dateField', 'style' => 'width:70px; display:none;', 'label' => false, 'verify' => 'notempty', 'onchange' => 'TestTake.updatePeriodOnDate(this, ' . $i . ')')) ?>
+            </td>
+
             <td>
                 <?= $this->Form->input('period_id', array('name' => 'data[TestTake][' . $i . '][period_id]', 'id' => 'TestTakePeriodId_' . $i, 'style' => 'width:110px', 'label' => false, 'options' => $periods)) ?>
             </td>
-            <td>
+            <td colspan="2">
                 <?= $this->Form->input('invigilators', array('name' => 'data[TestTake][' . $i . '][invigilators]', 'style' => 'width:300px', 'label' => false, 'options' => $inviligators, 'value' => $selectedInviligator, 'multiple' => true, 'class' => 'takers_select')) ?>
             </td>
             <td>
                 <?= $this->Form->input('class_id', array('name' => 'data[TestTake][' . $i . '][class_id]', 'style' => 'width:110px', 'label' => false, 'options' => $classes, 'empty' => true, 'verify' => 'notempty')) ?>
             </td>
-            <td>
-                <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : __("Selecteer") ?></a>
-                <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
-            </td>
+
             <td>
                 <?
                     if(isset($test)){
@@ -70,6 +78,12 @@
                 </a>
             </td>
         </tr>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRowPlanButton">
+                <td colspan="7">
+                    <a href="#" class="btn highlight small btnSelectTest" style="text-align: center;" id="TestTakeSelect_<?= $i ?>" onclick="TestTake.selectTest(<?= $i ?>);"><?= $i == 0 ? $test_name : __("Selecteer") ?></a>
+                    <?= $this->Form->input('test_id', array('type' => 'hidden', 'name' => 'data[TestTake][' . $i . '][test_id]', 'id' => 'TestTakeTestId_' . $i, 'style' => 'width:150px', 'label' => false, 'value' => $i == 0 ? $test_id : '')) ?>
+                </td>
+            </tr>
         <?php if(count($locations) > $i && $locations[$i]['is_rtti_school_location'] == '1'): ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>" id="<?= $i ?>" class="testTakeRttiRow">
                 <td colspan="7">
@@ -94,7 +108,7 @@
             <td colspan="7">
                 <div style="display: flex; width: 100%;justify-content:space-between">
                     <?php if ($locations[0]['allow_inbrowser_testing']) { ?>
-                    <div style="display: flex; flex-grow:1">
+                    <div id="inbrowser_toggle_div_<?= $i ?>" style="display: flex; flex-grow:1">
                         <div style="display:flex; ; align-items: center; color: var(--system-base)">
                             <span class="fa fa-chrome"></span>
                             <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __("Browsertoetsen voor iedereen toestaan")?></strong></span>
@@ -143,7 +157,7 @@
     <center>
         <a href="#" class="btn highlight small inline-block" onclick="TestTake.addTestRow();">
             <span class="fa fa-plus"></span>
-            <?= __("Extra toets plannen")?>
+            <?= __("Extra toets/opdracht plannen")?>
         </a>
     </center>
 </div>
@@ -152,7 +166,7 @@
     <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddTestTakes">
-    <?= __("Toetsen plannen")?>
+    <?= __("Plannen")?>
     </a>
 </div>
 
@@ -180,8 +194,15 @@
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
             Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
-            Navigation.load('/test_takes/planned_teacher');
-            Menu.updateMenuFromRedirect('tests', 'tests_planned')
+                var url = '/test_takes/planned_teacher';
+                var menu = 'test_planned';
+
+                if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
+                    url = '/test_takes/assessment_open_teacher';
+                    menu = 'tests_assesmements';
+                }
+                Navigation.load(url);
+            Menu.updateMenuFromRedirect('tests', menu)
             Popup.closeLast();
         },
         onfailure: function (result) {
@@ -200,6 +221,8 @@
             minDate: new Date(),
             dateFormat: 'dd-mm-yy'
         });
+        TestTake.i = 0;
+        TestTake.updatedTestKind();
     });
 
     $('#TestTakeGuestAccounts').on('change', (function () {

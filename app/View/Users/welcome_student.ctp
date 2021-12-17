@@ -1,3 +1,9 @@
+<?php if (isset($redirectToLaravel) && $redirectToLaravel === true) { ?>
+    <script>
+        User.goToLaravel('/student/dashboard');
+    </script>
+<?php } else {?>
+
 <h1><?= __("Welkom in Test-Correct")?></h1>
 <?php if ($this->Session->read('TLCVersionCheckResult') == 'NEEDSUPDATE') { ?>
 <div class="dashboard">
@@ -95,3 +101,4 @@
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
 </script>
+<?php }?>

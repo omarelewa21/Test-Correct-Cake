@@ -6,7 +6,8 @@ foreach ($menus as $id => $title) {
         $title = $title['title'];
     }
     ?>
-    <div class="item" id="<?= $id ?>" <?= $onClick ?> ><?= $title ?>
+    <div class="item" id="<?= $id ?>" <?= $onClick ?> >
+        <span class="item-title"><?= $title ?></span>
         <span class="counter"></span>
     </div>
     <?php

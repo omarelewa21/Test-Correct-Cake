@@ -1,7 +1,8 @@
-<div class="popup-head"><?= __("Open vraag")?></div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Open vraag"), 'test_name' => $test_name, 'icon' => $editable ? 'edit' : 'preview', 'editable' => $editable]) ?>
+<!--<div class="popup-head">--><?//= __("Open vraag")?><!--</div>-->
+<div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
 
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm'))?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
         <?
         $openTypes = [
             'short' => __("Korte open-antwoordvraag"),
@@ -37,90 +38,52 @@
             </tr>
         </table>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-            <?= __("Vraag")?>
-            </a>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
 
-            <a href="#" class="btn grey" page="options" tabs="edit_question">
-            <?= __("Antwoord")?>
-            </a>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title"><?= __('Vraag')?></span>
+        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
+    </div>
 
-            <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                <?= __("Bronnen")?>
-                </a>
-            <? } ?>
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
 
-            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-            <?= __("Eindtermen")?>
-            </a>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title"><?= __('Antwoord')?></span>
+        <?= $this->Form->input('answer', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['answer'])); ?>
+    </div>
 
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Eindtermen')?></span>
+        <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+    </div>
 
-            <a href="#" class="btn grey" page="tags" tabs="edit_question">
-            <?= __("Tags")?>
-            </a>
+    <?= $this->Form->input('subtype', array('label' => false, 'type' => 'hidden', 'value' => $subtype)) ?>
 
-            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-            <?= __("Taxonomie")?>
-            </a>
+    <?= $this->element('question_tab_rtti', ['question' => $question]); ?>
 
-            <?php if(!$is_clone_request) { ?>
-                <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                    <?= __("Info")?>
-                </a>
-            <?php } ?>
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title"><?= __('Tags')?></span>
+        <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
+    </div>
 
-            <br clear="all" />
-        </div>
+    <?= $this->Form->end(); ?>
 
-        <div page="question" class="page active" tabs="edit_question">
-            <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
-        </div>
-
-        <div page="options" class="page" tabs="edit_question">
-            <?=$this->Form->input('answer', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['answer'])); ?>
-        </div>
-
-        <div page="attainments" class="page" tabs="edit_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
-        </div>
-
-        <div page="owners" class="page" tabs="edit_question">
-            <?=$this->element('question_info', ['question' => $question])?>
-        </div>
-
-        <?=$this->Form->input('subtype', array('label' => false, 'type' => 'hidden', 'value' => $subtype))?>
-
-    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
-
-        <div page="tags" class="page" tabs="edit_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
-        </div>
-
-        <?=$this->Form->end();?>
-
-        <? if($owner != 'group') { ?>
-            <div page="sources" class="page" tabs="edit_question"></div>
-        <? } ?>
-</div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
-    </a>
-
-    <? if($is_clone_request){ ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('OpenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-            <?= __("Vraag opslaan")?>
-        </a>
-    <? }else{ ?>
-        <? if($editable) { ?>
-            <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'OpenQuestion', '<?=getUUID($question, 'get');?>');">
-                <?= __("Vraag opslaan")?>
-            </a>
-        <? } ?>
+    <? if ($owner != 'group') { ?>
+        <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
     <? } ?>
 </div>
+<? if ($is_clone_request) { ?>
+    <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('OpenQuestion', '$owner', '$owner_id');"]) ?>
+<? } else { ?>
+    <? if ($editable) { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'OpenQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
+    <? } ?>
+<? } ?>
 
 <script type="text/javascript">
 

@@ -9,7 +9,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
 
 ?>
 
-<div class="popup-head"><?= __("Geplande toets wijzigen")?></div>
+<div class="popup-head"><?= __("Geplande toets/opdracht wijzigen")?></div>
 <div class="popup-content overflow-visible">
     <?=$this->Form->create('TestTake') ?>
         <table class="table mb15">
@@ -18,9 +18,20 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 <?= __("Datum")?>
                 </th>
                 <td>
-                    <?=$this->Form->input('time_start', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
+                    <?=$this->Form->input('time_start', array('disabled'=> $disable_edit_start_time, 'style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_start'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
                 </td>
             </tr>
+            <?php if($take['test']['test_kind_id'] ==  4) { ?>
+            <tr>
+                <th width="140">
+                    <?= __("Datum tot")?>
+                </th>
+                <td>
+                    <?=$this->Form->input('time_end', array('style' => 'width: 270px', 'label' => false, 'verify' => 'notempty','class' => 'dateField', 'value' => date('d-m-Y', strtotime($take['time_end'])), 'onchange' => 'TestTake.updatePeriodOnDate(this, '.$take_id.')')) ?>
+                </td>
+            </tr>
+            <?php } ?>
+
             <? if($take['retake'] == 0) { ?>
                 <tr>
                     <th width="140">
@@ -66,7 +77,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     </td>
                 </tr>
             <?php endif; ?>
-            <?php if ($school_allows_inbrowser_testing) { ?>
+            <?php if ($school_allows_inbrowser_testing && $take['test']['test_kind_id'] !=  4)  { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
@@ -120,7 +131,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
     <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnEditTestTake">
-    <?= __("Geplande toets wijzigen")?>
+    <?= __("Wijzigen")?>
     </a>
 </div>
 

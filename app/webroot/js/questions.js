@@ -9,7 +9,7 @@ var Questions = {
 
         Popup.closeLast();
         setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/' + type, 800);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
 
@@ -28,7 +28,7 @@ var Questions = {
         }, 500);
 
         setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion', 800);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion');
         }, 1000);
     },
 
@@ -39,7 +39,10 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
+
                 }else{
                     // console.log(response['data']);
                     Notify.notify(response['data'].join('<br />'), 'error');
@@ -55,7 +58,9 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
                 }else{
                     $.each(response['data'], function() {
                         Notify.notify(response['data'].join('<br />'), 'error');
@@ -231,20 +236,20 @@ var Questions = {
     loadAddAttachments : function(is_clone,owner, owner_id,id) {
         is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
         if(is_clone){
-            $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(),function(){
+            $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(), function(){
                 var form = jQuery('#QuestionAddForm');
                 jQuery('.cloneAttachment').each(function(){
                    $(this).prependTo(form);
                 });
             });
         }else{
-            $('div[page=sources][tabs=add_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+            $('div[sources][tabs=add_question] > .loadhere, #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
         }
     },
 
     loadEditAttachments : function(owner, owner_id, id) {
         Attachments.owner_id = owner_id;
-        $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
+        $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
     },
 
     updateIndex : function(question, test_id) {
@@ -352,6 +357,12 @@ var Questions = {
                 Navigation.refresh();
             }
         );
+    },
+    closeQuestionEditor: function () {
+        Navigation.back();
+        $('#container').removeClass('question-editor');
+        $('#header, #tiles').slideDown();
+        $('.question-editor-header').slideUp();
     }
 };
 

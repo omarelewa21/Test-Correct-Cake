@@ -2,6 +2,10 @@
 <a href="#" onclick="User.returnToLaravelLogin('<?= $loginUrl?>')" class="btn highlight" id="btnHandIn">
     Sluiten
 </a>
+<?php } else if (isset($laravelUrl)) { ?>
+    <a href="#" onclick="User.goToLaravel('<?= $laravelUrl ?>')" class="btn highlight" id="btnHandIn">
+        Sluiten
+    </a>
 <?php } else { ?>
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/discussed_glance');">
 <?= __("Sluiten")?>

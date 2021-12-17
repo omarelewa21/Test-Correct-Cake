@@ -1,10 +1,12 @@
-<div class="popup-head"><?= __("Infoscherm")?></div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Infoscherm"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Infoscherm")?><!--</div>-->
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
+    <div style="display: flex; margin-bottom: 20px;">
+        <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle ml10" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+    </div>
 
-    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-    
     <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('decimal_score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
@@ -12,68 +14,34 @@
     <?=$this->Form->input('subtype', array('label' => false, 'value' => 'none','type' => 'hidden'))?>
     <?=$this->Form->input('is_opensource_content', array('label' => false, 'value' => '0','type' => 'hidden'))?>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-            <?= __("Info")?>
-            </a>
+    <?=$this->element('teacher_add_question_tabs', ['infoscreen' => true]) ?>
 
-            <a href="#" class="btn grey" page="options" tabs="add_question">
-            <?= __("Antwoord")?>
-
-            </a>
-            <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="add_question">
-                <?= __("Bronnen")?>
-                </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="add_question">
-            <?= __("Eindtermen")?>
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="add_question">
-            <?= __("Tags")?>
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="add_question">
-            <?= __("Taxonomie")?>
-            </a>
-
-            <br clear="all" />
-        </div>
-
-        <div page="question" class="page active" tabs="add_question">
+    <div page="question" class="page active" tabs="add_question">
+            <span class="title"><?=__('Infoscherm')?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'autocorrect' => 'off', 'spellcheck' => 'false', 'autocomplete' => 'off')); ?>
         </div>
 
-        <div page="options" class="page" tabs="add_question">
+        <div page="question" class="page active" tabs="add_question">
+            <span class="title"><?=__('Antwoord')?></span>
             <?=$this->Form->input('answer', array('value' => __("niet van toepassing"),'label' => false, 'type' => 'hidden'))?>
             <?= __("Niet van toepassing")?>
         </div>
 
-        <div page="attainments" class="page" tabs="add_question">
+        <div page="settings" class="page" tabs="add_question">
+            <span class="title"><?= __('Eindtermen') ?></span>
             <?=$this->element('attainments', ['attainments' => $attainments]) ?>
         </div>
 
-        <?=$this->element('question_tab_rtti',[]); ?>
+    <?=$this->element('question_tab_rtti',[]); ?>
 
-        <div page="tags" class="page" tabs="add_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-        </div>
+    <?=$this->element('question_editor_tags') ?>
 
     <?=$this->Form->end();?>
 
-    <div page="sources" class="page" tabs="add_question"></div>
+    <?=$this->element('question_editor_attachments', ['owner' => $owner]) ?>
 
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
-    </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-    <?= __("Vraag opslaan")?>
-    </a>
-</div>
+<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('InfoscreenQuestion', '$owner', '$owner_id');"]) ?>
 
 <script type="text/javascript">
 

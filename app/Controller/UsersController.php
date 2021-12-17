@@ -47,6 +47,11 @@ class UsersController extends AppController
         parent::beforeFilter();
     }
 
+    public function student_splash()
+    {
+
+    }
+
     public function registereduix()
     {
         if ($this->request->is('post')) {
@@ -80,10 +85,8 @@ class UsersController extends AppController
     public function login()
     {
         //Only on test domains;
-        $domain = $_SERVER['HTTP_HOST'];
-        if (strpos($domain, 'testportal.test-correct.nl') !== false || strpos($domain, 'testportal.test-correct.test') !== false) {
-            $this->set('laravelLogin', 'https://testwelcome.test-correct.nl/login');
-        }
+        $this->set('useLaravelLogin', true);
+
 //        if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //            if(strtolower($this->Session->read('AppOS')) === 'windows') {
 //                $view = "windows_update";
@@ -449,6 +452,11 @@ class UsersController extends AppController
                 $this->set('isInBrowser', $isInBrowser);
                 $needsUpdateDeadline = AppVersionDetector::needsUpdateDeadline($headers);
                 $this->set('needsUpdateDeadline', $needsUpdateDeadline);
+
+                if (AuthComponent::user('school_location.allow_new_student_environment')) {
+                    $this->set('redirectToLaravel', true);
+                }
+
                 $view = "welcome_student";
 //                if($this->Session->check('AppTooOld') && $this->Session->read('AppTooOld') === true){
 //                    if($this->check('AppOS') && $this->read('AppOS') === 'windows') {
@@ -1161,6 +1169,7 @@ class UsersController extends AppController
     public
     function menu()
     {
+        $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -1204,8 +1213,20 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Student') {
-                $menus['tests'] = __("Toetsing");
-                $menus['analyses'] = __("Analyse");
+                if ($newEnvironment) {
+                    $menus['tests'] = [
+                        'title' => __("Toetsen"),
+                        'onClick' => 'User.goToLaravel("/student/test-takes?tab=planned")'
+                    ];
+
+                    $menus['analyses'] = [
+                        'title' => __("Analyses"),
+                        'onClick' => 'Navigation.load("/analyses/student/'.AuthComponent::user('uuid').'")'
+                    ];
+                } else {
+                    $menus['tests'] = __("Toetsen");
+                    $menus['analyses'] = __("Analyses");
+                }
 //                $menus['messages'] = "Berichten";
 //                $menus['support'] = "Support";
             }
@@ -1306,6 +1327,14 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => __("RTTI Import"),
                     'path'  => '/rttiimport/index'
+                );
+
+
+                $tiles['attainments_import_export'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Attainments',
+                    'path'  => '/attainments/upload_download_provision'
                 );
 
                 $tiles['support'] = array(
@@ -1550,6 +1579,12 @@ class UsersController extends AppController
                     'icon'  => 'surveilleren',
                     'title' => __("Surveilleren"),
                     'path'  => '/test_takes/surveillance'
+                );
+                $tiles['tests_assesments'] = array(
+                    'menu'  => 'tests',
+                    'icon'  => 'surveilleren',
+                    'title' => __("Lopende opdrachten"),
+                    'path'  => '/test_takes/assessment_open_teacher'
                 );
 
                 $tiles['tests_taken'] = array(
@@ -1827,6 +1862,8 @@ class UsersController extends AppController
             }, $this->UsersService->getSchoolLocationList());
         }
 
+
+        $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
 
@@ -1840,7 +1877,8 @@ class UsersController extends AppController
             'isStudent',
             'school_location_list',
             'school_location_id',
-            'guest'
+            'guest',
+            'laravel_look'
         ];
 
         foreach ($allowed as $key) {
@@ -2036,16 +2074,25 @@ class UsersController extends AppController
 
     public function goToLaravelPath($path = null)
     {
-        if ($path === null) {
-            $path = $this->request->query['path'];
-        }
+        if ($this->request->is('post')) {
+            $path = $this->data['path'];
+            $autoLogout = $this->data['autoLogout'] ?? false;
 
-        if($path{0} !== '/'){
-            $path = '/'.$path;
-        }
-        $params['app_details'] = $this->getAppInfoFromSession();
+            $params = [];
+            if ($path === null) {
+                $path = $this->request->query['path'];
+            }
 
-        return $this->formResponse(true,  $this->UsersService->createTemporaryLogin($params ,$path));
+            if($path{0} !== '/'){
+                $path = '/'.$path;
+            }
+            $params['app_details'] = $this->getAppInfoFromSession();
+            $responseData = $this->UsersService->createTemporaryLogin($params ,$path);
+            if($autoLogout){
+                $this->logout();
+            }
+            return $this->formResponse(true,  $responseData);
+        }
     }
 
     public function temporary_login($tlid)
@@ -2299,17 +2346,28 @@ class UsersController extends AppController
     {
         $this->autoRender = false;
 
+        $headers = AppVersionDetector::getAllHeaders();
+        $this->handleHeaderCheck($headers);
+
         if (CakeSession::read('temporaryLoginOptions')) {
             //TODO: Change this back to consume instead of read
             $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
             if (array_key_exists('page', $options)) {
                 $page = $options['page'];
                 $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
+                CakeSession::delete('page');
                 header('Location: '.$page);
+            } else if (array_key_exists('internal_page', $options)) {
+                $internalPage = $options['internal_page'];
+                $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
+                $this->set('internal_page',$internalPage);
+                CakeSession::delete('internal_page');
+                $this->render('internal_redirect');
             }
+        } else {
+            $this->welcome();
         }
 
-        $this->welcome();
     }
 
     public function return_to_laravel($logout = false)
@@ -2364,5 +2422,11 @@ class UsersController extends AppController
         }
 
         return $response['url'];
+    }
+
+    public function getAppDetailsForMenu()
+    {
+        $this->autoRender = false;
+        return json_encode(AppVersionDetector::detect() + ['status' => AppVersionDetector::isVersionAllowed()]);
     }
 }

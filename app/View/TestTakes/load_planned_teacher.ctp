@@ -2,7 +2,10 @@
 foreach($test_takes as $test_take) {
     ?>
     <tr>
-        <td><?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]</td>
+        <td>
+            <?= $test_take['test']['test_kind_id'] == 4 ? 'OPDRACHT ' : ''; ?>
+            <?=$test_take['test']['name']?> [<?=$test_take['test']['abbreviation']?>]
+        </td>
         <td>
             <?
             foreach($test_take['school_classes'] as $class) {
@@ -22,15 +25,15 @@ foreach($test_takes as $test_take) {
         <td><?=date('d-m-Y', strtotime($test_take['time_start']))?></td>
         <td>
             <?
-            if($test_take['retake'] == 0) {
-                ?>
-                <div class="label label-info"><?= __("Standaard")?></div>
+                if($test_take['retake'] == 0) {
+                    ?>
+                    <div class="label label-info"><?= __("Standaard")?></div>
+                    <?
+                }else {
+                    ?>
+                    <div class="label label-warning"><?= __("Inhaaltoets")?></div>
                 <?
-            }else{
-                ?>
-                <div class="label label-warning"><?= __("Inhaaltoets")?></div>
-            <?
-            }
+                }
             ?>
         </td>
         <td><?=$test_take['weight']?></td>
@@ -49,7 +52,18 @@ foreach($test_takes as $test_take) {
                 </a>
                 <? if($test_take['test_take_status_id'] == 1) { ?>
                     <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) {?>
-                        <a href="#" class="btn highlight white" onclick="TestTake.startTake(<?=getUUID($test_take, 'getQuoted');?>);">
+                        <a href="#" class="btn  <? if(!$test_take['invigilators_acceptable']){?>
+                                                                        toets_afnemen_disabled
+                                                                <?}else{?>
+                                                                        highlight white
+                                                                <?}?>"
+                            <? if($test_take['invigilators_acceptable']){?>
+                                onclick="TestTake.startTake('<?=getUUID($test_take, 'get');?>');"
+                            <?}?>
+                            <? if(!$test_take['invigilators_acceptable']){?>
+                                onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');"
+                            <?}?>
+                           >
                             <span class="fa fa-calendar mr5"></span>
                             <?= __("Nu afnemen")?>
                         </a>

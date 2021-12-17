@@ -228,7 +228,7 @@ var Core = {
 			$('.page[tabs=' + tabs + '][page=' + page + ']').addClass('active');
 
 			setCookie('tab', page);
-			console.log('set cookie: ' + page);
+			// console.log('set cookie: ' + page);
 		});
 
 		if(getCookie('tab') != undefined) {
@@ -320,6 +320,10 @@ var Core = {
 		Core.appType = 'android';
 	},
 
+	resetCache : function() {
+		Core.cache = [];
+	},
+
 	cacheLoad : function(path, container) {
 		if(Core.cache[path] == undefined) {
 			$.get(path, function(html) {
@@ -334,9 +338,9 @@ var Core = {
 	goToLaravel : function(path) {
 		$.ajax({
 			type: 'post',
-			url: '/users/goToLaravelPath/' + path,
+			url: '/users/goToLaravelPath',
 			dataType: 'json',
-			data: {},
+			data: {path:path},
 			success: function (data) {
 				document.removeEventListener("visibilitychange", onchange);
 				window.open(data.data.url, '_self');

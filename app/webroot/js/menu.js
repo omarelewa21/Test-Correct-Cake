@@ -12,6 +12,20 @@ var Menu = {
             return;
         }
 
+        if (User.info.isStudent && User.info.laravel_look == 1) {
+            $('body').attr('laravel-look', '');
+            this.loadNewLookMenu();
+            this.handleAppVersion();
+
+            return;
+        }
+
+        this.loadMenuItems();
+
+        this.loadTilesForMenu();
+
+    },
+    loadMenuItems: function () {
         $('#menu').load('/users/menu', function () {
             Menu.addDashboardAndResultsToMenu();
             Menu.addActionIconsToHeader();
@@ -58,7 +72,8 @@ var Menu = {
                 Menu.initScrollForMenu();
             });
         });
-
+    },
+    loadTilesForMenu: function () {
         $('#tiles').load('/users/tiles', function () {
             $('#tiles .tile').hide();
             $('#tiles').mouseover(function () {
@@ -71,8 +86,8 @@ var Menu = {
                     Menu.hideInactiveTiles();
                     if (Menu.shouldRemoveTilesBar()) {
                         $('#tiles').stop(true, true).animate({
-                            'top':0,
-                            'height':'48px'
+                            'top': 0,
+                            'height': '48px'
                         });
                     } else {
                         $('#tiles').stop(true, true).animate({
@@ -116,7 +131,85 @@ var Menu = {
                 Navigation.load($(this).attr('path'));
             });
         });
+    },
+    loadNewLookMenu: function () {
+        $.ajax({
+            dataType: 'json',
+            url: '/users/menu',
+            async: false,
+            complete:
+                function (menu) {
+                    var menuItemsHtml = menu.responseText;
+                    $('[laravel-look] .logo-container').after('' +
+                        '<div id="student-menu">' +
+                        '   <div class="item" id="dashboard" onclick="User.goToLaravel(\'/student/dashboard\')">\n' +
+                        '        <span class="item-title">Dashboard</span>\n' +
+                        '        <span class="counter"></span>\n' +
+                        '    </div>' +
+                        '' + menuItemsHtml + '</div>' +
+                        '');
 
+                    $('#logo_1, #logo_2').attr('onClick', 'User.goToLaravel(\'/student/dashboard\')');
+
+                    $('#student-menu > .item').each(function () {
+                        $(this).click(function () {
+                            Menu.removeMenuStates();
+                            Menu.menu = $(this).get(0).id;
+
+                            // $('#tiles .tile').hide();
+                            // $('#tiles .tile[menu=' + Menu.menu + ']').css("display", "flex")
+                            //     .hide()
+                            //     .fadeIn();
+                            //
+                            // $('#tiles').css("display", "flex")
+                            //     .hide()
+                            //     .fadeIn();
+
+                            $(this).addClass('active');
+                            $('#tiles .tile[menu=' + Menu.menu + ']').first().addClass('active');
+                        });
+                    });
+
+                    // $('.logo-container').click(function () {
+                    //     Menu.removeMenuStates();
+                    //     Menu.dashboardButtonAction();
+                    // });
+
+                    $('#tiles').load('/users/tiles', function () {
+                        $('#tiles > .tile').each(function () {
+                            $(this).click(function () {
+
+                                if (typeof $(this).attr('path') !== 'undefined') {
+                                    Navigation.load($(this).attr('path'));
+                                }
+
+                                $('#tiles > .tile').removeClass('active');
+                                $(this).addClass('active');
+
+                            });
+                        });
+                    });
+                },
+        });
+
+        this.addActionIconsToHeader();
+    },
+    handleAppVersion: function () {
+        setTimeout(function () {
+            $.ajax({
+                type: 'get',
+                url: '/users/getAppDetailsForMenu',
+                success: function (result) {
+                    result = JSON.parse(result);
+                    if (result.app_version !== 'undefined' && result.app_version !== 'x') {
+                        var versionTag = $('.student_version_tag');
+                        versionTag.get(0).innerText = $.i18n('Versie')+': '+result.app_version;
+                        versionTag.addClass(result.status);
+                        versionTag.show();
+                    }
+                }
+            });
+        }, 1000);
     },
     shouldRemoveTilesBar: function() {
         var emptyMenuItems = [];
@@ -135,11 +228,13 @@ var Menu = {
         $('#tiles .tile[menu=' + Menu.menu + ']').show();
         $('#menu .item').removeClass('active');
 
-        if(!$('#tiles .tile').is(':visible')) {
-            $('#tiles').slideUp();
-            $('#container').animate({'marginTop': '90px'});
-        } else {
-            $('#container').animate({'marginTop': ($('#tiles').height()+100)+'px'});
+        if (!User.info.laravel_look == 1) {
+            if (!$('#tiles .tile').is(':visible')) {
+                $('#tiles').slideUp();
+                $('#container').animate({'marginTop': '90px'});
+            } else {
+                $('#container').animate({'marginTop': ($('#tiles').height() + 100) + 'px'});
+            }
         }
         Menu.setHighlights();
     },
@@ -185,7 +280,6 @@ var Menu = {
                             '        <path d="M12.0032183,1.9984048 C17.5114889,2.00887105 21.9772078,6.46594572 21.9983747,11.9741856 C22.0080813,16.0213483 19.5773714,19.6753275 15.84089,21.2304194 C12.1044087,22.7855113 7.79898955,21.935052 4.93443577,19.0760426 C2.06988199,16.2170331 1.21108313,11.9132697 2.75893319,8.17378258 C4.30678325,4.43429549 7.95604647,1.996511 12.0032183,1.9984048 Z M12.0024146,7 C9.9788257,6.9990531 8.15419145,8.21794711 7.3802653,10.0876934 C6.60633915,11.9574396 7.0357392,14.1093245 8.46801816,15.5388313 C9.90029713,16.9683381 12.0530098,17.3935683 13.9212532,16.6160212 C15.7894966,15.8384742 17.0048533,14.0114819 17,11.9878987 C16.9894165,9.2337737 14.7565538,7.00523313 12.0024146,7 Z" id="Combined-Shape" stroke="currentColor"></path>' +
                             '    </g>' +
                             '</svg>' +
-                            '<span class="ml6">Support</span>' +
                         '</div>';
 
         var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()" title="Berichten">' +
@@ -218,6 +312,11 @@ var Menu = {
             }, 5000);
         });
 
+        $('.menu_messages_icon').click(function() {
+            Menu.removeMenuStates();
+            $(this).addClass('active');
+        });
+
         $('#header #top #support_menu').mouseleave(function () {
             $(this).slideUp();
             Menu.hideInactiveTiles();
@@ -225,6 +324,10 @@ var Menu = {
 
         var right = $('#header').width() - $('.menu_support_icon').get(0).getBoundingClientRect().right;
         $('#support_menu').css({'right': right});
+
+        if (User.info.isTeacher) {
+            $('#menu_support_icon').append('<span class="ml6">Support</span>');
+        }
     },
 
     getPaddingForActiveMenuItem: function (activeMenu) {
@@ -346,5 +449,23 @@ var Menu = {
                 }
             }
         );
+    },
+    removeMenuStates : function() {
+        $('#student-menu > .item').removeClass('active');
+        $('#tiles > .tile').removeClass('active');
+        $('.action_icon_container > div').removeClass('active');
     }
 };
+
+function showDropdown(menuElement, chevronElement) {
+    var menu = $(menuElement);
+    var chevron = $(chevronElement);
+
+    if(menu.get(0).style.display === 'none') {
+        menu.fadeIn({duration: 100});
+        chevron.css({'transform' : 'rotate(-90deg)'});
+    } else {
+        menu.fadeOut({duration: 100});
+        chevron.css({'transform' : 'rotate(90deg)'});
+    }
+}

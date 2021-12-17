@@ -298,7 +298,7 @@ class TestsController extends AppController
             $params['filter']['test_kind_id'] = $filters['kind'];
         }
 
-        if (!empty($filters['subject'])) {
+        if ($this->hasValidFilterValue($filters['subject'])) {
             $params['filter']['subject_id'] = $filters['subject'];
         }
 
@@ -758,5 +758,21 @@ class TestsController extends AppController
     public function create_content()
     {
 
+    }
+
+    private function hasValidFilterValue($filterValue)
+    {
+        if(empty($filterValue)){
+            return false;
+        }
+        if(!is_array($filterValue)){
+            return true;
+        }
+        foreach($filterValue as $key => $value){
+            if(!empty($value)){
+                return true;
+            }
+        }
+        return false;
     }
 }

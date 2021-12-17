@@ -40,10 +40,10 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+    <a href="javascript:void(0);" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
     <?= __("Annuleer")?>
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Loading.show(); $('#QuestionUploadAttachment').submit();">
+    <a href="javascript:void(0);" class="btn highlight mt5 mr5 pull-right" onclick="Loading.show(); $('#QuestionUploadAttachment').submit();">
     <?= __("Opslaan")?>
     </a>
 </div>

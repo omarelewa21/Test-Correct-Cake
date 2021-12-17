@@ -1611,7 +1611,7 @@ msgstr ""
 #: View/Qtiimport/index.ctp:90
 #: View/QtiimportBatchCito/index.ctp:90
 #: View/QtiimportCito/index.ctp:90
-msgid "Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken.."
+msgid "Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken.."
 msgstr ""
 
 #: View/Attainments/import.ctp:44
@@ -3261,7 +3261,7 @@ msgid "Deze vraag vastzetten"
 msgstr ""
 
 #: View/Questions/add_classify.ctp:68
-msgid "Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \"Mogelijkheden\"."
+msgid "Per item links zijn er meerdere mogelijkheden, voer één optie per regel in onder \"Mogelijkheden\"."
 msgstr ""
 
 #: View/Questions/add_classify.ctp:76
@@ -4535,15 +4535,15 @@ msgstr ""
 
 #: View/TestTakes/discussion.ctp:4
 #: View/TestTakes/view_taken.ctp:9
-msgid "CO-learning"
+msgid "CO-Learning"
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:6
-msgid "Er is geen toets klaar voor CO-learning."
+msgid "Er is geen toets klaar voor CO-Learning."
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:13
-msgid "CO-learning beëindigen"
+msgid "CO-Learning beëindigen"
 msgstr ""
 
 #: View/TestTakes/discussion.ctp:19
@@ -4933,7 +4933,7 @@ msgid "Aangepaste beoordeling"
 msgstr ""
 
 #: View/TestTakes/start_discussion_popup.ctp:2
-msgid "CO-learning starten"
+msgid "CO-Learning starten"
 msgstr ""
 
 #: View/TestTakes/start_discussion_popup.ctp:7
@@ -5034,7 +5034,7 @@ msgid "Je dient eerst een beoordeling te geven"
 msgstr ""
 
 #: View/TestTakes/take_discuss_waiting.ctp:9
-msgid "CO-learning is nog niet gestart, wacht op de docent.."
+msgid "CO-Learning is nog niet gestart, wacht op de docent.."
 msgstr ""
 
 #: View/TestTakes/take_discuss_waiting_next.ctp:2
@@ -5070,7 +5070,7 @@ msgid "Deze toets is afgerond en kan niet meer worden geopend."
 msgstr ""
 
 #: View/TestTakes/taken_student.ctp:1;4
-msgid "Bespreken met CO-learning"
+msgid "Bespreken met CO-Learning"
 msgstr ""
 
 #: View/TestTakes/to_rate.ctp:75

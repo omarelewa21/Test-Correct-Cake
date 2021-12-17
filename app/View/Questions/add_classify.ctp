@@ -1,6 +1,7 @@
-<div class="popup-head"><?= __("Rubriceervraag")?></div>
-<div class="popup-content">
-    <?=$this->Form->create('Question')?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Rubriceervraag"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Rubriceervraag")?><!--</div>-->
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
 
     <table class="table mb15">
         <tr>
@@ -30,43 +31,17 @@
         </tr>
     </table>
 
-    <div class="tabs">
-        <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-        <?= __("Vraag")?>
-        </a>
-
-        <a href="#" class="btn grey" page="options" tabs="add_question">
-        <?= __("Antwoorden")?>
-        </a>
-        <? if($owner != 'group') { ?>
-            <a href="#" class="btn grey" page="sources" tabs="add_question">
-            <?= __("Bronnen")?>
-            </a>
-        <? } ?>
-
-        <a href="#" class="btn grey" page="attainments" tabs="add_question">
-        <?= __("Eindtermen")?>
-        </a>
-
-        <a href="#" class="btn grey" page="tags" tabs="add_question">
-        <?= __("Tags")?>
-        </a>
-
-        <a href="#" class="btn grey" page="rtti" tabs="add_question">
-        <?= __("Taxonomie")?>
-        </a>
-
-        <br clear="all" />
-    </div>
+    <?=$this->element('teacher_add_question_tabs') ?>
 
     <div page="question" class="page active" tabs="add_question">
+        <span class="title"><?=__('Vraag')?></span>
         <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
     </div>
 
-    <div page="options" class="page" tabs="add_question">
-
+    <div page="question" class="page active" tabs="add_question">
+        <span class="title"><?= __('Antwoord') ?></span>
         <div class="alert alert-info">
-        <?= __("Per item links zijn er meerdere mogelijkheden, voeréén optie per regel in onder \"Mogelijkheden\".")?>
+        <?= __("Per item links zijn er meerdere mogelijkheden, voer één optie per regel in onder \"Mogelijkheden\".")?>
         </div>
 
         <table class="table" id="tableClassifyOptions">
@@ -113,29 +88,20 @@
         </center>
     </div>
 
-    <div page="attainments" class="page" tabs="add_question">
+    <div page="settings" class="page" tabs="add_question">
+        <span class="title"><?= __('Eindtermen') ?></span>
         <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>
-
     <?=$this->element('question_tab_rtti',[]); ?>
 
-    <div page="tags" class="page" tabs="add_question">
-        <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-    </div>
+    <?=$this->element('question_editor_tags') ?>
 
     <?=$this->Form->end();?>
 
-    <div page="sources" class="page" tabs="add_question"></div>
+    <?=$this->element('question_editor_attachments', ['owner' => $owner]) ?>
+</div>
+<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('ClassifyQuestion', '$owner', '$owner_id');"]) ?>
 
-</div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-    <?= __("Annuleer")?>
-    </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('ClassifyQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-    <?= __("Vraag opslaan")?>
-    </a>
-</div>
 
 <script type="text/javascript">
     <? if($owner != 'group') { ?>

@@ -31,4 +31,8 @@
 <script type="text/javascript">
     $('#messages .counter').fadeOut();
     $('#other .counter').fadeOut();
+
+    $(document).ready(function() {
+        $('.menu_messages_icon').addClass('active');
+    });
 </script>

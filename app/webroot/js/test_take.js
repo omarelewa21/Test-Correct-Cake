@@ -266,6 +266,8 @@ var TestTake = {
                     window.open(data.data.url, '_self');
                     try {
                         electron.setTestConfig(participant_id);
+                    } catch (error) {}
+                    try {
                         // also tell the iPad app
                         webview.setTestConfig(participant_id);
                     } catch (error) {}
@@ -388,9 +390,33 @@ var TestTake = {
         Popup.load('/test_takes/select_test_retake', 1000);
     },
 
+    updatedTestKind:function() {
+        var dateOriginalSelector = '#TestTakeDate'+ TestTake.i;
+        var dateFromSelector = '#TestTakeDateFrom'+TestTake.i;
+        var dateTillSelector = "#TestTakeDateTill"+TestTake.i;
+        var dateTillHeader = '#TestTakeDateTillHeader';
+        var inBrowserTestingToggle = '#inbrowser_toggle_div_'+TestTake.i;
+
+        if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
+            $(dateFromSelector).fadeIn();
+            $(dateTillSelector).fadeIn();
+            $(dateTillHeader).fadeIn();
+            $(dateOriginalSelector).hide();
+            $(inBrowserTestingToggle).hide();
+        }else {
+            $(dateFromSelector).hide();
+            $(dateTillSelector).hide();
+            $(dateTillHeader).hide();
+            $(dateOriginalSelector).fadeIn();
+            $(inBrowserTestingToggle).fadeIn();
+        }
+    },
+
     setSelectedTest: function (id, name, kind) {
         $('#TestTakeSelect_' + TestTake.i).html(name);
         $('#TestTakeTestId_' + TestTake.i).val(id);
+        $('#TestTakeTestKind_' + TestTake.i).val(kind);
+        this.updatedTestKind();
 
         if (kind == 1) {
             $('#TestTakeWeight_' + TestTake.i).attr('disabled', true).val('0');
@@ -410,6 +436,9 @@ var TestTake = {
     addTestRow: function () {
         $('.testTakeRow:hidden').first().find('.testIsVisible:first').val(1);
         $('.testTakeRow:hidden').first().fadeIn();
+
+        $('.testTakeRowPlanButton:hidden').first().fadeIn();
+        $('.testTakeRowDivider:hidden').first().fadeIn();
         $('.testTakeRowNotes:hidden').first().fadeIn();
         $('.testTakeRowInbrowserToggle:hidden').first().fadeIn();
     },
@@ -644,7 +673,7 @@ var TestTake = {
             btnOk: $.i18n('ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
-            message: $.i18n('Weet u zeker dat u de CO-learning wilt be&euml;indigen?')
+            message: $.i18n('Weet u zeker dat u de CO-Learning wilt be&euml;indigen?')
         }, function () {
             $.get('/test_takes/finish_discussion/' + take_id,
                     function (response) {
@@ -986,7 +1015,7 @@ var TestTake = {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
                     Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld'));
-                    Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
+                    // Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
                 } else {
                     el.classList.add('cta-button');
                     el.classList.remove('grey');
@@ -1005,7 +1034,7 @@ var TestTake = {
         el.classList.add('grey');
 
         Notify.notify($.i18n('Browsertoetsing voor alle studenten uitgeschakeld'));
-        Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
+        // Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
         document.querySelectorAll('[test_take_id="'+take_id+'"]').forEach(function(el) {
             el.classList.remove('cta-button');
             el.classList.add('grey');
@@ -1186,6 +1215,9 @@ var TestTake = {
         presenceChannel.bind("pusher:member_removed", function(member) {
             TestTake.loadParticipants(take_id);
         });
+    },
+    noStartTake : function(txt){
+        Notify.notify(txt );
     }
 };
 

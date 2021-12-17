@@ -1,5 +1,5 @@
 <div class="popup-head">
-<?= __("CO-learning starten")?>
+<?= __("CO-Learning starten")?>
 </div>
 <div class="popup-content">
 

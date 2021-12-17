@@ -282,7 +282,9 @@ class TestTakesService extends BaseService {
     public function editTestTake($take_id, $test_take) {
 
         $test_take['time_start'] = date('Y-m-d H:i:s', strtotime($test_take['time_start']));
-
+        if ($test_take['time_end'] ) {
+            $test_take['time_end'] = date('Y-m-d H:i:s', strtotime($test_take['time_end']));
+        }
 
         $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
 
@@ -299,7 +301,6 @@ class TestTakesService extends BaseService {
         if(!isset($params['order'])) {
             $params['order'] = ['id' => 'desc'];
         }
-
         $response = $this->Connector->getRequest('/test_take', $params);
 
         if($response === false){
@@ -884,9 +885,9 @@ class TestTakesService extends BaseService {
          );
     }
 
-    public function getSurveillanceData()
+    public function getSurveillanceData($params = [])
     {
-        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', []);
+        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', $params);
     }
 
     public function bustSurveillanceCache()

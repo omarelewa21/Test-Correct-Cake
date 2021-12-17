@@ -31,6 +31,19 @@ class AttainmentsService extends BaseService {
         return $r;
     }
 
+    public function uploadDataBasic($data)
+    {
+        $file = new CURLFILE($data['file']['tmp_name'],$data['file']['type'],$data['file']['name']);
+        unset($data['file']);
+        $data['attainments'] = $file;
+        $r = $this->Connector->postRequestFile('/attainments/upload', [], $data);
+
+        if(!$r){
+            $r = json_decode($this->Connector->getLastResponse(),true);
+        }
+        return $r;
+    }
+
     public function uploadCitoData($data)
     {
         $file = new CURLFILE($data['file']['tmp_name'],$data['file']['type'],$data['file']['name']);
@@ -42,5 +55,14 @@ class AttainmentsService extends BaseService {
             $r = json_decode($this->Connector->getLastResponse(),true);
         }
         return $r;
+    }
+
+    public function download()
+    {
+        $response = $this->Connector->getDownloadRequest('/attainments/export' , []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
     }
 }

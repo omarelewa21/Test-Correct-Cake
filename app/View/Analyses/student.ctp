@@ -13,10 +13,12 @@
         </a>
     <? } ?>
 
+    <?php if (!AuthComponent::user('school_location.allow_new_student_environment')) { ?>
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
+    <?php } ?>
 </div>
 
 <h1><?= __("Analyse van")?> <?=$student['name_first']?> <?=$student['name_suffix']?> <?=$student['name']?></h1>
@@ -288,3 +290,8 @@ if(!$isStudent) {
         <div class="block-footer"></div>
     </div>
 <? } ?>
+<script type="application/javascript">
+    $(document).ready(function() {
+        $('#analyses').addClass('active');
+    });
+</script>

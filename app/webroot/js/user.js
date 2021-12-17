@@ -28,6 +28,8 @@ var User = {
                             type: "text/css",
                             href: "/css/buttons.green.css"
                         }).appendTo("head");
+
+                        User.surpressInactive = true;
                     } else {
 
                         var activeSchool = '';
@@ -202,8 +204,16 @@ var User = {
         }
         $.get('/users/logout',
             function () {
+                Core.resetCache();
                 User.actOnLogout().then(() => {
-                    window.location.href = '/';
+                    if (User.info.isStudent && User.info.laravel_look == 1) {
+                        var url = window.location.href.replace('portal', 'welcome');
+                        url = url.endsWith('/') === true ? url : url+'/';
+                        url = url + 'login';
+                        window.location.href = url;
+                    } else {
+                        window.location.href = '/';
+                    }
                     try {
                         if (typeof(electron.closeApp) === typeof(Function)) {
                             if (typeof(electron.reloadApp) === typeof(Function)) {
@@ -437,16 +447,19 @@ var User = {
             authEndpoint: "/users/pusher_auth"
         });
     },
-    goToLaravel : function (path) {
+    goToLaravel : function (path, autoLogout = null) {
         $.ajax({
             url: '/users/goToLaravelPath',
-            method: 'get',
-            data: {'path': path},
+            method: 'post',
+            data: {'path': path, autoLogout : autoLogout},
             success: function (url) {
+                if(autoLogout){
+                    Core.resetCache();
+                }
                 url = JSON.parse(url);
                 window.open(url.data.url, '_self');
-                try {electron.loadUrl(url);} catch(error) {}
+                try {electron.loadUrl(url.data.url);} catch(error) {}
             }
-        });
+            });
     }
 };

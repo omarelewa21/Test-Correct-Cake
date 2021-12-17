@@ -5,7 +5,19 @@
     </a>
     <? if ($take['test_take_status_id'] == 1) { ?>
         <? if (date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) { ?>
-            <a href="#" class="btn white mr2" onclick="TestTake.startTake('<?= $take_id ?>');">
+            <a href="#" class="btn white mr2
+                     <? if(!$take['invigilators_acceptable']){?>
+                        toets_afnemen_disabled
+                <?}?>
+                "
+               <? if($take['invigilators_acceptable']){?>
+               onclick="TestTake.startTake('<?= $take_id ?>');"
+                <?}?>
+                <? if(!$take['invigilators_acceptable']){?>
+                    onclick="TestTake.noStartTake('<?=$take['invigilators_unacceptable_message']?>');"
+                <?}?>
+
+                >
                 <span class="fa fa-pencil mr5"></span>
                 <?= __("Toets afnemen") ?>
             </a>
@@ -48,6 +60,7 @@
                 <td width="21%"><?= $take['test']['name'] ?></td>
                 <th width="12%"><?= __("Gepland") ?></th>
                 <td width="21%"><?= date('d-m-Y', strtotime($take['time_start'])) ?></td>
+
                 <th width="12%"><?= __("Type") ?></th>
                 <td width="21%"><?= $take['retake'] == 0 ? __("Normale toets") : __("Inhaal toets") ?></td>
             </tr>
@@ -55,12 +68,11 @@
 
                 <th><?= __("Weging") ?></th>
                 <td><?= $take['weight'] ?></td>
-                <th><?= __("Gepland door") ?></th>
-                <td>
-                    <?= $take['user']['name_first'] ?>
-                    <?= $take['user']['name_suffix'] ?>
-                    <?= $take['user']['name'] ?>
-                </td>
+                <?php if(!empty($take['time_end'])) { ?>
+                    <th width="12%"><?= __("Gepland tot") ?></th>
+                    <td width="21%"><?= date('d-m-Y', strtotime($take['time_end'])) ?></td>
+                <?php } ?>
+
                 <th><?= __("Vak") ?></th>
                 <td>
                     <?= $take['test']['subject']['name'] ?>
@@ -74,6 +86,12 @@
                         echo $class['name'] . '<br />';
                     }
                     ?>
+                </td>
+                <th><?= __("Gepland door") ?></th>
+                <td>
+                    <?= $take['user']['name_first'] ?>
+                    <?= $take['user']['name_suffix'] ?>
+                    <?= $take['user']['name'] ?>
                 </td>
             </tr>
         </table>
@@ -111,8 +129,18 @@
         <div page="invigilators" class="page" tabs="view_test_take">
             <?
             foreach ($take['invigilator_users'] as $invigilator) {
+                $disabled = false;
+                if(!is_null($invigilator['deleted_at'])){
+                    $disabled = true;
+                }
                 ?>
-                <div class="participant">
+                <div class="participant
+                            <?
+                                if($disabled){?>
+                                  disabled_invigilator
+                                <?}
+                                ?>
+                    ">
                     <?= $invigilator['name_first'] ?>
                     <?= $invigilator['name_suffix'] ?>
                     <?= $invigilator['name'] ?>

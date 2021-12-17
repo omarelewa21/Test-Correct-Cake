@@ -71,7 +71,7 @@ class AppController extends Controller
 
         $headers = AppVersionDetector::getAllHeaders();
 
-        if(!$this->Session->check('TLCHeader')) {
+        if(!$this->Session->check('TLCHeader') || !$this->Session->check('TLCHeader') == 'not secure...') {
             $this->handleHeaderCheck($headers);
         } else {
             // set the details always when there is a tlctestcorrectversion header
@@ -272,6 +272,43 @@ class AppController extends Controller
         return false;
     }
 
+    protected function getEducationLevelYears()
+    {
+        return [
+//          0 => 'Alle',
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+    }
+
+    protected function handleRequestFilterAndOrderParams($params, $dataKey, $referenceAr = [])
+    {
+        $filters = array();
+        parse_str($params['filters'], $filters);
+        $filters = $filters['data'][$dataKey];
+        $params['filters'] = [];
+        foreach($referenceAr as $filterLaravelKey => $filterCakeKey){
+
+            if (!empty($filters[$filterCakeKey])) {
+                $params['filter'][$filterLaravelKey] = $filters[$filterCakeKey];
+            }
+        }
+
+        if (!empty($filters['created_at_start'])) {
+            $params['filter']['created_at_start'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_start']));
+        }
+
+        if (!empty($filters['created_at_end'])) {
+            $params['filter']['created_at_end'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_end']));
+        }
+
+        return $this->handleRequestOrderParameters($params);
+    }
+
     function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
     {
         if ((!isset($params['sort']) || empty($params['sort'])) ||
@@ -292,6 +329,8 @@ class AppController extends Controller
             'TLCOs'                 => CakeSession::read('TLCOs'),
             'TLCHeader'             => CakeSession::read('TLCHeader'),
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'headers'               => $this->getallheaders(),
         ];
     }
 
@@ -300,7 +339,7 @@ class AppController extends Controller
         if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
             $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
             if(!in_array($language,['en','nl'])){
-                $language = 'nl';
+                $language = 'nld';
             }
             if($language === 'en') {
                 $language = 'eng';

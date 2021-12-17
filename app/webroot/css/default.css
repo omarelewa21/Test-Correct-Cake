@@ -1,19 +1,21 @@
-@import url('buttons.css?v20210826');
-@import url('dropblock.css?v20210826');
-@import url('popup.css?v20210826');
-@import url('spacing.css?v20210826');
-@import url('forms.css?v20210826');
-@import url('redactor.css?v20210826');
-@import url('select2.css?v20210826');
-@import url('test_take.css?v20210826');
-@import url('answer.css?v20210826');
-@import url('header.css?20211004');
-@import url('jquery.datetimepicker.css?v20210826');
-@import url('prettyCheckable.css?v20210826');
-@import url('bootstrap.css?v20210826');
-@import url('questions.css?v20210826');
-@import url('tell_a_teacher.css?v20210826');
-@import url('dashboard.css?v20210826');
+@import url('buttons.css?20211216');
+@import url('dropblock.css?20211216');
+@import url('popup.css?20211216');
+@import url('spacing.css?20211216');
+@import url('forms.css?20211216');
+@import url('redactor.css?20211216');
+@import url('select2.css?20211216');
+@import url('test_take.css?20211216');
+@import url('answer.css?20211216');
+@import url('header.css?20211216');
+@import url('jquery.datetimepicker.css?20211216');
+@import url('prettyCheckable.css?20211216');
+@import url('bootstrap.css?20211216');
+@import url('questions.css?20211216');
+@import url('tell_a_teacher.css?20211216');
+@import url('dashboard.css?20211216');
+@import url('new_look.css?20211216');
+@import url('question_editor.css?20211216');
 /* GENERAL */
 body {
     margin:         0px;
@@ -195,6 +197,9 @@ body {
     color:          white;
 }
 
+.participant.disabled_invigilator {
+    color:          lightgrey;
+}
 
 
 div#container img,
@@ -575,6 +580,10 @@ th.subject-column, td.subject-column {
 .sorting-chevron.asc{
     transform: scale(.75) rotate(-90deg);
 }
+
+.toets_afnemen_disabled {
+    color: lightgrey !important;
+}
 .test-take-code-show-wrapper {
     display: flex;
     justify-content: center;
@@ -629,7 +638,7 @@ th.subject-column, td.subject-column {
     background: white;
     display: flex;
     width: 100%;
-    padding: 10px 60px;
+    padding: 10px 24px;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
