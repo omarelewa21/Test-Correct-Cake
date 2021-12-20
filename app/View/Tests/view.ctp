@@ -418,9 +418,15 @@
                                         </a>
                                     </div>
                                 <? }else{ ?>
+                                        <?php if ($question['question']['type'] == 'OpenQuestion') { ?>
+                                        <a href="#" class="btn blue pull-right" onclick="Questions.editOpenPopup('short', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>')">
+                                            <span class="fa fa-folder-open-o"></span>
+                                        </a>
+                                                <?php } else { ?>
                                     <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
                                         <span class="fa fa-folder-open-o"></span>
                                     </a>
+                                                <?php } ?>
 
                                     <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
                                         <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
