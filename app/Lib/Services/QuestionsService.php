@@ -999,7 +999,7 @@ class QuestionsService extends BaseService
         return $changed;
     }
 
-    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null)
+    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null, $checkForErrorsAndReturnIfSo = false)
     {
         $testUrl = '/test_question/' . $question_id;
         $groupUrl = '/group_question_question/' . $owner_id . '/' . $question_id;
@@ -1119,10 +1119,14 @@ class QuestionsService extends BaseService
                         foreach ($err as $k => $e) {
                             if (is_array($e) || is_object($e)) {
                                 foreach ($e as $a) {
-                                    $this->addError($a);
+                                    if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                        $this->addError($a);
+                                    }
                                 }
                             } else {
-                                $this->addError($e);
+                                if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                    $this->addError($e);
+                                }
                             }
                         }
                     }
@@ -1191,10 +1195,14 @@ class QuestionsService extends BaseService
                 foreach ($err as $k => $e) {
                     if (is_array($e) || is_object($e)) {
                         foreach ($e as $a) {
-                            $this->addError($a);
+                            if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                $this->addError($a);
+                            }
                         }
                     } else {
-                        $this->addError($e);
+                        if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                            $this->addError($e);
+                        }
                     }
                 }
             } else {
