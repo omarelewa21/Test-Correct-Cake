@@ -524,7 +524,7 @@ class QuestionsController extends AppController
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
 
-                $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read());
+                $result = $this->QuestionsService->editQuestion($owner, $owner_id, $type, $question_id, $question, $this->Session->read(), true);
 
                 if ($this->hasBackendValidation($type) && !$result) {
 
@@ -1190,7 +1190,10 @@ class QuestionsController extends AppController
             $check = $this->Question->check($type, $question, $this->Session->read());
             if ($check['status'] == true) {
                 $result = $this->QuestionsService->addQuestion($owner, $owner_id, $type, $question, $this->Session->read());
-
+                if(is_string($result)){
+                    $this->formResponse(false, $this->QuestionsService->getErrors());
+                    return false;
+                }
                 if ($this->hasBackendValidation($type) && !$result) {
 
                     $this->formResponse(false, $this->QuestionsService->getErrors());

@@ -34,7 +34,10 @@ var Questions = {
                     Questions.closeQuestionEditor();
 
                 }else{
-                    // console.log(response['data']);
+                    Object.entries(response['data']).map(item => {
+                        typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                    })      // Add translation to error message
+
                     Notify.notify(response['data'].join('<br />'), 'error');
                 }
             }
@@ -52,8 +55,17 @@ var Questions = {
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                     Questions.closeQuestionEditor();
                 }else{
+                    // if(typeof ){
+
+                    // }
+                    // else{
+
+                    // }
                     $.each(response['data'], function() {
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                        Object.entries(response['data']).map(item => {
+                            typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                        })      // Add translation to error message
+                        Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                     });
                 }
             }
