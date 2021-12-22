@@ -21,7 +21,7 @@
     <?= __("Juist / Onjuist")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>', 'multi', true);">
     <?= __("Selectie")?>
     </div>
 
@@ -43,7 +43,7 @@
     <?= __("Leg uit lang")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>','completion', true);">
     <?= __("Open gatentekst")?>
     </div>
 

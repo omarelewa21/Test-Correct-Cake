@@ -429,7 +429,7 @@
                                                 <?php } ?>
 
                                     <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
+                                        <a href="#" class="btn highlight white" onclick="Questions.editPopup('<?=$question['question']['type']?>, 'test', '<?=$test_id?>',<?=getUUID($question, 'get');?>', <?=$question['question']['subtype']?>);">
                                             <span class="fa fa-edit mr5"></span>
                                             <?= __("Wijzigen")?>
                                         </a>
