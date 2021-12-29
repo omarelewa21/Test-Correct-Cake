@@ -1215,7 +1215,6 @@ class QuestionsService extends BaseService
 
             return $error;
         }
-
         return $response;
     }
 
