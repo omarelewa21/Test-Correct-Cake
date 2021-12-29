@@ -1212,6 +1212,7 @@ class QuestionsService extends BaseService
             if ($hasBackendValidation) {
                 return false;
             }
+
             return $error;
         }
 
