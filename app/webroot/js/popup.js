@@ -577,7 +577,7 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
-                url = data.data.url;
+                url = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.location = url;
                 windowReference.focus();
             }
