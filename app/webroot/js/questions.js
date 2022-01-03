@@ -24,14 +24,13 @@ var Questions = {
     },
 
     editOpenPopup : function(type, owner, owner_id, question_id) {
-
-        var path = 'teacher/questions/edit/'+type+'/medium?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
+        var path = 'teacher/questions/edit/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
         User.goToLaravel(path);
         return;
     },
     addOpenPopup : function(type, owner, owner_id, goToLaravel) {
         if (goToLaravel) {
-            var path = 'teacher/questions/add/'+type+'/medium?owner=' + owner + '&owner_id=' + owner_id;
+            var path = 'teacher/questions/add/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id;
             User.goToLaravel(path);
             return;
         }

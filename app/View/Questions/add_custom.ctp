@@ -39,7 +39,7 @@
     <?= __("Leg uit kort")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Leg uit lang")?>
     </div>
 
