@@ -447,19 +447,28 @@ var User = {
             authEndpoint: "/users/pusher_auth"
         });
     },
-    goToLaravel : function (path, autoLogout = null) {
+    goToLaravel: function (path, autoLogout = null) {
         $.ajax({
             url: '/users/goToLaravelPath',
             method: 'post',
-            data: {'path': path, autoLogout : autoLogout},
+            data: {'path': path, autoLogout: autoLogout},
             success: function (url) {
-                if(autoLogout){
+                document.removeEventListener("visibilitychange", onchange);
+                if (autoLogout) {
                     Core.resetCache();
                 }
-                url = JSON.parse(url);
+                url = getCorrectLaravelUrl(JSON.parse(url));
                 window.open(url.data.url, '_self');
-                try {electron.loadUrl(url.data.url);} catch(error) {}
+                try {electron.loadUrl(url.data.url);} catch (error) {}
             }
-            });
+        });
+
+        function getCorrectLaravelUrl(url) {
+            if (window.location.href.includes('portal2')) {
+                url.data.url.replace('welcome', 'welcome2');
+            }
+
+            return url;
+        }
     }
 };

@@ -333,22 +333,6 @@ var Core = {
 			$(container).html(Core.cache[path]);
 		}
 	},
-
-	goToLaravel : function(path) {
-		$.ajax({
-			type: 'post',
-			url: '/users/goToLaravelPath',
-			dataType: 'json',
-			data: {path:path},
-			success: function (data) {
-				document.removeEventListener("visibilitychange", onchange);
-				window.open(data.data.url, '_self');
-				try {
-					electron.loadUrl(data.data.url);
-				} catch(error) {}
-			},
-		});
-	},
 	laravelLoginPage : function () {
 		$.ajax({
 			type: 'get',
