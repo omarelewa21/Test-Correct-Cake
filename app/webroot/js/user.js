@@ -457,18 +457,11 @@ var User = {
                 if (autoLogout) {
                     Core.resetCache();
                 }
-                url = getCorrectLaravelUrl(JSON.parse(url));
+                url = JSON.parse(url);
+                url = Core.getCorrectLaravelUrl(url.data.url);
                 window.open(url.data.url, '_self');
                 try {electron.loadUrl(url.data.url);} catch (error) {}
             }
         });
-
-        function getCorrectLaravelUrl(url) {
-            if (window.location.href.includes('portal2')) {
-                url.data.url.replace('welcome', 'welcome2');
-            }
-
-            return url;
-        }
     }
 };

@@ -338,12 +338,16 @@ var Core = {
 			type: 'get',
 			url: '/users/get_laravel_login_page',
 			success: function (url) {
+				url = Core.getCorrectLaravelUrl(url);
 				window.open(url, '_self');
 				try {
 					electron.loadUrl(url);
 				} catch(error) {}
 			}
 		});
+	},
+	getCorrectLaravelUrl : function(url) {
+		return window.location.href.includes('portal2') ? url.replace('welcome', 'welcome2') : url;
 	}
 };
 
