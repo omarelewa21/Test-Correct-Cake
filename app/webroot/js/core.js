@@ -333,33 +333,21 @@ var Core = {
 			$(container).html(Core.cache[path]);
 		}
 	},
-
-	goToLaravel : function(path) {
-		$.ajax({
-			type: 'post',
-			url: '/users/goToLaravelPath',
-			dataType: 'json',
-			data: {path:path},
-			success: function (data) {
-				document.removeEventListener("visibilitychange", onchange);
-				window.open(data.data.url, '_self');
-				try {
-					electron.loadUrl(data.data.url);
-				} catch(error) {}
-			},
-		});
-	},
 	laravelLoginPage : function () {
 		$.ajax({
 			type: 'get',
 			url: '/users/get_laravel_login_page',
 			success: function (url) {
+				url = Core.getCorrectLaravelUrl(url);
 				window.open(url, '_self');
 				try {
 					electron.loadUrl(url);
 				} catch(error) {}
 			}
 		});
+	},
+	getCorrectLaravelUrl : function(url) {
+		return window.location.href.includes('portal2') ? url.replace('welcome', 'welcome2') : url;
 	}
 };
 

@@ -99,6 +99,7 @@
         </div>
         <div class="block-content" id="redirectContainer">
             <a href="https://portal.test-correct.nl/">live portal</a><br>
+            <a href="https://portal2.test-correct.nl/">live portal2</a><br>
             <a href="https://testportal.test-correct.nl/">test portal</a><br>
             <a href="https://devportal.test-correct.nl/">dev portal</a><br>
             <a href="http://test-correct.test/">Sobit dev</a><br>
