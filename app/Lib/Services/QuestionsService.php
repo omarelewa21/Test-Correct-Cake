@@ -1016,7 +1016,7 @@ class QuestionsService extends BaseService
             case "ClassifyQuestion":
             case "MatchingQuestion":
                 $hasBackendValidation = true;
-                if(!question['html_specialchars_encoded']){
+                if(!$question['html_specialchars_encoded']){
                     break;
                 }
                 foreach ($question['answers'] as $key => $answer){
