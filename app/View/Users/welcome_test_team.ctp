@@ -15,6 +15,11 @@
             </a>
         </div>
         <div style="display: flex; flex-direction: column; justify-content: center; width: 100%">
+            <a class="button primary-button button-md" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin: 0 10px;" href="https://portal2.test-correct.nl/">
+                <span>Live portal2</span>
+            </a>
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: center; width: 100%">
             <a class="button cta-button button-md" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin: 0 10px;" href="https://testportal.test-correct.nl/">
                 <span>Test portal</span>
             </a>
