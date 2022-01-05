@@ -21,7 +21,7 @@
     <?= __("Juist / Onjuist")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>', 'multi', true);">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>', 'multi');">
     <?= __("Selectie")?>
     </div>
 

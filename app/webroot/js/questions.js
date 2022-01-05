@@ -12,8 +12,8 @@ var Questions = {
             Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
-    editPopup:function(type, owner, owner_id, sub_type, test_question_id) {
-        if (true) {
+    editPopup:function(type, owner, owner_id, sub_type, test_question_id, laravel) {
+        if (laravel && owner === 'test') {
             User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id' + owner_id+'&test_question_id='+ test_question_id);
             return;
         }
@@ -23,13 +23,17 @@ var Questions = {
         }, 500);
     },
 
-    editOpenPopup : function(type, owner, owner_id, question_id) {
-        var path = 'teacher/questions/edit/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
-        User.goToLaravel(path);
-        return;
+    editOpenPopup : function(type, owner, owner_id, question_id, laravel) {
+        if (laravel && owner === 'test') {
+            var path = 'teacher/questions/edit/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
+            User.goToLaravel(path);
+            return;
+        }
+
+        Navigation.load('/questions/edit/test/'+owner_id+'/'+type+'/'+question_id);
     },
     addOpenPopup : function(type, owner, owner_id, goToLaravel) {
-        if (goToLaravel) {
+        if (goToLaravel && owner === 'test') {
             var path = 'teacher/questions/add/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id;
             User.goToLaravel(path);
             return;

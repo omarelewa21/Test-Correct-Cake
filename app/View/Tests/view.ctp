@@ -419,9 +419,21 @@
                                     </div>
                                 <? }else{ ?>
                                         <?php if ($question['question']['type'] == 'OpenQuestion') { ?>
-                                        <a href="#" class="btn white pull-right" onclick="Questions.editOpenPopup('<?=$question['question']['subtype']?>', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>')">
+                                        <a href="#" class="btn white pull-right" onclick="Questions.editOpenPopup('<?=$question['question']['subtype']?>', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>', true)">
                                             <span class="fa fa-folder-open-o"></span>
                                         </a>
+                                        <?php } elseif ($question['question']['type'] == 'CompletionQuestion' && $question['question']['subtype'] == 'completion') { ?>
+                                        <a href="#" class="btn white pull-right" onclick="Questions.editPopup(
+                                                '<?=$question['question']['type']?>',
+                                                'test',
+                                                '<?=$test_id?>',
+                                                '<?=$question['question']['subtype']?>',
+                                                '<?=getUUID($question, 'get');?>',
+                                                true
+                                                )">
+                                            <span class="fa fa-folder-open-o"></span>
+                                        </a>
+
                                                 <?php } else { ?>
                                     <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/edit/test/<?=$test_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
                                         <span class="fa fa-folder-open-o"></span>
