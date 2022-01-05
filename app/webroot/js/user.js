@@ -459,8 +459,8 @@ var User = {
                 }
                 url = JSON.parse(url);
                 url = Core.getCorrectLaravelUrl(url.data.url);
-                window.open(url.data.url, '_self');
-                try {electron.loadUrl(url.data.url);} catch (error) {}
+                window.open(url, '_self');
+                try {electron.loadUrl(url);} catch (error) {}
             }
         });
     }
