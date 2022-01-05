@@ -419,7 +419,7 @@
                                     </div>
                                 <? }else{ ?>
                                         <?php if ($question['question']['type'] == 'OpenQuestion') { ?>
-                                        <a href="#" class="btn blue pull-right" onclick="Questions.editOpenPopup('<?=$question['question']['subtype']?>', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>')">
+                                        <a href="#" class="btn white pull-right" onclick="Questions.editOpenPopup('<?=$question['question']['subtype']?>', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>')">
                                             <span class="fa fa-folder-open-o"></span>
                                         </a>
                                                 <?php } else { ?>
