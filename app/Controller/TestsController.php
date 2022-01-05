@@ -404,6 +404,7 @@ class TestsController extends AppController
         $this->set('newPlayerAccess', $newPlayerAccess);
         $this->set('oldPlayerAccess', $oldPlayerAccess);
         $this->set('startWithEdit',false);
+        $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
     }
 
     /**
