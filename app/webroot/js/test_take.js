@@ -518,9 +518,9 @@ var TestTake = {
                                         '        <circle cx="2" cy="12" r="2"/>' +
                                         '    </g>' +
                                         '</svg>' +
-                                        '<span style="margin-left:10px;font-size:16px">Gastprofielen van studenten worden toegelaten</span>' +
+                                        '<span style="margin-left:10px;font-size:16px">'+ $.i18n('Test-Direct toestaan') +'</span>' +
                                     '</p>' +
-                                    '<span class="body" style="font-size: 14px">De student kan inloggen met een gastprofiel (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken.</span>' +
+                                    '<span class="body" style="font-size: 14px">De student kan inloggen met een Test-Direct account (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken.</span>' +
                                 '</div>';
 
 
@@ -810,7 +810,7 @@ var TestTake = {
     forceTakenAway: function (take_id, participant_id, guest) {
         var message = $.i18n('Weet u zeker dat u de toets wil innemen?');
         if (guest) {
-            message += ' '+$.i18n('Dit is een gastaccount waardoor je de toets niet meer kunt heropenen.');
+            message += ' '+$.i18n('Dit is een Test-Direct account waardoor je de toets niet meer kunt heropenen.');
         }
 
         Popup.message({

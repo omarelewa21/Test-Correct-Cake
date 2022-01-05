@@ -126,7 +126,7 @@
                     <div style="display: flex;flex-grow:1">
                         <div style="display:flex;align-items: center; color: var(--system-base);">
                             <?= $this->element('profile') ?>
-                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong>Gastprofielen van studenten toelaten in toets</strong></span>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __('Test-Direct toestaan') ?></strong></span>
                             <div style="display: flex; align-items: center; margin-left: auto">
                                 <?php echo $this->element('questionmark_tooltip_guest_accounts', array('id' => $i)) ?>
                                 <label id="guest_toggle" class="switch">

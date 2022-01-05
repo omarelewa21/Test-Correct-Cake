@@ -4352,8 +4352,17 @@ msgstr "Something went wrong. Log out to return to the support environment"
 msgid "Terug naar support omgeving"
 msgstr "Return to support environment"
 
-msgid "Dit is een gastaccount waardoor je de toets niet meer kunt heropenen voor deze student."
-msgstr "This is a guest account, which makes it impossible for you to re-open the test for this student."
+msgid "Test-Direct toestaan"
+msgstr "Test-Direct allowed"
+
+msgid "De student kan inloggen met een Test-Direct account (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken."
+msgstr "A student is able t use a Test-Direct account (and test-access code) to take the test."
+
+msgid "Als studenten nog geen account hebben kunnen zij met een Test-Direct account inloggen om toch mee te kunnen doen met de toets. Zij komen in de toets met de toetscode die bij de toets hoort."
+msgstr "Students without an account can use a Test-Direct account to login and take the test. To get access student can use the test-access code."
+
+msgid "Dit is een Test-Direct account waardoor je de toets niet meer kunt heropenen voor deze student."
+msgstr "This is a Test-Direct account, which makes it impossible for you to re-open the test for this student."
 
 msgid "info.Zichtbaar"
 msgstr "Visible"
