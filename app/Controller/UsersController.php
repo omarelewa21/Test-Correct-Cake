@@ -319,15 +319,7 @@ class UsersController extends AppController
 
                     try {
                         if (typeof(electron.closeApp) === typeof(Function)) {
-                            if (typeof(electron.reloadApp) === typeof(Function)) {
-                                if (closeApp) {
-                                    electron.closeApp();
-                                } else {
-                                    electron.reloadApp();
-                                }
-                            } else {
-                                electron.closeApp();
-                            }
+                            electron.closeApp();
                         }
                     } catch (error) {}</script>";
         exit;
