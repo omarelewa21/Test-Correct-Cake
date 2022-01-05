@@ -312,6 +312,21 @@ class UsersController extends AppController
         BugsnagLogger::getInstance()->unsetUser();
     }
 
+    public function logoutFromLaravel() {
+        $this->logout();
+        $this->autoRender = false;
+        echo "<script> window.location.href = '/';
+
+                    try {
+                        if (typeof(electron.closeApp) === typeof(Function)) {
+                            electron.closeApp();
+                        }
+                    } catch (error) {}</script>";
+        exit;
+
+
+    }
+
     public function forgot_password()
     {
         $this->autoRender = false;
@@ -2350,8 +2365,7 @@ class UsersController extends AppController
         $this->handleHeaderCheck($headers);
 
         if (CakeSession::read('temporaryLoginOptions')) {
-            //TODO: Change this back to consume instead of read
-            $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+            $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
             if (array_key_exists('page', $options)) {
                 $page = $options['page'];
                 $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
