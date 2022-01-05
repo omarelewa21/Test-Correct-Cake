@@ -2,7 +2,7 @@
 <div class="popup-content">
     <div><?= __("Gesloten vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Meerkeuze")?>
     </div>
 
@@ -21,7 +21,7 @@
     <?= __("Juist / Onjuist")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultiCompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>', 'multi');">
     <?= __("Selectie")?>
     </div>
 
@@ -35,15 +35,15 @@
 
     <div class="pt15" style="clear:both"><?= __("Open vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Leg uit kort")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>', true);">
     <?= __("Leg uit lang")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>','completion', true);">
     <?= __("Open gatentekst")?>
     </div>
 

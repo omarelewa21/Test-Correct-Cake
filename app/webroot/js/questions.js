@@ -1,14 +1,43 @@
 var Questions = {
     openType : null,
 
-    addPopup : function(type, owner, owner_id) {
+    addPopup : function(type, owner, owner_id, sub_type, goToLaravel) {
+        if (goToLaravel) {
+            User.goToLaravel('teacher/questions/add/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id=' + owner_id);
+            return;
+        }
+
         Popup.closeLast();
         setTimeout(function() {
             Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
+    editPopup:function(type, owner, owner_id, sub_type, test_question_id, laravel) {
+        if (laravel && owner === 'test') {
+            User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id' + owner_id+'&test_question_id='+ test_question_id);
+            return;
+        }
 
-    addOpenPopup : function(type, owner, owner_id) {
+        setTimeout(function() {
+            Navigation.load('/questions/edit/' + owner + '/' + owner_id + '/' + type);
+        }, 500);
+    },
+
+    editOpenPopup : function(type, owner, owner_id, question_id, laravel) {
+        if (laravel && owner === 'test') {
+            var path = 'teacher/questions/edit/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
+            User.goToLaravel(path);
+            return;
+        }
+
+        Navigation.load('/questions/edit/test/'+owner_id+'/'+type+'/'+question_id);
+    },
+    addOpenPopup : function(type, owner, owner_id, goToLaravel) {
+        if (goToLaravel && owner === 'test') {
+            var path = 'teacher/questions/add/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id;
+            User.goToLaravel(path);
+            return;
+        }
 
         Questions.openType = type;
 

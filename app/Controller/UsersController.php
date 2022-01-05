@@ -2072,7 +2072,7 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath()
+    public function goToLaravelPath($path = null)
     {
         if ($this->request->is('post')) {
             $path = $this->data['path'];
