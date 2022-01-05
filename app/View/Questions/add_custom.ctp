@@ -35,15 +35,15 @@
 
     <div class="pt15" style="clear:both"><?= __("Open vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>', true);">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('short', '<?=$owner?>', '<?=$owner_id?>', <?=$newEditor?>);">
     <?= __("Leg uit kort")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>', true);">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addOpenPopup('medium', '<?=$owner?>', '<?=$owner_id?>', <?=$newEditor?>);">
     <?= __("Leg uit lang")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>','completion', true);">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('CompletionQuestion', '<?=$owner?>', '<?=$owner_id?>','completion', <?=$newEditor?>);">
     <?= __("Open gatentekst")?>
     </div>
 

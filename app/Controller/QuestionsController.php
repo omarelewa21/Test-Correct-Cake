@@ -374,6 +374,7 @@ class QuestionsController extends AppController
     public function add_custom($owner, $owner_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
         $this->set('owner', $owner);
         $this->set('owner_id', $owner_id);
     }
