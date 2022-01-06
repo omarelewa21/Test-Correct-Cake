@@ -2361,7 +2361,7 @@ class UsersController extends AppController
         $this->handleHeaderCheck($headers);
 
         if (CakeSession::read('temporaryLoginOptions')) {
-            $options = json_decode(CakeSession::consume('temporaryLoginOptions'), true);
+            $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
             if (array_key_exists('page', $options)) {
                 $page = $options['page'];
                 $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
