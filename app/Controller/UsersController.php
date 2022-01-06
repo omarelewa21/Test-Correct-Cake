@@ -315,16 +315,11 @@ class UsersController extends AppController
     public function logoutFromLaravel() {
         $this->logout();
         $this->autoRender = false;
-        echo "<script> window.location.href = '/';
-
-                    try {
-                        if (typeof(electron.closeApp) === typeof(Function)) {
-                            electron.closeApp();
-                        }
-                    } catch (error) {}</script>";
-        exit;
-
-
+        $url = $this->get_laravel_login_page();
+        if(substr_count(Router::url( $this->here, true ),'testportal2.test-correct')){
+            $url = str_replace('welcome.test','welcome2.test',$url);
+        }
+        header('Location: '.$url);
     }
 
     public function forgot_password()
