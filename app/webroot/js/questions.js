@@ -27,7 +27,7 @@ var Questions = {
 
         setTimeout(function() {
             type = Questions.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
-            Navigation.load('/questions/edit/' + owner + '/' + owner_id + '/' + type);
+            Navigation.load('/questions/edit/' + owner + '/' + owner_id + '/' + type+'/'+test_question_id);
         }, 500);
     },
 
