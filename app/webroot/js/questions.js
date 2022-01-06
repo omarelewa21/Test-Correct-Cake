@@ -1,6 +1,12 @@
 var Questions = {
     openType : null,
 
+    getCorrectQuestionTypeIfNotLaravel(type,sub_type){
+        if(type == 'CompletionQuestion' && sub_type == 'multi'){
+            type = 'MultiCompletionQuestion';
+        }
+        return type;
+    },
     addPopup : function(type, owner, owner_id, sub_type, goToLaravel) {
         if (goToLaravel) {
             User.goToLaravel('teacher/questions/add/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id=' + owner_id);
@@ -9,6 +15,7 @@ var Questions = {
 
         Popup.closeLast();
         setTimeout(function() {
+            type = Questions.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
             Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
@@ -19,6 +26,7 @@ var Questions = {
         }
 
         setTimeout(function() {
+            type = Questions.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
             Navigation.load('/questions/edit/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
