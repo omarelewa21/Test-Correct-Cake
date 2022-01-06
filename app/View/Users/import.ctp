@@ -43,7 +43,7 @@
         {'column': 'name_first', 'name': '<?= __("Voornaam")?>'},
         {'column': 'name_suffix', 'name': '<?= __("tussenvoegsel")?>'},
         {'column': 'name', 'name': '<?= __("Achternaam")?>'},
-        {'column': 'abbrviation', 'name': '<?= __("Afkorting")?>'},
+        {'column': 'abbreviation', 'name': '<?= __("Afkorting")?>'},
         {'column': 'username', 'name': '<?= __("E-mailadres")?>'},
         {'column': 'external_id', 'name': '<?= __("Externe code")?>'},
         {'column': 'note', 'name': '<?= __("Notities")?>'},
