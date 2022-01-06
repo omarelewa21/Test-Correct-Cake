@@ -418,10 +418,10 @@ class Question extends AppModel
 
                     //TC-154
                     //empty brackets are not allowed
-                    if ($string == '' || $string == null) {
-                        $errors[] = __("U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen");
-                        break 2;
-                    }
+//                    if ($string == '' || $string == null) {
+//                        $errors[] = __("U dient minimaal &eacute;&eacute;n antwoord tussen vierkante haakjes te plaatsen");
+//                        break 2;
+//                    }
 
                     if($type == 'CompletionQuestion' && $question['auto_check_answer'] && substr_count($string,'|') > 0){
                         $errors[] = __('U kunt maximaal &eacute;&eacute;n valide antwoord geven bij automatisch nakijken');
