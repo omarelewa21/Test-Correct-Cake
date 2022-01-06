@@ -403,7 +403,10 @@ class QuestionsService extends BaseService
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
-                $err = json_decode($error);
+                $err = json_decode($error,true);
+                if(array_key_exists('errors',$err) && array_key_exists('message',$err)){
+                    unset($err['message']);
+                }
                 foreach ($err as $k => $e) {
                     if (is_array($e) || is_object($e)) {
                         foreach ($e as $a) {
@@ -1115,7 +1118,10 @@ class QuestionsService extends BaseService
                     $error = $this->Connector->getLastResponse();
 
                     if ($this->isValidJson($error)) {
-                        $err = json_decode($error);
+                        $err = json_decode($error,true);
+                        if(array_key_exists('errors',$err) && array_key_exists('message',$err)){
+                            unset($err['message']);
+                        }
                         foreach ($err as $k => $e) {
                             if (is_array($e) || is_object($e)) {
                                 foreach ($e as $a) {
