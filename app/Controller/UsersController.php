@@ -31,7 +31,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page','logout_from_laravel');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -312,7 +312,7 @@ class UsersController extends AppController
         BugsnagLogger::getInstance()->unsetUser();
     }
 
-    public function logoutFromLaravel() {
+    public function logout_from_laravel() {
         $this->logout();
         $this->autoRender = false;
         $url = $this->get_laravel_login_page();
@@ -320,6 +320,7 @@ class UsersController extends AppController
             $url = str_replace('welcome.test','welcome2.test',$url);
         }
         header('Location: '.$url);
+        exit;
     }
 
     public function forgot_password()
