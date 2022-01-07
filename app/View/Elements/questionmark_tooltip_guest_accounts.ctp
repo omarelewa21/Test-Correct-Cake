@@ -43,8 +43,8 @@
                                     cursor: default;
                                   "
     >
-        <p style="margin-top: .5rem">Als studenten nog geen account hebben kunnen zij met een gastprofiel inloggen om toch mee te kunnen doen met de toets. Zij komen in de toets met de toetscode die bij de toets hoort.</p>
-        <a href="https://support.test-correct.nl/knowledge" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px">Lees meer op de Kennisbank</span><?php echo $this->element('arrow') ?></a>
+        <p style="margin-top: .5rem"><?= __('Als studenten nog geen account hebben kunnen zij met een Test-Direct account inloggen om toch mee te kunnen doen met de toets. Zij komen in de toets met de toetscode die bij de toets hoort.') ?></p>
+        <a href="https://support.test-correct.nl/knowledge/test-direct" target="_blank" class="text-button" style="text-decoration: none"><span style="margin-right: 10px">Lees meer op de Kennisbank</span><?php echo $this->element('arrow') ?></a>
     </div>
     <script>
         function showTooltipGuestAccounts(id) {

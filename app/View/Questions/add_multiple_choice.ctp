@@ -32,7 +32,7 @@
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
-        <div page="question" class="page" tabs="add_question">
+        <div page="question" class="page active" tabs="add_question">
             <span class="title"><?= __('Antwoord') ?></span>
 
             <table class="table" id="tableMultiChoiceOptions">

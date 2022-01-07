@@ -31,7 +31,7 @@ class UsersController extends AppController
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page');
+        $this->Auth->allowedActions = array('login', 'status', 'get_config', 'forgot_password', 'reset_password', 'register_new_teacher', 'register_new_teacher_successful', 'registereduix', 'temporary_login', 'handleTemporaryLoginOptions', 'get_laravel_login_page','logout_from_laravel');
 
         $this->UsersService = new UsersService();
         $this->SchoolClassesService = new SchoolClassesService();
@@ -310,6 +310,17 @@ class UsersController extends AppController
         }
         App::uses('BugsnagLogger', 'Lib');
         BugsnagLogger::getInstance()->unsetUser();
+    }
+
+    public function logout_from_laravel() {
+        $this->logout();
+        $this->autoRender = false;
+        $url = $this->get_laravel_login_page();
+        if(substr_count(Router::url( $this->here, true ),'testportal2.test-correct')){
+            $url = str_replace('welcome.test','welcome2.test',$url);
+        }
+        header('Location: '.$url);
+        exit;
     }
 
     public function forgot_password()
@@ -2072,7 +2083,7 @@ class UsersController extends AppController
         die();
     }
 
-    public function goToLaravelPath()
+    public function goToLaravelPath($path = null)
     {
         if ($this->request->is('post')) {
             $path = $this->data['path'];
@@ -2350,7 +2361,6 @@ class UsersController extends AppController
         $this->handleHeaderCheck($headers);
 
         if (CakeSession::read('temporaryLoginOptions')) {
-            //TODO: Change this back to consume instead of read
             $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
             if (array_key_exists('page', $options)) {
                 $page = $options['page'];

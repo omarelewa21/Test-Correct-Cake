@@ -180,6 +180,9 @@ $.i18n().load({
 
       // menu.js
       'Resultaten' : 'Results',
+
+      "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.":"You cannot have just one selection, you must add at least one additional selection in each bracket.",
+      "U dient minimaal &eacute;&eacute;n woord tussen vierkante haakjes te plaatsen." : "You must put at least one selection in square brackets.",
     },
 
     'nl': {
@@ -199,6 +202,7 @@ $.i18n().load({
       'Wachtwoord wijzigen':'Wachtwoord wijzigen',
       'Inleveren':'Inleveren',
       'Kennisbank':'Kennisbank',
+      "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.":"U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.",
 
       'Lees de onderstaande tekst en type deze over in het tekstvak eronder.':'Lees de onderstaande tekst en type deze over in het tekstvak eronder.',
       'Afronden':'Afronden',

@@ -1295,8 +1295,26 @@ msgstr "The score must be numeric"
 msgid "De score is verplicht"
 msgstr "The score is mandatory"
 
+msgid "Selecteer juiste antwoord"
+msgstr "Select correct answer"
+
+msgid "Selecteer eerst het juiste woord in uw tekst waar u de keuze uit wilt opbouwen."
+msgstr "First select the correct word in your text from which you want to build the choice."
+
+msgid "Vierkante haakjes toevoegen"
+msgstr "Add square brackets"
+
 msgid "De score dient in hele getallen te worden opgegeven"
 msgstr "The score must be given in whole numbers"
+
+msgid "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen."
+msgstr "You cannot have just one selection, you must add at least one additional selection in each bracket."
+
+msgid "U dient minimaal één antwoord tussen vierkante haakjes te plaatsen"
+msgstr "You must put at least one answer in square brackets"
+
+msgid "U dient minimaal één keuze toe te voegen aan de vraag. "
+msgstr "You must add at least one choice to the question. "
 
 msgid "De score dient groter dan nul te zijn"
 msgstr "The score must be greater than zero"
@@ -4334,8 +4352,17 @@ msgstr "Something went wrong. Log out to return to the support environment"
 msgid "Terug naar support omgeving"
 msgstr "Return to support environment"
 
-msgid "Dit is een gastaccount waardoor je de toets niet meer kunt heropenen voor deze student."
-msgstr "This is a guest account, which makes it impossible for you to re-open the test for this student."
+msgid "Test-Direct toestaan"
+msgstr "Test-Direct allowed"
+
+msgid "De student kan inloggen met een Test-Direct account (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken."
+msgstr "A student is able t use a Test-Direct account (and test-access code) to take the test."
+
+msgid "Als studenten nog geen account hebben kunnen zij met een Test-Direct account inloggen om toch mee te kunnen doen met de toets. Zij komen in de toets met de toetscode die bij de toets hoort."
+msgstr "Students without an account can use a Test-Direct account to login and take the test. To get access student can use the test-access code."
+
+msgid "Dit is een Test-Direct account waardoor je de toets niet meer kunt heropenen voor deze student."
+msgstr "This is a Test-Direct account, which makes it impossible for you to re-open the test for this student."
 
 msgid "info.Zichtbaar"
 msgstr "Visible"

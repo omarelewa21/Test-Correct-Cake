@@ -1,14 +1,51 @@
 var Questions = {
     openType : null,
 
-    addPopup : function(type, owner, owner_id) {
+    getCorrectQuestionTypeIfNotLaravel(type,sub_type){
+        if(type == 'CompletionQuestion' && sub_type == 'multi'){
+            type = 'MultiCompletionQuestion';
+        }
+        return type;
+    },
+    addPopup : function(type, owner, owner_id, sub_type, goToLaravel) {
+        if (goToLaravel) {
+            User.goToLaravel('teacher/questions/add/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id=' + owner_id);
+            return;
+        }
+
         Popup.closeLast();
         setTimeout(function() {
+            type = Questions.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
             Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
+    editPopup:function(type, owner, owner_id, sub_type, test_question_id, laravel) {
+        if (laravel && owner === 'test') {
+            User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id' + owner_id+'&test_question_id='+ test_question_id);
+            return;
+        }
 
-    addOpenPopup : function(type, owner, owner_id) {
+        setTimeout(function() {
+            type = Questions.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
+            Navigation.load('/questions/edit/' + owner + '/' + owner_id + '/' + type+'/'+test_question_id);
+        }, 500);
+    },
+
+    editOpenPopup : function(type, owner, owner_id, question_id, laravel) {
+        if (laravel && owner === 'test') {
+            var path = 'teacher/questions/edit/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id + '&test_question_id=' + question_id;
+            User.goToLaravel(path);
+            return;
+        }
+
+        Navigation.load('/questions/edit/test/'+owner_id+'/'+type+'/'+question_id);
+    },
+    addOpenPopup : function(type, owner, owner_id, goToLaravel) {
+        if (goToLaravel && owner === 'test') {
+            var path = 'teacher/questions/add/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id;
+            User.goToLaravel(path);
+            return;
+        }
 
         Questions.openType = type;
 
@@ -34,7 +71,10 @@ var Questions = {
                     Questions.closeQuestionEditor();
 
                 }else{
-                    // console.log(response['data']);
+                    Object.entries(response['data']).map(item => {
+                        typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                    })      // Add translation to error message
+
                     Notify.notify(response['data'].join('<br />'), 'error');
                 }
             }
@@ -52,8 +92,17 @@ var Questions = {
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                     Questions.closeQuestionEditor();
                 }else{
+                    // if(typeof ){
+
+                    // }
+                    // else{
+
+                    // }
                     $.each(response['data'], function() {
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                        Object.entries(response['data']).map(item => {
+                            typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                        })      // Add translation to error message
+                        Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                     });
                 }
             }

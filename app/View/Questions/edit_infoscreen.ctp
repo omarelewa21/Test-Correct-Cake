@@ -21,7 +21,7 @@
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
         </div>
 
-        <div page="question" class="page" tabs="edit_question">
+        <div page="question" class="page active" tabs="edit_question">
             <span class="title"><?= __('Antwoord')?></span>
             <?=$this->Form->input('answer', array('value' => $question['question']['answer'],'label' => false, 'type' => 'hidden'))?>
             <?= __("Niet van toepassing")?>

@@ -59,7 +59,7 @@
         <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'value' => $question['question']['question'], 'div' => false, 'label' => false)); ?>
     </div>
 
-    <div page="question" class="page" tabs="edit_question">
+    <div page="question" class="page active" tabs="edit_question">
         <span class="title"><?= __('Antwoord')?></span>
         <table width="100%" cellpadding="0" cellspacing="0">
             <tr>
