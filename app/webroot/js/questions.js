@@ -21,7 +21,7 @@ var Questions = {
     },
     editPopup:function(type, owner, owner_id, sub_type, test_question_id, laravel) {
         if (laravel && owner === 'test') {
-            User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id' + owner_id+'&test_question_id='+ test_question_id);
+            User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id=' + owner_id+'&test_question_id='+ test_question_id);
             return;
         }
 
