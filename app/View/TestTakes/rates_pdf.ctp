@@ -11,7 +11,7 @@
 
 <div style="margin:0 auto; width:80%;page-break-inside: avoid;">
     <center>
-        <img src="http://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
+        <img src="https://testportal.test-correct.nl/img/logo_full.jpg" width="200" />
     </center>
     <h1><?= __("Cijferlijst")?> <?=$take['test']['name']?></h1>
 
@@ -37,8 +37,8 @@
             ?>
             <tr>
                 <td>
-                    <?=$participant['user']['name']?>
-                    <?=$participant['user']['name_suffix']?>
+                    <?=$participant['user']['name']?>,
+                    <?=$participant['user']['name_suffix']?><? if(!empty($participant['user']['name_suffix'])){ ?>,<? } ?>
                     <?=$participant['user']['name_first']?>
                 </td>
                 <td>
