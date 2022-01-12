@@ -14,7 +14,7 @@
     $(document).ready(function(){
        setTimeout(function(){
           Core.shouldCheckForUnreadMessages = false;
-          User.goToLaravel('/student/dashboard',false);
+          User.goToLaravel('/student/dashboard',true);
        },2500);
     });
 </script>
