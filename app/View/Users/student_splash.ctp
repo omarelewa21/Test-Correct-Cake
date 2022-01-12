@@ -13,8 +13,8 @@
 <script>
     $(document).ready(function(){
        setTimeout(function(){
-          Core.stopCheckUnreadMessagesListener();
-          User.goToLaravel('/student/dashboard',true);
+          Core.shouldCheckForUnreadMessages = false;
+          User.goToLaravel('/student/dashboard',false);
        },2500);
     });
 </script>
