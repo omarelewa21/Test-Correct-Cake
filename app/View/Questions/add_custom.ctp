@@ -2,7 +2,7 @@
 <div class="popup-content">
     <div><?= __("Gesloten vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>', 'MultipleChoice',true);">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>', 'MultipleChoice',<?=$newEditor?>);">
     <?= __("Meerkeuze")?>
     </div>
 
@@ -17,7 +17,7 @@
     <?= __("Rangschik")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('TrueFalseQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('MultipleChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>','TrueFalse',<?=$newEditor?>);">
     <?= __("Juist / Onjuist")?>
     </div>
 
