@@ -450,6 +450,7 @@ var User = {
             success: function (url) {
                 document.removeEventListener("visibilitychange", onchange);
                 if (autoLogout) {
+                    Core.stopCheckUnreadMessagesListener();
                     Core.resetCache();
                 }
                 url = JSON.parse(url);
