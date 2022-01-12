@@ -13,7 +13,7 @@
 <script>
     $(document).ready(function(){
        setTimeout(function(){
-          User.goToLaravel('/student/dashboard',true);
+          User.goToLaravel('/student/dashboard',false);
        },2500);
     });
 </script>
