@@ -422,7 +422,10 @@
                                         <a href="#" class="btn white pull-right" onclick="Questions.editOpenPopup('<?=$question['question']['subtype']?>', 'test', '<?=$test_id?>','<?=getUUID($question, 'get');?>', <?=$newEditor?>)">
                                             <span class="fa fa-folder-open-o"></span>
                                         </a>
-                                        <?php } elseif ($question['question']['type'] == 'CompletionQuestion' && $question['question']['subtype'] == 'completion') { ?>
+                                        <?php } elseif (
+                                                    ($question['question']['type'] == 'CompletionQuestion' && $question['question']['subtype'] == 'completion')
+                                                    || ($question['question']['type'] == 'MultipleChoiceQuestion' && $question['question']['subtype'] == 'MultipleChoice')
+                                                ){ ?>
                                         <a href="#" class="btn white pull-right" onclick="Questions.editPopup(
                                                 '<?=$question['question']['type']?>',
                                                 'test',
