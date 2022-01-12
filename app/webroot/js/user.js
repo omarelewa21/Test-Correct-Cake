@@ -443,6 +443,9 @@ var User = {
         });
     },
     goToLaravel: function (path, autoLogout = null) {
+        if(autoLogout){
+            Core.stopCheckUnreadMessagesListener();
+        }
         $.ajax({
             url: '/users/goToLaravelPath',
             method: 'post',
@@ -450,7 +453,6 @@ var User = {
             success: function (url) {
                 document.removeEventListener("visibilitychange", onchange);
                 if (autoLogout) {
-                    Core.stopCheckUnreadMessagesListener();
                     Core.resetCache();
                 }
                 url = JSON.parse(url);
