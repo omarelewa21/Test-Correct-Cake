@@ -443,9 +443,6 @@ var User = {
         });
     },
     goToLaravel: function (path, autoLogout = null) {
-        if(autoLogout){
-            Core.stopCheckUnreadMessagesListener();
-        }
         $.ajax({
             url: '/users/goToLaravelPath',
             method: 'post',

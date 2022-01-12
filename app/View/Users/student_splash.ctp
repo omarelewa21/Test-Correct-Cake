@@ -13,6 +13,7 @@
 <script>
     $(document).ready(function(){
        setTimeout(function(){
+          Core.stopCheckUnreadMessagesListener();
           User.goToLaravel('/student/dashboard',true);
        },2500);
     });
