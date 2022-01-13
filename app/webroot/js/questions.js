@@ -92,12 +92,7 @@ var Questions = {
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                     Questions.closeQuestionEditor();
                 }else{
-                    // if(typeof ){
-
-                    // }
-                    // else{
-
-                    // }
+                    console.log(response['data']);
                     $.each(response['data'], function() {
                         Object.entries(response['data']).map(item => {
                             typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
