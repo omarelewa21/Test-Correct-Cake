@@ -426,6 +426,7 @@
                                                     ($question['question']['type'] == 'CompletionQuestion' && $question['question']['subtype'] == 'completion')
                                                     || ($question['question']['type'] == 'MultipleChoiceQuestion' && $question['question']['subtype'] == 'MultipleChoice')
                                                     || ($question['question']['type'] == 'MultipleChoiceQuestion' && $question['question']['subtype'] == 'TrueFalse')
+                                                    || ($question['question']['type'] == 'RankingQuestion')
                                                 ){ ?>
                                         <a href="#" class="btn white pull-right" onclick="Questions.editPopup(
                                                 '<?=$question['question']['type']?>',
