@@ -13,7 +13,7 @@
     <?= __("Rubriceer")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('RankingQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('RankingQuestion', '<?=$owner?>', '<?=$owner_id?>','ranking', <?=$newEditor?>);">
     <?= __("Rangschik")?>
     </div>
 
