@@ -13,6 +13,9 @@ var Questions = {
         }, 500);
     },
     editPopup:function(type, owner, owner_id, sub_type, test_question_id, laravel) {
+        if(type == 'RankingQuestion'){
+            sub_type='Ranking';
+        }
         if (laravel && owner === 'test') {
             User.goToLaravel('teacher/questions/edit/'+type+'/'+sub_type+'?owner=' + owner + '&owner_id=' + owner_id+'&test_question_id='+ test_question_id);
             return;
