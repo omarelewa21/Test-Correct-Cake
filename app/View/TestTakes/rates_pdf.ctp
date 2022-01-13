@@ -38,8 +38,8 @@
             <tr>
                 <td>
                     <?=$participant['user']['name']?>,
-                    <?=$participant['user']['name_suffix']?><? if(!empty($participant['user']['name_suffix'])){ ?>,<? } ?>
                     <?=$participant['user']['name_first']?>
+                    <?=$participant['user']['name_suffix']?>
                 </td>
                 <td>
                     <?=empty($participant['rating']) ? '-' : $participant['rating'] ?>
