@@ -2,7 +2,7 @@
 <div class="popup-content">
     <div><?= __("Gesloten vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'MultipleChoiceQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'MultipleChoiceQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
     <?= __("Meerkeuze")?>
     </div>
 
@@ -13,11 +13,11 @@
     <?= __("Rubriceer")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'RankingQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'RankingQuestion', '<?=$owner?>', '<?=$test_id?>','ranking', '<?= $owner_id ?>');">
     <?= __("Rangschik")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'TrueFalseQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'MultipleChoiceQuestion', '<?=$owner?>', '<?=$test_id?>','TrueFalse', '<?= $owner_id ?>');">
     <?= __("Juist / Onjuist")?>
     </div>
 
@@ -55,7 +55,7 @@
     </div>
 
     <div class="pt15" style="clear:both"><?= __("Overig")?></div>
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'InfoscreenQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>')">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'InfoscreenQuestion', '<?=$owner?>', '<?=$test_id?>','info', '<?= $owner_id ?>')">
     <?= __("Infoscherm")?>
     </div>
     <Br clear="all" />

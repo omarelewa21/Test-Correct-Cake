@@ -439,7 +439,7 @@
                                 );
                                 if ($newEditor) {
 
-                                    if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion'])) {
+                                    if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'TrueFalse']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
                                         $editAction = sprintf(
                                             "Questions.editPopup( '%s', 'test', '%s', '%s', '%s')",
                                             $question['question']['type'],

@@ -14,10 +14,13 @@ var Questions = {
             this.openInEditorInLaravel('add', type, owner, test_id, sub_type, test_question_id);
             return;
         }
-        Popup.closeLast();
-        setTimeout(function() {
+       if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
+           type = 'TrueFalseQuestion';
+       }
+        popup.closelast();
+        settimeout(function() {
             var owner_id = owner == 'test' ? test_id : test_question_id;
-            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
+            navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
     /**
@@ -45,9 +48,9 @@ var Questions = {
             'teacher/questions/'+verb+'/' +
             type + '/' + sub_type +
             '?owner=' + owner +
-            '&test_id=' + test_id +
-            '&test_question_id=' + test_question_id +
-            '&group_question_question_id=' + (group_question_question_id || '')
+            '&testId=' + test_id +
+            '&testQuestionId=' + test_question_id +
+            '&groupQuestionQuestionId=' + (group_question_question_id || '')
         );
         return;
     },
