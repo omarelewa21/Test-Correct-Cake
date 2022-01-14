@@ -55,7 +55,7 @@
     </div>
 
     <div class="pt15" style="clear:both"><?= __("Overig")?></div>
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup('InfoscreenQuestion', '<?=$owner?>', '<?=$owner_id?>','infoscreen',<?=$newEditor?>);">
     <?= __("Infoscherm")?>
     </div>
     <Br clear="all" />
