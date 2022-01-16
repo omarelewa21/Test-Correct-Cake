@@ -300,6 +300,7 @@ var TestTake = {
                 runCheckFocus();
                 shiftCtrlBtuCrOSAdd();
                 zoomsetupcrOS();
+                catchscreenshotchromeOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#action_icons').fadeOut();
@@ -1405,6 +1406,35 @@ function zoomsetupcrOS(){
                   }
             });
     }
+}
+
+function catchscreenshotchromeOS(){
+    if(Core.isChromebook()) {
+        let safeKeys = ['c', 'x', 'z', 'y', 'v','0']
+        let storeKeys = [];
+    
+        window.addEventListener("keydown", (event)=> {
+            if(event.ctrlKey && !event.repeat){
+                storeKeys.push(event.key);
+            }
+        });
+    
+        window.addEventListener("keyup", (event)=> {
+            if(event.key == "Control"){
+                for(key of storeKeys){
+                    if(!safeKeys.includes(key.toLowerCase()) && key != "Control"){
+                        Core.lostFocus();  //massage to teacher needs to added
+                        break;
+                    }
+                }
+                if(storeKeys.length == 1 & storeKeys[0] == "Control"){
+                    Core.lostFocus(); //massage to teacher needs to added
+                }
+                storeKeys = [];
+            }
+        });
+
+    }    
 }
 
 // set the initial state (but only if browser supports the Page Visibility API)
