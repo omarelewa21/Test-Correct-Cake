@@ -3,7 +3,7 @@
         <span class="fa fa-edit mr5"></span>
         <?= __("Wijzigen")?>
     </a>
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+    <a href="#" class="btn white mr2" onclick="Navigation.load('/tests/view/<?=$test_id?>');">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
@@ -33,7 +33,7 @@ if(!empty($group['question']['question'])) {
 </div>
 
 <div class="block">
-    <div class="block-head"><?= __("Groep vragen")?> 
+    <div class="block-head"><?= __("Groep vragen")?>
         <?
                 if($group['question']['groupquestion_type']=='carousel') {
         ?>
@@ -148,12 +148,35 @@ if(!empty($group['question']['question'])) {
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>">
                                 <span class="fa fa-list-ul"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
+                            <?php
+                            $testQuestionUuid = $group_id;
+                            $groupQuestionQuestionUuid = getUUID($question, 'get');
+
+                            $editAction = sprintf(
+                                "Navigation.load('/questions/edit/group/%s/%s/%s')",
+                                $testQuestionUuid,
+                                $question['question']['type'],
+                                $groupQuestionQuestionUuid
+                            );
+                            if ($newEditor) {
+                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
+                                    $editAction = sprintf(
+                                        "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
+                                        $question['question']['type'],
+                                        $test_id,
+                                        $question['question']['subtype'],
+                                        $testQuestionUuid,
+                                        $groupQuestionQuestionUuid
+                                    );
+                                }
+                            }
+                                ?>
+                            <a href="#" class="btn white pull-right" onclick="<?= $editAction ?>">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
 
                             <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>');">
+                                <a href="#" class="btn highlight white" onclick="<?= $editAction ?>">
                                     <span class="fa fa-edit mr5"></span>
                                     <?= __("Wijzigen")?>
                                 </a>
@@ -175,7 +198,7 @@ if(!empty($group['question']['question'])) {
         </table>
     </div>
     <div class="block-footer">
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>', 800); return false;">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>/<?= $test_id ?>', 800); return false;">
             <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraag toevoegen")?>
         </a>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing_to_group/group/<?=$group_id?>', 1200); return false;">
