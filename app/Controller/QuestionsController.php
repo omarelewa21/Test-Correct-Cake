@@ -1591,7 +1591,19 @@ class QuestionsController extends AppController
                     'settings' => $settings
                 ]);
 
-                $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+                $response = $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+
+                if(!is_null($response)){
+                    $errors = json_decode($response)->errors;
+                    $error = false;
+                    if(property_exists($errors,'json')&&is_array($errors->json)&&(count($errors->json)>0)){
+                        $error = $errors->json[0];
+                    }
+                    if($error) {
+                        echo '<script>window.parent.Attachments.uploadError("' . $error . '");window.parent.Loading.hide();</script>';
+                        die;
+                    }
+                }
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }

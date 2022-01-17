@@ -485,6 +485,8 @@ var Attachments = {
             Notify.notify($.i18n("Dit bestand is te groot"), "error");
         }else if(error == 'no_file') {
             Notify.notify($.i18n("Geen bestand geselecteerd"), "error");
+        }else{
+            Notify.notify($.i18n(error), "error");
         }
     }
 };
