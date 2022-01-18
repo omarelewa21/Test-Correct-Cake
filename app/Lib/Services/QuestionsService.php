@@ -96,6 +96,10 @@ class QuestionsService extends BaseService
                 $response = $this->Connector->postRequest('/test_question/' . $owner_id . '/attachment', $data, []);
             }
         }
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $respons;
     }
 
     public function getInlineImageContent($image) {
