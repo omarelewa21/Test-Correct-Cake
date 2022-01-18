@@ -915,7 +915,11 @@ class TestTakesController extends AppController {
 
         switch ($answer['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
+                if ($answer['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $view = 'rate_open_long';
+                }
                 break;
 
             case "CompletionQuestion":
