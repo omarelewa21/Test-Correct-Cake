@@ -994,8 +994,11 @@ class TestTakesController extends AppController {
 
         switch ($rating['answer']['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
-                break;
+                if ($answer['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $view = 'rate_open_long';
+                }
 
             case "CompletionQuestion":
                 if ($rating['answer']['question']['subtype'] == 'completion') {
@@ -1518,8 +1521,11 @@ class TestTakesController extends AppController {
 
         switch ($answer['answer']['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
-                break;
+                if ($answer['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $view = 'rate_open_long';
+                }
 
             case "CompletionQuestion":
                 if ($answer['answer']['question']['subtype'] == 'completion') {
