@@ -10,6 +10,15 @@ var Questions = {
         return type;
     },
 
+    getCorrectSubQuestionTypeIfLaravel(type,sub_type){
+        if(type == 'RankingQuestion'){
+            sub_type = 'Ranking';
+        } else if(type == 'InfoscreenQuestion') {
+            sub_type = 'Infoscreen';
+        }
+        return sub_type;
+    },
+
     /**
      * @param type
      * @param owner 'test' | 'group'
@@ -41,6 +50,7 @@ var Questions = {
      * @param group_question_question_id
      */
     editPopup: function (type, owner, test_id, sub_type, test_question_id, group_question_question_id) {
+        sub_type = this.getCorrectSubQuestionTypeIfLaravel(type,sub_type);
        this.openInEditorInLaravel('edit', type, owner, test_id, sub_type, test_question_id, group_question_question_id);
     },
     /**
