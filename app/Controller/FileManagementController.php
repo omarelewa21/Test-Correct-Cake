@@ -197,6 +197,11 @@ class FileManagementController extends AppController {
 
         $params = $this->request->data;
 
+        if(empty($params['filters'])){
+            $params['sort'] = 'status';
+            $params['direction'] = 'asc';
+        }
+
         $params = $this->handleRequestFilterAndOrderParams($params,'FileManagement',[
            'schoolLocation' => 'schoolLocation',
            'teacherId' => 'teacherId',

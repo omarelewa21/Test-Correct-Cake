@@ -35,6 +35,7 @@ var Core = {
 	unreadMessagesTimer : false,
 	cheatIntervalInSeconds : 5,
 	lastLostFocus: { notification: false, delay: 3*60, reported: {} },
+	shouldCheckForUnreadMessages: true,
 
 	isChromebook: function(){
         return !!(window.navigator.userAgent.indexOf('CrOS') > 0);
@@ -166,7 +167,7 @@ var Core = {
 	checkUnreadMessages : function() {
 		$('#messages .counter').hide();
 		// only ask for unread if not on login page.
-		if(Utils.notOnLoginScreen()) {
+		if(Utils.notOnLoginScreen() && Core.shouldCheckForUnreadMessages) {
             $.get('/messages/unread',
                 function (unread) {
                     if (unread > 0) {

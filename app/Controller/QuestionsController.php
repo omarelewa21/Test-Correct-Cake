@@ -371,11 +371,12 @@ class QuestionsController extends AppController
         $this->render($view, 'ajax');
     }
 
-    public function add_custom($owner, $owner_id)
+    public function add_custom($owner, $owner_id, $test_id)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
         $this->set('owner', $owner);
+        $this->set('test_id', $test_id ?? $owner_id);
         $this->set('owner_id', $owner_id);
     }
 
@@ -480,6 +481,18 @@ class QuestionsController extends AppController
         );
     }
 
+    /**
+     * @param $owner
+     * @param $owner_id
+     * if $owner = 'test' $owner_id is instance of tcCore\Test::uuid
+     * if $owner = 'group' $owner_id is instance of tcCore\TestQuestion::uuid
+     * @param $type
+     * @param $question_id tcCore\GroupQuestionQuestion::id || tcCore\TestQuestion::id
+     * @param  false  $internal
+     * @param  false  $hideresponse
+     * @param  false  $is_clone_request
+     * @return false|void
+     */
     public function edit($owner, $owner_id, $type, $question_id, $internal = false, $hideresponse = false, $is_clone_request = false)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
@@ -1591,7 +1604,19 @@ class QuestionsController extends AppController
                     'settings' => $settings
                 ]);
 
-                $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+                $response = $this->QuestionsService->addAttachments($owner == 'test' ? 'question' : 'question_group', $id, $attachments);
+
+                if(!is_null($response)){
+                    $errors = json_decode($response)->errors;
+                    $error = false;
+                    if(property_exists($errors,'json')&&is_array($errors->json)&&(count($errors->json)>0)){
+                        $error = $errors->json[0];
+                    }
+                    if($error) {
+                        echo '<script>window.parent.Attachments.uploadError("' . $error . '");window.parent.Loading.hide();</script>';
+                        die;
+                    }
+                }
                 if ($extension == 'mp3') {
                     echo '<script>window.parent.Popup.closeLast();</script>';
                 }
@@ -1704,6 +1729,7 @@ class QuestionsController extends AppController
         $this->set('group', $group);
         $this->set('group_id', $group_id);
         $this->set('test_id', $test_id);
+        $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
         $this->Session->write('attachments_editable', true);
     }
 

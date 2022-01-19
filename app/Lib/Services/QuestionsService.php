@@ -96,6 +96,10 @@ class QuestionsService extends BaseService
                 $response = $this->Connector->postRequest('/test_question/' . $owner_id . '/attachment', $data, []);
             }
         }
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $respons;
     }
 
     public function getInlineImageContent($image) {
@@ -143,10 +147,10 @@ class QuestionsService extends BaseService
         $data['question_id'] = $question_id;
         $data['owner_id'] = $owner_id;
 
-        
+
             // $ownerId is the test_questions.uuid
             $response = $this->Connector->postRequest('/group_question_question/' . $owner_id , [], $data);
-        
+
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -159,8 +163,17 @@ class QuestionsService extends BaseService
     {
 
         if ($owner == 'test') {
+            /**
+             * @param $question_id TestQuestion::uuid van de question;
+             * @var tcCore\TestQuestion $response ;
+             */
             $response = $this->Connector->getRequest('/test_question/' . $question_id, []);
         } else {
+            /**
+             * @param $owner_id TestQuestion::uuid van de GroupQuestion
+             * @param $question_id GroupQuestionQuestion::uuid van tcCore\GroupQuestionQuestion;
+             * @var tcCore\GroupQuestionQuestion $response
+             */
             $response = $this->Connector->getRequest('/group_question_question/' . $owner_id . '/' . $question_id, []);
         }
 

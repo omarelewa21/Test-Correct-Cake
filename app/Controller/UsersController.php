@@ -1626,12 +1626,12 @@ class UsersController extends AppController
 //                    'path'  => '/test_takes/rated'
 //                );
 
-                $tiles['analyse'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leraar',
-                    'title' => __("Mijn analyses"),
-                    'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
-                );
+//                $tiles['analyse'] = array(
+//                    'menu'  => 'analyses',
+//                    'icon'  => 'analyse-leraar',
+//                    'title' => __("Mijn analyses"),
+//                    'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
+//                );
 
                 $tiles['analyse_student'] = array(
                     'menu'  => 'analyses',
