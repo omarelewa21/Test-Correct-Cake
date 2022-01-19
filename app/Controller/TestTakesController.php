@@ -918,6 +918,7 @@ class TestTakesController extends AppController {
                 if ($answer['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $this->set('participantIdentifier', str_replace('-','',$participant_id));
                     $view = 'rate_open_long';
                 }
                 break;
@@ -994,9 +995,10 @@ class TestTakesController extends AppController {
 
         switch ($rating['answer']['question']['type']) {
             case "OpenQuestion":
-                if ($answer['question']['subtype'] == 'short') {
+                if ($rating['answer']['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $this->set('participantIdentifier', str_replace('-','',$user_id));
                     $view = 'rate_open_long';
                 }
 
@@ -1524,6 +1526,7 @@ class TestTakesController extends AppController {
                 if ($answer['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $this->set('participantIdentifier', str_replace('-','',getUUID($take['test_participant'])));
                     $view = 'rate_open_long';
                 }
 
