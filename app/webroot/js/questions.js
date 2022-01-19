@@ -17,10 +17,10 @@ var Questions = {
        if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
            type = 'TrueFalseQuestion';
        }
-        popup.closelast();
-        settimeout(function() {
+        Popup.closeLast();
+        setTimeout(function() {
             var owner_id = owner == 'test' ? test_id : test_question_id;
-            navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
     /**
