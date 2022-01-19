@@ -1,24 +1,5 @@
 var Questions = {
     openType : null,
-    getCorrectQuestionTypeIfNotLaravel(type,sub_type){
-        if(type == 'CompletionQuestion' && sub_type == 'multi'){
-            type = 'MultiCompletionQuestion';
-        }
-        if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
-            type = 'TrueFalseQuestion';
-        }
-        return type;
-    },
-
-    getCorrectSubQuestionTypeIfLaravel(type,sub_type){
-        if(type == 'RankingQuestion'){
-            sub_type = 'Ranking';
-        } else if(type == 'InfoscreenQuestion') {
-            sub_type = 'Infoscreen';
-        }
-        return sub_type;
-    },
-
     /**
      * @param type
      * @param owner 'test' | 'group'
@@ -33,12 +14,13 @@ var Questions = {
             this.openInEditorInLaravel('add', type, owner, test_id, sub_type, test_question_id);
             return;
         }
-
-        type = this.getCorrectQuestionTypeIfNotLaravel(type, sub_type);
-        popup.closelast();
-        settimeout(function() {
+       if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
+           type = 'TrueFalseQuestion';
+       }
+        Popup.closeLast();
+        setTimeout(function() {
             var owner_id = owner == 'test' ? test_id : test_question_id;
-            navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
         }, 500);
     },
     /**
@@ -127,12 +109,6 @@ var Questions = {
                     Notify.notify($.i18n('Vraag opgeslagen'), 'info');
                     Questions.closeQuestionEditor();
                 }else{
-                    // if(typeof ){
-
-                    // }
-                    // else{
-
-                    // }
                     $.each(response['data'], function() {
                         Object.entries(response['data']).map(item => {
                             typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
