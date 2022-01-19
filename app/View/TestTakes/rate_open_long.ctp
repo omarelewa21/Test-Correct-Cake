@@ -11,7 +11,8 @@ $answer = json_decode($answer, true);
         readOnly : true,
         extraPlugins: 'wordcount,notification,autogrow',
         removePlugins: 'resize',
-        autoGrow_onStartup : true
+        autoGrow_onStartup : true,
+        contentsCss : '/ckeditor/rate.css'
     });
 
     editor<?=$participantIdentifier;?>.on('instanceReady',function(){
