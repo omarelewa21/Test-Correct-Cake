@@ -413,17 +413,22 @@
                                     <span class="fa fa-folder-open-o"></span>
                                 </a>
 
-                                    <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                        <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/view_group/<?=$test_id?>/<?=getUUID($question, 'get');?>');">
-                                            <span class="fa fa-edit mr5"></span>
-                                            <?= __("Wijzigen")?>
-                                        </a>
-                                        <a href="#" class="btn highlight white" onclick="Questions.delete('test', '<?=$test_id?>',<?=getUUID($question, 'getQuoted');?>);">
-                                            <span class="fa fa-trash mr5"></span>
-                                            <?= __("Verwijderen")?>
-                                        </a>
-                                    </div>
-                                <? }else{
+                                <div class="dropblock blur-close" for="question_<?= getUUID($question, 'get'); ?>">
+                                    <a href="#" class="btn highlight white"
+                                       onclick="Navigation.load('/questions/view_group/<?= $test_id ?>/<?= getUUID($question,
+                                           'get'); ?>');">
+                                        <span class="fa fa-edit mr5"></span>
+                                        <?= __("Wijzigen") ?>
+                                    </a>
+                                    <a href="#" class="btn highlight white"
+                                       onclick="Questions.delete('test', '<?= $test_id ?>',<?= getUUID($question,
+                                           'getQuoted'); ?>);">
+                                        <span class="fa fa-trash mr5"></span>
+                                        <?= __("Verwijderen") ?>
+                                    </a>
+                                </div>
+                            <? } else { ?>
+                                <?php
                                 $testQuestionUuid = getUUID($question, 'get');
 
                                 $editAction = sprintf(
@@ -434,14 +439,7 @@
                                 );
                                 if ($newEditor) {
 
-                                    if (
-                                        ($question['question']['type'] == 'CompletionQuestion' && $question['question']['subtype'] == 'completion')
-                                        || ($question['question']['type'] == 'OpenQuestion')
-                                        || ($question['question']['type'] == 'InfoscreenQuestion')
-                                        || ($question['question']['type'] == 'MultipleChoiceQuestion' && $question['question']['subtype'] == 'MultipleChoice')
-                                        || ($question['question']['type'] == 'MultipleChoiceQuestion' && $question['question']['subtype'] == 'TrueFalse')
-                                        || ($question['question']['type'] == 'RankingQuestion')
-                                    ) {
+                                    if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'multi', 'TrueFalse']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
                                         $editAction = sprintf(
                                             "Questions.editPopup( '%s', 'test', '%s', '%s', '%s')",
                                             $question['question']['type'],
