@@ -25,7 +25,7 @@
     <?= __("Selectie")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'ARQQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'ARQQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
     <?= __("ARQ")?>
     </div>
 
