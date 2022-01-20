@@ -8,6 +8,9 @@ var Questions = {
         if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
             type = 'TrueFalseQuestion';
         }
+        if (type === 'MultipleChoiceQuestion' && sub_type === 'ARQ') {
+            type = 'ARQQuestion';
+        }
         return type;
     },
 
