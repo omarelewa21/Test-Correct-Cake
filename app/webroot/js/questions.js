@@ -1,5 +1,25 @@
 var Questions = {
     openType : null,
+
+    getCorrectQuestionTypeIfNotLaravel:function(type,sub_type){
+        if(type == 'CompletionQuestion' && sub_type == 'multi'){
+            type = 'MultiCompletionQuestion';
+        }
+        if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
+            type = 'TrueFalseQuestion';
+        }
+        return type;
+    },
+
+    getCorrectSubQuestionTypeIfLaravel:function(type,sub_type){
+        if(type == 'RankingQuestion'){
+            sub_type = 'Ranking';
+        } else if(type == 'InfoscreenQuestion') {
+            sub_type = 'Infoscreen';
+        }
+        return sub_type;
+    },
+
     /**
      * @param type
      * @param owner 'test' | 'group'
@@ -14,13 +34,11 @@ var Questions = {
             this.openInEditorInLaravel('add', type, owner, test_id, sub_type, test_question_id);
             return;
         }
-       if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
-           type = 'TrueFalseQuestion';
-       }
+        var typeForCake = this.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
         Popup.closeLast();
         setTimeout(function() {
             var owner_id = owner == 'test' ? test_id : test_question_id;
-            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + type);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + typeForCake);
         }, 500);
     },
     /**
@@ -32,8 +50,8 @@ var Questions = {
      * @param group_question_question_id
      */
     editPopup: function (type, owner, test_id, sub_type, test_question_id, group_question_question_id) {
-        sub_type = this.getCorrectSubQuestionTypeIfLaravel(type,sub_type);
-       this.openInEditorInLaravel('edit', type, owner, test_id, sub_type, test_question_id, group_question_question_id);
+       var subTypeForLaravel = this.getCorrectSubQuestionTypeIfLaravel(type,sub_type);
+       this.openInEditorInLaravel('edit', type, owner, test_id, subTypeForLaravel, test_question_id, group_question_question_id);
     },
     /**
      * @param verb 'add'|'edit
