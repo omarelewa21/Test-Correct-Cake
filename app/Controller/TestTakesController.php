@@ -1523,10 +1523,10 @@ class TestTakesController extends AppController {
 
         switch ($answer['answer']['question']['type']) {
             case "OpenQuestion":
-                if ($answer['question']['subtype'] == 'short') {
+                if ($answer['answer']['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
-                    $this->set('participantIdentifier', str_replace('-','',getUUID($take['test_participant'])));
+                    $this->set('participantIdentifier', str_replace('-','',getUUID($take['test_participant'], 'get')));
                     $view = 'rate_open_long';
                 }
 
