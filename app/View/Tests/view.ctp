@@ -437,11 +437,26 @@
                                     $question['question']['type'],
                                     $testQuestionUuid
                                 );
+
+                                $cloneAction = sprintf(
+                                    "Navigation.load('/questions/edit/test/%s/%s/%s/0/0/1');",
+                                    $test_id,
+                                    $question['question']['type'],
+                                    $testQuestionUuid
+                                );
                                 if ($newEditor) {
 
                                     if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'multi', 'TrueFalse']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
                                         $editAction = sprintf(
                                             "Questions.editPopup( '%s', 'test', '%s', '%s', '%s')",
+                                            $question['question']['type'],
+                                            $test_id,
+                                            $question['question']['subtype'],
+                                            $testQuestionUuid
+                                        );
+
+                                        $cloneAction = sprintf(
+                                            "Questions.editPopup( '%s', 'test', '%s', '%s', '%s',true)",
                                             $question['question']['type'],
                                             $test_id,
                                             $question['question']['subtype'],
@@ -467,8 +482,7 @@
                                         <?= __("Verwijderen") ?>
                                     </a>
                                     <a href="#" class="btn highlight white"
-                                       onclick="Navigation.load('/questions/edit/test/<?= $test_id ?>/<?= $question['question']['type'] ?>/<?= getUUID($question,
-                                           'get'); ?>/0/0/1');">
+                                       onclick="<?= $cloneAction ?>">
                                         <span class="fa fa-clone mr5"></span>
                                         <?= __('Gebruik als sjabloon') ?>
                                     </a>

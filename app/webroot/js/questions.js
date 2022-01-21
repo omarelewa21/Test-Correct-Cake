@@ -51,10 +51,11 @@ var Questions = {
      * @param sub_type
      * @param test_question_id
      * @param group_question_question_id
+     * @param is_clone_request
      */
-    editPopup: function (type, owner, test_id, sub_type, test_question_id, group_question_question_id) {
+    editPopup: function (type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request) {
        var subTypeForLaravel = this.getCorrectSubQuestionTypeIfLaravel(type,sub_type);
-       this.openInEditorInLaravel('edit', type, owner, test_id, subTypeForLaravel, test_question_id, group_question_question_id);
+       this.openInEditorInLaravel('edit', type, owner, test_id, subTypeForLaravel, test_question_id, group_question_question_id, is_clone_request);
     },
     /**
      * @param verb 'add'|'edit
@@ -64,15 +65,17 @@ var Questions = {
      * @param sub_type
      * @param test_question_id
      * @param group_question_question_id
+     * @param is_clone_request
      */
-    openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id) {
+    openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request) {
         User.goToLaravel(
             'teacher/questions/'+verb+'/' +
             type + '/' + sub_type +
             '?owner=' + owner +
             '&testId=' + test_id +
             '&testQuestionId=' + test_question_id +
-            '&groupQuestionQuestionId=' + (group_question_question_id || '')
+            '&groupQuestionQuestionId=' + (group_question_question_id || '') +
+            '&isCloneRequest=' + (is_clone_request || '')
         );
         return;
     },
