@@ -456,7 +456,7 @@
                                         );
 
                                         $cloneAction = sprintf(
-                                            "Questions.editPopup( '%s', 'test', '%s', '%s', '%s',true)",
+                                            "Questions.editPopup( '%s', 'test', '%s', '%s', '%s','',true)",
                                             $question['question']['type'],
                                             $test_id,
                                             $question['question']['subtype'],
