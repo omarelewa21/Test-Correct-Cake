@@ -210,9 +210,7 @@ class FileManagementController extends AppController {
             'statusIds' => 'statusIds',
         ]);
 
-        $params = array_merge([
-            'filter' => ['type' => 'testupload'],
-        ],$params);
+        $params['filter'] = array_merge(['type' => 'testupload'],$params['filter']);
 
         $data = $this->FileService->getData($params);
 
@@ -462,9 +460,7 @@ class FileManagementController extends AppController {
             'notes' => 'notes',
         ]);
 
-        $params = array_merge([
-            'filter' => ['type' => 'classupload'],
-        ],$params);
+        $params['filter'] = array_merge(['type' => 'classupload'],$params['filter']);
 
         $view = 'load_classuploads';
         if ($this->UsersService->hasRole('Account manager')) {
