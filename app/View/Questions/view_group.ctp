@@ -158,10 +158,27 @@ if(!empty($group['question']['question'])) {
                                 $question['question']['type'],
                                 $groupQuestionQuestionUuid
                             );
+
+                            $cloneAction = sprintf(
+                                "Navigation.load('/questions/edit/group/%s/%s/%s/0/0/1');",
+                                $testQuestionUuid,
+                                $question['question']['type'],
+                                $groupQuestionQuestionUuid
+                            );
+
                             if ($newEditor) {
-                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion','multi']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
+                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'multi', 'TrueFalse']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
                                     $editAction = sprintf(
                                         "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
+                                        $question['question']['type'],
+                                        $test_id,
+                                        $question['question']['subtype'],
+                                        $testQuestionUuid,
+                                        $groupQuestionQuestionUuid
+                                    );
+
+                                    $cloneAction = sprintf(
+                                        "Questions.editPopup( '%s', 'group', '%s', '%s', '%s','%s',true)",
                                         $question['question']['type'],
                                         $test_id,
                                         $question['question']['subtype'],
@@ -184,7 +201,7 @@ if(!empty($group['question']['question'])) {
                                     <span class="fa fa-remove mr5"></span>
                                     <?= __("Verwijderen")?>
                                 </a>
-                                <a href="#" class="btn highlight white" onclick="Navigation.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>/0/0/1');">
+                                <a href="#" class="btn highlight white" onclick="<?= $cloneAction ?>">
                                     <span class="fa fa-clone mr5"></span>
                                     <?= __('Gebruik als sjabloon')?>
                                 </a>
