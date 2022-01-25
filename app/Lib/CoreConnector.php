@@ -257,6 +257,8 @@ class CoreConnector {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
 
         $headers['cakeLaravelFilterKey'] = Configure::read('cake_laravel_filter_key');
+        $headers['cakeRealIP'] = $_SERVER["REMOTE_ADDR"];
+        $headers['cakeUrlPath'] = strtok($_SERVER["REQUEST_URI"], '?');
 
         foreach($headers as $key => $value){
             $_headers[] = sprintf('%s: %s',$key,$value);

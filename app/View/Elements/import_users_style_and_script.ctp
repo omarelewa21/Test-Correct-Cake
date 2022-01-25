@@ -333,7 +333,7 @@
                                     var field = dbFields.find(field => {
                                         return field.column == header
                                     })
-                                    return __("De kolom ") + field.name + __(" is verplicht.");
+                                    return '<?= __("De kolom ") ?>' + field.name + '<?= __(" is verplicht.") ?>';
                                 })
                                 $('#column-errors').html('<ul><li>' + errorMsg.join('</li><li>') + '</ul>');
                             }
