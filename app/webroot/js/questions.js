@@ -2,13 +2,13 @@ var Questions = {
     openType : null,
 
     getCorrectQuestionTypeIfNotLaravel:function(type,sub_type){
-        if(type == 'CompletionQuestion' && sub_type == 'multi'){
+        if(type == 'CompletionQuestion' && sub_type.toLowerCase() == 'multi'){
             type = 'MultiCompletionQuestion';
         }
-        if (type === 'MultipleChoiceQuestion' && sub_type === 'truefalse') {
+        if (type === 'MultipleChoiceQuestion' && sub_type.toLowerCase() === 'truefalse') {
             type = 'TrueFalseQuestion';
         }
-        if (type === 'MultipleChoiceQuestion' && sub_type === 'ARQ') {
+        if (type === 'MultipleChoiceQuestion' && sub_type.toLowerCase() === 'arq') {
             type = 'ARQQuestion';
         }
         return type;
