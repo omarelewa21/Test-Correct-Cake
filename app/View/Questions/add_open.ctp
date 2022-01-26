@@ -64,6 +64,7 @@
 <script type="text/javascript">
 
     $('#QuestionSubtype').val(Questions.openType);
+    console.log(Questions.openType);
     $('#QuestionAttainments').select2();
     $('#QuestionTags').select2({
         tags : true,

@@ -38,6 +38,7 @@ var Questions = {
             return;
         }
         var typeForCake = this.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
+        this.handleOpenQuestionSubType(typeForCake, sub_type);
         Popup.closeLast();
         setTimeout(function() {
             var owner_id = owner == 'test' ? test_id : test_question_id;
@@ -437,6 +438,11 @@ var Questions = {
         $('#container').removeClass('question-editor');
         $('#header, #tiles').slideDown();
         $('.question-editor-header').slideUp();
+    },
+    handleOpenQuestionSubType: function(typeForCake, subType) {
+        if (typeForCake.toLowerCase() === 'openquestion') {
+            this.openType = subType;
+        }
     }
 };
 
