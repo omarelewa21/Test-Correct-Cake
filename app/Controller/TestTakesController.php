@@ -918,7 +918,7 @@ class TestTakesController extends AppController {
                 if ($answer['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
-                    $this->set('participantIdentifier', str_replace('-','',$participant_id));
+                    $this->set('participantIdentifier', str_replace('-','',$participant_id).'_'.str_replace('-','',$question_id));
                     $view = 'rate_open_long';
                 }
                 break;
