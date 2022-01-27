@@ -122,7 +122,7 @@
 
 		<div id="notifications"></div>
 
-		<div id="header" class="highlight">
+		<div id="header" class="highlight <?php if(MaintenanceHelper::getInstance()->isOnDeploymentTesting()){?> deployment-testing-marker <?php } ?>">
             <?php if (AuthComponent::user('guest') != true) { ?>
                 <div class="logo-container">
                 <?= $this->element('logo_circle', array('onclick' => 'Menu.dashboardButtonAction(\'dashboard\')')) ?>
