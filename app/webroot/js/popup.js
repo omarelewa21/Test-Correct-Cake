@@ -570,7 +570,8 @@ var Popup = {
 
     showPreviewTest: function (testId) {
         var url;
-        var windowReference = window.open();
+        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
+        var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_url/' + testId,
