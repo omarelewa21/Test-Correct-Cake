@@ -680,6 +680,7 @@ function FilterManager(settings) {
                             'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback,
                             'filtermanager': this,
                             'waitForFirstRunCallback': !!(runCallbacks && typeof(this.settings.tablefy.afterFirstRunCallback) == 'function' && this.hasActiveFilterAtInitAuthorsAsField()),
+                            'positionRuns': this.settings.tablefy.positionRuns
                         };
          $(this.settings.table).tablefy(tablefySettings);
     }
