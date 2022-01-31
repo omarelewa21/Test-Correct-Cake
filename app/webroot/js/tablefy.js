@@ -16,7 +16,8 @@ var resizeTableListenerActivated = false;
             'page' : 1,
             'sort' : 'id',
             'direction' : 'desc',
-            'hideEmpty' : false
+            'hideEmpty' : false,
+            'positionRuns': 1
         }, options );
 
         if(resizeTableListenerActivated == false) {
@@ -206,6 +207,17 @@ var resizeTableListenerActivated = false;
         applyFixStyling(tbodyHeight);
     }
 
+    function doFixed() {
+        if (!areHeadersPrepared()) {
+            prepareHeadersFixed();
+            if(typeof settings.afterFirstRunCallback === 'function'){
+                settings.afterFirstRunCallback();
+            }
+        } else { // after filter click
+            makeElementsFixed();
+        }
+    }
+
     function loadResults() {
         if(endResults || loading) {
             return;
@@ -234,13 +246,11 @@ var resizeTableListenerActivated = false;
                 }
 
                 if(!endResults) {
-                    if (!areHeadersPrepared()) {
-                        prepareHeadersFixed();
-                        if(typeof settings.afterFirstRunCallback === 'function'){
-                            settings.afterFirstRunCallback();
+                    doFixed();
+                    if(settings.page == 1){
+                        for(var i = 1; i< settings.positionRuns; i++){
+                            doFixed();
                         }
-                    } else { // after filter click
-                        makeElementsFixed();
                     }
 
                     if (!checkOverflow(getScrollContainer().get(0))) {

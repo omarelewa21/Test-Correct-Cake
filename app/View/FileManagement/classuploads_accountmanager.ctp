@@ -172,6 +172,7 @@
                             'source': '/file_management/load_classuploads',
                             'filters': '#FileManagementClassuploadsForm',
                             'container':  '#filesContainter',
+                            'positionRuns': 6,
                             'afterFirstRunCallback': function (callback) {
                                 Loading.hide();
                                 Core.surpressLoading = true;

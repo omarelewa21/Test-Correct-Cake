@@ -175,6 +175,7 @@
                             'source': '/file_management/load_testuploads',
                             'filters': '#FileManagementTestuploadsForm',
                             'container':  '#filesContainter',
+                            'positionRuns': 6,
                             'afterFirstRunCallback': function (callback) {
                                 Loading.hide();
                                 Core.surpressLoading = true;
