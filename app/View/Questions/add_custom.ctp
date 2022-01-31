@@ -47,7 +47,7 @@
     <?= __("Open gatentekst")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'DrawingQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'DrawingQuestion', '<?=$owner?>', '<?=$test_id?>','drawing', '<?= $owner_id ?>');">
     <?= __("Tekenen")?>
     </div>
     <div style="display:none;" class="btn highlight pull-left mb20 defaultMenuButton" onclick="Questions.addOpenPopup('long', '<?=$owner?>', '<?=$owner_id?>');">
