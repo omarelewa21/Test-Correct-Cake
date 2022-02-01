@@ -1409,7 +1409,7 @@ function zoomsetupcrOS(){
 }
 
 function catchscreenshotchromeOS(){
-   // if(Core.isChromebook()) {
+    if(Core.isChromebook()) {
         let safeKeys = ['c', 'x', 'z', 'y', 'v','0']
         let storeKeys = [];
     
@@ -1434,7 +1434,7 @@ function catchscreenshotchromeOS(){
             }
         });
 
-   // }    
+    }    
 }
 
 // set the initial state (but only if browser supports the Page Visibility API)
