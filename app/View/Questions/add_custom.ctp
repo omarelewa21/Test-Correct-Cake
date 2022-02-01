@@ -6,7 +6,7 @@
     <?= __("Meerkeuze")?>
     </div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(false, 'MatchingQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'MatchingQuestion', '<?=$owner?>', '<?=$test_id?>','Matching', '<?= $owner_id ?>');">
     <?= __("Combineer")?>
     </div>
     <div class="btn highlight pull-left defaultMenuButton" onclick="Questions.addPopup(false, 'ClassifyQuestion', '<?=$owner?>', '<?=$test_id?>','', '<?= $owner_id ?>');">
