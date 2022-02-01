@@ -1409,7 +1409,7 @@ function zoomsetupcrOS(){
 }
 
 function catchscreenshotchromeOS(){
-    if(Core.isChromebook()) {
+   // if(Core.isChromebook()) {
         let safeKeys = ['c', 'x', 'z', 'y', 'v','0']
         let storeKeys = [];
     
@@ -1423,18 +1423,18 @@ function catchscreenshotchromeOS(){
             if(event.key == "Control"){
                 for(key of storeKeys){
                     if(!safeKeys.includes(key.toLowerCase()) && key != "Control"){
-                        Core.lostFocus();  //massage to teacher needs to added
+                        Core.lostFocus('printscreen');  //massage to teacher needs to added
                         break;
                     }
                 }
                 if(storeKeys.length == 1 & storeKeys[0] == "Control"){
-                    Core.lostFocus(); //massage to teacher needs to added
+                    Core.lostFocus('printscreen'); //massage to teacher needs to added
                 }
                 storeKeys = [];
             }
         });
 
-    }    
+   // }    
 }
 
 // set the initial state (but only if browser supports the Page Visibility API)
