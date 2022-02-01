@@ -167,7 +167,7 @@ if(!empty($group['question']['question'])) {
                             );
 
                             if ($newEditor) {
-                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'TrueFalse', 'multi']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion'])) {
+                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'TrueFalse', 'multi']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion', 'DrawingQuestion'])) {
                                     $editAction = sprintf(
                                         "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
                                         $question['question']['type'],
