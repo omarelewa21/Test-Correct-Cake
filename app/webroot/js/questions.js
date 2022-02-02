@@ -11,6 +11,9 @@ var Questions = {
         if (type === 'MultipleChoiceQuestion' && sub_type.toLowerCase() === 'arq') {
             type = 'ARQQuestion';
         }
+        if (type === 'MatchingQuestion' && sub_type.toLowerCase() === 'classify') {
+            type = 'ClassifyQuestion';
+        }
         return type;
     },
 
