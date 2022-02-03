@@ -1,0 +1,306 @@
+<div id="buttons">
+    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+        <span class="fa fa-backward mr5"></span>
+        <?= __("Terug")?>
+    </a>
+    <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/add/<?=$test_id?>',1000);">
+        <span class="fa fa-calendar mr5"></span>
+        <?= __("Inplannen")?>v
+    </a>
+    <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?=$test_id?>', 1200);">
+        <span class="fa fa-search mr5"></span>
+        <?= __("Voorbeeld")?>
+    </a>
+    <?php if(1==0){ ?>
+    <a href="#" onclick="Popup.load('/tests/pdf_showPDFAttachment/<?=$test_id?>', 1000)" class="btn white mr2">
+        <span class="fa fa-print mr5"></span>
+        <?= __("PDF")?>
+    </a>
+    <?php } ?>
+
+</div>
+
+<h1><?=$test['name']?></h1>
+
+<div class="block">
+    <div class="block-head"><?= __("Toetsinformatie")?></div>
+    <div class="block-content">
+        <table class="table table-striped">
+            <tr>
+                <th width="12%"><?= __("Afkorting")?></th>
+                <td width="21%"><?=$test['abbreviation']?></td>
+                <th width="12%"><?= __("Auteur")?></th>
+                <td width="21%">
+                    <?=$test['author']['name_first']?>
+                    <?=$test['author']['name_suffix']?>
+                    <?=$test['author']['name']?>
+                </td>
+                <th width="12%"><?= __("Eigenaar")?></th>
+                <td>
+                    <?
+                    if(!empty($test['author']['school']['name'])) {
+                        echo $test['author']['school']['name'];
+                    }else{
+                        echo $test['author']['school_location']['name'];
+                    }
+                    ?>
+                </td>
+            </tr>
+            <tr>
+                <th><?= __("Vak")?></th>
+                <td><?=$test['subject']['name']?></td>
+                <th><?= __("Periode")?></th>
+                <td><?=$test['period']['name']?></td>
+                <th><?= __("Soort")?></th>
+            <td><?=$test['test_kind']['name']?></td>
+            </tr>
+            <tr>
+                <th><?= __("Niveau")?></th>
+                <td><?=$test['education_level_year']?> <?=$test['education_level']['name']?></td>
+                <th><?= __("Maximale score")?></th>
+                <td colspan="3"><?=$totalScore?></td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+
+<div class="block">
+    <div class="block-head"><?= __("Toetsvragen")?></div>
+    <div class="block-content">
+        <table class="table table-striped" id="tableQuestions">
+            <thead>
+            <tr>
+                <th>#</th>
+                <th><?= __("Vraag")?></th>
+                <th><?= __("Soort")?></th>
+                <th width="80"><?= __("Score")?></th>
+                <th width="80"><?= __("Besprk.")?></th>
+                <? if($test['author']['id'] == AuthComponent::user('id')) { ?>
+                    <th width="80"></th>
+                <? } ?>
+            </tr>
+            </thead>
+            <tbody>
+                <?
+                $i = 0;
+                foreach($questions as $question) {
+                    $i++;
+
+                    if($question['question']['type'] == 'GroupQuestion') {
+                        $type = 'group';
+
+                        $subquestions = $question['question']['group_question_questions'];
+                        usort($subquestions, function($a, $b) {
+                            $a = $a['order'];
+                            $b = $b['order'];
+                            if ($a == $b) {
+                                return 0;
+                            }
+                            return ($a < $b) ? -1 : 1;
+                        });
+
+                    }else{
+                        $type = 'question';
+                    }
+                    ?>
+                    <tr id="<?=$type."_".getUUID($question, 'get')?>">
+                        <td><?=$i?></td>
+                        <td>
+                            <?
+                            if($question['question']['type'] == 'GroupQuestion') {
+                                ?>
+                                <div class="cell_autowidth" style="font-weight:bold;">
+                                    <?=$question['question']['name']?>
+                                </div>
+                                <?
+                                $a = 0;
+                                foreach($subquestions as $subquestion) {
+                                    $a ++;
+                                    ?>
+                                    <div class="cell_autowidth">
+                                        <?= $a . '. '. $subquestion['question']['question']; ?>
+                                    </div>
+                                    <?
+                                }
+                            }else{
+                                ?>
+                                <div class="cell_autowidth">
+                                    <?php $q = $question['question']['question']; ?>
+                                    <?php echo $q?>
+                                </div>
+                                <?
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?
+                            if($question['question']['type'] == 'GroupQuestion') {
+                                foreach($subquestions as $subquestion) {
+                                    switch($subquestion['question']['type']) {
+                                        case 'InfoscreenQuestion':
+                                            echo __("Infoscherm");
+                                            break;
+                                        case 'MultipleChoiceQuestion':
+                                            if($subquestion['question']['subtype'] == 'TrueFalse') {
+                                                echo __("Juist / Onjuist<br />");
+                                            }else{
+                                                echo __("Meerkeuze<br />");
+                                            }
+                                            break;
+
+                                        case 'OpenQuestion':
+                                            switch($subquestion['question']['subtype']){
+                                                
+                                                case 'short':
+                                                    echo __("Open vraag - kort<br />");
+                                                    break;
+                                                case 'long':
+                                                case 'medium':
+                                                    echo __("Open vraag - lang<br />");
+                                                    break;
+                                                default:
+                                                    echo __("Open vraag<br />");
+                                                    break;
+                                            }
+                                            break;
+
+                                        case 'CompletionQuestion':
+                                            if($subquestion['question']['subtype'] == 'multi') {
+                                                echo __("Selectie<br />");
+                                            }else{
+                                                echo __("Gatentekst<br />");
+                                            }
+                                            break;
+
+                                        case 'RankingQuestion':
+                                            echo __("Rangschik<br />");
+                                            break;
+
+                                        case 'MatchingQuestion':
+                                            if($subquestion['question']['subtype'] == 'Matching') {
+                                                echo __("Combineer<br />");
+                                            }else{
+                                                echo __("Rubriceer<br />");
+                                            }
+                                            break;
+
+                                        case 'MatrixQuestion':
+                                            if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                                echo __("MatrixQuestion");
+                                            } else {
+                                                echo __("MatrixQuestion ONBEKEND");
+                                            }
+                                        break;
+
+                                        case 'DrawingQuestion':
+                                            echo __("Teken<br />");
+                                            break;
+                                    }
+
+
+                                }
+                            }else{
+                                switch($question['question']['type']) {
+                                    case 'InfoscreenQuestion':
+                                        echo __("Infoscherm");
+                                        break;
+                                    case 'MultipleChoiceQuestion':
+                                        if($question['question']['subtype'] == 'TrueFalse') {
+                                            echo __("Juist / Onjuist");
+                                        }elseif($question['question']['subtype'] == 'ARQ') {
+                                            echo 'ARQ';
+                                        }else{
+                                            echo __("Meerkeuze");
+                                        }
+                                        break;
+
+                                    case 'OpenQuestion':
+                                        switch($question['question']['subtype']){
+                                            
+                                            case 'short':
+                                                echo __("Open vraag - kort<br />");
+                                                break;
+                                            case 'long':
+                                            case 'medium':
+                                                echo __("Open vraag - lang<br />");
+                                                break;
+                                            default:
+                                                echo __("Open vraag<br />");
+                                                break;
+                                        }
+                                        break;
+
+                                    case 'CompletionQuestion':
+                                        if($question['question']['subtype'] == 'multi') {
+                                            echo __("Selectie");
+                                        }else{
+                                            echo __("Gatentekst");
+                                        }
+                                        break;
+
+                                    case 'RankingQuestion':
+                                        echo __("Rangschik");
+                                        break;
+
+                                    case 'MatchingQuestion':
+                                        if($question['question']['subtype'] == 'Matching') {
+                                            echo __("Combineer");
+                                        }else{
+                                            echo __("Rubriceer");
+                                        }
+                                        break;
+
+                                    case 'MatrixQuestion':
+                                        if($subquestion['question']['subtype'] == 'SingleChoice'){
+                                            echo __("MatrixQuestion");
+                                        } else {
+                                            echo __("MatrixQuestion ONBEKEND");
+                                        }
+                                        break;
+
+                                    case 'DrawingQuestion':
+                                        echo __("Teken");
+                                        break;
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?
+                            if($question['question']['type'] == 'GroupQuestion') {
+                                foreach($question['question']['group_question_questions'] as $subquestion) {
+                                    echo $subquestion['question']['score'].'pt<br />';
+                                }
+                            }else{
+                                echo $question['question']['score'].'pt';
+                            }
+                            ?>
+                        </td>
+                        <td>
+                            <?
+                            if($question['question']['type'] == 'GroupQuestion') {
+                                foreach($question['question']['group_question_questions'] as $subquestion) {
+                                    if($subquestion['discuss'] == 1) {
+                                        echo '<span class="fa fa-check"></span><br />';
+                                    }else{
+                                        echo '<span class="fa fa-remove"></span><br />';
+                                    }
+                                }
+                            }else{
+                                if($question['discuss'] == 1) {
+                                    echo '<span class="fa fa-check"></span><br />';
+                                }else{
+                                    echo '<span class="fa fa-remove"></span><br />';
+                                }
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <?
+                }
+                ?>
+            </tbody>
+        </table>
+    </div>
+</div>
