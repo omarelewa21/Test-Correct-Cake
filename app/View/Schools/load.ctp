@@ -26,7 +26,7 @@ foreach($schools as $school) {
         <td class="nopadding">
             <? if($isAdministrator): ?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="school_<?=getUUID($school, 'get');?>">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
             <? endif;  ?>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/schools/view/<?=getUUID($school, 'get');?>');">

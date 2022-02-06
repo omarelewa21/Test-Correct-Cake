@@ -18,7 +18,7 @@ foreach($organisations as $organisation) {
         <td class="nopadding">
             <? if($isAdministrator): ?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="organisation_<?=getUUID($organisation, 'get');?>">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
             <? endif; ?>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/umbrella_organisations/view/<?=getUUID($organisation, 'get');?>');">

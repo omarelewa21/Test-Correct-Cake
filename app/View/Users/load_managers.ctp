@@ -7,7 +7,7 @@ foreach($users as $user) {
         <td><?=$user['name']?></td>
         <td class="nopadding">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
 
             <div class="dropblock blur-close" for="test_<?=getUUID($user, 'get');?>">

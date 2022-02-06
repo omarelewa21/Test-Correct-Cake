@@ -11,7 +11,7 @@ foreach($users as $user) {
         <td><?=$user['count_students']?></td>
         <td class="nopadding">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($user, 'get');?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/users/view/<?=getUUID($user, 'get');?>')">
                 <span class="fa fa-folder-open-o"></span>
