@@ -52,4 +52,9 @@ class InfoService extends BaseService {
         ];
     }
 
+    public function removeDashboardInfo($uuid)
+    {
+        return $this->Connector->postRequest('/info/removeDashboardInfo/' . $uuid, [], []);
+    }
+
 }
