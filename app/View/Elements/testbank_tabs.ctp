@@ -22,7 +22,7 @@
         <?php } ?>
         <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
-                    onclick="Navigation.load('/examen_tests/index')"
+                    onclick="Navigation.load('/exam_tests/index')"
                     style="<?= $tab === 'exam' ? 'color:var(--primary);' : '' ?>"
             >
                 <?= __("Examenmateriaal")?>
