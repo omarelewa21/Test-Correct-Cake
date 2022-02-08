@@ -146,7 +146,7 @@ if(!empty($group['question']['question'])) {
                         </td>
                         <td class="nopadding">
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>">
-                                <span class="fa fa-list-ul"></span>
+                                <span class="fa fa-ellipsis-v"></span>
                             </a>
                             <?php
                             $testQuestionUuid = $group_id;

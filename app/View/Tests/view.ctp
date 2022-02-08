@@ -404,7 +404,7 @@
 
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left"
                                id="question_<?= getUUID($question, 'get'); ?>" onclick="return false;">
-                                <span class="fa fa-list-ul"></span>
+                                <span class="fa fa-ellipsis-v"></span>
                             </a>
                             <? if ($question['question']['type'] == 'GroupQuestion') { ?>
                                 <a href="#" class="btn white pull-right"

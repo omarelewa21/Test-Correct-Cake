@@ -36,7 +36,7 @@
                         <td><?=date('d-m-Y', strtotime($period['end_date']))?></td>
                         <td class="nopadding">
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="Period_<?=getUUID($period, 'get');?>">
-                                <span class="fa fa-list-ul"></span>
+                                <span class="fa fa-ellipsis-v"></span>
                             </a>
 
                             <div class="dropblock blur-close" for="Period_<?=getUUID($period, 'get');?>">

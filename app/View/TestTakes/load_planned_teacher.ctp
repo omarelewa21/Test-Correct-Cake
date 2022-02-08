@@ -39,7 +39,7 @@ foreach($test_takes as $test_take) {
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_take_<?=getUUID($test_take, 'get');?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
             <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view/<?=getUUID($test_take, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>

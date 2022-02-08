@@ -4,7 +4,7 @@
         <?= __("Nieuwe Klas")?>
     </a>
     <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/classuploads');">
-        <span class="fa fa-list-ul mr5"></span>
+        <span class="fa fa-ellipsis-v mr5"></span>
         <?= __("Aangeboden bestanden")?>
     </a>
 </div>

@@ -28,11 +28,11 @@ foreach($sections as $section) {
             <td class="nopadding">
                 <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=getUUID($section, 'get');?>">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
                 <?php } else { ?>
                 <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('<?= __('De demo sectie kan niet gewijzigd of verwijderd worden')?>','error');">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
                 <?php } ?>
                 <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/sections/view/<?=getUUID($section, 'get');?>');">
@@ -93,11 +93,11 @@ foreach($sections as $section) {
             <td class="nopadding">
                 <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=getUUID($section, 'get');?>">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
                 <?php } else { ?>
                 <a href="#" class="btn white pull-right dropblock-left" id="section_<?=getUUID($section, 'get');?>" onclick="Notify.notify('<?= __('De demo sectie kan niet gewijzigd of verwijderd worden')?>','error');">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
                 <?php } ?>
                 <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/sections/view/<?=getUUID($section, 'get');?>');">

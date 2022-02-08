@@ -12,7 +12,7 @@ foreach($school_years as $school_year) {
         </td>
         <td class="nopadding">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="SchoolYear_<?=getUUID($school_year, 'get');?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
             <a href="#" class="btn white pull-right" onclick="Navigation.load('/school_years/view/<?=getUUID($school_year, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>

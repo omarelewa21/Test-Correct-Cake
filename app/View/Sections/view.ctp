@@ -37,7 +37,7 @@
                         <td class="nopadding">
                             <?php if((bool) $section['demo'] !== true){?>
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="SchoolYear_<?=getUUID($subject, 'get');?>">
-                                <span class="fa fa-list-ul"></span>
+                                <span class="fa fa-ellipsis-v"></span>
                             </a>
 
                             <div class="dropblock blur-close" for="SchoolYear_<?=getUUID($subject, 'get');?>">

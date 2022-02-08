@@ -26,7 +26,7 @@ foreach($tests as $test) {
         <td><?=$test['education_level_year']?> <?=$education_levels[$test['education_level_id']]?></td>
         <td class="nopadding">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($test, 'get')?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
             <a href="#" class="btn white pull-right" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
                 <span class="fa fa-folder-open-o"></span>
