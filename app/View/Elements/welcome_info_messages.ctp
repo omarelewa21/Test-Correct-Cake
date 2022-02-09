@@ -33,8 +33,16 @@
     $('.dashboard .notification.info .fa-times').each((index, item)=>{
         item.addEventListener("click", (event)=>{
             let elem = event.target.parentElement.parentElement;
-            $(elem).hide(1000);
-            $.post("/infos/removeDashboardInfo/" + elem.dataset.code);
+            $.post(
+                "/infos/removeDashboardInfo/" + elem.dataset.code, 
+                function(data, status){
+                    data = JSON.parse(data)
+                    if(data.status){
+                        $(elem).hide(1000);
+                    }else{
+                        Notify.notify($.i18n('Bericht kan niet worden verwijderd'), 'error');
+                    }
+            });
         });
     });
 </script>

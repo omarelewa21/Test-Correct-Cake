@@ -112,7 +112,12 @@ class InfosController extends AppController {
     }
 
     public function removeDashboardInfo($uuid){
-        $this->InfoService->removeDashboardInfo($uuid);
-        $this->autoRender = false;
+        if(!$this->InfoService->removeDashboardInfo($uuid)){
+            $this->formResponse(false, $this->InfoService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+
     }
 }
