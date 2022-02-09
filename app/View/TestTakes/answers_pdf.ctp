@@ -127,8 +127,22 @@ foreach($participants as $participant) {
                 }
 
                 if($question['type'] == 'DrawingQuestion') {
+                    $src = trim(htmlspecialchars_decode($answerJson['answer']));
+
+                    if (substr($src, 0, 4) == '<svg') {
+                        // this is really gross
+                        // all quotes should be single quotes, no eol statements. no measurments in px.
+                        // but it seams to work;
+                        $urlencoded = str_replace(
+                            ['"', 'px', '<', '>', '#', PHP_EOL],
+                            ["'", '', '%3C', '%3E', '%23', ''],
+                            $src
+                        );
+                        $src = trim('data:image/svg+xml;charset=utf8,%3C?xml version=\'1.0\'?%3E'.$urlencoded);
+                    }
+
                     ?>
-                    <img src="<?=htmlspecialchars_decode($answerJson['answer'])?>" width="100%" />
+                    <img src="<?=$src?>" width="100%" />
                 <?
                 }
             }
