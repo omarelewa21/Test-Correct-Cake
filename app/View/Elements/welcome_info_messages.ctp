@@ -31,10 +31,10 @@
 </style>
 <script>
     $('.dashboard .notification.info .fa-times').each((index, item)=>{
-        item.addEventListener("click", (event)=>{
-            let elem = event.target.parentElement.parentElement;
+        $(item).click(()=>{
+            let elem = $(item).parents('.notification');
             $.post(
-                "/infos/removeDashboardInfo/" + elem.dataset.code, 
+                "/infos/removeDashboardInfo/" + $(elem).data('code'),
                 function(data, status){
                     data = JSON.parse(data)
                     if(data.status){
