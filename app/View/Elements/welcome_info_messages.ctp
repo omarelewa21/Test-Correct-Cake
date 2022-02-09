@@ -41,7 +41,7 @@
                         $(elem).hide(1000);
                     }else{
                         Notify.notify($.i18n('Bericht kan niet worden verwijderd'), 'error');
-                    }
+                    }   
             });
         });
     });
