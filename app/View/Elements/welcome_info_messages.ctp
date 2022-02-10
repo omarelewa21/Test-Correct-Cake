@@ -30,19 +30,21 @@
 
 </style>
 <script>
-    $('.dashboard .notification.info .fa-times').each((index, item)=>{
-        $(item).click(()=>{
-            let elem = $(item).parents('.notification');
+    if(typeof notificationRemovalHasRun === "undefined") {
+
+        $('body').on('click','.dashboard .notification.info .fa-times',function(){
+            let elem = $(this).parents('.notification');
             $.post(
                 "/infos/removeDashboardInfo/" + $(elem).data('code'),
-                function(data, status){
+                function (data, status) {
                     data = JSON.parse(data)
-                    if(data.status){
+                    if (data.status) {
                         $(elem).hide(1000);
-                    }else{
+                    } else {
                         Notify.notify($.i18n('Bericht kan niet worden verwijderd'), 'error');
-                    }   
-            });
+                    }
+                });
         });
-    });
+        var notificationRemovalHasRun = true;
+    }
 </script>
