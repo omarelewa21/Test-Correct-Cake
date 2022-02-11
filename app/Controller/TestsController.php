@@ -333,9 +333,6 @@ class TestsController extends AppController
         $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getTests($params);
 
-        foreach ($tests['data'] as $test){
-            $test['background-color'] = '';
-        }
         try{
             $customerCode = AuthComponent::user('school_location')['customer_code'];
             if($customerCode!='OPENSOURCE1') {
