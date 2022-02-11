@@ -1819,24 +1819,27 @@ class UsersController extends AppController
 
             if ($data['password'] != $data['password_new']) {
                 $this->formResponse(false, [
-                    'message' => __("Wachtwoorden komen niet overeen")
+                    'errors' => ['new_password_mismatch' => __("Wachtwoorden komen niet overeen")]
                 ]);
-
                 die;
             }
 
             $user_id = AuthComponent::user('uuid');
 
-            $result = $this->UsersService->resetPasswordForm($user_id, $data);
+            $result = json_decode($this->UsersService->resetPasswordForm($user_id, $data));
 
-
-            if ($result != '{"old_password":["Record does not match stored value"]}') {
-                $this->formResponse(true);
-            } else {
-                $this->formResponse(false, [
-                    'message' => __("Wachtwoorden komen niet overeen")
-                ]);
+            if(isset($result->errors) && !empty($result->errors)) {
+                return $this->formResponse(false, ['errors' => $result->errors]);
             }
+
+            return $this->formResponse(true);
+//            if ($result != '{"old_password":["Record does not match stored value"]}') {
+//                $this->formResponse(true);
+//            } else {
+//                $this->formResponse(false, [
+//                    'message' => __("Wachtwoorden komen niet overeen")
+//                ]);
+//            }
         }
     }
 

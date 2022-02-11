@@ -178,6 +178,12 @@ if (!Array.isArray) {
                     }
                 }
 
+                if (check == 'length-8') {
+                    if ($(element).val().length < 8) {
+                        passed = false;
+                    }
+                }
+
                 if (check == 'max-length-5') {
                     if ($(element).val().length > 5) {
                         passed = false;
