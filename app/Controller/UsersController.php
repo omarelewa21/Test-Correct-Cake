@@ -614,6 +614,10 @@ class UsersController extends AppController
             } else {
                 $result = $this->UsersService->updatePasswordForUser($user_id, $data);
 
+                $result = json_decode($result, true);
+                if (array_key_exists('errors',$result) ) {
+                    return $this->formResponse(false, $result['errors']);
+                }
                 $this->formResponse(
                     $result ? true : false, []
                 );
@@ -1020,12 +1024,8 @@ class UsersController extends AppController
         }
     }
 
-    public
-    function add(
-        $type,
-        $parameter1 = null,
-        $parameter2 = null
-    ) {
+    public function add($type, $parameter1 = null, $parameter2 = null)
+    {
         $this->isAuthorizedAs(['Administrator', 'Account manager', 'School manager', 'School management']);
 
         if ($this->request->is('post') || $this->request->is('put')) {

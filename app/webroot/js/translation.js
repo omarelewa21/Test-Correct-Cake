@@ -62,7 +62,8 @@ $.i18n().load({
       //formify.js
       'Niet alle velden zijn correct ingevuld':'Not all fields are filled in correctly',
       'Het nieuwe wachtwoord moet minimaal 6 karakters bevatten.':'The new password must contain at least 6 characters.',
-      
+      'Het nieuwe wachtwoord moet minimaal 8 karakters bevatten.':'The new password must contain at least 8 characters.',
+
       //loadpaint.js
       'Er ging iets mis':'Something went wrong',
       'U gebruikt een verouderde browser. Deze browser wordt niet meer ondersteund vanaf 2 april 2021. Kies een andere browser of doe een upgrade':'You are using an outdated browser. This browser will no longer be supported from April 2, 2021. Please choose another browser or upgrade',

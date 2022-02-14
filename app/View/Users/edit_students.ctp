@@ -53,7 +53,7 @@
             <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8')) ?>
             </td>
         </tr>
         <tr>
