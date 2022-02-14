@@ -108,7 +108,7 @@
                         ?>
                     </div>
                     </td>
-                <th width="12%"><?= __("Vak")?></th>
+                <th width="12%"><?= __("Vak")?> (<?= __("Volgens docent") ?>)</th>
                 <td width="38%">
                     <?=$file['typedetails']['subject'] ?>
                 </td>
@@ -154,7 +154,7 @@
             </tr>
             <tr>
                 <th>
-                <?= __("Naam")?>
+                <?= __("Naam toets")?>
                 </th>
                 <td><?= $file['typedetails']['name']?></td>
             </tr>

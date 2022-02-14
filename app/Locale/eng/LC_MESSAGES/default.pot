@@ -6321,4 +6321,9 @@ msgstr ""
 #: webroot/test.php:103
 msgid "Debug setting does not allow access to this url."
 msgstr ""
+msgid "Volgens docent"
+msgstr "According teacher"
+
+msgid "Naam toets"
+msgstr "Name test"
 
