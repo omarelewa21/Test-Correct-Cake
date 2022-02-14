@@ -57,7 +57,7 @@
                 <td><?= __('J') ?></td>
                 <td><?= __("Juiste reden") ?></td>
                 <td>
-                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => $question['question']['multiple_choice_question_answers'][0]['score'])) ?>
+                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => $question['question']['multiple_choice_question_answers'][0]['score'], 'selid' => 'score-field')) ?>
                 </td>
             </tr>
             <tr>
@@ -66,7 +66,7 @@
                 <td><?= __('J') ?></td>
                 <td><?= __("Onjuiste reden") ?></td>
                 <td>
-                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => $question['question']['multiple_choice_question_answers'][1]['score'])) ?>
+                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => $question['question']['multiple_choice_question_answers'][1]['score'], 'selid' => 'score-field')) ?>
                 </td>
             </tr>
             <tr>
@@ -75,7 +75,7 @@
                 <td><?= __('O') ?></td>
                 <td>-</td>
                 <td>
-                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => $question['question']['multiple_choice_question_answers'][2]['score'])) ?>
+                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => $question['question']['multiple_choice_question_answers'][2]['score'], 'selid' => 'score-field')) ?>
                 </td>
             </tr>
             <tr>
@@ -84,7 +84,7 @@
                 <td><?= __('J') ?></td>
                 <td>-</td>
                 <td>
-                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => $question['question']['multiple_choice_question_answers'][3]['score'])) ?>
+                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => $question['question']['multiple_choice_question_answers'][3]['score'], 'selid' => 'score-field')) ?>
                 </td>
             </tr>
             <tr>
@@ -93,7 +93,7 @@
                 <td><?= __('O') ?></td>
                 <td>-</td>
                 <td>
-                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => $question['question']['multiple_choice_question_answers'][4]['score'])) ?>
+                    <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => $question['question']['multiple_choice_question_answers'][4]['score'], 'selid' => 'score-field')) ?>
                 </td>
             </tr>
             </tbody>

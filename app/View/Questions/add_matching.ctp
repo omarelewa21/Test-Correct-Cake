@@ -58,10 +58,10 @@
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'selid' => 'left-answer',))?>
                             </td>
                             <td>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'selid' => 'right-answer',))?>
                             </td>
                             <td>
                                 <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">

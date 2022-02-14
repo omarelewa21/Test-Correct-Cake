@@ -57,7 +57,7 @@
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 640px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 640px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]', 'selid' => 'answer-field'))?>
                             </td>
                             <td>
                                 <a href="#" class="btn red small" onclick="Questions.removeRankingOption(this);">

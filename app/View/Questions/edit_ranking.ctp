@@ -77,7 +77,7 @@
                     </td>
                     <td>
                         <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $loopCounter, 'class' => 'order'))?>
-                        <?=$this->Form->input('', array('style' => 'width: 620px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : ''))?>
+                        <?=$this->Form->input('', array('style' => 'width: 620px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]', 'selid' => 'answer-field', 'value' => isset($answer['answer']) ? $answer['answer'] : ''))?>
                     </td>
                     <td>
                         <? if($editable) { ?>

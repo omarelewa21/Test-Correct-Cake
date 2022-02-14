@@ -52,7 +52,7 @@
                         <td><?= __('J') ?></td>
                         <td><?= __("Juiste reden")?></td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +61,7 @@
                         <td><?= __('J') ?></td>
                         <td><?= __("Onjuiste reden")?></td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +70,7 @@
                         <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +79,7 @@
                         <td><?= __('J') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -88,7 +88,7 @@
                         <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                 </tbody>

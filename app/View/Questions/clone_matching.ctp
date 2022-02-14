@@ -114,10 +114,10 @@
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'selid' => 'left-answer', 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
                             </td>
                             <td>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'selid' => 'right-answer', 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
                             </td>
                             <td>
                                 <? if($editable) { ?>
@@ -141,10 +141,10 @@
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'selid' => 'left-answer', 'name' => 'data[Question][answers]['.$i.'][left]', 'value' => isset($left['answer']) ? $left['answer'] : ''))?>
                             </td>
                             <td>
-                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
+                                <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'selid' => 'right-answer', 'name' => 'data[Question][answers]['.$i.'][right]', 'value' => isset($right['answer']) ? $right['answer'] : ''))?>
                             </td>
                             <td>
                                 <? if($editable) { ?>
