@@ -51,3 +51,10 @@ msgstr "Info berichten"
 
 msgid "info.Titel"
 msgstr "Titel"
+
+
+msgid "Volgens docent"
+msgstr "Volgens docent"
+
+msgid "Naam toets"
+msgstr "Naam toets"

@@ -4427,3 +4427,10 @@ msgstr "Question saved"
 msgid "Nieuwe studenten omgeving toestaan"
 msgstr "Allow new student environment"
 
+msgid "Volgens docent"
+msgstr "According teacher"
+
+msgid "Naam toets"
+msgstr "Name test"
+
+
