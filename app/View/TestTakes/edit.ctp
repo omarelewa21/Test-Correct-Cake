@@ -149,7 +149,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
         confirmMessage: '<?= __("Weet u zeker dat u deze toets niet wilt exporteren naar RTTI Online?")?>',
         skipOnChecked: $("#TestTakeIsRttiTestTake"),
         onsuccess: function (result) {
-            Notify.notify('<?= __("Toetsen zijn ingepland")?>', "info");
+            Notify.notify('<?= __("Wijzigingen opgeslagen")?>', "info");
             Navigation.refresh();
             Popup.closeLast();
         },
