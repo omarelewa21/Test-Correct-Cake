@@ -61,11 +61,11 @@ if(!isset($take)) {
     </a>
     <div id="attachmentFade"></div>
 
-    <div style="padding:5px 0 5px 0; float:left; width:calc(100% - 280px)">
-        <? if($has_next_question) { ?>
-            <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight nextDiscussionQuestion" style="text-align:center"><?= __("Volgende vraag")?></a>
-        <? }  ?>
-    </div>
+    <? if($has_next_question) { ?>
+        <div style="padding:5px 0 5px 0; float:left; width:calc(100% - 280px)">
+                <a href="#" onclick="TestTake.nextDiscussionQuestion('<?=getUUID($take, 'get');?>');" class="btn highlight nextDiscussionQuestion" style="text-align:center"><?= __("Volgende vraag")?></a>
+        </div>
+    <? }  ?>
 
     <script type="text/javascript">
     <?php if (isset($take['discussing_question_uuid'])) { ?>
