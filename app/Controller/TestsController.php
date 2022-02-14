@@ -333,7 +333,21 @@ class TestsController extends AppController
         $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getTests($params);
 
-        $this->set('tests', $tests['data']);
+        try{
+            $customerCode = AuthComponent::user('school_location')['customer_code'];
+            if($customerCode!='OPENSOURCE1') {
+                return $this->set('tests', $tests['data']);
+            }
+            foreach ($tests['data'] as $key=>$test){
+                $backgroundColor = ($test['scope']=='exam')?'green':'';
+                $test['background-color'] = $backgroundColor;
+                $tests['data'][$key] = $test;
+            }
+            return $this->set('tests', $tests['data']);
+        }catch(Exception $e){
+            // empty
+        }
+        return $this->set('tests', $tests['data']);
     }
 
     public function view($test_id)

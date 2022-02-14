@@ -68,6 +68,16 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function getExamTests($params)
+    {
+        $response = $this->Connector->getRequest('/exam_test', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getSharedSectionsTests($params)
     {
         $response = $this->Connector->getRequest('/shared_section_test', $params);
@@ -320,6 +330,24 @@ class TestsService extends BaseService {
         $params['mode'] = $mode;
 
         $response = $this->Connector->getRequest('/cito_subject', $params);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getExamSubjects($personal = false, $mode = 'list') {
+
+        if($personal) {
+            $params['filter'] = [
+                'user_id' => AuthComponent::user()['id']
+            ];
+        }
+        $params['mode'] = $mode;
+
+        $response = $this->Connector->getRequest('/exam_subject', $params);
 
         if($response === false){
             return $this->Connector->getLastResponse();

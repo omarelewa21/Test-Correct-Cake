@@ -22,6 +22,15 @@
         <?php } ?>
         <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
+                    onclick="Navigation.load('/exam_tests/index')"
+                    style="<?= $tab === 'exam' ? 'color:var(--primary);' : '' ?>"
+            >
+                <?= __("Examenmateriaal")?>
+            </button>
+            <span style="display:flex;<?= $tab === 'shared_sections' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
+        </div>
+        <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
+            <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"
                     onclick="<?= AuthComponent::user('hasCitoToetsen') ? 'Navigation.load(\'/cito_tests/index\')' : '' ?>"
                     style="<?= $tab === 'cito' ? 'color:var(--primary);' : '' ?>"
                 <?php

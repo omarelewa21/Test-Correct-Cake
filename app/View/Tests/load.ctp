@@ -13,7 +13,7 @@ foreach($tests as $test) {
         <td></td>
       <?php endif; ?>
 
-        <td><?=$test['abbreviation']?></td>
+        <td style="background-color:<?=array_key_exists('background-color',$test)?$test['background-color']:''?>;" ><?=$test['abbreviation']?></td>
         <td><?=$test['name']?></td>
         <td style="text-align: center"><?=$test['question_count']?></td>
         <td><?=$test['subject']['name']?></td>
