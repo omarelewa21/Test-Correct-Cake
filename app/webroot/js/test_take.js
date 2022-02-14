@@ -1014,7 +1014,7 @@ var TestTake = {
                 if (el.classList.contains('cta-button')) {
                     el.classList.remove('cta-button');
                     el.classList.add('grey');
-                    Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' ingeschakeld'));
+                    Notify.notify($.i18n('Browsertoetsing voor ')+name+$.i18n(' uitgeschakeld'));
                     // Notify.notify($.i18n('Let op! Studenten die deze toets nu al aan het maken zijn in hun browser, kunnen door blijven werken in hun browser.'));
                 } else {
                     el.classList.add('cta-button');
