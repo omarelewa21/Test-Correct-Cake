@@ -3863,8 +3863,8 @@ msgstr "Current school location"
 msgid "Gebruiker kon niet worden verplaatst, bevat de target school al een valide docentenaccount?"
 msgstr "User could not be moved, does the target school already have a valid teacher account?"
 
-msgid "Voormalig wachtwoord"
-msgstr "Old password"
+msgid "Huidig wachtwoord"
+msgstr "Current password"
 
 msgid "Herhaal nieuw wachtwoord"
 msgstr "Repeat new password"

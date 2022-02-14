@@ -10,7 +10,7 @@
             <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8')) ?>
             </td>
         </tr>
         <tr>
@@ -18,7 +18,7 @@
             <?= __("Herhaal wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->password('password_confirmation', array('style' => 'width: 185px', 'label' => false)) ?>
+                <?=$this->Form->password('password_confirmation', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8')) ?>
             </td>
         </tr>
 
@@ -45,6 +45,10 @@
                 Navigation.refresh();
             },
             onfailure : function(result) {
+                if ('password' in result) {
+                    Notify.notify(result.password, "error");
+                }
+
                 if(result.error != undefined) {
                     Notify.notify(result.error, "error");
                 }

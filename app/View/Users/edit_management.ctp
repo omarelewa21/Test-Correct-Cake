@@ -47,7 +47,7 @@
             <?= __("Wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'length-8')) ?>
             </td>
         </tr>
         <tr>

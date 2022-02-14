@@ -145,6 +145,11 @@ if (!Array.isArray) {
                         Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 6 karakters bevatten.'), 'error');
                     }
                 }
+                if (check == 'length-8') {
+                    if ($(element).val().length < 8) {
+                        Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 8 karakters bevatten.'), 'error');
+                    }
+                }
             });
         }
     }
@@ -174,6 +179,12 @@ if (!Array.isArray) {
 
                 if (check == 'length-6') {
                     if ($(element).val().length < 6) {
+                        passed = false;
+                    }
+                }
+
+                if (check == 'length-8') {
+                    if ($(element).val().length < 8) {
                         passed = false;
                     }
                 }

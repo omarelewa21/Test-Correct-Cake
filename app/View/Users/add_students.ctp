@@ -79,7 +79,7 @@
             <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'autocomplete'=> 'new-password')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'autocomplete'=> 'new-password', 'verfiy' => 'length-8')) ?>
             </td>
         </tr>
         <tr>
@@ -132,10 +132,14 @@
             },
             onfailure : function(result) {
                 if(result.error != undefined && result.error == 'external_code') {
-                    Notify.notify('<?= __("Studentnummer is al in gebruik")?>', "error");
-                }else {
-                    Notify.notify('<?= __("Het opgegeven e-mailadres is al in gebruik of onvolledig")?>', "error");
+                    return Notify.notify('<?= __("Studentnummer is al in gebruik")?>', "error");
                 }
+
+                if(result.error !== undefined && "password" in JSON.parse(result.error)?.errors) {
+                    return Notify.notify(JSON.parse(result.error)?.errors.password, "error");
+                }
+
+                Notify.notify('<?= __("Het opgegeven e-mailadres is al in gebruik of onvolledig")?>', "error");
             }
         }
     );
