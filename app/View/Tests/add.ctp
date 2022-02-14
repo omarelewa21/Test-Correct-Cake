@@ -169,7 +169,7 @@
                 Notify.notify('<?= __("Toets aangemaakt")?>', "info");
                 setTimeout(function () {
                     Menu.updateMenuFromRedirect('library', 'tests_overview');
-                    Popup.load('/questions/add_custom/test/' + result.uuid, 800);
+                    Popup.load('/questions/add_custom/test/' + result.uuid+'/'+result.uuid, 800);
                 }, 1000);
             },
             onfailure: function (result) {
