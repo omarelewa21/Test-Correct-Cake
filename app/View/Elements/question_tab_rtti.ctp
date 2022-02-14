@@ -6,7 +6,7 @@
 ?>
 
 <div page="settings" class="page" tabs="<?=$addEdit?>_question">
-    <span class="title"><?=__('Taxonomie')?></span>
+    <span class="title" selid="header"><?=__('Taxonomie')?></span>
     <div class="taxonomy">
         <span><?= __("Selecteer tot welke categorie deze vraag hoort binnen de RTTI-methode")?></span>
         <?=$this->Form->input('rtti', array('label' => false, 'type' => 'select', 'value' => $rtti, 'options' => ['null' => __("Geen"), 'R' => 'R', 'T1' => 'T1', 'T2' => 'T2', 'I' => 'I'], 'style' => 'width:750px;'))?>

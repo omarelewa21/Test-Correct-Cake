@@ -129,7 +129,7 @@
                 <span style="margin-left: 10px;"><?= __("Terug")?></span>
             </button>
             <div style="display: flex;margin-left: auto;">
-                <button class="flex button text-button button-sm" style="align-items: center;" onclick="Popup.closeLast();">
+                <button class="flex button text-button button-sm" style="align-items: center;" onclick="Popup.closeLast();" selid="cancel-btn">
                 <?= __("Annuleer")?>
                 </button>
                 <?
@@ -143,7 +143,7 @@
         </div>
     <?php } else { ?>
 
-        <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+        <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
         <?= __("Annuleer")?>
         </a>
         <?
