@@ -165,27 +165,35 @@ if(!empty($group['question']['question'])) {
                                 $question['question']['type'],
                                 $groupQuestionQuestionUuid
                             );
+                            
+                            $overwriteActions = false;
+                            if (in_array($question['question']['type'], ['DrawingQuestion'])) {
+                                if ($usesNewDrawingQuestion) {
+                                    $overwriteActions = true;
+                                }                            
+                            } else if ($newEditor) {
+                                   $overwriteActions = true; 
+                            }
+                            
+                            if ($overwriteActions) {
+                                $editAction = sprintf(
+                                    "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
+                                    $question['question']['type'],
+                                    $test_id,
+                                    $question['question']['subtype'],
+                                    $testQuestionUuid,
+                                    $groupQuestionQuestionUuid
+                                );
 
-                            if ($newEditor) {
-                                if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'TrueFalse']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion', 'DrawingQuestion'])) {
-                                    $editAction = sprintf(
-                                        "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
-                                        $question['question']['type'],
-                                        $test_id,
-                                        $question['question']['subtype'],
-                                        $testQuestionUuid,
-                                        $groupQuestionQuestionUuid
-                                    );
+                                $cloneAction = sprintf(
+                                    "Questions.editPopup( '%s', 'group', '%s', '%s', '%s','%s',true)",
+                                    $question['question']['type'],
+                                    $test_id,
+                                    $question['question']['subtype'],
+                                    $testQuestionUuid,
+                                    $groupQuestionQuestionUuid
+                                );
 
-                                    $cloneAction = sprintf(
-                                        "Questions.editPopup( '%s', 'group', '%s', '%s', '%s','%s',true)",
-                                        $question['question']['type'],
-                                        $test_id,
-                                        $question['question']['subtype'],
-                                        $testQuestionUuid,
-                                        $groupQuestionQuestionUuid
-                                    );
-                                }
                             }
                                 ?>
                             <a href="#" class="btn white pull-right" onclick="<?= $editAction ?>">
