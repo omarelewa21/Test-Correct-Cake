@@ -10,7 +10,7 @@ foreach($school_locations as $school_location) {
     ?>
     <tr>
         <td><?=$school_location['customer_code']?></td>
-        <td><?=$school_location['name']?></td>
+        <td style="max-width:250px; word-wrap: break-word;"><?=$school_location['name']?></td>
         <td>
             <?
             if(empty($school_location['school']['name'])) {
