@@ -7,10 +7,10 @@ if ($editable) {
     <div class="question-editor-footer">
         <div class="question-editor-footer-button-container">
             <button type="button" onclick="Questions.closeQuestionEditor();"
-                    class="button text-button button-md">
+                    class="button text-button button-md" selid="cancel-btn">
                 <span><?= __("Annuleer") ?></span>
             </button>
-            <button type="button" onclick="<?= $saveAction ?>;" class="button cta-button button-sm">
+            <button type="button" onclick="<?= $saveAction ?>;" class="button cta-button button-sm" selid="save-btn">
                 <span><?= __("Vraag opslaan") ?></span>
             </button>
         </div>
@@ -19,7 +19,7 @@ if ($editable) {
     <div class="popup-footer" style="display: flex; width: 100%; height: auto">
         <div style="display: flex; width: 100%; padding: 5px 2rem;">
             <button onclick="Popup.closeLast();"
-                    class="button primary-button button-sm" style="margin-left: auto">
+                    class="button primary-button button-sm" style="margin-left: auto" selid="cancel-btn">
                 <span><?= __("Annuleer") ?></span>
             </button>
         </div>

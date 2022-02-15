@@ -1,7 +1,7 @@
 <?= $this->element('teacher_question_edit_header', ['question_type' =>  __("ARQ Choice"), 'test_name' => $test_name]) ?>
 <!--<div class="popup-head">--><?//= __("ARQ Choice")?><!--</div>-->
 <div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
-    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form', 'selid' => 'tabcontainer'])?>
 
         <table class="table mb15">
             <tr>
@@ -12,7 +12,7 @@
                     <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Halve punten mogelijk")?><br />
 
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false, 'selid' => 'open-source-switch'))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
                     <?php endif; ?>
                 </td>
 
@@ -29,12 +29,12 @@
     <?= $this->element('teacher_add_question_tabs') ?>
 
         <div page="question" class="page active" tabs="add_question">
-            <span class="title"><?=__('Vraag')?></span>
+            <span class="title" selid="header"><?=__('Vraag')?></span>
             <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
         <div page="question" class="page active" tabs="add_question">
-            <span class="title"><?=__('Antwoord')?></span>
+            <span class="title" selid="header"><?=__('Antwoord')?></span>
             <table class="table" id="tableMultiChoiceOptions">
                 <thead>
                     <tr>
@@ -52,7 +52,7 @@
                         <td><?= __('J') ?></td>
                         <td><?= __("Juiste reden")?></td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][0][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -61,7 +61,7 @@
                         <td><?= __('J') ?></td>
                         <td><?= __("Onjuiste reden")?></td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][1][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -70,7 +70,7 @@
                         <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][2][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -79,7 +79,7 @@
                         <td><?= __('J') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][3][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                     <tr>
@@ -88,7 +88,7 @@
                         <td><?= __('O') ?></td>
                         <td>-</td>
                         <td>
-                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0))?>
+                            <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][4][score]', 'value' => 0, 'selid' => 'score-field', 'selid' => 'score-field'))?>
                         </td>
                     </tr>
                 </tbody>
@@ -96,7 +96,7 @@
         </div>
 
         <div page="settings" class="page" tabs="add_question">
-            <span class="title"><?= __('Eindtermen') ?></span>
+            <span class="title" selid="header"><?= __('Eindtermen') ?></span>
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 

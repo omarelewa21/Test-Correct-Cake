@@ -2,7 +2,7 @@
 <!--<div class="popup-head">--><?//= __("Open vraag")?><!--</div>-->
 <div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
 
-    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form'))?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form', 'selid' => 'tabcontainer'))?>
         <?
         $openTypes = [
             'short' => __("Korte open-antwoordvraag"),
@@ -25,7 +25,7 @@
                     <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> <?= __("Deze vraag vastzetten")?> <br /><? }?>
                     <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> <?= __("Halve punten mogelijk")?><br />
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'selid' => 'open-source-switch', 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
                     <?php endif; ?>
                 </td>
                 <td width="230">
@@ -41,22 +41,22 @@
     <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
 
     <div page="question" class="page active" tabs="edit_question">
-        <span class="title"><?= __('Vraag')?></span>
+        <span class="title" selid="header"><?= __('Vraag')?></span>
         <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
     </div>
 
     <div page="settings" class="page" tabs="edit_question">
-        <span class="title"><?= __('Info')?></span>
+        <span class="title" selid="header"><?= __('Info')?></span>
         <?= $this->element('question_info', ['question' => $question]) ?>
     </div>
 
     <div page="question" class="page active" tabs="edit_question">
-        <span class="title"><?= __('Antwoord')?></span>
+        <span class="title" selid="header"><?= __('Antwoord')?></span>
         <?= $this->Form->input('answer', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['answer'])); ?>
     </div>
 
     <div page="settings" class="page" tabs="edit_question">
-        <span class="title"><?= __('Eindtermen')?></span>
+        <span class="title" selid="header"><?= __('Eindtermen')?></span>
         <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>
 
@@ -65,7 +65,7 @@
     <?= $this->element('question_tab_rtti', ['question' => $question]); ?>
 
     <div page="settings" class="page" tabs="edit_question">
-        <span class="title"><?= __('Tags')?></span>
+        <span class="title" selid="header"><?= __('Tags')?></span>
         <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
     </div>
 

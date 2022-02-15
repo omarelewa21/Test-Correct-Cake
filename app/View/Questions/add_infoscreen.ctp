@@ -2,7 +2,7 @@
 <!--<div class="popup-head">--><?//= __("Infoscherm")?><!--</div>-->
 <div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
 
-    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form', 'selid' => 'tabcontainer'])?>
     <div style="display: flex; margin-bottom: 20px;">
         <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle ml10" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
     </div>
@@ -17,18 +17,18 @@
     <?=$this->element('teacher_add_question_tabs', ['infoscreen' => true]) ?>
 
     <div page="question" class="page active" tabs="add_question">
-            <span class="title"><?=__('Infoscherm')?></span>
+            <span class="title" selid="header"><?=__('Infoscherm')?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'autocorrect' => 'off', 'spellcheck' => 'false', 'autocomplete' => 'off')); ?>
         </div>
 
         <div page="question" class="page active" tabs="add_question">
-            <span class="title"><?=__('Antwoord')?></span>
+            <span class="title" selid="header"><?=__('Antwoord')?></span>
             <?=$this->Form->input('answer', array('value' => __("niet van toepassing"),'label' => false, 'type' => 'hidden'))?>
             <?= __("Niet van toepassing")?>
         </div>
 
         <div page="settings" class="page" tabs="add_question">
-            <span class="title"><?= __('Eindtermen') ?></span>
+            <span class="title" selid="header"><?= __('Eindtermen') ?></span>
             <?=$this->element('attainments', ['attainments' => $attainments]) ?>
         </div>
 

@@ -75,7 +75,7 @@
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
             <?= __("Klas uploaden")?>
             </a>
-            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
             <?= __("Annuleer")?>
             </a>
         </div>

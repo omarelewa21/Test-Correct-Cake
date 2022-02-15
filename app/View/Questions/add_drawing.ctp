@@ -2,7 +2,7 @@
 <!--<div class="popup-head">--><?//= __("Tekenvraag")?><!--</div>-->
 <div class="" style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
 
-    <?=$this->Form->create('Question', ['class' => 'add_question_form'])?>
+    <?=$this->Form->create('Question', ['class' => 'add_question_form', 'selid' => 'tabcontainer'])?>
 
     <table class="table mb15">
         <tr>
@@ -18,7 +18,7 @@
                 <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag vastzetten")?><br /><? } ?>
                 <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Halve punten mogelijk")?><br />
                 <?php if(!$is_open_source_content_creator): ?>
-                    <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false, 'selid' => 'open-source-switch'))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
                 <?php endif; ?>
             </td>
 
@@ -35,12 +35,12 @@
     <?=$this->element('teacher_add_question_tabs') ?>
 
     <div page="question" class="page active" tabs="add_question">
-        <span class="title"><?=__('Vraag')?></span>
+        <span class="title" selid="header"><?=__('Vraag')?></span>
         <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
     </div>
 
     <div page="question" class="page active" tabs="add_question">
-        <span class="title"><?=__('Antwoord')?></span>
+        <span class="title" selid="header"><?=__('Antwoord')?></span>
         <div class="alert alert-info">
         <?= __("Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1).")?>
         </div>
@@ -52,7 +52,7 @@
     </div>
 
     <div page="settings" class="page" tabs="add_question">
-        <span class="title"><?=__('Eindtermen')?></span>
+        <span class="title" selid="header"><?=__('Eindtermen')?></span>
         <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
     </div>
 
