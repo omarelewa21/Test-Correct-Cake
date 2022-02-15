@@ -81,7 +81,7 @@
         </table>
 
         <center>
-            <a href="#" class="btn highlight small inline-block" onclick="Questions.addClassifyOption();" selid="add-answer-option-button">
+            <a href="#" class="btn highlight small inline-block" onclick="Questions.addClassifyOption();" selid="add-answer-option-btn">
                 <span class="fa fa-plus"></span>
                 <?= __("Optie toevoegen")?>
             </a>
