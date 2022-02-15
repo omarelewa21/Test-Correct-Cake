@@ -79,7 +79,7 @@
             },
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify('<?= __("Ouder aangemaakt")?>', "info");
+                Notify.notify('<?= __("Ouder gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {

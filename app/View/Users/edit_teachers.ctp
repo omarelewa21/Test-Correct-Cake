@@ -107,7 +107,7 @@
             },
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify('<?= __("Gebruiker aangemaakt")?>', "info");
+                Notify.notify('<?= __("Gebruiker gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
