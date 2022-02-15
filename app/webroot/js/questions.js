@@ -18,6 +18,9 @@ var Questions = {
     },
 
     getCorrectSubQuestionTypeIfLaravel:function(type,sub_type){
+        if(type == 'DrawingQuestion'){
+            return 'drawing';
+        }
         if(type == 'RankingQuestion'){
             sub_type = 'Ranking';
         } else if(type == 'InfoscreenQuestion') {

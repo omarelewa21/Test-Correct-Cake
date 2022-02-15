@@ -444,9 +444,16 @@
                                     $question['question']['type'],
                                     $testQuestionUuid
                                 );
-                                if ($newEditor) {
-
-                                    if (in_array($question['question']['subtype'], ['short', 'medium', 'long', 'completion', 'TrueFalse', 'multi','Matching','Classify']) || in_array($question['question']['type'], ['MultipleChoiceQuestion', 'RankingQuestion', 'InfoscreenQuestion', 'DrawingQuestion'])) {
+                                $overwriteActions = false;
+                                if (in_array($question['question']['type'], ['DrawingQuestion'])) {
+                                    if ($usesNewDrawingQuestion) {
+                                        $overwriteActions = true;
+                                    }
+                                } else if ($newEditor) {
+                                    $overwriteActions = true;
+                                }
+                                
+                                if ($overwriteActions) {
                                         $editAction = sprintf(
                                             "Questions.editPopup( '%s', 'test', '%s', '%s', '%s')",
                                             $question['question']['type'],
@@ -462,7 +469,6 @@
                                             $question['question']['subtype'],
                                             $testQuestionUuid
                                         );
-                                    }
                                 }
                                 ?>
                                 <a href="#" class="btn white pull-right" onclick="<?= $editAction ?>">

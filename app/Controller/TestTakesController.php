@@ -898,7 +898,15 @@ class TestTakesController extends AppController {
     public function drawing_question_answers($answer_id)
     {
         $this->autoRender = false;
-        return $this->AnswersService->getDrawingAnswer($answer_id, true);
+
+        $file = $this->AnswersService->getDrawingAnswer($answer_id, true);
+        if (substr($file, 0, 4) ==='<svg') {
+            header('Content-type: image/svg+xml');
+            echo $file;
+            die;
+        }
+
+        return $file;
     }
 
     public function rate_teacher_answer($participant_id, $question_id) {

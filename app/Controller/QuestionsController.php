@@ -375,6 +375,7 @@ class QuestionsController extends AppController
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
+        $this->set('newDrawingQuestion', AuthComponent::user('school_location.allow_new_drawing_question') ?? 0);
         $this->set('owner', $owner);
         $this->set('test_id', $test_id ?? $owner_id);
         $this->set('owner_id', $owner_id);
@@ -1730,6 +1731,7 @@ class QuestionsController extends AppController
         $this->set('group_id', $group_id);
         $this->set('test_id', $test_id);
         $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
+        $this->set('usesNewDrawingQuestion', AuthComponent::user('school_location.allow_new_drawing_question') ?? 0);
         $this->Session->write('attachments_editable', true);
     }
 

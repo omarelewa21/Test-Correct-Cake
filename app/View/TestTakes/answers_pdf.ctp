@@ -127,8 +127,36 @@ foreach($participants as $participant) {
                 }
 
                 if($question['type'] == 'DrawingQuestion') {
+                    $src = trim(htmlspecialchars_decode($answerJson['answer']));
+
+                    if (substr($src, 0, 4) == '<svg') {
+                        // when a svg file the root element should contain a height and a width so we add it if 
+                        // it is needed;
+                        
+                        $xml = DOMDocument::loadXML($src);
+                        if ($xml->documentElement->getAttribute('height') == '') {
+                            $xml->documentElement->setAttribute('height', '200');
+                        }
+
+                        if ($xml->documentElement->getAttribute('width') == '') {
+                            $xml->documentElement->setAttribute('width', '200');
+                        }
+
+                        $src = $xml->saveXML();
+
+                        // this is really gross
+                        // all quotes should be single quotes, no eol statements. no measurments in px.
+                        // but it seams to work;
+                        $urlencoded = str_replace(
+                            ['"', 'px', '<', '>', '#', PHP_EOL],
+                            ["'", '', '%3C', '%3E', '%23', ''],
+                            $src
+                        );
+                        $src = trim('data:image/svg+xml;charset=utf8,'.$urlencoded);
+                    }
+
                     ?>
-                    <img src="<?=htmlspecialchars_decode($answerJson['answer'])?>" width="100%" />
+                    <img src="<?=$src?>" width="100%" />
                 <?
                 }
             }

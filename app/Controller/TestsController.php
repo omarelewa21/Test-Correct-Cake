@@ -419,6 +419,7 @@ class TestsController extends AppController
         $this->set('oldPlayerAccess', $oldPlayerAccess);
         $this->set('startWithEdit',false);
         $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
+        $this->set('usesNewDrawingQuestion', AuthComponent::user('school_location.allow_new_drawing_question') ?? 0);
     }
 
     /**
