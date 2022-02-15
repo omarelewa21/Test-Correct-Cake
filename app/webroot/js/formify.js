@@ -48,7 +48,9 @@ if (!Array.isArray) {
         {
             $(settings.confirm).click(function () {
                 if(settings.onbeforesubmit != false){
-                    settings.onbeforesubmit();
+                    if(settings.onbeforesubmit() === 'cancelSubmit') {
+                        return;
+                    }
                 }
                 if (verifyAll()) {
                     postForm();

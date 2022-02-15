@@ -47,7 +47,7 @@
             <?= __("Wachtwoord")?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'length-8')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
             </td>
         </tr>
         <tr>
@@ -78,6 +78,13 @@
     $('#UserEditForm').formify(
         {
             confirm : $('#btnAddUser'),
+            onbeforesubmit: function(e) {
+                var password = $('#UserPassword').val();
+                if(password !== '' && password.length < 8) {
+                    Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 8 karakters bevatten.'), 'error');
+                    return 'cancelSubmit';
+                }
+            },
             onsuccess : function(result) {
                 Popup.closeLast();
                 Notify.notify('<?= __("Gebruiker aangemaakt")?>', "info");
