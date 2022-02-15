@@ -1,5 +1,5 @@
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.load('/tests/index');">
+    <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug") ?>
     </a>
