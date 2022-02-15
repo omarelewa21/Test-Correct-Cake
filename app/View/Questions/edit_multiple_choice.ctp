@@ -79,10 +79,10 @@
                     </td>
                     <td>
                         <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $loopCounter, 'class' => 'order')) ?>
-                        <?= $this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : '', 'disabled' => !$editable)) ?>
+                        <?= $this->Form->input('', array('style' => 'width: 570px;', 'selid' => 'answer-field', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][answer]', 'value' => isset($answer['answer']) ? $answer['answer'] : '', 'disabled' => !$editable)) ?>
                     </td>
                     <td>
-                        <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][score]', 'value' => isset($answer['score']) ? $answer['score'] : '')) ?>
+                        <?= $this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'selid' => 'score-field', 'name' => 'data[Question][answers][' . $i . '][score]', 'value' => isset($answer['score']) ? $answer['score'] : '')) ?>
                     </td>
                     <td>
                         <? if ($editable) { ?>
