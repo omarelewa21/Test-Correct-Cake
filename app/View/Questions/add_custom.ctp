@@ -2,7 +2,7 @@
 <div class="popup-content">
     <div><?= __("Gesloten vraagtypes")?></div>
 
-    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'MultipleChoiceQuestion', '<?=$owner?>', '<?=$test_id?>','multiplechoice', '<?= $owner_id ?>');">
+    <div class="btn highlight pull-left  defaultMenuButton" onclick="Questions.addPopup(<?=$newEditor?>, 'MultipleChoiceQuestion', '<?=$owner?>', '<?=$test_id?>','MultipleChoice', '<?= $owner_id ?>');">
     <?= __("Meerkeuze")?>
     </div>
 
