@@ -4,7 +4,7 @@
         <table class="table">
             <tr>
                 <th width="130">
-                <?= __("Voormalig wachtwoord")?>
+                <?= __("Huidig wachtwoord")?>
                 </th>
                 <td>
                     <?=$this->Form->input('password_old', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'type' => 'password')) ?>
@@ -15,7 +15,7 @@
                 <?= __("Nieuw wachtwoord")?>
                 </th>
                 <td>
-                    <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-6', 'type' => 'password')) ?>
+                    <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8', 'type' => 'password')) ?>
                 </td>
             </tr>
             <tr>
@@ -23,7 +23,7 @@
                 <?= __("Herhaal nieuw wachtwoord")?>
                 </th>
                 <td>
-                    <?=$this->Form->input('password_new', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-6', 'type' => 'password')) ?>
+                    <?=$this->Form->input('password_new', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8', 'type' => 'password')) ?>
                 </td>
             </tr>
         </table>
@@ -47,7 +47,9 @@
                 Notify.notify('<?= __("Wachtwoord gewijzigd")?>', "info");
             },
             onfailure : function(result) {
-                Notify.notify(result.message, "error");
+                for (var [key, message] of Object.entries(result.errors)) {
+                    Notify.notify(message, "error");
+                }
             }
         }
     );

@@ -39,7 +39,7 @@
                 <?=__('Wachtwoord')?>
             </th>
             <td>
-                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text')) ?>
+                <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'type' => 'text', 'verify' => 'length-8')) ?>
             </td>
         </tr>
         <tr>
@@ -85,9 +85,13 @@
                 }else if (result.error == 'user_roles'){
                     Notify.notify('<?= __("U kunt een docent pas aanmaken nadat u een actuele periode heeft aangemaakt. Dit doet u door als schoolbeheerder in het menu Database -> Schooljaren een schooljaar aan te maken met een periode die in de huidige periode valt.")?>','error')
                 }
-                else{
-                    Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
+
+                var errors = JSON.parse(result.error)?.errors
+                if('password' in errors) {
+                    return Notify.notify(errors.password, "error");
                 }
+
+                Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );
