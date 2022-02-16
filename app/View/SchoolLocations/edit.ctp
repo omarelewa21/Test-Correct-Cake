@@ -250,9 +250,10 @@
             },
             onfailure: function (result) {
                 // Notify.notify("School kon niet worden aangemaakt", "error");
-                if (result[0].toLowerCase().includes('<?= __("locatie brin code")?>')) {
+                if (typeof result[0] == "string" && result[0].toLowerCase().includes('<?= __("locatie brin code")?>')) {
                     $("#SchoolLocationExternalSubCode").removeClass('verify-ok').addClass('verify-error');
                 }
+                
                 Notify.notify(result.join('<br />'), 'error');
             }
         }
