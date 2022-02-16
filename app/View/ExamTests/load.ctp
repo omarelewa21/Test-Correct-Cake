@@ -28,7 +28,7 @@ foreach($tests as $test) {
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($test, 'get')?>">
                 <span class="fa fa-list-ul"></span>
             </a>
-            <a href="#" class="btn white pull-right" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
+            <a href="#" class="btn white pull-right" onclick="Navigation.load('/exam_tests/view/<?=getUUID($test, 'get')?>');">
                 <span class="fa fa-folder-open-o"></span>
             </a>
 
