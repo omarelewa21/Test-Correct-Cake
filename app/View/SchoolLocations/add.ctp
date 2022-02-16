@@ -7,7 +7,7 @@
             <?= __("Naam")?>
             </th>
             <td>
-                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
+                <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'maxlength' => 100, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
             <?= __("Scholengemeenschap")?>
