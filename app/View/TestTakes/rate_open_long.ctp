@@ -9,7 +9,7 @@ $answer = json_decode($answer, true);
     var editor<?=$participantIdentifier;?> = CKEDITOR.replace( 'answer<?=$participantIdentifier;?>', {
         toolbar : [ [ ] ],
         readOnly : true,
-        extraPlugins: 'wordcount,notification,autogrow',
+        extraPlugins: 'wordcount,notification,autogrow,ckeditor_wiris',
         removePlugins: 'resize',
         autoGrow_onStartup : true,
         contentsCss : '/ckeditor/rate.css'
