@@ -2876,6 +2876,9 @@ msgstr "read for"
 msgid "Toetsen zijn ingepland"
 msgstr "Tests are scheduled"
 
+msgid "Wijzigingen opgeslagen"
+msgstr "Changes saved"
+
 msgid "Studenten toevoegen"
 msgstr "Add students"
 
