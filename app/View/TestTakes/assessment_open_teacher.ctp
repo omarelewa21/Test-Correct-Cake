@@ -80,11 +80,11 @@ if(count($takes) == 0) {
                             </td>
                             <td align="center" class="nopadding">
                                 <a href="#" class="btn highlight small"
-                                   onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids']; ?>);">
+                                   onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') ."'"; ?>);">
                                     <?= __("Innemen")?>
                                 </a>
                             </td>
-                            <td><a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/edit/<?= getUUID($take['info'], 'get') ?>', 500);">
+                            <td><a href="#" class="btn white pull-right" onclick="Navigation.load('test_takes/assessment_open_teacher/<?=getUUID($take['info'], 'get')?>')">
                                     <span class="fa fa-folder-open-o"></span>
                                 </a></td>
                         </tr>
@@ -236,4 +236,5 @@ foreach ($takes as $take) {
         });
         nonDispensationJs = true;
     }
+
 </script>

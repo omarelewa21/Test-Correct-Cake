@@ -583,6 +583,12 @@ msgstr "Surveillance"
 msgid "Lopende opdrachten"
 msgstr "Open Assessments"
 
+msgid "Opdrachten"
+msgstr "Assessments"
+
+msgid "Opdracht ingeleverd"
+msgstr "Assessment handed in"
+
 msgid "Afgenomen"
 msgstr "Taken tests"
 
@@ -3212,6 +3218,9 @@ msgstr "Summative test"
 msgid "Opdracht"
 msgstr "Assessment"
 
+msgid "Surveilleren van Opdracht"
+msgstr "Surveillance of Assessment"
+
 msgid "Oefentoets"
 msgstr "Practice test"
 
@@ -3324,7 +3333,7 @@ msgid "Voortgang"
 msgstr "Progress"
 
 msgid "Innemen"
-msgstr "Hand in test"
+msgstr "Hand in"
 
 msgid "Huidige tijd"
 msgstr "Present time"
