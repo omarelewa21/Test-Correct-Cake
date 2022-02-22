@@ -46,6 +46,7 @@ function FilterManager(settings) {
                     this.registerEvents();
                     this.addChangeEventsToFilter(this);
                     this.initNewFilter();
+                    this.setFilterFromCookie();
                 }
 
             }
@@ -132,8 +133,19 @@ function FilterManager(settings) {
             this.resetSearchForm();
             this.disableDeleteButton();
             if (!this.isDeleting) {
+                var activeFilterUuid = false;
                 if (typeof this.activeFilter.uuid !== 'undefined') {
-                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                    activeFilterUuid = this.activeFilter.uuid;
+                } else {
+                    var activeItem = this.filters.find(function (item) {
+                        return item.active == 1;
+                    });
+                    if(activeItem){
+                        activeFilterUuid = activeItem.uuid;
+                    }
+                }
+                if (activeFilterUuid) {
+                    $.getJSON('/search_filter/deactivate/' + activeFilterUuid, function (response) {
                         this.setActiveFilterToEmpty();
                     }.bind(this));
                 }
@@ -143,15 +155,18 @@ function FilterManager(settings) {
             this.activeFilter = false;
             this.editFilter = {'filters': {}};
         } else if (this.filters) {
-            var activeItem = this.filters.find(function (item) {
-                return item.active == 1;
-            });
-            if (activeItem) {
-                $(this.el).val(activeItem.id);
-                this.setActiveFilter(activeItem.id);
-            } else {
-                this.activeFilter = false;
-                this.disableDeleteButton();
+            if(!this.hasSavedActiveFilterFromCookie()){
+                var activeItem = this.filters.find(function (item) {
+                    return item.active == 1;
+                });
+
+                if (activeItem) {
+                    $(this.el).val(activeItem.id);
+                    this.setActiveFilter(activeItem.id);
+                } else {
+                    this.activeFilter = false;
+                    this.disableDeleteButton();
+                }
             }
         } else {
             this.activeFilter = false;
@@ -174,12 +189,14 @@ function FilterManager(settings) {
         if (valueToSelect) {
             $(this.el).val(valueToSelect);
         } else if (this.filters) {
-            var activeItem = this.filters.find(function (item) {
-                return item.active == 1;
-            });
-            if (activeItem) {
-                $(this.el).val(activeItem.id);
-                this.setActiveFilter(activeItem.id);
+            if(!this.hasSavedActiveFilterFromCookie()) {
+                var activeItem = this.filters.find(function (item) {
+                    return item.active == 1;
+                });
+                if (activeItem) {
+                    $(this.el).val(activeItem.id);
+                    this.setActiveFilter(activeItem.id);
+                }
             }
         }
         this.renderActiveFilter();
@@ -251,6 +268,7 @@ function FilterManager(settings) {
             this.activeFilter.filters[prop] = {name: '', filter: '', label: ''};
             this.activeFilter.changed = true;
             this.renderActiveFilter();
+            this.saveActiveFilterToCookie();
         }.bind(this))
 
         .on('click', this.settings.eventScope+' #jquery-add-filter', function (e) {
@@ -264,6 +282,7 @@ function FilterManager(settings) {
                 name: $.i18n('Nieuw'),
                 filters: this.newFilter
             };
+            this.saveActiveFilterToCookie();
             this.renderActiveFilter(e);
         }.bind(this))
 
@@ -345,9 +364,39 @@ function FilterManager(settings) {
                         } else {
                             this.saveActiveFilter(filterName);
                         }
+                        this.removeActiveFilterFromCookie();
                     }
                 }.bind(this));
         }
+    };
+
+    this.saveActiveFilterToCookie = function() {
+        this.removeActiveFilterFromCookie();
+        if(this.activeFilter && !this.activeFilter.id){
+            if(jQuery('.jquery-remove-filter').length) {
+                setCookie(this.getFilterCookieName(), JSON.stringify(this.activeFilter),0.25);
+            }
+        }
+    };
+
+    this.removeActiveFilterFromCookie = function() {
+        deleteCookie(this.getFilterCookieName());
+    };
+
+    this.getFilterCookieName = function() {
+        return 'activeFilterManager_'+this.settings.filterKey;
+    };
+
+    this.hasSavedActiveFilterFromCookie = function(){
+        return !! getCookie(this.getFilterCookieName());
+    };
+
+    this.setFilterFromCookie = function() {
+      let cookieFilter = getCookie(this.getFilterCookieName());
+      if(cookieFilter){
+          this.activeFilter = JSON.parse(cookieFilter);
+          this.renderActiveFilter();
+      }
     };
 
     this.saveActiveFilterAs = function (newFilterName) {
@@ -485,7 +534,6 @@ function FilterManager(settings) {
     };
 
     this.setActiveFilter = function (filterId) {
-
         // if (filterId == '') return;
 
         var filterToClone = this.filters.find(function (filter) {
@@ -558,7 +606,6 @@ function FilterManager(settings) {
                     var input = this.getJqueryFilterInput(key);
 
                     if(typeof input != 'undefined' && typeof input.get(0) != 'undefined') {
-
                         if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
                         if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
@@ -628,6 +675,7 @@ function FilterManager(settings) {
         if (!this.isInitalizingState) {
             this.activeFilter.changed = true;
         }
+        this.saveActiveFilterToCookie();
         this.renderActiveFilter();
     };
 
