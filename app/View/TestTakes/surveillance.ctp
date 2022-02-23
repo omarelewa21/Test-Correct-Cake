@@ -121,7 +121,7 @@ if(count($takes) == 0) {
                             <td align="center" class="nopadding">
                                 <? if(isset($is_assessment)) {?>
                                     <a href="#" class="btn highlight small"
-                                            onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') ."'" . "," . "1"; ?>);">
+                                            onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') ."'" . "," . true; ?>);">
                                         <?= __("Innemen")?>
                                     </a>
                                 <?}else{?>
