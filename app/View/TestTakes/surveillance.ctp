@@ -216,6 +216,7 @@ if(count($takes) == 0) {
     window.onbeforeunload = confirmExit;
 
     var takeUuids = <?= json_encode($takeUuids) ?>;
+    let is_assessment = '<?= isset($is_assessment) ?>'.length;
 
     if(typeof(window.pusher) == 'undefined') {
         //console.log('adding pusher');
@@ -298,7 +299,7 @@ if(count($takes) == 0) {
 
     function loadData() {
         User.inactive = 0;
-        if('<?= isset($is_assessment) ?>' == '1'){
+        if(is_assessment){
             url = '/test_takes/surveillance_data/' + '<?= getUUID($take['info'], 'get')?>/';
         }else{
             url = '/test_takes/surveillance_data/?'
@@ -306,9 +307,10 @@ if(count($takes) == 0) {
 
         $.getJSON(url + new Date().getTime(),
             function(response) {
-
+                if(is_assessment && response == 404){
+                    Navigation.back();
+                }
                 $('#time').html(response.time);
-
 
                 if(response.alerts > 0) {
                     $('#alertOrange').show().find('span').html('&nbsp;' + response.alerts);
