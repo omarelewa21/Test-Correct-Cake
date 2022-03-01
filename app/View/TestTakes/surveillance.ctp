@@ -216,7 +216,7 @@ if(count($takes) == 0) {
     window.onbeforeunload = confirmExit;
 
     var takeUuids = <?= json_encode($takeUuids) ?>;
-    let is_assessment = '<?= isset($is_assessment) ?>'.length;
+    let is_assessment = <?= isset($is_assessment) ? 'true' : 'false' ?>;
 
     if(typeof(window.pusher) == 'undefined') {
         //console.log('adding pusher');
