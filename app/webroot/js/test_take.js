@@ -843,9 +843,9 @@ var TestTake = {
                 );
 
     },
-    setTakeTakenSelector: function (take_id, time_dispensation_ids) {
+    setTakeTakenSelector: function (take_id, time_dispensation_ids, message=null, redirectBack=false) {
         if (time_dispensation_ids.length == 0) {
-            this.setTakeTaken(take_id);
+            this.setTakeTaken(take_id, message, redirectBack);
         } else {
             var that = this;
             $.getJSON('/test_takes/has_active_test_participants_with_time_dispensation/' + take_id, function (data) {
@@ -873,7 +873,7 @@ var TestTake = {
                 );
 
     },
-    setTakeTaken: function (take_id) {
+    setTakeTaken: function (take_id, message=null, redirectBack=false) {
 
             Popup.message({
                 btnOk: $.i18n('ja'),
@@ -884,7 +884,9 @@ var TestTake = {
 
                 $.get('/test_takes/set_taken/' + take_id,
                         function () {
-                            Navigation.refresh();
+                            redirectBack ? Navigation.back() : Navigation.refresh();
+                            message ? Notify.notify(message) : '';
+                            
                             if (typeof(window.pusher) !== 'undefined') {
                                 pusher.unsubscribe('TestTake.'+take_id);
                             }

@@ -2027,10 +2027,14 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function surveillance_data() {
+    public function surveillance_data($takeUuid=null) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
 
+        if(!is_null($takeUuid)){
+            $params['takeUuid'] = $takeUuid;
+            return $this->TestTakesService->getSurveillanceData($params);
+        }
         return $this->TestTakesService->getSurveillanceData();
     }
 
@@ -2787,9 +2791,8 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
     }
 
-    public function assessment_open_teacher()
+    public function assessment_open_teacher($takeUuid=null)
     {
-
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->TestTakesService->bustSurveillanceCache();
         $user_id = AuthComponent::user()['id'];
@@ -2799,7 +2802,15 @@ class TestTakesController extends AppController {
         $params['filter']['type_assessment'] = true;
         $params['mode'] = 'list';
 
-        $takes = $this->TestTakesService->getTestTakes($params);
+        if(!is_null($takeUuid)){
+            $params['filter']['takeUuid'] = $takeUuid;
+            $takes = $this->TestTakesService->getTestTakes($params);
+            $this->set('is_assessment', true);
+            $this->set('takeUuid', $takeUuid);
+            $this->view = 'surveillance';
+        }else{
+            $takes = $this->TestTakesService->getTestTakes($params);
+        }
 
         $newArray = [];
 
