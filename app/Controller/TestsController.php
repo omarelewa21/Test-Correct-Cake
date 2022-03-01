@@ -370,9 +370,9 @@ class TestsController extends AppController
 
             $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
 
-            // if ($question['question']['type'] == 'CompletionQuestion') {
-            //     $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
-            // }
+            if ($question['question']['type'] == 'CompletionQuestion') {
+                $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
+            }
 
             if ($question['question']['type'] == 'GroupQuestion') {
                 for ($i = 0; $i < count($question['question']['group_question_questions']); $i++) {
