@@ -279,6 +279,7 @@ class QuestionsController extends AppController
                 break;
 
             case 'DrawingQuestion':
+                $this->set('image', $this->getDrawingQuestionAnswerImage($question));
                 $view = 'preview_drawing_answer';
                 break;
 
@@ -1776,5 +1777,28 @@ class QuestionsController extends AppController
             }
         }
         return $filterParams;
+    }
+
+    private function getDrawingQuestionAnswerImage($question)
+    {
+        if (isset($question['answer']) && !empty($question['answer']) && empty($question['zoom_group'])) {
+            return $question['answer'];
+        }
+
+        $zoomGroup = json_decode($question['zoom_group'], true);
+        $svg = sprintf('<svg viewBox="%s %s %s %s" class="w-full h-full" id="" xmlns="http://www.w3.org/2000/svg">
+                    <g class="question-svg">%s</g>
+                    <g class="answer-svg">%s</g>
+                    <g id="grid-preview-svg" stroke="var(--all-BlueGrey)" stroke-width="1"></g>
+                </svg>',
+            $zoomGroup['x'],
+            $zoomGroup['y'],
+            $zoomGroup['width'],
+            $zoomGroup['height'],
+            base64_decode($question['question_svg']),
+            base64_decode($question['answer_svg'])
+        );
+
+        return $svg;
     }
 }
