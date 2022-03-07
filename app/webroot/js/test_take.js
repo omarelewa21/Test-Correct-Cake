@@ -859,7 +859,7 @@ var TestTake = {
                 if (data.response == true) {
                     Popup.promptDispensation([take_id, [time_dispensation_ids]]);
                 } else {
-                    that.setTakeTaken(take_id);
+                    that.setTakeTaken(take_id, message, redirectBack);
                 }
             });
         }
