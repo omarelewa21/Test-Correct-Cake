@@ -614,7 +614,6 @@ class UsersController extends AppController
             } else {
                 $result = $this->UsersService->updatePasswordForUser($user_id, $data);
 
-                $result = json_decode($result, true);
                 if (array_key_exists('errors',$result) ) {
                     return $this->formResponse(false, $result['errors']);
                 }
