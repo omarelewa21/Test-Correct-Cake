@@ -38,7 +38,7 @@ if(count($takes) == 0) {
                     foreach ($takes as $take) {
 
                         ?>
-                        <tr <?= $take[0]['schoolClass']=='' ? '' : 'takesrow="true"' ?> >
+                        <tr>
                             <td><?= $take[0]['test'] ?></td>
                             <?php if($allow_guest_accounts) {?>
                                 <td style="position: relative">
@@ -51,6 +51,13 @@ if(count($takes) == 0) {
                                     <?php } ?>
                                 </td>
                             <?php } ?>
+
+                            <td>
+                                <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
+                            </td>
+                            <td>
+                                <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
+                            </td>
                             <td>
                                 <?php
                                 foreach ($take as $take_item) {
@@ -60,19 +67,13 @@ if(count($takes) == 0) {
                                 }
                                 ?>
                             </td>
-                            <td>
-                                <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
-                            </td>
-                            <td>
-                                <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
-                            </td>
 
                             <td>
                                 <?php
                                 foreach ($take['info']['school_classes'] as $class) {
                                     ?>
                                     <div class="progress" style="margin-bottom: 0px; height:20px; margin-bottom:1px;">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=getUUID($take['info'], 'get')?>_<?=getUUID($class, 'get')?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
+                                        <div takesrow="true" class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=getUUID($take['info'], 'get')?>_<?=getUUID($class, 'get')?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
                                     </div>
                                     <?php
                                 }
