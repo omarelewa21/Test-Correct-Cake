@@ -711,6 +711,7 @@ class TestTakesController extends AppController {
         $this->set('question_index', $question_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('allow_feedback', $take['allowedForFeedback']);
         $this->set('sticky',$sticky);
     }
 
@@ -2859,6 +2860,45 @@ class TestTakesController extends AppController {
         }
 
         return $params;
+    }
+
+    /************************** feedback section  ************************/
+    public function getFeedback($mode, $answer_id, $q_index){
+        $answer = $this->TestTakesService->getFeedback($answer_id);
+        $data = [];
+        if(is_null($answer['feedback'])){
+            $data['feedback'] = false;
+        }else{
+            $data['feedback'] = true;
+        }
+
+        $data['q_index'] = $q_index;
+        $data['answer'] = $answer;
+        $data['mode'] = $mode;
+        $this->set('data', $data);
+
+        $this->autoRender = false;
+        $this->render('feedback');
+    }
+
+    public function saveFeedback(){
+        $data = $this->request->data;
+
+        if(!$this->TestTakesService->saveFeedback(getUUID($data['answer'], 'get'), $data['message'])){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->TestTakesService->deleteFeedback($feedback_id)){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
     }
 
 }

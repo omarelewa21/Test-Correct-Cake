@@ -9,7 +9,7 @@ if(!empty($answer['note'])) {
 }
 ?>
 
-<table width="100%" cellpadding="0" cellspacing="0">
+<table width="100%" cellpadding="0" cellspacing="0" data-answer="<?=getUUID($answer, 'get');?>">
     <?
     $student = 1;
     $student1 = null;
@@ -111,5 +111,9 @@ if(!empty($answer['note'])) {
             }
             ?>
         });
+
+        if(<?=!is_null($answer['feedback']) ? 'true' : 'false'?>){
+            changeFeedbackButtonText('<?=$participant_id?>', '<?=$question_id?>');
+        }
     </script>
 <? }?>

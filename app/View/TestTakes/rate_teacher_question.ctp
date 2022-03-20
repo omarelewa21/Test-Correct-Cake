@@ -64,13 +64,26 @@ foreach($participants as $participant) {
                 </div>
             </div>
 
-            <div class="block" style="float:right; width: 230px;">
-                <div class="block-head"><?= __("Score")?></div>
-                <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
-                    --
+            <div style="float:right; width: 230px;">
+                <div class="block score" style="width: 100%;">
+                    <div class="block-head"><?= __("Score")?></div>
+                    <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
+                        --
+                    </div>
                 </div>
-            </div>
 
+                <? if($allow_feedback){ ?>
+                    <div style="width: 100%; text-align: center">
+                        <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
+                            onclick="loadFeedback(this.parentElement, <?= $question_index ?>);"
+                        >
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                            <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                        </a>
+                    </div>
+                <? } ?>
+            </div>
+            
             <br clear="all" />
 
         </div>
@@ -101,6 +114,22 @@ foreach($participants as $participant) {
     var sticky = <?= $sticky ?>;
     function loadQuestion(index){
         Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/'+index+'/'+sticky);
+    }
+
+    function loadFeedback(elem, q_index){
+        answer_id = $(elem).siblings('.score').find('table').attr("data-answer");
+        Popup.load('/test_takes/getFeedback/write/'+ answer_id + '/' + q_index, 700);
+    }
+
+    function changeFeedbackButtonText(participant_id, question_id, reverse=false){
+        if(<?= $allow_feedback ? 'true' : 'false'?>){
+            let elem = $('#feedback_'+ participant_id+question_id);
+            if(reverse){
+                elem.text("<?=__('Geef feedback')?>");
+            }else{
+                elem.text("<?=__('Wijzig feedback')?>");
+            }
+        }
     }
 
     $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
