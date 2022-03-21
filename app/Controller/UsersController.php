@@ -1347,6 +1347,13 @@ class UsersController extends AppController
                     'path'  => '/attainments/upload_download_provision'
                 );
 
+                $tiles['learning_goals_import_export'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Learning Goals',
+                    'path'  => '/attainments/learning_goals_upload_download_provision'
+                );
+
                 $tiles['support'] = array(
                     'menu'  => 'support_list',
                     'icon'  => 'testlist',
