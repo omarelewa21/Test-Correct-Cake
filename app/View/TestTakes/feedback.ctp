@@ -30,15 +30,14 @@
     </div>
 </div>
 
-
-
-    
 <div class="tat-content body1" style="padding-top: 5px !important;">
     <div class="input-group">
-        <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="countCharacters()"'?> id="message" width="200px" height="200px" autofocus maxlength="240"><?= $data['feedback'] ? $data['answer']['feedback']['message'] : '' ?></textarea>
+        <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" style="min-height: 200px; line-height: 1.5rem" autofocus maxlength="240"><?= $data['feedback'] ? $data['answer']['feedback']['message'] : '' ?></textarea>
     </div>
-    <div>
-        <span id="maxCharacters" class="tip"></span>
+    <div class="progress" style="background: white;">
+        <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+            0/240 <?= __("tekens")?>
+        </div>
     </div>
 <div>
 
@@ -49,7 +48,7 @@
                 <button href="#" class="btn button button-sm cta-button pull-right" id="btnSave">
                     <span><?= __("Opslaan")?></span>
                 </button>
-                
+
                 <? if($data['feedback']){ ?>
                     <button href="#" class="btn button button-sm mr5 pull-right" style="color: red; background: white;" onclick="removeFeedback('<?=getUUID($data['answer']['feedback'], 'get')?>');" selid="cancel-btn">
                         <?= __("Verwijderen")?>
@@ -59,7 +58,7 @@
                         <?= __("Annuleren")?>
                     </button>
                 <? } ?>
-                
+
             </div>
         </div>
     </div>
@@ -67,20 +66,19 @@
 
 
 <script>
-    function countCharacters(){
+    function calcMaxLength() {
         var max = $('#message').attr('maxlength');
         var chars = $('#message').val().length;
 
-        $('#maxCharacters').html( chars + '<?= __(" van ")?>'+ max + '<?= __(" karakters")?>');
-
-        if (chars >= max) {
-            $('#maxCharacters').parent().addClass('notification error ');
-            $('#maxCharacters').addClass('black');
-        } else {
-            $('#maxCharacters').parent().removeClass('notification error black');
-            $('#maxCharacters').removeClass('black');
+        if(chars === 0){
+            $('#barInputLength').css({'color': '#337ab7'});
+        }else{
+            $('#barInputLength').css({'color': 'white'});
         }
-    };
+        $('#barInputLength').css({
+            'width': ((100 / max) * chars) + '%'
+        }).html(chars + '/240 ' + '<?= __('tekens') ?>' );
+    }
 
     $( "#btnSave" ).click(function() {
         var data = <?php echo json_encode($data); ?>;
@@ -122,10 +120,10 @@
             });
         });
     }
-
-    if(<?= $data['mode'] === 'write' ? 'true' : 'false' ?>){
-        $(document).ready(countCharacters());
+    if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
+        $(document).ready(calcMaxLength());
     }
+
 </script>
 
 <? if ($data['mode'] == 'read'){ ?>
@@ -142,4 +140,6 @@
             min-height: 180px !important;
         }
     </style>
+<? }else{ ?>
+    
 <? } ?>

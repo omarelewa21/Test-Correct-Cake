@@ -1024,6 +1024,9 @@ msgstr "Not all options selected"
 msgid "0/140 tekens"
 msgstr "0/140 characters"
 
+msgid "tekens"
+msgstr "characters"
+
 msgid "Rangschikvraag"
 msgstr "Rank question"
 
