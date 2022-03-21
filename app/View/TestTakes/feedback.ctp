@@ -2,7 +2,7 @@
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0; margin-right:20px; font-size: 2rem;">
-                <?= __("Feedback bij vraag ") . ($data['q_index']+1) ?>
+                <?= __("Feedback bij vraag ") . ($data['q_index'] !== 'noIndex' ? $data['q_index']+1 : '') ?>
             </h2>
         </div>
 

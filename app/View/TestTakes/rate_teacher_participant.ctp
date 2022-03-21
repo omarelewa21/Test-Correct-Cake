@@ -61,14 +61,29 @@
                     </div>
                 </div>
 
-                <div class="block" style="width:280px; float:right;">
-                    <div class="block-head">
-                    <?= __("Score")?>
+                <div style="float:right; width: 280px;">
+                    <div class="block score" style="width:100%;">
+                        <div class="block-head">
+                        <?= __("Score")?>
+                        </div>
+                        <div class="block-content" id="score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>">
+                        <?= __("Laden..")?>
+                        </div>
                     </div>
-                    <div class="block-content" id="score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>">
-                    <?= __("Laden..")?>
-                    </div>
+
+                    <? if($allow_feedback){ ?>
+                        <div style="width: 100%; text-align: center">
+                            <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
+                                onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
+                            >
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                                <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                            </a>
+                        </div>
+                    <? } ?>
                 </div>
+
+                
 
                 <div class="block" style="width:calc(100% - 300px); margin-bottom: 100px; border-left: 3px solid #3D9D36">
                     <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("antwoord")?></div>
@@ -94,6 +109,17 @@
                     setTimeout(function() {
                         Core.surpressLoading = false;
                     }, 30000);
+
+                    function changeFeedbackButtonText(participant_id, question_id, reverse=false){
+                        if(<?= $allow_feedback ? 'true' : 'false'?>){
+                            let elem = $('#feedback_'+ participant_id+question_id);
+                            if(reverse){
+                                elem.text("<?=__('Geef feedback')?>");
+                            }else{
+                                elem.text("<?=__('Wijzig feedback')?>");
+                            }
+                        }
+                    }
                 </script>
             </div>
             <?

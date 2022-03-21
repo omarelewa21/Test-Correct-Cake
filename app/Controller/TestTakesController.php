@@ -801,6 +801,7 @@ class TestTakesController extends AppController {
         $this->set('questions', $questions);
         $this->set('participant_index', $participant_index);
         $this->set('participants', $participants);
+        $this->set('allow_feedback', $take['allowedForFeedback']);
         $this->set('take_id', $take_id);
     }
 
