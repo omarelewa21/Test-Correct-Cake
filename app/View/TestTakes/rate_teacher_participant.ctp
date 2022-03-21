@@ -43,7 +43,7 @@
     </center>
     <?
         $i = 0;
-        foreach($questions as $question) {
+        foreach($questions as $index => $question) {
             $i++;
             ?>
             <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" style="display: none;;">
@@ -74,10 +74,10 @@
                     <? if($allow_feedback){ ?>
                         <div style="width: 100%; text-align: center">
                             <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
-                                onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
+                                onclick="Popup.load('/test_takes/getFeedback/write/<?=$participant_id?>/<?=$question['question']?>/<?= $$index ?>', 700);"
                             >
                                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
-                                <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                                <span style="position:relative; bottom:1px" id="feedback_<?=$participant_id?><?=$question['question']?>"><?= __('Geef feedback') ?></span>
                             </a>
                         </div>
                     <? } ?>
