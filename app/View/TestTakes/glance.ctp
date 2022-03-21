@@ -86,11 +86,11 @@
                 style="border-radius: 10px; background: #f0f2f5; color: #929daf; cursor: default;)"
             <? }else{ ?>
                 style="border-radius: 10px; background-image: linear-gradient(to right, #002096 0%, #4781ff 100%)"
-                onclick="Popup.load('/test_takes/getFeedback/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"    
+                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"    
             <? } ?>
         >
             <i class="fa fa-eye" style="margin-right:2%" aria-hidden="true"></i>
-            <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Bekijk feedback') ?></span>
+            <span style="position:relative; bottom:1px"><?= __('Bekijk feedback') ?></span>
         </a>
     </div>
 </div>

@@ -9,7 +9,7 @@ if(!empty($answer['note'])) {
 }
 ?>
 
-<table width="100%" cellpadding="0" cellspacing="0" data-answer="<?=getUUID($answer, 'get');?>">
+<table width="100%" cellpadding="0" cellspacing="0">
     <?
     $student = 1;
     $student1 = null;
