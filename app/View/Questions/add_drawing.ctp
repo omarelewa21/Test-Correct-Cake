@@ -45,7 +45,7 @@
         <?= __("Een achtergrond-afbeelding kan worden uitgerekt als deze niet aan de juiste verhoudingen voldoet. De optimale afmetingen van een afbeelding zijn 970 x 475 pixels. Probeer bij afwijkende formaten dezelfde verhouding te hanteren (2:1).")?>
         </div>
         <center>
-            <a href="#" class="btn highlight" onclick="Popup.load('/questions/add_drawing_answer', 1220)">
+            <a href="#" class="btn highlight" onclick="Popup.load('/questions/add_drawing_answer', 1220)" selid="draw-answer">
             <?= __("Antwoord tekenen")?>
             </a>
         </center>

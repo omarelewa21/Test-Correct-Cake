@@ -6,7 +6,7 @@
 
 <iframe src="/questions/add_drawing_answer_canvas" frameborder="0" id="drawingFrame" width="100%" height="540"></iframe>
 <center>
-    <a href="#" class="btn highlight" id="btn-change" style="display: none;"><?= __("Tekening wijzigen")?></a>
+    <a href="#" class="btn highlight" id="btn-change" style="display: none;" selid="draw-answer-1"><?= __("Tekening wijzigen")?></a>
     <a href="#" class="btn white" id="btn-cancel" onclick="Popup.closeLast();" style="display: none;"><?= __("Annuleren")?></a>
 </center>
 

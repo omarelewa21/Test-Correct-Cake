@@ -4,7 +4,7 @@
 
 <iframe src="/answers/drawing_answer_canvas/<?=$question_id?>" frameborder="0" id="drawingFrame" width="100%" height="640"></iframe>
 <center>
-    <a href="#" class="btn highlight" id="btn-change" style="display: none;"><?= __("Tekening wijzigen")?></a>
+    <a href="#" class="btn highlight" id="btn-change" style="display: none;" selid="draw-answer-1"><?= __("Tekening wijzigen")?></a>
     <a href="#" class="btn white" onclick="Popup.closeLast();"><?= __("Terug")?></a>
 </center>
 

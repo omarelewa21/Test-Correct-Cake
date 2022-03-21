@@ -42,7 +42,7 @@
         <span class="title" selid="header"><?= __('Antwoord')?></span>
         <? if($editable) { ?>
             <center>
-                <a href="#" class="btn highlight" onclick="Popup.load('/questions/add_drawing_answer', 1220)">
+                <a href="#" class="btn highlight" onclick="Popup.load('/questions/add_drawing_answer', 1220)" selid="draw-answer">
                 <?= __("Antwoord wijzigen")?>
                 </a>
             </center>
