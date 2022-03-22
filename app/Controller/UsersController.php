@@ -438,7 +438,9 @@ class UsersController extends AppController
                     if(array_key_exists('afterLoginMessage',$temporaryLoginOptions)){
                         $afterLoginMessage = $temporaryLoginOptions['afterLoginMessage'];
                         unset($temporaryLoginOptions['afterLoginMessage']);
-                        CakeSession::write('temporaryLoginOptions',$temporaryLoginOptions);
+                        if($afterLoginMessage) {
+                            CakeSession::write('temporaryLoginOptions', $temporaryLoginOptions);
+                        }
                     }
                 }
                 $this->set('afterLoginMessage',$afterLoginMessage);
