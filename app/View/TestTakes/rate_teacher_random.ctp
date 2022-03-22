@@ -59,15 +59,6 @@ foreach($answers as $answer) {
                 $('#score_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>').load('/test_takes/rate_teacher_score/<?=getUUID($answer['answer']['testparticipant'], 'get')?>/<?=getUUID($answer['answer']['question'], 'get')?>');
             }
         );
-
-        function changeFeedbackButtonText(participant_id, question_id, reverse=false){
-            let elem = $('#feedback_'+ participant_id+question_id);
-            if(reverse){
-                elem.text("<?=__('Geef feedback')?>");
-            }else{
-                elem.text("<?=__('Wijzig feedback')?>");
-            }
-        }
     </script>
     <?
 }

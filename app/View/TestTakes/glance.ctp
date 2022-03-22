@@ -85,7 +85,7 @@
             <? if(is_null($answer[0]['feedback'])){ ?>
                 style="border-radius: 10px; background: #f0f2f5; color: #929daf; cursor: default;)"
             <? }else{ ?>
-                style="border-radius: 10px; background-image: linear-gradient(to right, #002096 0%, #4781ff 100%)"
+                style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%)"
                 onclick="Popup.load('/test_takes/getFeedbackByAnswerId/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"    
             <? } ?>
         >

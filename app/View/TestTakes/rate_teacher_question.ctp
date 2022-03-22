@@ -72,16 +72,14 @@ foreach($participants as $participant) {
                     </div>
                 </div>
 
-                <? if($allow_feedback){ ?>
-                    <div style="width: 100%; text-align: center">
-                        <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
-                            onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
-                        >
-                            <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
-                            <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
-                        </a>
-                    </div>
-                <? } ?>
+                <div style="width: 100%; text-align: center">
+                    <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%) !important"
+                        onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
+                    >
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                        <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                    </a>
+                </div>
             </div>
             
             <br clear="all" />
@@ -114,17 +112,6 @@ foreach($participants as $participant) {
     var sticky = <?= $sticky ?>;
     function loadQuestion(index){
         Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/'+index+'/'+sticky);
-    }
-
-    function changeFeedbackButtonText(participant_id, question_id, reverse=false){
-        if(<?= $allow_feedback ? 'true' : 'false'?>){
-            let elem = $('#feedback_'+ participant_id+question_id);
-            if(reverse){
-                elem.text("<?=__('Geef feedback')?>");
-            }else{
-                elem.text("<?=__('Wijzig feedback')?>");
-            }
-        }
     }
 
     $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');

@@ -91,7 +91,7 @@
                 if (data.status) {
                     Notify.notify("<?= __('feedback opgeslagen') ?>", 'info');
                     Popup.closeLast();
-                    changeFeedbackButtonText('<?= getUUID($data['answer']['test_participant'], 'get') ?>', '<?= getUUID($data['answer']['question'], 'get') ?>');
+                    TestTake.changeFeedbackButtonText('<?= getUUID($data['answer']['test_participant'], 'get') ?>', '<?= getUUID($data['answer']['question'], 'get') ?>');
                 } else {
                     Notify.notify("<?= __('feedback is niet opgeslagen') ?>", 'error');
                 }
@@ -113,7 +113,7 @@
                 if (data.status) {
                     Notify.notify("<?= __('feedback verwijderd') ?>", 'info');
                     Popup.closeLast();
-                    changeFeedbackButtonText('<?= getUUID($data['answer']['test_participant'], 'get') ?>', '<?= getUUID($data['answer']['question'], 'get') ?>', true);
+                    TestTake.changeFeedbackButtonText('<?= getUUID($data['answer']['test_participant'], 'get') ?>', '<?= getUUID($data['answer']['question'], 'get') ?>', true);
                 } else {
                     Notify.notify("<?= __('feedback kan niet worden verwijderd') ?>", 'error');
                 }

@@ -113,7 +113,7 @@ if(!empty($answer['note'])) {
         });
 
         if(<?=!is_null($answer['feedback']) ? 'true' : 'false'?>){
-            changeFeedbackButtonText('<?=$participant_id?>', '<?=$question_id?>');
+            TestTake.changeFeedbackButtonText('<?=$participant_id?>', '<?=$question_id?>');
         }
     </script>
 <? }?>

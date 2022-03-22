@@ -711,7 +711,6 @@ class TestTakesController extends AppController {
         $this->set('question_index', $question_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
-        $this->set('allow_feedback', $take['allowedForFeedback']);
         $this->set('sticky',$sticky);
     }
 
@@ -801,7 +800,6 @@ class TestTakesController extends AppController {
         $this->set('questions', $questions);
         $this->set('participant_index', $participant_index);
         $this->set('participants', $participants);
-        $this->set('allow_feedback', $take['allowedForFeedback']);
         $this->set('take_id', $take_id);
     }
 
