@@ -433,8 +433,15 @@ class UsersController extends AppController
         $this->set('infos', $this->InfoService->dashboard());
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
-
-
+                $afterLoginMessage = '';
+                if($temporaryLoginOptions = CakseSession::read('temporaryLoginOptions')){
+                    if(array_key_exists('afterLoginMessage',$temporaryLoginOptions)){
+                        $afterLoginMessage = $temporaryLoginOptions['afterLoginMessage'];
+                        unset($temporaryLoginOptions['afterLoginMessage']);
+                        CakeSession::write('temporaryLoginOptions',$temporaryLoginOptions);
+                    }
+                }
+                $this->set('afterLoginMessage',$afterLoginMessage);
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
