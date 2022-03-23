@@ -434,12 +434,12 @@ class UsersController extends AppController
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
                 $afterLoginMessage = '';
-                if($temporaryLoginOptions = CakeSession::read('temporaryLoginOptions')){
+                if($temporaryLoginOptions = json_decode(CakeSession::read('temporaryLoginOptions'),true)){
                     if(array_key_exists('afterLoginMessage',$temporaryLoginOptions)){
                         $afterLoginMessage = $temporaryLoginOptions['afterLoginMessage'];
                         unset($temporaryLoginOptions['afterLoginMessage']);
                         if($afterLoginMessage) {
-                            CakeSession::write('temporaryLoginOptions', $temporaryLoginOptions);
+                            CakeSession::write('temporaryLoginOptions', json_encode($temporaryLoginOptions));
                         }
                     }
                 }
