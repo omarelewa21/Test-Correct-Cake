@@ -901,7 +901,7 @@ class TestTakesService extends BaseService {
     }
 
     public function getFeedbackByAnswerId($answer_id){
-        return $response = $this->Connector->getRequest('/test_participant/feedback-by-answer/' . $answer_id, []);
+        return $response = $this->Connector->getRequest('/test_participant/feedback_by_answer/' . $answer_id, []);
     }
 
     public function saveFeedback($answer_id, $message){

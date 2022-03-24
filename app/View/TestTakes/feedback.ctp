@@ -1,4 +1,4 @@
-<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
+<div class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 2rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0; margin-right:20px; font-size: 2rem;">
