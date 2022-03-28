@@ -112,7 +112,7 @@ if(!empty($answer['note'])) {
             ?>
         });
 
-        if(<?=!is_null($answer['feedback']) ? 'true' : 'false'?>){
+        if(<?=$answer['has_feedback_by_this_user'] ? 'true' : 'false'?>){
             TestTake.changeFeedbackButtonText('<?=$participant_id?>', '<?=$question_id?>');
         }
     </script>

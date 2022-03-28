@@ -2863,21 +2863,21 @@ class TestTakesController extends AppController {
 
     /************************** feedback section  ************************/
     public function getFeedback($mode, $participant_id, $question_id, $q_index){
-        $answer = $this->TestTakesService->getFeedback($participant_id, $question_id);
+        $answer = $this->TestTakesService->getFeedback($participant_id, $question_id, $mode);
         return $this->loadFeedbackData($mode, $answer, $q_index);
     }
 
     public function getFeedbackByAnswerId($mode, $answer_id, $q_index){
-        $answer = $this->TestTakesService->getFeedbackByAnswerId($answer_id);
+        $answer = $this->TestTakesService->getFeedbackByAnswerId($answer_id, $mode);
         return $this->loadFeedbackData($mode, $answer, $q_index);
     }
 
     public function loadFeedbackData($mode, $answer, $q_index){
         $data = [];
-        if(is_null($answer['feedback'])){
-            $data['feedback'] = false;
+        if(sizeof($answer['feedback']) === 0){
+            $data['has_feedback'] = false;
         }else{
-            $data['feedback'] = true;
+            $data['has_feedback'] = true;
         }
 
         $data['q_index'] = $q_index;

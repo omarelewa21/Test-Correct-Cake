@@ -82,11 +82,11 @@
 
     <div style="width: 100%; text-align: center">
         <a href="#" class="btn highlight mb15 feedback"
-            <? if(is_null($answer[0]['feedback'])){ ?>
-                style="border-radius: 10px; background: #f0f2f5; color: #929daf; cursor: default;)"
-            <? }else{ ?>
+            <? if($answer[0]['has_feedback']){ ?>
                 style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%)"
-                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"    
+                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"
+            <? }else{ ?>
+                style="border-radius: 10px; background: #f0f2f5; color: #929daf; cursor: default;)"
             <? } ?>
         >
             <i class="fa fa-eye" style="margin-right:2%" aria-hidden="true"></i>

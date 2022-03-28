@@ -30,16 +30,31 @@
     </div>
 </div>
 
-<div class="tat-content body1" style="padding-top: 5px !important;">
-    <div class="input-group">
-        <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" style="min-height: 200px; line-height: 1.5rem" autofocus maxlength="240"><?= $data['feedback'] ? $data['answer']['feedback']['message'] : '' ?></textarea>
-    </div>
-    <div class="progress" style="background: white;">
-        <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-            0/240 <?= __("tekens")?>
+<? if($data['has_feedback']){?>
+    <div class="tat-content body1" style="padding-top: 5px !important;">
+        <div class="input-group">
+            <? foreach($data['answer']['feedback'] as $feedback){ ?>
+                <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" style="min-height: 200px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+            <? } ?>
         </div>
-    </div>
-<div>
+        <div class="progress" style="background: white;">
+            <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                0/240 <?= __("tekens")?>
+            </div>
+        </div>
+    <div>
+<? }else{ ?>
+    <div class="tat-content body1" style="padding-top: 5px !important;">
+        <div class="input-group">
+            <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" autofocus maxlength="240"></textarea>
+        </div>
+        <div class="progress" style="background: white;">
+            <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                0/240 <?= __("tekens")?>
+            </div>
+        </div>
+    <div>
+<? } ?>
 
 <? if($data['mode'] === 'write'){ ?>
     <div class="popup-footer tat-footer pt16" style="padding: 0!important; padding-top: 2rem!important;">
@@ -49,11 +64,13 @@
                     <span><?= __("Opslaan")?></span>
                 </button>
 
-                <? if($data['feedback']){ ?>
-                    <button href="#" class="btn button button-sm mr5 pull-right" style="color: red; background: white;" onclick="removeFeedback('<?=getUUID($data['answer']['feedback'], 'get')?>');" selid="cancel-btn">
+                <? if($data['has_feedback']){
+                    foreach($data['answer']['feedback'] as $feedback){
+                    ?>
+                    <button href="#" class="btn button button-sm mr5 pull-right" style="color: red; background: white;" onclick="removeFeedback('<?=getUUID($feedback, 'get')?>');" selid="cancel-btn">
                         <?= __("Verwijderen")?>
                     </button>
-                <? }else{?>
+                <? }}else{?>
                     <button href="#" class="btn button button-sm mr5 pull-right" style="color: #041f74; background: white;" onclick="Popup.closeLast();" selid="cancel-btn">
                         <?= __("Annuleren")?>
                     </button>
@@ -126,7 +143,7 @@
 
 </script>
 
-<? if ($data['mode'] == 'read'){ ?>
+<? if ($data['mode'] === 'read'){ ?>
     <style>
         .tat-content textarea {
             background: white !important;
@@ -140,6 +157,20 @@
             min-height: 180px !important;
         }
     </style>
-<? }else{ ?>
-    
+<? } ?>
+
+<? if(sizeof($data['answer']['feedback']) < 2){?>
+    <style>
+        textarea {
+            min-height: 200px !important;
+            line-height: 1.5rem
+        }
+    </style>
+<?}else{?>
+    <style>
+        textarea {
+            min-height: 100px !important;
+            line-height: 1rem
+        }
+    </style>
 <? } ?>
