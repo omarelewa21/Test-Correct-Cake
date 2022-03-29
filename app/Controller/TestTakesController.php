@@ -2873,16 +2873,17 @@ class TestTakesController extends AppController {
     }
 
     public function loadFeedbackData($mode, $answer, $q_index){
-        $data = [];
+        $data = [
+            'q_index' => $q_index,
+            'answer' => $answer,
+            'mode' => $mode,
+        ];
         if(sizeof($answer['feedback']) === 0){
             $data['has_feedback'] = false;
         }else{
             $data['has_feedback'] = true;
         }
 
-        $data['q_index'] = $q_index;
-        $data['answer'] = $answer;
-        $data['mode'] = $mode;
         $this->set('data', $data);
 
         $this->autoRender = false;
