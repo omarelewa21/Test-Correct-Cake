@@ -228,12 +228,14 @@ if(count($takes) == 0) {
     Navigation.usingPusher = true;
 
     window.pusherSurveillanceTimeout = setTimeout(function () {
+            if (Pusher.instances.length > 0) {
+                Pusher.instances = [];
+            }
             window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
                 cluster: 'eu',
                 forceTLS: false,
                 authEndpoint: "/users/pusher_auth",
             });
-
             var channel = pusher.subscribe('my-channel');
             channel.bind('stop-polling', function (data) {
                 stopPolling(data.message, data.title);
