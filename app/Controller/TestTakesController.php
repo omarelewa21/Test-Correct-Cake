@@ -2861,4 +2861,53 @@ class TestTakesController extends AppController {
         return $params;
     }
 
+    /************************** feedback section  ************************/
+    public function getFeedback($mode, $participant_id, $question_id, $q_index){
+        $answer = $this->TestTakesService->getFeedback($participant_id, $question_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function getFeedbackByAnswerId($mode, $answer_id, $q_index){
+        $answer = $this->TestTakesService->getFeedbackByAnswerId($answer_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function loadFeedbackData($mode, $answer, $q_index){
+        $data = [
+            'q_index' => $q_index,
+            'answer' => $answer,
+            'mode' => $mode,
+        ];
+        if(sizeof($answer['feedback']) === 0){
+            $data['has_feedback'] = false;
+        }else{
+            $data['has_feedback'] = true;
+        }
+
+        $this->set('data', $data);
+
+        $this->autoRender = false;
+        $this->render('feedback');
+    }
+
+    public function saveFeedback(){
+        $data = $this->request->data;
+
+        if(!$this->TestTakesService->saveFeedback(getUUID($data['answer'], 'get'), $data['message'])){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->TestTakesService->deleteFeedback($feedback_id)){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
 }

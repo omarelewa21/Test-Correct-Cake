@@ -31,12 +31,24 @@ foreach($answers as $answer) {
         </div>
     </div>
 
-    <div class="block" style="float:right; width: 230px; border-left: 3px solid #3D9D36">
-        <div class="block-head"><?= __("Score")?></div>
-        <div class="block-content" id="score_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
-            --
+    <div style="float:right; width: 230px;">
+        <div class="block" style="width: 100%; border-left: 3px solid #3D9D36">
+            <div class="block-head"><?= __("Score")?></div>
+            <div class="block-content" id="score_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
+                --
+            </div>
+        </div>
+
+        <div style="width: 100%; text-align: center">
+            <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
+                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/write/<?=getUUID($answer['answer'], 'get')?>/noIndex', 700);"
+            >
+                <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>"><?= __('Geef feedback') ?></span>
+            </a>
         </div>
     </div>
+    
 
     <br clear="all" />
     <script type="text/javascript">
