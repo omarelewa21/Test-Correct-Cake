@@ -2892,7 +2892,7 @@ class TestTakesController extends AppController {
     public function saveFeedback(){
         $data = $this->request->data;
 
-        if(!$this->TestTakesService->saveFeedback(getUUID($data['answer'], 'get'), $data['message'])){
+        if(!$this->TestTakesService->saveFeedback($data['answer_id'], $data['message'])){
             $this->formResponse(false, $this->TestTakesService->getErrors());
             die;
         }
