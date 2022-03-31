@@ -60,7 +60,7 @@
     <div class="popup-footer tat-footer pt16" style="padding: 0!important; padding-top: 2rem!important;">
         <div style="display: flex;align-items:center;justify-content:flex-end;width: 100%">
             <div class="body2">
-                <button href="#" class="btn button button-sm cta-button pull-right" id="btnSave">
+                <button href="#" class="btn button button-sm cta-button pull-right" onclick="saveFeedback('<?= getUUID($data['answer'], 'get') ?>')">
                     <span><?= __("Opslaan")?></span>
                 </button>
 
@@ -97,12 +97,13 @@
         }).html(chars + '/240 ' + '<?= __('tekens') ?>' );
     }
 
-    $( "#btnSave" ).click(function() {
-        var data = <?php echo json_encode($data); ?>;
-        data.message = $('#message').val();
+    function saveFeedback(answer_id){
         $.post(
             "test_takes/saveFeedback",
-            data,
+            {
+                answer_id: answer_id,
+                message:$('#message').val()
+            },
             function (data, status) {
                 data = JSON.parse(data)
                 if (data.status) {
@@ -114,7 +115,7 @@
                 }
             }
         );
-    });
+    }
 
     function removeFeedback(feedback_id){
         Popup.message({
