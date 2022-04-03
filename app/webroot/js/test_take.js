@@ -1221,6 +1221,15 @@ var TestTake = {
     },
     noStartTake : function(txt){
         Notify.notify(txt );
+    },
+
+    changeFeedbackButtonText: function(participant_id, question_id, reverse=false){
+        let elem = $('#feedback_'+ participant_id+question_id);
+        if(reverse){
+            elem.text($.i18n('Geef feedback'));
+        }else{
+            elem.text($.i18n('Wijzig feedback'));
+        }
     }
 };
 

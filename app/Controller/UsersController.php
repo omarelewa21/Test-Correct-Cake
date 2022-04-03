@@ -433,8 +433,17 @@ class UsersController extends AppController
         $this->set('infos', $this->InfoService->dashboard());
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
-
-
+                $afterLoginMessage = '';
+                if($temporaryLoginOptions = json_decode(CakeSession::read('temporaryLoginOptions'),true)){
+                    if(array_key_exists('afterLoginMessage',$temporaryLoginOptions)){
+                        $afterLoginMessage = $temporaryLoginOptions['afterLoginMessage'];
+                        unset($temporaryLoginOptions['afterLoginMessage']);
+                        if($afterLoginMessage) {
+                            CakeSession::write('temporaryLoginOptions', json_encode($temporaryLoginOptions));
+                        }
+                    }
+                }
+                $this->set('afterLoginMessage',$afterLoginMessage);
                 $view = "welcome_teacher";
                 $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
@@ -1345,6 +1354,13 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'Attainments',
                     'path'  => '/attainments/upload_download_provision'
+                );
+
+                $tiles['learning_goals_import_export'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => 'Learning Goals',
+                    'path'  => '/attainments/learning_goals_upload_download_provision'
                 );
 
                 $tiles['support'] = array(

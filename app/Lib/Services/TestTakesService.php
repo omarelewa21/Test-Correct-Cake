@@ -895,4 +895,31 @@ class TestTakesService extends BaseService {
         return $response = $this->Connector->getJsonRequest('/test_take/bust_surveillance_cache', []);
     }
 
+    /************************** feedback section  ************************/
+    public function getFeedback($participant_id, $question_id, $mode){
+        return $response = $this->Connector->getRequest('/test_participant/feedback/' . $participant_id . '/' . $question_id, ['mode' => $mode]);
+    }
+
+    public function getFeedbackByAnswerId($answer_id, $mode){
+        return $response = $this->Connector->getRequest('/test_participant/feedback_by_answer/' . $answer_id, ['mode' => $mode]);
+    }
+
+    public function saveFeedback($answer_id, $message){
+        if(!$this->Connector->postRequest('/test_participant/feedback/' . $answer_id, [], ['message' => $message])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return true; 
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->Connector->deleteRequest('/test_participant/feedback/' . $feedback_id, [])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return true; 
+    }
+
 }

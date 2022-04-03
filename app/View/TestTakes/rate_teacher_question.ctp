@@ -64,13 +64,24 @@ foreach($participants as $participant) {
                 </div>
             </div>
 
-            <div class="block" style="float:right; width: 230px;">
-                <div class="block-head"><?= __("Score")?></div>
-                <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
-                    --
+            <div style="float:right; width: 230px;">
+                <div class="block score" style="width: 100%;">
+                    <div class="block-head"><?= __("Score")?></div>
+                    <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
+                        --
+                    </div>
+                </div>
+
+                <div style="width: 100%; text-align: center">
+                    <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%) !important"
+                        onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
+                    >
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                        <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                    </a>
                 </div>
             </div>
-
+            
             <br clear="all" />
 
         </div>

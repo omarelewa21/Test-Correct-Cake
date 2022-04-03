@@ -219,23 +219,23 @@ if(count($takes) == 0) {
     let is_assessment = <?= isset($is_assessment) ? 'true' : 'false' ?>;
 
     if(typeof(window.pusher) == 'undefined') {
-        //console.log('adding pusher');
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = '//js.pusher.com/5.0/pusher.min.js';
 
         document.getElementsByTagName('head')[0].appendChild(script);
-
     }
     Navigation.usingPusher = true;
 
-    setTimeout(function () {
+    window.pusherSurveillanceTimeout = setTimeout(function () {
+            if (Pusher.instances.length > 0) {
+                Pusher.instances = [];
+            }
             window.pusher = new Pusher("<?=Configure::read('pusher-key')?>", {
                 cluster: 'eu',
                 forceTLS: false,
                 authEndpoint: "/users/pusher_auth",
             });
-
             var channel = pusher.subscribe('my-channel');
             channel.bind('stop-polling', function (data) {
                 stopPolling(data.message, data.title);
@@ -254,7 +254,7 @@ if(count($takes) == 0) {
                     startPolling(10000);
                 })
             })
-
+            clearTimeout(window.pusherSurveillanceTimeout);
         },
         5000)
 

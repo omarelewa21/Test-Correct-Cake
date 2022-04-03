@@ -1,14 +1,14 @@
 
 
 <h1>Leerdoelen upload</h1>
-<h3>Upload hier een excel met bestaande of nieuwe Eindtermen. Voer op de commandline de import uit.</h3>
+<h3>Upload hier een excel met bestaande of nieuwe Leerdoelen. Voer op de commandline de import uit.</h3>
 
 <div class="block " id="AttainmentsImportBlock">
     <div id="AttainmentsImportContainer" style="display:none;overflow:scroll;padding: 8px;">
         Een moment dit kan enige tijd duren (als in een paar minuten);
         <h4 style="color:green;" id="wistjedatjes"></h4>
     </div>
-    <?=$this->Form->create('Attainments', array('id' => 'AttainmentsImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'upload'))?>
+    <?=$this->Form->create('Attainments', array('id' => 'AttainmentsImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'uploadLearingGoals'))?>
     <div class="block-content" id="testsContainter">
         <table class='table'>
             <tr>
@@ -35,7 +35,7 @@
     </div>
     <?=$this->Form->end?>
 </div>
-<h1>Eindtermen download</h1>
+<h1>Leerdoelen download</h1>
 <div class="block " id="AttainmentsExportBlock">
 
      <div class="block-content" >
@@ -61,7 +61,7 @@
     };
 
     function handleDownload(){
-        window.open('attainments/download','_blank');
+        window.open('attainments/downloadLearningGoals','_blank');
     }
 
 
