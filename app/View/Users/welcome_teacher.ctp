@@ -24,6 +24,8 @@ if ($wizard_steps) {
                 </div>
             <?php } ?>
 
+        </div>
+        <div class="notification info">
             <?php if ($afterLoginMessage) { ?>
                 <div class="notification">
                     <?= $afterLoginMessage ?>
