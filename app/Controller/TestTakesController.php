@@ -2027,10 +2027,14 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function surveillance_data() {
+    public function surveillance_data($takeUuid=null) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
 
+        if(!is_null($takeUuid)){
+            $params['takeUuid'] = $takeUuid;
+            return $this->TestTakesService->getSurveillanceData($params);
+        }
         return $this->TestTakesService->getSurveillanceData();
     }
 
@@ -2787,9 +2791,8 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
     }
 
-    public function assessment_open_teacher()
+    public function assessment_open_teacher($takeUuid=null)
     {
-
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->TestTakesService->bustSurveillanceCache();
         $user_id = AuthComponent::user()['id'];
@@ -2799,7 +2802,15 @@ class TestTakesController extends AppController {
         $params['filter']['type_assessment'] = true;
         $params['mode'] = 'list';
 
-        $takes = $this->TestTakesService->getTestTakes($params);
+        if(!is_null($takeUuid)){
+            $params['filter']['takeUuid'] = $takeUuid;
+            $takes = $this->TestTakesService->getTestTakes($params);
+            $this->set('is_assessment', true);
+            $this->set('takeUuid', $takeUuid);
+            $this->view = 'surveillance';
+        }else{
+            $takes = $this->TestTakesService->getTestTakes($params);
+        }
 
         $newArray = [];
 
@@ -2848,6 +2859,55 @@ class TestTakesController extends AppController {
         }
 
         return $params;
+    }
+
+    /************************** feedback section  ************************/
+    public function getFeedback($mode, $participant_id, $question_id, $q_index){
+        $answer = $this->TestTakesService->getFeedback($participant_id, $question_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function getFeedbackByAnswerId($mode, $answer_id, $q_index){
+        $answer = $this->TestTakesService->getFeedbackByAnswerId($answer_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function loadFeedbackData($mode, $answer, $q_index){
+        $data = [
+            'q_index' => $q_index,
+            'answer' => $answer,
+            'mode' => $mode,
+        ];
+        if(sizeof($answer['feedback']) === 0){
+            $data['has_feedback'] = false;
+        }else{
+            $data['has_feedback'] = true;
+        }
+
+        $this->set('data', $data);
+
+        $this->autoRender = false;
+        $this->render('feedback');
+    }
+
+    public function saveFeedback(){
+        $data = $this->request->data;
+
+        if(!$this->TestTakesService->saveFeedback($data['answer_id'], $data['message'])){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->TestTakesService->deleteFeedback($feedback_id)){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
     }
 
 }

@@ -43,7 +43,7 @@
     </center>
     <?
         $i = 0;
-        foreach($questions as $question) {
+        foreach($questions as $index => $question) {
             $i++;
             ?>
             <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" style="display: none;;">
@@ -61,12 +61,23 @@
                     </div>
                 </div>
 
-                <div class="block" style="width:280px; float:right;">
-                    <div class="block-head">
-                    <?= __("Score")?>
+                <div style="float:right; width: 280px;">
+                    <div class="block score" style="width:100%;">
+                        <div class="block-head">
+                        <?= __("Score")?>
+                        </div>
+                        <div class="block-content" id="score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>">
+                        <?= __("Laden..")?>
+                        </div>
                     </div>
-                    <div class="block-content" id="score_<?=$participant_id?><?=getUUID($question['question'], 'get')?>">
-                    <?= __("Laden..")?>
+
+                    <div style="width: 100%; text-align: center">
+                        <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
+                            onclick="Popup.load('/test_takes/getFeedback/write/<?=$participant_id?>/<?=getUUID($question['question'], 'get')?>/<?= $index ?>', 700);"
+                        >
+                            <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                            <span style="position:relative; bottom:1px" id="feedback_<?=$participant_id?><?=getUUID($question['question'], 'get')?>"><?= __('Geef feedback') ?></span>
+                        </a>
                     </div>
                 </div>
 
@@ -94,6 +105,7 @@
                     setTimeout(function() {
                         Core.surpressLoading = false;
                     }, 30000);
+
                 </script>
             </div>
             <?

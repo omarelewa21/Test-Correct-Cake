@@ -583,6 +583,12 @@ msgstr "Surveillance"
 msgid "Lopende opdrachten"
 msgstr "Open Assessments"
 
+msgid "Opdrachten"
+msgstr "Assessments"
+
+msgid "Opdracht ingeleverd"
+msgstr "Assessment handed in"
+
 msgid "Afgenomen"
 msgstr "Taken tests"
 
@@ -871,6 +877,24 @@ msgstr "Choose filter"
 msgid "Verwijderen"
 msgstr "Remove"
 
+msgid "feedback verwijderd"
+msgstr "feedback deleted"
+
+msgid "Feedback bij vraag "
+msgstr "Feedback on question "
+
+msgid "Laat feedback bij deze vraag achter voor de student."
+msgstr "Leave feedback on this question for the student."
+
+msgid "feedback kan niet worden verwijderd"
+msgstr "feedback couldn't be deleted"
+
+msgid "Geef feedback"
+msgstr "Give feedback"
+
+msgid "Wijzig feedback"
+msgstr "Change feedback"
+
 msgid "Nieuw filter maken"
 msgstr "Create new filter"
 
@@ -943,6 +967,9 @@ msgstr "Are you sure?"
 msgid "De huidige tekening gaat verloren."
 msgstr "The current drawing will be lost."
 
+msgid "Dit is de feedback van jouw docent bij deze vraag."
+msgstr "This is your teacher's feedback on this question."
+
 msgid "Klaar"
 msgstr "Ready"
 
@@ -996,6 +1023,9 @@ msgstr "Not all options selected"
 
 msgid "0/140 tekens"
 msgstr "0/140 characters"
+
+msgid "tekens"
+msgstr "characters"
 
 msgid "Rangschikvraag"
 msgstr "Rank question"
@@ -1237,6 +1267,18 @@ msgstr "Subdomain"
 
 msgid "Vraaggroep opgeslagen"
 msgstr "Question group saved"
+
+msgid "feedback opgeslagen"
+msgstr "feedback saved"
+
+msgid "Bekijk feedback"
+msgstr "View feedback"
+
+msgid "Weet u zeker dat u deze feedback wilt verwijderen?"
+msgstr "Are you sure you want to delete this feedback?"
+
+msgid "feedback is niet opgeslagen"
+msgstr "feedback hasn't saved"
 
 msgid "Selecteer maximaal"
 msgstr "Select maximum"
@@ -2876,6 +2918,9 @@ msgstr "read for"
 msgid "Toetsen zijn ingepland"
 msgstr "Tests are scheduled"
 
+msgid "Wijzigingen opgeslagen"
+msgstr "Changes saved"
+
 msgid "Studenten toevoegen"
 msgstr "Add students"
 
@@ -3212,6 +3257,9 @@ msgstr "Summative test"
 msgid "Opdracht"
 msgstr "Assessment"
 
+msgid "Surveilleren van Opdracht"
+msgstr "Surveillance of Assessment"
+
 msgid "Oefentoets"
 msgstr "Practice test"
 
@@ -3324,7 +3372,7 @@ msgid "Voortgang"
 msgstr "Progress"
 
 msgid "Innemen"
-msgstr "Hand in test"
+msgstr "Hand in"
 
 msgid "Huidige tijd"
 msgstr "Present time"
