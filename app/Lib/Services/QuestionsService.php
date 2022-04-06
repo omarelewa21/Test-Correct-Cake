@@ -108,6 +108,15 @@ class QuestionsService extends BaseService
         return $response;
     }
 
+    public function getBase64EncodedCorrectionModelForDrawingQuestion($drawingQuestionUuid)
+    {
+        $url = sprintf('/drawing-question/%s/correction-model', $drawingQuestionUuid);
+        $image =  $this->Connector->getDownloadRequest($url, []);
+        $mimeType = mime_content_type($image);
+        $mimeType = $mimeType ? $mimeType: 'image/png';
+        return "data:" . $mimeType . ";base64," . base64_encode($image);
+    }
+
     public function duplicate($owner, $owner_id, $question_id)
     {
 

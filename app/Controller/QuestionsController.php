@@ -279,6 +279,9 @@ class QuestionsController extends AppController
                 break;
 
             case 'DrawingQuestion':
+                if ($question['zoom_group']) {
+                    $question['answer'] = $this->QuestionsService->getBase64EncodedCorrectionModelForDrawingQuestion($question['uuid']);
+                }
                 $view = 'preview_drawing_answer';
                 break;
 
