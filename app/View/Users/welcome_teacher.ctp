@@ -25,13 +25,13 @@ if ($wizard_steps) {
             <?php } ?>
 
         </div>
+        <?php if ($afterLoginMessage) { ?>
         <div class="notification info">
-            <?php if ($afterLoginMessage) { ?>
                 <div class="notification">
                     <?= $afterLoginMessage ?>
                 </div>
-            <?php } ?>
         </div>
+        <?php } ?>
         <?php if ($shouldDisplayGeneralTermsNotification) {?>
         <div class="notification warning terms-and-conditions">
             <div class="title">
