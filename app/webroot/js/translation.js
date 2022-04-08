@@ -174,6 +174,10 @@ $.i18n().load({
       'Docent succesvol toegevoegd':'Teacher added successfully',
       'Docent succesvol verwijderd':'Teacher successfully removed',
       'Organisatie verwijderd':'Organization deleted',
+      'Supportpagina': 'Support page',
+      'Automatisch uitloggen uitstellen': 'Defer automatic logout',
+      'Te verwerken toetsen': 'Test process',
+      'Uploaden toets': 'Upload Test',
 
       //welcome-messages.js
       'Uitloggen':'Log out',
