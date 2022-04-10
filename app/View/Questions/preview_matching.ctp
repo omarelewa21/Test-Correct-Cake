@@ -52,12 +52,13 @@
     shuffle($listRight);
 
     foreach($listRight as $item) {
-        ?>
-        <div style="background: grey; padding:10px; margin: 2px;" id="<?=getUUID($item, 'get');?>" class="right_item">
-            <?=$item['answer']?>
-        </div>
-        <?
-    }
+        if(!empty($item['answer'])){
+            ?>
+            <div style="background: grey; padding:10px; margin: 2px;" id="<?=getUUID($item, 'get');?>" class="right_item">
+                <?=$item['answer']?>
+            </div>
+            <?
+        }}
     ?>
 </div>
 </div>
