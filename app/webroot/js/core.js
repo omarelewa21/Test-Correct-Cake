@@ -811,3 +811,20 @@ var Ip = {
 		});
 	}
 };
+
+var Helpers = {
+	/**
+	 * split string by length
+	 * @param {string} str 
+	 * @param {int} size 
+	 * @returns array of {size} strings
+	 */
+	splitByLength: function(str, size) {
+		const numChunks = Math.ceil(str.length / size)
+		const chunks = new Array(numChunks)
+		for (let i = 0, o = 0; i < numChunks; ++i, o += size) {
+		  chunks[i] = str.substr(o, size)
+		}
+		return chunks
+	  }
+}
