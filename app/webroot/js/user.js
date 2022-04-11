@@ -68,7 +68,7 @@ var User = {
 
                         let headerUserTitle = username + ' ' + activeSchool;
                         if(User.info.isTeacher && headerUserTitle.length > 30){
-                            headerUserTitle = Helpers.splitByLength(headerUserTitle, 30)[0] + ' ...';
+                            headerUserTitle = headerUserTitle.substring(0, 30) + ' ...';
                         }
 
                         $('#header #user').html(headerUserTitle).attr('title', username + ' ' + activeSchoolName);
