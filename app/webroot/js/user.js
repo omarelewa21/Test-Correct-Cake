@@ -47,7 +47,7 @@ var User = {
                                 $.i18n().locale = result.language;
                                 activeSchoolName = '(' + result.name + ')';
                                 if((username + ' ' + activeSchoolName).length > 30){
-                                    activeSchool = '(<span id="active_school">' + result.name.substr((30 - username.length ) ) + ' ...' + '</span>)';
+                                    activeSchool = '(<span id="active_school">' + result.name.substring(0, (30 - username.length ) ) + ' ...' + '</span>)';
                                 } else {
                                     activeSchool = '(<span id="active_school">' + result.name + '</span>)';
                                 }
