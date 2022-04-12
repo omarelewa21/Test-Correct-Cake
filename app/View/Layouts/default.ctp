@@ -205,5 +205,12 @@
                 Menu.supportInfo =  {user: '<?= CakeSession::read("Support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
             <?php }?>
         </script>
+
+        <? foreach(AuthComponent::user('roles') as $role){ 
+            if(strtolower($role['name']) === 'teacher'){?>
+                <script>
+                    User.userMenuExtension('teacher', {isToetsenbakker: <?= AuthComponent::user('isToetsenbakker') ? 'true' : 'false' ?>})
+                </script>
+        <?}}?>
 	</body>
 </html>
