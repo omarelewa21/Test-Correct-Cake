@@ -83,3 +83,12 @@ if(!isset($take)) {
     <?
 }
 ?>
+
+<style>
+    table, th, td {
+        border: 2px solid rgb(100, 99, 99);
+    }
+    th, td {
+        padding: 0.5rem 1rem;
+    }
+</style>
