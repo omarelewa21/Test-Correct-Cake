@@ -35,14 +35,22 @@ var User = {
                         var activeSchool = '';
                         var activeSchoolName = '';
 
+                        var username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+
                         if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list') && User.info.school_location_list.length > 1) {
                             var result = User.info.school_location_list.find(function (school_location) {
                                 return school_location.active;
                             });
                             if (result) {
-                                activeSchool = '(<span id="active_school">' + result.name + '</span>)';
                                 $.i18n().locale = result.language;
                                 activeSchoolName = '(' + result.name + ')';
+                                if((username + ' ' + activeSchoolName).length > 30){
+                                    activeSchool = '(<span id="active_school">' + result.name.substr((30 - username.length ) ) + ' ...' + '</span>)';
+                                } else {
+                                    activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                }
                             }
                         }
 
@@ -60,14 +68,6 @@ var User = {
                                 href: "/css/buttons.blue.css"
                             }).appendTo("head");
                             $('#menu, #header, #tiles').addClass('blue');
-                        }
-
-                        var username = User.info.name_first + ' ' +
-                            User.info.name_suffix + ' ' +
-                            User.info.name;
-
-                        if(User.info.isTeacher && (username + ' ' + activeSchoolName).length > 30){  
-                            activeSchool = '(<span id="active_school">' + activeSchoolName.substring(1, ( 30 - username.length ) ) + ' ...' + '</span>)';
                         }
                         
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
