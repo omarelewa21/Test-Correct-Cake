@@ -66,12 +66,11 @@ var User = {
                             User.info.name_suffix + ' ' +
                             User.info.name;
 
-                        let headerUserTitle = username + ' ' + activeSchool;
-                        if(User.info.isTeacher && headerUserTitle.length > 30){
-                            headerUserTitle = headerUserTitle.substring(0, 30) + ' ...';
+                        if(User.info.isTeacher && (username + ' ' + activeSchoolName).length > 30){  
+                            activeSchool = '(<span id="active_school">' + activeSchoolName.substring(1, ( 30 - username.length ) ) + ' ...' + '</span>)';
                         }
-
-                        $('#header #user').html(headerUserTitle).attr('title', username + ' ' + activeSchoolName);
+                        
+                        $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
                     $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
