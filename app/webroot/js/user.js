@@ -65,7 +65,13 @@ var User = {
                         var username = User.info.name_first + ' ' +
                             User.info.name_suffix + ' ' +
                             User.info.name;
-                        $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
+
+                        let headerUserTitle = username + ' ' + activeSchool;
+                        if(User.info.isTeacher && headerUserTitle.length > 30){
+                            headerUserTitle = headerUserTitle.substring(0, 30) + ' ...';
+                        }
+
+                        $('#header #user').html(headerUserTitle).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
                     $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
