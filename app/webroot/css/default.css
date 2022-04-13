@@ -762,3 +762,9 @@ th.subject-column, td.subject-column {
 #container[guest]{
     margin-top: 70px;
 }
+.questionContainer table, .questionContainer th, .questionContainer td {
+    border: 2px solid rgb(100, 99, 99);
+}
+.questionContainer th, .questionContainer td {
+    padding: 0.1rem 0.2rem;
+}

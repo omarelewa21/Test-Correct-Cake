@@ -29,7 +29,9 @@
 <br clear="all" />
 <div class="block">
     <div class="block-head"><?= __("Vraag")?></div>
-    <div class="block-content" id="question_load"></div>
+    <div class="questionContainer">
+        <div class="block-content" id="question_load"></div>
+    </div>
 </div>
 
 <div id="answerModel" class="block" style="border-left: 3px solid var(--menu-blue);">

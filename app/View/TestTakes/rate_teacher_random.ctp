@@ -8,7 +8,7 @@ foreach($answers as $answer) {
 
     ?>
 
-    <div class="block">
+    <div class="block questionContainer">
         <div class="block-head"><?= __("Vraag")?></div>
         <div class="block-content" id="participant_question_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
 

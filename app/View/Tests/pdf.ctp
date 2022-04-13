@@ -12,6 +12,12 @@
     table {
         page-break-inside: avoid;
     }
+    .questionContainer table, .questionContainer th, .questionContainer td {
+        border: 2px solid rgb(100, 99, 99);
+    }
+    .questionContainer th, .questionContainer td {
+        padding: 0.1rem 0.2rem;
+    }
 </style>
 <div style="text-align:center;">
     <img src="<?= $logo_url ?>" width="200" />
@@ -55,7 +61,11 @@ foreach($questions as $question) {
                         <div valign="top" style="font-size: 11px;width: 100%;margin:1px;">
                             <?=$question['score']?>pt
                         </div>
-                        <?=$i?> &nbsp; <?=$question['html']?>
+
+                        <div class="questionContainer">
+                            <?=$i?> &nbsp; <?=$question['html']?>
+                        </div>
+                        
                     </div>
                     <div style="width: 100%;">
 

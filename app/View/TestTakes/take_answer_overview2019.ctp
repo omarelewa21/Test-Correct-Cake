@@ -43,7 +43,7 @@ foreach($questions as $questionAr) {
 
     $i++;
     ?>
-    <div class="block">
+    <div class="block questionContainer">
         <div class="block-head"><?= __("Vraag")?> #<?=$i?></div>
         <div class="block-content" id="question_preview_<?=getUUID($question, 'get')?>">
             <?php
