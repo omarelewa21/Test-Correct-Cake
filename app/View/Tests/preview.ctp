@@ -96,8 +96,11 @@
         width: 500px;
         height:350px;
     }
+    .questionContainer table{
+        border-spacing: 0;
+    }
     .questionContainer table, .questionContainer th, .questionContainer td {
-        border: 2px solid rgb(100, 99, 99);
+        border: 1px solid rgb(100, 99, 99);
     }
     .questionContainer th, .questionContainer td {
         padding: 0.1rem 0.2rem;
