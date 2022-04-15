@@ -1,6 +1,6 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1><?= __("Teken-vraag")?><?=AppHelper::showExternalId($question);?></h1>
+<h1><?= __("Teken-vraag") ?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?

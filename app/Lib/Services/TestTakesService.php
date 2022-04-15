@@ -864,6 +864,16 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function getBase64EncodedDrawingQuestionGivenAnswerPng($answerUuid)
+    {
+        $url = sprintf('/drawing-question/%s/given-answer-png', $answerUuid);
+
+        $image =  $this->Connector->getDownloadRequest($url, []);
+        $mimeType = mime_content_type($image);
+        $mimeType = $mimeType ? $mimeType: 'image/png';
+        return "data:" . $mimeType . ";base64," . base64_encode($image);
+    }
+
     public function hasCarouselQuestion($test_take_id)
     {
         $response = $this->Connector->getRequest('/test_take/'. $test_take_id .'/has_carousel_question/', [], []);
