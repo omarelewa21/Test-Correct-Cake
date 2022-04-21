@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('AppController', 'Controller');
+App::uses('QuestionsService', 'Lib/Services');
 
 
 class Question extends AppModel
@@ -162,7 +163,7 @@ class Question extends AppModel
                     break;
             }
 
-            $question['html'] = $html;
+            $question['html'] = $this->absoluteImgPaths($html);
         }
 
         return $question;
@@ -464,6 +465,23 @@ class Question extends AppModel
             $errors[] = __("De score dient groter dan nul te zijn");
         }
         return $errors;
+    }
+
+    private function absoluteImgPaths($html)
+    {
+        $doc = new DOMDocument();
+        $doc->loadHTML($html);
+        $imgList = $doc->getElementsByTagName('img');
+
+        foreach ($imgList as $imgNode){
+            if(stristr($imgNode->getAttribute('src'),'inlineimage')){
+                $storagePath = (new QuestionsService())->getStoragePath();
+                $srcAttr = $storagePath.'/inlineimages/'.basename($imgNode->getAttribute('src'));
+                $imgNode->setAttribute('src',$srcAttr);
+            }
+        }
+        $html = $doc->saveHTML($doc->documentElement);
+        return $html;
     }
 
 }

@@ -779,6 +779,7 @@ class TestsController extends AppController
 
     }
 
+
     private function hasValidFilterValue($filterValue)
     {
         if(empty($filterValue)){
