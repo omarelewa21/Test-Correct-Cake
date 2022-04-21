@@ -76,9 +76,11 @@ var Questions = {
      */
     openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request) {
         User.goToLaravel(
-            'teacher/questions/'+verb+'/' +
-            type + '/' + sub_type +
-            '?owner=' + owner +
+            'teacher/question-editor'+
+            '?action=' + verb +
+            '&type=' + type +
+            '&subtype=' + sub_type +
+            '&owner=' + owner +
             '&testId=' + test_id +
             '&testQuestionId=' + test_question_id +
             '&groupQuestionQuestionId=' + (group_question_question_id || '') +

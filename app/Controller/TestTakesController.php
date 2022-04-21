@@ -2362,6 +2362,7 @@ class TestTakesController extends AppController {
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
+        $view->set('service', $this->TestTakesService);
         $html = $view->render('answers_pdf', 'pdf');
 
         $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
