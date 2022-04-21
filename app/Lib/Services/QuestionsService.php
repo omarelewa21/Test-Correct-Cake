@@ -1735,6 +1735,15 @@ class QuestionsService extends BaseService
         return $answer;
     }
 
+    public function getStoragePath()
+    {
+        $response = $this->Connector->getRequest('/convert/settings/storage_path', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response['status'];
+    }
+
     private function transformAnswers($question)
     {
         foreach ($question['answers'] as $key => $answerArray) {
