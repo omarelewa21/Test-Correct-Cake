@@ -30,6 +30,9 @@ class CoreConnector {
 
     private $lastResponse;
     private $lastCode;
+    private $url;
+    private $params;
+    private $method;
 
     public function __construct()
     {
@@ -99,6 +102,10 @@ class CoreConnector {
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
 
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'GET';
+
 
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
     }
@@ -117,6 +124,10 @@ class CoreConnector {
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
 
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'JSON';
+
 
         return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
@@ -131,6 +142,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'DOWNLOAD';
+
         return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
@@ -145,6 +161,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'POST';
+
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -166,6 +187,10 @@ class CoreConnector {
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
 
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'POSTFILE';
+
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
         $headers = [
@@ -186,6 +211,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'PUT';
+
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -207,6 +237,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'PUTFILE';
+
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
         $headers = [
@@ -249,6 +284,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'DELETE';
+
         return $this->_execute($this->_getHandle($finalUrl, "DELETE"));
     }
 
@@ -285,8 +325,13 @@ class CoreConnector {
             BugsnagLogger::getInstance()->setMetaData([
                 'response' => $response,
                 'headers' => $headers,
+                'passthrough' => [
+                    'url' => $this->url,
+                    'params' => $this->params,
+                    'method' => $this->method,
+                ]
             ])->notifyException(
-                new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")")
+                new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")", $this->getLastCode())
             );
         }
 
