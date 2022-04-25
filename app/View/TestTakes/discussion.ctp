@@ -39,7 +39,9 @@ if(!isset($take)) {
     <div style="float:left; width:calc(100% - 280px)">
         <div class="block" id="blockDiscussionQuestion">
             <div class="block-head"><?= __("Vraag")?></div>
-            <div class="block-content" id="questionQuestion" style="font-size: 24px !important;">
+            <div class="questionContainer">
+                <div class="block-content" id="questionQuestion" style="font-size: 24px !important;">
+            </div>            
 
             </div>
         </div>

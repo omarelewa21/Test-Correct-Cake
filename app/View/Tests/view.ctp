@@ -226,9 +226,11 @@
                             }
                         } else {
                             ?>
-                            <div class="cell_autowidth">
-                                <?php $q = $question['question']['question']; ?>
-                                <?php echo $q ?>
+                            <div class="questionContainer">
+                                <div class="cell_autowidth">
+                                    <?php $q = $question['question']['question']; ?>
+                                    <?php echo $q ?>
+                                </div>
                             </div>
                             <?
                         }

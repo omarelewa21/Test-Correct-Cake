@@ -127,7 +127,9 @@
 
 <?= $this->element("attachment_popup"); ?>
 
-<div id="question_load"></div>
+<div class="questionContainer">
+    <div class="block-content" id="question_load"></div>
+</div>
 
 <script>
 
