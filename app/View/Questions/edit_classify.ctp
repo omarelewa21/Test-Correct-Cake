@@ -60,7 +60,7 @@
                 if (isset($question['question']['matching_question_answers'][$i]['answer']) && $question['question']['matching_question_answers'][$i]['type'] == 'LEFT') {
                     $left = $question['question']['matching_question_answers'][$i];
 
-                    if (isset($left['answer']) && $left['answer'] != '') {
+                    if (isset($left['answer'])) {
                         $display = true;
                     }
 
