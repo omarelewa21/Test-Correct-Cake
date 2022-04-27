@@ -371,7 +371,7 @@ class QuestionsService extends BaseService
                 break;
 
             case "ClassifyQuestion":
-                $hasBackendValidation = true;
+                // $hasBackendValidation = true;
                 $question = $this->_fillNewClassifyQuestion($question);
                 break;
 

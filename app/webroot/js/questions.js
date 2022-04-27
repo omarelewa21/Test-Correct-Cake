@@ -278,14 +278,19 @@ var Questions = {
         );
     },
 
-    addClassifyOption : function() {
-        $('#tableClassifyOptions tr:hidden').first().fadeIn();
+    addClassifyOption : function(event) {
+        event.preventDefault();                                         // prevent automatic scrolling to top
+        const answerField =  $('.answer-field').first().clone(true);
+        answerField.find('.text #QuestionQuestion').val('');
+        answerField.find('.textarea #QuestionQuestion').val('');
+
+        $('#tableClassifyOptions tbody').append(answerField);
         Questions.updateClassifyOrder();
     },
 
-    removeClassifyOption : function(e) {
-        $(e).closest('tr').find('input').val('');
-        $(e).closest('tr').fadeOut();
+    removeClassifyOption : function(e, event) {
+        event.preventDefault();                                         // prevent automatic scrolling to top
+        $(e).parents('tr').remove();
         Questions.updateClassifyOrder();
     },
 

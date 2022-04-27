@@ -107,6 +107,8 @@ $.i18n().load({
       'Geen bestand geselecteerd':'No file selected',
       'Selecteer':'Select',
       'Vraag opgeslagen':'Question saved',
+      'Niet meer dan één lege container is toegestaan': 'No more than one empty container is allowed',
+      'Antwoorden moeten ten minste één container met items bevatten': 'Answers should have at least one container with items',
 
       //test_preview & test_take.js
       'Antwoord opgeslagen':'Answer saved',
