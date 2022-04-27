@@ -59,11 +59,11 @@
                         <span class="fa fa-arrows"></span>
                     </td>
                     <td valign="top">
-                        <?=$this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                        <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]'))?>
+                        <?=$this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][1][order]', 'value' => '1', 'class' => 'order'))?>
+                        <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'class' => 'left', 'name' => 'data[Question][answers][1][left]'))?>
                     </td>
                     <td valign="top">
-                        <?=$this->Form->input('', array('style' => 'width: 300px; height:53px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'type' => 'textarea'))?>
+                        <?=$this->Form->input('', array('style' => 'width: 300px; height:53px;', 'label' => false, 'class' => 'right', 'name' => 'data[Question][answers][1][right]', 'type' => 'textarea'))?>
                     </td>
                     <td valign="top">
                         <a href="#" class="btn red small" onclick="Questions.removeClassifyOption(this, event);">

@@ -279,19 +279,26 @@ var Questions = {
     },
 
     addClassifyOption : function(event) {
-        event.preventDefault();                                         // prevent automatic scrolling to top
+        event.preventDefault();
         const answerField =  $('.answer-field').first().clone(true);
+
         answerField.find('.text #QuestionQuestion').val('');
         answerField.find('.textarea #QuestionQuestion').val('');
+
+        answerField.find('.order').attr('name', `data[Question][answers][${$('.answer-field').length+1}][order]`);
+        answerField.find('.left').attr('name', `data[Question][answers][${$('.answer-field').length+1}][left]`);
+        answerField.find('.right').attr('name', `data[Question][answers][${$('.answer-field').length+1}][right]`);
 
         $('#tableClassifyOptions tbody').append(answerField);
         Questions.updateClassifyOrder();
     },
 
     removeClassifyOption : function(e, event) {
-        event.preventDefault();                                         // prevent automatic scrolling to top
-        $(e).parents('tr').remove();
-        Questions.updateClassifyOrder();
+        event.preventDefault();
+        if($('.answer-field').length > 1){
+            $(e).parents('tr').remove();
+            Questions.updateClassifyOrder();
+        }
     },
 
     updateClassifyOrder : function() {

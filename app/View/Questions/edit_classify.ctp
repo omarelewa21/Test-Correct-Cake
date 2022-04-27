@@ -39,7 +39,7 @@
 
     <div page="question" class="page active" tabs="edit_question">
         <span class="title" selid="header"><?= __('Antwoord')?></span>
-        <table class="table" id="tableMatchingOptions">
+        <table class="table" id="tableClassifyOptions">
             <thead>
             <tr>
                 <th>&nbsp;</th>
@@ -50,60 +50,54 @@
             </thead>
             <tbody>
             <?
-            for ($i = 0; $i < 50; $i++) {
-
-                $left = "";
-                $right = [];
-
-                $display = false;
-
-                if (isset($question['question']['matching_question_answers'][$i]['answer']) && $question['question']['matching_question_answers'][$i]['type'] == 'LEFT') {
-                    $left = $question['question']['matching_question_answers'][$i];
-
-                    if (isset($left['answer'])) {
-                        $display = true;
-                    }
-
-                    for ($a = 0; $a < 100; $a++) {
-
-                        if (isset($question['question']['matching_question_answers'][$a]['answer']) &&
-                            $question['question']['matching_question_answers'][$a]['type'] == 'RIGHT' &&
-                            $question['question']['matching_question_answers'][$a]['correct_answer_id'] == $left['id']) {
-                            $right[] = $question['question']['matching_question_answers'][$a]['answer'];
+                for($i = 0; $i < sizeof($question['question']['matching_question_answers']); $i++){
+                    if($question['question']['matching_question_answers'][$i]['type'] == 'LEFT'){
+                        $left  = $question['question']['matching_question_answers'][$i];
+                        
+                        if( isset($question['question']['matching_question_answers'][$i+1])
+                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'RIGHT'){
+                                $right = $question['question']['matching_question_answers'][$i+1]['answer'];
+                        }else{
+                            $right = "";
                         }
                     }
-                }
+                    elseif($question['question']['matching_question_answers'][$i]['type'] == 'RIGHT'){
+                        $right = $question['question']['matching_question_answers'][$i]['answer'];
 
-                $right = implode("\n", $right);
-
+                        if( isset($question['question']['matching_question_answers'][$i+1])
+                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'LEFT'){
+                                $left = $question['question']['matching_question_answers'][$i+1];
+                        }else{
+                            $left = "";
+                        }
+                    }
+                    $i++;
                 ?>
-                <tr style="<?= $display ? '' : 'display:none;' ?>">
-                    <td valign="top">
-                        <span class="fa fa-arrows"></span>
-                    </td>
-                    <td valign="top">
-                        <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $i, 'class' => 'order')) ?>
-                        <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][left]', 'value' => isset($left['answer']) ? $left['answer'] : '')) ?>
-                    </td>
-                    <td valign="top">
-                        <?= $this->Form->input('', array('style' => 'width: 300px; height:65px;', 'label' => false, 'type' => 'textarea', 'name' => 'data[Question][answers][' . $i . '][right]', 'value' => $right)) ?>
-                    </td>
-                    <td valign="top">
-                        <? if ($editable) { ?>
-                            <a href="#" class="btn red small" onclick="Questions.removeMatchingOption(this);">
-                                <span class="fa fa-remove"></span>
-                            </a>
-                        <? } ?>
-                    </td>
-                </tr>
-                <?
-            }
-            ?>
+                    <tr class="answer-field">
+                        <td valign="top">
+                            <span class="fa fa-arrows"></span>
+                        </td>
+                        <td valign="top">
+                            <?= $this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][' . $i . '][order]', 'value' => $i, 'class' => 'order')) ?>
+                            <?= $this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'class' => 'left', 'name' => 'data[Question][answers][' . $i . '][left]', 'value' => isset($left['answer']) ? $left['answer'] : '')) ?>
+                        </td>
+                        <td valign="top">
+                            <?= $this->Form->input('', array('style' => 'width: 300px; height:65px;', 'label' => false, 'class' => 'right', 'type' => 'textarea', 'name' => 'data[Question][answers][' . $i . '][right]', 'value' => $right)) ?>
+                        </td>
+                        <td valign="top">
+                            <? if ($editable) { ?>
+                                <a href="#" class="btn red small" onclick="Questions.removeClassifyOption(this, event);">
+                                    <span class="fa fa-remove"></span>
+                                </a>
+                            <? } ?>
+                        </td>
+                    </tr>
+                <?}?>
             </tbody>
         </table>
         <? if ($editable) { ?>
             <center>
-                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addMatchingOption();" selid="add-answer-option-btn">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addClassifyOption(event);" selid="add-answer-option-btn">
                     <span class="fa fa-plus"></span>
                     <?= __("Optie toevoegen") ?>
                 </a>
@@ -180,7 +174,7 @@
         }
     });
 
-    $('#tableMatchingOptions tbody').sortable({
+    $('#tableClassifyOptions tbody').sortable({
         delay: 150,
         handle: "span",
         stop: function( event, ui ) {
