@@ -29,8 +29,8 @@ var Questions = {
         return sub_type;
     },
 
-    enterEmptyCms : function(test_id) {
-        this.openInEditorInLaravel('add', '', 'test', test_id, '', '', '', false, true);
+    enterEmptyCms : function(test_id, action) {
+        this.openInEditorInLaravel(action, '', 'test', test_id, '', '', '', false, true);
     },
 
     /**
