@@ -45,7 +45,8 @@ foreach($questions as $question) {
 
         foreach ($matches[1] as $match) {
             if(substr_count($match,'latex.codecogs.com') < 1){ // all data attached gets printed in formula
-                $question['html'] = str_replace($match, ($match.'?&pdf='.sha1('true')), $question['html']);
+                $optionalQuestionMark = (substr_count($match,'?') < 1)?'?':'';
+                $question['html'] = str_replace($match, ($match.$optionalQuestionMark.'&pdf='.sha1('true')), $question['html']);
             }
         }
 
