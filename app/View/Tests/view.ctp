@@ -109,6 +109,17 @@
     </div>
 </div>
 
+<?php if($usesNewDrawingQuestion && $usesCmsDrawer) { ?>
+<div style="display:flex;width:100%;justify-content:center;margin-bottom: 1rem;">
+        <button class="button cta-button button-sm" style="display: flex; align-items: center"
+                onclick="Questions.enterEmptyCms('<?= $test_id ?>')"
+        >
+            <?= $this->element('edit') ?>
+            <span style="margin-left: 8px;font-size:16px;">Bewerk toets in nieuwe constructor</span>
+            <span class="beta-tag">BETA</span>
+        </button>
+</div>
+<?php } ?>
 
 <div class="block">
     <div class="block-head"><?= __("Toetsvragen") ?></div>

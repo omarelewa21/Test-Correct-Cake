@@ -762,3 +762,14 @@ th.subject-column, td.subject-column {
 #container[guest]{
     margin-top: 70px;
 }
+
+.beta-tag {
+    margin-left: 8px;
+    padding: 0 4px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: 'Nunito Bold', sans-serif;
+    background-color: white;
+    color: var(--primary);
+    border-radius: 2px;
+}
