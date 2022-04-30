@@ -20,7 +20,10 @@
                 <?
                 foreach ($question['matching_question_answers'] as $rightOption) {
 
-                    if ($rightOption['type'] == 'RIGHT' && $rightOption['correct_answer_id'] == $option['id'] && !empty($rightOption['answer'])) {
+                    if ($rightOption['type'] == 'RIGHT'
+                        && $rightOption['correct_answer_id'] == $option['id']
+                        && !empty($rightOption['answer']
+                        && $rightOption['answer'] != ' ')) {
                         ?>
                         <div style="background: grey; padding:10px; margin: 2px;">
                             <?= $rightOption['answer'] ?>

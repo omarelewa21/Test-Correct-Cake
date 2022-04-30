@@ -53,22 +53,22 @@
                 for($i = 0; $i < sizeof($question['question']['matching_question_answers']); $i++){
                     if($question['question']['matching_question_answers'][$i]['type'] == 'LEFT'){
                         $left  = $question['question']['matching_question_answers'][$i];
-                        
+
                         if( isset($question['question']['matching_question_answers'][$i+1])
-                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'RIGHT'){
+                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'RIGHT' ){
                                 $right = $question['question']['matching_question_answers'][$i+1]['answer'];
                         }else{
                             $right = "";
                         }
                     }
-                    elseif($question['question']['matching_question_answers'][$i]['type'] == 'RIGHT'){
+                    elseif( $question['question']['matching_question_answers'][$i]['type'] == 'RIGHT' ){
                         $right = $question['question']['matching_question_answers'][$i]['answer'];
 
                         if( isset($question['question']['matching_question_answers'][$i+1])
-                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'LEFT'){
+                            && $question['question']['matching_question_answers'][$i+1]['type'] == 'LEFT' ){
                                 $left = $question['question']['matching_question_answers'][$i+1];
                         }else{
-                            $left = "";
+                            $left = [];
                         }
                     }
                     $i++;
