@@ -112,9 +112,10 @@ class QuestionsService extends BaseService
     {
         $url = sprintf('/drawing-question/%s/correction-model', $drawingQuestionUuid);
         $image =  $this->Connector->getDownloadRequest($url, []);
-        $mimeType = mime_content_type($image);
-        $mimeType = $mimeType ? $mimeType: 'image/png';
-        return "data:" . $mimeType . ";base64," . base64_encode($image);
+       // $mimeType = mime_content_type($image);
+       // $mimeType = $mimeType ? $mimeType: 'image/png';
+       // return "data:" . $mimeType . ";base64," . base64_encode($image);
+        return $image;
     }
 
     public function duplicate($owner, $owner_id, $question_id)

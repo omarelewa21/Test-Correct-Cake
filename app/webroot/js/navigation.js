@@ -19,9 +19,14 @@ var Navigation = {
 
         if (Navigation.usingPusher) {
             Navigation.usingPusher = false;
+            if (window.pusherSurveillanceTimeout !== null) {
+                clearTimeout(window.pusherSurveillanceTimeout);
+            }
             if (typeof (window.pusher) !== 'undefined') {
                 pusher.disconnect();
                 pusher = undefined;
+                //Clear instances of the global Pusher class. When disconnecting from channels, the instances still remain. RR - 29-03-2022
+                Pusher.instances = [];
             }
         }
 

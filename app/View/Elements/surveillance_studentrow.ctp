@@ -30,7 +30,7 @@
         </a>
     </td>
 
-    <?php if ($allow_inbrowser_testing) {  ?>
+    <?php if (!$is_assessment && $allow_inbrowser_testing) {  ?>
     <td align="center" width="40" class="nopadding">
         <a title='<?= __("Browsertoetsen aan/uit")?>'
            href="#" id="allow_inbrowser_testing_<?= getUUID($participant, 'get'); ?>"

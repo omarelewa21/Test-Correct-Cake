@@ -33,49 +33,65 @@
 
 <br clear="all" />
 <?= $this->element("attachment_popup"); ?>
-<div class="block" style="margin: 0px auto; width:200px; float:right;">
-    <div class="block-head">Score</div>
-    <div class="block-content">
+<div style="margin: 0px auto; width:200px; float:right;">
+    <div class="block" style="width:100%;">
+        <div class="block-head">Score</div>
+        <div class="block-content">
 
-        <?
+            <?
 
-        $firstStudent = null;
-        $studentScore = null;
-        $teachterScore = null;
-        $systemScore = null;
+            $firstStudent = null;
+            $studentScore = null;
+            $teachterScore = null;
+            $systemScore = null;
 
-        foreach($answer[0]['answer_ratings'] as $rating) {
-            if($rating['type'] == 'SYSTEM' && !empty($rating['rating'])) {
-                $systemScore = $rating['rating'];
-            }
+            foreach($answer[0]['answer_ratings'] as $rating) {
+                if($rating['type'] == 'SYSTEM' && !empty($rating['rating'])) {
+                    $systemScore = $rating['rating'];
+                }
 
-            if($rating['type'] == 'TEACHER' && !empty($rating['rating'])) {
-                $teachterScore = $rating['rating'];
-            }
+                if($rating['type'] == 'TEACHER' && !empty($rating['rating'])) {
+                    $teachterScore = $rating['rating'];
+                }
 
-            if($rating['type'] == 'STUDENT' && !empty($rating['rating'])) {
-                if(empty($firstStudent)) {
-                    $firstStudent = $rating['rating'];
-                }elseif($firstStudent == $rating['rating']) {
-                    $studentScore = $rating['rating'];
+                if($rating['type'] == 'STUDENT' && !empty($rating['rating'])) {
+                    if(empty($firstStudent)) {
+                        $firstStudent = $rating['rating'];
+                    }elseif($firstStudent == $rating['rating']) {
+                        $studentScore = $rating['rating'];
+                    }
                 }
             }
-        }
 
-        if(!empty($teachterScore)) {
-            $score = $teachterScore;
-        }else if(!empty($systemScore)) {
-            $score = $systemScore;
-        }else if(!empty($studentScore)) {
-            $score = $studentScore;
-        }
+            if(!empty($teachterScore)) {
+                $score = $teachterScore;
+            }else if(!empty($systemScore)) {
+                $score = $systemScore;
+            }else if(!empty($studentScore)) {
+                $score = $studentScore;
+            }
 
-        ?>
+            ?>
 
-        <div style='font-size:40px; text-align: center;'><?=!empty($score) ? $score : ' - '?> / <?=$questions[$question_index]['question']['score']?></div>
-        <div style="text-transform: uppercase; text-align: center; opacity:.7; font-size:13px; font-weight: bold;">
-        <?= __("SCORE")?>
+            <div style='font-size:40px; text-align: center;'><?=!empty($score) ? $score : ' - '?> / <?=$questions[$question_index]['question']['score']?></div>
+            <div style="text-transform: uppercase; text-align: center; opacity:.7; font-size:13px; font-weight: bold;">
+            <?= __("SCORE")?>
+            </div>
         </div>
+    </div>
+
+    <div style="width: 100%; text-align: center">
+        <a href="#" class="btn highlight mb15 feedback"
+            <? if($answer[0]['has_feedback']){ ?>
+                style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%)"
+                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/read/<?=getUUID($answer[0], 'get')?>/<?= $question_index ?>', 700);"
+            <? }else{ ?>
+                style="border-radius: 10px; background: #f0f2f5; color: #929daf; cursor: default;)"
+            <? } ?>
+        >
+            <i class="fa fa-eye" style="margin-right:2%" aria-hidden="true"></i>
+            <span style="position:relative; bottom:1px"><?= __('Bekijk feedback') ?></span>
+        </a>
     </div>
 </div>
 

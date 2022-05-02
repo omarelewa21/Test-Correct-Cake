@@ -154,6 +154,8 @@ $.i18n().load({
       'De student kan de toets in de browser maken. Bij toetsen in de browser kunnen wij het gebruik van andere apps niet blokkeren.':'The student can take the test in the browser. We cannot block the use of other apps for tests in the browser.',
       'Typecalibratie test':'Type calibration test',
       'Lees de onderstaande tekst en type deze over in het tekstvak eronder.':'Read the text below and type it in the text box below.',
+      'Geef feedback' : 'Give feedback',
+      'Wijzig feedback': 'Change feedback',
 
       //test.js
       'Weet u zeker dat u deze toets wilt verwijderen?':'Are you sure you want to delete this Test?',
@@ -172,6 +174,10 @@ $.i18n().load({
       'Docent succesvol toegevoegd':'Teacher added successfully',
       'Docent succesvol verwijderd':'Teacher successfully removed',
       'Organisatie verwijderd':'Organization deleted',
+      'Supportpagina': 'Support page',
+      'Automatisch uitloggen uitstellen': 'Defer automatic logout',
+      'Te verwerken toetsen': 'Test process',
+      'Uploaden toets': 'Upload Test',
 
       //welcome-messages.js
       'Uitloggen':'Log out',

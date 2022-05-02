@@ -23,8 +23,8 @@
 		<link rel="stylesheet" href="/css/jquery-ui.css">
 
 		<link rel="icon" href="/img/Logo-Test-Correct recolored icon-only.svg"/>
-		<link rel="apple-touch-icon-precomposed" href="https://www.test-correct.nl/wp-content/uploads/2019/01/cropped-fav-180x180.png" />
-		<meta name="msapplication-TileImage" content="https://www.test-correct.nl/wp-content/uploads/2019/01/cropped-fav-270x270.png" />
+		<link rel="apple-touch-icon-precomposed" href="/img/Logo-Test-Correct recolored icon-only-180x180.svg" />
+		<meta name="msapplication-TileImage" content="/img/Logo-Test-Correct recolored icon-only-270x270.svg" />
 
 		<?php
 			if(MaintenanceHelper::getInstance()->isInMaintenanceMode()){
@@ -205,5 +205,12 @@
                 Menu.supportInfo =  {user: '<?= CakeSession::read("Support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
             <?php }?>
         </script>
+
+        <? foreach(AuthComponent::user('roles') as $role){ 
+            if(strtolower($role['name']) === 'teacher'){?>
+                <script>
+                    User.userMenuExtension('teacher', {isToetsenbakker: <?= AuthComponent::user('isToetsenbakker') ? 'true' : 'false' ?>})
+                </script>
+        <?}}?>
 	</body>
 </html>
