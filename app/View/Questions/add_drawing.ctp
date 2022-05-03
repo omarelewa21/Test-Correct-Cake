@@ -10,7 +10,7 @@
             <?= __("Punten")?>
             </th>
             <td width="110">
-                <?=$this->Form->input('score', array('style' => 'width:50px;', 'value' => 2, 'label' => false, 'verify' => 'notempty'))?>
+                <?=$this->Form->input('score', array('style' => 'width:50px;', 'value' => 1, 'label' => false, 'verify' => 'notempty'))?>
             </td>
             <td>
                 <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
