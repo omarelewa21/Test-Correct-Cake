@@ -108,7 +108,7 @@
 
 <div class="block">
     <div class="block-head"><?= __("Antwoordmodel")?></div>
-    <div class="block-content" id="questionQuestion_correct">
+    <div class="block-content questionContainer" id="questionQuestion_correct">
 
     </div>
 </div>
