@@ -618,9 +618,11 @@ class TestsController extends AppController
 
         for ($i = 0; $i < count($questionsArray); $i++) {
             if ($questionsArray[$i]['type'] === 'DrawingQuestion') {
-                if ($questionsArray[$i]['bg_name'] !== null) {
+                if ($questionsArray[$i]['bg_name'] !== null || $questionsArray[$i]['zoom_group'] !== null) {
                     $attachmentContent = $this->AnswersService->getBackgroundContent(getUUID($questionsArray[$i], 'get'));
-                    $questionsArray[$i]['answer_background_image'] = "data:" . $questionsArray[$i]['bg_mime_type'] . ";base64," . base64_encode($attachmentContent);
+                    $mimeType = $questionsArray[$i]['bg_mime_type'] ? $questionsArray[$i]['bg_mime_type'] : mime_content_type($attachmentContent);
+                    $mimeType = $mimeType ? $mimeType: 'image/png';
+                    $questionsArray[$i]['answer_background_image'] = "data:" . $mimeType . ";base64," . base64_encode($attachmentContent);
                 }
             }
 

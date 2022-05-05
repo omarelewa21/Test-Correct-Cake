@@ -35,14 +35,22 @@ var User = {
                         var activeSchool = '';
                         var activeSchoolName = '';
 
+                        var username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+
                         if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list') && User.info.school_location_list.length > 1) {
                             var result = User.info.school_location_list.find(function (school_location) {
                                 return school_location.active;
                             });
                             if (result) {
-                                activeSchool = '(<span id="active_school">' + result.name + '</span>)';
                                 $.i18n().locale = result.language;
                                 activeSchoolName = '(' + result.name + ')';
+                                if((username + ' ' + activeSchoolName).length > 30){
+                                    activeSchool = '(<span id="active_school">' + result.name.substring(0, (30 - username.length ) ) + ' ...' + '</span>)';
+                                } else {
+                                    activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                }
                             }
                         }
 
@@ -61,10 +69,7 @@ var User = {
                             }).appendTo("head");
                             $('#menu, #header, #tiles').addClass('blue');
                         }
-
-                        var username = User.info.name_first + ' ' +
-                            User.info.name_suffix + ' ' +
-                            User.info.name;
+                        
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
@@ -458,5 +463,21 @@ var User = {
                 try {electron.loadUrl(url);} catch (error) {}
             }
         });
+    },
+    userMenuExtension: function(role, args=null){
+        switch(role){
+            case 'teacher':
+                if($('#supportLinkUserMenu').length != 1){
+                    $("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl" target="_blank" class="btn white mt5" >' +  $.i18n('Supportpagina') + '</a>');
+                    $("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  $.i18n('Automatisch uitloggen uitstellen') + '</a>');
+                    if(typeof args === 'object' && args.isToetsenbakker){
+                        $("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' + $.i18n('Te verwerken toetsen') + '</a>');
+                    }else{
+                        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' +  $.i18n('Uploaden toets') + '</a>');
+                    }
+                }
+                break;
+            default:
+        }
     }
 };
