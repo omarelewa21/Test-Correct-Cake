@@ -32,22 +32,24 @@ if(!empty($answer['note'])) {
                         break;
 
                     case 'STUDENT' :
+                        if(!is_null($rating['rating'])){
+                            echo $rating['user']['name_first'] . ' ';
 
-                        echo $rating['user']['name_first'] . ' ';
+                            if(!empty($rating['user']['name_suffix'])) {
+                                echo $rating['user']['name_suffix'] . ' ';
+                            }
 
-                        if(!empty($rating['user']['name_suffix'])) {
-                            echo $rating['user']['name_suffix'] . ' ';
+                            echo $rating['user']['name'];
+
+                            if($student == 1) {
+                                $student1 = $rating['rating'];
+                            }else{
+                                $student2 = $rating['rating'];
+                            }
+
+                            $student ++;
                         }
 
-                        echo $rating['user']['name'];
-
-                        if($student == 1) {
-                            $student1 = $rating['rating'];
-                        }else{
-                            $student2 = $rating['rating'];
-                        }
-
-                        $student ++;
                         break;
 
                     case 'TEACHER' :
