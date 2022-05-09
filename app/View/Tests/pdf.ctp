@@ -76,7 +76,7 @@ foreach($questions as $question) {
                         <?php if($question['type'] === 'DrawingQuestion'): ?>
 
                             <?php if($question['answer_background_image'] !== null): ?>
-                                <?= '<img width="100%" src="'.$question['answer_background_image'].'" alt="background image">'; ?>
+                                <?= '<img  src="'.$question['answer_background_image'].'" alt="background image">'; ?>
                             <?php elseif($question['grid'] > 0): ?>
                                 <?php 
                                     if($question['grid'] < 4){
