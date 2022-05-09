@@ -48,7 +48,7 @@ if(!isset($take)) {
 
         <div class="block" style="border-left: 20px solid var(--menu-blue);" id="blockDiscussionAnswer">
             <div class="block-head" style="color:white; background-color:var(--menu-blue);"><strong><?= __("Antwoordmodel")?></strong></div>
-            <div class="block-content" id="questionAnswer" style="font-size: 24px !important;">
+            <div class="block-content questionContainer" id="questionAnswer" style="font-size: 24px !important;">
 
             </div>
         </div>

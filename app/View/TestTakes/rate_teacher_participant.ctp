@@ -56,7 +56,7 @@
 
                 <div class="block" style="border-left: 3px solid var(--menu-blue);">
                     <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("antwoordmodel")?></div>
-                    <div class="block-content" id="question_answer_preview_<?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content questionContainer" id="question_answer_preview_<?=getUUID($question['question'], 'get')?>">
                     <?= __("Laden..")?>
                     </div>
                 </div>

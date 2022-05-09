@@ -36,7 +36,7 @@
 
 <div id="answerModel" class="block" style="border-left: 3px solid var(--menu-blue);">
     <div class="block-head"><?= __("Antwoordmodel")?><button id="pinAnswerModel" class="fa fa-unlock pull-right" style="background-color:white; border:none;"></button></div>
-    <div class="block-content" id="question_answer_load"></div>
+    <div class="block-content questionContainer" id="question_answer_load"></div>
 </div>
 
 <center>
