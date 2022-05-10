@@ -1348,6 +1348,13 @@ class UsersController extends AppController
                     'path'  => '/rttiimport/index'
                 );
 
+                $tiles['defaultsubjectsandsectionsimport'] = [
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => __("Default subjects and sections import"),
+                    'path'  => '/default_subjects_and_sections/index'
+                ];
+
 
                 $tiles['attainments_import_export'] = array(
                     'menu'  => 'lists',
