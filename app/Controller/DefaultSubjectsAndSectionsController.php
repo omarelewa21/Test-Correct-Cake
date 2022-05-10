@@ -31,7 +31,20 @@ class DefaultSubjectsAndSectionsController extends AppController
         }else{
             $r = $this->DefaultSubjectsAndSectionsService->uploadData($data);
 
-            if(array_key_exists('error',$r)){
+            if(array_key_exists('errors',$r)){
+                $errors = [];
+                foreach($r['errors'] as $item){
+                    if(is_array($item)){
+                        foreach($item as $e){
+                            $errors[] = $e;
+                        }
+                    } else {
+                        $errors[] = $item;
+                    }
+                }
+                $response = implode('<br>',$errors);
+            }
+            else if(array_key_exists('error',$r)){
                 $response = $r['error'];
             }
             else{
