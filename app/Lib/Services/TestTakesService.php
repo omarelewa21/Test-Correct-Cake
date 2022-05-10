@@ -571,7 +571,7 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function saveNormalization($take_id, $postData, $preview = false) {
+    public function saveNormalization($take_id, $postData, $preview = false, $catchError = false) {
 
         $data = [
             'ignore_questions' => []
@@ -601,6 +601,10 @@ class TestTakesService extends BaseService {
         $response = $this->Connector->postRequest('/test_take/' . $take_id .'/normalize', [], $data);
 
         if($response === false){
+            if($catchError){
+                $this->addError($this->Connector->getLastResponse());
+                return false;
+            }
             return $this->Connector->getLastResponse();
         }
 

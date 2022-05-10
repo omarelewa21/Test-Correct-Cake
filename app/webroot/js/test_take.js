@@ -929,18 +929,38 @@ var TestTake = {
         $.post('/test_takes/normalization/' + take_id,
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
+                    try {
+                        response = JSON.parse(response);
+                        if( !response.status ){
+                            message = JSON.parse(response.data[0]).message;
+                            Notify.notify( $.i18n( message[0] ), 'error');
+                            return;
+                        }
+                        
+                    } catch (error) {}
                     Notify.notify($.i18n('Normering toegepast'), 'info');
                     Navigation.load("/test_takes/set_final_rates/" + take_id);
                 }
         );
     },
 
-    normalizationPreview: function (take_id) {
+    normalizationPreview: function (take_id, catchErrors=false) {
         this.setNormalizationIndex();
         $(".groupquestion_child").prop( "disabled", false );
-        $.post('/test_takes/normalization_preview/' + take_id,
+        $.post('/test_takes/normalization_preview/' + take_id + (catchErrors ? '/1' : ''),
                 $('#TestTakeNormalizationForm').serialize(),
                 function (response) {
+                    if(catchErrors){
+                        try {
+                            response = JSON.parse(response);
+                            if( !response.status ){
+                                message = JSON.parse(response.data[0]).message;
+                                Notify.notify( $.i18n( message[0] ), 'error');
+                                return;
+                            }
+                            
+                        } catch (error) {}
+                    }
                     if($(response).find('#currentIndex').val()!=$('#TestTakeNormalizationForm').find('#hiddenIndex').val()){
                         return;
                     }
