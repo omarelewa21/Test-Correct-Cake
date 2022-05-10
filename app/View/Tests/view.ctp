@@ -108,8 +108,7 @@
         </table>
     </div>
 </div>
-
-<?php if($usesNewDrawingQuestion && $usesCmsDrawer) { ?>
+<?php if($usesNewDrawingQuestion && $usesCmsDrawer && $test['author']['id'] == AuthComponent::user('id') && (!AppHelper::isCitoTest($test))) { ?>
 <div style="display:flex;width:100%;justify-content:center;margin-bottom: 1rem;">
         <button class="button cta-button button-sm" style="display: flex; align-items: center"
                 onclick="Questions.enterEmptyCms('<?= $test_id ?>', '<?= count($questions) > 0 ? 'edit' : 'add' ?>')"
