@@ -2,6 +2,15 @@
     body {
         font-family: Helvetica;
     }
+    .questionContainer table{
+        border-spacing: 0 !important;
+    }
+    .questionContainer table, .questionContainer th, .questionContainer td {
+        border: 1px solid rgb(100, 99, 99);
+    }
+    .questionContainer th, .questionContainer td {
+        padding: 0.1rem 0.2rem;
+    }
 </style>
 
 <?
@@ -37,9 +46,14 @@ foreach($participants as $participant) {
                 if(empty($answerJson)) {
                     continue;
                 }
+                
 
                 if($question['type'] == 'OpenQuestion') {
-                    echo $answerJson['value'];
+                    echo  
+                        '<div class="questionContainer">' .
+                            $answerJson['value'] . 
+                        '<div>';
+
                 }
 
 /*

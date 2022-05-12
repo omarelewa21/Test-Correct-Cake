@@ -12,6 +12,15 @@
     table {
         page-break-inside: avoid;
     }
+    .questionContainer table{
+        border-spacing: 0 !important;
+    }
+    .questionContainer table, .questionContainer th, .questionContainer td {
+        border: 1px solid rgb(100, 99, 99);
+    }
+    .questionContainer th, .questionContainer td {
+        padding: 0.1rem 0.2rem;
+    }
 </style>
 <div style="text-align:center;">
     <img src="<?= $logo_url ?>" width="200" />
@@ -45,7 +54,8 @@ foreach($questions as $question) {
 
         foreach ($matches[1] as $match) {
             if(substr_count($match,'latex.codecogs.com') < 1){ // all data attached gets printed in formula
-                $question['html'] = str_replace($match, ($match.'&pdf='.sha1('true')), $question['html']);
+                $optionalQuestionMark = (substr_count($match,'?') < 1)?'?':'';
+                $question['html'] = str_replace($match, ($match.$optionalQuestionMark.'&pdf='.sha1('true')), $question['html']);
             }
         }
 
@@ -55,14 +65,18 @@ foreach($questions as $question) {
                         <div valign="top" style="font-size: 11px;width: 100%;margin:1px;">
                             <?=$question['score']?>pt
                         </div>
-                        <?=$i?> &nbsp; <?=$question['html']?>
+
+                        <div class="questionContainer">
+                            <?=$i?> &nbsp; <?=$question['html']?>
+                        </div>
+                        
                     </div>
                     <div style="width: 100%;">
 
                         <?php if($question['type'] === 'DrawingQuestion'): ?>
 
                             <?php if($question['answer_background_image'] !== null): ?>
-                                <?= '<img width="100%" src="'.$question['answer_background_image'].'" alt="background image">'; ?>
+                                <?= '<img  src="'.$question['answer_background_image'].'" alt="background image">'; ?>
                             <?php elseif($question['grid'] > 0): ?>
                                 <?php 
                                     if($question['grid'] < 4){

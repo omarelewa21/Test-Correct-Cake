@@ -47,7 +47,7 @@
             $i++;
             ?>
             <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" style="display: none;;">
-                <div class="block">
+                <div class="block questionContainer">
                     <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("voorbeeld")?></div>
                     <div class="block-content" id="question_preview_<?=getUUID($question['question'], 'get')?>">
                     <?= __("Laden..")?>
@@ -56,7 +56,7 @@
 
                 <div class="block" style="border-left: 3px solid var(--menu-blue);">
                     <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("antwoordmodel")?></div>
-                    <div class="block-content" id="question_answer_preview_<?=getUUID($question['question'], 'get')?>">
+                    <div class="block-content questionContainer" id="question_answer_preview_<?=getUUID($question['question'], 'get')?>">
                     <?= __("Laden..")?>
                     </div>
                 </div>

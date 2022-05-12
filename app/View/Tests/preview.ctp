@@ -36,7 +36,9 @@
 </div>
 <div id="attachmentFade"></div>
 
-<div id="question_load"></div>
+<div class="questionContainer">
+    <div class="block-content" id="question_load"></div>
+</div>
 
 <script type="text/javascript">
     TestPreview.loadQuestion('<?=$test_id?>', '<?=$question_index?>');
@@ -93,5 +95,14 @@
         position:absolute;
         width: 500px;
         height:350px;
+    }
+    .questionContainer table{
+        border-spacing: 0;
+    }
+    .questionContainer table, .questionContainer th, .questionContainer td {
+        border: 1px solid rgb(100, 99, 99);
+    }
+    .questionContainer th, .questionContainer td {
+        padding: 0.1rem 0.2rem;
     }
 </style>

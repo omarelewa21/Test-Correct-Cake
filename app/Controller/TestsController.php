@@ -420,6 +420,7 @@ class TestsController extends AppController
         $this->set('startWithEdit',false);
         $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
         $this->set('usesNewDrawingQuestion', AuthComponent::user('school_location.allow_new_drawing_question') ?? 0);
+        $this->set('usesCmsDrawer', AuthComponent::user('school_location.allow_cms_drawer') ?? 0);
         $this->set('returnPath','/tests/index');
     }
 
@@ -778,6 +779,7 @@ class TestsController extends AppController
     {
 
     }
+
 
     private function hasValidFilterValue($filterValue)
     {
