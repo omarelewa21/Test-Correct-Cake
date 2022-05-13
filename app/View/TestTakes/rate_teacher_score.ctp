@@ -32,23 +32,25 @@ if(!empty($answer['note'])) {
                         break;
 
                     case 'STUDENT' :
-                        if(!is_null($rating['rating'])){
-                            echo $rating['user']['name_first'] . ' ';
-
-                            if(!empty($rating['user']['name_suffix'])) {
-                                echo $rating['user']['name_suffix'] . ' ';
-                            }
-
-                            echo $rating['user']['name'];
-
-                            if($student == 1) {
-                                $student1 = $rating['rating'];
-                            }else{
-                                $student2 = $rating['rating'];
-                            }
-
-                            $student ++;
+                        if( $take['skipped_discussion'] && is_null($rating['rating']) ){
+                            continue;
                         }
+
+                        echo $rating['user']['name_first'] . ' ';
+
+                        if(!empty($rating['user']['name_suffix'])) {
+                            echo $rating['user']['name_suffix'] . ' ';
+                        }
+
+                        echo $rating['user']['name'];
+
+                        if($student == 1) {
+                            $student1 = $rating['rating'];
+                        }else{
+                            $student2 = $rating['rating'];
+                        }
+
+                        $student ++;
 
                         break;
 
@@ -62,7 +64,7 @@ if(!empty($answer['note'])) {
                 }
                 ?>
             </th>
-            <td><?=$rating['rating'];?></td>
+            <td><?= $rating['rating'];?></td>
         </tr>
         <?
     }

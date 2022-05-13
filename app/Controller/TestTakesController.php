@@ -871,6 +871,8 @@ class TestTakesController extends AppController {
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
 
+        $take = $this->AnswersService->getTestTake($answer['uuid']);
+
         if (!isset($answer['answer_ratings'])) {
             echo 'Vraag niet gemaakt';
             die;
@@ -893,6 +895,7 @@ class TestTakesController extends AppController {
         $this->set('question', $question);
         $this->set('answer', $answer);
         $this->set('editable', $editable);
+        $this->set('take', $take);
     }
 
     public function drawing_question_answers($answer_id)
@@ -2246,11 +2249,11 @@ class TestTakesController extends AppController {
         $this->render('update_show_results', 'ajax');
     }
 
-    public function finish_discussion($take_id) {
+    public function finish_discussion($take_id, $skipped_discussion=false) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
-        $response = $this->TestTakesService->finishDiscussion($take_id);
+        $response = $this->TestTakesService->finishDiscussion($take_id, $skipped_discussion);
     }
 
     public function skip_discussion($take_id) {
@@ -2258,7 +2261,7 @@ class TestTakesController extends AppController {
 
         $this->start_discussion($take_id, 'OPEN_ONLY');
         $this->discussion($take_id);
-        $this->finish_discussion($take_id);
+        $this->finish_discussion($take_id, true);
         $this->update_show_results($take_id);
     }
 
