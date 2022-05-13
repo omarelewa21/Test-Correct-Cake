@@ -39,14 +39,16 @@ if(!isset($take)) {
     <div style="float:left; width:calc(100% - 280px)">
         <div class="block" id="blockDiscussionQuestion">
             <div class="block-head"><?= __("Vraag")?></div>
-            <div class="block-content" id="questionQuestion" style="font-size: 24px !important;">
+            <div class="questionContainer">
+                <div class="block-content" id="questionQuestion" style="font-size: 24px !important;">
+            </div>            
 
             </div>
         </div>
 
         <div class="block" style="border-left: 20px solid var(--menu-blue);" id="blockDiscussionAnswer">
             <div class="block-head" style="color:white; background-color:var(--menu-blue);"><strong><?= __("Antwoordmodel")?></strong></div>
-            <div class="block-content" id="questionAnswer" style="font-size: 24px !important;">
+            <div class="block-content questionContainer" id="questionAnswer" style="font-size: 24px !important;">
 
             </div>
         </div>

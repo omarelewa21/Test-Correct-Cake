@@ -112,9 +112,9 @@ class QuestionsService extends BaseService
     {
         $url = sprintf('/drawing-question/%s/correction-model', $drawingQuestionUuid);
         $image =  $this->Connector->getDownloadRequest($url, []);
-       // $mimeType = mime_content_type($image);
-       // $mimeType = $mimeType ? $mimeType: 'image/png';
-       // return "data:" . $mimeType . ";base64," . base64_encode($image);
+        $mimeType = mime_content_type($image);
+        $mimeType = $mimeType ? $mimeType: 'image/png';
+        return "data:" . $mimeType . ";base64," . base64_encode($image);
         return $image;
     }
 
@@ -1733,6 +1733,15 @@ class QuestionsService extends BaseService
         $answer = str_replace('&lt;','<',$answer);
         $answer = str_replace('&gt;','>',$answer);
         return $answer;
+    }
+
+    public function getStoragePath()
+    {
+        $response = $this->Connector->getRequest('/convert/settings/storage_path', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response['status'];
     }
 
     private function transformAnswers($question)

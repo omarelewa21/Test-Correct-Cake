@@ -8,7 +8,7 @@ foreach($answers as $answer) {
 
     ?>
 
-    <div class="block">
+    <div class="block questionContainer">
         <div class="block-head"><?= __("Vraag")?></div>
         <div class="block-content" id="participant_question_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
 
@@ -17,7 +17,7 @@ foreach($answers as $answer) {
 
     <div class="block" style="border-left: 3px solid var(--menu-blue);">
         <div class="block-head"><?= __("Antwoordmodel")?></div>
-        <div class="block-content" id="participant_question_answer_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
+        <div class="block-content questionContainer" id="participant_question_answer_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>">
 
         </div>
     </div>

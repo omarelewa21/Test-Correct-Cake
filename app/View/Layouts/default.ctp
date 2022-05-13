@@ -23,7 +23,6 @@
 		<link rel="stylesheet" href="/css/jquery-ui.css">
 
 		<link rel="icon" href="/img/Logo-Test-Correct recolored icon-only.svg"/>
-		<link rel="apple-touch-icon-precomposed" href="/img/Logo-Test-Correct recolored icon-only-180x180.svg" />
 		<meta name="msapplication-TileImage" content="/img/Logo-Test-Correct recolored icon-only-270x270.svg" />
 
 		<?php
