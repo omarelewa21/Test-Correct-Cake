@@ -1,4 +1,4 @@
-git sta<?php
+<?php
 
 App::uses('AppController', 'Controller');
 App::uses('SectionsService', 'Lib/Services');
