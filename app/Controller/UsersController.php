@@ -727,7 +727,7 @@ class UsersController extends AppController
                 break;
 
             case 3: //Student
-
+                $params['filter']['without_guest_classes'] = 1;
                 $activeClasses = [];
 
                 foreach ($user['User']['student_school_classes'] as $class) {
@@ -737,7 +737,7 @@ class UsersController extends AppController
                 $this->set('active_classes', $activeClasses);
 
                 $this->set('school_classes',
-                    HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
+                    HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList($params)));
                 $this->render('edit_students', 'ajax');
                 break;
 
@@ -920,6 +920,7 @@ class UsersController extends AppController
 
             case 'students':
                 $params['filter']['role'] = 3;
+                $params['filter']['without_guests'] = 1;
                 $params['with'] = ['school_location', 'studentSchoolClasses'];
                 break;
 
@@ -1151,8 +1152,9 @@ class UsersController extends AppController
         }
 
         if ($type == 'students') {
+            $params['filter']['without_guest_classes'] = 1;
             $this->set('school_classes',
-                HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList()));
+                HelperFunctions::getInstance()->revertSpecialChars($this->SchoolClassesService->getClassesList($params)));
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
             $this->set('class_id', $this->SchoolClassesService->getClass($parameter1)['id']);
         }
