@@ -53,7 +53,7 @@
                 <span class="fa fa-file-image-o"></span>
             </a>
 
-            <a id="btn-export" class="btn highlight small ml5 pull-right" style="cursor:pointer;"><span class="fa fa-check"></span> <?= __("Opslaan")?></a>
+            <a id="btn-export" class="btn highlight small ml5 pull-right" style="cursor:pointer;" selid="save-drawing-btn"><span class="fa fa-check"></span> <?= __("Opslaan")?></a>
             <a class="btn grey small ml5 pull-right" style="cursor:pointer;" onclick="window.parent.Popup.closeLast();"><span class="fa fa-remove"></span> <?= __("Sluiten")?></a>
 
             <a id="btn-color-blue" class="btn small mr2 pull-right colorBtn" style="background: blue; width:7px; height:16px; opacity: .3;"></a>
