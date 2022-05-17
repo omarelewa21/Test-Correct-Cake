@@ -585,6 +585,23 @@ var Popup = {
         });
     },
 
+    showPreviewAnswerModelTest: function (testId) {
+        var url;
+        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
+        var windowReference = window.open(liveUrl);
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_answer_model_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                url = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.location = url;
+                windowReference.focus();
+            }
+        });
+    },
+
     showExternalPage: function(path, width, height) {
         var pWidth = typeof width !== 'undefined' ? width : 800 ;
         var pHeight = typeof height !== 'undefined' ? height : 500 ;
