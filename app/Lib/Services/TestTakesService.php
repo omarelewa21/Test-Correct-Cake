@@ -209,9 +209,10 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function finishDiscussion($take_id) {
+    public function finishDiscussion($take_id, $skipped_discussion=false) {
 
         $test_take['test_take_status_id'] = 8;
+        $test_take['skipped_discussion']  = $skipped_discussion;
 
         $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
 
