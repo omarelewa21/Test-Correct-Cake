@@ -718,7 +718,9 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->TestTakesService->saveNormalization($take_id, $this->request->data, false);
+            if( !$this->TestTakesService->saveNormalization($take_id, $this->request->data, false, true) ){
+                $this->formResponse(false, $this->TestTakesService->getErrors());
+            }
             die;
         }
 
@@ -757,10 +759,14 @@ class TestTakesController extends AppController {
         $this->set('currentIndex',0);
     }
 
-    public function normalization_preview($take_id) {
+    public function normalization_preview($take_id, $catchError=false) {
         $this->isAuthorizedAs(["Teacher"]);
         $this->set('currentIndex',$this->request->data['hiddenIndex']);
-        $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
+        $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true, $catchError);
+        if( $catchError && !$results ){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
         $this->set('results', $results);
     }
 

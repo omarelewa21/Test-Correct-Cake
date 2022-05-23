@@ -224,7 +224,7 @@ if($totalScore === 0){
     $('input').keyup(function() {
        clearTimeout(window.normalizeTimeout);
         window.normalizeTimeout = setTimeout(function() {
-            TestTake.normalizationPreview('<?=$take_id?>');
+            TestTake.normalizationPreview('<?=$take_id?>', true);
         }, 1000);
     });
 
