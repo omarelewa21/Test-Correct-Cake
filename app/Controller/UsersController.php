@@ -1355,6 +1355,13 @@ class UsersController extends AppController
                     'path'  => '/default_subjects_and_sections/index'
                 ];
 
+                $tiles['schoolandschoollocationsimport'] = [
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => __("School and school locations import"),
+                    'path'  => '/school_and_school_locations/index'
+                ];
+
 
                 $tiles['attainments_import_export'] = array(
                     'menu'  => 'lists',

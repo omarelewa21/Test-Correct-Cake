@@ -12,7 +12,7 @@ class SchoolAndSchoolLocationsController extends AppController
 {
     public function beforeFilter()
     {
-        $this->DefaultSubjectsAndSectionsService = new SchoolAndSchoolLocationsService();
+        $this->SchoolAndSchoolLocationsService = new SchoolAndSchoolLocationsService();
         parent::beforeFilter();
     }
 
@@ -24,7 +24,7 @@ class SchoolAndSchoolLocationsController extends AppController
     public function import() {
         $this->isAuthorizedAs(['Administrator']);
 
-        $data = $this->request->data['SchoolsAndSchoolLocations'];
+        $data = $this->request->data['SchoolAndSchoolLocations'];
 
         if(!$data['file']['tmp_name']){
             $response = __("File niet gevonden om te importeren, probeer het nogmaals");
