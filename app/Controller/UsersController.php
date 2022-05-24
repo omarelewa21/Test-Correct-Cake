@@ -2396,16 +2396,22 @@ class UsersController extends AppController
 
         if (CakeSession::read('temporaryLoginOptions')) {
             $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+            $internalPage = null;
             if (array_key_exists('page', $options)) {
-                $page = $options['page'];
-                $page = substr($page, 0, 1) === '/' ? $page : '/'.$page;
+                $internalPage = $options['page'];
                 CakeSession::delete('page');
-                header('Location: '.$page);
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
+                CakeSession::delete('internal_page');
+            }
+            if($internalPage){
                 $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
                 $this->set('internal_page',$internalPage);
-                CakeSession::delete('internal_page');
+                $pageAction = null;
+                if(array_key_exists('page_action',$options)){
+                    $pageAction = $options['page_action'];
+                }
+                $this->set('page_action',$pageAction);
                 $this->render('internal_redirect');
             }
         } else {
