@@ -31,8 +31,10 @@
                 'Force shutdown' => __("Applicatie geforceerd afgesloten"),
                 'Other window on top' => __("Ander venster op de voorgrond"),
                 'Used unallowed Ctrl key combination' => __("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is."),
-                   'Illegal programs' => __('De student heeft een app in de achtergrond open die niet toegestaan is'),
+                'Illegal programs' => __('De student heeft een app in de achtergrond open die niet toegestaan is'),
                 'Rejoined' => __('Opnieuw gestart met toets'),
+                'Forbidden device' => __('Verboden apparaat aangesloten'),
+                'VM detected' => __('Virtuele Machine gedetecteerd')
 
             ];
 
