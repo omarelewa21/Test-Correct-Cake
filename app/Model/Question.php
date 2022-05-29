@@ -347,10 +347,10 @@ class Question extends AppModel
             $found = 0;
             $right = true;
 
-            $question['answers'] = array_values($question['answers']);
+
 
             for($i = 0; $i < 10; $i++) {
-                if($question['answers'][$i]['left'] != '' && $question['answers'][$i]['left'] != ' ') {
+                if($question['answers'][$i]['left'] != '') {
                     $found ++;
                 }
 
@@ -371,10 +371,8 @@ class Question extends AppModel
             $found = 0;
             $right = true;
 
-            $question['answers'] = array_values($question['answers']);
-
             for($i = 0; $i < 10; $i++) {
-                if($question['answers'][$i]['left'] != '' && $question['answers'][$i]['left'] != ' ') {
+                if($question['answers'][$i]['left'] != '') {
                     $found ++;
                 }
             }

@@ -54,28 +54,34 @@
                 </tr>
             </thead>
             <tbody>
-                <tr class="answer-field">
-                    <td valign="top">
-                        <span class="fa fa-arrows"></span>
-                    </td>
-                    <td valign="top">
-                        <?=$this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers][1][order]', 'value' => '1', 'class' => 'order'))?>
-                        <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'class' => 'left', 'name' => 'data[Question][answers][1][left]'))?>
-                    </td>
-                    <td valign="top">
-                        <?=$this->Form->input('', array('style' => 'width: 300px; height:53px;', 'label' => false, 'class' => 'right', 'name' => 'data[Question][answers][1][right]', 'type' => 'textarea'))?>
-                    </td>
-                    <td valign="top">
-                        <a href="#" class="btn red small" onclick="Questions.removeClassifyOption(this, event);">
-                            <span class="fa fa-remove"></span>
-                        </a>
-                    </td>
-                </tr>
+                <?
+                for($i = 0; $i < 50; $i++) {
+                    ?>
+                    <tr style="<?=($i == 0) ? '' : 'display:none;' ?>">
+                        <td valign="top">
+                            <span class="fa fa-arrows"></span>
+                        </td>
+                        <td valign="top">
+                            <?=$this->Form->input('', array('type' => 'hidden', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
+                            <?=$this->Form->input('', array('style' => 'width: 300px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][left]'))?>
+                        </td>
+                        <td valign="top">
+                            <?=$this->Form->input('', array('style' => 'width: 300px; height:53px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][right]', 'type' => 'textarea'))?>
+                        </td>
+                        <td valign="top">
+                            <a href="#" class="btn red small" onclick="Questions.removeClassifyOption(this);">
+                                <span class="fa fa-remove"></span>
+                            </a>
+                        </td>
+                    </tr>
+                    <?
+                }
+                ?>
             </tbody>
         </table>
 
         <center>
-            <a href="#" class="btn highlight small inline-block" onclick="Questions.addClassifyOption(event);" selid="add-answer-option-btn">
+            <a href="#" class="btn highlight small inline-block" onclick="Questions.addClassifyOption();" selid="add-answer-option-btn">
                 <span class="fa fa-plus"></span>
                 <?= __("Optie toevoegen")?>
             </a>
