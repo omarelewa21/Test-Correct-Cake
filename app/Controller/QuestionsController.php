@@ -1782,6 +1782,4 @@ class QuestionsController extends AppController
         }
         return $filterParams;
     }
-
-
 }

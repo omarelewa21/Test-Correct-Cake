@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
 App::uses('AppController', 'Controller');
+App::uses('QuestionsService', 'Lib/Services');
 
 
 class Question extends AppModel
@@ -467,5 +468,7 @@ class Question extends AppModel
         }
         return $errors;
     }
+
+
 
 }

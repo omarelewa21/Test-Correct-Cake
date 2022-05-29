@@ -13,7 +13,7 @@
     foreach($questions as $question) {
         $i++;
         ?>
-        <div class="block">
+        <div class="block questionContainer">
             <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("voorbeeld")?></div>
             <div class="block-content" id="question_preview_<?=$question['question']['id']?>">
             <?= __("Laden..")?>

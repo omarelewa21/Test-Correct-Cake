@@ -97,7 +97,9 @@
 
 <div class="block" style="float:left; width:calc(100% - 220px)">
     <div class="block-head"><?= __("Vraag")?></div>
-    <div class="block-content" id="questionQuestion">
+    <div class="questionContainer">
+        <div class="block-content" id="questionQuestion">
+    </div>
 
     </div>
 </div>
@@ -106,7 +108,7 @@
 
 <div class="block">
     <div class="block-head"><?= __("Antwoordmodel")?></div>
-    <div class="block-content" id="questionQuestion_correct">
+    <div class="block-content questionContainer" id="questionQuestion_correct">
 
     </div>
 </div>

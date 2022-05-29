@@ -84,8 +84,10 @@ if(!empty($group['question']['question'])) {
                             ?>
                         </td>
                         <td>
-                            <div class="cell_autowidth">
-                                <?= $question['question']['question'] ?>
+                            <div class="questionContainer">
+                                <div class="cell_autowidth">
+                                    <?= $question['question']['question'] ?>
+                                </div>
                             </div>
                         </td>
                         <td>
