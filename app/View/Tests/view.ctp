@@ -47,6 +47,12 @@
             <?= !$oldPlayerAccess ? __("Voorbeeld") : __("Voorbeeld nieuwe speler") ?>
         </a>
     <?php } ?>
+    <?php if ($newPlayerAccess) { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');">
+            <span class="fa fa-search mr5"></span>
+            <?= !$oldPlayerAccess ? __("Voorbeeld") : __("Voorbeeld antwoord model") ?>
+        </a>
+    <?php } ?>
     <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"
        class="btn white mr2">
         <span class="fa fa-print mr5"></span>
