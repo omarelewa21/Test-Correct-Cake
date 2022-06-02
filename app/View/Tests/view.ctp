@@ -48,7 +48,7 @@
         </a>
     <?php } ?>
 
-<!--    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?//= $test_id ?>');"> -->
+<!--    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"> -->
 <!--        <span class="fa fa-search mr5"></span> -->
 <!--        <?=  __("Voorbeeld antwoord model") ?> -->
 <!--    </a>-->
