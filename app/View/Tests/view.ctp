@@ -48,10 +48,10 @@
         </a>
     <?php } ?>
 
-    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');">
-        <span class="fa fa-search mr5"></span>
-        <?=  __("Voorbeeld antwoord model") ?>
-    </a>
+<!--    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('--><?//= $test_id ?>//');">
+//        <span class="fa fa-search mr5"></span>
+//        <?//=  __("Voorbeeld antwoord model") ?>
+<!--    </a>-->
 
     <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"
        class="btn white mr2">
