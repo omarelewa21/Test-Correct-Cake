@@ -295,7 +295,8 @@ class QuestionsController extends AppController
                 echo $question['type'];
                 break;
         }
-
+        $question['answer'] = $this->getCorrectUrlsInString($question['answer']);
+        $question['question'] = $this->getCorrectUrlsInString($question['question']);
         $this->set('test_id', null);
         $this->set('question', $question);
 

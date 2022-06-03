@@ -366,4 +366,12 @@ class AppController extends Controller
 
         return $returnUrl;
     }
+
+    public function getCorrectUrlsInString($string)
+    {
+        if (strpos($_SERVER['HTTP_HOST'], 'portal2.test')){
+            $string = str_replace('portal.test','portal2.test',$string);
+        }
+        return $string;
+    }
 }
