@@ -992,6 +992,11 @@ class TestTakesController extends AppController {
 
         if (empty($answer['json'])) {
             $view = 'rate_empty';
+        } else {
+            $a = $answer['json'];
+            $a = json_decode($a, true);
+            $a['value'] = $this->getCorrectUrlsInString($a['value']);
+            $answer['json'] = json_encode($a);
         }
 
         $answer['answer'] = $answer;
