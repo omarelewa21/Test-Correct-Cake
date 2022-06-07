@@ -42,7 +42,9 @@ $citoClass = 'cito';
             'type' => 'hidden'
         ]);
 
-        echo sprintf('<div id="%s" class="right_item matching_item">%s</div>',$item['id'],$item['answer']);
+        if( $item['answer'] != '' && $item['answer'] != ' '){
+            echo sprintf('<div id="%s" class="right_item matching_item">%s</div>',$item['id'],$item['answer']);
+        }
     }
     echo sprintf('</div>');
     echo sprintf('<div style="clear:both;height:25px;"></div>');
