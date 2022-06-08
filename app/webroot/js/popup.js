@@ -585,16 +585,15 @@ var Popup = {
     },
 
     showPreviewAnswerModelTest: function (testId) {
-        var url;
-        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
-        var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_answer_model_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
-                url = Core.getCorrectLaravelUrl(data.data.url);
+                var url = Core.getCorrectLaravelUrl(data.data.url);
+                var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
+                var windowReference = window.open(liveUrl);
                 windowReference.location = url;
                 windowReference.focus();
             }
