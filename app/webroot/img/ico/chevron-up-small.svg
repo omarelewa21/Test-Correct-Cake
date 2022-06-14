@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="9px" height="16px" viewBox="0 0 9 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>icons/chevron up small</title>
+    <g id="icons/chevron-up-small" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <polyline id="Line-3" stroke="#041F74" stroke-width="3" transform="translate(4.500000, 7.000000) scale(1, -1) rotate(90.000000) translate(-4.500000, -7.000000) " points="3 4 6 7 3 10"></polyline>
+    </g>
+</svg>
