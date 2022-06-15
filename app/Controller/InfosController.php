@@ -19,7 +19,7 @@ class InfosController extends AppController {
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = ['inlineInfoImage'];
+       // $this->Auth->allowedActions = ['inlineInfoImage'];
 
         $this->InfoService = new InfoService();
 
