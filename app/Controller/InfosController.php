@@ -129,17 +129,17 @@ class InfosController extends AppController {
      * @param (string) image name
      * @return encoded image
      */
-    public function inlineInfoImage($image){
-        $this->autoRender = false;
-        if($this->key !== $this->request->input('json_decode')->key){
-            abort(404);
-        }
-        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . sprintf('questionanswers/%s', $image));
-        if (file_exists($path)) {
-            echo base64_encode(file_get_contents($path));
-            unlink($path);
-        } else {
-            abort(404);
-        }
-    }
+//    public function inlineInfoImage($image){
+//        $this->autoRender = false;
+//        if($this->key !== $this->request->input('json_decode')->key){
+//            abort(404);
+//        }
+//        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . sprintf('questionanswers/%s', $image));
+//        if (file_exists($path)) {
+//            echo base64_encode(file_get_contents($path));
+//            unlink($path);
+//        } else {
+//            abort(404);
+//        }
+//    }
 }
