@@ -24,7 +24,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 <ul>
                     <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_uuid ?>', 1000)"><?= __("Toets") ?></a></li>
                     <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_uuid ?>');"><?=  __("Antwoord model") ?></a></li>
-                    <li><a href="#" onclick="Popup.load('/test_takes/answers_preview/<?= $take_id ?>', 1000)"><?= __("Antwoorden") ?></a></li>
+                    <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>
                 </ul>
             </li>
         </ul>

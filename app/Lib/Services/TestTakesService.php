@@ -932,4 +932,8 @@ class TestTakesService extends BaseService {
         return true; 
     }
 
+    public function getTestTakeAnswersUrlForLaravel($testTakeId)
+    {
+        return $this->Connector->postRequest(sprintf('/test_take/answers/%s/with_temporary_login', $testTakeId), [], []);
+    }
 }

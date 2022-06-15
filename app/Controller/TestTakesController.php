@@ -2912,4 +2912,9 @@ class TestTakesController extends AppController {
         $this->formResponse(true, []);
     }
 
+    public function get_preview_test_take_answers_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeAnswersUrlForLaravel($testTakeId));
+    }
+
 }
