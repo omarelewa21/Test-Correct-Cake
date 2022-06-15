@@ -113,7 +113,6 @@
             }
             ul#nav_pdf_button > li:first-child{
                 margin: 0;
-                margin-left: 2px;
                 border: 0;
             }
             ul#nav_pdf_button > li:first-child > a{

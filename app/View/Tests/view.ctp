@@ -575,7 +575,6 @@
 <script>
     $('#nav_pdf_button').menu({position: {at: "left bottom"}});
     $('body').on('click','#nav_pdf_button_li_first',function(event){
-        console.dir('hier');
         if($(this).find('ul').attr('aria-expanded')){
             event.stopPropagation();
             $('#nav_pdf_button').find('ul').hide();
