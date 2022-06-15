@@ -130,7 +130,7 @@ class AnswersService extends BaseService {
                     $PATH = realpath($_SERVER['DOCUMENT_ROOT']).DS.'..'.DS.'tmp'.DS.'drawing'.DS;
                     $filename = time().$ext;
                     $res = file_put_contents($PATH.$filename, $imagecontent);
-                    $src = $_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.$filename.'&type=drawing';
+                    $src = HelperFunctions::getInstance()->getCorrectUrlsInString($_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.$filename.'&type=drawing');
                     $data['answer'] = $src;
                 }
 
@@ -218,7 +218,7 @@ class AnswersService extends BaseService {
                   $PATH = realpath($_SERVER['DOCUMENT_ROOT']).DS.'..'.DS.'tmp'.DS.'drawing'.DS;
                   $filename = time().$ext;
                   $res = file_put_contents($PATH.$filename, $imagecontent);
-                  $src = $_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.$filename.'&type=drawing';
+                  $src = HelperFunctions::getInstance()->getCorrectUrlsInString($_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.$filename.'&type=drawing');
                   $data['answer'] = $src;
                 }
 
