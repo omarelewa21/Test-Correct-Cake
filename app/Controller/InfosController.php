@@ -148,7 +148,8 @@ class InfosController extends AppController {
             unlink($path);
             exit();
         } else {
-            abort(404);
+            http_response_code(404);
+            exit();
         }
     }
 }
