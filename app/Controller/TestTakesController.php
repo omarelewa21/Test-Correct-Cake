@@ -478,6 +478,7 @@ class TestTakesController extends AppController {
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
+        $this->set('test_uuid', getUUID($take['test'],'get'));
 
         if ($take['test_take_status_id'] < 6) {
             $this->render('view_planned', 'ajax');
@@ -2923,6 +2924,11 @@ class TestTakesController extends AppController {
         }
 
         $this->formResponse(true, []);
+    }
+
+    public function get_preview_test_take_answers_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeAnswersUrlForLaravel($testTakeId));
     }
 
 }

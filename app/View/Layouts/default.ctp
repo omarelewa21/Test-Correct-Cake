@@ -107,6 +107,124 @@
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 
         <script type="text/javascript" src="//js.pusher.com/5.0/pusher.min.js"></script>
+        <style>
+            #nav_pdf_button{
+                display: inline;
+            }
+            ul#nav_pdf_button > li:first-child{
+                margin: 0;
+                border: 0;
+            }
+            ul#nav_pdf_button > li:first-child > a{
+                padding-top: 8px;
+                height: 20px;
+                padding-right: 22px;
+            }
+            .ui-menu {
+                overflow: hidden;
+            }
+            .ui-menu .ui-menu {
+                overflow: visible !important;
+            }
+            .ui-menu .ui-icon {
+                top: 10px;
+            }
+            .ui-menu > li {
+                float: left;
+                display: block;
+                width: auto !important;
+            }
+            .ui-menu ul li {
+                display:block;
+                float:none;
+            }
+            .ui-menu ul li ul {
+                left:120px !important;
+                width:100%;
+            }
+            .ui-menu ul li ul li {
+                width:auto;
+            }
+            .ui-menu ul li ul li a {
+                float:left;
+            }
+            .ui-menu > li {
+                /*margin: 5px 5px !important;*/
+                padding: 0 0 !important;
+            }
+            .ui-menu > li > a {
+                float: left;
+                display: block;
+                clear: both;
+                width: -webkit-fill-available;
+                overflow: hidden;
+            }
+            .ui-menu .ui-menu-icon {
+                /*margin-top: 0.3em !important;*/
+            }
+            .ui-icon, .ui-widget-content .ui-icon {
+                background-image: url('img/ico/chevron-down-small.svg');
+            }
+
+            .ui-state-active .ui-icon, .ui-state-focus .ui-icon {
+                background-image: url('img/ico/chevron-up-small.svg');
+            }
+            .ui-state-active,.ui-state-focus, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+                border: 0;
+                box-shadow:     0px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+
+            .ui-icon-carat-1-e {
+                background-position: 0 0;
+            }
+            .ui-menu .ui-menu .ui-menu li {
+                float: left;
+                display: block;
+            }
+            .ui-state-hover,
+            .ui-widget-content .ui-state-hover,
+            .ui-widget-header .ui-state-hover,
+            .ui-state-focus,
+            .ui-widget-content .ui-state-focus,
+            .ui-widget-header .ui-state-focus {
+                border: 0;
+                box-shadow:     0px 1px 3px rgba(0, 0, 0, 0.2);
+                background: #f9f9f9;
+                font-weight: normal;
+                color: #212121;
+            }
+
+            .ui-widget-content {
+                border: 0;
+                background: #ffffff;
+                width: max-content;
+                color: #212121;
+                box-shadow:     0px 1px 3px rgba(0, 0, 0, 0.2);
+            }
+            /*.ui-front{*/
+            /*    border-top: solid 1px #eeeeee;*/
+            /*}*/
+            /*.ui-front li{*/
+            /*    border-top: solid 1px #eeeeee;*/
+            /*}*/
+            .ui-front a{
+                border-top: solid 1px #eeeeee;
+                text-decoration: none;
+                color: #212121;
+                padding-left: 15px;
+                padding-right: 15px;
+                padding-top: 5px;
+                padding-bottom: 5px;
+                font-family: 'Myriad Pro', 'Arial';
+            }
+            .ui-front a:hover{
+                color: #4781ff;
+                background-color: #f9f9f9;
+            }
+            .ui-front li:hover{
+                background-color: #f9f9f9;
+            }
+        </style>
 	</head>
 
 	<body>

@@ -595,6 +595,22 @@ var Popup = {
             }
         });
     },
+    showPreviewTestTakeAnswers: function (testTakeId) {
+        var url;
+        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
+        var windowReference = window.open(liveUrl);
+        $.ajax({
+            type: 'post',
+            url: '/test_takes/get_preview_test_take_answers_url/' + testTakeId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                url = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.location = url;
+                windowReference.focus();
+            }
+        });
+    },
 
     showExternalPage: function(path, width, height) {
         var pWidth = typeof width !== 'undefined' ? width : 800 ;
