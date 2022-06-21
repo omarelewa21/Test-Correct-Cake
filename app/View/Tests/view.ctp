@@ -47,18 +47,10 @@
         </a>
     <?php } ?>
 
-    <ul id="nav_pdf_button">
-        <li id="nav_pdf_button_li_first">
-            <a id="nav_pdf_button_a_first" class="btn white mr2" href="#" >
-                <span class="fa fa-print mr5"></span>
-                <?= __("PDF") ?>
-            </a>
-            <ul>
-                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"><?= __("Toets") ?></a></li>
-                <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"><?=  __("Antwoord model") ?></a></li>
-            </ul>
-        </li>
-    </ul>
+        <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)" class="btn white mr2">
+            <span class="fa fa-print mr5"></span>
+            <?= __("PDF") ?>
+        </a>
     <? if ($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#"  class="btn white mr2" onclick="Test.delete('<?= $test_id ?>', true);">
             <span class="fa fa-remove mr5"></span>
