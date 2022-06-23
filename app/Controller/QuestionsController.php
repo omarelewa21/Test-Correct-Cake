@@ -234,6 +234,7 @@ class QuestionsController extends AppController
         }
 
         $this->set('test_id', null);
+        $question['question'] = $this->getCorrectUrlsInString($question['question']);
         $this->set('question', $question);
         $this->set('hideExtra', $hideExtra);
         $this->render($view, 'ajax');
@@ -280,9 +281,9 @@ class QuestionsController extends AppController
 
             case 'DrawingQuestion':
                 if ($question['zoom_group']) {
-                    $this->set('image',$this->QuestionsService->getBase64EncodedCorrectionModelForDrawingQuestion($question['uuid']));
+                    $this->set('image',$this->getCorrectUrlsInString($this->QuestionsService->getBase64EncodedCorrectionModelForDrawingQuestion($question['uuid'])));
                 } else {
-                    $this->set('image', $question['answer']);
+                    $this->set('image', $this->getCorrectUrlsInString($question['answer']));
                 }
                 $view = 'preview_drawing_answer';
                 break;
