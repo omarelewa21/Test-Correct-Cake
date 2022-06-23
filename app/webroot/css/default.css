@@ -782,3 +782,96 @@ th.subject-column, td.subject-column {
     color: var(--primary);
     border-radius: 2px;
 }
+
+#buttons.contains_dropdown .ui-menu {
+    position: absolute !important;
+    display: none;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 200px;
+    z-index: 1000;
+    text-align: left;
+}
+#buttons.contains_dropdown .ui-dropdown {
+    position: absolute !important;
+    display: none;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-size: 16px;
+    width: 230px;
+    z-index: 1000;
+    text-align: left;
+}
+#buttons.contains_dropdown .ui-dropdown .ui-state-focus, #buttons.contains_dropdown .ui-dropdown .ui-state-active, #buttons.contains_dropdown .ui-dropdown .ui-state-focus>a {
+    margin: 0px;
+    background: #eee !important;
+    border: none !important;
+    color: #004df5;
+}
+#buttons.contains_dropdown .ui-dropdown li {
+    padding: 0 !important;
+}
+#buttons.contains_dropdown .ui-dropdown li a {
+    display: block;
+    padding: 10px 15px !important;
+    text-shadow: none !important;
+    color: #191a17;
+    text-decoration: none;
+    font-size: 16px;
+}
+#buttons.contains_dropdown .ui-dropdown li p {
+    white-space: normal;
+    font-size: 16px;
+    font-weight: normal;
+    text-shadow: none;
+    color: #888 !important;
+    padding: 10px;
+    margin: 0;
+}
+#buttons.contains_dropdown .button.ui-button {
+    padding: 0 !important;
+    display: block !important;
+    height: 36px !important;
+    width: 36px !important;
+    line-height: 34px !important;
+    color: #191a17;
+}
+#buttons.contains_dropdown .button.ui-button.ui-state-hover .fa, #buttons.contains_dropdown .button.ui-button.ui-state-focus .fa, #buttons.contains_dropdown .button.ui-button.ui-state-active .fa {
+    color: #777 !important;
+}
+#buttons.contains_dropdown .button.button.ui-button .ui-button-text {
+    padding: 0px !important;
+    display: block;
+    width: 35px;
+    line-height: 34px !important;
+    height: 35px;
+    text-align: center !important;
+}
+
+#nav_pdf_button{
+    display: inline-block;
+    float:left;
+    margin-right: 2px;
+}
+#nav_pdf_button > a:first-child{
+    margin: 0;
+    border: 0;
+    padding-top: 10px;
+    height: 18px;
+    padding-right: 40px;
+    background-image: url('../img/ico/chevron-down-small.svg');
+    background-repeat: no-repeat;
+    background-position-x: 90px;
+    background-position-y: center;
+}
+
+
+#nav_pdf_button>a:first-child.options_opened {
+    background-image: url('../img/ico/chevron-up-small.svg');
+}
+
+#select_drop{
+    font-family: 'Myriad Pro', 'Arial';
+    font-size: 16px;
+}
