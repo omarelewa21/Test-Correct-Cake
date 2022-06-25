@@ -19,7 +19,7 @@ class InfosController extends AppController {
      */
     public function beforeFilter()
     {
-        $this->Auth->allowedActions = ['inlineInfoImage'];
+       // $this->Auth->allowedActions = ['inlineInfoImage'];
 
         $this->InfoService = new InfoService();
 
@@ -152,4 +152,17 @@ class InfosController extends AppController {
             exit();
         }
     }
+//    public function inlineInfoImage($image){
+//        $this->autoRender = false;
+//        if($this->key !== $this->request->input('json_decode')->key){
+//            abort(404);
+//        }
+//        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . sprintf('questionanswers/%s', $image));
+//        if (file_exists($path)) {
+//            echo base64_encode(file_get_contents($path));
+//            unlink($path);
+//        } else {
+//            abort(404);
+//        }
+//    }
 }

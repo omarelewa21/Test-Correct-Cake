@@ -569,12 +569,26 @@ var Popup = {
     },
 
     showPreviewTest: function (testId) {
-        var url;
-        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
-        var windowReference = window.open(liveUrl);
+        var windowReference = window.open();
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+
+    showPreviewAnswerModelTest: function (testId) {
+        var url;
+        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
+        var windowReference = window.open(liveUrl);
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_answer_model_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
@@ -584,14 +598,13 @@ var Popup = {
             }
         });
     },
-
-    showPreviewAnswerModelTest: function (testId) {
+    showPreviewTestTakeAnswers: function (testTakeId) {
         var url;
-        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
+        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
         var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
-            url: '/tests/get_preview_answer_model_url/' + testId,
+            url: '/test_takes/get_preview_test_take_answers_url/' + testTakeId,
             dataType: 'json',
             data: {},
             success: function (data) {

@@ -15,10 +15,10 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     </a>
 
     <? if($take['test_take_status_id'] == 8) { ?>
-    <a href='#' onclick="Popup.load('/test_takes/answers_preview/<?= $take_id ?>', 1000)" class="btn white mr2">
-        <span class="fa fa-file mr5"></span>
-        <?= __("PDF")?>
-    </a>
+        <a href='#' onclick="Popup.load('/test_takes/answers_preview/<?= $take_id ?>', 1000)" class="btn white mr2">
+                    <span class="fa fa-file mr5"></span>
+                    <?= __("PDF")?>
+        </a>
     <?
     if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
     ?>
@@ -197,4 +197,14 @@ if($isTeacher && $analysis && count($analysis)){
             Navigation.refresh();
         });
     }
+</script>
+
+<script>
+    $('#nav_pdf_button').menu({position: {at: "left bottom"}});
+    $('body').on('click','#nav_pdf_button_li_first',function(event){
+        if($(this).find('ul').attr('aria-expanded')){
+            event.stopPropagation();
+            $('#nav_pdf_button').find('ul').hide();
+        }
+    })
 </script>

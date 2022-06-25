@@ -42,7 +42,6 @@ class AppVersionDetector
         ],
         "iOS" => [
             "ok" => [
-                "2.4.1",
                 "2.4.2",
                 "2.4.3",
                 "2.4.4",
@@ -86,15 +85,15 @@ class AppVersionDetector
                 "3.1.0",
             ],
             "needsUpdate" => [
+                "2.4.1",
             ],
             "needsUpdateDeadline" => [
-
+                "2.4.1" => "24 juli 2022",
             ],
         ],
         "ChromeOS" => [
             "ok" =>
                 [
-                    "2.4.1",
                     "2.4.2",
                     "2.4.3",
                     "2.4.4",
@@ -138,18 +137,14 @@ class AppVersionDetector
                     "3.1.0",
                 ],
             "needsUpdate" => [
+                "2.4.1",
             ],
             "needsUpdateDeadline" => [
+                "2.4.1" => "Juli 2022",
             ],
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.2.2",
-                "3.2.2-beta.1",
-                "3.2.2-beta.2",
-                "3.2.2-beta.3",
-                "3.2.2-beta.4",
-                "3.2.2-beta.5",
                 "3.2.3",
                 "3.2.3-beta.1",
                 "3.2.3-beta.2",
@@ -176,20 +171,14 @@ class AppVersionDetector
                 "3.3.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.2.1"
+                "3.2.2",
             ],
             "needsUpdateDeadline" => [
-                "3.2.1" => "13 juni 2022",
+                "3.2.2" => "4 augustus 2022",
             ],
         ],
         "macosElectron" => [
             "ok" => [
-                "3.2.2",
-                "3.2.2-beta.1",
-                "3.2.2-beta.2",
-                "3.2.2-beta.3",
-                "3.2.2-beta.4",
-                "3.2.2-beta.5",
                 "3.2.3",
                 "3.2.3-beta.1",
                 "3.2.3-beta.2",
@@ -216,10 +205,10 @@ class AppVersionDetector
                 "3.3.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.2.1"
+                "3.2.2",
             ],
             "needsUpdateDeadline" => [
-                "3.2.1" => "13 juni 2022",
+                "3.2.2" => "4 augustus 2022",
             ],
         ]
     ];

@@ -34,7 +34,6 @@
             </a>
         <? } ?>
     <? } ?>
-
     <?php if ($oldPlayerAccess) { ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?= $test_id ?>', 1200);">
             <span class="fa fa-search mr5"></span>
@@ -48,18 +47,12 @@
         </a>
     <?php } ?>
 
-<!--    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"> -->
-<!--        <span class="fa fa-search mr5"></span> -->
-<!--        <?=  __("Voorbeeld antwoord model") ?> -->
-<!--    </a>-->
-
-    <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"
-       class="btn white mr2">
-        <span class="fa fa-print mr5"></span>
-        <?= __("PDF") ?>
-    </a>
+        <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)" class="btn white mr2">
+            <span class="fa fa-print mr5"></span>
+            <?= __("PDF") ?>
+        </a>
     <? if ($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
-        <a href="#" class="btn white mr2" onclick="Test.delete('<?= $test_id ?>', true);">
+        <a href="#"  class="btn white mr2" onclick="Test.delete('<?= $test_id ?>', true);">
             <span class="fa fa-remove mr5"></span>
             <?= __("Verwijderen") ?>
         </a>
@@ -571,3 +564,12 @@
 
     </script>
 <? } ?>
+<script>
+    $('#nav_pdf_button').menu({position: {at: "left bottom"}});
+    $('body').on('click','#nav_pdf_button_li_first',function(event){
+        if($(this).find('ul').attr('aria-expanded')){
+            event.stopPropagation();
+            $('#nav_pdf_button').find('ul').hide();
+        }
+    })
+</script>

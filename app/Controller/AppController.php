@@ -266,7 +266,7 @@ class AppController extends Controller
 
         if (strpos($drawingAnswer, 'http') === false) {
             $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer, $base64);
-            $this->set('drawing_url', $drawingAnswerUrl);
+            $this->set('drawing_url', $this->getCorrectUrlsInString($drawingAnswerUrl));
             return $drawingAnswerUrl;
         }
         return false;
@@ -365,5 +365,10 @@ class AppController extends Controller
         }
 
         return $returnUrl;
+    }
+
+    public function getCorrectUrlsInString($string)
+    {
+        return HelperFunctions::getInstance()->getCorrectUrlsInString($string);
     }
 }

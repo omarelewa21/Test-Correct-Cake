@@ -107,6 +107,7 @@
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
 
         <script type="text/javascript" src="//js.pusher.com/5.0/pusher.min.js"></script>
+
 	</head>
 
 	<body>
