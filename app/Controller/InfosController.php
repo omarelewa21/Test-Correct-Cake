@@ -11,7 +11,6 @@ App::uses('UsersService', 'Lib/Services');
  */
 class InfosController extends AppController {
 
-    private $key = '<I&*}":BLi/pa>O,/IrJN4w4k#>Qh@';
     /**
      * This is called before each action is parsed.
      *
@@ -19,8 +18,6 @@ class InfosController extends AppController {
      */
     public function beforeFilter()
     {
-       // $this->Auth->allowedActions = ['inlineInfoImage'];
-
         $this->InfoService = new InfoService();
 
         parent::beforeFilter();
@@ -123,46 +120,4 @@ class InfosController extends AppController {
         $this->formResponse(true, []);
 
     }
-
-    /**
-     * Send image data to laravel part and delete it from cake
-     * @param (string) image name
-     * @return encoded image
-     */
-    public function inlineInfoImage($image){
-        $this->autoRender = false;
-        
-        // Request Checking
-        if($this->key !== $this->request->input('json_decode')->key){
-            http_response_code(401);
-            exit();
-        }
-        if(strpos($image, '/') !== false || strlen(pathinfo($image, PATHINFO_EXTENSION)) ){
-            http_response_code(400);
-            exit();
-        }
-
-        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . sprintf('questionanswers/%s', $image));
-        if (file_exists($path)) {
-            echo base64_encode(file_get_contents($path));
-            unlink($path);
-            exit();
-        } else {
-            http_response_code(404);
-            exit();
-        }
-    }
-//    public function inlineInfoImage($image){
-//        $this->autoRender = false;
-//        if($this->key !== $this->request->input('json_decode')->key){
-//            abort(404);
-//        }
-//        $path = (ROOT . DS . APP_DIR . DS . 'tmp' . DS . sprintf('questionanswers/%s', $image));
-//        if (file_exists($path)) {
-//            echo base64_encode(file_get_contents($path));
-//            unlink($path);
-//        } else {
-//            abort(404);
-//        }
-//    }
 }
