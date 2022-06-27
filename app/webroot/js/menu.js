@@ -454,6 +454,38 @@ var Menu = {
         $('#student-menu > .item').removeClass('active');
         $('#tiles > .tile').removeClass('active');
         $('.action_icon_container > div').removeClass('active');
+    },
+    initDropdownMenuButton : function() {
+        $('.ui-dropdown').menu().hide();
+
+        $('#buttons .ui-dropper').button().click(function () {
+            var menu = $('#' + $(this).attr('data-drop'));
+            var clickable = $(this);
+
+            $('.ui-menu:visible').not('#' + $(this).attr('data-drop')).hide();
+
+            menu.toggle(0,function(){
+                if(clickable.hasClass('options_opened')){
+                    clickable.removeClass('options_opened');
+                }else{
+                    clickable.addClass('options_opened');
+                }
+
+            }).position({
+                my: "left top",
+                at: "left bottom",
+                of: this
+            });
+            $(document).one("click", function () {
+                $('.ui-menu:visible').hide();
+                if(clickable.hasClass('options_opened')){
+                    clickable.removeClass('options_opened');
+                }else{
+                    clickable.addClass('options_opened');
+                }
+            });
+            return false;
+        });
     }
 };
 

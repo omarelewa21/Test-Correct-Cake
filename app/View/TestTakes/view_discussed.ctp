@@ -8,17 +8,25 @@ $normalization = false;
 }
 $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_average']) && empty($take['n_term']) ? false : true;
 ?>
-<div id="buttons">
+<div id="buttons" class="contains_dropdown">
     <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/to_rate');">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
 
     <? if($take['test_take_status_id'] == 8) { ?>
-        <a href='#' onclick="Popup.load('/test_takes/answers_preview/<?= $take_id ?>', 1000)" class="btn white mr2">
-                    <span class="fa fa-file mr5"></span>
-                    <?= __("PDF")?>
-        </a>
+        <div id="nav_pdf_button">
+            <a href="#" class="btn white mr2 action ui-dropper" data-drop="select_drop">
+                <span class="fa fa-print mr5"></span>
+                <?= __("PDF") ?>
+            </a>
+            <ul id="select_drop" class="ui-dropdown action-dropdown">
+                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_uuid ?>', 1000)"><?= __("Toets") ?></a></li>
+                <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_uuid ?>');"><?=  __("Antwoord model") ?></a></li>
+<!--                <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>-->
+                <li><a href="#" onclick="Popup.load('/test_takes/answers_preview/<?= $take_id ?>', 1000)"><?= __("Antwoorden") ?></a></li>
+            </ul>
+        </div>
     <?
     if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
     ?>
@@ -200,11 +208,5 @@ if($isTeacher && $analysis && count($analysis)){
 </script>
 
 <script>
-    $('#nav_pdf_button').menu({position: {at: "left bottom"}});
-    $('body').on('click','#nav_pdf_button_li_first',function(event){
-        if($(this).find('ul').attr('aria-expanded')){
-            event.stopPropagation();
-            $('#nav_pdf_button').find('ul').hide();
-        }
-    })
+    Menu.initDropdownMenuButton();
 </script>
