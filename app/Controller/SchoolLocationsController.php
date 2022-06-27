@@ -25,31 +25,33 @@ class SchoolLocationsController extends AppController
         parent::beforeFilter();
     }
 
-    public function change_allow_inbrowser_testing($locationId, $allow) {
+    public function updateSchoolLocation($locationId, bool $allow, $info){
         $this->isAuthorizedAs(['Administrator','Account manager']);
         if($this->request->is('post') || $this->request->is('put')) {
-            $this->SchoolLocationsService->change_allow_inbrowser_testing($locationId, $allow);
-        }
-        $this->formResponse(
-            true,
-            []
-        );
-    }
-    public function change_allow_new_player_access($locationId, $allow) {
-        $this->isAuthorizedAs(['Administrator','Account manager']);
-        if($this->request->is('post') || $this->request->is('put')) {
-            $this->SchoolLocationsService->change_allow_new_player_access($locationId, $allow);
-        }
-        $this->formResponse(
-            true,
-            []
-        );
-    }
-
-    public function change_allow_new_student_environment($locationId, $allow) {
-        $this->isAuthorizedAs(['Administrator','Account manager']);
-        if($this->request->is('post') || $this->request->is('put')) {
-            $this->SchoolLocationsService->change_allow_new_student_environment($locationId, $allow);
+            switch ($info) {
+                case 'keep_out_report':
+                    $data = ['keep_out_of_school_location_report' => $allow];
+                    break;
+                case 'allow_inbrowser_testing':
+                    $data = ['allow_inbrowser_testing' => $allow];
+                    break;
+                case 'allow_new_student_env':
+                    $data = ['allow_new_student_environment' => $allow];
+                    break;
+                case 'show_exam_material':
+                    $data = ['show_exam_material' => $allow];
+                    break;
+                case 'show_cito_quick_test_start':
+                    $data = ['show_cito_quick_test_start' => $allow];
+                    break;
+                case 'show_test_correct_content':
+                    $data = ['show_test_correct_content' => $allow];
+                    break;
+                default:
+                    $data = [];
+                    break;
+            }
+            $this->SchoolLocationsService->updateSchoolLocation($locationId, $data);
         }
         $this->formResponse(
             true,

@@ -4481,4 +4481,11 @@ msgstr "According teacher"
 msgid "Naam toets"
 msgstr "Name test"
 
+msgid "Examenmateriaal tonen"
+msgstr "Show exam material"
 
+msgid "Cito snelle starttoets tonen"
+msgstr "Show cito quick test start"
+
+msgid "TestCorrect inhoud tonen"
+msgstr "Show TestCorrect content"
