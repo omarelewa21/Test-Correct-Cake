@@ -4481,5 +4481,5 @@ msgstr "According teacher"
 msgid "Naam toets"
 msgstr "Name test"
 
-msgid "Rapport over locatie buiten school houden"
+msgid "Buiten school locatie rapport houden"
 msgstr "Keep out of school location report"

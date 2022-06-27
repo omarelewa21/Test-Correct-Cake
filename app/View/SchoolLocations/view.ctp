@@ -139,7 +139,7 @@
             </tr>
             <tr>
             
-            <th><?= __("rapport over locatie buiten school houden")?></th>
+            <th><?= __("Buiten school locatie rapport houden")?></th>
                 <td>
                     <span><?=$school_location['keep_out_of_school_location_report']?></span>
                     <label class="switch" style="display:flex;">
