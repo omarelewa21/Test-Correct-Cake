@@ -106,7 +106,6 @@
 
                 <th><?= __("Nieuwe studenten omgeving toestaan")?></th>
                 <td>
-                    <span><?=$school_location['allow_new_student_environment']?></span>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('allow_new_student_environment',
                             array(
@@ -141,7 +140,6 @@
             
             <th><?= __("Buiten school locatie rapport houden")?></th>
                 <td>
-                    <span><?=$school_location['keep_out_of_school_location_report']?></span>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('keep_out_of_school_location_report',
                             array(
