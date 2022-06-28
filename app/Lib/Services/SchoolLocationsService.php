@@ -24,24 +24,6 @@ class SchoolLocationsService extends BaseService
         }
     }
 
-    // public function change_allow_inbrowser_testing($locationId, $allow)
-    // {
-    //     $data = ['allow_inbrowser_testing' => (bool) $allow];
-    //     return $this->updateSchoolLocation($locationId,$data);
-    // }
-
-    // public function change_allow_new_player_access($locationId, $allow)
-    // {
-    //     $data = ['allow_new_player_access' => $allow];
-    //     return $this->updateSchoolLocation($locationId,$data);
-    // }
-
-    // public function change_allow_new_student_environment($locationId, $allow)
-    // {
-    //     $data = ['allow_new_student_environment' => $allow];
-    //     return $this->updateSchoolLocation($locationId,$data);
-    // }
-
     public function getIps($location_id) {
         $response = $this->Connector->getRequest('/school_location/' . $location_id . '/school_location_ip', [
             'mode' => 'all'

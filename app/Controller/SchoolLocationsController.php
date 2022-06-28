@@ -38,6 +38,15 @@ class SchoolLocationsController extends AppController
                 case 'allow_new_student_env':
                     $data = ['allow_new_student_environment' => $allow];
                     break;
+                case 'show_exam_material':
+                    $data = ['show_exam_material' => $allow];
+                    break;
+                case 'show_cito_quick_test_start':
+                    $data = ['show_cito_quick_test_start' => $allow];
+                    break;
+                case 'show_test_correct_content':
+                    $data = ['show_test_correct_content' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
@@ -49,38 +58,6 @@ class SchoolLocationsController extends AppController
             []
         );
     }
-
-    // public function change_allow_inbrowser_testing($locationId, $allow) {
-    //     $this->isAuthorizedAs(['Administrator','Account manager']);
-    //     if($this->request->is('post') || $this->request->is('put')) {
-    //         $this->SchoolLocationsService->change_allow_inbrowser_testing($locationId, $allow);
-    //     }
-    //     $this->formResponse(
-    //         true,
-    //         []
-    //     );
-    // }
-    // public function change_allow_new_player_access($locationId, $allow) {
-    //     $this->isAuthorizedAs(['Administrator','Account manager']);
-    //     if($this->request->is('post') || $this->request->is('put')) {
-    //         $this->SchoolLocationsService->change_allow_new_player_access($locationId, $allow);
-    //     }
-    //     $this->formResponse(
-    //         true,
-    //         []
-    //     );
-    // }
-
-    // public function change_allow_new_student_environment($locationId, $allow) {
-    //     $this->isAuthorizedAs(['Administrator','Account manager']);
-    //     if($this->request->is('post') || $this->request->is('put')) {
-    //         $this->SchoolLocationsService->change_allow_new_student_environment($locationId, $allow);
-    //     }
-    //     $this->formResponse(
-    //         true,
-    //         []
-    //     );
-    // }
 
     public function index() {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);

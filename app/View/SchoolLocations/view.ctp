@@ -106,6 +106,7 @@
 
                 <th><?= __("Nieuwe studenten omgeving toestaan")?></th>
                 <td>
+                    <span><?=$school_location['allow_new_student_environment']?></span>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('allow_new_student_environment',
                             array(
@@ -137,7 +138,64 @@
                 <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
             <tr>
-            
+                <th><?= __("Examenmateriaal tonen")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('show_exam_material',
+                            array(
+                                    'checked' => $school_location['show_exam_material'],
+                                    'label' => false,
+                                    'type' => 'checkbox',
+                                    'value' => $school_location['show_exam_material'],
+                                    'div' => false,
+                                    'style' => 'width:20px;',
+                                    'onclick' => 'updateSchoolLocation(this.checked, "show_exam_material")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+                <th><?= __("Cito snelle starttoets tonen")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('show_cito_quick_test_start',
+                            array(
+                                    'checked' => $school_location['show_cito_quick_test_start'],
+                                    'label' => false,
+                                    'type' => 'checkbox',
+                                    'value' => $school_location['show_cito_quick_test_start'],
+                                    'div' => false,
+                                    'style' => 'width:20px;',
+                                    'onclick' => 'updateSchoolLocation(this.checked, "show_cito_quick_test_start")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+            </tr>
+
+            <tr>
+                <th><?= __("TestCorrect inhoud tonen")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('show_test_correct_content',
+                            array(
+                                    'checked' => $school_location['show_test_correct_content'],
+                                    'label' => false,
+                                    'type' => 'checkbox',
+                                    'value' => $school_location['show_test_correct_content'],
+                                    'div' => false,
+                                    'style' => 'width:20px;',
+                                    'onclick' => 'updateSchoolLocation(this.checked, "show_test_correct_content")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+            </tr>
+            <tr>
+
             <th><?= __("Buiten school locatie rapport houden")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
@@ -384,7 +442,7 @@
 
 <script>
     $('#new_player_access').val("<?= $school_location['allow_new_player_access'] ?>");
-    
+
     function updateSchoolLocation(allow, info){
         Loading.show();
         $.post(`/school_locations/updateSchoolLocation/<?=getUUID($school_location, 'get');?>/${allow ? 1 : 0}/${info}`,
@@ -392,23 +450,4 @@
            Navigation.refresh();
         });
     }
-
-    // function ChangeAllowInBrowserTesting(allow){
-    //     Loading.show();
-    //     $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
-    //        Navigation.refresh();
-    //     });
-    // }
-    // function ChangeAllowNewPlayerAccess(allow){
-    //     Loading.show();
-    //     $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
-    //        Loading.hide();
-    //     });
-    // }
-    // function ChangeAllowNewStudentEnvironment(allow){
-    //     Loading.show();
-    //     $.post('/school_locations/change_allow_new_student_environment/<?=getUUID($school_location, 'get');?>/'+(allow === true ? '1' : '0'),function(){
-    //         Navigation.refresh();
-    //     });
-    // }
 </script>
