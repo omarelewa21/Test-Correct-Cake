@@ -101,12 +101,11 @@
                             $btnText = __("Toestaan");
                         }
                     ?>
-                    <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="ChangeAllowInBrowserTesting(<?=$allow?>)"><?=$btnText?></span>
+                    <span class="btn small <?=$btnClass?>" style="float:right;cursor:pointer" onClick="updateSchoolLocation(<?=$allow?>, 'allow_inbrowser_testing')"><?=$btnText?></span>
                 </td>
 
                 <th><?= __("Nieuwe studenten omgeving toestaan")?></th>
                 <td>
-                    <span><?=$school_location['allow_new_student_environment']?></span>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('allow_new_student_environment',
                             array(
@@ -116,7 +115,7 @@
                                     'value' => !$school_location['allow_new_student_environment'],
                                     'div' => false,
                                     'style' => 'width:20px;',
-                                    'onclick' => 'ChangeAllowNewStudentEnvironment(this.checked)'
+                                    'onclick' => 'updateSchoolLocation(this.checked, "allow_new_student_env")'
                             )
                         ) ?>
                         <span class="slider round"></span>
@@ -136,6 +135,26 @@
 
                 <th><?= __("SSO Koppeling actief")?></th>
                 <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
+            </tr>
+            <tr>
+            
+            <th><?= __("Buiten school locatie rapport houden")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('keep_out_of_school_location_report',
+                            array(
+                                    'checked' => $school_location['keep_out_of_school_location_report'],
+                                    'label' => false,
+                                    'type' => 'checkbox',
+                                    'value' => $school_location['keep_out_of_school_location_report'],
+                                    'div' => false,
+                                    'style' => 'width:20px;',
+                                    'onclick' => 'updateSchoolLocation(this.checked, "keep_out_report")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
             </tr>
         </table>
     </div>
@@ -365,23 +384,31 @@
 
 <script>
     $('#new_player_access').val("<?= $school_location['allow_new_player_access'] ?>");
-
-    function ChangeAllowInBrowserTesting(allow){
+    
+    function updateSchoolLocation(allow, info){
         Loading.show();
-        $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+        $.post(`/school_locations/updateSchoolLocation/<?=getUUID($school_location, 'get');?>/${allow ? 1 : 0}/${info}`,
+        function(){
            Navigation.refresh();
         });
     }
-    function ChangeAllowNewPlayerAccess(allow){
-        Loading.show();
-        $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
-           Loading.hide();
-        });
-    }
-    function ChangeAllowNewStudentEnvironment(allow){
-        Loading.show();
-        $.post('/school_locations/change_allow_new_student_environment/<?=getUUID($school_location, 'get');?>/'+(allow === true ? '1' : '0'),function(){
-            Navigation.refresh();
-        });
-    }
+
+    // function ChangeAllowInBrowserTesting(allow){
+    //     Loading.show();
+    //     $.post('/school_locations/change_allow_inbrowser_testing/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+    //        Navigation.refresh();
+    //     });
+    // }
+    // function ChangeAllowNewPlayerAccess(allow){
+    //     Loading.show();
+    //     $.post('/school_locations/change_allow_new_player_access/<?=getUUID($school_location, 'get');?>/'+allow,function(){
+    //        Loading.hide();
+    //     });
+    // }
+    // function ChangeAllowNewStudentEnvironment(allow){
+    //     Loading.show();
+    //     $.post('/school_locations/change_allow_new_student_environment/<?=getUUID($school_location, 'get');?>/'+(allow === true ? '1' : '0'),function(){
+    //         Navigation.refresh();
+    //     });
+    // }
 </script>
