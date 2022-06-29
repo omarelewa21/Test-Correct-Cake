@@ -571,13 +571,13 @@ var Popup = {
     showPreviewTest: function (testId) {
         var url;
         var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-');
-        var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
+                var windowReference = window.open(liveUrl);
                 url = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.location = url;
                 windowReference.focus();
@@ -588,13 +588,13 @@ var Popup = {
     showPreviewAnswerModelTest: function (testId) {
         var url;
         var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
-        var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_answer_model_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
+                var windowReference = window.open(liveUrl);
                 url = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.location = url;
                 windowReference.focus();
@@ -604,13 +604,13 @@ var Popup = {
     showPreviewTestTakeAnswers: function (testTakeId) {
         var url;
         var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
-        var windowReference = window.open(liveUrl);
         $.ajax({
             type: 'post',
             url: '/test_takes/get_preview_test_take_answers_url/' + testTakeId,
             dataType: 'json',
             data: {},
             success: function (data) {
+                var windowReference = window.open(liveUrl);
                 url = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.location = url;
                 windowReference.focus();
