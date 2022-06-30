@@ -583,33 +583,27 @@ var Popup = {
     },
 
     showPreviewAnswerModelTest: function (testId) {
-        var url;
-        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
-        var windowReference = window.open(liveUrl);
+        var windowReference = window.open();
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_answer_model_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
-                url = Core.getCorrectLaravelUrl(data.data.url);
-                windowReference.location = url;
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
         });
     },
     showPreviewTestTakeAnswers: function (testTakeId) {
-        var url;
-        var liveUrl = window.location.protocol+'//'+window.location.host.replace('portal.test-','welcome.test-').replace('portal2.test-','welcome2.test-');
-        var windowReference = window.open(liveUrl);
+        var windowReference = window.open();
         $.ajax({
             type: 'post',
             url: '/test_takes/get_preview_test_take_answers_url/' + testTakeId,
             dataType: 'json',
             data: {},
             success: function (data) {
-                url = Core.getCorrectLaravelUrl(data.data.url);
-                windowReference.location = url;
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
         });
