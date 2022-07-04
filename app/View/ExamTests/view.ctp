@@ -1,4 +1,4 @@
-<div id="buttons">
+<div id="buttons" class="contains_dropdown">
     <a href="#" class="btn white mr2" onclick="Navigation.load('<?=$returnPath?>');">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug") ?>
@@ -34,7 +34,16 @@
             </a>
         <? } ?>
     <? } ?>
-
+    <div id="nav_pdf_button">
+        <a href="#" class="btn white mr2 action ui-dropper" data-drop="select_drop">
+            <span class="fa fa-print mr5"></span>
+            <?= __("PDF") ?>
+        </a>
+        <ul id="select_drop" class="ui-dropdown action-dropdown">
+            <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"><?= __("Toets") ?></a></li>
+            <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"><?=  __("Antwoord model") ?></a></li>
+        </ul>
+    </div>
     <?php if ($oldPlayerAccess) { ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/tests/preview_popup/<?= $test_id ?>', 1200);">
             <span class="fa fa-search mr5"></span>
@@ -47,15 +56,8 @@
             <?= !$oldPlayerAccess ? __("Voorbeeld") : __("Voorbeeld nieuwe speler") ?>
         </a>
     <?php } ?>
-    <a href="#" class="btn white mr2" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');">
-        <span class="fa fa-search mr5"></span>
-        <?=  __("Voorbeeld antwoord model") ?>
-    </a>
-    <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"
-       class="btn white mr2">
-        <span class="fa fa-print mr5"></span>
-        <?= __("PDF") ?>
-    </a>
+
+
     <? if ($test['author']['id'] == AuthComponent::user('id') && !AppHelper::isCitoTest($test)) { ?>
         <a href="#" class="btn white mr2" onclick="Test.delete('<?= $test_id ?>', true);">
             <span class="fa fa-remove mr5"></span>
@@ -553,3 +555,6 @@
 
     </script>
 <? } ?>
+<script>
+    Menu.initDropdownMenuButton();
+</script>
