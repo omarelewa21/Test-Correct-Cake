@@ -21,6 +21,9 @@
     .questionContainer th, .questionContainer td {
         padding: 0.1rem 0.2rem;
     }
+    p{
+        vertical-align: top;
+    }
 </style>
 <div style="text-align:center;">
     <img src="<?= $logo_url ?>" width="200" />
