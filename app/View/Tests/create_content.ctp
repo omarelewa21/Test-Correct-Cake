@@ -17,7 +17,11 @@
                 <span class="body"><?= __("Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen")?></span>
 
                 <button type="button"
+                    <?php if(AuthComponent::user('school_location.allow_new_test_bank') == 1) { ?>
+                        onclick="User.goToLaravel('/teacher/tests?referrerAction=create_test');"
+                        <?php } else { ?>
                         onclick="Popup.closeWithNewPopup('/tests/add?content_creation_step=2', 1000);"
+                        <?php } ?>
                         class="button cta-button button-md">
                     <span><?= __("Toets Construeren")?></span>
                 </button>
