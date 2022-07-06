@@ -25,7 +25,7 @@ if(count($takes) == 0) {
                 <table class="table table-striped">
                     <tr>
                         <th><?= __("Opdracht")?></th>
-                        <?php if($allow_guest_accounts) {?><th width="150">Student inlogtoetscode</th> <?php } ?>
+                        <?php if($allow_guest_accounts) {?><th width="150"><?= __("Student inlogtoetscode") ?></th> <?php } ?>
                         <th><?= __("Klas(sen)")?></th>
                         <th><?= __("Datum van")?></th>
                         <th><?= __("Datum tot")?></th>
@@ -51,13 +51,7 @@ if(count($takes) == 0) {
                                     <?php } ?>
                                 </td>
                             <?php } ?>
-
-                            <td>
-                                <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
-                            </td>
-                            <td>
-                                <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
-                            </td>
+                            
                             <td>
                                 <?php
                                 foreach ($take as $take_item) {
@@ -67,6 +61,14 @@ if(count($takes) == 0) {
                                 }
                                 ?>
                             </td>
+                            
+                            <td>
+                                <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
+                            </td>
+                            <td>
+                                <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
+                            </td>
+                            
 
                             <td>
                                 <?php
