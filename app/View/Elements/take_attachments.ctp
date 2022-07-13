@@ -38,7 +38,7 @@
 
                 $i++;
                 ?>
-                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=$attachment['id']?>',<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
+                <a href="#" class="btn white btn-attachment" style="margin-bottom: 2px;" onclick="Answer.loadAttachment('<?=getUUID($attachment, 'get');?>',<?=!empty($timeout) ? $timeout : "''"?>,<?= (int) $draggable?>);">
                 <?= __("Bijlage")?> #<?=$i?>
                 </a>
                 <?
