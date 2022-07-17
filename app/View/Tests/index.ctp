@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-5">
                         <label for=""><?= __("Leerjaar")?></label>
-                        <?= $this->Form->input('education_level_years', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
+                        <?= $this->Form->input('education_level_years', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
                     </div>
                 </div>
                 <div class="row">
@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for=""><?= __("Auteur")?></label>
-                        <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('author_id', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                 </div>

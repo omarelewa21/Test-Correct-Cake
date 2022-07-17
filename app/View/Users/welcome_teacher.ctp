@@ -197,7 +197,7 @@ if ($wizard_steps) {
         <div class="read-more">
             <div id="toggle-ob-wizard" class="showdemotour hide-demo-tour">
                 <span id="ob-wizard-finished-icon"></span>
-                <span class="text">Demotour verbergen</span>
+                <span class="text"><?= __('Demotour verbergen') ?></span>
                 <?= $this->element('chevron', array('style' => 'display:flex;transform:rotate(90deg) scale(0.8);', 'id' => 'checked_classes_svg')) ?>
             </div>
         </div>
@@ -516,11 +516,11 @@ if ($wizard_steps) {
             var tabDemoTourText = tabDemoTour.find('.text');
 
             if ($('#ob-wizard').is(':hidden') || doNotHide) {
-                tabDemoTourText.html('Demotour verbergen');
+                tabDemoTourText.html($.i18n('Demotour verbergen'));
                 chevron.css({ transform: 'rotate(270deg)', transition:'0.5s ease-in-out'});
                 $('#ob-wizard').slideDown( 'slow' );
             } else {
-                tabDemoTourText.html('Demotour tonen');
+                tabDemoTourText.html($.i18n('Demotour tonen'));
                 chevron.css({transform: 'rotate(90deg)', transition: '0.5s ease-in-out'})
                 $('#ob-wizard').slideUp('slow');
                 show = false;

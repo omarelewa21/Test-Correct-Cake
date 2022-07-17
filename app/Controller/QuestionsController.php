@@ -56,7 +56,7 @@ class QuestionsController extends AppController
 
 
         $filterTypes = [
-            '' => 'Alle',
+            '' => __('Alle'),
             'MultipleChoiceQuestion.TrueFalse' => __('Juist / Onjuist'),
             'MultipleChoiceQuestion.ARQ' => __('ARQ'),
             'MultipleChoiceQuestion.MultipleChoice' => __('Meerkeuze'),
@@ -908,7 +908,7 @@ class QuestionsController extends AppController
         ]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __('Alle'),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -920,13 +920,13 @@ class QuestionsController extends AppController
         $education_levels = $this->TestsService->getEducationLevels();
         $subjects = $this->TestsService->getSubjects(true);
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
-        $subjects = [0 => 'Alle'] + $subjects;
+        $education_levels = [0 => __('Alle')] + $education_levels;
+        $subjects = [0 => __('Alle')] + $subjects;
 
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
         $baseSubjects = [
-            '' => 'Alle',
+            '' => __('Alle'),
         ];
 
         foreach($_baseSubjects as $baseSubject){
@@ -955,12 +955,12 @@ class QuestionsController extends AppController
         $test = $this->Session->read('active_test');
 
         $filterSource = [
-            '' => 'Alles',
-            'me' => 'Eigen content',
-            'schoolLocation' => 'Schoollocatie',
+            '' => __('Alles'),
+            'me' => __('Eigen content'),
+            'schoolLocation' => __('Schoollocatie'),
         ];
         if(AuthComponent::user('hasSharedSections')){
-            $filterSource['school'] = 'Scholengemeenschap';
+            $filterSource['school'] = __('Scholengemeenschap');
         }
 
         $this->set('subject_id', getUUID($test['subject'], 'get'));
