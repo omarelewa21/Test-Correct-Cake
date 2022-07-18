@@ -568,6 +568,20 @@ var Popup = {
         this.message({btnOk: $.i18n('Annuleren'), title: $.i18n('Wissel van school'), message: schoolLocationsTemplate});
     },
 
+    showPdfTest: function (testId) {
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_pdf_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+
     showPreviewTest: function (testId) {
         var windowReference = window.open();
         $.ajax({
