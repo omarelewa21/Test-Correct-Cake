@@ -106,6 +106,9 @@ class CoreConnector {
         $this->url = $finalUrl;
         $this->method = 'GET';
 
+        $handle = $this->_getHandle($finalUrl, "GET");
+        $this->_execute($handle);
+        
 
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
     }
@@ -363,11 +366,12 @@ class CoreConnector {
     {
         App::uses('SobitLogger','Lib');
         SobitLogger::getInstance()->startSub($url, $method);
-
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-
+        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        }
         switch ($method) {
             case "POST":
                 curl_setopt($handle, CURLOPT_POST, 1);
