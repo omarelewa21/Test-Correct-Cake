@@ -139,7 +139,101 @@
         });
     }
     if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
-        $(document).ready(calcMaxLength());
+        $(document).ready(function(){
+            $('#message').ckeditor({
+                    toolbar: [
+                        { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                        { name: 'insert', items: [ 'Table' ] },
+                        { name: 'editing', items: [ 'Scayt', ] },
+                        '/',
+                        { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                        { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                    ],
+                    stylesSet: [
+                        /* Inline Styles */
+                        { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                        { name: 'Cited Work', element: 'cite' },
+                        { name: 'Inline Quotation', element: 'q' },
+
+                        /* Object Styles */
+                        {
+                            name: 'Special Container',
+                            element: 'div',
+                            styles: {
+                                padding: '5px 10px',
+                                background: '#eee',
+                                border: '1px solid #ccc'
+                            }
+                        },
+                        {
+                            name: 'Compact table',
+                            element: 'table',
+                            attributes: {
+                                cellpadding: '5',
+                                cellspacing: '0',
+                                border: '1',
+                                bordercolor: '#ccc'
+                            },
+                            styles: {
+                                'border-collapse': 'collapse'
+                            }
+                        },
+                        { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                        { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                    ]
+                });
+            });
+    }else{
+        $(document).ready(function(){
+            $('#message').ckeditor({
+                readOnly : true,
+                toolbar: [
+                        { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                        { name: 'insert', items: [ 'Table' ] },
+                        '/',
+                        { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                        { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                    ],
+                    stylesSet: [
+                        /* Inline Styles */
+                        { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                        { name: 'Cited Work', element: 'cite' },
+                        { name: 'Inline Quotation', element: 'q' },
+
+                        /* Object Styles */
+                        {
+                            name: 'Special Container',
+                            element: 'div',
+                            styles: {
+                                padding: '5px 10px',
+                                background: '#eee',
+                                border: '1px solid #ccc'
+                            }
+                        },
+                        {
+                            name: 'Compact table',
+                            element: 'table',
+                            attributes: {
+                                cellpadding: '5',
+                                cellspacing: '0',
+                                border: '1',
+                                bordercolor: '#ccc'
+                            },
+                            styles: {
+                                'border-collapse': 'collapse'
+                            }
+                        },
+                        { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                        { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                    ]
+            });
+        });
     }
 
 </script>
