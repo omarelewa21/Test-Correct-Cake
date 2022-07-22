@@ -137,7 +137,7 @@
                 <th><?= __("SSO Koppeling actief")?></th>
                 <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th><?= __("Examenmateriaal tonen")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
@@ -173,21 +173,21 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-            </tr>
+            </tr> -->
 
             <tr>
-                <th><?= __("TestCorrect inhoud tonen")?></th>
+                <th><?= __("Nationale itembank tonen")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
-                        <?= $this->Form->input('show_test_correct_content',
+                        <?= $this->Form->input('show_national_item_bank',
                             array(
-                                    'checked' => $school_location['show_test_correct_content'],
+                                    'checked' => $school_location['show_national_item_bank'],
                                     'label' => false,
                                     'type' => 'checkbox',
-                                    'value' => $school_location['show_test_correct_content'],
+                                    'value' => $school_location['show_national_item_bank'],
                                     'div' => false,
                                     'style' => 'width:20px;',
-                                    'onclick' => 'updateSchoolLocation(this.checked, "show_test_correct_content")'
+                                    'onclick' => 'updateSchoolLocation(this.checked, "show_national_item_bank")'
                             )
                         ) ?>
                         <span class="slider round"></span>
