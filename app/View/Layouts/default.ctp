@@ -211,6 +211,22 @@
                 <script>
                     User.userMenuExtension('teacher', {isToetsenbakker: <?= AuthComponent::user('isToetsenbakker') ? 'true' : 'false' ?>})
                 </script>
-        <?}}?>
+
+                <? if(AuthComponent::user('school_location.allow_wsc')===1){ ?>
+                <script>
+                    window.WEBSPELLCHECKER_CONFIG = {
+                        "autoSearch": true,
+                        "autoDestroy": true,
+                        "autocorrect": true,
+                        "autocomplete": true,
+                        "serviceProtocol": "https",
+                        "servicePort": "80",
+                        "serviceHost": "testwsc.test-correct.nl",
+                        "servicePath": "wscservice/api"
+                    }
+                </script>
+                <script src="https://testwsc.test-correct.nl/wscservice/wscbundle/wscbundle.js"></script>
+
+        <?}}}?>
 	</body>
 </html>
