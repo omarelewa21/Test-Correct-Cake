@@ -43,8 +43,8 @@
         </div>
 <? } ?>
 <? }else{ ?>
-    <div class="input-group cke_chrome">
-        <div style="display: block; border: 1px solid #d1d1d1; padding:10px; width: 600px; height: 260px;">
+    <div class="input-group">
+        <div style="display: block; border: 1px solid #d1d1d1; padding:10px; width: 600px; height: 260px;overflow: auto;">
         <? foreach($data['answer']['feedback'] as $feedback){ ?>
             <?= $feedback['message'] ?>
         <? } ?>
