@@ -292,10 +292,7 @@ class CoreConnector {
     private function _execute($handle, $decode = true, $headers = [])
     {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
-        curl_setopt($handle, CURLOPT_VERBOSE, true);
-        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
-            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-        }
+
         $headers['cakeLaravelFilterKey'] = Configure::read('cake_laravel_filter_key');
         $headers['cakeRealIP'] = $_SERVER["REMOTE_ADDR"];
         $headers['cakeUrlPath'] = strtok($_SERVER["REQUEST_URI"], '?');
@@ -361,10 +358,12 @@ class CoreConnector {
     {
         App::uses('SobitLogger','Lib');
         SobitLogger::getInstance()->startSub($url, $method);
-
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
+        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        }
         switch ($method) {
             case "POST":
                 curl_setopt($handle, CURLOPT_POST, 1);
