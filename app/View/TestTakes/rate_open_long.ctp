@@ -14,10 +14,10 @@ $answer = json_decode($answer, true);
             var editor = event.editor;
             var instance = WEBSPELLCHECKER.init({
                 container: editor.window.getFrame() ? editor.window.getFrame().$ : editor.element.$,
-                spellcheckLang: 'nl_NL',
+                spellcheckLang: '<?=$lang?>',
                 localization: 'nl'
             });
-            instance.setLang('nl_NL');
+            instance.setLang('<?=$lang?>');
         });
         readOnlyForWsc = false;
     <?php } ?>

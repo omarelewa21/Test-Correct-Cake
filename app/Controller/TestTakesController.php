@@ -923,7 +923,6 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
-
         if (!$answer) {
             echo __("Vraag niet gemaakt");
             die;
@@ -936,6 +935,8 @@ class TestTakesController extends AppController {
                 if ($answer['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $lang = !is_null($answer['question']['lang'])?$answer['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
                     $this->set('participantIdentifier', str_replace('-','',$participant_id).'_'.str_replace('-','',$question_id));
                     $view = 'rate_open_long';
                 }
