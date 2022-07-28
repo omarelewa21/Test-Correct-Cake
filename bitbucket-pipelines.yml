@@ -1,6 +1,6 @@
 pipelines:
     custom:
-        deploy-to-stagportal:
+        deploy-to-stageportal:
             - step:
                   name: Deploy to stageportal
                   image: php:7.4-alpine
