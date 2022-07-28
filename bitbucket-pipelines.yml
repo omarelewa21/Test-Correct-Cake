@@ -1,6 +1,6 @@
 pipelines:
     custom:
-        deploy-to-stagportal:
+        deploy-to-stageportal:
             - step:
                   name: Deploy to stageportal
                   image: php:7.4-alpine
@@ -18,4 +18,4 @@ pipelines:
                       - cat ssh_config >> ~/.ssh/config
                       - wget https://raw.githubusercontent.com/composer/getcomposer.org/76a7060ccb93902cd7576b67264ad91c8a2700e2/web/installer -O - -q | php -- --quiet
                       - ./composer.phar install
-                      - ./dep deploy -o pipeline=stageportal:pipeline:laravel -o git_tty=false --revision=$BITBUCKET_COMMIT
+                      - ./dep deploy -o pipeline=stageportal:pipeline:cake -o git_tty=false --revision=$BITBUCKET_COMMIT
