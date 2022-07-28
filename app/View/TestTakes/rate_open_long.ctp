@@ -4,6 +4,7 @@ $answer = json_decode($answer, true);
 
 
 ?>
+<div class="cke_editor_overlay" ></div>
 <?=$this->Form->input('answer'.$participantIdentifier, ['type' => 'textarea', 'style' => 'width:99%; height:70px; margin-top:20px;', 'label' => false, 'value' => preg_replace('/\<br(\s*)?\/?\>/i', "\n", $answer['value'])])?>
 <script type="text/javascript">
     var readOnlyForWsc = true;
@@ -18,6 +19,7 @@ $answer = json_decode($answer, true);
                 localization: 'nl'
             });
             instance.setLang('<?=$lang?>');
+            Overlay.overCkeditor4('.cke_editor_overlay',editor);
         });
         readOnlyForWsc = false;
     <?php } ?>
@@ -33,7 +35,7 @@ $answer = json_decode($answer, true);
 
     editor<?=$participantIdentifier;?>.on('instanceReady',function(){
         setTimeout(function(){editor<?=$participantIdentifier;?>.execCommand( 'autogrow' )},1000);
-        setTimeout(function(){editor<?=$participantIdentifier;?>.setReadOnly()},5000);
+        //setTimeout(function(){editor<?//=$participantIdentifier;?>//.setReadOnly()},5000);
     });
 
 
