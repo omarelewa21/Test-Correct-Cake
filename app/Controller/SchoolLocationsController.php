@@ -44,8 +44,8 @@ class SchoolLocationsController extends AppController
                 case 'show_cito_quick_test_start':
                     $data = ['show_cito_quick_test_start' => $allow];
                     break;
-                case 'show_test_correct_content':
-                    $data = ['show_test_correct_content' => $allow];
+                case 'show_national_item_bank':
+                    $data = ['show_national_item_bank' => $allow];
                     break;
                 default:
                     $data = [];
