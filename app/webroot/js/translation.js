@@ -107,6 +107,7 @@ $.i18n().load({
       'Geen bestand geselecteerd':'No file selected',
       'Selecteer':'Select',
       'Vraag opgeslagen':'Question saved',
+      'De bestaande vraag is toegevoegd.': 'Existing question has been added.',
 
       //test_preview & test_take.js
       'Antwoord opgeslagen':'Answer saved',
@@ -178,6 +179,8 @@ $.i18n().load({
       'Automatisch uitloggen uitstellen': 'Defer automatic logout',
       'Te verwerken toetsen': 'Test process',
       'Uploaden toets': 'Upload Test',
+      'Demotour verbergen': 'Hide demo tour',
+      'Demotour tonen': 'Show demo tour',
 
       //welcome-messages.js
       'Uitloggen':'Log out',

@@ -2193,7 +2193,7 @@ msgid "Pauzeerbaar"
 msgstr "Can be paused"
 
 msgid "Eenmalig afspelen"
-msgstr "Play once"
+msgstr "Playable once"
 
 msgid "Afspelen"
 msgstr "Play"
@@ -2205,7 +2205,7 @@ msgid "Afgespeeld"
 msgstr "Played"
 
 msgid "Seconden voor antwoord"
-msgstr "Seconds to reply"
+msgstr "Seconds to answer"
 
 msgid "Videofragment"
 msgstr "Video fragment"
@@ -4492,6 +4492,39 @@ msgstr "Show exam material"
 
 msgid "Cito snelle starttoets tonen"
 msgstr "Show cito quick test start"
+
+msgid "TestCorrect inhoud tonen"
+msgstr "Show TestCorrect content"
+
+msgid "- Te pauzeren"
+msgstr "- Can be paused"
+
+msgid "- Niet te pauzeren"
+msgstr "- Cannot be paused"
+
+msgid "- Eenmalig af te spelen"
+msgstr "- Playable once"
+
+msgid "- Oneindig af te spelen"
+msgstr "- Playable unlimited"
+
+msgid "- Binnen "
+msgstr "- within "
+
+msgid "s beantwoorden"
+msgstr "seconds answer time"
+
+msgid "Open antwoordtijd"
+msgstr "Open answer time"
+
+msgid "Afbeelding"
+msgstr "Image"
+
+msgid "Demotour verbergen"
+msgstr "Hide demo tour"
+
+msgid "Bewerk toets in nieuwe constructor"
+msgstr "Edit test in new constructor"
 
 msgid "Nationale itembank tonen"
 msgstr "Show national itembank"

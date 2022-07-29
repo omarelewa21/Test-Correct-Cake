@@ -47,8 +47,8 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5">
-                        <label for="">Auteur</label>
-                        <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <label for=""><?= __("Auteur") ?></label>
+                        <?= $this->Form->input('author_id', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                 </div>
