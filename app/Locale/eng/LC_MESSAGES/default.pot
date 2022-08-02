@@ -6327,3 +6327,15 @@ msgstr "According teacher"
 msgid "Naam toets"
 msgstr "Name test"
 
+msgid "Voeg standaard vakken en secties toe"
+msgstr "Add default sections and subjects"
+
+msgid "Weet u zeker dat u hier de standaard vakken en secties wilt toevoegen?"
+msgstr "Are you sure you want to add the default sections and subjects"
+
+msgid "De standaard vakken en secties zijn toegevoegd"
+msgstr "Sections and subjects added"
+
+msgid "Het is niet gelukt om de standaard vakken en secties toe te voegen, neem contact op met de helpdesk"
+msgstr "The default subjects and sections could not be added, please get in contact with the helpdesk"
+
