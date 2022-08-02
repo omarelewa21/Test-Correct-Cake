@@ -109,6 +109,26 @@ class SchoolLocationsController extends AppController
         $this->set('location_id', $location_id);
     }
 
+    public function add_default_subjects_and_sections($location_id)
+    {
+        $this->isAuthorizedAs(['Administrator']);
+
+        if($this->request->is('post')) {
+            $result = $this->SchoolLocationsService->addDefaultSubjectsAndSections($location_id);
+            if (!$result) {
+                $this->formResponse(
+                    false,
+                    $this->SchoolLocationsService->getErrors()
+                );
+            } else {
+                $this->formResponse(
+                    true,
+                    []
+                );
+            }
+        }
+    }
+
     public function delete_ip($location_id, $ip_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
