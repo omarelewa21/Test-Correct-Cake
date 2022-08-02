@@ -1,6 +1,6 @@
 <div id="buttons">
     <? if($isAdministrator && strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'): ?>
-        <a href="#" class="btn white" onclick="SchoolLocation.addDefaultSectionsAndSubjects('<?=getUUID($school_location, 'get');?>');">
+        <a href="#" class="btn white" selid="BtnAddDefaultSectionsAndSubjects" onclick="SchoolLocation.addDefaultSectionsAndSubjects('<?=getUUID($school_location, 'get');?>');">
             <span class="fa fa-edit mr5"></span>
             <?= __("Voeg standaard vakken en secties toe")?>
         </a>
