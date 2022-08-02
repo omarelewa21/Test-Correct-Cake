@@ -86,6 +86,11 @@ foreach($sections as $section) {
             </td>
             <td>
                 <?
+                echo $subject['abbreviation'].'<br />';
+                ?>
+            </td>
+            <td>
+                <?
                     echo $subject['base_subject']['name'] . '<br />';
                 ?>
             </td>

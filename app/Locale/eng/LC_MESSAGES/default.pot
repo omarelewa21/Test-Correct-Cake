@@ -1757,7 +1757,7 @@ msgstr ""
 
 #: View/CitoTests/index.ctp:127
 msgid "Afk."
-msgstr ""
+msgstr "Abbreviation"
 
 #: View/CitoTests/index.ctp:128
 #: View/SharedSectionsTests/index.ctp:113

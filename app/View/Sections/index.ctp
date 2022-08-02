@@ -16,6 +16,7 @@
                 <th><?= __("Sectie")?></th>
                 <th><?= __("Schoollocaties")?></th>
                 <th><?= __("Subject") ?></th>
+                <th><?= __("Afk.") ?></th>
                 <th><?= __("Categorie") ?></th>
                 <th></th>
             </tr>
