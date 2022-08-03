@@ -3,7 +3,7 @@ $user_id = AuthComponent::user()['id'];
 
 foreach($tests as $test) {
     ?>
-    <tr>
+    <tr selid="test-row">
       <?php if($test['is_open_source_content']): ?>
         <td>
             <i class="fa fa-free" style="background-image:url('/img/ico/free.png'); display:block; width:32px; height:32px">
@@ -14,7 +14,7 @@ foreach($tests as $test) {
       <?php endif; ?>
 
         <td style="background-color:<?=array_key_exists('background-color',$test)?$test['background-color']:''?>;" ><?=$test['abbreviation']?></td>
-        <td><?=$test['name']?></td>
+        <td selid="test-name"><?=$test['name']?></td>
         <td style="text-align: center"><?=$test['question_count']?></td>
         <td><?=$test['subject']['name']?></td>
         <td>

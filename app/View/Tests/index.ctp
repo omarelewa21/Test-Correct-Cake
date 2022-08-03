@@ -164,7 +164,7 @@
                 <th width="100">&nbsp;</th>
             </tr>
             </thead>
-            <tbody></tbody>
+            <tbody selid="test-body"></tbody>
         </table>
 
         <script type="text/javascript">
