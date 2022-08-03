@@ -197,21 +197,57 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-            </tr>
-            <tr>
-
-            <th><?= __("Buiten school locatie rapport houden")?></th>
+                <th><?= __("Buiten school locatie rapport houden")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('keep_out_of_school_location_report',
                             array(
-                                    'checked' => $school_location['keep_out_of_school_location_report'],
-                                    'label' => false,
-                                    'type' => 'checkbox',
-                                    'value' => $school_location['keep_out_of_school_location_report'],
-                                    'div' => false,
-                                    'style' => 'width:20px;',
-                                    'onclick' => 'updateSchoolLocation(this.checked, "keep_out_report")'
+                                'checked' => $school_location['keep_out_of_school_location_report'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['keep_out_of_school_location_report'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "keep_out_report")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th><?= __("Web spel checker toestaan")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_wsc',
+                            array(
+                                'checked' => $school_location['allow_wsc'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['allow_wsc'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_wsc")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+                <th><?= __("Schrijfopdracht beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_writing_assignment',
+                            array(
+                                'checked' => $school_location['allow_writing_assignment'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['allow_writing_assignment'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_writing_assignment")'
                             )
                         ) ?>
                         <span class="slider round"></span>

@@ -47,6 +47,12 @@ class SchoolLocationsController extends AppController
                 case 'show_national_item_bank':
                     $data = ['show_national_item_bank' => $allow];
                     break;
+                case 'allow_wsc':
+                    $data = ['allow_wsc' => $allow];
+                    break;
+                case 'allow_writing_assignment':
+                    $data = ['allow_writing_assignment' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
