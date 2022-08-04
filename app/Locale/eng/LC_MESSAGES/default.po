@@ -298,6 +298,9 @@ msgstr "Open question - long <br />"
 msgid "Open vraag<br />"
 msgstr "Open question <br />"
 
+msgid "Schrijf opdracht<br />"
+msgstr "Writing assignment <br />"
+
 msgid "Meerkeuze<br />"
 msgstr "Multiple choice <br />"
 
@@ -2131,6 +2134,9 @@ msgstr "Short"
 
 msgid "Lang"
 msgstr "Long"
+
+msgid "Schrijfopdracht"
+msgstr "Writing assignment"
 
 msgid "Rangschik vraag"
 msgstr "Order question"

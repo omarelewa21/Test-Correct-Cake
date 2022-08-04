@@ -278,6 +278,9 @@
                                             case 'medium':
                                                 echo __("Open vraag - lang<br />");
                                                 break;
+                                            case 'writing':
+                                                echo __("Schrijf opdracht<br />");
+                                                break;
                                             default:
                                                 echo __("Open vraag<br />");
                                                 break;
@@ -343,6 +346,9 @@
                                         case 'long':
                                         case 'medium':
                                             echo __("Open vraag - lang<br />");
+                                            break;
+                                        case 'writing':
+                                            echo __("Schrijf opdracht<br />");
                                             break;
                                         default:
                                             echo __("Open vraag<br />");
