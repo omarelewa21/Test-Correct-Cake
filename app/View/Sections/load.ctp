@@ -25,6 +25,7 @@ foreach($sections as $section) {
             </td>
             <td> ---- </td>
             <td> ---- </td>
+            <td> ---- </td>
             <td class="nopadding">
                 <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=getUUID($section, 'get');?>">
