@@ -412,6 +412,7 @@ class TestsController extends AppController
         $this->set('canEdit', $test['author']['id'] == AuthComponent::user()['id'] && $test['status'] != 1);
         $this->set('questions', $questionsArray);
         $this->set('test_id', $test_id);
+        $this->set('hasPdfAttachments', $this->hasPdfAttachments($questions));
 
         $newPlayerAccess = in_array($test['owner']['allow_new_player_access'], [1,2]);
         $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
@@ -768,6 +769,46 @@ class TestsController extends AppController
         $this->set('test_id', $test_id);
         $this->set('questions', $questions);
         $this->render('preview', 'preview');
+    }
+
+    public function hasPdfAttachments($questions) : bool
+    {
+        $questionsArray = [];
+
+        foreach ($questions as $question) {
+            if ($question['question']['type'] != 'GroupQuestion') {
+                $question = $this->QuestionsService->getQuestion('test', $test_id, getUUID($question, 'get'));
+
+                $questionsArray[] = $this->Question->printVersion($question['question']);
+            } else {
+
+                foreach ($question['question']['group_question_questions'] as $groupQuestionsQuestion) {
+
+                    $groupQuestion = $this->QuestionsService->getSingleQuestion(getUUID($groupQuestionsQuestion['question'], 'get'));
+
+                    $groupQuestion['question'] = $question['question']['question'] . '<br />' . $groupQuestion['question'];
+                    $groupQuestion['attachments'] = $question['question']['attachments'];
+
+                    $questionsArray[] = $this->Question->printVersion($groupQuestion);
+                }
+            }
+        }
+        $attachmentCount = 0;
+
+        for ($i = 0; $i < count($questionsArray); $i++) {
+            if ($questionsArray[$i]['attachments'] != '') {
+                for ($a = 0; $a < count($questionsArray[$i]['attachments']); $a++) {
+                    if ($questionsArray[$i]['attachments'][$a]['type'] == 'file' && strpos($questionsArray[$i]['attachments'][$a]['title'], '.pdf')) {
+                        $attachmentCount++;
+                    }
+                }
+            }
+        }
+
+        if($attachmentCount > 0) {
+            return true;
+        }
+        return false;
     }
 
     public function get_preview_url($testId)
