@@ -78,7 +78,7 @@ foreach($test_takes as $test_take) {
                     </a>
                     <a href="#" onclick="Popup.showPdfTestAttachments('<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
                         <span class="fa fa-file-o mr5"></span>
-                        <?= __("Printen pdf bijlagen") ?>
+                        <?= __("Printen pdf bijlagen") . '(new)' ?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="TestTake.delete(<?=getUUID($test_take, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
