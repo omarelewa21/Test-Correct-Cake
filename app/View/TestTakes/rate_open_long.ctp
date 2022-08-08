@@ -4,29 +4,14 @@ $answer = json_decode($answer, true);
 
 
 ?>
-<div class="cke_editor_overlay" ></div>
+<div class="cke_editor_overlay_<?=$participantIdentifier;?>" ></div>
 <?=$this->Form->input('answer'.$participantIdentifier, ['type' => 'textarea', 'style' => 'width:99%; height:70px; margin-top:20px;', 'label' => false, 'value' => preg_replace('/\<br(\s*)?\/?\>/i', "\n", $answer['value'])])?>
 <script type="text/javascript">
     var readOnlyForWsc = true;
-    <?php if(AuthComponent::user('school_location.allow_wsc')===1){ ?>
-        CKEDITOR.disableAutoInline = true;
-        CKEDITOR.config.removePlugins = 'scayt,wsc';
-        CKEDITOR.on('instanceReady', function(event) {
-            var editor = event.editor;
-            var instance = WEBSPELLCHECKER.init({
-                container: editor.window.getFrame() ? editor.window.getFrame().$ : editor.element.$,
-                spellcheckLang: '<?=$lang?>',
-                localization: 'nl'
-            });
-            try {
-                instance.setLang('<?=$lang?>');
-            } finally {
-                Overlay.overCkeditor4('.cke_editor_overlay',editor);
-            }
-        });
-        readOnlyForWsc = false;
-    <?php } ?>
 
+    <?php if(AuthComponent::user('school_location.allow_wsc')===1){ ?>
+    readOnlyForWsc = false;
+    <?php } ?>
     var editor<?=$participantIdentifier;?> = CKEDITOR.replace( 'answer<?=$participantIdentifier;?>', {
         toolbar : [ [ ] ],
         readOnly : readOnlyForWsc,
@@ -41,7 +26,26 @@ $answer = json_decode($answer, true);
         //setTimeout(function(){editor<?//=$participantIdentifier;?>//.setReadOnly()},5000);
     });
 
-
+    <?php if(AuthComponent::user('school_location.allow_wsc')===1){ ?>
+    editor<?=$participantIdentifier;?>.disableAutoInline = true;
+    editor<?=$participantIdentifier;?>.config.removePlugins = 'scayt,wsc';
+    editor<?=$participantIdentifier;?>.on('instanceReady', function(event) {
+        var editor = event.editor;
+        var instance = WEBSPELLCHECKER.init({
+            container: editor.window.getFrame() ? editor.window.getFrame().$ : editor.element.$,
+            spellcheckLang: '<?=$lang?>',
+            localization: 'nl'
+        });
+        try {
+            instance.setLang('<?=$lang?>');
+        } finally {
+            Overlay.overCkeditor4('.cke_editor_overlay_<?=$participantIdentifier;?>',editor);
+        }
+    });
+    editor<?=$participantIdentifier;?>.on('resize', function(event){
+        Overlay.overCkeditor4('.cke_editor_overlay_<?=$participantIdentifier;?>',event.editor);
+    });
+    <?php } ?>
 
 </script>
 <style>
