@@ -469,7 +469,7 @@ class TestTakesController extends AppController {
 </script>";
             exit;
         }
-        $this->set('hasPdfAttachments', $this->hasPdfAttachments($take['test']));
+        $this->set('hasPdfAttachments', $take['test']['has_pdf_attachments']);
 
         if ($take['test_take_status_id'] == 9) {
             $this->isAuthorizedAs(["Teacher", "Invigilator", "Student", "School Manager"]);
