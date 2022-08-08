@@ -18,8 +18,11 @@ $answer = json_decode($answer, true);
                 spellcheckLang: '<?=$lang?>',
                 localization: 'nl'
             });
-            instance.setLang('<?=$lang?>');
-            Overlay.overCkeditor4('.cke_editor_overlay',editor);
+            try {
+                instance.setLang('<?=$lang?>');
+            } finally {
+                Overlay.overCkeditor4('.cke_editor_overlay',editor);
+            }
         });
         readOnlyForWsc = false;
     <?php } ?>
