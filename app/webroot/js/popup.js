@@ -581,6 +581,32 @@ var Popup = {
             }
         });
     },
+    showPdfTestAttachments: function (testId) {
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_pdf_attachments_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+    showPdfTestTake: function (testtakeId) {
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/test_takes/get_preview_pdf_url/' + testtakeId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
 
     showPreviewTest: function (testId) {
         var windowReference = window.open();

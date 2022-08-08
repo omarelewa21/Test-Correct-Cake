@@ -28,6 +28,16 @@
             <span class="fa fa-print mr5"></span>
             <?= __("PDF") ?>
         </a>
+        <a class="btn white mr2" href="#"
+           onclick="Popup.showPdfTestTake('<?= getUUID($take, 'get') ?>', 1000)">
+            <span class="fa fa-print mr5"></span>
+            <?= __("PDF") .'(new)' ?>
+        </a>
+        <a class="btn white mr2" href="#"
+           onclick="Popup.showPdfTestAttachments('<?= getUUID($take['test'], 'get') ?>', 1000)">
+            <span class="fa fa-print mr5"></span>
+            <?= __("PDF attachments") .'(new)' ?>
+        </a>
 
         <a href="#" class="btn white" onclick="Popup.load('/test_takes/edit/<?= $take_id ?>', 500);">
             <span class="fa fa-edit mr5"></span>

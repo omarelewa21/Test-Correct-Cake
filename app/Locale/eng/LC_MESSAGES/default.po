@@ -664,6 +664,9 @@ msgstr "Review Tests"
 msgid "Toets"
 msgstr "Test"
 
+msgid "Toets pdf bijlagen"
+msgstr "Test pdf attachments"
+
 msgid "Vak"
 msgstr "Subject"
 
@@ -3052,6 +3055,9 @@ msgstr "Take test now"
 
 msgid "Exporteren / Printen"
 msgstr "Export / Print"
+
+msgid "Printen pdf bijlagen"
+msgstr "Print pdf attachments"
 
 msgid "Openen"
 msgstr "Open"

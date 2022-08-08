@@ -72,6 +72,14 @@ foreach($test_takes as $test_take) {
                         <span class="fa fa-file-o mr5"></span>
                         <?= __("Exporteren / Printen")?>
                     </a>
+                    <a href="#" onclick="Popup.showPdfTestTake('<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white">
+                        <span class="fa fa-file-o mr5"></span>
+                        <?= __("Exporteren / Printen") .'(new)'?>
+                    </a>
+                    <a href="#" onclick="Popup.showPdfTestAttachments('<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
+                        <span class="fa fa-file-o mr5"></span>
+                        <?= __("Printen pdf bijlagen") ?>
+                    </a>
                     <a href="#" class="btn highlight white" onclick="TestTake.delete(<?=getUUID($test_take, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
                         <?= __("Verwijderen")?>

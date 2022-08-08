@@ -779,6 +779,10 @@ class TestsController extends AppController
     {
         return $this->formResponse(true,  $this->TestsService->getTestPdfUrlForLaravel($testId));
     }
+    public function get_preview_pdf_attachments_url($testId)
+    {
+        return $this->formResponse(true,  $this->TestsService->getTestPdfAttachmentsUrlForLaravel($testId));
+    }
 
     public function get_preview_answer_model_url($testId)
     {

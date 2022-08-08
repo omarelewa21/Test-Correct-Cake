@@ -2931,4 +2931,8 @@ class TestTakesController extends AppController {
         return $this->formResponse(true,  $this->TestTakesService->getTestTakeAnswersUrlForLaravel($testTakeId));
     }
 
+    public function get_preview_pdf_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakePdfUrlForLaravel($testTakeId));
+    }
 }
