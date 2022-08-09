@@ -285,6 +285,9 @@ class QuestionsController extends AppController
                 } else {
                     $this->set('image', $this->getCorrectUrlsInString($question['answer']));
                 }
+                if($question['bg_name']){
+                    $this->set('backgroundImage', $this->getCorrectUrlsInString($this->QuestionsService->getBackgroundImageForDrawingQuestion($question['uuid'])));
+                }
                 $view = 'preview_drawing_answer';
                 break;
 
