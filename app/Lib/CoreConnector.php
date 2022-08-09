@@ -104,14 +104,6 @@ class CoreConnector {
         $this->params = $params;
         $this->url = $finalUrl;
         $this->method = 'GET';
-<<<<<<< HEAD
-
-        $handle = $this->_getHandle($finalUrl, "GET");
-        $this->_execute($handle);
-        
-
-=======
->>>>>>> @{-1}
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
     }
 
@@ -300,10 +292,7 @@ class CoreConnector {
     private function _execute($handle, $decode = true, $headers = [])
     {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
-        curl_setopt($handle, CURLOPT_VERBOSE, true);
-        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
-            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
-        }
+
         $headers['cakeLaravelFilterKey'] = Configure::read('cake_laravel_filter_key');
         $headers['cakeRealIP'] = $_SERVER["REMOTE_ADDR"];
         $headers['cakeUrlPath'] = strtok($_SERVER["REQUEST_URI"], '?');
@@ -372,12 +361,9 @@ class CoreConnector {
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-<<<<<<< HEAD
         if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
             curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
         }
-=======
->>>>>>> @{-1}
         switch ($method) {
             case "POST":
                 curl_setopt($handle, CURLOPT_POST, 1);
