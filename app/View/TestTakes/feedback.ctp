@@ -80,8 +80,8 @@
 
 <script>
     function calcMaxLength() {
-        var max = $('#message').attr('maxlength');
-        var chars = $('#message').val().length;
+        var max = $('#message_<?= getUUID($data['answer'], 'get') ?>').attr('maxlength');
+        var chars = $('#message_<?= getUUID($data['answer'], 'get') ?>').val().length;
 
         if(chars === 0){
             $('#barInputLength').css({'color': '#337ab7'});
@@ -94,11 +94,12 @@
     }
 
     function saveFeedback(answer_id){
+        CKEDITOR.instances['message_'+answer_id].updateElement();
         $.post(
             "test_takes/saveFeedback",
             {
                 answer_id: answer_id,
-                message:$('#message').val()
+                message:$('#message_'+answer_id).val()
             },
             function (data, status) {
                 data = JSON.parse(data)
@@ -134,104 +135,115 @@
             });
         });
     }
+
+
     if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
         $(document).ready(function(){
-            $('#message_<?= getUUID($data['answer'], 'get') ?>').ckeditor({
-                    extraPlugins : 'ckeditor_wiris',
-                    toolbar: [
-                        { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-                        { name: 'insert', items: [ 'Table' ] },
-                        { name: 'tools' , items: ['Maximize']},
-                        '/',
-                        { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
-                        { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
-                        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] },
-                        {name: 'wirisplugins', items: ['ckeditor_wiris_formulaEditor', 'ckeditor_wiris_formulaEditorChemistry']}
-                    ],
-                    stylesSet: [
-                        /* Inline Styles */
-                        { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
-                        { name: 'Cited Work', element: 'cite' },
-                        { name: 'Inline Quotation', element: 'q' },
+            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            if (editor) {
+                editor.destroy(true)
+            }
+            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
+                toolbar: [
+                    { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                    { name: 'insert', items: [ 'Table' ] },
+                    '/',
+                    { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                    { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                ],
+                stylesSet: [
+                    /* Inline Styles */
+                    { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                    { name: 'Cited Work', element: 'cite' },
+                    { name: 'Inline Quotation', element: 'q' },
 
-                        /* Object Styles */
-                        {
-                            name: 'Special Container',
-                            element: 'div',
-                            styles: {
-                                padding: '5px 10px',
-                                background: '#eee',
-                                border: '1px solid #ccc'
-                            }
+                    /* Object Styles */
+                    {
+                        name: 'Special Container',
+                        element: 'div',
+                        styles: {
+                            padding: '5px 10px',
+                            background: '#eee',
+                            border: '1px solid #ccc'
+                        }
+                    },
+                    {
+                        name: 'Compact table',
+                        element: 'table',
+                        attributes: {
+                            cellpadding: '5',
+                            cellspacing: '0',
+                            border: '1',
+                            bordercolor: '#ccc'
                         },
-                        {
-                            name: 'Compact table',
-                            element: 'table',
-                            attributes: {
-                                cellpadding: '5',
-                                cellspacing: '0',
-                                border: '1',
-                                bordercolor: '#ccc'
-                            },
-                            styles: {
-                                'border-collapse': 'collapse'
-                            }
-                        },
-                        { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
-                        { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
-                    ]
-                });
-            });
+                        styles: {
+                            'border-collapse': 'collapse'
+                        }
+                    },
+                    { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                    { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                ]
+            })
+        });
     }else{
         $(document).ready(function(){
-            var editor = $('#message_<?= getUUID($data['answer'], 'get') ?>').ckeditor({
+            if(!document.querySelector('#message_<?= getUUID($data['answer'], 'get') ?>')){
+                return;
+            }
+            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            if (editor) {
+                editor.destroy(true)
+            }
+            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
                 readOnly : true,
                 toolbar: [
-                        { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
-                        { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
-                        { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-                        { name: 'insert', items: [ 'Table' ] },
-                        '/',
-                        { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
-                        { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
-                        { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
-                    ],
-                    stylesSet: [
-                        /* Inline Styles */
-                        { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
-                        { name: 'Cited Work', element: 'cite' },
-                        { name: 'Inline Quotation', element: 'q' },
+                    { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                    { name: 'insert', items: [ 'Table' ] },
+                    '/',
+                    { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                    { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                ],
+                stylesSet: [
+                    /* Inline Styles */
+                    { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                    { name: 'Cited Work', element: 'cite' },
+                    { name: 'Inline Quotation', element: 'q' },
 
-                        /* Object Styles */
-                        {
-                            name: 'Special Container',
-                            element: 'div',
-                            styles: {
-                                padding: '5px 10px',
-                                background: '#eee',
-                                border: '1px solid #ccc'
-                            }
+                    /* Object Styles */
+                    {
+                        name: 'Special Container',
+                        element: 'div',
+                        styles: {
+                            padding: '5px 10px',
+                            background: '#eee',
+                            border: '1px solid #ccc'
+                        }
+                    },
+                    {
+                        name: 'Compact table',
+                        element: 'table',
+                        attributes: {
+                            cellpadding: '5',
+                            cellspacing: '0',
+                            border: '1',
+                            bordercolor: '#ccc'
                         },
-                        {
-                            name: 'Compact table',
-                            element: 'table',
-                            attributes: {
-                                cellpadding: '5',
-                                cellspacing: '0',
-                                border: '1',
-                                bordercolor: '#ccc'
-                            },
-                            styles: {
-                                'border-collapse': 'collapse'
-                            }
-                        },
-                        { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
-                        { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
-                    ]
-            });
+                        styles: {
+                            'border-collapse': 'collapse'
+                        }
+                    },
+                    { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                    { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                ]
+            })
         });
+
     }
 
 </script>
