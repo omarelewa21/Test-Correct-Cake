@@ -121,7 +121,6 @@
         >
             <?= $this->element('edit') ?>
             <span style="margin-left: 8px;font-size:16px;"><?= __('Bewerk toets in nieuwe constructor') ?></span>
-            <span class="beta-tag">BETA</span>
         </button>
 </div>
 <?php } ?>

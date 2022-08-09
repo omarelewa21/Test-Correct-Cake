@@ -136,17 +136,7 @@
         </div>
     </div>
 </div>
-<?php if(AuthComponent::user('school_location.allow_new_test_bank') == 1) { ?>
-    <div style="display:flex;width:100%;justify-content:center;margin-bottom: 1rem;">
-        <button class="button cta-button button-sm" style="display: flex; align-items: center"
-                onclick=" User.goToLaravel('/teacher/tests');"
-        >
-            <?= $this->element('edit') ?>
-            <span style="margin-left: 8px;font-size:16px;">Beta toetsenbank</span>
-            <span class="beta-tag">Beta</span>
-        </button>
-    </div>
-<?php } ?>
+
 <div class="block autoheight">
     <!--    <div class="block-head">Toetsen</div>-->
     <div class="block-content" id="testsContainter">
