@@ -32,8 +32,8 @@
 <? } ?>
 
 <script type="text/javascript">
-    if('<?=$question['subtype']?>' == 'long') {
-        $('#AnswerAnswer<?=getUUID($question, 'get');?>').ckeditor({toolbar : [ [ 'Bold', 'Italic' ] ]} );
+    if('<?=$question['subtype']?>' == 'long'|| '<?=$question['subtype']?>' == 'writing') {
+        $('#AnswerAnswer<?=getUUID($question, 'get');?>').ckeditor({toolbar : [ [ 'Bold', 'Italic' ] ],readOnly:true} );
     }else {
         $('#AnswerAnswer<?=getUUID($question, 'get');?>').redactor({
             buttons: ['bold', 'italic', 'orderedlist'],
