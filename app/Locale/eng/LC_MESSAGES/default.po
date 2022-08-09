@@ -667,6 +667,12 @@ msgstr "Back"
 msgid "Afgenomen toetsen"
 msgstr "Review Tests"
 
+msgid "Toets pdf bijlagen"
+msgstr "Test pdf attachments"
+
+msgid "Antwoord model"
+msgstr "Answer model"
+
 msgid "Toets"
 msgstr "Test"
 
@@ -3067,6 +3073,9 @@ msgstr "Take test now"
 
 msgid "Exporteren / Printen"
 msgstr "Export / Print"
+
+msgid "Printen pdf bijlagen"
+msgstr "Print pdf attachments"
 
 msgid "Openen"
 msgstr "Open"

@@ -412,6 +412,7 @@ class TestsController extends AppController
         $this->set('canEdit', $test['author']['id'] == AuthComponent::user()['id'] && $test['status'] != 1);
         $this->set('questions', $questionsArray);
         $this->set('test_id', $test_id);
+        $this->set('hasPdfAttachments', $test['has_pdf_attachments']);
 
         $newPlayerAccess = in_array($test['owner']['allow_new_player_access'], [1,2]);
         $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
@@ -778,6 +779,10 @@ class TestsController extends AppController
     public function get_preview_pdf_url($testId)
     {
         return $this->formResponse(true,  $this->TestsService->getTestPdfUrlForLaravel($testId));
+    }
+    public function get_preview_pdf_attachments_url($testId)
+    {
+        return $this->formResponse(true,  $this->TestsService->getTestPdfAttachmentsUrlForLaravel($testId));
     }
 
     public function get_preview_answer_model_url($testId)
