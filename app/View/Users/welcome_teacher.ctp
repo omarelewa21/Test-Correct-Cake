@@ -140,7 +140,11 @@ if ($wizard_steps) {
                 <span class="body"><?= __("Stel jouw toets in en zet jouw toets op met vraaggroepen en vragen")?></span>
 
                 <button type="button"
+                    <?php if(AuthComponent::user('school_location.allow_new_test_bank') == 1) { ?>
+                        onclick="User.goToLaravel('/teacher/tests?referrerAction=create_test');"
+                    <?php } else { ?>
                         onclick="Popup.load('/tests/add', 1000);"
+                    <?php } ?>
                         class="button cta-button button-md">
                     <span><?= __("Toets Construeren")?></span>
                 </button>
@@ -159,20 +163,7 @@ if ($wizard_steps) {
                     <span><?= __("Toets uploaden")?></span>
                 </button>
             </div>
-            <div class="cta-block">
-                <div class="svg">
-                    <?php echo $this->element('sticker_plan_test_take'); ?>
-                </div>
-                <h4><?= __("Toets inplannen")?></h4>
-                <span class="subtitle"><?= __("Plan een toets in om deze af te kunnen nemen")?></span>
-                <span class="body"><?= __("Kies de toets die je wilt afnemen en kies de gewenste datum en tijd")?></span>
 
-                <button type="button"
-                        onclick="Popup.load('/test_takes/add',1000);"
-                        class="button cta-button button-md">
-                    <span><?= __("Toets inplannen")?></span>
-                </button>
-            </div>
         </div>
         <div class="slider-button left display-none" onclick="scrollToLeft()">
             <?php echo $this->element('chevron'); ?>
