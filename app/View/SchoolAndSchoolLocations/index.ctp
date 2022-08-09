@@ -16,7 +16,7 @@
             </tr>
             <tr>
                 <td>
-                    <?=$this->Form->input('file', array('type' => 'file',  'label' => false, 'div' => false, 'onchange' => '')) ?>
+                    <?=$this->Form->input('file', array('type' => 'file', 'id' => 'fileuploadinput', 'label' => false, 'div' => false, 'onchange' => '')) ?>
                 </td>
             </tr>
         </table>
@@ -42,7 +42,7 @@
         $('#restartError').html('');
     }
 
-    function setSkipCheck(val = 1) {
+    function setSkipCheck(val = 1, fatalError = false) {
         $('#skipCheck').val(val);
         if(val == 1) {
             $('#handleSubmit').addClass('label-danger').removeClass('highlight').css('color', 'white');
@@ -53,7 +53,12 @@
         $('#handleSubmit').html(text);
     }
 
-    function handleSchoolAndSchoolLocationsImportResponse(data, nextFase){
+    function handleFatalError(){
+        $('#handleSubmit').hide();
+        $('#fileuploadinput').remove();
+    }
+
+    function handleSchoolAndSchoolLocationsImportResponse(data, nextFase, fatalError){
         // console.log(data);
         clearTimeout(wistjedatjeTimer);
         $('#newFile').hide();
@@ -84,6 +89,10 @@
 
         if(nextFase == 'finish'){
             jQuery('#SchoolAndSchoolLocationsImportBlock').html((data));
+        }
+
+        if(fatalError){
+            handleFatalError();
         }
     };
 
