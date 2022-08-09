@@ -212,8 +212,6 @@
                 <script>
                     User.userMenuExtension('teacher', {isToetsenbakker: <?= AuthComponent::user('isToetsenbakker') ? 'true' : 'false' ?>})
                 </script>
-
-                <? if(AuthComponent::user('school_location.allow_wsc')===1){ ?>
                 <script>
                     window.WEBSPELLCHECKER_CONFIG = {
                         "autoSearch": true,
@@ -227,7 +225,6 @@
                     }
                 </script>
                 <script src="https://testwsc.test-correct.nl/wscservice/wscbundle/wscbundle.js"></script>
-
-        <?}}}?>
+        <?}}?>
 	</body>
 </html>
