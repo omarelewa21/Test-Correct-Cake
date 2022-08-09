@@ -72,6 +72,7 @@ var Menu = {
                 Menu.initScrollForMenu();
             });
         });
+
     },
     loadTilesForMenu: function () {
         $('#tiles').load('/users/tiles', function () {
