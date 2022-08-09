@@ -1048,6 +1048,12 @@ msgstr "For a moment this may take time (as in a few minutes);"
 msgid "Import verwerken"
 msgstr "Process import"
 
+msgid "Import verwerken zonder validatie"
+msgstr "Process import without validation"
+
+msgid "Nieuw bestand verwerken"
+msgstr "Process another file"
+
 msgid "Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken.."
 msgstr "Did you know that with the CO-Learning module you can have the students mark the tests themselves ..."
 
