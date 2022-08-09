@@ -25,9 +25,10 @@ class SchoolAndSchoolLocationsController extends AppController
         $this->isAuthorizedAs(['Administrator']);
 
         $data = $this->request->data['SchoolAndSchoolLocations'];
-
+        $nextFase = 'start';
         if(!$data['file']['tmp_name']){
             $response = __("File niet gevonden om te importeren, probeer het nogmaals");
+            $nextFase = 'restartStartWithError';
         }else{
             $r = $this->SchoolAndSchoolLocationsService->uploadData($data);
 
@@ -43,18 +44,21 @@ class SchoolAndSchoolLocationsController extends AppController
                     }
                 }
                 $response = implode('<br>',$errors);
+                $nextFase = 'showSkipValidation';
             }
             else if(array_key_exists('error',$r)){
                 $response = $r['error'];
+                $nextFase = 'showSkipValidation';
             }
             else{
                 $response = $r['data'];
+                $nextFase = 'finish';
             }
         }
         echo "
             <div id='response'>".$response."</div>
             <script>
-                window.parent.handleSchoolAndSchoolLocationsImportResponse(document.getElementById('response').outerHTML);
+                window.parent.handleSchoolAndSchoolLocationsImportResponse(document.getElementById('response').outerHTML,'".$nextFase."');
             </script>
         ";
         exit;
