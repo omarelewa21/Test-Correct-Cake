@@ -32,7 +32,7 @@
         <a class="btn white mr2" href="#"
            onclick="Popup.showPdfTestAttachments('<?= getUUID($take['test'], 'get') ?>', 1000)">
             <span class="fa fa-print mr5"></span>
-            <?= __("PDF attachments") ?>
+            <?= __("Toets pdf bijlagen") ?>
         </a>
         <? } ?>
 

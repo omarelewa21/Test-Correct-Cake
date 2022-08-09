@@ -91,6 +91,8 @@ $.i18n().load({
       'Alleen afsluiten voor de studenten zonder tijdsdispensatie.':'Only close for the students without time dispensation.',
       'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.':'Completely closed, also for students with time dispensation.',
 
+      'Wacht alstublieft tot de pdf geladen is, het kan even duren.':'Please wait for the pdf to load, it may take a while.',
+
       //questions.js
       'Importeren':'Import',
       'Onderdeel van groepvraag':'Part of group question',
@@ -350,7 +352,7 @@ $.i18n().load({
       'Docent succesvol toegevoegd':'Docent succesvol toegevoegd',
       'Docent succesvol verwijderd':'Docent succesvol verwijderd',
       'Organisatie verwijderd':'Organisatie verwijderd',
-
+      'Wacht alstublieft tot de pdf geladen is, het kan even duren.':'Wacht alstublieft tot de pdf geladen is, het kan even duren.',
       // menu.js
       'Resultaten': 'Resultaten',
     }

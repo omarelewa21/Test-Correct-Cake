@@ -661,11 +661,14 @@ msgstr "Back"
 msgid "Afgenomen toetsen"
 msgstr "Review Tests"
 
-msgid "Toets"
-msgstr "Test"
-
 msgid "Toets pdf bijlagen"
 msgstr "Test pdf attachments"
+
+msgid "Antwoord model"
+msgstr "Answer model"
+
+msgid "Toets"
+msgstr "Test"
 
 msgid "Vak"
 msgstr "Subject"
