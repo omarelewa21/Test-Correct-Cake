@@ -568,8 +568,8 @@ var Popup = {
         this.message({btnOk: $.i18n('Annuleren'), title: $.i18n('Wissel van school'), message: schoolLocationsTemplate});
     },
 
-    showPdfTest: function (testId) {
-        var waitingHmtl = "<html><head><style>" +
+    getWaitingPageHtml: function () {
+        return "<html><head><style>" +
             "#animation {" +
             "background-image: url(/img/loading.gif);" +
             "}" +
@@ -584,6 +584,10 @@ var Popup = {
             "</span>" +
             "</div>" +
             "</body></html>";
+    },
+
+    showPdfTest: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
 
         var windowReference = window.open();
         $.ajax({
@@ -599,6 +603,8 @@ var Popup = {
         });
     },
     showPdfTestAttachments: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
         var windowReference = window.open();
         $.ajax({
             type: 'post',
@@ -606,12 +612,15 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
+                windowReference.document.write(waitingHmtl);
                 windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
         });
     },
     showPdfTestTake: function (testtakeId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
         var windowReference = window.open();
         $.ajax({
             type: 'post',
@@ -619,6 +628,7 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
+                windowReference.document.write(waitingHmtl);
                 windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
@@ -626,6 +636,8 @@ var Popup = {
     },
 
     showPreviewTest: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
         var windowReference = window.open();
         $.ajax({
             type: 'post',
@@ -633,6 +645,7 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
+                windowReference.document.write(waitingHmtl);
                 windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
@@ -640,6 +653,8 @@ var Popup = {
     },
 
     showPreviewAnswerModelTest: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
         var windowReference = window.open();
         $.ajax({
             type: 'post',
@@ -647,12 +662,15 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
+                windowReference.document.write(waitingHmtl);
                 windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
         });
     },
     showPreviewTestTakeAnswers: function (testTakeId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
         var windowReference = window.open();
         $.ajax({
             type: 'post',
@@ -660,6 +678,7 @@ var Popup = {
             dataType: 'json',
             data: {},
             success: function (data) {
+                windowReference.document.write(waitingHmtl);
                 windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
                 windowReference.focus();
             }
