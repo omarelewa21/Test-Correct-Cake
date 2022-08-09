@@ -26,6 +26,7 @@ class SchoolAndSchoolLocationsController extends AppController
 
         $data = $this->request->data['SchoolAndSchoolLocations'];
         $nextFase = 'start';
+
         if(!$data['file']['tmp_name']){
             $response = __("File niet gevonden om te importeren, probeer het nogmaals");
             $nextFase = 'restartStartWithError';
@@ -55,10 +56,15 @@ class SchoolAndSchoolLocationsController extends AppController
                 $nextFase = 'finish';
             }
         }
+
+        $fatalErrorCheckText = 'FATAL ERROR';
+        $hasFatalError = $fatalErrorCheckText !== '' && mb_strpos($response, $fatalErrorCheckText) !== false;
+
+
         echo "
             <div id='response'>".$response."</div>
             <script>
-                window.parent.handleSchoolAndSchoolLocationsImportResponse(document.getElementById('response').outerHTML,'".$nextFase."');
+                window.parent.handleSchoolAndSchoolLocationsImportResponse(document.getElementById('response').outerHTML,'".$nextFase."', ".$hasFatalError.");
             </script>
         ";
         exit;
