@@ -34,12 +34,12 @@
 <? if($data['has_feedback']){?>
         <div class="input-group">
             <? foreach($data['answer']['feedback'] as $feedback){ ?>
-                <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+                <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
             <? } ?>
         </div>
 <? }else{ ?>
         <div class="input-group">
-            <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="260px" autofocus maxlength="240"></textarea>
+            <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" autofocus maxlength="240"></textarea>
         </div>
 <? } ?>
 <? }else{ ?>
@@ -136,7 +136,7 @@
     }
     if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
         $(document).ready(function(){
-            $('#message').ckeditor({
+            $('#message_<?= getUUID($data['answer'], 'get') ?>').ckeditor({
                     extraPlugins : 'ckeditor_wiris',
                     toolbar: [
                         { name: 'clipboard', items: [ 'Undo', 'Redo' ] },
@@ -186,7 +186,7 @@
             });
     }else{
         $(document).ready(function(){
-            var editor = $('#message').ckeditor({
+            var editor = $('#message_<?= getUUID($data['answer'], 'get') ?>').ckeditor({
                 readOnly : true,
                 toolbar: [
                         { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
