@@ -201,7 +201,7 @@ if ($wizard_steps) {
                 <?php
                 $name = AuthComponent::user('name_first');
                 if (strlen(AuthComponent::user('name_first')) == 1
-                    || (strlen(AuthComponent::user('name_first')) == 2 && AuthComponent::user('name_first'){1} === '.')) {
+                    || (strlen(AuthComponent::user('name_first')) == 2 && AuthComponent::user('name_first')[1] === '.')) {
                     $name = sprintf('%s %s %s', AuthComponent::user('name_first'), AuthComponent::user('name_suffix'), AuthComponent::user('name'));
                 }
                 ?>
