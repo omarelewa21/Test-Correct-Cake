@@ -14,6 +14,10 @@ class TestTakesService extends BaseService {
         return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), $params, []);
     }
 
+    public function getTestTakePdfUrlForLaravel($take_id, $params = []) {
+        return $this->Connector->postRequest(sprintf('/test_take/pdf/%s/with_temporary_login', $take_id), $params, []);
+    }
+
     public function getAttainmentAnalysis($test_take_id) {
         $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/analysis',$test_take_id), []);
 

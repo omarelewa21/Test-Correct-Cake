@@ -68,10 +68,16 @@ foreach($test_takes as $test_take) {
                             <?= __("Nu afnemen")?>
                         </a>
                     <? } ?>
-                    <a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
+                    <a href="#" onclick="Popup.showPdfTestTake('<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white">
                         <span class="fa fa-file-o mr5"></span>
                         <?= __("Exporteren / Printen")?>
                     </a>
+                    <?php if($test_take['test']['has_pdf_attachments']) {?>
+                    <a href="#" onclick="Popup.showPdfTestAttachments('<?=getUUID($test_take['test'], 'get');?>', 1000)" class="btn highlight white">
+                        <span class="fa fa-file-o mr5"></span>
+                        <?= __("Printen pdf bijlagen")?>
+                    </a>
+                    <? } ?>
                     <a href="#" class="btn highlight white" onclick="TestTake.delete(<?=getUUID($test_take, 'getQuoted');?>);">
                         <span class="fa fa-remove mr5"></span>
                         <?= __("Verwijderen")?>
