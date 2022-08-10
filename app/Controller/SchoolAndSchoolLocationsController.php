@@ -26,6 +26,7 @@ class SchoolAndSchoolLocationsController extends AppController
 
         $data = $this->request->data['SchoolAndSchoolLocations'];
         $nextFase = 'start';
+        $fatalErrorCheckText = 'FATAL ERROR';
 
         if(!$data['file']['tmp_name']){
             $response = __("File niet gevonden om te importeren, probeer het nogmaals");
@@ -50,6 +51,17 @@ class SchoolAndSchoolLocationsController extends AppController
             else if(array_key_exists('error',$r)){
                 $response = $r['error'];
                 $nextFase = 'showSkipValidation';
+                if(HelperFunctions::getInstance()->isJson($response)){
+                    $response = json_decode($response);
+                    $data = '';
+                    if(is_array($response)){
+                        foreach($response as $error) {
+                            $color = ($fatalErrorCheckText !== '' && mb_strpos($error, $fatalErrorCheckText) !== false) ? 'red' : '';
+                            $data .= sprintf('<li style="color:%s">%s</li>',$color, $error);
+                        }
+                        $response = sprintf('<ul>%s</ul>',$data);
+                    }
+                }
             }
             else{
                 $response = $r['data'];
@@ -57,7 +69,7 @@ class SchoolAndSchoolLocationsController extends AppController
             }
         }
 
-        $fatalErrorCheckText = 'FATAL ERROR';
+
         $hasFatalError = $fatalErrorCheckText !== '' && mb_strpos($response, $fatalErrorCheckText) !== false;
 
 
