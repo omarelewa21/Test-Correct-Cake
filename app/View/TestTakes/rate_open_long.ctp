@@ -13,45 +13,15 @@ $answer = json_decode($answer, true);
 ?>
 <script type="text/javascript">
     var readOnlyForWsc = true;
+    var spellcheckAvailable = false;
+    var lang = '<?=$lang?>'
 
     <?php if($spellCheckAvailable){ ?>
-    readOnlyForWsc = false;
-    <?php } ?>
-    var editor<?=$participantIdentifier;?> = CKEDITOR.replace( 'answer<?=$participantIdentifier;?>', {
-        toolbar : [ [ ] ],
-        readOnly : readOnlyForWsc,
-        extraPlugins: 'wordcount,notification,autogrow,ckeditor_wiris',
-        removePlugins: 'resize',
-        autoGrow_onStartup : true,
-        contentsCss : '/ckeditor/rate.css'
-    });
-
-    editor<?=$participantIdentifier;?>.on('instanceReady',function(){
-        setTimeout(function(){editor<?=$participantIdentifier;?>.execCommand( 'autogrow' )},1000);
-        setTimeout(function(){Overlay.overCkeditor4('.cke_editor_overlay_<?=$participantIdentifier;?>',editor<?=$participantIdentifier;?>);},5000);
-    });
-
-    <?php if($spellCheckAvailable){ ?>
-        editor<?=$participantIdentifier;?>.disableAutoInline = true;
-        editor<?=$participantIdentifier;?>.config.removePlugins = 'scayt,wsc';
-        editor<?=$participantIdentifier;?>.on('instanceReady', function(event) {
-            var editor = event.editor;
-            var instance = WEBSPELLCHECKER.init({
-                container: editor.window.getFrame() ? editor.window.getFrame().$ : editor.element.$,
-                spellcheckLang: '<?=$lang?>',
-                localization: 'nl'
-            });
-            try {
-                instance.setLang('<?=$lang?>');
-            } finally {
-                Overlay.overCkeditor4('.cke_editor_overlay_<?=$participantIdentifier;?>',editor);
-            }
-        });
-        editor<?=$participantIdentifier;?>.on('resize', function(event){
-            Overlay.overCkeditor4('.cke_editor_overlay_<?=$participantIdentifier;?>',event.editor);
-        });
+        readOnlyForWsc = false;
+        spellcheckAvailable = true;
     <?php } ?>
 
+    CkeditorTlcMethods.initRateOpenLong('<?=$participantIdentifier;?>',spellcheckAvailable,readOnlyForWsc,lang);
 </script>
 <style>
     #cke_answer<?=$participantIdentifier;?>>.cke_inner>.cke_top{

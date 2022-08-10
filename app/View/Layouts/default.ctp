@@ -103,6 +103,7 @@
 		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
         <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
         <script type="text/javascript" src="/js/overlay.js?<?= time() ?>"></script>
+        <script type="text/javascript" src="/js/ckeditor_tlc_methods.js?<?= time() ?>"></script>
 
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
