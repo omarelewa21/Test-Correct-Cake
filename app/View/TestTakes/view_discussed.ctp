@@ -23,7 +23,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
             <ul id="select_drop" class="ui-dropdown action-dropdown">
                 <li><a href="#" onclick="Popup.showPdfTestTake('<?= $take_id ?>');"><?=  __("Toets") ?></a></li>
                 <? if($hasPdfAttachments) { ?>
-                <li><a href="#" onclick="Popup.showPdfTestAttachments('<?= $test_uuid ?>');"><?=  __("Toets pdf bijlagen") ?></a></li>
+                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= getUUID($take['test'], 'get') ?>', 1000)"><?=  __("Toets pdf bijlagen") ?></a></li>
                 <? } ?>
                 <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_uuid ?>');"><?=  __("Antwoord model") ?></a></li>
                 <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>
