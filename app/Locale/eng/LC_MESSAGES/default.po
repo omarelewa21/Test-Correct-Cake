@@ -3080,6 +3080,9 @@ msgstr "Export / Print"
 msgid "Printen pdf bijlagen"
 msgstr "Print pdf attachments"
 
+msgid "Print pdf bijlage"
+msgstr "Print pdf attachment"
+
 msgid "Openen"
 msgstr "Open"
 
@@ -3659,8 +3662,14 @@ msgstr "Attachments question"
 msgid "Selecteer de bijlages die u mee wilt printen."
 msgstr "Select the attachments you want to print."
 
+msgid "Selecteer de bijlage die u wilt printen. Of print de test zelf."
+msgstr "Select the attachment you want to print. Or print the test itself."
+
 msgid "Print PDF"
 msgstr "Print PDF"
+
+msgid "Print toets pdf"
+msgstr "Print test pdf"
 
 msgid "Toets voorbeeld"
 msgstr "Test example"
