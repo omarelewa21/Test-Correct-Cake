@@ -923,7 +923,6 @@ class TestTakesController extends AppController {
         $this->autoRender = false;
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
-
         if (!$answer) {
             echo __("Vraag niet gemaakt");
             die;
@@ -936,7 +935,11 @@ class TestTakesController extends AppController {
                 if ($answer['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $lang = !is_null($answer['question']['lang'])?$answer['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
                     $this->set('participantIdentifier', str_replace('-','',$participant_id).'_'.str_replace('-','',$question_id));
+                    $spellCheckAvailable = ($answer['question']['subtype']=='writing'&&$answer['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', $spellCheckAvailable);
                     $view = 'rate_open_long';
                 }
                 break;
@@ -1021,7 +1024,14 @@ class TestTakesController extends AppController {
                 if ($rating['answer']['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $lang = !is_null($rating['answer']['question']['lang'])?$rating['answer']['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
                     $this->set('participantIdentifier', str_replace('-','',$user_id));
+                    $spellCheckAvailable = ($rating['answer']['question']['subtype']=='writing'&&$rating['answer']['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', false);
+                    if($this->hasRole('teacher')){
+                        $this->set('spellCheckAvailable', $spellCheckAvailable);
+                    }
                     $view = 'rate_open_long';
                 }
 
@@ -1549,7 +1559,11 @@ class TestTakesController extends AppController {
                 if ($answer['answer']['question']['subtype'] == 'short') {
                     $view = 'rate_open';
                 }else{
+                    $lang = !is_null($answer['answer']['question']['lang'])?$answer['answer']['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
                     $this->set('participantIdentifier', str_replace('-','',getUUID($take['test_participant'], 'get')));
+                    $spellCheckAvailable = ($answer['answer']['question']['subtype']=='writing'&&$answer['answer']['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', false);
                     $view = 'rate_open_long';
                 }
 

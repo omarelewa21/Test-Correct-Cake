@@ -101,12 +101,9 @@ class CoreConnector {
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
-
         $this->params = $params;
         $this->url = $finalUrl;
         $this->method = 'GET';
-
-
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
     }
 
@@ -303,9 +300,7 @@ class CoreConnector {
         foreach($headers as $key => $value){
             $_headers[] = sprintf('%s: %s',$key,$value);
         }
-
         curl_setopt($handle, CURLOPT_HTTPHEADER, $_headers);
-
         $response = curl_exec($handle);
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
@@ -363,11 +358,12 @@ class CoreConnector {
     {
         App::uses('SobitLogger','Lib');
         SobitLogger::getInstance()->startSub($url, $method);
-
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-
+        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        }
         switch ($method) {
             case "POST":
                 curl_setopt($handle, CURLOPT_POST, 1);

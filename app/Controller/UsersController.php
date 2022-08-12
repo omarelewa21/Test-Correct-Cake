@@ -2466,7 +2466,6 @@ class UsersController extends AppController
 
         $appInfo = $this->getAppInfoFromSession();
         $response = $this->UsersService->getLaravelLoginPage();
-
         if ($appInfo['TLCOs'] == 'iOS') {
             $response['url'] = $response['url'].'?device=ipad';
         }
