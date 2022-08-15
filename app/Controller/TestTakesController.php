@@ -771,25 +771,52 @@ class TestTakesController extends AppController {
         $this->set('results', $results);
     }
 
-    public function rate_teacher_participant($take_id, $participant_index = 0) {
+    public function rate_teacher_participant($take_id, $participant_index = 0, $question_uuid = null) {
+        $view = 'rate_teacher_participant';
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $participants = $this->TestTakesService->getParticipants($take_id);
+
+        if($take['writing_assignments_count'] > 0) {
+            $view = 'rate_teacher_participant_with_writing_assignments';
+        }
 
         $this->Session->write('take_id', $take_id);
         $this->Session->write('take_data_' . $take_id, $take);
 
         $questions = [];
 
-        foreach ($allQuestions as $allQuestion) {
-            if ($allQuestion['question']['type'] == 'GroupQuestion') {
-                foreach ($allQuestion['question']['group_question_questions'] as $item) {
-                    $item['group_id'] = getUUID($allQuestion['question'], 'get');
-                    $questions[] = $item;
+        $currentQuestion = null;
+        $nextQuestion = null;
+        $takeNextQuestion = false;
+        $first = true;
+        foreach ($allQuestions as $item) {
+
+            if ($item['question']['type'] == 'GroupQuestion') {
+                foreach ($item['question']['group_question_questions'] as $sub_item) {
+                    $sub_item['group_id'] = getUUID($item['question'], 'get');
+                    $questions[] = $sub_item;
+                    if($takeNextQuestion){
+                        $nextQuestion = $sub_item;
+                        $takeNextQuestion = false;
+                    }
+                    if((!$question_uuid && $first) || getUUID($sub_item['question'], 'get') === $question_uuid){
+                        $currentQuestion = $sub_item;
+                        $takeNextQuestion = true;
+                    }
                 }
             } else {
-                $questions[] = $allQuestion;
+                $questions[] = $item;
+                if($takeNextQuestion){
+                    $nextQuestion = $item;
+                    $takeNextQuestion = false;
+                }
+                if((!$question_uuid && $first) || getUUID($item['question'], 'get') === $question_uuid){
+                    $currentQuestion = $item;
+                    $takeNextQuestion = true;
+                }
             }
+            $first = false;
         }
 
         $newParticipants = [];
@@ -802,12 +829,16 @@ class TestTakesController extends AppController {
 
         $participants = $newParticipants;
 
+
         $this->Session->write('active_participant', $participants[$participant_index]);
         $this->set('participant_id', getUUID($participants[$participant_index], 'get'));
         $this->set('questions', $questions);
+        $this->set('current_question',$currentQuestion ?: $questions[0]);
+        $this->set('next_question',$nextQuestion);
         $this->set('participant_index', $participant_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->render($view, 'ajax');
     }
 
     public function rate_teacher_participant_answer($take_id, $question_id) {
