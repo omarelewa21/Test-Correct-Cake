@@ -34,12 +34,12 @@
 <? if($data['has_feedback']){?>
         <div class="input-group">
             <? foreach($data['answer']['feedback'] as $feedback){ ?>
-                <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+                <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
             <? } ?>
         </div>
 <? }else{ ?>
         <div class="input-group">
-            <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" autofocus maxlength="240"></textarea>
+            <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" autofocus maxlength="240"></textarea>
         </div>
 <? } ?>
 <? }else{ ?>
@@ -154,6 +154,7 @@
                     { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
                     { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
                 ],
+                bodyClass: 'wsc_disabled',
                 stylesSet: [
                     /* Inline Styles */
                     { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
@@ -187,6 +188,11 @@
                     { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
                 ]
             })
+            //editor<?//= str_replace('-','_',getUUID($data['answer'], 'get')) ?>//.on('instanceReady', function(editor) {
+            //    setTimeout(function(){
+            //        editor.editor.document.$.activeElement.setAttribute('data-wsc',"false");
+            //    },100);
+            //});
         });
     }else{
         $(document).ready(function(){
@@ -209,6 +215,7 @@
                     { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
                     { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
                 ],
+                bodyClass: 'wsc_disabled',
                 stylesSet: [
                     /* Inline Styles */
                     { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
