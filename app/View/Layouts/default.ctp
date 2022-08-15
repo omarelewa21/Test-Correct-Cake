@@ -215,7 +215,7 @@
                 </script>
                 <script>
                     window.WEBSPELLCHECKER_CONFIG = {
-                        "autoSearch": true,
+                        "autoSearch": false,
                         "autoDestroy": true,
                         "autocorrect": true,
                         "autocomplete": true,
