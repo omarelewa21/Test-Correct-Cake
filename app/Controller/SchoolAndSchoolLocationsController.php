@@ -34,33 +34,26 @@ class SchoolAndSchoolLocationsController extends AppController
         }else{
             $r = $this->SchoolAndSchoolLocationsService->uploadData($data);
 
-            if(array_key_exists('errors',$r)){
-                $errors = [];
-                foreach($r['errors'] as $item){
-                    if(is_array($item)){
-                        foreach($item as $e){
-                            $errors[] = $e;
-                        }
-                    } else {
-                        $errors[] = $item;
-                    }
-                }
-                $response = implode('<br>',$errors);
-                $nextFase = 'showSkipValidation';
+            if(array_key_exists('errors',$r)) {
+                $r['error'] = $r['errors'];
             }
-            else if(array_key_exists('error',$r)){
+            if(array_key_exists('error',$r)){
                 $response = $r['error'];
                 $nextFase = 'showSkipValidation';
-                if(HelperFunctions::getInstance()->isJson($response)){
+                if(is_string($response)){
+                    $response = [$response];
+                }
+                else if(HelperFunctions::getInstance()->isJson($response)) {
                     $response = json_decode($response);
-                    $data = '';
-                    if(is_array($response)){
-                        foreach($response as $error) {
-                            $color = ($fatalErrorCheckText !== '' && mb_strpos($error, $fatalErrorCheckText) !== false) ? 'red' : '';
-                            $data .= sprintf('<li style="color:%s">%s</li>',$color, $error);
-                        }
-                        $response = sprintf('<ul>%s</ul>',$data);
+                }
+
+                $data = '';
+                if(is_array($response)){
+                    foreach($response as $error) {
+                        $color = ($fatalErrorCheckText !== '' && mb_strpos($error, $fatalErrorCheckText) !== false) ? 'red' : '';
+                        $data .= sprintf('<li style="color:%s">%s</li>',$color, $error);
                     }
+                    $response = sprintf('<ul>%s</ul>',$data);
                 }
             }
             else{

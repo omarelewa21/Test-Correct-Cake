@@ -32,12 +32,7 @@ class HelperFunctions
     }
 
     function isJson($string) {
-        try {
-            json_decode($string);
-            return true;
-        } catch (Throwable $e){
-            return false;
-        }
+        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
     }
 
     public function getCorrectUrlsInString($string)
