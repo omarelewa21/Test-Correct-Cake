@@ -983,7 +983,6 @@ class TestTakesController extends AppController {
 //                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
 //                    $this->set('drawing_url', $drawingAnswerUrl);
 //                }
-                $this->set('backgroundImage', $this->getCorrectUrlsInString($this->QuestionsService->getBackgroundImageForDrawingQuestion($question_id)));
                 $view = 'rate_drawing';
                 break;
 
@@ -1607,7 +1606,6 @@ class TestTakesController extends AppController {
 //                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
 //                    $this->set('drawing_url', $drawingAnswerUrl);
 //                }
-                $this->set('backgroundImage', $this->getCorrectUrlsInString($this->QuestionsService->getBackgroundImageForDrawingQuestion(getUUID($answer['answer']['question'], 'get'))));
                 $view = 'rate_drawing';
                 break;
 

@@ -3008,9 +3008,6 @@ msgstr "View up to"
 msgid "Toets bespreken"
 msgstr "Discuss test"
 
-msgid "Bespreken"
-msgstr "Discuss"
-
 msgid "CO-Learning"
 msgstr "CO-Learning"
 

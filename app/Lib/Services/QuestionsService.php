@@ -118,13 +118,6 @@ class QuestionsService extends BaseService
         return $image;
     }
 
-    public function getBackgroundImageForDrawingQuestion($drawingQuestionUuid)
-    {
-        $url = sprintf('/drawing-question/%s/background-image', $drawingQuestionUuid);
-        $image =  $this->Connector->getDownloadRequest($url, []);
-        return $image;
-    }
-
     public function duplicate($owner, $owner_id, $question_id)
     {
 
