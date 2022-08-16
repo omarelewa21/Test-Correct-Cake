@@ -568,7 +568,10 @@ var Popup = {
         this.message({btnOk: $.i18n('Annuleren'), title: $.i18n('Wissel van school'), message: schoolLocationsTemplate});
     },
 
-    getWaitingPageHtml: function () {
+    getWaitingPageHtml: function (message) {
+        if(message == undefined){
+            message = $.i18n('Wacht alstublieft tot de pdf geladen is, het kan even duren.');
+        }
         return "<html><head><style>" +
             "#animation {" +
             "background-image: url(/img/loading.gif);" +
@@ -580,7 +583,7 @@ var Popup = {
             "<div id='animation' style='width: 35px; height: 35px;'></div>" +
             "</div>" +
             "<span style='font-family: Nunito, sans-serif; font-size: 20pt;'>" +
-            $.i18n('Wacht alstublieft tot de pdf geladen is, het kan even duren.') + /* kan even duren + translation*/
+            message + /* kan even duren + translation*/
             "</span>" +
             "</div>" +
             "</body></html>";
@@ -636,7 +639,8 @@ var Popup = {
     },
 
     showPreviewTest: function (testId) {
-        var waitingHmtl = this.getWaitingPageHtml();
+        message = $.i18n('Wacht alstublieft tot de toets geladen is, het kan even duren.');
+        var waitingHmtl = this.getWaitingPageHtml(message);
 
         var windowReference = window.open();
         $.ajax({
