@@ -4492,3 +4492,9 @@ msgstr "Show cito quick test start"
 
 msgid "TestCorrect inhoud tonen"
 msgstr "Show TestCorrect content"
+
+msgid "Kopieer toetslink"
+msgstr "Copy test link"
+
+msgid "Toetscode"
+msgstr "Test code"
