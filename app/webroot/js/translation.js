@@ -92,6 +92,7 @@ $.i18n().load({
       'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.':'Completely closed, also for students with time dispensation.',
 
       'Wacht alstublieft tot de pdf geladen is, het kan even duren.':'Please wait for the pdf to load, it may take a while.',
+      'Wacht alstublieft tot de toets geladen is, het kan even duren.':'Please wait for the preview to load, it may take a while.',
 
       //questions.js
       'Importeren':'Import',
@@ -353,6 +354,7 @@ $.i18n().load({
       'Docent succesvol verwijderd':'Docent succesvol verwijderd',
       'Organisatie verwijderd':'Organisatie verwijderd',
       'Wacht alstublieft tot de pdf geladen is, het kan even duren.':'Wacht alstublieft tot de pdf geladen is, het kan even duren.',
+      'Wacht alstublieft tot de toets geladen is, het kan even duren.':'Wacht alstublieft tot de toets geladen is, het kan even duren.',
       // menu.js
       'Resultaten': 'Resultaten',
     }
