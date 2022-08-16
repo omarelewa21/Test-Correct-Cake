@@ -40,11 +40,11 @@ class SchoolAndSchoolLocationsController extends AppController
             if(array_key_exists('error',$r)){
                 $response = $r['error'];
                 $nextFase = 'showSkipValidation';
-                if(is_string($response)){
-                    $response = [$response];
-                }
-                else if(HelperFunctions::getInstance()->isJson($response)) {
+
+                if(HelperFunctions::getInstance()->isJson($response)) {
                     $response = json_decode($response);
+                } else if(is_string($response)){
+                    $response = [$response];
                 }
 
                 $data = '';
