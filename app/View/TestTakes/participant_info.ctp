@@ -101,7 +101,7 @@
                     'Started late' => __("Laat gestart"),
                     'Application closed' => __("Opnieuw gestart met toets"),
                     'Lost focus alt tab' => __("Via alt+tab naar ander venster"),
-                    'Pressed meta key' => __("Windows toets ingedrukt"),
+                    'Pressed meta key' => __("Windows of Apple toets ingedrukt"),
                     'Pressed alt key' => __("Alt toets ingedrukt"),
                     'Application closed alt+f4' => __("Applicatie afgesloten via alt+f4"),
                     'Lost focus blur' => __("App verlaten"),
