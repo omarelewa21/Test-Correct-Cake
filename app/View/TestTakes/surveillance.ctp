@@ -50,7 +50,7 @@ if(count($takes) == 0) {
                         <th></th>
                         <?}else{?>
                             <th><?= __("Toets") ?></th>
-                            <?php if($allow_guest_accounts) {?><th width="150"><?= __('Toetscode') ?></th> <?php } ?>
+                            <?php if($allow_guest_accounts) {?><th width="160"><?= __('Toetscode') ?></th> <?php } ?>
                             <th><?= __("Klas(sen)")?></th>
                             <th width="40"></th>
                             <th width="200"><?= __("Voortgang")?></th>
@@ -69,9 +69,11 @@ if(count($takes) == 0) {
                             <?php if($allow_guest_accounts) {?>
                             <td style="position: relative">
                                 <?php if($take[0]['code']) { ?>
-                                    <div title="<?= __('Kopieer toetslink') ?>" class="surveillance_test_code" onclick="TestTake.copyDirectlink('<?=$directBaseUrl . getUUID($take[0], 'get')  ?>');">
+                                    <div class="surveillance_test_code">
                                         <span><?= $take[0]['code'] ?></span>
-                                        <i class="fa fa-clipboard ml2"></i>
+                                        <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
+                                            onclick="TestTake.copyDirectlink('<?=$directBaseUrl . getUUID($take[0], 'get')  ?>');" style="cursor:pointer">
+                                        </i>
                                     </div>
                                 <?php } else { ?>
                                     <span></span>

@@ -620,7 +620,7 @@ th.subject-column, td.subject-column {
     padding: 2px 10px;
     color: var(--system-base);
     border-radius: 3px;
-    cursor: pointer;
+    cursor: text;
 }
 .surveillance_test_code span {
     font-size: 20px;
