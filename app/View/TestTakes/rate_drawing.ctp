@@ -7,14 +7,7 @@
     }
 ?>
 
-<div>
-    <? if(isset($backgroundImage) && $backgroundImage){ ?>
-        <img src="<?= $backgroundImage ?>" class="position-absolute w-500" style="height: 320px !important"/>
-        <img src="<?= $answer['answer'] ?>" class="position-relative w-500" style="height: 320px !important" />
-    <? }else{ ?>
-        <img src="<?= $answer['answer'] ?>" />
-    <? } ?>
-</div>
+<img src="<?= $answer['answer'] ?>" />
 
 <br />
 
