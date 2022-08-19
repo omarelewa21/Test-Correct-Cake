@@ -1,5 +1,9 @@
 <div id="buttons">
     <? if($isAdministrator && strtolower($school_location['customer_code']) !== 'tc-tijdelijke-docentaccounts'): ?>
+        <a href="#" class="btn white" selid="BtnAddDefaultSectionsAndSubjects" onclick="SchoolLocation.addDefaultSectionsAndSubjects('<?=getUUID($school_location, 'get');?>');">
+            <span class="fa fa-edit mr5"></span>
+            <?= __("Voeg standaard vakken en secties toe")?>
+        </a>
         <a href="#" class="btn white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
             <span class="fa fa-edit mr5"></span>
             <?= __("Wijzigen")?>
@@ -137,7 +141,7 @@
                 <th><?= __("SSO Koppeling actief")?></th>
                 <td><?=$school_location['sso_active'] ? __("Ja") : __("Nee") ?></td>
             </tr>
-            <tr>
+            <!-- <tr>
                 <th><?= __("Examenmateriaal tonen")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
@@ -173,41 +177,77 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-            </tr>
+            </tr> -->
 
             <tr>
-                <th><?= __("TestCorrect inhoud tonen")?></th>
+                <th><?= __("Nationale itembank tonen")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
-                        <?= $this->Form->input('show_test_correct_content',
+                        <?= $this->Form->input('show_national_item_bank',
                             array(
-                                    'checked' => $school_location['show_test_correct_content'],
+                                    'checked' => $school_location['show_national_item_bank'],
                                     'label' => false,
                                     'type' => 'checkbox',
-                                    'value' => $school_location['show_test_correct_content'],
+                                    'value' => $school_location['show_national_item_bank'],
                                     'div' => false,
                                     'style' => 'width:20px;',
-                                    'onclick' => 'updateSchoolLocation(this.checked, "show_test_correct_content")'
+                                    'onclick' => 'updateSchoolLocation(this.checked, "show_national_item_bank")'
                             )
                         ) ?>
                         <span class="slider round"></span>
                     </label>
                 </td>
-            </tr>
-            <tr>
-
-            <th><?= __("Buiten school locatie rapport houden")?></th>
+                <th><?= __("Buiten school locatie rapport houden")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('keep_out_of_school_location_report',
                             array(
-                                    'checked' => $school_location['keep_out_of_school_location_report'],
-                                    'label' => false,
-                                    'type' => 'checkbox',
-                                    'value' => $school_location['keep_out_of_school_location_report'],
-                                    'div' => false,
-                                    'style' => 'width:20px;',
-                                    'onclick' => 'updateSchoolLocation(this.checked, "keep_out_report")'
+                                'checked' => $school_location['keep_out_of_school_location_report'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['keep_out_of_school_location_report'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "keep_out_report")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+            </tr>
+
+            <tr>
+                <th><?= __("Web spel checker toestaan")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_wsc',
+                            array(
+                                'checked' => $school_location['allow_wsc'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['allow_wsc'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_wsc")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+                <th><?= __("Schrijfopdracht beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_writing_assignment',
+                            array(
+                                'checked' => $school_location['allow_writing_assignment'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['allow_writing_assignment'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_writing_assignment")'
                             )
                         ) ?>
                         <span class="slider round"></span>

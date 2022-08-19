@@ -2,26 +2,26 @@
 $answer = $rating['answer']['json'];
 $answer = json_decode($answer, true);
 
+
 ?>
-<?=$this->Form->input('answer'.$participantIdentifier, ['type' => 'textarea', 'style' => 'width:99%; height:70px; margin-top:20px;', 'label' => false, 'value' => preg_replace('/\<br(\s*)?\/?\>/i', "\n", $answer['value'])])?>
+<div class="cke_editor_overlay_<?=$participantIdentifier;?>" ></div>
+<?=$this->Form->input('answer'.$participantIdentifier, ['type' => 'textarea',
+                                                        'style' => 'width:99%; height:70px; margin-top:20px;',
+                                                        'label' => false,
+                                                        'value' => preg_replace('/\<br(\s*)?\/?\>/i', "\n", $answer['value']),
+                                                        'tabindex'=>'-1'])
+?>
 <script type="text/javascript">
+    var readOnlyForWsc = true;
+    var spellcheckAvailable = false;
+    var lang = '<?=$lang?>'
 
-    var editor<?=$participantIdentifier;?> = CKEDITOR.replace( 'answer<?=$participantIdentifier;?>', {
-        toolbar : [ [ ] ],
-        readOnly : true,
-        extraPlugins: 'wordcount,notification,autogrow,ckeditor_wiris',
-        removePlugins: 'resize',
-        autoGrow_onStartup : true,
-        contentsCss : '/ckeditor/rate.css'
-    });
+    <?php if($spellCheckAvailable){ ?>
+        readOnlyForWsc = false;
+        spellcheckAvailable = true;
+    <?php } ?>
 
-    editor<?=$participantIdentifier;?>.on('instanceReady',function(){
-        setTimeout(function(){editor<?=$participantIdentifier;?>.execCommand( 'autogrow' )},1000);
-    });
-
-
-
-
+    CkeditorTlcMethods.initRateOpenLong('<?=$participantIdentifier;?>',spellcheckAvailable,readOnlyForWsc,lang);
 </script>
 <style>
     #cke_answer<?=$participantIdentifier;?>>.cke_inner>.cke_top{

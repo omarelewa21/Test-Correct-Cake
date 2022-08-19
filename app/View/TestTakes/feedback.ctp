@@ -29,35 +29,31 @@
         
     </div>
 </div>
-
+<div class="tat-content body1" style="padding-top: 5px !important;">
+<? if($data['mode'] === 'write'){?>
 <? if($data['has_feedback']){?>
-    <div class="tat-content body1" style="padding-top: 5px !important;">
         <div class="input-group">
             <? foreach($data['answer']['feedback'] as $feedback){ ?>
-                <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" style="min-height: 200px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+                <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
             <? } ?>
         </div>
-        <div class="progress" style="background: white;">
-            <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                0/240 <?= __("tekens")?>
-            </div>
-        </div>
-    <div>
 <? }else{ ?>
-    <div class="tat-content body1" style="padding-top: 5px !important;">
         <div class="input-group">
-            <textarea <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message" width="200px" height="200px" autofocus maxlength="240"></textarea>
+            <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" autofocus maxlength="240"></textarea>
         </div>
-        <div class="progress" style="background: white;">
-            <div class="progress-bar" id="barInputLength" role="progressbar" aria-valuemin="0" aria-valuemax="100">
-                0/240 <?= __("tekens")?>
-            </div>
-        </div>
-    <div>
 <? } ?>
-
+<? }else{ ?>
+    <div class="input-group">
+        <div style="display: block; border: 1px solid #d1d1d1; padding:10px; width: 600px; height: 260px;overflow: auto;">
+        <? foreach($data['answer']['feedback'] as $feedback){ ?>
+            <?= $feedback['message'] ?>
+        <? } ?>
+        </div>
+    </div>
+<? } ?>
+    <div>
 <? if($data['mode'] === 'write'){ ?>
-    <div class="popup-footer tat-footer pt16" style="padding: 0!important; padding-top: 2rem!important;">
+    <div class="popup-footer tat-footer pt16" style="padding: 0!important; padding-top: 1rem!important;">
         <div style="display: flex;align-items:center;justify-content:flex-end;width: 100%">
             <div class="body2">
                 <button href="#" class="btn button button-sm cta-button pull-right" onclick="saveFeedback('<?= getUUID($data['answer'], 'get') ?>')">
@@ -84,8 +80,8 @@
 
 <script>
     function calcMaxLength() {
-        var max = $('#message').attr('maxlength');
-        var chars = $('#message').val().length;
+        var max = $('#message_<?= getUUID($data['answer'], 'get') ?>').attr('maxlength');
+        var chars = $('#message_<?= getUUID($data['answer'], 'get') ?>').val().length;
 
         if(chars === 0){
             $('#barInputLength').css({'color': '#337ab7'});
@@ -98,11 +94,12 @@
     }
 
     function saveFeedback(answer_id){
+        CKEDITOR.instances['message_'+answer_id].updateElement();
         $.post(
             "test_takes/saveFeedback",
             {
                 answer_id: answer_id,
-                message:$('#message').val()
+                message:$('#message_'+answer_id).val()
             },
             function (data, status) {
                 data = JSON.parse(data)
@@ -138,8 +135,122 @@
             });
         });
     }
+
+
     if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
-        $(document).ready(calcMaxLength());
+        $(document).ready(function(){
+            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            if (editor) {
+                editor.destroy(true)
+            }
+            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
+                toolbar: [
+                    { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                    { name: 'insert', items: [ 'Table' ] },
+                    '/',
+                    { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                    { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                ],
+                bodyClass: 'wsc_disabled',
+                stylesSet: [
+                    /* Inline Styles */
+                    { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                    { name: 'Cited Work', element: 'cite' },
+                    { name: 'Inline Quotation', element: 'q' },
+
+                    /* Object Styles */
+                    {
+                        name: 'Special Container',
+                        element: 'div',
+                        styles: {
+                            padding: '5px 10px',
+                            background: '#eee',
+                            border: '1px solid #ccc'
+                        }
+                    },
+                    {
+                        name: 'Compact table',
+                        element: 'table',
+                        attributes: {
+                            cellpadding: '5',
+                            cellspacing: '0',
+                            border: '1',
+                            bordercolor: '#ccc'
+                        },
+                        styles: {
+                            'border-collapse': 'collapse'
+                        }
+                    },
+                    { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                    { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                ]
+            })
+            //editor<?//= str_replace('-','_',getUUID($data['answer'], 'get')) ?>//.on('instanceReady', function(editor) {
+            //    setTimeout(function(){
+            //        editor.editor.document.$.activeElement.setAttribute('data-wsc',"false");
+            //    },100);
+            //});
+        });
+    }else{
+        $(document).ready(function(){
+            if(!document.querySelector('#message_<?= getUUID($data['answer'], 'get') ?>')){
+                return;
+            }
+            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            if (editor) {
+                editor.destroy(true)
+            }
+            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
+                readOnly : true,
+                toolbar: [
+                    { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
+                    { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
+                    { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
+                    { name: 'insert', items: [ 'Table' ] },
+                    '/',
+                    { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
+                    { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
+                    { name: 'align', items: [ 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock' ] }
+                ],
+                bodyClass: 'wsc_disabled',
+                stylesSet: [
+                    /* Inline Styles */
+                    { name: 'Marker', element: 'span', attributes: { 'class': 'marker' } },
+                    { name: 'Cited Work', element: 'cite' },
+                    { name: 'Inline Quotation', element: 'q' },
+
+                    /* Object Styles */
+                    {
+                        name: 'Special Container',
+                        element: 'div',
+                        styles: {
+                            padding: '5px 10px',
+                            background: '#eee',
+                            border: '1px solid #ccc'
+                        }
+                    },
+                    {
+                        name: 'Compact table',
+                        element: 'table',
+                        attributes: {
+                            cellpadding: '5',
+                            cellspacing: '0',
+                            border: '1',
+                            bordercolor: '#ccc'
+                        },
+                        styles: {
+                            'border-collapse': 'collapse'
+                        }
+                    },
+                    { name: 'Borderless Table', element: 'table', styles: { 'border-style': 'hidden', 'background-color': '#E6E6FA' } },
+                    { name: 'Square Bulleted List', element: 'ul', styles: { 'list-style-type': 'square' } }
+                ]
+            })
+        });
+
     }
 
 </script>

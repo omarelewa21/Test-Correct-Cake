@@ -52,7 +52,10 @@
             <?= __("PDF") ?>
         </a>
         <ul id="select_drop" class="ui-dropdown action-dropdown">
-            <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"><?= __("Toets") ?></a></li>
+            <li><a href="#" onclick="Popup.showPdfTest('<?= $test_id ?>');"><?=  __("Toets") ?></a></li>
+            <? if($hasPdfAttachments){ ?>
+                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"><?= __("Toets pdf bijlagen") ?></a></li>
+            <? } ?>
             <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"><?=  __("Antwoord model") ?></a></li>
         </ul>
     </div>
@@ -119,8 +122,7 @@
                 onclick="Questions.enterEmptyCms('<?= $test_id ?>', '<?= count($questions) > 0 ? 'edit' : 'add' ?>')"
         >
             <?= $this->element('edit') ?>
-            <span style="margin-left: 8px;font-size:16px;">Bewerk toets in nieuwe constructor</span>
-            <span class="beta-tag">BETA</span>
+            <span style="margin-left: 8px;font-size:16px;"><?= __('Bewerk toets in nieuwe constructor') ?></span>
         </button>
 </div>
 <?php } ?>
@@ -277,6 +279,9 @@
                                             case 'medium':
                                                 echo __("Open vraag - lang<br />");
                                                 break;
+                                            case 'writing':
+                                                echo __("Schrijf opdracht<br />");
+                                                break;
                                             default:
                                                 echo __("Open vraag<br />");
                                                 break;
@@ -342,6 +347,9 @@
                                         case 'long':
                                         case 'medium':
                                             echo __("Open vraag - lang<br />");
+                                            break;
+                                        case 'writing':
+                                            echo __("Schrijf opdracht<br />");
                                             break;
                                         default:
                                             echo __("Open vraag<br />");

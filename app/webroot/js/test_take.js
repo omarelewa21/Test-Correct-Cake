@@ -1475,6 +1475,23 @@ function catchscreenshotchromeOS(){
     }    
 }
 
+function focusCkeditorsAfterShow()
+{
+    for(var instanceName in CKEDITOR.instances) {
+        if(instanceName.indexOf('nswerAnswer')>0){
+            continue;
+        }
+        if(instanceName.indexOf('answer')<0){
+            continue;
+        }
+        if(!document.getElementById(instanceName)){
+            continue;
+        }
+        CKEDITOR.instances[instanceName].focus();
+        CKEDITOR.instances[instanceName].execCommand('autogrow');
+    }
+}
+
 // set the initial state (but only if browser supports the Page Visibility API)
 $(document).ready(function () {
     if (document[hidden] !== undefined) {

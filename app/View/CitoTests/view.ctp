@@ -40,7 +40,10 @@
             <?= __("PDF") ?>
         </a>
         <ul id="select_drop" class="ui-dropdown action-dropdown">
-            <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_id ?>', 1000)"><?= __("Toets") ?></a></li>
+            <li><a href="#" onclick="Popup.showPdfTest('<?= $test_id ?>');"><?=  __("Toets") ?></a></li>
+            <? if($hasPdfAttachments){ ?>
+                <li><a href="#" onclick="Popup.showPdfTestAttachments('<?= $test_id ?>');"><?=  __("Toets pdf bijlagen") ?></a></li>
+            <? } ?>
             <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_id ?>');"><?=  __("Antwoord model") ?></a></li>
         </ul>
     </div>
@@ -267,6 +270,9 @@
                                             case 'medium':
                                                 echo __("Open vraag - lang<br />");
                                                 break;
+                                            case 'writing':
+                                                echo __("Schrijf opdracht<br />");
+                                                break;
                                             default:
                                                 echo __("Open vraag<br />");
                                                 break;
@@ -332,6 +338,9 @@
                                         case 'long':
                                         case 'medium':
                                             echo __("Open vraag - lang<br />");
+                                            break;
+                                        case 'writing':
+                                            echo __("Schrijf opdracht<br />");
                                             break;
                                         default:
                                             echo __("Open vraag<br />");

@@ -102,6 +102,8 @@
 		<script type="text/javascript" src="/js/analyses.js?<?= time() ?>"></script>
 		<script type="text/javascript" src="/js/prettyCheckable.min.js?<?= time() ?>"></script>
         <script type="text/javascript" src="/js/filtermanager.js?<?= time() ?>"></script>
+        <script type="text/javascript" src="/js/overlay.js?<?= time() ?>"></script>
+        <script type="text/javascript" src="/js/ckeditor_tlc_methods.js?<?= time() ?>"></script>
 
 		<script src="/js/URLSearchParamsPolyfill.js?<?= time() ?>"></script>
         <script src="https://www.wiris.net/demo/plugins/app/WIRISplugins.js?viewer=image"></script>
@@ -211,6 +213,19 @@
                 <script>
                     User.userMenuExtension('teacher', {isToetsenbakker: <?= AuthComponent::user('isToetsenbakker') ? 'true' : 'false' ?>})
                 </script>
+                <script>
+                    window.WEBSPELLCHECKER_CONFIG = {
+                        "autoSearch": false,
+                        "autoDestroy": true,
+                        "autocorrect": true,
+                        "autocomplete": true,
+                        "serviceProtocol": "https",
+                        "servicePort": "80",
+                        "serviceHost": "wsc.test-correct.nl",
+                        "servicePath": "wscservice/api"
+                    }
+                </script>
+                <script src="https://wsc.test-correct.nl/wscservice/wscbundle/wscbundle.js"></script>
         <?}}?>
 	</body>
 </html>

@@ -21,7 +21,10 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 <?= __("PDF") ?>
             </a>
             <ul id="select_drop" class="ui-dropdown action-dropdown">
-                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= $test_uuid ?>', 1000)"><?= __("Toets") ?></a></li>
+                <li><a href="#" onclick="Popup.showPdfTestTake('<?= $take_id ?>');"><?=  __("Toets") ?></a></li>
+                <? if($hasPdfAttachments) { ?>
+                <li><a href="#" onclick="Loading.show();Popup.load('/tests/pdf_showPDFAttachment/<?= getUUID($take['test'], 'get') ?>', 1000)"><?=  __("Toets pdf bijlagen") ?></a></li>
+                <? } ?>
                 <li><a href="#" onclick="Popup.showPreviewAnswerModelTest('<?= $test_uuid ?>');"><?=  __("Antwoord model") ?></a></li>
                 <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>
             </ul>
@@ -39,10 +42,20 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
         <?= __("Openzetten")?>
     </a>
     <? }?>
+    <?php
+    if($take['writing_assignments_count'] > 0){
+    ?>
+        <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>');">
+        <span class="fa fa-hourglass-1 mr5"></span>
+        <?= __("Nakijken")?>
+    </a>
+    ?>
+    <?php } else { ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/start_rate_popup/<?= $take_id ?>', 610);">
         <span class="fa fa-hourglass-1 mr5"></span>
         <?= __("Nakijken")?>
     </a>
+    <?php } ?>
     <? if($normalization && $take['is_rtti_test_take'] == 0){ ?>
     <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?= $take_id ?>');">
         <span class="fa fa-hourglass-2 mr5"></span>

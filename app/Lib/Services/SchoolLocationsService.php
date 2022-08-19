@@ -81,6 +81,25 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
+    public function addDefaultSubjectsAndSections($locationId)
+    {
+        $response = $this->Connector->putRequest('/add_default_subjects_and_sections_to_school_location/'.$locationId,[],[]);
+
+        if ($response === false) {
+            $r = json_decode($this->Connector->getLastResponse(),true);
+            if(array_key_exists('errors',$r)){
+                if(is_array($r['errors'])){
+                    foreach($r['errors'] as $error){
+                        $this->addError($error);
+                    }
+                }
+            }
+            return false;
+        }
+
+        return $response;
+    }
+
     public function addSchoolLocation($data) {
 
         if(empty($data['school_id'])) {

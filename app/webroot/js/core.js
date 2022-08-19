@@ -590,7 +590,40 @@ var SchoolLocation = {
 				}
 			});
 		});
+	},
+
+	addDefaultSectionsAndSubjects: function(location_id) {
+		Popup.message({
+			btnOk: $.i18n('Ja'),
+			btnCancel: $.i18n('Annuleer'),
+			title: $.i18n('Weet u het zeker?'),
+			message: $.i18n('Weet u zeker dat u hier de standaard vakken en secties wilt toevoegen?')
+		}, function() {
+			Loading.show();
+			$.ajax({
+				url: '/school_locations/add_default_subjects_and_sections/' + location_id,
+				type: 'POST',
+				success: function(response) {
+					Loading.hide();
+					try {
+						response = JSON.parse(response);
+						if( !response.status ){
+							Notify.notify($.i18n('Het is niet gelukt om de standaard vakken en secties toe te voegen, neem contact op met de helpdesk'),'error');
+							return;
+						} else {
+							Notify.notify($.i18n('De standaard vakken en secties zijn toegevoegd'), 'info');
+							Navigation.back();
+						}
+					} catch (error) {}
+				},
+				error: function(response) {
+					Loading.hide();
+					Notify.notify($.i18n('Het is niet gelukt om de standaard vakken en secties toe te voegen, neem contact op met de helpdesk'),'error');
+				}
+			});
+		});
 	}
+
 };
 
 var SchoolClass = {

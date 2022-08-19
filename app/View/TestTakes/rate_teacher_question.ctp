@@ -40,7 +40,7 @@
 </div>
 
 <center>
-    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();"><?= __("Alle antwoorden weergeven")?></a>
+    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();focusCkeditorsAfterShow()"><?= __("Alle antwoorden weergeven")?></a>
 </center>
 
 <?

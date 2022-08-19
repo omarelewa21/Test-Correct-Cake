@@ -27,7 +27,7 @@
             >
                 <?= __("Examenmateriaal")?>
             </button>
-            <span style="display:flex;<?= $tab === 'shared_sections' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
+            <span style="display:flex;<?= $tab === 'exam' ? 'border-bottom: 3px solid var(--primary)' : '' ?>">
         </div>
         <div class="flex justifyContentCenter" style="flex-direction: column; position:relative; top: 1px;">
             <button class="flex button button-md text-button justifyContentCenter alignItemsCenter"

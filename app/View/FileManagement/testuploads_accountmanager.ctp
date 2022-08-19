@@ -36,12 +36,12 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for=""><?= __("Docent")?></label>
-                        <?= $this->Form->input('teacherId', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('teacherId', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                     <div class="col-md-5">
                         <label for=""><?= __("Behandelaar")?></label>
-                        <?= $this->Form->input('handlerId', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('handlerId', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                 </div>

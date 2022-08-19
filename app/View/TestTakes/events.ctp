@@ -44,6 +44,10 @@
                 } else {
                     $translation = $event['test_take_event_type']['name'];
                 }
+
+                if ($event['test_take_event_type']['name'] == 'VM detected') {
+                    $translation .= ': ' . $event['metadata']['software'];
+                }
                     ?>
                     <tr id="event_<?= getUUID($event, 'get'); ?>">
                         <td>

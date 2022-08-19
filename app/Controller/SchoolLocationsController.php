@@ -44,8 +44,14 @@ class SchoolLocationsController extends AppController
                 case 'show_cito_quick_test_start':
                     $data = ['show_cito_quick_test_start' => $allow];
                     break;
-                case 'show_test_correct_content':
-                    $data = ['show_test_correct_content' => $allow];
+                case 'show_national_item_bank':
+                    $data = ['show_national_item_bank' => $allow];
+                    break;
+                case 'allow_wsc':
+                    $data = ['allow_wsc' => $allow];
+                    break;
+                case 'allow_writing_assignment':
+                    $data = ['allow_writing_assignment' => $allow];
                     break;
                 default:
                     $data = [];
@@ -107,6 +113,26 @@ class SchoolLocationsController extends AppController
         }
 
         $this->set('location_id', $location_id);
+    }
+
+    public function add_default_subjects_and_sections($location_id)
+    {
+        $this->isAuthorizedAs(['Administrator']);
+
+        if($this->request->is('post')) {
+            $result = $this->SchoolLocationsService->addDefaultSubjectsAndSections($location_id);
+            if (!$result) {
+                $this->formResponse(
+                    false,
+                    $this->SchoolLocationsService->getErrors()
+                );
+            } else {
+                $this->formResponse(
+                    true,
+                    []
+                );
+            }
+        }
     }
 
     public function delete_ip($location_id, $ip_id) {
