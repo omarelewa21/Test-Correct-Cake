@@ -1,6 +1,14 @@
     <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
 
-<h1><?= __("Open vraag")?> <? if($question['subtype'] == 'short') { ?>- <?= __("kort")?><?}else {?>- <?= __("lang")?><?}?><?=AppHelper::showExternalId($question);?></h1>
+<h1><? if($question['subtype'] == 'writing'){ ?>
+        <?= __("Schrijfopdracht")?>
+    <? } else {?>
+        <?= __("Open vraag")?>
+        <? if($question['subtype'] == 'short') { ?>
+            - <?= __("kort")?>
+        <?}else {?>
+            - <?= __("lang")?>
+    <?}}?><?=AppHelper::showExternalId($question);?></h1>
 <div style="font-size: 20px;">
     <?
     if(isset($question['question_group']['text']) && !empty($question['question_group']['text'])) {

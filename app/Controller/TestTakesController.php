@@ -469,6 +469,7 @@ class TestTakesController extends AppController {
 </script>";
             exit;
         }
+        $this->set('hasPdfAttachments', $take['test']['has_pdf_attachments']);
 
         if ($take['test_take_status_id'] == 9) {
             $this->isAuthorizedAs(["Teacher", "Invigilator", "Student", "School Manager"]);
@@ -2976,4 +2977,8 @@ class TestTakesController extends AppController {
         return $this->formResponse(true,  $this->TestTakesService->getTestTakeAnswersUrlForLaravel($testTakeId));
     }
 
+    public function get_preview_pdf_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakePdfUrlForLaravel($testTakeId));
+    }
 }

@@ -25,7 +25,7 @@ if(!empty($attachments) || null !== $clone_attachments) {
                             if (strstr($attachment['file_mime_type'], 'audio')) {
                                 echo 'Audio';
                             }elseif (strstr($attachment['file_mime_type'], 'image')) {
-                                echo 'Afbeelding';
+                                echo __('Afbeelding');
                             } elseif ($attachment['type'] == 'video') {
                                 echo 'Video';
                             } elseif (strstr($attachment['file_mime_type'], 'pdf')) {
@@ -40,25 +40,25 @@ if(!empty($attachments) || null !== $clone_attachments) {
 
                                 if(isset($settings['pausable'])) {
                                     if($settings['pausable'] == '1') {
-                                        echo '- Te pauzeren';
+                                        echo __('- Te pauzeren');
                                     }else{
-                                        echo '- Niet te pauzeren';
+                                        echo __('- Niet te pauzeren');
                                     }
 
                                     echo '<br />';
                                 }
                                 if(isset($settings['play_once'])) {
                                     if($settings['play_once'] == '1') {
-                                        echo '- Eenmalig af te spelen';
+                                        echo __('- Eenmalig af te spelen');
                                     }else{
-                                        echo '- Oneindig af te spelen';
+                                        echo __('- Oneindig af te spelen');
                                     }
 
                                     echo '<br />';
                                 }
 
                                 if(isset($settings['timeout'])) {
-                                    echo '- Binnen ' . $settings['timeout'] . 's beantwoorden';
+                                    echo __('- Binnen ') . $settings['timeout'] . __('s beantwoorden');
                                 }
                             }
                             ?>

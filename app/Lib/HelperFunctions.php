@@ -31,6 +31,10 @@ class HelperFunctions
         return self::$instance;
     }
 
+    function isJson($string) {
+        return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
+    }
+
     public function getCorrectUrlsInString($string)
     {
         if (strpos($_SERVER['HTTP_HOST'], 'portal2.test')){

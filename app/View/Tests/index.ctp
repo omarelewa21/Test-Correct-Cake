@@ -46,7 +46,7 @@
                     </div>
                     <div class="col-md-5">
                         <label for=""><?= __("Leerjaar")?></label>
-                        <?= $this->Form->input('education_level_years', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
+                        <?= $this->Form->input('education_level_years', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => $education_level_years, 'multiple' => true)) ?>
                     </div>
                 </div>
                 <div class="row">
@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-md-5">
                         <label for=""><?= __("Auteur")?></label>
-                        <?= $this->Form->input('author_id', array('placeholder' => 'Alle', 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
+                        <?= $this->Form->input('author_id', array('placeholder' => __('Alle'), 'style' => 'width: 100%', 'label' => false, 'options' => [], 'multiple' => true)) ?>
                     </div>
 
                 </div>
@@ -136,17 +136,7 @@
         </div>
     </div>
 </div>
-<?php if(AuthComponent::user('school_location.allow_new_test_bank') == 1) { ?>
-    <div style="display:flex;width:100%;justify-content:center;margin-bottom: 1rem;">
-        <button class="button cta-button button-sm" style="display: flex; align-items: center"
-                onclick=" User.goToLaravel('/teacher/tests');"
-        >
-            <?= $this->element('edit') ?>
-            <span style="margin-left: 8px;font-size:16px;">Beta toetsenbank</span>
-            <span class="beta-tag">Beta</span>
-        </button>
-    </div>
-<?php } ?>
+
 <div class="block autoheight">
     <!--    <div class="block-head">Toetsen</div>-->
     <div class="block-content" id="testsContainter">
@@ -164,7 +154,7 @@
                 <th width="100">&nbsp;</th>
             </tr>
             </thead>
-            <tbody></tbody>
+            <tbody selid="test-body"></tbody>
         </table>
 
         <script type="text/javascript">

@@ -1577,12 +1577,22 @@ class UsersController extends AppController
                     'path'  => '/tests/create_content'
                 );
 
-                $tiles['tests_overview'] = array(
-                    'menu'  => 'library',
-                    'icon'  => 'testlist',
-                    'title' => __("Toetsenbank"),
-                    'path'  => '/tests/index'
-                );
+                if (AuthComponent::user('school_location.allow_new_test_bank') == 1) {
+                    $tiles['tests_overview'] = array(
+                        'menu'  => 'library',
+                        'icon'  => 'testlist',
+                        'title' => __("Toetsenbank"),
+                        'path'  => 'teacher/tests?openTab=personal',
+                        'type'  => 'laravelpage'
+                    );
+                } else {
+                    $tiles['tests_overview'] = array(
+                        'menu'  => 'library',
+                        'icon'  => 'testlist',
+                        'title' => __("Toetsenbank"),
+                        'path'  => '/tests/index'
+                    );
+                }
 
 //                if (AuthComponent::user('hasSharedSections')) {
 //                    $tiles['tests_shared_sections_overview'] = array(

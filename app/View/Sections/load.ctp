@@ -25,6 +25,7 @@ foreach($sections as $section) {
             </td>
             <td> ---- </td>
             <td> ---- </td>
+            <td> ---- </td>
             <td class="nopadding">
                 <?php if((bool) $section['demo'] !== true){?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="section_<?=getUUID($section, 'get');?>">
@@ -82,6 +83,11 @@ foreach($sections as $section) {
             <td>
                 <?
                     echo $subject['name'] . '<br />';
+                ?>
+            </td>
+            <td>
+                <?
+                echo $subject['abbreviation'].'<br />';
                 ?>
             </td>
             <td>

@@ -17,6 +17,6 @@
 </head>
 
 <body>
-<img src="/answers/download_attachment/<?=$attachment_id?>" />
+<img src="/answers/download_attachment/<?=getUUID($attachment, 'get');?>" />
 </body>
 </html>

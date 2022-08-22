@@ -56,7 +56,7 @@ class QuestionsController extends AppController
 
 
         $filterTypes = [
-            '' => 'Alle',
+            '' => __('Alle'),
             'MultipleChoiceQuestion.TrueFalse' => __('Juist / Onjuist'),
             'MultipleChoiceQuestion.ARQ' => __('ARQ'),
             'MultipleChoiceQuestion.MultipleChoice' => __('Meerkeuze'),
@@ -183,7 +183,9 @@ class QuestionsController extends AppController
 
         if (isset($group_id) && !empty($group_id)) {
             $group = $this->QuestionsService->getSingleQuestion($group_id);
-            $question['attachments'] = $group['attachments'];
+            $group['attachments'] = is_array($group['attachments']) ? $group['attachments'] : [];
+            $question['attachments'] = is_array($question['attachments']) ? $question['attachments'] : [];
+            $question['attachments'] = array_merge($group['attachments'], $question['attachments']);
             $question['question'] = $group['question'] . '<br /><br />' . $question['question'];
         }
 
@@ -908,7 +910,7 @@ class QuestionsController extends AppController
         ]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __('Alle'),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -920,13 +922,13 @@ class QuestionsController extends AppController
         $education_levels = $this->TestsService->getEducationLevels();
         $subjects = $this->TestsService->getSubjects(true);
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
-        $subjects = [0 => 'Alle'] + $subjects;
+        $education_levels = [0 => __('Alle')] + $education_levels;
+        $subjects = [0 => __('Alle')] + $subjects;
 
         $_baseSubjects = $this->TestsService->getMyBaseSubjects();
 
         $baseSubjects = [
-            '' => 'Alle',
+            '' => __('Alle'),
         ];
 
         foreach($_baseSubjects as $baseSubject){
@@ -955,12 +957,12 @@ class QuestionsController extends AppController
         $test = $this->Session->read('active_test');
 
         $filterSource = [
-            '' => 'Alles',
-            'me' => 'Eigen content',
-            'schoolLocation' => 'Schoollocatie',
+            '' => __('Alles'),
+            'me' => __('Eigen content'),
+            'schoolLocation' => __('Schoollocatie'),
         ];
         if(AuthComponent::user('hasSharedSections')){
-            $filterSource['school'] = 'Scholengemeenschap';
+            $filterSource['school'] = __('Scholengemeenschap');
         }
 
         $this->set('subject_id', getUUID($test['subject'], 'get'));

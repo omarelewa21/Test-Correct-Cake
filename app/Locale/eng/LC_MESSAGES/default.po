@@ -298,6 +298,9 @@ msgstr "Open question - long <br />"
 msgid "Open vraag<br />"
 msgstr "Open question <br />"
 
+msgid "Schrijf opdracht<br />"
+msgstr "Writing assignment <br />"
+
 msgid "Meerkeuze<br />"
 msgstr "Multiple choice <br />"
 
@@ -583,6 +586,9 @@ msgstr "Surveillance"
 msgid "Lopende opdrachten"
 msgstr "Open Assessments"
 
+msgid "Student inlogtoetscode"
+msgstr "Student login test code"
+
 msgid "Opdrachten"
 msgstr "Assessments"
 
@@ -660,6 +666,12 @@ msgstr "Back"
 
 msgid "Afgenomen toetsen"
 msgstr "Review Tests"
+
+msgid "Toets pdf bijlagen"
+msgstr "Test pdf attachments"
+
+msgid "Antwoord model"
+msgstr "Answer model"
 
 msgid "Toets"
 msgstr "Test"
@@ -1047,6 +1059,12 @@ msgstr "For a moment this may take time (as in a few minutes);"
 
 msgid "Import verwerken"
 msgstr "Process import"
+
+msgid "Import verwerken zonder validatie"
+msgstr "Process import without validation"
+
+msgid "Nieuw bestand verwerken"
+msgstr "Process another file"
 
 msgid "Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken.."
 msgstr "Did you know that with the CO-Learning module you can have the students mark the tests themselves ..."
@@ -2132,6 +2150,9 @@ msgstr "Short"
 msgid "Lang"
 msgstr "Long"
 
+msgid "Schrijfopdracht"
+msgstr "Writing assignment"
+
 msgid "Rangschik vraag"
 msgstr "Order question"
 
@@ -2193,7 +2214,7 @@ msgid "Pauzeerbaar"
 msgstr "Can be paused"
 
 msgid "Eenmalig afspelen"
-msgstr "Play once"
+msgstr "Playable once"
 
 msgid "Afspelen"
 msgstr "Play"
@@ -2205,7 +2226,7 @@ msgid "Afgespeeld"
 msgstr "Played"
 
 msgid "Seconden voor antwoord"
-msgstr "Seconds to reply"
+msgstr "Seconds to answer"
 
 msgid "Videofragment"
 msgstr "Video fragment"
@@ -3056,6 +3077,12 @@ msgstr "Take test now"
 msgid "Exporteren / Printen"
 msgstr "Export / Print"
 
+msgid "Printen pdf bijlagen"
+msgstr "Print pdf attachments"
+
+msgid "Print pdf bijlage"
+msgstr "Print pdf attachment"
+
 msgid "Openen"
 msgstr "Open"
 
@@ -3635,8 +3662,14 @@ msgstr "Attachments question"
 msgid "Selecteer de bijlages die u mee wilt printen."
 msgstr "Select the attachments you want to print."
 
+msgid "Selecteer de bijlage die u wilt printen. Of print de test zelf."
+msgstr "Select the attachment you want to print. Or print the test itself."
+
 msgid "Print PDF"
 msgstr "Print PDF"
+
+msgid "Print toets pdf"
+msgstr "Print test pdf"
 
 msgid "Toets voorbeeld"
 msgstr "Test example"
@@ -4495,3 +4528,36 @@ msgstr "Show cito quick test start"
 
 msgid "TestCorrect inhoud tonen"
 msgstr "Show TestCorrect content"
+
+msgid "- Te pauzeren"
+msgstr "- Can be paused"
+
+msgid "- Niet te pauzeren"
+msgstr "- Cannot be paused"
+
+msgid "- Eenmalig af te spelen"
+msgstr "- Playable once"
+
+msgid "- Oneindig af te spelen"
+msgstr "- Playable unlimited"
+
+msgid "- Binnen "
+msgstr "- within "
+
+msgid "s beantwoorden"
+msgstr "seconds answer time"
+
+msgid "Open antwoordtijd"
+msgstr "Open answer time"
+
+msgid "Afbeelding"
+msgstr "Image"
+
+msgid "Demotour verbergen"
+msgstr "Hide demo tour"
+
+msgid "Bewerk toets in nieuwe constructor"
+msgstr "Edit test in new constructor"
+
+msgid "Nationale itembank tonen"
+msgstr "Show national itembank"
