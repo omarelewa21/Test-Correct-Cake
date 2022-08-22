@@ -5,7 +5,7 @@
     };
     <?php } ?>
     Navigation.load('<?= $internal_page?>');
-    <? if(isset($toast)){ ?>
-      Notify.notify('<?= $toast ?>', "info");
+    <? if(isset($notification)){ ?>
+      Notify.notify('<?= $notification ?>', "info");
     <? } ?>
 </script>
