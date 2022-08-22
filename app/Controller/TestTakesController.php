@@ -480,9 +480,6 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('test_uuid', getUUID($take['test'],'get'));
-        
-        $directBaseUrl = parse_url(Configure::read('core_url'))['host'] . '/directlink/';
-        $this->set('directBaseUrl', $directBaseUrl);
 
         if ($take['test_take_status_id'] < 6) {
             $this->render('view_planned', 'ajax');
@@ -1744,9 +1741,6 @@ class TestTakesController extends AppController {
         $test_takes = $this->TestTakesService->getTestTakes($params);
 
         $this->set('test_takes', $test_takes['data']);
-
-        $directBaseUrl = parse_url(Configure::read('core_url'))['host'] . '/directlink/';
-        $this->set('directBaseUrl', $directBaseUrl);
     }
 
     public function load_taken_teacher() {
@@ -2061,9 +2055,6 @@ class TestTakesController extends AppController {
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
         $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
         $this->set('takes', $takes);
-
-        $directBaseUrl = parse_url(Configure::read('core_url'))['host'] . '/directlink/';
-        $this->set('directBaseUrl', $directBaseUrl);
     }
 
     public function surveillance_data($takeUuid=null) {

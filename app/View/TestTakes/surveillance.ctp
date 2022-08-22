@@ -72,7 +72,7 @@ if(count($takes) == 0) {
                                     <div class="surveillance_test_code">
                                         <span><?= $take[0]['code'] ?></span>
                                         <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
-                                            onclick="TestTake.copyDirectlink('<?=$directBaseUrl . getUUID($take[0], 'get')  ?>');" style="cursor:pointer">
+                                            onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer">
                                         </i>
                                     </div>
                                 <?php } else { ?>

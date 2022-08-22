@@ -3,7 +3,7 @@
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug") ?>
     </a>
-    <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$directBaseUrl . $take_id;?>');">
+    <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');">
         <span class="fa fa-clipboard mr5"></span>
         <?= __("Kopieer toetslink")?>
     </a>
@@ -60,7 +60,7 @@
         <div class="test-take-code-text-container">
             <h5><?= __('Toetscode') ?></h5>
             <h1><?= $take['test_take_code']['prefix'] ?> <?= chunk_split($take['test_take_code']['code'], 3, ' ') ?></h1>
-            <h2 title="<?= __('Kopieer toetslink') ?>" onclick="TestTake.copyDirectlink('<?=$directBaseUrl . $take_id ?>');" style="margin-left:1.5rem; color:#041f74; cursor:pointer;">
+            <h2 title="<?= __('Kopieer toetslink') ?>" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');" style="margin-left:1.5rem; color:#041f74; cursor:pointer;">
                 <span class="fa fa-clipboard mr5"></span>
             </h2>
         </div>

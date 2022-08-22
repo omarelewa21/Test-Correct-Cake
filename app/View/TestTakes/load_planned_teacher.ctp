@@ -46,7 +46,7 @@ foreach($test_takes as $test_take) {
             </a>
 
             <div class="dropblock blur-close" for="test_take_<?=getUUID($test_take, 'get');?>">
-                <a href="#" class="btn highlight white" onclick="TestTake.copyDirectlink('<?=$directBaseUrl . getUUID($test_take, 'get');?>');">
+                <a href="#" class="btn highlight white" onclick="TestTake.copyDirectlink('<?=$test_take['directLink']?>');">
                     <span class="fa fa-clipboard mr5"></span>
                     <?= __("Kopieer toetslink")?>
                 </a>
