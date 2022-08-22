@@ -76,7 +76,9 @@ if(count($takes) == 0) {
                                         </i>
                                     </div>
                                 <?php } else { ?>
-                                    <span></span>
+                                    <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
+                                        onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer; color:#041F74">
+                                    </i>
                                 <?php } ?>
                             </td>
                             <?php } ?>
