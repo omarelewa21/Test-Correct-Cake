@@ -4558,3 +4558,12 @@ msgstr "Edit test in new constructor"
 
 msgid "Nationale itembank tonen"
 msgstr "Show national itembank"
+
+msgid "Web spel checker toestaan"
+msgstr "web spell checker available"
+
+msgid "Schrijfopdracht beschikbaar"
+msgstr "Writingassignment available"
+
+msgid "Creathlon itembank beschikbaar"
+msgstr "Creathlon itembank available"

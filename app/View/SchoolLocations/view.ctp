@@ -254,6 +254,26 @@
                     </label>
                 </td>
             </tr>
+            <tr>
+                <th><?= __("Creathlon itembank beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_creathlon',
+                            array(
+                                'checked' => $school_location['feature_settings']['allow_creathlon'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['feature_settings']['allow_creathlon'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_creathlon")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+            </tr>
         </table>
     </div>
 </div>
