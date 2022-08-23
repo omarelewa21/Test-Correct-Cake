@@ -76,7 +76,7 @@ foreach($participants as $participant) {
 
                 <div style="width: 100%; text-align: center">
                     <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%) !important"
-                        onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', 700);"
+                        onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', window.innerWidth - 100);"
                     >
                         <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
                         <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
