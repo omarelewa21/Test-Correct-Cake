@@ -148,7 +148,7 @@
                     { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
                     { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
                     { name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote' ] },
-                    { name: 'insert', items: [ 'Table' ] },
+                    { name: 'insert', items: [ 'Table','Maximize' ] },
                     '/',
                     { name: 'styles', items: [ 'Format', 'Font', 'FontSize' ] },
                     { name: 'colors', items: [ 'TextColor', 'BGColor', 'CopyFormatting' ] },
