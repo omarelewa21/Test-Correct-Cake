@@ -30,18 +30,39 @@
     </div>
 </div>
 <div class="tat-content body1" style="padding-top: 5px !important;">
-<? if($data['mode'] === 'write'){?>
-<? if($data['has_feedback']){?>
-        <div class="input-group">
-            <? foreach($data['answer']['feedback'] as $feedback){ ?>
-                <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
-            <? } ?>
-        </div>
-<? }else{ ?>
-        <div class="input-group">
-            <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="200px" height="260px" autofocus maxlength="240"></textarea>
-        </div>
-<? } ?>
+<?
+    $writableFeedback = ($data['mode'] === 'write');
+    if($writableFeedback){?>
+    <? if($data['has_feedback']){?>
+            <div class="input-group">
+                <? foreach($data['answer']['feedback'] as $feedback){
+                    if($feedback['user_id'] == AuthComponent::user('id')){
+                    ?>
+                        <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+                    <?php
+                    } else {
+                             echo $feedback['message'];
+                    }
+                }
+                ?>
+            </div>
+    <? }else{ ?>
+            <div class="input-group">
+                <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" autofocus maxlength="240"></textarea>
+            </div>
+    <? } ?>
+    <script type="text/javascript">
+        var readOnlyForWsc = true;
+        var spellcheckAvailable = false;
+        var lang = '<?=$data['answer']['lang']?>';
+
+        <?php if($data['answer']['question_is_writing_assignment_with_spellcheck_available']){ ?>
+        readOnlyForWsc = false;
+        spellcheckAvailable = true;
+        <?php } ?>
+
+        CkeditorTlcMethods.initRateOpenLong('message_<?=getUUID($data['answer'], 'get') ?>',spellcheckAvailable,readOnlyForWsc,lang,'');
+    </script>
 <? }else{ ?>
     <div class="input-group">
         <div style="display: block; border: 1px solid #d1d1d1; padding:10px; width: 600px; height: 260px;overflow: auto;">

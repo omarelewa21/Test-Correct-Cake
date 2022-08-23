@@ -1,8 +1,8 @@
 var CkeditorTlcMethods = {
 
 
-    initRateOpenLong: function(id,spellcheckAvailable,readOnlyForWsc,lang) {
-        var editor = CKEDITOR.replace('answer' + id, {
+    initRateOpenLong: function(id,spellcheckAvailable,readOnlyForWsc,lang, prefix = 'answer') {
+        var editor = CKEDITOR.replace(prefix + id, {
             toolbar: [[]],
             readOnly: readOnlyForWsc,
             extraPlugins: 'wordcount,notification,autogrow,ckeditor_wiris',
