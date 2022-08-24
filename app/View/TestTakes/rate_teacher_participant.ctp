@@ -70,10 +70,9 @@
                         <?= __("Laden..")?>
                         </div>
                     </div>
-
                     <div style="width: 100%; text-align: center">
                         <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
-                            onclick="Popup.load('/test_takes/getFeedback/write/<?=$participant_id?>/<?=getUUID($question['question'], 'get')?>/<?= $index ?>', 700);"
+                            onclick="Popup.load('/test_takes/getFeedback/write/<?=$participant_id?>/<?=getUUID($question['question'], 'get')?>/<?= $index ?>', window.innerWidth - 100);"
                         >
                             <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
                             <span style="position:relative; bottom:1px" id="feedback_<?=$participant_id?><?=getUUID($question['question'], 'get')?>"><?= __('Geef feedback') ?></span>

@@ -41,7 +41,7 @@ foreach($answers as $answer) {
 
         <div style="width: 100%; text-align: center">
             <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
-                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/write/<?=getUUID($answer['answer'], 'get')?>/noIndex', 700);"
+                onclick="Popup.load('/test_takes/getFeedbackByAnswerId/write/<?=getUUID($answer['answer'], 'get')?>/noIndex', window.innerWidth - 100);"
             >
                 <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
                 <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($answer['answer']['testparticipant'], 'get')?><?=getUUID($answer['answer']['question'], 'get')?>"><?= __('Geef feedback') ?></span>
