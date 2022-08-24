@@ -38,7 +38,7 @@
                 <? foreach($data['answer']['feedback'] as $feedback){
                     if($feedback['user_id'] == AuthComponent::user('id')){
                     ?>
-                        <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
+                        <textarea class="" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="feedback_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" style="min-height: 260px; line-height: 1.5rem" autofocus maxlength="240"><?= $feedback['message'] ?></textarea>
                     <?php
                     } else {
                              echo $feedback['message'];
@@ -48,21 +48,9 @@
             </div>
     <? }else{ ?>
             <div class="input-group">
-                <textarea class="wsc_disabled" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="message_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" autofocus maxlength="240"></textarea>
+                <textarea class="" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="feedback_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" autofocus maxlength="240"></textarea>
             </div>
     <? } ?>
-    <script type="text/javascript">
-        var readOnlyForWsc = true;
-        var spellcheckAvailable = false;
-        var lang = '<?=$data['answer']['lang']?>';
-
-        <?php if($data['answer']['question_is_writing_assignment_with_spellcheck_available']){ ?>
-        readOnlyForWsc = false;
-        spellcheckAvailable = true;
-        <?php } ?>
-
-        CkeditorTlcMethods.initRateOpenLong('message_<?=getUUID($data['answer'], 'get') ?>',spellcheckAvailable,readOnlyForWsc,lang,'');
-    </script>
 <? }else{ ?>
     <div class="input-group">
         <div style="display: block; border: 1px solid #d1d1d1; padding:10px; width: 600px; height: 260px;overflow: auto;">
@@ -101,8 +89,8 @@
 
 <script>
     function calcMaxLength() {
-        var max = $('#message_<?= getUUID($data['answer'], 'get') ?>').attr('maxlength');
-        var chars = $('#message_<?= getUUID($data['answer'], 'get') ?>').val().length;
+        var max = $('#feedback_<?= getUUID($data['answer'], 'get') ?>').attr('maxlength');
+        var chars = $('#feedback_<?= getUUID($data['answer'], 'get') ?>').val().length;
 
         if(chars === 0){
             $('#barInputLength').css({'color': '#337ab7'});
@@ -115,12 +103,12 @@
     }
 
     function saveFeedback(answer_id){
-        CKEDITOR.instances['message_'+answer_id].updateElement();
+        CKEDITOR.instances['feedback_'+answer_id].updateElement();
         $.post(
             "test_takes/saveFeedback",
             {
                 answer_id: answer_id,
-                message:$('#message_'+answer_id).val()
+                message:$('#feedback_'+answer_id).val()
             },
             function (data, status) {
                 data = JSON.parse(data)
@@ -157,14 +145,15 @@
         });
     }
 
-
-    if('<?= $data['mode'] === 'write' ? 'true' : false ?>'){
+    <?php
+    if($data['mode'] === 'write'){
+    ?>
         $(document).ready(function(){
-            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            var editor = CKEDITOR.instances['feedback_<?= getUUID($data['answer'], 'get') ?>'];
             if (editor) {
                 editor.destroy(true)
             }
-            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
+            var _editor = CKEDITOR.replace('feedback_<?= getUUID($data['answer'], 'get') ?>', {
                 toolbar: [
                     { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
                     { name: 'basicstyles', items: [ 'Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat', 'Subscript', 'Superscript' ] },
@@ -214,17 +203,33 @@
             //        editor.editor.document.$.activeElement.setAttribute('data-wsc',"false");
             //    },100);
             //});
+
+            var readOnlyForWsc = true;
+            var spellcheckAvailable = false;
+            var lang = '<?=$data['answer']['lang']?>';
+
+            <?php if($data['answer']['question_is_writing_assignment_with_spellcheck_available']){ ?>
+            readOnlyForWsc = false;
+            spellcheckAvailable = true;
+            <?php } ?>
+
+            CkeditorTlcMethods.initRateOpenLong('feedback_<?=getUUID($data['answer'], 'get') ?>',spellcheckAvailable,readOnlyForWsc,lang,'', false, _editor);
+
         });
+
+
+    <?php
     }else{
+    ?>
         $(document).ready(function(){
-            if(!document.querySelector('#message_<?= getUUID($data['answer'], 'get') ?>')){
+            if(!document.querySelector('#feedback_<?= getUUID($data['answer'], 'get') ?>')){
                 return;
             }
-            var editor = CKEDITOR.instances['message_<?= getUUID($data['answer'], 'get') ?>'];
+            var editor = CKEDITOR.instances['feedback_<?= getUUID($data['answer'], 'get') ?>'];
             if (editor) {
                 editor.destroy(true)
             }
-            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('message_<?= getUUID($data['answer'], 'get') ?>', {
+            var editor<?= str_replace('-','_',getUUID($data['answer'], 'get')) ?> = CKEDITOR.replace('feedback_<?= getUUID($data['answer'], 'get') ?>', {
                 readOnly : true,
                 toolbar: [
                     { name: 'clipboard', items: [ 'PasteFromWord', '-', 'Undo', 'Redo' ] },
@@ -271,9 +276,9 @@
                 ]
             })
         });
-
+    <?php
     }
-
+    ?>
 </script>
 
 <? if ($data['mode'] === 'read'){ ?>
