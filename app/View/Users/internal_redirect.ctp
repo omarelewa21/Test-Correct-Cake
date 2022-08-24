@@ -5,7 +5,4 @@
     };
     <?php } ?>
     Navigation.load('<?= $internal_page?>');
-    <? if(isset($notification)){ ?>
-      Notify.notify('<?= $notification ?>', "info");
-    <? } ?>
 </script>
