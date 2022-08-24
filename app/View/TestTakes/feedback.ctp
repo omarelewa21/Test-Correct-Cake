@@ -46,9 +46,14 @@
                 }
                 ?>
             </div>
-    <? }else{ ?>
+    <? }else{
+        $value = '';
+        try {
+           $value = json_decode($data['answer']['json'])->value;
+        } catch (Exception $e){}
+    ?>
             <div class="input-group">
-                <textarea class="" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="feedback_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" autofocus maxlength="240"></textarea>
+                <textarea class="" <?= $data['mode'] === 'read' ? 'readonly' : 'onkeyup="calcMaxLength();"'?> id="feedback_<?= getUUID($data['answer'], 'get') ?>" width="100%" height="260px" autofocus maxlength="240"><?= $value ?></textarea>
             </div>
     <? } ?>
 <? }else{ ?>
