@@ -221,7 +221,7 @@
                         "autocomplete": true,
                         "serviceProtocol": "https",
                         "servicePort": "80",
-                        "serviceHost": <?= (AppHelper::isTestPortal()) ? "testwsc.test-correct.nl" : "wsc.test-correct.nl" ?>,
+                        "serviceHost": '<?= (AppHelper::isTestPortal()) ? "testwsc.test-correct.nl" : "wsc.test-correct.nl" ?>',
                         "servicePath": "wscservice/api"
                     }
                 </script>
