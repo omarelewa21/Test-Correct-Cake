@@ -2,8 +2,6 @@ var CkeditorTlcMethods = {
 
 
     initRateOpenLong: function(id,spellcheckAvailable,readOnlyForWsc,lang, prefix = 'answer',showOverlay = true, editor = null) {
-        console.log('inside initRateOpenLog');
-        console.log('id '+prefix + id);
         if(null == editor) {
             var editor = CKEDITOR.replace(prefix + id, {
                 toolbar: [[]],
@@ -14,20 +12,20 @@ var CkeditorTlcMethods = {
                 contentsCss: '/ckeditor/rate.css'
             });
         }
-console.log('going to wait for instance ready');
+
         editor.on('instanceReady', function () {
-            console.log('instance ready');
+
             setTimeout(function () {
                 editor.execCommand('autogrow');
             }, 1000);
-            if(showOverlay) { console.log('show overlay');
+            if(showOverlay) {
                 setTimeout(function () {
                     Overlay.overCkeditor4('.cke_editor_overlay_' + id, editor);
                 }, 5000);
             }
         });
 
-        if (spellcheckAvailable){console.log('spell check available');
+        if (spellcheckAvailable){
             editor.disableAutoInline = true;
             editor.config.removePlugins = 'scayt,wsc';
             editor.on('instanceReady', function (event) {
