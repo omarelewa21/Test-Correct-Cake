@@ -18,6 +18,9 @@ foreach($users as $user) {
                 echo '-';
             }
             ?>
+            <? if($role === 'Support' && $user['school_location']['license_type'] === 'TRIAL') { ?>
+                <span class="tag" data-tag-warning><?= __($user['school_location']['license_type'])?></span>
+            <? } ?>
         </td>
         <?php if ($role != 'Support') { ?>
         <td>

@@ -58,3 +58,9 @@ msgstr "Volgens docent"
 
 msgid "Naam toets"
 msgstr "Naam toets"
+
+msgid "CLIENT"
+msgstr "Klant"
+
+msgid "TRIAL"
+msgstr "Proefperiode"

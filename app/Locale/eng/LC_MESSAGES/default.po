@@ -4558,3 +4558,12 @@ msgstr "Edit test in new constructor"
 
 msgid "Nationale itembank tonen"
 msgstr "Show national itembank"
+
+msgid "Licentie type"
+msgstr "License type"
+
+msgid "CLIENT"
+msgstr "Client"
+
+msgid "TRIAL"
+msgstr "Trial"

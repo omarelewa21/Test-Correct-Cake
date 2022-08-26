@@ -772,15 +772,40 @@ th.subject-column, td.subject-column {
     padding: 0.1rem 0.2rem;
 }
 
-.beta-tag {
+.tag {
+    --tag-background-color: white;
+    --tag-border-color: white;
+    --tag-color: var(--primary);
     margin-left: 8px;
     padding: 0 4px;
     font-size: 12px;
     font-weight: bold;
     font-family: 'Nunito Bold', sans-serif;
-    background-color: white;
-    color: var(--primary);
-    border-radius: 2px;
+    background-color: var(--tag-background-color);
+    color: var(--tag-color);
+    border-radius: 4px;
+    border: 1px solid var(--tag-border-color);
+    cursor: pointer;
+}
+.tag[data-tag-inverse] {
+    --tag-background-color: var(--primary);
+    --tag-border-color: var(--primary);
+    --tag-color: white;
+}
+.tag[data-tag-warning] {
+    --tag-background-color: var(--teacher-Highlight-light);
+    --tag-border-color: var(--teacher-Highlight-primary);
+    --tag-color: var(--teacher-Highlight-dark);
+}
+.tag[data-tag-error] {
+    --tag-background-color: var(--error-bg);
+    --tag-border-color: var(--error-border);
+    --tag-color: var(--error-text);
+}
+.tag[data-tag-success] {
+    --tag-background-color: var(--cta-primary);
+    --tag-border-color: var(--cta-primary);
+    --tag-color: white;
 }
 
 #buttons.contains_dropdown .ui-menu {
