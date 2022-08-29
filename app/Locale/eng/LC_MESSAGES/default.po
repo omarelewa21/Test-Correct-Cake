@@ -4570,3 +4570,6 @@ msgstr "Trial"
 
 msgid "Licentie status"
 msgstr "License status"
+
+msgid "Je bent bezig met de proefperiode van Test-Correct"
+msgstr "You're using the trial version of Test-Correct"

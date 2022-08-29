@@ -50,6 +50,24 @@ if ($wizard_steps) {
             </div>
         </div>
         <?php } ?>
+        <?php if ($shouldDisplayTrialPeriodNotification) {?>
+            <div class="notification info terms-and-conditions">
+                <div class="title">
+                    <h5 style=""><?= __("Je bent bezig met de proefperiode van Test-Correct")?></h5>
+                </div>
+                <div class="body mb20">
+                    <p style="display: block; margin-bottom: 1rem;"><?= __('Trial tekst') ?></p>
+                    <a href="javascript:void(0)" class="text-button" style="text-decoration: none;" onclick=""><?= __("Trial actie knop")?> <?php echo $this->element('arrow') ?></a>
+                </div>
+                <div class="flex tabs">
+                    <?php for($i = 13; $i >= 0; $i--) {?>
+                        <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--teacher-Highlight-dark)' : '' ?>">
+                            <span><?= $i == $trialPeriodDaysLeft ? __('nog '). $trialPeriodDaysLeft . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php } ?>
         <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification warning">
             <div class="title">

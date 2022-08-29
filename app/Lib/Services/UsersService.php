@@ -756,9 +756,9 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function getGeneralTermsLog($user_uuid)
+    public function getTimeSensitiveUserRecords($user_uuid)
     {
-        $response = $this->Connector->getRequest('/user/'.$user_uuid.'/general_terms_log', []);
+        $response = $this->Connector->getRequest('/user/'.$user_uuid.'/time_sensitive_records', []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
