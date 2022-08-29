@@ -59,9 +59,10 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocationList()
+    public function getSchoolLocationList($params = [])
     {
-        $response = $this->Connector->getRequest('/school_location', ['mode' => 'list']);
+        $params = ['mode' => 'list'] + $params;
+        $response = $this->Connector->getRequest('/school_location', $params);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -251,9 +252,9 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getLvsAndSsoOptions()
+    public function getAvailableSchoolLocationOptions()
     {
-        $response = $this->Connector->getRequest('/school_location/get_lvs_and_sso_options', []);
+        $response = $this->Connector->getRequest('/school_location/get_available_school_location_options', []);
         if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;

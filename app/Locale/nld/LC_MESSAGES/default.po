@@ -64,3 +64,6 @@ msgstr "Klant"
 
 msgid "TRIAL"
 msgstr "Proefperiode"
+
+msgid "Licentie status"
+msgstr "Licentie status"

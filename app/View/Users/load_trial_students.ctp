@@ -2,11 +2,6 @@
 foreach($users as $user) {
     ?>
     <tr>
-        <?php if ($show_profile_picture) { ?>
-        <td style="padding:2px;" width="50">
-            <img src="/users/profile_picture/<?=getUUID($user, 'get');?>" width="45" height="45" style="border-radius: 50px" />
-        </td>
-        <?php } ?>
         <td><?=$user['name_first']?></td>
         <td><?=$user['name_suffix']?></td>
         <td><?=$user['name']?></td>
@@ -18,23 +13,12 @@ foreach($users as $user) {
                 echo '-';
             }
             ?>
-            <? if($role === 'Support' && $user['school_location']['license_type'] === 'TRIAL') { ?>
-                <span class="tag" data-tag-warning><?= __($user['school_location']['license_type'])?></span>
-            <? } ?>
         </td>
-        <?php if ($role != 'Support') { ?>
+
         <td>
-            <?
-            $classes = [];
-
-            foreach($user['student_school_classes'] as $class) {
-                $classes[] = $class['name'];
-            }
-
-            echo implode(', ', $classes);
-            ?>
+<!--            Licentie status -->
         </td>
-        <?php } ?>
+
 
         <td class="nopadding">
         <? if($role == 'Support') { ?>

@@ -574,6 +574,16 @@ class UsersController extends AppController
                     'add_title' => __('Nieuwe tester')
                 ];
                 break;
+            case 'trial_students':
+                $params = [
+                    'title'     => __('Studenten'),
+                ];
+                break;
+            case 'trial_teachers':
+                $params = [
+                    'title'     => __('Docenten'),
+                ];
+                break;
         }
 
         $roles = AuthComponent::user('roles');
@@ -843,7 +853,7 @@ class UsersController extends AppController
             die;
         }
 
-        $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
+        $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList(['with_trial_notation' => true]));
 
         $this->set('user', $user);
     }
@@ -935,16 +945,27 @@ class UsersController extends AppController
             case 'test_team':
                 $params['filter']['role'] = 12;
                 break;
+            case 'trial_students':
+                $params['filter']['role'] = 3;
+                $params['filter']['trial'] = true;
+                $params['filter']['without_guests'] = 1;
+                break;
+            case 'trial_teachers':
+                $params['filter']['trial'] = true;
+                $params['filter']['role'] = 1;
+                break;
         }
 
         $params['order']['name'] = 'asc';
         $users = $this->UsersService->getUsers($params);
 
         $roles = AuthComponent::user('roles');
-        $this->set('role', $roles['0']['name']);
+        $role = $roles['0']['name'];
+        $this->set('role', $role);
         $this->set('users', $users);
         $this->set('type', $type);
-        if (in_array($roles['0']['name'], ['Administrator']) && $type == 'teachers') {
+        $this->set('show_profile_picture', (!isset($params['filter']['trial']) || $role == 'Support'));
+        if (in_array($role, ['Administrator']) && $type == 'teachers') {
             $this->render('load_teachers_for_school_location_switch', 'ajax');
         } else {
             $this->render('load_'.$type, 'ajax');
@@ -1204,6 +1225,7 @@ class UsersController extends AppController
                 $menus['support_list'] = __("Support");
                 $menus['test_team'] = "Test Team";
                 $menus['lists'] = __("Database");
+                $menus['trial'] = __("TRIAL");
             }
 
             if ($role['name'] == 'Account manager') {
@@ -1396,6 +1418,16 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => 'Testers',
                     'path'  => '/users/index/test_team'
+                );
+                $tiles['trial_teachers'] = array(
+                    'menu'  => 'trial',
+                    'title' => __('Docenten'),
+                    'path'  => '/users/index/trial_teachers'
+                );
+                $tiles['trial_students'] = array(
+                    'menu'  => 'trial',
+                    'title' => __('Studenten'),
+                    'path'  => '/users/index/trial_students'
                 );
             }
 
@@ -2487,5 +2519,10 @@ class UsersController extends AppController
     {
         $this->autoRender = false;
         return json_encode(AppVersionDetector::detect() + ['status' => AppVersionDetector::isVersionAllowed()]);
+    }
+
+    public function change_trial_date($userUuid)
+    {
+
     }
 }

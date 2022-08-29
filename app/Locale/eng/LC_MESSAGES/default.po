@@ -4567,3 +4567,6 @@ msgstr "Client"
 
 msgid "TRIAL"
 msgstr "Trial"
+
+msgid "Licentie status"
+msgstr "License status"

@@ -414,23 +414,26 @@ class SchoolLocationsController extends AppController
             $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
-        $lvs_and_sso_options = $this->SchoolLocationsService->getLvsAndSsoOptions();
+        $availableSchoolLocationOptions = $this->SchoolLocationsService->getAvailableSchoolLocationOptions();
 
         $lvs_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['lvs'] as $option) {
+        foreach ($availableSchoolLocationOptions['lvs'] as $option) {
             $lvs_types += [$option => $option];
         }
         $sso_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['sso'] as $option) {
+        foreach ($availableSchoolLocationOptions['sso'] as $option) {
             $sso_types += [$option => $option];
         }
-
+        $license_types = [];
+        foreach ($availableSchoolLocationOptions['license_types'] as $option) {
+            $license_types += [$option => __($option)];
+        }
         $this->set('lvs_types', $lvs_types);
         $this->set('sso_types', $sso_types);
+        $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
-
     }
 }
