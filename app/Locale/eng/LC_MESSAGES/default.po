@@ -4558,3 +4558,15 @@ msgstr "Edit test in new constructor"
 
 msgid "Nationale itembank tonen"
 msgstr "Show national itembank"
+
+msgid "Examen coördinator"
+msgstr "Exam coordinator"
+
+msgid "Koppel deze gebruiker aan de schoollocatie"
+msgstr "Link this user to the school location"
+
+msgid "Koppel deze gebruiker aan de hele scholengemeenschap"
+msgstr "Link this user to the entire school community"
+
+msgid "De gebruiker is nu examen coördinator. Kies één van onderstaande acties om de examen coördinator te koppelen aan alle Klassen"
+msgstr "The user is now exam coordinator. Choose one of the actions below to link the exam coordinator to all classes"
