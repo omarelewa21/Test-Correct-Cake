@@ -4561,3 +4561,9 @@ msgstr "Edit test in new constructor"
 
 msgid "Nationale itembank tonen"
 msgstr "Show national itembank"
+
+msgid "Kopieer toetslink"
+msgstr "Copy test link"
+
+msgid "Toetscode"
+msgstr "Test code"

@@ -50,7 +50,7 @@ if(count($takes) == 0) {
                         <th></th>
                         <?}else{?>
                             <th><?= __("Toets") ?></th>
-                            <?php if($allow_guest_accounts) {?><th width="150">Student inlogtoetscode</th> <?php } ?>
+                            <?php if($allow_guest_accounts) {?><th width="160"><?= __('Toetscode') ?></th> <?php } ?>
                             <th><?= __("Klas(sen)")?></th>
                             <th width="40"></th>
                             <th width="200"><?= __("Voortgang")?></th>
@@ -71,9 +71,14 @@ if(count($takes) == 0) {
                                 <?php if($take[0]['code']) { ?>
                                     <div class="surveillance_test_code">
                                         <span><?= $take[0]['code'] ?></span>
+                                        <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
+                                            onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer">
+                                        </i>
                                     </div>
                                 <?php } else { ?>
-                                    <span></span>
+                                    <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
+                                        onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer; color:#041F74">
+                                    </i>
                                 <?php } ?>
                             </td>
                             <?php } ?>

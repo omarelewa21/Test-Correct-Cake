@@ -198,7 +198,8 @@ $.i18n().load({
 
       "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.":"You cannot have just one selection, you must add at least one additional selection in each bracket.",
       "U dient minimaal &eacute;&eacute;n woord tussen vierkante haakjes te plaatsen." : "You must put at least one selection in square brackets.",
-      "U heeft het verkeerde formaat van de vraag ingevoerd, zorg ervoor dat elk haakje '[' gesloten is en er geen onderschepping tussen haakjes is." : "You have entered miss format of the question, please make that every bracket '[' is closed and there is no interception between brackets."
+      "U heeft het verkeerde formaat van de vraag ingevoerd, zorg ervoor dat elk haakje '[' gesloten is en er geen onderschepping tussen haakjes is." : "You have entered miss format of the question, please make that every bracket '[' is closed and there is no interception between brackets.",
+      "Toetslink gekopieerd": "Test link has been copied to the clipboard",
     },
 
     'nl': {

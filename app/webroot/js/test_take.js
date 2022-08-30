@@ -1250,6 +1250,13 @@ var TestTake = {
         }else{
             elem.text($.i18n('Wijzig feedback'));
         }
+    },
+
+    copyDirectlink: function(link){
+        navigator.clipboard.writeText(link).then(()=>{
+            Notify.notify($.i18n('Toetslink gekopieerd') );
+        });
+
     }
 };
 
