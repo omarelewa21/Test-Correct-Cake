@@ -329,12 +329,12 @@
 }
 
 
-.dashboard .notes .terms-and-conditions {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) {
     position: relative;
     overflow: hidden;
 }
 
-.dashboard .notes .terms-and-conditions .tabs {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs {
     position: absolute;
     width: 100%;
     left: 0;
@@ -343,26 +343,27 @@
     margin: 0;
 }
 
-.dashboard .notes .terms-and-conditions .tabs .tab:first-child {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:first-child {
     margin: 0 4px 0 0;
     border-top-left-radius: 0;
 }
 
-.dashboard .notes .terms-and-conditions .tabs .tab:last-child {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:last-child {
     margin: 0 0 0 4px;
     border-top-right-radius: 0;
 }
 
-.dashboard .notes .terms-and-conditions .tabs .tab{
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab {
+    --dashboard-tab-background-color: var(--teacher-Highlight-primary);
     flex-grow: 1;
     height: 10px;
     border-radius: 5px;
     margin: 0 4px;
-    background-color: var(--teacher-Highlight-primary);
+    background-color: var(--dashboard-tab-background-color);
     position: relative;
 }
 
-.dashboard .notes .terms-and-conditions .tabs .tab span {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab span {
     position: absolute;
     top: -20px;
     font-size: 14px;
@@ -371,8 +372,11 @@
     width: max-content;
 }
 
-.dashboard .notes .terms-and-conditions .tabs .tab:first-child span {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:first-child span {
     left: 4px;
+}
+.dashboard .notes .trial-period .tabs .tab {
+    --dashboard-tab-background-color: var(--primary-hover);
 }
 
 span.note {

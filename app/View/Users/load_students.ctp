@@ -2,7 +2,7 @@
 foreach($users as $user) {
     ?>
     <tr>
-        <?php if ($show_profile_picture) { ?>
+        <?php if ($role != 'Support') { ?>
         <td style="padding:2px;" width="50">
             <img src="/users/profile_picture/<?=getUUID($user, 'get');?>" width="45" height="45" style="border-radius: 50px" />
         </td>

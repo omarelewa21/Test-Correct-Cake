@@ -39,7 +39,7 @@ if ($wizard_steps) {
             </div>
             <div class="body mb20">
                 <p style="display: block; margin-bottom: 1rem;"><?= __("Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert.")?></p>
-                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
+                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
             </div>
             <div class="flex tabs">
                 <?php for($i = 13; $i >= 0; $i--) {?>
@@ -51,17 +51,17 @@ if ($wizard_steps) {
         </div>
         <?php } ?>
         <?php if ($shouldDisplayTrialPeriodNotification) {?>
-            <div class="notification info terms-and-conditions">
+            <div class="notification info trial-period">
                 <div class="title">
                     <h5 style=""><?= __("Je bent bezig met de proefperiode van Test-Correct")?></h5>
                 </div>
                 <div class="body mb20">
                     <p style="display: block; margin-bottom: 1rem;"><?= __('Trial tekst') ?></p>
-                    <a href="javascript:void(0)" class="text-button" style="text-decoration: none;" onclick=""><?= __("Trial actie knop")?> <?php echo $this->element('arrow') ?></a>
+                    <a href="javascript:void(0)" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);"><?= __("Trial actie knop")?> <?php echo $this->element('arrow') ?></a>
                 </div>
                 <div class="flex tabs">
                     <?php for($i = 13; $i >= 0; $i--) {?>
-                        <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--teacher-Highlight-dark)' : '' ?>">
+                        <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--primary)' : '' ?>">
                             <span><?= $i == $trialPeriodDaysLeft ? __('nog '). $trialPeriodDaysLeft . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
                         </div>
                     <?php } ?>
@@ -759,13 +759,20 @@ if ($wizard_steps) {
             '</div>'
         )
     }
+    var popupWidth = $(document).width() < 900 ? $(document).width() : 900;
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
-            var generalTermsPopupWidth = $(document).width() < 900 ? $(document).width() : 900;
-            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', generalTermsPopupWidth);
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth);
         }
 
+    }, 1000);
+    <?php } ?>
+    <?php if($shouldDisplayTrialPeriodNotification) { ?>
+    setTimeout(function () {
+        if (<?= $trialPeriodDaysLeft ?> == 0) {
+            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);
+        }
     }, 1000);
     <?php } ?>
 

@@ -818,5 +818,15 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function updateTrialPeriod($userUuid, $params)
+    {
+        $response = $this->Connector->postRequest("/user/$userUuid/update_trial_date", $params, []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

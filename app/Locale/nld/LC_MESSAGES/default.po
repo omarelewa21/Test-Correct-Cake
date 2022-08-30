@@ -70,3 +70,25 @@ msgstr "Licentie status"
 
 msgid "Je bent bezig met de proefperiode van Test-Correct"
 msgstr "Je bent bezig met de proefperiode van Test-Correct"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Dagen over"
+msgstr "Dagen over"
+
+msgid "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+msgstr "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+
+msgid "Proefversie einddatum"
+msgstr "Proefversie einddatum"
+
+
+msgid "Actief"
+msgstr "Actief"
+
+msgid "Niet begonnen"
+msgstr "Niet begonnen"
+
+msgid "Verlopen"
+msgstr "Verlopen"

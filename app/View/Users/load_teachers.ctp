@@ -6,7 +6,25 @@ foreach($users as $user) {
         <td><?=$user['name_suffix']?></td>
         <td><?=$user['name']?></td>
         <?php if (isset($role) && $role == 'Support') { ?>
-        <td>
+            <td>
+                <? if ($user['school_location']['license_type'] === 'TRIAL') { ?>
+                    <? if ($trialStatus[getUUID($user, 'get')] === 'not_started') { ?>
+                        <span class="tag" data-tag-warning><?= __('Niet begonnen') ?></span>
+                    <? } ?>
+                    <? if ($trialStatus[getUUID($user, 'get')] === 'expired') { ?>
+                        <span class="tag" data-tag-error><?= __('Verlopen') ?></span>
+                    <? } ?>
+                    <? if ($trialStatus[getUUID($user, 'get')] === 'active') { ?>
+                        <span class="tag" data-tag-success><?= __('Actief') ?></span>
+                    <? } ?>
+                <? } ?>
+            </td>
+            <td>
+                <? if ($user['school_location']['license_type'] === 'TRIAL') { ?>
+                    <?= $trialDaysLeft[getUUID($user, 'get')] ?? '-' ?>
+                <? } ?>
+            </td>
+            <td>
             <?
             if(isset($user['school_location']['name']) && !empty($user['school_location']['name'])) {
                 echo $user['school_location']['name'];
@@ -17,7 +35,7 @@ foreach($users as $user) {
             <? if($user['school_location']['license_type'] === 'TRIAL') { ?>
                 <span class="tag" data-tag-warning><?= __($user['school_location']['license_type'])?></span>
             <? } ?>
-        </td>
+            </td>
         <?php } ?>
         <td class="nopadding">
             <?php if (isset($role) && $role == 'Support') { ?>

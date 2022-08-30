@@ -931,6 +931,7 @@ class UsersController extends AppController
 
             case 'teachers':
                 $params['filter']['role'] = 1;
+                $params['with'] = ['trial_info'];
                 break;
 
             case 'students':
@@ -958,18 +959,23 @@ class UsersController extends AppController
             case 'trial_teachers':
                 $params['filter']['trial'] = true;
                 $params['filter']['role'] = 1;
+                $params['with'] = ['trial_info'];
                 break;
         }
+        $roles = AuthComponent::user('roles');
+        $role = $roles['0']['name'];
 
         $params['order']['name'] = 'asc';
         $users = $this->UsersService->getUsers($params);
+        if (strpos($type, 'trial_') !== false || $role === 'Support') {
+            [$trialStatus, $trialDaysLeft] = $this->getTrialPeriodStatusses($users);
+            $this->set('trialStatus', $trialStatus);
+            $this->set('trialDaysLeft', $trialDaysLeft);
+        }
 
-        $roles = AuthComponent::user('roles');
-        $role = $roles['0']['name'];
         $this->set('role', $role);
         $this->set('users', $users);
         $this->set('type', $type);
-        $this->set('show_profile_picture', (!isset($params['filter']['trial']) || $role == 'Support'));
         if (in_array($role, ['Administrator']) && $type == 'teachers') {
             $this->render('load_teachers_for_school_location_switch', 'ajax');
         } else {
@@ -1430,11 +1436,12 @@ class UsersController extends AppController
                     'title' => __('Docenten'),
                     'path'  => '/users/index/trial_teachers'
                 );
-                $tiles['trial_students'] = array(
+                //Disabled students because they do not have trial accounts ?
+                /*$tiles['trial_students'] = array(
                     'menu'  => 'trial',
                     'title' => __('Studenten'),
                     'path'  => '/users/index/trial_students'
-                );
+                );*/
             }
 
             if ($role['name'] == 'Account manager') {
@@ -2432,16 +2439,7 @@ class UsersController extends AppController
             return true;
         }
 
-        $today = new DateTime('now');
-        $today->setTime(0, 0);
-
-
-        $expirationDate = new DateTime($trialPeriod['trial_until']);
-        $expirationDate->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
-
-        $trialPeriodDaysLeft = $today->format('Y-m-d') < $expirationDate->format('Y-m-d') ? $expirationDate->diff($today)->format('%d') : 0;
-
-        $this->set('trialPeriodDaysLeft', $trialPeriodDaysLeft);
+        $this->set('trialPeriodDaysLeft', $this->calculateTrialDaysLeft($trialPeriod));
     }
 
     private function handleTemporaryLoginOptions($result)
@@ -2551,6 +2549,51 @@ class UsersController extends AppController
 
     public function change_trial_date($userUuid)
     {
+        if ($this->request->is('post')) {
+            $params = [
+                'date'     => $this->request->data['User']['date'],
+            ];
+            $response = $this->UsersService->updateTrialPeriod($userUuid, $params);
 
+            $this->formResponse(true, $response);
+        }
+    }
+
+    private function calculateTrialDaysLeft($trialPeriod): int
+    {
+        $today = new DateTime('now');
+        $today->setTime(0, 0);
+
+        $expirationDate = new DateTime($trialPeriod['trial_until']);
+        $expirationDate->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+
+        return $today->format('Y-m-d') < $expirationDate->format('Y-m-d') ? $expirationDate->diff($today)->format('%d') : 0;
+    }
+
+    private function getTrialPeriodStatusses($users): array
+    {
+        $trialStatus = [];
+        $trialDaysLeft = [];
+        foreach($users as $user) {
+            if (is_null($user['trial_period'])) {
+                $trialStatus[getUUID($user, 'get')] = 'not_started';
+                continue;
+            }
+            $userDaysLeft = $this->calculateTrialDaysLeft($user['trial_period']);
+
+            if ($userDaysLeft <= 0) {
+                $trialStatus[getUUID($user, 'get')] = 'expired';
+                continue;
+            }
+            $trialStatus[getUUID($user, 'get')] = 'active';
+            $trialDaysLeft[getUUID($user, 'get')] = $userDaysLeft;
+        }
+
+        return [$trialStatus, $trialDaysLeft];
+    }
+
+    public function trial_period_ended($closeable)
+    {
+        $this->set('closeable', $closeable);
     }
 }

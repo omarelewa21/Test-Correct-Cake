@@ -785,7 +785,7 @@ th.subject-column, td.subject-column {
     color: var(--tag-color);
     border-radius: 4px;
     border: 1px solid var(--tag-border-color);
-    cursor: pointer;
+    cursor: default;
 }
 .tag[data-tag-inverse] {
     --tag-background-color: var(--primary);

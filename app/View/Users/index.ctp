@@ -119,6 +119,10 @@
                     <th><?= __('Voornaam') ?></th>
                     <th><?= __('Tussenvoegsel') ?></th>
                     <th><?= __('Achternaam') ?></th>
+                    <? if ($type == 'teachers') { ?>
+                    <th><?= __("Status") ?></th>
+                    <th><?= __("Dagen over") ?></th>
+                    <? } ?>
                     <th><?= __('School') ?></th>
                     <th width="100"></th>
                 <? } else { ?>
@@ -144,7 +148,8 @@
                         <th><?= __("Tussenvoegsel") ?></th>
                         <th><?= __("Achternaam") ?></th>
                         <th><?= __("School") ?></th>
-                        <th><?= __("Licentie status") ?></th>
+                        <th><?= __("Status") ?></th>
+                        <th><?= __("Dagen over") ?></th>
                         <th width="100">&nbsp;</th>
                     <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || 'support' || $type == 'test_team') { ?>
                         <th><?= __("Voornaam") ?></th>

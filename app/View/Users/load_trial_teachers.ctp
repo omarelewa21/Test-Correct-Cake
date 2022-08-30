@@ -6,13 +6,28 @@ foreach ($users as $user) {
         <td><?= $user['name_suffix'] ?></td>
         <td><?= $user['name'] ?></td>
         <td><?= $user['username'] ?></td>
-        <td>kaas</td>
+        <td>
+            <? if ($trialStatus[getUUID($user, 'get')] === 'not_started') { ?>
+                <span class="tag" data-tag-warning><?= __('Niet begonnen') ?></span>
+            <? } ?>
+            <? if ($trialStatus[getUUID($user, 'get')] === 'expired') { ?>
+                <span class="tag" data-tag-error><?= __('Verlopen') ?></span>
+            <? } ?>
+            <? if ($trialStatus[getUUID($user, 'get')] === 'active') { ?>
+                <span class="tag" data-tag-success><?= __('Actief') ?></span>
+            <? } ?>
+        </td>
+        <td>
+            <?= $trialDaysLeft[getUUID($user, 'get')] ?? '-' ?>
+        </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right dropblock-owner dropblock-left"
-               id="trial_teacher_<?= getUUID($user, 'get'); ?>"
-               onclick="Popup.load('/users/change_trial_date/<?= getUUID($user, 'get'); ?>', 600);">
-                <span class="fa fa-calendar"></span>
-            </a>
+            <? if ($trialStatus[getUUID($user, 'get')] !== 'not_started') { ?>
+                <a href="#" class="btn white pull-right dropblock-owner dropblock-left"
+                   id="trial_teacher_<?= getUUID($user, 'get'); ?>"
+                   onclick="Popup.load('/users/change_trial_date/<?= getUUID($user, 'get'); ?>', 600);">
+                    <span class="fa fa-calendar"></span>
+                </a>
+            <? } ?>
         </td>
     </tr>
     <?

@@ -4573,3 +4573,24 @@ msgstr "License status"
 
 msgid "Je bent bezig met de proefperiode van Test-Correct"
 msgstr "You're using the trial version of Test-Correct"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Dagen over"
+msgstr "Days remaining"
+
+msgid "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+msgstr "Until what date may the user use the trial version."
+
+msgid "Proefversie einddatum"
+msgstr "Trial end date"
+
+msgid "Actief"
+msgstr "Active"
+
+msgid "Niet begonnen"
+msgstr "Not started"
+
+msgid "Verlopen"
+msgstr "Expired"
