@@ -2419,11 +2419,8 @@ class UsersController extends AppController
                 $pageAction = null;
                 if(array_key_exists('page_action',$options)){
                     $pageAction = $options['page_action'];
+                }
 
-                }
-                if(array_key_exists('notification', $options)){
-                    $this->set('notification',$options['notification']);
-                }
                 $this->set('page_action',$pageAction);
                 $this->render('internal_redirect');
             }
