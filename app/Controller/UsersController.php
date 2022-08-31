@@ -2438,8 +2438,11 @@ class UsersController extends AppController
         if (!$shouldDisplayTrialPeriodNotification) {
             return true;
         }
-
-        $this->set('trialPeriodDaysLeft', $this->calculateTrialDaysLeft($trialPeriod));
+        [$daysLeft, $totalDays] = $this->calculateTrialDaysLeft($trialPeriod);
+        $this->set('trialPeriodDaysLeft', $daysLeft);
+        $this->set('trialPeriodDefaultDays', $this->get_config('custom.default_trial_days'));
+        $this->set('trialPeriodTotalDays', $totalDays);
+        $this->set('trialInfoURL', $this->trialInfoURL);
     }
 
     private function handleTemporaryLoginOptions($result)
@@ -2559,15 +2562,21 @@ class UsersController extends AppController
         }
     }
 
-    private function calculateTrialDaysLeft($trialPeriod): int
+    private function calculateTrialDaysLeft($trialPeriod): array
     {
         $today = new DateTime('now');
         $today->setTime(0, 0);
 
+        $startDate = new DateTime($trialPeriod['created_at']);
+        $startDate->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+
         $expirationDate = new DateTime($trialPeriod['trial_until']);
         $expirationDate->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
 
-        return $today->format('Y-m-d') < $expirationDate->format('Y-m-d') ? $expirationDate->diff($today)->format('%d') : 0;
+        $daysLeft = $today->format('Y-m-d') < $expirationDate->format('Y-m-d') ? $expirationDate->diff($today)->days : 0;
+        $totalDays = $startDate->diff($expirationDate)->days;
+
+        return [$daysLeft, $totalDays];
     }
 
     private function getTrialPeriodStatusses($users): array
@@ -2579,14 +2588,14 @@ class UsersController extends AppController
                 $trialStatus[getUUID($user, 'get')] = 'not_started';
                 continue;
             }
-            $userDaysLeft = $this->calculateTrialDaysLeft($user['trial_period']);
+            [$daysLeft, $totalDays] = $this->calculateTrialDaysLeft($user['trial_period']);
 
-            if ($userDaysLeft <= 0) {
+            if ($daysLeft <= 0) {
                 $trialStatus[getUUID($user, 'get')] = 'expired';
                 continue;
             }
             $trialStatus[getUUID($user, 'get')] = 'active';
-            $trialDaysLeft[getUUID($user, 'get')] = $userDaysLeft;
+            $trialDaysLeft[getUUID($user, 'get')] = $daysLeft;
         }
 
         return [$trialStatus, $trialDaysLeft];
@@ -2594,6 +2603,7 @@ class UsersController extends AppController
 
     public function trial_period_ended($closeable)
     {
+        $this->set('trialInfoURL', $this->trialInfoURL);
         $this->set('closeable', $closeable);
     }
 }

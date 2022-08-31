@@ -52,17 +52,15 @@ if ($wizard_steps) {
         <?php } ?>
         <?php if ($shouldDisplayTrialPeriodNotification) {?>
             <div class="notification info trial-period">
-                <div class="title">
-                    <h5 style=""><?= __("Je bent bezig met de proefperiode van Test-Correct")?></h5>
-                </div>
                 <div class="body mb20">
-                    <p style="display: block; margin-bottom: 1rem;"><?= __('Trial tekst') ?></p>
-                    <a href="javascript:void(0)" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);"><?= __("Trial actie knop")?> <?php echo $this->element('arrow') ?></a>
+                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= __('dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen.') ?></p>
+                    <a href="https://www.test-correct.nl/pakketten" target="_blank" class="text-button" style="text-decoration: none;"><?= __("Meer informatie")?> <?php echo $this->element('arrow') ?></a>
                 </div>
                 <div class="flex tabs">
-                    <?php for($i = 13; $i >= 0; $i--) {?>
+
+                    <?php for($i = $trialPeriodTotalDays; $i >= 1; $i--) {?>
                         <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--primary)' : '' ?>">
-                            <span><?= $i == $trialPeriodDaysLeft ? __('nog '). $trialPeriodDaysLeft . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
+                            <span class="<?= $i == $trialPeriodDaysLeft ? 'current-day' : ''?>"><?= $i == $trialPeriodDaysLeft ? __('nog '). ($trialPeriodDaysLeft-1) . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
                         </div>
                     <?php } ?>
                 </div>
@@ -779,6 +777,16 @@ if ($wizard_steps) {
     <?php if($name = CakeSession::read('Support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
+    $(document).ready(function () {
+        if ($('.trial-period .tab .current-day').length == 0) return;
+
+        var currentDayText = $('.trial-period .tab .current-day');
+
+        if (currentDayText.is(':first-child')) return;
+        if (currentDayText.get(0).offsetWidth > currentDayText.parentElement.getBoundingClientRect().right) {
+            currentDayText.get(0).style.left = '0';
+        }
+    });
 </script>
 <style>
     .block .block-content {

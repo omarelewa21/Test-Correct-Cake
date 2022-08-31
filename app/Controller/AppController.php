@@ -41,7 +41,7 @@ App::uses('UnauthorizedException', 'Lib/Exceptions');
  */
 class AppController extends Controller
 {
-
+    protected $trialInfoURL = 'https://www.test-correct.nl/pakketten';
     /**
      * Components used by every controller.
      *
