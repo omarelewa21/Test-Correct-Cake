@@ -2440,7 +2440,6 @@ class UsersController extends AppController
         }
         [$daysLeft, $totalDays] = $this->calculateTrialDaysLeft($trialPeriod);
         $this->set('trialPeriodDaysLeft', $daysLeft);
-        $this->set('trialPeriodDefaultDays', $this->get_config('custom.default_trial_days'));
         $this->set('trialPeriodTotalDays', $totalDays);
         $this->set('trialInfoURL', $this->trialInfoURL);
     }
@@ -2568,6 +2567,7 @@ class UsersController extends AppController
         $today->setTime(0, 0);
 
         $startDate = new DateTime($trialPeriod['created_at']);
+        $startDate->setTime(0, 0);
         $startDate->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
 
         $expirationDate = new DateTime($trialPeriod['trial_until']);

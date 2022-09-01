@@ -60,7 +60,7 @@ if ($wizard_steps) {
 
                     <?php for($i = $trialPeriodTotalDays; $i >= 1; $i--) {?>
                         <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--primary)' : '' ?>">
-                            <span class="<?= $i == $trialPeriodDaysLeft ? 'current-day' : ''?>"><?= $i == $trialPeriodDaysLeft ? __('nog '). ($trialPeriodDaysLeft-1) . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
+                            <span class="<?= $i == $trialPeriodDaysLeft ? 'current-day' : ''?>"><?= $i == $trialPeriodDaysLeft ? __('nog '). ($trialPeriodDaysLeft) . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
                         </div>
                     <?php } ?>
                 </div>
