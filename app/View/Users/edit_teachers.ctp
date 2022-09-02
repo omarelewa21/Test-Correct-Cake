@@ -181,4 +181,6 @@
         User.isExamcoordinatorOptions(this);
     });
 
+    User.appendSchoolOption('<?= is_null($school_location['school_id']) ? '0' : '1' ?>')
+
 </script>

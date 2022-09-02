@@ -155,4 +155,12 @@
         User.isExamcoordinatorOptions(this);
     });
 
+    $('select[name="data[User][school_location_id]').change(function(){
+        let is_examcoordinator_elem = $('input[name="data[User][is_examcoordinator]"]');
+        if(is_examcoordinator_elem.is(':checked')){
+            is_examcoordinator_elem.prop('checked', false); 
+            $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
+        }
+    })
+
 </script>

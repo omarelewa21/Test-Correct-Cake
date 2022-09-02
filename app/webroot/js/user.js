@@ -482,28 +482,14 @@ var User = {
     },
     isExamcoordinatorCheckbox: function(el, mode='add', hasSchoolRelated=false){
         let elem = $(el);
-        let select = $('select[name="data[User][exam_coordinator_schedule_for]"]');
-
-        let appendSchoolOption = (hasSchoolRelated) => {
-            if(hasSchoolRelated == 1){
-                if(select.find("option[value='SCHOOL']").length == 0){
-                    select.append(
-                        '<option value="SCHOOL">' + $.i18n('Koppel deze gebruiker aan de hele scholengemeenschap') + '</option>'
-                    )
-                }
-            }else{
-                select.find("option[value='SCHOOL']").remove();
-            }
-        }
-
         if(elem.is(':checked')){
                 if(mode === 'add'){
                     let school_location_id = $('select[name="data[User][school_location_id]"]').find(":selected").val();
                     $.get("/school_locations/hasSchoolRelation/" + school_location_id, function(data, status){
-                        appendSchoolOption(data);
+                        User.appendSchoolOption(data);
                     });
                 }else{
-                    appendSchoolOption(hasSchoolRelated);
+                    User.appendSchoolOption(hasSchoolRelated);
                 }
                 
                 Popup.message({
@@ -525,6 +511,18 @@ var User = {
                 elem.prop('checked', true);
                 $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
             })
+        }
+    },
+    appendSchoolOption: (hasSchoolRelated) => {
+        let select = $('select[name="data[User][exam_coordinator_schedule_for]"]');
+        if(hasSchoolRelated == 1){
+            if(select.find("option[value='SCHOOL']").length == 0){
+                select.append(
+                    '<option value="SCHOOL">' + $.i18n('Koppel deze gebruiker aan de hele scholengemeenschap') + '</option>'
+                )
+            }
+        }else{
+            select.find("option[value='SCHOOL']").remove();
         }
     },
     isExamcoordinatorOptions: function(el){
