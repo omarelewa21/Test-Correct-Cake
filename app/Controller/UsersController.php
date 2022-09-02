@@ -715,6 +715,7 @@ class UsersController extends AppController
                 break;
 
             case 1: //Teacher
+                $this->set('school_location', $user['school_location']);
                 $this->render('edit_teachers', 'ajax');
                 break;
 

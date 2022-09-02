@@ -78,14 +78,15 @@
         </tr>
 
         <tr class="is_examcoordinator-options">
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
+        </tr>
+        <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?= $this->Form->input('exam_coordinator_schedule_for', array(
-                            'separator' => '<br>',
-                            'after' => '<span aria-hidden="true"></span>',
-                            'options' => array('SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
-                                                'SCHOOL' => __('Koppel deze gebruiker aan de hele scholengemeenschap')),
-                            'type' => 'radio',
-                            'legend' => false))
+                <?=$this->Form->input('exam_coordinator_schedule_for', array('label' => false, 'verify' => 'notempty',
+                'options' => [
+                    'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
+                    'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
+                    ]))
                 ?>
             </td>
         </tr>
@@ -147,24 +148,11 @@
     );
 
     $('input[name="data[User][is_examcoordinator]"]').change(function(){
-        if($(this).is(':checked')){
-                Popup.message({
-                btnOk: '<?= __('Ok') ?>',
-                title: '<?= __('Examen coördinator') ?>',
-                message: '<?= __('De gebruiker is nu examen coördinator. Kies één van onderstaande acties om de examen coördinator te koppelen aan alle Klassen') ?>'
-            }, function() {
-                $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
-            })
-        }else{
-            $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
-        }
+        User.isExamcoordinatorCheckbox(this);
     })
 
-</script>
+    $('select[name="data[User][exam_coordinator_schedule_for]"]').change(function(){
+        User.isExamcoordinatorOptions(this);
+    });
 
-<style>
-    .is_examcoordinator-options {
-        visibility: hidden;
-        position: absolute;
-    }
-</style>
+</script>

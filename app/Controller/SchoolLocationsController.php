@@ -428,4 +428,11 @@ class SchoolLocationsController extends AppController
         $this->set('schools', $schools);
 
     }
+
+    public function hasSchoolRelation($id)
+    {
+        $this->autoRender = false;
+        $school_location = $this->SchoolLocationsService->getSchoolLocationByID($id);
+        return !is_null($school_location['school']);
+    }
 }

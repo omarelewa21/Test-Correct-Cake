@@ -184,6 +184,12 @@ $.i18n().load({
       'Uploaden toets': 'Upload Test',
       'Demotour verbergen': 'Hide demo tour',
       'Demotour tonen': 'Show demo tour',
+      'Examen coördinator': 'Exam coordinator',
+      'De gebruiker is nu examen coördinator. Kies één van onderstaande acties om de examen coördinator te koppelen aan alle Klassen': 'The user is now exam coordinator. Choose one of the actions below to link the exam coordinator to all classes',
+      'Weet je zeker dat je de examen coördinator functie wilt uitzetten? Deze gebruiker wordt ontkoppeld van alle Klassen':'Are you sure you want to disable the exam coordinator function? This user will be unlinked from all classes',
+      'Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in deze schoollocatie?':'Are you sure you want to link the exam coordinator to all classes in this school location?',
+      'Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in alle schoollocaties waar zijn gebruikersaccount aan gekoppeld is?':'Are you sure you want to link the exam coordinator to all classes in all school locations that his user account is linked to?',
+      'Koppel deze gebruiker aan de hele scholengemeenschap': 'Link this user to the entire school community',
 
       //welcome-messages.js
       'Uitloggen':'Log out',

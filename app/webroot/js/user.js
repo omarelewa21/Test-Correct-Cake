@@ -479,5 +479,81 @@ var User = {
                 break;
             default:
         }
+    },
+    isExamcoordinatorCheckbox: function(el, mode='add', hasSchoolRelated=false){
+        let elem = $(el);
+        let select = $('select[name="data[User][exam_coordinator_schedule_for]"]');
+
+        let appendSchoolOption = (hasSchoolRelated) => {
+            if(hasSchoolRelated == 1){
+                if(select.find("option[value='SCHOOL']").length == 0){
+                    select.append(
+                        '<option value="SCHOOL">' + $.i18n('Koppel deze gebruiker aan de hele scholengemeenschap') + '</option>'
+                    )
+                }
+            }else{
+                select.find("option[value='SCHOOL']").remove();
+            }
+        }
+
+        if(elem.is(':checked')){
+                if(mode === 'add'){
+                    let school_location_id = $('select[name="data[User][school_location_id]"]').find(":selected").val();
+                    $.get("/school_locations/hasSchoolRelation/" + school_location_id, function(data, status){
+                        appendSchoolOption(data);
+                    });
+                }else{
+                    appendSchoolOption(hasSchoolRelated);
+                }
+                
+                Popup.message({
+                btnOk: $.i18n('Oke'),
+                title: $.i18n('Examen coördinator'),
+                message: $.i18n('De gebruiker is nu examen coördinator. Kies één van onderstaande acties om de examen coördinator te koppelen aan alle Klassen')
+            }, function() {
+                $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+            })
+        }else{
+            Popup.message({
+                btnOk: $.i18n('Ja'),
+                btnCancel: $.i18n('Annuleer'),
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet je zeker dat je de examen coördinator functie wilt uitzetten? Deze gebruiker wordt ontkoppeld van alle Klassen')
+            }, function() {
+                $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
+            }, function() {
+                elem.prop('checked', true);
+                $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+            })
+        }
+    },
+    isExamcoordinatorOptions: function(el){
+        let elem = $(el);
+        let text;
+        switch (elem.find(":selected").val()) {
+            case 'SCHOOL_LOCATION':
+                text = {
+                   btnOk:  $.i18n('Oke'),
+                   btnCancel:  $.i18n('Annuleer'),
+                   title: $.i18n('Weet u het zeker?'),
+                   message: $.i18n('Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in deze schoollocatie?')
+                };
+                break;
+            case 'SCHOOL':
+                text = {
+                    btnOk:  $.i18n('Oke'),
+                    btnCancel:  $.i18n('Annuleer'),
+                    title: $.i18n('Weet u het zeker?'),
+                    message: $.i18n('Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in alle schoollocaties waar zijn gebruikersaccount aan gekoppeld is?')
+                 };
+                break;
+            default:
+                return;
+        }
+
+        Popup.message(text, function() {},
+        function() {
+            elem.val('NONE').change();
+        })
     }
 };
