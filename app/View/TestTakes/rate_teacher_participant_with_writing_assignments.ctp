@@ -37,16 +37,35 @@
 </div>
 
 <div style="float:right; width:calc(100% - 320px);">
+    <div id="test_progress" style="width:calc(100% - 18px)">
+        <?
+        $i = 0;
+        foreach($questions as $index => $questions_item) {
 
-    <center>
-        <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();focusCkeditorsAfterShow()"><?= __("Alle antwoorden weergeven")?></a>
-    </center>
+            $i++;
+
+            if(getUUID($current_question['question'], 'get') == getUUID($questions_item['question'], 'get')) {
+                $class = 'active';
+            }else{
+                $class = 'grey';
+            }
+
+            ?>
+            <div class="question <?=$class?>" onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>/<?=$participant_index?>/<?=getUUID($questions_item['question'], 'get')?>');"><?=$i?></div>
+            <?
+        }
+        ?>
+        <br clear="all" />
+    </div>
+
     <?
         $i = 0;
         foreach($questions as $index => $question) {
             $i++;
+
+            if(getUUID($question['question'], 'get') === getUUID($current_question['question'], 'get')) {
             ?>
-            <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" style="display: none;;">
+            <div id="questionblock_<?=$participant_id?><?=getUUID($question['question'], 'get')?>" class="questionblock" >
                 <div class="block questionContainer">
                     <div class="block-head"><?= __("Vraag")?> #<?=$i?> <?= __("voorbeeld")?></div>
                     <div class="block-content" id="question_preview_<?=getUUID($question['question'], 'get')?>">
@@ -70,6 +89,7 @@
                         <?= __("Laden..")?>
                         </div>
                     </div>
+
                     <div style="width: 100%; text-align: center">
                         <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px;"
                             onclick="Popup.load('/test_takes/getFeedback/write/<?=$participant_id?>/<?=getUUID($question['question'], 'get')?>/<?= $index ?>', window.innerWidth - 100);"
@@ -108,14 +128,19 @@
                 </script>
             </div>
             <?
+            }
         }
     ?>
 
     <br /><br />
     <center>
-        <? if(!empty($next_index)) { ?>
+        <? if(!empty($next_question)) { ?>
+            <a href="#" class="btn highlight" onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>/<?=$participant_index?>/<?=getUUID($next_question['question'], 'get')?>');">
+                <?= __("Volgende vraag")?>
+            </a>
+        <? }  else if(!empty($next_index)) { ?>
             <a href="#" class="btn highlight" onclick="Navigation.load('/test_takes/rate_teacher_participant/<?=$take_id?>/<?=$next_index?>');">
-            <?= __("Volgende")?>
+            <?= __("Volgende student")?>
             </a>
         <? } ?>
     </center>
