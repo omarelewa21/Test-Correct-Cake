@@ -12,7 +12,7 @@
                 <span class="fa fa-plus mr5"></span>
                 <?= __("Bestaande docent koppelen") ?>
             </a>
-        <?
+            <?
         }
         ?>
 
@@ -119,6 +119,10 @@
                     <th><?= __('Voornaam') ?></th>
                     <th><?= __('Tussenvoegsel') ?></th>
                     <th><?= __('Achternaam') ?></th>
+                    <? if ($type == 'teachers') { ?>
+                    <th><?= __("Status") ?></th>
+                    <th><?= __("Dagen over") ?></th>
+                    <? } ?>
                     <th><?= __('School') ?></th>
                     <th width="100"></th>
                 <? } else { ?>
@@ -138,6 +142,14 @@
                         <th><?= __("Accounts") ?></th>
                         <th><?= __("Licenties totaal") ?></th>
                         <th><?= __("Licenties actief") ?></th>
+                        <th width="100">&nbsp;</th>
+                    <? } elseif ($type == 'trial_students' || $type == 'trial_teachers') { ?>
+                        <th><?= __("Voornaam") ?></th>
+                        <th><?= __("Tussenvoegsel") ?></th>
+                        <th><?= __("Achternaam") ?></th>
+                        <th><?= __("School") ?></th>
+                        <th><?= __("Status") ?></th>
+                        <th><?= __("Dagen over") ?></th>
                         <th width="100">&nbsp;</th>
                     <? } elseif ($type == 'managers' || $type == 'teachers' || $type == 'students' || $type == 'management' || 'support' || $type == 'test_team') { ?>
                         <th><?= __("Voornaam") ?></th>

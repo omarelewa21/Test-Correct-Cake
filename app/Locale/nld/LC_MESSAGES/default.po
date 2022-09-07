@@ -58,3 +58,52 @@ msgstr "Volgens docent"
 
 msgid "Naam toets"
 msgstr "Naam toets"
+
+msgid "CLIENT"
+msgstr "Klant"
+
+msgid "TRIAL"
+msgstr "Proefperiode"
+
+msgid "Licentie status"
+msgstr "Licentie status"
+
+msgid "Je bent bezig met de proefperiode van Test-Correct"
+msgstr "Je bent bezig met de proefperiode van Test-Correct"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Dagen over"
+msgstr "Dagen over"
+
+msgid "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+msgstr "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+
+msgid "Proefversie einddatum"
+msgstr "Proefversie einddatum"
+
+
+msgid "Actief"
+msgstr "Actief"
+
+msgid "Niet begonnen"
+msgstr "Niet begonnen"
+
+msgid "Verlopen"
+msgstr "Verlopen"
+
+msgid "Je hebt nog"
+msgstr "Je hebt nog"
+
+msgid "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgstr "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+
+msgid "Meer informatie"
+msgstr "Meer informatie"
+
+msgid "Proefperiode afgelopen"
+msgstr "Proefperiode afgelopen"
+
+msgid "Proefperiode tekst"
+msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie voor jouw school of kies een van onze licentiepakketten."

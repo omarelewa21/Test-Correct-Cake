@@ -39,7 +39,7 @@ if ($wizard_steps) {
             </div>
             <div class="body mb20">
                 <p style="display: block; margin-bottom: 1rem;"><?= __("Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert.")?></p>
-                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', 900)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
+                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
             </div>
             <div class="flex tabs">
                 <?php for($i = 13; $i >= 0; $i--) {?>
@@ -49,6 +49,22 @@ if ($wizard_steps) {
                 <?php } ?>
             </div>
         </div>
+        <?php } ?>
+        <?php if ($shouldDisplayTrialPeriodNotification) {?>
+            <div class="notification info trial-period">
+                <div class="body mb20">
+                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= __('dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen.') ?></p>
+                    <a href="https://www.test-correct.nl/pakketten" target="_blank" class="text-button" style="text-decoration: none;"><?= __("Meer informatie")?> <?php echo $this->element('arrow') ?></a>
+                </div>
+                <div class="flex tabs">
+
+                    <?php for($i = $trialPeriodTotalDays; $i >= 1; $i--) {?>
+                        <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--primary)' : '' ?>">
+                            <span class="<?= $i == $trialPeriodDaysLeft ? 'current-day' : ''?>"><?= $i == $trialPeriodDaysLeft ? __('nog '). ($trialPeriodDaysLeft) . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
+                        </div>
+                    <?php } ?>
+                </div>
+            </div>
         <?php } ?>
         <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification warning">
@@ -741,19 +757,36 @@ if ($wizard_steps) {
             '</div>'
         )
     }
+    var popupWidth = $(document).width() < 900 ? $(document).width() : 900;
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
-            var generalTermsPopupWidth = $(document).width() < 900 ? $(document).width() : 900;
-            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', generalTermsPopupWidth);
+            Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth);
         }
 
+    }, 1000);
+    <?php } ?>
+    <?php if($shouldDisplayTrialPeriodNotification) { ?>
+    setTimeout(function () {
+        if (<?= $trialPeriodDaysLeft ?> == 0) {
+            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);
+        }
     }, 1000);
     <?php } ?>
 
     <?php if($name = CakeSession::read('Support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
+    $(document).ready(function () {
+        if ($('.trial-period .tab .current-day').length == 0) return;
+
+        var currentDayText = $('.trial-period .tab .current-day');
+
+        if (currentDayText.is(':first-child')) return;
+        if (currentDayText.get(0).offsetWidth > currentDayText.parentElement.getBoundingClientRect().right) {
+            currentDayText.get(0).style.left = '0';
+        }
+    });
 </script>
 <style>
     .block .block-content {

@@ -4567,3 +4567,54 @@ msgstr "Copy test link"
 
 msgid "Toetscode"
 msgstr "Test code"
+
+msgid "Licentie type"
+msgstr "License type"
+
+msgid "CLIENT"
+msgstr "Client"
+
+msgid "TRIAL"
+msgstr "Trial"
+
+msgid "Licentie status"
+msgstr "License status"
+
+msgid "Je bent bezig met de proefperiode van Test-Correct"
+msgstr "You're using the trial version of Test-Correct"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Dagen over"
+msgstr "Days remaining"
+
+msgid "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+msgstr "Until what date may the user use the trial version."
+
+msgid "Proefversie einddatum"
+msgstr "Trial end date"
+
+msgid "Actief"
+msgstr "Active"
+
+msgid "Niet begonnen"
+msgstr "Not started"
+
+msgid "Verlopen"
+msgstr "Expired"
+
+msgid "Je hebt nog"
+msgstr "You have"
+
+msgid "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgstr "days left in your trial period. You can extend the trial period by planning a demonstration or choose a license package."
+
+msgid "Meer informatie"
+msgstr "More information"
+
+msgid "Proefperiode afgelopen"
+msgstr "Proefperiode afgelopen"
+
+msgid "Proefperiode tekst"
+msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie aan voor jouw school of kies een van onze licentiepakketten."

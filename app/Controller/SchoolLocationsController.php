@@ -148,7 +148,7 @@ class SchoolLocationsController extends AppController
         }
     }
 
-    public function edit($school_id) {
+    public function edit($school_location_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
         if($this->request->is('post') || $this->request->is('put')) {
@@ -162,7 +162,7 @@ class SchoolLocationsController extends AppController
 
             if(!empty($data['external_main_code'])){
                 $toIgnore = array();
-                $toIgnore[$school_id] = $data['external_main_code'].$data['external_sub_code'];
+                $toIgnore[$school_location_id] = $data['external_main_code'].$data['external_sub_code'];
                 $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationListWithUUID();
 
                 if (strlen($data['external_sub_code']) > 2) {
@@ -190,7 +190,7 @@ class SchoolLocationsController extends AppController
                 $data['activated'] = 0;
             }
 
-            $result = $this->SchoolLocationsService->updateSchoolLocation($school_id, $data);
+            $result = $this->SchoolLocationsService->updateSchoolLocation($school_location_id, $data);
 
             if(!$result) {
                 $errors = $this->SchoolLocationsService->getErrors();
@@ -207,7 +207,7 @@ class SchoolLocationsController extends AppController
             die;
         }
 
-        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_id, true);
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id, true);
 
         $levels = [];
 
@@ -241,6 +241,10 @@ class SchoolLocationsController extends AppController
         foreach ($school_location['sso_options'] as $option) {
             $sso_types += [$option => $option];
         }
+        $license_types = [];
+        foreach ($school_location['license_types'] as $option) {
+            $license_types += [$option => __($option)];
+        }
 
         $schoolLocationHasRunManualImport = $school_location['has_run_manual_import'];
 
@@ -249,6 +253,7 @@ class SchoolLocationsController extends AppController
         $this->set('school_location_has_run_manual_import', $schoolLocationHasRunManualImport);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
+        $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('school_location', $school_location);
 
@@ -409,23 +414,26 @@ class SchoolLocationsController extends AppController
             $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
-        $lvs_and_sso_options = $this->SchoolLocationsService->getLvsAndSsoOptions();
+        $availableSchoolLocationOptions = $this->SchoolLocationsService->getAvailableSchoolLocationOptions();
 
         $lvs_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['lvs'] as $option) {
+        foreach ($availableSchoolLocationOptions['lvs'] as $option) {
             $lvs_types += [$option => $option];
         }
         $sso_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['sso'] as $option) {
+        foreach ($availableSchoolLocationOptions['sso'] as $option) {
             $sso_types += [$option => $option];
         }
-
+        $license_types = [];
+        foreach ($availableSchoolLocationOptions['license_types'] as $option) {
+            $license_types += [$option => __($option)];
+        }
         $this->set('lvs_types', $lvs_types);
         $this->set('sso_types', $sso_types);
+        $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
-
     }
 }

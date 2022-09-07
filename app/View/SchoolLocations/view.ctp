@@ -254,6 +254,27 @@
                     </label>
                 </td>
             </tr>
+            <tr>
+                <th><?= __("Web spel checker toestaan")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_wsc',
+                            array(
+                                'checked' => $school_location['allow_wsc'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => $school_location['allow_wsc'],
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_wsc")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+                <th><?= __("Licentie type")?></th>
+                <td><?= __($school_location['license_type']) ?></td>
+            </tr>
         </table>
     </div>
 </div>

@@ -111,9 +111,10 @@
             <td>
                 <?=$this->Form->input('company_id', array('style' => 'width: 185px', 'type' => 'text', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
-            <th></th>
-            <td>
 
+            <th><?= __('Licentie type') ?></th>
+            <td>
+                <?= $this->Form->input('license_type', array('style' => 'width: 185px', 'label' => false, 'options' => $license_types, 'selected' => $school_location['license_type'])) ?>
             </td>
             <th width="130"></th>
             <td>
