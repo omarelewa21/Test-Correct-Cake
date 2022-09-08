@@ -104,7 +104,7 @@ if($totalScore === 0){
                     <?= __("Cesuur:")?>
                     </td>
                     <td width="100">
-                        <input type="text" name="data[TestTake][value_6]" value="50" style="width:50px;" onkeyup="setNotmalizationType(5)" />
+                        <input type="text" name="data[TestTake][value_6]" value="50" style="width:50px;" onkeyup="setNotmalizationType(5)" /> %
                     </td>
                 </tr>
             </table>
