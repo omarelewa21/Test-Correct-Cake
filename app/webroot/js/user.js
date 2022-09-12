@@ -514,7 +514,7 @@ var User = {
         }
     },
     appendSchoolOption: (hasSchoolRelated) => {
-        let select = $('select[name="data[User][exam_coordinator_schedule_for]"]');
+        let select = $('select[name="data[User][is_examcoordinator_for]"]');
         if(hasSchoolRelated == 1){
             if(select.find("option[value='SCHOOL']").length == 0){
                 select.append(

@@ -82,7 +82,7 @@
         </tr>
         <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?=$this->Form->input('exam_coordinator_schedule_for', array('label' => false, 'verify' => 'notempty',
+                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
                 'options' => [
                     'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
                     'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
@@ -138,8 +138,8 @@
                 var errors = JSON.parse(result.error)?.errors
                 if('password' in errors) {
                     return Notify.notify(errors.password, "error");
-                }else if('exam_coordinator_schedule_for' in errors){
-                    return Notify.notify(errors.exam_coordinator_schedule_for, "error");
+                }else if('is_examcoordinator_for' in errors){
+                    return Notify.notify(errors.is_examcoordinator_for, "error");
                 }
 
                 Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
@@ -151,7 +151,7 @@
         User.isExamcoordinatorCheckbox(this);
     })
 
-    $('select[name="data[User][exam_coordinator_schedule_for]"]').change(function(){
+    $('select[name="data[User][is_examcoordinator_for]"]').change(function(){
         User.isExamcoordinatorOptions(this);
     });
 
