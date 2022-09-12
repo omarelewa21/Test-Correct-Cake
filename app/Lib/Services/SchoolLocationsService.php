@@ -272,15 +272,4 @@ class SchoolLocationsService extends BaseService
 
         return $response;
     }
-
-    public function getSchoolLocationByID($id)
-    {
-        $response = $this->Connector->getRequest('/school_location/' . $id . '/get_by_id', []);
-        if($response === false){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-
-        return $response;
-    }
 }

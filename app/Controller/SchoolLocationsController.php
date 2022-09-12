@@ -432,7 +432,14 @@ class SchoolLocationsController extends AppController
     public function hasSchoolRelation($id)
     {
         $this->autoRender = false;
-        $school_location = $this->SchoolLocationsService->getSchoolLocationByID($id);
-        return !is_null($school_location['school']);
+        if($this->Session->check('schoolLocationsList') && is_array($this->Session->read('schoolLocationsList'))){
+            foreach($this->Session->read('schoolLocationsList') as $location){
+                if(is_array($location) && $location['id'] == $id){
+                    $school_location = $this->SchoolLocationsService->getSchoolLocation($location['uuid']);
+                    return !is_null($school_location['school']);
+                }
+            }
+        }
+        return false;
     }
 }
