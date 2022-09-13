@@ -49,7 +49,6 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
         <span class="fa fa-hourglass-1 mr5"></span>
         <?= __("Nakijken")?>
     </a>
-    ?>
     <?php } else { ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/start_rate_popup/<?= $take_id ?>', 610);">
         <span class="fa fa-hourglass-1 mr5"></span>
