@@ -260,10 +260,10 @@
                     <label class="switch" style="display:flex;">
                         <?= $this->Form->input('allow_creathlon',
                             array(
-                                'checked' => $school_location['feature_settings']['allow_creathlon'],
+                                'checked' => isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_creathlon']) && $school_location['feature_settings']['allow_creathlon'],
                                 'label' => false,
                                 'type' => 'checkbox',
-                                'value' => $school_location['feature_settings']['allow_creathlon'],
+                                'value' => (isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_creathlon']) && $school_location['feature_settings']['allow_creathlon']) ? 1 : 0,
                                 'div' => false,
                                 'style' => 'width:20px;',
                                 'onclick' => 'updateSchoolLocation(this.checked, "allow_creathlon")'
