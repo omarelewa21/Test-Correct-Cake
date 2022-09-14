@@ -255,6 +255,26 @@
                 </td>
             </tr>
             <tr>
+                <th><?= __("Creathlon itembank beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_creathlon',
+                            array(
+                                'checked' => isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_creathlon']) && $school_location['feature_settings']['allow_creathlon'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => (isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_creathlon']) && $school_location['feature_settings']['allow_creathlon']) ? 1 : 0,
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_creathlon")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+
+            </tr>
+            <tr>
                 <th><?= __("Web spel checker toestaan")?></th>
                 <td>
                     <label class="switch" style="display:flex;">

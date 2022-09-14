@@ -53,6 +53,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_writing_assignment':
                     $data = ['allow_writing_assignment' => $allow];
                     break;
+                case 'allow_creathlon':
+                    $data = ['allow_creathlon' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
