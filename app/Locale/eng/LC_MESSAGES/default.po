@@ -4598,8 +4598,8 @@ msgstr "Expired"
 msgid "Je hebt nog"
 msgstr "You have"
 
-msgid "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
-msgstr "days left in your trial period. You can extend the trial period by planning a demonstration or choose a license package."
+msgid " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgstr " left in your trial period. You can extend the trial period by planning a demonstration or choose a license package."
 
 msgid "Meer informatie"
 msgstr "More information"

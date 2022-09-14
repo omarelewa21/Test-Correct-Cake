@@ -96,8 +96,8 @@ msgstr "Verlopen"
 msgid "Je hebt nog"
 msgstr "Je hebt nog"
 
-msgid "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
-msgstr "dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgid " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgstr " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
 
 msgid "Meer informatie"
 msgstr "Meer informatie"
