@@ -16,12 +16,13 @@
         }
         ?>
 
-
+        <? if ($type !== 'trial_teachers') { ?>
         <a href="#" class="btn white" onclick="Popup.load('/users/add/<?= $type ?>', 400);">
             <span class="fa fa-plus mr5"></span
             >
             <?= $params['add_title'] ?>
         </a>
+        <? } ?>
     <? } ?>
 
     <? if (in_array($role, ['School manager']) && $type === 'students') {
