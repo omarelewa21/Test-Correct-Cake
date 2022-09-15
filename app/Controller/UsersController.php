@@ -431,6 +431,18 @@ class UsersController extends AppController
         $hasSchoolManagerRole = false;
         $should_display_import_incomplete_panel = false;
         $this->set('infos', $this->InfoService->dashboard());
+        if($temporaryLoginOptions = json_decode(CakeSession::read('temporaryLoginOptions'),true)){
+            $finalRedirectTo = null;
+            if(array_key_exists('finalRedirectTo',$temporaryLoginOptions)){
+                $finalRedirectTo = $temporaryLoginOptions['finalRedirectTo'];
+                unset($temporaryLoginOptions['finalRedirectTo']);
+                if($finalRedirectTo) {
+                    CakeSession::write('temporaryLoginOptions', json_encode($temporaryLoginOptions));
+                }
+            }
+            $this->set('finalRedirectTo',$finalRedirectTo);
+        }
+
         foreach ($roles as $role) {
             if ($role['name'] == 'Teacher') {
                 $afterLoginMessage = '';
