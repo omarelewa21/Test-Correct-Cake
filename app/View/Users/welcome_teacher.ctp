@@ -1,15 +1,15 @@
 <?php
 if ($wizard_steps) {
     ?>
-    <div style="position: relative; width: 100%">
+   <!-- <div style="position: relative; width: 100%">
         <div style="position:absolute; top:30px; right: 0;">
             <button id="scrollToDemo" class="button primary-button button-md" >
                 <span>
-                     <?= __("Naar de demo tour") ?>
+                     <?/*= __("Naar de demo tour") */?>
                 </span>
             </button>
         </div>
-    </div>
+    </div>-->
 <?php } ?>
 
 <div class="dashboard">
@@ -199,7 +199,7 @@ if ($wizard_steps) {
 ?>
 
 
-<div>
+<div style="display:none!important;">
     <div style="position: relative; height:100px; width: 100%">
         <div class="read-more">
             <div id="toggle-ob-wizard" class="showdemotour hide-demo-tour">

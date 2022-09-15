@@ -12,7 +12,7 @@
     flex-direction: column;
     font-family: "Nunito", sans-serif;
     color: var(--system-base);
-    margin: 100px 82px 0 82px;
+    margin: 0 82px 0 82px;
 }
 
 .dashboard h1 {
@@ -100,6 +100,7 @@
     align-items: center;
 }
 .dashboard .cta-blocks .block-container {
+    width: 100%;
     display: flex;
     padding: 2.5rem 0;
     overflow-x: hidden;
