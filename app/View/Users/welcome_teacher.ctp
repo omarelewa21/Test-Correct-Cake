@@ -53,12 +53,12 @@ if ($wizard_steps) {
         <?php if ($shouldDisplayTrialPeriodNotification) {?>
             <div class="notification info trial-period">
                 <div class="body mb20">
-                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= __('dagen over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen.') ?></p>
+                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) . __(' over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen.') ?></p>
                     <a href="https://www.test-correct.nl/pakketten" target="_blank" class="text-button" style="text-decoration: none;"><?= __("Meer informatie")?> <?php echo $this->element('arrow') ?></a>
                 </div>
                 <div class="flex tabs">
 
-                    <?php for($i = $trialPeriodTotalDays; $i >= 1; $i--) {?>
+                    <?php for($i = $trialPeriodTotalDays; $i >= 0; $i--) {?>
                         <div class="flex tab" style="<?= $i >= $trialPeriodDaysLeft ? 'background-color:var(--primary)' : '' ?>">
                             <span class="<?= $i == $trialPeriodDaysLeft ? 'current-day' : ''?>"><?= $i == $trialPeriodDaysLeft ? __('nog '). ($trialPeriodDaysLeft) . ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) : ''?></span>
                         </div>
