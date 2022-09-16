@@ -376,7 +376,7 @@
     left: 4px;
 }
 .dashboard .notes .trial-period .tabs .tab {
-    --dashboard-tab-background-color: var(--primary-hover);
+    --dashboard-tab-background-color: var(--blue-grey);
 }
 
 span.note {
