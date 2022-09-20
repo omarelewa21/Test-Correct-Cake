@@ -2433,7 +2433,7 @@ class UsersController extends AppController
 
     private function handleTrialPeriodForUser($trialPeriod = null)
     {
-        $shouldDisplayTrialPeriodNotification = $trialPeriod !== null;
+        $shouldDisplayTrialPeriodNotification = ($trialPeriod !== null);
         $this->set('shouldDisplayTrialPeriodNotification', $shouldDisplayTrialPeriodNotification);
         if (!$shouldDisplayTrialPeriodNotification) {
             return true;
