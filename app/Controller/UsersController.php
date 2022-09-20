@@ -2549,11 +2549,12 @@ class UsersController extends AppController
         return json_encode(AppVersionDetector::detect() + ['status' => AppVersionDetector::isVersionAllowed()]);
     }
 
-    public function change_trial_date($userUuid)
+    public function change_trial_date($userUuid,$userTrailPeriodUuid)
     {
         if ($this->request->is('post')) {
             $params = [
                 'date'     => $this->request->data['User']['date'],
+                'user_trial_period_uuid' => $userTrailPeriodUuid
             ];
             $response = $this->UsersService->updateTrialPeriod($userUuid, $params);
 
