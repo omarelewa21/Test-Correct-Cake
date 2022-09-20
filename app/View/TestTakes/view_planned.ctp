@@ -55,7 +55,7 @@
 </div>
 
 <h1><?= __("Geplande toets") ?></h1>
-<?php if (isset($take['test_take_code']) && !empty($take['test_take_code']) && $take['guest_accounts']) { ?>
+<?php if (isset($take['test_take_code']) && !empty($take['test_take_code'])) { ?>
     <div class="test-take-code-show-wrapper">
         <div class="test-take-code-text-container">
             <h5><?= __('Toetscode') ?></h5>
