@@ -70,6 +70,30 @@
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
+
+        <tr>
+            <th width="130">
+            <?= __("Examen coördinator")?>
+            </th>
+            <td>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) ?>
+            </td>
+        </tr>
+
+        <tr class="is_examcoordinator-options">
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
+        </tr>
+        <tr class="is_examcoordinator-options">
+            <td colspan="2">
+                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
+                    'options' => [
+                        'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
+                        'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
+                    ]))
+                ?>
+            </td>
+        </tr>
+
         <tr>
             <th colspan="2"><?= __("Notities")?></th>
         </tr>
@@ -145,5 +169,18 @@
 
     });
 
+    if($('input[name="data[User][is_examcoordinator]"]').is(':checked')) {
+        $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+    }
+
+    $('input[name="data[User][is_examcoordinator]"]').change(function(){
+        User.isExamcoordinatorCheckbox(this, 'edit', '<?= is_null($school_location['school_id']) ? '0' : '1' ?>');
+    })
+
+    $('select[name="data[User][is_examcoordinator_for]"]').change(function(){
+        User.isExamcoordinatorOptions(this);
+    });
+
+    User.appendSchoolOption('<?= is_null($school_location['school_id']) ? '0' : '1' ?>')
 
 </script>

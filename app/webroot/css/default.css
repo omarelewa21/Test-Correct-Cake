@@ -900,3 +900,8 @@ th.subject-column, td.subject-column {
     font-family: 'Myriad Pro', 'Arial';
     font-size: 16px;
 }
+
+.is_examcoordinator-options {
+    visibility: hidden;
+    position: absolute;
+}

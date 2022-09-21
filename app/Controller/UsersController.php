@@ -730,6 +730,7 @@ class UsersController extends AppController
                 break;
 
             case 1: //Teacher
+                $this->set('school_location', $user['school_location']);
                 $this->render('edit_teachers', 'ajax');
                 break;
 
@@ -1078,6 +1079,7 @@ class UsersController extends AppController
                 if (!isset($data['school_location_id'])) {
                     $data['school_location_id'] = AuthComponent::user()['school_location_id'];
                 }
+                $this->Session->delete('schoolLocationsList');
             }
 
             if ($type == 'students') {
@@ -1174,6 +1176,7 @@ class UsersController extends AppController
         }
 
         if ($type == 'teachers') {
+            $this->Session->write('schoolLocationsList', $this->SchoolLocationsService->getSchoolLocationListWithUUID());
             $this->set('school_locations', $this->SchoolLocationsService->getSchoolLocationList());
         }
 
