@@ -9,10 +9,12 @@
         <?= __("CO-Learning")?>
     </a>
 
-    <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');">
-        <span class="fa fa-clipboard mr5"></span>
-        <?= __("Kopieer toetslink")?>
-    </a>
+    <?php if(!isset($take['test_take_code']) || empty($take['test_take_code'])) {?>
+        <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');">
+            <span class="fa fa-clipboard mr5"></span>
+            <?= __("Kopieer toetslink")?>
+        </a>
+    <?php } ?>
 
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/skip_discussion_popup/<?=$take_id?>',500);">
         <span class="fa fa-forward mr5"></span>

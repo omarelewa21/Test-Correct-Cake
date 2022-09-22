@@ -25,7 +25,7 @@ if(!isset($take)) {
             $test_code = sprintf('%s %s', $take['test_take_code']['prefix'], chunk_split($take['test_take_code']['code'], 3, ' '));
             ?>
             <div class="discuss-test-code-box" style="">
-                <h5>Student inlogtoetscode</h5>
+                <h5><?= __('Student inlogtoetscode') ?></h5>
                 <h1><?= $test_code ?></h1>
             </div>
         <?php } ?>
