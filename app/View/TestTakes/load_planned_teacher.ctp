@@ -17,9 +17,13 @@ foreach($test_takes as $test_take) {
             <?=$test_take['test']['question_count']?>
         </td>
         <td>
-            <?=$test_take['user']['name_first']?>
-            <?=$test_take['user']['name_suffix']?>
-            <?=$test_take['user']['name']?>
+            <?php if(isset($test_take['scheduled_by']) && !empty($test_take['scheduled_by'])) { ?>
+                <?= $test_take['scheduled_by_user_name'] ?>
+            <?php } else { ?>
+                <?=$test_take['user']['name_first']?>
+                <?=$test_take['user']['name_suffix']?>
+                <?=$test_take['user']['name']?>
+            <?php } ?>
         </td>
         <td><?=$test_take['test']['subject']['name']?></td>
         <td><?=date('d-m-Y', strtotime($test_take['time_start']))?></td>

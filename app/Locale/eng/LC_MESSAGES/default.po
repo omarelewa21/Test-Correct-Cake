@@ -4647,3 +4647,6 @@ msgstr "Link this user to classes manually"
 
 msgid "Deze gebruiker koppelen"
 msgstr "Link this user"
+
+msgid "Gepland voor"
+msgstr "Planned for"

@@ -104,10 +104,22 @@
                 </td>
                 <th><?= __("Gepland door") ?></th>
                 <td>
+                    <?php if(isset($take['scheduled_by']) && !empty($take['scheduled_by'])) { ?>
+                        <?= $take['scheduled_by_user_name'] ?>
+                    <?php } else { ?>
+                    <?= $take['user']['name_first'] ?>
+                    <?= $take['user']['name_suffix'] ?>
+                    <?= $take['user']['name'] ?>
+                    <?php } ?>
+                </td>
+                <?php if(isset($take['scheduled_by']) && !empty($take['scheduled_by'])) { ?>
+                    <th><?= __("Gepland voor") ?></th>
+                    <td>
                     <?= $take['user']['name_first'] ?>
                     <?= $take['user']['name_suffix'] ?>
                     <?= $take['user']['name'] ?>
                 </td>
+                <?php } ?>
             </tr>
         </table>
     </div>

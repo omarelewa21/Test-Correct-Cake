@@ -58,6 +58,16 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                     <?= $this->Form->input('invigilators', array('style' => 'width:280px', 'label' => false, 'options' => $inviligators, 'multiple' => true, 'class' => 'takers_select', 'value' => $selectedInvigilator)) ?>
                 </td>
             </tr>
+            <?php if ($isExamCoordinator) { ?>
+            <tr>
+                <th width="140">
+                <?= __("Gepland voor")?>
+                </th>
+                <td>
+                    <?= $this->Form->input('user_id', array('style' => 'width:280px', 'label' => false, 'options' => $school_location_teachers, 'multiple' => false, 'class' => 'takers_select', 'value' => $selected_teacher)) ?>
+                </td>
+            </tr>
+            <?php } ?>
             <?php if($is_rtti_school_location == '1'): ?>
                 <tr class="testTakeRow">
                     <td colspan="7">
