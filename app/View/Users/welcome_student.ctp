@@ -1,4 +1,10 @@
-<?php if (isset($redirectToLaravel) && $redirectToLaravel === true) { ?>
+<?php if (isset($finalRedirectTo) && $finalRedirectTo) { ?>
+    <script>
+        var url = '<?= $finalRedirectTo?>';
+        window.open(url, '_self');
+        try {electron.loadUrl(url);} catch (error) {}
+    </script>
+<?php } else if (isset($redirectToLaravel) && $redirectToLaravel === true) { ?>
     <script>
         User.goToLaravel('/student/dashboard');
     </script>

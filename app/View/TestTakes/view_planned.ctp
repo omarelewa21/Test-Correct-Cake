@@ -3,10 +3,14 @@
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug") ?>
     </a>
-    <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');">
-        <span class="fa fa-clipboard mr5"></span>
-        <?= __("Kopieer toetslink")?>
-    </a>
+    
+    <?php if(!isset($take['test_take_code']) || empty($take['test_take_code'])) {?>
+        <a href="#" class="btn white mr2" onclick="TestTake.copyDirectlink('<?=$take['directLink']?>');">
+            <span class="fa fa-clipboard mr5"></span>
+            <?= __("Kopieer toetslink")?>
+        </a>
+    <?php } ?>
+    
     <? if ($take['test_take_status_id'] == 1) { ?>
         <? if (date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) { ?>
             <a href="#" class="btn white mr2
@@ -55,7 +59,7 @@
 </div>
 
 <h1><?= __("Geplande toets") ?></h1>
-<?php if (isset($take['test_take_code']) && !empty($take['test_take_code']) && $take['guest_accounts']) { ?>
+<?php if (isset($take['test_take_code']) && !empty($take['test_take_code'])) { ?>
     <div class="test-take-code-show-wrapper">
         <div class="test-take-code-text-container">
             <h5><?= __('Toetscode') ?></h5>
