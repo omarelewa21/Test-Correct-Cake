@@ -4626,3 +4626,6 @@ msgstr "Writingassignment available"
 
 msgid "Creathlon itembank beschikbaar"
 msgstr "Creathlon itembank available"
+
+msgid "Nieuwe afgenomen toetsen pagina"
+msgstr "New taken tests page"

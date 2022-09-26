@@ -1227,6 +1227,7 @@ class UsersController extends AppController
     function menu()
     {
         $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
+        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
         $roles = AuthComponent::user('roles');
 
         $menus = array();
@@ -1262,8 +1263,18 @@ class UsersController extends AppController
                 $menus['dashboard'] = ['title' => "Dashboard", 'onClick' => 'Menu.dashboardButtonAction()'];
                 $menus['library'] = __("Toetsen");
                 $menus['tests'] = __("Ingepland");
-                $menus['taken'] = __("Afgenomen");
-                $menus['results'] = ['title' => __("Resultaten"), 'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'];
+                if ($useLaravelTakenPage) {
+                    $menus['taken'] = [
+                        'title' => __("Afgenomen"),
+                        'onClick' => 'User.goToLaravel("teacher/test_takes/taken")'
+                    ];
+                } else {
+                    $menus['taken'] = __("Afgenomen");
+                }
+                $menus['results'] = [
+                    'title' => __("Resultaten"),
+                    'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'
+                ];
                 $menus['analyses'] = __("Analyses");
                 $menus['classes'] = __("Klassen");
 //                $menus['other'] = "Overig";
@@ -1320,7 +1331,7 @@ class UsersController extends AppController
     public function tiles()
     {
         $roles = AuthComponent::user('roles');
-
+        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
         $tiles = array();
 
         $tiles['kennisbank'] = [
@@ -1687,26 +1698,21 @@ class UsersController extends AppController
                     'path'  => '/test_takes/assessment_open_teacher'
                 );
 
-                $tiles['tests_taken'] = array(
-                    'menu'  => 'taken',
-                    'icon'  => 'afgenomen',
-                    'title' => __("Mijn afgenomen toetsen"),
-                    'path'  => '/test_takes/taken_teacher'
-                );
+                if(!$useLaravelTakenPage ) {
+                    $tiles['tests_taken'] = array(
+                        'menu'  => 'taken',
+                        'icon'  => 'afgenomen',
+                        'title' => __("Mijn afgenomen toetsen"),
+                        'path'  => '/test_takes/taken_teacher'
+                    );
 
-//                $tiles['tests_discussed'] = array(
-//                    'menu' => 'taken',
-//                    'icon' => 'bespreken',
-//                    'title' => __("Bespreken"),
-//                    'path' => '/test_takes/discussion'
-//                );
-
-                $tiles['tests_examine'] = array(
-                    'menu'  => 'taken',
-                    'icon'  => 'nakijken',
-                    'title' => __("Nakijken & normeren"),
-                    'path'  => '/test_takes/to_rate'
-                );
+                    $tiles['tests_examine'] = array(
+                        'menu'  => 'taken',
+                        'icon'  => 'nakijken',
+                        'title' => __("Nakijken & normeren"),
+                        'path'  => '/test_takes/to_rate'
+                    );
+                }
 
 //                $tiles['tests_graded'] = array(
 //                    'menu'  => 'results',
@@ -1969,6 +1975,7 @@ class UsersController extends AppController
         $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
+        $info['menu_taken_direct_link'] = $info['school_location']['featureSettings']['allow_new_taken_tests_page'] == '1' ? true : false ;
 
         $return = [];
         $allowed = [
@@ -1981,7 +1988,8 @@ class UsersController extends AppController
             'school_location_list',
             'school_location_id',
             'guest',
-            'laravel_look'
+            'laravel_look',
+            'menu_taken_direct_link'
         ];
 
         foreach ($allowed as $key) {
@@ -2476,6 +2484,11 @@ class UsersController extends AppController
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
             }
+            if(array_key_exists('return_route', $options)) {
+                CakeSession::write('return_route', $options['return_route']);
+            }
+
+
             if($internalPage){
                 $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
                 $this->set('internal_page',$internalPage);

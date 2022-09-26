@@ -480,6 +480,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('test_uuid', getUUID($take['test'],'get'));
+        $this->set('return_route', CakeSession::read('return_route'));
 
         if ($take['test_take_status_id'] < 6) {
             $this->render('view_planned', 'ajax');
