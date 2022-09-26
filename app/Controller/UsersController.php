@@ -2552,7 +2552,7 @@ class UsersController extends AppController
         return json_encode(AppVersionDetector::detect() + ['status' => AppVersionDetector::isVersionAllowed()]);
     }
 
-    public function change_trial_date($userUuid,$userTrailPeriodUuid)
+    public function change_trial_date($userUuid, $userTrailPeriodUuid)
     {
         if ($this->request->is('post')) {
             $params = [
@@ -2588,20 +2588,22 @@ class UsersController extends AppController
         $trialStatus = [];
         $trialDaysLeft = [];
         foreach($users as $user) {
-            if (is_null($user['trial_period'])) {
+            if (empty($user['trial_periods'])) {
                 $trialStatus[getUUID($user, 'get')] = 'not_started';
                 continue;
             }
-            [$daysLeft, $totalDays] = $this->calculateTrialDaysLeft($user['trial_period']);
-
-            if ($daysLeft <= 0) {
-                $trialStatus[getUUID($user, 'get')] = 'expired';
-                continue;
+            foreach($user['trial_periods'] as $trialPeriod) {
+                $lookupKey = sprintf('%s-%s', getUUID($user, 'get'), getUUID($trialPeriod, 'get'));
+                [$daysLeft, $totalDays] = $this->calculateTrialDaysLeft($trialPeriod);
+                if ($daysLeft <= 0) {
+                    $trialStatus[$lookupKey] = 'expired';
+                    continue;
+                }
+                $trialStatus[$lookupKey] = 'active';
+                $trialDaysLeft[$lookupKey] = $daysLeft;
             }
-            $trialStatus[getUUID($user, 'get')] = 'active';
-            $trialDaysLeft[getUUID($user, 'get')] = $daysLeft;
-        }
 
+        }
         return [$trialStatus, $trialDaysLeft];
     }
 
