@@ -6,6 +6,7 @@ foreach ($users as $user) {
         <td><?= $user['name_suffix'] ?></td>
         <td><?= $user['name'] ?></td>
         <td><?= $user['username'] ?></td>
+        <td><?= $user['school_location']['name'] ?></td>
         <td>
             <? if ($trialStatus[getUUID($user, 'get')] === 'not_started') { ?>
                 <span class="tag" data-tag-warning><?= __('Niet begonnen') ?></span>

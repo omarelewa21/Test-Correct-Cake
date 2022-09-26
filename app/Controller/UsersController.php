@@ -588,6 +588,9 @@ class UsersController extends AppController
                 $params = [
                     'title' => __('Docenten'),
                 ];
+                $school_locations = [0 => __('Alle')];
+                $school_locations += $this->SchoolLocationsService->getSchoolLocationList();
+                $this->set('school_location', $school_locations);
                 break;
         }
 

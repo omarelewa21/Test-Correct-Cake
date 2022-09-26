@@ -77,7 +77,7 @@
                         <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                     </td>
                 </tr>
-            <? } elseif ($type == 'teachers' && in_array($role, ['Administrator'])) { ?>
+            <? } elseif (in_array($type, ['teachers', 'trial_teachers']) && in_array($role, ['Administrator'])) { ?>
                 <tr>
                     <th><?= __("E-mailadres") ?></th>
                     <td>
@@ -148,6 +148,7 @@
                         <th><?= __("Voornaam") ?></th>
                         <th><?= __("Tussenvoegsel") ?></th>
                         <th><?= __("Achternaam") ?></th>
+                        <th><?= __("E-mailadres") ?></th>
                         <th><?= __("School") ?></th>
                         <th><?= __("Status") ?></th>
                         <th><?= __("Dagen over") ?></th>
