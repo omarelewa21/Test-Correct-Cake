@@ -273,4 +273,15 @@ class SchoolLocationsService extends BaseService
 
         return $response;
     }
+
+    public function getSchoolLocationTeacherUsers($schoolLocationUuid)
+    {
+        $response = $this->Connector->getRequest('/teacher/school_location_teacher_users/' . $schoolLocationUuid, []);
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
 }

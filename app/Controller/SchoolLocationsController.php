@@ -439,4 +439,18 @@ class SchoolLocationsController extends AppController
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
     }
+
+    public function hasSchoolRelation($id)
+    {
+        $this->autoRender = false;
+        if($this->Session->check('schoolLocationsList') && is_array($this->Session->read('schoolLocationsList'))){
+            foreach($this->Session->read('schoolLocationsList') as $location){
+                if(is_array($location) && $location['id'] == $id){
+                    $school_location = $this->SchoolLocationsService->getSchoolLocation($location['uuid']);
+                    return !is_null($school_location['school']);
+                }
+            }
+        }
+        return false;
+    }
 }

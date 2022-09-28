@@ -58,13 +58,36 @@
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8', 'type' => 'text')) ?>
             </td>
         </tr>
-
+        
         <tr>
             <th width="130">
             <?= __("Externe code")?>
             </th>
             <td>
                 <?= $this->Form->input('external_id', array('style' => 'width: 185px','label' => false, 'type' => 'text')) ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th width="130">
+            <?= __("Examen coördinator")?>
+            </th>
+            <td>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) ?>
+            </td>
+        </tr>
+
+        <tr class="is_examcoordinator-options">
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
+        </tr>
+        <tr class="is_examcoordinator-options">
+            <td colspan="2">
+                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
+                'options' => [
+                    'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
+                    'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
+                    ]))
+                ?>
             </td>
         </tr>
 
@@ -115,10 +138,29 @@
                 var errors = JSON.parse(result.error)?.errors
                 if('password' in errors) {
                     return Notify.notify(errors.password, "error");
+                }else if('is_examcoordinator_for' in errors){
+                    return Notify.notify(errors.is_examcoordinator_for, "error");
                 }
 
                 Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );
+
+    $('input[name="data[User][is_examcoordinator]"]').change(function(){
+        User.isExamcoordinatorCheckbox(this);
+    })
+
+    $('select[name="data[User][is_examcoordinator_for]"]').change(function(){
+        User.isExamcoordinatorOptions(this);
+    });
+
+    $('select[name="data[User][school_location_id]').change(function(){
+        let is_examcoordinator_elem = $('input[name="data[User][is_examcoordinator]"]');
+        if(is_examcoordinator_elem.is(':checked')){
+            is_examcoordinator_elem.prop('checked', false); 
+            $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
+        }
+    })
+
 </script>
