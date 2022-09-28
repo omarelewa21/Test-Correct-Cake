@@ -4650,3 +4650,6 @@ msgstr "Link this user"
 
 msgid "Gepland voor"
 msgstr "Planned for"
+
+msgid "Nieuwe afgenomen toetsen pagina"
+msgstr "New taken tests page"

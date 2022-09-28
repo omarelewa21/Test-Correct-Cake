@@ -110,3 +110,6 @@ msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruik
 
 msgid "Gepland voor"
 msgstr "Gepland voor"
+
+msgid "Nieuwe afgenomen toetsen pagina"
+msgstr "Nieuwe afgenomen toetsen pagina"
