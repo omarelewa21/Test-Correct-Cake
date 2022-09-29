@@ -31,7 +31,7 @@
         </div>
         <div style="display: flex;">
             <button id="postpone-button" class="button button-sm cta-button" style="cursor: pointer;"
-                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 30 : 2*60 ?>')">
+                    onclick="Popup.closeLast();User.postponeAutoUserLogout(2*60)">
                     <?= __("Sessie verlengen")?>
             </button>
         </div>
