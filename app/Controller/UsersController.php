@@ -1357,6 +1357,13 @@ class UsersController extends AppController
                     'title' => __("Schoollocaties"),
                     'path'  => '/school_locations'
                 );
+                $tiles['school_locations_new'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => __("Schoollocaties new"),
+                    'path'  => 'admin/school-locations',
+                    'type'  => 'laravelpage'
+                );
                 $tiles['teachers'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
@@ -1514,9 +1521,15 @@ class UsersController extends AppController
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => __("Schoollocaties"),
-                    'path'  => '/school_locations'
+                    'path'  => '/school-locations'
                 );
-
+                $tiles['school_locations_new'] = array(
+                    'menu'  => 'lists',
+                    'icon'  => 'testlist',
+                    'title' => __("Schoollocaties new"),
+                    'path'  => 'account_manager/school_locations', // add laravel route here.
+                    'type'  => 'laravelpage'
+                );
                 $tiles['class_uploads'] = array(
                     'menu'  => 'files',
                     'icon'  => 'testlist',
