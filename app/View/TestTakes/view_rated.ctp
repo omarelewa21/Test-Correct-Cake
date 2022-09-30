@@ -48,7 +48,13 @@ foreach(AuthComponent::user()['roles'] as $role) {
         <a href="#" onclick="Popup.load('/test_takes/export_to_rtti/<?=$take_id?>', 1000)" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+    <a href="#" class="btn white mr2"
+        <? if (is_null($return_route)) { ?>
+            onclick="Navigation.back();"
+        <? } else { ?>
+            onclick="User.goToLaravel('<?= $return_route ?>')"
+        <? } ?>
+    >
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
