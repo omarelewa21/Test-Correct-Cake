@@ -41,7 +41,7 @@ if(count($takes) == 0) {
                     <tr>
                         <? if(isset($is_assessment)){ ?>
                             <th><?= __("Opdracht")?></th>
-                            <?php if($allow_guest_accounts) {?><th width="150">Student inlogtoetscode</th> <?php } ?>
+                            <?php if($allow_guest_accounts) {?><th width="160"><?= __('Opdrachtcode') ?></th> <?php } ?>
                             <th><?= __("Klas(sen)")?></th>
                             <th><?= __("Datum van")?></th>
                             <th><?= __("Datum tot")?></th>
@@ -72,12 +72,12 @@ if(count($takes) == 0) {
                                     <div class="surveillance_test_code">
                                         <span><?= $take[0]['code'] ?></span>
                                         <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
-                                            onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer">
+                                            onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>', <?=isset($is_assessment)?'true':'false'?>);" style="cursor:pointer">
                                         </i>
                                     </div>
                                 <?php } else { ?>
                                     <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
-                                        onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>');" style="cursor:pointer; color:#041F74">
+                                        onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>', <?=isset($is_assessment)?'true':'false'?>);" style="cursor:pointer; color:#041F74">
                                     </i>
                                 <?php } ?>
                             </td>
