@@ -6,7 +6,7 @@ var User = {
 
     userLogoutInterval: null,
     secondsBeforeTeacherLogout: 15*60, //default 15 minutes
-    logoutWarningTimer: 15*60, //default 15 minutes
+    logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
 
     initialise: function () {
@@ -399,7 +399,7 @@ var User = {
 
     resetPreventLogoutData : function() {
         clearInterval(User.logoutCountdownInterval);
-        User.logoutWarningTimer = 15*60;
+        User.logoutWarningTimer = 30;
         this.startUserLogoutInterval();
     },
 
