@@ -102,6 +102,7 @@
             <a href="https://portal2.test-correct.nl/">live portal2</a><br>
             <a href="https://testportal.test-correct.nl/">test portal</a><br>
             <a href="https://devportal.test-correct.nl/">dev portal</a><br>
+            <a href="https://stageportal.test-correct.nl/">stage portal</a><br>
             <a href="http://test-correct.test/">Sobit dev</a><br>
         </div>
     </div>

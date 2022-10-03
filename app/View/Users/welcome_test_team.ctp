@@ -30,6 +30,11 @@
             </a>
         </div>
         <div style="display: flex; flex-direction: column; justify-content: center; width: 100%">
+            <a class="button secondary-button button-md" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin: 0 10px;" href="https://stageportal.test-correct.nl">
+                <span>Stage portal</span>
+            </a>
+        </div>        
+        <div style="display: flex; flex-direction: column; justify-content: center; width: 100%">
             <a class="button secondary-button button-md" style="display: flex; justify-content: center; align-items: center; text-decoration: none; margin: 0 10px;" href="http://test-correct.test/">
                 <span>Sobit dev</span>
             </a>
