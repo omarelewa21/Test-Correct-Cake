@@ -1521,13 +1521,13 @@ class UsersController extends AppController
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => __("Schoollocaties"),
-                    'path'  => '/school-locations'
+                    'path'  => '/school_locations'
                 );
                 $tiles['school_locations_new'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => __("Schoollocaties new"),
-                    'path'  => 'account_manager/school_locations', // add laravel route here.
+                    'path'  => 'account-manager/school-locations',
                     'type'  => 'laravelpage'
                 );
                 $tiles['class_uploads'] = array(
