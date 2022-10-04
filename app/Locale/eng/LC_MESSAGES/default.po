@@ -475,8 +475,8 @@ msgstr "No level needs to be set for trunk classes. These may already be known"
 msgid "Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?"
 msgstr "You have been inactive on Test-Correct for some time now and will be automatically logged out in 30 seconds to guarantee the security of your account. Do you want to extend your session by 5 minutes?"
 
-msgid "Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 30 minuten?"
-msgstr "To guarantee the security of your account, you will automatically be logged out of Test-Correct after 5 minutes of inactivity. Do you want to extend your session by 30 minutes?"
+msgid "Om de veiligheid van je account te garanderen word je na 15 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 3 uur?"
+msgstr "To guarantee the security of your account, you will automatically be logged out of Test-Correct after 15 minutes of inactivity. Do you want to extend your session by 3 hours?"
 
 msgid "Bezoek de kennisbank"
 msgstr "Visit the knowledge base"

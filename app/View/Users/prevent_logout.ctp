@@ -17,7 +17,7 @@
     </div>
     <div class="divider mb16 mt16"></div>
     <div class="body2">
-        <p><?= !$opened_by_user ? __("Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?") : __("Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 30 minuten?") ?></p>
+        <p><?= !$opened_by_user ? __("Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?") : __("Om de veiligheid van je account te garanderen word je na 15 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 3 uur?") ?></p>
     </div>
 </div>
 <div class="popup-footer tat-footer pt16" style="padding-bottom: 2rem!important;">
