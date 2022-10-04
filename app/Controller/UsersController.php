@@ -731,6 +731,7 @@ class UsersController extends AppController
 
             case 1: //Teacher
                 $this->set('school_location', $user['school_location']);
+                $this->set('can_be_exam_coordinator', $this->canTeacherBeExamCoordinator($user_id));
                 $this->render('edit_teachers', 'ajax');
                 break;
 
@@ -1228,6 +1229,7 @@ class UsersController extends AppController
     {
         $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
         $roles = AuthComponent::user('roles');
+        $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
 
         $menus = array();
 
@@ -1262,12 +1264,12 @@ class UsersController extends AppController
                 $menus['dashboard'] = ['title' => "Dashboard", 'onClick' => 'Menu.dashboardButtonAction()'];
                 $menus['library'] = __("Toetsen");
                 $menus['tests'] = __("Ingepland");
-                $menus['taken'] = __("Afgenomen");
-                $menus['results'] = ['title' => __("Resultaten"), 'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'];
-                $menus['analyses'] = __("Analyses");
-                $menus['classes'] = __("Klassen");
-//                $menus['other'] = "Overig";
-//                $menus['support'] = "Support";
+                if (!$isExamCoordinator) {
+                    $menus['taken'] = __("Afgenomen");
+                    $menus['results'] = ['title' => __("Resultaten"), 'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'];
+                    $menus['analyses'] = __("Analyses");
+                    $menus['classes'] = __("Klassen");
+                }
             }
 
             if ($role['name'] == 'Student') {
@@ -1320,6 +1322,7 @@ class UsersController extends AppController
     public function tiles()
     {
         $roles = AuthComponent::user('roles');
+        $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
 
         $tiles = array();
 
@@ -1673,140 +1676,69 @@ class UsersController extends AppController
                     'title' => __("Mijn ingeplande toetsen"),
                     'path'  => '/test_takes/planned_teacher'
                 );
+                if (!$isExamCoordinator) {
+                    $tiles['tests_surveillance'] = array(
+                        'menu'  => 'tests',
+                        'icon'  => 'surveilleren',
+                        'title' => __("Surveilleren"),
+                        'path'  => '/test_takes/surveillance'
+                    );
+                    $tiles['tests_assesments'] = array(
+                        'menu'  => 'tests',
+                        'icon'  => 'surveilleren',
+                        'title' => __("Lopende opdrachten"),
+                        'path'  => '/test_takes/assessment_open_teacher'
+                    );
 
-                $tiles['tests_surveillance'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'surveilleren',
-                    'title' => __("Surveilleren"),
-                    'path'  => '/test_takes/surveillance'
-                );
-                $tiles['tests_assesments'] = array(
-                    'menu'  => 'tests',
-                    'icon'  => 'surveilleren',
-                    'title' => __("Lopende opdrachten"),
-                    'path'  => '/test_takes/assessment_open_teacher'
-                );
+                    $tiles['tests_taken'] = array(
+                        'menu'  => 'taken',
+                        'icon'  => 'afgenomen',
+                        'title' => __("Mijn afgenomen toetsen"),
+                        'path'  => '/test_takes/taken_teacher'
+                    );
 
-                $tiles['tests_taken'] = array(
-                    'menu'  => 'taken',
-                    'icon'  => 'afgenomen',
-                    'title' => __("Mijn afgenomen toetsen"),
-                    'path'  => '/test_takes/taken_teacher'
-                );
+                    $tiles['tests_examine'] = array(
+                        'menu'  => 'taken',
+                        'icon'  => 'nakijken',
+                        'title' => __("Nakijken & normeren"),
+                        'path'  => '/test_takes/to_rate'
+                    );
 
-//                $tiles['tests_discussed'] = array(
-//                    'menu' => 'taken',
-//                    'icon' => 'bespreken',
-//                    'title' => __("Bespreken"),
-//                    'path' => '/test_takes/discussion'
-//                );
+                    $tiles['analyse_student'] = array(
+                        'menu'  => 'analyses',
+                        'icon'  => 'analyse-leerlingen',
+                        'title' => __("Mijn studenten"),
+                        'path'  => '/analyses/students_overview'
+                    );
 
-                $tiles['tests_examine'] = array(
-                    'menu'  => 'taken',
-                    'icon'  => 'nakijken',
-                    'title' => __("Nakijken & normeren"),
-                    'path'  => '/test_takes/to_rate'
-                );
+                    $tiles['analyse_classes'] = array(
+                        'menu'  => 'analyses',
+                        'icon'  => 'analyse-klassen',
+                        'title' => __("Mijn klassen"),
+                        'path'  => '/analyses/school_classes_overview'
+                    );
 
-//                $tiles['tests_graded'] = array(
-//                    'menu'  => 'results',
-//                    'icon'  => 'becijferd',
-//                    'title' => 'Beoordeeld',
-//                    'path'  => '/test_takes/rated'
-//                );
+                    $tiles['teacher_classes'] = [
+                        'menu'  => 'classes',
+                        'icon'  => 'testlist',
+                        'title' => __("Mijn klassen"),
+                        'path'  => '/teacher_classes'
+                    ];
 
-//                $tiles['analyse'] = array(
-//                    'menu'  => 'analyses',
-//                    'icon'  => 'analyse-leraar',
-//                    'title' => __("Mijn analyses"),
-//                    'path'  => '/analyses/teacher/'.AuthComponent::user('uuid')
-//                );
+                    $tiles['school_location_classes'] = [
+                        'menu'  => 'classes',
+                        'icon'  => 'testlist',
+                        'title' => __("Mijn schoollocatie"),
+                        'path'  => '/teacher_classes/school_location_classes'
+                    ];
 
-                $tiles['analyse_student'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-leerlingen',
-                    'title' => __("Mijn studenten"),
-                    'path'  => '/analyses/students_overview'
-                );
-
-                $tiles['analyse_classes'] = array(
-                    'menu'  => 'analyses',
-                    'icon'  => 'analyse-klassen',
-                    'title' => __("Mijn klassen"),
-                    'path'  => '/analyses/school_classes_overview'
-                );
-
-//                $tiles['messages'] = array(
-//                    'menu'  => 'other',
-//                    'icon'  => 'messages',
-//                    'title' => 'Berichten',
-//                    'path'  => '/messages'
-//                );
-
-                $tiles['teacher_classes'] = [
-                    'menu'  => 'classes',
-                    'icon'  => 'testlist',
-                    'title' => __("Mijn klassen"),
-                    'path'  => '/teacher_classes'
-                ];
-
-                $tiles['school_location_classes'] = [
-                    'menu'  => 'classes',
-                    'icon'  => 'testlist',
-                    'title' => __("Mijn schoollocatie"),
-                    'path'  => '/teacher_classes/school_location_classes'
-                ];
-
-                $tiles['teacher_test_uploads'] = [
-                    'menu'  => 'library',
-                    'icon'  => 'testlist',
-                    'title' => __("Mijn uploads"),
-                    'path'  => '/file_management/testuploads'
-                ];
-
-//                $tiles['webinar'] = [
-//                    'menu'  => 'support',
-//                    'icon'  => 'webinar',
-//                    'title' => 'Webinar',
-//                    'type'  => 'externalpopup',
-//                    'path'  => 'https://embed.webinargeek.com/ac16aaa56a08d79ca2535196591dd91b20b70807849b5879fe',
-//                ];
-//
-//                $tiles['supportmail'] = [
-//                    'menu'  => 'support',
-//                    'icon'  => 'send-email',
-//                    'title' => 'E-mail',
-//                    'type'  => 'externallink',
-//                    'path'  => 'mailto:support@test-correct.nl',
-//                ];
-//
-//                $tiles['supportchat'] = [
-//                    'menu'  => 'support',
-//                    'icon'  => 'send-email',
-//                    'title' => 'Chat',
-//                    'path'  => '',
-//                ];
-//
-//                $tiles['updates'] = [
-//                    'menu'  => 'support',
-//                    'icon'  => 'send-email',
-//                    'title' => 'Updates & onderhoud',
-//                    'type'  => 'externalpopup',
-//                    'width'=> '1000',
-//                    'path'  => 'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates',
-//                ];
-
-                /*
-                $tiles['tell_a_teacher'] = array(
-                    'menu'  => 'tell_a_teacher',
-                    'icon'  => 'testlist',
-                    'title' => __("Stuur een uitnodiging"),
-                    'path'  => '/users/tell_a_teacher',
-                    'type'  => 'popup',
-                    'width' => 800
-                );
-                 *
-                 */
+                    $tiles['teacher_test_uploads'] = [
+                        'menu'  => 'library',
+                        'icon'  => 'testlist',
+                        'title' => __("Mijn uploads"),
+                        'path'  => '/file_management/testuploads'
+                    ];
+                }
             }
 
             if ($role['name'] == 'Student') {
@@ -2189,7 +2121,7 @@ class UsersController extends AppController
                 $path = $this->request->query['path'];
             }
 
-            if ($path{0} !== '/') {
+            if ($path[0] !== '/') {
                 $path = '/' . $path;
             }
             $params['app_details'] = $this->getAppInfoFromSession();
@@ -2609,5 +2541,17 @@ class UsersController extends AppController
     {
         $this->set('trialInfoURL', $this->trialInfoURL);
         $this->set('closeable', $closeable);
+    }
+
+    private function canTeacherBeExamCoordinator($userUuid)
+    {
+        $classes = $this->SchoolClassesService->getForUser($userUuid);
+        foreach($classes as $class) {
+            if (!!$class['demo'] === false) {
+                return false;
+            }
+        }
+
+        return true;
     }
 }

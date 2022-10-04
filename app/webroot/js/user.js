@@ -504,7 +504,7 @@ var User = {
                 btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
                 title: $.i18n('Weet u het zeker?'),
-                message: $.i18n('Weet je zeker dat je de examen coördinator functie wilt uitzetten? Deze gebruiker wordt ontkoppeld van alle Klassen')
+                message: $.i18n('Weet je zeker dat je de examen coördinator functie wilt uitzetten?')
             }, function() {
                 $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
             }, function() {
