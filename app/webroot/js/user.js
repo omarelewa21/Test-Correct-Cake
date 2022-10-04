@@ -5,8 +5,8 @@ var User = {
     surpressInactive: false,
 
     userLogoutInterval: null,
-    secondsBeforeTeacherLogout: 300, //300 default
-    logoutWarningTimer: 30,
+    secondsBeforeTeacherLogout: 15*60, //default 15 minutes
+    logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
 
     initialise: function () {
@@ -390,9 +390,9 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
-    postponeAutoUserLogout : function(seconds) {
-        if (seconds != null) {
-            User.secondsBeforeTeacherLogout = seconds*60;
+    postponeAutoUserLogout : function(minutes) {
+        if (minutes != null) {
+            User.secondsBeforeTeacherLogout = minutes*60;
         }
         this.resetPreventLogoutData();
     },

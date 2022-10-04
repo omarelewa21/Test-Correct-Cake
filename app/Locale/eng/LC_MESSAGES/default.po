@@ -4653,3 +4653,6 @@ msgstr "Planned for"
 
 msgid "Nieuwe afgenomen toetsen pagina"
 msgstr "New taken tests page"
+
+msgid "Om de veiligheid van je account te garanderen word je na 15 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 2 uur?"
+msgstr "To guarantee the security of your account, you will automatically be logged out of Test-Correct after 15 minutes of inactivity. Do you want to extend your session by 2 hours?"
