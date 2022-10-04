@@ -35,7 +35,7 @@ msgid "Lees meer."
 msgstr "Read more."
 
 msgid "Geen, gemeenschap is eindklant"
-msgstr "None, MAT is end customer"
+msgstr "None, community is end customer"
 
 msgid "Import gegevens van klassen zijn incompleet"
 msgstr "Classes import data are incomplete"

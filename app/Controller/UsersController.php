@@ -1348,15 +1348,10 @@ class UsersController extends AppController
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => __("Scholengemeenschap"),
-                    'path'  => '/schools'
+                    'path'  => 'admin/schools',
+                    'type'  => 'laravelpage'
                 );
 
-//                $tiles['school_locations'] = array(
-//                    'menu'  => 'lists',
-//                    'icon'  => 'testlist',
-//                    'title' => __("Schoollocaties"),
-//                    'path'  => '/school_locations'
-//                );
                 $tiles['school_locations'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
@@ -1510,19 +1505,15 @@ class UsersController extends AppController
                 );
 
 
+
                 $tiles['schools'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
                     'title' => __("Scholengemeenschap"),
-                    'path'  => '/schools'
+                    'path'  => 'account-manager/schools',
+                    'type'  => 'laravelpage'
                 );
 
-//                $tiles['school_locations'] = array(
-//                    'menu'  => 'lists',
-//                    'icon'  => 'testlist',
-//                    'title' => __("Schoollocaties"),
-//                    'path'  => '/school_locations'
-//                );
                 $tiles['school_locations'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
