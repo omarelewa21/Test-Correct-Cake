@@ -390,9 +390,9 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
-    postponeAutoUserLogout : function(seconds) {
-        if (seconds != null) {
-            User.secondsBeforeTeacherLogout = seconds*60;
+    postponeAutoUserLogout : function(minutes) {
+        if (minutes != null) {
+            User.secondsBeforeTeacherLogout = minutes*60;
         }
         this.resetPreventLogoutData();
     },
