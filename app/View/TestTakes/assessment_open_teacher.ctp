@@ -25,7 +25,7 @@ if(count($takes) == 0) {
                 <table class="table table-striped">
                     <tr>
                         <th><?= __("Opdracht")?></th>
-                        <?php if($allow_guest_accounts) {?><th width="150"><?= __("Student inlogtoetscode") ?></th> <?php } ?>
+                        <?php if($allow_guest_accounts) {?><th width="160"><?= __("Opdrachtcode") ?></th> <?php } ?>
                         <th><?= __("Klas(sen)")?></th>
                         <th><?= __("Datum van")?></th>
                         <th><?= __("Datum tot")?></th>
@@ -45,6 +45,9 @@ if(count($takes) == 0) {
                                     <?php if($take[0]['code']) { ?>
                                         <div class="surveillance_test_code">
                                             <span><?= $take[0]['code'] ?></span>
+                                            <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
+                                                onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>', true);" style="cursor:pointer">
+                                            </i>
                                         </div>
                                     <?php } else { ?>
                                         <span></span>

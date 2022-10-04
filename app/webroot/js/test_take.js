@@ -1252,9 +1252,11 @@ var TestTake = {
         }
     },
 
-    copyDirectlink: function(link){
+    copyDirectlink: function(link, is_assesment=false){
         navigator.clipboard.writeText(link).then(()=>{
-            Notify.notify($.i18n('Toetslink gekopieerd') );
+            is_assesment
+            ? Notify.notify($.i18n('Opdrachtlink gekopieerd') )
+            : Notify.notify($.i18n('Toetslink gekopieerd') );
         });
 
     }
