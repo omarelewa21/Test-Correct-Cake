@@ -59,6 +59,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_new_taken_tests_page':
                     $data = ['allow_new_taken_tests_page' => $allow];
                     break;
+                case 'allow_analyses':
+                    $data = ['allow_analyses' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;

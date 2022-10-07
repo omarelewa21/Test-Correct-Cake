@@ -285,6 +285,16 @@
                 <th><?= __("Licentie type") ?></th>
                 <td><?= __($school_location['license_type']) ?></td>
             </tr>
+            <tr>
+                <th><?= __("Nieuwe studenten analyses") ?></th>
+                <td>
+                    <?= $this->element('feature_setting_toggle', [
+                        'attribute'   => 'allow_analyses',
+                        'source'      => $school_location['feature_settings'],
+                        'clickAction' => 'updateSchoolLocation'
+                    ]); ?>
+                </td>
+            </tr>
         </table>
     </div>
 </div>

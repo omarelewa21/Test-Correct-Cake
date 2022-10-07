@@ -113,3 +113,6 @@ msgstr "Gepland voor"
 
 msgid "Nieuwe afgenomen toetsen pagina"
 msgstr "Nieuwe afgenomen toetsen pagina"
+
+msgid "Nieuwe studenten analyses"
+msgstr "Nieuwe studenten analyses"
