@@ -269,4 +269,15 @@ class SchoolClassesService extends BaseService {
             $this->addError($response);
         }
     }
+
+    public function getForUser($userUuid)
+    {
+        $response = $this->Connector->getRequest('/school_class/forUser/' . $userUuid, []);
+
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
+        }
+        return $response;
+    }
 }
