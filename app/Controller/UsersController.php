@@ -2189,6 +2189,11 @@ class UsersController extends AppController
             if ($path{0} !== '/') {
                 $path = '/' . $path;
             }
+
+            if($this->data['extendUserSession']){
+                $params['extensionTime'] = $this->data['extensionTime'];
+            }
+
             $params['app_details'] = $this->getAppInfoFromSession();
             $responseData = $this->UsersService->createTemporaryLogin($params, $path);
             if ($autoLogout) {
