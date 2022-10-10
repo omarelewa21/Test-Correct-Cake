@@ -8,6 +8,7 @@ var User = {
     secondsBeforeTeacherLogout: 15*60, //default 15 minutes
     logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
+    notifyLaravelWithExtendedSession: false,
 
     initialise: function () {
         $.ajax({
@@ -394,6 +395,7 @@ var User = {
         if (minutes != null) {
             User.secondsBeforeTeacherLogout = minutes*60;
         }
+        User.notifyLaravelWithExtendedSession = true;   // Notify Laravel that user has extended his session
         this.resetPreventLogoutData();
     },
 
@@ -448,10 +450,19 @@ var User = {
         });
     },
     goToLaravel: function (path, autoLogout = null) {
+        let data = {
+            path: path,
+            autoLogout: autoLogout,
+            extendUserSession: User.notifyLaravelWithExtendedSession
+        }
+        if(User.notifyLaravelWithExtendedSession){
+            data.extensionTime = User.secondsBeforeTeacherLogout;
+        }
+
         $.ajax({
             url: '/users/goToLaravelPath',
             method: 'post',
-            data: {'path': path, autoLogout: autoLogout},
+            data: data,
             success: function (url) {
                 document.removeEventListener("visibilitychange", onchange);
                 if (autoLogout) {
