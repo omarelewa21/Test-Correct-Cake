@@ -59,22 +59,24 @@ foreach($test_takes as $test_take) {
                     <?= __("Wijzigen")?>
                 </a>
                 <? if($test_take['test_take_status_id'] == 1) { ?>
-                    <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) {?>
-                        <a href="#" class="btn  <? if(!$test_take['invigilators_acceptable']){?>
-                                                                        toets_afnemen_disabled
-                                                                <?}else{?>
-                                                                        highlight white
-                                                                <?}?>"
-                            <? if($test_take['invigilators_acceptable']){?>
-                                onclick="TestTake.startTake('<?=getUUID($test_take, 'get');?>');"
-                            <?}?>
-                            <? if(!$test_take['invigilators_acceptable']){?>
-                                onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');"
-                            <?}?>
-                           >
-                            <span class="fa fa-calendar mr5"></span>
-                            <?= __("Nu afnemen")?>
-                        </a>
+                    <? if (!AuthComponent::user('isExamCoordinator')) { ?>
+                        <? if(date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) {?>
+                            <a href="#" class="btn  <? if(!$test_take['invigilators_acceptable']){?>
+                                                                            toets_afnemen_disabled
+                                                                    <?}else{?>
+                                                                            highlight white
+                                                                    <?}?>"
+                                <? if($test_take['invigilators_acceptable']){?>
+                                    onclick="TestTake.startTake('<?=getUUID($test_take, 'get');?>');"
+                                <?}?>
+                                <? if(!$test_take['invigilators_acceptable']){?>
+                                    onclick="TestTake.noStartTake('<?=$test_take['invigilators_unacceptable_message']?>');"
+                                <?}?>
+                               >
+                                <span class="fa fa-calendar mr5"></span>
+                                <?= __("Nu afnemen")?>
+                            </a>
+                        <? } ?>
                     <? } ?>
                     <a href="#" onclick="Popup.showPdfTestTake('<?=getUUID($test_take, 'get');?>', 1000)" class="btn highlight white">
                         <span class="fa fa-file-o mr5"></span>
