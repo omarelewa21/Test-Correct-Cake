@@ -8,7 +8,7 @@
             <span class="fa fa-edit mr5"></span>
             <?= __("Wijzigen")?>
         </a>
-        <a href="#" class="btn white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 1);">
+        <a href="#" class="btn white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 1, '<?= $return_route ?>');">
             <span class="fa fa-remove mr5"></span>
             <?= __("Verwijderen")?>
         </a>

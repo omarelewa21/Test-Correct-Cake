@@ -487,7 +487,7 @@ var Organisation = {
 }
 
 var School = {
-	delete : function(id) {
+	delete : function(id, returnRoute) {
 		Popup.message({
 			btnOk: $.i18n('Ja'),
 			btnCancel: $.i18n('Annuleer'),
@@ -499,7 +499,7 @@ var School = {
 				type: 'DELETE',
 				success: function(response) {
 					Notify.notify($.i18n('School verwijderd'), 'info');
-					Navigation.refresh();
+					User.goToLaravel(returnRoute);
 				}
 			});
 		});
@@ -551,7 +551,7 @@ var Teacher = {
 };
 
 var SchoolLocation = {
-	delete : function(id, source) {
+	delete : function(id, source, returnRoute) {
 
 		Popup.message({
 			btnOk: $.i18n('Ja'),
@@ -562,13 +562,9 @@ var SchoolLocation = {
 			$.ajax({
 				url: '/school_locations/delete/' + id,
 				type: 'DELETE',
-				success: function(response) {
+				success: function(response){
 					Notify.notify($.i18n('Schoollocatie verwijderd'), 'info');
-					if(source == 0) {
-						Navigation.refresh();
-					}else{
-						Navigation.back();
-					}
+					User.goToLaravel(returnRoute);
 				}
 			});
 		});
