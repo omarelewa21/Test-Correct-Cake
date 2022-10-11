@@ -179,7 +179,7 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="User.goToLaravel('<?= $return_route ?>');" selid="cancel-btn">
     <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
@@ -207,7 +207,7 @@
             onsuccess : function(result) {
                 Popup.closeLast();
                 Notify.notify('<?= __("School aangemaakt")?>', "info");
-                Navigation.refresh();
+                User.goToLaravel('<?= $return_route ?>');
             },
             onfailure : function(result) {
                 // Notify.notify("School kon niet worden aangemaakt", "error");

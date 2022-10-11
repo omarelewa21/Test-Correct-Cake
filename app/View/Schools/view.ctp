@@ -9,7 +9,7 @@
             <?= __("Verwijderen")?>
         </a>
     <? endif; ?>
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+    <a href="#" class="btn white mr2" onclick="User.goToLaravel('<?= $return_route ?>');">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>

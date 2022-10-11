@@ -94,6 +94,8 @@ class SchoolLocationsController extends AppController
         $this->set('school_location', $school_location);
         $this->set('ips', $this->SchoolLocationsService->getIps(getUUID($school_location, 'get')));
         $this->set('isAdministrator', $this->hasRole('Administrator'));
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'school-locations/');
     }
 
     public function load() {
@@ -444,6 +446,9 @@ class SchoolLocationsController extends AppController
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
+
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'school-locations/');
     }
 
     public function hasSchoolRelation($id)

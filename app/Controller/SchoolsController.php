@@ -41,6 +41,8 @@ class SchoolsController extends AppController
         $this->set('managers', $this->UsersService->getUsers($params));
         $this->set('school', $school);
         $this->set('isAdministrator', $this->hasRole('Administrator'));
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'schools/');
     }
 
     public function load() {
@@ -179,5 +181,7 @@ class SchoolsController extends AppController
         $this->set('accountmanagers', $accountmanagers);
         $this->set('organisations', $organisations);
 
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'schools/');
     }
 }
