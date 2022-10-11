@@ -440,5 +440,8 @@ class SchoolLocationsController extends AppController
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
+
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'school-locations/');
     }
 }
