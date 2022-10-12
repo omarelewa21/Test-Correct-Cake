@@ -1651,14 +1651,15 @@ class UsersController extends AppController
             }
 
             if ($role['name'] == 'Teacher') {
-                $tiles['create_content'] = array(
-                    'menu'  => 'library',
-                    'icon'  => 'testlist',
-                    'title' => __("Toets creëren"),
-                    'type'  => 'popup',
-                    'path'  => '/tests/create_content'
-                );
-
+                if(!$isExamCoordinator) {
+                    $tiles['create_content'] = array(
+                        'menu'  => 'library',
+                        'icon'  => 'testlist',
+                        'title' => __("Toets creëren"),
+                        'type'  => 'popup',
+                        'path'  => '/tests/create_content'
+                    );
+                }
                 if (AuthComponent::user('school_location.allow_new_test_bank') == 1) {
                     $tiles['tests_overview'] = array(
                         'menu'  => 'library',
@@ -1684,13 +1685,14 @@ class UsersController extends AppController
 //                        'path'  => '/shared_sections_tests/index'
 //                    );
 //                }
-
-                $tiles['questions_overview'] = array(
-                    'menu'  => 'library',
-                    'icon'  => 'questionlist',
-                    'title' => __("Vragenbank"),
-                    'path'  => '/questions/index'
-                );
+                if(!$isExamCoordinator) {
+                    $tiles['questions_overview'] = array(
+                        'menu'  => 'library',
+                        'icon'  => 'questionlist',
+                        'title' => __("Vragenbank"),
+                        'path'  => '/questions/index'
+                    );
+                }
 
 //                if (AuthComponent::user('hasCitoToetsen')) {
 //                    $tiles['tests_cito_overview'] = array(

@@ -12,23 +12,25 @@
     <?php } ?>
     
     <? if ($take['test_take_status_id'] == 1) { ?>
-        <? if (date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) { ?>
-            <a href="#" class="btn white mr2
-                     <? if(!$take['invigilators_acceptable']){?>
-                        toets_afnemen_disabled
-                <?}?>
-                "
-               <? if($take['invigilators_acceptable']){?>
-               onclick="TestTake.startTake('<?= $take_id ?>');"
-                <?}?>
-                <? if(!$take['invigilators_acceptable']){?>
-                    onclick="TestTake.noStartTake('<?=$take['invigilators_unacceptable_message']?>');"
-                <?}?>
+        <? if (!AuthComponent::user('isExamCoordinator')) { ?>
+            <? if (date('d-m-Y', strtotime($take['time_start'])) == date('d-m-Y')) { ?>
+                <a href="#" class="btn white mr2
+                         <? if(!$take['invigilators_acceptable']){?>
+                            toets_afnemen_disabled
+                    <?}?>
+                    "
+                   <? if($take['invigilators_acceptable']){?>
+                   onclick="TestTake.startTake('<?= $take_id ?>');"
+                    <?}?>
+                    <? if(!$take['invigilators_acceptable']){?>
+                        onclick="TestTake.noStartTake('<?=$take['invigilators_unacceptable_message']?>');"
+                    <?}?>
 
-                >
-                <span class="fa fa-pencil mr5"></span>
-                <?= __("Toets afnemen") ?>
-            </a>
+                    >
+                    <span class="fa fa-pencil mr5"></span>
+                    <?= __("Toets afnemen") ?>
+                </a>
+            <? } ?>
         <? } ?>
 
         <a class="btn white mr2" href="#"
