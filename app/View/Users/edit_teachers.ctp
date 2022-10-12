@@ -85,11 +85,12 @@
         </tr>
         <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
-                    'options' => [
-//                        'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
-                        'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
-                    ]))
+                <?= $this->Form->input('is_examcoordinator_for', array('label'   => false,
+                                                                       'verify' => 'notempty',
+                                                                       'options' => [
+                                                                           'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
+                                                                           'SCHOOL'          => __('Koppel deze gebruiker aan de hele scholengemeenschap'),
+                                                                       ]))
                 ?>
             </td>
         </tr>
