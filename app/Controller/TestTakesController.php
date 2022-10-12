@@ -379,7 +379,10 @@ class TestTakesController extends AppController {
         $isExamCoordinator = AuthComponent::user(['isExamCoordinator']);
         $this->set('isExamCoordinator', $isExamCoordinator);
         if ($isExamCoordinator) {
-            $teachers = $this->SchoolLocationsService->getSchoolLocationTeacherUsers(getUUID(AuthComponent::user('school_location'),'get'));
+            $teachers = $this->SchoolLocationsService->getSchoolLocationTeacherUsers(
+                getUUID(AuthComponent::user('school_location'),'get'),
+                [ 'testTakeUuid' => getUUID($take, 'get') ]
+            );
             $school_location_teachers = [];
             foreach($teachers as $teacher) {
                 $school_location_teachers[getUUID($teacher, 'get')] = $teacher['name_full'];

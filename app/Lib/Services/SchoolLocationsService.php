@@ -274,9 +274,9 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocationTeacherUsers($schoolLocationUuid)
+    public function getSchoolLocationTeacherUsers($schoolLocationUuid, $params = [])
     {
-        $response = $this->Connector->getRequest('/teacher/school_location_teacher_users/' . $schoolLocationUuid, []);
+        $response = $this->Connector->getRequest('/teacher/school_location_teacher_users/' . $schoolLocationUuid, $params);
         if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;
