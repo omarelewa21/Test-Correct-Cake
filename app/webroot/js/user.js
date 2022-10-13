@@ -497,10 +497,10 @@ var User = {
                 if(mode === 'add'){
                     let school_location_id = $('select[name="data[User][school_location_id]"]').find(":selected").val();
                     $.get("/school_locations/hasSchoolRelation/" + school_location_id, function(data, status){
-                        User.appendSchoolOption(data);
+                        // User.appendSchoolOption(data);
                     });
                 }else{
-                    User.appendSchoolOption(hasSchoolRelated);
+                    // User.appendSchoolOption(hasSchoolRelated);
                 }
                 
                 Popup.message({
