@@ -68,28 +68,29 @@
             </td>
         </tr>
 
-        <!--<tr>
+        <tr>
             <th width="130">
-            <?/*= __("Examen coördinator")*/?>
+            <?= __("Examen coördinator")?>
             </th>
             <td>
-                <?/*= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) */?>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) ?>
             </td>
         </tr>
 
         <tr class="is_examcoordinator-options">
-            <th colspan="2"><?/*= __("Deze gebruiker koppelen")*/?></th>
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
         </tr>
         <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?/*=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
+                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
                 'options' => [
 //                    'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
-                    'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie')
+                    'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
+                    'SCHOOL'          => __('Koppel deze gebruiker aan de hele scholengemeenschap'),
                     ]))
-                */?>
+                ?>
             </td>
-        </tr>-->
+        </tr>
 
         <tr>
             <th colspan="2"><?= __("Notities")?></th>
