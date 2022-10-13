@@ -71,29 +71,29 @@
             </td>
         </tr>
 
-        <!--<tr>
+        <tr>
             <th width="130">
-            <?/*= __("Examen coördinator")*/?>
+            <?= __("Examen coördinator")?>
             </th>
             <td>
-                <?/*= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox', 'disabled' => !$can_be_exam_coordinator)) */?>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox', 'disabled' => !$can_be_exam_coordinator)) ?>
             </td>
         </tr>
 
         <tr class="is_examcoordinator-options">
-            <th colspan="2"><?/*= __("Deze gebruiker koppelen")*/?></th>
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
         </tr>
         <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?/*= $this->Form->input('is_examcoordinator_for', array('label'   => false,
+                <?= $this->Form->input('is_examcoordinator_for', array('label'   => false,
                                                                        'verify' => 'notempty',
                                                                        'options' => [
                                                                            'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
                                                                            'SCHOOL'          => __('Koppel deze gebruiker aan de hele scholengemeenschap'),
                                                                        ]))
-                */?>
+                ?>
             </td>
-        </tr>-->
+        </tr>
 
         <tr>
             <th colspan="2"><?= __("Notities")?></th>
@@ -182,6 +182,6 @@
         User.isExamcoordinatorOptions(this);
     });
 
-    User.appendSchoolOption('<?= is_null($school_location['school_id']) ? '0' : '1' ?>')
+    User.removeSchoolOptionIfNeeded('<?= is_null($school_location['school_id']) ? '0' : '1' ?>')
 
 </script>

@@ -524,15 +524,9 @@ var User = {
             })
         }
     },
-    appendSchoolOption: (hasSchoolRelated) => {
+    removeSchoolOptionIfNeeded: (hasSchoolRelated) => {
         let select = $('select[name="data[User][is_examcoordinator_for]"]');
-        if(hasSchoolRelated == 1){
-            if(select.find("option[value='SCHOOL']").length == 0){
-                select.append(
-                    '<option value="SCHOOL">' + $.i18n('Koppel deze gebruiker aan de hele scholengemeenschap') + '</option>'
-                )
-            }
-        }else{
+        if(hasSchoolRelated != 1){
             select.find("option[value='SCHOOL']").remove();
         }
     },
