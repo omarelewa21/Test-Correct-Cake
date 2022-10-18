@@ -1295,6 +1295,11 @@ class UsersController extends AppController
                     ];
                     $menus['analyses'] = __("Analyses");
                     $menus['classes'] = __("Klassen");
+                } else {
+                    $menus['results'] = [
+                        'title' => __("Resultaten"),
+                        'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'
+                    ];
                 }
             }
 
