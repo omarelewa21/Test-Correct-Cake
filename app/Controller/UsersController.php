@@ -2047,6 +2047,8 @@ class UsersController extends AppController
 
         $result = $this->UsersService->switchSchool($uuid);
 
+        $this->refreshUserSessionData();
+
         if (!$result) {
             $this->formResponse(false, $this->UsersService->getErrors());
             return false;
@@ -2602,5 +2604,13 @@ class UsersController extends AppController
         }
 
         return true;
+    }
+
+    private function refreshUserSessionData()
+    {
+        $this->Session->write(
+            'Auth.User',
+            $this->UsersService->getUser(AuthComponent::user()['uuid'])
+        );
     }
 }
