@@ -532,6 +532,7 @@ class TestTakesController extends AppController {
             }
 
             $this->set('isTeacher', $isTeacher);
+            $this->set('isExamCoordinator', AuthComponent::user('isExamCoordinator'));
 
             // $this->set('is_rtti_test', $take);
             if((bool) $this->hasRole('Student')){

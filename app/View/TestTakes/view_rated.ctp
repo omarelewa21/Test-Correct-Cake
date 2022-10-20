@@ -8,6 +8,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
 ?>
 
 <div id="buttons">
+    <? if (!$isExamCoordinator) {?>
         <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/add_retake/<?=$take_id?>');">
             <span class="fa fa-refresh mr5"></span>
             <?= __("Inhaal-toets plannen")?>
@@ -33,6 +34,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
             <?= __("Openzetten")?>
         </a>
         <? }?>
+    <? } ?>
     <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-file mr5"></span>
         <?= __("Cijferlijst")?>
@@ -140,7 +142,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
                 <? } ?>
                 <th width="90"><?= __("Cijfer")?></th>
                 <th width="60"><?= __("Notities")?></th>
-                <? if($take['user_id'] == AuthComponent::user('id')) { ?>
+                <? if($take['user_id'] == AuthComponent::user('id') && !$isExamCoordinator) { ?>
                     <th width="130"></th>
                 <? } ?>
             </tr>
@@ -170,7 +172,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     <td>
                         <?=empty($participant['invigilator_note']) ? __("Nee") : __("Ja")?>
                     </td>
-                    <? if($take['user_id'] == AuthComponent::user('id')) { ?>
+                    <? if($take['user_id'] == AuthComponent::user('id') && !$isExamCoordinator) { ?>
                         <td class="nopadding" width="100">
                             <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?=getUUID($take, 'get');?>/<?=getUUID($participant, 'get');?>');">
                                 <span class="fa fa-folder-open-o"></span>
