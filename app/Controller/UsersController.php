@@ -1243,7 +1243,7 @@ class UsersController extends AppController
     function menu()
     {
         $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
-        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
+        $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $roles = AuthComponent::user('roles');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
 
@@ -1353,7 +1353,7 @@ class UsersController extends AppController
     public function tiles()
     {
         $roles = AuthComponent::user('roles');
-        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
+        $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
 
         $tiles = array();
@@ -1941,7 +1941,7 @@ class UsersController extends AppController
         $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
-        $info['menu_taken_direct_link'] = $info['school_location']['featureSettings']['allow_new_taken_tests_page'] == '1' ? true : false ;
+        $info['menu_taken_direct_link'] = $info['school_location']['feature_settings']['allow_new_taken_tests_page'] == '1' ? true : false ;
 
         $return = [];
         $allowed = [
