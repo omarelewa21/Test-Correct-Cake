@@ -1412,13 +1412,6 @@ class UsersController extends AppController
                     'path'  => '/users/index/students'
                 );
 
-                $tiles['teacherstats'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => __("Docent statistieken"),
-                    'path'  => '/admin/teacher_stats'
-                );
-
                 $tiles['rttiimport'] = array(
                     'menu'  => 'lists',
                     'icon'  => 'testlist',
