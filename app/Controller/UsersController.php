@@ -1239,13 +1239,13 @@ class UsersController extends AppController
         }
     }
 
-    public
-    function menu()
+    public function menu()
     {
         $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
         $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $roles = AuthComponent::user('roles');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
+        $usesNewAnalysesPage = !!AuthComponent::user('school_location.feature_settings.allow_analyses');
 
         $menus = array();
 
@@ -1312,7 +1312,9 @@ class UsersController extends AppController
 
                     $menus['analyses'] = [
                         'title'   => __("Analyses"),
-                        'onClick' => 'Navigation.load("/analyses/student/' . AuthComponent::user('uuid') . '")'
+                        'onClick' => $usesNewAnalysesPage
+                            ? 'User.goToLaravel("/student/analyses")'
+                            : 'Navigation.load("/analyses/student/' . AuthComponent::user('uuid') . '")'
                     ];
                 } else {
                     $menus['tests'] = __("Toetsen");
@@ -1408,13 +1410,6 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => __("Studenten"),
                     'path'  => '/users/index/students'
-                );
-
-                $tiles['teacherstats'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => __("Docent statistieken"),
-                    'path'  => '/admin/teacher_stats'
                 );
 
                 $tiles['rttiimport'] = array(
