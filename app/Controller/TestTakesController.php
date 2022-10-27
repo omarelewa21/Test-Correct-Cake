@@ -931,7 +931,7 @@ class TestTakesController extends AppController {
         $take = $this->AnswersService->getTestTake($answer['uuid']);
 
         if (!isset($answer['answer_ratings'])) {
-            echo 'Vraag niet gemaakt';
+            echo __('Vraag niet gemaakt');
             die;
         }
         if (!empty($question_id)) {
