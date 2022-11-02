@@ -149,7 +149,7 @@
                     </div>
 
                     <div id="support_menu">
-                        <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl')" id="btnMenuKnowledgeBase" class="btn white"><?= __("Kennisbank")?></a>
+                        <a href="#" onclick="Popup.showExternalPage('https://support.test-correct.nl/knowledge')" id="btnMenuKnowledgeBase" class="btn white"><?= __("Kennisbank")?></a>
                     </div>
 
                 </div>
