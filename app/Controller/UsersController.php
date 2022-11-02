@@ -1364,7 +1364,7 @@ class UsersController extends AppController
             'menu'  => 'support',
             'icon'  => 'knowledgebase',
             'title' => __("Kennisbank"),
-            'path'  => 'https://support.test-correct.nl',
+            'path'  => 'https://support.test-correct.nl/knowledge',
             'type'  => 'externalpopup',
         ];
 
