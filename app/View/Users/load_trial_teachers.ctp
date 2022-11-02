@@ -45,7 +45,7 @@ foreach ($users as $user) {
                     <? if ($trialStatus[$lookupKey] !== 'not_started') { ?>
                         <a href="#" class="btn white pull-right dropblock-owner dropblock-left"
                            id="trial_teacher_<?= getUUID($user, 'get'); ?>"
-                           onclick="Popup.load('/users/change_trial_date/<?= getUUID($user, 'get'); ?>/<?= getUUID($trialPeriod, 'get'); ?>', 600);">
+                           onclick="Popup.load('/users/change_trial_date/<?= getUUID($user, 'get'); ?>/<?= $trialPeriodUuid ?>', 600);">
                             <span class="fa fa-calendar"></span>
                         </a>
                     <? } ?>
