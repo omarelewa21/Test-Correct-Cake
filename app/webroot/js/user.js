@@ -92,7 +92,7 @@ var User = {
                     // window.oneTrustInjected = true;
 
                     var hubspotScript = document.createElement('script');
-                    hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
+                    hubspotScript.setAttribute('src','//js-eu1.hs-scripts.com/26318898.js');
                     document.head.appendChild(hubspotScript);
 
                 }
