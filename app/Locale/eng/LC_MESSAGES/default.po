@@ -4662,3 +4662,9 @@ msgstr "Assignemnt code"
 
 msgid "Nieuwe studenten analyses"
 msgstr "New student analyses"
+
+msgid "Cijfers verbergen"
+msgstr "Hide grades"
+
+msgid "Toon cijfers"
+msgstr "Show grades"

@@ -1,5 +1,7 @@
 <?php
 
+use phpDocumentor\Reflection\Types\Boolean;
+
 App::uses('AppController', 'Controller');
 App::uses('TestsService', 'Lib/Services');
 App::uses('QuestionsService', 'Lib/Services');
@@ -2997,5 +2999,11 @@ class TestTakesController extends AppController {
     public function get_preview_pdf_url($testTakeId)
     {
         return $this->formResponse(true,  $this->TestTakesService->getTestTakePdfUrlForLaravel($testTakeId));
+    }
+
+    public function updateGradeVisibility($testTakeUuid, bool $show)
+    {
+        $params['show_grades'] = $show;
+        return $this->formResponse(true,  $this->TestTakesService->update($testTakeUuid, $params));
     }
 }

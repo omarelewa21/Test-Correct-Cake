@@ -3,6 +3,19 @@
         <span class="fa fa-check mr5"></span>
         <?= __("Becijferd markeren")?>
     </a>
+
+    <?php if($take['show_grades']) { ?>
+        <a href="#" class="btn white mr2" onclick="TestTake.hideGrades('<?=$take_id?>');">
+            <span class="fa fa-eye-slash mr5"></span>
+            <?= __("Cijfers verbergen")?>
+        </a>
+    <? } else { ?>
+        <a href="#" class="btn white mr2" onclick="TestTake.showGrades('<?=$take_id?>');">
+            <span class="fa fa-eye mr5"></span>
+            <?= __("Toon cijfers")?>
+        </a>
+    <? } ?>
+
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>

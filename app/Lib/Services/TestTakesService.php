@@ -50,6 +50,17 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function update($testTakeUuid, $params)
+    {
+        $response = $this->Connector->putRequest('/test_take/' . $testTakeUuid, [], $params);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function addRetake($test_retake) {
 
         $test_retake['test_take_status_id'] = 1;
