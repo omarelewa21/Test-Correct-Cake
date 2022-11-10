@@ -2313,7 +2313,7 @@ class TestTakesController extends AppController {
 
             $data = $this->request->data['TestTake'];
 
-            $this->TestTakesService->updateShowResults($take_id, $data['active'] == '1', $data['show_results']);
+            $this->TestTakesService->updateShowResults($take_id, $data['active'] == '1', $data['show_results'], $data['show_grades']);
 
             $this->formResponse(
                     true, []

@@ -238,21 +238,17 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function updateShowResults($take_id, $active, $date) {
+    public function updateShowResults($take_id, $active, $date, bool $show_grades) {
 
         if($active) {
-            $test_take['show_results'] = date('Y-m-d H:i:00', strtotime($date));
+            $params['show_results'] = date('Y-m-d H:i:00', strtotime($date));
         }else{
-            $test_take['show_results'] = null;
+            $params['show_results'] = null;
         }
 
-        $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
+        $params['show_grades'] = $show_grades;
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
-        }
-
-        return $response;
+        return $this->update($take_id, $params);
     }
 
     public function nextDiscussionQuestion($take_id) {

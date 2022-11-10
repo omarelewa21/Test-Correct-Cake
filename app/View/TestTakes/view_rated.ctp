@@ -13,30 +13,23 @@ foreach(AuthComponent::user()['roles'] as $role) {
             <?= __("Inhaal-toets plannen")?>
         </a>
         <?php if($take['is_rtti_test_take'] == 0): ?>
-        <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?=$take_id?>');">
-            <span class="fa fa-hourglass-2 mr5"></span>
-            <?= __("Normeren")?>
-        </a>
+            <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?=$take_id?>');">
+                <span class="fa fa-hourglass-2 mr5"></span>
+                <?= __("Normeren")?>
+            </a>
         <?php endif;?>
         <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/set_final_rates/<?=$take_id?>');">
             <span class="fa fa-hourglass-3 mr5"></span>
             <?= __("Becijferen")?>
         </a>
-        <?php if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) { ?>
-        <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>');">
-            <span class="fa fa-eye mr5"></span>
-            <?= __("Dichtzetten")?>
-        </a>
-        <? }else{ ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/update_show_results/<?= $take_id ?>', 420);">
             <span class="fa fa-eye mr5"></span>
             <?= __("Openzetten")?>
         </a>
-        <? }?>
-    <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
-        <span class="fa fa-file mr5"></span>
-        <?= __("Cijferlijst")?>
-    </a>
+        <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
+            <span class="fa fa-file mr5"></span>
+            <?= __("Cijferlijst")?>
+        </a>
     <? if(!$isStudent && $take['is_rtti_test_take'] == 0): ?>
         <a href='/test_takes/csv_export/<?=$take_id?>' target="_blank" class="btn white mr2">
             <span class="fa fa-download mr5"></span>
