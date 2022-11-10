@@ -37,7 +37,7 @@
             <tr>
                 <th><?= __("Cijfer")?></th>
                 <td>
-                    <?=$rating ?>
+                    <?= $take['show_grades'] ? $rating : '-' ?>
                 </td>
                 <th><?= __("Type")?></th>
                 <td><?=$take['retake'] == 0 ? __("Reguliere toets") : __("Inhaal toets")?></td>

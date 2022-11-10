@@ -127,7 +127,14 @@ if(!$isStudent) {
                     <tr>
                         <td><?=$participant['name']?></td>
                         <?if(!$isStudent){ ?><td><?=empty($participant['invigilator_note']) ? '-' : $participant['invigilator_note']?></td><? } ?>
-                        <td><?=empty($participant['rating']) ? '-' : number_format($participant['rating'], 1)?></td>
+                        <td>
+                            <? if($participant['show_grade'] == 1 && !empty($participant['rating'])){ 
+                                echo number_format($participant['rating'], 1);
+                            } else {
+                                echo '-';
+                            } ?>
+                        </td>
+                        
                         <td><?=date('d-m-Y', strtotime($participant['time_start']))?></td>
                         <td class="nopadding" width="30">
                             <a href="#" onclick="Navigation.load('/test_takes/view/<?=getUUID($participant, 'get',['uuid_key' => 'test_take_uuid'])?>');" class="btn white">
