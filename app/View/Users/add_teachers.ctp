@@ -58,7 +58,7 @@
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false, 'verify' => 'length-8', 'type' => 'text')) ?>
             </td>
         </tr>
-        
+
         <tr>
             <th width="130">
             <?= __("Externe code")?>
@@ -68,29 +68,29 @@
             </td>
         </tr>
 
-        <!--<tr>
+        <tr>
             <th width="130">
-            <?/*= __("Examen coördinator")*/?>
+            <?= __("Examen coördinator")?>
             </th>
             <td>
-                <?/*= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) */?>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox')) ?>
             </td>
         </tr>
 
         <tr class="is_examcoordinator-options">
-            <th colspan="2"><?/*= __("Deze gebruiker koppelen")*/?></th>
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
         </tr>
         <tr class="is_examcoordinator-options">
             <td colspan="2">
-                <?/*=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
+                <?=$this->Form->input('is_examcoordinator_for', array('label' => false, 'verify' => 'notempty',
                 'options' => [
 //                    'NONE' => __('Koppel deze gebruiker handmatig aan lessen'),
                     'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
                     'SCHOOL'          => __('Koppel deze gebruiker aan de hele scholengemeenschap'),
                     ]))
-                */?>
+                ?>
             </td>
-        </tr>-->
+        </tr>
 
         <tr>
             <th colspan="2"><?= __("Notities")?></th>
@@ -159,7 +159,7 @@
     $('select[name="data[User][school_location_id]').change(function(){
         let is_examcoordinator_elem = $('input[name="data[User][is_examcoordinator]"]');
         if(is_examcoordinator_elem.is(':checked')){
-            is_examcoordinator_elem.prop('checked', false); 
+            is_examcoordinator_elem.prop('checked', false);
             $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
         }
     })

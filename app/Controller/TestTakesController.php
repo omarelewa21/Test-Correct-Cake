@@ -534,6 +534,7 @@ class TestTakesController extends AppController {
             }
 
             $this->set('isTeacher', $isTeacher);
+            $this->set('isExamCoordinator', AuthComponent::user('isExamCoordinator'));
 
             // $this->set('is_rtti_test', $take);
             if((bool) $this->hasRole('Student')){
@@ -725,6 +726,9 @@ class TestTakesController extends AppController {
             }
         }
 
+        $currentQuestionId = $questions[$question_index]['question_id'];
+        $this->rejectParticipantsThatDontHaveAnAnswerForCurrentQuestion($currentQuestionId, $participants);
+
         $this->Session->write('active_question', $questions[$question_index]);
 
         $this->set('question_id', getUUID($questions[$question_index]['question'], 'get'));
@@ -796,6 +800,7 @@ class TestTakesController extends AppController {
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $participants = $this->TestTakesService->getParticipants($take_id);
+        $currentParticipant = $participants[$participant_index];
 
         if($take['writing_assignments_count'] > 0) {
             $view = 'rate_teacher_participant_with_writing_assignments';
@@ -846,13 +851,13 @@ class TestTakesController extends AppController {
                 $newParticipants[] = $participant;
             }
         }
-
         $participants = $newParticipants;
 
+        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $currentParticipant['answers']);
 
         $this->Session->write('active_participant', $participants[$participant_index]);
-        $this->set('participant_id', getUUID($participants[$participant_index], 'get'));
-        $this->set('questions', $questions);
+        $this->set('participant_id', getUUID($currentParticipant, 'get'));
+        $this->set('questions', $questionsWithoutUnansweredGroupQuestions);
         $this->set('current_question',$currentQuestion ?: $questions[0]);
         $this->set('next_question',$nextQuestion);
         $this->set('participant_index', $participant_index);
@@ -932,7 +937,7 @@ class TestTakesController extends AppController {
         $take = $this->AnswersService->getTestTake($answer['uuid']);
 
         if (!isset($answer['answer_ratings'])) {
-            echo 'Vraag niet gemaakt';
+            echo __('Vraag niet gemaakt');
             die;
         }
         if (!empty($question_id)) {
@@ -3005,5 +3010,43 @@ class TestTakesController extends AppController {
     {
         $params['show_grades'] = $show;
         return $this->formResponse(true,  $this->TestTakesService->update($testTakeUuid, $params));
+    }
+
+    /**
+     * @param array $questions
+     * @param $answers
+     * @return array
+     */
+    private function getQuestionsWithoutUnansweredGroupQuestions(array $questions, $answers): array
+    {
+        $questionsWithoutUnansweredGroupQuestions = [];
+        foreach ($questions as $question) {
+            if (isset($question['group_id'])) {
+                foreach ($answers as $answer) {
+                    if ($question['question_id'] === $answer['question_id']) {
+                        $questionsWithoutUnansweredGroupQuestions[$question['uuid']] = $question;
+                    }
+                }
+            } else {
+                $questionsWithoutUnansweredGroupQuestions[$question['uuid']] = $question;
+            }
+        }
+        return $questionsWithoutUnansweredGroupQuestions;
+    }
+
+    private function rejectParticipantsThatDontHaveAnAnswerForCurrentQuestion($currentQuestionId, &$participants)
+    {
+        foreach ($participants as $key => $participant) {
+            $hasAnswer = false;
+            foreach ($participant['answers'] as $answer) {
+                if ($answer['question_id'] === $currentQuestionId) {
+                    $hasAnswer = true;
+                }
+            }
+
+            if (!$hasAnswer) {
+                unset($participants[$key]);
+            }
+        }
     }
 }

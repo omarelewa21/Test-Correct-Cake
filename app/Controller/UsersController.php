@@ -1239,13 +1239,13 @@ class UsersController extends AppController
         }
     }
 
-    public
-    function menu()
+    public function menu()
     {
         $newEnvironment = AuthComponent::user('school_location.allow_new_student_environment') && AuthComponent::user('roles.0.name') == 'Student';
-        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
+        $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $roles = AuthComponent::user('roles');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
+        $usesNewAnalysesPage = !!AuthComponent::user('school_location.feature_settings.allow_analyses');
 
         $menus = array();
 
@@ -1295,6 +1295,11 @@ class UsersController extends AppController
                     ];
                     $menus['analyses'] = __("Analyses");
                     $menus['classes'] = __("Klassen");
+                } else {
+                    $menus['results'] = [
+                        'title' => __("Resultaten"),
+                        'onClick' => 'Navigation.load("/test_takes/rated");Menu.clearActiveMenu("results")'
+                    ];
                 }
             }
 
@@ -1307,7 +1312,9 @@ class UsersController extends AppController
 
                     $menus['analyses'] = [
                         'title'   => __("Analyses"),
-                        'onClick' => 'Navigation.load("/analyses/student/' . AuthComponent::user('uuid') . '")'
+                        'onClick' => $usesNewAnalysesPage
+                            ? 'User.goToLaravel("/student/analyses")'
+                            : 'Navigation.load("/analyses/student/' . AuthComponent::user('uuid') . '")'
                     ];
                 } else {
                     $menus['tests'] = __("Toetsen");
@@ -1348,7 +1355,7 @@ class UsersController extends AppController
     public function tiles()
     {
         $roles = AuthComponent::user('roles');
-        $useLaravelTakenPage = AuthComponent::user('school_location.featureSettings.allow_new_taken_tests_page');
+        $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
 
         $tiles = array();
@@ -1357,7 +1364,7 @@ class UsersController extends AppController
             'menu'  => 'support',
             'icon'  => 'knowledgebase',
             'title' => __("Kennisbank"),
-            'path'  => 'https://support.test-correct.nl',
+            'path'  => 'https://support.test-correct.nl/knowledge',
             'type'  => 'externalpopup',
         ];
 
@@ -1403,13 +1410,6 @@ class UsersController extends AppController
                     'icon'  => 'testlist',
                     'title' => __("Studenten"),
                     'path'  => '/users/index/students'
-                );
-
-                $tiles['teacherstats'] = array(
-                    'menu'  => 'lists',
-                    'icon'  => 'testlist',
-                    'title' => __("Docent statistieken"),
-                    'path'  => '/admin/teacher_stats'
                 );
 
                 $tiles['rttiimport'] = array(
@@ -1936,7 +1936,7 @@ class UsersController extends AppController
         $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
-        $info['menu_taken_direct_link'] = $info['school_location']['featureSettings']['allow_new_taken_tests_page'] == '1' ? true : false ;
+        $info['menu_taken_direct_link'] = $info['school_location']['feature_settings']['allow_new_taken_tests_page'] == '1' ? true : false ;
 
         $return = [];
         $allowed = [
@@ -2046,6 +2046,8 @@ class UsersController extends AppController
 //        }
 
         $result = $this->UsersService->switchSchool($uuid);
+
+        $this->refreshUserSessionData();
 
         if (!$result) {
             $this->formResponse(false, $this->UsersService->getErrors());
@@ -2602,5 +2604,13 @@ class UsersController extends AppController
         }
 
         return true;
+    }
+
+    private function refreshUserSessionData()
+    {
+        $this->Session->write(
+            'Auth.User',
+            $this->UsersService->getUser(AuthComponent::user()['uuid'])
+        );
     }
 }

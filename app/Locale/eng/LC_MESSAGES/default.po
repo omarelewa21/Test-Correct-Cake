@@ -4160,8 +4160,8 @@ msgstr "Go to the downloads page of Test-Correct (https://www.test-correct.nl/do
 msgid "Installeer de nieuwe app"
 msgstr "Install the new app"
 
-msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
-msgstr "If you run into problems during (un)installing the application, please visit our knowledge base at https://support.test-correct.nl and search for 'uninstall' for a detailed explanation. If you still cannot (un)install the app, please email your question to support@test-correct.nl or contact us."
+msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl/knowledge en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
+msgstr "If you run into problems during (un)installing the application, please visit our knowledge base at https://support.test-correct.nl/knowledge and search for 'uninstall' for a detailed explanation. If you still cannot (un)install the app, please email your question to support@test-correct.nl or contact us."
 
 msgid "Veel succes met je toets!"
 msgstr "Good luck on your test!"
