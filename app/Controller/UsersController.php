@@ -2412,7 +2412,10 @@ class UsersController extends AppController
 
     private function handleTrialPeriodForUser($trialPeriod = null)
     {
-        $shouldDisplayTrialPeriodNotification = ($trialPeriod !== null);
+        $shouldDisplayTrialPeriodNotification = (
+            AuthComponent::user('school_location')['license_type'] === 'TRIAL' &&
+            $trialPeriod !== null
+        );
         $this->set('shouldDisplayTrialPeriodNotification', $shouldDisplayTrialPeriodNotification);
         if (!$shouldDisplayTrialPeriodNotification) {
             return true;
