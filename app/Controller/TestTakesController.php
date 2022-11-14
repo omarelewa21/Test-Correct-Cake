@@ -496,7 +496,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('test_uuid', getUUID($take['test'],'get'));
-        $this->set('return_route', HelperFunctions::getInstance()->getAndDeleteReturnRoute());
+        $this->set('return_route', HelperFunctions::getAndDeleteReturnRoute());
 
 
         if ($take['test_take_status_id'] < 6) {
