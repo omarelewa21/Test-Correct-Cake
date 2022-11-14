@@ -50,7 +50,13 @@ class FileManagementController extends AppController {
 //            }
 //        }
 
-        if ($this->FileService->update($id, $params)) {
+        $response = $this->FileService->update($id, $params);
+
+        if (!empty(json_decode($response, true)['errors'])) {
+            $this->formResponse(false, $response);exit;
+        }
+
+        if ($response) {
             echo "1";
         } else {
             throw new NotFoundException();
@@ -167,6 +173,7 @@ class FileManagementController extends AppController {
 
             $this->set('schoolbeheerders', $schoolbeheerders);
         }
+        $this->set('return_route', CakeSession::read('return_route'));
 
         $this->render($view);
     }

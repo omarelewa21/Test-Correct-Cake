@@ -1487,6 +1487,13 @@ class UsersController extends AppController
                     'path'  => '/uwlr',
                     'type'  => 'laravelpage',
                 );
+                $tiles['uwlr fetcher'] = array(
+                    'menu'  => 'imports',
+                    'icon'  => 'testlist',
+                    'title' => __('UWLR Fetcher'),
+                    'path'  => '/uwlr/fetcher',
+                    'type'  => 'laravelpage',
+                );
 
                 $tiles['users_administrators'] = array(
                     'menu'  => 'users',
@@ -1565,7 +1572,8 @@ class UsersController extends AppController
                     'menu'  => 'files',
                     'icon'  => 'testlist',
                     'title' => __("Toetsbestanden"),
-                    'path'  => '/file_management/testuploads'
+                    'path'  => 'account-manager/file-management/testuploads',
+                    'type'  => 'laravelpage',
                 );
 
                 $tiles['marketing_report'] = array(
