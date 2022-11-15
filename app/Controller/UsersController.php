@@ -2453,17 +2453,13 @@ class UsersController extends AppController
 
         if (CakeSession::read('temporaryLoginOptions')) {
             $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+            HelperFunctions::setReturnRouteForLaravel();
             CakeSession::delete('temporaryLoginOptions');
             $internalPage = null;
             if (array_key_exists('page', $options)) {
                 $internalPage = $options['page'];
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
-            }
-            if(array_key_exists('return_route', $options)) {
-                CakeSession::write('history_route', array(
-                    'return_route'=>$options['return_route']
-                ));
             }
 
 
