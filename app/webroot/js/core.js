@@ -708,6 +708,23 @@ var SchoolClass = {
 				});
 			}
 		);
+	},
+	resetPasswords: function (class_uuid) {
+		Popup.message({
+				btnOk: $.i18n('Ja'),
+				btnCancel: $.i18n('Annuleer'),
+				title: $.i18n('Weet u het zeker?'),
+				message: $.i18n('Weet u zeker dat u het wachtwoord voor elke student wilt resetten?')
+			}, function () {
+				$.ajax({
+					url: '/school_classes/reset_passwords/' + class_uuid,
+					type: 'PUT',
+					success: function (response) {
+						Navigation.refresh();
+					}
+				});
+			}
+		);
 	}
 };
 

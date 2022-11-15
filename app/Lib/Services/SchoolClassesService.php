@@ -280,4 +280,15 @@ class SchoolClassesService extends BaseService {
         }
         return $response;
     }
+
+    public function resetPasswords($classUuid)
+    {
+        $response = $this->Connector->putRequest('/school_class/reset_passwords/'. $classUuid, [], []);
+
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
+        }
+        return $response;
+    }
 }

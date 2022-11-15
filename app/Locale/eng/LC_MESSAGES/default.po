@@ -4662,3 +4662,6 @@ msgstr "Assignemnt code"
 
 msgid "Nieuwe studenten analyses"
 msgstr "New student analyses"
+
+msgid "Reset wachtwoorden"
+msgstr "Reset passwords"
