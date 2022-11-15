@@ -97,4 +97,11 @@ class HelperFunctions
 
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
+
+    public static function getAndDeleteReturnRoute()
+    {
+        $returnRoute = CakeSession::read('return_route');
+        CakeSession::delete('return_route');
+        return $returnRoute;
+    }
 }
