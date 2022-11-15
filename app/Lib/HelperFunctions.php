@@ -107,7 +107,7 @@ class HelperFunctions
 
         $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
 
-        if (array_key_exists('return_route', $options)) {
+        if (!array_key_exists('return_route', $options)) {
             return false;
         }
 
