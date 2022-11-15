@@ -53,14 +53,16 @@ class FileManagementController extends AppController {
         $response = $this->FileService->update($id, $params);
 
         if (!empty(json_decode($response, true)['errors'])) {
-            $this->formResponse(false, $response);exit;
+            $this->formResponse(false, $response);
+            exit;
         }
 
         if ($response) {
             echo "1";
-        } else {
-            throw new NotFoundException();
+            exit;
         }
+
+        throw new NotFoundException();
         exit;
     }
 
