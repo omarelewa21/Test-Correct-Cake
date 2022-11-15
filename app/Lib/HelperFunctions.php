@@ -100,7 +100,7 @@ class HelperFunctions
 
     public static function getAndDeleteReturnRoute()
     {
-        $returnRoute=CakeSession::read('return_route');
+        $returnRoute = CakeSession::read('return_route');
         CakeSession::delete('return_route');
         return $returnRoute;
     }
