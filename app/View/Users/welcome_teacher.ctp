@@ -172,9 +172,10 @@ if ($wizard_steps) {
                 <h4><?= __("Toets uploaden")?></h4>
                 <span class="subtitle"><?= __("Laat een bestaande toets digitaliseren")?></span>
                 <span class="body"><?= __("Gelieve aan te leveren als: <br> PDF, Word, Wintoets")?></span>
-
+<!--                User.goToLaravel('teacher/upload_test');-->
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_test',800);"
+
                         class="button cta-button button-md">
                     <span><?= __("Toets uploaden")?></span>
                 </button>
