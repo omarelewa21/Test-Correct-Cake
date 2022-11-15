@@ -98,10 +98,18 @@ class HelperFunctions
         return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
     }
 
-    public static function getAndDeleteReturnRoute()
+    public static function getReturnRouteToLaravelIfSameRoute()
     {
-        $returnRoute = CakeSession::read('return_route');
-        CakeSession::delete('return_route');
+        $current_route = Router::url();
+        $data = CakeSession::read('history_route');
+        if(!empty($data['current_route']) && $data['current_route'] !== $current_route) {
+            CakeSession::delete('history_route');
+            $returnRoute = null;
+        }else{
+            $returnRoute = CakeSession::read('history_route')['return_route'];
+            CakeSession::write('history_route',['current_route'=>$current_route,'return_route'=>$returnRoute ]);
+        }
+
         return $returnRoute;
     }
 }

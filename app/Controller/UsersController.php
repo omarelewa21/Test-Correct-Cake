@@ -2461,7 +2461,9 @@ class UsersController extends AppController
                 $internalPage = $options['internal_page'];
             }
             if(array_key_exists('return_route', $options)) {
-                CakeSession::write('return_route', $options['return_route']);
+                CakeSession::write('history_route', array(
+                    'return_route'=>$options['return_route']
+                ));
             }
 
 
