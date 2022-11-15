@@ -1,5 +1,5 @@
 <div id="buttons">
-    <?php if($class['school_location']['external_main_code'] === '9876' && $class['school_location']['external_sub_code'] === '11') { ?>
+    <?php if($class['school_location']['external_main_code'] === '00WI' && $class['school_location']['external_sub_code'] === '00') { ?>
         <a href="#" class="btn blue" onclick="SchoolClass.resetPasswords('<?=getUUID($class, 'get');?>');">
             <span class="fa fa-edit mr5"></span>
             <?= __('Reset wachtwoorden') ?>
