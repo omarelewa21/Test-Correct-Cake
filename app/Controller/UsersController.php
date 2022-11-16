@@ -2455,7 +2455,10 @@ class UsersController extends AppController
             if(array_key_exists('return_route', $options)) {
                 CakeSession::write('return_route', $options['return_route']);
             }
-
+            
+            if(array_key_exists('page_number', $options)) {
+                CakeSession::write('page_number', $options['page_number']);
+            }
 
             if($internalPage){
                 $internalPage = substr($internalPage, 0, 1) === '/' ? $internalPage : '/'.$internalPage;
