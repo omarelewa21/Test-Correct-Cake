@@ -4310,7 +4310,7 @@ msgstr "The version of the app you are using is no longer allowed for taking tes
 msgid "Op de dienst Test-Correct zijn de algemene voorwaarden van toepassing"
 msgstr "General terms and conditions apply to the Test-Correct service"
 
-msgid "Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert."
+msgid "Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteerd."
 msgstr "We ask that you read and accept our terms and conditions. This is necessary to continue using our products. You have 14 days to read and accept them. After that, your account will be frozen until you have accepted the terms and conditions."
 
 msgid "Lees en accepteer onze algemene voorwaarden"
