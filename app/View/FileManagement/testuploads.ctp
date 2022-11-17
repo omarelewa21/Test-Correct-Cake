@@ -1,7 +1,5 @@
 <div id="buttons">
-    <a href="#" class="btn white mr2"
-       onclick="User.goToLaravel('teacher/upload_test')"
-    >
+    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_test',800);">
         <span class="fa fa-plus mr5"></span>
         <?= __("Toets uploaden")?>
     </a>
