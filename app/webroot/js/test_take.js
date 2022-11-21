@@ -1023,7 +1023,7 @@ var TestTake = {
     },
     updateTestTakeStatusToDiscussed: function (e, take_id) {
         $.get('/test_takes/updateTestTakeStatusToDiscussed/' + take_id, function (response) {
-            Notify.notify($.i18n('De toets is gedearchiveerd.'));
+            Notify.notify($.i18n('Terug naar nakijken'));
             $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
             window.location.reload();
         });

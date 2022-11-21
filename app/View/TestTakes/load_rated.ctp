@@ -70,8 +70,8 @@ foreach($test_takes as $test_take) {
                     <?= __("Archiveren")?>
                 </a>
                 <a href="#" onclick="TestTake.updateTestTakeStatusToDiscussed(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
-                    <span class="fa fa-trash mr5"></span>
-                    <?= __("Change to discussed")?>
+                    <span class="fa fa-arrow-right mr5"></span>
+                    <?= __("Terug naar nakijken")?>
                 </a>
 
                 <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
