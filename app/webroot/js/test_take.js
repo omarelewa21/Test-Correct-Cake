@@ -1025,7 +1025,7 @@ var TestTake = {
         $.get('/test_takes/updateTestTakeStatusToDiscussed/' + take_id, function (response) {
             Notify.notify($.i18n('Terug naar nakijken'));
             $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
-            window.location.reload();
+            Navigation.refresh();
         });
     },
     loadDetails: function (e, take_id) {
