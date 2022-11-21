@@ -1021,6 +1021,13 @@ var TestTake = {
             $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
         });
     },
+    updateTestTakeStatusToDiscussed: function (e, take_id) {
+        $.get('/test_takes/updateTestTakeStatusToDiscussed/' + take_id, function (response) {
+            Notify.notify($.i18n('De toets is gedearchiveerd.'));
+            $(e).parents('tr:first').addClass('jquery-not-archived').removeClass('jquery-archived');
+            window.location.reload();
+        });
+    },
     loadDetails: function (e, take_id) {
         if ($(e).parents('tr:first').hasClass('jquery-archived')) {
             Notify.notify($.i18n('Dearchiveer deze toets om de details in te zien.'));
