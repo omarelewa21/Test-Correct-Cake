@@ -175,7 +175,7 @@ class FileManagementController extends AppController {
 
             $this->set('schoolbeheerders', $schoolbeheerders);
         }
-        $this->set('return_route', CakeSession::read('return_route'));
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 
         $this->render($view);
     }
