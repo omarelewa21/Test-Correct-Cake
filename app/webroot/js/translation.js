@@ -207,6 +207,7 @@ $.i18n().load({
       "U heeft het verkeerde formaat van de vraag ingevoerd, zorg ervoor dat elk haakje '[' gesloten is en er geen onderschepping tussen haakjes is." : "You have entered miss format of the question, please make that every bracket '[' is closed and there is no interception between brackets.",
       "Toetslink gekopieerd": "Test link has been copied to the clipboard",
       'Opdrachtlink gekopieerd': 'Assignment link copied',
+      'Terug naar nakijken': 'Back to assessing test'
     },
 
     'nl': {
