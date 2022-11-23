@@ -116,3 +116,24 @@ msgstr "Nieuwe afgenomen toetsen pagina"
 
 msgid "Nieuwe studenten analyses"
 msgstr "Nieuwe studenten analyses"
+
+msgid "None"
+msgstr "Geen"
+
+msgid "Taxonomy"
+msgstr "Alleen taxonomie"
+
+msgid "LearningGoals"
+msgstr "Alleen leerdoelen"
+
+msgid "Attainments"
+msgstr "Alleen eindtermen"
+
+msgid "TaxonomyAndLearningGoals"
+msgstr "Taxonomie en leerdoelen"
+
+msgid "TaxonomyAndAttainments"
+msgstr "Taxonomie en eindtermen"
+
+msgid "Toevoegingen"
+msgstr "Toevoegingen"
