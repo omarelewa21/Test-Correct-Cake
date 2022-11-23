@@ -184,7 +184,8 @@ class TestTakesService extends BaseService {
             'with' => ['questions'],
             'filter' => [
                 'discussing_at_test_take_id' => $take_id,
-                'rated' => 0
+                'rated' => 0,
+                'current_answer_rating' => 1,
             ]
         ];
 
