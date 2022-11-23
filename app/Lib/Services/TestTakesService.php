@@ -187,7 +187,10 @@ class TestTakesService extends BaseService {
             ]
         ];
 
-        if((bool) AuthComponent::user()['school_location']['feature_settings']['allow_new_co_learning']){
+        if(
+            (bool) AuthComponent::user()['school_location']['feature_settings']['allow_new_co_learning'] &&
+            $this->getTestTake($take_id)['discussion_type'] == 'OPEN_ONLY'
+        ){
             $params['filter']['current_answer_rating'] = 1;
         } else {
             $params['filter']['rated'] = 0;
