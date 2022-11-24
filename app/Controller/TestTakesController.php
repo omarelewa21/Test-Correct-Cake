@@ -796,9 +796,27 @@ class TestTakesController extends AppController {
 
     public function rate_teacher_participant($take_id, $participant_index = 0, $question_uuid = null) {
         $view = 'rate_teacher_participant';
-        $take = $this->TestTakesService->getTestTake($take_id);
-        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
-        $participants = $this->TestTakesService->getParticipants($take_id);
+
+        $fullTakeData = $this->TestTakesService->getTestTakeForGrading($take_id);
+
+        $allQuestions = $fullTakeData['test']['test_questions'];
+        $participants = $fullTakeData['test_participants'];
+        unset($fullTakeData['test']['test_questions']);
+        unset($fullTakeData['test_participants']);
+        $take = $fullTakeData;
+
+//        $take = $this->TestTakesService->getTestTake($take_id);
+//        $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
+//        $participants = $this->TestTakesService->getParticipants($take_id);
+
+        $newParticipants = [];
+
+        foreach ($participants as $participant) {
+            if (in_array($participant['test_take_status_id'], [4, 5, 6, 7, 8, 9])) {
+                $newParticipants[] = $participant;
+            }
+        }
+        $participants = $newParticipants;
         $currentParticipant = $participants[$participant_index];
 
         if($take['writing_assignments_count'] > 0) {
@@ -843,14 +861,6 @@ class TestTakesController extends AppController {
             $first = false;
         }
 
-        $newParticipants = [];
-
-        foreach ($participants as $participant) {
-            if (in_array($participant['test_take_status_id'], [4, 5, 6, 7, 8, 9])) {
-                $newParticipants[] = $participant;
-            }
-        }
-        $participants = $newParticipants;
 
         $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $currentParticipant['answers']);
 
