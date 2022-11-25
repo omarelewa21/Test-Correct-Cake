@@ -16,7 +16,7 @@ foreach($classes as $class) {
             }
             ?>
         </td>
-        <td><?=count($class['student_users'])?></td>
+        <td><?=$class['student_users_count']?></td>
         <?
         foreach($subjects as $subject) {
 

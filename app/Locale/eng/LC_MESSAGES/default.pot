@@ -5913,7 +5913,7 @@ msgstr ""
 
 #: View/Users/welcome_student_update.ctp:17
 #: View/Users/windows_update.ctp:17
-msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
+msgid "Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl/knowledge en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op."
 msgstr ""
 
 #: View/Users/welcome_student_update.ctp:18

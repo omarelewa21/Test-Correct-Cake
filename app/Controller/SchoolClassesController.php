@@ -465,4 +465,16 @@ class SchoolClassesController extends AppController
         }
         return $initEducationLevelYears;
     }
+
+    public function reset_passwords($classUuid)
+    {
+        $this->isAuthorizedAs(['School manager', 'School management']);
+        $result = $this->SchoolClassesService->resetPasswords($classUuid);
+        if (!$result) {
+            $response = $this->translateError($this->SchoolClassesService);
+            $this->formResponse(false, $response);
+            return false;
+        }
+        $this->formResponse(true, []);
+    }
 }

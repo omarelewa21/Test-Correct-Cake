@@ -14,7 +14,7 @@
                 </li>
                 <li><?= __("Installeer de nieuwe app")?></li>
             </ol>
-            <?= __("Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op.")?><br /><br/>
+            <?= __("Mocht je tegen problemen aan lopen tijdens het (de-)installeren van de applicatie, bezoek dan onze kennisbank op https://support.test-correct.nl/knowledge en zoek daar naar 'uninstall' voor een uitgebreide uitleg. Kom je er dan nog steeds niet uit, stuur je vraag naar support@test-correct.nl of neem contact met ons op.")?><br /><br/>
             <?= __("Veel succes met je toets!")?>
         </p>
     </div>
