@@ -801,8 +801,10 @@ class TestTakesController extends AppController {
 
         $allQuestions = $fullTakeData['test']['test_questions'];
         $participants = $fullTakeData['test_participants'];
+        $answers = $fullTakeData['testParticipantAnswers'];
         unset($fullTakeData['test']['test_questions']);
         unset($fullTakeData['test_participants']);
+        unset($fullTakeData['testParticipantAnswers']);
         $take = $fullTakeData;
 
 //        $take = $this->TestTakesService->getTestTake($take_id);
@@ -862,11 +864,12 @@ class TestTakesController extends AppController {
         }
 
 
-        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $currentParticipant['answers']);
+        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $answers[$currentParticipant['uuid']]);
 
         $this->Session->write('active_participant', $participants[$participant_index]);
         $this->set('participant_id', getUUID($currentParticipant, 'get'));
         $this->set('questions', $questionsWithoutUnansweredGroupQuestions);
+        $this->set('answers', $answers);
         $this->set('current_question',$currentQuestion ?: $questions[0]);
         $this->set('next_question',$nextQuestion);
         $this->set('participant_index', $participant_index);
