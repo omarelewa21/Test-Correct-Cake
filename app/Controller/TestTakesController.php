@@ -864,7 +864,7 @@ class TestTakesController extends AppController {
         }
 
 
-        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $currentParticipant['answers']);
+        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $answers[$currentParticipant['uuid']]);
 
         $this->Session->write('active_participant', $participants[$participant_index]);
         $this->set('participant_id', getUUID($currentParticipant, 'get'));
