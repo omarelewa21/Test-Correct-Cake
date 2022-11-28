@@ -138,13 +138,17 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%" rowspan="2" valign="top"><?= __("Uitnodiging")?></th>
-                <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
-                    <div id="notes_div" class='editable_view' title='<?= __("Klik om uit te nodigen")?>' style="max-height:60px;overflow:scroll"><?
-                        echo (isset($file['typedetails']['invite']) && strlen($file['typedetails']['invite']) > 0) ? $file['typedetails']['invite'].'<br /> uitgenodigd op '.$this->Time->format(isset($file['typedetails']['invited_at']['date']) ? $file['typedetails']['invited_at']['date'] : $file['typedetails']['invited_at'],'%e %b \'%y om %H:%M', true, 'Europe/Amsterdam') : __("Klik om uit te nodigen");
-                        ?></div>
-                    <div id="notes_edit" class='editable_elements'>
-                        <input type="text" name="invite" class='editable_input' value="<?=isset($file['typedetails']['invite']) ? $file['typedetails']['invite'] : ''?>">
+                <th width="12%"><?= __("Koppelingen toevoegen")?></th>
+                <td width="38%" class="editable" onClick="makeEditable();">
+                    <div class="editable_view">
+                        <?= __($file['test_upload_additional_options'][$file['typedetails']['test_upload_additional_option']]) ?? __('None')?>
+                    </div>
+                    <div class="editable_elements">
+                        <select name="test_upload_additional_option" class="editable_input" style="width:100%">
+                            <?php foreach($file['test_upload_additional_options'] as $key => $option) { ?>
+                                <option value="<?= $key ?>" <? if($file['typedetails']['test_upload_additional_option'] == $key) { echo 'selected'; } ?>><?= __($option) ?></option>
+                            <?php } ?>
+                        </select>
                         <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right mt2 mr5" style="display:inline-block"><i class="fa fa-save"></i> <?= __("Opslaan")?></a>
                     </div>
                 </td>
@@ -154,6 +158,8 @@
                 <td><?= $testKind?></td>
             </tr>
             <tr>
+                <th width="12%"></th>
+                <td width="38%"></td>
                 <th>
                 <?= __("Naam toets")?>
                 </th>

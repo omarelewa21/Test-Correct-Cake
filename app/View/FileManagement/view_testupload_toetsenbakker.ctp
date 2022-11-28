@@ -45,8 +45,8 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%" rowspan="5" valign="top"><?= __("Notitie")?></th>
-                <td width="38%" rowspan="5" valign="top" id='notes' class="editable" onClick="makeEditable();">
+                <th width="12%" rowspan="4" valign="top"><?= __("Notitie")?></th>
+                <td width="38%" rowspan="4" valign="top" id='notes' class="editable" onClick="makeEditable();">
                     <div id="notes_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
                         echo (strlen($file['notes']) > 0) ? nl2br($file['notes']) : __("Klik om een notitie toe te toevoegen");
                     ?></div>
@@ -81,6 +81,10 @@
                 <td><?= $testKind?></td>
             </tr>
             <tr>
+                <th width="12%"><?= __("Koppelingen toevoegen")?></th>
+                <td width="38%" class="editable" >
+                    <?= __($file['test_upload_additional_options'][$file['typedetails']['test_upload_additional_option']]) ?? __('None')?>
+                </td>
                 <th>
                 <?= __("Naam")?>
                 </th>
