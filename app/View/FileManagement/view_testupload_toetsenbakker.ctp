@@ -76,9 +76,14 @@
             </tr>
             <tr>
                 <th width="12%" valign="top"><?= __("Toetsenbakker")?></th>
-                <td width="38%" valign="top" >
+                <td width="38%" valign="top" id='test_builder_code' class="editable" onClick="makeEditable();">
                     <div id="test_builder_code_div" class='editable_view' title='<?= $file['test_builder_code'] ?? '-'?>' style="max-height:60px;overflow:scroll">
                         <?= $file['test_builder_code'] ?? '-'?>
+                    </div>
+                    <div id="test_builder_code_edit" class='editable_elements'>
+                        <label>
+                            <input type="text" name="test_builder_code" maxlength="4" class='editable_input' value="<?= $file['test_builder_code'] ?? ''?>"/>
+                        </label>
                     </div>
                 </td>
 
