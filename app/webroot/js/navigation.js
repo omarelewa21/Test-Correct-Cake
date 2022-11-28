@@ -3,6 +3,7 @@ var Navigation = {
     callback : null,
 
     history : [],
+    usingPusher: false,
 
     load : function(url) {
         Loading.show();
@@ -15,6 +16,19 @@ var Navigation = {
 
         User.inactive = 0;
         User.surpressInactive = false;
+
+        if (Navigation.usingPusher) {
+            Navigation.usingPusher = false;
+            if (window.pusherSurveillanceTimeout !== null) {
+                clearTimeout(window.pusherSurveillanceTimeout);
+            }
+            if (typeof (window.pusher) !== 'undefined') {
+                pusher.disconnect();
+                pusher = undefined;
+                //Clear instances of the global Pusher class. When disconnecting from channels, the instances still remain. RR - 29-03-2022
+                Pusher.instances = [];
+            }
+        }
 
         $('#page_fade').fadeIn(function() {
             $.get(url,

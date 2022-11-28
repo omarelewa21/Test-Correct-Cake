@@ -1,10 +1,10 @@
-<div class="popup-head">Schoolbeheerder</div>
+<div class="popup-head"><?= __("Schoolbeheerder")?></div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">
         <? if(!empty($this->request->data['User']['school_location_id'])) { ?>
             <tr>
-                <th>Schoollocatie</th>
+                <th><?= __("Schoollocatie")?></th>
                 <td>
                     <?=$this->Form->input('school_location_id', array('style' => 'width: 185px', 'label' => false, 'options' => $school_locations)) ?>
                 </td>
@@ -12,7 +12,7 @@
         <? } ?>
         <? if(!empty($this->request->data['User']['school_id'])) { ?>
             <tr>
-                <th>Schoolgem.</th>
+                <th><?= __("Schoolgem")?>.</th>
                 <td>
                     <?=$this->Form->input('school_id', array('style' => 'width: 185px', 'label' => false, 'options' => $schools)) ?>
                 </td>
@@ -20,7 +20,7 @@
         <? } ?>
         <tr>
             <th width="130">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -28,7 +28,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -36,7 +36,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -44,7 +44,7 @@
         </tr>
         <tr>
             <th width="130">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
@@ -52,14 +52,14 @@
         </tr>
         <tr>
             <th width="130">
-                Nieuw wachtwoord
+            <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>
-            <th colspan="2">Notities</th>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -74,11 +74,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Opslaan
+    <?= __("Opslaan")?>
     </a>
 </div>
 
@@ -86,13 +86,20 @@
     $('#UserEditForm').formify(
         {
             confirm : $('#btnAddUser'),
+            onbeforesubmit: function(e) {
+                var password = $('#UserPassword').val();
+                if(password !== '' && password.length < 8) {
+                    Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 8 karakters bevatten.'), 'error');
+                    return 'cancelSubmit';
+                }
+            },
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker aangemaakt", "info");
+                Notify.notify('<?= __("Gebruiker gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );

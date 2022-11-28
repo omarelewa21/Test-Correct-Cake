@@ -1,5 +1,5 @@
 <?= $this->element('preview_attachments2019',['questions' => $questions, 'hideExtra' => $hideExtra]);?>
-<h1><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag'?><?=AppHelper::showExternalId($question);?></h1>
+<h1><?= $question['subtype'] == __("Matching") ? __("Combineervraag") : __("Rubriceer-vraag")?><?=AppHelper::showExternalId($question);?></h1>
 
 <div style="font-size: 20px;">
     <?
@@ -52,12 +52,13 @@
     shuffle($listRight);
 
     foreach($listRight as $item) {
-        ?>
-        <div style="background: grey; padding:10px; margin: 2px;" id="<?=getUUID($item, 'get');?>" class="right_item">
-            <?=$item['answer']?>
-        </div>
-        <?
-    }
+        if(!empty($item['answer']) && $item['answer'] != ' '){
+            ?>
+            <div style="background: grey; padding:10px; margin: 2px;" id="<?=getUUID($item, 'get');?>" class="right_item">
+                <?=$item['answer']?>
+            </div>
+            <?
+        }}
     ?>
 </div>
 </div>
@@ -83,7 +84,7 @@
     <center>
         <a href="#" class="btn highlight large" onclick="TestPreview.loadQuestionPreview('<?=$test_id?>', '<?=$next_question?>');">
             <span class="fa fa-check"></span>
-            Volgende vraag
+            <?= __("Volgende vraag")?>
         </a>
     </center>
 <? } ?>

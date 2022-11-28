@@ -25,20 +25,51 @@ class SchoolLocationsController extends AppController
         parent::beforeFilter();
     }
 
-    public function change_allow_inbrowser_testing($locationId, $allow) {
+    public function updateSchoolLocation($locationId, bool $allow, $info){
         $this->isAuthorizedAs(['Administrator','Account manager']);
         if($this->request->is('post') || $this->request->is('put')) {
-            $this->SchoolLocationsService->change_allow_inbrowser_testing($locationId, $allow);
-        }
-        $this->formResponse(
-            true,
-            []
-        );
-    }
-    public function change_allow_new_player_access($locationId, $allow) {
-        $this->isAuthorizedAs(['Administrator','Account manager']);
-        if($this->request->is('post') || $this->request->is('put')) {
-            $this->SchoolLocationsService->change_allow_new_player_access($locationId, $allow);
+            switch ($info) {
+                case 'keep_out_report':
+                    $data = ['keep_out_of_school_location_report' => $allow];
+                    break;
+                case 'allow_inbrowser_testing':
+                    $data = ['allow_inbrowser_testing' => $allow];
+                    break;
+                case 'allow_new_student_env':
+                    $data = ['allow_new_student_environment' => $allow];
+                    break;
+                case 'show_exam_material':
+                    $data = ['show_exam_material' => $allow];
+                    break;
+                case 'show_cito_quick_test_start':
+                    $data = ['show_cito_quick_test_start' => $allow];
+                    break;
+                case 'show_national_item_bank':
+                    $data = ['show_national_item_bank' => $allow];
+                    break;
+                case 'allow_wsc':
+                    $data = ['allow_wsc' => $allow];
+                    break;
+                case 'allow_writing_assignment':
+                    $data = ['allow_writing_assignment' => $allow];
+                    break;
+                case 'allow_creathlon':
+                    $data = ['allow_creathlon' => $allow];
+                    break;
+                case 'allow_new_taken_tests_page':
+                    $data = ['allow_new_taken_tests_page' => $allow];
+                    break;
+                case 'allow_analyses':
+                    $data = ['allow_analyses' => $allow];
+                    break;
+                case 'allow_new_co_learning':
+                    $data = ['allow_new_co_learning' => $allow];
+                    break;
+                default:
+                    $data = [];
+                    break;
+            }
+            $this->SchoolLocationsService->updateSchoolLocation($locationId, $data);
         }
         $this->formResponse(
             true,
@@ -66,6 +97,8 @@ class SchoolLocationsController extends AppController
         $this->set('school_location', $school_location);
         $this->set('ips', $this->SchoolLocationsService->getIps(getUUID($school_location, 'get')));
         $this->set('isAdministrator', $this->hasRole('Administrator'));
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'school-locations/');
     }
 
     public function load() {
@@ -96,6 +129,26 @@ class SchoolLocationsController extends AppController
         $this->set('location_id', $location_id);
     }
 
+    public function add_default_subjects_and_sections($location_id)
+    {
+        $this->isAuthorizedAs(['Administrator']);
+
+        if($this->request->is('post')) {
+            $result = $this->SchoolLocationsService->addDefaultSubjectsAndSections($location_id);
+            if (!$result) {
+                $this->formResponse(
+                    false,
+                    $this->SchoolLocationsService->getErrors()
+                );
+            } else {
+                $this->formResponse(
+                    true,
+                    []
+                );
+            }
+        }
+    }
+
     public function delete_ip($location_id, $ip_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
@@ -109,7 +162,7 @@ class SchoolLocationsController extends AppController
         }
     }
 
-    public function edit($school_id) {
+    public function edit($school_location_id) {
         $this->isAuthorizedAs(['Administrator', 'Account manager']);
 
         if($this->request->is('post') || $this->request->is('put')) {
@@ -123,7 +176,7 @@ class SchoolLocationsController extends AppController
 
             if(!empty($data['external_main_code'])){
                 $toIgnore = array();
-                $toIgnore[$school_id] = $data['external_main_code'].$data['external_sub_code'];
+                $toIgnore[$school_location_id] = $data['external_main_code'].$data['external_sub_code'];
                 $schoolLocationList = $this->SchoolLocationsService->getSchoolLocationListWithUUID();
 
                 if (strlen($data['external_sub_code']) > 2) {
@@ -140,7 +193,7 @@ class SchoolLocationsController extends AppController
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
-                                ['Combinatie brin/locatie code bestaat reeds op andere school']
+                                [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                             ); exit();
                         }
                     }
@@ -151,12 +204,12 @@ class SchoolLocationsController extends AppController
                 $data['activated'] = 0;
             }
 
-            $result = $this->SchoolLocationsService->updateSchoolLocation($school_id, $data);
+            $result = $this->SchoolLocationsService->updateSchoolLocation($school_location_id, $data);
 
             if(!$result) {
                 $errors = $this->SchoolLocationsService->getErrors();
                 if(count($errors) < 1) {
-                    $errors[] = 'School kon niet worden aangepast';
+                    $errors[] = __("School kon niet worden aangepast");
                 }
             }
 
@@ -168,7 +221,7 @@ class SchoolLocationsController extends AppController
             die;
         }
 
-        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_id, true);
+        $school_location = $this->SchoolLocationsService->getSchoolLocation($school_location_id, true);
 
         $levels = [];
 
@@ -202,6 +255,10 @@ class SchoolLocationsController extends AppController
         foreach ($school_location['sso_options'] as $option) {
             $sso_types += [$option => $option];
         }
+        $license_types = [];
+        foreach ($school_location['license_types'] as $option) {
+            $license_types += [$option => __($option)];
+        }
 
         $schoolLocationHasRunManualImport = $school_location['has_run_manual_import'];
 
@@ -210,6 +267,7 @@ class SchoolLocationsController extends AppController
         $this->set('school_location_has_run_manual_import', $schoolLocationHasRunManualImport);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
+        $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('school_location', $school_location);
 
@@ -260,7 +318,7 @@ class SchoolLocationsController extends AppController
             $data = $this->request->data;
 
             if(!is_numeric($data['Licence']['amount'])) {
-                $this->formResponse(false, ['errors' => 'Aantal niet numeriek']);
+                $this->formResponse(false, ['errors' => __("Aantal niet numeriek")]);
                 die;
             }
 
@@ -312,7 +370,7 @@ class SchoolLocationsController extends AppController
                         if($matchAgainst == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                             $this->formResponse(
                                 false,
-                                ['Combinatie brin/locatie code bestaat reeds op andere school']
+                                [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                             ); exit();
                         }
                     }
@@ -337,7 +395,7 @@ class SchoolLocationsController extends AppController
                     if($toIgnore == ($schoolLocationListItem['external_main_code'].$schoolLocationListItem['external_sub_code'])) {
                         $this->formResponse(
                             false,
-                            ['Combinatie brin/locatie code bestaat reeds op andere school']
+                            [__("Combinatie brin/locatie code bestaat reeds op andere school")]
                         ); exit();
                     }
                 }
@@ -348,7 +406,7 @@ class SchoolLocationsController extends AppController
             if(!$result){
                 $errors = $this->SchoolLocationsService->getErrors();
                 if(count($errors) < 1) {
-                    $errors[] = 'School kon niet worden aangemaakt';
+                    $errors[] = __("School kon niet worden aangemaakt");
                 }
             }
 
@@ -358,7 +416,7 @@ class SchoolLocationsController extends AppController
             );
         }
 
-        $schools[''] = 'Geen';
+        $schools[''] = __('Geen');
         $schools += $this->SchoolsService->getSchoolList();
 
         $params['filter'] = ['role' => [5]];
@@ -370,23 +428,43 @@ class SchoolLocationsController extends AppController
             $accountmanagers[getUUID($user, 'get')] = $user['name_first'] . ' ' . $user['name_suffix'] . ' ' . $user['name'];
         }
 
-        $lvs_and_sso_options = $this->SchoolLocationsService->getLvsAndSsoOptions();
+        $availableSchoolLocationOptions = $this->SchoolLocationsService->getAvailableSchoolLocationOptions();
 
         $lvs_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['lvs'] as $option) {
+        foreach ($availableSchoolLocationOptions['lvs'] as $option) {
             $lvs_types += [$option => $option];
         }
         $sso_types = ['' => 'Geen'];
-        foreach ($lvs_and_sso_options['sso'] as $option) {
+        foreach ($availableSchoolLocationOptions['sso'] as $option) {
             $sso_types += [$option => $option];
         }
-
+        $license_types = [];
+        foreach ($availableSchoolLocationOptions['license_types'] as $option) {
+            $license_types += [$option => __($option)];
+        }
         $this->set('lvs_types', $lvs_types);
         $this->set('sso_types', $sso_types);
+        $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('eduction_levels', $this->TestsService->getEducationLevels(true, false));
         $this->set('grading_scales', $this->SchoolLocationsService->getGradingScales());
         $this->set('schools', $schools);
 
+        $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
+        $this->set('return_route', $route_prefix . 'school-locations/');
+    }
+
+    public function hasSchoolRelation($id)
+    {
+        $this->autoRender = false;
+        if($this->Session->check('schoolLocationsList') && is_array($this->Session->read('schoolLocationsList'))){
+            foreach($this->Session->read('schoolLocationsList') as $location){
+                if(is_array($location) && $location['id'] == $id){
+                    $school_location = $this->SchoolLocationsService->getSchoolLocation($location['uuid']);
+                    return !is_null($school_location['school']);
+                }
+            }
+        }
+        return false;
     }
 }

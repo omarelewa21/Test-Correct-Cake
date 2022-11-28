@@ -1,10 +1,10 @@
-<div class="popup-head">Periode</div>
+<div class="popup-head"><?= __("Periode")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Period') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th width="130">
-                Datum van
+            <?= __("Datum van")?>
             </th>
             <td>
                 <?=$this->Form->input('start_date', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -20,7 +20,7 @@
         </tr>
         <tr>
             <th width="130">
-                Datum tot
+            <?= __("Datum tot")?>
             </th>
             <td>
                 <?=$this->Form->input('end_date', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -30,11 +30,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -44,14 +44,14 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Periode aangemaakt", "info");
+                Notify.notify('<?= __("Periode aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if (result.errors && result.errors.end_date) {
-                    Notify.notify('"Datum van" moet een datum voor "Datum tot" zijn.', 'error')
+                    Notify.notify('<?= __("\"Datum van\" moet een datum voor \"Datum tot\" zijn.")?>', 'error')
                 } else {
-                    Notify.notify("Deze data overlapt met andere periode's", "error");
+                    Notify.notify('<?= __("Deze data overlapt met een andere periode.")?>', "error");
                 }
             }
         }

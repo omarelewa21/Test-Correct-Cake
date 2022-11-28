@@ -28,7 +28,7 @@
         <a id="btn-tool-arrow" class="btn highlight small mr2 pull-left"><span class="fa fa-long-arrow-right"></span></a>
         <a id="btn-tool-shape-circle" class="btn highlight small mr2 pull-left"><span class="fa fa-circle-thin"></span></a>
         <a id="btn-tool-shape-rectangle" class="btn highlight small mr2 pull-left"><span class="fa fa-square-o"></span></a>
-        <a id="btn-export" class="btn highlight small ml5 pull-right"><span class="fa fa-check"></span> Klaar</a>
+        <a id="btn-export" class="btn highlight small ml5 pull-right" selid="save-drawing-btn"><span class="fa fa-check"></span> <?= __("Klaar")?></a>
     </div>
 </header>
 

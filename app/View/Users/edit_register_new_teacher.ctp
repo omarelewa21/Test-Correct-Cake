@@ -1,15 +1,15 @@
-<div class="popup-head">Registratie voor Test-Correct.nl</div>
+<div class="popup-head"><?= __("Registratie voor Test-Correct.nl")?></div>
 <div class="popup-content">
 
     <?= $this->element('register_new_teacher_form'); ?>
 
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Wijzigen
+    <?= __("Wijzigen")?>
     </a>
 </div>
 
@@ -19,7 +19,7 @@
             confirm: $('#btnAddUser'),
             onsuccess: function (result) {
                 Popup.closeLast();
-                Notify.notify("Account gewijzigd", "info");
+                Notify.notify('<?= __("Account gewijzigd")?>', "info");
             },
             onfailure: function (result) {
                 this.hideAllErrors();
@@ -28,7 +28,7 @@
                     that.showError(key);
                 });
 
-                Notify.notify("Gebruiker a kon niet worden Gewijzigd", "error");
+                Notify.notify('<?= __("Gebruiker a kon niet worden Gewijzigd")?>', "error");
             },
             hideAllErrors: function() {
                 var that = this;
@@ -75,7 +75,7 @@
                 $('#UserGenderDifferent').trigger('keyup');
             }
         }).on('keyup', '#UserGenderDifferent', function(e) {
-            console.log('keyUp');
+            // console.log('keyUp');
             if($(this).val() == '') {
                 $(this).removeClass().addClass('verify');
             }

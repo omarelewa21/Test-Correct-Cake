@@ -1,14 +1,107 @@
 var Questions = {
     openType : null,
 
-    addPopup : function(type, owner, owner_id) {
-        Popup.closeLast();
-        setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/' + type, 800);
-        }, 500);
+    getCorrectQuestionTypeIfNotLaravel:function(type,sub_type){
+        if(type == 'CompletionQuestion' && sub_type.toLowerCase() == 'multi'){
+            type = 'MultiCompletionQuestion';
+        }
+        if (type === 'MultipleChoiceQuestion' && sub_type.toLowerCase() === 'truefalse') {
+            type = 'TrueFalseQuestion';
+        }
+        if (type === 'MultipleChoiceQuestion' && sub_type.toLowerCase() === 'arq') {
+            type = 'ARQQuestion';
+        }
+        if (type === 'MatchingQuestion' && sub_type.toLowerCase() === 'classify') {
+            type = 'ClassifyQuestion';
+        }
+        return type;
     },
 
-    addOpenPopup : function(type, owner, owner_id) {
+    getCorrectSubQuestionTypeIfLaravel:function(type,sub_type){
+        if(type == 'DrawingQuestion'){
+            return 'drawing';
+        }
+        if(type == 'RankingQuestion'){
+            sub_type = 'Ranking';
+        } else if(type == 'InfoscreenQuestion') {
+            sub_type = 'Infoscreen';
+        }
+        return sub_type;
+    },
+
+    enterEmptyCms : function(test_id, action) {
+        this.openInEditorInLaravel(action, '', 'test', test_id, '', '', '', false, true);
+    },
+
+    /**
+     * @param type
+     * @param owner 'test' | 'group'
+     * @param test_id
+     * @param sub_type
+     * @param test_question_id
+     * @param group_question_question_id
+     */
+    addPopup : function(newEditor, type, owner, test_id, sub_type, test_question_id) {
+        if (newEditor) {
+            test_question_id =  (owner == 'test') ? '' : test_question_id;
+            this.openInEditorInLaravel('add', type, owner, test_id, sub_type, test_question_id);
+            return;
+        }
+        var typeForCake = this.getCorrectQuestionTypeIfNotLaravel(type,sub_type);
+        this.handleOpenQuestionSubType(typeForCake, sub_type);
+        Popup.closeLast();
+        setTimeout(function() {
+            var owner_id = owner == 'test' ? test_id : test_question_id;
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/' + typeForCake);
+        }, 500);
+    },
+    /**
+     * @param type
+     * @param owner 'test' | 'group'
+     * @param test_id
+     * @param sub_type
+     * @param test_question_id
+     * @param group_question_question_id
+     * @param is_clone_request
+     */
+    editPopup: function (type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request) {
+       var subTypeForLaravel = this.getCorrectSubQuestionTypeIfLaravel(type,sub_type);
+       this.openInEditorInLaravel('edit', type, owner, test_id, subTypeForLaravel, test_question_id, group_question_question_id, is_clone_request);
+    },
+    /**
+     * @param verb 'add'|'edit
+     * @param type
+     * @param owner 'test' | 'group'
+     * @param test_id
+     * @param sub_type
+     * @param test_question_id
+     * @param group_question_question_id
+     * @param is_clone_request
+     */
+    openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request, with_drawer) {
+        var path = 'teacher/question-editor' +
+                    '?action=' + verb +
+                    '&type=' + type +
+                    '&subtype=' + sub_type +
+                    '&owner=' + owner +
+                    '&testId=' + test_id +
+                    '&testQuestionId=' + test_question_id +
+                    '&groupQuestionQuestionId=' + (group_question_question_id || '') +
+                    '&isCloneRequest=' + (is_clone_request || '');
+
+        path = with_drawer ? path + '&withDrawer=true' : path;
+
+        User.goToLaravel(path);
+        return;
+    },
+
+
+    addOpenPopup : function(type, owner, owner_id, goToLaravel) {
+        if (goToLaravel && owner === 'test') {
+            var path = 'teacher/questions/add/OpenQuestion/'+type+'/?owner=' + owner + '&owner_id=' + owner_id;
+            User.goToLaravel(path);
+            return;
+        }
 
         Questions.openType = type;
 
@@ -18,7 +111,7 @@ var Questions = {
         }, 500);
 
         setTimeout(function() {
-            Popup.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion', 800);
+            Navigation.load('/questions/add/' + owner + '/' + owner_id + '/OpenQuestion');
         }, 1000);
     },
 
@@ -29,9 +122,15 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
+
                 }else{
-                    console.log(response['data']);
+                    Object.entries(response['data']).map(item => {
+                        typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                    })      // Add translation to error message
+
                     Notify.notify(response['data'].join('<br />'), 'error');
                 }
             }
@@ -45,10 +144,15 @@ var Questions = {
                 response = JSON.parse(response);
                 if(response['status'] == 1) {
                     Popup.closeLast();
-                    Navigation.refresh();
+                    // Navigation.refresh();
+                    Notify.notify($.i18n('Vraag opgeslagen'), 'info');
+                    Questions.closeQuestionEditor();
                 }else{
                     $.each(response['data'], function() {
-                        Notify.notify(response['data'].join('<br />'), 'error');
+                        Object.entries(response['data']).map(item => {
+                            typeof item[1] == 'object' ? item[1][0]=$.i18n(item[1][0]) : item[1]=$.i18n(item[1])
+                        })      // Add translation to error message
+                        Notify.notify($.i18n(response['data'].join('<br />')), 'error');
                     });
                 }
             }
@@ -117,15 +221,15 @@ var Questions = {
         if(subquestion) {
 
             Popup.message({
-                btnOk: 'Importeren',
-                btnCancel: 'Annuleren',
-                title: 'Onderdeel van groepvraag',
-                message: 'Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.'
+                btnOk: $.i18n('Importeren'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Onderdeel van groepvraag'),
+                message: $.i18n('Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.')
             }, function() {
                 $.get('/questions/add_existing_question/' + question_id,
                     function(response) {
+                        Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                         Navigation.refresh();
-                        Popup.closeLast();
                     }
                 );
             });
@@ -134,12 +238,42 @@ var Questions = {
         }else{
             $.get('/questions/add_existing_question/' + question_id,
                 function(response) {
+                    Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
                     Navigation.refresh();
-                    Popup.closeLast();
                 }
             );
         }
     },
+
+    addExistingQuestionToGroup : function(question_id, subquestion) {
+
+        if(subquestion) {
+
+            Popup.message({
+                btnOk: $.i18n('Importeren'),
+                btnCancel: $.i18n('Annuleren'),
+                title: $.i18n('Onderdeel van groepvraag'),
+                message: $.i18n('Deze vraag is onderdeel van een groep-vraag, wanneer u deze importeert worden eventuele bijlages niet meegenomen.')
+            }, function() {
+                $.get('/questions/add_existing_question_to_group/' + question_id,
+                    function(response) {
+                        Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
+                        Navigation.refresh();
+                    }
+                );
+            });
+
+
+        }else{
+            $.get('/questions/add_existing_question_to_group/' + question_id,
+                function(response) {
+                    Notify.notify($.i18n('De bestaande vraag is toegevoegd.'), "info", "5000");
+                    Navigation.refresh();
+                }
+            );
+        }
+    },
+
 
     addExistingQuestionGroup : function(question_group_id) {
         $.get('/questions/add_existing_question_group/' + question_group_id,
@@ -188,13 +322,23 @@ var Questions = {
         });
     },
 
-    loadAddAttachments : function() {
-        $('div[page=sources][tabs=add_question], #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+    loadAddAttachments : function(is_clone,owner, owner_id,id) {
+        is_clone = typeof is_clone != 'undefined' ? !!is_clone : false;
+        if(is_clone){
+            $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/add/'+owner+'/'+owner_id+'/'+id+'?' + new Date().getTime(), function(){
+                var form = jQuery('#QuestionAddForm');
+                jQuery('.cloneAttachment').each(function(){
+                   $(this).prependTo(form);
+                });
+            });
+        }else{
+            $('div[sources][tabs=add_question] > .loadhere, #groupAttachments').load('/questions/attachments/add?' + new Date().getTime());
+        }
     },
 
     loadEditAttachments : function(owner, owner_id, id) {
         Attachments.owner_id = owner_id;
-        $('div[page=sources][tabs=edit_question], #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
+        $('div[sources][tabs=edit_question] > .loadhere, #groupAttachments').load('/questions/attachments/edit/' + owner + '/' + owner_id + '/' + id);
     },
 
     updateIndex : function(question, test_id) {
@@ -239,10 +383,10 @@ var Questions = {
 
     delete : function(owner, owner_id, question_id) {
         Popup.message({
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze vraag wilt verwijderen?',
-                btnCancel: 'Annuleren',
-                btnOk : 'Ja'
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet u zeker dat u deze vraag wilt verwijderen?'),
+                btnCancel: $.i18n('Annuleren'),
+                btnOk : $.i18n('Ja')
 
             },
             function() {
@@ -253,9 +397,9 @@ var Questions = {
                     success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
-                            Notify.notify('Vraag verwijderd', 'info', 3000);
+                            Notify.notify($.i18n('Vraag verwijderd'), 'info', 3000);
                         }else{
-                            Notify.notify('Vraag kon niet worden verwijderd', 'error', 3000);
+                            Notify.notify($.i18n('Vraag kon niet worden verwijderd'), 'error', 3000);
                         }
                     }
                 });
@@ -266,10 +410,10 @@ var Questions = {
     deleteGroup : function(test_id, group_id) {
 
         Popup.message({
-                title: 'Weet u het zeker?',
-                message: 'Weet u zeker dat u deze vraaggroep wilt verwijderen?',
-                btnCancel: 'Annuleren',
-                btnOk : 'Ja'
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet u zeker dat u deze vraaggroep wilt verwijderen?'),
+                btnCancel: $.i18n('Annuleren'),
+                btnOk : $.i18n('Ja')
 
             },
             function() {
@@ -280,9 +424,9 @@ var Questions = {
                     success: function(response) {
                         if(response['status'] == 1) {
                             Navigation.refresh();
-                            Notify.notify('Groep verwijderd', 'info', 3000);
+                            Notify.notify($.i18n('Groep verwijderd'), 'info', 3000);
                         }else{
-                            Notify.notify('Groep kon niet worden verwijderd', 'error', 3000);
+                            Notify.notify($.i18n('Groep kon niet worden verwijderd'), 'error', 3000);
                         }
                     }
                 });
@@ -302,6 +446,17 @@ var Questions = {
                 Navigation.refresh();
             }
         );
+    },
+    closeQuestionEditor: function () {
+        Navigation.back();
+        $('#container').removeClass('question-editor');
+        $('#header, #tiles').slideDown();
+        $('.question-editor-header').slideUp();
+    },
+    handleOpenQuestionSubType: function(typeForCake, subType) {
+        if (typeForCake.toLowerCase() === 'openquestion') {
+            this.openType = subType;
+        }
     }
 };
 
@@ -321,6 +476,11 @@ var Attachments = {
                 Questions.loadAddAttachments();
             }
         });
+    },
+
+    removeCloneAttachment : function(id,el) {
+        jQuery('#cloneAttachment'+id).remove();
+        jQuery(el).parents('tr').remove();
     },
 
     removeEditAttachment : function(owner, owner_id, id) {
@@ -346,7 +506,7 @@ var Attachments = {
                         Questions.loadAddAttachments();
                         Popup.closeLast();
                     }else{
-                        Notify.notify('Geen goedgekeurde link', 'error');
+                        Notify.notify($.i18n('Geen goedgekeurde link'), 'error');
                     }
                 }
             );
@@ -366,7 +526,7 @@ var Attachments = {
                         Questions.loadEditAttachments(owner, owner_id, id);
                         Popup.closeLast();
                     }else{
-                        Notify.notify('Geen goedgekeurde link', 'error');
+                        Notify.notify($.i18n('Geen goedgekeurde link'), 'error');
                     }
                 }
             );
@@ -375,11 +535,13 @@ var Attachments = {
 
     uploadError : function(error) {
         if(error == 'file_type') {
-            Notify.notify("Dit bestandstype wordt niet ondersteund", "error");
+            Notify.notify($.i18n("Dit bestandstype wordt niet ondersteund"), "error");
         }else if(error == 'file_size') {
-            Notify.notify("Dit bestand is te groot", "error");
+            Notify.notify($.i18n("Dit bestand is te groot"), "error");
         }else if(error == 'no_file') {
-            Notify.notify("Geen bestand geselecteerd", "error");
+            Notify.notify($.i18n("Geen bestand geselecteerd"), "error");
+        }else{
+            Notify.notify($.i18n(error), "error");
         }
     }
 };

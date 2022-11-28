@@ -11,6 +11,7 @@ App::uses('SchoolYearsService', 'Lib/Services');
 App::uses('HelperFunctions','Lib');
 App::uses('CarouselMethods', 'Trait');
 
+
 // App::uses('TestsService', 'Lib/Services');
 
 class TestTakesController extends AppController {
@@ -145,7 +146,7 @@ class TestTakesController extends AppController {
             if (!is_array($test_takes) || count($test_takes) < 1) {
                 $this->formResponse(false, [
                     'errors' => [
-                        'Er dient tenminste één toets gekozen te worden'
+                        __("Er dient tenminste één toets gekozen te worden")
                     ]
                 ]);
 
@@ -158,7 +159,7 @@ class TestTakesController extends AppController {
                     if ($test_take['test_id'] == '' || empty($test_take['test_id'])) {
                         $this->formResponse(false, [
                             'errors' => [
-                                'Er dient een toets gekozen te worden.'
+                                __("Er dient een toets gekozen te worden.")
                             ]
                         ]);
                         exit;
@@ -166,18 +167,28 @@ class TestTakesController extends AppController {
 
                     //$class = $this->SchoolClassesService->getClass($test_take['class_id']);
                     $test = $this->TestsService->getTest($test_take['test_id']);
-
                     $test_takes[$key]['test_id'] = $test['id'];
-
-                    if (strtotime($test_take['date']) == 0) {
+                    $test_takes[$key]['test_kind_id'] = $test['test_kind_id'];
+                    $errors = [];
+                    if ($test['test_kind_id'] === 4) {
+                        if (strtotime($test_take['date_from']) == 0) {
+                            $errors[] = __('Datum vanaf is incorrect');
+                        }
+                        if (strtotime($test_take['date_till']) == 0) {
+                            $errors[] = __('Datum tot is incorrect');
+                        }
+                    } else {
+                        if (strtotime($test_take['date']) == 0) {
+                           $errors[] = __("Datum is incorrect");
+                        }
+                    }
+                    if ($errors) {
                         $this->formResponse(false, [
-                            'errors' => [
-                                'Datum is incorrect'
-                            ]
+                            'errors' =>  $errors
                         ]);
-
                         die;
                     }
+
 
                     // 20190930 uitgezet op verzoek van Alex omdat het verder geen doel dient.
 //					if(
@@ -194,6 +205,14 @@ class TestTakesController extends AppController {
 //					}
 
                     $check = $this->TestTake->check($test_take, $test);
+                    if ($test_take['guest_accounts']) {
+                        foreach ($check['errors'] as $errorKey => $error) {
+                            if($error == __('Geen klas geselecteerd')) {
+                                $check['status'] = true;
+                            }
+                        }
+                    }
+
                     if (!$check['status']) {
                         $this->formResponse(
                                 false, [
@@ -219,6 +238,14 @@ class TestTakesController extends AppController {
                     $test_take['retake'] = 0;
                     $test_take['test_take_status_id'] = 1;
                     $test_take['exported_to_rtti'] = null;
+                    // if type is opdracht dan test gelijk op test_take_status_id 3 zetten;
+                    if ($test_take['test_kind_id'] == 4){
+                        $test_take['allow_inbrowser_testing'] = 1;
+                        $test_take['time_start'] = date('Y-m-d 00:00:00', strtotime($test_take['date_from']));
+                        $test_take['time_end'] = date('Y-m-d 23:59:59', strtotime($test_take['date_till']));
+                        $test_take['test_take_status_id'] = 3;
+                    }
+
 
                     if (!isset($test_take['weight']))
                         $test_take['weight'] = 0;
@@ -260,13 +287,16 @@ class TestTakesController extends AppController {
             if (!empty($test_id)) {
                 $test = $this->TestsService->getTest($test_id);
                 $test_name = $test['name'];
+                $test_kind_id = $test['test_kind_id'];
                 $this->set('test', $test);
                 $this->validateCarouselQuestionsInTest($test_id);
             } else {
-                $test_name = 'Selecteer';
+                $test_kind_id = 1;
+                $test_name = __("Selecteer");
             }
 
             $this->set('classes', $classes);
+            $this->set('test_kind_id', $test_kind_id);
             $this->set('inviligators', $newInviligators);
             $this->set('test_name', $test_name);
             $this->set('education_levels', $education_levels);
@@ -284,11 +314,25 @@ class TestTakesController extends AppController {
 
         $take = $this->TestTakesService->getTestTake($take_id);
 
+        if ($take['test']['test_kind_id'] == 4) {
+            $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+            $disable_edit_start_time = ($dateStart < new dateTime() && $take['has_active_participants']);
+        }
+
         if ($this->request->is('post')) {
             $this->autoRender = false;
 
             $data = $this->request->data['TestTake'];
+
+            if ($take['test']['test_kind_id'] == 4) {
+                $data['allow_inbrowser_testing'] = 1;
+            }
             $test = $this->TestsService->getTest(getUUID($take['test'], 'get'));
+
+            if ($disable_edit_start_time) {
+                $data['time_start'] = $take['time_start'];
+            }
+
             $check = $this->TestTake->checkEdit($data, $take['retake'] == 1, $test);
 
             if (!$check['status']) {
@@ -329,8 +373,26 @@ class TestTakesController extends AppController {
             $test = $this->TestsService->getTest($test_id);
             $test_name = $test['name'];
         } else {
-            $test_name = 'Selecteer';
+            $test_name = __("Selecteer");
         }
+
+        $isExamCoordinator = AuthComponent::user(['isExamCoordinator']);
+        $this->set('isExamCoordinator', $isExamCoordinator);
+        if ($isExamCoordinator) {
+            $teachers = $this->SchoolLocationsService->getSchoolLocationTeacherUsers(
+                getUUID(AuthComponent::user('school_location'),'get'),
+                [ 'testTakeUuid' => getUUID($take, 'get') ]
+            );
+            $school_location_teachers = [];
+            foreach($teachers as $teacher) {
+                $school_location_teachers[getUUID($teacher, 'get')] = $teacher['name_full'];
+            }
+            $selected_teacher = getUUID($take['user'], 'get');
+            $this->set('school_location_teachers', $school_location_teachers);
+            $this->set('selected_teacher', $selected_teacher);
+        }
+
+        $this->set('disable_edit_start_time', $disable_edit_start_time);
 
         $this->set('classes', $classes);
         $this->set('inviligators', $newInviligators);
@@ -343,6 +405,7 @@ class TestTakesController extends AppController {
         $this->set('take', $take);
         $this->set('take_id', $take_id);
         $this->set('school_allows_inbrowser_testing', $school_location['data'][0]['allow_inbrowser_testing']);
+        $this->set('school_allows_guest_accounts', $school_location['data'][0]['allow_guest_accounts']);
         $this->set('is_rtti_school_location', $school_location['data'][0]['is_rtti_school_location']);
     }
 
@@ -418,10 +481,11 @@ class TestTakesController extends AppController {
         if (!$take) {
             echo "<script>
             Navigation.back();
-            Notify.notify('Je hebt helaas geen toegang tot deze toets','error');
+            Notify.notify('<?= __(\"Je hebt helaas geen toegang tot deze toets\")?>','error');
 </script>";
             exit;
         }
+        $this->set('hasPdfAttachments', $take['test']['has_pdf_attachments']);
 
         if ($take['test_take_status_id'] == 9) {
             $this->isAuthorizedAs(["Teacher", "Invigilator", "Student", "School Manager"]);
@@ -431,6 +495,9 @@ class TestTakesController extends AppController {
 
         $this->set('take', $take);
         $this->set('take_id', $take_id);
+        $this->set('test_uuid', getUUID($take['test'],'get'));
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
+
 
         if ($take['test_take_status_id'] < 6) {
             $this->render('view_planned', 'ajax');
@@ -466,6 +533,7 @@ class TestTakesController extends AppController {
             }
 
             $this->set('isTeacher', $isTeacher);
+            $this->set('isExamCoordinator', AuthComponent::user('isExamCoordinator'));
 
             // $this->set('is_rtti_test', $take);
             if((bool) $this->hasRole('Student')){
@@ -617,11 +685,16 @@ class TestTakesController extends AppController {
                 break;
 
             case 8:
+                $this->set('guest', AuthComponent::user('guest'));
+
+                $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'discussed']);
+                $this->set('loginUrl', $loginUrl['url']);
+
                 $view = 'take_discussed';
                 break;
 
             default:
-                die('Niet te bespreken');
+                die(__("Niet te bespreken"));
                 break;
         }
 
@@ -631,7 +704,7 @@ class TestTakesController extends AppController {
         $this->render($view, 'ajax');
     }
 
-    public function rate_teacher_question($take_id, $question_index = 0) {
+    public function rate_teacher_question($take_id, $question_index = 0, $sticky = 0) {
 
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
@@ -652,6 +725,9 @@ class TestTakesController extends AppController {
             }
         }
 
+        $currentQuestionId = $questions[$question_index]['question_id'];
+        $this->rejectParticipantsThatDontHaveAnAnswerForCurrentQuestion($currentQuestionId, $participants);
+
         $this->Session->write('active_question', $questions[$question_index]);
 
         $this->set('question_id', getUUID($questions[$question_index]['question'], 'get'));
@@ -659,13 +735,16 @@ class TestTakesController extends AppController {
         $this->set('question_index', $question_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('sticky',$sticky);
     }
 
     public function normalization($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
 
         if ($this->request->is('post') || $this->request->is('put')) {
-            $this->TestTakesService->saveNormalization($take_id, $this->request->data, false);
+            if( !$this->TestTakesService->saveNormalization($take_id, $this->request->data, false, true) ){
+                $this->formResponse(false, $this->TestTakesService->getErrors());
+            }
             die;
         }
 
@@ -701,34 +780,67 @@ class TestTakesController extends AppController {
         $this->set('totalScore', $totalScore);
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
+        $this->set('currentIndex',0);
     }
 
-    public function normalization_preview($take_id) {
+    public function normalization_preview($take_id, $catchError=false) {
         $this->isAuthorizedAs(["Teacher"]);
-
-        $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true);
+        $this->set('currentIndex',$this->request->data['hiddenIndex']);
+        $results = $this->TestTakesService->saveNormalization($take_id, $this->request->data, true, $catchError);
+        if( $catchError && !$results ){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
         $this->set('results', $results);
     }
 
-    public function rate_teacher_participant($take_id, $participant_index = 0) {
+    public function rate_teacher_participant($take_id, $participant_index = 0, $question_uuid = null) {
+        $view = 'rate_teacher_participant';
         $take = $this->TestTakesService->getTestTake($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($take['test'], 'get'));
         $participants = $this->TestTakesService->getParticipants($take_id);
+        $currentParticipant = $participants[$participant_index];
+
+        if($take['writing_assignments_count'] > 0) {
+            $view = 'rate_teacher_participant_with_writing_assignments';
+        }
 
         $this->Session->write('take_id', $take_id);
         $this->Session->write('take_data_' . $take_id, $take);
 
         $questions = [];
 
-        foreach ($allQuestions as $allQuestion) {
-            if ($allQuestion['question']['type'] == 'GroupQuestion') {
-                foreach ($allQuestion['question']['group_question_questions'] as $item) {
-                    $item['group_id'] = getUUID($allQuestion['question'], 'get');
-                    $questions[] = $item;
+        $currentQuestion = null;
+        $nextQuestion = null;
+        $takeNextQuestion = false;
+        $first = true;
+        foreach ($allQuestions as $item) {
+
+            if ($item['question']['type'] == 'GroupQuestion') {
+                foreach ($item['question']['group_question_questions'] as $sub_item) {
+                    $sub_item['group_id'] = getUUID($item['question'], 'get');
+                    $questions[] = $sub_item;
+                    if($takeNextQuestion){
+                        $nextQuestion = $sub_item;
+                        $takeNextQuestion = false;
+                    }
+                    if((!$question_uuid && $first) || getUUID($sub_item['question'], 'get') === $question_uuid){
+                        $currentQuestion = $sub_item;
+                        $takeNextQuestion = true;
+                    }
                 }
             } else {
-                $questions[] = $allQuestion;
+                $questions[] = $item;
+                if($takeNextQuestion){
+                    $nextQuestion = $item;
+                    $takeNextQuestion = false;
+                }
+                if((!$question_uuid && $first) || getUUID($item['question'], 'get') === $question_uuid){
+                    $currentQuestion = $item;
+                    $takeNextQuestion = true;
+                }
             }
+            $first = false;
         }
 
         $newParticipants = [];
@@ -738,15 +850,19 @@ class TestTakesController extends AppController {
                 $newParticipants[] = $participant;
             }
         }
-
         $participants = $newParticipants;
 
+        $questionsWithoutUnansweredGroupQuestions = $this->getQuestionsWithoutUnansweredGroupQuestions($questions, $currentParticipant['answers']);
+
         $this->Session->write('active_participant', $participants[$participant_index]);
-        $this->set('participant_id', getUUID($participants[$participant_index], 'get'));
-        $this->set('questions', $questions);
+        $this->set('participant_id', getUUID($currentParticipant, 'get'));
+        $this->set('questions', $questionsWithoutUnansweredGroupQuestions);
+        $this->set('current_question',$currentQuestion ?: $questions[0]);
+        $this->set('next_question',$nextQuestion);
         $this->set('participant_index', $participant_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->render($view, 'ajax');
     }
 
     public function rate_teacher_participant_answer($take_id, $question_id) {
@@ -817,8 +933,10 @@ class TestTakesController extends AppController {
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
 
+        $take = $this->AnswersService->getTestTake($answer['uuid']);
+
         if (!isset($answer['answer_ratings'])) {
-            echo 'Vraag niet gemaakt';
+            echo __('Vraag niet gemaakt');
             die;
         }
         if (!empty($question_id)) {
@@ -839,21 +957,29 @@ class TestTakesController extends AppController {
         $this->set('question', $question);
         $this->set('answer', $answer);
         $this->set('editable', $editable);
+        $this->set('take', $take);
     }
 
     public function drawing_question_answers($answer_id)
     {
         $this->autoRender = false;
-        return $this->AnswersService->getDrawingAnswer($answer_id, true);
+
+        $file = $this->AnswersService->getDrawingAnswer($answer_id, true);
+        if (substr($file, 0, 4) ==='<svg') {
+            header('Content-type: image/svg+xml');
+            echo $file;
+            die;
+        }
+
+        return $file;
     }
 
     public function rate_teacher_answer($participant_id, $question_id) {
         $this->autoRender = false;
 
         $answer = $this->AnswersService->getParticipantQuestionAnswer($question_id, $participant_id, true);
-
         if (!$answer) {
-            echo 'Vraag niet gemaakt';
+            echo __("Vraag niet gemaakt");
             die;
         }
 
@@ -861,7 +987,16 @@ class TestTakesController extends AppController {
 
         switch ($answer['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
+                if ($answer['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $lang = !is_null($answer['question']['lang'])?$answer['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
+                    $this->set('participantIdentifier', str_replace('-','',$participant_id).'_'.str_replace('-','',$question_id));
+                    $spellCheckAvailable = ($answer['question']['subtype']=='writing'&&$answer['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', $spellCheckAvailable);
+                    $view = 'rate_open_long';
+                }
                 break;
 
             case "CompletionQuestion":
@@ -895,6 +1030,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -909,18 +1051,15 @@ class TestTakesController extends AppController {
 
         if (empty($answer['json'])) {
             $view = 'rate_empty';
+        } else {
+            $a = $answer['json'];
+            $a = json_decode($a, true);
+            $a['value'] = $this->getCorrectUrlsInString($a['value']);
+            $answer['json'] = json_encode($a);
         }
 
         $answer['answer'] = $answer;
 
-        if ($answer['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
-        }
         $this->set('rating', $answer);
         $this->set('question_id', $question_id);
         $this->render($view, 'ajax');
@@ -931,14 +1070,25 @@ class TestTakesController extends AppController {
         $rating = $this->TestTakesService->getRating($take_id, $user_id);
 
         if (!isset($rating['id'])) {
-            echo 'Geen antwoord om weer te geven';
+            echo __("Geen antwoord om weer te geven");
             die;
         }
 
         switch ($rating['answer']['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
-                break;
+                if ($rating['answer']['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $lang = !is_null($rating['answer']['question']['lang'])?$rating['answer']['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
+                    $this->set('participantIdentifier', str_replace('-','',$user_id));
+                    $spellCheckAvailable = ($rating['answer']['question']['subtype']=='writing'&&$rating['answer']['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', false);
+                    if($this->hasRole('teacher')){
+                        $this->set('spellCheckAvailable', $spellCheckAvailable);
+                    }
+                    $view = 'rate_open_long';
+                }
 
             case "CompletionQuestion":
                 if ($rating['answer']['question']['subtype'] == 'completion') {
@@ -971,6 +1121,12 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($rating['answer']);
+//                $drawingAnswer = json_decode($rating['answer']['json'])->answer;
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1032,9 +1188,8 @@ class TestTakesController extends AppController {
     }
 
     public function take2019($take_id, $question_index = null, $clean = false) {
-
+        $this->isNotInBrowser($take_id);
         $questions = false;
-
         $participant_id = $this->Session->read('participant_id');
         $takeId = $this->Session->read('take_id');
         $participant_status = false;
@@ -1043,7 +1198,7 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             if ($response) {
                 $questions = $response['answers'];
-                $take = $response['take'];
+                $take = $response['test_take'];
                 $participant_status = $response['participant_test_take_status_id'];
             }
         }
@@ -1102,7 +1257,11 @@ class TestTakesController extends AppController {
     }
 
     public function startinlaravel($take_id, $question_index = null, $clean = false) {
-        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id));
+        $this->isNotInBrowser($take_id);
+
+        $params['app_details'] = $this->getAppInfoFromSession();
+
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeUrlForLaravel($take_id, $params));
 
     }
 
@@ -1215,6 +1374,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                    $this->transformDrawingAnswer($answer);
+//                $drawingAnswer = json_decode($answer['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing2019';
                 break;
 
@@ -1371,7 +1537,7 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $periods = $this->TestsService->getPeriods();
-        $periods = [0 => 'Alle'] + $periods;
+        $periods = [0 => __("Alle")] + $periods;
         $this->set('periods', $periods);
     }
 
@@ -1396,8 +1562,27 @@ class TestTakesController extends AppController {
 
         $take = $this->TestTakesService->getTestTake($take_id);
 
+        $guest = AuthComponent::user('guest');
+        $this->set('guest', $guest);
+
+        if ($guest) {
+            $loginUrl = $this->returnToLaravelUrl(getUUID(AuthComponent::user(), 'get'), ['state' => 'glance']);
+            $this->set('loginUrl', $loginUrl['url']);
+        } else if (AuthComponent::user('school_location.allow_new_student_environment')) {
+            $tab = $take['test_take_status_id'] == 9 ? 'graded' : 'review';
+            if (!empty($this->request->query['origin'])) {
+                $tab = $this->request->query['origin'];
+            }
+            $this->set('laravelUrl', '/student/test-takes?tab=' . $tab);
+        }
+
         if (empty($take['show_results']) || strtotime($take['show_results']) < time()) {
-            die('Deze toets is niet meer in te zien');
+            if($guest) {
+                $this->set('guest_exit', true);
+                return;
+            }
+            die(__("Deze toets is niet meer in te zien"));
+
         }
 
         $questions = $this->TestTakesService->getParticipantQuestions(getUUID($take['test_participant'], 'get'));
@@ -1426,8 +1611,16 @@ class TestTakesController extends AppController {
 
         switch ($answer['answer']['question']['type']) {
             case "OpenQuestion":
-                $view = 'rate_open';
-                break;
+                if ($answer['answer']['question']['subtype'] == 'short') {
+                    $view = 'rate_open';
+                }else{
+                    $lang = !is_null($answer['answer']['question']['lang'])?$answer['answer']['question']['lang']:'nl_NL';
+                    $this->set('lang',$lang);
+                    $this->set('participantIdentifier', str_replace('-','',getUUID($take['test_participant'], 'get')));
+                    $spellCheckAvailable = ($answer['answer']['question']['subtype']=='writing'&&$answer['answer']['question']['spell_check_available']);
+                    $this->set('spellCheckAvailable', false);
+                    $view = 'rate_open_long';
+                }
 
             case "CompletionQuestion":
                 if ($answer['answer']['question']['subtype'] == 'completion') {
@@ -1460,6 +1653,13 @@ class TestTakesController extends AppController {
                 break;
 
             case "DrawingQuestion":
+                $this->transformDrawingAnswer($answer['answer']);
+//                $drawingAnswer = json_decode($answer['answer']['json'])->answer;
+//
+//                if (strpos($drawingAnswer, 'http') === false) {
+//                    $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
+//                    $this->set('drawing_url', $drawingAnswerUrl);
+//                }
                 $view = 'rate_drawing';
                 break;
 
@@ -1474,15 +1674,6 @@ class TestTakesController extends AppController {
 
         if (empty($answer['answer']['json'])) {
             $view = 'rate_empty';
-        }
-
-        if ($answer['answer']['question']['type'] == 'DrawingQuestion') {
-            $drawingAnswer = json_decode($answer['answer']['json'])->answer;
-
-            if (strpos($drawingAnswer, 'http') === false) {
-                $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer);
-                $this->set('drawing_url', $drawingAnswerUrl);
-            }
         }
 
         $this->set('rating', $answer);
@@ -1514,13 +1705,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -1883,9 +2074,11 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $user_id = AuthComponent::user()['id'];
+        $this->TestTakesService->bustSurveillanceCache();
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
+        $params['filter']['type_not_assessment'] = true;
         $params['mode'] = 'list';
 
         $takes = $this->TestTakesService->getTestTakes($params);
@@ -1898,6 +2091,13 @@ class TestTakesController extends AppController {
 
             $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
 
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
             $newArray[$take_id] = $take;
 
         }
@@ -1906,12 +2106,25 @@ class TestTakesController extends AppController {
 
         $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
 
-
         $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
         $this->set('takes', $takes);
     }
 
-    public function surveillance_data() {
+    public function surveillance_data($takeUuid=null) {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->autoRender = false;
+
+        if(!is_null($takeUuid)){
+            $params['takeUuid'] = $takeUuid;
+            return $this->TestTakesService->getSurveillanceData($params);
+        }
+        return $this->TestTakesService->getSurveillanceData();
+    }
+
+
+
+    public function surveillance_data_old() {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
@@ -1957,32 +2170,32 @@ class TestTakesController extends AppController {
                 switch ($participant['test_take_status']['id']) {
                     case 1:
                         $label = 'info';
-                        $text = 'Ingepland';
+                        $text = __("Ingepland");
                         break;
 
                     case 2:
                         $label = 'danger';
-                        $text = 'Niet gemaakt';
+                        $text = __("Niet gemaakt");
                         break;
 
                     case 3:
                         $label = 'success';
-                        $text = 'Maakt toets';
+                        $text = __("Maakt toets");
                         break;
 
                     case 4:
                         $label = 'info';
-                        $text = 'Ingeleverd';
+                        $text = __("Ingeleverd");
                         break;
 
                     case 5:
                         $label = 'warning';
-                        $text = 'Ingeleverd (geforceerd)';
+                        $text = __("Ingeleverd (geforceerd)");
                         break;
 
                     case 6:
                         $label = 'success';
-                        $text = 'Ingenomen';
+                        $text = __("Ingenomen");
                         break;
                 }
 
@@ -2007,13 +2220,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] +$this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] +$this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2021,13 +2234,13 @@ class TestTakesController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
 		$periods = $this->TestsService->getPeriods();
-		$periods = [0 => 'Alle'] + $periods;
+		$periods = [0 => __("Alle")] + $periods;
 		$this->set('periods', $periods);
 		$params['filter'] = ['current_school_year' => 1];
 		$schoolClasses = $this->SchoolClassesService->getClassesList($params);;
-		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $schoolClasses);
+		$schoolClasses = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $schoolClasses);
 		$this->set('schoolClasses', $schoolClasses);
-		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => 'Alle'] + $this->TestsService->getSubjects(true));
+		$subjects = HelperFunctions::getInstance()->revertSpecialChars(['' => __("Alle")] + $this->TestsService->getSubjects(true));
 		$this->set('subjects', $subjects);
 	}
 
@@ -2048,7 +2261,7 @@ class TestTakesController extends AppController {
             $take = $this->TestTakesService->getTestTake($getTakeId);
             if (!empty($take['discussing_parent_questions'])) {
                 //$group = $this->QuestionsService->getSingleQuestion();
-                $group = getUUID($take['discussing_parent_questions'][0]['group_question'], 'get');
+                $group = getUUID($take['discussing_parent_questions'][0]['group_question_uuid'], 'get');
                 $this->set('group', $group);
             }
 
@@ -2117,11 +2330,11 @@ class TestTakesController extends AppController {
         $this->render('update_show_results', 'ajax');
     }
 
-    public function finish_discussion($take_id) {
+    public function finish_discussion($take_id, $skipped_discussion=false) {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $this->autoRender = false;
-        $response = $this->TestTakesService->finishDiscussion($take_id);
+        $response = $this->TestTakesService->finishDiscussion($take_id, $skipped_discussion);
     }
 
     public function skip_discussion($take_id) {
@@ -2129,7 +2342,7 @@ class TestTakesController extends AppController {
 
         $this->start_discussion($take_id, 'OPEN_ONLY');
         $this->discussion($take_id);
-        $this->finish_discussion($take_id);
+        $this->finish_discussion($take_id, true);
         $this->update_show_results($take_id);
     }
 
@@ -2167,7 +2380,7 @@ class TestTakesController extends AppController {
 
         $html = $view->render('rates_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2215,14 +2428,28 @@ class TestTakesController extends AppController {
 
         $participants = $this->TestTakesService->getParticipants($take_id);
 
+        foreach ($participants as $key1 => $participant) {
+            foreach ($participant['answers'] as $key2 => $answer) {
+                if (array_key_exists('answer', json_decode($answer['json'], true))) {
+                    $jsonAnswerData = json_decode($answer['json'], true);
+                    if ($transformedUrl = $this->transformDrawingAnswer($answer, true)) {
+                        $jsonAnswerData['answer'] = $transformedUrl['url'];
+                    } else {
+                        $jsonAnswerData['answer'] = $jsonAnswerData['answer'].'&pdf=5ffe533b830f08a0326348a9160afafc8ada44db';
+                    }
+                    $participants[$key1]['answers'][$key2]['json'] = json_encode($jsonAnswerData);
+                }
+            }
+        }
+
         $view = new View($this, false);
         $view->set('test_take', $test_take);
         $view->set('questions', $newArray);
         $view->set('participants', $participants);
-
+        $view->set('service', $this->TestTakesService);
         $html = $view->render('answers_pdf', 'pdf');
 
-        $this->response->body(HtmlConverter::htmlToPdf($html, 'portrait'));
+        $this->response->body(HtmlConverter::getInstance()->htmlToPdf($html, 'portrait'));
         $this->response->type('pdf');
 
         return $this->response;
@@ -2275,7 +2502,8 @@ class TestTakesController extends AppController {
         $this->set('periods', $periods);
         $this->set('subjects', $subjects);
 
-        $tests = $this->TestsService->getTests($this->request->data);
+        $params = $this->handleRequestOrderParameters($this->request->data);
+        $tests = $this->TestsService->getTests($params);
         $msgArray = [];
         $this->validateCarouselQuestionsInTests($tests['data'],$msgArray);
         $this->set('carouselGroupQuestionNotifyMsgArray',$msgArray);
@@ -2285,6 +2513,15 @@ class TestTakesController extends AppController {
     public function get_header_session() {
         // exit(json_encode($this->Session->read('headers')));
         exit($this->Session->read("TLCVersionCheckResult"));
+    }
+
+    public function is_in_browser() {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        if($isInBrowser){
+            exit('inBrowser');
+        }
+        exit('notInBrowser');
     }
 
     public function archive($take_id) {
@@ -2337,7 +2574,7 @@ class TestTakesController extends AppController {
         try {
             // START SETTING DATA FOR SCHOOL SECTION
             if ($schoolLocation['data'][0]['school_id'] == NULL && $schoolLocation['data'][0]['external_main_code'] == NULL)
-                $errors[] = 'Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.';
+                $errors[] = __("Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.");
 
             if ($schoolLocation['data'][0]['external_main_code'] == NULL) {
                 $external_main_code = $schoolLocation['data'][0]['school']['external_main_code'];
@@ -2346,13 +2583,13 @@ class TestTakesController extends AppController {
             }
 
             if ($external_main_code == NULL && $schoolLocation['data'][0]['school']['umbrella_organisation_id'] == NULL)
-                $errors[] = 'Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.';
+                $errors[] = __("Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.");
 
             if ($external_main_code == NULL)
                 $external_main_code = $schoolLocation['data'][0]['school']['umbrella_organisation']['external_main_code'];
 
             if ($external_main_code == NULL)
-                $errors[] = 'Geen brincode gevonden voor deze setup, neem contact op met administrators.';
+                $errors[] = __("Geen brincode gevonden voor deze setup, neem contact op met administrators.");
 
             $ctpSchool = new ctpSchool(new DateTime('now'));
             $ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
@@ -2612,12 +2849,15 @@ class TestTakesController extends AppController {
             $response = $this->TestTakesService->getParticipantTestTakeStatusAndQuestionsForProgressList2019($participant_id, $take_id);
             $questions = $response['answers'];
 
-            App::uses('BugsnagLogger','Lib');
-            BugsnagLogger::getInstance()->setMetaData([
-                'response' => $response,
-            ])->notifyException(
-                new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
-            );
+            if (!$questions) {
+                // this can be removed when this error no longer occures: MF 7-7-2021
+                App::uses('BugsnagLogger', 'Lib');
+                BugsnagLogger::getInstance()->setMetaData([
+                    'response' => $response,
+                ])->notifyException(
+                    new Exception('this should never happen this is a test trap for Carlo if you see this inform Martin please!')
+                );
+            }
         }
 
         $this->set('questions', $questions);
@@ -2644,5 +2884,172 @@ class TestTakesController extends AppController {
     public function skip_discussion_popup($take_id)
     {
         $this->set('take_id', $take_id);
+    }
+
+    public function assessment_open_teacher($takeUuid=null)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->TestTakesService->bustSurveillanceCache();
+        $user_id = AuthComponent::user()['id'];
+
+        $params['filter']['invigilator_id'] = $user_id;
+        $params['filter']['test_take_status_id'] = 3;
+        $params['filter']['type_assessment'] = true;
+        $params['mode'] = 'list';
+
+        if(!is_null($takeUuid)){
+            $params['filter']['takeUuid'] = $takeUuid;
+            $takes = $this->TestTakesService->getTestTakes($params);
+            $this->set('is_assessment', true);
+            $this->set('takeUuid', $takeUuid);
+            $this->view = 'surveillance';
+        }else{
+            $takes = $this->TestTakesService->getTestTakes($params);
+        }
+
+        $newArray = [];
+
+        foreach ($takes as $take_id => $take) {
+
+            $take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
+
+            $take['info']['time_dispensation_ids'] = json_encode($this->get_time_dispensation_ids($take['info']['test_participants']));
+
+            if(isset($take[0]['code']) && !empty($take[0]['code'])) {
+                $prefix = substr($take[0]['code'], 0, 2);
+                $code = substr($take[0]['code'], 2);
+
+                $take[0]['code'] = sprintf('%s %s', $prefix, chunk_split($code, 3, ' '));
+            }
+
+            $newArray[$take_id] = $take;
+
+        }
+
+        $takes = $newArray;
+
+        $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID(AuthComponent::user()['school_location'],'get'));
+
+        $this->set('allow_inbrowser_testing', $schoolLocation['allow_inbrowser_testing']);
+        $this->set('allow_guest_accounts', $schoolLocation['allow_guest_accounts']);
+        $this->set('takes', $takes);
+    }
+
+    public function assessment_open_teacher_data()
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+        $this->autoRender = false;
+
+        return $this->TestTakesService->getSurveillanceData(['test_kind_id' => 4, 'withoutParticipants' => true]);
+    }
+
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
+
+    /************************** feedback section  ************************/
+    public function getFeedback($mode, $participant_id, $question_id, $q_index){
+        $answer = $this->TestTakesService->getFeedback($participant_id, $question_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function getFeedbackByAnswerId($mode, $answer_id, $q_index){
+        $answer = $this->TestTakesService->getFeedbackByAnswerId($answer_id, $mode);
+        return $this->loadFeedbackData($mode, $answer, $q_index);
+    }
+
+    public function loadFeedbackData($mode, $answer, $q_index){
+        $data = [
+            'q_index' => $q_index,
+            'answer' => $answer,
+            'mode' => $mode,
+        ];
+        if(sizeof($answer['feedback']) === 0){
+            $data['has_feedback'] = false;
+        }else{
+            $data['has_feedback'] = true;
+        }
+
+        $this->set('data', $data);
+
+        $this->autoRender = false;
+        $this->render('feedback');
+    }
+
+    public function saveFeedback(){
+        $data = $this->request->data;
+
+        if(!$this->TestTakesService->saveFeedback($data['answer_id'], $data['message'])){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->TestTakesService->deleteFeedback($feedback_id)){
+            $this->formResponse(false, $this->TestTakesService->getErrors());
+            die;
+        }
+
+        $this->formResponse(true, []);
+    }
+
+    public function get_preview_test_take_answers_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakeAnswersUrlForLaravel($testTakeId));
+    }
+
+    public function get_preview_pdf_url($testTakeId)
+    {
+        return $this->formResponse(true,  $this->TestTakesService->getTestTakePdfUrlForLaravel($testTakeId));
+    }
+
+    /**
+     * @param array $questions
+     * @param $answers
+     * @return array
+     */
+    private function getQuestionsWithoutUnansweredGroupQuestions(array $questions, $answers): array
+    {
+        $questionsWithoutUnansweredGroupQuestions = [];
+        foreach ($questions as $question) {
+            if (isset($question['group_id'])) {
+                foreach ($answers as $answer) {
+                    if ($question['question_id'] === $answer['question_id']) {
+                        $questionsWithoutUnansweredGroupQuestions[$question['uuid']] = $question;
+                    }
+                }
+            } else {
+                $questionsWithoutUnansweredGroupQuestions[$question['uuid']] = $question;
+            }
+        }
+        return $questionsWithoutUnansweredGroupQuestions;
+    }
+
+    private function rejectParticipantsThatDontHaveAnAnswerForCurrentQuestion($currentQuestionId, &$participants)
+    {
+        foreach ($participants as $key => $participant) {
+            $hasAnswer = false;
+            foreach ($participant['answers'] as $answer) {
+                if ($answer['question_id'] === $currentQuestionId) {
+                    $hasAnswer = true;
+                }
+            }
+
+            if (!$hasAnswer) {
+                unset($participants[$key]);
+            }
+        }
     }
 }

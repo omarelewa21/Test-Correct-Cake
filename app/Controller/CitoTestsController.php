@@ -6,10 +6,15 @@ App::uses('QuestionsService', 'Lib/Services');
 App::uses('AnswersService', 'Lib/Services');
 App::uses('AttachmentsService', 'Lib/Services');
 App::uses('SchoolLocationsService', 'Lib/Services');
+App::uses('CarouselMethods', 'Trait');
 
 class CitoTestsController extends AppController {
 
     public $uses = array('Test', 'Question');
+
+    use CarouselMethods;
+
+    public $carouselGroupQuestionNotifyMsg = '';
 
     public function beforeFilter() {
         $this->TestsService = new TestsService();
@@ -27,7 +32,7 @@ class CitoTestsController extends AppController {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
         $education_level_years = [
-            0 => 'Alle',
+            0 => __("Alle"),
             1 => 1,
             2 => 2,
             3 => 3,
@@ -46,10 +51,10 @@ class CitoTestsController extends AppController {
         }
         $kinds = $this->TestsService->getKinds();
 
-        $education_levels = [0 => 'Alle'] + $education_levels;
-        $periods = [0 => 'Alle'] + $periods;
-        $subjects = [0 => 'Alle'] + $subjects;
-        $kinds = [0 => 'Alle'] + $kinds;
+        $education_levels = [0 => __("Alle")] + $education_levels;
+        $periods = [0 => __("Alle")] + $periods;
+        $subjects = [0 => __("Alle")] + $subjects;
+        $kinds = [0 => __("Alle")] + $kinds;
 
         $this->set('education_levels', $education_levels);
         $this->set('education_level_years', $education_level_years);
@@ -118,10 +123,82 @@ class CitoTestsController extends AppController {
           $params['filter']['is_open_sourced_content'] = ($filters['is_open_sourced_content'] == 2) ? 1 : 0;
         }
 
+        $params = $this->handleRequestOrderParameters($params);
         $tests = $this->TestsService->getCitoTests($params);
 
         $this->set('tests', $tests['data']);
     }
 
+    public function view($test_id)
+    {
+        $this->isAuthorizedAs(["Teacher", "Invigilator"]);
+
+        $test = $this->TestsService->getTest($test_id);
+
+
+        $this->Session->write('active_test', $test);
+
+        $questions = $this->TestsService->getQuestions($test_id);
+
+        $questionsArray = array();
+        $totalScore = $this->TestsService->getTestScore($test_id,[]);
+
+        $this->set('carouselGroupQuestionNotify', false);
+
+        foreach ($questions as $question) {
+
+            $question['question'] = $this->QuestionsService->decodeCompletionTags($question['question']);
+
+            if ($question['question']['type'] == 'CompletionQuestion') {
+                $question['question']['question'] = $this->stripTagsWithoutMath($question['question']['question']);
+            }
+
+            if ($question['question']['type'] == 'GroupQuestion') {
+                for ($i = 0; $i < count($question['question']['group_question_questions']); $i++) {
+
+                    //fix for TC-80 / Selenium tests. The selection options were empty for group questions
+                    $question['question']['group_question_questions'][$i]['question'] = $this->QuestionsService->decodeCompletionTags($question['question']['group_question_questions'][$i]['question']);
+
+                    //$totalScore += $question['question']['group_question_questions'][$i]['question']['score'];
+                    $question['question']['group_question_questions'][$i]['question']['question'] = strip_tags($question['question']['group_question_questions'][$i]['question']['question']);
+                }
+                $this->setNotificationsForViewGroup($question['question']);
+            }
+            array_push($questionsArray, $question);
+        }
+
+        $education_levels = $this->TestsService->getEducationLevels();
+        $periods = $this->TestsService->getPeriods();
+        $subjects = $this->TestsService->getSubjects();
+        $kinds = $this->TestsService->getKinds();
+//        for($i = 1; $i < count($kinds)+1; $i++){
+//            $kinds[$i] = __("$kinds[$i]");
+//        }
+        foreach($kinds as $key => $kind) {
+            $kinds[$key] = __($kind);
+        }
+
+        $this->set('totalScore', $totalScore);
+        if($msg != ''){
+            $this->set('totalScore', '<i class="fa fa-exclamation-triangle" title="'.$msg.'"></i>');
+        }
+
+        $this->set('education_levels', $education_levels);
+        $this->set('kinds', $kinds);
+        $this->set('periods', $periods);
+        $this->set('subjects', $subjects);
+        $this->set('test', $test);
+        $this->set('canEdit', $test['author']['id'] == AuthComponent::user()['id'] && $test['status'] != 1);
+        $this->set('questions', $questionsArray);
+        $this->set('test_id', $test_id);
+
+        $newPlayerAccess = in_array($test['owner']['allow_new_player_access'], [1,2]);
+        $oldPlayerAccess = in_array($test['owner']['allow_new_player_access'], [0,1]);
+        $this->set('newPlayerAccess', $newPlayerAccess);
+        $this->set('oldPlayerAccess', $oldPlayerAccess);
+        $this->set('startWithEdit',false);
+        $this->set('newEditor', AuthComponent::user('school_location.allow_new_question_editor') ?? 0);
+        $this->set('returnPath','/cito_tests/index');
+    }
 
 }

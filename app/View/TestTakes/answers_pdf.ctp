@@ -1,6 +1,15 @@
 <style>
     body {
-        font-family: Arial;
+        font-family: Helvetica;
+    }
+    .questionContainer table{
+        border-spacing: 0 !important;
+    }
+    .questionContainer table, .questionContainer th, .questionContainer td {
+        border: 1px solid rgb(100, 99, 99);
+    }
+    .questionContainer th, .questionContainer td {
+        padding: 0.1rem 0.2rem;
     }
 </style>
 
@@ -11,7 +20,7 @@ foreach($participants as $participant) {
     if(count($participant['answers']) > 0) {
         ?>
         <h1>
-            Antwoorden
+        <?= __("Antwoorden")?>
             <?= $participant['user']['name_first'] ?>
             <?= $participant['user']['name_suffix'] ?>
             <?= $participant['user']['name'] ?>
@@ -24,7 +33,7 @@ foreach($participants as $participant) {
 
             $q++;
             ?>
-            <h2>Vraag #<?=$q?></h2>
+            <h2><?= __("Vraag")?> #<?=$q?></h2>
             <?
             foreach ($participant['answers'] as $answer) {
 
@@ -37,9 +46,14 @@ foreach($participants as $participant) {
                 if(empty($answerJson)) {
                     continue;
                 }
+                
 
                 if($question['type'] == 'OpenQuestion') {
-                    echo $answerJson['value'];
+                    echo  
+                        '<div class="questionContainer">' .
+                            $answerJson['value'] . 
+                        '<div>';
+
                 }
 
 /*
@@ -95,7 +109,7 @@ foreach($participants as $participant) {
                                 }
                             }
                         }
-                        echo '<Br />';
+                        echo '<br />';
                     }
                 }
 
@@ -105,7 +119,7 @@ foreach($participants as $participant) {
                     foreach($answerJson as $answer_id => $order) {
                         foreach($question['ranking_question_answers'] as $answer) {
                             if($answer['id'] == $answer_id) {
-                                echo $answer['answer'].'<Br />';
+                                echo $answer['answer'].'<br />';
                             }
                         }
                     }
@@ -127,8 +141,15 @@ foreach($participants as $participant) {
                 }
 
                 if($question['type'] == 'DrawingQuestion') {
+                    $src = trim(htmlspecialchars_decode($answerJson['answer']));
+
+                    if (substr($src, 0, 4) == '<svg') {
+                        // when a svg file is the answer we can download an image from the filesystem;
+                        $src = $service->getBase64EncodedDrawingQuestionGivenAnswerPng($answer['uuid']);
+                    }
+
                     ?>
-                    <img src="<?=$answerJson['answer']?>" width="100%" />
+                    <img width="100%" src="<?=$src?>" />
                 <?
                 }
             }

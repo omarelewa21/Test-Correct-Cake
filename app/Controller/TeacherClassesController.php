@@ -22,12 +22,13 @@ class TeacherClassesController extends AppController
 
     public function index()
     {
-        
+
     }
 
     public function load()
     {
-        $params = $this->request->data;
+        $params = $this->handleRequestOrderParameters($this->request->data);
+
         $params = array_merge([
             'filter' => ['current_school_year' => 1],
         ],$params);
@@ -69,5 +70,25 @@ class TeacherClassesController extends AppController
         }
 
         $this->request->data['User'] = $this->UsersService->getUser($user_id);
+    }
+
+    public function school_location_classes()
+    {
+        $this->isAuthorizedAs(['Teacher']);
+    }
+
+    public function load_school_location_classes()
+    {
+        $params = $this->handleRequestOrderParameters($this->request->data);
+
+        $params = array_merge(
+            array('mode' => 'all_classes_for_location'),
+            $params
+        );
+
+        $classes  = $this->SchoolClassesService->getClasses($params);
+
+        $this->set('classes', $classes);
+        $this->render('load_school_location_classes', 'ajax');
     }
 }

@@ -11,19 +11,19 @@
         </center>
         <table class="table table-striped">
             <tr>
-                <th>Tijdsdispensatie</th>
+                <th><?= __("Tijdsdispensatie")?></th>
                 <td>
-                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? 'Ja' : 'Nee'?>
+                    <?= ((bool) $participant['user']['time_dispensation'] === true) ? __("Ja") : __("Nee")?>
                 </td>
             </tr>
             <tr>
-                <th>Tekst-naar-spraak</th>
+                <th><?= __("Tekst-naar-spraak")?></th>
                 <td>
-                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? 'Ja' : 'Nee'?>
+                    <?= ((bool) $participant['user']['active_text2speech'] === true) ? __("Ja") : __("Nee")?>
                 </td>
             </tr>
             <tr>
-                <th width="170">Vragen beantwoord</th>
+                <th width="170"><?= __("Vragen beantwoord")?></th>
                 <td>
                     <?
                     $answerCount = 0;
@@ -49,7 +49,7 @@
                 </td>
             </tr>
             <tr>
-                <th>Tijd per vraag</th>
+                <th><?= __("Tijd per vraag")?></th>
                 <td>
                     <?
                     $total = 0;
@@ -62,18 +62,18 @@
                     }else {
                         $time = round($total / count($participant['answers']));
 
-                        echo $time . ' seconden (gemiddeld)';
+                        echo $time . __(" seconden (gemiddeld)");
                     }
                     ?>
                 </td>
             </tr>
             <Tr>
-                <th>Huidige vraag</th>
+                <th><?= __("Huidige vraag")?></th>
                 <td><?=$question_index?></td>
             </Tr>
             <tr>
                 <th>
-                    Notities
+                <?= __("Notities")?>
                 </th>
             </tr>
         </table>
@@ -89,17 +89,35 @@
     <div style="width:280px; float:right">
         <? foreach($events as $event) {
             ?>
-            <div style="padding:8px 15px 6px 15px; background: #197cb4; margin-bottom: 2px; color: white;">
+            <div style="padding:8px 15px 6px 15px; background: var(--menu-blue); margin-bottom: 2px; color: white;">
                 <?=date('H:i', strtotime($event['created_at']))?> -
 
                 <?
                 $translations = [
-                    'Start' => 'Gestart met toets',
-                    'Stop' => 'Gestopt met toets',
-                    'Lost focus' => 'App verlaten',
-                    'Screenshot' => 'Screenshot gemaakt',
-                    'Started late' => 'Laat gestart',
-                    'Application closed' => 'Opnieuw gestart met toets'
+                    'Start' => __("Gestart met toets"),
+                    'Stop' => __("Gestopt met toets"),
+                    'Lost focus' => __("App verlaten"),
+                    'Screenshot' => __("Screenshot gemaakt"),
+                    'Started late' => __("Laat gestart"),
+                    'Application closed' => __("Opnieuw gestart met toets"),
+                    'Lost focus alt tab' => __("Via alt+tab naar ander venster"),
+                    'Pressed meta key' => __("Windows of Apple toets ingedrukt"),
+                    'Pressed alt key' => __("Alt toets ingedrukt"),
+                    'Application closed alt+f4' => __("Applicatie afgesloten via alt+f4"),
+                    'Lost focus blur' => __("App verlaten"),
+                    'Window hidden' => __("Applicatie verborgen"),
+                    'Window minimized' => __("Applicatie geminimalizeerd"),
+                    'Window moved' => __("Venster bewogen"),
+                    'Window not fullscreen' => __("Applicatie niet volledig scherm"),
+                    'Always on top changed' => __("Applicatie niet altijd op de voorgrond"),
+                    'Window resized' => __("Venster groote aangepast"),
+                    'Force shutdown' => __("Applicatie geforceerd afgesloten"),
+                    'Other window on top' => __("Ander venster op de voorgrond"),
+                    'Used unallowed Ctrl key combination' => __("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is."),
+                    'Illegal programs' => __('De student heeft een app in de achtergrond open die niet toegestaan is'),
+                    'Rejoined' => __('Opnieuw gestart met toets'),
+                    'Forbidden device' => __('Verboden apparaat aangesloten'),
+                    'VM detected' => __('Virtuele Machine gedetecteerd')
                 ];
 
                 echo isset($translations[$event['test_take_event_type']['name']]) ? $translations[$event['test_take_event_type']['name']] : $event['test_take_event_type']['name'];
@@ -112,11 +130,11 @@
     <br clear="all" />
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSaveParticipantNotes">
-        Notities opslaan
+    <?= __("Notities opslaan")?>
     </a>
 </div>
 

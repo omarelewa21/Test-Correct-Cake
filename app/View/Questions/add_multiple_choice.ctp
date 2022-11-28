@@ -1,73 +1,41 @@
-<div class="popup-head">Multiple Choice</div>
-<div class="popup-content">
-    <?=$this->Form->create('Question')?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Meerkeuze"), 'test_name' => $test_name]) ?>
+<!--<div class="popup-head">--><?//= __("Multiple Choice")?><!--</div>-->
+<div style="margin: 0 auto; max-width:1000px;padding-bottom: 80px;">
+    <?=$this->Form->create('Question', ['class' => 'add_question_form', 'selid' => 'tabcontainer'])?>
 
         <table class="table mb15">
             <tr>
                 <td>
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  Bespreken in de klas <br />
-                    <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag vastzetten<br /><? } ?>
-                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Halve punten mogelijk<br />
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?>  <?= __("Bespreken in de klas")?> <br />
+                    <? if($owner == 'test') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag vastzetten")?><br /><? } ?>
+                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => 'checked'))?> <?= __("Halve punten mogelijk")?><br />
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'checked' => true, 'div' => false, 'selid' => 'open-source-switch'))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span><br />
                     <?php endif; ?>
                 </td>
 
                 <td width="230">
                     <?=$this->Form->input('note_type', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [
-                        'NONE' => 'Geen kladblok',
-                        'TEXT' => 'Tekstvlak',
-                        'DRAWING' => 'Tekenvlak'
+                        'NONE' => __("Geen kladblok"),
+                        'TEXT' => __("Tekstvlak"),
+                        'DRAWING' => __("Tekenvlak")
                     ]))?>
                 </td>
             </tr>
         </table>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="add_question">
-                Vraag
-            </a>
-
-            <a href="#" class="btn grey" page="options" tabs="add_question">
-                Antwoorden
-            </a>
-
-            <? if($owner == 'test') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="add_question">
-                    Bronnen
-                </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="add_question">
-                Eindtermen
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="add_question">
-                Tags
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="add_question">
-                Taxonomie
-            </a>
-
-            <br clear="all" />
-        </div>
+        <?= $this->element('teacher_add_question_tabs') ?>
 
         <div page="question" class="page active" tabs="add_question">
+            <span class="title" selid="header"><?= __('Vraag') ?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false)); ?>
         </div>
 
-        <div page="options" class="page" tabs="add_question">
+        <div page="question" class="page active" tabs="add_question">
+            <span class="title" selid="header"><?= __('Antwoord') ?></span>
+
             <table class="table" id="tableMultiChoiceOptions">
-                <thead>
-                    <tr>
-                        <th>&nbsp;</th>
-                        <th>Antwoord</th>
-                        <th>Score</th>
-                        <th>&nbsp;</th>
-                    </tr>
-                </thead>
                 <tbody>
                     <?
                     for($i = 0; $i < 10; $i++) {
@@ -78,10 +46,10 @@
                             </td>
                             <td>
                                 <?=$this->Form->input('', array('type' => 'hidden','label' => false, 'name' => 'data[Question][answers]['.$i.'][order]', 'value' => $i, 'class' => 'order'))?>
-                                <?=$this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]'))?>
+                                <?=$this->Form->input('', array('style' => 'width: 570px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][answer]', 'selid' => 'answer-field'))?>
                             </td>
                             <td>
-                                <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][score]', 'value' => 0))?>
+                                <?=$this->Form->input('', array('style' => 'width: 30px;', 'label' => false, 'name' => 'data[Question][answers]['.$i.'][score]', 'value' => 0, 'selid' => 'score-field'))?>
                             </td>
                             <td>
                                 <a href="#" class="btn red small" onclick="Questions.removeMultiChoiceOption(this);">
@@ -96,35 +64,29 @@
             </table>
 
             <center>
-                <a href="#" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();">
+                <a href="javascript:void(0);" class="btn highlight small inline-block" onclick="Questions.addMultiChoiceOption();" selid="add-answer-option-btn">
                     <span class="fa fa-plus"></span>
-                    Optie toevoegen
+                    <?= __("Optie toevoegen")?>
                 </a>
             </center>
         </div>
 
-        <div page="attainments" class="page" tabs="add_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+        <div page="settings" class="page" tabs="add_question">
+            <span class="title" selid="header"><?= __('Eindtermen') ?></span>
+            <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 
-        <?=$this->element('question_tab_rtti',[]); ?>
+        <?= $this->element('question_tab_rtti',[]); ?>
 
-        <div page="tags" class="page" tabs="add_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;'))?>
-        </div>
+        <?= $this->element('question_editor_tags') ?>
 
-        <?=$this->Form->end();?>
+        <?= $this->Form->end();?>
 
-    <div page="sources" class="page" tabs="add_question"></div>
+        <?= $this->element('question_editor_attachments') ?>
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
-    </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.add('MultiChoiceQuestion', '<?=$owner?>', '<?=$owner_id?>');">
-        Vraag opslaan
-    </a>
-</div>
+
+<?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('MultiChoiceQuestion', '$owner', '$owner_id');"]) ?>
+
 
 <script type="text/javascript">
     <?php if($owner != 'group') { ?>

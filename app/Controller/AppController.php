@@ -41,7 +41,7 @@ App::uses('UnauthorizedException', 'Lib/Exceptions');
  */
 class AppController extends Controller
 {
-
+    protected $trialInfoURL = 'https://www.test-correct.nl/pakketten';
     /**
      * Components used by every controller.
      *
@@ -71,7 +71,7 @@ class AppController extends Controller
 
         $headers = AppVersionDetector::getAllHeaders();
 
-        if(!$this->Session->check('TLCHeader')) {
+        if(!$this->Session->check('TLCHeader') || !$this->Session->check('TLCHeader') == 'not secure...') {
             $this->handleHeaderCheck($headers);
         } else {
             // set the details always when there is a tlctestcorrectversion header
@@ -91,6 +91,7 @@ class AppController extends Controller
         }
 
         $this->Auth->allow('get_header_session');
+        $this->Auth->allow('is_in_browser');
     }
 
     protected function handleHeaderCheck($headers)
@@ -114,6 +115,7 @@ class AppController extends Controller
         $this->Session->write('TLCOs', $version['os']);
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+
 
         $this->Session->write('TLCVersionCheckResult', $versionCheckResult);
     }
@@ -182,6 +184,30 @@ class AppController extends Controller
         }
     }
 
+    public function isNotInBrowser($take_id) {
+        $headers = AppVersionDetector::getAllHeaders();
+        $isInBrowser = AppVersionDetector::isInBrowser($headers);
+        $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
+        if ($versionCheckResult == AllowedAppType::NOTALLOWED && !$isInBrowser) {
+            http_response_code(403);
+            exit();
+        }
+        $allowedBrowserTesting = $this->AnswersService->is_allowed_inbrowser_testing($take_id);
+        if ($isInBrowser && !$allowedBrowserTesting) {
+            $message = 'Let op! Student probeert de toets te starten vanuit de console. id:'.AuthComponent::user('id').';';
+            BugsnagLogger::getInstance()->setMetaData([
+                'versionCheckResult' => $versionCheckResult,
+                'headers' => $headers,
+                'user_id' => AuthComponent::user('id'),
+                'user_uuid' => AuthComponent::user('uuid')
+            ])->notifyException(
+                new StudentFraudDetectionException("Console hack error: (". $message .")")
+            );
+            http_response_code(403);
+            exit();
+        }
+    }
+
     public function getallheaders()
     {
         $headers = array();
@@ -196,7 +222,7 @@ class AppController extends Controller
 
     protected function stripTagsWithoutMath($string)
     {
-        return strip_tags($string, '<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>');
+        return strip_tags($string, '<math>,<maction>,<menclose>,<merror>,<mfenced>,<mfrac>,<mi>,<mlongdiv>,<mlongdiv>,<mn>,<mo>,<mover>,<mpadded>,<mphantom>,<mprescripts>,<mroot>,<mrow>,<mscarries>,<msgroup>,<msline>,<mspace>,<msqrt>,<msrow>,<mstack>,<mstyle>,<msub>,<msubsup>,<msup>,<mtable>,<mtd>,<mtext>,<mtr>,<munder>,<munderover>,<none>,<presub>,<presubsup>,<sub>,<subsup>,<supsemantics>,<p>,<img>');
     }
 
     public function isCitoTest($test)
@@ -234,4 +260,115 @@ class AppController extends Controller
         return (preg_match ("/^(-){0,1}([0-9]+)(,[0-9][0-9][0-9])*([0-9]){0,1}([0-9]*)$/", $value) == 1);
     }
 
+    function transformDrawingAnswer($answer, $base64 = false)
+    {
+        $drawingAnswer = json_decode($answer['json'])->answer;
+
+        if (strpos($drawingAnswer, 'http') === false) {
+            $drawingAnswerUrl = $this->TestTakesService->getDrawingAnswerUrl($drawingAnswer, $base64);
+            $this->set('drawing_url', $this->getCorrectUrlsInString($drawingAnswerUrl));
+            return $drawingAnswerUrl;
+        }
+        return false;
+    }
+
+    protected function getEducationLevelYears()
+    {
+        return [
+//          0 => 'Alle',
+            1 => 1,
+            2 => 2,
+            3 => 3,
+            4 => 4,
+            5 => 5,
+            6 => 6
+        ];
+    }
+
+    protected function handleRequestFilterAndOrderParams($params, $dataKey, $referenceAr = [])
+    {
+        $filters = array();
+        parse_str($params['filters'], $filters);
+        $filters = $filters['data'][$dataKey];
+        $params['filters'] = [];
+        foreach($referenceAr as $filterLaravelKey => $filterCakeKey){
+
+            if (!empty($filters[$filterCakeKey])) {
+                $params['filter'][$filterLaravelKey] = $filters[$filterCakeKey];
+            }
+        }
+
+        if (!empty($filters['created_at_start'])) {
+            $params['filter']['created_at_start'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_start']));
+        }
+
+        if (!empty($filters['created_at_end'])) {
+            $params['filter']['created_at_end'] = date('Y-m-d 00:00:00', strtotime($filters['created_at_end']));
+        }
+
+        return $this->handleRequestOrderParameters($params);
+    }
+
+    function handleRequestOrderParameters($params, $sortKey = 'id', $direction = 'desc')
+    {
+        if ((!isset($params['sort']) || empty($params['sort'])) ||
+            (!isset($params['direction']) || empty($params['direction']))) {
+            $params['order'] = [$sortKey => $direction];
+        } else {
+            $params['order'] = [$params['sort'] => $params['direction']];
+            unset($params['sort'], $params['direction']);
+        }
+
+        return $params;
+    }
+
+    function getAppInfoFromSession()
+    {
+        return [
+            'TLCVersion'            => CakeSession::read('TLCVersion'),
+            'TLCOs'                 => CakeSession::read('TLCOs'),
+            'TLCHeader'             => CakeSession::read('TLCHeader'),
+            'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
+            'headers'               => $this->getallheaders(),
+        ];
+    }
+
+    public function setUserLanguage()
+    {
+        if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
+            $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
+            if(!in_array($language,['en','nl'])){
+                $language = 'nld';
+            }
+            if($language === 'en') {
+                $language = 'eng';
+            }
+            $this->Session->write('Config.language', $language);
+        }
+        else{
+            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language_cake']);
+        }
+    }
+
+    public function returnToLaravelUrl($userId, $params = [])
+    {
+        $returnUrl = $this->UsersService->getReturnToLaravelUrl($userId, $params);
+        $appInfo = $this->getAppInfoFromSession();
+
+        if ($appInfo['TLCOs'] == 'iOS') {
+            $separator = '?';
+            if (strpos($returnUrl['url'], '?') !== false) {
+               $separator = '&';
+            }
+            $returnUrl['url'] = $returnUrl['url'] . $separator . 'device=ipad';
+        }
+
+        return $returnUrl;
+    }
+
+    public function getCorrectUrlsInString($string)
+    {
+        return HelperFunctions::getInstance()->getCorrectUrlsInString($string);
+    }
 }

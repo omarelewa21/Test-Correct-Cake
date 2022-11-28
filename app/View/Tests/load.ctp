@@ -3,7 +3,7 @@ $user_id = AuthComponent::user()['id'];
 
 foreach($tests as $test) {
     ?>
-    <tr>
+    <tr selid="test-row">
       <?php if($test['is_open_source_content']): ?>
         <td>
             <i class="fa fa-free" style="background-image:url('/img/ico/free.png'); display:block; width:32px; height:32px">
@@ -13,10 +13,10 @@ foreach($tests as $test) {
         <td></td>
       <?php endif; ?>
 
-        <td><?=$test['abbreviation']?></td>
-        <td><?=$test['name']?></td>
+        <td style="background-color:<?=array_key_exists('background-color',$test)?$test['background-color']:''?>;" ><?=$test['abbreviation']?></td>
+        <td selid="test-name"><?=$test['name']?></td>
         <td style="text-align: center"><?=$test['question_count']?></td>
-        <td><?=$subjects[$test['subject_id']]?></td>
+        <td><?=$test['subject']['name']?></td>
         <td>
             <?=$test['author']['name_first']?>
             <?=$test['author']['name_suffix']?>
@@ -26,7 +26,7 @@ foreach($tests as $test) {
         <td><?=$test['education_level_year']?> <?=$education_levels[$test['education_level_id']]?></td>
         <td class="nopadding">
             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="test_<?=getUUID($test, 'get');?>">
-                <span class="fa fa-list-ul"></span>
+                <span class="fa fa-ellipsis-v"></span>
             </a>
             <a href="#" class="btn white pull-right" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get');?>');">
                 <span class="fa fa-folder-open-o"></span>
@@ -36,42 +36,42 @@ foreach($tests as $test) {
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Navigation.load('/tests/view/<?=getUUID($test, 'get')?>');">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                 <? } ?>
                 <? if ($test['has_duplicates']) { ?>
                         <a href="#" class="btn highlight grey" >
                             <span class="fa fa-calendar mr5"></span>
-                            Inplannen niet mogelijk
+                            <?= __("Inplannen niet mogelijk")?>
                         </a>
                         <?php if(!AppHelper::isCitoTest($test)){?>
                             <a href="#" class="btn highlight grey">
                                 <?php echo $this->element('schedule_now') ?>
-                                Direct afnemen niet mogelijk
+                                <?= __("Direct afnemen niet mogelijk")?>
                             </a>
                         <?php } ?>
                 <? } else { ?>
                         <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/add/<?=getUUID($test, 'get');?>',1000);">
                             <span class="fa fa-calendar mr5"></span>
-                            Inplannen
+                            <?= __("Inplannen")?>
                         </a>
-                        <?php if(!AppHelper::isCitoTest($test)){?>
+                        <?php if(!AppHelper::isCitoTest($test) && $test['test_kind_id'] != 4 ){ ?>
                             <a href="#" class="btn highlight white" onclick="Popup.load('/test_takes/start_direct/<?=getUUID($test, 'get');?>',600);">
                                 <?php echo $this->element('schedule_now') ?>
-                                Direct afnemen
+                                <?= __("Direct afnemen")?>
                             </a>
                         <?php } ?>
                 <? } ?>
                 <?php if(!AppHelper::isCitoTest($test)){?>
                 <a href="#" class="btn highlight white" onclick="Test.duplicate('<?=getUUID($test, 'get')?>');">
                     <span class="fa fa-random mr5"></span>
-                    Dupliceren
+                    <?= __("Dupliceren")?>
                 </a>
                 <?php } ?>
                 <? if($test['author']['id'] == $user_id && !AppHelper::isCitoTest($test)) {?>
                     <a href="#" class="btn highlight white" onclick="Test.delete('<?=getUUID($test, 'get')?>', false);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 <? } ?>
             </div>

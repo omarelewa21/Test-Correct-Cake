@@ -3,7 +3,7 @@
 if(!empty($answer['note'])) {
     ?>
     <a href="#" class="btn highlight" onclick="Popup.load('/answers/show_note/<?=$participant_id?>/<?=$question_id?>', 600); return false;" style="margin-bottom: 10px;">
-        Notitie inzien
+    <?= __("Notitie inzien")?>
     </a>
     <?
 }
@@ -26,12 +26,15 @@ if(!empty($answer['note'])) {
                 <?
                 switch($rating['type']) {
                     case 'SYSTEM' :
-                        echo 'Systeem';
+                        echo __("Systeem");
                         $score = $rating['rating'];
                         $system = $rating['rating'];
                         break;
 
                     case 'STUDENT' :
+                        if( $take['skipped_discussion'] && is_null($rating['rating']) ){
+                            continue;
+                        }
 
                         echo $rating['user']['name_first'] . ' ';
 
@@ -48,10 +51,11 @@ if(!empty($answer['note'])) {
                         }
 
                         $student ++;
+
                         break;
 
                     case 'TEACHER' :
-                        echo 'Docent';
+                        echo __("Docent");
 
                         $teacher = $rating['rating'];
                         $ratingId = getUUID($rating, 'get');
@@ -60,7 +64,7 @@ if(!empty($answer['note'])) {
                 }
                 ?>
             </th>
-            <td><?=$rating['rating'];?></td>
+            <td><?= $rating['rating'];?></td>
         </tr>
         <?
     }
@@ -111,5 +115,9 @@ if(!empty($answer['note'])) {
             }
             ?>
         });
+
+        if(<?=$answer['has_feedback_by_this_user'] ? 'true' : 'false'?>){
+            TestTake.changeFeedbackButtonText('<?=$participant_id?>', '<?=$question_id?>');
+        }
     </script>
 <? }?>

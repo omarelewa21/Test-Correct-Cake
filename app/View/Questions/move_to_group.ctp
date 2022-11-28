@@ -1,8 +1,8 @@
-<div class="popup-head">Verplaats naar groep</div>
+<div class="popup-head"><?= __("Verplaats naar groep")?></div>
 <div class="popup-content">
     <table class="table table-striped">
         <tr>
-            <th>Groep</th>
+            <th><?= __("Groep")?></th>
             <th></th>
         </tr>
         <?
@@ -22,7 +22,7 @@
     </table>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
 </div>

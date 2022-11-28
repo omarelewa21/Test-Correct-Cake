@@ -1,0 +1,253 @@
+[laravel-look] #header {
+    background: white;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    padding: .625rem 1.5rem;
+    font-family: Nunito Bold, sans-serif;
+    color: var(--system-base);
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+}
+[laravel-look] #header .logo-container #logo_1, [laravel-look] #header .logo-container #logo_2 {
+    position: relative;
+    display: flex;
+    margin: 0;
+}
+[laravel-look] #header .logo-container #logo_1 {
+    width: 50px;
+    height: 50px;
+}
+[laravel-look] #header .logo-container #logo_2 {
+    color: var(--primary);
+    height: 17px;
+    margin-left: -5px;
+}
+
+[laravel-look] #header .logo-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+[laravel-look] #header #top {
+    position: relative;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-left: auto;
+    height: auto;
+}
+[laravel-look] #header #top #user{
+    padding: 0;
+    background: none;
+}
+
+
+[laravel-look] #header #menu {
+    display: none;
+}
+
+.shadow {
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+}
+
+#user_chevron {
+    display: none;
+}
+[laravel-look] #header #top #user {
+    font-weight: 900;
+    color: inherit;
+}
+
+[laravel-look] #header #top #user_chevron {
+    display: flex;
+    margin-left: 10px;
+}
+
+[laravel-look] #header #top .user_name_button {
+    display: flex;
+    align-items: center;
+    color: var(--system-base);
+    cursor: pointer;
+    margin-left: 38px;
+    transition: 100ms ease-in-out;
+}
+
+[laravel-look] #header #top .user_name_button:hover {
+    color: var(--primary);
+}
+
+[laravel-look] #header #top #user_menu, [laravel-look] #header #top #support_menu {
+    flex-direction: column;
+    background: white;
+    border-radius: 10px;
+    padding: 10px 0;
+    box-shadow: 0 3px 8px 0 rgba(4, 31, 116, 0.3);
+    overflow: hidden;
+    top: 40px;
+    right: -5px;
+}
+[laravel-look] #header #top #user_menu a, [laravel-look] #header #top #support_menu a{
+    color: var(--system-base);
+    margin-top: 0;
+}
+[laravel-look] #header #top #user_menu a:hover, [laravel-look] #header #top #support_menu a:hover {
+    color: var(--primary)!important;
+    background: var(--primary-opacity-05)!important;
+}
+[laravel-look] #header #top #user_menu a:active, [laravel-look] #header #top #support_menu a:active {
+    background: var(--primary-opacity-10)!important;
+}
+
+[laravel-look] #header #student-menu {
+    display: flex;
+}
+[laravel-look] #header #student-menu .item {
+    display: flex;
+    padding: 0 8px;
+    font-weight: 900;
+    font-size: 18px;
+    color: var(--system-base);
+    cursor: pointer;
+    user-select: none;
+    transition: 100ms ease-in-out;
+}
+[laravel-look] #header #student-menu .item:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+[laravel-look] #header #student-menu .item:active {
+    background: var(--primary-opacity-10);
+}
+[laravel-look] #header #student-menu .item span {
+    position: relative;
+    padding: 12px 0;
+}
+[laravel-look] #header #student-menu .item span:after, [laravel-look] #tiles .tile span:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    width: 100%;
+    background: transparent;
+    border-radius: 2px;
+}
+[laravel-look] #header #student-menu .item.active {
+    color: var(--primary);
+}
+[laravel-look] #header #student-menu .item.active > span:after, [laravel-look] #tiles .tile.active > span:after {
+    background: var(--primary);
+}
+
+[laravel-look] #container {
+    margin-top: 70px;
+}
+[laravel-look] #tiles {
+    display: none;
+    position: absolute;
+    top: 70px;
+    background: transparent;
+    box-shadow: none;
+    box-sizing: border-box;
+    transition: 100ms ease-in-out;
+    align-items: center;
+    border-bottom: 1px solid var(--system-secondary);
+    padding: 0 1.5rem;
+}
+[laravel-look] #tiles .tile {
+    display: none;
+    background: transparent;
+    color: var(--system-base);
+    height: auto;
+    padding: 0 10px;
+}
+
+[laravel-look] #tiles .tile.active {
+    color: var(--primary);
+}
+[laravel-look] #tiles .tile.active:after {
+    display: none;
+}
+[laravel-look] #tiles .tile:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+[laravel-look] #tiles .tile:active {
+    background: var(--primary-opacity-10);
+}
+
+[laravel-look] #tiles .tile span {
+    position: relative;
+    color: inherit;
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
+    font-weight: 900;
+    margin: 0;
+    padding: 12px 0;
+}
+
+[laravel-look] #header #top .action_icon_container > div {
+    margin: 0 2px;
+    padding: 6px;
+    border-radius: 100%;
+    background: transparent;
+    transition: 100ms ease-in-out;
+}
+
+[laravel-look] #header #top .action_icon_container > div:hover {
+    color: var(--primary);
+    background: var(--primary-opacity-05);
+}
+[laravel-look] #header #top .action_icon_container > div:active {
+    background: var(--primary-opacity-10);
+}
+[laravel-look] #header #top .action_icon_container > div.active {
+    color: white;
+    background: var(--primary);
+}
+[laravel-look] #header #top .action_icon_container > div.active:hover {
+    background: var(--primary-hover);
+}
+[laravel-look] #header #top .action_icon_container .counter {
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+@media screen and (max-width: 550px) {
+    #header #logo_2 {
+        display: none;
+    }
+}
+@media screen and (max-width: 800px) {
+    [laravel-look] #header #top #user {
+        max-width: 10rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .action_icon_container span {
+        display: none;
+    }
+    [laravel-look] #header .logo-container #logo_2 {
+        display: none;
+    }
+
+    [laravel-look] #header .logo-container #logo_1 {
+        transform: none;
+        top: 0;
+        margin-right: 10px;
+    }
+    [laravel-look] #header #menu {
+        padding-left: 40px;
+    }
+    [laravel-look] #header.blue #menu .item:first-child {
+        margin-left: 0;
+    }
+}
+
+[laravel-look] {
+    font-family: Nunito, sans-serif;
+    color: var(--system-base);
+}
+[laravel-look] .block {
+    border-radius: 10px;
+}

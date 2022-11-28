@@ -46,6 +46,15 @@ class FileManagementService extends BaseService {
         return $r;
     }
 
+    public function getFormId(){
+        $r = $this->Connector->getRequest('/filemanagement/form_id', []);
+
+        if(!$r){
+            $r = json_decode($this->Connector->getLastResponse(),true);
+        }
+        return $r;
+    }
+
     public function getData($params = []) {
         $response = $this->Connector->getRequest('/filemanagement', $params);
         if($response === false){
@@ -57,7 +66,6 @@ class FileManagementService extends BaseService {
 
     public function uploadTest($school_location_id,$data)
     {
-
         foreach($data['file'] as $key => $file){
             $data["files[$key]"] = new CURLFILE($file['tmp_name'],$file['type'],$file['name']);
         }
@@ -81,5 +89,51 @@ class FileManagementService extends BaseService {
             $r = json_decode($this->Connector->getLastResponse(),true);
         }
         return $r;
+    }
+
+    public function getUsers($type)
+    {
+        $params = ['type' => $type];
+        $response = $this->Connector->getRequest('/filemanagement/users', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        $newArray = [];
+        foreach($response as $item) {
+            $newArray[$item['id']] = $item['name_first'].' '.$item['name_suffix'].' '.$item['name'];
+        }
+        return $newArray;
+    }
+
+    public function getSchoolLocations($type)
+    {
+        $params = ['type' => $type];
+        $response = $this->Connector->getRequest('/filemanagement/schoollocations', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getEducationLevels($type)
+    {
+        $params = ['type' => $type];
+        $response = $this->Connector->getRequest('/filemanagement/educationlevels', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+    public function getStatuses()
+    {
+        $params = [];
+        $response = $this->Connector->getRequest('/filemanagement/statuses', $params);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
     }
 }

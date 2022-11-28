@@ -6,7 +6,7 @@ $citoClass = 'cito';
 }
 ?>
 <?=$this->Form->create('Answer')?>
-<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == 'Matching' ? 'Combineervraag' : 'Rubriceer-vraag' ?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
+<h1 class="question_type <?=$citoClass?>"><?= $question['subtype'] == __("Matching") ? __("Combineervraag") : __("Rubriceer-vraag") ?> [<?=$question['score']?>pt]<?=AppHelper::showExternalId($question);?></h1>
 <?=$this->element('take_question', ['question' => $question])?>
 
     <?
@@ -42,7 +42,9 @@ $citoClass = 'cito';
             'type' => 'hidden'
         ]);
 
-        echo sprintf('<div id="%s" class="right_item matching_item">%s</div>',$item['id'],$item['answer']);
+        if( $item['answer'] != '' && $item['answer'] != ' '){
+            echo sprintf('<div id="%s" class="right_item matching_item">%s</div>',$item['id'],$item['answer']);
+        }
     }
     echo sprintf('</div>');
     echo sprintf('<div style="clear:both;height:25px;"></div>');
@@ -127,9 +129,9 @@ $citoClass = 'cito';
 
                 if (val == '') {
                     Popup.message({
-                        btnOk : 'Oke',
-                        title : 'Onvolledig',
-                        message : 'Niet alle items geplaatst'
+                        btnOk : '<?= __("Oke")?>',
+                        title : '<?= __("Onvolledig")?>',
+                        message : '<?= __("Niet alle items geplaatst")?>'
                     });
                     error = true;
                     return false;
@@ -139,9 +141,9 @@ $citoClass = 'cito';
                 if ($.inArray(val, answers) != -1) {
 
                     Popup.message({
-                        btnOk : 'Oke',
-                        title : 'Incorrect',
-                        message : 'Maar 1 item per blok plaatsen'
+                        btnOk : '<?= __("Oke")?>',
+                        title : '<?= __("Incorrect")?>',
+                        message : '<?= __("Maar 1 item per blok plaatsen")?>'
                     });
 
                     error = true;

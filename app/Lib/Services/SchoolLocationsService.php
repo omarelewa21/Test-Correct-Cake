@@ -24,18 +24,6 @@ class SchoolLocationsService extends BaseService
         }
     }
 
-    public function change_allow_inbrowser_testing($locationId, $allow)
-    {
-        $data = ['allow_inbrowser_testing' => (bool) $allow];
-        return $this->updateSchoolLocation($locationId,$data);
-    }
-
-    public function change_allow_new_player_access($locationId, $allow)
-    {
-        $data = ['allow_new_player_access' => $allow];
-        return $this->updateSchoolLocation($locationId,$data);
-    }
-
     public function getIps($location_id) {
         $response = $this->Connector->getRequest('/school_location/' . $location_id . '/school_location_ip', [
             'mode' => 'all'
@@ -71,9 +59,10 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocationList()
+    public function getSchoolLocationList($params = [])
     {
-        $response = $this->Connector->getRequest('/school_location', ['mode' => 'list']);
+        $params = ['mode' => 'list'] + $params;
+        $response = $this->Connector->getRequest('/school_location', $params);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
@@ -89,6 +78,25 @@ class SchoolLocationsService extends BaseService
             return $this->Connector->getLastResponse();
         }
 
+
+        return $response;
+    }
+
+    public function addDefaultSubjectsAndSections($locationId)
+    {
+        $response = $this->Connector->putRequest('/add_default_subjects_and_sections_to_school_location/'.$locationId,[],[]);
+
+        if ($response === false) {
+            $r = json_decode($this->Connector->getLastResponse(),true);
+            if(array_key_exists('errors',$r)){
+                if(is_array($r['errors'])){
+                    foreach($r['errors'] as $error){
+                        $this->addError($error);
+                    }
+                }
+            }
+            return false;
+        }
 
         return $response;
     }
@@ -118,11 +126,11 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getSchoolLocation($id, $withLvsAndSsoOptions = false) {
+    public function getSchoolLocation($id, $withAvailableEditOptions = false) {
         $params = [];
 
-        if ($withLvsAndSsoOptions) {
-            $params = ['withLvsAndSso' => true];
+        if ($withAvailableEditOptions) {
+            $params = ['withAvailableEditOptions' => true];
         }
 
         $response = $this->Connector->getRequest('/school_location/' . $id, $params);
@@ -244,9 +252,31 @@ class SchoolLocationsService extends BaseService
         return $response;
     }
 
-    public function getLvsAndSsoOptions()
+    public function getAvailableSchoolLocationOptions()
     {
-        $response = $this->Connector->getRequest('/school_location/get_lvs_and_sso_options', []);
+        $response = $this->Connector->getRequest('/school_location/get_available_school_location_options', []);
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function getLvsType($schoolLocationId)
+    {
+        $response = $this->Connector->getRequest('/school_location/' . $schoolLocationId . '/get_lvs_type/', []);
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
+    public function getSchoolLocationTeacherUsers($schoolLocationUuid, $params = [])
+    {
+        $response = $this->Connector->getRequest('/teacher/school_location_teacher_users/' . $schoolLocationUuid, $params);
         if($response === false){
             $this->addError($this->Connector->getLastResponse());
             return false;

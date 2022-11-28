@@ -1,60 +1,60 @@
 
-<div class="popup-head">Klas uploaden</div>
+<div class="popup-head"><?= __("Klas uploaden")?></div>
 <div class="popup-content">
 
     <div class=" " id="FileClassBlock">
         <div id="FileClassContainer" style="display:none;overflow:scroll;padding: 8px;">
-            Een moment dit kan even duren...
+        <?= __("Een moment dit kan even duren...")?>
             <h4 style="color:green;" id="wistjedatjes"></h4>
         </div>
         <?=$this->Form->create('FileClass', array('id' => 'FileClassForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment'))?>
         <div class="block-content" id="testsContainter">
-            Hier kunt u de klassen in een Excel-format uploaden (of een ander spreadsheet format).<br />
-            <b>Let op</b>: het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: (de gegevens ieder in een eigen kolom).
+        <?= __("Hier kunt u de klassen in een Excel-format uploaden (of een ander spreadsheet format).")?><br />
+            <b><?= __("Let op")?></b><?= __(": het is belangrijk dat het bestand voldoet aan de volgende voorwaarden: (de gegevens ieder in een eigen kolom).")?>
             <ul>
-                <li>Voornaam</li>
-                <li>Tussenvoegsel</li>
-                <li>Achternaam</li>
-                <li>Stamnummer</li>
-                <li>E-mailadres</li>
+                <li><?= __("Voornaam")?></li>
+                <li><?= __("Tussenvoegsel")?></li>
+                <li><?= __("Achternaam")?></li>
+                <li><?= __("Stamnummer")?></li>
+                <li><?= __("E-mailadres")?></li>
             </ul>
-            Optioneel maar niet verplicht:
+            <?= __("Optioneel maar niet verplicht:")?>
             <ul>
-                <li>Recht op tijdsdispensatie ja of nee</li>
-                <li>Tekst2speech-functie aan of uit (er zijn hier additionele kosten aan verbonden)</li>
+                <li><?= __("Recht op tijdsdispensatie ja of nee")?></li>
+                <li><?= __("Tekst2speech-functie aan of uit (er zijn hier additionele kosten aan verbonden)")?></li>
             </ul>
             <table class='table'>
                 <tr>
                     <td>
-                        <label>Klas</label>
+                        <label><?= __("Klas")?></label>
                     </td>
                     <td>
                         <?=$this->Form->input('class', array('value' => '', 'label' => false, 'verify' => 'notempty'))?>
                     </td>
                 </tr>
                 <tr>
-                    <td><label>Niveau</label></td>
+                    <td><label><?= __("Niveau")?></label></td>
                     <td>
                         <?=$this->Form->input('education_level_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $educationLevelOptions))?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><label>Jaar</label></td>
+                    <td><label><?= __("Jaar")?></label></td>
                     <td>
                         <?=$this->Form->input('education_level_year', array('type' => 'select', 'label' => false, 'div' => false, 'options' => []))?>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><label>Stamklas</label></td>
+                    <td><label><?= __("Stamklas")?></label></td>
                     <td>
-                        <?=$this->Form->input('is_main_school_class', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [0 => 'Nee', 1 => 'Ja']))?>
+                        <?=$this->Form->input('is_main_school_class', array('type' => 'select', 'label' => false, 'div' => false, 'options' => [0 => __("Nee"), 1 => __("Ja")]))?>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <label>Vak</label>
+                        <label><?= __("Vak")?></label>
                     </td>
                     <td>
                         <?=$this->Form->input('subject', array('value' => '', 'label' => false, 'verify' => 'notempty'))?>
@@ -73,10 +73,10 @@
         </div>
         <div class="block-footer">
             <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
-                Klas uploaden
+            <?= __("Klas uploaden")?>
             </a>
-            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-                Annuleer
+            <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+            <?= __("Annuleer")?>
             </a>
         </div>
         <?=$this->Form->end?>
@@ -103,10 +103,10 @@
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
     var wistjedatjes = [
-        'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-        'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-        'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-        'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+        '<?= __("Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+        '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device..")?>',
+        '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+        '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
     ];
     var wistjedatjesEl = jQuery('#wistjedatjes');
 
@@ -125,7 +125,7 @@
             }
         });
         if(hasErrors){
-            Notify.notify('Niet alle velden zijn correct ingevuld','error');
+            Notify.notify('<?= __("Niet alle velden zijn correct ingevuld")?>','error');
             return false;
         }
 
@@ -164,7 +164,7 @@
                     for(i=1;i<=maxYears;i++){
                         educationLevelYearSelect.append('<option value="'+i+'">'+i+'</option>');
                     };
-                    console.log('changed');
+                    // console.log('changed');
                 });
         });
         fileClassSetupRun = true;

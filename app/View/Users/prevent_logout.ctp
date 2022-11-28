@@ -2,7 +2,7 @@
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0">
-                <?= $opened_by_user ? 'Automatisch uitloggen uitstellen' : ' Let op! Je wordt automatisch uitgelogd' ?>
+                <?= $opened_by_user ? __("Automatisch uitloggen uitstellen") : __(" Let op! Je wordt automatisch uitgelogd") ?>
             </h2>
         </div>
         <div class="close" style="flex-shrink: 1">
@@ -17,7 +17,7 @@
     </div>
     <div class="divider mb16 mt16"></div>
     <div class="body2">
-        <p><?= !$opened_by_user ? 'Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 5 minuten?' : 'Om de veiligheid van je account te garanderen word je na 5 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 30 minuten?' ?></p>
+    <p><?= !$opened_by_user ? __("Je bent al langere tijd inactief op Test-Correct en wordt over 30 seconden automatisch uitgelogd om de veiligheid van je account te garanderen. Wil je je sessie verlengen met 15 minuten?") : __("Om de veiligheid van je account te garanderen word je na 15 minuten inactiviteit automatisch uitgelogd op Test-Correct. Wil je je sessie verlengen met 3 uur?") ?></p>
     </div>
 </div>
 <div class="popup-footer tat-footer pt16" style="padding-bottom: 2rem!important;">
@@ -31,8 +31,8 @@
         </div>
         <div style="display: flex;">
             <button id="postpone-button" class="button button-sm cta-button" style="cursor: pointer;"
-                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 30 : 5 ?>')">
-                Sessie verlengen
+                    onclick="Popup.closeLast();User.postponeAutoUserLogout('<?= $opened_by_user ? 3*60 : 15 ?>')">
+                    <?= __("Sessie verlengen")?>
             </button>
         </div>
     </div>

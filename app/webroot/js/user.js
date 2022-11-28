@@ -5,64 +5,105 @@ var User = {
     surpressInactive: false,
 
     userLogoutInterval: null,
-    secondsBeforeTeacherLogout: 300, //300 default
-    logoutWarningTimer: 30,
+    secondsBeforeTeacherLogout: 15*60, //default 15 minutes
+    logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
+    notifyLaravelWithExtendedSession: false,
 
     initialise: function () {
-        $.getJSON('/users/info',
-            function (info) {
-                User.info = info;
-                var activeSchool = '';
+        $.ajax({
+            dataType: 'json',
+            url: '/users/info',
+            async: false,
+            success:
+                function (info) {
+                    User.info = info;
+                    if (User.info.guest) {
+                        var guest_username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+                        $('#header #guest_user').prepend('<span>'+guest_username+'</span>');
 
-                if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list')&&User.info.school_location_list.length>1) {
-                    var result = User.info.school_location_list.find(function (school_location) {
-                        return school_location.active;
-                    });
-                    if (result) {
-                        activeSchool = '(<span id="active_school">' + result.name + '</span>)';
-                    }
-                }
+                        $("<link/>", {
+                            rel: "stylesheet",
+                            type: "text/css",
+                            href: "/css/buttons.green.css"
+                        }).appendTo("head");
 
-                if (User.info.isStudent) {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.green.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('green');
-                } else {
-                    $("<link/>", {
-                        rel: "stylesheet",
-                        type: "text/css",
-                        href: "/css/buttons.blue.css"
-                    }).appendTo("head");
-                    $('#menu, #header, #tiles').addClass('blue');
-                }
+                        User.surpressInactive = true;
+                    } else {
 
-                $('#header #user').html(
-                    User.info.name_first + ' ' +
-                    User.info.name_suffix + ' ' +
-                    User.info.name + ' ' +
-                    activeSchool
-                );
+                        var activeSchool = '';
+                        var activeSchoolName = '';
 
+                        var username = User.info.name_first + ' ' +
+                            User.info.name_suffix + ' ' +
+                            User.info.name;
+
+                        if (User.info.isTeacher && User.info.hasOwnProperty('school_location_list') && User.info.school_location_list.length > 1) {
+                            var result = User.info.school_location_list.find(function (school_location) {
+                                return school_location.active;
+                            });
+                            if (result) {
+                                $.i18n().locale = result.language;
+                                activeSchoolName = '(' + result.name + ')';
+                                if((username + ' ' + activeSchoolName).length > 30){
+                                    activeSchool = '(<span id="active_school">' + result.name.substring(0, (30 - username.length ) ) + ' ...' + '</span>)';
+                                } else {
+                                    activeSchool = '(<span id="active_school">' + result.name + '</span>)';
+                                }
+                            }
+                        }
+
+                        if (User.info.isStudent) {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.green.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('green');
+                        } else {
+                            $("<link/>", {
+                                rel: "stylesheet",
+                                type: "text/css",
+                                href: "/css/buttons.blue.css"
+                            }).appendTo("head");
+                            $('#menu, #header, #tiles').addClass('blue');
+                        }
+                        
+                        $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
-                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">Wissel van school</a>');
+                    $('#header #user_school_locations').html('<a href="#" onclick="Popup.showSchoolSwitcher(User.info.school_location_list)" class="btn white mb5">'+$.i18n('Wissel van school')+'</a>');
                 }
-
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
+                    // var cookielawConsentScript = document.createElement('script');
+                    // cookielawConsentScript.setAttribute('src','https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js');
+                    // document.head.insertBefore(cookielawConsentScript,document.head.firstChild);
+                    // var cookieLawScript = document.createElement('script');
+                    // cookieLawScript.setAttribute('src','https://cdn.cookielaw.org/scripttemplates/otSDKStub.js');
+                    // cookieLawScript.setAttribute('charset','UTF-8');
+                    // cookieLawScript.setAttribute('data-domain-script','59ebfb6a-8dcb-443e-836a-329cb8623832');
+                    // document.head.insertBefore(cookieLawScript,document.head.firstChild);
+                    //
+                    // function OptanonWrapper() { }
+                    // window.oneTrustInjected = true;
+
                     var hubspotScript = document.createElement('script');
-                    hubspotScript.setAttribute('src','//js.hs-scripts.com/3780499.js');
+                    hubspotScript.setAttribute('src','//js-eu1.hs-scripts.com/26318898.js');
                     document.head.appendChild(hubspotScript);
+
                 }
             }
-        );
+        }
+        });
 
         $('#header #top #user').click(function () {
+            if ($('#support_menu').is(':visible')) {
+                $('#support_menu').slideUp();
+            }
             $('#header #top #user_menu').slideDown();
             setTimeout(function () {
                 $('#header #top #user_menu').slideUp();
@@ -84,13 +125,62 @@ var User = {
         this.startUserLogoutInterval();
     },
 
+	clearClipboard: function () {
+        //source: https://stackoverflow.com/a/30810322
+		function fallbackCopyTextToClipboard(text) {
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
+
+			// Avoid scrolling to bottom
+			textArea.style.top = "0";
+			textArea.style.left = "0";
+			textArea.style.position = "fixed";
+
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				var successful = document.execCommand("copy");
+				var msg = successful ? "successful" : "unsuccessful";
+			} catch (err) {
+			}
+
+			document.body.removeChild(textArea);
+		}
+		function copyTextToClipboard(text) {
+			return new Promise((resolve, reject) => {
+				if (!navigator.clipboard) {
+					fallbackCopyTextToClipboard(text);
+					resolve();
+				}
+                navigator.clipboard.writeText(text).then(() => {
+                    resolve();
+                }).catch(() => { fallbackCopyTextToClipboard(text); resolve(); });
+			});
+		}
+
+		return copyTextToClipboard("");
+	},
+
     actOnLogout: function () {
-        $("#supportpage_link, #upload_test_link").remove();
+        return new Promise(resolve => {
+            $("#supportpage_link, #upload_test_link").remove();
+
+            if (User.info.isStudent) {
+                 User.clearClipboard().then(() => {
+                     resolve()
+                 });
+            } else {
+                resolve();
+            }
+        })
     },
 
     welcome: function () {
         if (!TestTake.active) {
             Navigation.load('/users/welcome');
+            Menu.clearActiveMenu('dashboard');
         }
     },
 
@@ -120,21 +210,25 @@ var User = {
         }
         $.get('/users/logout',
             function () {
-                User.actOnLogout();
-                window.location.href = '/';
-                try {
-                    if (typeof(electron.closeApp) === typeof(Function)) {
-                        if (typeof(electron.reloadApp) === typeof(Function)) {
-                            if (closeApp) {
-                                electron.closeApp();
+                Core.resetCache();
+                User.actOnLogout().then(() => {
+
+                        window.location.href = '/';
+
+                    try {
+                        if (typeof(electron.closeApp) === typeof(Function)) {
+                            if (typeof(electron.reloadApp) === typeof(Function)) {
+                                if (closeApp) {
+                                    electron.closeApp();
+                                } else {
+                                    electron.reloadApp();
+                                }
                             } else {
-                                electron.reloadApp();
+                                electron.closeApp();
                             }
-                        } else {
-                            electron.closeApp();
                         }
-                    }
-                } catch (error) {}
+                    } catch (error) {}
+                });
             }
         );
 
@@ -146,12 +240,12 @@ var User = {
 
     sendWelcomeMails: function (type) {
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u alle nieuwe gebruikers een welkomst-email wilt versturen?')
         }, function () {
-            Notify.notify('Welkomstmails verstuurd', 'info');
+            Notify.notify($.i18n('Welkomstmails verstuurd'), 'info');
 
             $.get('/users/notify_welcome/' + type);
         });
@@ -160,16 +254,21 @@ var User = {
     delete: function (id) {
 
         Popup.message({
-            btnOk: 'Ja',
-            btnCancel: 'Annuleer',
-            title: 'Weet u het zeker?',
-            message: 'Weet u zeker dat u deze gebruiker wilt verwijderen?'
+            btnOk: $.i18n('Ja'),
+            btnCancel: $.i18n('Annuleer'),
+            title: $.i18n('Weet u het zeker?'),
+            message: $.i18n('Weet u zeker dat u deze gebruiker wilt verwijderen?')
         }, function () {
             $.ajax({
                 url: '/users/delete/' + id,
                 type: 'DELETE',
                 success: function (response) {
-                    Notify.notify('Gebruiker verwijderd', 'info');
+                    var json_response = JSON.parse(response);
+                    if(!json_response.status){
+                        Notify.notify(json_response.data, 'error');
+                        return;
+                    }
+                    Notify.notify($.i18n('Gebruiker verwijderd'), 'info');
                     Navigation.refresh();
                 }
             });
@@ -180,13 +279,13 @@ var User = {
         var email = $('#UserEmail').val();
 
         if (email == "") {
-            Notify.notify('Voer eerst uw emailadres in.', 'error');
+            Notify.notify($.i18n('Voer eerst uw emailadres in.'), 'error');
         } else {
             $.post('/users/forgot_password', {
                     'email': email
                 },
                 function (response) {
-                    Notify.notify('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.', 'info', 10000);
+                    Notify.notify($.i18n('Binnen enkele minuten ontvang je een email met instructies om je wachtwoord te veranderen. Vergeet niet je spamfolder te checken als je de mail niet binnenkrijgt.'), 'info', 10000);
                 });
         }
     },
@@ -201,7 +300,7 @@ var User = {
             User.info.school_location_id = active_location.id;
 
             document.getElementById('active_school').innerHTML = active_location.name;
-            Notify.notify('Gewisseld naar school ' + active_location.name);
+            Notify.notify($.i18n('Gewisseld naar school ') + active_location.name);
             // disable before unload;
             window.onbeforeunload = function () {  }
             window.location.reload();
@@ -215,7 +314,7 @@ var User = {
             method: 'POST',
             data: {user: uuid},
             success: function (data) {
-                Notify.notify('Docent succesvol toegevoegd');
+                Notify.notify($.i18n('Docent succesvol toegevoegd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('white').addClass('blue').find('span:first').removeClass('fa-link').addClass('fa-trash');
             }
@@ -227,7 +326,7 @@ var User = {
             type: 'DELETE',
             data: {user: uuid},
             success: function (result) {
-                Notify.notify('Docent succesvol verwijderd');
+                Notify.notify($.i18n('Docent succesvol verwijderd'));
                 var selector = '#'+uuid;
                 $(selector).removeClass('blue').addClass('white').find('span:first').removeClass('fa-trash').addClass('fa-link');
             }
@@ -292,10 +391,11 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
-    postponeAutoUserLogout : function(seconds) {
-        if (seconds != null) {
-            User.secondsBeforeTeacherLogout = seconds*60;
+    postponeAutoUserLogout : function(minutes) {
+        if (minutes != null) {
+            User.secondsBeforeTeacherLogout = minutes*60;
         }
+        User.notifyLaravelWithExtendedSession = true;   // Notify Laravel that user has extended his session
         this.resetPreventLogoutData();
     },
 
@@ -313,7 +413,7 @@ var User = {
                 Core.lostFocus();
                 setTimeout(function () {
                     User.logout(false);
-                }, 2000);
+                }, 3000);
             }
 
             // Teacher
@@ -323,5 +423,140 @@ var User = {
             }
 
         }, 1000);
+    },
+    returnToLaravelLogin : function(desiredUrl) {
+        $.ajax({
+            url: '/users/return_to_laravel/true',
+            method: 'get',
+            success: function (url) {
+                if (desiredUrl != null) {
+                    url = desiredUrl;
+                }
+                url = typeof url == 'undefined' ? '/' : url;
+                window.open(url, '_self');
+                try {
+                    electron.loadUrl(url);
+                } catch(error) {}
+            }
+        });
+    },
+    connectToPusher : function (pusherKey) {
+        Navigation.usingPusher = true;
+
+        window.pusher = new Pusher(pusherKey, {
+            cluster: 'eu',
+            forceTLS: true,
+            authEndpoint: "/users/pusher_auth"
+        });
+    },
+    goToLaravel: function (path, autoLogout = null) {
+        let data = {
+            path: path,
+            autoLogout: autoLogout,
+            extendUserSession: User.notifyLaravelWithExtendedSession
+        }
+        if(User.notifyLaravelWithExtendedSession){
+            data.extensionTime = User.secondsBeforeTeacherLogout;
+        }
+
+        $.ajax({
+            url: '/users/goToLaravelPath',
+            method: 'post',
+            data: data,
+            success: function (url) {
+                document.removeEventListener("visibilitychange", onchange);
+                if (autoLogout) {
+                    Core.resetCache();
+                }
+                url = JSON.parse(url);
+                url = Core.getCorrectLaravelUrl(url.data.url);
+                window.open(url, '_self');
+                try {electron.loadUrl(url);} catch (error) {}
+            }
+        });
+    },
+    userMenuExtension: function(role, args=null){
+        switch(role){
+            case 'teacher':
+                if($('#supportLinkUserMenu').length != 1){
+                    $("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl/knowledge" target="_blank" class="btn white mt5" >' +  $.i18n('Supportpagina') + '</a>');
+                    $("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  $.i18n('Automatisch uitloggen uitstellen') + '</a>');
+                    if(typeof args === 'object' && args.isToetsenbakker){
+                        $("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' + $.i18n('Te verwerken toetsen') + '</a>');
+                    }else{
+                        jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' +  $.i18n('Uploaden toets') + '</a>');
+                    }
+                }
+                break;
+            default:
+        }
+    },
+    isExamcoordinatorCheckbox: function(el, mode='add', hasSchoolRelated=false){
+        let elem = $(el);
+        if(elem.is(':checked')){
+                if(mode === 'add'){
+                    let school_location_id = $('select[name="data[User][school_location_id]"]').find(":selected").val();
+                    $.get("/school_locations/hasSchoolRelation/" + school_location_id, function(data, status){
+                        // User.appendSchoolOption(data);
+                    });
+                }else{
+                    // User.appendSchoolOption(hasSchoolRelated);
+                }
+                
+                Popup.message({
+                btnOk: $.i18n('Oke'),
+                title: $.i18n('Examen coördinator'),
+                message: $.i18n('De gebruiker is nu examen coördinator. Kies één van onderstaande acties om de examen coördinator te koppelen aan alle Klassen')
+            }, function() {
+                $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+            })
+        }else{
+            Popup.message({
+                btnOk: $.i18n('Ja'),
+                btnCancel: $.i18n('Annuleer'),
+                title: $.i18n('Weet u het zeker?'),
+                message: $.i18n('Weet je zeker dat je de examen coördinator functie wilt uitzetten?')
+            }, function() {
+                $('.is_examcoordinator-options').css({'visibility': 'hidden', 'position': 'absolute'});
+            }, function() {
+                elem.prop('checked', true);
+                $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+            })
+        }
+    },
+    removeSchoolOptionIfNeeded: (hasSchoolRelated) => {
+        let select = $('select[name="data[User][is_examcoordinator_for]"]');
+        if(hasSchoolRelated != 1){
+            select.find("option[value='SCHOOL']").remove();
+        }
+    },
+    isExamcoordinatorOptions: function(el){
+        let elem = $(el);
+        let text;
+        switch (elem.find(":selected").val()) {
+            case 'SCHOOL_LOCATION':
+                text = {
+                   btnOk:  $.i18n('Oke'),
+                   btnCancel:  $.i18n('Annuleer'),
+                   title: $.i18n('Weet u het zeker?'),
+                   message: $.i18n('Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in deze schoollocatie?')
+                };
+                break;
+            case 'SCHOOL':
+                text = {
+                    btnOk:  $.i18n('Oke'),
+                    btnCancel:  $.i18n('Annuleer'),
+                    title: $.i18n('Weet u het zeker?'),
+                    message: $.i18n('Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in alle schoollocaties waar zijn gebruikersaccount aan gekoppeld is?')
+                 };
+                break;
+            default:
+                return;
+        }
+
+        Popup.message(text, function() {},
+        function() {
+            elem.val('NONE').change();
+        })
     }
 };

@@ -1,4 +1,4 @@
-<div class="popup-head">Docent</div>
+<div class="popup-head"><?= __("Docent")?></div>
 <div class="popup-content">
     <?=$this->Form->create('User') ?>
     <table class="table">
@@ -7,7 +7,7 @@
         </tr>
         <tr>
             <th width="130">
-                Voornaam
+            <?= __("Voornaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name_first', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <th width="130">
-                Tussenvoegsel
+            <?= __("Tussenvoegsel")?>
             </th>
             <td>
                 <?=$this->Form->input('name_suffix', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -23,7 +23,7 @@
         </tr>
         <tr>
             <th width="130">
-                Achternaam
+            <?= __("Achternaam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -31,7 +31,7 @@
         </tr>
         <tr>
             <th width="130">
-                Afkorting
+            <?= __("Afkorting")?>
             </th>
             <td>
                 <?=$this->Form->input('abbreviation', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -39,7 +39,7 @@
         </tr>
         <tr>
             <th width="130">
-                Geverifieerd
+            <?= __("Geverifieerd")?>
             </th>
             <td><a style="cursor:pointer" class="btn <?= $this->request->data['account_verified']?  'blue': 'grey' ?>" id="updateVerified">
                     <?= $this->request->data['account_verified'] ?  $this->request->data['account_verified'] : 'Niet geverifieerd'?>
@@ -48,7 +48,7 @@
         </tr>
         <tr>
             <th width="130">
-                E-mailadres
+            <?= __("E-mailadres")?>
             </th>
             <td>
                 <?=$this->Form->input('username', array('style' => 'width: 185px', 'label' => false, 'verify' => 'email')) ?>
@@ -56,7 +56,7 @@
         </tr>
         <tr>
             <th width="130">
-                Stamnummer
+            <?= __("Stamnummer")?>
             </th>
             <td>
                 <?=$this->Form->input('teacher_external_id', array('type' => 'text','style' => 'width: 185px', 'label' => false)) ?>
@@ -64,14 +64,39 @@
         </tr>
         <tr>
             <th width="130">
-                Nieuw wachtwoord
+            <?= __("Nieuw wachtwoord")?>
             </th>
             <td>
                 <?=$this->Form->input('password', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
+
         <tr>
-            <th colspan="2">Notities</th>
+            <th width="130">
+            <?= __("Examen coördinator")?>
+            </th>
+            <td>
+                <?= $this->Form->input('is_examcoordinator', array('style' => 'width: 20px','label' => false, 'type' => 'checkbox', 'disabled' => !$can_be_exam_coordinator)) ?>
+            </td>
+        </tr>
+
+        <tr class="is_examcoordinator-options">
+            <th colspan="2"><?= __("Deze gebruiker koppelen")?></th>
+        </tr>
+        <tr class="is_examcoordinator-options">
+            <td colspan="2">
+                <?= $this->Form->input('is_examcoordinator_for', array('label'   => false,
+                                                                       'verify' => 'notempty',
+                                                                       'options' => [
+                                                                           'SCHOOL_LOCATION' => __('Koppel deze gebruiker aan de schoollocatie'),
+                                                                           'SCHOOL'          => __('Koppel deze gebruiker aan de hele scholengemeenschap'),
+                                                                       ]))
+                ?>
+            </td>
+        </tr>
+
+        <tr>
+            <th colspan="2"><?= __("Notities")?></th>
         </tr>
         <tr>
             <td colspan="2">
@@ -86,11 +111,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Opslaan
+    <?= __("Opslaan")?>
     </a>
 </div>
 
@@ -98,16 +123,23 @@
     $('#UserEditForm').formify(
         {
             confirm : $('#btnAddUser'),
+            onbeforesubmit: function(e) {
+                var password = $('#UserPassword').val();
+                if(password !== '' && password.length < 8) {
+                    Notify.notify($.i18n('Het nieuwe wachtwoord moet minimaal 8 karakters bevatten.'), 'error');
+                    return 'cancelSubmit';
+                }
+            },
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker bijgewerkt", "info");
+                Notify.notify('<?= __("Gebruiker gewijzigd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
                 if (result.length != 0)  {
                     Notify.notify(result[0], "error");
                 } else {
-                    Notify.notify("Gebruiker kon niet worden bijgewerkt", "error");
+                    Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
                 }
 
             }
@@ -127,16 +159,29 @@
                 if (data.account_verified) {
                     $('#updateVerified').text(data.account_verified).addClass('blue').removeClass('grey');
                 } else {
-                    $('#updateVerified').text('Niet geverifieerd').addClass('grey').removeClass('blue');
+                    $('#updateVerified').text('<?= __("Niet geverifieerd")?>').addClass('grey').removeClass('blue');
                 }
             },
             failure: function(data) {
                 alert('error');
-                console.dir(data);
+                // console.dir(data);
             }
         });
 
     });
 
+    if($('input[name="data[User][is_examcoordinator]"]').is(':checked')) {
+        $('.is_examcoordinator-options').css({'visibility': 'visible', 'position': 'relative'});
+    }
+
+    $('input[name="data[User][is_examcoordinator]"]').change(function(){
+        User.isExamcoordinatorCheckbox(this, 'edit', '<?= is_null($school_location['school_id']) ? '0' : '1' ?>');
+    })
+
+    $('select[name="data[User][is_examcoordinator_for]"]').change(function(){
+        User.isExamcoordinatorOptions(this);
+    });
+
+    User.removeSchoolOptionIfNeeded('<?= is_null($school_location['school_id']) ? '0' : '1' ?>')
 
 </script>

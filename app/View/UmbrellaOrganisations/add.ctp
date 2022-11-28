@@ -1,17 +1,17 @@
-<div class="popup-head">Koepelorganisatie</div>
+<div class="popup-head"><?= __("Koepelorganisatie")?></div>
 <div class="popup-content">
     <?=$this->Form->create('UmbrellaOrganisation') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
 
             <th width="130">
-                Accountmanager
+            <?= __("Accountmanager")?>
             </th>
             <td>
                 <?=$this->Form->input('user_id', array('style' => 'width: 185px', 'label' => false, 'options' => $accountmanagers)) ?>
@@ -19,55 +19,55 @@
         </tr>
         <tr>
             <th width="130">
-                Klantcode
+            <?= __("Klantcode")?>
             </th>
             <td>
                 <?=$this->Form->input('customer_code', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
             </td>
             <th width="130">
-                Brin code
+            <?= __("Brin code")?>
             </th>
             <td>
                 <?=$this->Form->input('external_main_code', array('style' => 'width: 185px', 'label' => false)) ?>
             </td>
         </tr>
         <tr>
-            <th colspan="2" style="text-align: center"><br />Vestigingsadres</th>
-            <th colspan="2" style="text-align: center"><br />Factuuradres</th>
+            <th colspan="2" style="text-align: center"><br /><?= __("Vestigingsadres")?></th>
+            <th colspan="2" style="text-align: center"><br /><?= __("Factuuradres")?></th>
         </tr>
         <tr>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?=$this->Form->input('main_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Adres</th>
+            <th><?= __("Adres")?></th>
             <td><?=$this->Form->input('invoice_address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?=$this->Form->input('main_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Postcode</th>
+            <th><?= __("Postcode")?></th>
             <td><?=$this->Form->input('invoice_postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?=$this->Form->input('main_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Stad</th>
+            <th><?= __("Stad")?></th>
             <td><?=$this->Form->input('invoice_city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
         <tr>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?=$this->Form->input('main_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
-            <th>Land</th>
+            <th><?= __("Land")?></th>
             <td><?=$this->Form->input('invoice_country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?></td>
         </tr>
     </table>
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddOrganisation">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -77,11 +77,11 @@
             confirm : $('#btnAddOrganisation'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Organisatie aangemaakt", "info");
+                Notify.notify('<?= __("Organisatie aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Organisatie kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Organisatie kon niet worden aangemaakt")?>', "error");
             }
         }
     );

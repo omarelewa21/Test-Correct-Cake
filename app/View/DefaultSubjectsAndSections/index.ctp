@@ -1,0 +1,75 @@
+
+
+<h1><?= __("Default subjects and sections import")?></h1>
+
+<div class="block " id="DefaultSubjectsAndSectionsImportBlock">
+    <div id="DefaultSubjectsAndSectionsImportContainer" style="display:none;overflow:scroll;padding: 8px;">
+    <?= __("Een moment dit kan enige tijd duren (als in een paar minuten);")?>
+        <h4 style="color:green;" id="wistjedatjes"></h4>
+    </div>
+    <?=$this->Form->create('DefaultSubjectsAndSections', array('id' => 'DefaultSubjectsAndSectionsImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'import'))?>
+    <div class="block-content" id="testsContainter">
+        <table class='table'>
+            <tr>
+                <td></td>
+                <td>
+                    <?=$this->Form->input('file', array('type' => 'file',  'label' => false, 'div' => false, 'onchange' => '')) ?>
+                </td>
+            </tr>
+        </table>
+
+        <iframe id="frameUploadAttachment" name="frameUploadAttachment" width="0" height="0" frameborder="0" style="position: absolute"></iframe>
+    </div>
+    <div class="block-footer">
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
+        <?= __("Import verwerken")?>
+        </a>
+    </div>
+    <?=$this->Form->end?>
+</div>
+
+<script>
+
+    function handleDefaultSubjectsAndSectionsImportResponse(data){
+        // console.log(data);
+        clearTimeout(wistjedatjeTimer);
+      jQuery('#DefaultSubjectsAndSectionsImportBlock').html((data));
+    };
+
+    var wistjedatjeTime = 10*1000;
+    var wistjedatjeTimer
+    var wistjedatjeNr = 0;
+    var wistjedatjes = [
+        '<?= __("Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+        '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device..")?>',
+        '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+        '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
+    ];
+    var wistjedatjesEl = jQuery('#wistjedatjes');
+
+
+    function handleSubmit(){
+        $('#DefaultSubjectsAndSectionsImportBlock').height($('#DefaultSubjectsAndSectionsImportBlock').height()).css('overflow','scroll').css('padding','8px');
+        $('#DefaultSubjectsAndSectionsImportContainer').show();
+        $('#DefaultSubjectsAndSectionsImportForm').hide().submit();
+        setWistjedatjesTimer();
+    }
+
+    function showWistJeDatJe(){
+        if(wistjedatjeNr >= wistjedatjes.length){
+            wistjedatjeNr = 0;
+        }
+        wistjedatjesEl.html(wistjedatjes[wistjedatjeNr]);
+        wistjedatjeNr++;
+        setWistjedatjesTimer();
+    }
+
+    function setWistjedatjesTimer(){
+        wistjedatjeTimer = setTimeout(function(){
+                showWistJeDatJe();
+            },
+            wistjedatjeTime);
+    }
+
+
+</script>

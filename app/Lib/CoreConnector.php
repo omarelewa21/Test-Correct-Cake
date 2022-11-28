@@ -7,6 +7,13 @@ class CakeToLaravelException extends Exception {
     }
 }
 
+class StudentFraudDetectionException extends Exception {
+    //$message is now not optional, just for the extension.
+    public function __construct($message, $code = 0, Exception $previous = null) {
+        parent::__construct($message, $code, $previous);
+    }
+}
+
 class CoreConnector {
 
     /**
@@ -23,6 +30,9 @@ class CoreConnector {
 
     private $lastResponse;
     private $lastCode;
+    private $url;
+    private $params;
+    private $method;
 
     public function __construct()
     {
@@ -91,9 +101,32 @@ class CoreConnector {
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
         //$response = file_get_contents($this->baseUrl .$finalUrl);
-        
-        
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'GET';
         return $this->_execute($this->_getHandle($finalUrl, "GET"));
+    }
+
+    public function getJsonRequest($path, $params)
+    {
+
+        $params['session_hash'] = $this->sessionHash;
+        $params['user'] = $this->user;
+
+        $url = $path . "?" . http_build_query($params);
+        $validationHash = $this->_generateHash($url);
+        $params['signature'] = $validationHash;
+
+        // Include signature
+        $finalUrl = $path . "?" . http_build_query($params);
+        //$response = file_get_contents($this->baseUrl .$finalUrl);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'JSON';
+
+
+        return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
     public function getDownloadRequest($path, $params)
@@ -106,10 +139,15 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'DOWNLOAD';
+
         return $this->_execute($this->_getHandle($finalUrl, "GET"), false);
     }
 
-    public function postRequest($path, $params, $body)
+    public function postRequest($path, $params, $body, $decode = true)
     {
         $params['session_hash'] = $this->sessionHash;
         $params['user'] = $this->user;
@@ -120,6 +158,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'POST';
+
         $handle = $this->_getHandle($finalUrl, "POST");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -127,7 +170,7 @@ class CoreConnector {
             "Content-Type" => "application/json"
         ];
 
-        return $this->_execute($handle,true,$headers);
+        return $this->_execute($handle,$decode,$headers);
     }
 
     public function postRequestFile($path, $params, $body)
@@ -140,6 +183,10 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'POSTFILE';
 
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
@@ -161,6 +208,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'PUT';
+
         $handle = $this->_getHandle($finalUrl, "PUT");
         $body = json_encode($body);
         curl_setopt($handle, CURLOPT_POSTFIELDS, $body);
@@ -168,7 +220,6 @@ class CoreConnector {
             "Content-Type" => "application/json",
             "Content-Length" => strlen($body)
         ];
-
         return $this->_execute($handle,true,$headers);
     }
 
@@ -183,6 +234,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'PUTFILE';
+
         $handle = $this->_getHandle($finalUrl, "POST");
         curl_setopt($handle, CURLOPT_POST,1);
         $headers = [
@@ -225,6 +281,11 @@ class CoreConnector {
 
         // Include signature
         $finalUrl = $path . "?" . http_build_query($params);
+
+        $this->params = $params;
+        $this->url = $finalUrl;
+        $this->method = 'DELETE';
+
         return $this->_execute($this->_getHandle($finalUrl, "DELETE"));
     }
 
@@ -233,13 +294,13 @@ class CoreConnector {
         curl_setopt($handle, CURLINFO_HEADER_OUT, true);
 
         $headers['cakeLaravelFilterKey'] = Configure::read('cake_laravel_filter_key');
+        $headers['cakeRealIP'] = $_SERVER["REMOTE_ADDR"];
+        $headers['cakeUrlPath'] = strtok($_SERVER["REQUEST_URI"], '?');
 
         foreach($headers as $key => $value){
             $_headers[] = sprintf('%s: %s',$key,$value);
         }
-
         curl_setopt($handle, CURLOPT_HTTPHEADER, $_headers);
-
         $response = curl_exec($handle);
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
@@ -259,8 +320,13 @@ class CoreConnector {
             BugsnagLogger::getInstance()->setMetaData([
                 'response' => $response,
                 'headers' => $headers,
+                'passthrough' => [
+                    'url' => $this->url,
+                    'params' => $this->params,
+                    'method' => $this->method,
+                ]
             ])->notifyException(
-                new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")")
+                new CakeToLaravelException("Cake => Laravel 500 error (". $this->getLastCode() .")", $this->getLastCode())
             );
         }
 
@@ -292,11 +358,12 @@ class CoreConnector {
     {
         App::uses('SobitLogger','Lib');
         SobitLogger::getInstance()->startSub($url, $method);
-
         $handle = curl_init();
         curl_setopt($handle, CURLOPT_URL, $this->baseUrl . $url);
         curl_setopt($handle, CURLOPT_RETURNTRANSFER, true);
-
+        if (substr(Router::fullBaseUrl(), -5) === '.test' || substr(Router::fullBaseUrl(), -7) === '.test/#') {
+            curl_setopt($handle, CURLOPT_SSL_VERIFYPEER, false);
+        }
         switch ($method) {
             case "POST":
                 curl_setopt($handle, CURLOPT_POST, 1);

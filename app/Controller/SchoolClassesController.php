@@ -60,6 +60,8 @@ class SchoolClassesController extends AppController
             $params['filter']['school_year_id'] = $filters['school_year_id'];
         }
 
+        $params['filter']['without_guest_classes'] = true;
+
         $classes = $this->SchoolClassesService->getClasses($params);
 
 
@@ -174,7 +176,7 @@ class SchoolClassesController extends AppController
             } elseif ($result == 'Failed to create school class') {
                 $this->formResponse(
                     false,
-                    'Klas kon niet worden aangemaakt'
+                    __("Klas kon niet worden aangemaakt")
                 );
             } else {
                 $this->formResponse(
@@ -339,10 +341,7 @@ class SchoolClassesController extends AppController
 
         if ($this->request->is('delete')) {
             $this->autoRender = false;
-            $this->SchoolClassesService->removeFromClass($user_id, [
-                'delete_mentor_school_class' => $this->SchoolClassesService->getClass($class_id)['id']
-            ]);
-
+            $this->SchoolClassesService->removeMentor($class_id,$user_id);
             echo $this->formResponse(
                 true,
                 []
@@ -465,5 +464,17 @@ class SchoolClassesController extends AppController
             $initEducationLevelYears[] = $i;
         }
         return $initEducationLevelYears;
+    }
+
+    public function reset_passwords($classUuid)
+    {
+        $this->isAuthorizedAs(['School manager', 'School management']);
+        $result = $this->SchoolClassesService->resetPasswords($classUuid);
+        if (!$result) {
+            $response = $this->translateError($this->SchoolClassesService);
+            $this->formResponse(false, $response);
+            return false;
+        }
+        $this->formResponse(true, []);
     }
 }

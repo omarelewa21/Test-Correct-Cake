@@ -12,11 +12,11 @@ foreach($test_takes as $test_take) {
             <?
             if($test_take['retake'] == 0) {
                 ?>
-                <div class="label label-info">Standaard</div>
+                <div class="label label-info"><?= __("Standaard")?></div>
             <?
             }else{
                 ?>
-                <div class="label label-warning">Inhaaltoets</div>
+                <div class="label label-warning"><?= __("Inhaaltoets")?></div>
             <?
             }
             ?>

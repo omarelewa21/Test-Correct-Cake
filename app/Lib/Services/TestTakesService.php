@@ -10,8 +10,12 @@ App::uses('CakeLog', 'Log');
  */
 class TestTakesService extends BaseService {
 
-    public function getTestTakeUrlForLaravel($take_id) {
-        return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), [], []);
+    public function getTestTakeUrlForLaravel($take_id, $params = []) {
+        return $this->Connector->postRequest(sprintf('/test_take/%s/with_temporary_login', $take_id), $params, []);
+    }
+
+    public function getTestTakePdfUrlForLaravel($take_id, $params = []) {
+        return $this->Connector->postRequest(sprintf('/test_take/pdf/%s/with_temporary_login', $take_id), $params, []);
     }
 
     public function getAttainmentAnalysis($test_take_id) {
@@ -209,9 +213,10 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function finishDiscussion($take_id) {
+    public function finishDiscussion($take_id, $skipped_discussion=false) {
 
         $test_take['test_take_status_id'] = 8;
+        $test_take['skipped_discussion']  = $skipped_discussion;
 
         $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
 
@@ -282,7 +287,9 @@ class TestTakesService extends BaseService {
     public function editTestTake($take_id, $test_take) {
 
         $test_take['time_start'] = date('Y-m-d H:i:s', strtotime($test_take['time_start']));
-
+        if ($test_take['time_end'] ) {
+            $test_take['time_end'] = date('Y-m-d H:i:s', strtotime($test_take['time_end']));
+        }
 
         $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
 
@@ -299,7 +306,6 @@ class TestTakesService extends BaseService {
         if(!isset($params['order'])) {
             $params['order'] = ['id' => 'desc'];
         }
-
         $response = $this->Connector->getRequest('/test_take', $params);
 
         if($response === false){
@@ -583,7 +589,7 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function saveNormalization($take_id, $postData, $preview = false) {
+    public function saveNormalization($take_id, $postData, $preview = false, $catchError = false) {
 
         $data = [
             'ignore_questions' => []
@@ -613,6 +619,10 @@ class TestTakesService extends BaseService {
         $response = $this->Connector->postRequest('/test_take/' . $take_id .'/normalize', [], $data);
 
         if($response === false){
+            if($catchError){
+                $this->addError($this->Connector->getLastResponse());
+                return false;
+            }
             return $this->Connector->getLastResponse();
         }
 
@@ -865,15 +875,25 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
-    public function getDrawingAnswerUrl($answer_uuid)
+    public function getDrawingAnswerUrl($answer_uuid, $base64 = false)
     {
-        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,[],[]);
+        $response = $this->Connector->getRequest('/test_participant/drawing_answer_url/'.$answer_uuid,['base64' => $base64],[]);
 
         if($response === false){
             return $this->Connector->getLastResponse();
         }
 
         return $response;
+    }
+
+    public function getBase64EncodedDrawingQuestionGivenAnswerPng($answerUuid)
+    {
+        $url = sprintf('/drawing-question/%s/given-answer-png', $answerUuid);
+
+        $image =  $this->Connector->getDownloadRequest($url, []);
+        $mimeType = mime_content_type($image);
+        $mimeType = $mimeType ? $mimeType: 'image/png';
+        return "data:" . $mimeType . ";base64," . base64_encode($image);
     }
 
     public function hasCarouselQuestion($test_take_id)
@@ -895,5 +915,47 @@ class TestTakesService extends BaseService {
              ),
              []
          );
+    }
+
+    public function getSurveillanceData($params = [])
+    {
+        return $response = $this->Connector->getJsonRequest('/test_take/get_surveillance_data', $params);
+    }
+
+    public function bustSurveillanceCache()
+    {
+        return $response = $this->Connector->getJsonRequest('/test_take/bust_surveillance_cache', []);
+    }
+
+    /************************** feedback section  ************************/
+    public function getFeedback($participant_id, $question_id, $mode){
+        return $response = $this->Connector->getRequest('/test_participant/feedback/' . $participant_id . '/' . $question_id, ['mode' => $mode]);
+    }
+
+    public function getFeedbackByAnswerId($answer_id, $mode){
+        return $response = $this->Connector->getRequest('/test_participant/feedback_by_answer/' . $answer_id, ['mode' => $mode]);
+    }
+
+    public function saveFeedback($answer_id, $message){
+        if(!$this->Connector->postRequest('/test_participant/feedback/' . $answer_id, [], ['message' => $message])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return true; 
+    }
+
+    public function deleteFeedback($feedback_id){
+        if(!$this->Connector->deleteRequest('/test_participant/feedback/' . $feedback_id, [])){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return true; 
+    }
+
+    public function getTestTakeAnswersUrlForLaravel($testTakeId)
+    {
+        return $this->Connector->postRequest(sprintf('/test_take/answers/%s/with_temporary_login', $testTakeId), [], []);
     }
 }

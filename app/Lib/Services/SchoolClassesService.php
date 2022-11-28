@@ -198,6 +198,15 @@ class SchoolClassesService extends BaseService {
         return $response;
     }
 
+    public function removeMentor($class_id,$user_id)
+    {
+        $response = $this->Connector->deleteRequest('/school_class_mentor/'.$class_id.'/'.$user_id, []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
     public function deleteClass($class_id) {
         $response = $this->Connector->deleteRequest('/school_class/' . $class_id, []);
 
@@ -259,5 +268,27 @@ class SchoolClassesService extends BaseService {
         } else {
             $this->addError($response);
         }
+    }
+
+    public function getForUser($userUuid)
+    {
+        $response = $this->Connector->getRequest('/school_class/forUser/' . $userUuid, []);
+
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
+        }
+        return $response;
+    }
+
+    public function resetPasswords($classUuid)
+    {
+        $response = $this->Connector->putRequest('/school_class/reset_passwords/'. $classUuid, [], []);
+
+        if ($response === false) {
+            $this->handleFalseResponse($response);
+            return false;
+        }
+        return $response;
     }
 }

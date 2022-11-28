@@ -96,12 +96,26 @@ class QuestionsService extends BaseService
                 $response = $this->Connector->postRequest('/test_question/' . $owner_id . '/attachment', $data, []);
             }
         }
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $respons;
     }
 
     public function getInlineImageContent($image) {
 
         $response = $this->Connector->getDownloadRequest('/question/inlineimage/' . $image, []);
         return $response;
+    }
+
+    public function getBase64EncodedCorrectionModelForDrawingQuestion($drawingQuestionUuid)
+    {
+        $url = sprintf('/drawing-question/%s/correction-model', $drawingQuestionUuid);
+        $image =  $this->Connector->getDownloadRequest($url, []);
+        $mimeType = mime_content_type($image);
+        $mimeType = $mimeType ? $mimeType: 'image/png';
+        return "data:" . $mimeType . ";base64," . base64_encode($image);
+        return $image;
     }
 
     public function duplicate($owner, $owner_id, $question_id)
@@ -117,6 +131,7 @@ class QuestionsService extends BaseService
         $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
         $data['question_id'] = $question_id;
 
+
         $response = $this->Connector->postRequest('/test_question', [], $data);
         if ($response === false) {
             return $this->Connector->getLastResponse();
@@ -125,12 +140,50 @@ class QuestionsService extends BaseService
         return $response;
     }
 
+    /**
+     * @param $owner
+     * @param $owner_id  should be the group_id to attach the question to.
+     * @param $question_id
+     */
+    public function duplicatetogroup($owner, $owner_id, $question_id)
+    {
+        $data['group_question_id'] = $owner_id;
+        $data['order'] = 0;
+        $data['maintain_position'] = 0;
+        $data['discuss'] = 1;
+        $question = $this->getSingleQuestion($question_id);
+        $question_id = $question['id'];
+        $data['closeable'] = $question['closeable'] == 1 ? 1 : 0;
+        $data['question_id'] = $question_id;
+        $data['owner_id'] = $owner_id;
+
+
+            // $ownerId is the test_questions.uuid
+            $response = $this->Connector->postRequest('/group_question_question/' . $owner_id , [], $data);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
+
     public function getQuestion($owner, $owner_id, $question_id)
     {
 
         if ($owner == 'test') {
+            /**
+             * @param $question_id TestQuestion::uuid van de question;
+             * @var tcCore\TestQuestion $response ;
+             */
             $response = $this->Connector->getRequest('/test_question/' . $question_id, []);
         } else {
+            /**
+             * @param $owner_id TestQuestion::uuid van de GroupQuestion
+             * @param $question_id GroupQuestionQuestion::uuid van tcCore\GroupQuestionQuestion;
+             * @var tcCore\GroupQuestionQuestion $response
+             */
             $response = $this->Connector->getRequest('/group_question_question/' . $owner_id . '/' . $question_id, []);
         }
 
@@ -328,6 +381,9 @@ class QuestionsService extends BaseService
         }
 
         $question  = $this->handleEmptyQuestionVars($question,$oriQuestion);
+        if(array_key_exists('clone_attachments',$oriQuestion) && !empty($oriQuestion['clone_attachments'])){
+            $question['clone_attachments'] = $oriQuestion['clone_attachments'];
+        }
 
         // if (empty($question['attainments'])) {
         //     $question['attainments'] = [];
@@ -370,7 +426,10 @@ class QuestionsService extends BaseService
         if ($response === false) {
             $error = $this->Connector->getLastResponse();
             if ($this->isValidJson($error)) {
-                $err = json_decode($error);
+                $err = json_decode($error,true);
+                if(array_key_exists('errors',$err) && array_key_exists('message',$err)){
+                    unset($err['message']);
+                }
                 foreach ($err as $k => $e) {
                     if (is_array($e) || is_object($e)) {
                         foreach ($e as $a) {
@@ -966,7 +1025,7 @@ class QuestionsService extends BaseService
         return $changed;
     }
 
-    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null)
+    public function editQuestion($owner, $owner_id, $type, $question_id, $question, $session = null, $checkForErrorsAndReturnIfSo = false)
     {
         $testUrl = '/test_question/' . $question_id;
         $groupUrl = '/group_question_question/' . $owner_id . '/' . $question_id;
@@ -978,13 +1037,18 @@ class QuestionsService extends BaseService
 
         switch ($type) {
             case "CompletionQuestion":
-            case "MatchingQuestion":
-            case "ClassifyQuestion":
-//                $processed = $this->encodeCompletionTags($question['question']);
-//                $question['question'] = $processed['question'];
                 $hasBackendValidation = true;
                 break;
-
+            case "ClassifyQuestion":
+            case "MatchingQuestion":
+                $hasBackendValidation = true;
+                if(!$question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
+                break;
             case "ARQQuestion":
                 $question['score'] = 0;
 
@@ -1014,10 +1078,25 @@ class QuestionsService extends BaseService
                         $question['selectable_answers']++;
                     }
                 }
+                if(!$question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
                 break;
             case "TrueFalseQuestion":
                 $question['answers'] = $this->getTrueFalsQuestionAnswers($question);
             break;
+
+            case "RankingQuestion":
+                if(!question['html_specialchars_encoded']){
+                    break;
+                }
+                foreach ($question['answers'] as $key => $answer){
+                    $question['answers'][$key] = $this->transformHtmlChars($answer);
+                }
+                break;
 
             case "DrawingQuestion":
 
@@ -1062,14 +1141,21 @@ class QuestionsService extends BaseService
                     $error = $this->Connector->getLastResponse();
 
                     if ($this->isValidJson($error)) {
-                        $err = json_decode($error);
+                        $err = json_decode($error,true);
+                        if(array_key_exists('errors',$err) && array_key_exists('message',$err)){
+                            unset($err['message']);
+                        }
                         foreach ($err as $k => $e) {
                             if (is_array($e) || is_object($e)) {
                                 foreach ($e as $a) {
-                                    $this->addError($a);
+                                    if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                        $this->addError($a);
+                                    }
                                 }
                             } else {
-                                $this->addError($e);
+                                if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                    $this->addError($e);
+                                }
                             }
                         }
                     }
@@ -1138,10 +1224,14 @@ class QuestionsService extends BaseService
                 foreach ($err as $k => $e) {
                     if (is_array($e) || is_object($e)) {
                         foreach ($e as $a) {
-                            $this->addError($a);
+                            if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                                $this->addError($a);
+                            }
                         }
                     } else {
-                        $this->addError($e);
+                        if($checkForErrorsAndReturnIfSo === false || $k === 'errors') {
+                            $this->addError($e);
+                        }
                     }
                 }
             } else {
@@ -1151,9 +1241,9 @@ class QuestionsService extends BaseService
             if ($hasBackendValidation) {
                 return false;
             }
+
             return $error;
         }
-
         return $response;
     }
 
@@ -1359,7 +1449,6 @@ class QuestionsService extends BaseService
 
     private function _fillNewCompletionQuestion($question, $subtype = 'completion')
     {
-
         return [
             'question' => $question['question'],
             'type' => 'CompletionQuestion',
@@ -1374,7 +1463,9 @@ class QuestionsService extends BaseService
             'add_to_database' => (int) $question['add_to_database'],
             'attainments' => $question['attainments'],
             'note_type' => $question['note_type'],
-            'is_open_source_content' => $question['is_open_source_content']
+            'is_open_source_content' => $question['is_open_source_content'],
+            'auto_check_answer' => $question['auto_check_answer'],
+            'auto_check_answer_case_sensitive' => $question['auto_check_answer_case_sensitive'],
         ];
     }
 
@@ -1421,6 +1512,8 @@ class QuestionsService extends BaseService
         $score = 0;
         $selectable_answers = 0;
 
+        $question  = $this->transformAnswers($question);
+
         for ($i = 0; $i < 10; $i++) {
             if (isset($question['answers'][$i])) {
                 if (!empty($question['answers'][$i]['score'])) {
@@ -1458,6 +1551,7 @@ class QuestionsService extends BaseService
 
     private function _fillNewRankingQuestion($question)
     {
+        $question  = $this->transformAnswers($question);
         return [
             'type' => 'RankingQuestion',
             'score' => $question['score'],
@@ -1477,6 +1571,8 @@ class QuestionsService extends BaseService
 
     public function _fillNewMatchingQuestion($question)
     {
+        $question  = $this->transformAnswersMatching($question);
+
         return [
 
             'type'                   => 'MatchingQuestion',
@@ -1498,6 +1594,8 @@ class QuestionsService extends BaseService
 
     public function _fillNewClassifyQuestion($question)
     {
+        $question  = $this->transformAnswersMatching($question);
+
         return [
             'type'                   => 'MatchingQuestion',
             'score'                  => $question['score'],
@@ -1520,9 +1618,10 @@ class QuestionsService extends BaseService
     {
 
         $tags = [];
-
-        foreach ($question['completion_question_answers'] as $tag) {
-            $tags[$tag['tag']][] = $tag['answer'];
+        if (array_key_exists('completion_question_answers', $question) && is_array($question['completion_question_answers'])) {
+            foreach ($question['completion_question_answers'] as $tag) {
+                $tags[$tag['tag']][] = $tag['answer'];
+            }
         }
 
         $searchPattern = '/\[([0-9]+)\]/i';
@@ -1623,4 +1722,43 @@ class QuestionsService extends BaseService
         }
         return $question;
     }
+
+    public function transformHtmlChars($answer){
+        $answer = str_replace('<','&lt;',$answer);
+        $answer = str_replace('>','&gt;',$answer);
+        return $answer;
+    }
+
+    public function transformHtmlCharsReverse($answer){
+        $answer = str_replace('&lt;','<',$answer);
+        $answer = str_replace('&gt;','>',$answer);
+        return $answer;
+    }
+
+    public function getStoragePath()
+    {
+        $response = $this->Connector->getRequest('/convert/settings/storage_path', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response['status'];
+    }
+
+    private function transformAnswers($question)
+    {
+        foreach ($question['answers'] as $key => $answerArray) {
+            $question['answers'][$key]['answer'] = $this->transformHtmlChars($answerArray['answer']);
+        }
+        return $question;
+    }
+
+    private function transformAnswersMatching($question)
+    {
+        foreach ($question['answers'] as $key => $answerArray) {
+            $question['answers'][$key]['left'] = $this->transformHtmlChars($answerArray['left']);
+            $question['answers'][$key]['right'] = $this->transformHtmlChars($answerArray['right']);
+        }
+        return $question;
+    }
+
 }

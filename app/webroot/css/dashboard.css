@@ -12,7 +12,7 @@
     flex-direction: column;
     font-family: "Nunito", sans-serif;
     color: var(--system-base);
-    margin: 50px 82px 0 82px;
+    margin: 0 82px 0 82px;
 }
 
 .dashboard h1 {
@@ -100,6 +100,7 @@
     align-items: center;
 }
 .dashboard .cta-blocks .block-container {
+    width: 100%;
     display: flex;
     padding: 2.5rem 0;
     overflow-x: hidden;
@@ -136,7 +137,7 @@
 
 .dashboard .cta-blocks .cta-block .subtitle {
     font-size: 1.125rem;
-    font-weight: bold;
+    font-weight: 700;
     font-stretch: normal;
     font-style: normal;
     line-height: normal;
@@ -209,6 +210,7 @@
     padding: 20px 30px;
     border-radius: 10px;
     margin-bottom: 16px;
+    box-sizing: border-box;
 }
 
 .dashboard .notification.info {
@@ -277,61 +279,168 @@
     overflow: visible !important;
 }
 
-.checkbox-custom, .radio-custom, .number-radio {
-    opacity: 0;
+.dashboard.create-content .cta-blocks .block-container {
+    padding-bottom: 0;
+    width: 100%;
+}
+.dashboard.create-content .cta-blocks .block-container .cta-block{
+    flex-grow: 1;
+    background-color: white;
+}
+.dashboard.create-content  {
+    border: solid 1px var(--blue-grey);
+    margin: 0;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 1px 3px rgb(0 0 0 / 20%);
+    box-sizing: border-box;
+}
+
+.dashboard.create-content .close {
+    stroke: var(--system-base);
+}
+.dashboard.create-content .close:hover g {
+    stroke: var(--primary);
+}
+
+.dashboard.create-content .indicator {
+    position: relative;
+    left: auto;
+    transform: none;
+    display: flex;
+    padding-top: 1.5rem;
+    justify-content: center;
+}
+.add_test_indicator {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+.add_test_indicator svg{
+    position: relative;
+    top: 2rem;
+}
+
+.justifyContentCenter {
+    justify-content: center;
+}
+.alignItemsCenter {
+    align-items: center;
+}
+
+
+.dashboard .notes :where(.terms-and-conditions, .trial-period) {
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs {
     position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background-color: transparent;
+    margin: 0;
 }
 
-.checkbox-custom, .checkbox-custom-label, .radio-custom, .radio-custom-label, .number-radio, .number-radio-label {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 4px;
-    cursor: pointer;
-    line-height: 18px;
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:first-child {
+    margin: 0 4px 0 0;
+    border-top-left-radius: 0;
 }
 
-.checkbox-custom-label, .radio-custom-label, .number-radio-label {
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:last-child {
+    margin: 0 0 0 4px;
+    border-top-right-radius: 0;
+}
+
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab {
+    --dashboard-tab-background-color: var(--teacher-Highlight-primary);
+    flex-grow: 1;
+    height: 10px;
+    border-radius: 5px;
+    margin: 0 4px;
+    background-color: var(--dashboard-tab-background-color);
     position: relative;
 }
 
-.checkbox-custom + .checkbox-custom-label:before, .radio-custom + .radio-custom-label:before, .number-radio + .number-radio-label:before {
-    content: '';
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab span {
+    position: absolute;
+    top: -20px;
+    font-size: 14px;
+    font-weight: 700;
+    right: 0;
+    width: max-content;
+}
+
+.dashboard .notes :where(.terms-and-conditions, .trial-period) .tabs .tab:first-child span {
+    left: 4px;
+}
+.dashboard .notes .trial-period .tabs .tab {
+    --dashboard-tab-background-color: var(--blue-grey);
+}
+
+span.note {
+    font-size: 14px;
+    font-weight: normal;
+    color: var(--note);
+}
+
+
+
+#header .menu-scroll-button {
+    position: absolute;
+    cursor: pointer;
+    top: 60px;
+    color: white;
+    z-index: 3;
+    display: none;
+    padding: 8px;
+}
+#header .menu-scroll-button svg{
+    z-index: 2;
+}
+#header .menu-scroll-button.right {
+    right: 5px;
+}
+#header .menu-scroll-button span {
+    position: absolute;
+    width: 40px;
+    height: 48px;
+    top: -10px;
+}
+#header .menu-scroll-button.right span {
+    right: -5px;
+}
+
+#header .menu-scroll-button.left {
+    left: 5px;
+}
+#header .menu-scroll-button.left span {
+    left: -5px;
+}
+
+#header.blue .menu-scroll-button.left span {background: linear-gradient(90deg, rgba(0, 77, 245, 1) 75%, rgba(60, 121, 253, 0.1));}
+#header.blue .menu-scroll-button.right span {background: linear-gradient(90deg, rgba(0, 77, 245, 0.1) 0%, rgba(71, 129, 255, 1) 40%);}
+#header.green .menu-scroll-button.left span {}
+#header.green .menu-scroll-button.right span {}
+
+
+input.new-styling-input {
+    padding: 0 10px 0 10px;
+    height: 40px;
+    border-radius: 8px;
     background: var(--off-white);
     border: 1px solid var(--blue-grey);
-    display: inline-block;
-    vertical-align: middle;
-    width: 18px;
-    height: 18px;
-    padding: 2px;
-    text-align: center;
+    font-family: "Nunito", sans-serif;
 }
 
-.checkbox-custom + .checkbox-custom-label:before {
-    border-radius: 8px;
+input.new-styling-input:hover {
+    border: 1px solid var(--primary);
 }
 
-.radio-custom + .radio-custom-label:before, .number-radio + .number-radio-label:before {
-    border-radius: 50%;
-}
-
-.checkbox-custom:checked + .checkbox-custom-label:before, .radio-custom:checked + .radio-custom-label:before, .number-radio:checked + .number-radio-label:before {
-    content: '';
-    background: var(--primary);
-    border-color: var(--primary);
-}
-
-.checkbox-custom:checked + .checkbox-custom-label.checkbox-green:before {
-    background: var(--cta-primary);
-    border-color: var(--cta-primary);
-}
-
-.checkbox-custom-label svg, .radio-custom-label svg {
-    color: var(--off-white);
-    position: absolute;
-    left: 5px;
-    top: 7px;
-}
-
-.checkbox-custom:checked + .checkbox-custom-label svg, .radio-custom:checked + .radio-custom-label svg {
-    color: white;
+input.new-styling-input:focus, input.new-styling-input:active {
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    outline: none;
 }

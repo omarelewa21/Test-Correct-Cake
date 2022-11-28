@@ -1,11 +1,11 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Popup.load('/questions/edit_group/<?=$test_id?>/<?=$group_id?>', 600); return false;">
         <span class="fa fa-edit mr5"></span>
-        Wijzigen
+        <?= __("Wijzigen")?>
     </a>
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+    <a href="#" class="btn white mr2" onclick="Navigation.load('/tests/view/<?=$test_id?>');">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
@@ -15,7 +15,7 @@
 if(!empty($group['question']['question'])) {
     ?>
     <div class="block">
-        <div class="block-head">Omschrijving</div>
+        <div class="block-head"><?= __("Omschrijving")?></div>
         <div class="block-content">
             <?=$group['question']['question']?>
         </div>
@@ -26,18 +26,18 @@ if(!empty($group['question']['question'])) {
 ?>
 
 <div class="block">
-    <div class="block-head">Bijlages</div>
+    <div class="block-head"><?= __("Bijlages")?></div>
     <div class="block-content">
         <div id="groupAttachments"></div>
     </div>
 </div>
 
 <div class="block">
-    <div class="block-head">Groep vragen
+    <div class="block-head"><?= __("Groep vragen")?>
         <?
                 if($group['question']['groupquestion_type']=='carousel') {
         ?>
-                (Aantal te beantwoorden vragen: <?=$group['question']['number_of_subquestions']?>)
+                (<?= __("Aantal te beantwoorden vragen:")?> <?=$group['question']['number_of_subquestions']?>)
         <?
                 }
         ?>
@@ -55,9 +55,9 @@ if(!empty($group['question']['question'])) {
             <tr>
                 <th>#</th>
                 <th>&nbsp;</th>
-                <th>Vraag</th>
-                <th>Soort</th>
-                <th>Score</th>
+                <th><?= __("Vraag")?></th>
+                <th><?= __("Soort")?></th>
+                <th><?= __("Score")?></th>
                 <th width="80"></th>
             </tr>
             </thead>
@@ -73,9 +73,9 @@ if(!empty($group['question']['question'])) {
                             <?php
 
                             if($question['question']['closeable'] == 1) {
-                                $title = 'Deze vraag afsluiten';
+                                $title = __("Deze vraag afsluiten");
                                 if ($question['question']['type'] == 'GroupQuestion') {
-                                    $title = 'Deze vraaggroep afsluiten';
+                                    $title = __("Deze vraaggroep afsluiten");
                                 }
                                 printf ('<i title="%s" style="cursor:pointer" class="fa fa-lock"></i>', $title);
                             } else {
@@ -84,8 +84,10 @@ if(!empty($group['question']['question'])) {
                             ?>
                         </td>
                         <td>
-                            <div class="cell_autowidth">
-                                <?= $question['question']['question'] ?>
+                            <div class="questionContainer">
+                                <div class="cell_autowidth">
+                                    <?= $question['question']['question'] ?>
+                                </div>
                             </div>
                         </td>
                         <td>
@@ -93,9 +95,9 @@ if(!empty($group['question']['question'])) {
                             switch($question['question']['type']) {
                                 case 'MultipleChoiceQuestion':
                                     if($question['question']['subtype'] == 'TrueFalse') {
-                                        echo 'Juist / Onjuist';
+                                        echo __("Juist / Onjuist");
                                     }else{
-                                        echo 'Meerkeuze';
+                                        echo __("Meerkeuze");
                                     }
                                     break;
 
@@ -103,40 +105,43 @@ if(!empty($group['question']['question'])) {
                                     switch($question['question']['subtype']){
 
                                         case 'short':
-                                            echo 'Open vraag - kort<br />';
+                                            echo __("Open vraag - kort<br />");
                                             break;
                                         case 'long':
                                         case 'medium':
-                                            echo 'Open vraag - lang<br />';
+                                            echo __("Open vraag - lang<br />");
+                                            break;
+                                        case 'writing':
+                                            echo __("Schrijf opdracht<br />");
                                             break;
                                         default:
-                                            echo 'Open vraag<br />';
+                                            echo __("Open vraag<br />");
                                             break;
                                     }
                                     break;
 
                                 case 'CompletionQuestion':
                                     if($question['question']['subtype'] == 'multi') {
-                                        echo 'Selectie';
+                                        echo __("Selectie");
                                     }else{
-                                        echo 'Gatentekst';
+                                        echo __("Gatentekst");
                                     }
                                     break;
 
                                 case 'RankingQuestion':
-                                    echo 'Rangschik';
+                                    echo __("Rangschik");
                                     break;
 
                                 case 'MatchingQuestion':
                                     if($question['question']['subtype'] == 'Matching') {
-                                        echo 'Combineer';
+                                        echo __("Combineer");
                                     }else{
-                                        echo 'Rubriceer';
+                                        echo __("Rubriceer");
                                     }
                                     break;
 
                                 case 'DrawingQuestion':
-                                    echo 'Teken';
+                                    echo __("Teken");
                                     break;
                             }
                             ?>
@@ -146,20 +151,72 @@ if(!empty($group['question']['question'])) {
                         </td>
                         <td class="nopadding">
                             <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="question_<?=getUUID($question, 'get');?>">
-                                <span class="fa fa-list-ul"></span>
+                                <span class="fa fa-ellipsis-v"></span>
                             </a>
-                            <a href="#" class="btn white pull-right" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                            <?php
+                            $testQuestionUuid = $group_id;
+                            $groupQuestionQuestionUuid = getUUID($question, 'get');
+
+                            $editAction = sprintf(
+                                "Navigation.load('/questions/edit/group/%s/%s/%s')",
+                                $testQuestionUuid,
+                                $question['question']['type'],
+                                $groupQuestionQuestionUuid
+                            );
+
+                            $cloneAction = sprintf(
+                                "Navigation.load('/questions/edit/group/%s/%s/%s/0/0/1');",
+                                $testQuestionUuid,
+                                $question['question']['type'],
+                                $groupQuestionQuestionUuid
+                            );
+                            
+                            $overwriteActions = false;
+                            if (in_array($question['question']['type'], ['DrawingQuestion'])) {
+                                if ($usesNewDrawingQuestion) {
+                                    $overwriteActions = true;
+                                }                            
+                            } else if ($newEditor) {
+                                   $overwriteActions = true; 
+                            }
+                            
+                            if ($overwriteActions) {
+                                $editAction = sprintf(
+                                    "Questions.editPopup('%s', 'group','%s', '%s', '%s', '%s')",
+                                    $question['question']['type'],
+                                    $test_id,
+                                    $question['question']['subtype'],
+                                    $testQuestionUuid,
+                                    $groupQuestionQuestionUuid
+                                );
+
+                                $cloneAction = sprintf(
+                                    "Questions.editPopup( '%s', 'group', '%s', '%s', '%s','%s',true)",
+                                    $question['question']['type'],
+                                    $test_id,
+                                    $question['question']['subtype'],
+                                    $testQuestionUuid,
+                                    $groupQuestionQuestionUuid
+                                );
+
+                            }
+                                ?>
+                            <a href="#" class="btn white pull-right" onclick="<?= $editAction ?>">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
 
                             <div class="dropblock blur-close" for="question_<?=getUUID($question, 'get');?>">
-                                <a href="#" class="btn highlight white" onclick="Popup.load('/questions/edit/group/<?=$group_id?>/<?=$question['question']['type']?>/<?=getUUID($question, 'get');?>', 800);">
+                                <a href="#" class="btn highlight white" onclick="<?= $editAction ?>">
                                     <span class="fa fa-edit mr5"></span>
-                                    Wijzigen
+                                    <?= __("Wijzigen")?>
                                 </a>
                                 <a href="#" class="btn highlight white" onclick="Questions.delete('group', '<?=$group_id?>',<?=getUUID($question, 'getQuoted');?>);">
                                     <span class="fa fa-remove mr5"></span>
-                                    Verwijderen
+                                    <?= __("Verwijderen")?>
+                                </a>
+                                <a href="#" class="btn highlight white" onclick="<?= $cloneAction ?>">
+                                    <span class="fa fa-clone mr5"></span>
+                                    <?= __('Gebruik als sjabloon')?>
                                 </a>
                             </div>
                         </td>
@@ -171,12 +228,12 @@ if(!empty($group['question']['question'])) {
         </table>
     </div>
     <div class="block-footer">
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>', 800); return false;">
-            <i class="fa fa-plus mr5"></i> Nieuwe vraag toevoegen
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_custom/group/<?=$group_id?>/<?= $test_id ?>', 800); return false;">
+            <i class="fa fa-plus mr5"></i> <?= __("Nieuwe vraag toevoegen")?>
         </a>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" style="display: none;;">
-            <i class="fa fa-plus mr5"></i> Bestaande vraag toevoegen
-        </a>
+        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Popup.load('/questions/add_existing_to_group/group/<?=$group_id?>', 1200); return false;">
+                <i class="fa fa-clock-o mr5"></i> <?= __("Bestaande vraag toevoegen")?>
+            </a>
     </div>
 </div>
 

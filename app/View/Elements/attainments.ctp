@@ -1,6 +1,6 @@
 <?
 $mainAttaiments = [
-    '' => 'Geen domein'
+    '' => __("Geen domein")
 ];
 
 $subAttainments = [];
@@ -19,12 +19,12 @@ foreach($attainments as $id => $data) {
 }
 ?>
 
-<strong>Domein</strong>
+<strong><?= __("Domein")?></strong>
 <?=$this->Form->input('attainments', array('label' => false, 'type' => 'select', 'onchange' => 'updateSubAttainments();', 'options' => $mainAttaiments, 'style' => 'width:750px;', 'value' => $selectedAttainments))?>
 <div id="dvSubdomain" style="<?=count($selectedAttainments) < 2 ? 'display:none;' : '' ?>">
     <br /><br />
-    <strong>Subdomein</strong>
-    <?=$this->Form->input('sub_attainments', array('label' => false, 'type' => 'select', 'options' => $subAttainments, 'style' => 'width:750px;', 'value' => $selectedAttainments))?>
+    <strong><?= __("Subdomein")?></strong>
+    <?=$this->Form->input('sub_attainments', array('label' => false, 'type' => 'select', 'options' => $subAttainments, 'style' => 'width:750px;', 'value' => $selectedAttainments, 'div' => ['style' => 'overflow: hidden;']))?>
 </div>
 
 <script type="text/javascript">
@@ -46,7 +46,7 @@ foreach($attainments as $id => $data) {
             <?php
             foreach($data['attainments'] as $sub_id => $sub_title) {
                 ?>
-            $('#QuestionSubAttainments').append('<option value="<?=$sub_id?>"><?=str_replace("'", "", $sub_title)?></option>');
+            $('#QuestionSubAttainments').append('<option value="<?=$sub_id?>"><?=str_replace("'", "", str_replace(array("\r", "\n", "\t"), '', $sub_title))?></option>');
             <?php
         }
         ?>

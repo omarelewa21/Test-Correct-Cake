@@ -46,6 +46,7 @@ function FilterManager(settings) {
                     this.registerEvents();
                     this.addChangeEventsToFilter(this);
                     this.initNewFilter();
+                    this.setFilterFromCookie();
                 }
 
             }
@@ -120,7 +121,7 @@ function FilterManager(settings) {
             .append(
                 $('<option></option>')
                     .attr('value', '')
-                    .text('Kies een filter (geen filter)')
+                    .text($.i18n('Kies een filter (geen filter)'))
             );
         this.enableDeleteButton();
         $(this.filters).each(function (key, filter) {
@@ -132,8 +133,19 @@ function FilterManager(settings) {
             this.resetSearchForm();
             this.disableDeleteButton();
             if (!this.isDeleting) {
+                var activeFilterUuid = false;
                 if (typeof this.activeFilter.uuid !== 'undefined') {
-                    $.getJSON('/search_filter/deactivate/' + this.activeFilter.uuid, function (response) {
+                    activeFilterUuid = this.activeFilter.uuid;
+                } else {
+                    var activeItem = this.filters.find(function (item) {
+                        return item.active == 1;
+                    });
+                    if(activeItem){
+                        activeFilterUuid = activeItem.uuid;
+                    }
+                }
+                if (activeFilterUuid) {
+                    $.getJSON('/search_filter/deactivate/' + activeFilterUuid, function (response) {
                         this.setActiveFilterToEmpty();
                     }.bind(this));
                 }
@@ -143,15 +155,18 @@ function FilterManager(settings) {
             this.activeFilter = false;
             this.editFilter = {'filters': {}};
         } else if (this.filters) {
-            var activeItem = this.filters.find(function (item) {
-                return item.active == 1;
-            });
-            if (activeItem) {
-                $(this.el).val(activeItem.id);
-                this.setActiveFilter(activeItem.id);
-            } else {
-                this.activeFilter = false;
-                this.disableDeleteButton();
+            if(!this.hasSavedActiveFilterFromCookie()){
+                var activeItem = this.filters.find(function (item) {
+                    return item.active == 1;
+                });
+
+                if (activeItem) {
+                    $(this.el).val(activeItem.id);
+                    this.setActiveFilter(activeItem.id);
+                } else {
+                    this.activeFilter = false;
+                    this.disableDeleteButton();
+                }
             }
         } else {
             this.activeFilter = false;
@@ -165,7 +180,7 @@ function FilterManager(settings) {
             .append(
                 $('<option></option>')
                     .attr('value', '')
-                    .text('Kies een filter (geen filter)')
+                    .text($.i18n('Kies een filter (geen filter)'))
             );
         this.enableDeleteButton();
         $(this.filters).each(function (key, filter) {
@@ -174,12 +189,14 @@ function FilterManager(settings) {
         if (valueToSelect) {
             $(this.el).val(valueToSelect);
         } else if (this.filters) {
-            var activeItem = this.filters.find(function (item) {
-                return item.active == 1;
-            });
-            if (activeItem) {
-                $(this.el).val(activeItem.id);
-                this.setActiveFilter(activeItem.id);
+            if(!this.hasSavedActiveFilterFromCookie()) {
+                var activeItem = this.filters.find(function (item) {
+                    return item.active == 1;
+                });
+                if (activeItem) {
+                    $(this.el).val(activeItem.id);
+                    this.setActiveFilter(activeItem.id);
+                }
             }
         }
         this.renderActiveFilter();
@@ -251,19 +268,21 @@ function FilterManager(settings) {
             this.activeFilter.filters[prop] = {name: '', filter: '', label: ''};
             this.activeFilter.changed = true;
             this.renderActiveFilter();
+            this.saveActiveFilterToCookie();
         }.bind(this))
 
         .on('click', this.settings.eventScope+' #jquery-add-filter', function (e) {
             $(this.el).val('');
             this.resetSearchForm();
-            this.setSearchFormTitle('Filter aanmaken');
+            this.setSearchFormTitle($.i18n('Filter aanmaken'));
             $('#jquery-save-filter-as-from-modal').hide();
             Popup.showSearch();
             this.activeFilter = {
                 id: '',
-                name: 'Nieuw',
+                name: $.i18n('Nieuw'),
                 filters: this.newFilter
             };
+            this.saveActiveFilterToCookie();
             this.renderActiveFilter(e);
         }.bind(this))
 
@@ -325,10 +344,10 @@ function FilterManager(settings) {
         if (!$(e.target).hasClass('disabled')) {
             const isNewFilter = (this.activeFilter.id === '');
             Popup.prompt({
-                    text: 'Wat is de naam van dit filter?',
-                    title: saveAs ? 'Opslaan als' : 'Opslaan',
+                    text: $.i18n('Wat is de naam van dit filter?'),
+                    title: saveAs ? $.i18n('Opslaan als') : $.i18n('Opslaan'),
                     inputValue: isNewFilter
-                        ? 'Nieuw Filter'
+                        ? $.i18n('Nieuw Filter')
                         : saveAs ? this.activeFilter.name + ' copy' : this.activeFilter.name,
                 },
                 function (filterName) {
@@ -336,7 +355,7 @@ function FilterManager(settings) {
                         return;
                     }
                     if (filterName === "") {
-                        Notify.notify('Geen geldige naam opgegeven filter niet opgeslagen!', 'error');
+                        Notify.notify($.i18n('Geen geldige naam opgegeven filter niet opgeslagen!'), 'error');
                     } else {
                         if (isNewFilter) {
                             this.saveNewFilter(filterName);
@@ -345,9 +364,39 @@ function FilterManager(settings) {
                         } else {
                             this.saveActiveFilter(filterName);
                         }
+                        this.removeActiveFilterFromCookie();
                     }
                 }.bind(this));
         }
+    };
+
+    this.saveActiveFilterToCookie = function() {
+        this.removeActiveFilterFromCookie();
+        if(this.activeFilter && !this.activeFilter.id){
+            if(jQuery('.jquery-remove-filter').length) {
+                setCookie(this.getFilterCookieName(), JSON.stringify(this.activeFilter),0.25);
+            }
+        }
+    };
+
+    this.removeActiveFilterFromCookie = function() {
+        deleteCookie(this.getFilterCookieName());
+    };
+
+    this.getFilterCookieName = function() {
+        return 'activeFilterManager_'+this.settings.filterKey;
+    };
+
+    this.hasSavedActiveFilterFromCookie = function(){
+        return !! getCookie(this.getFilterCookieName());
+    };
+
+    this.setFilterFromCookie = function() {
+      let cookieFilter = getCookie(this.getFilterCookieName());
+      if(cookieFilter){
+          this.activeFilter = JSON.parse(cookieFilter);
+          this.renderActiveFilter();
+      }
     };
 
     this.saveActiveFilterAs = function (newFilterName) {
@@ -372,7 +421,7 @@ function FilterManager(settings) {
                 this.initNewFilter();
                 this.activeFilter.changed = false;
 
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
                 this.enableDeleteButton();
                 this.disableSaveButton();
             },
@@ -408,7 +457,7 @@ function FilterManager(settings) {
                 this.initNewFilter()
                 this.activeFilter.changed = false;
                 this.disableSaveButton();
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
             },
         });
     };
@@ -424,7 +473,7 @@ function FilterManager(settings) {
             },
             context: this,
             success: function (response) {
-                Notify.notify('Filter opgeslagen');
+                Notify.notify($.i18n('Filter opgeslagen'));
                 this.renderSelectFilterBox(this.activeFilter.id);
                 //TODO splice the current filter from the array and replace with the new one;
                 this.filters = this.filters.map(function (filter) {
@@ -445,12 +494,12 @@ function FilterManager(settings) {
 
     this.deleteFilter = function () {
         if (this.activeFilter === false) {
-            Notify.notify('Selecteer het filter dat u wilt verwijderen.', 'error')
+            Notify.notify($.i18n('Selecteer het filter dat u wilt verwijderen.'), 'error')
             return;
         }
         Popup.confirm({
             title: '',
-            text: 'Weet je zeker dat je dit filter wilt verwijderen?'
+            text: $.i18n('Weet je zeker dat je dit filter wilt verwijderen?')
         }, function (confirmValue) {
             if (confirmValue) {
                 if (typeof this.activeFilter.uuid !== 'undefined' ) {
@@ -468,7 +517,7 @@ function FilterManager(settings) {
                             this.isDeleting = false;
                             this.activeFilter = false;
                             this.renderActiveFilter();
-                            Notify.notify('Het filter is succesvol verwijderd.');
+                            Notify.notify($.i18n('Het filter is succesvol verwijderd.'));
                             this.disableDeleteButton();
                         },
                     });
@@ -485,12 +534,12 @@ function FilterManager(settings) {
     };
 
     this.setActiveFilter = function (filterId) {
-
         // if (filterId == '') return;
 
         var filterToClone = this.filters.find(function (filter) {
             return filter.id == filterId;
         });
+        if(!filterToClone) return;
         this.editFilter = JSON.parse(JSON.stringify(filterToClone));
         // clone the object using the oldest trick in the book because we have no deep clone helper;
 
@@ -516,10 +565,12 @@ function FilterManager(settings) {
                 }
                 input.val(newValue);
             } else if (this.activeFilter && !this.activeFilter.filters.hasOwnProperty(item.field)) {
-                if (!newValue && input.get(0).tagName === 'SELECT') {
-                    newValue = '0';
-                }
-                input.val(newValue);
+                try {
+                    if (!newValue && input.get(0).tagName === 'SELECT') {
+                        newValue = '0';
+                    }
+                    input.val(newValue);
+                } catch (e){}
             }
         }.bind(this));
         this.initializeSelect2Fields();
@@ -555,7 +606,6 @@ function FilterManager(settings) {
                     var input = this.getJqueryFilterInput(key);
 
                     if(typeof input != 'undefined' && typeof input.get(0) != 'undefined') {
-
                         if (input.get(0).tagName === 'SELECT' && filterDetail.filter == '0') continue;
 
                         if (input.get(0).tagName === 'INPUT' && filterDetail.filter == '') continue;
@@ -625,6 +675,7 @@ function FilterManager(settings) {
         if (!this.isInitalizingState) {
             this.activeFilter.changed = true;
         }
+        this.saveActiveFilterToCookie();
         this.renderActiveFilter();
     };
 
@@ -677,6 +728,7 @@ function FilterManager(settings) {
                             'afterFirstRunCallback': this.settings.tablefy.afterFirstRunCallback,
                             'filtermanager': this,
                             'waitForFirstRunCallback': !!(runCallbacks && typeof(this.settings.tablefy.afterFirstRunCallback) == 'function' && this.hasActiveFilterAtInitAuthorsAsField()),
+                            'positionRuns': this.settings.tablefy.positionRuns
                         };
          $(this.settings.table).tablefy(tablefySettings);
     }

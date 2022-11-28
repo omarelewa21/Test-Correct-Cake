@@ -1,29 +1,30 @@
-<div class="popup-head">Juist / Onjuist</div>
-<div class="popup-content">
-    <?=$this->Form->create('Question')?>
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Juist / Onjuist"), 'test_name' => $test_name, 'icon' => $editable ? 'edit' : 'preview', 'editable' => $editable]) ?>
+<!--<div class="popup-head">--><?//= __("Juist / Onjuist")?><!--</div>-->
+<div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form', 'selid' => 'tabcontainer'))?>
 
         <table class="table mb15">
             <tr>
                 <th width="10%">
-                    Punten
+                <?= __("Punten")?>
                 </th>
                 <td width="110">
                     <?=$this->Form->input('score', array('style' => 'width:50px;', 'value' => $question['question']['score'], 'label' => false, 'verify' => 'notempty'))?>
                 </td>
                 <td>
-                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['closeable'] == 1 ? 'checked' : ''))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
-                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['discuss'] == 1 ? 'checked' : ''))?> Bespreken in de klas<br />
-                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> Deze vraag vastzetten <br /><? }?>
-                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> Halve punten mogelijk<br />
+                    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['closeable'] == 1 ? 'checked' : ''))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+                    <?=$this->Form->input('discuss', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['discuss'] == 1 ? 'checked' : ''))?> <?= __("Bespreken in de klas")?><br />
+                    <? if($owner != 'group') { ?><?=$this->Form->input('maintain_position', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['maintain_position'] == 1 ? 'checked' : ''))?> <?= __("Deze vraag vastzetten")?> <br /><? }?>
+                    <?=$this->Form->input('decimal_score', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['decimal_score'] == 1 ? 'checked' : ''))?> <?= __("Halve punten mogelijk")?><br />
                     <?php if(!$is_open_source_content_creator): ?>
-                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> Openbaar maken <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
+                        <?=$this->Form->input('add_to_database', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'selid' => 'open-source-switch', 'div' => false, 'checked' => $question['question']['add_to_database'] == 1 ? 'checked' : ''))?> <?= __("Openbaar maken")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/public_info', 500);" style="cursor:pointer"></span>
                     <?php endif; ?>
                 </td>
                 <td width="230">
                     <?=$this->Form->input('note_type', array('type' => 'select', 'value' => $question['question']['note_type'], 'label' => false, 'div' => false, 'options' => [
-                        'NONE' => 'Geen kladblok',
-                        'TEXT' => 'Tekstvlak',
-                        'DRAWING' => 'Tekenvlak'
+                        'NONE' => __("Geen kladblok"),
+                        'TEXT' => __("Tekstvlak"),
+                        'DRAWING' => __("Tekenvlak")
                     ]))?>
                 </td>
             </tr>
@@ -31,11 +32,11 @@
 
         <?
         function isJuist($answer){
-            return strtolower($answer['answer']) == 'juist' || strtolower(strip_tags($answer['answer'])) == 'waar';
+            return strtolower($answer['answer']) == 'juist' || strtolower(strip_tags($answer['answer'])) == __("waar");
         }
 
         function isOnjuist($answer){
-            return strtolower($answer['answer']) == 'onjuist' || strtolower(strip_tags($answer['answer'])) == 'niet waar';
+            return strtolower($answer['answer']) == 'onjuist' || strtolower(strip_tags($answer['answer'])) == __("niet waar");
         }
 
         $value = 0;
@@ -51,89 +52,72 @@
         }
         ?>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-                Vraag
-            </a>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true]) ?>
 
-            <a href="#" class="btn grey" page="answer" tabs="edit_question">
-                Antwoord
-            </a>
-
-            <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                Bronnen
-            </a>
-
-            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-                Eindtermen
-            </a>
-
-            <a href="#" class="btn grey" page="tags" tabs="edit_question">
-                Tags
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-                Taxonomie
-            </a>
-
-            <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                Info
-            </a>
-            <br clear="all" />
-        </div>
-
-        <div page="question" class="page active" tabs="edit_question">
-            <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'value' => $question['question']['question'], 'div' => false, 'label' => false)); ?>
-        </div>
-
-        <div page="answer" class="page" tabs="edit_question">
-            <table width="100%" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td width="100">
-                        Antwoord is:
-                    </td>
-                    <td>
-                        <?=$this->Form->input('answer', [
-                            'options' => [
-                                1 => 'Juist',
-                                0 => 'Onjuist'
-                            ],
-                            'value' => $value,
-                            'label' => false
-                        ])?>
-                    </td>
-                </tr>
-            </table>
-        </div>
-
-        <div page="attainments" class="page" tabs="edit_question">
-            <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
-        </div>
-
-    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
-
-        <div page="tags" class="page" tabs="edit_question">
-            <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
-        </div>
-
-    <div page="owners" class="page" tabs="edit_question">
-        <?=$this->element('question_info', ['question' => $question])?>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title" selid="header"><?= __('Vraag')?></span>
+        <?= $this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'value' => $question['question']['question'], 'div' => false, 'label' => false)); ?>
     </div>
 
-    <?=$this->Form->end();?>
+    <div page="question" class="page active" tabs="edit_question">
+        <span class="title" selid="header"><?= __('Antwoord')?></span>
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="100">
+                    <?= __("Antwoord is:") ?>
+                </td>
+                <td>
+                    <?= $this->Form->input('answer', [
+                        'options' => [
+                            1 => __("Juist"),
+                            0 => __("Onjuist")
+                        ],
+                        'value'   => $value,
+                        'label'   => false
+                    ]) ?>
+                </td>
+            </tr>
+        </table>
+    </div>
 
-    <div page="sources" class="page" tabs="edit_question"></div>
-</div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
-    </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'TrueFalseQuestion', '<?=getUUID($question, 'get');?>');">
-            Vraag opslaan
-        </a>
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title" selid="header"><?= __('Info')?></span>
+        <?= $this->element('question_info', ['question' => $question]) ?>
+    </div>
+
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title" selid="header"><?= __('Eindtermen')?></span>
+        <?= $this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
+    </div>
+
+    <?= $this->element('question_tab_rtti', ['question' => $question]); ?>
+
+    <div page="settings" class="page" tabs="edit_question">
+        <span class="title" selid="header"><?= __('Tags')?></span>
+        <?= $this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags'])) ?>
+    </div>
+
+    <?php if ($is_clone_request) { ?>
+        <div page="info" class="page" tabs="edit_question">
+            <span class="title" selid="header"><?= __('Info')?></span>
+            <?= $this->element('question_info', ['question' => $question]) ?>
+        </div>
+    <?php } ?>
+    <?= $this->Form->end(); ?>
+
+    <? if ($owner != 'group') { ?>
+        <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
     <? } ?>
 </div>
+<? if ($is_clone_request) { ?>
+    <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('TrueFalseQuestion', '$owner', '$owner_id');"]) ?>
+<? } else { ?>
+    <? if ($editable) { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'TrueFalseQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
+    <? } ?>
+<? } ?>
 
 <script type="text/javascript">
 
@@ -141,9 +125,13 @@
     $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <?php } ?>
 
-    <?php if($owner != 'group') { ?>
-    Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
-    <?php } ?>
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
+    <? } ?>
 
     $('#QuestionAttainments').select2();
 

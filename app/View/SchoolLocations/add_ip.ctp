@@ -1,10 +1,10 @@
-<div class="popup-head">IP toevoegen</div>
+<div class="popup-head"><?= __("IP toevoegen")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Ip') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Ip
+            <?= __("Ip")?>
             </th>
             <td>
                 <?=$this->Form->input('ip', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -12,7 +12,7 @@
         </tr>
         <tr>
             <th>
-                Netmask
+            <?= __("Netmask")?>
             </th>
             <td>
                 <?=$this->Form->input('netmask', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -22,11 +22,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Toevoegen
+    <?= __("Toevoegen")?>
     </a>
 </div>
 
@@ -36,11 +36,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("IP toegevoegd", "info");
+                Notify.notify('<?= __("IP toegevoegd")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("IP kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("IP kon niet worden aangemaakt")?>', "error");
             }
         }
     );

@@ -15,10 +15,10 @@ foreach($files as $file){
             <?= sprintf('%s %s %s',$file['user']['name_first'], $file['user']['name_suffix'],$file['user']['name']) ?>
         </td>
         <td>
-            <?= $file['typedetails']['subject'] ?>
+            <?= $file['subject'] ?>
         </td>
         <td>
-            <?= $file['typedetails']['name'] ?>
+            <?= $file['test_name'] ?>
         </td>
         <td>
             <span class="mr5 color-indicator <?=$file['status']['colorcode']?>"></span>

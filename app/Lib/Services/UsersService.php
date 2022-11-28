@@ -10,6 +10,11 @@ App::uses('BaseService', 'Lib/Services');
 class UsersService extends BaseService
 {
 
+    public function getAllRoles()
+    {
+        return $this->Connector->getRequest('/role',[]);
+    }
+
     public function getRoles()
     {
         return AuthComponent::user('roles');
@@ -465,10 +470,10 @@ class UsersService extends BaseService
     {
         $response = $this->Connector->deleteRequest('/user/'.$user_id, []);
         if ($response === false) {
-            return $this->Connector->getLastResponse();
+            return ['success'=>false,'response'=>$this->Connector->getLastResponse()];
         }
+        return ['success'=>true,'response'=>$response];
 
-        return $response;
     }
 
     public function getUser($user_id, $params = [])
@@ -751,5 +756,77 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function getTimeSensitiveUserRecords($user_uuid)
+    {
+        $response = $this->Connector->getRequest('/user/'.$user_uuid.'/time_sensitive_records', []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function setGeneralTermsLogAcceptedAt($user_uuid)
+    {
+        $response = $this->Connector->putRequest('/user/'.$user_uuid.'/general_terms_accepted', [], []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function createTemporaryLogin($options = null, $path = null)
+    {
+        $params = [];
+        if(is_array($options)){
+            $params = ['options' => $options];
+        }
+        if($path){
+            $params['redirect'] = $path;
+        }
+
+        $response = $this->Connector->postRequest('/temporary-login', $params, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function verifyPasswordForUser($userUuid, $password)
+    {
+        $response = $this->Connector->getRequest('/user/'.$userUuid.'/verify_password', $password);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getReturnToLaravelUrl($userId, $params = [])
+    {
+        $response = $this->Connector->getRequest('/user/'. $userId .'/return_to_laravel_url', $params);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function getLaravelLoginPage()
+    {
+        $response = $this->Connector->getRequest('/auth/laravel_login_page', []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
+    public function updateTrialPeriod($userUuid, $params)
+    {
+        $response = $this->Connector->postRequest("/user/$userUuid/update_trial_date", $params, []);
+
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
 }
 

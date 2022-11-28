@@ -1,9 +1,9 @@
-<div class="popup-head">School locatie</div>
+<div class="popup-head"><?= __("School locatie")?></div>
 <div class="popup-content">
     <?=$this->Form->create('SchoolLocation') ?>
     <table class="table">
         <tr>
-            <th>Naam</th>
+            <th><?= __("Naam")?></th>
             <td>
                 <?=$this->Form->input('school_location_id', array('style' => 'width: 185px', 'options' => $schoolLocationIds, 'label' => false, 'verify' => 'notempty')) ?>
             </td>
@@ -12,11 +12,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Koppelen
+    <?= __("Koppelen")?>
     </a>
 </div>
 
@@ -26,11 +26,11 @@
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("School locatie gekoppeld", "info");
+                Notify.notify('<?= __("School locatie gekoppeld")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Het koppelen is mislukt, probeer het nogmaals", "error");
+                Notify.notify('<?= __("Het koppelen is mislukt, probeer het nogmaals")?>', "error");
             }
         }
     );

@@ -10,7 +10,7 @@ foreach($participants as $participant) {
         continue;
     }
     ?>
-    <div class="participant <?= $active ? 'active' : ''?>">
+    <div id="participant_<?= $participant['user']['uuid'] ?>" class="participant <?= $active ? 'active' : ''?>">
         <? if($status == 1) { ?>
             <span class="pull-right fa fa-remove" style="cursor:pointer;" onclick="TestTake.removeParticipant('<?=$take_id?>', '<?=getUUID($participant, 'get');?>');"></span>
         <? } ?>
@@ -34,7 +34,7 @@ foreach($participants as $participant) {
     <center>
         <a href="#" class="btn highlight inline-block" onclick="Popup.load('/test_takes/add_participants/<?=$take_id?>', 700);">
             <span class="fa fa-plus"></span>
-            Studenten toevoegen
+            <?= __("Studenten toevoegen")?>
         </a>
     </center>
 <? } ?>

@@ -10,11 +10,11 @@ foreach($school_locations as $school_location) {
     ?>
     <tr>
         <td><?=$school_location['customer_code']?></td>
-        <td><?=$school_location['name']?></td>
+        <td style="max-width:250px; word-wrap: break-word;"><?=$school_location['name']?></td>
         <td>
             <?
             if(empty($school_location['school']['name'])) {
-                echo '<div class="label" style="background:green">Geen, locatie is eindklant</div>';
+                echo '<div class="label" style="background:green">' . __("Geen, locatie is eindklant") . '</div>';
             }else{
                 echo $school_location['school']['name'];
             }
@@ -27,7 +27,7 @@ foreach($school_locations as $school_location) {
         <td class="nopadding">
             <? if($isAdministrator): ?>
                 <a href="#" class="btn white pull-right dropblock-owner dropblock-left" id="school_location_<?=getUUID($school_location, 'get');?>">
-                    <span class="fa fa-list-ul"></span>
+                    <span class="fa fa-ellipsis-v"></span>
                 </a>
             <? endif;?>
             <a href="#" class="btn white pull-right dropblock-left" onclick="Navigation.load('/school_locations/view/<?=getUUID($school_location, 'get');?>');">
@@ -37,11 +37,11 @@ foreach($school_locations as $school_location) {
                 <div class="dropblock blur-close" for="school_location_<?=getUUID($school_location, 'get');?>">
                     <a href="#" class="btn highlight white" onclick="Popup.load('/school_locations/edit/<?=getUUID($school_location, 'get');?>', 1100);">
                         <span class="fa fa-edit mr5"></span>
-                        Wijzigen
+                        <?= __("Wijzigen")?>
                     </a>
                     <a href="#" class="btn highlight white" onclick="SchoolLocation.delete(<?=getUUID($school_location, 'getQuoted');?>, 0);">
                         <span class="fa fa-remove mr5"></span>
-                        Verwijderen
+                        <?= __("Verwijderen")?>
                     </a>
                 </div>
             <? endif;?>

@@ -35,8 +35,8 @@ foreach($files as $file)
 	$ext = pathinfo($file['tmp_name'], PATHINFO_EXTENSION);
 	// $base64 = 'data:'.$file['type'].';base64,'.base64_encode($stream);
 	// $return = array('url' => $base64);
-	$hash = generateRandomString();
-	$filename = $hash . '-' .  $file['name'];
+	$hash = generateRandomString(20);
+	$filename = $hash;
 	move_uploaded_file($file['tmp_name'],$upload_dir.$filename);
 
 	$filesrc = $_SERVER['HTTP_ORIGIN'].DS.'custom'.DS.'imageload.php?filename='.urlencode($filename);

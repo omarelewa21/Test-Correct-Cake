@@ -2,16 +2,16 @@
     <? if($isAdministrator): ?>
         <a href="#" class="btn white" onclick="Popup.load('/schools/edit/<?=getUUID($school, 'get');?>', 800);">
             <span class="fa fa-edit mr5"></span>
-            Wijzigen
+            <?= __("Wijzigen")?>
         </a>
-        <a href="#" class="btn white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>);">
+        <a href="#" class="btn white" onclick="School.delete(<?=getUUID($school, 'getQuoted');?>,'<?= $return_route ?>');">
             <span class="fa fa-remove mr5"></span>
-            Verwijderen
+            <?= __("Verwijderen")?>
         </a>
     <? endif; ?>
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
+    <a href="#" class="btn white mr2" onclick="User.goToLaravel('<?= $return_route ?>');">
         <span class="fa fa-backward mr5"></span>
-        Terug
+        <?= __("Terug")?>
     </a>
 </div>
 
@@ -19,27 +19,27 @@
 
 
 <div class="block">
-    <div class="block-head">Informatie</div>
+    <div class="block-head"><?= __("Informatie")?></div>
     <div class="block-content">
         <table class="table table-striped">
             <tr>
-                <th width="15%">Klantcode</th>
+                <th width="15%"><?= __("Klantcode")?></th>
                 <td width="35%">
                     <?=$school['customer_code']?>
                 </td>
-                <th width="15%">Accountmanager</th>
+                <th width="15%"><?= __("Accountmanager")?></th>
                 <td>
                     <?=$school['user']['name_first']?>  <?=$school['user']['name_suffix']?> <?=$school['user']['name']?>
                 </td>
             </tr>
             <tr>
-                <th width="15%">Bezoekadres</th>
+                <th width="15%"><?= __("Bezoekadres")?></th>
                 <td width="35%">
                     <?=$school['main_address']?><br />
                     <?=$school['main_postal']?> <?=$school['main_city']?><br />
                     <?=$school['main_country']?>
                 </td>
-                <th width="15%">Factuuradres</th>
+                <th width="15%"><?= __("Factuuradres")?></th>
                 <td>
                     <?=$school['invoice_address']?><br />
                     <?=$school['invoice_postal']?> <?=$school['invoice_city']?><br />
@@ -47,38 +47,38 @@
                 </td>
             </tr>
             <tr>
-                <th>Studenten</th>
+                <th><?= __("Studenten")?></th>
                 <td><?=$school['count_students']?></td>
-                <th>Vraagitems</th>
+                <th><?= __("Vraagitems")?></th>
                 <td><?=$school['count_questions']?></td>
             </tr>
             <tr>
-                <th>Afgenomen toetsen</th>
+                <th><?= __("Afgenomen toetsen")?></th>
                 <td><?=$school['count_tests_taken']?></td>
-                <th>Actieve docenten</th>
+                <th><?= __("Actieve docenten")?></th>
                 <td><?=$school['count_active_teachers']?></td>
             </tr>
             <tr>
-                <th>Koepelorganisatie</th>
+                <th><?= __("Koepelorganisatie")?></th>
                 <td>
                     <?
                     if(isset($school['umbrella_organization']) && !empty($school['umbrella_organization']['name'])) {
                         echo $school['umbrella_organization']['name'];
                     }else{
                         ?>
-                        <div class="label" style="background: green;">Geen, dit is de eindklant</div>
+                        <div class="label" style="background: green;"><?= __("Geen, dit is de eindklant")?></div>
                         <?
                     }
                     ?>
                 </td>
-                <th>Actieve licenties</th>
+                <th><?= __("Actieve licenties")?></th>
                 <td><?=$school['count_active_licenses']?></td>
             </tr>
 
             <tr>
-                <th>Brin code</th>
+                <th><?= __("Brin code")?></th>
                 <td><?=$school['external_main_code'];?></td>
-                <th>Voorlees licenties</th>
+                <th><?= __("Voorlees licenties")?></th>
                 <td><?=$school['count_text2speech']?></td>
             </tr>
 
@@ -88,12 +88,12 @@
 
 
 <div class="block">
-    <div class="block-head">Schoollocaties</div>
+    <div class="block-head"><?= __("Schoollocaties")?></div>
     <div class="block-content">
         <table class="table table-striped" id="schoolsTable">
             <thead>
             <tr>
-                <th>Schoollocatie</th>
+                <th><?= __("Schoollocatie")?></th>
                 <th></th>
             </tr>
             </thead>
@@ -167,7 +167,7 @@
 -->
 
 <div class="block">
-    <div class="block-head">Contactpersonen</div>
+    <div class="block-head"><?= __("Contactpersonen")?></div>
     <div class="block-content">
         <?
         foreach($school['school_contacts'] as $contact) {
@@ -175,7 +175,7 @@
             <div style="float:left; width:300px; background: #f1f1f1; padding:10px; margin:3px;">
                 <table cellpadding="5" cellspacing="0" class="mb10">
                     <tr>
-                        <th width="80">Type</th>
+                        <th width="80"><?= __("Type")?></th>
                         <td>
                             <?
 
@@ -183,19 +183,19 @@
 
                             switch($contact['type']) {
                                 case 'FINANCE':
-                                    echo 'Financieel';
+                                    echo __("Financieel");
                                     $type = 'financial';
                                     break;
                                 case 'TECHNICAL':
-                                    echo 'Technisch';
+                                    echo __("Technisch");
                                     $type = 'technical';
                                     break;
                                 case 'IMPLEMENTATION':
-                                    echo 'Implementatie';
+                                    echo __("Implementatie");
                                     $type = 'implementation';
                                     break;
                                 case 'OTHER':
-                                    echo 'Anders';
+                                    echo __("Anders");
                                     $type = 'other';
                                     break;
                             }
@@ -203,11 +203,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Naam</th>
+                        <th><?= __("Naam")?></th>
                         <td><?=$contact['contact']['name']?></td>
                     </tr>
                     <tr>
-                        <th valign="top">Adres</th>
+                        <th valign="top"><?= __("Adres")?></th>
                         <td>
                             <?=$contact['contact']['address']?><br />
                             <?=$contact['contact']['postal']?> <?=$contact['contact']['city']?><br />
@@ -215,11 +215,11 @@
                         </td>
                     </tr>
                     <tr>
-                        <th>Telefoon</th>
+                        <th><?= __("Telefoon")?></th>
                         <td><?=$contact['contact']['phone']?></td>
                     </tr>
                     <tr>
-                        <th>Mobiel</th>
+                        <th><?= __("Mobiel")?></th>
                         <td><?=$contact['contact']['mobile']?></td>
                     </tr>
                 </table>
@@ -244,7 +244,7 @@
             <center>
                 <a href="#" class="btn highlight inline-block mt15" onclick="Popup.load('/contacts/add/school/<?=getUUID($school, 'get');?>', 400);">
                     <span class="fa fa-plus"></span>
-                    Contactpersoon toevoegen
+                    <?= __("Contactpersoon toevoegen")?>
                 </a>
             </center>
         <? endif; ?>

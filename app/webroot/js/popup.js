@@ -49,7 +49,7 @@ var Popup = {
 
         this.messageWithPreventDefault({
             'btnOk': 'Ok',
-            'title': action ? action : 'gefeliciteerd',
+            'title': action ? action : $.i18n('gefeliciteerd'),
             'message': '<img style="display:block; margin:auto; width:200px; height:200px;" src="/img/logo_1.png">',
         }
         );
@@ -85,8 +85,8 @@ var Popup = {
                 '</form>' +
                 '</div>' +
                 '<div class="popup-footer">' +
-                '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
-                '<a href="#" class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">Opslaan</a>' +
+                '<a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">' + $.i18n('Annuleren') + '</a>' +
+                '<a href="#" class="btn  mt5 mr5 blue pull-right" onclick="Popup.promptCallBack()">' + $.i18n('Opslaan') + '</a>' +
                 '</div>' +
                 '</div>'
                 ;
@@ -125,18 +125,18 @@ var Popup = {
         Popup.callbackFromPrompt = callback;
 
         var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
-                '<div class="popup-head">Toets innemen</div>' +
+                '<div class="popup-head">' + $.i18n('Toets innemen') + '</div>' +
                 '<div class="popup-content">' +
-                'Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?<br/>Selecteer de gewenste optie.' +
+                $.i18n('Wilt u de toets volledig afsluiten of de studenten met tijdsdispensatie extra tijd geven?<br/>Selecteer de gewenste optie.') +
                 '</div>' +
                 '<div class="popup-footer">' +
                 '<div id="test_close_non_dispensation" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
-                'Alleen afsluiten voor de studenten zonder tijdsdispensatie.' +
+                $.i18n('Alleen afsluiten voor de studenten zonder tijdsdispensatie.') +
                 '</div>' +
                 '<div id="test_close_all" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 70px;;cursor:pointer">' +
-                'Volledig afsluiten, ook voor de studenten met tijdsdispensatie.' +
+                $.i18n('Volledig afsluiten, ook voor de studenten met tijdsdispensatie.') +
                 ' </div>' +
-                '<a href="#" id="test_close_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+                '<a href="#" id="test_close_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">' + $.i18n('Bevestigen') + '</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">' +  $.i18n('Annuleren') + '</a>' +
                 '</div>' +
                 '</div>'
                 ;
@@ -176,24 +176,24 @@ var Popup = {
         Popup.callbackFromPrompt = callback;
 
         var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
-                '<div class="popup-head">Vraaggroep type kiezen</div>' +
+                '<div class="popup-head">' + $.i18n('Vraaggroep type kiezen') + '</div>' +
                 '<div class="popup-content">' +
-                'Wilt u een standaard vraaggroep maken of een carrousel vraaggroep maken? Selecteer een type.' +
+                $.i18n('Wilt u een standaard vraaggroep maken of een carrousel vraaggroep maken? Selecteer een type.') +
                 '</div>' +
                 '<div class="popup-footer">' +
                 '<div id="groupquestion_type_standard" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
-                '<h4 class="mt1 mb2">Standaard</h4>' +
+                '<h4 class="mt1 mb2">' + $.i18n('Standaard') + '</h4>' +
                 '<div>'+
-                'In een standaard vraaggroep worden alle vragen uit de vraaggroep gesteld aan de student.'+
+                $.i18n('In een standaard vraaggroep worden alle vragen uit de vraaggroep gesteld aan de student.')+
                 '</div>'+
                 '</div>' +
                 '<div id="groupquestion_type_carousel" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
-                '<h4 class="mt1 mb2">Carrousel</h4>' +
+                '<h4 class="mt1 mb2">'+ $.i18n('Carrousel') + '</h4>' +
                 '<div>'+
-                'In een carrousel vraaggroep worden een aantal vragen uit de vraaggroep willekeurig gesteld aan de student.'+
+                $.i18n('In een carrousel vraaggroep worden een aantal vragen uit de vraaggroep willekeurig gesteld aan de student.')+
                 '</div>'+
                 ' </div>' +
-                '<a href="#" id="groupquestion_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+                '<a href="#" id="groupquestion_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">' + $.i18n('Bevestigen') + '</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">' + $.i18n('Annuleren') + '</a>' +
                 '</div>' +
                 '</div>'
                 ;
@@ -233,24 +233,24 @@ var Popup = {
         Popup.callbackFromPrompt = callback;
 
         var htmlBlock = '<div class="popup" id="popup_' + Popup.index + '">' +
-            '<div class="popup-head">Docent import type kiezen</div>' +
+            '<div class="popup-head">' + $.i18n('Docent import type kiezen')  + '</div>' +
             '<div class="popup-content">' +
-            'Wat wilt u importeren?' +
+            $.i18n('Wat wilt u importeren?') +
             '</div>' +
             '<div class="popup-footer">' +
             '<div id="teacher_import_type_standard" class="btn grey pull-left mr10 mb10" style="margin-left:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
-            '<h4 class="mt1 mb2">Docentaccounts met klaskoppeling</h4>' +
+            '<h4 class="mt1 mb2">' + $.i18n('Docentaccounts met klaskoppeling') + '</h4>' +
             '<div>'+
-            'Bij deze keuze dienen er ook klasnamen in de import te staan'+
+            $.i18n('Bij deze keuze dienen er ook klasnamen in de import te staan')+
             '</div>'+
             '</div>' +
             '<div id="teacher_import_type_bare" class="btn grey pull-right mr10 mb10" style="margin-right:5px;display:block;width: 235px;word-break: keep-all; text-align: center; height: 100px;;cursor:pointer">' +
             '<h4 class="mt1 mb2">Docentaccounts</h4>' +
             '<div>'+
-            'Deze import dient ter voorbereiding op een RTTI import'+
+            $.i18n('Deze import dient ter voorbereiding op een RTTI import')+
             '</div>'+
             ' </div>' +
-            '<a href="#" id="teacher_import_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">Bevestigen</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">Annuleren</a>' +
+            '<a href="#" id="teacher_import_type_confirm" class="btn mt5 mr5 grey pull-right disabled" onclick="">' + $.i18n('Bevestigen') + '</a> <a href="#" class="btn mt5 mr5 grey pull-right" onclick="Popup.closeLast(); return null">' + $.i18n('Annuleren') +'</a>' +
             '</div>' +
             '</div>'
         ;
@@ -306,7 +306,7 @@ var Popup = {
                 '</div>' +
                 '<div class="popup-footer">' +
                 '<a href="#" class="btn red pull-right mr5 mt5 " onclick="Popup.confirmCallBack(true)">'+ okBtn +'</a>' +
-                '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">Annuleren</a>' +
+                '<a href="#" class="btn grey pull-right mr5 mt5" onclick="Popup.closeLast();">' + $.i18n('Annuleren') + '</a>' +
                 '</div>' +
                 '</div>';
 
@@ -336,7 +336,7 @@ var Popup = {
         $('#popup_search').stop().removeClass('center').fadeOut(function () {
             $(this).hide();
         });
-        Popup.index = 0;
+
         $('#container, #background, #header').removeClass('blurred');
     },
 
@@ -435,7 +435,7 @@ var Popup = {
         if(typeof width == "undefined"){
             width = 600;
         }
-        $('#fade').hide();
+        $('#fade').fadeOut();
         $('#popup_' + Popup.index).stop().removeClass('center').hide();
         $('#popup_' + Popup.index).remove();
         $('#container, #background, #header').removeClass('blurred');
@@ -513,7 +513,7 @@ var Popup = {
 
     messageWithPreventDefault: function (settings, callback, cancelCallback) {
         if (settings.btnOk == undefined) {
-            settings.btnOk = 'Oke';
+            settings.btnOk = $.i18n('Oke');
         }
 
         if (cancelCallback != undefined) {
@@ -565,26 +565,138 @@ var Popup = {
             schoolLocationsTemplate += '<a href="#" onclick="User.switchLocation(this, \'' + schoolLocation.uuid + '\');" class="btn hover-blue ' + activeClass + ' mb5">' + schoolLocation.name + '</a>';
         });
 
-        this.message({btnOk: 'Annuleren', title: 'Wissel van school', message: schoolLocationsTemplate});
+        this.message({btnOk: $.i18n('Annuleren'), title: $.i18n('Wissel van school'), message: schoolLocationsTemplate});
+    },
+
+    getWaitingPageHtml: function (message) {
+        if(message == undefined){
+            message = $.i18n('Wacht alstublieft tot de pdf geladen is, het kan even duren.');
+        }
+        return "<html><head><style>" +
+            "#animation {" +
+            "background-image: url(/img/loading.gif);" +
+            "}" +
+            "</style></head>" +
+            "<body style='background: #f5f5f5'>" +
+            "<div style='display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;'>" +
+            "<div style='background-color: rgba(0,0,0,0.8); padding: 20px 20px 15px 20px; border-radius: 10px; margin-bottom: 1rem;'>" +
+            "<div id='animation' style='width: 35px; height: 35px;'></div>" +
+            "</div>" +
+            "<span style='font-family: Nunito, sans-serif; font-size: 20pt;'>" +
+            message + /* kan even duren + translation*/
+            "</span>" +
+            "</div>" +
+            "</body></html>";
+    },
+
+    showPdfTest: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_pdf_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+    showPdfTestAttachments: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_pdf_attachments_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+    showPdfTestTake: function (testtakeId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/test_takes/get_preview_pdf_url/' + testtakeId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
     },
 
     showPreviewTest: function (testId) {
-        var url;
+        message = $.i18n('Wacht alstublieft tot de toets geladen is, het kan even duren.');
+        var waitingHmtl = this.getWaitingPageHtml(message);
+
+        var windowReference = window.open();
         $.ajax({
             type: 'post',
             url: '/tests/get_preview_url/' + testId,
             dataType: 'json',
             data: {},
             success: function (data) {
-                url = data.data.url;
-                window.open(url, '_blank').focus();
-                // Popup.show('<iframe src="'+url+'" width="100%" height="800" frameborder="0"></iframe>' +
-                //     '<a href="#" class="btn blue mb4 ml4" style="text-align: center;display: inline-flex;" ' +
-                //     'onclick="Popup.closeLast()">Voorbeeldweergave sluiten</a>', 1200);
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
             }
         });
+    },
 
+    showPreviewAnswerModelTest: function (testId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/tests/get_preview_answer_model_url/' + testId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+    showPreviewTestTakeAnswers: function (testTakeId) {
+        var waitingHmtl = this.getWaitingPageHtml();
+
+        var windowReference = window.open();
+        $.ajax({
+            type: 'post',
+            url: '/test_takes/get_preview_test_take_answers_url/' + testTakeId,
+            dataType: 'json',
+            data: {},
+            success: function (data) {
+                windowReference.document.write(waitingHmtl);
+                windowReference.location = Core.getCorrectLaravelUrl(data.data.url);
+                windowReference.focus();
+            }
+        });
+    },
+
+    showExternalPage: function(path, width, height) {
+        var pWidth = typeof width !== 'undefined' ? width : 800 ;
+        var pHeight = typeof height !== 'undefined' ? height : 500 ;
+        var html = '<i class="fa fa-times" title="Sluiten" onClick="Popup.closeLast();" style="position:absolute;right:6px;top:6px;"></i>' +
+                    '<iframe id="PopupIframe" style="display:flex;border:0;padding:0;margin:0 ;height:' + pHeight + 'px;" width="100%" src="' + path + '"></iframe>';
+        Popup.show(html , pWidth);
     }
+
 
 
 };

@@ -1,9 +1,9 @@
-<div class="popup-head">Videofragment</div>
+<div class="popup-head"><?= __("Videofragment")?></div>
 <div class="popup-content">
 
     <table class="table table-striped">
         <tr>
-            <th>URL</th>
+            <th><?= __("URL")?></th>
             <td>
                 <?=$this->Form->input('url', ['label' => false])?>
             </td>
@@ -11,11 +11,11 @@
     </table>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="javascript:void(0);" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
+    <?= __("Annuleer")?>
     </a>
-    <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="addVideo()">
-        Opslaan
+    <a href="javascript:void(0);" class="btn highlight mt5 mr5 pull-right" onclick="addVideo()">
+    <?= __("Opslaan")?>
     </a>
 </div>
 

@@ -4,11 +4,11 @@
 </div>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
     <?if($message['user_id'] != AuthComponent::user('id')) { ?>
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Message.reply('<?=$message['user_uuid']?>')">
-            Reageren
+        <?= __("Reageren")?>
         </a>
     <? } ?>
 </div>

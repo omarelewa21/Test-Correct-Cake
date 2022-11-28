@@ -1,17 +1,17 @@
-<h1>Te bespreken toetsen</h1>
+<h1><?= __("Bespreken met CO-Learning")?></h1>
 
 <div class="block autoheight">
-    <div class="block-head">Te bespreken toetsen</div>
+    <div class="block-head"><?= __("Bespreken met CO-Learning")?></div>
     <div class="block-content" id="testsContainter">
         <table class="table table-striped" id="testsTable">
             <thead>
             <tr>
-                <th>Toets</th>
-                <th width="120">Vak</th>
-                <th width="140">Afname-datum</th>
-                <th width="80">Status</th>
-                <th width="80">Type</th>
-                <th width="60">Weging</th>
+                <th><?= __("Toets")?></th>
+                <th width="120"><?= __("Vak")?></th>
+                <th width="140"><?= __("Afname-datum")?></th>
+                <th width="80"><?= __("Status")?></th>
+                <th width="80"><?= __("Type")?></th>
+                <th width="60"><?= __("Weging")?></th>
                 <th width="30">&nbsp;</th>
             </tr>
             </thead>

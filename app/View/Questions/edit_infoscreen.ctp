@@ -1,10 +1,11 @@
-<div class="popup-head">Infoscherm</div>
-<div class="popup-content">
+<?= $this->element('teacher_question_edit_header', ['question_type' =>  __("Infoscherm"), 'test_name' => $test_name, 'icon' => $editable ? 'edit' : 'preview', 'editable' => $editable]) ?>
+<!--<div class="popup-head">--><?//= __("Infoscherm")?><!--</div>-->
+<div class="<?= $editable ? '' : 'popup-content non-edit' ; ?>" style="margin: 0 auto; max-width:1000px; <?= $editable ? 'padding-bottom: 80px;' : '' ; ?>">
 
-    <?=$this->Form->create('Question')?>
+    <?=$this->Form->create('Question', array('id' => $is_clone_request ? 'QuestionAddForm' : 'QuestionEditForm', 'class' => 'add_question_form', 'selid' => 'tabcontainer'))?>
 
 
-    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> Deze vraag afsluiten <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
+    <?=$this->Form->input('closeable', array('type' => 'checkbox', 'value' => 1, 'label' => false, 'div' => false))?> <?= __("Deze vraag afsluiten")?> <span class="fa fa-info-circle" onclick="Popup.load('/questions/closeable_info', 500);" style="cursor:pointer"></span><br />
     
                 <?=$this->Form->input('discuss', array('value' => '0','label' => false, 'type' => 'hidden'))?>
     <?=$this->Form->input('decimal_score', array('value' => '0','label' => false, 'type' => 'hidden'))?>
@@ -13,89 +14,63 @@
     <?=$this->Form->input('subtype', array('label' => false, 'value' => 'none','type' => 'hidden'))?>
     <?=$this->Form->input('is_opensource_content', array('label' => false, 'value' => '0','type' => 'hidden'))?>
 
-        <div class="tabs">
-            <a href="#" class="btn grey highlight" page="question" tabs="edit_question">
-                Info
-            </a>
-
-            <a href="#" class="btn grey" page="options" tabs="edit_question">
-                Antwoord
-            </a>
-
-            <? if($owner != 'group') { ?>
-                <a href="#" class="btn grey" page="sources" tabs="edit_question">
-                    Bronnen
-                </a>
-            <? } ?>
-
-            <a href="#" class="btn grey" page="attainments" tabs="edit_question">
-                Eindtermen
-            </a>
-
-
-            <a href="#" class="btn grey" page="tags" tabs="edit_question">
-                Tags
-            </a>
-
-            <a href="#" class="btn grey" page="rtti" tabs="edit_question">
-                Taxonomie
-            </a>
-
-            <a href="#" class="btn grey" page="owners" tabs="edit_question">
-                Info
-            </a>
-
-            <br clear="all" />
-        </div>
+    <?= $this->element('teacher_add_question_tabs', ['cloneRequest' => $is_clone_request, 'edit' => true, 'infoscreen' => true]) ?>
 
         <div page="question" class="page active" tabs="edit_question">
+            <span class="title" selid="header"><?=__('Infoscherm')?></span>
             <?=$this->Form->input('question', array('style' => 'width:737px; height: 100px;', 'type' => 'textarea', 'div' => false, 'label' => false, 'value' => $question['question']['question'])); ?>
         </div>
 
-        <div page="options" class="page" tabs="edit_question">
+        <div page="question" class="page active" tabs="edit_question">
+            <span class="title" selid="header"><?= __('Antwoord')?></span>
             <?=$this->Form->input('answer', array('value' => $question['question']['answer'],'label' => false, 'type' => 'hidden'))?>
-            Niet van toepassing
+            <?= __("Niet van toepassing")?>
         </div>
 
-        <div page="attainments" class="page" tabs="edit_question">
+        <div page="settings" class="page" tabs="edit_question">
+            <span class="title" selid="header"><?= __('Info') ?></span>
+            <?= $this->element('question_info', ['question' => $question]) ?>
+        </div>
+
+        <div page="settings" class="page" tabs="edit_question">
+            <span class="title" selid="header"><?= __('Eindtermen')?></span>
             <?=$this->element('attainments', ['attainments' => $attainments, 'selectedAttainments' => $selectedAttainments]) ?>
         </div>
 
-        <div page="owners" class="page" tabs="edit_question">
-            <?=$this->element('question_info', ['question' => $question])?>
-        </div>
+        <?=$this->element('question_tab_rtti',['question' => $question]); ?>
 
-    <?=$this->element('question_tab_rtti',['question' => $question]); ?>
-
-        <div page="tags" class="page" tabs="edit_question">
+        <div page="settings" class="page" tabs="edit_question">
+            <span class="title" selid="header"><?= __('Tags')?></span>
             <?=$this->Form->input('tags', array('label' => false, 'type' => 'select', 'multiple' => true, 'style' => 'width:750px;', 'options' => $question['question']['tags'], 'value' => $question['question']['tags']))?>
         </div>
 
         <?=$this->Form->end();?>
 
         <? if($owner != 'group') { ?>
-            <div page="sources" class="page" tabs="edit_question"></div>
+            <?= $this->element('question_editor_attachments', ['edit' => true]) ?>
         <? } ?>
 </div>
-<div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
-    </a>
-    <? if($editable) { ?>
-        <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="Questions.edit('<?=$owner?>', '<?=$owner_id?>', 'InfoscreenQuestion', '<?=getUUID($question, 'get');?>');">
-            Vraag opslaan
-        </a>
+<? if ($is_clone_request) { ?>
+    <?= $this->element('teacher_question_edit_footer', ['saveAction' =>"Questions.add('InfoscreenQuestion', '$owner', '$owner_id');"]) ?>
+<? } else { ?>
+    <? if ($editable) { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => "Questions.edit('$owner', '$owner_id', 'InfoscreenQuestion', '".getUUID($question, 'get')."')"]) ?>
+    <? } else { ?>
+        <?= $this->element('teacher_question_edit_footer', ['saveAction' => '', 'editable' => $editable]) ?>
     <? } ?>
-</div>
-
+<? } ?>
 <script type="text/javascript">
 
     <? if(!$editable) { ?>
         $('.popup-content input, .popup-content select, .popup-content textarea').not('.disable_protect').attr({'disabled' : true});
     <? } ?>
 
-    <? if($owner != 'group') { ?>
-        Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? if($is_clone_request){ ?>
+        Questions.loadAddAttachments(true,'<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+    <? }else{ ?>
+        <? if($owner != 'group') { ?>
+            Questions.loadEditAttachments('<?=$owner?>', '<?=$owner_id?>', '<?=getUUID($question, 'get');?>');
+        <? } ?>
     <? } ?>
 
     $('#QuestionTags').select2({

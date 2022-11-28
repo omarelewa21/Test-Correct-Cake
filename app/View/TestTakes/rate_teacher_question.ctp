@@ -1,5 +1,6 @@
+<div>
 <a href="#" class="btn highlight" id="btnHandIn" onclick="Navigation.load('/test_takes/view/<?=$take_id?>');">
-    Terug
+<?= __("Terug")?>
 </a>
 <div id="test_progress">
     <?
@@ -15,7 +16,7 @@
         }
 
         ?>
-        <div class="question <?=$class?>" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$index?>');"><?=$i?></div>
+        <div class="question <?=$class?>" onclick="loadQuestion(<?=$index?>);"><?=$i?></div>
         <?
     }
     ?>
@@ -27,17 +28,19 @@
 
 <br clear="all" />
 <div class="block">
-    <div class="block-head">Vraag</div>
-    <div class="block-content" id="question_load"></div>
+    <div class="block-head"><?= __("Vraag")?></div>
+    <div class="questionContainer">
+        <div class="block-content" id="question_load"></div>
+    </div>
 </div>
 
-<div class="block" style="border-left: 3px solid #197cb4;">
-    <div class="block-head">Antwoordmodel</div>
-    <div class="block-content" id="question_answer_load"></div>
+<div id="answerModel" class="block" style="border-left: 3px solid var(--menu-blue);">
+    <div class="block-head"><?= __("Antwoordmodel")?><button id="pinAnswerModel" class="fa fa-unlock pull-right" style="background-color:white; border:none;"></button></div>
+    <div class="block-content questionContainer" id="question_answer_load"></div>
 </div>
 
 <center>
-    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();">Alle antwoorden weergeven</a>
+    <a href="#" class="btn highlight inline-block mb15" style="display: none;" id="btnShowAll" onclick="$('.questionblock').slideDown();$(this).remove();focusCkeditorsAfterShow()"><?= __("Alle antwoorden weergeven")?></a>
 </center>
 
 <?
@@ -54,22 +57,33 @@ foreach($participants as $participant) {
             <div class="block" style="float:left; width:calc(100% - 250px); border-left: 3px solid #3D9D36">
                 <div class="block-head">
                     <span id="name_student_<?=getUUID($participant, 'get')?>">
-                        Student antwoord
+                    <?= __("Student antwoord")?>
                     </span>
                     <span class="fa fa-eye" onclick="$('#name_student_<?=getUUID($participant, 'get')?>').html('<?=$name?>'); $(this).hide();"></span>
                 </div>
                 <div id="participant_answer_<?=getUUID($participant, 'get')?>" class="block-content">
-                    Laden..
+                <?= __("Laden..")?>
                 </div>
             </div>
 
-            <div class="block" style="float:right; width: 230px;">
-                <div class="block-head">Score</div>
-                <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
-                    --
+            <div style="float:right; width: 230px;">
+                <div class="block score" style="width: 100%;">
+                    <div class="block-head"><?= __("Score")?></div>
+                    <div class="block-content" id="score_<?=getUUID($participant, 'get')?><?=$question_id?>">
+                        --
+                    </div>
+                </div>
+
+                <div style="width: 100%; text-align: center">
+                    <a href="#" class="btn highlight mb15 feedback" style="border-radius: 10px; background-image: linear-gradient(to right, #004df5 0%, #4781ff 100%) !important"
+                        onclick="Popup.load('/test_takes/getFeedback/write/<?=getUUID($participant, 'get')?>/<?=$question_id?>/<?= $question_index ?>', window.innerWidth - 100);"
+                    >
+                        <i class="fa fa-pencil-square-o" aria-hidden="true" style="margin-right:2%"></i>
+                        <span style="position:relative; bottom:1px" id="feedback_<?=getUUID($participant, 'get')?><?=$question_id?>"><?= __('Geef feedback') ?></span>
+                    </a>
                 </div>
             </div>
-
+            
             <br clear="all" />
 
         </div>
@@ -89,13 +103,30 @@ foreach($participants as $participant) {
 <center>
     <? if($question_index < (count($questions) - 1)) {
         ?>
-        <a href="#" class="btn highlight mb15" onclick="Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/<?=$question_index +1 ?>');">Volgende vraag</a>
+        <a href="#" class="btn highlight mb15" onclick="loadQuestion(<?=$question_index +1 ?>);"><?= __("Volgende vraag")?></a>
         <?
     }
     ?>
 </center>
+</div>
 
 <script type="text/javascript">
+    var sticky = <?= $sticky ?>;
+    function loadQuestion(index){
+        Navigation.load('/test_takes/rate_teacher_question/<?=$take_id?>/'+index+'/'+sticky);
+    }
+
     $('#question_load').load('/questions/preview_single_load/<?=$question_id?>/<?=isset($questions[$question_index]['group_id']) ? $questions[$question_index]['group_id'] : ''?>');
     $('#question_answer_load').load('/questions/preview_answer_load/<?=$question_id?>');
+    $('#pinAnswerModel').click(function(){
+        if ($(this).hasClass('fa-unlock')) {
+            sticky = 1;
+            $('#answerModel').css({'position':'sticky', 'top':'170px'})
+            $(this).addClass('fa-lock').removeClass('fa-unlock');
+        } else {
+            sticky = 0;
+            $('#answerModel').css({'position':'relative', 'top':'0'})
+            $(this).addClass('fa-unlock').removeClass('fa-lock');
+        }
+    })<?php if($sticky){ echo ".trigger('click');";} ?>
 </script>

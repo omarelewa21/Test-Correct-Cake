@@ -1,10 +1,10 @@
-<div class="popup-head">Koppelen</div>
+<div class="popup-head"><?= __("Koppelen")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Manager') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Gebruiker
+            <?= __("Gebruiker")?>
             </th>
             <td>
                 <?=$this->Form->input('manager_id', array('style' => 'width: 185px', 'label' => false, 'options' => $managements)) ?>
@@ -14,11 +14,11 @@
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnAddUser">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -28,11 +28,11 @@
             confirm : $('#btnAddUser'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Gebruiker gekoppeld", "info");
+                Notify.notify('<?= __("Gebruiker gekoppeld")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Gebruiker kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Gebruiker kon niet worden aangemaakt")?>', "error");
             }
         }
     );

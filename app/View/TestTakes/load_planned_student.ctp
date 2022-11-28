@@ -25,26 +25,44 @@ foreach($test_takes as $test_take) {
             <?
             if($test_take['retake'] == 0) {
                 ?>
-                <div class="label label-info">Standaard</div>
+                <div class="label label-info"><?= __("Standaard")?></div>
                 <?
             }else{
                 ?>
-                <div class="label label-warning">Inhaaltoets</div>
+                <div class="label label-warning"><?= __("Inhaaltoets")?></div>
             <?
             }
             ?>
         </td>
         <td><?=$test_take['weight']?></td>
         <td class="nopadding" width="100">
-            <? if(in_array($test_take['test_take_status_id'], [1, 3]) && date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
-                <a href="#" class="btn highlight mb1" onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
-                    Toets maken
-                </a>
-            <? }else{ ?>
-                <a href="#" class="btn grey mb1">
-                    Toets maken
-                </a>
-            <? } ?>
+           <?
+            $isTypeOpdracht = ($test_take['test']['test_kind_id'] == 4);
+            $now = new DateTime();
+            $dateStart = (new dateTime($test_take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+            $dateEnd = (new dateTime($test_take['time_end']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
+
+            if ($isTypeOpdracht) {
+                 if(in_array($test_take['test_take_status_id'], [1, 3]) && $dateStart <= $now && $dateEnd >= $now) { ?>
+                    <a href="#" class="btn highlight mb1" onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
+                        <?= __("Toets maken")?>
+                    </a>
+                <? }else{ ?>
+                    <a href="#" class="btn grey mb1">
+                        <?= __("Toets maken")?>
+                    </a>
+                <? }
+            } else {
+                 if(in_array($test_take['test_take_status_id'], [1, 3]) && date('d-m-Y', strtotime($test_take['time_start'])) == date('d-m-Y')) { ?>
+                    <a href="#" class="btn highlight mb1" onclick="TestTake.loadTake('<?=getUUID($test_take, 'get');?>', true);">
+                    <?= __("Toets maken")?>
+                    </a>
+                <? }else{ ?>
+                    <a href="#" class="btn grey mb1">
+                    <?= __("Toets maken")?>
+                    </a>
+                <? }
+            } ?>
         </td>
     </tr>
     <?

@@ -103,4 +103,9 @@ class MaintenanceHelper
     {
         unlink($this->notificationFile);
     }
+
+    public function isOnDeploymentTesting()
+    {
+        return substr_count(Router::getRequest(true)->host(),'portal2.test');
+    }
 }

@@ -29,24 +29,24 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                         <circle cx="2" cy="12" r="2"/>
                     </g>
                 </svg>
-                Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan</span>
+                <?= __("Voorbeeld van de e-mail aan jouw collega's. Pas eventueel het bericht aan")?></span>
         </div>
         <div class="tat-head border-radius-bottom-0">
             <div class="tat-top-logo">
                 <img width="164px" height="30px" src="img/Logo-Test-Correct-wit.svg" alt="">
             </div>
             <div class="">
-                <h5 class="inline-block" style="margin-bottom: 16px!important;">Je collega <?php echo $fullname ?> heeft
-                    je uitgenodigd voor Test-Correct</h5>
+                <h5 class="inline-block" style="margin-bottom: 16px!important;"><?= __("Je collega")?> <?php echo $fullname ?> <?= __("heeft")?>
+                <?= __("je uitgenodigd voor Test-Correct")?></h5>
                 <div class="tat-top-text tat-usp">
-                    <h6 class="">Samen met je collega's kun je:</h6>
+                    <h6 class=""><?= __("Samen met je collega's kun je:")?></h6>
                     <div>
                         <img class="tat-check" src="img/ico/checkmark-small.svg" width="16px" height="16px" alt="">
-                        <span class="body1">Overleggen over de voortgang van jouw studenten en ervaringen delen.</span>
+                        <span class="body1"><?= __("Overleggen over de voortgang van jouw studenten en ervaringen delen.")?></span>
                     </div>
                     <div>
                         <img class="tat-check" src="img/ico/checkmark-small.svg" width="16px" height="16px" alt="">
-                        <span class="body1">Gebruikmaken van elkaars toetsen en toetsvragen</span>
+                        <span class="body1"><?= __("Gebruikmaken van elkaars toetsen en toetsvragen")?></span>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         <div class="tat-content body1">
             <div class="input-group">
                 <textarea onkeyup="countCharacters()" id="message" width="200px" height="200px" autofocus maxlength="640"><?php echo $message ?></textarea>
-                <label for="message">Het bericht aan jouw collega's </label>
+                <label for="message"><?= __("Het bericht aan jouw collega's")?> </label>
             </div>
             <div>
                 <span id="maxCharacters" class="tip"></span>
@@ -72,16 +72,16 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 <input id="lotsOfEmailAddresses" type="hidden" value="<?php echo $email_addresses ?>">
             </div>
             <div style="opacity: 50%;">
-                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: .5rem" disabled>Maak
-                    jouw gratis account
+                <button class="button stretched cta-button button-md" style="width: 100%;margin-top: .5rem" disabled><?= __("Maak")?>
+                <?= __("jouw gratis account")?>
                 </button>
             </div>
         </div>
     </div>
 </div>
 <div class="popup-footer tat-footer">
-    <a id="backToStep1" class="text-button button pull-left terug-btn"><i class="fa fa-chevron-left mr10"></i>Terug naar
-        e-mailadressen invullen</a>
+    <a id="backToStep1" class="text-button button pull-left terug-btn"><i class="fa fa-chevron-left mr10"></i><?= __("Terug naar")?>
+    <?= __("e-mailadressen invullen")?></a>
     <div class="indicator">
         <svg style="margin-right: 5px" height="14px" width="14px" xmlns="http://www.w3.org/2000/svg">
             <circle class="primary" cx="7" cy="7" r="7"/>
@@ -90,8 +90,8 @@ if (!empty(AuthComponent::user('name_suffix'))) {
             <circle class="primary" cx="7" cy="7" r="7"/>
         </svg>
     </div>
-    <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;">Stuur
-        uitnodiging<svg style="margin-left: 10px" width="14" height="13" xmlns="http://www.w3.org/2000/svg">
+    <button id="sendInvitations" class="button button-md primary-button pull-right" style="cursor: pointer;"><?= __("Stuur")?>
+    <?= __("uitnodiging")?><svg style="margin-left: 10px" width="14" height="13" xmlns="http://www.w3.org/2000/svg">
             <g fill="none" fill-rule="evenodd" stroke-linecap="round" stroke="#ffffff" stroke-width="3">
                 <path d="M1.5 6.5h10M6.5 1.5l5 5-5 5"/>
             </g>
@@ -106,7 +106,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
         var max = $('#message').attr('maxlength');
         var chars = $('#message').val().length
 
-        $('#maxCharacters').html( chars + ' van '+ max + ' karakters');
+        $('#maxCharacters').html( chars + '<?= __(" van ")?>'+ max + '<?= __(" karakters")?>');
 
         if (chars >= max) {
             $('#maxCharacters').parent().addClass('notification error ');
@@ -146,7 +146,7 @@ if (!empty(AuthComponent::user('name_suffix'))) {
                 },
                 method: 'POST',
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     $('#popup_' + Popup.index).html(data);
                 }
             })

@@ -1,14 +1,21 @@
-<h1>Welkom in Test-Correct</h1>
+<h1><?= __("Welkom in Test-Correct")?></h1>
 
+<?php if($infos && count($infos)){ ?>
+    <div class="dashboard" style="margin-top:0;">
+        <div class="notes">
+            <?= $this->element('welcome_info_messages'); ?>
+        </div>
+    </div>
+<?php } ?>
 
 <div class="" style="width:calc(50% - 10px); float: left">
 
     <div class="block autoheight">
-        <div class="block-head">Onderhoudsvensters
+        <div class="block-head"><?= __("Onderhoudsvensters")?>
             <div id="buttons">
                 <a href="#" class="btn btn-sm white" onclick="Popup.load('/deployment/add',800);">
                     <span class="fa fa-plus mr5"></span>
-                    Nieuwe deployment
+                    <?= __("Nieuwe deployment")?>
                 </a>
             </div>
         </div>
@@ -16,8 +23,8 @@
             <table class="table table-striped" id="deploymentsTable">
                 <thead>
                 <tr>
-                    <th>Datum</th>
-                    <th>Status</th>
+                    <th><?= __("Datum")?></th>
+                    <th><?= __("Status")?></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -46,11 +53,11 @@
 
 <div style="width:calc(50% - 10px); float: right">
     <div class="block autoheight">
-        <div class="block-head">Whitelisted ip adressen
+        <div class="block-head"><?= __("Whitelisted ip adressen")?>
             <div id="buttons">
                 <a href="#" class="btn btn-sm white" onclick="Popup.load('/whitelist_ip/add',450);">
                     <span class="fa fa-plus mr5"></span>
-                    Nieuw ip adres
+                    <?= __("Nieuw ip adres")?>
                 </a>
             </div>
         </div>
@@ -58,8 +65,8 @@
             <table class="table table-striped" id="deploymentsTable">
                 <thead>
                 <tr>
-                    <th>ip</th>
-                    <th>naam</th>
+                    <th><?= __("ip")?></th>
+                    <th><?= __("naam")?></th>
                     <th></th>
                 </tr>
                 </thead>
@@ -86,11 +93,30 @@
     </div>
 </div>
 
+<div style="width:100%">
+    <div class="block">
+        <div class="block-head"><?= __("Doorverwijs linkjes naar andere portals")?>
+        </div>
+        <div class="block-content" id="redirectContainer">
+            <a href="https://portal.test-correct.nl/">live portal</a><br>
+            <a href="https://portal2.test-correct.nl/">live portal2</a><br>
+            <a href="https://testportal.test-correct.nl/">test portal</a><br>
+            <a href="https://devportal.test-correct.nl/">dev portal</a><br>
+            <a href="https://stageportal.test-correct.nl/">stage portal</a><br>
+            <a href="http://test-correct.test/">Sobit dev</a><br>
+        </div>
+    </div>
+</div>
+
 <br clear="all" />
 
+<script> $.i18n().locale = '<?=CakeSession::read('Config.language')?>';</script>
+<script type="text/javascript" src="/js/welcome-messages.js?<?= time() ?>"></script>
+
+</script>
 <script>
     function deleteIp(ip,uuid){
-        if(confirm('Weet je zeker dat je het ip adres '+ip+' wil verwijderen?')){
+        if(confirm('<?= __("Weet je zeker dat je het ip adres ")?>'+ip+'<?= __(" wil verwijderen?")?>')){
             Loading.show();
             $.ajax({
                     url: '/whitelist_ip/delete/'+uuid,

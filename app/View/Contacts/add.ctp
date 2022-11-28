@@ -1,19 +1,19 @@
 <?
 $typeOptions = [
-    'financial' => 'Financieel',
-    'technical' => 'Technisch',
-    'implementation' => 'Implementatie',
-    'other' => 'Anders'
+    'financial' => __("Financieel"),
+    'technical' => __("Technisch"),
+    'implementation' => __("Implementatie"),
+    'other' => __("Anders")
     ];
 ?>
 
-<div class="popup-head">Contactpersoon</div>
+<div class="popup-head"><?= __("Contactpersoon")?></div>
 <div class="popup-content">
     <?=$this->Form->create('Contact') ?>
     <table class="table">
         <tr>
             <th width="130">
-                Type
+            <?= __("Type")?>
             </th>
             <td>
                 <?=$this->Form->input('type', array('style' => 'width: 185px', 'label' => false, 'options' => $typeOptions)) ?>
@@ -21,7 +21,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Naam
+            <?= __("Naam")?>
             </th>
             <td>
                 <?=$this->Form->input('name', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -29,7 +29,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Telefoon nr
+            <?= __("Telefoon nr")?>
             </th>
             <td>
                 <?=$this->Form->input('phone', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -37,7 +37,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Mobiel nr
+            <?= __("Mobiel nr")?>
             </th>
             <td>
                 <?=$this->Form->input('mobile', array('style' => 'width: 185px', 'label' => false)) ?>
@@ -45,7 +45,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Adres
+            <?= __("Adres")?>
             </th>
             <td>
                 <?=$this->Form->input('address', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -53,7 +53,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Postcode
+            <?= __("Postcode")?>
             </th>
             <td>
                 <?=$this->Form->input('postal', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -61,7 +61,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Stad
+            <?= __("Stad")?>
             </th>
             <td>
                 <?=$this->Form->input('city', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -69,7 +69,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th width="130">
-                Land
+            <?= __("Land")?>
             </th>
             <td>
                 <?=$this->Form->input('country', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty')) ?>
@@ -77,7 +77,7 @@ $typeOptions = [
         </tr>
         <tr>
             <th colspan="2">
-                Notitie
+            <?= __("Notitie")?>
             </th>
         </tr>
         <tr>
@@ -89,11 +89,11 @@ $typeOptions = [
     <?=$this->Form->end();?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-        Aanmaken
+    <?= __("Aanmaken")?>
     </a>
 </div>
 
@@ -103,11 +103,11 @@ $typeOptions = [
             confirm : $('#btnSave'),
             onsuccess : function(result) {
                 Popup.closeLast();
-                Notify.notify("Contactpersoon aangemaakt", "info");
+                Notify.notify('<?= __("Contactpersoon aangemaakt")?>', "info");
                 Navigation.refresh();
             },
             onfailure : function(result) {
-                Notify.notify("Contactpersoon kon niet worden aangemaakt", "error");
+                Notify.notify('<?= __("Contactpersoon kon niet worden aangemaakt")?>', "error");
             }
         }
     );

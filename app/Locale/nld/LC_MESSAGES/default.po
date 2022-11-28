@@ -1,0 +1,118 @@
+msgid "info.Zichtbaar"
+msgstr "Zichtbaar"
+
+msgid "info.Niet zichtbaar"
+msgstr "Niet zichtbaar"
+
+msgid "info.Info Message"
+msgstr "Info bericht"
+
+msgid "info.Tonen vanaf"
+msgstr "Tonen vanaf"
+
+msgid "info.Tonen tot"
+msgstr "Tonen tot"
+
+msgid "info.Tonen aan"
+msgstr "Zichtbaar voor"
+
+msgid "info.Status"
+msgstr "Zichtbaarheid"
+
+msgid "info.Everybody"
+msgstr "Iedereen"
+
+msgid "info.Title nl"
+msgstr "Titel (Nederlands)"
+
+msgid "info.Title en"
+msgstr "Titel (Engels)"
+
+msgid "info.Content nl"
+msgstr "Content (Nederlands)"
+
+msgid "info.Content en"
+msgstr "Content (Engels)"
+
+msgid "info.Info message aangemaakt"
+msgstr "Info bericht is aangemaakt"
+
+msgid "info.Info message kon niet worden aangemaakt"
+msgstr "Info bericht kon niet worden aangemaakt"
+
+msgid "Info message gewijzigd"
+msgstr "Info bericht is gewijzigd"
+
+msgid "info.Nieuwe Info message"
+msgstr "Nieuw info bericht"
+
+msgid "info.Info Messages"
+msgstr "Info berichten"
+
+msgid "info.Titel"
+msgstr "Titel"
+
+
+msgid "Volgens docent"
+msgstr "Volgens docent"
+
+msgid "Naam toets"
+msgstr "Naam toets"
+
+msgid "CLIENT"
+msgstr "Klant"
+
+msgid "TRIAL"
+msgstr "Proefperiode"
+
+msgid "Licentie status"
+msgstr "Licentie status"
+
+msgid "Je bent bezig met de proefperiode van Test-Correct"
+msgstr "Je bent bezig met de proefperiode van Test-Correct"
+
+msgid "Status"
+msgstr "Status"
+
+msgid "Dagen over"
+msgstr "Dagen over"
+
+msgid "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+msgstr "Geef aan tot wanneer de gebruiker de proefversie mag gebruiken."
+
+msgid "Proefversie einddatum"
+msgstr "Proefversie einddatum"
+
+
+msgid "Actief"
+msgstr "Actief"
+
+msgid "Niet begonnen"
+msgstr "Niet begonnen"
+
+msgid "Verlopen"
+msgstr "Verlopen"
+
+msgid "Je hebt nog"
+msgstr "Je hebt nog"
+
+msgid " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+msgstr " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
+
+msgid "Meer informatie"
+msgstr "Meer informatie"
+
+msgid "Proefperiode afgelopen"
+msgstr "Proefperiode afgelopen"
+
+msgid "Proefperiode tekst"
+msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie voor jouw school of kies een van onze licentiepakketten."
+
+msgid "Gepland voor"
+msgstr "Gepland voor"
+
+msgid "Nieuwe afgenomen toetsen pagina"
+msgstr "Nieuwe afgenomen toetsen pagina"
+
+msgid "Nieuwe studenten analyses"
+msgstr "Nieuwe studenten analyses"

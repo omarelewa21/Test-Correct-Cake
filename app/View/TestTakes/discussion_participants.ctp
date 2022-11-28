@@ -1,5 +1,5 @@
 <a id="btnResetAnswerPreview" href="#" class="btn highlight" style="text-align: center; display: none; margin-bottom: 10px; width: 190px" onclick="TestTake.resetAnswerPreview('<?=$take['discussing_question_uuid']?>', '<?=getUUID($take, 'get')?>');">
-    Reset antwoordmodel
+<?= __("Reset antwoordmodel")?>
 </a>
 <script type="text/javascript">
     TestTake.discussingAllDiscussed = true;
@@ -25,20 +25,22 @@
     $participants = ['red' => [], 'orange' => [], 'green' => [], 'grey' => []];
 
     foreach($take['test_participants'] as $participant) {
-        if(isset($participant['answer_rated'])) {
-            if ($participant['answer_rated'] == 0) {
-                $color = 'red';
-                $discussingAllDiscussed = false;
-            } elseif ($participant['answer_rated'] == $participant['answer_to_rate']) {
+        if ($participant['active']) {
+            if (isset($participant['answer_rated'])) {
+                if ($participant['answer_rated'] == $participant['answer_to_rate']) {
                     $color = 'green';
-            } else {
+                }elseif ($participant['answer_rated'] == 0) {
+                    $color = 'red';
+                    $discussingAllDiscussed = false;
+                } else {
                     $color = 'orange';
                     $discussingAllDiscussed = false;
+                }
+            } else {
+                $color = 'grey';
             }
-        }else{
-            $color = 'grey';
+            $participants[$color][] = $participant;
         }
-        $participants[$color][] = $participant;
     }
 
     foreach($participants as $color => $_participants) {
@@ -55,7 +57,7 @@
                 <tr>
                     <td width="13">
                         <?php if ($color == 'grey') { ?>
-                            <div title="Student heeft geen antwoorden om te beoordelen" style="width:13px; height:13px; border: 2px solid #808080; border-radius: 15px;">
+                            <div title='<?= __("Student heeft geen antwoorden om te beoordelen")?>' style="width:13px; height:13px; border: 2px solid #808080; border-radius: 15px;">
                                 <svg style="position:relative; top:-1px; left:0px;" width="13px" height="13px" viewBox="0 0 13 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                                     <title>icons/diagonal-line</title>
                                     <g id="icons/diagonal-line" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">

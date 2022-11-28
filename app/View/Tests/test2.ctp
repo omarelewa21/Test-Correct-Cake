@@ -1,13 +1,13 @@
 <div id="buttons">
     <a href="#" class="btn white mr2" onclick="Navigation.back();">
-        Volgende vraag
+    <?= __("Volgende vraag")?>
     </a>
 </div>
 
-<h1>Bespreken</h1>
+<h1><?= __("Bespreken")?></h1>
 
 <div class="block" style="float:right; width:300px;">
-    <div class="block-head">Studenten</div>
+    <div class="block-head"><?= __("Studenten")?></div>
     <div class="block-content" style="height:600px;">
         <table class="table table-striped">
             <tr>
@@ -58,13 +58,13 @@
 
 <div  style="float:left; width:1000px;">
     <div class="block">
-    <div class="block-head">Vraag</div>
+    <div class="block-head"><?= __("Vraag")?></div>
     <div class="block-content" style="height:100px; font-size:18px;">
-        Bij het destileren van wijn scheidt je de alcohol van het water. Geef met een cirkel aan waar de alcohol uitkomt.
+    <?= __("Bij het destileren van wijn scheidt je de alcohol van het water. Geef met een cirkel aan waar de alcohol uitkomt.")?>
     </div>
     </div>
     <div class="block">
-        <div class="block-head">Antwoord</div>
+        <div class="block-head"><?= __("Antwoord")?></div>
         <div class="block-content" style="height:380px;">
 
         </div>

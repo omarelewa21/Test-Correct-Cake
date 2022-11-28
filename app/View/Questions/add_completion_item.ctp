@@ -1,8 +1,8 @@
-<div class="popup-head">Optie toevoegen</div>
+<div class="popup-head"><?= __("Optie toevoegen")?></div>
 <div class="popup-content">
     <table class="table table-striped" id="tableAddOptions">
         <tr>
-            <th>Antwoord</th>
+            <th><?= __("Antwoord")?></th>
             <td>
                 <input type="text" id="multiSelecRightOption" />
             </td>
@@ -11,11 +11,11 @@
 </table>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();">
-        Annuleer
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();" selid="cancel-btn">
+    <?= __("Annuleer")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="addItems();">
-        Toevoegen
+    <?= __("Toevoegen")?>
     </a>
 </div>
 

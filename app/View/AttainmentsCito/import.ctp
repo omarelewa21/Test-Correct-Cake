@@ -1,10 +1,10 @@
 
 
-<h1>Leerdoelen aan CITO vragen koppelen</h1>
+<h1><?= __("Leerdoelen aan CITO vragen koppelen")?></h1>
 
 <div class="block " id="AttainmentsImportBlock">
     <div id="AttainmentsImportContainer" style="display:none;overflow:scroll;padding: 8px;">
-        Een moment dit kan enige tijd duren (als in een paar minuten);
+    <?= __("Een moment dit kan enige tijd duren (als in een paar minuten);")?>
         <h4 style="color:green;" id="wistjedatjes"></h4>
     </div>
     <?=$this->Form->create('Attainments', array('id' => 'AttainmentsImportForm', 'type' => 'file', 'method' => 'post', 'target' => 'frameUploadAttachment', 'url' => 'import'))?>
@@ -12,7 +12,7 @@
         <table class='table'>
             <tr>
                 <td>
-                    Vak
+                <?= __("Vak")?>
                 </td>
                 <td>
                     <?=$this->Form->input('subject_id', array('type' => 'select', 'label' => false, 'div' => false, 'options' => $subjects))?>
@@ -30,7 +30,7 @@
     </div>
     <div class="block-footer">
         <a href="#" class="btn highlight mt5 mr5 pull-right" onclick="handleSubmit()">
-            Import verwerken
+        <?= __("Import verwerken")?>
         </a>
     </div>
     <?=$this->Form->end?>
@@ -47,10 +47,10 @@
     var wistjedatjeTimer
     var wistjedatjeNr = 0;
     var wistjedatjes = [
-      'Wist je dat je met de co-learning module de studenten zelf de toetsen kunt laten nakijken..',
-      'Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op z\'n device..',
-      'Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...',
-      'Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...'
+        '<?= __("Wist je dat je met de CO-Learning module de studenten zelf de toetsen kunt laten nakijken..")?>',
+        '<?= __("Wist je dat we ook tekenvragen aanbieden waarme de student een tekening kan maken op het device..")?>',
+        '<?= __("Wist je dat we nu ook infoschermen kennen waarmee je de student informatie kunt verschaffen over de komende vragen in de toets...")?>',
+        '<?= __("Wist je dat we een voorleesfunctie hebben waarmee studenten de tekst van de toets voorgelezen kunnen krijgen...")?>'
     ];
     var wistjedatjesEl = jQuery('#wistjedatjes');
 

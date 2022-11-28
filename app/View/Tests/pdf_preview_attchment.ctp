@@ -1,25 +1,25 @@
-<div class="popup-head">Toets in PDF</div>
+<div class="popup-head"><?= __("Toets in PDF")?></div>
 <?
 if(isset($attachmentArray)){
 ?>
 
-<p>Selecteer de bijlages die u mee wilt printen.</p>
+<p><?= __("Selecteer de bijlage die u wilt printen. Of print de test zelf.")?></p>
 
 <form action="/tests/pdf_attachment_select/<?= $test_id ?>" id="AttachmentFormDownload" method="post">
     <? foreach($attachmentArray as $attKey => $attVal) : ?>
         
         <? foreach($attVal as $att): ?>
-            <input type="checkbox" name="attachment" value="<?=getUUID($att['attachments'], 'get');?>"><?= $att['attachments']['title']; ?>
+            <input type="radio" name="attachment" value="<?=getUUID($att['attachments'], 'get');?>"><?= $att['attachments']['title']; ?>
             <br>
         <? endforeach; ?>        
     <? endforeach; ?>
     
     <div class="popup-footer">
         <a href="#" class="btn grey mt5 mr5 pull-right " onclick="Popup.closeLast();">
-            Terug
+        <?= __("Terug")?>
         </a>
         <a href="#" class="btn highlight mt5 mr5 pull-right show_pdf_attachments closePDF" id="btnAttach" onclick="">
-            Print PDF
+        <?= __("Print pdf bijlage")?>
         </a>
     </div>
 </form>
@@ -30,7 +30,7 @@ if(isset($attachmentArray)){
 <iframe src="/tests/pdf_container/<?= $test_id ?>?file=/tests/pdf/<?= $test_id ?>" width="100%" height="550" frameborder="0" class=""></iframe>
 <div class="popup-footer">
     <a href="#" class="btn grey mt5 mr5 pull-right " onclick="Popup.closeLast();">
-        Sluiten
+    <?= __("Sluiten")?>
     </a>
 </div>
 <?
@@ -70,7 +70,7 @@ $(".show_pdf_attachments").on("click",function(){
         var checked = false;
         var checkedValues = [];
 
-        $("#AttachmentFormDownload").find("input:checkbox[name=attachment]:checked").each(function(){
+        $("#AttachmentFormDownload").find("input:radio[name=attachment]:checked").each(function(){
             
             checked = true;
             checkedValues.push($(this).val());
@@ -93,8 +93,8 @@ $(".show_pdf_attachments").on("click",function(){
             Popup.load('/tests/pdf_attachment_select/<?=$test_id?>', 1000);
 
         } else {
-            $(".closePDF").on('click',Popup.closeLast);
-            Popup.load('/tests/pdf_attachment_select/<?=$test_id?>', 1000);
+            /*$(".closePDF").on('click',Popup.closeLast);
+            Popup.load('/tests/pdf_attachment_select/<?=$test_id?>', 1000);*/
         }
 
     });
