@@ -81,7 +81,7 @@
                 <td><?= $testKind?></td>
             </tr>
             <tr>
-                <th width="12%"><?= __("Toevoegingen")?></th>
+                <th width="12%"><?= __("Koppelingen toevoegen")?></th>
                 <td width="38%" class="editable" >
                     <?= __($file['test_upload_additional_options'][$file['typedetails']['test_upload_additional_option']]) ?? __('None')?>
                 </td>

@@ -135,5 +135,5 @@ msgstr "Taxonomie en leerdoelen"
 msgid "TaxonomyAndAttainments"
 msgstr "Taxonomie en eindtermen"
 
-msgid "Toevoegingen"
-msgstr "Toevoegingen"
+msgid "Koppelingen toevoegen"
+msgstr "Koppelingen toevoegen"

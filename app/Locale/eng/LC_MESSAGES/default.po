@@ -4684,5 +4684,5 @@ msgstr "Taxonomy and learning goals"
 msgid "TaxonomyAndAttainments"
 msgstr "Taxonomy and attainments"
 
-msgid "Toevoegingen"
-msgstr "Add-ons"
+msgid "Koppelingen toevoegen"
+msgstr "Add connections"
