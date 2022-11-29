@@ -38,7 +38,7 @@ if ($wizard_steps) {
                 <h5 style=""><?= __("Op de dienst Test-Correct zijn de algemene voorwaarden van toepassing")?></h5>
             </div>
             <div class="body mb20">
-                <p style="display: block; margin-bottom: 1rem;"><?= __("Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteert.")?></p>
+                <p style="display: block; margin-bottom: 1rem;"><?= __("Wij vragen je onze algemene voorwaarden te lezen en accepteren. Dit is nodig om van onze producten gebruik te kunnen blijven maken. Je hebt 14 dagen de tijd om deze te lezen en accepteren. Daarna zal jouw account worden bevroren totdat deze zijn geaccepteerd.")?></p>
                 <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth)"><?= __("Lees en accepteer onze algemene voorwaarden")?> <?php echo $this->element('arrow') ?></a>
             </div>
             <div class="flex tabs">
@@ -172,9 +172,10 @@ if ($wizard_steps) {
                 <h4><?= __("Toets uploaden")?></h4>
                 <span class="subtitle"><?= __("Laat een bestaande toets digitaliseren")?></span>
                 <span class="body"><?= __("Gelieve aan te leveren als: <br> PDF, Word, Wintoets")?></span>
-
+<!--                User.goToLaravel('teacher/upload_test');-->
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_test',800);"
+
                         class="button cta-button button-md">
                     <span><?= __("Toets uploaden")?></span>
                 </button>
