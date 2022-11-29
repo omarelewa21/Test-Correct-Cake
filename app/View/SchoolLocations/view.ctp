@@ -271,7 +271,23 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-
+                <th><?= __("Nieuwe co-learning beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_creathlon',
+                            array(
+                                'checked' => isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_new_co_learning']) && $school_location['feature_settings']['allow_new_co_learning'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => (isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_new_co_learning']) && $school_location['feature_settings']['allow_new_co_learning']) ? 1 : 0,
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_new_co_learning")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
             </tr>
             <tr>
                 <th><?= __("Nieuwe afgenomen toetsen pagina") ?></th>

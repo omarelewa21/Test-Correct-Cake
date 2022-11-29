@@ -1,4 +1,10 @@
 <div id="buttons">
+    <?php if($class['school_location']['external_main_code'] === '00WI' && $class['school_location']['external_sub_code'] === '00') { ?>
+        <a href="#" class="btn blue" onclick="SchoolClass.resetPasswords('<?=getUUID($class, 'get');?>');">
+            <span class="fa fa-edit mr5"></span>
+            <?= __('Reset wachtwoorden') ?>
+        </a>
+    <?php } ?>
     <?php if((bool) $class['demo'] !== true){?>
     <a href="#" class="btn white" onclick="Navigation.load('/school_classes/import/<?=getUUID($class['school_location'], 'get')?>/<?=getUUID($class, 'get');?>');">
         <span class="fa fa-cloud-upload mr5"></span>
