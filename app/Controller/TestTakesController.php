@@ -1,7 +1,5 @@
 <?php
 
-use phpDocumentor\Reflection\Types\Boolean;
-
 App::uses('AppController', 'Controller');
 App::uses('TestsService', 'Lib/Services');
 App::uses('QuestionsService', 'Lib/Services');
