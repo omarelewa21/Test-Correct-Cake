@@ -1357,6 +1357,7 @@ class UsersController extends AppController
         $roles = AuthComponent::user('roles');
         $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
+        $usesNewAnalysesPage = AuthComponent::user('school_location.feature_settings.allow_analyses') == 1;
 
         $tiles = array();
 
@@ -1747,19 +1748,28 @@ class UsersController extends AppController
                         );
                     }
 
-                    $tiles['analyse_student'] = array(
-                        'menu'  => 'analyses',
-                        'icon'  => 'analyse-leerlingen',
-                        'title' => __("Mijn studenten"),
-                        'path'  => '/analyses/students_overview'
-                    );
+                    if ($usesNewAnalysesPage) {
+                        $tiles['analyse_classes'] = array(
+                            'menu'  => 'analyses',
+                            'icon'  => 'analyse-klassen',
+                            'title' => __("Mijn klassen"),
+                            'path'  => '/teacher_analyses'
+                        );
+                    } else {
+                        $tiles['analyse_student'] = array(
+                            'menu'  => 'analyses',
+                            'icon'  => 'analyse-leerlingen',
+                            'title' => __("Mijn studenten"),
+                            'path'  => '/analyses/students_overview'
+                        );
 
-                    $tiles['analyse_classes'] = array(
-                        'menu'  => 'analyses',
-                        'icon'  => 'analyse-klassen',
-                        'title' => __("Mijn klassen"),
-                        'path'  => '/analyses/school_classes_overview'
-                    );
+                        $tiles['analyse_classes'] = array(
+                            'menu'  => 'analyses',
+                            'icon'  => 'analyse-klassen',
+                            'title' => __("Mijn klassen"),
+                            'path'  => '/analyses/school_classes_overview'
+                        );
+                    }
 
                     $tiles['teacher_classes'] = [
                         'menu'  => 'classes',
