@@ -4671,3 +4671,9 @@ msgstr "Show grades"
 
 msgid "Reset wachtwoorden"
 msgstr "Reset passwords"
+
+msgid "N.v.t."
+msgstr "N/A"
+
+msgid "Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer."
+msgstr "Formative assessment furthers insight and progression. There is no grade applicable for this test."

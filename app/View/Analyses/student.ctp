@@ -127,13 +127,20 @@ if(!$isStudent) {
                     <tr>
                         <td><?=$participant['name']?></td>
                         <?if(!$isStudent){ ?><td><?=empty($participant['invigilator_note']) ? '-' : $participant['invigilator_note']?></td><? } ?>
-                        <td>
-                            <? if($participant['show_grade'] == 1 && !empty($participant['rating'])){ 
-                                echo number_format($participant['rating'], 1);
-                            } else {
-                                echo '-';
-                            } ?>
-                        </td>
+                        
+                        <? if(!$participant['show_grade']) {?>
+                            <td title="<?= __("Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer.") ?>">
+                                <?= __('N.v.t.') ?>
+                            </td>
+                        <? } elseif(!empty($participant['rating'])) { ?>
+                            <td>
+                                <?= number_format($participant['rating'], 1) ?>
+                            </td>
+                        <?}else{?>
+                            <td>
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            </td>
+                        <?}?>
                         
                         <td><?=date('d-m-Y', strtotime($participant['time_start']))?></td>
                         <td class="nopadding" width="30">
