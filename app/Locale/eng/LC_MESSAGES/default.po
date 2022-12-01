@@ -4665,3 +4665,24 @@ msgstr "New student analyses"
 
 msgid "Reset wachtwoorden"
 msgstr "Reset passwords"
+
+msgid "None"
+msgstr "None"
+
+msgid "Taxonomy"
+msgstr "Only taxonomy"
+
+msgid "LearningGoals"
+msgstr "Only learning goals"
+
+msgid "Attainments"
+msgstr "Only attainments"
+
+msgid "TaxonomyAndLearningGoals"
+msgstr "Taxonomy and learning goals"
+
+msgid "TaxonomyAndAttainments"
+msgstr "Taxonomy and attainments"
+
+msgid "Koppelingen toevoegen"
+msgstr "Add connections"
