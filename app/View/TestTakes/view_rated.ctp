@@ -305,15 +305,19 @@ if($isTeacher && $analysis && count($analysis)){
     </script>
 <?php } ?>
 <script>
-    function exportRtti(id){
-        $.get( '/test_takes/export_to_rtti/' + id, function( data ) {
-            if(data.status === 1) {
-                Notify.notify('De toets is succesvol geexporteerd naar RTTI');
+    function exportRtti(take_id){
+        var url = '/test_takes/export_to_rtti/' + take_id;
+        $.post(url, function(response, status){
+
+            response = JSON.parse(response);
+
+            if(response["status"] == 1) {
+                Notify.notify('<?= __("Toets met succes naar RTTI verzonden.")?>',3000);
             } else {
-                Notify.notify('Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct.','error');
+                Notify.notify(response['data'], 'error',30000);
             }
-        }).fail(function(error) {
-            Notify.notify(error,'error');
+
+            Navigation.refresh();
         });
     }
 </script>

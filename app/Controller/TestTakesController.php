@@ -2547,9 +2547,9 @@ class TestTakesController extends AppController {
         } else {
             $this->formResponse(1);
         }
-        return true;
+        exit;
 
-/*
+
         require __DIR__ . '/rtti_api/autoload.php';
         require __DIR__ . '/rtti_api/nusoap.php';
 
@@ -2565,7 +2565,7 @@ class TestTakesController extends AppController {
         $testTakeInfo = $this->TestTakesService->getTestTakeInfo($take_id);
         $participants = $this->TestTakesService->getParticipants($take_id);
         $allQuestions = $this->TestsService->getQuestions(getUUID($test_take['test'], 'get'));
-        $schoolLocation = $this->SchoolLocationsService->getSchoolLocation(getUUID($testTakeInfo['school_location'], 'get'));
+        $schoolLocation = AuthComponent::user()['school_location'];
 
         $date = new DateTime($testTakeInfo['time_start']);
 
@@ -2573,26 +2573,26 @@ class TestTakesController extends AppController {
 
         try {
             // START SETTING DATA FOR SCHOOL SECTION
-            if ($schoolLocation['data'][0]['school_id'] == NULL && $schoolLocation['data'][0]['external_main_code'] == NULL)
+            if ($schoolLocation['school_id'] == NULL && $schoolLocation['external_main_code'] == NULL)
                 $errors[] = __("Deze school locatie heeft geen overkoepelende school, en geen brincode, niet exporteerbaar.");
 
-            if ($schoolLocation['data'][0]['external_main_code'] == NULL) {
-                $external_main_code = $schoolLocation['data'][0]['school']['external_main_code'];
+            if ($schoolLocation['external_main_code'] == NULL) {
+                $external_main_code = $schoolLocation['school']['external_main_code'];
             } else {
-                $external_main_code = $schoolLocation['data'][0]['external_main_code'];
+                $external_main_code = $schoolLocation['external_main_code'];
             }
 
-            if ($external_main_code == NULL && $schoolLocation['data'][0]['school']['umbrella_organisation_id'] == NULL)
+            if ($external_main_code == NULL && $schoolLocation['school']['umbrella_organisation_id'] == NULL)
                 $errors[] = __("Deze school heeft geen brincode, en geen overkoepelende organisatie, niet exporteerbaar.");
 
             if ($external_main_code == NULL)
-                $external_main_code = $schoolLocation['data'][0]['school']['umbrella_organisation']['external_main_code'];
+                $external_main_code = $schoolLocation['school']['umbrella_organisation']['external_main_code'];
 
             if ($external_main_code == NULL)
                 $errors[] = __("Geen brincode gevonden voor deze setup, neem contact op met administrators.");
 
             $ctpSchool = new ctpSchool(new DateTime('now'));
-            $ctpSchool->setDependancecode($schoolLocation['data'][0]['external_sub_code']);
+            $ctpSchool->setDependancecode($schoolLocation['external_sub_code']);
             $ctpSchool->setBrincode($external_main_code);
 
             $schoolYears = $this->SchoolYearsService->getSchoolYears(['mode' => 'all']);
@@ -2620,7 +2620,7 @@ class TestTakesController extends AppController {
 
             $params['school'] = array(
                 'aanmaakdatum' => $date->format(\DateTime::ATOM),
-                'dependancecode' => $schoolLocation['data'][0]['external_sub_code'],
+                'dependancecode' => $schoolLocation['external_sub_code'],
                 'brincode' => $external_main_code,
                 'schooljaar' => $year,
             );
@@ -2728,15 +2728,16 @@ class TestTakesController extends AppController {
 
                 $result = $client->call(
                         'BrengLeerresultaten', array(
-                    'leerresultaten_verzoek' => array(
-                        'school' => $params['school'],
-                        'toetsafnames' => $params['toetsafnames'],
-                        'toetsen' => $params['toetsen']
-                    )
+                                    'leerresultaten_verzoek' => array(
+                                        'school' => $params['school'],
+                                        'toetsafnames' => $params['toetsafnames'],
+                                        'toetsen' => $params['toetsen']
+                                    )
                         ), 'http://www.edustandaard.nl/leerresultaten/2/leerresultaten', 'leer:leerresultaten_verzoek', $auth
                 );
 
                 if (Configure::read('RTTI.debug')) {
+                    $this->log('leerresultatenverzoek',print_r($params,true),'debug');
                     $this->log("RTTI request was: " . $client->request, 'debug');
                     $this->log("RTTI response was: " . $client->response, 'debug');
                     $this->log("RTTI error was: " . $client->getError(), 'debug');
@@ -2769,7 +2770,7 @@ class TestTakesController extends AppController {
         $this->formResponse(
                 empty($errors), $debug
         );
-*/
+
     }
 
     public function toggle_inbrowser_testing_for_participant($test_take_id, $participant_id) {

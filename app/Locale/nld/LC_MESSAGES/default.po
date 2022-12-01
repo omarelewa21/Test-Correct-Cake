@@ -116,3 +116,6 @@ msgstr "Nieuwe afgenomen toetsen pagina"
 
 msgid "Nieuwe studenten analyses"
 msgstr "Nieuwe studenten analyses"
+
+msgid "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
+msgstr "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
