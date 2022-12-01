@@ -137,3 +137,6 @@ msgstr "Taxonomie en eindtermen"
 
 msgid "Koppelingen toevoegen"
 msgstr "Koppelingen toevoegen"
+
+msgid "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
+msgstr "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"

@@ -345,6 +345,19 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function exportToRtti($testTakeId){
+
+        $response = $this->Connector->postRequest('/test_take/' . $testTakeId . '/rtti_export', [],[]);
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
     /**
      * WITH test take
      * @param $participant_id

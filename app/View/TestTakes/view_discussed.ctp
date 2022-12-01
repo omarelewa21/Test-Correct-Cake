@@ -211,15 +211,13 @@ if($isTeacher && $analysis && count($analysis)){
     {
         var url = '/test_takes/export_to_rtti/' + take_id;
         $.post(url, function(response, status){
-            
-            // console.log(response);
-            
+
             response = JSON.parse(response);
 
             if(response["status"] == 1) {
                 Notify.notify('<?= __("Toets met succes naar RTTI verzonden.")?>',3000);
             } else {
-                Notify.notify(response['data'], 'error',3000);
+                Notify.notify(response['data'], 'error',30000);
             }
 
             Navigation.refresh();

@@ -4686,3 +4686,7 @@ msgstr "Taxonomy and attainments"
 
 msgid "Koppelingen toevoegen"
 msgstr "Add connections"
+
+
+msgid "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
+msgstr "Something went wrong while exporting towards RTTI. Please get in contact with the support desk of Test-Correct and give them this reference rtti-"

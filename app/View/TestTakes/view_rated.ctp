@@ -47,7 +47,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
     <? endif; ?>
 
     <?php if($take['is_rtti_test_take'] == 1): ?>
-        <a href="#" onclick="Popup.load('/test_takes/export_to_rtti/<?=$take_id?>', 1000)" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
+        <a href="#" onclick="exportRtti('<?=$take_id?>')" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
     <a href="#" class="btn white mr2"
@@ -302,6 +302,22 @@ if($isTeacher && $analysis && count($analysis)){
             });
         });
 
-
     </script>
 <?php } ?>
+<script>
+    function exportRtti(take_id){
+        var url = '/test_takes/export_to_rtti/' + take_id;
+        $.post(url, function(response, status){
+
+            response = JSON.parse(response);
+
+            if(response["status"] == 1) {
+                Notify.notify('<?= __("Toets met succes naar RTTI verzonden.")?>',3000);
+            } else {
+                Notify.notify(response['data'], 'error',30000);
+            }
+
+            Navigation.refresh();
+        });
+    }
+</script>
