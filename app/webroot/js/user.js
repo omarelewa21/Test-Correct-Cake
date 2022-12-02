@@ -557,6 +557,15 @@ var User = {
         Popup.message(text, function() {},
         function() {
             elem.val('NONE').change();
-        })
-    }
+        });
+    },
+    openUploadTestPage: function() {
+        var currentPage = encodeURIComponent(Navigation.history.pop());
+        if (currentPage.includes('front_controller')) {
+            currentPage = '';
+        }
+
+        var string = 'referrer%5Btype%5D=cake&referrer%5Bpage%5D='+currentPage;
+        User.goToLaravel('teacher/upload_test?'+string);
+    },
 };
