@@ -439,6 +439,16 @@ class TestsService extends BaseService {
         return $response;
     }
 
+    public function updateTestTakeStatusToDiscussed($take_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$take_id.'/update-status-to-discussed', [], []);
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function getTestScore($test_id, $params = []) {
         $response = $this->Connector->getRequest('/test_max_score/' . $test_id, $params);
         if($this->Connector->getLastCode() == 403) {

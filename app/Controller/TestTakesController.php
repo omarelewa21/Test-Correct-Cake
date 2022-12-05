@@ -2551,6 +2551,13 @@ class TestTakesController extends AppController {
         $this->formResponse($response);
     }
 
+    public function updateTestTakeStatusToDiscussed($take_id) {
+        $this->isAuthorizedAs(['Teacher']);
+        $response = $this->TestsService->updateTestTakeStatusToDiscussed($take_id);
+
+        $this->formResponse($response);
+    }
+
     public function export_to_rtti($take_id) {
         $this->isAuthorizedAs(["Teacher"]);
 

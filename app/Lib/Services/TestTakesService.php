@@ -859,6 +859,17 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function updateTestTakeStatusToDiscussed($test_id)
+    {
+        $response = $this->Connector->putRequest('/test_take/'.$test_id.'/update-status-to-discussed', [], []);
+       
+        if($response === false) {
+            $respone = $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function toggleInbrowserTestingForParticipant($test_take_id, $participant_id) {
         $response = $this->Connector->putRequest(
             sprintf('/test_take/%s/test_participant/%s/toggle_inbrowser_testing', $test_take_id, $participant_id),

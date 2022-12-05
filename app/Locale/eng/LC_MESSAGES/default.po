@@ -3097,6 +3097,9 @@ msgstr "Pupil answers PDF"
 msgid "Meteen naar nakijken"
 msgstr "Go straight to assessment"
 
+msgid "Terug naar nakijken"
+msgstr "Back to assessing test"
+
 msgid "Weet je zeker dat je meteen naar nakijken wilt gaan?"
 msgstr "Are you sure you want to go straight to assessment?"
 

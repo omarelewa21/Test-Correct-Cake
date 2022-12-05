@@ -64,9 +64,14 @@ foreach($test_takes as $test_take) {
                     <span class="fa fa-folder-open-o mr5"></span>
                     <?= __("Openen")?>
                 </a>
+                
                 <a href="#" onclick="TestTake.archive(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
                     <span class="fa fa-trash mr5"></span>
                     <?= __("Archiveren")?>
+                </a>
+                <a href="#" onclick="TestTake.updateTestTakeStatusToDiscussed(this,'<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-not-archived">
+                    <span class="fa fa-arrow-right mr5"></span>
+                    <?= __("Terug naar nakijken")?>
                 </a>
 
                 <a href="#" onclick="TestTake.unarchive(this, '<?=getUUID($test_take, 'get');?>')" class="btn highlight white jquery-show-when-archived">
