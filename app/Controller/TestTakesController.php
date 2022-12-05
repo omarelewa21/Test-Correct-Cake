@@ -2330,7 +2330,7 @@ class TestTakesController extends AppController {
 
             $data = $this->request->data['TestTake'];
 
-            $this->TestTakesService->updateShowResults($take_id, $data['active'] == '1', $data['show_results']);
+            $this->TestTakesService->updateShowResults($take_id, $data['active'] == '1', $data['show_results'], $data['show_grades']);
 
             $this->formResponse(
                     true, []
@@ -3034,6 +3034,12 @@ class TestTakesController extends AppController {
     public function get_preview_pdf_url($testTakeId)
     {
         return $this->formResponse(true,  $this->TestTakesService->getTestTakePdfUrlForLaravel($testTakeId));
+    }
+
+    public function updateGradeVisibility($testTakeUuid, bool $show)
+    {
+        $params['show_grades'] = $show;
+        return $this->formResponse(true,  $this->TestTakesService->update($testTakeUuid, $params));
     }
 
     /**

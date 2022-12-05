@@ -11,16 +11,26 @@
 
     <div class="well well-sm mt10" style="margin-bottom: 0px; text-align: center; <?=!isset($take['show_results']) ? 'display: none;' : '' ?>" id="specifyDate">
     <?= __("Inzien mogelijk tot")?><br />
-        <?=$this->Form->input('show_results', ['type' => 'text', 'class' => 'mt5', 'value' => $take['show_results'] , 'label' => false, 'value' => date('d-m-Y H:i', strtotime('+ 20 min'))])?>
+        <?=$this->Form->input('show_results', [
+            'type' => 'text', 'class' => 'mt5',
+            'value' => $take['show_results'] , 'label' => false, 
+            'value' => ( empty($take['show_results']) || is_null($take['show_results']) ) 
+                        ? date('d-m-Y H:i', strtotime('+ 20 min'))
+                        : date('d-m-Y H:i', strtotime($take['show_results']))
+            ])
+        ?>
     </div>
+    
+    <?=$this->Form->input('show_grades', ['class' => 'mt10', 'type' => 'checkbox', 'checked' => $take['show_grades'], 'label' => __("Toon cijfers")])?>
+    
     <?= $this->Form->end(); ?>
 </div>
 <div class="popup-footer">
-    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="NietLatenInzien();"> 
-    <?= __("Niet laten inzien")?>
+    <a href="#" class="btn grey mt5 mr5 pull-right" onclick="Popup.closeLast();"> 
+        <?= __("Sluiten")?>
     </a>
     <a href="#" class="btn highlight mt5 mr5 pull-right" id="btnSave">
-    <?= __("Toepassen")?>
+        <?= __("Toepassen")?>
     </a>
 </div>
 

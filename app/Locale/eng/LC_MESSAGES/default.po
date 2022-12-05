@@ -4666,6 +4666,12 @@ msgstr "Assignemnt code"
 msgid "Nieuwe studenten analyses"
 msgstr "New student analyses"
 
+msgid "Cijfers verbergen"
+msgstr "Hide grades"
+
+msgid "Toon cijfers"
+msgstr "Show grades"
+
 msgid "Reset wachtwoorden"
 msgstr "Reset passwords"
 
@@ -4693,3 +4699,9 @@ msgstr "Add connections"
 
 msgid "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
 msgstr "Something went wrong while exporting towards RTTI. Please get in contact with the support desk of Test-Correct and give them this reference rtti-"
+
+msgid "N.v.t."
+msgstr "N/A"
+
+msgid "Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer."
+msgstr "Formative assessment furthers insight and progression. There is no grade applicable for this test."

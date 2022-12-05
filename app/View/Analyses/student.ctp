@@ -127,7 +127,21 @@ if(!$isStudent) {
                     <tr>
                         <td><?=$participant['name']?></td>
                         <?if(!$isStudent){ ?><td><?=empty($participant['invigilator_note']) ? '-' : $participant['invigilator_note']?></td><? } ?>
-                        <td><?=empty($participant['rating']) ? '-' : number_format($participant['rating'], 1)?></td>
+                        
+                        <? if(!$participant['show_grades']) {?>
+                            <td title="<?= __("Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer.") ?>">
+                                <?= __('N.v.t.') ?>
+                            </td>
+                        <? } elseif(!empty($participant['rating'])) { ?>
+                            <td>
+                                <?= number_format($participant['rating'], 1) ?>
+                            </td>
+                        <?}else{?>
+                            <td>
+                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                            </td>
+                        <?}?>
+                        
                         <td><?=date('d-m-Y', strtotime($participant['time_start']))?></td>
                         <td class="nopadding" width="30">
                             <a href="#" onclick="Navigation.load('/test_takes/view/<?=getUUID($participant, 'get',['uuid_key' => 'test_take_uuid'])?>');" class="btn white">
