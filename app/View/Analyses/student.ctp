@@ -128,7 +128,7 @@ if(!$isStudent) {
                         <td><?=$participant['name']?></td>
                         <?if(!$isStudent){ ?><td><?=empty($participant['invigilator_note']) ? '-' : $participant['invigilator_note']?></td><? } ?>
                         
-                        <? if(!$participant['show_grade']) {?>
+                        <? if(!$participant['show_grades']) {?>
                             <td title="<?= __("Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer.") ?>">
                                 <?= __('N.v.t.') ?>
                             </td>
