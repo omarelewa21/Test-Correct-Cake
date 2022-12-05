@@ -35,7 +35,7 @@
                 <span class="body"><?= __("Gelieve aan te leveren als:")?> <br> <?= __("PDF, Word, Wintoets")?></span>
 
                 <button type="button"
-                        onclick="Popup.closeWithNewPopup('/file_management/upload_test?content_creation_step=2',800);"
+                        onclick="User.openUploadTestPage();;"
                         class="button cta-button button-md">
                     <span><?= __("Toets uploaden")?></span>
                 </button>
