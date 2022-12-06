@@ -4686,3 +4686,18 @@ msgstr "Taxonomy and attainments"
 
 msgid "Koppelingen toevoegen"
 msgstr "Add connections"
+
+msgid "Toets pakket"
+msgstr "Test package"
+
+msgid "pro"
+msgstr "Pro"
+
+msgid "basic"
+msgstr "Basic"
+
+msgid "none"
+msgstr "None"
+
+msgid "Uitgevers toets"
+msgstr "Publishers Test"

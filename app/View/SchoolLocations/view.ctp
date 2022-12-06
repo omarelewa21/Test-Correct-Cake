@@ -310,6 +310,8 @@
                         'clickAction' => 'updateSchoolLocation'
                     ]); ?>
                 </td>
+                <th><?= __("Toets pakket") ?></th>
+                <td><?= __($school_location['feature_settings']['test_package']) ?></td>
             </tr>
         </table>
     </div>

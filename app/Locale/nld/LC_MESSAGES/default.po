@@ -137,3 +137,18 @@ msgstr "Taxonomie en eindtermen"
 
 msgid "Koppelingen toevoegen"
 msgstr "Koppelingen toevoegen"
+
+msgid "Toets pakket"
+msgstr "Toets pakket"
+
+msgid "pro"
+msgstr "Pro"
+
+msgid "basic"
+msgstr "basis"
+
+msgid "none"
+msgstr "geen"
+
+msgid "Uitgevers toets"
+msgstr "Uitgevers toets"
