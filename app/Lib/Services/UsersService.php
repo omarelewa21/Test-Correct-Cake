@@ -828,5 +828,19 @@ class UsersService extends BaseService
         }
         return $response;
     }
+
+    public function getToetsenbakkerUsers($params)
+    {
+        $response = $this->Connector->getRequest('/user/toetsenbakkers', $params);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+
+        if (isset($response['data'])) {// of not set we need the complete response if empty. like [], then it's okay to return an empty list// && !empty($response['data'])) {
+            return $response['data'];
+        } else {
+            return $response;
+        }
+    }
 }
 

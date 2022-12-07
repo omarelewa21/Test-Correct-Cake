@@ -151,7 +151,8 @@ class FileManagementController extends AppController {
             ];
 
 
-            $_teachers = $this->UsersService->getUsers($params);
+//            $_teachers = $this->UsersService->getUsers($params);
+            $_teachers = $this->UsersService->getToetsenbakkerUsers([]);
 
             $teachers = $_teachers;
 //            foreach ($_teachers as $teacher) {

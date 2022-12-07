@@ -79,6 +79,9 @@
                             <option value="">-</option>
                             <? foreach($teachers as $teacher){
                                     $name = sprintf('%s %s %s', $teacher['name_first'], $teacher['name_suffix'], $teacher['name']);
+                                    if (isset($teacher['name_full'])) {
+                                        $name = $teacher['name_full'];
+                                    }
                                     $selected = "";
                                     if($teacher['id'] == $file['handledby']){
                                         $selected = "selected = 'selected'";

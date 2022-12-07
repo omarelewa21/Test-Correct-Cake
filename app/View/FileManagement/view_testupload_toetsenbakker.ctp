@@ -12,6 +12,19 @@
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
+    <?php if (isset($file['test']) && !empty($file['test'])) { ?>
+        <a href="#" class="btn highlight mr2"
+           onclick="Questions.enterEmptyCms('<?= $file['test']['uuid'] ?>', 'edit')"
+        >
+            <span class="fa fa-plus mr5"></span>
+            <?= __("Toets verder construeren")?>
+        </a>
+    <?php } else { ?>
+        <a href="#" class="btn highlight mr2" onclick="Test.createFromFileManagement('<?= $file['uuid'] ?>')">
+            <span class="fa fa-plus mr5"></span>
+            <?= __("Toets construeren")?>
+        </a>
+    <?php } ?>
 </div>
 
 <h1><?= __("Geüpload toetsbestand")?></h1>
