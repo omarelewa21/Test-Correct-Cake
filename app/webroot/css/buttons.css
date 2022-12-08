@@ -59,6 +59,11 @@
     background:         var(--primary-hover);
 }
 
+.btn.cta{
+    background:         var(--cta-primary);
+    color:              white;
+}
+
 /* TABS */
 .tabs {
     background:         #eeeeee;

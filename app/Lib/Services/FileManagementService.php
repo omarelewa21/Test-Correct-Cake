@@ -136,4 +136,15 @@ class FileManagementService extends BaseService {
 
         return $response;
     }
+
+    public function duplicate_test_to_school($fileManagementId) {
+
+        $response = $this->Connector->postRequest('/filemanagement/' . $fileManagementId . '/duplicate_test_to_school', [], $test);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }

@@ -177,6 +177,8 @@ class FileManagementController extends AppController {
             $schoolbeheerders = $this->UsersService->getUsers($params);
 
             $this->set('schoolbeheerders', $schoolbeheerders);
+
+            $this->set('enable_publishing_test', $data['file_management_status_id'] === 7);
         }
         $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 
@@ -619,6 +621,22 @@ class FileManagementController extends AppController {
                 );
                 exit;
             }
+        }
+    }
+
+    public function duplicate_test_to_school($file_management_id)
+    {
+        $this->ifNotAllowedExit(["Account manager"]);
+
+        if ($this->request->is('put')) {
+//            $response = $this->FileService->duplicate_test_to_school($file_management_id);
+            $response = json_decode($this->FileService->duplicate_test_to_school($file_management_id));
+
+            if (isset($response->errors) && !empty($response->errors)) {
+                return $this->formResponse(false, ['errors' => $response->errors]);
+            }
+
+            $this->formResponse(true, $response);
         }
     }
 

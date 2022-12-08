@@ -103,12 +103,12 @@
                 <td><?= $file['typedetails']['name']?></td>
             </tr>
             <tr>
-                <th width="12%"><?= __("Toets pakket")?></th>
+                <th width="12%"><?= __("Uitgevers toets")?></th>
                 <td width="38%">
-                    <?= __($test_package)?>
+                    <?= __(!!$contains_publisher_content ? 'ja' : 'nee')?>
                 </td>
-                <th><?= __("Uitgevers toets")?></th>
-                <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
+                <th></th>
+                <td></td>
             </tr>
         </table>
     </div>

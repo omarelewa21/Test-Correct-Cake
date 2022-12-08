@@ -152,3 +152,6 @@ msgstr "geen"
 
 msgid "Uitgevers toets"
 msgstr "Uitgevers toets"
+
+msgid "Verplaats naar school"
+msgstr "Verplaats naar school"

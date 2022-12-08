@@ -4701,3 +4701,6 @@ msgstr "None"
 
 msgid "Uitgevers toets"
 msgstr "Publishers Test"
+
+msgid "Verplaats naar school"
+msgstr "Move to school"

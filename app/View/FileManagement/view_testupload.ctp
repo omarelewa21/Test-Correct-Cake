@@ -30,6 +30,15 @@
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
+    <? if($enable_publishing_test) { ?>
+    <a href="#"
+       class="btn cta ml2"
+       onclick="FileManagement.duplicateTestToSchool('<?= $file['uuid'] ?>')"
+    >
+        <span class="fa fa-check mr5"></span>
+        <?= __("Verplaats naar school")?>
+    </a>
+    <? } ?>
 </div>
 
 <h1><?= __("Geüpload toetsbestand")?></h1>
