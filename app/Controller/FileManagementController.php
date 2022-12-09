@@ -50,11 +50,19 @@ class FileManagementController extends AppController {
 //            }
 //        }
 
-        if ($this->FileService->update($id, $params)) {
-            echo "1";
-        } else {
-            throw new NotFoundException();
+        $response = $this->FileService->update($id, $params);
+
+        if (!empty(json_decode($response, true)['errors'])) {
+            $this->formResponse(false, $response);
+            exit;
         }
+
+        if ($response) {
+            echo "1";
+            exit;
+        }
+
+        throw new NotFoundException();
         exit;
     }
 
@@ -167,6 +175,7 @@ class FileManagementController extends AppController {
 
             $this->set('schoolbeheerders', $schoolbeheerders);
         }
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 
         $this->render($view);
     }

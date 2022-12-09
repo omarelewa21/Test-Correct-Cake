@@ -20,7 +20,13 @@
 
 </style>
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/testuploads');">
+    <a href="#" class="btn white mr2"
+        <? if (is_null($return_route)) { ?>
+            onclick="Navigation.load('/file_management/testuploads');"
+        <? } else { ?>
+            onclick="User.goToLaravel('<?= $return_route ?>')"
+        <? } ?>
+       >
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
@@ -63,11 +69,8 @@
                         <?php
                         if(isset($file['handler']) && $file['handler']){
                             echo sprintf('%s %s %s',$file['handler']['name_first'], $file['handler']['name_suffix'],$file['handler']['name']);
-                        }
-                        else {
-                            ?>
-                        -
-                        <?php
+                        } else {
+                            echo '-';
                         }
                         ?>
                     </div>
@@ -93,21 +96,19 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%" valign="top"><?= __("Kleurcode")?></th>
-                <td width="38%" valign="top" class="editable" onClick="makeEditable();">
-                    <div id="colorcode_div" class='editable_view' title='<?= __("Klik om te wijzigen")?>' style="max-height:60px;overflow:scroll"><?
-                        echo (strlen($file['typedetails']['colorcode']) > 0) ? sprintf("<span class='mr5 color-indicator %s'></span>",$file['typedetails']['colorcode']) : __("Klik om een kleurcode te plaatsen");
-                    ?></div>
-                    <div id="colorcodes_edit" class='editable_elements colorcode-selector'>
-                        <input type="hidden" class="editable_input" id="colorcodeHiddenInput" name="colorcode" value="<?php echo $file['typedetails']['colorcode']?>">
-                        <?php
-                            for($i=1;$i<=40;$i++){
-                                $active = 'colorcode-'.$i == $file['colorcode'] ? 'color-indicator-active' : '';
-                                echo "<span class='pull-left mr2 ml2 mb2 mt2 color-indicator colorcode colorcode-".$i." ".$active."' onclick='changeColorcode(this)' data-color='colorcode-".$i."'></span>";
-                            }
-                        ?>
+
+                <th width="12%" valign="top"><?= __("Toetsenbakker")?></th>
+                <td width="38%" valign="top" id='test_builder_code' class="editable" onClick="makeEditable();">
+                    <div id="test_builder_code_div" class='editable_view' title='<?= $file['test_builder_code'] ?? '-'?>' style="max-height:60px;overflow:scroll">
+                        <?= $file['test_builder_code'] ?? '-'?>
                     </div>
-                    </td>
+                    <div id="test_builder_code_edit" class='editable_elements'>
+                        <label>
+                            <input type="text" name="test_builder_code" maxlength="4" class='editable_input' value="<?= $file['test_builder_code'] ?? ''?>"/>
+                        </label>
+                    </div>
+                </td>
+
                 <th width="12%"><?= __("Vak")?> (<?= __("Volgens docent") ?>)</th>
                 <td width="38%">
                     <?=$file['typedetails']['subject'] ?>
@@ -137,13 +138,17 @@
                 </td>
             </tr>
             <tr>
-                <th width="12%" rowspan="2" valign="top"><?= __("Uitnodiging")?></th>
-                <td width="38%" rowspan="2" valign="top" id='notes' class="editable" onClick="makeEditable();">
-                    <div id="notes_div" class='editable_view' title='<?= __("Klik om uit te nodigen")?>' style="max-height:60px;overflow:scroll"><?
-                        echo (isset($file['typedetails']['invite']) && strlen($file['typedetails']['invite']) > 0) ? $file['typedetails']['invite'].'<br /> uitgenodigd op '.$this->Time->format(isset($file['typedetails']['invited_at']['date']) ? $file['typedetails']['invited_at']['date'] : $file['typedetails']['invited_at'],'%e %b \'%y om %H:%M', true, 'Europe/Amsterdam') : __("Klik om uit te nodigen");
-                        ?></div>
-                    <div id="notes_edit" class='editable_elements'>
-                        <input type="text" name="invite" class='editable_input' value="<?=isset($file['typedetails']['invite']) ? $file['typedetails']['invite'] : ''?>">
+                <th width="12%"><?= __("Koppelingen toevoegen")?></th>
+                <td width="38%" class="editable" onClick="makeEditable();">
+                    <div class="editable_view">
+                        <?= __($file['test_upload_additional_options'][$file['typedetails']['test_upload_additional_option']]) ?? __('None')?>
+                    </div>
+                    <div class="editable_elements">
+                        <select name="test_upload_additional_option" class="editable_input" style="width:100%">
+                            <?php foreach($file['test_upload_additional_options'] as $key => $option) { ?>
+                                <option value="<?= $key ?>" <? if($file['typedetails']['test_upload_additional_option'] == $key) { echo 'selected'; } ?>><?= __($option) ?></option>
+                            <?php } ?>
+                        </select>
                         <a href="#" onClick="save('<?=getUUID($file, 'get');?>')" class="btn highlight pull-right mt2 mr5" style="display:inline-block"><i class="fa fa-save"></i> <?= __("Opslaan")?></a>
                     </div>
                 </td>
@@ -153,6 +158,8 @@
                 <td><?= $testKind?></td>
             </tr>
             <tr>
+                <th width="12%"></th>
+                <td width="38%"></td>
                 <th>
                 <?= __("Naam toets")?>
                 </th>
@@ -251,18 +258,18 @@
         jQuery(".editable_input:input").each(function(e){
             data[$(this).attr('name')] = $(this).val();
         });
-        var jqxhr = $.post('/file_management/update/<?= getUUID($file, 'get');?>/testupload',
-                data,
-                function(response) {
-                    Loading.hide();
+        var jqxhr = $.post('/file_management/update/<?= getUUID($file, 'get');?>/testupload', data)
+            .done(function(response) {
+                if (response == 1) {
                     Notify.notify('<?= __("De gegevens zijn aangepast")?>', 'success');
                     Navigation.refresh();
-                }
-            )
-            .fail(function(){
-                    Loading.hide();
+                } else {
                     Notify.notify('<?= __("Er is iets fout gegaan bij het aanpassen van de gegevens")?>', 'error');
-                });
-            }
+                }
+            })
+            .always(() => {
+                Loading.hide();
+            });
+    }
     $('select').select2();
 </script>
