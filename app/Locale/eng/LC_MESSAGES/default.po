@@ -4704,3 +4704,6 @@ msgstr "Publishers Test"
 
 msgid "Verplaats naar school"
 msgstr "Move to school"
+
+msgid "Geen toets gekoppeld"
+msgstr "No test linked"

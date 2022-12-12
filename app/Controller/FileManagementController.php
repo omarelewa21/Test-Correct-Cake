@@ -140,7 +140,7 @@ class FileManagementController extends AppController {
         }
         $view = 'view_testupload_toetsenbakker';
 
-        $this->set('test_package', $data['school_location']['feature_settings']['test_package']);
+        $this->set('test_package', $data['school_location']['feature_settings']['test_package'] ?? 'none');
         $this->set('contains_publisher_content', $data['typedetails']['contains_publisher_content']);
 
         if (!AuthComponent::user('isToetsenbakker')) {
@@ -180,6 +180,7 @@ class FileManagementController extends AppController {
             $this->set('schoolbeheerders', $schoolbeheerders);
 
             $this->set('enable_publishing_test', $data['file_management_status_id'] === 7);
+            $this->set('disable_publishing_test_button', is_null($data['test_id']));
         }
         $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 

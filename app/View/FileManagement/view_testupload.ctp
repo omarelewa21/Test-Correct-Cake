@@ -32,8 +32,12 @@
     </a>
     <? if($enable_publishing_test) { ?>
     <a href="#"
-       class="btn cta ml2"
-       onclick="FileManagement.duplicateTestToSchool('<?= $file['uuid'] ?>')"
+       class="btn cta ml2 <?= $disable_publishing_test_button ? 'disabled' : '' ?>"
+       <? if($disable_publishing_test_button) { ?>
+           onclick="alert('<?= __("Geen toets gekoppeld") ?>')"
+       <? } else { ?>
+           onclick="FileManagement.duplicateTestToSchool('<?= $file['uuid'] ?>')"
+       <? } ?>
     >
         <span class="fa fa-check mr5"></span>
         <?= __("Verplaats naar school")?>
