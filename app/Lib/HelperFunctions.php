@@ -23,22 +23,22 @@ class HelperFunctions
     // only if the class has no instance.
     public static function getInstance()
     {
-        if (self::$instance == null)
-        {
+        if (self::$instance == null) {
             self::$instance = new static();
         }
 
         return self::$instance;
     }
 
-    function isJson($string) {
+    function isJson($string)
+    {
         return is_string($string) && is_array(json_decode($string, true)) && (json_last_error() == JSON_ERROR_NONE) ? true : false;
     }
 
     public function getCorrectUrlsInString($string)
     {
-        if (strpos($_SERVER['HTTP_HOST'], 'portal2.test')){
-            $string = str_replace('portal.test','portal2.test',$string);
+        if (strpos($_SERVER['HTTP_HOST'], 'portal2.test')) {
+            $string = str_replace('portal.test', 'portal2.test', $string);
         }
         return $string;
     }
@@ -47,11 +47,11 @@ class HelperFunctions
     public function revertSpecialChars($var, $revertKeysIfArray = false)
     {
         $return = null;
-        if(is_array($var)){
+        if (is_array($var)) {
             $return = [];
-            foreach($var as $key => $val) {
-                if(is_array($val)){
-                    $val = $this->revertSpecialChars($val,$revertKeysIfArray);
+            foreach ($var as $key => $val) {
+                if (is_array($val)) {
+                    $val = $this->revertSpecialChars($val, $revertKeysIfArray);
                 } else {
                     if ($revertKeysIfArray) {
                         $return[$this->_revertSpecialChars($key)] = $this->_revertSpecialChars($val);
@@ -76,11 +76,11 @@ class HelperFunctions
         return $this->return_bytes(ini_get('upload_max_filesize'));
     }
 
-    public function return_bytes($val) {
+    public function return_bytes($val)
+    {
         $val = trim($val);
-        $last = strtolower($val[strlen($val)-1]);
-        switch($last)
-        {
+        $last = strtolower($val[strlen($val) - 1]);
+        switch ($last) {
             case 'g':
                 $val *= 1024;
             case 'm':
@@ -90,11 +90,43 @@ class HelperFunctions
         }
         return $val;
     }
+
     function formatBytes($size, $precision = 2)
     {
         $base = log($size, 1024);
         $suffixes = array('', 'KB', 'MB', 'GB', 'TB');
 
-        return round(pow(1024, $base - floor($base)), $precision) .' '. $suffixes[floor($base)];
+        return round(pow(1024, $base - floor($base)), $precision) . ' ' . $suffixes[floor($base)];
+    }
+
+    public static function setReturnRouteForLaravel()
+    {
+        if (!CakeSession::read('temporaryLoginOptions')) {
+            return false;
+        }
+
+        $options = json_decode(CakeSession::read('temporaryLoginOptions'), true);
+
+        if (!array_key_exists('return_route', $options)) {
+            return false;
+        }
+
+        CakeSession::write('history_route', [
+            'return_route' => $options['return_route']
+        ]);
+    }
+
+    public static function getReturnRouteToLaravelIfSameRoute()
+    {
+        $current_route = Router::url();
+        $data = CakeSession::read('history_route');
+        if (!empty($data['current_route']) && $data['current_route'] !== $current_route) {
+            CakeSession::delete('history_route');
+            return null;
+        }
+
+        CakeSession::write('history_route', ['current_route' => $current_route, 'return_route' => $data['return_route']]);
+
+        return $data['return_route'];
     }
 }

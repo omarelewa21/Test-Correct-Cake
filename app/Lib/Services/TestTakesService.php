@@ -956,4 +956,15 @@ class TestTakesService extends BaseService {
     {
         return $this->Connector->postRequest(sprintf('/test_take/answers/%s/with_temporary_login', $testTakeId), [], []);
     }
+
+    public function getTestTakeForGrading($testTakeId)
+    {
+        $response = $this->Connector->getRequest(sprintf('/test_take/%s/grading',$testTakeId), []);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
 }
