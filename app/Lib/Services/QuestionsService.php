@@ -99,7 +99,7 @@ class QuestionsService extends BaseService
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
-        return $respons;
+        return $response;
     }
 
     public function getInlineImageContent($image) {
