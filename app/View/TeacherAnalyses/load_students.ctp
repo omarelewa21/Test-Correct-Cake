@@ -17,7 +17,7 @@ foreach($students as $student) {
             <?=$student['username']?>
         </td>
         <td class="nopadding">
-            <a href="#" class="btn white pull-right dropblock-left" onclick="User.goToLaravel('/teacher/analyses/<?=getUUID($student, 'get');?>/<?=$class_id?>', 400);">
+            <a href="#" class="btn white pull-right dropblock-left" onclick="User.goToLaravel('/teacher/analyses/<?=getUUID($student, 'get');?>/<?=$class_id?>');">
                 <img class="tat-check" src="img/ico/analyses.svg" width="16px" height="16px" alt="">
             </a>
         </td>
