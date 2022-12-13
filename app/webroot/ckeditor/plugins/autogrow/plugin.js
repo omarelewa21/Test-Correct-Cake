@@ -46,7 +46,7 @@
 			editorFocus: false
 		} );
 
-		var eventsList = { contentDom: 1, key: 1, selectionChange: 1, insertElement: 1, mode: 1 };
+		var eventsList = {  instanceReady:1, contentDom: 1, key: 1, selectionChange: 1, insertElement: 1, mode: 1 };
 		for ( var eventName in eventsList ) {
 			editor.on( eventName, function( evt ) {
 				// Some time is required for insertHtml, and it gives other events better performance as well.
