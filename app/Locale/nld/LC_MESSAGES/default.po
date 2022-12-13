@@ -140,3 +140,18 @@ msgstr "Koppelingen toevoegen"
 
 msgid "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
 msgstr "Er is iets fout gegaan tijdens het exporteren van de gegevens naar RTTI. Neem contact op met de support desk van Test-Correct en geef daarbij het volgende referentie nummer op: rtti-"
+
+msgid "Toets pakket"
+msgstr "Toets pakket"
+
+msgid "pro"
+msgstr "Pro"
+
+msgid "basic"
+msgstr "basis"
+
+msgid "none"
+msgstr "geen"
+
+msgid "Uitgevers toets"
+msgstr "Uitgevers toets"

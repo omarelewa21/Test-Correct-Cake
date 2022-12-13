@@ -140,6 +140,9 @@ class FileManagementController extends AppController {
         }
         $view = 'view_testupload_toetsenbakker';
 
+        $this->set('test_package', $data['school_location']['feature_settings']['test_package']);
+        $this->set('contains_publisher_content', $data['typedetails']['contains_publisher_content']);
+
         if (!AuthComponent::user('isToetsenbakker')) {
             $view = 'view_testupload';
             $params = [

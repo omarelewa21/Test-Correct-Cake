@@ -4705,3 +4705,18 @@ msgstr "N/A"
 
 msgid "Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer."
 msgstr "Formative assessment furthers insight and progression. There is no grade applicable for this test."
+
+msgid "Toets pakket"
+msgstr "Test package"
+
+msgid "pro"
+msgstr "Pro"
+
+msgid "basic"
+msgstr "Basic"
+
+msgid "none"
+msgstr "None"
+
+msgid "Uitgevers toets"
+msgstr "Publishers Test"

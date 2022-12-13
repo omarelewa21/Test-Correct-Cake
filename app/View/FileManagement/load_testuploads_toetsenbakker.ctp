@@ -9,7 +9,7 @@ foreach($files as $file){
             <?= sprintf('%s %s %s',$file['user']['name_first'], $file['user']['name_suffix'],$file['user']['name']) ?>
         </td>
         <td>
-            <?= $file['typedetails']['subject'] ?>
+            <?= $file['subject']['name'] ?? $file['typedetails']['subject'] ?>
         </td>
         <td>
             <?= $file['typedetails']['name'] ?>
