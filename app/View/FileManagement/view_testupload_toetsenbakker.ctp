@@ -8,7 +8,13 @@
     }
 </style>
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/testuploads');">
+    <a href="#" class="btn white mr2"
+        <? if (is_null($return_route)) { ?>
+            onclick="Navigation.load('/file_management/testuploads');"
+        <? } else { ?>
+            onclick="User.goToLaravel('<?= $return_route ?>')"
+        <? } ?>
+    >
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>

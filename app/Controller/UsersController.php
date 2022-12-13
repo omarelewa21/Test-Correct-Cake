@@ -1357,6 +1357,7 @@ class UsersController extends AppController
         $roles = AuthComponent::user('roles');
         $useLaravelTakenPage = AuthComponent::user('school_location.feature_settings.allow_new_taken_tests_page');
         $isExamCoordinator = !!AuthComponent::user('is_examcoordinator');
+        $isToetsenbakker = !!AuthComponent::user('isToetsenbakker');
 
         $tiles = array();
 
@@ -1775,12 +1776,22 @@ class UsersController extends AppController
                         'path'  => '/teacher_classes/school_location_classes'
                     ];
 
-                    $tiles['teacher_test_uploads'] = [
-                        'menu'  => 'library',
-                        'icon'  => 'testlist',
-                        'title' => __("Mijn uploads"),
-                        'path'  => '/file_management/testuploads'
-                    ];
+                    if ($isToetsenbakker) {
+                        $tiles['teacher_test_uploads'] = array(
+                            'menu'  => 'library',
+                            'icon'  => 'testlist',
+                            'title' => __("Mijn uploads"),
+                            'path'  => 'teacher/file-management/testuploads',
+                            'type'  => 'laravelpage'
+                        );
+                    } else {
+                        $tiles['teacher_test_uploads'] = [
+                            'menu'  => 'library',
+                            'icon'  => 'testlist',
+                            'title' => __("Mijn uploads"),
+                            'path'  => '/file_management/testuploads'
+                        ];
+                    }
                 }
             }
 
