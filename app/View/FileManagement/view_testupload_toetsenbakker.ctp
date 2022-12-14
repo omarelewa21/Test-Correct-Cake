@@ -22,7 +22,7 @@
         <a href="#" class="btn cta mr2"
            onclick="Questions.enterEmptyCms('<?= $file['test']['uuid'] ?>', 'edit')"
         >
-            <span class="fa fa-plus mr5"></span>
+            <span class="fa fa-edit mr5"></span>
             <?= __("Toets verder construeren")?>
         </a>
     <?php } else { ?>
