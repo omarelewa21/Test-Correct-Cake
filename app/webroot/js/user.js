@@ -482,7 +482,7 @@ var User = {
                     $("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl/knowledge" target="_blank" class="btn white mt5" >' +  $.i18n('Supportpagina') + '</a>');
                     $("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  $.i18n('Automatisch uitloggen uitstellen') + '</a>');
                     if(typeof args === 'object' && args.isToetsenbakker){
-                        $("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' + $.i18n('Te verwerken toetsen') + '</a>');
+                        $("#user_menu").append('<a href="#" onClick="User.goToLaravel(\'/teacher/file-management/testuploads\');" class="btn white mt5" >' + $.i18n('Te verwerken toetsen') + '</a>');
                     }else{
                         jQuery("#user_menu").append('<a href="#" onClick="Navigation.load(\'file_management/testuploads\');" class="btn white mt5" >' +  $.i18n('Uploaden toets') + '</a>');
                     }
