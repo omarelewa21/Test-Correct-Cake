@@ -4720,3 +4720,6 @@ msgstr "None"
 
 msgid "Uitgevers toets"
 msgstr "Publishers Test"
+
+msgid "Bezig met nakijken & becijferen. Cijfer nog niet beschikbaar"
+msgstr "Currently checking & grading. Grade not yet available"

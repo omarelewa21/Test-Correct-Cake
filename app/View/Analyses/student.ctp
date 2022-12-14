@@ -138,7 +138,7 @@ if(!$isStudent) {
                             </td>
                         <?}else{?>
                             <td>
-                                <i class="fa fa-clock-o" aria-hidden="true"></i>
+                                <i class="fa fa-clock-o" aria-hidden="true" title="<?= __('Bezig met nakijken & becijferen. Cijfer nog niet beschikbaar') ?>"></i>
                             </td>
                         <?}?>
                         
