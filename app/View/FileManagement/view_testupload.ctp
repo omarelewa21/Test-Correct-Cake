@@ -111,7 +111,7 @@
 
                 <th width="12%"><?= __("Vak")?> (<?= __("Volgens docent") ?>)</th>
                 <td width="38%">
-                    <?=$file['typedetails']['subject'] ?>
+                    <?= $file['subject']['name'] ?? $file['typedetails']['subject'] ?>
                 </td>
             </tr>
             <tr>
@@ -171,6 +171,7 @@
                     <?= __($test_package)?>
                 </td>
                 <th><?= __("Uitgevers toets")?></th>
+                <? var_dump($file['typedetails']['contains_publisher_content']) ?>
                 <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
             </tr>
         </table>
