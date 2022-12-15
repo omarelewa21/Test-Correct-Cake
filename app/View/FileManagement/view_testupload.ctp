@@ -165,15 +165,6 @@
                 </th>
                 <td><?= $file['typedetails']['name']?></td>
             </tr>
-            <tr>
-                <th width="12%"><?= __("Toets pakket")?></th>
-                <td width="38%">
-                    <?= __($test_package)?>
-                </td>
-                <th><?= __("Uitgevers toets")?></th>
-                <? var_dump($file['typedetails']['contains_publisher_content']) ?>
-                <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
-            </tr>
         </table>
     </div>
 </div>

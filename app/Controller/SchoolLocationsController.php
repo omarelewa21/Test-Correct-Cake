@@ -259,10 +259,6 @@ class SchoolLocationsController extends AppController
         foreach ($school_location['license_types'] as $option) {
             $license_types += [$option => __($option)];
         }
-        $test_packages = [];
-        foreach ($school_location['test_packages'] as $option) {
-            $test_packages += [$option => __($option)];
-        }
 
         $schoolLocationHasRunManualImport = $school_location['has_run_manual_import'];
 
@@ -274,7 +270,6 @@ class SchoolLocationsController extends AppController
         $this->set('license_types', $license_types);
         $this->set('accountmanagers', $accountmanagers);
         $this->set('school_location', $school_location);
-        $this->set('test_packages', $test_packages);
 
     }
 

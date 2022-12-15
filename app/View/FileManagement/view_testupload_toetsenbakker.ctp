@@ -94,21 +94,13 @@
             </tr>
             <tr>
                 <th width="12%"><?= __("Koppelingen toevoegen")?></th>
-                <td width="38%" >
+                <td width="38%" class="editable" >
                     <?= __($file['test_upload_additional_options'][$file['typedetails']['test_upload_additional_option']]) ?? __('None')?>
                 </td>
                 <th>
                 <?= __("Naam")?>
                 </th>
                 <td><?= $file['typedetails']['name']?></td>
-            </tr>
-            <tr>
-                <th width="12%"><?= __("Toets pakket")?></th>
-                <td width="38%">
-                    <?= __($test_package)?>
-                </td>
-                <th><?= __("Uitgevers toets")?></th>
-                <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
             </tr>
         </table>
     </div>
