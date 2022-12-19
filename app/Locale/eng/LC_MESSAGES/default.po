@@ -1705,6 +1705,9 @@ msgstr "Done"
 msgid "Geannuleerd"
 msgstr "Cancelled"
 
+msgid "Aangeleverd"
+msgstr "Provided"
+
 msgid "Unclear taks"
 msgstr "Unclear task"
 
@@ -4723,3 +4726,9 @@ msgstr "Publishers Test"
 
 msgid "Bezig met nakijken & becijferen. Cijfer nog niet beschikbaar"
 msgstr "Currently checking & grading. Grade not yet available"
+
+msgid "Verplaats naar school"
+msgstr "Move to school"
+
+msgid "Geen toets gekoppeld"
+msgstr "No test linked"

@@ -8,10 +8,29 @@
     }
 </style>
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/testuploads');">
+    <a href="#" class="btn white mr2"
+        <? if (is_null($return_route)) { ?>
+            onclick="Navigation.load('/file_management/testuploads');"
+        <? } else { ?>
+            onclick="User.goToLaravel('<?= $return_route ?>')"
+        <? } ?>
+    >
         <span class="fa fa-backward mr5"></span>
         <?= __("Terug")?>
     </a>
+    <?php if (isset($file['test']) && !empty($file['test'])) { ?>
+        <a href="#" class="btn cta mr2"
+           onclick="Questions.enterEmptyCms('<?= $file['test']['uuid'] ?>', 'edit', 'cake.filemanagement')"
+        >
+            <span class="fa fa-edit mr5"></span>
+            <?= __("Toets verder construeren")?>
+        </a>
+    <?php } else { ?>
+        <a href="#" class="btn cta mr2" onclick="Test.createFromFileManagement('<?= $file['uuid'] ?>')">
+            <span class="fa fa-plus mr5"></span>
+            <?= __("Toets construeren")?>
+        </a>
+    <?php } ?>
 </div>
 
 <h1><?= __("Geüpload toetsbestand")?></h1>
@@ -103,12 +122,12 @@
                 <td><?= $file['typedetails']['name']?></td>
             </tr>
             <tr>
-                <th width="12%"><?= __("Toets pakket")?></th>
+                <th width="12%"><?= __("Uitgevers toets")?></th>
                 <td width="38%">
-                    <?= __($test_package)?>
+                    <?= __(!!$contains_publisher_content ? 'ja' : 'nee')?>
                 </td>
-                <th><?= __("Uitgevers toets")?></th>
-                <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
+                <th></th>
+                <td></td>
             </tr>
         </table>
     </div>

@@ -11,9 +11,10 @@ App::uses('QuestionsService', 'Lib/Services');
 class TestsService extends BaseService {
 
     public function duplicate($test_id) {
-        $test             = $this->getTest($test_id);
-        $questions        = $this->getQuestions($test_id);
-        $QuestionsService = new QuestionsService();
+        //7-12-22: removed unused calls to laravel for data
+//        $test             = $this->getTest($test_id);
+//        $questions        = $this->getQuestions($test_id);
+//        $QuestionsService = new QuestionsService();
 
         $test = array(
             'status' => 0
