@@ -20,7 +20,7 @@
     </a>
     <?php if (isset($file['test']) && !empty($file['test'])) { ?>
         <a href="#" class="btn cta mr2"
-           onclick="Questions.enterEmptyCms('<?= $file['test']['uuid'] ?>', 'edit')"
+           onclick="Questions.enterEmptyCms('<?= $file['test']['uuid'] ?>', 'edit', 'cake.filemanagement')"
         >
             <span class="fa fa-edit mr5"></span>
             <?= __("Toets verder construeren")?>

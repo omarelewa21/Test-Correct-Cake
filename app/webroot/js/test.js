@@ -166,6 +166,6 @@ var Test = {
         $('#'+id).removeClass("highlight");
     },
     createFromFileManagement: function (uuid) {
-        User.goToLaravel('/teacher/tests?referrerAction=create_test&file='+uuid);
+        User.goToLaravel('/teacher/tests?referrerAction=create_test&referrer=cake.filemanagement&file='+uuid);
     }
 };

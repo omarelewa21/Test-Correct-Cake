@@ -29,8 +29,8 @@ var Questions = {
         return sub_type;
     },
 
-    enterEmptyCms : function(test_id, action) {
-        this.openInEditorInLaravel(action, '', 'test', test_id, '', '', '', false, true);
+    enterEmptyCms : function(test_id, action, referrer = '') {
+        this.openInEditorInLaravel(action, '', 'test', test_id, '', '', '', false, true, referrer);
     },
 
     /**
@@ -78,7 +78,7 @@ var Questions = {
      * @param group_question_question_id
      * @param is_clone_request
      */
-    openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request, with_drawer) {
+    openInEditorInLaravel: function (verb, type, owner, test_id, sub_type, test_question_id, group_question_question_id, is_clone_request, with_drawer, referrer) {
         var path = 'teacher/question-editor' +
                     '?action=' + verb +
                     '&type=' + type +
@@ -87,7 +87,8 @@ var Questions = {
                     '&testId=' + test_id +
                     '&testQuestionId=' + test_question_id +
                     '&groupQuestionQuestionId=' + (group_question_question_id || '') +
-                    '&isCloneRequest=' + (is_clone_request || '');
+                    '&isCloneRequest=' + (is_clone_request || '') +
+                    '&referrer=' + (referrer || '');
 
         path = with_drawer ? path + '&withDrawer=true' : path;
 
