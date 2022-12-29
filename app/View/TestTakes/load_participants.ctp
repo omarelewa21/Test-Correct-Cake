@@ -19,7 +19,7 @@ foreach($participants as $participant) {
         <?=$participant['user']['name']?>
 
         <?
-        if(!empty($participant['rating'])) {
+        if(!empty($participant['rating']) && $status > 6) {
             echo '[ ' . $participant['rating'] . ' ]';
         }
         ?>
