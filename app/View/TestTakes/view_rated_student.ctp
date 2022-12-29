@@ -36,9 +36,21 @@
             </tr>
             <tr>
                 <th><?= __("Cijfer")?></th>
-                <td>
-                    <?=$rating ?>
-                </td>
+
+                <? if(!$take['show_grades']) {?>
+                    <td title="<?= __("Bij formatieve toetsen staan inzicht en voortgang centraal. Daarom zie je hier geen cijfer.") ?>">
+                        <?= __('N.v.t.') ?>
+                    </td>
+                <?}elseif($rating){?>
+                    <td>
+                        <?= $rating ?>
+                    </td>
+                <?}else{?>
+                    <td>
+                        <i class="fa fa-clock-o" aria-hidden="true" title="<?= __('Bezig met nakijken & becijferen. Cijfer nog niet beschikbaar') ?>"></i>
+                    </td>
+                <?}?>
+                
                 <th><?= __("Type")?></th>
                 <td><?=$take['retake'] == 0 ? __("Reguliere toets") : __("Inhaal toets")?></td>
             </tr>

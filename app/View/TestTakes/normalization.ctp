@@ -184,7 +184,7 @@ if($totalScore === 0){
                                 </td>
                                 <td><?=$question['score']?></td>
                                 <td>
-                                    <input name="data[Question][<?=$groupQuestionChildArray[$question_id]?>]" value="1" type="checkbox"
+                                    <input name="data[Question][<?=$question_id?>]" value="1" type="checkbox"
                                     <? if(in_array($question_id,$carouselQuestionsChildArray)){ ?>
                                             class="child_<?echo($question['groupQuestionUuid'])?> groupquestion_child" disabled
                                     <? }else{ ?>

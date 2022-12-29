@@ -14,27 +14,20 @@ foreach(AuthComponent::user()['roles'] as $role) {
             <?= __("Inhaal-toets plannen")?>
         </a>
         <?php if($take['is_rtti_test_take'] == 0): ?>
-        <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?=$take_id?>');">
-            <span class="fa fa-hourglass-2 mr5"></span>
-            <?= __("Normeren")?>
-        </a>
+            <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?=$take_id?>');">
+                <span class="fa fa-hourglass-2 mr5"></span>
+                <?= __("Normeren")?>
+            </a>
         <?php endif;?>
         <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/set_final_rates/<?=$take_id?>');">
             <span class="fa fa-hourglass-3 mr5"></span>
             <?= __("Becijferen")?>
         </a>
-        <?php if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) { ?>
-        <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>');">
-            <span class="fa fa-eye mr5"></span>
-            <?= __("Dichtzetten")?>
-        </a>
-        <? }else{ ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/update_show_results/<?= $take_id ?>', 420);">
             <span class="fa fa-eye mr5"></span>
             <?= __("Openzetten")?>
         </a>
         <? }?>
-    <? } ?>
     <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-file mr5"></span>
         <?= __("Cijferlijst")?>
@@ -47,7 +40,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
     <? endif; ?>
 
     <?php if($take['is_rtti_test_take'] == 1): ?>
-        <a href="#" onclick="Popup.load('/test_takes/export_to_rtti/<?=$take_id?>', 1000)" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
+        <a href="#" onclick="exportRtti('<?=$take_id?>')" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
     <a href="#" class="btn white mr2"
@@ -302,6 +295,22 @@ if($isTeacher && $analysis && count($analysis)){
             });
         });
 
-
     </script>
 <?php } ?>
+<script>
+    function exportRtti(take_id){
+        var url = '/test_takes/export_to_rtti/' + take_id;
+        $.post(url, function(response, status){
+
+            response = JSON.parse(response);
+
+            if(response["status"] == 1) {
+                Notify.notify('<?= __("Toets met succes naar RTTI verzonden.")?>',3000);
+            } else {
+                Notify.notify(response['data'], 'error',30000);
+            }
+
+            Navigation.refresh();
+        });
+    }
+</script>

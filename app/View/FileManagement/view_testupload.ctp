@@ -111,7 +111,7 @@
 
                 <th width="12%"><?= __("Vak")?> (<?= __("Volgens docent") ?>)</th>
                 <td width="38%">
-                    <?=$file['typedetails']['subject'] ?>
+                    <?= $file['subject']['name'] ?? $file['typedetails']['subject'] ?>
                 </td>
             </tr>
             <tr>

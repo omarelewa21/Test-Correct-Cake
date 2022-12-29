@@ -57,7 +57,7 @@
                     </td>
                 <th width="12%"><?= __("Vak")?></th>
                 <td width="38%">
-                    <?=$file['typedetails']['subject'] ?>
+                    <?= $file['subject']['name'] ?? $file['typedetails']['subject'] ?>
                 </td>
             </tr>
             <tr>

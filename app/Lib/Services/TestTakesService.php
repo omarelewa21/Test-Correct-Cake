@@ -50,6 +50,17 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
+    public function update($testTakeUuid, $params)
+    {
+        $response = $this->Connector->putRequest('/test_take/' . $testTakeUuid, [], $params);
+
+        if($response === false){
+            return $this->Connector->getLastResponse();
+        }
+
+        return $response;
+    }
+
     public function addRetake($test_retake) {
 
         $test_retake['test_take_status_id'] = 1;
@@ -184,9 +195,17 @@ class TestTakesService extends BaseService {
             'with' => ['questions'],
             'filter' => [
                 'discussing_at_test_take_id' => $take_id,
-                'rated' => 0
             ]
         ];
+
+        if(
+            (bool) AuthComponent::user()['school_location']['feature_settings']['allow_new_co_learning'] &&
+            $this->getTestTake($take_id)['discussion_type'] == 'OPEN_ONLY'
+        ){
+            $params['filter']['current_answer_rating'] = 1;
+        } else {
+            $params['filter']['rated'] = 0;
+        }
 
         if(isset($user_id)) {
             $params['filter']['user_id'] = $user_id;
@@ -227,21 +246,17 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function updateShowResults($take_id, $active, $date) {
+    public function updateShowResults($take_id, $active, $date, bool $show_grades) {
 
         if($active) {
-            $test_take['show_results'] = date('Y-m-d H:i:00', strtotime($date));
+            $params['show_results'] = date('Y-m-d H:i:00', strtotime($date));
         }else{
-            $test_take['show_results'] = null;
+            $params['show_results'] = null;
         }
 
-        $response = $this->Connector->putRequest('/test_take/' . $take_id, [], $test_take);
+        $params['show_grades'] = $show_grades;
 
-        if($response === false){
-            return $this->Connector->getLastResponse();
-        }
-
-        return $response;
+        return $this->update($take_id, $params);
     }
 
     public function nextDiscussionQuestion($take_id) {
@@ -337,6 +352,19 @@ class TestTakesService extends BaseService {
 
         return $response;
     }
+
+    public function exportToRtti($testTakeId){
+
+        $response = $this->Connector->postRequest('/test_take/' . $testTakeId . '/rtti_export', [],[]);
+
+        if($response === false){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $response;
+    }
+
     /**
      * WITH test take
      * @param $participant_id

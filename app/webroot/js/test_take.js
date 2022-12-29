@@ -1266,6 +1266,17 @@ var TestTake = {
             : Notify.notify($.i18n('Toetslink gekopieerd') );
         });
 
+    },
+
+    hideGrades: function(takeUuid){
+        $.post(`/test_takes/updateGradeVisibility/${takeUuid}/0`,
+            () => Navigation.refresh()
+        )
+    },
+    showGrades: function(takeUuid){
+        $.post(`/test_takes/updateGradeVisibility/${takeUuid}/1`,
+            () => Navigation.refresh()
+        )
     }
 };
 

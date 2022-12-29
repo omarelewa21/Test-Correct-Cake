@@ -35,19 +35,12 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>
             </ul>
         </div>
-    <?
-    if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
-    ?>
-    <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>');">
-        <span class="fa fa-eye mr5"></span>
-        <?= __("Dichtzetten")?>
-    </a>
-    <? }else{ ?>
+
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/update_show_results/<?= $take_id ?>', 420);">
         <span class="fa fa-eye mr5"></span>
         <?= __("Openzetten")?>
     </a>
-    <? }?>
+    
     <?php
     if($take['writing_assignments_count'] > 0){
     ?>
@@ -211,15 +204,13 @@ if($isTeacher && $analysis && count($analysis)){
     {
         var url = '/test_takes/export_to_rtti/' + take_id;
         $.post(url, function(response, status){
-            
-            // console.log(response);
-            
+
             response = JSON.parse(response);
 
             if(response["status"] == 1) {
                 Notify.notify('<?= __("Toets met succes naar RTTI verzonden.")?>',3000);
             } else {
-                Notify.notify(response['data'], 'error',3000);
+                Notify.notify(response['data'], 'error',30000);
             }
 
             Navigation.refresh();
