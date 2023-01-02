@@ -1277,6 +1277,13 @@ var TestTake = {
         $.post(`/test_takes/updateGradeVisibility/${takeUuid}/1`,
             () => Navigation.refresh()
         )
+    },
+
+    startChecking: function(takeUuid, is_returned_from_taken){
+        if(is_returned_from_taken){
+            Notify.notify($.i18n('Let op: je start het nakijken opnieuw. Eerder nagekeken antwoorden moet je mogelijk opnieuw nakijken met de nieuwe inzichten.'))
+        }
+        Popup.load(`/test_takes/start_rate_popup/${takeUuid}`, 610);
     }
 };
 
