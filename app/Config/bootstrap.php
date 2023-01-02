@@ -92,6 +92,8 @@ function samesiteRewrite() {
 	
 			header($cake_cookie, true);
 	}
+
+	header('X-Frame-Options: SAMEORIGIN');
 }
 
 header_register_callback('samesiteRewrite');
