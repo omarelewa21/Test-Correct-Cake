@@ -133,6 +133,8 @@ class UsersController extends AppController
                             'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not set in session',
                             'version_check_result' => $versionCheckResult,
                             'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not set is session',
+                            'user_os'              => $this->Session->check('UserOsPlatform') ? json_encode($this->Session->read('UserOsPlatform')) : 'not set is session',
+                            'user_os_version'      => $this->Session->check('UserOsVersion') ? json_encode($this->Session->read('UserOsVersion')) : 'not set is session',
                         ];
 
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));

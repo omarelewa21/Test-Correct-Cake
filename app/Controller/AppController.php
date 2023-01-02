@@ -113,6 +113,8 @@ class AppController extends Controller
 
         $this->Session->write('TLCVersion', $version['app_version']);
         $this->Session->write('TLCOs', $version['os']);
+        $this->Session->write('UserOsPlatform', $version['UserOsPlatform']);
+        $this->Session->write('UserOsVersion', $version['UserOsVersion']);
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
 
@@ -331,6 +333,8 @@ class AppController extends Controller
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
             'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
             'headers'               => $this->getallheaders(),
+            'UserOsVersion'         => CakeSession::read('UserOsPlatform'),
+            'UserOsPlatform'        => CakeSession::read('UserOsVersion'),
         ];
     }
 
