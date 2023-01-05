@@ -474,10 +474,13 @@ var TestTake = {
         });
     },
 
-    closeShowResults: function (take_id) {
+    closeShowResults: function (take_id, show_grades) {
         $.post('/test_takes/update_show_results/' + take_id, {
-            active: 0,
-            show_results: ''
+            TestTake: {
+                active: 0,
+                show_grades: show_grades,
+                show_results: '',
+            }
         },
                 function () {
                     Navigation.refresh();
