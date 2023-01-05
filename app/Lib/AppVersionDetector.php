@@ -75,24 +75,6 @@ class AppVersionDetector
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.2.3",
-                "3.2.3-beta.1",
-                "3.2.3-beta.2",
-                "3.2.3-beta.3",
-                "3.2.3-beta.4",
-                "3.2.3-beta.5",
-                "3.2.4",
-                "3.2.4-beta.1",
-                "3.2.4-beta.2",
-                "3.2.4-beta.3",
-                "3.2.4-beta.4",
-                "3.2.4-beta.5",
-                "3.2.5",
-                "3.2.5-beta.1",
-                "3.2.5-beta.2",
-                "3.2.5-beta.3",
-                "3.2.5-beta.4",
-                "3.2.5-beta.5",
                 "3.3.0",
                 "3.3.0-beta.1",
                 "3.3.0-beta.2",
@@ -101,6 +83,7 @@ class AppVersionDetector
                 "3.3.0-beta.5",
             ],
             "needsUpdate" => [
+                "3.2.3" => "2 maart 2023"
             ],
             "needsUpdateDeadline" => [
             ],
