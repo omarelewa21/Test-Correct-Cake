@@ -51,10 +51,8 @@ class AppVersionDetector
                 "3.1.0",
             ],
             "needsUpdate" => [
-                "2.4.2",
             ],
             "needsUpdateDeadline" => [
-                "2.4.2" => "29 November 2022",
             ],
         ],
         "ChromeOS" => [
@@ -83,9 +81,10 @@ class AppVersionDetector
                 "3.3.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.2.3" => "2 maart 2023"
+                "3.2.3"
             ],
             "needsUpdateDeadline" => [
+                "3.2.3" => "2 maart 2023"
             ],
         ],
         "macosElectron" => [
@@ -98,9 +97,10 @@ class AppVersionDetector
                 "3.3.0-beta.5",
             ],
             "needsUpdate" => [
-                "3.2.3" => "2 maart 2023"
+                "3.2.3"
             ],
             "needsUpdateDeadline" => [
+                "3.2.3" => "2 maart 2023"
             ],
         ]
     ];
