@@ -35,12 +35,19 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 <li><a href="#" onclick="Popup.showPreviewTestTakeAnswers('<?= $take_id ?>')"><?= __("Antwoorden") ?></a></li>
             </ul>
         </div>
-
+    <?
+    if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
+    ?>
+    <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>', <?= $take['show_grades'] ? 1 : 0 ?>);">
+        <span class="fa fa-eye mr5"></span>
+        <?= __("Dichtzetten")?>
+    </a>
+    <? }else{ ?>
     <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/update_show_results/<?= $take_id ?>', 420);">
         <span class="fa fa-eye mr5"></span>
         <?= __("Openzetten")?>
     </a>
-    
+    <? } ?>
     <?php
     if($take['writing_assignments_count'] > 0){
     ?>

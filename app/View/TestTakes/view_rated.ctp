@@ -23,11 +23,17 @@ foreach(AuthComponent::user()['roles'] as $role) {
             <span class="fa fa-hourglass-3 mr5"></span>
             <?= __("Becijferen")?>
         </a>
+        <?php if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) { ?>
+        <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>', <?= $take['show_grades'] ? 1 : 0 ?>);">
+            <span class="fa fa-eye mr5"></span>
+            <?= __("Dichtzetten")?>
+        </a>
+        <? }else{ ?>
         <a href="#" class="btn white mr2" onclick="Popup.load('/test_takes/update_show_results/<?= $take_id ?>', 420);">
             <span class="fa fa-eye mr5"></span>
             <?= __("Openzetten")?>
         </a>
-        <? }?>
+        <? }}?>
     <a href='#' onclick="Popup.load('/test_takes/rates_preview/<?=$take_id?>', 1000)" class="btn white mr2">
         <span class="fa fa-file mr5"></span>
         <?= __("Cijferlijst")?>
