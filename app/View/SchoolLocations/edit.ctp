@@ -116,9 +116,10 @@
             <td>
                 <?= $this->Form->input('license_type', array('style' => 'width: 185px', 'label' => false, 'options' => $license_types, 'selected' => $school_location['license_type'])) ?>
             </td>
-            <th width="130"></th>
-            <td>
 
+            <th width="130"><?= __('Toets pakket') ?></th>
+            <td>
+                <?= $this->Form->input('test_package', array('style' => 'width: 185px', 'label' => false, 'options' => $test_packages, 'selected' => $school_location['feature_settings']['test_package'])) ?>
             </td>
         </tr>
 
