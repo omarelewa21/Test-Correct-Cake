@@ -102,6 +102,13 @@ class AppController extends Controller
         $this->Session->write('TLCPlatform', 'unset platform');
         $this->Session->write('TLCPlatformType', 'unset platform type');
         $this->Session->write('TLCPlatformVersion', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionMajor', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionMinor', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionPatch', 'unset platform version');
+        $this->Session->write('TLCBrowserVersionMajor', 'unset browser version');
+        $this->Session->write('TLCBrowserVersionMinor', 'unset browser version');
+        $this->Session->write('TLCBrowserVersionPatch', 'unset browser version');
+        $this->Session->write('TLCBrowserType', 'unset browser type');
 
 
         if (isset($headers['tlc'])) {
@@ -118,6 +125,13 @@ class AppController extends Controller
         $this->Session->write('TLCPlatform', $version['os']);
         $this->Session->write('TLCPlatformVersion', $version['os_release']);
         $this->Session->write('TLCPlatformType', $version['app_type']);
+        $this->Session->write('TLCPlatformVersionMajor', 0);
+        $this->Session->write('TLCPlatformVersionMinor', 0);
+        $this->Session->write('TLCPlatformVersionPatch', 0);
+        $this->Session->write('TLCBrowserVersionMajor', 0);
+        $this->Session->write('TLCBrowserVersionMinor', 0);
+        $this->Session->write('TLCBrowserVersionPatch', 0);
+        $this->Session->write('TLCBrowserType', 'Cake');
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
 
