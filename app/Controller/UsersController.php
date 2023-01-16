@@ -2487,6 +2487,10 @@ class UsersController extends AppController
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
             }
+    
+            if(array_key_exists('page_number', $options)) {
+                CakeSession::write('page_number', $options['page_number']);
+            }
 
 
             if($internalPage){
