@@ -278,7 +278,7 @@ class FileManagementController extends AppController {
 
         $this->ifNotAllowedExit(['Teacher'], false);
 
-//        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
+        $this->blockWithModalIfRegistrationNotCompletedAndInTestSchool();
 
         $school_location_id = getUUID(AuthComponent::user('school_location'), 'get');
 
