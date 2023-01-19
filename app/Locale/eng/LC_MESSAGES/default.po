@@ -4244,6 +4244,12 @@ msgstr "to speed this up."
 msgid "Welkom op het Test-Correct platform!"
 msgstr "Welcome to the Test-Correct platform!"
 
+msgid "Test-Correct wordt constant doorontwikkeld."
+msgstr "Test-Correct is constantly developing."
+
+msgid "Lees hier over onze nieuwste functionaliteiten."
+msgstr "Here you can read about our newest functionalities."
+
 msgid "Februari update"
 msgstr "February update"
 
@@ -4460,6 +4466,12 @@ msgstr "Visible"
 msgid "info.Niet zichtbaar"
 msgstr "Not visible"
 
+msgid "info.Basis"
+msgstr "Standard view"
+
+msgid "info.Functie"
+msgstr "Display as feature"
+
 msgid "info.Info Message"
 msgstr "Info message"
 
@@ -4474,6 +4486,9 @@ msgstr "Visible for"
 
 msgid "info.Status"
 msgstr "Visibility"
+
+msgid "info.Type"
+msgstr "Display type"
 
 msgid "info.Everybody"
 msgstr "Everybody"

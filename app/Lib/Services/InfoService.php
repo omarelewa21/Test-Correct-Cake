@@ -19,6 +19,11 @@ class InfoService extends BaseService {
         return $this->Connector->getRequest('/info',$params);
     }
 
+    public function features($params = ['mode' => 'feature'])
+    {
+        return $this->Connector->getRequest('/info',$params);
+    }
+
     public function show($uuid)
     {
         return $this->Connector->getRequest('/info/'.$uuid,[]);
@@ -49,6 +54,14 @@ class InfoService extends BaseService {
         return [
             'INACTIVE' => __('info.Niet zichtbaar'),
             'ACTIVE' => __('info.Zichtbaar'),
+        ];
+    }
+
+    public function getTypes()
+    {
+        return [
+            'BASE' => __('info.Basis'),
+            'NEW_FEATURE' => __('info.Functie'),
         ];
     }
 

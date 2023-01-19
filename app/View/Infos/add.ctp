@@ -16,17 +16,26 @@
                 <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
             </td>
         </tr>
-        <tr>
-            <th width="130" valign="top">
-                <?= __("info.Status")?>
+        <tr aria-rowspan="2">
+            <th rowspan="1" width="130" valign="top">
+               <?= __("info.Status")?>
             </th>
-            <td valign="top">
+            <td rowspan="1" valign="top">
                 <?=$this->Form->input('status', array('style' => 'width: 185px', 'label' => false, 'options' => $statuses, 'selected' => getUUID($info['status'], 'get'))) ?>
             </td>
-            <th valign="top"><?= __("Tonen aan")?></th>
-            <td>
+
+            <th rowspan="2" valign="top"><?= __("Tonen aan")?></th>
+            <td rowspan="2">
                 <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'checkForAll();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
                 <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="1" width="130" valign="top">
+                <?= __("info.Type")?>
+            </th>
+            <td rowspan="1" valign="top">
+                <?=$this->Form->input('type', array('style' => 'width: 185px', 'label' => false, 'options' => $types, 'selected' => getUUID($info['type'], 'get'))) ?>
             </td>
         </tr>
         <tr>

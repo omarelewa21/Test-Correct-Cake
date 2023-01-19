@@ -15,8 +15,11 @@ if ($wizard_steps) {
 <div class="dashboard">
     <div class="notes">
         <div class="notification info">
-            <div class="title">
-                <h5><?= __("Welkom op het Test-Correct platform!") ?></h5>
+            <div>
+                <h5><?= __("Test-Correct wordt constant doorontwikkeld. ") ?></h5>
+                <h5>
+                    <a href="#" style="" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("Lees hier over onze nieuwste functionaliteiten ") ?> <?php echo $this->element('arrow') ?></a>
+                </h5>
             </div>
             <?php if ($maintenanceNotification) { ?>
                 <div class="body">
