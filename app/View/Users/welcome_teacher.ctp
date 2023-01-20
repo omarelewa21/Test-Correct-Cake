@@ -16,10 +16,11 @@ if ($wizard_steps) {
     <div class="notes">
         <div class="notification info">
             <div>
-                <h5><?= __("Test-Correct wordt constant doorontwikkeld. ") ?></h5>
-                <h5>
-                    <a href="#" style="" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("Lees hier over onze nieuwste functionaliteiten ") ?> <?php echo $this->element('arrow') ?></a>
-                </h5>
+                <h5><?= __("dashboard.features message title") ?></h5>
+                <?= __("dashboard.features message text") ?>
+                <p>
+                    <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?> <?php echo $this->element('arrow') ?></a>
+                </p>
             </div>
             <?php if ($maintenanceNotification) { ?>
                 <div class="body">

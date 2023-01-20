@@ -4241,12 +4241,6 @@ msgstr "then on"
 msgid "om dit te versnellen."
 msgstr "to speed this up."
 
-msgid "Welkom op het Test-Correct platform!"
-msgstr "Welcome to the Test-Correct platform!"
-
-msgid "Test-Correct wordt constant doorontwikkeld."
-msgstr "Test-Correct is constantly developing."
-
 msgid "Lees hier over onze nieuwste functionaliteiten."
 msgstr "Here you can read about our newest functionalities."
 

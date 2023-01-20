@@ -1,7 +1,7 @@
 <?php foreach($infos as $info) {?>
     <div class="whats-new info" data-code="<?= $info['uuid'] ?>">
         <div class="title">
-            <h5 style=""><?= $info['title']?></h5>
+            <h4 style=""><?= $info['title']?></h4>
         </div>
 
         <div class="body mb20">
@@ -26,22 +26,3 @@
     }
 
 </style>
-<script>
-    if(typeof notificationRemovalHasRun === "undefined") {
-
-        $('body').on('click','.whats-new.info .fa-times',function(){
-            let elem = $(this).parents('.notification');
-            $.post(
-                "/infos/removeDashboardInfo/" + $(elem).data('code'),
-                function (data, status) {
-                    data = JSON.parse(data)
-                    if (data.status) {
-                        $(elem).hide(1000);
-                    } else {
-                        Notify.notify($.i18n('Bericht kan niet worden verwijderd'), 'error');
-                    }
-                });
-        });
-        var notificationRemovalHasRun = true;
-    }
-</script>
