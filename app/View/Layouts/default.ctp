@@ -9,7 +9,7 @@
 		?>
 
 		<script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
-		<script>Bugsnag.start({ apiKey: '<?=Configure::read('bugsnag-key-browser')?>' })</script>
+		<script>Bugsnag.start({ apiKey: '<?=Configure::read('bugsnag-key-browser')?>', enabledBreadcrumbTypes: ['error', 'log', 'navigation', 'request'] })</script>
 
 		<?php } ?>
 
