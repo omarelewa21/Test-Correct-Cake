@@ -131,7 +131,11 @@
                 <td><?= $school_location['lvs_type'] === null ? __("Geen koppeling") : $school_location['lvs_type'] ?></td>
 
                 <th><?= __("LVS Koppeling actief")?></th>
-                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?></td>
+                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?>
+                    <?php if($school_location['auto_uwlr_import']) {?>
+                        (<?= __("UWLR auto import is actief")?>)
+                    <?php } ?>
+                </td>
             </tr>
             <tr>
                 <th><?= __("SSO Koppeling")?></th>
