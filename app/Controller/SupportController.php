@@ -73,15 +73,16 @@ class SupportController extends AppController
         }
     }
 
-    public function return_as_support_user($userUuid)
+    public function return_as_support_user()
     {
         $this->autoRender = false;
-        $requestedUser = $this->UsersService->getUser($userUuid, ['with' => ['sessionHash']]);
 
+        $requestedUser = $this->UsersService->getUser(CakeSession::read('Support.id'), ['with' => ['sessionHash']]);
+        
         if ($requestedUser) {
             CakeSession::destroy();
             $this->Auth->login($requestedUser);
-            return true;
+            return $this->redirect('/users/welcome');
         }
 
         return false;

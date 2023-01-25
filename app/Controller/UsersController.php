@@ -2199,6 +2199,11 @@ class UsersController extends AppController
                 $params['extensionTime'] = $this->data['extensionTime'];
             }
 
+            if(!empty(CakeSession::read('Support.id'))) {
+                $params['support']['name'] = CakeSession::read('Support.name');
+                $params['support']['id'] = CakeSession::read('Support.id');
+            }
+
             $params['app_details'] = $this->getAppInfoFromSession();
             $responseData = $this->UsersService->createTemporaryLogin($params, $path);
             if ($autoLogout) {
