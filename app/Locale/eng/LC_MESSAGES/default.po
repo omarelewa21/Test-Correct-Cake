@@ -4732,3 +4732,6 @@ msgstr "Move to school"
 
 msgid "Geen toets gekoppeld"
 msgstr "No test linked"
+
+msgid "Bespreken"
+msgstr "Discuss"

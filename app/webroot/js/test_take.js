@@ -644,8 +644,8 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id, consists_only_closed_question = false) {
-        if ($('.participant:not(".active")').length > 0) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false) {
+        if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('ja'),
                 btnCancel: $.i18n('Annuleer'),
