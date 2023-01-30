@@ -2199,9 +2199,9 @@ class UsersController extends AppController
                 $params['extensionTime'] = $this->data['extensionTime'];
             }
 
-            if(!empty(CakeSession::read('Support.id'))) {
-                $params['support']['name'] = CakeSession::read('Support.name');
-                $params['support']['id'] = CakeSession::read('Support.id');
+            if(!empty(CakeSession::read('support.id'))) {
+                $params['support']['name'] = CakeSession::read('support.name');
+                $params['support']['id'] = CakeSession::read('support.id');
             }
 
             $params['app_details'] = $this->getAppInfoFromSession();
@@ -2469,6 +2469,17 @@ class UsersController extends AppController
         }
         $options = $result['temporaryLoginOptions'];
         unset($result['temporaryLoginOptions']);
+        $optionsSupport = json_decode($options);
+        if (array_key_exists('support', $optionsSupport)) {
+            CakeSession::write('support',
+                [
+                    'id'=>$optionsSupport->support->id,
+                    'name' => $optionsSupport->support->name
+                ]
+            );
+        }elseif(!empty(CakeSession::read('support.id'))) {
+            CakeSession::delete('support');
+        }
 
         CakeSession::write('temporaryLoginOptions', $options);
 

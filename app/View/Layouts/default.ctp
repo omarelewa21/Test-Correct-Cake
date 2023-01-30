@@ -204,8 +204,8 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
-            <?php if($name = CakeSession::read('Support.name')) {?>
-                Menu.supportInfo =  {user: '<?= CakeSession::read("Support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
+            <?php if(CakeSession::read('support.id')) {?>
+                Menu.supportInfo =  {user: '<?= CakeSession::read("support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
             <?php }?>
         </script>
 

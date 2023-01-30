@@ -67,7 +67,7 @@ class SupportController extends AppController
                 $result['name']
             );
 
-            CakeSession::write('Support', ['name' => $supportUsername, 'id' => getUUID($result, 'get')]);
+            CakeSession::write('support', ['name' => $supportUsername, 'id' => getUUID($result, 'get')]);
             $this->setUserLanguage();
             $this->formResponse(true);
         }
@@ -77,7 +77,7 @@ class SupportController extends AppController
     {
         $this->autoRender = false;
 
-        $requestedUser = $this->UsersService->getUser(CakeSession::read('Support.id'), ['with' => ['sessionHash']]);
+        $requestedUser = $this->UsersService->getUser(CakeSession::read('support.id'), ['with' => ['sessionHash']]);
         
         if ($requestedUser) {
             CakeSession::destroy();

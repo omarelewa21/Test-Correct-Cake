@@ -774,7 +774,7 @@ if ($wizard_steps) {
     }, 1000);
     <?php } ?>
 
-    <?php if($name = CakeSession::read('Support.name')) {?>
+    <?php if($name = CakeSession::read('support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
     $(document).ready(function () {
