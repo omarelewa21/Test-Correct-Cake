@@ -39,7 +39,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
     ?>
     <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>', <?= $take['show_grades'] ? 1 : 0 ?>);">
-        <span class="fa fa-eye mr5"></span>
+        <span class="fa fa-eye-slash mr5"></span>
         <?= __("Dichtzetten")?>
     </a>
     <? }else{ ?>
