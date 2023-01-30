@@ -607,9 +607,9 @@ class FileManagementController extends AppController {
 //                echo $this->render('/Users/register_new_teacher', 'ajax');
 //                exit;
 //            } else {
-//                $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
-//                        $userUuid
-//                );
+                $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
+                        $userUuid
+                );
 
                 echo $this->render(
                         '/Users/block_upload_when_in_test_school_modal', 'ajax'
