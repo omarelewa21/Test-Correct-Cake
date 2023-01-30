@@ -593,37 +593,37 @@ class FileManagementController extends AppController {
         $userUuid = AuthComponent::user('uuid');
         $userId = AuthComponent::user('id');
         if (AuthComponent::user('is_temp_teacher')) {
-            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userUuid));
-            if ($result['status'] == 'true') {
-                if ($this->request->is('post')) {
-                    $response = $this->UsersService->updateRegisteredNewTeacher(
-                            $this->request->data['User'], $userUuid
-                    );
-                    $result = (json_decode($response));
-
-                    if (property_exists($result, 'errors') && count((array) $result->errors) > 0) {
-                        $this->formResponse(false, $result);
-                    } else {
-                        $this->formResponse(true, ['data' => $response]);
-                    }
-                    exit();
-                }
-                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userUuid);
-
-                $this->set('user', (object) $data);
-                $this->set('in_app', true);
-                echo $this->render('/Users/register_new_teacher', 'ajax');
-                exit;
-            } else {
-                $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
-                        $userUuid
-                );
+//            $result = ($this->UsersService->registrationNotCompletedForRegisteredNewTeacher($userUuid));
+//            if ($result['status'] == 'true') {
+//                if ($this->request->is('post')) {
+//                    $response = $this->UsersService->updateRegisteredNewTeacher(
+//                            $this->request->data['User'], $userUuid
+//                    );
+//                    $result = (json_decode($response));
+//
+//                    if (property_exists($result, 'errors') && count((array) $result->errors) > 0) {
+//                        $this->formResponse(false, $result);
+//                    } else {
+//                        $this->formResponse(true, ['data' => $response]);
+//                    }
+//                    exit();
+//                }
+//                $data = $this->UsersService->getRegisteredNewTeacherByUserId($userUuid);
+//
+//                $this->set('user', (object) $data);
+//                $this->set('in_app', true);
+//                echo $this->render('/Users/register_new_teacher', 'ajax');
+//                exit;
+//            } else {
+//                $response = $this->UsersService->notifySupportTeacherInDemoSchoolTriesToUpload(
+//                        $userUuid
+//                );
 
                 echo $this->render(
                         '/Users/block_upload_when_in_test_school_modal', 'ajax'
                 );
                 exit;
-            }
+//            }
         }
     }
 
