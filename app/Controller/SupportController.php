@@ -77,6 +77,8 @@ class SupportController extends AppController
 
     public function return_as_support_user($userUuid)
     {
+        $this->isAuthorizedAs(['Support']);
+
         $this->autoRender = false;
         $requestedUser = $this->UsersService->getUser($userUuid, ['with' => ['sessionHash']]);
 
