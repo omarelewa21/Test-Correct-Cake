@@ -35,6 +35,8 @@ class SupportController extends AppController
 
     public function take_over_user_confirmation($userUuid)
     {
+        $this->isAuthorizedAs(['Support']);
+
         if ($this->request->is('post') || $this->request->is('put')) {
             $result = $this->UsersService->verifyPasswordForUser(getUUID(AuthComponent::user(), 'get'), $this->request->data['User']);
 
