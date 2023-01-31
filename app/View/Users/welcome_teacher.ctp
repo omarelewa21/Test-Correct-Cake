@@ -16,11 +16,19 @@ if ($wizard_steps) {
     <div class="notes">
         <div class="notification info">
             <div>
-                <h5><?= __("dashboard.features message title") ?></h5>
-                <?= __("dashboard.features message text") ?>
-                <p>
-                    <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?> <?php echo $this->element('arrow') ?></a>
-                </p>
+                <div class="title">
+                    <h5>
+                        <?= __("dashboard.features message title") ?>
+                    </h5>
+                </div>
+                <div class="body">
+                    <p>
+                        <?= __("dashboard.features message text") ?>
+                    </p>
+                    <p>
+                        <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?>  <?php echo $this->element('arrow') ?></a>
+                    </p>
+                </div>
             </div>
             <?php if ($maintenanceNotification) { ?>
                 <div class="body">

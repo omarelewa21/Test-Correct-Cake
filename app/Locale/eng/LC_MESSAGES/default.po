@@ -4741,3 +4741,21 @@ msgstr "Move to school"
 
 msgid "Geen toets gekoppeld"
 msgstr "No test linked"
+
+msgid "dashboard.features message title"
+msgstr "What’s new in Test-Correct"
+
+msgid "dashboard.features message text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features message link"
+msgstr "Read more about updates & maintenance"
+
+msgid "dashboard.features popup title"
+msgstr "Updates & Maintenance"
+
+msgid "dashboard.features popup text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features popup link"
+msgstr "Read more about updates & maintenance"

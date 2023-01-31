@@ -7,29 +7,28 @@
         }
     }
     .box {
-        margin-left: 2.5rem;
-        margin-right: 2.5rem;
         display: flex;
         flex-flow: column;
         height: 100%;
     }
-    .box .row.header {
+    .box .popup-new-feature.text {
         flex: 0 1 auto;
     }
-    .box .row.content {
+    .box .popup-new-feature.content {
+        max-height: 38rem;
         padding: 11px 16px 9px;
         border-radius: 8px;
         border: solid 1px #f0f2f5;
         background-color: #ffffff;
         flex: 1 1 auto;
-        overflow-x: scroll;
+        overflow-y: scroll;
         box-sizing: border-box
     }
-    .box .row.footer {
+    .box .popup-new-feature.footer {
         flex: 0 1 40px;
     }
 </style>
-<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="height:80%;padding-bottom: 0!important;padding-top: 1.6rem!important;">
+<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 1.6rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1; ">
             <img style="display: inline-block; margin-bottom: -5px; height:2rem;" src="img/ico/updates-en-onderhoud S.svg" alt="">
@@ -45,17 +44,19 @@
         </div>
     </div>
 
-    <div class="divider mb16 mt16"></div>
-    <div class="row box">
-        <div class="row header">
-            <?= __("dashboard.features popup text")?>
+    <div class="divider mt16"></div>
+    <div class="popup-new-feature box">
+        <div class="popup-new-feature text">
+            <p>
+                <?= __("dashboard.features popup text")?>
+            </p>
         </div>
-        <div class="row content">
+        <div class="popup-new-feature content">
             <?php if($infos && count($infos)){
                 echo $this->element('whats_new_info_messages');
             } ?>
         </div>
-        <div class="row footer">
+        <div class="popup-new-feature footer">
 
         </div>
     </div>

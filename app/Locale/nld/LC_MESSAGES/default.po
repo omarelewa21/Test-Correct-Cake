@@ -65,19 +65,19 @@ msgid "dashboard.features message title"
 msgstr "Test-Correct blijft vernieuwen"
 
 msgid "dashboard.features message text"
-msgstr "<p>We werken constant aan nieuwe functionaliteiten en een betere ervaring.</p><p>We houden je graag op de hoogte over de laatste veranderingen.</p>"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring.We houden je graag op de hoogte over de laatste veranderingen."
 
 msgid "dashboard.features message link"
-msgstr " Lees meer over updates & onderhoud  "
+msgstr "Lees meer over updates & onderhoud"
 
 msgid "dashboard.features popup title"
 msgstr "Updates & Onderhoud"
 
 msgid "dashboard.features popup text"
-msgstr "<p>We werken constant aan nieuwe functionaliteiten en een betere ervaring.</p><p> We houden je graag op de hoogte over de laatste veranderingen.</p>"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring. We houden je graag op de hoogte over de laatste veranderingen."
 
 msgid "dashboard.features popup link"
-msgstr " Lees meer over updates & onderhoud  "
+msgstr "Lees meer over updates & onderhoud"
 
 msgid "Volgens docent"
 msgstr "Volgens docent"
