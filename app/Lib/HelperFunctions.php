@@ -111,8 +111,15 @@ class HelperFunctions
             return false;
         }
 
+        if (strpos($options['return_route'], 'http') !== false) {
+            $urlComponents = parse_url($options['return_route']);
+            $returnUrl = sprintf("%s?%s", $urlComponents['path'], $urlComponents['query']);
+        }else{
+            $returnUrl = $options['return_route'];
+        }
+
         CakeSession::write('history_route', [
-            'return_route' => $options['return_route']
+            'return_route' => $returnUrl
         ]);
     }
 
