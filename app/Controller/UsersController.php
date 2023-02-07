@@ -483,6 +483,7 @@ class UsersController extends AppController
                 $trialPeriod = $timedInfo['trialPeriod'];
                 $this->handleGeneralTermsForUser($userGeneralTermsLog);
                 $this->handleTrialPeriodForUser($trialPeriod);
+                $this->handleIfNewFeatureRelease();
             }
 
             if ($role['name'] == 'Student') {
@@ -2462,6 +2463,18 @@ class UsersController extends AppController
         $this->set('trialPeriodDaysLeft', $daysLeft);
         $this->set('trialPeriodTotalDays', $totalDays);
         $this->set('trialInfoURL', $this->trialInfoURL);
+    }
+
+    private function handleIfNewFeatureRelease()
+    {
+        if (CakeSession::read('Auth.user.userSettings.newFeatureSeen')){
+             $this->set('shouldShowIfNewFeature', false);
+             return false;
+        }
+
+        $this->set('shouldShowIfNewFeature', true);
+        CakeSession::write('Auth.user.userSettings.newFeatureSeen', true);
+        return true;
     }
 
     private function handleTemporaryLoginOptions($result)

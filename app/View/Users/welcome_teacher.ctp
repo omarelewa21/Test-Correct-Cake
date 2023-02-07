@@ -785,6 +785,11 @@ if ($wizard_steps) {
         }
     }, 1000);
     <?php } ?>
+    <?php if($shouldShowIfNewFeature) { ?>
+    setTimeout(function () {
+        Popup.load('users/new_features_popup/'  , popupWidth)
+    }, 1000);
+    <?php } ?>
 
     <?php if($name = CakeSession::read('Support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
