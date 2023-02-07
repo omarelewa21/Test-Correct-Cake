@@ -1,6 +1,6 @@
 <a href="#"
     class="btn white mr2"
-    <? if (isset($return_route)) { ?>
+    <? if (!is_null($return_route)) { ?>
         onclick="User.goToLaravel('<?= $return_route ?>')"
     <? } elseif(isset($onclick)) { ?>
         onclick= <?= $onclick ?>
