@@ -26,7 +26,7 @@
 
             <th rowspan="2" valign="top"><?= __("Tonen aan")?></th>
             <td rowspan="2">
-                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'checkForAll();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
+                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'formModifier();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
                 <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
             </td>
         </tr>
@@ -35,7 +35,7 @@
                 <?= __("info.Type")?>
             </th>
             <td rowspan="1" valign="top">
-                <?=$this->Form->input('type', array('style' => 'width: 185px', 'label' => false, 'options' => $types, 'selected' => getUUID($info['type'], 'get'))) ?>
+                <?=$this->Form->input('type', array('style' => 'width: 185px', 'onChange' => 'formModifier();',  'label' => false, 'options' => $types, 'selected' => getUUID($info['type'], 'get'))) ?>
             </td>
         </tr>
         <tr>
@@ -88,15 +88,22 @@
     $('#InfoContentNl').ckeditor({});
     $('#InfoContentEn').ckeditor({});
 
-    function checkForAll() {
+    function formModifier() {
         if(jQuery('#InfoForAll').is(':checked')){
             jQuery('#InfoRoles').attr('disabled',true);
         } else {
             jQuery('#InfoRoles').attr('disabled',false);
         }
+
+        if(jQuery('#InfoType').find(":selected").val() ==='NEW_FEATURE'){
+            jQuery('#InfoRoles').hide();
+            jQuery('#InfoRoles').val(1);
+        } else {
+            jQuery('#InfoRoles').show();
+        }
     }
 
-    checkForAll();
+    formModifier();
 
     $('#InfoAddForm').formify(
         {
