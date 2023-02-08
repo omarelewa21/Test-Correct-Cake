@@ -59,14 +59,10 @@ class InfoService extends BaseService {
 
     public function getTypes($params = ['mode' => 'types'])
     {
-        $types = $this->Connector->getRequest('/info',$params);
-        $arrayForForm=[];
-
-        foreach ($types as $key => $type ) {
-            $arrayForForm = array_merge($arrayForForm, [$key => __($type)]);
-        }
-
-        return $arrayForForm;
+        return array_map(
+            fn($value) => __($value),
+            $this->Connector->getRequest('/info',$params)
+        );
     }
 
     public function removeDashboardInfo($uuid)

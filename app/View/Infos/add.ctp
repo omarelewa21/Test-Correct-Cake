@@ -84,38 +84,40 @@
 </div>
 
 <script type="text/javascript">
-
-    $('#InfoContentNl').ckeditor({});
-    $('#InfoContentEn').ckeditor({});
+    jQuery('#InfoContentNl').ckeditor({});
+    jQuery('#InfoContentEn').ckeditor({});
 
     function formModifier() {
-        if(jQuery('#InfoForAll').is(':checked')){
-            jQuery('#InfoRoles').attr('disabled',true);
-        } else {
-            jQuery('#InfoRoles').attr('disabled',false);
-        }
+        var infoRoles = jQuery('#InfoRoles');
 
-        if(jQuery('#InfoType').find(":selected").val() ==='NEW_FEATURE'){
-            jQuery('#InfoRoles').hide();
-            jQuery('#InfoRoles').val(1);
+
+        infoRoles.attr(
+            'disabled',
+            jQuery('#InfoForAll').is(':checked')
+        );
+
+        if (jQuery('#InfoType').find(":selected").val() === 'NEW_FEATURE') {
+            infoRoles.hide();
+            infoRoles.val(1);
         } else {
-            jQuery('#InfoRoles').show();
+            infoRoles.show();
         }
     }
 
     formModifier();
 
-    $('#InfoAddForm').formify(
+    jQuery('#InfoEditForm').formify(
         {
-            confirm : $('#btnSave'),
-            onsuccess : function(result) {
+            confirm: jQuery('#btnSave'),
+            onsuccess: function (result) {
                 Popup.closeLast();
-                Notify.notify('<?= __("info.Info message aangemaakt")?>', "info");
+                Notify.notify('<?= __("Info message gewijzigd")?>', "info");
                 Navigation.refresh()
             },
-            onfailure : function(result) {
-                Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
+            onfailure: function (result) {
+                Notify.notify(result.join('<br />'), 'error');
             }
         }
     );
+
 </script>
