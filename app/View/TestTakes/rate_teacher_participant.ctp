@@ -31,9 +31,7 @@
         </div>
     </div>
 
-    <a href="#" onclick="Navigation.load('/test_takes/view/<?=$take_id?>');"  class="btn highlight" style="text-align: center">
-    <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button', array('onclick' => "Navigation.load('/test_takes/view/<?=$take_id?>');")); ?>
 </div>
 
 <div style="float:right; width:calc(100% - 320px);">

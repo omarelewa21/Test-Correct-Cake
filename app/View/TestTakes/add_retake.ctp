@@ -8,10 +8,8 @@ foreach($test_take['invigilator_users'] as $invigilator) {
 ?>
 
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
+
     <a href="#" class="btn highlight mr2" id="btnAddTestRetake">
     <?= __("Plannen")?>
     </a>
