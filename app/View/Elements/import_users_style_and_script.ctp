@@ -114,6 +114,7 @@
                     e.preventDefault();
                     try {
                         parsePastedData(e);
+                        $('#duplicates-data-errors, #missing-data-errors, #column-errors, #duplicates-in-database-data-errors').html('');
                     } catch (e) {
                         Notify.notify('<?= __("Er is iets fout gegaan bij het omzetten,<br />Probeer het nogmaals en als het probleem zich voor blijft doen, neem dan contact met ons op.")?>', 'error');
                     }
@@ -359,7 +360,7 @@
             if (error.indexOf('has already been taken') !== -1) {
                 return 'duplicate-in-database';
             }
-            if (error.indexOf('external id has already been taken.') !== -1) {
+            if (error.indexOf('external id is al bezet.') !== -1 || error.indexOf('external id has already been taken.') !== -1) {
                 return 'duplicate-in-database';
             }
             if (error.indexOf('email failed on dns') !== -1) {
