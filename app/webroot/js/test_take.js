@@ -654,7 +654,8 @@ var TestTake = {
                         TestTake.startDiscussion(take_id, 'ALL')
                     }
                     else{
-                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                        User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                        // Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
                     }
                 }, 1000);
             });
@@ -663,7 +664,8 @@ var TestTake = {
                 this.startDiscussion(take_id, 'ALL');
             }
             else{
-                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+                User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                // Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
             }
         }
     },
