@@ -161,3 +161,9 @@ msgstr "Verplaats naar school"
 
 msgid "Geen toets gekoppeld"
 msgstr "Geen toets gekoppeld"
+
+msgid "Nieuwe CO-Learning student beschikbaar"
+msgstr "Nieuwe CO-Learning student beschikbaar"
+
+msgid "Nieuwe CO-Learning teacher beschikbaar"
+msgstr "Nieuwe CO-Learning teacher beschikbaar"

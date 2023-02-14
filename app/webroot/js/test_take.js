@@ -643,7 +643,7 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false, allow_new_teacher_co_learning = false) {
         if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('ja'),
@@ -656,7 +656,11 @@ var TestTake = {
                         TestTake.startDiscussion(take_id, 'ALL')
                     }
                     else{
-                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                        if(allow_new_teacher_co_learning) {
+                            User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                        } else {
+                            Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                        }
                     }
                 }, 1000);
             });
@@ -665,7 +669,11 @@ var TestTake = {
                 this.startDiscussion(take_id, 'ALL');
             }
             else{
-                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+                if(allow_new_teacher_co_learning) {
+                    User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                } else {
+                    Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+                }
             }
         }
     },

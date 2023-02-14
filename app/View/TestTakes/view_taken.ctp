@@ -1,7 +1,13 @@
 <div id="buttons">
     <?= $this->element('back-button'); ?>
 
-    <a href="#" class="btn white mr2" selid="co-learning-button" onclick="TestTake.checkStartDiscussion('<?=$take_id?>', <?= $take['consists_only_closed_question'] ? 'true' : 'false' ?>);">
+    <a href="#" class="btn white mr2" selid="co-learning-button"
+       onclick="TestTake.checkStartDiscussion(
+               '<?= $take_id ?>',
+       <?= $take['consists_only_closed_question'] ? 'true' : 'false' ?>,
+       <?= AuthComponent::user('school_location')['feature_settings']['allow_new_co_learning_teacher'] ? 'true' : 'false' ?>
+               );"
+    >
         <span class="fa fa-users mr5"></span>
         <?= __("CO-Learning")?>
     </a>

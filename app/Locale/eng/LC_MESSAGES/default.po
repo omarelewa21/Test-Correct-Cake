@@ -4735,3 +4735,9 @@ msgstr "No test linked"
 
 msgid "Bespreken"
 msgstr "Discuss"
+
+msgid "Nieuwe CO-Learning student beschikbaar"
+msgstr "New CO-Learning student available"
+
+msgid "Nieuwe CO-Learning teacher beschikbaar"
+msgstr "New CO-Learning teacher available"
