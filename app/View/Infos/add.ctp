@@ -25,7 +25,7 @@
             </td>
 
             <th rowspan="2" valign="top"><?= __("Tonen aan")?></th>
-            <td rowspan="2">
+            <td rowspan="2" id="cel-roles-input-fields">
                 <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'formModifier();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
                 <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
             </td>
@@ -89,6 +89,7 @@
 
     function formModifier() {
         var infoRoles = jQuery('#InfoRoles');
+        var InputFields = jQuery('#cel-roles-input-fields');
 
 
         infoRoles.attr(
@@ -97,10 +98,11 @@
         );
 
         if (jQuery('#InfoType').find(":selected").val() === 'NEW_FEATURE') {
-            infoRoles.hide();
+            InputFields.hide();
             infoRoles.val(1);
+            jQuery('#InfoForAll').prop("checked", false);
         } else {
-            infoRoles.show();
+            InputFields.show();
         }
     }
 
