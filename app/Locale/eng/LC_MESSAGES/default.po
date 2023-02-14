@@ -4723,3 +4723,9 @@ msgstr "Publishers Test"
 
 msgid "Bezig met nakijken & becijferen. Cijfer nog niet beschikbaar"
 msgstr "Currently checking & grading. Grade not yet available"
+
+msgid "Nieuwe CO-Learning student beschikbaar"
+msgstr "New CO-Learning student available"
+
+msgid "Nieuwe CO-Learning teacher beschikbaar"
+msgstr "New CO-Learning teacher available"
