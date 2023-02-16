@@ -4241,8 +4241,8 @@ msgstr "then on"
 msgid "om dit te versnellen."
 msgstr "to speed this up."
 
-msgid "Welkom op het Test-Correct platform!"
-msgstr "Welcome to the Test-Correct platform!"
+msgid "Lees hier over onze nieuwste functionaliteiten."
+msgstr "Here you can read about our newest functionalities."
 
 msgid "Februari update"
 msgstr "February update"
@@ -4460,6 +4460,12 @@ msgstr "Visible"
 msgid "info.Niet zichtbaar"
 msgstr "Not visible"
 
+msgid "info.Basis"
+msgstr "Standard view"
+
+msgid "info.Functie"
+msgstr "Display as feature"
+
 msgid "info.Info Message"
 msgstr "Info message"
 
@@ -4474,6 +4480,9 @@ msgstr "Visible for"
 
 msgid "info.Status"
 msgstr "Visibility"
+
+msgid "info.Type"
+msgstr "Display type"
 
 msgid "info.Everybody"
 msgstr "Everybody"
@@ -4741,3 +4750,21 @@ msgstr "New CO-Learning student available"
 
 msgid "Nieuwe CO-Learning teacher beschikbaar"
 msgstr "New CO-Learning teacher available"
+
+msgid "dashboard.features message title"
+msgstr "What’s new in Test-Correct"
+
+msgid "dashboard.features message text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features message link"
+msgstr "Read more about updates & maintenance"
+
+msgid "dashboard.features popup title"
+msgstr "Updates & Maintenance"
+
+msgid "dashboard.features popup text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features popup link"
+msgstr "Read more about updates & maintenance"

@@ -2417,6 +2417,13 @@ class UsersController extends AppController
         $this->set('closeable', $daysLeft > 0);
     }
 
+    public function new_features_popup()
+    {
+        $this->InfoService = new InfoService();
+        $this->set('infos', $this->InfoService->features());
+        $this->set('closeable');
+    }
+
     public function accept_general_terms()
     {
         $this->autoRender = false;

@@ -4,6 +4,12 @@ msgstr "Zichtbaar"
 msgid "info.Niet zichtbaar"
 msgstr "Niet zichtbaar"
 
+msgid "info.Basis"
+msgstr "Standaard weergave"
+
+msgid "info.Functie"
+msgstr "Nieuwe feature"
+
 msgid "info.Info Message"
 msgstr "Info bericht"
 
@@ -18,6 +24,9 @@ msgstr "Zichtbaar voor"
 
 msgid "info.Status"
 msgstr "Zichtbaarheid"
+
+msgid "info.Type"
+msgstr "Weergave type"
 
 msgid "info.Everybody"
 msgstr "Iedereen"
@@ -52,6 +61,23 @@ msgstr "Info berichten"
 msgid "info.Titel"
 msgstr "Titel"
 
+msgid "dashboard.features message title"
+msgstr "Test-Correct blijft vernieuwen"
+
+msgid "dashboard.features message text"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring.We houden je graag op de hoogte over de laatste veranderingen."
+
+msgid "dashboard.features message link"
+msgstr "Lees meer over updates & onderhoud"
+
+msgid "dashboard.features popup title"
+msgstr "Updates & Onderhoud"
+
+msgid "dashboard.features popup text"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring. We houden je graag op de hoogte over de laatste veranderingen."
+
+msgid "dashboard.features popup link"
+msgstr "Lees meer over updates & onderhoud"
 
 msgid "Volgens docent"
 msgstr "Volgens docent"
