@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <?= $this->element('back-button', array('onclick' => "Navigation.load('/test_takes/view/<?=$take_id?>');")); ?>
+    <?= $this->element('back-button', array('onclick' => "Navigation.load('/test_takes/view/".$take_id."');")); ?>
 </div>
 
 <div style="float:right; width:calc(100% - 320px);">
