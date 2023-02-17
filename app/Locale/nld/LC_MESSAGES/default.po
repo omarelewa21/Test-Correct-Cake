@@ -105,8 +105,11 @@ msgstr "Meer informatie"
 msgid "Proefperiode afgelopen"
 msgstr "Proefperiode afgelopen"
 
-msgid "Proefperiode tekst"
-msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie voor jouw school of kies een van onze licentiepakketten."
+msgid "Proefperiode tekst single"
+msgstr "Helaas is je proefperiode afgelopen voor %s. Verleng jouw licentie als je verder wilt gaan met Test-Correct. Meer tijd nodig om Test-Correct uit te proberen? Boek een vrijblijvende demonstratie op jouw school."
+
+msgid "Proefperiode tekst multi"
+msgstr "Helaas is je proefperiode afgelopen voor %s. Wissel naar een andere locatie om verder te werken met Test-Correct. Verleng jouw licentie als je verder wilt gaan met Test-Correct op deze schoollocatie. Meer tijd nodig om Test-Correct uit te proberen? Boek een vrijblijvende demonstratie op deze schoollocatie."
 
 msgid "Gepland voor"
 msgstr "Gepland voor"

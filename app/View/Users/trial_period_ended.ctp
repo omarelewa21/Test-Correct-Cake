@@ -11,6 +11,9 @@
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1">
             <h2 style="margin:0">
+                <?php if ($hasMultipleLocations) { ?>
+                    <span class=""><?= AuthComponent::user('school_location.name') ?>:</span>
+                <?php } ?>
                 <?= __("Proefperiode afgelopen") ?>
             </h2>
         </div>
@@ -29,20 +32,47 @@
     <div class="divider mb16 mt16"></div>
     <div class="body1">
         <div>
-            <p><?= __("Proefperiode tekst") ?></p>
+            <p style="font-size:1.125rem;line-height: 1.33">
+                <?php
+                $text = $hasMultipleLocations ? __("Proefperiode tekst multi") : __("Proefperiode tekst single");
+                echo sprintf($text, AuthComponent::user('school_location.name'));
+                ?>
+            </p>
         </div>
     </div>
 </div>
 <div class="popup-footer tat-footer pt16" style="padding-bottom: 2rem!important;">
-    <div style="display: flex;align-items:center;width: 100%">
+    <div style="display: flex;
+                align-items:center;
+                width: 100%;
+                gap: .5rem;
+                justify-content: end;"
+    >
         <a type="button"
            href="<?= $trialInfoURL ?>"
            target="_blank"
-           class="button flex cta-button button-md"
-           style="font-size: 18px; align-items: center; margin-left: auto"
+           class="button flex button-md <?= $hasMultipleLocations ? 'secondary-button' : 'primary-button' ?>"
+           style="font-size: 18px; align-items: center;"
         >
-            <span style=""><?= __("Meer informatie") ?></span>
+            <span style=""><?= __("Boek demo") ?></span>
         </a>
+        <a type="button"
+           href="<?= $trialInfoURL ?>"
+           target="_blank"
+           class="button flex button-md <?= $hasMultipleLocations ? 'primary-button' : 'cta-button' ?>"
+           style="font-size: 18px; align-items: center;"
+        >
+            <span style=""><?= __("Verleng licentie") ?></span>
+        </a>
+        <?php if ($hasMultipleLocations) { ?>
+        <button type="button"
+                class="button flex cta-button button-md"
+                style="font-size: 18px; align-items: center;"
+                onclick="Popup.load('users/switch_school_location_popup', 576)"
+        >
+            <span style=""><?= __("Wissel van locatie") ?></span>
+        </button>
+        <?php } ?>
     </div>
 </div>
 

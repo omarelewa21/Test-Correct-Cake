@@ -757,7 +757,7 @@ if ($wizard_steps) {
             '</div>'
         )
     }
-    var popupWidth = $(document).width() < 900 ? $(document).width() : 900;
+    var popupWidth = $(document).width() < 600 ? $(document).width() : 600;
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
@@ -769,7 +769,7 @@ if ($wizard_steps) {
     <?php if($shouldDisplayTrialPeriodNotification) { ?>
     setTimeout(function () {
         if (<?= $trialPeriodDaysLeft ?> == 0) {
-            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);
+            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>/'+ (User.info.school_location_list.length > 1), popupWidth);
         }
     }, 1000);
     <?php } ?>

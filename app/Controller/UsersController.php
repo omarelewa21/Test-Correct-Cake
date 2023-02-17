@@ -2624,8 +2624,9 @@ class UsersController extends AppController
         return [$trialStatus, $trialDaysLeft];
     }
 
-    public function trial_period_ended($closeable)
+    public function trial_period_ended($closeable, $multipleSchoolLocations)
     {
+        $this->set('hasMultipleLocations', $multipleSchoolLocations === 'true');
         $this->set('trialInfoURL', $this->trialInfoURL);
         $this->set('closeable', $closeable);
     }
@@ -2648,5 +2649,10 @@ class UsersController extends AppController
             'Auth.User',
             $this->UsersService->getUser(AuthComponent::user()['uuid'])
         );
+    }
+
+    public function switch_school_location_popup()
+    {
+        
     }
 }
