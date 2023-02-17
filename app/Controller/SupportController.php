@@ -69,23 +69,24 @@ class SupportController extends AppController
                 $result['name']
             );
 
-            CakeSession::write('Support', ['name' => $supportUsername, 'id' => getUUID($result, 'get')]);
+            CakeSession::write('support', ['name' => $supportUsername, 'id' => getUUID($result, 'get')]);
             $this->setUserLanguage();
             $this->formResponse(true);
         }
     }
 
-    public function return_as_support_user($userUuid)
+    public function return_as_support_user()
     {
         $this->isAuthorizedAs(['Support']);
 
         $this->autoRender = false;
-        $requestedUser = $this->UsersService->getUser($userUuid, ['with' => ['sessionHash']]);
 
+        $requestedUser = $this->UsersService->getUser(CakeSession::read('support.id'), ['with' => ['sessionHash']]);
+        
         if ($requestedUser) {
             CakeSession::destroy();
             $this->Auth->login($requestedUser);
-            return true;
+            return $this->redirect('/users/welcome');
         }
 
         return false;
