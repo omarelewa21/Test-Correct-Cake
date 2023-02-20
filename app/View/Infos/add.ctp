@@ -108,16 +108,16 @@
 
     formModifier();
 
-    jQuery('#InfoEditForm').formify(
+    jQuery('#InfoAddForm').formify(
         {
             confirm: jQuery('#btnSave'),
             onsuccess: function (result) {
                 Popup.closeLast();
-                Notify.notify('<?= __("Info message gewijzigd")?>', "info");
+                Notify.notify('<?= __("info.Info message aangemaakt")?>', "info");
                 Navigation.refresh()
             },
-            onfailure: function (result) {
-                Notify.notify(result.join('<br />'), 'error');
+            onfailure : function(result) {
+                Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
             }
         }
     );
