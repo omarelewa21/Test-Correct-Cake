@@ -32,6 +32,9 @@ class InfosController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Info'];
 
+            $this->dateFormatCheck($this->request->data['Info']['show_from'],'InfoShowFrom');
+            $this->dateFormatCheck($this->request->data['Info']['show_until'],'InfoShowUntil');
+
             if(!$this->InfoService->update($uuid, $data)){
                 $this->formResponse(false, $this->InfoService->getErrors());
                 die;
@@ -71,10 +74,24 @@ class InfosController extends AppController {
         $this->set('roles', $roles);
     }
 
+    private function dateFormatCheck($stringDate,$inputName){
+        if(date_create($stringDate)===false){
+            $this->formResponse(false,
+                [
+                    'type'=>'bad_format',
+                    'input'=>$inputName
+                ]);
+            die;
+        }
+    }
+
     public function add($uuid = null)
     {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Info'];
+
+            $this->dateFormatCheck($this->request->data['Info']['show_from'],'InfoShowFrom');
+            $this->dateFormatCheck($this->request->data['Info']['show_until'],'InfoShowUntil');
 
             if(!$this->InfoService->create($data)){
                 $this->formResponse(false, $this->InfoService->getErrors());

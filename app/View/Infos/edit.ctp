@@ -120,6 +120,10 @@
                 Navigation.refresh()
             },
             onfailure: function (result) {
+                if (result['type'] === "bad_format"){
+                    jQuery('#'+result['input']).addClass('verify-error');
+                    return Notify.notify('<?= __("info.bad-format")?>', "error");
+                }
                 Notify.notify(result.join('<br />'), 'error');
             }
         }
