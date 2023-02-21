@@ -7,13 +7,13 @@
             <?= __("info.Tonen vanaf")?>
             </th>
             <td>
-                <?=$this->Form->input('show_from', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
+                <?=$this->Form->input('show_from', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'value'=>'0000-00-00 00:00', 'placeholder' => 'Y-m-d H:i')) ?>
             </td>
             <th>
                 <?= __("info.Tonen tot")?>
             </th>
             <td>
-                <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
+                <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'value'=>'0000-00-00 00:00', 'placeholder' => 'Y-m-d H:i')) ?>
             </td>
         </tr>
         <tr aria-rowspan="2">
@@ -117,7 +117,11 @@
                 Navigation.refresh()
             },
             onfailure : function(result) {
-                Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
+                if (result['type'] === "bad_format"){
+                    jQuery('#'+result['input']).addClass('verify-error');
+                    return Notify.notify('<?= __("info.bad-format")?>', "error");
+                }
+                return Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
             }
         }
     );

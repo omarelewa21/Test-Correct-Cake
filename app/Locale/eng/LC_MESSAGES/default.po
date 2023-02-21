@@ -4502,6 +4502,9 @@ msgstr "Content (English)"
 msgid "info.Info message aangemaakt"
 msgstr "Info message has been created"
 
+msgid "info.bad-format"
+msgstr "Info message could not be created, bad date format"
+
 msgid "info.Info message kon niet worden aangemaakt"
 msgstr "Info message could not be created"
 

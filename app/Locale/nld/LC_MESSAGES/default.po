@@ -49,6 +49,9 @@ msgstr "Info bericht is aangemaakt"
 msgid "info.Info message kon niet worden aangemaakt"
 msgstr "Info bericht kon niet worden aangemaakt"
 
+msgid "info.bad-format"
+msgstr "Info bericht kon niet worden aangemaakt, foutieve datum format"
+
 msgid "Info message gewijzigd"
 msgstr "Info bericht is gewijzigd"
 
