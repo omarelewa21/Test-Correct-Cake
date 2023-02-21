@@ -739,23 +739,6 @@ if ($wizard_steps) {
             '<a id="support_email" href="mailto:support@test-correct.nl" class="btn white mt5">E-mail</a>\n' +
             '<a id="support_updates" href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5"><?= __("Updates")?> &amp; <?= __("onderhoud")?></a>'
         );
-
-        $('.action_icon_container').prepend(
-        '<div class="menu_chat_icon" onclick="openHubspotWidget()" title="Chat">' +
-            '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
-            '    <g fill="none" fill-rule="evenodd" stroke-linejoin="round">' +
-            '        <g stroke="currentColor">' +
-            '            <path stroke-width="2" d="M17 5c3.314 0 6 2.686 6 6v2c0 2.612-1.67 4.834-4 5.658V23l-5.6-4H10c-3.314 0-6-2.686-6-6v-2c0-3.314 2.686-6 6-6h7z"/>' +
-            '            <path stroke-width="2" d="M5 15c-2.21 0-4-1.79-4-4V7c0-3.314 2.686-6 6-6h8c2.761 0 5 2.239 5 5h0"/>' +
-            '            <g stroke-linecap="round">' +
-            '                <path d="M0 .5L8 .5M0 3.5L8 3.5" transform="translate(9.500000, 10.000000)"/>' +
-            '            </g>' +
-            '        </g>' +
-            '    </g>' +
-            '</svg>' +
-            '<span class="ml6">Chat</span>'+
-            '</div>'
-        )
     }
     var popupWidth = $(document).width() < 900 ? $(document).width() : 900;
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
