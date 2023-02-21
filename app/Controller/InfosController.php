@@ -75,7 +75,7 @@ class InfosController extends AppController {
     }
 
     private function dateFormatCheck($stringDate,$inputName){
-        if(date_create($stringDate)===false){
+        if( date_create($stringDate) === false || date('Y-m-d H:i', strtotime($stringDate)) !== $stringDate){
             $this->formResponse(false,
                 [
                     'type'=>'bad_format',
