@@ -48,6 +48,8 @@ class InfosController extends AppController {
             'Info' => $this->InfoService->show($uuid)
         ];
         $info['Info']['roles'] = $this->alterRolesForEdit($info['Info']['roles']);
+        $info['Info']['show_from'] = date('Y-m-d H:i', strtotime($info['Info']['show_from']));
+        $info['Info']['show_until'] = date('Y-m-d H:i',strtotime($info['Info']['show_until']));
         $this->set('info',$info);
         $this->setOptions();
         $this->request->data = $info;
