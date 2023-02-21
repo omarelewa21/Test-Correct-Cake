@@ -128,12 +128,9 @@ class HelperFunctions
         $current_route = Router::url();
         $data = CakeSession::read('history_route');
         if (!empty($data['current_route']) && $data['current_route'] !== $current_route) {
-            CakeSession::delete('history_route');
             return null;
         }
-
         CakeSession::write('history_route', ['current_route' => $current_route, 'return_route' => $data['return_route']]);
-
         return $data['return_route'];
     }
 }
