@@ -43,7 +43,7 @@ class UsersController extends AppController
         $this->WhitelistIpService = new WhitelistIpService();
         $this->TestsService = new TestsService();
         $this->SupportService = new SupportService();
-        $this->infoService = new InfoService();
+        $this->InfoService = new InfoService();
 
         parent::beforeFilter();
     }
