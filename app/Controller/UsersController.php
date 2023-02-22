@@ -43,6 +43,7 @@ class UsersController extends AppController
         $this->WhitelistIpService = new WhitelistIpService();
         $this->TestsService = new TestsService();
         $this->SupportService = new SupportService();
+        $this->infoService = new InfoService();
 
         parent::beforeFilter();
     }
@@ -467,6 +468,9 @@ class UsersController extends AppController
                     $verified = $this->UsersService->getAccountVerifiedValue();
                     CakeSession::write('Auth.User.account_verified', $verified);
                 }
+
+                $this->set('has_features',!! count($this->InfoService->features()));
+
                 $this->set('wizard_steps', $wizardSteps);
                 $this->set('account_verified', $verified);
                 $this->set('language', $this->Session->read('Config.language'));
@@ -2419,7 +2423,6 @@ class UsersController extends AppController
 
     public function new_features_popup()
     {
-        $this->InfoService = new InfoService();
         $this->set('infos', $this->InfoService->features());
         $this->set('closeable');
     }
