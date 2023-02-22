@@ -45,13 +45,15 @@
     </div>
 
     <div class="divider mt16"></div>
-    <div class="popup-new-feature box">
+    <div class="popup-new-feature box" style="overflow: clip;  overflow-clip-margin: 4rem;">
         <div class="popup-new-feature text">
             <p>
                 <?= __("dashboard.features popup text")?>
             </p>
         </div>
-        <div class="popup-new-feature content">
+        <div class="popup-new-feature content"
+
+        >
             <?php if($infos && count($infos)){
                 echo $this->element('whats_new_info_messages');
             } ?>
