@@ -11,6 +11,9 @@
         flex-flow: column;
         height: 100%;
     }
+    .popup{
+        overflow: hidden;
+    }
     .box .popup-new-feature.text {
         flex: 0 1 auto;
     }
@@ -28,7 +31,7 @@
         flex: 0 1 40px;
     }
 </style>
-<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="padding-bottom: 0!important;padding-top: 1.6rem!important;">
+<div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="height:76vh;padding-bottom: 0!important;padding-top: 1.6rem!important;">
     <div style="display:flex;align-items: center">
         <div style="flex-grow:1; ">
             <img style="display: inline-block; margin-bottom: -5px; height:2rem;" src="img/ico/updates-en-onderhoud S.svg" alt="">
@@ -45,14 +48,13 @@
     </div>
 
     <div class="divider mt16"></div>
-    <div class="popup-new-feature box" style="overflow: clip;  overflow-clip-margin: 4rem;">
+    <div class="popup-new-feature box">
         <div class="popup-new-feature text">
             <p>
                 <?= __("dashboard.features popup text")?>
             </p>
         </div>
         <div class="popup-new-feature content"
-
         >
             <?php if($infos && count($infos)){
                 echo $this->element('whats_new_info_messages');

@@ -791,6 +791,23 @@ class UsersService extends BaseService
         return $response;
     }
 
+    public function setSetting( )
+    {
+        $params = [];
+        if(is_array($options)){
+            $params = ['options' => $options];
+        }
+        if($path){
+            $params['redirect'] = $path;
+        }
+
+        $response = $this->Connector->postRequest('/temporary-login', $params, []);
+        if ($response === false) {
+            return $this->Connector->getLastResponse();
+        }
+        return $response;
+    }
+
     public function verifyPasswordForUser($userUuid, $password)
     {
         $response = $this->Connector->getRequest('/user/'.$userUuid.'/verify_password', $password);
