@@ -32,6 +32,9 @@ class InfosController extends AppController {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Info'];
 
+            $this->dateFormatCheck($this->request->data['Info']['show_from'],'InfoShowFrom');
+            $this->dateFormatCheck($this->request->data['Info']['show_until'],'InfoShowUntil');
+
             if(!$this->InfoService->update($uuid, $data)){
                 $this->formResponse(false, $this->InfoService->getErrors());
                 die;
@@ -45,6 +48,8 @@ class InfosController extends AppController {
             'Info' => $this->InfoService->show($uuid)
         ];
         $info['Info']['roles'] = $this->alterRolesForEdit($info['Info']['roles']);
+        $info['Info']['show_from'] = date('Y-m-d H:i', strtotime($info['Info']['show_from']));
+        $info['Info']['show_until'] = date('Y-m-d H:i',strtotime($info['Info']['show_until']));
         $this->set('info',$info);
         $this->setOptions();
         $this->request->data = $info;
@@ -71,10 +76,24 @@ class InfosController extends AppController {
         $this->set('roles', $roles);
     }
 
+    private function dateFormatCheck($stringDate,$inputName){
+        if( date_create_from_format('Y-m-d H:i',$stringDate) === false){
+            $this->formResponse(false,
+                [
+                    'type'=>'bad_format',
+                    'input'=>$inputName
+                ]);
+            die;
+        }
+    }
+
     public function add($uuid = null)
     {
         if($this->request->is('post') || $this->request->is('put')) {
             $data = $this->request->data['Info'];
+
+            $this->dateFormatCheck($this->request->data['Info']['show_from'],'InfoShowFrom');
+            $this->dateFormatCheck($this->request->data['Info']['show_until'],'InfoShowUntil');
 
             if(!$this->InfoService->create($data)){
                 $this->formResponse(false, $this->InfoService->getErrors());

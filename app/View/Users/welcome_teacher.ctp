@@ -14,13 +14,16 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <?php if($has_features || $maintenanceNotification) { ?>
         <div class="notification info">
+            <?php if($has_features) { ?>
             <div>
                 <div class="title">
                     <h5>
                         <?= __("dashboard.features message title") ?>
                     </h5>
                 </div>
+
                 <div class="body">
                     <p>
                         <?= __("dashboard.features message text") ?>
@@ -29,14 +32,17 @@ if ($wizard_steps) {
                         <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?>  <?php echo $this->element('arrow') ?></a>
                     </p>
                 </div>
+
             </div>
-            <?php if ($maintenanceNotification) { ?>
+            <?php }
+            if ($maintenanceNotification) { ?>
                 <div class="body">
                     <?= $maintenanceNotification ?>
                 </div>
             <?php } ?>
 
         </div>
+        <?php } ?>
         <?php if ($afterLoginMessage) { ?>
         <div class="notification info">
                 <div class="notification">
