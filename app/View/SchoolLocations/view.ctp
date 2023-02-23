@@ -317,6 +317,16 @@
                 <th><?= __("Toets pakket") ?></th>
                 <td><?= __($school_location['feature_settings']['test_package']) ?></td>
             </tr>
+            <tr>
+                <th><?= __("Olympiade content beschikbaar")?></th>
+                <td>
+                    <?= $this->element('feature_setting_toggle', [
+                        'attribute'   => 'allow_olympiade',
+                        'source'      => $school_location['feature_settings'],
+                        'clickAction' => 'updateSchoolLocation'
+                    ]); ?>
+                </td>
+            </tr>
         </table>
     </div>
 </div>
