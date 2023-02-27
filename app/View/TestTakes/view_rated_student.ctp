@@ -1,14 +1,6 @@
 
 <div id="buttons">
-    <a href="#" class="btn white mr2"
-        <? if (is_null($return_route)) { ?>
-            onclick="Navigation.back();"
-        <? } else { ?>
-       onclick="User.goToLaravel('<?= $return_route ?>')"
-    <? } ?>
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
 </div>
 
 <h1><?= __("Becijferde toets")?></h1>

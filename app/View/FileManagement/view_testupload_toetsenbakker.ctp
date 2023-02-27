@@ -8,16 +8,8 @@
     }
 </style>
 <div id="buttons">
-    <a href="#" class="btn white mr2"
-        <? if (is_null($return_route)) { ?>
-            onclick="Navigation.load('/file_management/testuploads');"
-        <? } else { ?>
-            onclick="User.goToLaravel('<?= $return_route ?>')"
-        <? } ?>
-    >
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
+
     <?php if (isset($file['test']) && !empty($file['test'])) { ?>
         <a href="#" class="btn cta mr2"
            onclick="User.goToLaravel('teacher/test-detail/'+ '<?= $file['test']['uuid'] ?>')"

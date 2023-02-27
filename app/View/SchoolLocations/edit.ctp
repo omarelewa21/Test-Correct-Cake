@@ -172,7 +172,13 @@
                     <?= $this->Form->checkbox('lvs_active', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
                     <span class="slider round"></span>
                 </label>
-
+            </td>
+            <th><?= __("UWLR auto import")?></th>
+            <td>
+                <label id="lvs_toggle" class="switch" style="display:flex;">
+                    <?= $this->Form->checkbox('auto_uwlr_import', array('type' => 'checkbox', 'value' => 1, 'label' => false)) ?>
+                    <span class="slider round"></span>
+                </label>
             </td>
 
         </tr>
@@ -206,6 +212,7 @@
 
 <script type="text/javascript">
     var hasRunImport = "<?php echo !!$school_location_has_run_manual_import ?>";
+    var uwlr_auto_import_toggle = document.querySelector('#SchoolLocationAutoUwlrImport');
 
     $(document).ready(function () {
 
@@ -239,8 +246,15 @@
             }
         });
         checkSchoolLocationLvsType();
+        autoSetUwlrAutoImportStatus();
     });
 
+    function autoSetUwlrAutoImportStatus() {
+        uwlr_auto_import_toggle.setAttribute('disabled','disabled');
+        if(document.querySelector('#SchoolLocationLvsType').value !== '' && document.querySelector('#SchoolLocationLvsActive').checked) {
+            uwlr_auto_import_toggle.removeAttribute('disabled');
+        }
+    }
 
     $('#SchoolLocationEditForm').formify(
         {
@@ -289,10 +303,12 @@
         if (document.querySelector('#SchoolLocationLvsType').value === '') {
             $('#SchoolLocationLvsActive').prop('checked', false);
             lvs_toggle.setAttribute('disabled', 'disabled');
+            // uwlr_auto_import_toggle.setAttribute('disabled','disabled');
         } else {
             lvs_toggle.setAttribute('disabled', 'disabled');
             if (!!hasRunImport === true) {
                 lvs_toggle.removeAttribute('disabled');
+                uwlr_auto_import_toggle.removeAttribute('disabled');
             }
             if ($("#SchoolLocationExternalSubCode").val() === '' || $("#SchoolLocationExternalMainCode").val() === '') {
                 $('#SchoolLocationLvsActive').prop('checked', false);
@@ -311,6 +327,7 @@
                 sso_toggle.setAttribute('disabled', 'disabled');
             }
         }
+        autoSetUwlrAutoImportStatus();
     }
 
     $("#SchoolLocationLvsType, #SchoolLocationSsoType").on('change', function () {
@@ -326,6 +343,7 @@
         } else {
             $('#SchoolLocationSsoActive').prop('checked', true);
         }
+        autoSetUwlrAutoImportStatus();
     });
 
     $('#SchoolLocationSsoActive').on('change', function () {
@@ -346,4 +364,6 @@
             Notify.notify('<?= __("De LVS koppeling kan pas actief gezet worden als de koppeling  minimaal één keer handmatig heeft gedraaid.")?>', 'error');
         }
     });
+
+
 </script>

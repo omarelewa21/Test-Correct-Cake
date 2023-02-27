@@ -9,16 +9,7 @@ $normalization = false;
 $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_average']) && empty($take['n_term']) ? false : true;
 ?>
 <div id="buttons" class="contains_dropdown">
-    <a href="#" class="btn white mr2"
-        <? if (is_null($return_route)) { ?>
-            onclick="Navigation.back();"
-        <? } else { ?>
-            onclick="User.goToLaravel('<?= $return_route ?>')"
-        <? } ?>
-    >
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
 
     <? if($take['test_take_status_id'] == 8) { ?>
         <div id="nav_pdf_button">
@@ -39,7 +30,7 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
     if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) {
     ?>
     <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>', <?= $take['show_grades'] ? 1 : 0 ?>);">
-        <span class="fa fa-eye mr5"></span>
+        <span class="fa fa-eye-slash mr5"></span>
         <?= __("Dichtzetten")?>
     </a>
     <? }else{ ?>

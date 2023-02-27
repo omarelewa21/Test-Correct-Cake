@@ -25,7 +25,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
         </a>
         <?php if(!empty($take['show_results']) && time() < strtotime($take['show_results'])) { ?>
         <a href="#" class="btn white mr2" onclick="TestTake.closeShowResults('<?= $take_id ?>', <?= $take['show_grades'] ? 1 : 0 ?>);">
-            <span class="fa fa-eye mr5"></span>
+            <span class="fa fa-eye-slash mr5"></span>
             <?= __("Dichtzetten")?>
         </a>
         <? }else{ ?>
@@ -49,16 +49,7 @@ foreach(AuthComponent::user()['roles'] as $role) {
         <a href="#" onclick="exportRtti('<?=$take_id?>')" title="Exporteren naar RTTI-Online" class="btn white mr2">Exporteren naar RTTI-Online</a>
     <?php endif; ?>
 
-    <a href="#" class="btn white mr2"
-        <? if (is_null($return_route)) { ?>
-            onclick="Navigation.back();"
-        <? } else { ?>
-            onclick="User.goToLaravel('<?= $return_route ?>')"
-        <? } ?>
-    >
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
 </div>
 
 <h1><?= __("Resultaten toets")?></h1>

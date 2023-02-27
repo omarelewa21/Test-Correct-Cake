@@ -1,19 +1,19 @@
 <div id="buttons">
-    <? if(isset($is_assessment)) {?>
+    <? if (isset($is_assessment)) { ?>
         <a href="#" class="btn white mr2" onclick="Navigation.back();">
             <span class="fa fa-backward mr5"></span>
-            <?= __("Terug")?>
+            <?= __("Terug") ?>
         </a>
-        <a href="#" class="btn white" onclick="Popup.load('/test_takes/edit/<?=$takeUuid?>', 500);">
+        <a href="#" class="btn white" onclick="Popup.load('/test_takes/edit/<?= $takeUuid ?>', 500);">
             <span class="fa fa-edit mr5"></span>
             <?= __("Gegevens wijzigen") ?>
         </a>
-    <?}?>
+    <? } ?>
     <a href="#" class="btn highlight mr2" onclick="TestTake.toggleParticipantProgress();" id="btnSmartBoard"></a>
 </div>
 
 <h1 id="surveillanceTitle">
-    <?= isset($is_assessment) ? __("Surveilleren van Opdracht") : __("Surveilleren van toetsen")?>
+    <?= isset($is_assessment) ? __("Surveilleren van Opdracht") : __("Surveilleren van toetsen") ?>
 </h1>
 
 <?
@@ -21,66 +21,72 @@
 $alerts = 0;
 $ipAlerts = 0;;
 
-if(count($takes) == 0) {
+if (count($takes) == 0) {
     ?>
     <center>
-    <?= __("Er zijn geen toetsen om te surveilleren")?>
+        <?= __("Er zijn geen toetsen om te surveilleren") ?>
     </center>
     <script type="text/javascript">
         window.onbeforeunload = null;
     </script>
     <?
-}else {
+} else {
     ?>
 
     <div>
         <div class="block" style="width: calc(100% - 300px); float:left;">
-            <div class="block-head"><?= isset($is_assessment) ? __("Opdracht") : __("Toetsen")?></div>
+            <div class="block-head"><?= isset($is_assessment) ? __("Opdracht") : __("Toetsen") ?></div>
             <div class="block-content">
                 <table class="table table-striped">
                     <tr>
-                        <? if(isset($is_assessment)){ ?>
-                            <th><?= __("Opdracht")?></th>
-                            <?php if($allow_guest_accounts) {?><th width="160"><?= __('Opdrachtcode') ?></th> <?php } ?>
-                            <th><?= __("Klas(sen)")?></th>
-                            <th><?= __("Datum van")?></th>
-                            <th><?= __("Datum tot")?></th>
-                            <th width="200"><?= __("Voortgang")?></th>
+                        <? if (isset($is_assessment)) { ?>
+                            <th><?= __("Opdracht") ?></th>
+                            <?php if ($allow_guest_accounts) { ?>
+                                <th width="160"><?= __('Opdrachtcode') ?></th> <?php } ?>
+                            <th><?= __("Klas(sen)") ?></th>
+                            <th><?= __("Datum van") ?></th>
+                            <th><?= __("Datum tot") ?></th>
+                            <th width="200"><?= __("Voortgang") ?></th>
                             <th width="120"></th>
-                        <th></th>
-                        <?}else{?>
+                            <th></th>
+                        <?
+                        } else { ?>
                             <th><?= __("Toets") ?></th>
-                            <?php if($allow_guest_accounts) {?><th width="160"><?= __('Toetscode') ?></th> <?php } ?>
-                            <th><?= __("Klas(sen)")?></th>
+                            <?php if ($allow_guest_accounts) { ?>
+                                <th width="160"><?= __('Toetscode') ?></th> <?php } ?>
+                            <th><?= __("Klas(sen)") ?></th>
                             <th width="40"></th>
-                            <th width="200"><?= __("Voortgang")?></th>
+                            <th width="200"><?= __("Voortgang") ?></th>
                             <th width="120"></th>
-                        <?}?>
-                    
-                        
+                        <?
+                        } ?>
+
+
                     </tr>
                     <?php
 
-                        foreach ($takes as $take) {
+                    foreach ($takes as $take) {
 
                         ?>
                         <tr>
                             <td><?= $take[0]['test'] ?></td>
-                            <?php if($allow_guest_accounts) {?>
-                            <td style="position: relative">
-                                <?php if($take[0]['code']) { ?>
-                                    <div class="surveillance_test_code">
-                                        <span><?= $take[0]['code'] ?></span>
-                                        <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
-                                            onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>', <?=isset($is_assessment)?'true':'false'?>);" style="cursor:pointer">
+                            <?php if ($allow_guest_accounts) { ?>
+                                <td style="position: relative">
+                                    <?php if ($take[0]['code']) { ?>
+                                        <div class="surveillance_test_code">
+                                            <span><?= $take[0]['code'] ?></span>
+                                            <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10"
+                                               onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assessment) ? 'true' : 'false' ?>);"
+                                               style="cursor:pointer">
+                                            </i>
+                                        </div>
+                                    <?php } else { ?>
+                                        <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10"
+                                           onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assessment) ? 'true' : 'false' ?>);"
+                                           style="cursor:pointer; color:#041F74">
                                         </i>
-                                    </div>
-                                <?php } else { ?>
-                                    <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10" 
-                                        onclick="TestTake.copyDirectlink('<?=$take[0]['directLink']?>', <?=isset($is_assessment)?'true':'false'?>);" style="cursor:pointer; color:#041F74">
-                                    </i>
-                                <?php } ?>
-                            </td>
+                                    <?php } ?>
+                                </td>
                             <?php } ?>
                             <td>
                                 <?php
@@ -91,53 +97,60 @@ if(count($takes) == 0) {
                                 }
                                 ?>
                             </td>
-                            
-                            <? if(isset($is_assessment)){ ?>
+
+                            <? if (isset($is_assessment)) { ?>
                                 <td>
                                     <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
                                 </td>
                                 <td>
-                                    <?=date('d-m-Y', strtotime($take['info']['time_end'])) ?>
+                                    <?= date('d-m-Y', strtotime($take['info']['time_end'])) ?>
                                 </td>
-                            <?}else{?>
+                            <?
+                            } else { ?>
                                 <td>
                                     <?php if ($allow_inbrowser_testing) { ?>
-                                    <a title='<?= __("Browsertoetsen voor iedereen aan/uit")?>'
-                                    href="#" id=""
-                                    class="btn active <?= $take['info']['allow_inbrowser_testing'] ?  'cta-button' : 'grey' ?> small mr2"
-                                    onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?=$take[0]['uuid']?>')">
-                                        <span class="fa fa-chrome"></span>
-                                    </a>
+                                        <a title='<?= __("Browsertoetsen voor iedereen aan/uit") ?>'
+                                           href="#" id=""
+                                           class="btn active <?= $take['info']['allow_inbrowser_testing'] ? 'cta-button' : 'grey' ?> small mr2"
+                                           onclick="TestTake.toggleInbrowserTestingForAllParticipants(this,'<?= $take[0]['uuid'] ?>')">
+                                            <span class="fa fa-chrome"></span>
+                                        </a>
                                     <?php } ?>
                                 </td>
-                            <?}?>
-                            
+                            <?
+                            } ?>
+
                             <td>
                                 <?php
                                 foreach ($take['info']['school_classes'] as $class) {
                                     ?>
                                     <div class="progress" style="margin-bottom: 0px; height:20px; margin-bottom:1px;">
-                                        <div class="progress-bar" role="progressbar" aria-valuenow="60" id="progress_<?=getUUID($take['info'], 'get')?>_<?=getUUID($class, 'get')?>" aria-valuemin="0" aria-valuemax="100" style=" line-height:22px; font-size:14px;"></div>
+                                        <div class="progress-bar" role="progressbar" aria-valuenow="60"
+                                             id="progress_<?= getUUID($take['info'], 'get') ?>_<?= getUUID($class, 'get') ?>"
+                                             aria-valuemin="0" aria-valuemax="100"
+                                             style=" line-height:22px; font-size:14px;"></div>
                                     </div>
                                     <?php
                                 }
                                 ?>
                             </td>
                             <td align="center" class="nopadding">
-                                <? if(isset($is_assessment)) {?>
+                                <? if (isset($is_assessment)) { ?>
                                     <a href="#" class="btn highlight small"
-                                            onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') ."'" . "," . true; ?>);">
-                                        <?= __("Innemen")?>
+                                       onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "'," . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') . "'" . "," . true; ?>);">
+                                        <?= __("Innemen") ?>
                                     </a>
-                                <?}else{?>
+                                <?
+                                } else { ?>
                                     <a href="#" class="btn highlight small"
-                                            onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "',"  . $take['info']['time_dispensation_ids']; ?>);">
-                                        <?= __("Innemen")?>
+                                       onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "'," . $take['info']['time_dispensation_ids']; ?>);">
+                                        <?= __("Innemen") ?>
                                     </a>
-                                <?}?>
+                                <?
+                                } ?>
                             </td>
                         </tr>
-                    <?php
+                        <?php
                     }
                     ?>
                 </table>
@@ -145,16 +158,20 @@ if(count($takes) == 0) {
         </div>
 
         <div class="block" style="width: 280px; float:right;">
-            <div class="block-head"><?= __("Huidige tijd")?></div>
+            <div class="block-head"><?= __("Huidige tijd") ?></div>
             <div class="block-content" style="font-size:76px; text-align: center" id="time">
 
             </div>
             <Center>
-                <div class="block-content" style="font-size:17px; text-align: center; padding:0px 0px 15px 0px; color: red; display: inline-block;" id="alertRed">
+                <div class="block-content"
+                     style="font-size:17px; text-align: center; padding:0px 0px 15px 0px; color: red; display: inline-block;"
+                     id="alertRed">
                     <span class="fa fa-exclamation-triangle"></span>
                 </div>
 
-                <div class="block-content" style="font-size:17px; text-align: center; padding:0px 0px 15px 0px; color: orange;display: inline-block" id="alertOrange">
+                <div class="block-content"
+                     style="font-size:17px; text-align: center; padding:0px 0px 15px 0px; color: orange;display: inline-block"
+                     id="alertOrange">
                     <span class="fa fa-exclamation-triangle"></span>
                 </div>
             </Center>
@@ -164,7 +181,7 @@ if(count($takes) == 0) {
     </div>
 
     <div class="block" id="blockProgress">
-        <div class="block-head"><?= __("Voortgang Studenten")?></div>
+        <div class="block-head"><?= __("Voortgang Studenten") ?></div>
         <div class="block-content">
             <table class="table table-striped" style="float:left; width:48%">
                 <?php
@@ -173,7 +190,7 @@ if(count($takes) == 0) {
 
                 foreach ($takes as $take) {
 
-                    if(is_array($take['info']['test_participants'])){
+                    if (is_array($take['info']['test_participants'])) {
 
                         foreach ($take['info']['test_participants'] as $key => $value) {
                             $take['info']['test_participants'][$key]['test_take_uuid'] = getUUID($take['info'], 'get');
@@ -187,7 +204,7 @@ if(count($takes) == 0) {
                 $half = floor(count($participants) / 2);
 
                 for ($i = 0; $i < $half; $i++) {
-                   echo $this->element('surveillance_studentrow',['participant' => $participants[$i]]);
+                    echo $this->element('surveillance_studentrow', ['participant' => $participants[$i]]);
                 }
                 ?>
 
@@ -196,7 +213,7 @@ if(count($takes) == 0) {
             <table class="table table-striped" style="float:right; width:48%">
                 <?php
                 for ($i = $half; $i < count($participants); $i++) {
-                    echo $this->element('surveillance_studentrow',['participant' => $participants[$i]]);
+                    echo $this->element('surveillance_studentrow', ['participant' => $participants[$i]]);
                 }
                 ?>
             </table>
@@ -204,15 +221,15 @@ if(count($takes) == 0) {
             <br clear="all"/>
         </div>
     </div>
-<?php
+    <?php
 }
 ?>
 
 <?php
-    $takeUuids = array();
-    foreach ($takes as $take) {
-        $takeUuids[] = getUUID($take['info'], 'get');
-    }
+$takeUuids = array();
+foreach ($takes as $take) {
+    $takeUuids[] = getUUID($take['info'], 'get');
+}
 ?>
 
 <script type="text/javascript">
@@ -223,7 +240,7 @@ if(count($takes) == 0) {
     var takeUuids = <?= json_encode($takeUuids) ?>;
     let is_assessment = <?= isset($is_assessment) ? 'true' : 'false' ?>;
 
-    if(typeof(window.pusher) == 'undefined') {
+    if (typeof (window.pusher) == 'undefined') {
         var script = document.createElement('script');
         script.type = 'text/javascript';
         script.src = '//js.pusher.com/5.0/pusher.min.js';
@@ -264,8 +281,6 @@ if(count($takes) == 0) {
         5000)
 
 
-
-
     function stopPolling(message, title) {
         if (title === undefined) {
             title = '<span class="label-danger" style="display:block">\'<?= __("Hoge server belasting")?>\'</span>';
@@ -287,10 +302,9 @@ if(count($takes) == 0) {
     function startPolling(interval) {
         clearTimeout(window.surveillanceTimeout);
         window.surveillanceTimeout = setInterval(function () {
-            if(document.getElementById('surveillanceTitle')){
+            if (document.getElementById('surveillanceTitle')) {
                 loadData();
-            }
-            else{
+            } else {
                 clearTimeout(window.surveillanceTimeout);
             }
         }, interval);
@@ -302,52 +316,63 @@ if(count($takes) == 0) {
         return "<?= __('U bent aan het surveilleren, weet u het zeker?')?>";
     }
 
-    function loadData() {
+    var loadingData = false;
+    function loadData(forceLoading) {
+        if(loadingData === true && typeof forceLoading !== 'undefined' && forceLoading){
+            loadingData = false;
+        }
+
+        if(loadingData){
+            console.log('still other process loading...');
+            return;
+        }
+        loadingData = true;
+
         User.inactive = 0;
-        if(is_assessment){
+        if (is_assessment) {
             url = '/test_takes/surveillance_data/' + '<?= getUUID($take['info'], 'get')?>/';
-        }else{
+        } else {
             url = '/test_takes/surveillance_data/?'
         }
 
         $.getJSON(url + new Date().getTime(),
-            function(response) {
-                if(is_assessment && response == 404){
+            function (response) {
+                if (is_assessment && response == 404) {
                     Navigation.back();
                 }
                 $('#time').html(response.time);
 
-                if(response.alerts > 0) {
+                if (response.alerts > 0) {
                     $('#alertOrange').show().find('span').html('&nbsp;' + response.alerts);
-                }else{
+                } else {
                     $('#alertOrange').hide();
                 }
 
-                if(response.ipAlerts > 0) {
+                if (response.ipAlerts > 0) {
                     $('#alertRed').show().find('span').html('&nbsp;' + response.ipAlerts);
-                }else{
+                } else {
                     $('#alertRed').hide();
                 }
 
                 var totalCounts = parseInt(response.alerts) + parseInt(response.ipAlerts);
 
-                if(totalCounts > 0) {
+                if (totalCounts > 0) {
                     document.title = '[' + totalCounts + '] Test Correct';
-                }else{
+                } else {
                     document.title = 'Test Correct';
                 }
 
 
-                $.each(response.takes, function(id, percentage) {
+                $.each(response.takes, function (id, percentage) {
 
                     var widthPercentage = percentage;
 
-                    if(percentage < 15) {
+                    if (percentage < 15) {
                         widthPercentage = 15;
                     }
 
                     $('#' + id).css({
-                        'width' : widthPercentage + '%'
+                        'width': widthPercentage + '%'
                     }).html(percentage + '%');
                 });
 
@@ -356,37 +381,37 @@ if(count($takes) == 0) {
                     Navigation.refresh();
                 }
 
-                $.each(response.participants, function(id, data) {
+                $.each(response.participants, function (id, data) {
                     var widthPercentage = data.percentage;
 
-                    if(data.percentage < 15) {
+                    if (data.percentage < 15) {
                         widthPercentage = 15;
                     }
 
-                    if(data.status == 3) {
+                    if (data.status == 3) {
                         $('#buttonTaken' + id).show();
-                    }else{
+                    } else {
                         $('#buttonTaken' + id).hide();
                     }
 
-                    if(data.status == 4 || data.status == 5 || data.status == 6) {
+                    if (data.status == 4 || data.status == 5 || data.status == 6) {
                         $('#buttonPlanned' + id).show();
-                    }else{
+                    } else {
                         $('#buttonPlanned' + id).hide();
                     }
 
                     $('#alert_events_' + id + ', #alert_ip_' + id).hide();
 
-                    if(data.alert == true) {
+                    if (data.alert == true) {
                         $('#alert_events_' + id).show();
                     }
 
-                    if(data.ip == false) {
+                    if (data.ip == false) {
                         $('#alert_ip_' + id).show();
                     }
 
                     $('#progress_participant_' + id).css({
-                        'width' : widthPercentage + '%'
+                        'width': widthPercentage + '%'
                     }).html(data.percentage + '%');
 
                     $('#label_participant_' + id).html(data.text).removeClass().addClass('label').addClass('label-' + data.label);
@@ -399,23 +424,24 @@ if(count($takes) == 0) {
 
 
                 });
+                loadingData = false;
             }
         );
     }
 
-    loadData();
+    loadData(true);
 
 
-    if(TestTake.showProgress) {
+    if (TestTake.showProgress) {
         $('#btnSmartBoard').html('<?= __("Naar smartboard weergave")?>');
         $('#alertOrange, #alertRed').hide();
-    }else{
+    } else {
         $('#btnSmartBoard').html('<?= __("Naar surveillant weergave")?>');
         $('#blockProgress').hide();
         $('#alertOrange, #alertRed').hide();
     }
 
-    if(typeof(nonDispensationJs) == 'undefined') {
+    if (typeof (nonDispensationJs) == 'undefined') {
 
         $(document).on("click", "#test_close_confirm", function () {
 
