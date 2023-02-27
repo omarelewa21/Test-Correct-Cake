@@ -14,17 +14,35 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
+        <?php if($has_features || $maintenanceNotification) { ?>
         <div class="notification info">
-            <div class="title">
-                <h5><?= __("Welkom op het Test-Correct platform!") ?></h5>
+            <?php if($has_features) { ?>
+            <div>
+                <div class="title">
+                    <h5>
+                        <?= __("dashboard.features message title") ?>
+                    </h5>
+                </div>
+
+                <div class="body">
+                    <p>
+                        <?= __("dashboard.features message text") ?>
+                    </p>
+                    <p>
+                        <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?>  <?php echo $this->element('arrow') ?></a>
+                    </p>
+                </div>
+
             </div>
-            <?php if ($maintenanceNotification) { ?>
+            <?php }
+            if ($maintenanceNotification) { ?>
                 <div class="body">
                     <?= $maintenanceNotification ?>
                 </div>
             <?php } ?>
 
         </div>
+        <?php } ?>
         <?php if ($afterLoginMessage) { ?>
         <div class="notification info">
                 <div class="notification">
@@ -740,7 +758,7 @@ if ($wizard_steps) {
             '<a id="support_updates" href="#" onclick="Popup.showExternalPage(\'https://support.test-correct.nl/knowledge/wat-zijn-de-laatste-updates\', 1000)" class="btn white mt5"><?= __("Updates")?> &amp; <?= __("onderhoud")?></a>'
         );
     }
-    var popupWidth = $(document).width() < 900 ? $(document).width() : 900;
+    var popupWidth = $(document).width() < 600 ? $(document).width() : 600;
     <?php if($shouldDisplayGeneralTermsNotification) { ?>
     setTimeout(function () {
         if (<?= $generalTermsDaysLeft ?> == 0) {
@@ -752,12 +770,12 @@ if ($wizard_steps) {
     <?php if($shouldDisplayTrialPeriodNotification) { ?>
     setTimeout(function () {
         if (<?= $trialPeriodDaysLeft ?> == 0) {
-            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>', popupWidth);
+            Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>/'+ (User.info.school_location_list.length > 1), popupWidth);
         }
     }, 1000);
     <?php } ?>
 
-    <?php if($name = CakeSession::read('Support.name')) {?>
+    <?php if($name = CakeSession::read('support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
     $(document).ready(function () {

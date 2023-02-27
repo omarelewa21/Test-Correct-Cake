@@ -43,6 +43,7 @@ class UsersController extends AppController
         $this->WhitelistIpService = new WhitelistIpService();
         $this->TestsService = new TestsService();
         $this->SupportService = new SupportService();
+        $this->InfoService = new InfoService();
 
         parent::beforeFilter();
     }
@@ -467,6 +468,9 @@ class UsersController extends AppController
                     $verified = $this->UsersService->getAccountVerifiedValue();
                     CakeSession::write('Auth.User.account_verified', $verified);
                 }
+
+                $this->set('has_features',!! count($this->InfoService->features()));
+
                 $this->set('wizard_steps', $wizardSteps);
                 $this->set('account_verified', $verified);
                 $this->set('language', $this->Session->read('Config.language'));
@@ -2199,6 +2203,11 @@ class UsersController extends AppController
                 $params['extensionTime'] = $this->data['extensionTime'];
             }
 
+            if(!empty(CakeSession::read('support.id'))) {
+                $params['support']['name'] = CakeSession::read('support.name');
+                $params['support']['id'] = CakeSession::read('support.id');
+            }
+
             $params['app_details'] = $this->getAppInfoFromSession();
             $responseData = $this->UsersService->createTemporaryLogin($params, $path);
             if ($autoLogout) {
@@ -2417,6 +2426,12 @@ class UsersController extends AppController
         $this->set('closeable', $daysLeft > 0);
     }
 
+    public function new_features_popup()
+    {
+        $this->set('infos', $this->InfoService->features());
+        $this->set('closeable');
+    }
+
     public function accept_general_terms()
     {
         $this->autoRender = false;
@@ -2464,6 +2479,17 @@ class UsersController extends AppController
         }
         $options = $result['temporaryLoginOptions'];
         unset($result['temporaryLoginOptions']);
+        $optionsSupport = json_decode($options);
+        if (array_key_exists('support', $optionsSupport)) {
+            CakeSession::write('support',
+                [
+                    'id'=>$optionsSupport->support->id,
+                    'name' => $optionsSupport->support->name
+                ]
+            );
+        }elseif(!empty(CakeSession::read('support.id'))) {
+            CakeSession::delete('support');
+        }
 
         CakeSession::write('temporaryLoginOptions', $options);
 
@@ -2624,8 +2650,9 @@ class UsersController extends AppController
         return [$trialStatus, $trialDaysLeft];
     }
 
-    public function trial_period_ended($closeable)
+    public function trial_period_ended($closeable, $multipleSchoolLocations)
     {
+        $this->set('hasMultipleLocations', $multipleSchoolLocations === 'true');
         $this->set('trialInfoURL', $this->trialInfoURL);
         $this->set('closeable', $closeable);
     }
@@ -2648,5 +2675,10 @@ class UsersController extends AppController
             'Auth.User',
             $this->UsersService->getUser(AuthComponent::user()['uuid'])
         );
+    }
+
+    public function switch_school_location_popup()
+    {
+        
     }
 }

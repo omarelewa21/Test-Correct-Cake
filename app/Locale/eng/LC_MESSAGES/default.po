@@ -4241,8 +4241,8 @@ msgstr "then on"
 msgid "om dit te versnellen."
 msgstr "to speed this up."
 
-msgid "Welkom op het Test-Correct platform!"
-msgstr "Welcome to the Test-Correct platform!"
+msgid "Lees hier over onze nieuwste functionaliteiten."
+msgstr "Here you can read about our newest functionalities."
 
 msgid "Februari update"
 msgstr "February update"
@@ -4460,6 +4460,12 @@ msgstr "Visible"
 msgid "info.Niet zichtbaar"
 msgstr "Not visible"
 
+msgid "info.Basis"
+msgstr "Standard view"
+
+msgid "info.Functie"
+msgstr "Display as feature"
+
 msgid "info.Info Message"
 msgstr "Info message"
 
@@ -4474,6 +4480,9 @@ msgstr "Visible for"
 
 msgid "info.Status"
 msgstr "Visibility"
+
+msgid "info.Type"
+msgstr "Display type"
 
 msgid "info.Everybody"
 msgstr "Everybody"
@@ -4492,6 +4501,9 @@ msgstr "Content (English)"
 
 msgid "info.Info message aangemaakt"
 msgstr "Info message has been created"
+
+msgid "info.bad-format"
+msgstr "Info message could not be created, bad date format"
 
 msgid "info.Info message kon niet worden aangemaakt"
 msgstr "Info message could not be created"
@@ -4622,8 +4634,12 @@ msgstr "More information"
 msgid "Proefperiode afgelopen"
 msgstr "Proefperiode afgelopen"
 
-msgid "Proefperiode tekst"
-msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie aan voor jouw school of kies een van onze licentiepakketten."
+msgid "Proefperiode tekst single"
+msgstr "Unfortunately your trial period has ended for %s. Extend your license to continue with Test-Correct. Need more time to try Test-Correct? Plan a demonstration on your school without obligations."
+
+msgid "Proefperiode tekst multi"
+msgstr "Unfortunately your trial period has ended for %s. Switch to a different location to continue working with Test-Correct. Extend your license to continue with Test-Correct on this location. Need more time to try Test-Correct? Plan a demonstration on this location without obligations."
+
 msgid "Web spel checker toestaan"
 msgstr "web spell checker available"
 
@@ -4735,3 +4751,46 @@ msgstr "No test linked"
 
 msgid "Bespreken"
 msgstr "Discuss"
+
+msgid "Nieuwe CO-Learning student beschikbaar"
+msgstr "New CO-Learning student available"
+
+msgid "Nieuwe CO-Learning teacher beschikbaar"
+msgstr "New CO-Learning teacher available"
+
+msgid "dashboard.features message title"
+msgstr "What’s new in Test-Correct"
+
+msgid "dashboard.features message text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features message link"
+msgstr "Read more about updates & maintenance"
+
+msgid "dashboard.features popup title"
+msgstr "Updates & Maintenance"
+
+msgid "dashboard.features popup text"
+msgstr "We constantly work on new functionalities and a better experience. We like to keep you informed about the latest changes."
+
+msgid "dashboard.features popup link"
+msgstr "Read more about updates & maintenance"
+
+
+msgid "Verleng licentie"
+msgstr "Extend license"
+
+msgid "Boek demo"
+msgstr "Book demo"
+
+msgid "Wissel van locatie"
+msgstr "Switch location"
+
+msgid "Kies een locatie"
+msgstr "Choose a location"
+
+msgid "Kies een locatie om naar te wisselen."
+msgstr "Choose a location you want to switch to."
+
+msgid "Wissel"
+msgstr "Switch"

@@ -9,7 +9,7 @@
 		?>
 
 		<script src="//d2wy8f7a9ursnm.cloudfront.net/v7/bugsnag.min.js"></script>
-		<script>Bugsnag.start({ apiKey: '<?=Configure::read('bugsnag-key-browser')?>' })</script>
+		<script>Bugsnag.start({ apiKey: '<?=Configure::read('bugsnag-key-browser')?>', enabledBreadcrumbTypes: ['error', 'log'], autoTrackSessions: false })</script>
 
 		<?php } ?>
 
@@ -204,8 +204,8 @@
             } else {
                 window.hsConversationsOnReady = [onConversationsAPIReady];
             }
-            <?php if($name = CakeSession::read('Support.name')) {?>
-                Menu.supportInfo =  {user: '<?= CakeSession::read("Support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
+            <?php if(CakeSession::read('support.id')) {?>
+                Menu.supportInfo =  {user: '<?= CakeSession::read("support.id") ?>', text: '<?= __("Terug naar support omgeving") ?>'};
             <?php }?>
         </script>
 
