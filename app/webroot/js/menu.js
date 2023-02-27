@@ -283,7 +283,7 @@ var Menu = {
                             '</svg>' +
                         '</div>';
 
-        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()" title="Berichten">' +
+        var messages =  '<div class="menu_messages_icon" onclick="Navigation.load(\'/messages\'); Menu.clearActiveMenu()" title="' + $.i18n('Berichten') +'">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
                             '    <g fill="none" fill-rule="evenodd" stroke-linecap="round">' +
                             '        <g stroke="currentColor">' +
