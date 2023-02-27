@@ -791,17 +791,19 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function setSetting( )
+    public function setSetting($settingTitle, $settingValue)
     {
-        $params = [];
-        if(is_array($options)){
-            $params = ['options' => $options];
-        }
-        if($path){
-            $params['redirect'] = $path;
-        }
 
-        $response = $this->Connector->postRequest('/temporary-login', $params, []);
+        $params =
+            [
+                'setting' =>
+                    [
+                        'title'=>$settingTitle,
+                        'value'=>$settingValue
+                    ]
+        ];
+
+        $response = $this->Connector->postRequest('/set-user-setting', $params, []);
         if ($response === false) {
             return $this->Connector->getLastResponse();
         }
