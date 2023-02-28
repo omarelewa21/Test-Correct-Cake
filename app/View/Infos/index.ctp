@@ -31,7 +31,7 @@
                         <td><?= $statuses[$info['status']]?></td>
                         <td><?
                             if($info['for_all']) {
-                                echo __("info.Everbody");
+                                echo __("info.Everybody");
                             } else {
                                 $roleList = [];
                                 foreach($info['roles'] as $roleAr){

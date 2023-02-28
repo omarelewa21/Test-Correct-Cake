@@ -124,6 +124,7 @@ class TestTakesController extends AppController {
         $this->set('periods', $periods);
         $this->set('inviligators', $newInviligators);
         $this->set('defaultInviligator', $defaultLoggedInUserId);
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
     }
 
     public function start_direct($test_id = '')
@@ -781,6 +782,7 @@ class TestTakesController extends AppController {
         $this->set('test_take', $test_take);
         $this->set('take_id', $take_id);
         $this->set('currentIndex',0);
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
     }
 
     public function normalization_preview($take_id, $catchError=false) {
@@ -875,6 +877,7 @@ class TestTakesController extends AppController {
         $this->set('participant_index', $participant_index);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
         $this->render($view, 'ajax');
     }
 
@@ -1178,6 +1181,7 @@ class TestTakesController extends AppController {
         $this->set('take', $test_take);
         $this->set('participants', $participants);
         $this->set('take_id', $take_id);
+        $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
     }
 
     public function set_final_rate($test_take_id, $participant_id, $rate) {

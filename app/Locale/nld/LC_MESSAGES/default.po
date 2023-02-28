@@ -4,6 +4,12 @@ msgstr "Zichtbaar"
 msgid "info.Niet zichtbaar"
 msgstr "Niet zichtbaar"
 
+msgid "info.Basis"
+msgstr "Standaard weergave"
+
+msgid "info.Functie"
+msgstr "Nieuwe feature"
+
 msgid "info.Info Message"
 msgstr "Info bericht"
 
@@ -18,6 +24,9 @@ msgstr "Zichtbaar voor"
 
 msgid "info.Status"
 msgstr "Zichtbaarheid"
+
+msgid "info.Type"
+msgstr "Weergave type"
 
 msgid "info.Everybody"
 msgstr "Iedereen"
@@ -40,6 +49,9 @@ msgstr "Info bericht is aangemaakt"
 msgid "info.Info message kon niet worden aangemaakt"
 msgstr "Info bericht kon niet worden aangemaakt"
 
+msgid "info.bad-format"
+msgstr "Info bericht kon niet worden aangemaakt, foutieve datum format"
+
 msgid "Info message gewijzigd"
 msgstr "Info bericht is gewijzigd"
 
@@ -52,6 +64,23 @@ msgstr "Info berichten"
 msgid "info.Titel"
 msgstr "Titel"
 
+msgid "dashboard.features message title"
+msgstr "Test-Correct blijft vernieuwen"
+
+msgid "dashboard.features message text"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring. We houden je graag op de hoogte over de laatste veranderingen."
+
+msgid "dashboard.features message link"
+msgstr "Lees meer over updates & onderhoud"
+
+msgid "dashboard.features popup title"
+msgstr "Updates & Onderhoud"
+
+msgid "dashboard.features popup text"
+msgstr "We werken constant aan nieuwe functionaliteiten en een betere ervaring. We houden je graag op de hoogte over de laatste veranderingen."
+
+msgid "dashboard.features popup link"
+msgstr "Lees meer over updates & onderhoud"
 
 msgid "Volgens docent"
 msgstr "Volgens docent"
@@ -105,8 +134,11 @@ msgstr "Meer informatie"
 msgid "Proefperiode afgelopen"
 msgstr "Proefperiode afgelopen"
 
-msgid "Proefperiode tekst"
-msgstr "Helaas is je proefperiode afgelopen. Wil je Test-Correct blijven gebruiken? Plan dan een demonstratie voor jouw school of kies een van onze licentiepakketten."
+msgid "Proefperiode tekst single"
+msgstr "Helaas is je proefperiode afgelopen voor %s. Verleng jouw licentie als je verder wilt gaan met Test-Correct. Meer tijd nodig om Test-Correct uit te proberen? Boek een vrijblijvende demonstratie op jouw school."
+
+msgid "Proefperiode tekst multi"
+msgstr "Helaas is je proefperiode afgelopen voor %s. Wissel naar een andere locatie om verder te werken met Test-Correct. Verleng jouw licentie als je verder wilt gaan met Test-Correct op deze schoollocatie. Meer tijd nodig om Test-Correct uit te proberen? Boek een vrijblijvende demonstratie op deze schoollocatie."
 
 msgid "Gepland voor"
 msgstr "Gepland voor"
@@ -161,3 +193,9 @@ msgstr "Verplaats naar school"
 
 msgid "Geen toets gekoppeld"
 msgstr "Geen toets gekoppeld"
+
+msgid "Nieuwe CO-Learning student beschikbaar"
+msgstr "Nieuwe CO-Learning student beschikbaar"
+
+msgid "Nieuwe CO-Learning teacher beschikbaar"
+msgstr "Nieuwe CO-Learning teacher beschikbaar"

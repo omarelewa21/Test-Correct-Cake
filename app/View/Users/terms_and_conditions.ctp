@@ -16,11 +16,7 @@
         <?php if ($closeable) { ?>
         <div class="close" style="flex-shrink: 1">
             <a href="#" onclick="Popup.closeLast(); User.postponeAutoUserLogout()">
-                <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg">
-                    <g stroke="currentColor" fill-rule="evenodd" stroke-linecap="round" stroke-width="3">
-                        <path d="M1.5 12.5l11-11M12.5 12.5l-11-11"/>
-                    </g>
-                </svg>
+                <?= $this->element('close') ?>
             </a>
         </div>
         <?php } ?>
