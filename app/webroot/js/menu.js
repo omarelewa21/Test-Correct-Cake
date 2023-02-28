@@ -268,6 +268,15 @@ var Menu = {
         Menu.hideInactiveTiles();
     },
 
+    openHubspotWidget:function() {
+        var widget = window.HubSpotConversations.widget;
+        if (widget.status().loaded) {
+            widget.open()
+        } else {
+            widget.load({ widgetOpen: true });
+        }
+    },
+
     addActionIconsToHeader: function () {
         var support =   '<div class="menu_support_icon" title="Support">' +
                             '<?xml version="1.0" encoding="UTF-8"?>' +
@@ -302,7 +311,7 @@ var Menu = {
                         '</div>';
 
         if (User.info.isTeacher) {
-            let chat = '<div class="menu_chat_icon" onclick="openHubspotWidget()" title="Chat">' +
+            let chat = '<div class="menu_chat_icon" onclick="Menu.openHubspotWidget()" title="Chat">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
                             '    <g fill="none" fill-rule="evenodd" stroke-linejoin="round">' +
                             '        <g stroke="currentColor">' +

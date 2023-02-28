@@ -429,15 +429,6 @@ if ($wizard_steps) {
         hubspotLoaded = true;
     }
 
-    function openHubspotWidget() {
-        var widget = window.HubSpotConversations.widget;
-        if (widget.status().loaded) {
-            widget.open()
-        } else {
-            widget.load({ widgetOpen: true });
-        }
-    }
-
     HelpHero.identify("<?=AuthComponent::user('uuid')?>", {
         name: "<?=AuthComponent::user('name')?>",
         name_first: "<?=AuthComponent::user('name_first')?>",
