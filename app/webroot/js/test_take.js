@@ -300,7 +300,6 @@ var TestTake = {
                 runCheckFocus();
                 shiftCtrlBtuCrOSAdd();
                 zoomsetupcrOS();
-                catchscreenshotchromeOS();
                 $('#tiles').hide();
                 $('#header #menu').fadeOut();
                 $('#action_icons').fadeOut();
@@ -644,8 +643,8 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id, consists_only_closed_question = false) {
-        if ($('.participant:not(".active")').length > 0) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false, allow_new_teacher_co_learning = false) {
+        if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('ja'),
                 btnCancel: $.i18n('Annuleer'),
@@ -657,7 +656,11 @@ var TestTake = {
                         TestTake.startDiscussion(take_id, 'ALL')
                     }
                     else{
-                        Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                        if(allow_new_teacher_co_learning) {
+                            User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                        } else {
+                            Popup.load('/test_takes/start_discussion_popup/' + take_id, 420);
+                        }
                     }
                 }, 1000);
             });
@@ -666,7 +669,11 @@ var TestTake = {
                 this.startDiscussion(take_id, 'ALL');
             }
             else{
-                Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+                if(allow_new_teacher_co_learning) {
+                    User.goToLaravel('teacher/co-learning/' + take_id + '?started=false');
+                } else {
+                    Popup.load('/test_takes/start_discussion_popup/' + take_id, 420)
+                }
             }
         }
     },
@@ -1474,35 +1481,6 @@ function zoomsetupcrOS(){
                   }
             });
     }
-}
-
-function catchscreenshotchromeOS(){
-    if(Core.isChromebook()) {
-        let safeKeys = ['c', 'x', 'z', 'y', 'v','0']
-        let storeKeys = [];
-    
-        window.addEventListener("keydown", (event)=> {
-            if(event.ctrlKey && !event.repeat){
-                storeKeys.push(event.key);
-            }
-        });
-    
-        window.addEventListener("keyup", (event)=> {
-            if(event.key == "Control"){
-                for(key of storeKeys){
-                    if(!safeKeys.includes(key.toLowerCase()) && key != "Control"){
-                        Core.lostFocus('printscreen');  //massage to teacher needs to added
-                        break;
-                    }
-                }
-                if(storeKeys.length == 1 & storeKeys[0] == "Control"){
-                    Core.lostFocus('printscreen'); //massage to teacher needs to added
-                }
-                storeKeys = [];
-            }
-        });
-
-    }    
 }
 
 function focusCkeditorsAfterShow()

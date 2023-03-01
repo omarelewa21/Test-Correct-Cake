@@ -65,6 +65,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_new_co_learning':
                     $data = ['allow_new_co_learning' => $allow];
                     break;
+                case 'allow_new_co_learning_teacher':
+                    $data = ['allow_new_co_learning_teacher' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
@@ -98,7 +101,8 @@ class SchoolLocationsController extends AppController
         $this->set('ips', $this->SchoolLocationsService->getIps(getUUID($school_location, 'get')));
         $this->set('isAdministrator', $this->hasRole('Administrator'));
         $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
-        $this->set('return_route', $route_prefix . 'school-locations/');
+        $query_parameter = $this->Session->read('page_number')? '?page='.$this->Session->read('page_number'):'';
+        $this->set('return_route', $route_prefix . 'school-locations/'.$query_parameter);
     }
 
     public function load() {

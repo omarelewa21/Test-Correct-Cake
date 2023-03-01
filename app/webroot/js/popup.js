@@ -401,9 +401,6 @@ var Popup = {
     },
 
     closeLast: function () {
-
-        $('#fade').fadeOut();
-
         if (Popup.index === 1) {
             $('#popup_' + Popup.index).stop().removeClass('center').fadeOut(function () {
                 $(this).remove();
@@ -419,6 +416,9 @@ var Popup = {
             $('#fade').css({
                 'zIndex': (Popup.zIndex - 1)
             });
+        }
+        if (Popup.index === 0) {
+            $('#fade').fadeOut();
         }
     },
 

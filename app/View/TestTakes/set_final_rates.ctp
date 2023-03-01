@@ -16,10 +16,7 @@
         </a>
     <? } ?>
 
-    <a href="#" class="btn white mr2" onclick="Navigation.back();">
-        <span class="fa fa-backward mr5"></span>
-        <?= __("Terug")?>
-    </a>
+    <?= $this->element('back-button'); ?>
 </div>
 
 <h1><?= __("Becijferen")?></h1>

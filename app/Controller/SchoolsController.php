@@ -12,6 +12,8 @@ App::uses('SchoolLocationsService','Lib/Services');
  */
 class SchoolsController extends AppController
 {
+    const PAGE_NUMBER = 1;
+
     public function beforeFilter()
     {
         $this->SchoolsService = new SchoolsService();
@@ -42,7 +44,8 @@ class SchoolsController extends AppController
         $this->set('school', $school);
         $this->set('isAdministrator', $this->hasRole('Administrator'));
         $route_prefix = $this->hasRole('Administrator') ? 'admin/' : 'account-manager/';
-        $this->set('return_route', $route_prefix . 'schools/');
+        $query_parameter = $this->Session->read('page_number')? '?page='.$this->Session->read('page_number'):self::PAGE_NUMBER;
+        $this->set('return_route', $route_prefix . 'schools/'.$query_parameter);
     }
 
     public function load() {

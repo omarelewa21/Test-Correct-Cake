@@ -131,7 +131,11 @@
                 <td><?= $school_location['lvs_type'] === null ? __("Geen koppeling") : $school_location['lvs_type'] ?></td>
 
                 <th><?= __("LVS Koppeling actief")?></th>
-                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?></td>
+                <td><?= $school_location['lvs_active'] ? __("Ja") : __("Nee") ?>
+                    <?php if($school_location['auto_uwlr_import']) {?>
+                        (<?= __("UWLR auto import is actief")?>)
+                    <?php } ?>
+                </td>
             </tr>
             <tr>
                 <th><?= __("SSO Koppeling")?></th>
@@ -271,10 +275,10 @@
                         <span class="slider round"></span>
                     </label>
                 </td>
-                <th><?= __("Nieuwe co-learning beschikbaar")?></th>
+                <th><?= __("Nieuwe CO-Learning student beschikbaar")?></th>
                 <td>
                     <label class="switch" style="display:flex;">
-                        <?= $this->Form->input('allow_creathlon',
+                        <?= $this->Form->input('allow_co_learning_student',
                             array(
                                 'checked' => isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_new_co_learning']) && $school_location['feature_settings']['allow_new_co_learning'],
                                 'label' => false,
@@ -298,8 +302,23 @@
                         'clickAction' => 'updateSchoolLocation'
                     ]); ?>
                 </td>
-                <th><?= __("Licentie type") ?></th>
-                <td><?= __($school_location['license_type']) ?></td>
+                <th><?= __("Nieuwe CO-Learning teacher beschikbaar")?></th>
+                <td>
+                    <label class="switch" style="display:flex;">
+                        <?= $this->Form->input('allow_co_learning_teacher',
+                            array(
+                                'checked' => isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_new_co_learning_teacher']) && $school_location['feature_settings']['allow_new_co_learning_teacher'],
+                                'label' => false,
+                                'type' => 'checkbox',
+                                'value' => (isset($school_location['feature_settings']) && isset($school_location['feature_settings']['allow_new_co_learning_teacher']) && $school_location['feature_settings']['allow_new_co_learning_teacher']) ? 1 : 0,
+                                'div' => false,
+                                'style' => 'width:20px;',
+                                'onclick' => 'updateSchoolLocation(this.checked, "allow_new_co_learning_teacher")'
+                            )
+                        ) ?>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
             </tr>
             <tr>
                 <th><?= __("Nieuwe studenten analyses") ?></th>
@@ -310,6 +329,10 @@
                         'clickAction' => 'updateSchoolLocation'
                     ]); ?>
                 </td>
+                <th><?= __("Licentie type") ?></th>
+                <td><?= __($school_location['license_type']) ?></td>
+            </tr>
+            <tr>
                 <th><?= __("Toets pakket") ?></th>
                 <td><?= __($school_location['feature_settings']['test_package']) ?></td>
             </tr>

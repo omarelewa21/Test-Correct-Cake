@@ -2204,6 +2204,11 @@ class UsersController extends AppController
                 $params['extensionTime'] = $this->data['extensionTime'];
             }
 
+            if(!empty(CakeSession::read('support.id'))) {
+                $params['support']['name'] = CakeSession::read('support.name');
+                $params['support']['id'] = CakeSession::read('support.id');
+            }
+
             $params['app_details'] = $this->getAppInfoFromSession();
             $responseData = $this->UsersService->createTemporaryLogin($params, $path);
             if ($autoLogout) {
@@ -2489,6 +2494,17 @@ class UsersController extends AppController
         }
         $options = $result['temporaryLoginOptions'];
         unset($result['temporaryLoginOptions']);
+        $optionsSupport = json_decode($options);
+        if (array_key_exists('support', $optionsSupport)) {
+            CakeSession::write('support',
+                [
+                    'id'=>$optionsSupport->support->id,
+                    'name' => $optionsSupport->support->name
+                ]
+            );
+        }elseif(!empty(CakeSession::read('support.id'))) {
+            CakeSession::delete('support');
+        }
 
         CakeSession::write('temporaryLoginOptions', $options);
 
@@ -2511,6 +2527,10 @@ class UsersController extends AppController
                 $internalPage = $options['page'];
             } else if (array_key_exists('internal_page', $options)) {
                 $internalPage = $options['internal_page'];
+            }
+    
+            if(array_key_exists('page_number', $options)) {
+                CakeSession::write('page_number', $options['page_number']);
             }
 
 
@@ -2645,8 +2665,9 @@ class UsersController extends AppController
         return [$trialStatus, $trialDaysLeft];
     }
 
-    public function trial_period_ended($closeable)
+    public function trial_period_ended($closeable, $multipleSchoolLocations)
     {
+        $this->set('hasMultipleLocations', $multipleSchoolLocations === 'true');
         $this->set('trialInfoURL', $this->trialInfoURL);
         $this->set('closeable', $closeable);
     }
@@ -2669,5 +2690,10 @@ class UsersController extends AppController
             'Auth.User',
             $this->UsersService->getUser(AuthComponent::user()['uuid'])
         );
+    }
+
+    public function switch_school_location_popup()
+    {
+        
     }
 }

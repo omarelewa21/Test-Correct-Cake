@@ -103,7 +103,7 @@
             ?>
     jQuery("#versionBadge").attr("class","versionBadge <?=$extraClass?>").text("<?=$version?>");
         <? } ?>
-    <?php if($name = CakeSession::read('Support.name')) {?>
+    <?php if($name = CakeSession::read('support.name')) {?>
     Notify.notify('<?= __("Let op! Je bent ingelogd via het support account van"). " ".$name ?>', 'info', 10000)
     <?php }?>
 </script>
