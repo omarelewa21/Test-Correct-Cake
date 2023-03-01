@@ -141,4 +141,15 @@ class InfosController extends AppController {
         $this->formResponse(true, []);
 
     }
+
+    public function seenNewFeatures()
+    {
+        if ($this->request->is('post')) {
+            $data = ['data' => $this->data];
+        }
+
+        $this->InfoService->seenNewFeatures($data);
+
+        $this->formResponse( true,$data);
+    }
 }

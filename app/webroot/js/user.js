@@ -391,6 +391,18 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
+    seenNewFeatures : function(allSeenFeatures) {
+        console.log(allSeenFeatures);
+        allSeenFeatures = JSON.stringify(allSeenFeatures);
+        console.log(allSeenFeatures);
+        console.log(JSON.parse(allSeenFeatures));
+        $.ajax({
+                url: '/infos/seenNewFeatures/',
+                method: 'post',
+                data: {data: allSeenFeatures}
+        });
+    },
+
     postponeAutoUserLogout : function(minutes) {
         if (minutes != null) {
             User.secondsBeforeTeacherLogout = minutes*60;

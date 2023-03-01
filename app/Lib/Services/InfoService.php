@@ -75,4 +75,14 @@ class InfoService extends BaseService {
         return true;        
     }
 
+    public function seenNewFeatures($array)
+    {
+        if(!$this->Connector->postRequest('/info/seenNewFeatures/', [], $array, false)){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return true;
+    }
+
 }

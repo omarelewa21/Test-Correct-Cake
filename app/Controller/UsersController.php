@@ -426,8 +426,9 @@ class UsersController extends AppController
 
     public function welcome()
     {
-        $this->InfoService = new InfoService();
         $roles = AuthComponent::user('roles');
+
+        $this->InfoService = new InfoService();
 
         $menus = array();
 
@@ -2430,7 +2431,6 @@ class UsersController extends AppController
     public function new_features_popup()
     {
         $this->set('infos', $this->InfoService->features());
-        $this->set('closeable');
     }
 
     public function accept_general_terms()
@@ -2475,15 +2475,15 @@ class UsersController extends AppController
 
     private function handleIfNewFeatureRelease()
     {
-        $settingTitle= 'newFeatureSeen';
-        if (CakeSession::read('Auth.user.userSettings.'.$settingTitle)){
+        $settingTitle= 'newFeaturesSeen';
+        $info= $this->InfoService->features();
+        var_dump(CakeSession::read('Auth.User.systemSettings'.$settingTitle));
+        if (CakeSession::read('Auth.User.systemSettings.'.$settingTitle)){
              $this->set('shouldShowIfNewFeature', false);
              return false;
         }
 
         $this->set('shouldShowIfNewFeature', true);
-        CakeSession::write('Auth.user.userSettings.'.$settingTitle, true);
-        $this->UsersService->setSetting($settingTitle,true);
         return true;
     }
 
