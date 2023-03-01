@@ -127,7 +127,7 @@
                     <?= __($test_package)?>
                 </td>
                 <th><?= __("Uitgevers toets")?></th>
-                <td><?= __(!!$contains_publisher_content ? 'ja' : 'nee')?></td>
+                <td><?= __(!!$contains_publisher_content ? 'Ja' : 'nee')?></td>
             </tr>
         </table>
     </div>
