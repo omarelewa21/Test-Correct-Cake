@@ -17,15 +17,18 @@
     .box .popup-new-feature.text {
         flex: 0 1 auto;
     }
-    .box .popup-new-feature.content {
-        max-height: 38rem;
-        padding: 11px 16px 9px;
+
+    .box .popup-new-feature.content .scrollableField {
+        overflow-y: scroll;
+        background-color: #ffffff;
         border-radius: 8px;
         border: solid 1px #f0f2f5;
-        background-color: #ffffff;
-        flex: 1 1 auto;
-        overflow-y: scroll;
+        padding: 11px 16px 9px;
         box-sizing: border-box
+    }
+
+    .box .popup-new-feature.content {
+        flex: 1 1 auto;
     }
     .box .popup-new-feature.footer {
         flex: 0 1 40px;
@@ -70,9 +73,12 @@
         </div>
         <div class="popup-new-feature content"
         >
-            <?php if($infos && count($infos)){
-                echo $this->element('whats_new_info_messages');
-            } ?>
+            <div class="scrollableField">
+                <?php if($infos && count($infos)){
+                    array_multisort(array_column($infos, 'show_from'), SORT_DESC, $infos);
+                    echo $this->element('whats_new_info_messages');
+                } ?>
+            </div>
         </div>
         <div class="popup-new-feature footer">
 

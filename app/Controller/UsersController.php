@@ -2430,7 +2430,9 @@ class UsersController extends AppController
 
     public function new_features_popup()
     {
-        $this->set('infos', $this->InfoService->features());
+        $infos=$this->InfoService->features();
+        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',json_encode(array_column($infos,'id')));
+        $this->set('infos', $infos);
     }
 
     public function accept_general_terms()
@@ -2476,8 +2478,7 @@ class UsersController extends AppController
     private function handleIfNewFeatureRelease()
     {
         $currentInfo = array_column($this->InfoService->features(), 'id');
-        $seenInfosOfUser = json_decode(CakeSession::read('Auth.User.systemSettings.newFeaturesSeen'));
-        var_dump(array_diff($currentInfo,$seenInfosOfUser));
+        $seenInfosOfUser = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
         if (empty(array_diff($currentInfo,$seenInfosOfUser))){
              $this->set('shouldShowIfNewFeature', false);
              return false;

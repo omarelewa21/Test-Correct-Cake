@@ -394,8 +394,6 @@ var User = {
     seenNewFeatures : function(allSeenFeatures) {
         console.log(allSeenFeatures);
         allSeenFeatures = JSON.stringify(allSeenFeatures);
-        console.log(allSeenFeatures);
-        console.log(JSON.parse(allSeenFeatures));
         $.ajax({
                 url: '/infos/seenNewFeatures/',
                 method: 'post',
