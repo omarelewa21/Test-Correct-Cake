@@ -392,7 +392,6 @@ var User = {
     },
 
     seenNewFeatures : function(allSeenFeatures) {
-        console.log(allSeenFeatures);
         allSeenFeatures = JSON.stringify(allSeenFeatures);
         $.ajax({
                 url: '/infos/seenNewFeatures/',

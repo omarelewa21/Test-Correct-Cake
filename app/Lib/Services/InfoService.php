@@ -77,12 +77,14 @@ class InfoService extends BaseService {
 
     public function seenNewFeatures($array)
     {
-        if(!$this->Connector->postRequest('/info/seenNewFeatures/', [], $array, false)){
+        $UserSettings = $this->Connector->postRequest('/info/seenNewFeatures/', [], $array, false);
+
+        if(!$UserSettings){
             $this->addError($this->Connector->getLastResponse());
             return false;
         }
 
-        return true;
+        return $UserSettings;
     }
 
 }

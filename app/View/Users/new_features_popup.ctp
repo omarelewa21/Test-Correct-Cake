@@ -8,17 +8,19 @@
     }
     .box {
         display: flex;
-        flex-flow: column;
         height: 100%;
+        flex-direction: column;
+        -ms-flex-direction: column;
     }
     .popup{
         overflow: hidden;
     }
     .box .popup-new-feature.text {
-        flex: 0 1 auto;
+        height: 6rem;
     }
 
-    .box .popup-new-feature.content .scrollableField {
+    .box .popup-new-feature.content {
+        flex: 1;
         overflow-y: scroll;
         background-color: #ffffff;
         border-radius: 8px;
@@ -26,12 +28,8 @@
         padding: 11px 16px 9px;
         box-sizing: border-box
     }
-
-    .box .popup-new-feature.content {
-        flex: 1 1 auto;
-    }
     .box .popup-new-feature.footer {
-        flex: 0 1 40px;
+        height: 4rem;
     }
 </style>
 <div id="prevent_logout_div" class="tat-content border-radius-bottom-0" style="height:76vh;padding-bottom: 0!important;padding-top: 1.6rem!important;">
@@ -73,12 +71,10 @@
         </div>
         <div class="popup-new-feature content"
         >
-            <div class="scrollableField">
                 <?php if($infos && count($infos)){
                     array_multisort(array_column($infos, 'show_from'), SORT_DESC, $infos);
                     echo $this->element('whats_new_info_messages');
                 } ?>
-            </div>
         </div>
         <div class="popup-new-feature footer">
 
@@ -92,7 +88,7 @@
             'border-radius': '10px',
             'height' : '90vh',
             'max-height' : '820px',
-            'overflow' : 'auto'
+            'overflow' : 'hidden'
         })
     })
 

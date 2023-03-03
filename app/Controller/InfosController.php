@@ -148,7 +148,13 @@ class InfosController extends AppController {
             $data = ['data' => $this->data];
         }
 
-        $this->InfoService->seenNewFeatures($data);
+        $data = $this->InfoService->seenNewFeatures($data);
+
+        if (empty($data)){
+            $this->formResponse( 500,$data);
+        }
+
+        CakeSession::write('Auth.User.systemSettings',json_decode($data));
 
         $this->formResponse( true,$data);
     }

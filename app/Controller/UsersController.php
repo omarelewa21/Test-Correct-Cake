@@ -2431,7 +2431,6 @@ class UsersController extends AppController
     public function new_features_popup()
     {
         $infos=$this->InfoService->features();
-        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',json_encode(array_column($infos,'id')));
         $this->set('infos', $infos);
     }
 
