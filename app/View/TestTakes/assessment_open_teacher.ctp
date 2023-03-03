@@ -90,7 +90,7 @@ if(count($takes) == 0) {
                                     <?= __("Innemen")?>
                                 </a>
                             </td>
-                            <td><a href="#" class="btn white pull-right" onclick="Navigation.load('test_takes/assessment_open_teacher/<?=getUUID($take['info'], 'get')?>')">
+                            <td><a href="#" class="btn white pull-right" onclick="Navigation.load('test_takes/assignment_open_teacher/<?=getUUID($take['info'], 'get')?>')">
                                     <span class="fa fa-folder-open-o"></span>
                                 </a></td>
                         </tr>
@@ -158,7 +158,7 @@ foreach ($takes as $take) {
 
     function loadData() {
         User.inactive = 0;
-        $.getJSON('/test_takes/assessment_open_teacher_data/?' + new Date().getTime(),
+        $.getJSON('/test_takes/assignment_open_teacher_data/?' + new Date().getTime(),
             function(response) {
 
 

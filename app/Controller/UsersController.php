@@ -1736,7 +1736,7 @@ class UsersController extends AppController
                         'menu'  => 'tests',
                         'icon'  => 'surveilleren',
                         'title' => __("Lopende opdrachten"),
-                        'path'  => '/test_takes/assessment_open_teacher'
+                        'path'  => '/test_takes/assignment_open_teacher'
                     );
 
                     if(!$useLaravelTakenPage ) {
