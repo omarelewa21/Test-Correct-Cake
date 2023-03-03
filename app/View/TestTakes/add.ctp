@@ -198,7 +198,7 @@
                 var menu = 'test_planned';
 
                 if ($('#TestTakeTestKind_' + TestTake.i).val() == 4) {
-                    url = '/test_takes/assessment_open_teacher';
+                    url = '/test_takes/assignment_open_teacher';
                     menu = 'tests_assesmements';
                 }
                 Navigation.load(url);

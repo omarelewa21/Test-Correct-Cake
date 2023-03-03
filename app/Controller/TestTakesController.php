@@ -2095,7 +2095,7 @@ class TestTakesController extends AppController {
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
-        $params['filter']['type_not_assessment'] = true;
+        $params['filter']['type_not_assignment'] = true;
         $params['mode'] = 'list';
 
         $takes = $this->TestTakesService->getTestTakes($params);
@@ -2911,7 +2911,7 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
     }
 
-    public function assessment_open_teacher($takeUuid=null)
+    public function assignment_open_teacher($takeUuid=null)
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->TestTakesService->bustSurveillanceCache();
@@ -2919,13 +2919,13 @@ class TestTakesController extends AppController {
 
         $params['filter']['invigilator_id'] = $user_id;
         $params['filter']['test_take_status_id'] = 3;
-        $params['filter']['type_assessment'] = true;
+        $params['filter']['type_assignment'] = true;
         $params['mode'] = 'list';
 
         if(!is_null($takeUuid)){
             $params['filter']['takeUuid'] = $takeUuid;
             $takes = $this->TestTakesService->getTestTakes($params);
-            $this->set('is_assessment', true);
+            $this->set('is_assignment', true);
             $this->set('takeUuid', $takeUuid);
             $this->view = 'surveillance';
         }else{
@@ -2960,7 +2960,7 @@ class TestTakesController extends AppController {
         $this->set('takes', $takes);
     }
 
-    public function assessment_open_teacher_data()
+    public function assignment_open_teacher_data()
     {
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
         $this->autoRender = false;
