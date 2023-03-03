@@ -111,8 +111,15 @@ class HelperFunctions
             return false;
         }
 
+        if (strpos($options['return_route'], 'http') !== false) {
+            $urlComponents = parse_url($options['return_route']);
+            $returnUrl = sprintf("%s?%s", $urlComponents['path'], $urlComponents['query']);
+        }else{
+            $returnUrl = $options['return_route'];
+        }
+
         CakeSession::write('history_route', [
-            'return_route' => $options['return_route']
+            'return_route' => $returnUrl
         ]);
     }
 
@@ -121,12 +128,9 @@ class HelperFunctions
         $current_route = Router::url();
         $data = CakeSession::read('history_route');
         if (!empty($data['current_route']) && $data['current_route'] !== $current_route) {
-            CakeSession::delete('history_route');
             return null;
         }
-
         CakeSession::write('history_route', ['current_route' => $current_route, 'return_route' => $data['return_route']]);
-
         return $data['return_route'];
     }
 }

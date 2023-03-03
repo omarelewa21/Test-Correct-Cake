@@ -19,6 +19,11 @@ class InfoService extends BaseService {
         return $this->Connector->getRequest('/info',$params);
     }
 
+    public function features($params = ['mode' => 'feature'])
+    {
+        return $this->Connector->getRequest('/info',$params);
+    }
+
     public function show($uuid)
     {
         return $this->Connector->getRequest('/info/'.$uuid,[]);
@@ -50,6 +55,14 @@ class InfoService extends BaseService {
             'INACTIVE' => __('info.Niet zichtbaar'),
             'ACTIVE' => __('info.Zichtbaar'),
         ];
+    }
+
+    public function getTypes($params = ['mode' => 'types'])
+    {
+        return array_map(
+            fn($value) => __($value),
+            $this->Connector->getRequest('/info',$params)
+        );
     }
 
     public function removeDashboardInfo($uuid)

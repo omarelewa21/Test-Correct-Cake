@@ -7,26 +7,35 @@
             <?= __("info.Tonen vanaf")?>
             </th>
             <td>
-                <?=$this->Form->input('show_from', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
+                <?=$this->Form->input('show_from', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'value'=>'0000-00-00 00:00', 'placeholder' => 'Y-m-d H:i')) ?>
             </td>
             <th>
                 <?= __("info.Tonen tot")?>
             </th>
             <td>
-                <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty','placeholder' => 'Y-m-d H:i')) ?>
+                <?=$this->Form->input('show_until', array('style' => 'width: 185px', 'label' => false, 'verify' => 'notempty', 'value'=>'0000-00-00 00:00', 'placeholder' => 'Y-m-d H:i')) ?>
+            </td>
+        </tr>
+        <tr aria-rowspan="2">
+            <th rowspan="1" width="130" valign="top">
+               <?= __("info.Status")?>
+            </th>
+            <td rowspan="1" valign="top">
+                <?=$this->Form->input('status', array('style' => 'width: 185px', 'label' => false, 'options' => $statuses, 'selected' => getUUID($info['status'], 'get'))) ?>
+            </td>
+
+            <th rowspan="2" valign="top"><?= __("Tonen aan")?></th>
+            <td rowspan="2" id="cel-roles-input-fields">
+                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'formModifier();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
+                <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
             </td>
         </tr>
         <tr>
-            <th width="130" valign="top">
-                <?= __("info.Status")?>
+            <th rowspan="1" width="130" valign="top">
+                <?= __("info.Type")?>
             </th>
-            <td valign="top">
-                <?=$this->Form->input('status', array('style' => 'width: 185px', 'label' => false, 'options' => $statuses, 'selected' => getUUID($info['status'], 'get'))) ?>
-            </td>
-            <th valign="top"><?= __("Tonen aan")?></th>
-            <td>
-                <?=$this->Form->input('for_all', array('type' => 'checkbox', 'value' => 1, 'onClick' => 'checkForAll();', 'label' => false, 'div' => false, 'checked' => $info['for_all'] ? 'checked' : ''))?>  <?= __("info.Everybody")?> <br />
-                <?=$this->Form->input('roles', ['options' => $roles, 'style' => 'width:200px;', 'multiple' => true, 'label' => false, 'disabled' => true]) ?>
+            <td rowspan="1" valign="top">
+                <?=$this->Form->input('type', array('style' => 'width: 185px', 'onChange' => 'formModifier();',  'label' => false, 'options' => $types, 'selected' => getUUID($info['type'], 'get'))) ?>
             </td>
         </tr>
         <tr>
@@ -75,31 +84,46 @@
 </div>
 
 <script type="text/javascript">
+    jQuery('#InfoContentNl').ckeditor({});
+    jQuery('#InfoContentEn').ckeditor({});
 
-    $('#InfoContentNl').ckeditor({});
-    $('#InfoContentEn').ckeditor({});
+    function formModifier() {
+        var infoRoles = jQuery('#InfoRoles');
+        var InputFields = jQuery('#cel-roles-input-fields');
 
-    function checkForAll() {
-        if(jQuery('#InfoForAll').is(':checked')){
-            jQuery('#InfoRoles').attr('disabled',true);
+
+        infoRoles.attr(
+            'disabled',
+            jQuery('#InfoForAll').is(':checked')
+        );
+
+        if (jQuery('#InfoType').find(":selected").val() === 'NEW_FEATURE') {
+            InputFields.hide();
+            infoRoles.val(1);
+            jQuery('#InfoForAll').prop("checked", false);
         } else {
-            jQuery('#InfoRoles').attr('disabled',false);
+            InputFields.show();
         }
     }
 
-    checkForAll();
+    formModifier();
 
-    $('#InfoAddForm').formify(
+    jQuery('#InfoAddForm').formify(
         {
-            confirm : $('#btnSave'),
-            onsuccess : function(result) {
+            confirm: jQuery('#btnSave'),
+            onsuccess: function (result) {
                 Popup.closeLast();
                 Notify.notify('<?= __("info.Info message aangemaakt")?>', "info");
                 Navigation.refresh()
             },
             onfailure : function(result) {
-                Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
+                if (result['type'] === "bad_format"){
+                    jQuery('#'+result['input']).addClass('verify-error');
+                    return Notify.notify('<?= __("info.bad-format")?>', "error");
+                }
+                return Notify.notify('<?= __("info.Info message kon niet worden aangemaakt")?>', "error");
             }
         }
     );
+
 </script>
