@@ -164,13 +164,9 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
             Popup.closeLast();
         },
         onfailure: function (result) {
-            // console.log(result);
-
             for (var i = result.length - 1; i >= 0; i--) {
                 Notify.notify(result[i], "error");
             }
-
-            // Notify.notify("Niet alle velden zijn correct ingevuld", "error");
         }
     });
 
@@ -181,23 +177,4 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
             dateFormat: 'dd-mm-yy'
         });
     });
-
-    // $('#TestTakeEditForm').formify(
-    //     {
-    //         confirm : $('#btnEditTestTake'),
-    //         onsuccess : function(result) {
-    //             Popup.closeLast();
-    //             Navigation.refresh();
-    //             Notify.notify("Toets-afname gewijzigd", "info");
-    //         },
-    //         onfailure : function(result) {
-    //             Notify.notify("Er ging iets mis", "error");
-    //         }
-    //     }
-    // );
-
-    // $('#TestTakeInvigilators').select2();
-    // $('#TestTakeTimeStart').datepicker({
-    //     dateFormat : 'dd-mm-yy'
-    // });
 </script>
