@@ -310,8 +310,10 @@ var Menu = {
                             '<span class="counter"></span>'+
                         '</div>';
 
+        let chat = '';
+
         if (User.info.isTeacher) {
-            let chat = '<div class="menu_chat_icon" onclick="Menu.openHubspotWidget()" title="Chat">' +
+                 chat = '<div class="menu_chat_icon" onclick="Menu.openHubspotWidget()" title="Chat">' +
                             '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">' +
                             '    <g fill="none" fill-rule="evenodd" stroke-linejoin="round">' +
                             '        <g stroke="currentColor">' +
@@ -325,11 +327,9 @@ var Menu = {
                             '</svg>' +
                             '<span class="ml6">Chat</span>'+
                         '</div>';
-
-            $('#action_icons').append('<div class="action_icon_container">'+ chat +support + messages +'</div>');
-        }else{
-            $('#action_icons').append('<div class="action_icon_container">'+ support + messages +'</div>');
         }
+
+        $('#action_icons').append('<div class="action_icon_container">'+ chat +support + messages +'</div>');
 
         $('.menu_support_icon').click(function () {
             if ($('#user_menu').is(':visible')) {
