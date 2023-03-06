@@ -391,12 +391,16 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
-    seenNewFeatures : function(allSeenFeatures) {
-        allSeenFeatures = JSON.stringify(allSeenFeatures);
+    seenNewFeatures : function() {
         $.ajax({
                 url: '/infos/seenNewFeatures/',
                 method: 'post',
-                data: {data: allSeenFeatures}
+                success: function (){
+                    Popup.closeLast();
+                },
+                failed:function (){
+                    Notify.notify($.i18n('Pop up kon niet worden gesloten'), 'error');
+                }
         });
     },
 
