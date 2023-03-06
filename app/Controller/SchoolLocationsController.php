@@ -68,6 +68,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_new_co_learning_teacher':
                     $data = ['allow_new_co_learning_teacher' => $allow];
                     break;
+                case 'allow_new_assessment':
+                    $data = ['allow_new_assessment' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;

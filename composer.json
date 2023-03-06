@@ -19,7 +19,7 @@
 	  }
 	],
 	"require" : {
-	  "php": ">=5.3",
+	  "php": ">=7.4",
 	  "cakephp/cakephp" : "2.10.*",
 		"phpunit/phpunit": "^8.5",
 		"bugsnag/bugsnag": "^3.0",
