@@ -776,19 +776,14 @@ if ($wizard_steps) {
         )
     }
     var popupWidth = $(document).width() < 600 ? $(document).width() : 600;
-    <?php if($shouldDisplayGeneralTermsNotification) { ?>
+    <?php if($shouldDisplayGeneralTermsNotification && $generalTermsDaysLeft == 0) { ?>
     setTimeout(function () {
-        if (<?= $generalTermsDaysLeft ?> == 0) {
             Popup.load('users/terms_and_conditions/<?= $generalTermsDaysLeft ?>', popupWidth);
-        }
-
     }, 1000);
     <?php } ?>
-    <?php if($shouldDisplayTrialPeriodNotification) { ?>
+    <?php if($shouldDisplayTrialPeriodNotification && $trialPeriodDaysLeft == 0) { ?>
     setTimeout(function () {
-        if (<?= $trialPeriodDaysLeft ?> == 0) {
             Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>/'+ (User.info.school_location_list.length > 1), popupWidth);
-        }
     }, 1000);
     <?php } ?>
 
