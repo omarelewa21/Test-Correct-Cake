@@ -1,5 +1,5 @@
 <div id="buttons">
-    <? if (isset($is_assessment)) { ?>
+    <? if (isset($is_assignment)) { ?>
         <a href="#" class="btn white mr2" onclick="Navigation.back();">
             <span class="fa fa-backward mr5"></span>
             <?= __("Terug") ?>
@@ -13,7 +13,7 @@
 </div>
 
 <h1 id="surveillanceTitle">
-    <?= isset($is_assessment) ? __("Surveilleren van Opdracht") : __("Surveilleren van toetsen") ?>
+    <?= isset($is_assignment) ? __("Surveilleren van Opdracht") : __("Surveilleren van toetsen") ?>
 </h1>
 
 <?
@@ -35,11 +35,11 @@ if (count($takes) == 0) {
 
     <div>
         <div class="block" style="width: calc(100% - 300px); float:left;">
-            <div class="block-head"><?= isset($is_assessment) ? __("Opdracht") : __("Toetsen") ?></div>
+            <div class="block-head"><?= isset($is_assignment) ? __("Opdracht") : __("Toetsen") ?></div>
             <div class="block-content">
                 <table class="table table-striped">
                     <tr>
-                        <? if (isset($is_assessment)) { ?>
+                        <? if (isset($is_assignment)) { ?>
                             <th><?= __("Opdracht") ?></th>
                             <?php if ($allow_guest_accounts) { ?>
                                 <th width="160"><?= __('Opdrachtcode') ?></th> <?php } ?>
@@ -76,13 +76,13 @@ if (count($takes) == 0) {
                                         <div class="surveillance_test_code">
                                             <span><?= $take[0]['code'] ?></span>
                                             <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10"
-                                               onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assessment) ? 'true' : 'false' ?>);"
+                                               onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assignment) ? 'true' : 'false' ?>);"
                                                style="cursor:pointer">
                                             </i>
                                         </div>
                                     <?php } else { ?>
                                         <i title="<?= __('Kopieer toetslink') ?>" class="fa fa-clipboard ml10"
-                                           onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assessment) ? 'true' : 'false' ?>);"
+                                           onclick="TestTake.copyDirectlink('<?= $take[0]['directLink'] ?>', <?= isset($is_assignment) ? 'true' : 'false' ?>);"
                                            style="cursor:pointer; color:#041F74">
                                         </i>
                                     <?php } ?>
@@ -98,7 +98,7 @@ if (count($takes) == 0) {
                                 ?>
                             </td>
 
-                            <? if (isset($is_assessment)) { ?>
+                            <? if (isset($is_assignment)) { ?>
                                 <td>
                                     <?= date('d-m-Y', strtotime($take['info']['time_start'])) ?>
                                 </td>
@@ -135,7 +135,7 @@ if (count($takes) == 0) {
                                 ?>
                             </td>
                             <td align="center" class="nopadding">
-                                <? if (isset($is_assessment)) { ?>
+                                <? if (isset($is_assignment)) { ?>
                                     <a href="#" class="btn highlight small"
                                        onclick="TestTake.setTakeTakenSelector('<?= getUUID($take['info'], 'get') . "'," . $take['info']['time_dispensation_ids'] . ",'" . __('Opdracht ingeleverd') . "'" . "," . true; ?>);">
                                         <?= __("Innemen") ?>
@@ -238,7 +238,7 @@ foreach ($takes as $take) {
     window.onbeforeunload = confirmExit;
 
     var takeUuids = <?= json_encode($takeUuids) ?>;
-    let is_assessment = <?= isset($is_assessment) ? 'true' : 'false' ?>;
+    let is_assignment = <?= isset($is_assignment) ? 'true' : 'false' ?>;
 
     if (typeof (window.pusher) == 'undefined') {
         var script = document.createElement('script');
@@ -329,7 +329,7 @@ foreach ($takes as $take) {
         loadingData = true;
 
         User.inactive = 0;
-        if (is_assessment) {
+        if (is_assignment) {
             url = '/test_takes/surveillance_data/' + '<?= getUUID($take['info'], 'get')?>/';
         } else {
             url = '/test_takes/surveillance_data/?'
@@ -337,7 +337,7 @@ foreach ($takes as $take) {
 
         $.getJSON(url + new Date().getTime(),
             function (response) {
-                if (is_assessment && response == 404) {
+                if (is_assignment && response == 404) {
                     Navigation.back();
                 }
                 $('#time').html(response.time);
