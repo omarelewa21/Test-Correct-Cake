@@ -4220,8 +4220,8 @@ msgstr "Send verification email again"
 msgid "Let op: je account is nog niet geactiveerd."
 msgstr "Please note: your account has not yet been activated."
 
-msgid "Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw"
-msgstr "For information security, we double check your"
+msgid "Vanuit het oogpunt van informatiebeveiliging voeren wij een dubbelcheck uit op de door jouw opgegeven data, voordat je klassen en toetsen kunt uploaden en kunt samenwerken met je collega’s in Test-Correct. Dat kan één tot twee werkdagen in beslag nemen. Wil je niet zo lang wachten? Bel ons dan op "
+msgstr "From an information security point of view, we perform a double check on the data you have provided before you can upload classes and tests and collaborate with your colleagues in Test-Correct. This can take one to two working days. Don't want to wait that long? Then call us "
 
 msgid "opgegeven"
 msgstr "provided"

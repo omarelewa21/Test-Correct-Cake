@@ -2440,7 +2440,11 @@ class UsersController extends AppController
 
     private function handleGeneralTermsForUser($userGeneralTermsLog = null)
     {
-        $shouldDisplayGeneralTermsNotification = $userGeneralTermsLog != null && $userGeneralTermsLog['accepted_at'] == null;
+        $shouldDisplayGeneralTermsNotification =
+            AuthComponent::user('school_location')['license_type'] !== 'CLIENT' 
+            && $userGeneralTermsLog != null 
+            && $userGeneralTermsLog['accepted_at'] == null;
+
         $this->set('shouldDisplayGeneralTermsNotification', $shouldDisplayGeneralTermsNotification);
         if ($shouldDisplayGeneralTermsNotification) {
             $firstRequest = new DateTime($userGeneralTermsLog['created_at']);

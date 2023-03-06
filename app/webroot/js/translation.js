@@ -199,6 +199,7 @@ $.i18n().load({
 
       // menu.js
       'Resultaten' : 'Results',
+      'Berichten': 'Report',
 
       'Bericht kan niet worden verwijderd': 'Message couldn\'t be removed',
 
