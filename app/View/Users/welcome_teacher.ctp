@@ -22,11 +22,7 @@ if ($wizard_steps) {
                     <h5>
                         <?= __("dashboard.features message title") ?>
                     </h5>
-                    <button class="text-button " onclick="closeFeatureMessage();" >
-                        <i class="fa fa-times" aria-hidden="true"></i>
-                    </button>
                 </div>
-
                 <div class="body">
                     <p>
                         <?= __("dashboard.features message text") ?>
@@ -533,15 +529,6 @@ if ($wizard_steps) {
                 url: '/users/onboarding_wizard',
                 type: 'PUT',
                 data: {'show': show}
-            });
-        }
-        function closeFeatureMessage(){
-            $.ajax({
-                url: '/infos/hideNewFeatureMessage',
-                type: 'get',
-                success:function (){
-                    jQuery('.feature-message').hide();
-                }
             });
         }
 
