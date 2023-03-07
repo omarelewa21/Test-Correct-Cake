@@ -144,18 +144,35 @@ class InfosController extends AppController {
 
     public function seenNewFeatures()
     {
-        if ($this->request->is('post')) {
-            $data = ['data' => $this->data];
+        if (!$this->request->is('post')) {
+            return $this->formResponse( 405,false);
         }
 
-        $data = $this->InfoService->seenNewFeatures($data);
+        $data = $this->InfoService->seenNewFeatures();
 
-        if (empty($data)){
-            $this->formResponse( 500,$data);
+        if (!$data){
+            return $this->formResponse( 404,false);
         }
 
-        CakeSession::write('Auth.User.systemSettings',json_decode($data));
+        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',1);
 
-        $this->formResponse( true,$data);
+        return $this->formResponse( 200,true);
+    }
+
+    public function hideNewFeatureMessage()
+    {
+        if (!$this->request->is('post')) {
+           return $this->formResponse( 500,false);
+        }
+
+        $data = $this->InfoService->closedNewFeaturesMessage();
+
+        if (!$data){
+            return $this->formResponse( 500,false);
+        }
+
+        CakeSession::write('Auth.User.systemSettings.hideNewFeaturesMessage',true);
+
+        $this->formResponse( 200,$data);
     }
 }

@@ -75,9 +75,21 @@ class InfoService extends BaseService {
         return true;        
     }
 
-    public function seenNewFeatures($array)
+    public function seenNewFeatures()
     {
-        $UserSettings = $this->Connector->postRequest('/info/seenNewFeatures/', [], $array, false);
+        $UserSettings = $this->Connector->putRequest('/info/seenNewFeatures/', [], []);
+
+        if(!$UserSettings){
+            $this->addError($this->Connector->getLastResponse());
+            return false;
+        }
+
+        return $UserSettings;
+    }
+
+    public function closedNewFeaturesMessage()
+    {
+        $UserSettings = $this->Connector->putRequest('/info/closedNewFeatures/', [], []);
 
         if(!$UserSettings){
             $this->addError($this->Connector->getLastResponse());

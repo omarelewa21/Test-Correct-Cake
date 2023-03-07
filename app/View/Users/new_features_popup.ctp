@@ -43,20 +43,8 @@
 
         <div class="close" style="flex-shrink: 1">
             <a href="#" onclick="
-            Popup.closeLast();
             User.postponeAutoUserLogout();
-            User.seenNewFeatures([
-                <?php
-                    if($infos && count($infos)){
-                        foreach ($infos as $info){
-                            ?>
-
-                           '<?= $info['uuid']; ?>',
-                    <?php
-                        }
-                    }
-                ?>
-            ]);">
+            User.seenNewFeatures();">
                 <?= $this->element('close') ?>
             </a>
         </div>

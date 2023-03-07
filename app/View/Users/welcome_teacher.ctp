@@ -14,14 +14,17 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
-        <?php if($has_features || $maintenanceNotification) { ?>
-        <div class="notification info">
-            <?php if($has_features) { ?>
+        <?php if(($has_features )|| $maintenanceNotification) { ?>
+        <div class="feature-message notification info">
+            <?php if($has_features ) { ?>
             <div>
                 <div class="title">
                     <h5>
                         <?= __("dashboard.features message title") ?>
                     </h5>
+                    <button class="text-button " onclick="closeFeatureMessage();" >
+                        <i class="fa fa-times" aria-hidden="true"></i>
+                    </button>
                 </div>
 
                 <div class="body">
@@ -532,6 +535,15 @@ if ($wizard_steps) {
                 data: {'show': show}
             });
         }
+        function closeFeatureMessage(){
+            $.ajax({
+                url: '/infos/hideNewFeatureMessage',
+                type: 'get',
+                success:function (){
+                    jQuery('.feature-message').hide();
+                }
+            });
+        }
 
         function toggleWizardVisibilityState(doNotHide) {
             var doNotHide = !!doNotHide;
@@ -791,7 +803,7 @@ if ($wizard_steps) {
         }
     }, 1000);
     <?php } ?>
-    <?php if($shouldShowIfNewFeature) { ?>
+    <?php if(!$shouldDisplayGeneralTermsNotification && !$shouldDisplayTrialPeriodNotification && $shouldShowIfNewFeature) { ?>
     setTimeout(function () {
         Popup.load('users/new_features_popup/'  , popupWidth)
     }, 1000);
