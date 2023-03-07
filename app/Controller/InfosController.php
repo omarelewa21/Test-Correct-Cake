@@ -158,21 +158,4 @@ class InfosController extends AppController {
 
         return $this->formResponse( 200,true);
     }
-
-    public function hideNewFeatureMessage()
-    {
-        if (!$this->request->is('post')) {
-           return $this->formResponse( 500,false);
-        }
-
-        $data = $this->InfoService->closedNewFeaturesMessage();
-
-        if (!$data){
-            return $this->formResponse( 500,false);
-        }
-
-        CakeSession::write('Auth.User.systemSettings.hideNewFeaturesMessage',true);
-
-        $this->formResponse( 200,$data);
-    }
 }

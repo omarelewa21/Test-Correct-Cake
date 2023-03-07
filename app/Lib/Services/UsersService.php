@@ -791,25 +791,6 @@ class UsersService extends BaseService
         return $response;
     }
 
-    public function setSetting($settingTitle, $settingValue)
-    {
-
-        $params =
-            [
-                'setting' =>
-                    [
-                        'title'=>$settingTitle,
-                        'value'=>$settingValue
-                    ]
-        ];
-
-        $response = $this->Connector->postRequest('/set-user-setting', $params, []);
-        if ($response === false) {
-            return $this->Connector->getLastResponse();
-        }
-        return $response;
-    }
-
     public function verifyPasswordForUser($userUuid, $password)
     {
         $response = $this->Connector->getRequest('/user/'.$userUuid.'/verify_password', $password);

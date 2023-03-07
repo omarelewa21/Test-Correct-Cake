@@ -86,17 +86,4 @@ class InfoService extends BaseService {
 
         return $UserSettings;
     }
-
-    public function closedNewFeaturesMessage()
-    {
-        $UserSettings = $this->Connector->putRequest('/info/closedNewFeatures/', [], []);
-
-        if(!$UserSettings){
-            $this->addError($this->Connector->getLastResponse());
-            return false;
-        }
-
-        return $UserSettings;
-    }
-
 }
