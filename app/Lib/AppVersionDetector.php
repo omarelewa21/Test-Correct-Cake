@@ -73,12 +73,6 @@ class AppVersionDetector
         ],
         "windowsElectron" => [
             "ok" => [
-                "3.3.0",
-                "3.3.0-beta.1",
-                "3.3.0-beta.2",
-                "3.3.0-beta.3",
-                "3.3.0-beta.4",
-                "3.3.0-beta.5",
                 "3.3.1",
                 "3.3.1-beta.1",
                 "3.3.1-beta.2",
@@ -117,20 +111,14 @@ class AppVersionDetector
                 "3.4.0-beta.5"
             ],
             "needsUpdate" => [
-
+                '3.3.0',
             ],
             "needsUpdateDeadline" => [
-
+                '3.3.0' => '28 april 2023',
             ],
         ],
         "macosElectron" => [
             "ok" => [
-                "3.3.0",
-                "3.3.0-beta.1",
-                "3.3.0-beta.2",
-                "3.3.0-beta.3",
-                "3.3.0-beta.4",
-                "3.3.0-beta.5",
                 "3.3.1",
                 "3.3.1-beta.1",
                 "3.3.1-beta.2",
@@ -169,10 +157,10 @@ class AppVersionDetector
                 "3.4.0-beta.5"
             ],
             "needsUpdate" => [
-
+                '3.3.0',
             ],
             "needsUpdateDeadline" => [
-
+                '3.3.3' => '28 april 2023',
             ],
         ]
     ];
