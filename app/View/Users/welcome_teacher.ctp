@@ -13,8 +13,6 @@ if ($wizard_steps) {
 <?php } ?>
 
 <div class="dashboard">
-    <?php var_dump(CakeSession::read('Auth.User.systemSettings')); ?>
-
     <div class="notes">
         <?php if(($has_features )|| $maintenanceNotification) { ?>
         <div class="feature-message notification info">

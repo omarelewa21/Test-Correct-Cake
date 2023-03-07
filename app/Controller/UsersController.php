@@ -2476,9 +2476,8 @@ class UsersController extends AppController
 
     private function handleIfNewFeatureRelease()
     {
-        $currentInfo = array_column($this->InfoService->features(), 'id');
         $seenInfosOfUser = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
-        if (empty(array_diff($currentInfo,$seenInfosOfUser))){
+        if (!empty($seenInfosOfUser) && $seenInfosOfUser){
              $this->set('shouldShowIfNewFeature', false);
              return false;
         }
