@@ -2476,13 +2476,35 @@ class UsersController extends AppController
 
     private function handleIfNewFeatureRelease()
     {
-        $seenInfosOfUser = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
-        if (!empty($seenInfosOfUser) && $seenInfosOfUser){
-             $this->set('shouldShowIfNewFeature', false);
-             return false;
+        $this->shouldPopupNewFeatureShow();
+        $this->shouldMessageNewFeatureShow();
+    }
+
+    private function shouldPopupNewFeatureShow()
+    {
+        $newFeaturesSeen = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
+
+        if (!empty($newFeaturesSeen) && $newFeaturesSeen){
+            $this->set('shouldShowIfNewFeature', false);
+            return false;
         }
 
         $this->set('shouldShowIfNewFeature', true);
+
+        return true;
+    }
+
+    private function shouldMessageNewFeatureShow()
+    {
+        $closedNewFeaturesMessage = CakeSession::read('Auth.User.systemSettings.closedNewFeaturesMessage');
+
+        if (!empty($closedNewFeaturesMessage) && $closedNewFeaturesMessage){
+            $this->set('shouldShowIfNewFeatureMessageClosed', false);
+            return false;
+        }
+
+        $this->set('shouldShowIfNewFeatureMessageClosed', true);
+
         return true;
     }
 

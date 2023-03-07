@@ -15,33 +15,39 @@ if ($wizard_steps) {
 <div class="dashboard">
     <div class="notes">
         <?php if(($has_features )|| $maintenanceNotification) { ?>
-        <div class="feature-message notification info">
-            <?php if($has_features ) { ?>
-            <div>
-                <div class="title">
-                    <h5>
-                        <?= __("dashboard.features message title") ?>
-                    </h5>
-                </div>
-                <div class="body">
-                    <p>
-                        <?= __("dashboard.features message text") ?>
-                    </p>
-                    <p>
-                        <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?>  <?php echo $this->element('arrow') ?></a>
-                    </p>
-                </div>
+            <?php if($has_features && $shouldShowIfNewFeatureMessageClosed ) { ?>
+                <div class="feature-message notification info">
+                    <div>
+                        <div class="title">
+                            <h5>
+                                <?= __("dashboard.features message title") ?>
+                                <button class="text-button pull-right " onclick="closeFeatureMessage();" >
+                                    <i class="fa fa-times" aria-hidden="true"></i>
+                                </button>
+                            </h5>
 
-            </div>
-            <?php }
-            if ($maintenanceNotification) { ?>
-                <div class="body">
-                    <?= $maintenanceNotification ?>
+                        </div>
+                        <div class="body">
+                            <p>
+                                <?= __("dashboard.features message text") ?>
+                            </p>
+                            <p>
+                                <a href="#" class="text-button" style="text-decoration: none;" onclick="Popup.load('users/new_features_popup/'  , popupWidth)"><?= __("dashboard.features message link") ?>  <?php echo $this->element('arrow') ?></a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            <?php }?>
+
+                <div>
+                    <?php if ($maintenanceNotification) { ?>
+                        <div class="body">
+                            <?= $maintenanceNotification ?>
+                        </div>
+                    <?php } ?>
                 </div>
             <?php } ?>
-
-        </div>
-        <?php } ?>
         <?php if ($afterLoginMessage) { ?>
         <div class="notification info">
                 <div class="notification">
@@ -529,6 +535,23 @@ if ($wizard_steps) {
                 url: '/users/onboarding_wizard',
                 type: 'PUT',
                 data: {'show': show}
+            });
+        }
+
+        function closeFeatureMessage(){
+            $.ajax({
+                url: '/infos/hideNewFeatureMessage',
+                type: 'post',
+                success: function (data){
+                    isSendSuccesful =JSON.parse(data);
+                    if(!isSendSuccesful.data){
+                        return Notify.notify($.i18n('Pop up kon niet worden gesloten'), 'error');
+                    }
+                    return jQuery('.feature-message').hide();
+                },
+                error:function (){
+                    Notify.notify($.i18n('Pop up kon niet worden gesloten'), 'error');
+                }
             });
         }
 
