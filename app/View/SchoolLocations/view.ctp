@@ -276,7 +276,7 @@
                 <th><?= __("Nieuwe CO-Learning student beschikbaar") ?></th>
                 <td>
                     <?= $this->element('feature_setting_toggle', [
-                        'attribute'   => 'allow_co_learning_student',
+                        'attribute'   => 'allow_new_co_learning',
                         'source'      => $school_location['feature_settings'],
                         'clickAction' => 'updateSchoolLocation'
                     ])
@@ -295,7 +295,7 @@
                 <th><?= __("Nieuwe CO-Learning teacher beschikbaar") ?></th>
                 <td>
                     <?= $this->element('feature_setting_toggle', [
-                        'attribute'   => 'allow_co_learning_teacher',
+                        'attribute'   => 'allow_new_co_learning_teacher',
                         'source'      => $school_location['feature_settings'],
                         'clickAction' => 'updateSchoolLocation'
                     ])
