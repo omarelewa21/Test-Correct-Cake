@@ -235,7 +235,6 @@ foreach ($takes as $take) {
 <script type="text/javascript">
 
     startPolling(10000);
-    window.onbeforeunload = confirmExit;
 
     var takeUuids = <?= json_encode($takeUuids) ?>;
     let is_assessment = <?= isset($is_assessment) ? 'true' : 'false' ?>;
@@ -310,10 +309,6 @@ foreach ($takes as $take) {
         }, interval);
         $('#page_title').html('Surveillance');
 
-    }
-
-    function confirmExit() {
-        return "<?= __('U bent aan het surveilleren, weet u het zeker?')?>";
     }
 
     var loadingData = false;
