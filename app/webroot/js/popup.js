@@ -417,7 +417,8 @@ var Popup = {
                 'zIndex': (Popup.zIndex - 1)
             });
         }
-        if (Popup.index === 0) {
+        if (Popup.index <= 0) {
+            Popup.index = 0;
             $('#fade').fadeOut();
         }
     },

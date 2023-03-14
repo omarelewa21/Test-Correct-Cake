@@ -166,7 +166,7 @@ var TestTake = {
     delete: function (take_id) {
 
         Popup.message({
-            btnOk: $.i18n('ja'),
+            btnOk: $.i18n('Ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
             message: $.i18n('Weet u het zeker?')
@@ -192,7 +192,7 @@ var TestTake = {
 
         if ($('.question.grey').length > 0) {
             Popup.message({
-                btnOk: $.i18n('ja'),
+                btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleren'),
                 title: $.i18n('Toets inleveren'),
                 message: $.i18n('Niet alle vragen zijn beantwoord, weet je het zeker?')
@@ -204,7 +204,7 @@ var TestTake = {
             });
         }/*else if(!Answer.questionSaved) {
          Popup.message({
-         btnOk: $.i18n('ja'),
+         btnOk: $.i18n('Ja'),
          btnCancel: $.i18n('Annuleren'),
          title: $.i18n('Toets inleveren'),
          message: 'Huidige vraag is nog niet opgeslagen! Weet je het zeker?'
@@ -213,7 +213,7 @@ var TestTake = {
          });
          }*/else {
             Popup.message({
-                btnOk: $.i18n('ja'),
+                btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleren'),
                 title: $.i18n('Toets inleveren'),
                 message: $.i18n('Weet je zeker dat je de toets wilt inleveren?')
@@ -625,7 +625,7 @@ var TestTake = {
             );
         } else {
             Popup.message({
-                btnOk: $.i18n('ja'),
+                btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
                 title: $.i18n('Weet u het zeker?'),
                 message: $.i18n('Niet iedereen is klaar met bespreken.')
@@ -646,7 +646,7 @@ var TestTake = {
     checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false, allow_new_teacher_co_learning = false) {
         if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
             Popup.message({
-                btnOk: $.i18n('ja'),
+                btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
                 title: $.i18n('Weet u het zeker?'),
                 message: $.i18n('Niet alle Studenten zijn aanwezig')
@@ -681,7 +681,7 @@ var TestTake = {
     finishDiscussion: function (take_id) {
         $('.redactor-toolbar').attr('style', 'z-index: 0 !important');
         Popup.message({
-            btnOk: $.i18n('ja'),
+            btnOk: $.i18n('Ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
             message: $.i18n('Weet u zeker dat u de CO-Learning wilt be&euml;indigen?')
@@ -825,7 +825,7 @@ var TestTake = {
         }
 
         Popup.message({
-            btnOk: $.i18n('ja'),
+            btnOk: $.i18n('Ja'),
             btnCancel: $.i18n('Annuleer'),
             title: $.i18n('Weet u het zeker?'),
             message: message
@@ -886,7 +886,7 @@ var TestTake = {
     setTakeTaken: function (take_id, message=null, redirectBack=false) {
 
             Popup.message({
-                btnOk: $.i18n('ja'),
+                btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
                 title: $.i18n('Weet u het zeker?'),
                 message: $.i18n('Weet je zeker dat je de toets wilt innemen?')

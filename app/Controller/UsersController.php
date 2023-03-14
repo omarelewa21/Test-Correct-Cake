@@ -1289,8 +1289,9 @@ class UsersController extends AppController
                 if (!$isExamCoordinator) {
                     if ($useLaravelTakenPage) {
                         $menus['taken'] = [
-                            'title' => __("Afgenomen"),
-                            'onClick' => 'User.goToLaravel("teacher/test_takes/taken")'
+                            'title'   => __("Afgenomen"),
+                            'onClick' => 'User.goToLaravel("teacher/test_takes/taken")',
+                            'selid'   => 'taken-menu-btn',
                         ];
                     } else {
                         $menus['taken'] = __("Afgenomen");

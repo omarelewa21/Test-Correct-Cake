@@ -98,7 +98,7 @@
             <tr>
                 <th><?= __("InBrowser toetsen toestaan") ?></th>
                 <td>
-                    <?= $school_location['allow_inbrowser_testing'] ? __("ja") : __("nee") ?>
+                    <?=$school_location['allow_inbrowser_testing'] ? __("Ja") : __("nee") ?>
                     <?php
                     if ($school_location['allow_inbrowser_testing']) {
                         $allow = 0;
