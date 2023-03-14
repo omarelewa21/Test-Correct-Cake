@@ -154,7 +154,7 @@ class InfosController extends AppController {
             return $this->formResponse( 404,false);
         }
 
-        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',true);
+        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',(new \DateTime())->getTimestamp());
 
         return $this->formResponse( 200,true);
     }
@@ -171,7 +171,7 @@ class InfosController extends AppController {
             return $this->formResponse( 404,false);
         }
 
-        CakeSession::write('Auth.User.systemSettings.closedNewFeaturesMessage',true);
+        CakeSession::write('Auth.User.systemSettings.closedNewFeaturesMessage',(new \DateTime())->getTimestamp());
 
         return $this->formResponse( 200,$data);
     }

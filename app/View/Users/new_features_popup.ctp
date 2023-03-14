@@ -60,7 +60,6 @@
         <div class="popup-new-feature content"
         >
                 <?php if($infos && count($infos)){
-                    array_multisort(array_column($infos, 'show_from'), SORT_DESC, $infos);
                     echo $this->element('whats_new_info_messages');
                 } ?>
         </div>

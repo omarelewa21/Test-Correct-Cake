@@ -24,6 +24,11 @@ class InfoService extends BaseService {
         return $this->Connector->getRequest('/info',$params);
     }
 
+    public function latestFeature($params = ['mode' => 'latestFeature'])
+    {
+        return $this->Connector->getRequest('/info',$params);
+    }
+
     public function show($uuid)
     {
         return $this->Connector->getRequest('/info/'.$uuid,[]);
