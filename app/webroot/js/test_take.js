@@ -1289,12 +1289,15 @@ var TestTake = {
         )
     },
 
-    startChecking: function(takeUuid, is_returned_from_taken, newAssessment){
-        if(is_returned_from_taken){
+    startChecking: function(takeUuid, is_returned_from_taken, hasWritingAssignment,newAssessment){
+        if (hasWritingAssignment && !newAssessment) {
+            return Navigation.load('/test_takes/rate_teacher_participant/' + takeUuid);
+        }
+        if (is_returned_from_taken) {
             Notify.notify($.i18n('Let op: je start het nakijken opnieuw. Eerder nagekeken antwoorden moet je mogelijk opnieuw nakijken met de nieuwe inzichten.'))
         }
-        if (newAssessment){
-            return User.goToLaravel('teacher/assessment/'+takeUuid+'?referrer=cake');
+        if (newAssessment) {
+            return User.goToLaravel('teacher/assessment/' + takeUuid + '?referrer=cake');
         }
 
         Popup.load(`/test_takes/start_rate_popup/${takeUuid}`, 610);
