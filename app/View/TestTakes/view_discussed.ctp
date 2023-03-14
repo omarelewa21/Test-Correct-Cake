@@ -46,21 +46,13 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 <?= __("Openzetten") ?>
             </a>
         <? } ?>
-        <?php
-        if ($take['writing_assignments_count'] > 0) {
-            ?>
-            <a href="#" class="btn white mr2"
-               onclick="Navigation.load('/test_takes/rate_teacher_participant/<?= $take_id ?>');">
-                <span class="fa fa-hourglass-1 mr5"></span>
-                <?= __("Nakijken") ?>
-            </a>
-        <?php } else { ?>
-            <a href="#" class="btn white mr2"
-               onclick="TestTake.startChecking('<?= $take_id ?>', <?= $take['returned_to_taken'] ? '1' : '0' ?>, <?= AuthComponent::user('school_location.feature_settings.allow_new_assessment') ? '1' : '0' ?>)">
-                <span class="fa fa-hourglass-1 mr5"></span>
-                <?= __("Nakijken") ?>
-            </a>
-        <?php } ?>
+
+        <a href="#" class="btn white mr2"
+           onclick="TestTake.startChecking('<?= $take_id ?>', <?= $take['returned_to_taken'] ? '1' : '0' ?>, <?= $take['writing_assignments_count'] > 0 ? '1' : '0' ?>, <?= AuthComponent::user('school_location.feature_settings.allow_new_assessment') ? '1' : '0' ?>)">
+            <span class="fa fa-hourglass-1 mr5"></span>
+            <?= __("Nakijken") ?>
+        </a>
+
         <? if ($normalization && $take['is_rtti_test_take'] == 0) { ?>
             <a href="#" class="btn white mr2" onclick="Navigation.load('/test_takes/normalization/<?= $take_id ?>');">
                 <span class="fa fa-hourglass-2 mr5"></span>
