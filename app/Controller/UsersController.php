@@ -2476,49 +2476,8 @@ class UsersController extends AppController
 
     private function handleIfNewFeatureRelease()
     {
-        $this->shouldPopupNewFeatureShow();
-        $this->shouldMessageNewFeatureShow();
-    }
-
-    private function shouldPopupNewFeatureShow()
-    {
-        $newFeaturesSeen = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
-
-        if (empty($newFeaturesSeen)){
-            $this->set('shouldShowIfNewFeature', true);
-            return true;
-        }
-
-        $latestFeature = $this->InfoService->latestFeature();
-        if ($newFeaturesSeen < strtotime($latestFeature['created_at'])){
-            $this->set('shouldShowIfNewFeature', true);
-
-            return true;
-        }
-
-        $this->set('shouldShowIfNewFeature', false);
-
-        return false;
-    }
-
-    private function shouldMessageNewFeatureShow()
-    {
-        $closedNewFeaturesMessage = CakeSession::read('Auth.User.systemSettings.closedNewFeaturesMessage');
-
-        if (empty($closedNewFeaturesMessage)){
-            $this->set('shouldShowIfNewFeatureMessageClosed', true);
-            return true;
-        }
-
-        $latestFeature = $this->InfoService->latestFeature();
-
-        if ($closedNewFeaturesMessage < strtotime($latestFeature['created_at'])){
-            $this->set('shouldShowIfNewFeatureMessageClosed', true);
-            return true;
-        }
-
-        $this->set('shouldShowIfNewFeatureMessageClosed', false);
-        return false;
+        $this->set('shouldShowIfNewFeature', CakeSession::read('Auth.User.shouldShowNewFeaturePopup'));
+        $this->set('shouldShowIfNewFeatureMessageClosed', CakeSession::read('Auth.User.shouldShowNewFeatureMessage'));
     }
 
     private function handleTemporaryLoginOptions($result)
