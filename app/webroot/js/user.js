@@ -391,6 +391,23 @@ var User = {
         $('#'+id).removeClass("highlight");
     },
 
+    seenNewFeatures : function() {
+        $.ajax({
+                url: '/infos/seenNewFeatures/',
+                method: 'post',
+                success: function (data){
+                    isSendSuccesful =JSON.parse(data);
+                    if(!isSendSuccesful.data){
+                        return Notify.notify($.i18n('Pop up kon niet worden gesloten'), 'error');
+                    }
+                    return Popup.closeLast();
+                },
+                error:function (){
+                    Notify.notify($.i18n('Pop up kon niet worden gesloten'), 'error');
+                }
+        });
+    },
+
     postponeAutoUserLogout : function(minutes) {
         if (minutes != null) {
             User.secondsBeforeTeacherLogout = minutes*60;

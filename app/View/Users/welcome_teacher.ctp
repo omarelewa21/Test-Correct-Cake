@@ -14,16 +14,15 @@ if ($wizard_steps) {
 
 <div class="dashboard">
     <div class="notes">
-        <?php if($has_features || $maintenanceNotification) { ?>
-        <div class="notification info">
-            <?php if($has_features) { ?>
+        <?php if(($has_features )|| $maintenanceNotification) { ?>
+        <div class="feature-message notification info">
+            <?php if($has_features ) { ?>
             <div>
                 <div class="title">
                     <h5>
                         <?= __("dashboard.features message title") ?>
                     </h5>
                 </div>
-
                 <div class="body">
                     <p>
                         <?= __("dashboard.features message text") ?>
@@ -758,6 +757,11 @@ if ($wizard_steps) {
     <?php if($shouldDisplayTrialPeriodNotification && $trialPeriodDaysLeft == 0) { ?>
     setTimeout(function () {
             Popup.load('users/trial_period_ended/<?=$trialPeriodDaysLeft?>/'+ (User.info.school_location_list.length > 1), popupWidth);
+    }, 1000);
+    <?php } ?>
+    <?php if(!$shouldDisplayGeneralTermsNotification && !$shouldDisplayTrialPeriodNotification && $shouldShowIfNewFeature) { ?>
+    setTimeout(function () {
+        Popup.load('users/new_features_popup/'  , popupWidth)
     }, 1000);
     <?php } ?>
 

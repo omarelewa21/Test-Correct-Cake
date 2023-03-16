@@ -426,8 +426,9 @@ class UsersController extends AppController
 
     public function welcome()
     {
-        $this->InfoService = new InfoService();
         $roles = AuthComponent::user('roles');
+
+        $this->InfoService = new InfoService();
 
         $menus = array();
 
@@ -487,6 +488,7 @@ class UsersController extends AppController
                 $trialPeriod = $timedInfo['trialPeriod'];
                 $this->handleGeneralTermsForUser($userGeneralTermsLog);
                 $this->handleTrialPeriodForUser($trialPeriod);
+                $this->handleIfNewFeatureRelease();
             }
 
             if ($role['name'] == 'Student') {
@@ -2429,8 +2431,8 @@ class UsersController extends AppController
 
     public function new_features_popup()
     {
-        $this->set('infos', $this->InfoService->features());
-        $this->set('closeable');
+        $infos=$this->InfoService->features();
+        $this->set('infos', $infos);
     }
 
     public function accept_general_terms()
@@ -2475,6 +2477,18 @@ class UsersController extends AppController
         $this->set('trialPeriodDaysLeft', $daysLeft);
         $this->set('trialPeriodTotalDays', $totalDays);
         $this->set('trialInfoURL', $this->trialInfoURL);
+    }
+
+    private function handleIfNewFeatureRelease()
+    {
+        $seenInfosOfUser = CakeSession::read('Auth.User.systemSettings.newFeaturesSeen');
+        if (!empty($seenInfosOfUser) && $seenInfosOfUser){
+             $this->set('shouldShowIfNewFeature', false);
+             return false;
+        }
+
+        $this->set('shouldShowIfNewFeature', true);
+        return true;
     }
 
     private function handleTemporaryLoginOptions($result)

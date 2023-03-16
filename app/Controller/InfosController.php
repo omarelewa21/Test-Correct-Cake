@@ -141,4 +141,21 @@ class InfosController extends AppController {
         $this->formResponse(true, []);
 
     }
+
+    public function seenNewFeatures()
+    {
+        if (!$this->request->is('post')) {
+            return $this->formResponse( 405,false);
+        }
+
+        $data = $this->InfoService->seenNewFeatures();
+
+        if (!$data){
+            return $this->formResponse( 404,false);
+        }
+
+        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',1);
+
+        return $this->formResponse( 200,true);
+    }
 }
