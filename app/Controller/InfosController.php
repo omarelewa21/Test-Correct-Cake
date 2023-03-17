@@ -154,8 +154,25 @@ class InfosController extends AppController {
             return $this->formResponse( 404,false);
         }
 
-        CakeSession::write('Auth.User.systemSettings.newFeaturesSeen',1);
+        CakeSession::write('Auth.User.shouldShowNewFeaturePopup',false);
 
         return $this->formResponse( 200,true);
+    }
+
+    public function hideNewFeatureMessage()
+    {
+        if (!$this->request->is('post')) {
+           return $this->formResponse( 405,false);
+        }
+
+        $data = $this->InfoService->closedNewFeaturesMessage();
+
+        if (!$data){
+            return $this->formResponse( 404,false);
+        }
+
+        CakeSession::write('Auth.User.shouldShowNewFeatureMessage',false);
+
+        return $this->formResponse( 200,$data);
     }
 }
