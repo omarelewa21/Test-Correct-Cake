@@ -19,7 +19,9 @@ if ($wizard_steps) {
                 <div class="feature-message notification info">
                     <div>
                         <div class="title">
-                            <h5>
+                            <h5 style="
+                                    width: 100%;
+                                ">
                                 <?= __("dashboard.features message title") ?>
                                 <button class="text-button pull-right " onclick="closeFeatureMessage();" >
                                     <i class="fa fa-times" aria-hidden="true"></i>
