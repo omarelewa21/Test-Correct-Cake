@@ -16,6 +16,7 @@
                 'Lost focus' => __("App verlaten"),
                 'Screenshot' => __("Screenshot gemaakt"),
                 'Started late' => __("Laat gestart"),
+                'Continue' => __("Opnieuw gestart met toets"),
                 'Application closed' => __("Opnieuw gestart met toets"),
                 'Lost focus alt tab' => __("Via alt+tab naar ander venster"),
                 'Pressed meta key' => __("Windows of Apple toets ingedrukt"),
