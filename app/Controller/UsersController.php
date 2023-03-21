@@ -2694,4 +2694,27 @@ class UsersController extends AppController
     {
         
     }
+
+    /**
+     * Set the chat opened state in the session
+     * 
+     * @param bool $isChatOpened
+     * @return bool
+     */
+    public function setIsChatOpened($isChatOpened = false)
+    {
+        $this->autoRender = false;
+        return $this->Session->write('Menu.isChatOpened', $isChatOpened);
+    }
+
+    /**
+     * Get the chat opened state from the session
+     * 
+     * @return bool
+     */
+    public function getIsChatOpened()
+    {
+        $this->autoRender = false;
+        return $this->Session->read('Menu.isChatOpened') ?? false;
+    }
 }
