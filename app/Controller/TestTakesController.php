@@ -515,6 +515,7 @@ class TestTakesController extends AppController {
                 $this->set('analysis', $analysis);
             }
 
+            $this->set('totalVsAssessedQuestions', $this->getTotalVsAssessedQuestions($participants));
             $this->set('isTeacher', $isTeacher);
 
             $this->render('view_discussed', 'ajax');
@@ -3082,5 +3083,19 @@ class TestTakesController extends AppController {
                 unset($participants[$key]);
             }
         }
+    }
+
+    private function getTotalVsAssessedQuestions(array $participants): array
+    {
+        $totalQuestions = 0;
+        $questionsNotRated = 0;
+        foreach ($participants as $participant) {
+            $totalQuestions += $participant['questions'];
+            $questionsNotRated += $participant['answer_require_rating'];
+        }
+        return [
+            'total_questions' => $totalQuestions,
+            'assessed_questions' => $totalQuestions - $questionsNotRated
+        ];
     }
 }

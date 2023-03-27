@@ -4794,3 +4794,6 @@ msgstr "Choose a location you want to switch to."
 
 msgid "Wissel"
 msgstr "Switch"
+
+msgid "Nagekeken vragen"
+msgstr "Assessed Questions"
