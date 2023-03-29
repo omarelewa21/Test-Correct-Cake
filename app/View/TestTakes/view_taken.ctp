@@ -5,7 +5,7 @@
        onclick="TestTake.checkStartDiscussion(
                '<?= $take_id ?>',
        <?= $take['consists_only_closed_question'] ? 'true' : 'false' ?>,
-       'false',
+       false,
        <?= AuthComponent::user('school_location')['feature_settings']['allow_new_co_learning_teacher'] ? 'true' : 'false' ?>
                );"
     >
