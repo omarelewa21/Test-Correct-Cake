@@ -125,6 +125,24 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 </td>
             </tr>
             <?php } ?>
+            <?php if ($take['test']['test_kind_id'] === 4) { ?>
+            <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
+                <td colspan="7">
+                    <div style="display: flex;">
+                        <div style="display:flex;align-items: center; color: var(--system-base); width: 100%;">
+                            <?= $this->element('autocheck') ?>
+                            <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __('Spellingscontrole toestaan voor studenten') ?></strong></span>
+                            <div style="display: flex; align-items: center; margin-left: auto">
+                                <label class="switch">
+                                    <?php echo $this->Form->checkbox('allow_spellchecker', array('checked' => $take['allow_spellchecker'], 'value' => 1, 'label' => false)); ?>
+                                    <span class="slider round"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <?php } ?>
             <tr>
                 <th width="140">
                 <?= __("Instructies")?>
