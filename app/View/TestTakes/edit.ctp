@@ -134,7 +134,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                             <span style="color: black; margin-left: 10px; margin-right: 10px"><strong><?= __('Spellingscontrole toestaan voor studenten') ?></strong></span>
                             <div style="display: flex; align-items: center; margin-left: auto">
                                 <label class="switch">
-                                    <?php echo $this->Form->checkbox('allow_spellchecker', array('checked' => $take['allow_spellchecker'], 'value' => 1, 'label' => false)); ?>
+                                    <?php echo $this->Form->checkbox('allow_wsc', array('checked' => $take['allow_wsc'], 'value' => 1, 'label' => false)); ?>
                                     <span class="slider round"></span>
                                 </label>
                             </div>
