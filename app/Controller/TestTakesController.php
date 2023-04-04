@@ -2932,9 +2932,7 @@ class TestTakesController extends AppController {
         }else{
             $takes = $this->TestTakesService->getTestTakes($params);
         }
-
         $newArray = [];
-
         foreach ($takes as $take_id => $take) {
 
             $take['info'] = $this->TestTakesService->getTestTakeInfo(getUUID($takes[$take_id][0], 'get'));
