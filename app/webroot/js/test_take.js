@@ -550,7 +550,7 @@ var TestTake = {
                 });
             };
 
-            if (!TestTake.studentsPresent) {
+            if ($('.students .participant:not(".active")').length > 0) {
                 showPopupMessage(message);
             } else {
                 if(showWarning && guests) {
