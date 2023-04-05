@@ -644,7 +644,7 @@ var TestTake = {
     },
 
     checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false, allow_new_teacher_co_learning = false) {
-        if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
+        if ( hasNonActiveParticipant ||  !TestTake.studentsPresent) {
             Popup.message({
                 btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
