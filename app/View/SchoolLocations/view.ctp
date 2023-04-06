@@ -39,7 +39,7 @@
                 </td>
             </tr>
             <tr>
-                <th width="15%"><?= __("Bezoekadres") ?></th>
+                <th width="15%"><?= __("Vestigingsadres") ?></th>
                 <td width="35%">
                     <?= $school_location['main_address'] ?><br/>
                     <?= $school_location['main_postal'] ?> <?= $school_location['main_city'] ?><br/>
