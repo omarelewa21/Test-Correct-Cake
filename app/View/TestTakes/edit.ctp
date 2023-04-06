@@ -125,7 +125,7 @@ $practice = ($take['test']['test_kind_id'] == "1") ? true : false;
                 </td>
             </tr>
             <?php } ?>
-            <?php if ($take['test']['test_kind_id'] === 4) { ?>
+            <?php if ($take['test']['allow_wsc_for_students']) { ?>
             <tr style="<?= $i > 0 ? 'display: none;' : '' ?>">
                 <td colspan="7">
                     <div style="display: flex;">
