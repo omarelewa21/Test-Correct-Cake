@@ -110,7 +110,7 @@
                     'Window moved' => __("Venster bewogen"),
                     'Window not fullscreen' => __("Applicatie niet volledig scherm"),
                     'Always on top changed' => __("Applicatie niet altijd op de voorgrond"),
-                    'Window resized' => __("Venster groote aangepast"),
+                    'Window resized' => __("Venster grootte aangepast"),
                     'Force shutdown' => __("Applicatie geforceerd afgesloten"),
                     'Other window on top' => __("Ander venster op de voorgrond"),
                     'Used unallowed Ctrl key combination' => __("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is."),
