@@ -61,7 +61,7 @@
                             <? if ($event['test_take_event_type']['name'] == 'VM detected') { ?>
                                 <span style="color: red; font-size: 17px;" class="fa fa-exclamation-triangle"></span>
                                 <br>
-                                <a href="" target="_blank"><?= __("Meer informatie") ?></a>
+                                <a href="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Virtuele-Machine-gedetecteerd.pdf" target="_blank"><?= __("Meer informatie") ?></a>
 
                             <? } ?>
                         </td>
