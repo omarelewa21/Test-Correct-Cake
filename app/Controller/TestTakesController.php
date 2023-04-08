@@ -2930,7 +2930,6 @@ class TestTakesController extends AppController {
             $this->view = 'surveillance';
         }else{
             $takes = $this->TestTakesService->getTestTakes($params);
-            $this->view = 'assessment_open_teacher';
         }
         $newArray = [];
         foreach ($takes as $take_id => $take) {
