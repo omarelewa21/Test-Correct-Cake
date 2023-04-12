@@ -1007,8 +1007,8 @@ var TestTake = {
 
     },
 
-    getTestTakeAttainmentAnalysisDetails: function (take_id, attainment_id, callback) {
-        $.get('/test_takes/attainment_analysis_per_attainment/' + take_id + '/' + attainment_id,
+    getTestTakeAttainmentAnalysisDetails: function (take_id, attainment_id, isLearningGoal, callback) {
+        $.get(`/test_takes/attainment_analysis_per_attainment/${take_id}/${attainment_id}/${isLearningGoal}}`,
                 function (response) {
                     callback(response);
                 }
