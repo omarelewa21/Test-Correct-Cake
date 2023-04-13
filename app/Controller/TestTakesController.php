@@ -41,7 +41,7 @@ class TestTakesController extends AppController {
 
     public function attainment_analysis_per_attainment($test_take_id, $attainment_id, $isLearningGoal=false) {
         $this->isAuthorizedAs(["Teacher"]);
-        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id, $attainment_id, ($isLearningGoal==1?['isLearningGoal' => true]:[]) );
+        $data = $this->TestTakesService->getAttainmentAnalysisPerAttainment($test_take_id, $attainment_id, $isLearningGoal);
         $this->set('participants', $data);
         $this->set('test_take_id', $test_take_id);
         $this->set('attainment_id', $attainment_id);
