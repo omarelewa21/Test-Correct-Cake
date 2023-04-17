@@ -246,7 +246,7 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function updateShowResults($take_id, $active, $date, bool $show_grades, bool $show_correction_model) {
+    public function updateShowResults($take_id, $active, $date, bool $show_grades, bool $show_correction_model = true) {
 
         $params['show_results'] = $active ? date('Y-m-d H:i:00', strtotime($date)) : null;
         $params['show_grades'] = $show_grades;
