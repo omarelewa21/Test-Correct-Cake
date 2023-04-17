@@ -155,11 +155,11 @@
             <br clear="all"/>
         </div>
 
-        <div page="participants" class="page active" tabs="view_test_take">
+        <div page="participants" class="page students active" tabs="view_test_take">
 
         </div>
 
-        <div page="invigilators" class="page" tabs="view_test_take">
+        <div page="invigilators" class="page invigilators" tabs="view_test_take">
             <?
             foreach ($take['invigilator_users'] as $invigilator) {
                 $disabled = false;

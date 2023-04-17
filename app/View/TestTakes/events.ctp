@@ -16,6 +16,7 @@
                 'Lost focus' => __("App verlaten"),
                 'Screenshot' => __("Screenshot gemaakt"),
                 'Started late' => __("Laat gestart"),
+                'Continue' => __("Opnieuw gestart met toets"),
                 'Application closed' => __("Opnieuw gestart met toets"),
                 'Lost focus alt tab' => __("Via alt+tab naar ander venster"),
                 'Pressed meta key' => __("Windows of Apple toets ingedrukt"),
@@ -27,7 +28,7 @@
                 'Window moved' => __("Venster bewogen"),
                 'Window not fullscreen' => __("Applicatie niet volledig scherm"),
                 'Always on top changed' => __("Applicatie niet altijd op de voorgrond"),
-                'Window resized' => __("Venster groote aangepast"),
+                'Window resized' => __("Venster grootte aangepast"),
                 'Force shutdown' => __("Applicatie geforceerd afgesloten"),
                 'Other window on top' => __("Ander venster op de voorgrond"),
                 'Used unallowed Ctrl key combination' => __("De student heeft een toetsencombinatie met de Control toets gebruikt die niet toegestaan is."),
@@ -57,6 +58,12 @@
                         </td>
                         <td>
                             <?= $translation ?>
+                            <? if ($event['test_take_event_type']['name'] == 'VM detected') { ?>
+                                <span style="color: red; font-size: 17px;" class="fa fa-exclamation-triangle"></span>
+                                <br>
+                                <a href="https://support.test-correct.nl/hubfs/Downloads%20Documenten%20Website/Virtuele-Machine-gedetecteerd.pdf" target="_blank"><?= __("Meer informatie") ?></a>
+
+                            <? } ?>
                         </td>
                         <td>
                             <?= date('H:i', strtotime($event['created_at'])) ?>

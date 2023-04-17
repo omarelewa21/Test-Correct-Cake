@@ -4445,6 +4445,9 @@ msgstr "Return to the support portal"
 msgid "Test-Direct toestaan"
 msgstr "Test-Direct allowed"
 
+msgid "Spellingscontrole toestaan voor studenten"
+msgstr "Allow spellchecker for students"
+
 msgid "De student kan inloggen met een Test-Direct account (en de toetscode) om de toets te maken, beoordelen, in te zien, en het cijfer te bekijken."
 msgstr "A student is able to use a Test-Direct account (and test-access code) to take the test."
 
@@ -4797,6 +4800,9 @@ msgstr "Choose a location you want to switch to."
 
 msgid "Wissel"
 msgstr "Switch"
+
+msgid "Nagekeken vragen"
+msgstr "Assessed Questions"
 
 msgid "Nieuwe nakijken"
 msgstr "New assessment"

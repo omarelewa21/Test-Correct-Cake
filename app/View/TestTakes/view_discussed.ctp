@@ -138,6 +138,8 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                     <th nowrap><?= __("Laatste RTTI export") ?></th>
                     <td nowrap><?= $take['exported_to_rtti_formated'] ?></td>
                 <?php endif; ?>
+                <th><?= __("Nagekeken vragen") ?>:</th>
+                <td><?= $totalVsAssessedQuestions['assessed_questions'] ?>/<?= $totalVsAssessedQuestions['total_questions'] ?></td>
             </tr>
         </table>
     </div>
