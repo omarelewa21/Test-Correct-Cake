@@ -21,7 +21,7 @@
             <?
             foreach($analysis as $analyse) {
             ?>
-            <tr style="cursor:pointer" title='<?= __("Klik om de details te zien/ te verbergen")?>' onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analyse['uuid']?>');">
+            <tr style="cursor:pointer" title='<?= __("Klik om de details te zien/ te verbergen")?>' onClick="showHideTestTakeAttainmentParticipants(this,'<?=$test_take_id?>','<?=$analyse['uuid']?>',<?=$analyse['is_learning_goal'] ? '1' : '0'?>);">
                 <td><i class="fa fa-caret-right"></i></td>
                 <td colspan="2">
                     <?= $analyse['code'] ?><?= $analyse['subcode']?>
@@ -60,12 +60,12 @@
 </div>
 
 <script>
-    function showHideTestTakeAttainmentParticipants(row,testTakeId,attainmentId){
+    function showHideTestTakeAttainmentParticipants(row,testTakeId,attainmentId,isLearningGoal=0){
         var tr = jQuery("."+testTakeId+"-"+attainmentId);
         if(tr.length == 0){
             tr = jQuery('<?= __("<tr><td colspan=\"9\">Een moment de relevante data wordt opgezocht...</td></tr>")?>');
             tr.insertAfter((row));
-            TestTake.getTestTakeAttainmentAnalysisDetails(testTakeId,attainmentId,function(data){
+            TestTake.getTestTakeAttainmentAnalysisDetails(testTakeId,attainmentId,isLearningGoal,function(data){
                 tr.replaceWith(data);
             });
         }
