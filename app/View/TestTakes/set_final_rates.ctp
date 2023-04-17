@@ -96,9 +96,13 @@
                 ?>
                 <tr>
                     <td>
-                        <?=$participant['user']['name_first']?>
-                        <?=$participant['user']['name_suffix']?>
-                        <?=$participant['user']['name']?>
+                        <? if(is_null($participant['user'])){ ?>
+                            verwijderde student
+                        <? } else { ?>
+                            <?=$participant['user']['name']?>,
+                            <?=$participant['user']['name_first']?>
+                            <?=$participant['user']['name_suffix']?>
+                        <? } ?>
                     </td>
                     <td>
                         <?=empty($participant['invigilator_note']) ? 'n.v.t.' : nl2br($participant['invigilator_note'])?>
