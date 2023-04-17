@@ -163,9 +163,13 @@ $rating = empty($take['ppp']) && empty($take['epp']) && empty($take['wanted_aver
                 ?>
                 <tr>
                     <td>
-                        <?= $participant['user']['name_first'] ?>
-                        <?= $participant['user']['name_suffix'] ?>
-                        <?= $participant['user']['name'] ?>
+                        <? if(is_null($participant['user'])){ ?>
+                            verwijderde student
+                        <? } else { ?>
+                            <?=$participant['user']['name']?>,
+                            <?=$participant['user']['name_first']?>
+                            <?=$participant['user']['name_suffix']?>
+                        <? } ?>
                     </td>
                     <td>
                         <?= $participant['answer_require_rating'] ?>

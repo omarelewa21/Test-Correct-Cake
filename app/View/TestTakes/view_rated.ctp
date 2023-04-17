@@ -148,9 +148,13 @@ foreach(AuthComponent::user()['roles'] as $role) {
                 ?>
                 <tr>
                     <td>
-                        <?=$participant['user']['name']?>,
-                        <?=$participant['user']['name_first']?>
-                        <?=$participant['user']['name_suffix']?>
+                        <? if(is_null($participant['user'])){ ?>
+                            verwijderde student
+                        <? } else { ?>
+                            <?=$participant['user']['name']?>,
+                            <?=$participant['user']['name_first']?>
+                            <?=$participant['user']['name_suffix']?>
+                        <? } ?>
                     </td>
                     <? if(!$isStudent) { ?>
                         <td>
