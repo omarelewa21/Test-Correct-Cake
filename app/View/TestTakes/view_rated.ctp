@@ -168,23 +168,15 @@ foreach(AuthComponent::user()['roles'] as $role) {
                     </td>
                     <? if($take['user_id'] == AuthComponent::user('id') && !$isExamCoordinator) { ?>
                         <td class="nopadding" width="100">
-                            <? if(!is_null($participant['user'])){ ?>
                             <a href="#" class="btn white pull-right" onclick="Navigation.load('/test_takes/view_results/<?=getUUID($take, 'get');?>/<?=getUUID($participant, 'get');?>');">
                                 <span class="fa fa-folder-open-o"></span>
                             </a>
-                            <? } else { ?>
-                                <a href="#" disabled class="btn white pull-right disabled" onclick="">
-                                    <span class="fa fa-folder-open-o"></span>
-                                </a>
-                            <? } ?>
                             <a href="#" class="btn white pull-right" onclick="Popup.load('/test_takes/rated_info/<?=getUUID($take, 'get');?>/<?=getUUID($participant, 'get');?>', 500);">
                                 <span class="fa fa-info-circle"></span>
                             </a>
-
                             <a href="#" class="btn white pull-right" onclick="Popup.load('/messages/send/<?=getUUID($participant['user'], 'get');?>', 500);">
                                 <span class="fa fa-envelope-o"></span>
                             </a>
-
                         </td>
                     <? } ?>
                 </tr>
