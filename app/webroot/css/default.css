@@ -16,6 +16,7 @@
 @import url('dashboard.css?20211216');
 @import url('new_look.css?20211216');
 @import url('question_editor.css?20211216');
+@import url('ckeditorImage.css?20211216');
 /* GENERAL */
 body {
     margin:         0px;
