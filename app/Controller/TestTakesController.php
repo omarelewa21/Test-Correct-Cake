@@ -499,7 +499,6 @@ class TestTakesController extends AppController {
         $this->set('test_uuid', getUUID($take['test'],'get'));
         $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 
-
         if ($take['test_take_status_id'] < 6) {
             $this->render('view_planned', 'ajax');
         } elseif ($take['test_take_status_id'] == 8) {
@@ -525,6 +524,7 @@ class TestTakesController extends AppController {
             $params['with'] = ['statistics'];
 
             $participants = $this->TestTakesService->getParticipants($take_id, $params);
+
             $this->set('participants', $participants);
 
             $isTeacher = (bool) $this->hasRole('Teacher');

@@ -22,9 +22,13 @@ if(empty($results['test_participants'])) {
             ?>
             <tr>
                 <td>
-                    <?=$participant['user']['name_first']?>
-                    <?=$participant['user']['name_suffix']?>
-                    <?=$participant['user']['name']?>
+                    <? if(is_null($participant['user'])){ ?>
+                        verwijderde student
+                    <? } else { ?>
+                        <?=$participant['user']['name']?>,
+                        <?=$participant['user']['name_first']?>
+                        <?=$participant['user']['name_suffix']?>
+                    <? } ?>
                 </td>
                 <Td>
                     <?=empty($participant['rating']) ? ' - ' : $participant['rating']?>
