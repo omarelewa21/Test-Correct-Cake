@@ -115,7 +115,7 @@
 
 <div class="block">
     <div class="block-head"><?= __("Jouw antwoord")?></div>
-    <div class="block-content" id="questionAnswer">
+    <div class="block-content questionContainer" id="questionAnswer">
 
     </div>
 </div>
