@@ -28,8 +28,11 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id) {
-        $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/%s/analysis',$test_take_id,$attainment_id), []);
+    public function getAttainmentAnalysisPerAttainment($test_take_id,$attainment_id,$isLearningGoal=false) {
+        if($isLearningGoal == 1)
+            $response = $this->Connector->getRequest(sprintf('/test_take/%s/learning_goal/%s/analysis',$test_take_id,$attainment_id), []);
+        else
+            $response = $this->Connector->getRequest(sprintf('/test_take/%s/attainment/%s/analysis',$test_take_id,$attainment_id), []);
 
         if($response === false){
             return $this->Connector->getLastResponse();
