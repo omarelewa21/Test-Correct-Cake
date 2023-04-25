@@ -4800,3 +4800,6 @@ msgstr "Switch"
 
 msgid "Nagekeken vragen"
 msgstr "Assessed Questions"
+
+msgid "Account instellingen"
+msgstr "Account settings"

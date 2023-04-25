@@ -70,7 +70,7 @@ var User = {
                             }).appendTo("head");
                             $('#menu, #header, #tiles').addClass('blue');
                         }
-                        
+
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
@@ -496,6 +496,7 @@ var User = {
         switch(role){
             case 'teacher':
                 if($('#supportLinkUserMenu').length != 1){
+                    $("#user_menu").prepend('<a id="accountSettingsButton" href="javascript:void(0)" onClick="User.openAccountSettings()" class="btn white mb5">' +  $.i18n('Account instellingen') + '</a>');
                     $("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl/knowledge" target="_blank" class="btn white mt5" >' +  $.i18n('Supportpagina') + '</a>');
                     $("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  $.i18n('Automatisch uitloggen uitstellen') + '</a>');
                     if(typeof args === 'object' && args.isToetsenbakker){
@@ -519,7 +520,7 @@ var User = {
                 }else{
                     // User.appendSchoolOption(hasSchoolRelated);
                 }
-                
+
                 Popup.message({
                 btnOk: $.i18n('Oke'),
                 title: $.i18n('Examen coördinator'),
@@ -576,13 +577,17 @@ var User = {
             elem.val('NONE').change();
         });
     },
-    openUploadTestPage: function() {
+    getReferrerString: function () {
         var currentPage = encodeURIComponent(Navigation.history.pop());
         if (currentPage.includes('front_controller')) {
             currentPage = '';
         }
-
-        var string = 'referrer%5Btype%5D=cake&referrer%5Bpage%5D='+currentPage;
-        User.goToLaravel('teacher/upload_test?'+string);
+        return 'referrer%5Btype%5D=cake&referrer%5Bpage%5D=' + currentPage;
     },
+    openUploadTestPage: function () {
+        User.goToLaravel('teacher/upload_test?' + this.getReferrerString());
+    },
+    openAccountSettings: function () {
+        User.goToLaravel('/account?' + this.getReferrerString());
+    }
 };
