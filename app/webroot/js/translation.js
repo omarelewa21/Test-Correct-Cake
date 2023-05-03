@@ -190,6 +190,7 @@ $.i18n().load({
       'Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in deze schoollocatie?':'Are you sure you want to link the exam coordinator to all classes in this school location?',
       'Weet je zeker dat je de examencoördinator wilt koppelen aan alle klassen in alle schoollocaties waar zijn gebruikersaccount aan gekoppeld is?':'Are you sure you want to link the exam coordinator to all classes in all school locations that his user account is linked to?',
       'Koppel deze gebruiker aan de hele scholengemeenschap': 'Link this user to the entire school community',
+      'Account instellingen':'Account settings',
 
       //welcome-messages.js
       'Uitloggen':'Log out',

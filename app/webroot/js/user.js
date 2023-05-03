@@ -9,6 +9,7 @@ var User = {
     logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
     notifyLaravelWithExtendedSession: false,
+    enableAutoLogout: true,
 
     initialise: function () {
         $.ajax({
@@ -79,22 +80,12 @@ var User = {
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
-                    // var cookielawConsentScript = document.createElement('script');
-                    // cookielawConsentScript.setAttribute('src','https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js');
-                    // document.head.insertBefore(cookielawConsentScript,document.head.firstChild);
-                    // var cookieLawScript = document.createElement('script');
-                    // cookieLawScript.setAttribute('src','https://cdn.cookielaw.org/scripttemplates/otSDKStub.js');
-                    // cookieLawScript.setAttribute('charset','UTF-8');
-                    // cookieLawScript.setAttribute('data-domain-script','59ebfb6a-8dcb-443e-836a-329cb8623832');
-                    // document.head.insertBefore(cookieLawScript,document.head.firstChild);
-                    //
-                    // function OptanonWrapper() { }
-                    // window.oneTrustInjected = true;
 
                     var hubspotScript = document.createElement('script');
                     hubspotScript.setAttribute('src','//js-eu1.hs-scripts.com/26318898.js');
                     document.head.appendChild(hubspotScript);
-
+                    User.secondsBeforeTeacherLogout = (User.info.auto_logout_minutes ?? 15) * 60;
+                    User.enableAutoLogout = User.info.enable_auto_logout ?? true;
                 }
             }
         }
@@ -434,7 +425,7 @@ var User = {
             }
 
             // Teacher
-            if (User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
+            if (User.enableAutoLogout && User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
                 clearInterval(User.userLogoutInterval);
                 Popup.load('/users/prevent_logout', 600);
             }

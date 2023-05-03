@@ -340,19 +340,17 @@ class AppController extends Controller
 
     public function setUserLanguage()
     {
-        if(is_null(AuthComponent::user('school_location')['school_language_cake'])){
-            $language = strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
-            if(!in_array($language,['en','nl'])){
-                $language = 'nld';
-            }
-            if($language === 'en') {
-                $language = 'eng';
-            }
-            $this->Session->write('Config.language', $language);
+        $languages = ['nl' => 'nld', 'en' => 'eng'];
+        $language = AuthComponent::user('school_location')['school_language'] ?? $this->getBrowserLanguage();
+        if ($setting = AuthComponent::user('featureSettings.system_language')) {
+            $language = $setting;
         }
-        else{
-            $this->Session->write('Config.language', AuthComponent::user('school_location')['school_language_cake']);
-        }
+
+        $this->Session->write('Config.language', $languages[$language] ?? 'nld');
+    }
+
+    private function getBrowserLanguage() {
+        return strtolower(substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2));
     }
 
     public function returnToLaravelUrl($userId, $params = [])

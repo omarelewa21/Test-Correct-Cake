@@ -199,3 +199,6 @@ msgstr "Nieuwe CO-Learning student beschikbaar"
 
 msgid "Nieuwe CO-Learning teacher beschikbaar"
 msgstr "Nieuwe CO-Learning teacher beschikbaar"
+
+msgid "Account instellingen"
+msgstr "Account instellingen"
