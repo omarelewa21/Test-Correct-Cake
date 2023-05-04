@@ -106,5 +106,5 @@
     clearTimeout(window.loadParticipants);
     TestTake.loadParticipants('<?=$take_id?>');
 
-    TestTake.enterWaitingRoomPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
+    TestTake.enterCoLearningPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
 </script>

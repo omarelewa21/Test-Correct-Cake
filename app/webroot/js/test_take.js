@@ -8,6 +8,7 @@ var TestTake = {
     discussingAllDiscussed: true,
     active: false,
     studentsPresent: false,
+    initialStudentsPresentCheckPerformed: false,
     isVisible: true,
     checkIframe: false,
     alert: false,
@@ -643,8 +644,9 @@ var TestTake = {
         }
     },
 
-    checkStartDiscussion: function (take_id, consists_only_closed_question = false, hasNonActiveParticipant=false, allow_new_teacher_co_learning = false) {
-        if ( hasNonActiveParticipant || $('.participant:not(".active")').length > 0) {
+    checkStartDiscussion: function (take_id, consists_only_closed_question = false, allow_new_teacher_co_learning = false) {
+        console.log($('.participant:not(".active")').length > 0);
+        if ( $('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('Ja'),
                 btnCancel: $.i18n('Annuleer'),
@@ -677,8 +679,16 @@ var TestTake = {
             }
         }
     },
+    checkStartDiscussionFromLaravel: function (take_id, consists_only_closed_question = false, allow_new_teacher_co_learning = false) {
+        Loading.show();
+        setTimeout(() => {
+            this.checkStartDiscussion(take_id, consists_only_closed_question, allow_new_teacher_co_learning);
+            Loading.hide();
+        }, 2000);
+    },
 
-    finishDiscussion: function (take_id) {
+
+        finishDiscussion: function (take_id) {
         $('.redactor-toolbar').attr('style', 'z-index: 0 !important');
         Popup.message({
             btnOk: $.i18n('Ja'),
@@ -1235,21 +1245,46 @@ var TestTake = {
     },
     setPresentParticipantsActive: function(take_id) {
         if (typeof (window.pusher) !== 'undefined') {
-            var presenceChannel = pusher.channel('presence-presence-TestTake.' + take_id);
-            if (typeof presenceChannel !== 'undefined') {
-                presenceChannel.members.each(function (member) {
+            var presenceChannelWaitingRoom = pusher.channel('presence-presence-TestTake.' + take_id);
+            if (typeof presenceChannelWaitingRoom !== 'undefined') {
+                presenceChannelWaitingRoom.members.each(function (member) {
                     $('#participant_' + member.info.uuid).addClass('active');
+                });
+            }
+            var presenceChannelCoLearning = pusher.channel('presence-presence-TestTake-CoLearning.' + take_id);
+            if (typeof presenceChannelCoLearning !== 'undefined') {
+                presenceChannelCoLearning.members.each(function (member) {
+                    $('#participant_' + member.info.user_uuid).addClass('active');
                 });
             }
         }
     },
+    enterCoLearningPresenceChannel: function(pusherKey, take_id)
+    {
+        User.connectToPusher(pusherKey);
 
+        this.subscribeToWaitingRoomPresenceChannel(take_id);
+        this.subscribeToCoLearningPresenceChannel(take_id);
+    },
     enterWaitingRoomPresenceChannel: function(pusherKey, take_id)
     {
         User.connectToPusher(pusherKey);
 
+        this.subscribeToWaitingRoomPresenceChannel(take_id);
+    },
+    subscribeToWaitingRoomPresenceChannel: function(take_id) {
         var presenceChannel = pusher.subscribe('presence-presence-TestTake.' + take_id);
         presenceChannel.bind("pusher:member_added", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
+        presenceChannel.bind("pusher:member_removed", function(member) {
+            TestTake.loadParticipants(take_id);
+        });
+    },
+    subscribeToCoLearningPresenceChannel: function(take_id) {
+        var presenceChannel = pusher.subscribe('presence-presence-TestTake-CoLearning.' + take_id);
+        presenceChannel.bind("pusher:member_added", function(member) {
+            console.log('member added');
             TestTake.loadParticipants(take_id);
         });
         presenceChannel.bind("pusher:member_removed", function(member) {
