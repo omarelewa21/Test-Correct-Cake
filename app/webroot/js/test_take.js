@@ -645,7 +645,6 @@ var TestTake = {
     },
 
     checkStartDiscussion: function (take_id, consists_only_closed_question = false, allow_new_teacher_co_learning = false) {
-        console.log($('.participant:not(".active")').length > 0);
         if ( $('.participant:not(".active")').length > 0) {
             Popup.message({
                 btnOk: $.i18n('Ja'),
