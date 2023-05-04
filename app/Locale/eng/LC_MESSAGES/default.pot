@@ -5086,7 +5086,7 @@ msgid "Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zi
 msgstr ""
 
 #: View/TestTakes/update_show_results.ctp:10
-msgid " Mogelijkheid tot inzien activeren"
+msgid "Mogelijkheid tot inzien activeren"
 msgstr ""
 
 #: View/TestTakes/update_show_results.ctp:13

@@ -246,15 +246,11 @@ class TestTakesService extends BaseService {
         return $response;
     }
 
-    public function updateShowResults($take_id, $active, $date, bool $show_grades) {
+    public function updateShowResults($take_id, $active, $date, bool $show_grades, bool $show_correction_model = true) {
 
-        if($active) {
-            $params['show_results'] = date('Y-m-d H:i:00', strtotime($date));
-        }else{
-            $params['show_results'] = null;
-        }
-
+        $params['show_results'] = $active ? date('Y-m-d H:i:00', strtotime($date)) : null;
         $params['show_grades'] = $show_grades;
+        $params['show_correction_model'] = $show_correction_model;
 
         return $this->update($take_id, $params);
     }

@@ -322,6 +322,17 @@
                 </td>
             </tr>
             <tr>
+                <th><?= __("Nieuwe inzien") ?></th>
+                <td>
+                    <?= $this->element('feature_setting_toggle', [
+                        'attribute'   => 'allow_new_reviewing',
+                        'source'      => $school_location['feature_settings'],
+                        'clickAction' => 'updateSchoolLocation'
+                    ])
+                    ?>
+                </td>
+            </tr>
+            <tr>
                 <th><?= __("Toets pakket") ?></th>
                 <td><?= __($school_location['feature_settings']['test_package']) ?></td>
                 <th><?= __("Licentie type") ?></th>

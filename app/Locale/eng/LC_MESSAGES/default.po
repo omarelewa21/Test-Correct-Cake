@@ -3478,7 +3478,7 @@ msgstr "Test result viewing by pupils"
 msgid "Mogelijkheid voor Studenten om het resultaat van hun eigen toets in te zien."
 msgstr "Enable pupils to view the result of their own test."
 
-msgid " Mogelijkheid tot inzien activeren"
+msgid "Mogelijkheid tot inzien activeren"
 msgstr "Activate the option to view test results"
 
 msgid "Inzien mogelijk tot"
@@ -4694,6 +4694,9 @@ msgstr "Hide grades"
 msgid "Toon cijfers"
 msgstr "Show grades"
 
+msgid "Toon antwoordmodel"
+msgstr "Show correction model"
+
 msgid "Reset wachtwoorden"
 msgstr "Reset passwords"
 
@@ -4803,3 +4806,9 @@ msgstr "Assessed Questions"
 
 msgid "Account instellingen"
 msgstr "Account settings"
+
+msgid "Nieuwe nakijken"
+msgstr "New assessment"
+
+msgid "Nieuwe inzien"
+msgstr "New reviewing"
