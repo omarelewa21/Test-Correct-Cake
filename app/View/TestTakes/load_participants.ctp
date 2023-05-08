@@ -40,6 +40,13 @@ foreach($participants as $participant) {
 <? } ?>
 
 <script type="text/javascript">
+    if(!TestTake.initialStudentsPresentCheckPerformed) {
+        setTimeout(function() {
+            TestTake.loadParticipants('<?=$take_id?>');
+        }, 500);
+
+        TestTake.initialStudentsPresentCheckPerformed = true;
+    }
     clearTimeout(window.loadParticipants);
     window.loadParticipants = setTimeout(function() {
         TestTake.loadParticipants('<?=$take_id?>');

@@ -5,7 +5,6 @@
        onclick="TestTake.checkStartDiscussion(
                '<?= $take_id ?>',
        <?= $take['consists_only_closed_question'] ? 'true' : 'false' ?>,
-       false,
        <?= AuthComponent::user('school_location')['feature_settings']['allow_new_co_learning_teacher'] ? 'true' : 'false' ?>
                );"
     >
@@ -106,5 +105,5 @@
     clearTimeout(window.loadParticipants);
     TestTake.loadParticipants('<?=$take_id?>');
 
-    TestTake.enterWaitingRoomPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
+    TestTake.enterCoLearningPresenceChannel('<?=Configure::read('pusher-key')?>', '<?= $take_id ?>');
 </script>
