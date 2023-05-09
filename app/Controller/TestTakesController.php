@@ -2274,13 +2274,19 @@ class TestTakesController extends AppController {
                 $getTakeId = key($takes);
             }
         }
-
         if ($getTakeId) {
             $take = $this->TestTakesService->getTestTake($getTakeId);
             if (!empty($take['discussing_parent_questions'])) {
                 //$group = $this->QuestionsService->getSingleQuestion();
                 $group = getUUID($take['discussing_parent_questions'][0]['group_question_uuid'], 'get');
                 $this->set('group', $group);
+            }
+
+            if($this->Session->read('has_next_question') == null) {
+                if (isset($take['has_next_question'])) {
+                    $this->Session->write('has_next_question', $take['has_next_question']);
+                    $this->set('has_next_question', $take['has_next_question']);
+                }
             }
 
             $this->set('has_next_question', $this->Session->read('has_next_question'));
