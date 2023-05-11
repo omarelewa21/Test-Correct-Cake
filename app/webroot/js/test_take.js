@@ -294,7 +294,10 @@ var TestTake = {
     atTestStart : function() {
         $.get('/test_takes/start_take_participant', function(response) {
             if(response == 'error') {
-                alert($.i18n('Toetsafname kon niet worden gestart. Waarschuw de surveillant.'));
+                Popup.message({
+                    title: $.i18n('Er ging iets mis'),
+                    message: $.i18n('Toetsafname kon niet worden gestart. Waarschuw de surveillant.')
+                })
             } else {
                 Core.stopCheckUnreadMessagesListener();
                 runCheckFocus();
@@ -1064,7 +1067,7 @@ var TestTake = {
             },
             error: function(response) {
                 // console.dir(response);
-                alert('error');
+                Notify.notify('error', 'error');
             },
         });
     },
@@ -1106,7 +1109,7 @@ var TestTake = {
             },
             error: function(response) {
                 // console.dir(response);
-                alert('error');
+                Notify.notify('error', 'error');
             }
         });
     },

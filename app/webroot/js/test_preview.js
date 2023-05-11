@@ -57,7 +57,10 @@ var TestPreview = {
 
     checkMultipleChoice : function(max) {
         if($('.multiple_choice_option:checked').length > max) {
-            alert($.i18n('Selecteer maximaal ') + max + $.i18n(' opties'));
+            Popup.message({
+                title: '',
+                message: $.i18n('Selecteer maximaal ') + max + $.i18n(' opties')
+            });
         }else{
             Answer.saveAnswer();
         }

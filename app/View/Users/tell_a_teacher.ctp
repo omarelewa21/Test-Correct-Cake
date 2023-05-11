@@ -106,7 +106,10 @@ if (isset($email_addresses) && !$stepback) {
                         $('#popup_' + Popup.index).html(data);
                     },
                     onfailure: function (data) {
-                        alert('nah');
+                        Popup.message({
+                            title: '',
+                            message: 'error'
+                        });
                     },
                 }
             );

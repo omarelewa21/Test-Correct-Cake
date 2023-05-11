@@ -1734,7 +1734,7 @@ var PDFViewerApplication = {
     }
     if (!this.pdfViewer.pageViewsReady) {
       this.l10n.get('printing_not_ready', null, 'Warning: The PDF is not fully loaded for printing.').then(function (notReadyMessage) {
-        window.alert(notReadyMessage);
+        _this8.error(notReadyMessage);
       });
       return;
     }

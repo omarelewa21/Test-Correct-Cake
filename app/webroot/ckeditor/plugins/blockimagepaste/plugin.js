@@ -7,12 +7,18 @@ CKEDITOR.plugins.add('blockimagepaste', {
       // console.log(html);
 
 			var ret = html.replace(/<img[^>]*src=".*?"[^>]*>/gi, function(img) {
-				alert("Afbeeldingen plakken is niet toegestaan.");
+				Popup.message({
+					title: '',
+					message: "Afbeeldingen plakken is niet toegestaan."
+				});
 				return '';
 			});
 
 			var ret = ret.replace(/<a[^>]*href=".*?"[^>]*>/gi, function(link) {
-				alert("Linkjes zijn niet toegestaan.");
+				Popup.message({
+					title: '',
+					message: "Linkjes zijn niet toegestaan."
+				});
 				return '';
 			});
 

@@ -194,6 +194,7 @@ $.i18n().load({
       //welcome-messages.js
       'Uitloggen':'Log out',
       'Wachtwoord wijzigen': 'Change password',
+      'Wachtwoord succesvol gereset':'Password reset succesful',
       'Inleveren': 'Hand in',
       'Kennisbank':'Knowledge base',
 
@@ -229,6 +230,7 @@ $.i18n().load({
       'Selecteer':'Selecteer',
       'Uitloggen':'Uitloggen',
       'Wachtwoord wijzigen':'Wachtwoord wijzigen',
+      'Wachtwoord succesvol gereset':'Wachtwoord succesvol gereset',
       'Inleveren':'Inleveren',
       'Kennisbank':'Kennisbank',
       "U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.":"U kunt niet slechts één selectie hebben, u moet in elk haakje ten minste één extra selectie toevoegen.",

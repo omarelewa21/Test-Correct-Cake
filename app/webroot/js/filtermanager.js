@@ -690,10 +690,17 @@ function FilterManager(settings) {
     };
     this.developmentErrors = function () {
         if (!this.settings.hasOwnProperty('filterKey')) {
-            alert('settings needs a valid filterKey');
+            Popup.message({
+                title: '',
+                message: 'settings needs a valid filterKey'
+            });
         }
         if ($(this.el).length === 0) {
-            alert(this.el+' not present');
+            Popup.message({
+                title: '',
+                message: this.el+' not present'
+            });
+
         }
     };
 
