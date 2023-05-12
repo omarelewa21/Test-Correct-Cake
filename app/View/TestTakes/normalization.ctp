@@ -39,7 +39,6 @@
         <div class="block-head"><?= __("Normering") ?></div>
         <div style="display: none"><input type="hidden" id="hiddenIndex" name="hiddenIndex" value="0"></div>
         <div class="block-content">
-            <pre>
             <?php
             $radios = [
                 [
@@ -85,7 +84,6 @@
                 ],
             ];
             ?>
-            </pre>
             <table class="table table-striped">
                 <?php foreach ($radios as $radio) { ?>
                     <tr>
