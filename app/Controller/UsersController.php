@@ -1974,7 +1974,9 @@ class UsersController extends AppController
         $info['laravel_look'] = $info['school_location']['allow_new_student_environment'];
         $info['isStudent'] = $student;
         $info['isTeacher'] = $teacher;
-        $info['menu_taken_direct_link'] = $info['school_location']['feature_settings']['allow_new_taken_tests_page'] == '1' ? true : false ;
+        $info['menu_taken_direct_link'] = $info['school_location']['feature_settings']['allow_new_taken_tests_page'] == '1' ? true : false;
+        $info['enable_auto_logout'] = is_null($info['featureSettings']['enable_auto_logout']) || !!$info['featureSettings']['enable_auto_logout'];
+        $info['auto_logout_minutes'] = $info['featureSettings']['auto_logout_minutes'] ?? 15;
 
         $return = [];
         $allowed = [
@@ -1988,7 +1990,9 @@ class UsersController extends AppController
             'school_location_id',
             'guest',
             'laravel_look',
-            'menu_taken_direct_link'
+            'menu_taken_direct_link',
+            'auto_logout_minutes',
+            'enable_auto_logout',
         ];
 
         foreach ($allowed as $key) {

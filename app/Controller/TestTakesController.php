@@ -752,9 +752,18 @@ class TestTakesController extends AppController {
 
         $test_take = $this->TestTakesService->getTestTake($take_id, [
             'with' => [
-                'averages'
+                'averages',
+                'normalization_settings'
             ]
         ]);
+
+        $normalizationStandards = [
+            1 => 'good_per_point',
+            4 => 'mistakes_per_point',
+            2 => 'mean',
+            3 => 'n_term',
+            5 => 'cesuur',
+        ];
 
         $totalScore = $this->TestTakesService->getTestTakeScore($take_id, []);
         $questions = [];
@@ -784,6 +793,8 @@ class TestTakesController extends AppController {
         $this->set('take_id', $take_id);
         $this->set('currentIndex',0);
         $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
+        $this->set('normalizationStandards', $normalizationStandards);
+        $this->set('userSettings', $test_take['normalization_settings']);
     }
 
     public function normalization_preview($take_id, $catchError=false) {

@@ -9,6 +9,7 @@ var User = {
     logoutWarningTimer: 30, //default 15 minutes
     logoutCountdownInterval: null,
     notifyLaravelWithExtendedSession: false,
+    enableAutoLogout: true,
 
     initialise: function () {
         $.ajax({
@@ -70,7 +71,7 @@ var User = {
                             }).appendTo("head");
                             $('#menu, #header, #tiles').addClass('blue');
                         }
-                        
+
                         $('#header #user').html(username + ' ' + activeSchool).attr('title', username + ' ' + activeSchoolName);
 
                 if (activeSchool) {
@@ -79,22 +80,12 @@ var User = {
 
                 if (User.info.isTeacher) {
                     $("#supportpage_link, #upload_test_link").remove();
-                    // var cookielawConsentScript = document.createElement('script');
-                    // cookielawConsentScript.setAttribute('src','https://cdn.cookielaw.org/consent/59ebfb6a-8dcb-443e-836a-329cb8623832/OtAutoBlock.js');
-                    // document.head.insertBefore(cookielawConsentScript,document.head.firstChild);
-                    // var cookieLawScript = document.createElement('script');
-                    // cookieLawScript.setAttribute('src','https://cdn.cookielaw.org/scripttemplates/otSDKStub.js');
-                    // cookieLawScript.setAttribute('charset','UTF-8');
-                    // cookieLawScript.setAttribute('data-domain-script','59ebfb6a-8dcb-443e-836a-329cb8623832');
-                    // document.head.insertBefore(cookieLawScript,document.head.firstChild);
-                    //
-                    // function OptanonWrapper() { }
-                    // window.oneTrustInjected = true;
 
                     var hubspotScript = document.createElement('script');
                     hubspotScript.setAttribute('src','//js-eu1.hs-scripts.com/26318898.js');
                     document.head.appendChild(hubspotScript);
-
+                    User.secondsBeforeTeacherLogout = (User.info.auto_logout_minutes ?? 15) * 60;
+                    User.enableAutoLogout = User.info.enable_auto_logout ?? true;
                 }
             }
         }
@@ -434,7 +425,7 @@ var User = {
             }
 
             // Teacher
-            if (User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
+            if (User.enableAutoLogout && User.info.isTeacher && User.inactive >= User.secondsBeforeTeacherLogout && !User.surpressInactive) {
                 clearInterval(User.userLogoutInterval);
                 Popup.load('/users/prevent_logout', 600);
             }
@@ -496,6 +487,7 @@ var User = {
         switch(role){
             case 'teacher':
                 if($('#supportLinkUserMenu').length != 1){
+                    $("#user_menu").prepend('<a id="accountSettingsButton" href="javascript:void(0)" onClick="User.openAccountSettings()" class="btn white mb5">' +  $.i18n('Account instellingen') + '</a>');
                     $("#user_menu").append('<a id="supportLinkUserMenu" href="https://support.test-correct.nl/knowledge" target="_blank" class="btn white mt5" >' +  $.i18n('Supportpagina') + '</a>');
                     $("#user_menu").append('<a id="extendAutoLogoutPopupButton" href="#" onClick="Popup.load(\'/users/prevent_logout?opened_by_user=true\')" class="btn white mt5">' +  $.i18n('Automatisch uitloggen uitstellen') + '</a>');
                     if(typeof args === 'object' && args.isToetsenbakker){
@@ -519,7 +511,7 @@ var User = {
                 }else{
                     // User.appendSchoolOption(hasSchoolRelated);
                 }
-                
+
                 Popup.message({
                 btnOk: $.i18n('Oke'),
                 title: $.i18n('Examen coördinator'),
@@ -576,13 +568,17 @@ var User = {
             elem.val('NONE').change();
         });
     },
-    openUploadTestPage: function() {
+    getReferrerString: function () {
         var currentPage = encodeURIComponent(Navigation.history.pop());
         if (currentPage.includes('front_controller')) {
             currentPage = '';
         }
-
-        var string = 'referrer%5Btype%5D=cake&referrer%5Bpage%5D='+currentPage;
-        User.goToLaravel('teacher/upload_test?'+string);
+        return 'referrer%5Btype%5D=cake&referrer%5Bpage%5D=' + currentPage;
     },
+    openUploadTestPage: function () {
+        User.goToLaravel('teacher/upload_test?' + this.getReferrerString());
+    },
+    openAccountSettings: function () {
+        User.goToLaravel('/account?' + this.getReferrerString());
+    }
 };
