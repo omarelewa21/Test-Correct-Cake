@@ -301,6 +301,7 @@ class CoreConnector {
             $_headers[] = sprintf('%s: %s',$key,$value);
         }
         curl_setopt($handle, CURLOPT_HTTPHEADER, $_headers);
+        curl_setopt($handle, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
         $response = curl_exec($handle);
         $this->lastCode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($handle, CURLINFO_HEADER_OUT);
