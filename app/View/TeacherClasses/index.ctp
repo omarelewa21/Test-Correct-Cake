@@ -1,8 +1,29 @@
 <div id="buttons">
-    <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 800);">
-        <span class="fa fa-plus mr5"></span>
-        <?= __("Nieuwe Klas")?>
-    </a>
+    <?php if($has_lvs){ ?>
+        <?php if($has_incomplete_import) { ?>
+            <a href="#" class="btn white mr2" onclick="Navigation.callback=function(){displayCompleteUserImport();};Navigation.load('users/welcome');">
+                <span class="fa fa-plus mr5"></span>
+                <?= __("Importgegevens voor klassen compleet maken")?>
+            </a>
+        <?php } else { ?>
+            <a href="#" class="btn white mr2" onclick="Popup.confirm(
+                    {
+                    'title' : '<?= __('Klassen zijn reeds gekoppeld via de automatische import')?>',
+                    'text': '<?= __('Neem contact op met onze support afdeling indien je gekoppeld bent aan de verkeerde klassen.')?>',
+                    'okBtn': $.i18n('Ok')
+                    },function() {
+                    return true;
+                    });">
+                <span class="fa fa-plus mr5"></span>
+                <?= __("Nieuwe Klas")?>
+            </a>
+        <?php } ?>
+    <?php } else { ?>
+        <a href="#" class="btn white mr2" onclick="Popup.load('/file_management/upload_class', 800);">
+            <span class="fa fa-plus mr5"></span>
+            <?= __("Nieuwe Klas")?>
+        </a>
+    <?php } ?>
     <a href="#" class="btn white mr2" onclick="Navigation.load('/file_management/classuploads');">
         <span class="fa fa-ellipsis-v mr5"></span>
         <?= __("Aangeboden bestanden")?>
