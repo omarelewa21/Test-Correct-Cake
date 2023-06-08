@@ -519,6 +519,16 @@ class FileManagementController extends AppController {
             }
             $this->set('statuses',$statuses);
         }
+        $has_lvs = false;
+        $has_incomplete_import = false;
+        if($this->UsersService->hasRole('Teacher')){
+            $has_incomplete_import = $this->UsersService->shouldDisplayImportIncompletePanel();
+            $has_lvs = (bool) $this->SchoolLocationService->getLvsType(
+                getUUID(AuthComponent::user('school_location'), 'get')
+            )[0];
+        }
+        $this->set('has_lvs',$has_lvs);
+        $this->set('has_incomplete_import',$has_incomplete_import);
         $this->render($view);
     }
 

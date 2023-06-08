@@ -4812,3 +4812,9 @@ msgstr "New assessment"
 
 msgid "Nieuwe inzien"
 msgstr "New reviewing"
+
+msgid "Klassen zijn reeds gekoppeld via de automatische import"
+msgstr "Classes have been assigned to you through the import"
+
+msgid "Neem contact op met onze support afdeling indien je gekoppeld bent aan de verkeerde klassen."
+msgstr "If you were connected to incorrect classes, please contact our support."
