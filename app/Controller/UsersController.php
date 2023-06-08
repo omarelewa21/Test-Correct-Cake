@@ -130,12 +130,19 @@ class UsersController extends AppController
 
                         $versionCheckResult = $this->Session->check('TLCVersionCheckResult') ? $this->Session->read('TLCVersionCheckResult') : 'NOTALLOWED';
                         $data = [
-                            'os'                   => $this->Session->check('TLCOs') ? $this->Session->read('TLCOs') : 'not set in session',
-                            'version'              => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not set in session',
-                            'version_check_result' => $versionCheckResult,
-                            'headers'              => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not set is session',
-                            'user_os'              => $this->Session->check('UserOsPlatform') ? json_encode($this->Session->read('UserOsPlatform')) : 'not set is session',
-                            'user_os_version'      => $this->Session->check('UserOsVersion') ? json_encode($this->Session->read('UserOsVersion')) : 'not set is session',
+                            'platform'               => $this->Session->check('TLCPlatform') ? $this->Session->read('TLCPlatform') : 'not set in session',
+                            'version'                => $this->Session->check('TLCVersion') ? $this->Session->read('TLCVersion') : 'not set in session',
+                            'version_check_result'   => $versionCheckResult,
+                            'headers'                => $this->Session->check('headers') ? json_encode($this->Session->read('headers')) : 'not set is session',
+                            'platform_type'          => $this->Session->check('TLCPlatformType') ? json_encode($this->Session->read('TLCPlatformType')) : 'not set is session',
+                            'platform_version'       => $this->Session->check('TLCPlatformVersion') ? json_encode($this->Session->read('TLCPlatformVersion')) : 'not set is session',
+                            'platform_version_major' => $this->Session->check('TLCPlatformVersionMajor') ? json_encode($this->Session->read('TLCPlatformVersionMajor')) : 0,
+                            'platform_version_minor' => $this->Session->check('TLCPlatformVersionMinor') ? json_encode($this->Session->read('TLCPlatformVersionMinor')) : 0,
+                            'platform_version_patch' => $this->Session->check('TLCPlatformVersionPatch') ? json_encode($this->Session->read('TLCPlatformVersionPatch')) : 0,
+                            'browser_version_major'  => $this->Session->check('TLCBrowserVersionMajor') ? json_encode($this->Session->read('TLCBrowserVersionMajor')) : 0,
+                            'browser_version_minor'  => $this->Session->check('TLCBrowserVersionMinor') ? json_encode($this->Session->read('TLCBrowserVersionMinor')) : 0,
+                            'browser_version_patch'  => $this->Session->check('TLCBrowserVersionPatch') ? json_encode($this->Session->read('TLCBrowserVersionPatch')) : 0,
+                            'browser_type'           => $this->Session->check('TLCBrowserType') ? json_encode($this->Session->read('TLCBrowserType')) : 'Cake'
                         ];
 
                         $this->UsersService->storeAppVersionInfo($data, AuthComponent::user('id'));
@@ -277,7 +284,7 @@ class UsersController extends AppController
 
     protected function getSessionHeaderData()
     {
-        $ar = ['TLCHeader', 'TLCOs', 'TLCVersion', 'TLCVersionCheckResult', 'headers'];
+        $ar = ['TLCHeader', 'TLCPlatform', 'TLCPlatformType', 'TLCPlatformVersion', 'TLCVersion', 'TLCVersionCheckResult', 'headers'];
         $allAvailable = true;
         $returnAr = [];
         foreach ($ar as $item) {
@@ -2608,7 +2615,7 @@ class UsersController extends AppController
 
         $appInfo = $this->getAppInfoFromSession();
         $response = $this->UsersService->getLaravelLoginPage();
-        if ($appInfo['TLCOs'] == 'iOS') {
+        if ($appInfo['TLCPlatform'] == 'iOS') {
             $response['url'] = $response['url'].'?device=ipad';
         }
 

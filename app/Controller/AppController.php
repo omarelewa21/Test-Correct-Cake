@@ -99,7 +99,17 @@ class AppController extends Controller
         $this->Session->write('headers', 'unset headers');
 
         $this->Session->write('TLCVersion', 'unset version');
-        $this->Session->write('TLCOs', 'unset os');
+        $this->Session->write('TLCPlatform', 'unset platform');
+        $this->Session->write('TLCPlatformType', 'unset platform type');
+        $this->Session->write('TLCPlatformVersion', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionMajor', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionMinor', 'unset platform version');
+        $this->Session->write('TLCPlatformVersionPatch', 'unset platform version');
+        $this->Session->write('TLCBrowserVersionMajor', 'unset browser version');
+        $this->Session->write('TLCBrowserVersionMinor', 'unset browser version');
+        $this->Session->write('TLCBrowserVersionPatch', 'unset browser version');
+        $this->Session->write('TLCBrowserType', 'unset browser type');
+
 
         if (isset($headers['tlc'])) {
             $this->Session->write('TLCHeader', $headers['tlc']);
@@ -112,9 +122,16 @@ class AppController extends Controller
         $this->Session->write('headers', $headers);
 
         $this->Session->write('TLCVersion', $version['app_version']);
-        $this->Session->write('TLCOs', $version['os']);
-        $this->Session->write('UserOsPlatform', $version['UserOsPlatform']);
-        $this->Session->write('UserOsVersion', $version['UserOsVersion']);
+        $this->Session->write('TLCPlatform', $version['os']);
+        $this->Session->write('TLCPlatformVersion', $version['os_release']);
+        $this->Session->write('TLCPlatformType', $version['app_type']);
+        $this->Session->write('TLCPlatformVersionMajor', 0);
+        $this->Session->write('TLCPlatformVersionMinor', 0);
+        $this->Session->write('TLCPlatformVersionPatch', 0);
+        $this->Session->write('TLCBrowserVersionMajor', 0);
+        $this->Session->write('TLCBrowserVersionMinor', 0);
+        $this->Session->write('TLCBrowserVersionPatch', 0);
+        $this->Session->write('TLCBrowserType', 'Cake');
 
         $versionCheckResult = AppVersionDetector::isVersionAllowed($headers);
 
@@ -328,13 +345,13 @@ class AppController extends Controller
     {
         return [
             'TLCVersion'            => CakeSession::read('TLCVersion'),
-            'TLCOs'                 => CakeSession::read('TLCOs'),
+            'TLCPlatform'           => CakeSession::read('TLCPlatform'),
             'TLCHeader'             => CakeSession::read('TLCHeader'),
             'TLCVersionCheckResult' => CakeSession::read('TLCVersionCheckResult'),
             'TLCVersioncheckResult' => CakeSession::read('TLCVersionCheckResult'),
             'headers'               => $this->getallheaders(),
-            'UserOsVersion'         => CakeSession::read('UserOsPlatform'),
-            'UserOsPlatform'        => CakeSession::read('UserOsVersion'),
+            'TLCPlatformType'       => CakeSession::read('TLCPlatformType'),
+            'TLCPlatformVersion'    => CakeSession::read('TLCPlatformVersion'),
         ];
     }
 
@@ -358,7 +375,7 @@ class AppController extends Controller
         $returnUrl = $this->UsersService->getReturnToLaravelUrl($userId, $params);
         $appInfo = $this->getAppInfoFromSession();
 
-        if ($appInfo['TLCOs'] == 'iOS') {
+        if ($appInfo['TLCPlatform'] == 'iOS') {
             $separator = '?';
             if (strpos($returnUrl['url'], '?') !== false) {
                $separator = '&';
