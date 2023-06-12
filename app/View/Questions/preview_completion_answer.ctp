@@ -8,7 +8,11 @@
 
     $tags = [];
     foreach($question['completion_question_answers'] as $tag) {
-        $tags[$tag['tag']] = $tag['answer'];
+        if (array_key_exists($tag['tag'], $tags)) {
+            $tags[$tag['tag']] .= ' | '. $tag['answer'];
+        } else {
+            $tags[$tag['tag']] = $tag['answer'];
+        }
     }
 
     $question_text = preg_replace_callback(
