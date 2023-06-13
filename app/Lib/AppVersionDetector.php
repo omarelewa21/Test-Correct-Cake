@@ -99,10 +99,10 @@ class AppVersionDetector
                     "3.5.50",
                 ],
             "needsUpdate" => [
-                '3.0.0',
+
             ],
             "needsUpdateDeadline" => [
-                '3.0.0' => '1 juni 2023',
+
             ],
         ],
         "windowsElectron" => [
@@ -169,12 +169,9 @@ class AppVersionDetector
                 "3.5.0-beta.5",
             ],
             "needsUpdate" => [
-                '3.3.0',
-                '3.3.1',
             ],
             "needsUpdateDeadline" => [
-                '3.3.0' => '28 april 2023',
-                '3.3.1' => '6 juni 2023',
+
             ],
         ],
         "macosElectron" => [
@@ -241,12 +238,9 @@ class AppVersionDetector
                 "3.5.0-beta.5",
             ],
             "needsUpdate" => [
-                '3.3.0',
-                '3.3.1',
             ],
             "needsUpdateDeadline" => [
-                '3.3.0' => '28 april 2023',
-                '3.3.1' => '6 juni 2023',
+
             ],
         ]
     ];
