@@ -313,7 +313,7 @@ class TestTakesController extends AppController {
 
         $this->isAuthorizedAs(["Teacher", "Invigilator"]);
 
-        $take = $this->TestTakesService->getTestTake($take_id, ['with_allowWSC' => true]);
+        $take = $this->TestTakesService->getTestTake($take_id);
 
         if ($take['test']['test_kind_id'] == 4) {
             $dateStart = (new dateTime($take['time_start']))->setTimezone(new DateTimeZone(Configure::read('Config.timezone')));
