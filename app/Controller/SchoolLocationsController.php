@@ -77,6 +77,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_new_reviewing':
                     $data = ['allow_new_reviewing' => $allow];
                     break;
+                case 'allow_cms_write_down_wsc_toggle':
+                    $data = ['allow_cms_write_down_wsc_toggle' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
