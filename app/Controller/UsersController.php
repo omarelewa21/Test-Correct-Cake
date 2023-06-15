@@ -1997,6 +1997,9 @@ class UsersController extends AppController
 
         foreach ($allowed as $key) {
             $return[$key] = array_key_exists($key, $info) ? $info[$key] : '';
+            if(in_array($key,['name_suffix','name_first','name'])){
+                $return[$key] = htmlentities($return[$key]);
+            }
         }
 
         echo json_encode($return);
