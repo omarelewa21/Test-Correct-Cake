@@ -83,7 +83,7 @@ if(!empty($answer['note'])) {
     <script type="text/javascript">
         $(function() {
             $("#rating_<?=$participant_id.$question_id?>").slider({
-                value:<?=$teacher?>,
+                value:<?=(int)$teacher?>,
                 min: 0,
                 max: <?=$question['question']['score']?>,
                 step: <?= $question['question']['decimal_score'] == 1 ? 0.5 : 1 ?>,
