@@ -331,6 +331,15 @@
                     ])
                     ?>
                 </td>
+                <th><?= __("Student test take spellchecker") ?></th>
+                <td>
+                    <?= $this->element('feature_setting_toggle', [
+                        'attribute'   => 'allow_cms_write_down_wsc_toggle',
+                        'source'      => $school_location['feature_settings'],
+                        'clickAction' => 'updateSchoolLocation'
+                    ])
+                    ?>
+                </td>
             </tr>
             <tr>
                 <th><?= __("Toets pakket") ?></th>
