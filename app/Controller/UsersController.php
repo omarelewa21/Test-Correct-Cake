@@ -1964,9 +1964,9 @@ class UsersController extends AppController
             $info['name_suffix'] = "";
         }
 
-        if (!$student) {
-            $info['name_first'] = substr($info['name_first'], 0, 1) . '.';
 
+        if (!$student) {
+            $info['name_first'] = mb_substr($info['name_first'], 0, 1, 'utf-8').'.';
             $info['school_location_list'] = array_map(function ($location) use ($info) {
                 return (object)[
                     'uuid'     => $location['uuid'],
@@ -2004,12 +2004,8 @@ class UsersController extends AppController
 
         foreach ($allowed as $key) {
             $return[$key] = array_key_exists($key, $info) ? $info[$key] : '';
-            if(in_array($key,['name_suffix','name_first','name'])){
-                if(substr_count('&',$return[$key]) < 1) {
-                    $return[$key] = htmlentities($return[$key]);
-                }
-            }
         }
+
 
         echo json_encode($return);
     }
