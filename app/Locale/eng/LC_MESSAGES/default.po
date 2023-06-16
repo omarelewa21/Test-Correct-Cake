@@ -4812,3 +4812,6 @@ msgstr "New assessment"
 
 msgid "Nieuwe inzien"
 msgstr "New reviewing"
+
+msgid "Heb jij feedback? Laat het ons weten"
+msgstr " Have some feedback? Let us know"
