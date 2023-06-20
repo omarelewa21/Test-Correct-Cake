@@ -490,6 +490,11 @@ class UsersController extends AppController
                 $should_display_import_incomplete_panel = $this->UsersService->shouldDisplayImportIncompletePanel();
                 $this->set('maintenanceNotification', MaintenanceHelper::getInstance()->getMaintenanceNotification());
 
+                $has_lvs = (bool) $this->SchoolLocationsService->getLvsType(
+                    getUUID(AuthComponent::user('school_location'), 'get')
+                )[0];
+                $this->set('has_lvs',$has_lvs);
+
                 $timedInfo = $this->UsersService->getTimeSensitiveUserRecords(AuthComponent::user('uuid'));
                 $userGeneralTermsLog = $timedInfo['userGeneralTermsLog'];
                 $trialPeriod = $timedInfo['trialPeriod'];

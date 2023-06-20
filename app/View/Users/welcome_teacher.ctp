@@ -163,11 +163,35 @@ if ($wizard_steps) {
                 <span class="subtitle"><?= __("Lever een klasbestand aan om klassen toe te voegen")?></span>
                 <span class="body"><?= __("Gelieve aan te leveren als:")?><br> Excel, CSV</span>
 
+                <?php if($has_lvs){ ?>
+                    <?php if($should_display_import_incomplete_panel) { ?>
+                        <button type="button"
+                                onclick="displayCompleteUserImport();"
+                                class="button cta-button button-md">
+                            <span><?= __("Importgegevens voor klassen compleet maken")?></span>
+                        </button>
+                    <?php } else { ?>
+                        <button type="button"
+                                onclick="Popup.confirm(
+                                        {
+                                        'title' : '<?= __('Klassen zijn reeds gekoppeld via de automatische import')?>',
+                                        'text': '<?= __('Neem contact op met onze support afdeling indien je gekoppeld bent aan de verkeerde klassen.')?>',
+                                        'okBtn': $.i18n('Ok')
+                                        },function() {
+                                        return true;
+                                        });"
+                                class="button cta-button button-md">
+                            <span><?= __("Klassen toevoegen")?></span>
+                        </button>
+                    <?php } ?>
+                <?php } else { ?>
+
                 <button type="button"
                         onclick="Popup.load('/file_management/upload_class', 800);"
                         class="button cta-button button-md">
                     <span><?= __("Klassen toevoegen")?></span>
                 </button>
+                <?php  } ?>
 <!--                <div class="task-completed">-->
 <!--                    --><?php //echo $this->element('checkmark'); ?>
 <!--                </div>-->
