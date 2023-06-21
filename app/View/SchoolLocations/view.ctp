@@ -347,6 +347,15 @@
                         'clickAction' => 'updateSchoolLocation'
                     ]); ?>
                 </td>
+                <th><?= __("Nieuwe Test Take schermen") ?></th>
+                <td>
+                    <?= $this->element('feature_setting_toggle', [
+                        'attribute'   => 'allow_new_test_take_detail_page',
+                        'source'      => $school_location['feature_settings'],
+                        'clickAction' => 'updateSchoolLocation'
+                    ])
+                    ?>
+                </td>
             </tr>
         </table>
     </div>

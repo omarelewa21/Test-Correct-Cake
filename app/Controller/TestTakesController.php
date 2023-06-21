@@ -500,11 +500,13 @@ class TestTakesController extends AppController {
         $this->set('return_route', HelperFunctions::getReturnRouteToLaravelIfSameRoute());
 
         if ($take['test_take_status_id'] < 6) {
-            echo "<script>
+            if (AuthComponent::user('school_location.feature_settings.allow_new_test_take_detail_page')) {
+                echo "<script>
                         Navigation.history.pop();
                       User.goToLaravel('teacher/test-take/$take_id?'+ User.getReferrerString())
                   </script>";
-            exit;
+                exit;
+            }
             $this->render('view_planned', 'ajax');
         } elseif ($take['test_take_status_id'] == 8) {
             $params['with'] = ['statistics'];

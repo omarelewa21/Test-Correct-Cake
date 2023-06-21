@@ -4812,3 +4812,6 @@ msgstr "New assessment"
 
 msgid "Nieuwe inzien"
 msgstr "New reviewing"
+
+msgid "Nieuwe Test Take schermen"
+msgstr "New Test Take Screens"
