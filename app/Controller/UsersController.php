@@ -1716,14 +1716,14 @@ class UsersController extends AppController
 //                        'path'  => '/shared_sections_tests/index'
 //                    );
 //                }
-                if(!$isExamCoordinator) {
-                    $tiles['questions_overview'] = array(
-                        'menu'  => 'library',
-                        'icon'  => 'questionlist',
-                        'title' => __("Vragenbank"),
-                        'path'  => '/questions/index'
-                    );
-                }
+                // if(!$isExamCoordinator) {
+                //     $tiles['questions_overview'] = array(
+                //         'menu'  => 'library',
+                //         'icon'  => 'questionlist',
+                //         'title' => __("Vragenbank"),
+                //         'path'  => '/questions/index'
+                //     );
+                // }
 
 //                if (AuthComponent::user('hasCitoToetsen')) {
 //                    $tiles['tests_cito_overview'] = array(
