@@ -4821,3 +4821,5 @@ msgstr "If you were connected to incorrect classes, please contact our support."
 
 msgid "Heb jij feedback? Laat het ons weten"
 msgstr " Have some feedback? Let us know"
+msgid "Nieuwe Test Take schermen"
+msgstr "New Test Take Screens"

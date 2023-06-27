@@ -80,6 +80,9 @@ class SchoolLocationsController extends AppController
                 case 'allow_cms_write_down_wsc_toggle':
                     $data = ['allow_cms_write_down_wsc_toggle' => $allow];
                     break;
+                case 'allow_new_test_take_detail_page':
+                    $data = ['allow_new_test_take_detail_page' => $allow];
+                    break;
                 default:
                     $data = [];
                     break;
