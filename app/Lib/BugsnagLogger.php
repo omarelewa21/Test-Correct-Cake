@@ -23,6 +23,11 @@ class BugsnagLogger
             return;
         }
 
+        App::uses('AuthComponent','../vendor/cakephp/cakephp/lib/Cake/Controller/Component/AuthComponent.php');
+        if(!AuthComponent::user()){
+            return;
+        }
+
         $this->bugsnag = Bugsnag\Client::make(Configure::read('bugsnag-key-cake'));
 
         $headers = AppVersionDetector::getAllHeaders();
