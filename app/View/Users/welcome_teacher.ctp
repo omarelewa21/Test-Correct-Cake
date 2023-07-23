@@ -76,9 +76,10 @@ if ($wizard_steps) {
         </div>
         <?php } ?>
         <?php if ($shouldDisplayTrialPeriodNotification) {?>
+            <?php if( $trialPeriodDaysLeft <= 7) { ?>
             <div class="notification info trial-period">
                 <div class="body mb20">
-                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) . __(' over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen.') ?></p>
+                    <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) . __('Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct.') ?></p>
                     <a href="https://www.test-correct.nl/pakketten" target="_blank" class="text-button" style="text-decoration: none;"><?= __("Meer informatie")?> <?php echo $this->element('arrow') ?></a>
                 </div>
                 <div class="flex tabs">
@@ -90,6 +91,7 @@ if ($wizard_steps) {
                     <?php } ?>
                 </div>
             </div>
+            <?php } ?>
         <?php } ?>
         <?php if ($should_display_import_incomplete_panel) { ?>
         <div class="notification warning">

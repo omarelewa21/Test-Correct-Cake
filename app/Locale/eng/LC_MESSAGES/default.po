@@ -4634,6 +4634,9 @@ msgstr "You have"
 msgid " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
 msgstr " left in your trial period. You can extend the trial period by planning a demonstration or choose a license package."
 
+msgid "Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct."
+msgstr "Your license will end soon. Please choose a new subscription if you want to continue using Test-Correct"
+
 msgid "Meer informatie"
 msgstr "More information"
 

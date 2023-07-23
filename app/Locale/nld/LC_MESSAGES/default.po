@@ -128,6 +128,9 @@ msgstr "Je hebt nog"
 msgid " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
 msgstr " over in je proefperiode. Je kan je proefperiode verlengen door een demonstratie in te plannen of een licentiepakket te kiezen."
 
+msgid "Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct."
+msgstr "Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct."
+
 msgid "Meer informatie"
 msgstr "Meer informatie"
 
