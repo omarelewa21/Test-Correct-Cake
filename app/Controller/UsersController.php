@@ -956,7 +956,13 @@ class UsersController extends AppController
         if (!empty($filters['username'])) {
             $params['filter']['username'] = $filters['username'];
         }
-
+        if (isset($filters['has_package']) && !empty($filters['has_package'])) {
+            $params['filter']['has_package'] = $filters['has_package'];
+        }
+        if (isset($filters['trial_status']) && !empty($filters['trial_status'])) {
+            $params['filter']['trial_status'] = $filters['trial_status'];
+        }
+        
         switch ($type) {
             case 'accountmanagers':
                 $params['filter']['role'] = 5;
@@ -1009,7 +1015,7 @@ class UsersController extends AppController
             $this->set('trialStatus', $trialStatus);
             $this->set('trialDaysLeft', $trialDaysLeft);
         }
-
+ 
         $this->set('role', $role);
         $this->set('users', $users);
         $this->set('type', $type);
@@ -2639,6 +2645,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $params = [
                 'date'     => $this->request->data['User']['date'],
+                'has_package'     => $this->request->data['User']['has_package'],
                 'user_trial_period_uuid' => $userTrailPeriodUuid
             ];
             $response = $this->UsersService->updateTrialPeriod($userUuid, $params);

@@ -90,6 +90,19 @@
                         <?= $this->Form->input('school_location_id', ['label' => false, 'options' => $school_location]) ?>
                     </td>
                 </tr>
+                <tr>
+                    <th><?= __("Status") ?></th>
+                    <td>
+                        <?= $this->Form->input('trial_status', ['label' => false, 'options' => array('0' => 'All', '1' => 'Not started', '2' => 'Active','3'=>'Expired')]) ?>
+                    </td>
+                </tr>
+                <tr>
+                    <th><?= __("Pakket") ?></th>
+                    <td>
+                        <?= $this->Form->input('has_package', ['label' => false, 'options' => array('0' => 'All', '1' => 'On', '2' => 'Off')]) ?>
+                    </td>
+                </tr>
+                
             <? } elseif ($role == 'Support' && in_array($type, ['teachers', 'students'])) { ?>
                 <tr>
                     <th><?= __("Locatie") ?></th>

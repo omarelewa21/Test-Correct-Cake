@@ -862,6 +862,9 @@ msgstr "First Name"
 msgid "Achternaam"
 msgstr "Surname"
 
+msgid "Pakket"
+msgstr "Package"
+
 msgid "Studentnummer"
 msgstr "Student ID"
 

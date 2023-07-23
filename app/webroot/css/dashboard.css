@@ -435,6 +435,16 @@ input.new-styling-input {
     font-family: "Nunito", sans-serif;
 }
 
+.new-styling-input-drop-down{
+    -webkit-appearance: auto;
+    padding: 0 10px;
+    height: 40px;
+    border-radius: 8px;
+    background: var(--off-white);
+    border: 1px solid var(--blue-grey);
+    font-family: "Nunito", sans-serif;
+}
+
 input.new-styling-input:hover {
     border: 1px solid var(--primary);
 }

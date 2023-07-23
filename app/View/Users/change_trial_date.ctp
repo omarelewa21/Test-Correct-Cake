@@ -21,6 +21,10 @@
                 'verify' => 'notempty'
         ]) ?>
     </div>
+    <div style="padding: 1rem"><?=__('Pakket')?></div>
+        <div style="padding: 0 1rem" >
+        <?=$this->Form->input('has_package', array('class' => 'new-styling-input-drop-down','label' => false, 'options' => array('1'=>'On', '0' => 'Off'))) ?>
+        </div>
     <?= $this->Form->end() ?>
 </div>
 <div class="tat-footer" style="padding: 1rem 2rem 2rem 2rem!important;">

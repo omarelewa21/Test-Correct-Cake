@@ -46,7 +46,7 @@ foreach ($users as $user) {
                         <a href="#" class="btn white pull-right dropblock-owner dropblock-left"
                            id="trial_teacher_<?= getUUID($user, 'get'); ?>"
                            onclick="Popup.load('/users/change_trial_date/<?= getUUID($user, 'get'); ?>/<?= $trialPeriodUuid ?>', 600);">
-                            <span class="fa fa-calendar"></span>
+                            <span class="fa fa-folder-open-o"></span>
                         </a>
                     <? } ?>
                 </td>
