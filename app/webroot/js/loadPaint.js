@@ -411,7 +411,10 @@ var App = function() {
 					window.parent.Loading.hide();
 					window.parent.drawingCallback();
 				}else{
-					alert($.i18n('Er ging iets mis'));
+					Popup.message({
+						title: '',
+						message: $.i18n('Er ging iets mis')
+					});
 				}
 			}
 		);

@@ -163,7 +163,10 @@
                 }
             },
             failure: function(data) {
-                alert('error');
+                Popup.message({
+                    title: '',
+                    message: 'error'
+                });
                 // console.dir(data);
             }
         });

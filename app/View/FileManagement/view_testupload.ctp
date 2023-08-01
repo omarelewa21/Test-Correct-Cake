@@ -25,7 +25,7 @@
     <a href="#"
        class="btn cta ml2 <?= $disable_publishing_test_button ? 'disabled' : '' ?>"
        <? if($disable_publishing_test_button) { ?>
-           onclick="alert('<?= __("Geen toets gekoppeld") ?>')"
+           onclick="Notify.notify('<?= __("Geen toets gekoppeld") ?>', 'error')"
        <? } else { ?>
            onclick="FileManagement.duplicateTestToSchool('<?= $file['uuid'] ?>')"
        <? } ?>

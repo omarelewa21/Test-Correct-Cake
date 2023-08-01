@@ -19,8 +19,11 @@ if(isset($result)) {
     if($result == 200) {
         ?>
         <script type="text/javascript">
-            alert('Wachtwoord succesvol gereset');
-            window.location = '/';
+            Popup.message({
+                title: '',
+                message: $.i18n('Wachtwoord succesvol gereset')
+            }, () => window.location = '/');
+
         </script>
         <?
     }else{

@@ -24,7 +24,7 @@
                 Notify.notify('<?= __("Bericht verstuurd")?>', "info");
             },
             onfailure : function(result) {
-                alert('error');
+                Notify.notify('error', 'error');
             }
         }
     );
