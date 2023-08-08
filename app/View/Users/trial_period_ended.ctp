@@ -14,7 +14,11 @@
                 <?php if ($hasMultipleLocations) { ?>
                     <span class=""><?= AuthComponent::user('school_location.name') ?>:</span>
                 <?php } ?>
-                <?= __("Proefperiode afgelopen") ?>
+                <?php if(AuthComponent::user('has_package') == 1) {?>
+                    <?= __("Licentie verlopen") ?>
+                <?php } else { ?>
+                    <?= __("Proefperiode afgelopen") ?>
+                <?php } ?>
             </h2>
         </div>
         <?php if ($closeable) { ?>
@@ -32,12 +36,21 @@
     <div class="divider mb16 mt16"></div>
     <div class="body1">
         <div>
-            <p style="font-size:1.125rem;line-height: 1.33">
-                <?php
-                $text = $hasMultipleLocations ? __("Proefperiode tekst multi") : __("Proefperiode tekst single");
-                echo sprintf($text, AuthComponent::user('school_location.name'));
-                ?>
-            </p>
+            <?php if(AuthComponent::user('has_package') == 1) {?>
+                <p style="font-size:1.125rem;line-height: 1.33">
+                    <?php
+                  $text = __("Proefperiode package single");
+                    echo sprintf($text, AuthComponent::user('school_location.name'));
+                    ?>
+                </p>
+            <?php } else { ?>
+                <p style="font-size:1.125rem;line-height: 1.33">
+                    <?php
+                    $text = $hasMultipleLocations ? __("Proefperiode tekst multi") : __("Proefperiode tekst single");
+                    echo sprintf($text, AuthComponent::user('school_location.name'));
+                    ?>
+                </p>
+            <?php } ?>
         </div>
     </div>
 </div>

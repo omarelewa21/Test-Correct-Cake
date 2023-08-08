@@ -4347,10 +4347,10 @@ msgid "Accepteren"
 msgstr "Accept"
 
 msgid " dag"
-msgstr " day"
+msgstr " day left."
 
 msgid " dagen"
-msgstr " days"
+msgstr " days left."
 
 msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei."
 msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021. If the version number in the top right of your screen turns red, please update the app before May 1."
@@ -4641,10 +4641,16 @@ msgid "Meer informatie"
 msgstr "More information"
 
 msgid "Proefperiode afgelopen"
-msgstr "Proefperiode afgelopen"
+msgstr "Trial period expired"
+
+msgid "Licentie verlopen"
+msgstr "Licence expired"
 
 msgid "Proefperiode tekst single"
 msgstr "Unfortunately your trial period has ended for %s. Extend your license to continue with Test-Correct. Need more time to try Test-Correct? Plan a demonstration on your school without obligations."
+
+msgid "Proefperiode package single"
+msgstr "Unfortunately your licence has ended for %s. Please choose a new subscription if you want to continue using Test-Correct."
 
 msgid "Proefperiode tekst multi"
 msgstr "Unfortunately your trial period has ended for %s. Switch to a different location to continue working with Test-Correct. Extend your license to continue with Test-Correct on this location. Need more time to try Test-Correct? Plan a demonstration on this location without obligations."
