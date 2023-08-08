@@ -469,7 +469,6 @@ class UsersController extends AppController
                 }
                 $this->set('afterLoginMessage', $afterLoginMessage);
                 $view = "welcome_teacher";
-                $wizardSteps = $this->UsersService->getOnboardingWizard(AuthComponent::user('uuid'));
 
                 $verified = CakeSession::read('Auth.User.account_verified');
                 if ($verified == null) {
@@ -479,11 +478,8 @@ class UsersController extends AppController
 
                 $this->set('has_features',!! count($this->InfoService->features()));
 
-                $this->set('wizard_steps', $wizardSteps);
                 $this->set('account_verified', $verified);
                 $this->set('language', $this->Session->read('Config.language'));
-                $this->set('progress',
-                    floor($wizardSteps['count_sub_steps_done'] / $wizardSteps['count_sub_steps'] * 100));
 
                 App::uses('MaintenanceHelper', 'Lib');
 
