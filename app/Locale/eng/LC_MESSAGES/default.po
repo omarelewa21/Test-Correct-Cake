@@ -4347,10 +4347,17 @@ msgid "Accepteren"
 msgstr "Accept"
 
 msgid " dag"
-msgstr " day left."
+msgstr " day"
 
 msgid " dagen"
-msgstr " days left."
+msgstr " days"
+
+msgid " dag."
+msgstr " day."
+
+msgid " dagen."
+msgstr " days."
+
 
 msgid "Verouderde versies van de apps worden vanaf 1 mei 2021 niet meer ondersteund. Als het versienummer rechtsbovenaan bij jou rood kleurt, update de app dan voor 1 mei."
 msgstr "Outdated versions of the apps will no longer be supported from May 1, 2021. If the version number in the top right of your screen turns red, please update the app before May 1."

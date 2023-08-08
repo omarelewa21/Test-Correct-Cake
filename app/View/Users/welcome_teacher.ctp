@@ -80,7 +80,7 @@ if ($wizard_steps) {
                 <?php if(AuthComponent::user('has_package') == 1) {?>
                     <div class="notification info trial-period">
                         <div class="body mb20">
-                            <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= ($trialPeriodDaysLeft == 1 ? __(" dag"): __(" dagen")) . __(' Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct.') ?></p>
+                            <p style="display: block; margin-bottom: 1rem;"><?= __('Je hebt nog') ?> <?= $trialPeriodDaysLeft ?> <?= ($trialPeriodDaysLeft == 1 ? __(" dag."): __(" dagen.")) . __(' Je licentie loopt binnenkort af. Verleng deze als je gebruik wilt blijven maken van Test-Correct.') ?></p>
                             <a href="https://www.test-correct.nl/pakketten" target="_blank" class="text-button" style="text-decoration: none;"><?= __("Meer informatie")?> <?php echo $this->element('arrow') ?></a>
                         </div>
                         <div class="flex tabs">
